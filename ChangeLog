@@ -1,0 +1,65 @@
+Development
+	More GNOMEification
+	Added Quit to the right click menu
+	Changed file selector to GNOME selector (Louis-Francis Ratté-Boulianne)
+0.4.2	Feb 22, 2007
+	When streaming and stopped... kill the thread
+	Only show media length when we know it
+	Implement DBUS Signal	
+		ResizeWindow int32: int32:
+	Emit "Next" signal when thread is complete and embedded
+	Hide ff, rew and fs buttons when width < 250 and embedded
+	Set progress bar value and text correctly at end of stream
+	Implement progress status (time) in progress bar
+	Implement seeking by clicking on progress bar
+	Detect simple playlists of rtsp and http urls 
+	Fix check mark out of sync on Full Screen option
+	Detect [reference] playlists makes deejay.it work
+	Emit "RequestById string:" signal when after OpenButton
+		is clicked and we have to request the id of the href
+	Implement DBUS Signals
+		OpenButton	string:url 	string:hrefid to request from caller
+		SetShowControls	boolean:
+	Fix embedding with metacity window manager
+0.4.1 	Feb 19, 2007	
+	Fix problem with status info appearing when embedded and video playing
+	When running in embedded mode, emit Ready signal to com.gecko.browser
+	Change versioning scheme to x.y.z
+0.4 	Feb 10, 2007
+	Full embeddedable using XEmbed
+	Initial config dialog
+	Support a few more signals
+	Fix up dbus signal handling
+	Hide FF and REW buttons on non-local media
+	Fix fullscreen mode when embedded
+	Added the following commandline options
+		--window, --controlid, --width, --height
+	Started working on menubar
+	Wrote DOCS/tech/dbus.txt
+	Switch to running mplayer inside of a thread, rather than in main loop
+	Implement dbus signal interface
+	Change volume control to a HScale control
+	Use glib command line option parsing
+	Change playlist flag from -playlist to --playlist (see help)
+	Spanish(es) translation by Vicente Carro
+	Start multilingual support (en added)
+	Hide Title when Controls are hid
+0.3		Dec 16,2006
+	Detect PLS files automatically and pass the -playlist arg if needed.
+	Add Entry (RO) to display the media title/ICY info
+	ICY Stream work
+	Put Volume % in tooltip of volume widget
+	Display message when caching, so we know it is doing something
+	Flatten code so that only one play_ command is needed
+	Fix problem with default working directory
+	Reworked the automake files so that 'make dist' works properly.
+	
+0.2		Nov 6,2006
+	Add support for CD Audio playing (no track selection yet, just plays disk)
+	Add support for DVD playing, can hook up to "Removable Devices and Media"
+		and set it to be "gnome-mplayer %d". Replace totem, since it never works
+	Add "Open..." to right click menu. So we can open files from the GUI
+	Fix garbage left on screen after window resize (slight flicker due to this, but minimal)
+
+0.1		Oct 25, 2006 
+	Initial Release

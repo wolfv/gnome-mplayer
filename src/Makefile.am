@@ -1,0 +1,38 @@
+## Process this file with automake to produce Makefile.in
+
+## Created by Anjuta
+
+INCLUDES = \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
+	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
+	-I../pixmaps \
+	$(GNOME_CFLAGS) \
+	$(DBUS_CFLAGS)
+
+AM_CFLAGS =\
+	 -Wall\
+	 -g
+
+bin_PROGRAMS = gnome-mplayer
+
+gnome_mplayer_SOURCES = \
+	../config.h \
+	gui.c \
+	gui.h \
+	support.c \
+	support.h \
+	main.c \
+	dbus-interface.c \
+	dbus-interface.h \
+	thread.h \
+	thread.c \
+	common.h \
+	../pixmaps/gnome_mplayer.xpm
+
+gnome_mplayer_LDFLAGS = 
+
+gnome_mplayer_LDADD = $(GNOME_LIBS) $(DBUS_LIBS)
+
+EXTRA_DIST = 
+	
