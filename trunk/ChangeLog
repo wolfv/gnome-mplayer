@@ -1,4 +1,5 @@
 Development
+	Update volume control so that we can set it before the media starts playing
 	More GNOMEification
 	Added Quit to the right click menu
 	Changed file selector to GNOME selector (Louis-Francis Ratté-Boulianne)

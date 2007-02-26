@@ -88,6 +88,7 @@ gboolean set_media_info(void *data);
 gboolean set_progress_value(void *data);
 gboolean set_progress_text(void *data);
 gboolean set_progress_time(void *data);
+gboolean set_volume_from_slider(gpointer data);
 gboolean set_volume_tip(void *data);
 gboolean resize_window(void *data);
 gboolean set_play(void *data);

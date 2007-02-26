@@ -186,6 +186,20 @@ gboolean set_progress_time(void *data) {
 	return FALSE;
 }	
 
+gboolean set_volume_from_slider(gpointer data)
+{
+    gint vol;
+    gchar *cmd;
+
+    vol = (gint) gtk_range_get_value(GTK_RANGE(vol_slider));
+    cmd = g_strdup_printf("volume %i 1\n", vol);
+	send_command(cmd);
+    g_free(cmd);
+	send_command("get_property volume\n");
+	
+	return FALSE;
+}
+
 gboolean set_volume_tip(void *data) {
 	
 	IdleData *idle = (IdleData*)data;
@@ -473,12 +487,21 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
 {
     gint vol;
     gchar *cmd;
+	gchar *buf;
 
     vol = (gint) gtk_range_get_value(range);
     cmd = g_strdup_printf("volume %i 1\n", vol);
 	send_command(cmd);
     g_free(cmd);
+	if (idledata->volume != vol) { 
+		
+        buf = g_strdup_printf(_("Volume %i%%"), vol);
+		g_strlcpy(idledata->vol_tooltip,buf,128);
+		g_idle_add(set_volume_tip,idledata);
+        g_free(buf);
+	}
 	send_command("get_property volume\n");
+	
 }
 
 
