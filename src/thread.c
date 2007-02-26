@@ -147,6 +147,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 		if (g_ascii_strcasecmp(vm,"x11") == 0)
 			g_idle_add(hookup_x11_events,NULL);
         videopresent = 1;
+		g_idle_add(set_volume_from_slider,NULL);
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -158,6 +159,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 		idledata->y = actual_y;
 		idledata->videopresent = 0;
 		g_idle_add(resize_window,idledata);
+		g_idle_add(set_volume_from_slider,NULL);
 		
     }
 
@@ -184,6 +186,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ANS_volume") != 0) {
         buf = strstr(mplayer_output->str, "ANS_volume");
         sscanf(buf, "ANS_volume=%i", &volume);
+		idledata->volume = volume;
         buf = g_strdup_printf(_("Volume %i%%"), volume);
 		g_strlcpy(idledata->vol_tooltip,buf,128);
 		g_idle_add(set_volume_tip,idledata);
