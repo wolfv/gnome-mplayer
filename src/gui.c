@@ -248,6 +248,30 @@ gboolean set_stop(void *data) {
 	return FALSE;
 }
 
+gboolean set_ff(void *data) {
+
+	ff_callback(NULL, NULL, NULL); // ok is just not NULL which is what we want
+	return FALSE;
+}
+
+gboolean set_rew(void *data) {
+
+	rew_callback(NULL, NULL, NULL); // ok is just not NULL which is what we want
+	return FALSE;
+}
+
+gboolean set_position(void *data) {
+    gchar *cmd;
+	IdleData *idle = (IdleData*)data;
+
+    cmd = g_strdup_printf("seek %5.0f 2\n", idle->position);
+	send_command(cmd);
+    g_free(cmd);
+	return FALSE;
+}
+
+
+
 gboolean set_volume(void *data) {
 	IdleData *idle = (IdleData*)data;
 	

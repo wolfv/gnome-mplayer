@@ -1,4 +1,6 @@
 Development
+	Fix update-po process
+	DBus methods FastForward, FastReverse, Seek
 	Update volume control so that we can set it before the media starts playing
 	More GNOMEification
 	Added Quit to the right click menu

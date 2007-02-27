@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-26 08:42-0700\n"
+"POT-Creation-Date: 2007-02-27 12:21-0700\n"
 "PO-Revision-Date: 2007-01-12 09:04+0100\n"
 "Last-Translator: vicente carro fernandez <vicentecarro@andaluciajunta.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -16,183 +16,180 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/main.c:48
+#: src/main.c:48
 msgid "Window to embed in"
 msgstr "Ventana a encajar adentro"
 
-#: ../src/main.c:49
+#: src/main.c:49
 #, fuzzy
 msgid "Width of window to embed in"
 msgstr "Ventana a encajar adentro"
 
-#: ../src/main.c:50
+#: src/main.c:50
 #, fuzzy
 msgid "Height of window to embed in"
 msgstr "Ventana a encajar adentro"
 
-#: ../src/main.c:51
+#: src/main.c:51
 msgid "Unique DBUS controller id"
 msgstr ""
 
-#: ../src/main.c:52
+#: src/main.c:52
 msgid "File Argument is a playlist"
 msgstr "La discusion del archivo es un playlist"
 
-#: ../src/main.c:53
+#: src/main.c:53
 #, fuzzy
 msgid "Show the controls in window"
 msgstr "Mostrar controles"
 
-#: ../src/main.c:123
+#: src/main.c:123
 msgid "- GNOME Media player based on MPlayer"
 msgstr "- jugador de medios de GNOME basado en MPlayer"
 
-#: ../src/main.c:161 ../src/main.c:183
+#: src/main.c:161 src/main.c:183
 msgid "Playing DVD"
 msgstr "Jugar DVD"
 
-#: ../src/main.c:187
+#: src/main.c:187
 msgid "Playing Audio CD"
 msgstr "Jugar el CD Audio"
 
-#: ../src/gui.c:127
+#: src/gui.c:127
 #, c-format
 msgid "%2i:%02i | %2i%% ▼"
 msgstr ""
 
-#: ../src/gui.c:132
+#: src/gui.c:132
 #, c-format
 msgid "%2i:%02i"
 msgstr ""
 
-#: ../src/gui.c:138
+#: src/gui.c:138
 #, c-format
 msgid "%2i:%02i / %2i:%02i | %2i%% ▼"
 msgstr ""
 
-#: ../src/gui.c:144
+#: src/gui.c:144
 #, c-format
 msgid "%2i:%02i / %2i:%02i"
 msgstr ""
 
-#: ../src/gui.c:154
+#: src/gui.c:154
 #, c-format
 msgid "%i:%02i:%02i | %2i%% ▼"
 msgstr ""
 
-#: ../src/gui.c:159
+#: src/gui.c:159
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr ""
 
-#: ../src/gui.c:167
+#: src/gui.c:167
 #, c-format
 msgid "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
 msgstr ""
 
-#: ../src/gui.c:174
+#: src/gui.c:174
 #, c-format
 msgid "%i:%02i:%02i / %i:%02i:%02i"
 msgstr ""
 
-#: ../src/gui.c:373
+#: src/gui.c:401
 #, fuzzy
 msgid "Playing"
 msgstr "Jugar DVD"
 
-#: ../src/gui.c:401
+#: src/gui.c:429
 #, fuzzy
 msgid "Paused"
 msgstr "Pausar"
 
-#: ../src/gui.c:434
+#: src/gui.c:462
 #, fuzzy
 msgid "Stopped"
 msgstr "Parar"
 
-#: ../src/gui.c:499
-msgid "Open File"
-msgstr ""
-
-#: ../src/gui.c:525 ../src/gui.c:861
-msgid "GNOME MPlayer"
-msgstr "GNOME MPlayer"
-
-#: ../src/gui.c:529
-msgid "A media player for GNOME that uses MPlayer"
-msgstr ""
-
-#: ../src/gui.c:650
-msgid "GNOME MPlayer Configuration"
-msgstr ""
-
-#: ../src/gui.c:653
-msgid "OK"
-msgstr ""
-
-#: ../src/gui.c:657
-msgid "Cancel"
-msgstr ""
-
-#: ../src/gui.c:724
-msgid "Video Output:"
-msgstr ""
-
-#: ../src/gui.c:732
-msgid "Audio Output:"
-msgstr ""
-
-#: ../src/gui.c:899
-msgid "Show Controls"
-msgstr "Mostrar controles"
-
-#: ../src/gui.c:903 ../src/gui.c:1181
-msgid "Full Screen"
-msgstr "Pantalla completa"
-
-#: ../src/gui.c:942
-msgid "File"
-msgstr ""
-
-#: ../src/gui.c:959
-msgid "Edit"
-msgstr ""
-
-#: ../src/gui.c:969
-msgid "Help"
-msgstr ""
-
-#: ../src/gui.c:1098
-msgid "Rewind"
-msgstr "Retroceder"
-
-#: ../src/gui.c:1110
-msgid "Play"
-msgstr "Reproducir"
-
-#: ../src/gui.c:1125
-msgid "Pause"
-msgstr "Pausar"
-
-#: ../src/gui.c:1138
-msgid "Stop"
-msgstr "Parar"
-
-#: ../src/gui.c:1151
-msgid "Fast Forward"
-msgstr "Avanzar"
-
-#: ../src/gui.c:1171
-msgid "Volume 100%"
-msgstr "Volumen 100%"
-
-#: ../src/thread.c:187
+#: src/gui.c:512 src/thread.c:190
 #, c-format
 msgid "Volume %i%%"
 msgstr "Volumen %i%%"
 
-#~ msgid "Open..."
-#~ msgstr "Abrir..."
+#: src/gui.c:536
+msgid "Open File"
+msgstr ""
 
-#~ msgid "Configure"
-#~ msgstr "Preferencias"
+#: src/gui.c:562 src/gui.c:898
+msgid "GNOME MPlayer"
+msgstr "GNOME MPlayer"
+
+#: src/gui.c:566
+#, fuzzy
+msgid "A media player for GNOME that uses MPlayer"
+msgstr "- jugador de medios de GNOME basado en MPlayer"
+
+#: src/gui.c:687
+#, fuzzy
+msgid "GNOME MPlayer Configuration"
+msgstr "GNOME MPlayer"
+
+#: src/gui.c:690
+msgid "OK"
+msgstr ""
+
+#: src/gui.c:694
+msgid "Cancel"
+msgstr ""
+
+#: src/gui.c:761
+msgid "Video Output:"
+msgstr ""
+
+#: src/gui.c:769
+msgid "Audio Output:"
+msgstr ""
+
+#: src/gui.c:936
+msgid "Show Controls"
+msgstr "Mostrar controles"
+
+#: src/gui.c:940 src/gui.c:1218
+msgid "Full Screen"
+msgstr "Pantalla completa"
+
+#: src/gui.c:979
+msgid "File"
+msgstr ""
+
+#: src/gui.c:996
+msgid "Edit"
+msgstr ""
+
+#: src/gui.c:1006
+msgid "Help"
+msgstr ""
+
+#: src/gui.c:1135
+msgid "Rewind"
+msgstr "Retroceder"
+
+#: src/gui.c:1147
+msgid "Play"
+msgstr "Reproducir"
+
+#: src/gui.c:1162
+msgid "Pause"
+msgstr "Pausar"
+
+#: src/gui.c:1175
+msgid "Stop"
+msgstr "Parar"
+
+#: src/gui.c:1188
+msgid "Fast Forward"
+msgstr "Avanzar"
+
+#: src/gui.c:1208
+msgid "Volume 100%"
+msgstr "Volumen 100%"
+

@@ -141,6 +141,26 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 				g_idle_add(set_stop,idledata);
 				return DBUS_HANDLER_RESULT_HANDLED;
 			}
+
+			if (g_ascii_strcasecmp(dbus_message_get_member(message),"FastForward") == 0  && idledata != NULL) {
+				g_idle_add(set_ff,idledata);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+
+			if (g_ascii_strcasecmp(dbus_message_get_member(message),"FastReverse") == 0  && idledata != NULL) {
+				g_idle_add(set_rew,idledata);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+
+			if (g_ascii_strcasecmp(dbus_message_get_member(message),"Seek") == 0  && idledata != NULL) {
+				dbus_error_init(&error);
+				if (dbus_message_get_args(message, &error, DBUS_TYPE_DOUBLE, &(idledata->position), DBUS_TYPE_INVALID)) {
+					g_idle_add(set_position,idledata);
+				} else {
+					dbus_error_free(&error);
+				}
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
 			
 			if (g_ascii_strcasecmp(dbus_message_get_member(message),"Terminate") == 0) {
 				shutdown();
