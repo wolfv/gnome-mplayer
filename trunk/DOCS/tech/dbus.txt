@@ -9,6 +9,8 @@ Close
 Play			
 Pause
 Stop
+FastForward
+FastReverse
 Quit
 Terminate
 SetFullscreen	boolean:
