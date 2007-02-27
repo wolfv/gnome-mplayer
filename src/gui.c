@@ -651,7 +651,8 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
 }
 
 void config_apply(GtkWidget * widget, void *data){
-
+	GConfClient *gconf;
+	
 	if (vo != NULL){
 		g_free(vo);
 		vo = NULL;
@@ -665,6 +666,12 @@ void config_apply(GtkWidget * widget, void *data){
 	ao = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_ao)->child)));
 	
 	update_mplayer_config();
+	
+	cache_size =	(int) gtk_range_get_value(GTK_RANGE(config_cachesize));
+	gconf = gconf_client_get_default();
+	gconf_client_set_int(gconf,CACHE_SIZE,cache_size,NULL);
+	g_object_unref(G_OBJECT(gconf));
+	
 	gtk_widget_destroy(widget);
 }
 
@@ -785,6 +792,17 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_ao,
 			      1, 2, 1, 2);
 	
+    conf_label = gtk_label_new(_("Minimum Cache Size:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1,
+			      2, 3);
+    gtk_widget_show(conf_label);
+    config_cachesize = gtk_hscale_new_with_range(0, 32767, 512);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table),
+			      config_cachesize, 1, 2, 2, 3);
+    gtk_range_set_value(GTK_RANGE(config_cachesize),
+			cache_size);
+    gtk_widget_show(config_cachesize);
 	
 	
 	gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_ok);

@@ -25,6 +25,9 @@
 #include <gnome.h>
 #include <glib.h>
 #include <glib/gstdio.h>
+#include <gconf/gconf.h>
+#include <gconf/gconf-client.h>
+#include <gconf/gconf-value.h>
 
 /*
 #include "../pixmaps/play_down_small.xpm"
@@ -126,6 +129,7 @@ GtkWidget *song_title;
 
 GtkWidget *config_vo;
 GtkWidget *config_ao;
+GtkWidget *config_cachesize;
 
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data);
