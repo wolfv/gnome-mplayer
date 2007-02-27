@@ -25,6 +25,7 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
+#define CACHE_SIZE		"/apps/gnome-mplayer/preferences/cache_size"
 
 typedef enum {
     PLAYING,
@@ -61,6 +62,7 @@ typedef struct _ThreadData {
 	gint playlist;
 } ThreadData;
 
+gint cache_size;
 gint streaming;
 gint showcontrols;
 gint fullscreen;

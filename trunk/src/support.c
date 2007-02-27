@@ -102,13 +102,13 @@ gboolean update_mplayer_config()
         }
     }
 
-	if (vo != NULL) {
+	if (vo != NULL && strlen(vo) != 0) {
 		g_key_file_set_string(config,"gnome-mplayer","vo",vo);
 	} else {
 		g_key_file_remove_key(config,"gnome-mplayer","vo",NULL);
 	}
 
-	if (ao != NULL) {
+	if (ao != NULL && strlen(ao) != 0 ) {
 		g_key_file_set_string(config,"gnome-mplayer","ao",ao);
 	} else {
 		g_key_file_remove_key(config,"gnome-mplayer","ao",NULL);

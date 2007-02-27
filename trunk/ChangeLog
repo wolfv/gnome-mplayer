@@ -1,4 +1,5 @@
 Development
+	Allow setting cache size using slider bar in preferences dialog
 	Fix update-po process
 	DBus methods FastForward, FastReverse, Seek
 	Update volume control so that we can set it before the media starts playing

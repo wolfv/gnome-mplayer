@@ -35,6 +35,9 @@
 
 #include <bonobo.h>
 #include <gnome.h>
+#include <gconf/gconf.h>
+#include <gconf/gconf-client.h>
+#include <gconf/gconf-value.h>
 
 #include "common.h"
 #include "support.h"
@@ -103,6 +106,7 @@ int main(int argc, char *argv[])
     gint fileindex = 1;
     GError *error = NULL;
     GOptionContext *context;
+	GConfClient *gconf;
 
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -119,7 +123,13 @@ int main(int argc, char *argv[])
 	videopresent = 1;
 	idledata = (IdleData *) g_malloc(sizeof(IdleData));
 	idledata->videopresent = 1;
-
+	
+	gconf = gconf_client_get_default();
+	cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
+	if (cache_size == 0) 
+		cache_size = 2000;
+	g_object_unref(G_OBJECT(gconf));
+	
     context = g_option_context_new(_("- GNOME Media player based on MPlayer"));
     g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
     g_option_context_add_group(context, gtk_get_option_group(TRUE));

@@ -124,7 +124,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 			return FALSE;
 		}
 	} 
-    // printf("READ(%i): %s\n",strlen(mplayer_output->str),mplayer_output->str);
+    //printf("READ(%i): %s\n",strlen(mplayer_output->str),mplayer_output->str);
 
 	
     if (strstr(mplayer_output->str, "(Quit)") != NULL) {
@@ -300,8 +300,8 @@ gpointer launch_player(gpointer data) {
     argv[arg++] = g_strdup_printf("-softvol");
     argv[arg++] = g_strdup_printf("-nomouseinput");
     if (strcmp(threaddata->filename, "dvd://") != 0) {
-        argv[arg++] = g_strdup_printf("-cache");
-        argv[arg++] = g_strdup_printf("2048");
+       argv[arg++] = g_strdup_printf("-cache");
+       argv[arg++] = g_strdup_printf("%i", cache_size);
     }
     argv[arg++] = g_strdup_printf("-wid");
     player_window = get_player_window();
