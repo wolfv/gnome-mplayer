@@ -1,4 +1,5 @@
 Development
+	Implement DBUS introspection and several method calls.
 	Allow setting cache size using slider bar in preferences dialog
 	Fix update-po process
 	DBus methods FastForward, FastReverse, Seek
