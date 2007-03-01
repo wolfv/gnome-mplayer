@@ -29,5 +29,6 @@
 #include "support.h"
 
 DBusConnection *connection;
+static DBusObjectPathVTable vtable;
 
 gboolean dbus_hookup(gint windowid, gint controlid);

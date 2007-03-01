@@ -46,6 +46,19 @@ indent -kr -l100 -i4 -nut
 
 */
 
+static DBusHandlerResult message_handler(DBusConnection * connection,
+                                     DBusMessage * message, void *user_data)
+{
+	
+	printf("Message Handler\n");
+	
+	if (dbus_message_is_method_call (message, "org.freedesktop.DBus.Introspectable", "Introspect")) {
+		printf("Introspect called\n");
+		return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
+	return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+}
+
 
 static DBusHandlerResult filter_func(DBusConnection * connection,
                                      DBusMessage * message, void *user_data)
@@ -62,6 +75,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 	gchar *path1;
 	gchar *path2;
 	gchar *path3;
+	GString *xml;
+	gchar *xml_string;
 	
     message_type = dbus_message_get_type(message);
     sender = dbus_message_get_sender(message);
@@ -257,7 +272,52 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 				g_free(path);
 				return DBUS_HANDLER_RESULT_HANDLED;
 			}
-
+		} else if (message_type == DBUS_MESSAGE_TYPE_METHOD_CALL) {
+			printf("Got member %s\n",dbus_message_get_member(message));
+			if (dbus_message_is_method_call (message, "org.freedesktop.DBus.Introspectable", "Introspect")) {
+				
+				xml = g_string_new ("<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection 1.0//EN\"\n"
+                            "\"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd\">\n"
+                            "<node>\n"
+                            "  <interface name=\"org.freedesktop.DBus.Introspectable\">\n"
+                            "    <method name=\"Introspect\">\n"
+                            "      <arg name=\"data\" direction=\"out\" type=\"s\"/>\n"
+                            "    </method>\n"
+                            "  </interface>\n");
+				
+				xml = g_string_append(xml,
+									  "<interface name=\"com.gnome.mplayer\">\n"
+									  "    <method name=\"Test\">\n"
+									  "    </method>\n"
+									  "    <method name=\"GetVolume\">\n"
+									  "    </method>\n"
+									  "  </interface>\n");
+				xml = g_string_append (xml, "</node>\n");
+				
+				xml_string = g_string_free(xml,FALSE);
+				reply_message = dbus_message_new_method_return (message);
+				dbus_message_append_args (reply_message,
+                                  DBUS_TYPE_STRING, &xml_string,
+                                  DBUS_TYPE_INVALID);
+				g_free(xml_string);
+				dbus_connection_send (connection, reply_message, NULL);
+				dbus_message_unref(reply_message);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+			
+			if (dbus_message_is_method_call (message, "com.gnome.mplayer", "Test")) {
+				reply_message = dbus_message_new_method_return (message);
+				dbus_connection_send (connection, reply_message, NULL);
+				dbus_message_unref(reply_message);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+			if (dbus_message_is_method_call (message, "com.gnome.mplayer", "GetVolume")) {
+				reply_message = dbus_message_new_method_return (message);
+				dbus_message_append_args (reply_message, DBUS_TYPE_DOUBLE, &idledata->volume, DBUS_TYPE_INVALID);
+				dbus_connection_send (connection, reply_message, NULL);
+				dbus_message_unref(reply_message);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
 		} else {
 			// printf("path didn't match\n");
 		}
@@ -296,6 +356,11 @@ void dbus_open_next() {
 	
 }
 
+gboolean GetProperty(gchar *property) {
+	
+	return TRUE;
+}
+
 gboolean dbus_hookup(gint windowid, gint controlid)
 {
 
@@ -304,7 +369,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
     gchar *match;
 	gchar *path;
 	DBusMessage *reply_message;
-
+	
     dbus_error_init(&error);
     connection = dbus_bus_get(type, &error);
     if (connection == NULL) {
@@ -315,13 +380,19 @@ gboolean dbus_hookup(gint windowid, gint controlid)
     }
     dbus_connection_setup_with_g_main(connection, NULL);
 
+	vtable.message_function = &message_handler;
+	
+	dbus_bus_request_name(connection,"com.gnome.mplayer",0,NULL);
+	// dbus_connection_register_object_path (connection,"/com/gnome/mplayer", &vtable,NULL);
+	
 	match = g_strdup_printf("type='signal',interface='com.gnome.mplayer'");
 	dbus_bus_add_match(connection, match, &error);	
     printf("Using match: %s\n", match);
     g_free(match);
 	
 	dbus_connection_add_filter(connection,filter_func,NULL,NULL);
-    printf("Proxy connections and Command connected\n");
+	
+	printf("Proxy connections and Command connected\n");
 
 	if (windowid != 0) {
 		path = g_strdup_printf("/window/%i",embed_window);
