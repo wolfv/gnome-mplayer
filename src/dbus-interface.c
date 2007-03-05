@@ -291,6 +291,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 									  "    </method>\n"
 									  "    <method name=\"GetVolume\">\n"
 									  "    </method>\n"
+									  "    <method name=\"GetFullScreen\">\n"
+									  "    </method>\n"
+									  "    <method name=\"GetShowControls\">\n"
+									  "    </method>\n"
+									  "    <signal name=\"ResizeWindow\">\n"
+									  "        <arg name=\"width\" type=\"i\" />\n"
+									  "        <arg name=\"height\" type=\"i\" />\n"
+									  "    </signal>\n"
 									  "  </interface>\n");
 				xml = g_string_append (xml, "</node>\n");
 				
@@ -314,6 +322,20 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 			if (dbus_message_is_method_call (message, "com.gnome.mplayer", "GetVolume")) {
 				reply_message = dbus_message_new_method_return (message);
 				dbus_message_append_args (reply_message, DBUS_TYPE_DOUBLE, &idledata->volume, DBUS_TYPE_INVALID);
+				dbus_connection_send (connection, reply_message, NULL);
+				dbus_message_unref(reply_message);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+			if (dbus_message_is_method_call (message, "com.gnome.mplayer", "GetFullScreen")) {
+				reply_message = dbus_message_new_method_return (message);
+				dbus_message_append_args (reply_message, DBUS_TYPE_BOOLEAN, fullscreen, DBUS_TYPE_INVALID);
+				dbus_connection_send (connection, reply_message, NULL);
+				dbus_message_unref(reply_message);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+			if (dbus_message_is_method_call (message, "com.gnome.mplayer", "GetShowControls")) {
+				reply_message = dbus_message_new_method_return (message);
+				dbus_message_append_args (reply_message, DBUS_TYPE_BOOLEAN, fullscreen, DBUS_TYPE_INVALID);
 				dbus_connection_send (connection, reply_message, NULL);
 				dbus_message_unref(reply_message);
 				return DBUS_HANDLER_RESULT_HANDLED;
