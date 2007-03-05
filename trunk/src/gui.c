@@ -274,10 +274,15 @@ gboolean set_position(void *data) {
 
 gboolean set_volume(void *data) {
 	IdleData *idle = (IdleData*)data;
+	gchar *buf;
 	
 	if (GTK_IS_WIDGET(vol_slider)) {
 		printf("setting slider to %f\n",idle->volume);
 		gtk_range_set_value(GTK_RANGE(vol_slider),idle->volume);
+        buf = g_strdup_printf(_("Volume %i%%"), (gint)idle->volume);
+		g_strlcpy(idledata->vol_tooltip,buf,128);
+		gtk_tooltips_set_tip(volume_tip, vol_slider, idle->vol_tooltip, NULL);
+		g_free(buf);
 	} 
 	return FALSE;
 }	
@@ -371,6 +376,8 @@ gboolean expose_callback(GtkWidget *widget, GdkEventExpose *event, gpointer data
 	// to do with mplayer grabbing the drawing_area.
 	
 	//printf("expose callback\n");
+	while(gtk_events_pending()) gtk_main_iteration();
+
 	if (GDK_IS_DRAWABLE(drawing_area->window)) {
 		gc = gdk_gc_new(drawing_area->window);
 		gdk_drawable_get_size(GDK_DRAWABLE(drawing_area->window),&width,&height);
@@ -381,6 +388,38 @@ gboolean expose_callback(GtkWidget *widget, GdkEventExpose *event, gpointer data
 	return FALSE;
 }
 
+gboolean window_state_callback(GtkWidget *widget, GdkEventWindowState *event, gpointer data)
+{
+	GdkGC *gc;
+	gint width,height;
+	
+	//printf("window state callback\n");
+	while(gtk_events_pending()) gtk_main_iteration();
+
+	if (GDK_IS_DRAWABLE(drawing_area->window)) {
+		gc = gdk_gc_new(drawing_area->window);
+		gdk_drawable_get_size(GDK_DRAWABLE(drawing_area->window),&width,&height);
+		//printf("drawing box %i x %i\n",width,height);
+		gdk_draw_rectangle(drawing_area->window, gc, TRUE, 0, 0, width,height );
+		gdk_gc_unref(gc);
+	}
+	return FALSE;
+}
+
+gboolean allocate_callback(GtkWidget *widget, GtkAllocation *allocation, gpointer data)
+{
+	GdkGC *gc;
+	
+	// printf("allocation callback\n");
+	while(gtk_events_pending()) gtk_main_iteration();
+		
+	if (GDK_IS_DRAWABLE(drawing_area->window)) {
+		gc = gdk_gc_new(drawing_area->window);
+		gdk_draw_rectangle(drawing_area->window, gc, TRUE, 0, 0, allocation->width,allocation->height );
+		gdk_gc_unref(gc);
+	}
+	return FALSE;
+}
 
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
@@ -484,9 +523,10 @@ gboolean hookup_x11_events(void *data)
 	// draws over/erases them.
 	
 	//printf("hooking callbacks\n");
-    //g_signal_connect(G_OBJECT(drawing_area), "expose_event", G_CALLBACK(expose_callback), NULL);
-    //g_signal_connect(G_OBJECT(drawing_area), "configure_event", G_CALLBACK(expose_callback), NULL);
+    g_signal_connect(G_OBJECT(drawing_area), "expose_event", G_CALLBACK(expose_callback), NULL);
+    g_signal_connect(G_OBJECT(drawing_area), "size_allocate", G_CALLBACK(allocate_callback), NULL);
     g_signal_connect(G_OBJECT(window), "configure_event", G_CALLBACK(expose_callback), NULL);
+    g_signal_connect(G_OBJECT(window), "window_state_event", G_CALLBACK(window_state_callback), NULL);
 	
 	return FALSE;
 }
@@ -624,6 +664,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 		gtk_window_fullscreen(GTK_WINDOW(window));
         fullscreen = 1;
     }
+	while(gtk_events_pending()) gtk_main_iteration();
 	if (GDK_IS_DRAWABLE(drawing_area->window)) {
 		gc = gdk_gc_new(drawing_area->window);
 		gdk_drawable_get_size(GDK_DRAWABLE(drawing_area->window),&width,&height);
