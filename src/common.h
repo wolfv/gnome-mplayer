@@ -48,8 +48,8 @@ typedef struct _IdleData {
 	gint videopresent;
 	gboolean fullscreen;
 	gboolean showcontrols;
-	gfloat position;
-	gfloat length;
+	gdouble position;
+	gdouble length;
 } IdleData;
 
 IdleData *idledata;

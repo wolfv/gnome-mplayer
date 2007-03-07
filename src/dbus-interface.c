@@ -295,6 +295,12 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 									  "    </method>\n"
 									  "    <method name=\"GetShowControls\">\n"
 									  "    </method>\n"
+									  "    <method name=\"GetTime\">\n"
+									  "    </method>\n"
+									  "    <method name=\"GetDuration\">\n"
+									  "    </method>\n"
+									  "    <method name=\"GetPercent\">\n"
+									  "    </method>\n"
 									  "    <signal name=\"ResizeWindow\">\n"
 									  "        <arg name=\"width\" type=\"i\" />\n"
 									  "        <arg name=\"height\" type=\"i\" />\n"
@@ -336,6 +342,27 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 			if (dbus_message_is_method_call (message, "com.gnome.mplayer", "GetShowControls")) {
 				reply_message = dbus_message_new_method_return (message);
 				dbus_message_append_args (reply_message, DBUS_TYPE_BOOLEAN, fullscreen, DBUS_TYPE_INVALID);
+				dbus_connection_send (connection, reply_message, NULL);
+				dbus_message_unref(reply_message);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+			if (dbus_message_is_method_call (message, "com.gnome.mplayer", "GetTime")) {
+				reply_message = dbus_message_new_method_return (message);
+				dbus_message_append_args (reply_message, DBUS_TYPE_DOUBLE, &idledata->position, DBUS_TYPE_INVALID);
+				dbus_connection_send (connection, reply_message, NULL);
+				dbus_message_unref(reply_message);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+			if (dbus_message_is_method_call (message, "com.gnome.mplayer", "GetDuration")) {
+				reply_message = dbus_message_new_method_return (message);
+				dbus_message_append_args (reply_message, DBUS_TYPE_DOUBLE, &idledata->length, DBUS_TYPE_INVALID);
+				dbus_connection_send (connection, reply_message, NULL);
+				dbus_message_unref(reply_message);
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+			if (dbus_message_is_method_call (message, "com.gnome.mplayer", "GetPercent")) {
+				reply_message = dbus_message_new_method_return (message);
+				dbus_message_append_args (reply_message, DBUS_TYPE_DOUBLE, &idledata->percent, DBUS_TYPE_INVALID);
 				dbus_connection_send (connection, reply_message, NULL);
 				dbus_message_unref(reply_message);
 				return DBUS_HANDLER_RESULT_HANDLED;
@@ -402,7 +429,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
     }
     dbus_connection_setup_with_g_main(connection, NULL);
 
-	vtable.message_function = &message_handler;
+	// vtable.message_function = &message_handler;
 	
 	dbus_bus_request_name(connection,"com.gnome.mplayer",0,NULL);
 	// dbus_connection_register_object_path (connection,"/com/gnome/mplayer", &vtable,NULL);
