@@ -1,4 +1,5 @@
 Development
+	Implement more DBUS methods GetTime, GetDuration, GetPercent
 	Implement more DBUS methods GetFullScreen, GetShowControls
 	Implement DBUS introspection and several method calls.
 	Allow setting cache size using slider bar in preferences dialog

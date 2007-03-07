@@ -121,8 +121,10 @@ int main(int argc, char *argv[])
 	window_y = 0;
 	showcontrols = 1;
 	videopresent = 1;
-	idledata = (IdleData *) g_malloc(sizeof(IdleData));
+	idledata = (IdleData *) g_new0(IdleData,1);
 	idledata->videopresent = 1;
+	idledata->volume = 100.0;
+	idledata->length = 0.0;
 	
 	gconf = gconf_client_get_default();
 	cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);

@@ -173,13 +173,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (strstr(mplayer_output->str, "ANS_LENGTH") != 0) {
         buf = strstr(mplayer_output->str, "ANS_LENGTH");
-        sscanf(buf, "ANS_LENGTH=%f", &idledata->length);
+        sscanf(buf, "ANS_LENGTH=%lf", &idledata->length);
 		g_idle_add(set_progress_time,idledata);
     }
 	
     if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {
         buf = strstr(mplayer_output->str, "ANS_TIME_POSITION");
-        sscanf(buf, "ANS_TIME_POSITION=%f", &idledata->position);
+        sscanf(buf, "ANS_TIME_POSITION=%lf", &idledata->position);
 		g_idle_add(set_progress_time,idledata);
     }
 	
@@ -282,6 +282,8 @@ gpointer launch_player(gpointer data) {
 	idledata->y = 1;
 	idledata->videopresent = 1;
 	idledata->volume = 100.0;
+	idledata->length = 0.0;
+	
 	g_idle_add(set_progress_value,idledata);
 	g_idle_add(set_progress_text,idledata);
 	g_idle_add(set_media_info,idledata);
