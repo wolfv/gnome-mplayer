@@ -1,4 +1,5 @@
 Development
+	Implement DBUS signal SetCachePercent
 	Implement more DBUS methods GetTime, GetDuration, GetPercent
 	Implement more DBUS methods GetFullScreen, GetShowControls
 	Implement DBUS introspection and several method calls.

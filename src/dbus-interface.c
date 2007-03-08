@@ -46,19 +46,6 @@ indent -kr -l100 -i4 -nut
 
 */
 
-static DBusHandlerResult message_handler(DBusConnection * connection,
-                                     DBusMessage * message, void *user_data)
-{
-	
-	printf("Message Handler\n");
-	
-	if (dbus_message_is_method_call (message, "org.freedesktop.DBus.Introspectable", "Introspect")) {
-		printf("Introspect called\n");
-		return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-    }
-	return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-}
-
 
 static DBusHandlerResult filter_func(DBusConnection * connection,
                                      DBusMessage * message, void *user_data)
@@ -206,6 +193,16 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 			if (g_ascii_strcasecmp(dbus_message_get_member(message),"SetPercent") == 0  && idledata != NULL) {
 				dbus_error_init(&error);
 				if (dbus_message_get_args(message, &error, DBUS_TYPE_DOUBLE, &(idledata->percent), DBUS_TYPE_INVALID)) {
+					g_idle_add(set_progress_value,idledata);
+				} else {
+					dbus_error_free(&error);
+				}
+				return DBUS_HANDLER_RESULT_HANDLED;
+			}
+
+			if (g_ascii_strcasecmp(dbus_message_get_member(message),"SetCachePercent") == 0  && idledata != NULL) {
+				dbus_error_init(&error);
+				if (dbus_message_get_args(message, &error, DBUS_TYPE_DOUBLE, &(idledata->cachepercent), DBUS_TYPE_INVALID)) {
 					g_idle_add(set_progress_value,idledata);
 				} else {
 					dbus_error_free(&error);
