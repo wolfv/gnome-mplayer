@@ -195,6 +195,10 @@ gboolean set_volume_from_slider(gpointer data)
     cmd = g_strdup_printf("volume %i 1\n", vol);
 	send_command(cmd);
     g_free(cmd);
+	if (state == PAUSED || state == STOPPED) {
+		send_command("pause\n");
+	}
+
 	send_command("get_property volume\n");
 	
 	return FALSE;

@@ -404,7 +404,7 @@ void dbus_open_by_hrefid(gchar *hrefid) {
 	const gchar *id;
 	
 	id = g_strdup(hrefid);
-	path = g_strdup_printf("/window/%i",embed_window);
+	path = g_strdup_printf("/control/%i",control_id);
 	message = dbus_message_new_signal(path,"com.gecko.mediaplayer","RequestById");
 	dbus_message_append_args(message, DBUS_TYPE_STRING, &id, DBUS_TYPE_INVALID);
 	dbus_connection_send(connection,message,NULL);
@@ -417,7 +417,7 @@ void dbus_open_next() {
 	gchar *path;
 	DBusMessage *message;
 	
-	path = g_strdup_printf("/window/%i",embed_window);
+	path = g_strdup_printf("/control/%i",control_id);
 	message = dbus_message_new_signal(path,"com.gecko.mediaplayer","Next");
 	dbus_connection_send(connection,message,NULL);
 	dbus_message_unref(message);
@@ -463,8 +463,8 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 	
 	printf("Proxy connections and Command connected\n");
 
-	if (windowid != 0) {
-		path = g_strdup_printf("/window/%i",embed_window);
+	if (control_id != 0) {
+		path = g_strdup_printf("/control/%i",control_id);
 		reply_message = dbus_message_new_signal(path,"com.gecko.mediaplayer","Ready");
 		dbus_connection_send(connection,reply_message,NULL);
 		dbus_message_unref(reply_message);
