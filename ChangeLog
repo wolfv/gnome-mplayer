@@ -1,4 +1,6 @@
 Development
+	Fix pause problem when volume is changed
+	Switch to using control_id for communication between browser and player
 	Implement DBUS method GetCacheSize
 	Implement DBUS signal SetCachePercent
 	Implement more DBUS methods GetTime, GetDuration, GetPercent
