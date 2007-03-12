@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-06 08:52-0700\n"
+"POT-Creation-Date: 2007-03-12 08:09-0600\n"
 "PO-Revision-Date: 2007-01-12 10:52-0500\n"
 "Last-Translator:  <>\n"
 "Language-Team: \n"
@@ -40,15 +40,15 @@ msgstr "File Argument is a playlist"
 msgid "Show the controls in window"
 msgstr "Show the controls in window"
 
-#: src/main.c:133
+#: src/main.c:135
 msgid "- GNOME Media player based on MPlayer"
 msgstr "- GNOME Media player based on MPlayer"
 
-#: src/main.c:171 src/main.c:193
+#: src/main.c:173 src/main.c:195
 msgid "Playing DVD"
 msgstr "Playing DVD"
 
-#: src/main.c:197
+#: src/main.c:199
 msgid "Playing Audio CD"
 msgstr "Playing Audio CD"
 
@@ -92,103 +92,103 @@ msgstr ""
 msgid "%i:%02i:%02i / %i:%02i:%02i"
 msgstr ""
 
-#: src/gui.c:282 src/gui.c:562 src/thread.c:190
+#: src/gui.c:286 src/gui.c:566 src/thread.c:190
 #, c-format
 msgid "Volume %i%%"
 msgstr "Volume %i%%"
 
-#: src/gui.c:450
+#: src/gui.c:454
 #, fuzzy
 msgid "Playing"
 msgstr "Playing DVD"
 
-#: src/gui.c:478
+#: src/gui.c:482
 #, fuzzy
 msgid "Paused"
 msgstr "Pause"
 
-#: src/gui.c:511
+#: src/gui.c:515
 #, fuzzy
 msgid "Stopped"
 msgstr "Stop"
 
-#: src/gui.c:586
+#: src/gui.c:590
 #, fuzzy
 msgid "Open File"
 msgstr "File"
 
-#: src/gui.c:612 src/gui.c:967
+#: src/gui.c:616 src/gui.c:971
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:616
+#: src/gui.c:620
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "A media player for GNOME that uses MPlayer"
 
-#: src/gui.c:745
+#: src/gui.c:749
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME MPlayer Configuration"
 
-#: src/gui.c:748
+#: src/gui.c:752
 msgid "OK"
 msgstr "OK"
 
-#: src/gui.c:752
+#: src/gui.c:756
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/gui.c:819
+#: src/gui.c:823
 msgid "Video Output:"
 msgstr "Video Output:"
 
-#: src/gui.c:827
+#: src/gui.c:831
 msgid "Audio Output:"
 msgstr "Audio Output:"
 
-#: src/gui.c:836
+#: src/gui.c:840
 msgid "Minimum Cache Size:"
 msgstr ""
 
-#: src/gui.c:1005
+#: src/gui.c:1009
 msgid "Show Controls"
 msgstr "Show Controls"
 
-#: src/gui.c:1009 src/gui.c:1287
+#: src/gui.c:1013 src/gui.c:1291
 msgid "Full Screen"
 msgstr "Full Screen"
 
-#: src/gui.c:1048
+#: src/gui.c:1052
 msgid "File"
 msgstr "File"
 
-#: src/gui.c:1065
+#: src/gui.c:1069
 msgid "Edit"
 msgstr "Edit"
 
-#: src/gui.c:1075
+#: src/gui.c:1079
 msgid "Help"
 msgstr "Help"
 
-#: src/gui.c:1204
+#: src/gui.c:1208
 msgid "Rewind"
 msgstr "Rewind"
 
-#: src/gui.c:1216
+#: src/gui.c:1220
 msgid "Play"
 msgstr "Play"
 
-#: src/gui.c:1231
+#: src/gui.c:1235
 msgid "Pause"
 msgstr "Pause"
 
-#: src/gui.c:1244
+#: src/gui.c:1248
 msgid "Stop"
 msgstr "Stop"
 
-#: src/gui.c:1257
+#: src/gui.c:1261
 msgid "Fast Forward"
 msgstr "Fast Forward"
 
-#: src/gui.c:1277
+#: src/gui.c:1281
 msgid "Volume 100%"
 msgstr "Volume 100%"

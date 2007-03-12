@@ -1,4 +1,5 @@
 Development
+0.4.3	Mar 12, 2007
 	Fix pause problem when volume is changed
 	Switch to using control_id for communication between browser and player
 	Implement DBUS method GetCacheSize
