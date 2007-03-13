@@ -1,4 +1,5 @@
 Development
+	Change exposed dbus name to include control_id when given
 	Cleanup dbus on terminate
 	Swedish translation by Daniel Nylander
 	Sent back Ready signal with control_id attached

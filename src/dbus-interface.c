@@ -455,7 +455,8 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 
 	// vtable.message_function = &message_handler;
 	
-	dbus_bus_request_name(connection,"com.gnome.mplayer",0,NULL);
+	
+	// dbus_bus_request_name(connection,"com.gnome.mplayer",0,NULL);
 	// dbus_connection_register_object_path (connection,"/com/gnome/mplayer", &vtable,NULL);
 	
 	match = g_strdup_printf("type='signal',interface='com.gnome.mplayer'");
@@ -468,13 +469,18 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 	printf("Proxy connections and Command connected\n");
 
 	if (control_id != 0) {
+		path = g_strdup_printf("com.gnome.mplayer.cid%i",control_id);
+		dbus_bus_request_name(connection,path,0,NULL);
+		g_free(path);
 		path = g_strdup_printf("/control/%i",control_id);
 		reply_message = dbus_message_new_signal(path,"com.gecko.mediaplayer","Ready");
 		dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &control_id, DBUS_TYPE_INVALID);
 		dbus_connection_send(connection,reply_message,NULL);
 		dbus_message_unref(reply_message);
 		g_free(path);
-	}
+	} else {
+		dbus_bus_request_name(connection,"com.gnome.mplayer",0,NULL);
+	}	
 	
     return TRUE;
 }
