@@ -1,4 +1,6 @@
 Development
+	Cleanup dbus on terminate
+	Swedish translation by Daniel Nylander
 	Sent back Ready signal with control_id attached
 0.4.3	Mar 12, 2007
 	Fix pause problem when volume is changed
