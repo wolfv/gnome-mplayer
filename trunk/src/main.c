@@ -144,7 +144,6 @@ int main(int argc, char *argv[])
     if (!g_thread_supported ()) g_thread_init (NULL);					   
     create_window(embed_window);
 
-    dbus_hookup(embed_window,control_id);
 
     fullscreen = 0;
     lastfile = NULL;
@@ -212,7 +211,10 @@ int main(int argc, char *argv[])
             play_file(argv[fileindex], playlist);
         }
     }
-    gtk_main();
+
+    dbus_hookup(embed_window,control_id);
+    
+	gtk_main();
 
     return 0;
 }
