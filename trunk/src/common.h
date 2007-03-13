@@ -27,6 +27,21 @@
 
 #define CACHE_SIZE		"/apps/gnome-mplayer/preferences/cache_size"
 
+// JavaScript Playstates
+#define STATE_UNDEFINED     0
+#define STATE_STOPPED       1
+#define STATE_PAUSED        2
+#define STATE_PLAYING       3
+#define STATE_SCANFORWARD   4
+#define STATE_SCANREVERSE   5
+#define STATE_BUFFERING	    6
+#define STATE_WAITING       7
+#define STATE_MEDIAENDED    8
+#define STATE_TRANSITIONING 9
+#define STATE_READY	        10
+#define STATE_RECONNECTING  11
+
+
 typedef enum {
     PLAYING,
     PAUSED,
@@ -77,7 +92,6 @@ gint actual_x, actual_y;
 gint play_x, play_y;
 gint last_x, last_y;
 gchar vm[10];
-
 gchar* vo;
 gchar* ao;
 

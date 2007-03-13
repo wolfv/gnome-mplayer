@@ -466,6 +466,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 	if (control_id != 0) {
 		path = g_strdup_printf("/control/%i",control_id);
 		reply_message = dbus_message_new_signal(path,"com.gecko.mediaplayer","Ready");
+		dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &control_id, DBUS_TYPE_INVALID);
 		dbus_connection_send(connection,reply_message,NULL);
 		dbus_message_unref(reply_message);
 		g_free(path);
