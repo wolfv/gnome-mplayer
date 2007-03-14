@@ -484,6 +484,11 @@ gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         state = PAUSED;
 		g_strlcpy(idledata->progress_text,_("Paused"),1024);
 		g_idle_add(set_progress_text,idledata);
+    } else if (state == PAUSED) {
+        send_command("pause\n");
+        state = PLAYING;
+		g_strlcpy(idledata->progress_text,_("Playing"),1024);
+		g_idle_add(set_progress_text,idledata);
     }
     return FALSE;
 }
@@ -1009,11 +1014,11 @@ GtkWidget *create_window(gint windowid)
     menuitem_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep1));
     gtk_widget_show(GTK_WIDGET(menuitem_sep1));
-    menuitem_showcontrols = GTK_MENU_ITEM(gtk_check_menu_item_new_with_label(_("Show Controls")));
+    menuitem_showcontrols = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("S_how Controls")));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_showcontrols));
     gtk_widget_show(GTK_WIDGET(menuitem_showcontrols));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), TRUE);
-    menuitem_fullscreen = GTK_MENU_ITEM(gtk_check_menu_item_new_with_label(_("Full Screen")));
+    menuitem_fullscreen = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Full Screen")));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_fullscreen));
     gtk_widget_show(GTK_WIDGET(menuitem_fullscreen));
     menuitem_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
@@ -1052,7 +1057,7 @@ GtkWidget *create_window(gint windowid)
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
 
 
-    menuitem_file = GTK_MENU_ITEM(gtk_menu_item_new_with_label(_("File")));
+    menuitem_file = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_File")));
 	menu_file = GTK_MENU(gtk_menu_new());
 	gtk_widget_show(GTK_WIDGET(menuitem_file));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menubar),GTK_WIDGET(menuitem_file));
@@ -1069,7 +1074,7 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_quit_callback), NULL);
 					 
 					 
-    menuitem_edit = GTK_MENU_ITEM(gtk_menu_item_new_with_label(_("Edit")));
+    menuitem_edit = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Edit")));
 	menu_edit = GTK_MENU(gtk_menu_new());
 	gtk_widget_show(GTK_WIDGET(menuitem_edit));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menubar),GTK_WIDGET(menuitem_edit));
@@ -1079,7 +1084,7 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
 					 
-    menuitem_help = GTK_MENU_ITEM(gtk_menu_item_new_with_label(_("Help")));
+    menuitem_help = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Help")));
 	menu_help = GTK_MENU(gtk_menu_new());
 	gtk_widget_show(GTK_WIDGET(menuitem_help));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menubar),GTK_WIDGET(menuitem_help));
@@ -1089,7 +1094,18 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_help_about), "activate",
                      G_CALLBACK(menuitem_about_callback), NULL);
 
+	accel_group = gtk_accel_group_new();
+	gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
+	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_fullscreen), "activate",
+					    accel_group,
+					    'f', GDK_CONTROL_MASK,
+					    GTK_ACCEL_VISIBLE);				   
 
+	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_pause), "activate",
+					    accel_group,
+					    ' ', 0,
+					    GTK_ACCEL_VISIBLE);				   
+						
     vbox = gtk_vbox_new(FALSE, 0);
     hbox = gtk_hbox_new(FALSE, 0);
 	controls_box = gtk_vbox_new(FALSE, 0);

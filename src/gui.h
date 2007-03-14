@@ -131,6 +131,8 @@ GtkWidget *config_vo;
 GtkWidget *config_ao;
 GtkWidget *config_cachesize;
 
+GtkAccelGroup *accel_group;
+
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean configure_callback(GtkWidget * widget, GdkEventConfigure * event, void *data);

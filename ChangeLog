@@ -1,4 +1,7 @@
 Development
+	Add accelerator " " (space) to toggle between playing and paused
+	Add accelerator Ctrl-F (go fullscreen)
+	Suppress GLib-CRITICAL **: g_ascii_strcasecmp: assertion `s1 != NULL' failed message
 	Send 'Cancel' signal to controlid when window closed
 	Updated es translation by Vicente Carro
 	Change exposed dbus name to include control_id when given
