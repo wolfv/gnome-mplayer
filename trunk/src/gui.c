@@ -452,11 +452,14 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             state = PLAYING;
         }
         if (state == QUIT) {
-            play_file(lastfile, 0);
+			if (lastfile != NULL) {
+				play_file(lastfile, 0);
+			}
         }
-		g_strlcpy(idledata->progress_text,_("Playing"),1024);
-		g_idle_add(set_progress_text,idledata);
-		
+		if (state == PLAYING) {
+			g_strlcpy(idledata->progress_text,_("Playing"),1024);
+			g_idle_add(set_progress_text,idledata);
+		}
     }
     return FALSE;
 }
@@ -871,14 +874,24 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
     gdouble percent;
 	gint width;
 	gint height;
-	
-	gdk_drawable_get_size(GDK_DRAWABLE(widget->window),&width,&height);
+	GdkEventButton *event_button;
 
-    percent = event->x / width;
-	
-	cmd = g_strdup_printf("seek %i 1\n",(gint)(percent * 100));
-	send_command(cmd);
-	g_free(cmd);
+    if (event->type == GDK_BUTTON_PRESS) {
+        event_button = (GdkEventButton *) event;
+        if (event_button->button == 3) {
+            gtk_menu_popup(popup_menu, NULL, NULL, NULL, NULL, event_button->button, event_button->time);
+            return TRUE;
+        } else {
+			gdk_drawable_get_size(GDK_DRAWABLE(widget->window),&width,&height);
+
+			percent = event->x / width;
+			
+			cmd = g_strdup_printf("seek %i 1\n",(gint)(percent * 100));
+			send_command(cmd);
+			g_free(cmd);
+			
+		}
+    }	
 	
     return TRUE;
 }
@@ -1097,14 +1110,10 @@ GtkWidget *create_window(gint windowid)
 	accel_group = gtk_accel_group_new();
 	gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
 	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_fullscreen), "activate",
-					    accel_group,
-					    'f', GDK_CONTROL_MASK,
-					    GTK_ACCEL_VISIBLE);				   
+					    accel_group,'f', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);				   
 
 	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_pause), "activate",
-					    accel_group,
-					    ' ', 0,
-					    GTK_ACCEL_VISIBLE);				   
+					    accel_group,' ', 0, GTK_ACCEL_VISIBLE);				   
 						
     vbox = gtk_vbox_new(FALSE, 0);
     hbox = gtk_hbox_new(FALSE, 0);
@@ -1125,6 +1134,13 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_add_events(drawing_area, GDK_EXPOSURE_MASK);
 
     g_signal_connect_swapped(G_OBJECT(drawing_area),
+                             "button_press_event",
+                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
+
+    gtk_widget_add_events(song_title, GDK_BUTTON_PRESS_MASK);
+    gtk_widget_add_events(song_title, GDK_BUTTON_RELEASE_MASK);
+
+    g_signal_connect_swapped(G_OBJECT(song_title),
                              "button_press_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
 

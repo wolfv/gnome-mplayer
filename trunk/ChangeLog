@@ -1,4 +1,6 @@
 Development
+	Fix crash when clicking play when no file is loaded
+	Add accelerators to main menu items and to Show Controls and Fullscreen
 	Add accelerator " " (space) to toggle between playing and paused
 	Add accelerator Ctrl-F (go fullscreen)
 	Suppress GLib-CRITICAL **: g_ascii_strcasecmp: assertion `s1 != NULL' failed message

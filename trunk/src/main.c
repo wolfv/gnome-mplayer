@@ -82,7 +82,7 @@ gint play_file(gchar * filename, gint playlist)
 	if (playlist == 0)
 		playlist = detect_playlist(thread_data->filename);
 
-	if (strlen(filename) != 0) {
+	if (filename != NULL && strlen(filename) != 0) {
 		thread_data->player_window = 0;
 		thread_data->playlist = playlist;
 		thread_data->streaming = !g_file_test(thread_data->filename,G_FILE_TEST_EXISTS);
