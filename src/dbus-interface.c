@@ -68,11 +68,11 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     message_type = dbus_message_get_type(message);
     sender = dbus_message_get_sender(message);
     destination = dbus_message_get_destination(message);
-
+/*
     printf("path=%s; interface=%s; member=%s; data=%s\n",
                dbus_message_get_path(message),
                dbus_message_get_interface(message), dbus_message_get_member(message), s);
-	
+*/	
 	path1 = g_strdup_printf("/control/%i",control_id);
 	path2 = g_strdup_printf("/window/%i",embed_window);
 	path3 = g_strdup_printf("/pid/%i",getpid());
@@ -274,7 +274,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 				return DBUS_HANDLER_RESULT_HANDLED;
 			}
 		} else if (message_type == DBUS_MESSAGE_TYPE_METHOD_CALL) {
-			printf("Got member %s\n",dbus_message_get_member(message));
+			// printf("Got member %s\n",dbus_message_get_member(message));
 			if (dbus_message_is_method_call (message, "org.freedesktop.DBus.Introspectable", "Introspect")) {
 				
 				xml = g_string_new ("<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection 1.0//EN\"\n"
@@ -405,9 +405,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 void dbus_open_by_hrefid(gchar *hrefid) {
 	gchar *path;
 	DBusMessage *message;
-	const gchar *id;
+	gchar *id;
 	
 	id = g_strdup(hrefid);
+	printf("requesting id = %s\n", id);
 	path = g_strdup_printf("/control/%i",control_id);
 	message = dbus_message_new_signal(path,"com.gecko.mediaplayer","RequestById");
 	dbus_message_append_args(message, DBUS_TYPE_STRING, &id, DBUS_TYPE_INVALID);
@@ -423,6 +424,18 @@ void dbus_open_next() {
 	
 	path = g_strdup_printf("/control/%i",control_id);
 	message = dbus_message_new_signal(path,"com.gecko.mediaplayer","Next");
+	dbus_connection_send(connection,message,NULL);
+	dbus_message_unref(message);
+	g_free(path);
+	
+}
+
+void dbus_cancel() {
+	gchar *path;
+	DBusMessage *message;
+	
+	path = g_strdup_printf("/control/%i",control_id);
+	message = dbus_message_new_signal(path,"com.gecko.mediaplayer","Cancel");
 	dbus_connection_send(connection,message,NULL);
 	dbus_message_unref(message);
 	g_free(path);
