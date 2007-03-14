@@ -1,4 +1,5 @@
 Development
+	Updated es translation by Vicente Carro
 	Change exposed dbus name to include control_id when given
 	Cleanup dbus on terminate
 	Swedish translation by Daniel Nylander
