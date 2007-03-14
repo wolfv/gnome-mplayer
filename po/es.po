@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-12 08:09-0600\n"
-"PO-Revision-Date: 2007-01-12 09:04+0100\n"
+"PO-Revision-Date: 2007-03-14 10:39+0100\n"
 "Last-Translator: vicente carro fernandez <vicentecarro@andaluciajunta.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,82 +18,82 @@ msgstr ""
 
 #: src/main.c:51
 msgid "Window to embed in"
-msgstr "Ventana a encajar adentro"
+msgstr "Ventana incrustada"
 
 #: src/main.c:52
 #, fuzzy
 msgid "Width of window to embed in"
-msgstr "Ventana a encajar adentro"
+msgstr "Anchura de ventana incrustada"
 
 #: src/main.c:53
 #, fuzzy
 msgid "Height of window to embed in"
-msgstr "Ventana a encajar adentro"
+msgstr "Altura de ventana incrustada"
 
 #: src/main.c:54
 msgid "Unique DBUS controller id"
-msgstr ""
+msgstr "Id controlador de DBUS único"
 
 #: src/main.c:55
 msgid "File Argument is a playlist"
-msgstr "La discusion del archivo es un playlist"
+msgstr "El fichero es una lista de reproducción"
 
 #: src/main.c:56
 #, fuzzy
 msgid "Show the controls in window"
-msgstr "Mostrar controles"
+msgstr "Mostrar controles en la ventana"
 
 #: src/main.c:135
 msgid "- GNOME Media player based on MPlayer"
-msgstr "- jugador de medios de GNOME basado en MPlayer"
+msgstr "- Reproductor multimedia de GNOME basado en MPlayer"
 
 #: src/main.c:173 src/main.c:195
 msgid "Playing DVD"
-msgstr "Jugar DVD"
+msgstr "Reproducir DVD"
 
 #: src/main.c:199
 msgid "Playing Audio CD"
-msgstr "Jugar el CD Audio"
+msgstr "Reproducir CD de Audio"
 
 #: src/gui.c:127
 #, c-format
 msgid "%2i:%02i | %2i%% ▼"
-msgstr ""
+msgstr "%2i:%02i | %2i%% ▼"
 
 #: src/gui.c:132
 #, c-format
 msgid "%2i:%02i"
-msgstr ""
+msgstr "%2i:%02i"
 
 #: src/gui.c:138
 #, c-format
 msgid "%2i:%02i / %2i:%02i | %2i%% ▼"
-msgstr ""
+msgstr "%2i:%02i / %2i:%02i | %2i%% ▼"
 
 #: src/gui.c:144
 #, c-format
 msgid "%2i:%02i / %2i:%02i"
-msgstr ""
+msgstr "%2i:%02i / %2i:%02i"
 
 #: src/gui.c:154
 #, c-format
 msgid "%i:%02i:%02i | %2i%% ▼"
-msgstr ""
+msgstr "%i:%02i:%02i | %2i%% ▼"
 
 #: src/gui.c:159
 #, c-format
 msgid "%i:%02i:%02i"
-msgstr ""
+msgstr "%i:%02i:%02i"
 
 #: src/gui.c:167
 #, c-format
 msgid "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
-msgstr ""
+msgstr "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
 
 #: src/gui.c:174
 #, c-format
 msgid "%i:%02i:%02i / %i:%02i:%02i"
-msgstr ""
+msgstr "%i:%02i:%02i / %i:%02i:%02i"
 
 #: src/gui.c:286 src/gui.c:566 src/thread.c:190
 #, c-format
@@ -103,21 +103,21 @@ msgstr "Volumen %i%%"
 #: src/gui.c:454
 #, fuzzy
 msgid "Playing"
-msgstr "Jugar DVD"
+msgstr "Reproducir"
 
 #: src/gui.c:482
 #, fuzzy
 msgid "Paused"
-msgstr "Pausar"
+msgstr "Pausado"
 
 #: src/gui.c:515
 #, fuzzy
 msgid "Stopped"
-msgstr "Parar"
+msgstr "Parado"
 
 #: src/gui.c:590
 msgid "Open File"
-msgstr ""
+msgstr "Abrir fichero"
 
 #: src/gui.c:616 src/gui.c:971
 msgid "GNOME MPlayer"
@@ -126,32 +126,32 @@ msgstr "GNOME MPlayer"
 #: src/gui.c:620
 #, fuzzy
 msgid "A media player for GNOME that uses MPlayer"
-msgstr "- jugador de medios de GNOME basado en MPlayer"
+msgstr "Reproductor multimedia de GNOME basado en MPlayer"
 
 #: src/gui.c:749
 #, fuzzy
 msgid "GNOME MPlayer Configuration"
-msgstr "GNOME MPlayer"
+msgstr "Configuración de GNOME MPlayer"
 
 #: src/gui.c:752
 msgid "OK"
-msgstr ""
+msgstr "Aceptar"
 
 #: src/gui.c:756
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/gui.c:823
 msgid "Video Output:"
-msgstr ""
+msgstr "Salida de Vídeo:"
 
 #: src/gui.c:831
 msgid "Audio Output:"
-msgstr ""
+msgstr "Salida de Audio:"
 
 #: src/gui.c:840
 msgid "Minimum Cache Size:"
-msgstr ""
+msgstr "Tamaño mínimo de la Caché:"
 
 #: src/gui.c:1009
 msgid "Show Controls"
@@ -163,15 +163,15 @@ msgstr "Pantalla completa"
 
 #: src/gui.c:1052
 msgid "File"
-msgstr ""
+msgstr "Archivo"
 
 #: src/gui.c:1069
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/gui.c:1079
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 #: src/gui.c:1208
 msgid "Rewind"
