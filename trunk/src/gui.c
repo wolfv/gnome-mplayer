@@ -342,6 +342,9 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 		idledata = NULL;
 	}
 	
+	if (control_id != 0)
+		dbus_cancel();
+	
 	while(gtk_events_pending()) gtk_main_iteration();
     gtk_main_quit();
     return TRUE;

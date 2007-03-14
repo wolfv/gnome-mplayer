@@ -120,6 +120,7 @@ gboolean hookup_x11_events(void *data);
 void make_button(gchar *src, gchar *href);
 void dbus_open_by_hrefid(gchar *hrefid);
 void dbus_open_next();
+void dbus_cancel();
 
 void shutdown();
 gpointer launch_player(gpointer data);
