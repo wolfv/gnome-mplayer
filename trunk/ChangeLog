@@ -1,4 +1,6 @@
 Development
+	Try to use icons from theme, but if that fails, use the default set
+	Add default icons to build
 	If playing audio after playing video, shrink window
 	Disable Fullscreen option when no video is present
 	Fix problems with icons not being found in theme

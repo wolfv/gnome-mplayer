@@ -44,7 +44,14 @@
 #include "../pixmaps/fs_up_small.xpm"
 */
 #include "../pixmaps/gnome_mplayer.xpm"
-
+#include "../pixmaps/media-playback-pause.xpm"
+#include "../pixmaps/media-playback-start.xpm"
+#include "../pixmaps/media-playback-stop.xpm"
+#include "../pixmaps/media-seek-backward.xpm"
+#include "../pixmaps/media-seek-forward.xpm"
+// #include "../pixmaps/media-skip-backward.xpm"
+// #include "../pixmaps/media-skip-forward.xpm"
+#include "../pixmaps/view-fullscreen.xpm"
 
 GtkWidget *window;
 GdkWindow *window_container;
@@ -85,17 +92,11 @@ GtkWidget *controls_box;
 
 GtkWidget *drawing_area;
 GdkPixbuf *pb_sm_play_up;
-GdkPixbuf *pb_sm_play_down;
 GdkPixbuf *pb_sm_pause_up;
-GdkPixbuf *pb_sm_pause_down;
 GdkPixbuf *pb_sm_stop_up;
-GdkPixbuf *pb_sm_stop_down;
 GdkPixbuf *pb_sm_ff_up;
-GdkPixbuf *pb_sm_ff_down;
 GdkPixbuf *pb_sm_rew_up;
-GdkPixbuf *pb_sm_rew_down;
 GdkPixbuf *pb_sm_fs_up;
-GdkPixbuf *pb_sm_fs_down;
 GdkPixbuf *pb_icon;
 GdkPixbuf *pb_button;
 GtkWidget *button_event_box;

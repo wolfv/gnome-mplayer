@@ -28,7 +28,15 @@ gnome_mplayer_SOURCES = \
 	thread.h \
 	thread.c \
 	common.h \
-	../pixmaps/gnome_mplayer.xpm
+	../pixmaps/gnome_mplayer.xpm \
+	../pixmaps/media-playback-pause.xpm \
+	../pixmaps/media-playback-start.xpm \
+	../pixmaps/media-playback-stop.xpm \
+	../pixmaps/media-seek-backward.xpm \
+	../pixmaps/media-seek-forward.xpm \
+	../pixmaps/media-skip-backward.xpm \
+	../pixmaps/media-skip-forward.xpm \
+	../pixmaps/view-fullscreen.xpm
 
 gnome_mplayer_LDFLAGS = 
 
