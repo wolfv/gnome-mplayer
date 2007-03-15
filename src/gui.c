@@ -229,7 +229,13 @@ gboolean resize_window(void *data) {
 		}
 		if ((idle->videopresent == 0)) {
 			gtk_widget_show(GTK_WIDGET(song_title));
-		}
+			gtk_widget_set_size_request(drawing_area, -1, -1);
+			gtk_window_resize(GTK_WINDOW(window), 1, 1);
+		} 
+		
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box),idle->videopresent);
+		
 	}
 	return FALSE;
 }	
@@ -1150,6 +1156,7 @@ GtkWidget *create_window(gint windowid)
 
 	error = NULL;
 	icon_theme = gtk_icon_theme_get_default ();
+	
 
 	/*
     pb_sm_play_up = gdk_pixbuf_new_from_xpm_data((const char **) play_up_small);
@@ -1168,24 +1175,105 @@ GtkWidget *create_window(gint windowid)
 	pb_icon = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
 	
 	
-	pb_sm_play_up = gtk_icon_theme_load_icon (icon_theme, "media-playback-start", 16, 0, &error);
-	error = NULL;
-	pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, "media-playback-pause", 16, 0, &error);
-	error = NULL;
-	pb_sm_stop_up = gtk_icon_theme_load_icon (icon_theme, "media-playback-stop", 16, 0, &error);
-	error = NULL;
-	pb_sm_ff_up = gtk_icon_theme_load_icon (icon_theme, "media-seek-forward", 16, 0, &error);
-	error = NULL;
-	pb_sm_rew_up = gtk_icon_theme_load_icon (icon_theme, "media-seek-backward", 16, 0, &error);
+	pb_sm_play_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_PLAY, 16, 0, &error);
+	if (error != NULL) {
+		printf("error %s\n",error->message);
+		g_error_free(error);
+		error = NULL;
+		pb_sm_play_up = gtk_icon_theme_load_icon (icon_theme, "media-playback-start", 16, 0, &error);
+		if (error != NULL) {
+			printf("error %s\n",error->message);
+			g_error_free(error);
+			error = NULL;
+			pb_sm_play_up = gtk_icon_theme_load_icon (icon_theme, "player_play", 16, 0, &error);
+			if (error != NULL) {
+				printf("error %s\n",error->message);
+				g_error_free(error);
+				error = NULL;
+			}
+		}
+	}
+	pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_PAUSE, 16, 0, &error);
+	if (error != NULL) {
+		printf("error %s\n",error->message);
+		g_error_free(error);
+		error = NULL;
+		pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, "media-playback-pause", 16, 0, &error);
+		if (error != NULL) {
+			printf("error %s\n",error->message);
+			g_error_free(error);
+			error = NULL;
+			pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, "player_pause", 16, 0, &error);
+			if (error != NULL) {
+				printf("error %s\n",error->message);
+				g_error_free(error);
+				error = NULL;
+			}
+		}
+	}	
+	pb_sm_stop_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_STOP, 16, 0, &error);
+	if (error != NULL) {
+		printf("error %s\n",error->message);
+		g_error_free(error);
+		error = NULL;
+		pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, "media-playback-stop", 16, 0, &error);
+		if (error != NULL) {
+			printf("error %s\n",error->message);
+			g_error_free(error);
+			error = NULL;
+			pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, "player_stop", 16, 0, &error);
+			if (error != NULL) {
+				printf("error %s\n",error->message);
+				g_error_free(error);
+				error = NULL;
+			}
+		}
+	}
+	pb_sm_ff_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_FORWARD, 16, 0, &error);
+	if (error != NULL) {
+		printf("error %s\n",error->message);
+		g_error_free(error);
+		error = NULL;
+		pb_sm_ff_up = gtk_icon_theme_load_icon (icon_theme, "media-seek-forward", 16, 0, &error);
+		if (error != NULL) {
+			printf("error %s\n",error->message);
+			g_error_free(error);
+			error = NULL;
+			pb_sm_ff_up = gtk_icon_theme_load_icon (icon_theme, "player_fwd", 16, 0, &error);
+			if (error != NULL) {
+				printf("error %s\n",error->message);
+				g_error_free(error);
+				error = NULL;
+			}
+		}
+	}
+	pb_sm_rew_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_REWIND, 16, 0, &error);
+	if (error != NULL) {
+		printf("error %s\n",error->message);
+		g_error_free(error);
+		error = NULL;
+		pb_sm_rew_up = gtk_icon_theme_load_icon (icon_theme, "media-seek-backward", 16, 0, &error);
+		if (error != NULL) {
+			printf("error %s\n",error->message);
+			g_error_free(error);
+			error = NULL;
+			pb_sm_rew_up = gtk_icon_theme_load_icon (icon_theme, "player_rew", 16, 0, &error);
+			if (error != NULL) {
+				printf("error %s\n",error->message);
+				g_error_free(error);
+				error = NULL;
+			}
+		}
+	}
 	error = NULL;
 	pb_sm_fs_up = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
 	error = NULL;
 	
-	pb_sm_play_down = gtk_icon_theme_load_icon (icon_theme, "media-playback-start", 16, 0, &error);
+	pb_sm_play_down = gtk_icon_theme_load_icon (icon_theme, "media-play", 16, 0, &error);
 	error = NULL;
-	pb_sm_pause_down = gtk_icon_theme_load_icon (icon_theme, "media-playback-pause", 16, 0, &error);
+	pb_sm_pause_down = gtk_icon_theme_load_icon (icon_theme, "media-pause", 16, 0, &error);
 	error = NULL;
-	pb_sm_stop_down = gtk_icon_theme_load_icon (icon_theme, "media-playback-stop", 16, 0, &error);
+	pb_sm_stop_down = gtk_icon_theme_load_icon (icon_theme, "media-stop", 16, 0, &error);
 	error = NULL;
 	pb_sm_ff_down = gtk_icon_theme_load_icon (icon_theme, "media-seek-forward", 16, 0, &error);
 	error = NULL;
@@ -1366,6 +1454,9 @@ GtkWidget *create_window(gint windowid)
 		}
 	}
 
+	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),FALSE);
+	gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
+	
 	while(gtk_events_pending()) gtk_main_iteration();
 		
     return window;
