@@ -306,7 +306,8 @@ gboolean set_fullscreen(void *data) {
 	// fullscreen = ! (gint) idle->fullscreen;
 	// printf("calling fs_callback with %i\n",fullscreen);
 	// fs_callback(NULL, NULL, NULL); // ok is just not NULL which is what we want
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), idle->fullscreen);
+	if (idle->videopresent)
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), idle->fullscreen);
 	return FALSE;
 }
 
