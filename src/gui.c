@@ -1163,21 +1163,22 @@ GtkWidget *create_window(gint windowid)
 	pb_icon = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
 	
 	// ok if the theme has all the icons we need, use them, otherwise use the default GNOME ones
-	if (gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_MEDIA_PLAY) 
-		&& gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_MEDIA_PAUSE)
-		&& gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_MEDIA_STOP)
-		&& gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_MEDIA_FORWARD)
-		&& gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_MEDIA_REWIND)
+	if (gtk_icon_theme_has_icon(icon_theme, "stock_media-play") 
+		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-pause")
+		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-stop")
+		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-fwd")
+		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-rew")
 		&& gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
 		
-		pb_sm_play_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_PLAY, 16, 0, &error);
-		pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_PAUSE, 16, 0, &error);
-	    pb_sm_stop_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_STOP, 16, 0, &error);
-	    pb_sm_ff_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_FORWARD, 16, 0, &error);
-	    pb_sm_rew_up = gtk_icon_theme_load_icon (icon_theme, GTK_STOCK_MEDIA_REWIND, 16, 0, &error);
+		pb_sm_play_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-play", 16, 0, &error);
+		pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-pause", 16, 0, &error);
+	    pb_sm_stop_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-stop", 16, 0, &error);
+	    pb_sm_ff_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-fwd", 16, 0, &error);
+	    pb_sm_rew_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-rew", 16, 0, &error);
 		pb_sm_fs_up = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
 	
 	} else {
+
 		pb_sm_play_up = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_start_xpm);
 		pb_sm_pause_up = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_pause_xpm);
 		pb_sm_stop_up = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_stop_xpm);
