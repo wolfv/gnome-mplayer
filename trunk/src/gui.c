@@ -440,9 +440,9 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     gtk_container_remove(GTK_CONTAINER(play_event_box), image_play);
     gtk_container_remove(GTK_CONTAINER(pause_event_box), image_pause);
     gtk_container_remove(GTK_CONTAINER(stop_event_box), image_stop);
-    image_play = gtk_image_new_from_pixbuf(pb_sm_play_up);
-    image_pause = gtk_image_new_from_pixbuf(pb_sm_pause_up);
-    image_stop = gtk_image_new_from_pixbuf(pb_sm_stop_up);
+    image_play = gtk_image_new_from_pixbuf(pb_play);
+    image_pause = gtk_image_new_from_pixbuf(pb_pause);
+    image_stop = gtk_image_new_from_pixbuf(pb_stop);
     gtk_container_add(GTK_CONTAINER(play_event_box), image_play);
     gtk_container_add(GTK_CONTAINER(pause_event_box), image_pause);
     gtk_container_add(GTK_CONTAINER(stop_event_box), image_stop);
@@ -476,9 +476,9 @@ gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     gtk_container_remove(GTK_CONTAINER(play_event_box), image_play);
     gtk_container_remove(GTK_CONTAINER(pause_event_box), image_pause);
     gtk_container_remove(GTK_CONTAINER(stop_event_box), image_stop);
-    image_play = gtk_image_new_from_pixbuf(pb_sm_play_up);
-    image_pause = gtk_image_new_from_pixbuf(pb_sm_pause_up);
-    image_stop = gtk_image_new_from_pixbuf(pb_sm_stop_up);
+    image_play = gtk_image_new_from_pixbuf(pb_play);
+    image_pause = gtk_image_new_from_pixbuf(pb_pause);
+    image_stop = gtk_image_new_from_pixbuf(pb_stop);
     gtk_container_add(GTK_CONTAINER(play_event_box), image_play);
     gtk_container_add(GTK_CONTAINER(pause_event_box), image_pause);
     gtk_container_add(GTK_CONTAINER(stop_event_box), image_stop);
@@ -508,9 +508,9 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     gtk_container_remove(GTK_CONTAINER(play_event_box), image_play);
     gtk_container_remove(GTK_CONTAINER(pause_event_box), image_pause);
     gtk_container_remove(GTK_CONTAINER(stop_event_box), image_stop);
-    image_play = gtk_image_new_from_pixbuf(pb_sm_play_up);
-    image_pause = gtk_image_new_from_pixbuf(pb_sm_pause_up);
-    image_stop = gtk_image_new_from_pixbuf(pb_sm_stop_up);
+    image_play = gtk_image_new_from_pixbuf(pb_play);
+    image_pause = gtk_image_new_from_pixbuf(pb_pause);
+    image_stop = gtk_image_new_from_pixbuf(pb_stop);
     gtk_container_add(GTK_CONTAINER(play_event_box), image_play);
     gtk_container_add(GTK_CONTAINER(pause_event_box), image_pause);
     gtk_container_add(GTK_CONTAINER(stop_event_box), image_stop);
@@ -1170,31 +1170,31 @@ GtkWidget *create_window(gint windowid)
 		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-rew")
 		&& gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
 		
-		pb_sm_play_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-play", 16, 0, &error);
-		pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-pause", 16, 0, &error);
-	    pb_sm_stop_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-stop", 16, 0, &error);
-	    pb_sm_ff_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-fwd", 16, 0, &error);
-	    pb_sm_rew_up = gtk_icon_theme_load_icon (icon_theme, "stock_media-rew", 16, 0, &error);
-		pb_sm_fs_up = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
+		pb_play = gtk_icon_theme_load_icon (icon_theme, "stock_media-play", 16, 0, &error);
+		pb_pause = gtk_icon_theme_load_icon (icon_theme, "stock_media-pause", 16, 0, &error);
+	    pb_stop = gtk_icon_theme_load_icon (icon_theme, "stock_media-stop", 16, 0, &error);
+	    pb_ff = gtk_icon_theme_load_icon (icon_theme, "stock_media-fwd", 16, 0, &error);
+	    pb_rew = gtk_icon_theme_load_icon (icon_theme, "stock_media-rew", 16, 0, &error);
+		pb_fs = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
 	
 	} else {
 
-		pb_sm_play_up = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_start_xpm);
-		pb_sm_pause_up = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_pause_xpm);
-		pb_sm_stop_up = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_stop_xpm);
-		pb_sm_ff_up = gdk_pixbuf_new_from_xpm_data((const char **) media_seek_forward_xpm);
-		pb_sm_rew_up = gdk_pixbuf_new_from_xpm_data((const char **) media_seek_backward_xpm);
-		pb_sm_fs_up = gdk_pixbuf_new_from_xpm_data((const char **) view_fullscreen_xpm);
+		pb_play = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_start_xpm);
+		pb_pause = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_pause_xpm);
+		pb_stop = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_stop_xpm);
+		pb_ff = gdk_pixbuf_new_from_xpm_data((const char **) media_seek_forward_xpm);
+		pb_rew = gdk_pixbuf_new_from_xpm_data((const char **) media_seek_backward_xpm);
+		pb_fs = gdk_pixbuf_new_from_xpm_data((const char **) view_fullscreen_xpm);
 		
 	}
 	
-    image_play = gtk_image_new_from_pixbuf(pb_sm_play_up);
-    image_stop = gtk_image_new_from_pixbuf(pb_sm_stop_up);
-    image_pause = gtk_image_new_from_pixbuf(pb_sm_pause_up);
+    image_play = gtk_image_new_from_pixbuf(pb_play);
+    image_stop = gtk_image_new_from_pixbuf(pb_stop);
+    image_pause = gtk_image_new_from_pixbuf(pb_pause);
 
-    image_ff = gtk_image_new_from_pixbuf(pb_sm_ff_up);
-    image_rew = gtk_image_new_from_pixbuf(pb_sm_rew_up);
-    image_fs = gtk_image_new_from_pixbuf(pb_sm_fs_up);
+    image_ff = gtk_image_new_from_pixbuf(pb_ff);
+    image_rew = gtk_image_new_from_pixbuf(pb_rew);
+    image_fs = gtk_image_new_from_pixbuf(pb_fs);
 
 	gtk_window_set_icon(GTK_WINDOW(window),pb_icon);
 
