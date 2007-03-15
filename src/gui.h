@@ -91,12 +91,12 @@ GtkWidget *hbox;
 GtkWidget *controls_box;
 
 GtkWidget *drawing_area;
-GdkPixbuf *pb_sm_play_up;
-GdkPixbuf *pb_sm_pause_up;
-GdkPixbuf *pb_sm_stop_up;
-GdkPixbuf *pb_sm_ff_up;
-GdkPixbuf *pb_sm_rew_up;
-GdkPixbuf *pb_sm_fs_up;
+GdkPixbuf *pb_play;
+GdkPixbuf *pb_pause;
+GdkPixbuf *pb_stop;
+GdkPixbuf *pb_ff;
+GdkPixbuf *pb_rew;
+GdkPixbuf *pb_fs;
 GdkPixbuf *pb_icon;
 GdkPixbuf *pb_button;
 GtkWidget *button_event_box;
