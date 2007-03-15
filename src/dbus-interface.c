@@ -436,9 +436,12 @@ void dbus_open_next() {
 void dbus_cancel() {
 	gchar *path;
 	DBusMessage *message;
+	gint id;
 	
+	id = control_id;
 	path = g_strdup_printf("/control/%i",control_id);
 	message = dbus_message_new_signal(path,"com.gecko.mediaplayer","Cancel");
+	dbus_message_append_args(message, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
 	dbus_connection_send(connection,message,NULL);
 	dbus_message_unref(message);
 	g_free(path);
@@ -458,6 +461,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
     gchar *match;
 	gchar *path;
 	DBusMessage *reply_message;
+	gint id;
 	
     dbus_error_init(&error);
     connection = dbus_bus_get(type, &error);
@@ -489,8 +493,9 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 		dbus_bus_request_name(connection,path,0,NULL);
 		g_free(path);
 		path = g_strdup_printf("/control/%i",control_id);
+		id = control_id;
 		reply_message = dbus_message_new_signal(path,"com.gecko.mediaplayer","Ready");
-		dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &control_id, DBUS_TYPE_INVALID);
+		dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
 		dbus_connection_send(connection,reply_message,NULL);
 		dbus_message_unref(reply_message);
 		g_free(path);
