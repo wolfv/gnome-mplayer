@@ -1,4 +1,5 @@
 Development
+	Reset error after use in icon loads
 	Fix crash when clicking play when no file is loaded
 	Add accelerators to main menu items and to Show Controls and Fullscreen
 	Add accelerator " " (space) to toggle between playing and paused

@@ -1169,18 +1169,30 @@ GtkWidget *create_window(gint windowid)
 	
 	
 	pb_sm_play_up = gtk_icon_theme_load_icon (icon_theme, "media-playback-start", 16, 0, &error);
+	error = NULL;
 	pb_sm_pause_up = gtk_icon_theme_load_icon (icon_theme, "media-playback-pause", 16, 0, &error);
+	error = NULL;
 	pb_sm_stop_up = gtk_icon_theme_load_icon (icon_theme, "media-playback-stop", 16, 0, &error);
+	error = NULL;
 	pb_sm_ff_up = gtk_icon_theme_load_icon (icon_theme, "media-seek-forward", 16, 0, &error);
+	error = NULL;
 	pb_sm_rew_up = gtk_icon_theme_load_icon (icon_theme, "media-seek-backward", 16, 0, &error);
+	error = NULL;
 	pb_sm_fs_up = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
+	error = NULL;
 	
 	pb_sm_play_down = gtk_icon_theme_load_icon (icon_theme, "media-playback-start", 16, 0, &error);
+	error = NULL;
 	pb_sm_pause_down = gtk_icon_theme_load_icon (icon_theme, "media-playback-pause", 16, 0, &error);
+	error = NULL;
 	pb_sm_stop_down = gtk_icon_theme_load_icon (icon_theme, "media-playback-stop", 16, 0, &error);
+	error = NULL;
 	pb_sm_ff_down = gtk_icon_theme_load_icon (icon_theme, "media-seek-forward", 16, 0, &error);
+	error = NULL;
 	pb_sm_rew_down = gtk_icon_theme_load_icon (icon_theme, "media-seek-backward", 16, 0, &error);
+	error = NULL;
 	pb_sm_fs_down = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
+	error = NULL;
 	
 
     image_play = gtk_image_new_from_pixbuf(pb_sm_play_up);
