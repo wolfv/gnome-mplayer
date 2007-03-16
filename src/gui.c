@@ -537,21 +537,6 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 }
 
-gboolean hookup_x11_events(void *data)
-{
-	// This hookup is needed because as a window is resized and mplayer is running in x11 mode
-	// The areas that should be black/empty are filled with left over frame data. So this callback
-	// draws over/erases them.
-	
-	//printf("hooking callbacks\n");
-/*    g_signal_connect(G_OBJECT(drawing_area), "expose_event", G_CALLBACK(expose_callback), NULL);
-    g_signal_connect(G_OBJECT(drawing_area), "size_allocate", G_CALLBACK(allocate_callback), NULL);
-    g_signal_connect(G_OBJECT(window), "configure_event", G_CALLBACK(expose_callback), NULL);
-    g_signal_connect(G_OBJECT(window), "window_state_event", G_CALLBACK(window_state_callback), NULL);
-	*/
-	return FALSE;
-}
-
 gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     if (state == PLAYING) {
@@ -1186,7 +1171,21 @@ GtkWidget *create_window(gint windowid)
 	    pb_rew = gtk_icon_theme_load_icon (icon_theme, "stock_media-rew", 16, 0, &error);
 		pb_fs = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
 	
-	} else {
+	} else if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start") 
+		&& gtk_icon_theme_has_icon(icon_theme, "media-playback-pause")
+		&& gtk_icon_theme_has_icon(icon_theme, "media-playback-stop")
+		&& gtk_icon_theme_has_icon(icon_theme, "media-seek-forward")
+		&& gtk_icon_theme_has_icon(icon_theme, "media-seek-backward")
+		&& gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
+		
+		pb_play = gtk_icon_theme_load_icon (icon_theme, "media-playback-start", 16, 0, &error);
+		pb_pause = gtk_icon_theme_load_icon (icon_theme, "media-playback-pause", 16, 0, &error);
+	    pb_stop = gtk_icon_theme_load_icon (icon_theme, "media-playback-stop", 16, 0, &error);
+	    pb_ff = gtk_icon_theme_load_icon (icon_theme, "media-seek-forward", 16, 0, &error);
+	    pb_rew = gtk_icon_theme_load_icon (icon_theme, "media-seek-backward", 16, 0, &error);
+		pb_fs = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
+			
+    } else {
 
 		pb_play = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_start_xpm);
 		pb_pause = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_pause_xpm);

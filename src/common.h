@@ -120,7 +120,6 @@ gboolean set_position(void *data);
 gboolean set_volume(void *data);
 gboolean set_fullscreen(void *data);
 gboolean set_show_controls(void *data);
-gboolean hookup_x11_events(void *data);
 void make_button(gchar *src, gchar *href);
 void dbus_open_by_hrefid(gchar *hrefid);
 void dbus_open_next();
