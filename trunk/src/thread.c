@@ -318,7 +318,7 @@ gpointer launch_player(gpointer data) {
 
     if (ok) {
 		printf("Spawn succeeded for filename %s\n",threaddata->filename);		
-        state = PLAYING;
+        state = PAUSED;
 
         if (channel_in != NULL) {
             g_io_channel_unref(channel_in);
