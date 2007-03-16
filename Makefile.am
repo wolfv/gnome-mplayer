@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 ## Created by Anjuta
 
-SUBDIRS = src po
+SUBDIRS = src po debian
 
 gnome_mplayerdocdir = ${prefix}/doc/gnome-mplayer
 gnome_mplayerdoc_DATA = \
@@ -11,7 +11,8 @@ gnome_mplayerdoc_DATA = \
 	ChangeLog\
 	INSTALL\
 	NEWS \
-	DOCS/tech/dbus.txt
+	DOCS/tech/dbus.txt \
+	DOCS/tech/plugin-interaction.txt
 
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop

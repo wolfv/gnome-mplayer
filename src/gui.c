@@ -443,7 +443,39 @@ gboolean allocate_fixed_callback(GtkWidget *widget, GtkAllocation *allocation, g
 	return FALSE;
 }
 
+gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
+{
+	return play_callback(widget,event,data);
+}
 
+gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
+{
+    if (data == NULL) {
+        if (state == PAUSED || state == STOPPED) {
+            send_command("pause\n");
+            state = PLAYING;
+			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play),pb_pause);
+			g_strlcpy(idledata->progress_text,_("Playing"),1024);
+			g_idle_add(set_progress_text,idledata);
+        } else if (state == PLAYING) {
+            send_command("pause\n");
+            state = PAUSED;
+			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play),pb_play);
+			g_strlcpy(idledata->progress_text,_("Paused"),1024);
+			g_idle_add(set_progress_text,idledata);
+			
+			
+		}
+        if (state == QUIT) {
+			if (lastfile != NULL) {
+				play_file(lastfile, 0);
+			}
+        }
+    }
+    return FALSE;
+}
+
+/*
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     gtk_container_remove(GTK_CONTAINER(play_event_box), image_play);
@@ -480,6 +512,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     return FALSE;
 }
 
+
 gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     gtk_container_remove(GTK_CONTAINER(play_event_box), image_play);
@@ -511,17 +544,18 @@ gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
     return FALSE;
 }
+*/
 
 gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     gtk_container_remove(GTK_CONTAINER(play_event_box), image_play);
-    gtk_container_remove(GTK_CONTAINER(pause_event_box), image_pause);
+    //gtk_container_remove(GTK_CONTAINER(pause_event_box), image_pause);
     gtk_container_remove(GTK_CONTAINER(stop_event_box), image_stop);
     image_play = gtk_image_new_from_pixbuf(pb_play);
     image_pause = gtk_image_new_from_pixbuf(pb_pause);
     image_stop = gtk_image_new_from_pixbuf(pb_stop);
     gtk_container_add(GTK_CONTAINER(play_event_box), image_play);
-    gtk_container_add(GTK_CONTAINER(pause_event_box), image_pause);
+    //gtk_container_add(GTK_CONTAINER(pause_event_box), image_pause);
     gtk_container_add(GTK_CONTAINER(stop_event_box), image_stop);
     gtk_widget_show(image_play);
     gtk_widget_show(image_pause);
@@ -1259,7 +1293,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(play_event_box);
 
 
-
+/*
     pause_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, pause_event_box, _("Pause"), NULL);
@@ -1272,7 +1306,8 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(hbox), pause_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_pause);
     gtk_widget_show(pause_event_box);
-
+*/
+	
     stop_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, stop_event_box, _("Stop"), NULL);
