@@ -1233,52 +1233,7 @@ GtkWidget *create_window(gint windowid)
 
 	gtk_window_set_icon(GTK_WINDOW(window),pb_icon);
 
-	/*
-    
-	// REWIND
-	rew_button = gtk_button_new ();
-	gtk_button_set_image(GTK_BUTTON(rew_button), image_rew);
-	GTK_WIDGET_UNSET_FLAGS (rew_button, GTK_CAN_DEFAULT);	
-    g_signal_connect(G_OBJECT(rew_button),"clicked", G_CALLBACK(rew_callback), NULL);
-    tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, rew_button, _("Rewind"), NULL);
-	gtk_box_pack_start(GTK_BOX(hbox), rew_button, FALSE, FALSE, 0);
-	
-	// PLAY BUTTON
-	play_button = gtk_button_new ();
-	gtk_button_set_image(play_button, image_play);
-    g_signal_connect(G_OBJECT(play_button),"clicked", G_CALLBACK(play_callback), NULL);
-    tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, play_button, _("Play"), NULL);
-	gtk_box_pack_start(GTK_BOX(hbox), play_button, FALSE, FALSE, 0);
-
-	// PAUSE BUTTON
-	pause_button = gtk_button_new ();
-	gtk_button_set_image(pause_button, image_pause);
-    g_signal_connect(G_OBJECT(pause_button),"clicked", G_CALLBACK(pause_callback), NULL);
-    tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, pause_button, _("Pause"), NULL);
-	gtk_box_pack_start(GTK_BOX(hbox), pause_button, FALSE, FALSE, 0);
-
-	// STOP BUTTON
-	stop_button = gtk_button_new ();
-	gtk_button_set_image(stop_button, image_stop);
-    g_signal_connect(G_OBJECT(stop_button),"clicked", G_CALLBACK(stop_callback), NULL);
-    tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, stop_button, _("Stop"), NULL);
-	gtk_box_pack_start(GTK_BOX(hbox), stop_button, FALSE, FALSE, 0);
-
-	// FORWARD BUTTON
-	ff_button = gtk_button_new ();
-	gtk_button_set_image(ff_button, image_ff);
-    g_signal_connect(G_OBJECT(ff_button),"clicked", G_CALLBACK(ff_callback), NULL);
-    tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, ff_button, _("Forward"), NULL);
-	gtk_box_pack_start(GTK_BOX(hbox), ff_button, FALSE, FALSE, 0);
-	
-	*/
-	
-	rew_event_box = gtk_event_box_new();
+    rew_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, rew_event_box, _("Rewind"), NULL);
     gtk_widget_set_events(rew_event_box, GDK_BUTTON_PRESS_MASK);
@@ -1376,6 +1331,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(hbox);
     gtk_widget_show(vbox);
     gtk_widget_show_all(window);
+	gtk_widget_hide_all(fixed);
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
 
     if (windowid != 0) {
