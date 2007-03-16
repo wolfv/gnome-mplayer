@@ -562,7 +562,6 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     gtk_widget_show(image_stop);
 
     gtk_widget_show(play_event_box);
-    gtk_widget_show(pause_event_box);
     gtk_widget_show(stop_event_box);
     if (data == NULL) {
 		if (state == PAUSED) {
@@ -1366,7 +1365,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(hbox);
     gtk_widget_show(vbox);
     gtk_widget_show_all(window);
-	gtk_widget_hide_all(fixed);
+	gtk_widget_hide(fixed);
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
 
     if (windowid != 0) {
