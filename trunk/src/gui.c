@@ -223,9 +223,11 @@ gboolean resize_window(void *data) {
 	if (GTK_IS_WIDGET(window)) {
 		if (window_x == 0 && window_y == 0) {
 			gtk_widget_set_size_request(fixed, -1, -1);
+			gtk_widget_set_size_request(drawing_area, -1, -1);
 			//printf("%i x %i \n",idle->x,idle->y);
 			if (idle->width > 0 && idle->height > 0) {
 				gtk_widget_set_size_request(fixed, idle->width, idle->height);
+				gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
 				total_height = idle->height;
 				gdk_drawable_get_size(GDK_DRAWABLE(hbox->window), &width,&height);
 				total_height += height;
@@ -234,8 +236,9 @@ gboolean resize_window(void *data) {
 				gtk_window_resize(GTK_WINDOW(window),idle->width,total_height);
 			}
 		} else {
-			if (window_x > 0 && window_y > 0)
+			if (window_x > 0 && window_y > 0) {
 				gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
+			}
 		}
 		if ((idle->videopresent == 0)) {
 			gtk_widget_show(GTK_WIDGET(song_title));
@@ -383,8 +386,6 @@ gboolean move_window(void *data) {
 gboolean expose_fixed_callback(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 {
 	GdkGC *gc;
-	gdouble movie_ratio, window_ratio;
-	gint new_width, new_height;
 	
 	if (GDK_IS_DRAWABLE(fixed->window)) {
 		gc = gdk_gc_new(fixed->window);
@@ -393,32 +394,39 @@ gboolean expose_fixed_callback(GtkWidget *widget, GdkEventExpose *event, gpointe
 		gdk_gc_unref(gc);
 	}
 
-	// calculate the new size of the drawing area
+	return FALSE;
+}
+
+gboolean allocate_fixed_callback(GtkWidget *widget, GtkAllocation *allocation, gpointer data) {
+
+	gdouble movie_ratio, window_ratio;
+	gint new_width, new_height;
+
 	
 	if (actual_x > 0 && actual_y > 0) {
 	
 		movie_ratio = (gdouble)actual_x / (gdouble)actual_y;
-		window_ratio = (gdouble)event->area.width / (gdouble)event->area.height;
+		window_ratio = (gdouble)allocation->width / (gdouble)allocation->height;
 		
-		if (event->area.width == idledata->width && event->area.height == idledata->width) {
-			new_width = event->area.width;
-			new_height = event->area.height;
+		if (allocation->width == idledata->width && allocation->height == idledata->width) {
+			new_width = allocation->width;
+			new_height = allocation->height;
 		} else {
 			if (movie_ratio > window_ratio) {
 				//printf("movie %lf > window %lf\n",movie_ratio,window_ratio);
-				new_width = event->area.width;
-				new_height = event->area.width / movie_ratio;
+				new_width = allocation->width;
+				new_height = allocation->width / movie_ratio;
 			} else {
 				//printf("movie %lf < window %lf\n",movie_ratio,window_ratio);
-				new_height = event->area.height;
-				new_width = event->area.height * movie_ratio;
+				new_height = allocation->height;
+				new_width = allocation->height * movie_ratio;
 			}
 		}
-		//printf("new movie size = %i x %i (%i x %i)\n",new_width,new_height,event->area.width, event->area.height);
+		//printf("new movie size = %i x %i (%i x %i)\n",new_width,new_height,allocation->width, allocation->height);
 		gtk_widget_set_usize(drawing_area, new_width, new_height);
 		
-		idledata->x = (event->area.width - new_width) / 2;
-		idledata->y = (event->area.height - new_height) / 2;
+		idledata->x = (allocation->width - new_width) / 2;
+		idledata->y = (allocation->height - new_height) / 2;
 		g_idle_add(move_window,idledata);
 	}	
 	
@@ -1360,7 +1368,7 @@ GtkWidget *create_window(gint windowid)
 		}
 	}
 	
-	// g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), NULL);
+	g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), NULL);
 	g_signal_connect(G_OBJECT(fixed), "expose_event", G_CALLBACK(expose_fixed_callback), NULL);
 	
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),FALSE);
