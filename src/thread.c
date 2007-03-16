@@ -285,7 +285,7 @@ gpointer launch_player(gpointer data) {
 	g_idle_add(set_progress_value,idledata);
 	g_idle_add(set_progress_text,idledata);
 	g_idle_add(set_media_info,idledata);
-	g_idle_add(resize_window,idledata);
+	//g_idle_add(resize_window,idledata);
 	
     while (gtk_events_pending())
         gtk_main_iteration();
