@@ -1,4 +1,7 @@
 Development
+	Fix new problem with audio resize issues
+	Add Open DVD / Open Audio CD to File Menu
+	Fix some audio resize issue
 	Remove hookup_x11_events as it is no longer needed
 	Use allocation method to set media size rather than expose
 	Setup player to protect aspect ratio of media being played

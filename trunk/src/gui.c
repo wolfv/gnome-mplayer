@@ -219,31 +219,41 @@ gboolean resize_window(void *data) {
 	IdleData *idle = (IdleData*)data;
 	gint width,height;
 	gint total_height =0;
+	GtkRequisition req;
 	
 	if (GTK_IS_WIDGET(window)) {
-		if (window_x == 0 && window_y == 0) {
-			gtk_widget_set_size_request(fixed, -1, -1);
-			gtk_widget_set_size_request(drawing_area, -1, -1);
-			//printf("%i x %i \n",idle->x,idle->y);
-			if (idle->width > 0 && idle->height > 0) {
-				gtk_widget_set_size_request(fixed, idle->width, idle->height);
-				gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
-				total_height = idle->height;
-				gdk_drawable_get_size(GDK_DRAWABLE(hbox->window), &width,&height);
-				total_height += height;
-				//printf("window: %i x %i \n",idle->x,total_height);
-				
-				gtk_window_resize(GTK_WINDOW(window),idle->width,total_height);
+		if (idle->videopresent) {
+			if (window_x == 0 && window_y == 0) {
+				gtk_widget_show_all(GTK_WIDGET(fixed));
+				gtk_widget_set_size_request(fixed, -1, -1);
+				gtk_widget_set_size_request(drawing_area, -1, -1);
+				//printf("%i x %i \n",idle->x,idle->y);
+				if (idle->width > 0 && idle->height > 0) {
+					gtk_widget_set_size_request(fixed, idle->width, idle->height);
+					gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
+					total_height = idle->height;
+					gdk_drawable_get_size(GDK_DRAWABLE(hbox->window), &width,&height);
+					total_height += height;
+					//printf("window: %i x %i \n",idle->x,total_height);
+					
+					gtk_window_resize(GTK_WINDOW(window),idle->width,total_height);
+				}
+			} else {
+				if (window_x > 0 && window_y > 0) {
+					gtk_widget_show_all(GTK_WIDGET(fixed));
+					gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
+				}
 			}
 		} else {
-			if (window_x > 0 && window_y > 0) {
-				gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
-			}
-		}
-		if ((idle->videopresent == 0)) {
-			gtk_widget_show(GTK_WIDGET(song_title));
+			gtk_widget_set_size_request(fixed, -1, -1);
 			gtk_widget_set_size_request(drawing_area, -1, -1);
-			gtk_window_resize(GTK_WINDOW(window), 1, 1);
+			gtk_widget_show(GTK_WIDGET(song_title));
+			gtk_widget_hide_all(GTK_WIDGET(fixed));
+			gtk_widget_size_request(GTK_WIDGET(menubar),&req);
+			total_height = req.height;
+			gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+			total_height += req.height;
+			gtk_window_resize(GTK_WINDOW(window),req.width,total_height);
 		} 
 		
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),idle->videopresent);
@@ -605,6 +615,15 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 	}
 	gtk_widget_destroy (dialog);
 	
+}
+
+void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
+{
+	play_file("dvd://", 0);
+}
+void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
+{
+	play_file("cdda://", 0);
 }
 
 void menuitem_quit_callback(GtkMenuItem * menuitem, void *data)
@@ -1069,12 +1088,20 @@ GtkWidget *create_window(gint windowid)
 	gtk_menu_item_set_submenu(menuitem_file,GTK_WIDGET(menu_file));
     menuitem_file_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, NULL));
 	gtk_menu_append(menu_file,GTK_WIDGET(menuitem_file_open));
+    menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
+	gtk_menu_append(menu_file,GTK_WIDGET(menuitem_file_open_dvd));
+    menuitem_file_open_acd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Audio CD")));
+	gtk_menu_append(menu_file,GTK_WIDGET(menuitem_file_open_acd));
     menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep1));
     menuitem_file_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL));
 	gtk_menu_append(menu_file,GTK_WIDGET(menuitem_file_quit));
     g_signal_connect(GTK_OBJECT(menuitem_file_open), "activate",
                      G_CALLBACK(menuitem_open_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_dvd), "activate",
+                     G_CALLBACK(menuitem_open_dvd_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_acd), "activate",
+                     G_CALLBACK(menuitem_open_acd_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_quit), "activate",
                      G_CALLBACK(menuitem_quit_callback), NULL);
 					 

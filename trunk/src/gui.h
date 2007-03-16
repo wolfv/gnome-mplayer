@@ -60,6 +60,8 @@ GtkWidget *menubar;
 GtkMenuItem *menuitem_file;
 GtkMenu *menu_file;
 GtkMenuItem *menuitem_file_open;
+GtkMenuItem *menuitem_file_open_dvd;
+GtkMenuItem *menuitem_file_open_acd;
 GtkMenuItem *menuitem_file_sep1;
 GtkMenuItem *menuitem_file_quit;
 GtkMenuItem *menuitem_edit;

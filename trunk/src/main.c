@@ -76,6 +76,10 @@ gint play_file(gchar * filename, gint playlist)
     lastfile = g_strdup(thread_data->filename);
 	last_x = 0;
 	last_y = 0;
+	idledata->width = 0;
+	idledata->height = 0;
+	idledata->x = 0;
+	idledata->y = 0;
     // printf("Ready to spawn\n");
 
 	streaming = 0;
