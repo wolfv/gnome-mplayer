@@ -144,8 +144,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 		idledata->height = actual_y;
 		idledata->videopresent = 1;
 		g_idle_add(resize_window,idledata);
-		if (g_ascii_strcasecmp(vm,"x11") == 0)
-			g_idle_add(hookup_x11_events,NULL);
         videopresent = 1;
 		g_idle_add(set_volume_from_slider,NULL);
     }
