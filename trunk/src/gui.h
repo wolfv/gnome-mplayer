@@ -108,12 +108,12 @@ GtkWidget *image_button;
 
 GtkWidget *play_button;
 GtkWidget *stop_button;
-GtkWidget *pause_button;
+//GtkWidget *pause_button;
 GtkWidget *ff_button;
 GtkWidget *rew_button;
 
 GtkWidget *play_event_box;
-GtkWidget *pause_event_box;
+//GtkWidget *pause_event_box;
 GtkWidget *stop_event_box;
 GtkWidget *ff_event_box;
 GtkWidget *rew_event_box;
