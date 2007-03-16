@@ -1,4 +1,6 @@
 Development
+	Setup player to protect aspect ratio of media being played
+	Cleanup unused callbacks
 	Cleanup extra pixbufs
 	Try to use icons from theme, but if that fails, use the default set
 	Add default icons to build

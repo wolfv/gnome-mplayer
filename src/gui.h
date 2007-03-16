@@ -90,6 +90,8 @@ GtkWidget *vbox;
 GtkWidget *hbox;
 GtkWidget *controls_box;
 
+GtkWidget *fixed;
+
 GtkWidget *drawing_area;
 GdkPixbuf *pb_play;
 GdkPixbuf *pb_pause;
@@ -136,8 +138,6 @@ GtkAccelGroup *accel_group;
 
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data);
-gboolean configure_callback(GtkWidget * widget, GdkEventConfigure * event, void *data);
-gboolean expose_callback(GtkWidget *widget, GdkEventExpose *event, gpointer data);
 
 gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data);

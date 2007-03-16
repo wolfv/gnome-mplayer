@@ -60,6 +60,10 @@ typedef struct _IdleData {
 	gchar vol_tooltip[128];
 	gint x;
 	gint y;
+	gint last_x;
+	gint last_y;
+	gint width;
+	gint height;
 	gint videopresent;
 	gboolean fullscreen;
 	gboolean showcontrols;
