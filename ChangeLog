@@ -1,4 +1,5 @@
 Development
+	Use allocation method to set media size rather than expose
 	Setup player to protect aspect ratio of media being played
 	Cleanup unused callbacks
 	Cleanup extra pixbufs
