@@ -140,8 +140,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &actual_x, &actual_y, &play_x, &play_y);
 
         printf("Resizing to %i x %i \n", actual_x, actual_y);
-		idledata->x = actual_x;
-		idledata->y = actual_y;
+		idledata->width = actual_x;
+		idledata->height = actual_y;
 		idledata->videopresent = 1;
 		g_idle_add(resize_window,idledata);
 		if (g_ascii_strcasecmp(vm,"x11") == 0)
@@ -155,8 +155,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         actual_y = 1;
 
         // printf("Resizing to %i x %i \n", actual_x, actual_y);
-		idledata->x = actual_x;
-		idledata->y = actual_y;
+		idledata->width = actual_x;
+		idledata->height = actual_y;
 		idledata->videopresent = 0;
 		g_idle_add(resize_window,idledata);
 		g_idle_add(set_volume_from_slider,NULL);
@@ -278,8 +278,8 @@ gpointer launch_player(gpointer data) {
 	g_strlcpy(idledata->info,threaddata->filename,1024);
 	idledata->percent = 0.0;
 	g_strlcpy(idledata->progress_text,"",1024);
-	idledata->x = 1;
-	idledata->y = 1;
+	idledata->width = 1;
+	idledata->height = 1;
 	idledata->videopresent = 1;
 	idledata->volume = 100.0;
 	idledata->length = 0.0;

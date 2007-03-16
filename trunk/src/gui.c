@@ -217,12 +217,22 @@ gboolean set_volume_tip(void *data) {
 gboolean resize_window(void *data) {
 	
 	IdleData *idle = (IdleData*)data;
+	gint width,height;
+	gint total_height =0;
 	
 	if (GTK_IS_WIDGET(window)) {
 		if (window_x == 0 && window_y == 0) {
-			gtk_widget_set_size_request(drawing_area, -1, -1);
-			if (idle->x > 0 && idle->y > 0)
-				gtk_widget_set_size_request(drawing_area, idle->x, idle->y);
+			gtk_widget_set_size_request(fixed, -1, -1);
+			//printf("%i x %i \n",idle->x,idle->y);
+			if (idle->width > 0 && idle->height > 0) {
+				gtk_widget_set_size_request(fixed, idle->width, idle->height);
+				total_height = idle->height;
+				gdk_drawable_get_size(GDK_DRAWABLE(hbox->window), &width,&height);
+				total_height += height;
+				//printf("window: %i x %i \n",idle->x,total_height);
+				
+				gtk_window_resize(GTK_WINDOW(window),idle->width,total_height);
+			}
 		} else {
 			if (window_x > 0 && window_y > 0)
 				gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
@@ -357,83 +367,64 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     return TRUE;
 }
 
-gboolean configure_callback(GtkWidget * widget, GdkEventConfigure * event, void *data)
-{
-    GdkGC *gc;
-	gint x,y,width,height,depth;
+gboolean move_window(void *data) {
 
-	//while(gtk_events_pending()) gtk_main_iteration();
+	IdleData *idle = (IdleData*)data;
+	
+	// printf("moving window to %i x %i\n",idle->x,idle->y);
+	if (GTK_IS_WIDGET(drawing_area) && (idle->x != idle->last_x || idle->y != idle->last_y)) {
+		gtk_fixed_move(GTK_FIXED(fixed),GTK_WIDGET(drawing_area),idle->x, idle->y);
+		idle->last_x = idle->x;
+		idle->last_y = idle->y;
+	}
+	return FALSE;
+}
+
+gboolean expose_fixed_callback(GtkWidget *widget, GdkEventExpose *event, gpointer data)
+{
+	GdkGC *gc;
+	gdouble movie_ratio, window_ratio;
+	gint new_width, new_height;
+	
+	if (GDK_IS_DRAWABLE(fixed->window)) {
+		gc = gdk_gc_new(fixed->window);
+		// printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
+		gdk_draw_rectangle(fixed->window, gc, TRUE, event->area.x, event->area.y, event->area.width,event->area.height );
+		gdk_gc_unref(gc);
+	}
+
+	// calculate the new size of the drawing area
+	
+	if (actual_x > 0 && actual_y > 0) {
+	
+		movie_ratio = (gdouble)actual_x / (gdouble)actual_y;
+		window_ratio = (gdouble)event->area.width / (gdouble)event->area.height;
 		
-//	printf("callback: video = %i, fullscreen = %i\n",videopresent, fullscreen);
-//	printf("last_x = %i, last_y = %i\n",last_x,last_y);
-//	printf("event x = %i, y = %i\n",event->width,event->height);
-    if (GDK_IS_DRAWABLE(drawing_area->window) && videopresent ) {
-//        if (last_x != event->width || last_y != event->height) {
-            gc = gdk_gc_new(drawing_area->window);
-			gdk_window_get_geometry(GDK_DRAWABLE(drawing_area->window),&x,&y,&width,&height,&depth);
-			//printf("drawing box %i x %i\n",width,height);
-            gdk_draw_rectangle(drawing_area->window, gc, TRUE, 0, 0, width,height );
-            gdk_gc_unref(gc);
-			last_x = event->width;
-			last_y = event->height;
-//        }
-    }
-    return FALSE;
-}
-
-gboolean expose_callback(GtkWidget *widget, GdkEventExpose *event, gpointer data)
-{
-	GdkGC *gc;
-	gint width,height;
-
-	// for some reason this callback doesn't seem to happen, must have something
-	// to do with mplayer grabbing the drawing_area.
-	
-	//printf("expose callback\n");
-	while(gtk_events_pending()) gtk_main_iteration();
-
-	if (GDK_IS_DRAWABLE(drawing_area->window)) {
-		gc = gdk_gc_new(drawing_area->window);
-		gdk_drawable_get_size(GDK_DRAWABLE(drawing_area->window),&width,&height);
-		//printf("drawing box %i x %i\n",width,height);
-		gdk_draw_rectangle(drawing_area->window, gc, TRUE, 0, 0, width,height );
-		gdk_gc_unref(gc);
-	}
-	return FALSE;
-}
-
-gboolean window_state_callback(GtkWidget *widget, GdkEventWindowState *event, gpointer data)
-{
-	GdkGC *gc;
-	gint width,height;
-	
-	//printf("window state callback\n");
-	while(gtk_events_pending()) gtk_main_iteration();
-
-	if (GDK_IS_DRAWABLE(drawing_area->window)) {
-		gc = gdk_gc_new(drawing_area->window);
-		gdk_drawable_get_size(GDK_DRAWABLE(drawing_area->window),&width,&height);
-		//printf("drawing box %i x %i\n",width,height);
-		gdk_draw_rectangle(drawing_area->window, gc, TRUE, 0, 0, width,height );
-		gdk_gc_unref(gc);
-	}
-	return FALSE;
-}
-
-gboolean allocate_callback(GtkWidget *widget, GtkAllocation *allocation, gpointer data)
-{
-	GdkGC *gc;
-	
-	// printf("allocation callback\n");
-	while(gtk_events_pending()) gtk_main_iteration();
+		if (event->area.width == idledata->width && event->area.height == idledata->width) {
+			new_width = event->area.width;
+			new_height = event->area.height;
+		} else {
+			if (movie_ratio > window_ratio) {
+				//printf("movie %lf > window %lf\n",movie_ratio,window_ratio);
+				new_width = event->area.width;
+				new_height = event->area.width / movie_ratio;
+			} else {
+				//printf("movie %lf < window %lf\n",movie_ratio,window_ratio);
+				new_height = event->area.height;
+				new_width = event->area.height * movie_ratio;
+			}
+		}
+		//printf("new movie size = %i x %i (%i x %i)\n",new_width,new_height,event->area.width, event->area.height);
+		gtk_widget_set_usize(drawing_area, new_width, new_height);
 		
-	if (GDK_IS_DRAWABLE(drawing_area->window)) {
-		gc = gdk_gc_new(drawing_area->window);
-		gdk_draw_rectangle(drawing_area->window, gc, TRUE, 0, 0, allocation->width,allocation->height );
-		gdk_gc_unref(gc);
-	}
+		idledata->x = (event->area.width - new_width) / 2;
+		idledata->y = (event->area.height - new_height) / 2;
+		g_idle_add(move_window,idledata);
+	}	
+	
 	return FALSE;
 }
+
 
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
@@ -545,11 +536,11 @@ gboolean hookup_x11_events(void *data)
 	// draws over/erases them.
 	
 	//printf("hooking callbacks\n");
-    g_signal_connect(G_OBJECT(drawing_area), "expose_event", G_CALLBACK(expose_callback), NULL);
+/*    g_signal_connect(G_OBJECT(drawing_area), "expose_event", G_CALLBACK(expose_callback), NULL);
     g_signal_connect(G_OBJECT(drawing_area), "size_allocate", G_CALLBACK(allocate_callback), NULL);
     g_signal_connect(G_OBJECT(window), "configure_event", G_CALLBACK(expose_callback), NULL);
     g_signal_connect(G_OBJECT(window), "window_state_event", G_CALLBACK(window_state_callback), NULL);
-	
+	*/
 	return FALSE;
 }
 
@@ -1000,8 +991,9 @@ GtkWidget *create_window(gint windowid)
 	
 	if (windowid != 0) {
 		gtk_window_set_decorated(GTK_WINDOW(window),FALSE);
-		gtk_window_set_policy(GTK_WINDOW(window),TRUE,TRUE,TRUE);
 	}
+
+	gtk_window_set_policy(GTK_WINDOW(window),TRUE,TRUE,TRUE);
 
     gtk_widget_add_events(window, GDK_BUTTON_PRESS_MASK);
     gtk_widget_add_events(window, GDK_BUTTON_RELEASE_MASK);
@@ -1125,22 +1117,31 @@ GtkWidget *create_window(gint windowid)
     vbox = gtk_vbox_new(FALSE, 0);
     hbox = gtk_hbox_new(FALSE, 0);
 	controls_box = gtk_vbox_new(FALSE, 0);
+	fixed = gtk_fixed_new();
     drawing_area = gtk_socket_new();
-    gtk_widget_set_size_request(drawing_area, 1, 1);
+    //gtk_widget_set_size_request(drawing_area, 1, 1);
     song_title = gtk_entry_new();
     gtk_entry_set_editable(GTK_ENTRY(song_title), FALSE);
 	if (windowid == 0)
 		gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox), drawing_area, TRUE, TRUE, 0);
+	gtk_fixed_put(GTK_FIXED(fixed),drawing_area,0,0);
+    gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(controls_box), song_title, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
 	gtk_box_pack_start(GTK_BOX(vbox), controls_box, FALSE, FALSE, 0);
 
     gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK);
     gtk_widget_add_events(drawing_area, GDK_BUTTON_RELEASE_MASK);
-    gtk_widget_add_events(drawing_area, GDK_EXPOSURE_MASK);
+    // gtk_widget_add_events(drawing_area, GDK_EXPOSURE_MASK);
 
     g_signal_connect_swapped(G_OBJECT(drawing_area),
+                             "button_press_event",
+                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
+	
+    gtk_widget_add_events(fixed, GDK_BUTTON_PRESS_MASK);
+    gtk_widget_add_events(fixed, GDK_BUTTON_RELEASE_MASK);
+
+    g_signal_connect_swapped(G_OBJECT(fixed),
                              "button_press_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
 
@@ -1150,7 +1151,7 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect_swapped(G_OBJECT(song_title),
                              "button_press_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
-
+						 
  	gtk_widget_show(menubar);
     gtk_widget_show(drawing_area);
     gtk_container_add(GTK_CONTAINER(window), vbox);
@@ -1358,7 +1359,10 @@ GtkWidget *create_window(gint windowid)
 			gtk_widget_hide(fs_event_box);
 		}
 	}
-
+	
+	// g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), NULL);
+	g_signal_connect(G_OBJECT(fixed), "expose_event", G_CALLBACK(expose_fixed_callback), NULL);
+	
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),FALSE);
 	gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
 	
