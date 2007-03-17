@@ -214,15 +214,22 @@ gboolean set_volume_tip(void *data) {
 	return FALSE;
 }	
 
+gboolean set_window_visible(void *data) {
+	
+	if (GTK_IS_WIDGET(fixed)) {
+		gtk_widget_show_all(fixed);
+	} 
+	return FALSE;
+}	
 gboolean resize_window(void *data) {
 	
 	IdleData *idle = (IdleData*)data;
-	gint width,height;
 	gint total_height =0;
 	GtkRequisition req;
 	
 	if (GTK_IS_WIDGET(window)) {
 		if (idle->videopresent) {
+			gtk_window_set_resizable(GTK_WINDOW(window),TRUE);
 			if (window_x == 0 && window_y == 0) {
 				gtk_widget_show_all(GTK_WIDGET(fixed));
 				gtk_widget_set_size_request(fixed, -1, -1);
@@ -232,10 +239,10 @@ gboolean resize_window(void *data) {
 					gtk_widget_set_size_request(fixed, idle->width, idle->height);
 					gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
 					total_height = idle->height;
-					gdk_drawable_get_size(GDK_DRAWABLE(hbox->window), &width,&height);
-					total_height += height;
-					//printf("window: %i x %i \n",idle->x,total_height);
-					
+					gtk_widget_size_request(GTK_WIDGET(menubar),&req);
+					total_height += req.height;
+					gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+					total_height += req.height;
 					gtk_window_resize(GTK_WINDOW(window),idle->width,total_height);
 				}
 			} else {
@@ -245,6 +252,7 @@ gboolean resize_window(void *data) {
 				}
 			}
 		} else {
+			gtk_window_set_resizable(GTK_WINDOW(window),FALSE);
 			gtk_widget_set_size_request(fixed, -1, -1);
 			gtk_widget_set_size_request(drawing_area, -1, -1);
 			gtk_widget_show(GTK_WIDGET(song_title));
@@ -548,22 +556,7 @@ gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    gtk_container_remove(GTK_CONTAINER(play_event_box), image_play);
-    //gtk_container_remove(GTK_CONTAINER(pause_event_box), image_pause);
-    gtk_container_remove(GTK_CONTAINER(stop_event_box), image_stop);
-    image_play = gtk_image_new_from_pixbuf(pb_play);
-    image_pause = gtk_image_new_from_pixbuf(pb_pause);
-    image_stop = gtk_image_new_from_pixbuf(pb_stop);
-    gtk_container_add(GTK_CONTAINER(play_event_box), image_play);
-    //gtk_container_add(GTK_CONTAINER(pause_event_box), image_pause);
-    gtk_container_add(GTK_CONTAINER(stop_event_box), image_stop);
-    gtk_widget_show(image_play);
-    gtk_widget_show(image_pause);
-    gtk_widget_show(image_stop);
-
-    gtk_widget_show(play_event_box);
-    gtk_widget_show(stop_event_box);
-    if (data == NULL) {
+     if (data == NULL) {
 		if (state == PAUSED) {
 			send_command("pause\n");
 			state = PLAYING;
@@ -574,10 +567,9 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		}
 		g_strlcpy(idledata->progress_text,_("Stopped"),1024);
 		g_idle_add(set_progress_text,idledata);
-		
     }
-    return FALSE;
-
+    
+	return FALSE;
 }
 
 gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
@@ -1389,6 +1381,7 @@ GtkWidget *create_window(gint windowid)
 	
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),FALSE);
 	gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
+	gtk_window_set_resizable(GTK_WINDOW(window),FALSE);
 	
 	while(gtk_events_pending()) gtk_main_iteration();
 		
