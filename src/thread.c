@@ -52,6 +52,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 {
     GString *mplayer_output;
     GIOStatus status;
+	gchar *error_msg = NULL;
+	GtkWidget *dialog;
 
     if (source == NULL) {
         return FALSE;
@@ -60,11 +62,32 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     mplayer_output = g_string_new("");
 
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
+	if (verbose && strstr(mplayer_output->str,"ANS_") == NULL)
+		printf("%s",mplayer_output->str);
+
+	if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
+		error_msg = g_strdup(mplayer_output->str);
+    }
+
+	if (strstr(mplayer_output->str, "Failed to open") != 0) {
+		if (strstr(mplayer_output->str, "LIRC") == 0)
+			error_msg = g_strdup(mplayer_output->str);
+    }
+	
+	if (error_msg != NULL) {
+       dialog = gtk_message_dialog_new (NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                       GTK_BUTTONS_CLOSE, error_msg);
+	   gtk_window_set_title(GTK_WINDOW(dialog),"GNOME MPlayer Error");
+       gtk_dialog_run (GTK_DIALOG (dialog));
+       gtk_widget_destroy (dialog);	
+	   g_free(error_msg);
+	}		
+	
     if (status != G_IO_STATUS_NORMAL) {
         g_string_free(mplayer_output, TRUE);
         return FALSE;
     }
-
+	
 	while(gtk_events_pending()) gtk_main_iteration();
 
     g_string_free(mplayer_output, TRUE);
@@ -81,6 +104,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gint pos, volume, i;
     gfloat percent;
 	GError *error = NULL;
+	gchar *error_msg = NULL;
+	GtkWidget *dialog;
 	
     if (source == NULL) {
         return FALSE;
@@ -207,7 +232,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (strstr(mplayer_output->str, "File not found") != 0) {
     }
-	
+
+	if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
+		error_msg = g_strdup(mplayer_output->str);
+    }
+
     if (strstr(mplayer_output->str, "ICY Info") != NULL) {
         buf = strstr(mplayer_output->str, "'");
         if (message) {
@@ -228,6 +257,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 			g_idle_add(set_media_info,idledata);
     }
 	while(gtk_events_pending()) gtk_main_iteration();
+
+	if (error_msg != NULL) {
+       dialog = gtk_message_dialog_new (NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                       GTK_BUTTONS_OK, error_msg);
+       gtk_dialog_run (GTK_DIALOG (dialog));
+       gtk_widget_destroy (dialog);	
+	   g_free(error_msg);
+	}		
 		
     g_string_free(mplayer_output, TRUE);
     return TRUE;

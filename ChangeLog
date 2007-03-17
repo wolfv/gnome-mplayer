@@ -1,4 +1,5 @@
 Development
+	Add some basic error dialogs when something can't be opened
 	Create View Menu, but nothing is hooked up
 	Fix video window size problem when playing a video playlist 
 		(window grew vertically with each successive video)
