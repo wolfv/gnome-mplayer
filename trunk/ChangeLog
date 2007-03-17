@@ -1,4 +1,8 @@
 Development
+	Fix video window size problem when playing a video playlist 
+		(window grew vertically with each successive video)
+	Disable window resize when a video is not loaded and playing
+	Add verbose option so you can see the mplayer output
 	Add Debian directory in
 	Convert Play and Pause Buttons to single Play/Pause Button
 	Fix new problem with audio resize issues

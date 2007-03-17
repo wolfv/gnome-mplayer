@@ -123,8 +123,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 			error = NULL;
 			return FALSE;
 		}
-	} 
-    //printf("READ(%i): %s\n",strlen(mplayer_output->str),mplayer_output->str);
+	}
+	
+	if (verbose && strstr(mplayer_output->str,"ANS_") == NULL)
+		printf("%s",mplayer_output->str);
 
 	
     if (strstr(mplayer_output->str, "(Quit)") != NULL) {
@@ -285,7 +287,7 @@ gpointer launch_player(gpointer data) {
 	g_idle_add(set_progress_value,idledata);
 	g_idle_add(set_progress_text,idledata);
 	g_idle_add(set_media_info,idledata);
-	//g_idle_add(resize_window,idledata);
+	g_idle_add(set_window_visible,idledata);
 	
     while (gtk_events_pending())
         gtk_main_iteration();
