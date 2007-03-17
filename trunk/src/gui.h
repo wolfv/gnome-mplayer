@@ -68,6 +68,12 @@ GtkMenuItem *menuitem_edit;
 GtkMenu *menu_edit;
 GtkMenuItem *menuitem_edit_config;
 GtkMenuItem *menuitem_help;
+GtkMenuItem *menuitem_view;
+GtkMenu *menu_view;
+GtkMenuItem *menuitem_view_fullscreen;
+GtkMenuItem *menuitem_view_onetoone;
+GtkMenuItem *menuitem_view_twotoone;
+GtkMenuItem *menuitem_view_onetotwo;
 GtkMenu *menu_help;
 GtkMenuItem *menuitem_help_about;
 
