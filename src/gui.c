@@ -1036,6 +1036,7 @@ GtkWidget *create_window(gint windowid)
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
 
 
+	// File Menu
     menuitem_file = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_File")));
 	menu_file = GTK_MENU(gtk_menu_new());
 	gtk_widget_show(GTK_WIDGET(menuitem_file));
@@ -1060,7 +1061,7 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_file_quit), "activate",
                      G_CALLBACK(menuitem_quit_callback), NULL);
 					 
-					 
+	// Edit Menu
     menuitem_edit = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Edit")));
 	menu_edit = GTK_MENU(gtk_menu_new());
 	gtk_widget_show(GTK_WIDGET(menuitem_edit));
@@ -1071,7 +1072,7 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
 
-	
+	// View Menu
     menuitem_view = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_View")));
 	menu_view = GTK_MENU(gtk_menu_new());
 	gtk_widget_show(GTK_WIDGET(menuitem_view));
@@ -1085,10 +1086,8 @@ GtkWidget *create_window(gint windowid)
 	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_twotoone));
     menuitem_view_onetotwo = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
 	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_onetotwo));
-
-    g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "activate",
-                     G_CALLBACK(menuitem_fs_callback), NULL);
 	
+	// Help Menu
     menuitem_help = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Help")));
 	menu_help = GTK_MENU(gtk_menu_new());
 	gtk_widget_show(GTK_WIDGET(menuitem_help));
