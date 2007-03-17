@@ -1156,21 +1156,8 @@ GtkWidget *create_window(gint windowid)
 	pb_icon = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
 	
 	// ok if the theme has all the icons we need, use them, otherwise use the default GNOME ones
-	if (gtk_icon_theme_has_icon(icon_theme, "stock_media-play") 
-		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-pause")
-		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-stop")
-		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-fwd")
-		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-rew")
-		&& gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
-		
-		pb_play = gtk_icon_theme_load_icon (icon_theme, "stock_media-play", 16, 0, &error);
-		pb_pause = gtk_icon_theme_load_icon (icon_theme, "stock_media-pause", 16, 0, &error);
-	    pb_stop = gtk_icon_theme_load_icon (icon_theme, "stock_media-stop", 16, 0, &error);
-	    pb_ff = gtk_icon_theme_load_icon (icon_theme, "stock_media-fwd", 16, 0, &error);
-	    pb_rew = gtk_icon_theme_load_icon (icon_theme, "stock_media-rew", 16, 0, &error);
-		pb_fs = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
 	
-	} else if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start") 
+	if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start") 
 		&& gtk_icon_theme_has_icon(icon_theme, "media-playback-pause")
 		&& gtk_icon_theme_has_icon(icon_theme, "media-playback-stop")
 		&& gtk_icon_theme_has_icon(icon_theme, "media-seek-forward")
@@ -1182,6 +1169,20 @@ GtkWidget *create_window(gint windowid)
 	    pb_stop = gtk_icon_theme_load_icon (icon_theme, "media-playback-stop", 16, 0, &error);
 	    pb_ff = gtk_icon_theme_load_icon (icon_theme, "media-seek-forward", 16, 0, &error);
 	    pb_rew = gtk_icon_theme_load_icon (icon_theme, "media-seek-backward", 16, 0, &error);
+		pb_fs = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
+	
+	} else if (gtk_icon_theme_has_icon(icon_theme, "stock_media-play") 
+		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-pause")
+		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-stop")
+		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-fwd")
+		&& gtk_icon_theme_has_icon(icon_theme, "stock_media-rew")
+		&& gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
+		
+		pb_play = gtk_icon_theme_load_icon (icon_theme, "stock_media-play", 16, 0, &error);
+		pb_pause = gtk_icon_theme_load_icon (icon_theme, "stock_media-pause", 16, 0, &error);
+	    pb_stop = gtk_icon_theme_load_icon (icon_theme, "stock_media-stop", 16, 0, &error);
+	    pb_ff = gtk_icon_theme_load_icon (icon_theme, "stock_media-fwd", 16, 0, &error);
+	    pb_rew = gtk_icon_theme_load_icon (icon_theme, "stock_media-rew", 16, 0, &error);
 		pb_fs = gtk_icon_theme_load_icon (icon_theme, "view-fullscreen", 16, 0, &error);
 			
     } else {
