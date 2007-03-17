@@ -1,4 +1,5 @@
 Development
+	Create View Menu, but nothing is hooked up
 	Fix video window size problem when playing a video playlist 
 		(window grew vertically with each successive video)
 	Disable window resize when a video is not loaded and playing

@@ -266,6 +266,7 @@ gboolean resize_window(void *data) {
 		
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),idle->videopresent);
 		gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box),idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view),idle->videopresent);
 		
 	}
 	return FALSE;
@@ -1069,7 +1070,25 @@ GtkWidget *create_window(gint windowid)
 	gtk_menu_append(menu_edit,GTK_WIDGET(menuitem_edit_config));
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
-					 
+
+	
+    menuitem_view = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_View")));
+	menu_view = GTK_MENU(gtk_menu_new());
+	gtk_widget_show(GTK_WIDGET(menuitem_view));
+	gtk_menu_shell_append(GTK_MENU_SHELL(menubar),GTK_WIDGET(menuitem_view));
+	gtk_menu_item_set_submenu(menuitem_view,GTK_WIDGET(menu_view));
+    menuitem_view_fullscreen = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Fullscreen")));
+	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_fullscreen));
+    menuitem_view_onetoone = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Normal (1:1)")));
+	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_onetoone));
+    menuitem_view_twotoone = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Double Size (2:1)")));
+	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_twotoone));
+    menuitem_view_onetotwo = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
+	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_onetotwo));
+
+    g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "activate",
+                     G_CALLBACK(menuitem_fs_callback), NULL);
+	
     menuitem_help = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Help")));
 	menu_help = GTK_MENU(gtk_menu_new());
 	gtk_widget_show(GTK_WIDGET(menuitem_help));
@@ -1294,6 +1313,7 @@ GtkWidget *create_window(gint windowid)
 	
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),FALSE);
 	gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
+	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view), FALSE);
 	gtk_window_set_policy(GTK_WINDOW(window),FALSE,FALSE,TRUE);
 	
 	while(gtk_events_pending()) gtk_main_iteration();
