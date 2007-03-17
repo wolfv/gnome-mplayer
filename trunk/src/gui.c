@@ -229,7 +229,7 @@ gboolean resize_window(void *data) {
 	
 	if (GTK_IS_WIDGET(window)) {
 		if (idle->videopresent) {
-			gtk_window_set_resizable(GTK_WINDOW(window),TRUE);
+			gtk_window_set_policy(GTK_WINDOW(window),TRUE,TRUE,TRUE);
 			if (window_x == 0 && window_y == 0) {
 				gtk_widget_show_all(GTK_WIDGET(fixed));
 				gtk_widget_set_size_request(fixed, -1, -1);
@@ -252,7 +252,7 @@ gboolean resize_window(void *data) {
 				}
 			}
 		} else {
-			gtk_window_set_resizable(GTK_WINDOW(window),FALSE);
+			gtk_window_set_policy(GTK_WINDOW(window),FALSE,FALSE,TRUE);
 			gtk_widget_set_size_request(fixed, -1, -1);
 			gtk_widget_set_size_request(drawing_area, -1, -1);
 			gtk_widget_show(GTK_WIDGET(song_title));
@@ -482,77 +482,6 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
     return FALSE;
 }
-
-/*
-gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
-{
-    gtk_container_remove(GTK_CONTAINER(play_event_box), image_play);
-    gtk_container_remove(GTK_CONTAINER(pause_event_box), image_pause);
-    gtk_container_remove(GTK_CONTAINER(stop_event_box), image_stop);
-    image_play = gtk_image_new_from_pixbuf(pb_play);
-    image_pause = gtk_image_new_from_pixbuf(pb_pause);
-    image_stop = gtk_image_new_from_pixbuf(pb_stop);
-    gtk_container_add(GTK_CONTAINER(play_event_box), image_play);
-    gtk_container_add(GTK_CONTAINER(pause_event_box), image_pause);
-    gtk_container_add(GTK_CONTAINER(stop_event_box), image_stop);
-    gtk_widget_show(image_play);
-    gtk_widget_show(image_pause);
-    gtk_widget_show(image_stop);
-
-    gtk_widget_show(play_event_box);
-    gtk_widget_show(pause_event_box);
-    gtk_widget_show(stop_event_box);
-    if (data == NULL) {
-        if (state == PAUSED || state == STOPPED) {
-            send_command("pause\n");
-            state = PLAYING;
-        }
-        if (state == QUIT) {
-			if (lastfile != NULL) {
-				play_file(lastfile, 0);
-			}
-        }
-		if (state == PLAYING) {
-			g_strlcpy(idledata->progress_text,_("Playing"),1024);
-			g_idle_add(set_progress_text,idledata);
-		}
-    }
-    return FALSE;
-}
-
-
-gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
-{
-    gtk_container_remove(GTK_CONTAINER(play_event_box), image_play);
-    gtk_container_remove(GTK_CONTAINER(pause_event_box), image_pause);
-    gtk_container_remove(GTK_CONTAINER(stop_event_box), image_stop);
-    image_play = gtk_image_new_from_pixbuf(pb_play);
-    image_pause = gtk_image_new_from_pixbuf(pb_pause);
-    image_stop = gtk_image_new_from_pixbuf(pb_stop);
-    gtk_container_add(GTK_CONTAINER(play_event_box), image_play);
-    gtk_container_add(GTK_CONTAINER(pause_event_box), image_pause);
-    gtk_container_add(GTK_CONTAINER(stop_event_box), image_stop);
-    gtk_widget_show(image_play);
-    gtk_widget_show(image_pause);
-    gtk_widget_show(image_stop);
-
-    gtk_widget_show(play_event_box);
-    gtk_widget_show(pause_event_box);
-    gtk_widget_show(stop_event_box);
-    if (state == PLAYING) {
-        send_command("pause\n");
-        state = PAUSED;
-		g_strlcpy(idledata->progress_text,_("Paused"),1024);
-		g_idle_add(set_progress_text,idledata);
-    } else if (state == PAUSED) {
-        send_command("pause\n");
-        state = PLAYING;
-		g_strlcpy(idledata->progress_text,_("Playing"),1024);
-		g_idle_add(set_progress_text,idledata);
-    }
-    return FALSE;
-}
-*/
 
 gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
@@ -1283,22 +1212,6 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(image_play);
     gtk_widget_show(play_event_box);
 
-
-/*
-    pause_event_box = gtk_event_box_new();
-    tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, pause_event_box, _("Pause"), NULL);
-    gtk_widget_set_events(pause_event_box, GDK_BUTTON_PRESS_MASK);
-    g_signal_connect(G_OBJECT(pause_event_box),
-                     "button_press_event", G_CALLBACK(pause_callback), NULL);
-    gtk_widget_set_size_request(GTK_WIDGET(pause_event_box), 22, 16);
-
-    gtk_container_add(GTK_CONTAINER(pause_event_box), image_pause);
-    gtk_box_pack_start(GTK_BOX(hbox), pause_event_box, FALSE, FALSE, 0);
-    gtk_widget_show(image_pause);
-    gtk_widget_show(pause_event_box);
-*/
-	
     stop_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, stop_event_box, _("Stop"), NULL);
@@ -1381,7 +1294,7 @@ GtkWidget *create_window(gint windowid)
 	
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),FALSE);
 	gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
-	gtk_window_set_resizable(GTK_WINDOW(window),FALSE);
+	gtk_window_set_policy(GTK_WINDOW(window),FALSE,FALSE,TRUE);
 	
 	while(gtk_events_pending()) gtk_main_iteration();
 		
