@@ -1,4 +1,5 @@
 Development
+	Set noconsolecontrols option
 	Fix tooltip on Play/Payse
 	Hook up Normal/2:1/1:2 View menu options
 	Keep F accelerator on right click menu, but add CTRL-F to View->Fullscreen
