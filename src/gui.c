@@ -1101,7 +1101,10 @@ GtkWidget *create_window(gint windowid)
 	accel_group = gtk_accel_group_new();
 	gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
 	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_fullscreen), "activate",
-					    accel_group,'f', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);				   
+					    accel_group,'f', 0, GTK_ACCEL_VISIBLE);				   
+
+	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_showcontrols), "activate",
+					    accel_group,'c', 0, GTK_ACCEL_VISIBLE);				   
 
 	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_pause), "activate",
 					    accel_group,' ', 0, GTK_ACCEL_VISIBLE);				   
