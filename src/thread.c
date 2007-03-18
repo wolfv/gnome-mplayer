@@ -339,6 +339,7 @@ gpointer launch_player(gpointer data) {
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-softvol");
     argv[arg++] = g_strdup_printf("-nomouseinput");
+    argv[arg++] = g_strdup_printf("-noconsolecontrols");
     if (strcmp(threaddata->filename, "dvd://") != 0) {
        argv[arg++] = g_strdup_printf("-cache");
        argv[arg++] = g_strdup_printf("%i", cache_size);
