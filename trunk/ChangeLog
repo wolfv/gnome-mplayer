@@ -1,4 +1,7 @@
 Development
+	Fix tooltip on Play/Payse
+	Hook up Normal/2:1/1:2 View menu options
+	Keep F accelerator on right click menu, but add CTRL-F to View->Fullscreen
 	Change accelerator CTRL-F to just F
 	Add accelerator C to show/hide controls.
 	Add some basic error dialogs when something can't be opened

@@ -464,12 +464,14 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             send_command("pause\n");
             state = PLAYING;
 			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play),pb_pause);
+			gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);			
 			g_strlcpy(idledata->progress_text,_("Playing"),1024);
 			g_idle_add(set_progress_text,idledata);
         } else if (state == PLAYING) {
             send_command("pause\n");
             state = PAUSED;
 			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play),pb_play);
+			gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);			
 			g_strlcpy(idledata->progress_text,_("Paused"),1024);
 			g_idle_add(set_progress_text,idledata);
 			
@@ -611,6 +613,75 @@ void menuitem_pause_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_stop_callback(GtkMenuItem * menuitem, void *data)
 {
     stop_callback(GTK_WIDGET(menuitem), NULL, NULL);
+}
+
+void menuitem_view_fullscreen_callback(GtkMenuItem * menuitem, void *data)
+{
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);	
+}
+
+void menuitem_view_onetoone_callback(GtkMenuItem * menuitem, void *data)
+{
+	gint total_height;
+	GtkRequisition req;
+	IdleData *idle = (IdleData*)data;
+	
+	gtk_widget_set_size_request(fixed, -1, -1);
+	gtk_widget_set_size_request(drawing_area, -1, -1);
+	if (idle->width > 0 && idle->height > 0) {
+		gtk_widget_set_size_request(fixed, idle->width, idle->height);
+		gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
+		total_height = idle->height;
+		gtk_widget_size_request(GTK_WIDGET(menubar),&req);
+		total_height += req.height;
+		gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+		total_height += req.height;
+		gtk_window_resize(GTK_WINDOW(window),idle->width,total_height);
+	}
+}
+void menuitem_view_twotoone_callback(GtkMenuItem * menuitem, void *data)
+{
+	gint total_height;
+	GtkRequisition req;
+	IdleData *idle = (IdleData*)data;
+	
+	gtk_widget_set_size_request(fixed, -1, -1);
+	gtk_widget_set_size_request(drawing_area, -1, -1);
+	if (idle->width > 0 && idle->height > 0) {
+		gtk_widget_set_size_request(fixed, idle->width, idle->height);
+		gtk_widget_set_size_request(drawing_area, idle->width * 2, idle->height * 2);
+		total_height = idle->height * 2;
+		gtk_widget_size_request(GTK_WIDGET(menubar),&req);
+		total_height += req.height;
+		gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+		total_height += req.height;
+		gtk_window_resize(GTK_WINDOW(window),idle->width * 2,total_height);
+	}
+}
+
+void menuitem_view_onetotwo_callback(GtkMenuItem * menuitem, void *data)
+{
+	gint total_height;
+	GtkRequisition req;
+	IdleData *idle = (IdleData*)data;
+	
+	gtk_widget_set_size_request(fixed, -1, -1);
+	gtk_widget_set_size_request(drawing_area, -1, -1);
+	if (idle->width > 0 && idle->height > 0) {
+		gtk_widget_set_size_request(fixed, idle->width, idle->height);
+		gtk_widget_set_size_request(drawing_area, idle->width / 2, idle->height / 2);
+		total_height = idle->height / 2;
+		gtk_widget_size_request(GTK_WIDGET(menubar),&req);
+		total_height += req.height;
+		gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+		total_height += req.height;
+		gtk_window_resize(GTK_WINDOW(window),idle->width / 2,total_height);
+	}
+}
+
+void menuitem_view_controls_callback(GtkMenuItem * menuitem, void *data)
+{
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols)));	
 }
 
 void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
@@ -1080,12 +1151,28 @@ GtkWidget *create_window(gint windowid)
 	gtk_menu_item_set_submenu(menuitem_view,GTK_WIDGET(menu_view));
     menuitem_view_fullscreen = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Fullscreen")));
 	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_fullscreen));
+    menuitem_view_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep1));
     menuitem_view_onetoone = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Normal (1:1)")));
 	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_onetoone));
     menuitem_view_twotoone = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Double Size (2:1)")));
 	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_twotoone));
     menuitem_view_onetotwo = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
 	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_onetotwo));
+    menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
+    menuitem_view_controls = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Controls")));
+	gtk_menu_append(menu_view,GTK_WIDGET(menuitem_view_controls));
+    g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "activate",
+                     G_CALLBACK(menuitem_view_fullscreen_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_onetoone), "activate",
+                     G_CALLBACK(menuitem_view_onetoone_callback), idledata);
+    g_signal_connect(GTK_OBJECT(menuitem_view_twotoone), "activate",
+                     G_CALLBACK(menuitem_view_twotoone_callback), idledata);
+    g_signal_connect(GTK_OBJECT(menuitem_view_onetotwo), "activate",
+                     G_CALLBACK(menuitem_view_onetotwo_callback), idledata);
+    g_signal_connect(GTK_OBJECT(menuitem_view_controls), "activate",
+                     G_CALLBACK(menuitem_view_controls_callback), NULL);
 	
 	// Help Menu
     menuitem_help = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Help")));
@@ -1102,6 +1189,15 @@ GtkWidget *create_window(gint windowid)
 	gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
 	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_fullscreen), "activate",
 					    accel_group,'f', 0, GTK_ACCEL_VISIBLE);				   
+
+	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_view_fullscreen), "activate",
+					    accel_group,'f', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);				   
+
+	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_view_onetoone), "activate",
+					    accel_group,'1', 0, GTK_ACCEL_VISIBLE);		
+						
+	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_view_twotoone), "activate",
+					    accel_group,'2', 0, GTK_ACCEL_VISIBLE);				   
 
 	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_showcontrols), "activate",
 					    accel_group,'c', 0, GTK_ACCEL_VISIBLE);				   
