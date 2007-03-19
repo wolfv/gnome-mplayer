@@ -266,7 +266,7 @@ gboolean resize_window(void *data) {
 				total_height = window_y;
 				gtk_widget_set_size_request(fixed, -1, -1);
 				gtk_widget_set_size_request(drawing_area, -1, -1);
-				gtk_widget_show_all(GTK_WIDGET(fixed));
+				gtk_widget_hide_all(GTK_WIDGET(fixed));
 				if (showcontrols) {
 					gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
 					total_height -= req.height;
