@@ -602,12 +602,13 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_play_callback(GtkMenuItem * menuitem, void *data)
 {
-    play_callback(GTK_WIDGET(menuitem), NULL, NULL);
+	if (state != PLAYING)
+		play_callback(GTK_WIDGET(menuitem), NULL, NULL);
 }
 
 void menuitem_pause_callback(GtkMenuItem * menuitem, void *data)
 {
-    pause_callback(GTK_WIDGET(menuitem), NULL, NULL);
+	pause_callback(GTK_WIDGET(menuitem), NULL, NULL);
 }
 
 void menuitem_stop_callback(GtkMenuItem * menuitem, void *data)
