@@ -262,18 +262,31 @@ gboolean resize_window(void *data) {
 				}
 			}
 		} else {
-			gtk_window_set_policy(GTK_WINDOW(window),FALSE,FALSE,TRUE);
-			gtk_widget_set_size_request(fixed, -1, -1);
-			gtk_widget_set_size_request(drawing_area, -1, -1);
-			gtk_widget_show(GTK_WIDGET(song_title));
-			gtk_widget_hide_all(GTK_WIDGET(fixed));
-			gtk_widget_size_request(GTK_WIDGET(menubar),&req);
-			total_height = req.height;
-			if (showcontrols) {
-				gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
-				total_height += req.height;
-			} 
-			gtk_window_resize(GTK_WINDOW(window),req.width,total_height);
+			if (window_x > 0 && window_y > 0) {
+				total_height = window_y;
+				gtk_widget_set_size_request(fixed, -1, -1);
+				gtk_widget_set_size_request(drawing_area, -1, -1);
+				gtk_widget_show_all(GTK_WIDGET(fixed));
+				if (showcontrols) {
+					gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+					total_height -= req.height;
+				} 
+				gtk_widget_set_size_request(fixed, window_x,total_height);
+				gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
+			} else {
+				gtk_window_set_policy(GTK_WINDOW(window),FALSE,FALSE,TRUE);
+				gtk_widget_set_size_request(fixed, -1, -1);
+				gtk_widget_set_size_request(drawing_area, -1, -1);
+				gtk_widget_show(GTK_WIDGET(song_title));
+				gtk_widget_hide_all(GTK_WIDGET(fixed));
+				gtk_widget_size_request(GTK_WIDGET(menubar),&req);
+				total_height = req.height;
+				if (showcontrols) {
+					gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+					total_height += req.height;
+				} 
+				gtk_window_resize(GTK_WINDOW(window),req.width,total_height);
+		    }
 		} 
 		
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen),idle->videopresent);
@@ -1408,7 +1421,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(hbox);
     gtk_widget_show(vbox);
     gtk_widget_show_all(window);
-	gtk_widget_hide(fixed);
+	//gtk_widget_hide(fixed);
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
 
     if (windowid != 0) {
