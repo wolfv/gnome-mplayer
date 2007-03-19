@@ -90,7 +90,8 @@ gint play_file(gchar * filename, gint playlist)
 	if (filename != NULL && strlen(filename) != 0) {
 		thread_data->player_window = 0;
 		thread_data->playlist = playlist;
-		thread_data->streaming = !g_file_test(thread_data->filename,G_FILE_TEST_EXISTS);
+		// thread_data->streaming = !g_file_test(thread_data->filename,G_FILE_TEST_EXISTS);
+		thread_data->streaming = streaming_media(thread_data->filename);
 		streaming = thread_data->streaming;
 		
 		g_idle_add(hide_buttons,thread_data);

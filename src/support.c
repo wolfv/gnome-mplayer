@@ -173,3 +173,21 @@ gboolean read_mplayer_config()
 	printf("vo = %s ao = %s\n",vo,ao);
     return TRUE;
 }
+
+gboolean streaming_media(gchar *filename) {
+	gboolean ret;
+	
+	ret = TRUE;
+	
+	if (strstr(filename,"dvd://") != NULL) {
+		ret = FALSE;
+	} else if (strstr(filename,"dvdnav://") != NULL) {
+		ret = FALSE;
+	} else if (strstr(filename,"cdda://") != NULL ) {
+		ret = FALSE;
+	} else {
+		ret = !g_file_test(filename,G_FILE_TEST_EXISTS);
+	}
+	
+	return ret;
+}
