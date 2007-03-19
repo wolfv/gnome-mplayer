@@ -1,5 +1,7 @@
 Development
 0.4.4
+	Experamental dvdnav:// support by starting gnome-mplayer 
+		with dvdnav:// as the filename to play
 	Set noconsolecontrols option
 	Fix tooltip on Play/Pause
 	Hook up Normal/2:1/1:2 View menu options

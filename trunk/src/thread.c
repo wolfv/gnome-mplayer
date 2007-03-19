@@ -338,11 +338,13 @@ gpointer launch_player(gpointer data) {
     argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-softvol");
-    argv[arg++] = g_strdup_printf("-nomouseinput");
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
-    if (strcmp(threaddata->filename, "dvd://") != 0) {
-       argv[arg++] = g_strdup_printf("-cache");
-       argv[arg++] = g_strdup_printf("%i", cache_size);
+	if (strcmp(threaddata->filename, "dvdnav://") == 0) {
+		argv[arg++] = g_strdup_printf("-mouse-movements");
+    } else if (strcmp(threaddata->filename, "dvd://") != 0) {
+	    argv[arg++] = g_strdup_printf("-nomouseinput");
+        argv[arg++] = g_strdup_printf("-cache");
+        argv[arg++] = g_strdup_printf("%i", cache_size);
     }
     argv[arg++] = g_strdup_printf("-wid");
     player_window = get_player_window();
