@@ -1254,8 +1254,8 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
 	gtk_box_pack_start(GTK_BOX(vbox), controls_box, FALSE, FALSE, 0);
 
-    gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK);
-    gtk_widget_add_events(drawing_area, GDK_BUTTON_RELEASE_MASK);
+    //gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK);
+    //gtk_widget_add_events(drawing_area, GDK_BUTTON_RELEASE_MASK);
     // gtk_widget_add_events(drawing_area, GDK_EXPOSURE_MASK);
 
     g_signal_connect_swapped(G_OBJECT(drawing_area),
