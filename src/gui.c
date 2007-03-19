@@ -241,13 +241,23 @@ gboolean resize_window(void *data) {
 					total_height = idle->height;
 					gtk_widget_size_request(GTK_WIDGET(menubar),&req);
 					total_height += req.height;
-					gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
-					total_height += req.height;
+					if (showcontrols) {
+						gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+						total_height += req.height;
+					}
 					gtk_window_resize(GTK_WINDOW(window),idle->width,total_height);
 				}
 			} else {
 				if (window_x > 0 && window_y > 0) {
+					total_height = window_y;
+					gtk_widget_set_size_request(fixed, -1, -1);
+					gtk_widget_set_size_request(drawing_area, -1, -1);
 					gtk_widget_show_all(GTK_WIDGET(fixed));
+					if (showcontrols) {
+						gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+						total_height -= req.height;
+					} 
+					gtk_widget_set_size_request(fixed, window_x,total_height);
 					gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
 				}
 			}
@@ -259,8 +269,10 @@ gboolean resize_window(void *data) {
 			gtk_widget_hide_all(GTK_WIDGET(fixed));
 			gtk_widget_size_request(GTK_WIDGET(menubar),&req);
 			total_height = req.height;
-			gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
-			total_height += req.height;
+			if (showcontrols) {
+				gtk_widget_size_request(GTK_WIDGET(controls_box),&req);
+				total_height += req.height;
+			} 
 			gtk_window_resize(GTK_WINDOW(window),req.width,total_height);
 		} 
 		
@@ -406,7 +418,7 @@ gboolean expose_fixed_callback(GtkWidget *widget, GdkEventExpose *event, gpointe
 {
 	GdkGC *gc;
 	
-	if (GDK_IS_DRAWABLE(fixed->window)) {
+	if (GDK_IS_DRAWABLE(fixed->window) && videopresent) {
 		gc = gdk_gc_new(fixed->window);
 		// printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
 		gdk_draw_rectangle(fixed->window, gc, TRUE, event->area.x, event->area.y, event->area.width,event->area.height );
@@ -422,7 +434,7 @@ gboolean allocate_fixed_callback(GtkWidget *widget, GtkAllocation *allocation, g
 	gint new_width, new_height;
 
 	
-	if (actual_x > 0 && actual_y > 0) {
+	if (actual_x > 0 && actual_y > 0 && videopresent) {
 	
 		movie_ratio = (gdouble)actual_x / (gdouble)actual_y;
 		window_ratio = (gdouble)allocation->width / (gdouble)allocation->height;
@@ -496,7 +508,14 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		if (state == PLAYING) {
 			send_command("seek 0 2\npause\n");
 			state = STOPPED;
+			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play),pb_play);
+			gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);				
 		}
+		if (state == QUIT) {
+			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play),pb_play);
+			gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);				
+		}
+		
 		g_strlcpy(idledata->progress_text,_("Stopped"),1024);
 		g_idle_add(set_progress_text,idledata);
     }
