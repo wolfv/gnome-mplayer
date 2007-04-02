@@ -64,7 +64,7 @@ gint detect_playlist(gchar * filename)
         }
         fclose(fp);
     }
-    printf("playlist detection = %i\n", playlist);
+    // printf("playlist detection = %i\n", playlist);
     return playlist;
 }
 
