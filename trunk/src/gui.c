@@ -384,6 +384,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
     GdkEventButton *event_button;
 
     menu = GTK_MENU(widget);
+	gtk_widget_grab_focus(fixed);
     if (event->type == GDK_BUTTON_PRESS) {
         event_button = (GdkEventButton *) event;
         if (event_button->button == 3) {
@@ -477,10 +478,23 @@ gboolean allocate_fixed_callback(GtkWidget *widget, GtkAllocation *allocation, g
 	return FALSE;
 }
 
+gboolean window_key_callback(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
+
+	// printf("key = %i\n",event->keyval);
+	
+	if (event->keyval == GDK_space) {
+		return play_callback(NULL,NULL,NULL);
+	}
+	
+	return FALSE;
+}
+
 gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
 	return play_callback(widget,event,data);
 }
+
+
 
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
@@ -1062,18 +1076,21 @@ GtkWidget *create_window(gint windowid)
 	
 	if (windowid != 0) {
 		gtk_window_set_decorated(GTK_WINDOW(window),FALSE);
+		GTK_WIDGET_SET_FLAGS(window, GTK_CAN_FOCUS);
 	}
 
 	gtk_window_set_policy(GTK_WINDOW(window),TRUE,TRUE,TRUE);
 
     gtk_widget_add_events(window, GDK_BUTTON_PRESS_MASK);
     gtk_widget_add_events(window, GDK_BUTTON_RELEASE_MASK);
+    gtk_widget_add_events(window, GDK_KEY_PRESS_MASK);
+    gtk_widget_add_events(window, GDK_KEY_RELEASE_MASK);
     gtk_widget_add_events(window, GDK_ENTER_NOTIFY_MASK);
     gtk_widget_add_events(window, GDK_LEAVE_NOTIFY_MASK);
     gtk_widget_add_events(window, GDK_KEY_PRESS_MASK);
     gtk_widget_add_events(window, GDK_VISIBILITY_NOTIFY_MASK);
     gtk_widget_add_events(window, GDK_STRUCTURE_MASK);
-
+	
     delete_signal_id =
         g_signal_connect(GTK_OBJECT(window), "delete_event", G_CALLBACK(delete_callback), NULL);
 
@@ -1235,13 +1252,20 @@ GtkWidget *create_window(gint windowid)
 	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_showcontrols), "activate",
 					    accel_group,'c', 0, GTK_ACCEL_VISIBLE);				   
 
-	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_pause), "activate",
-					    accel_group,' ', 0, GTK_ACCEL_VISIBLE);				   
+	//gtk_widget_add_accelerator (GTK_WIDGET(menuitem_pause), "activate",
+	//				    accel_group,' ', 0, GTK_ACCEL_VISIBLE);				   
+	
+//	g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
 						
     vbox = gtk_vbox_new(FALSE, 0);
     hbox = gtk_hbox_new(FALSE, 0);
 	controls_box = gtk_vbox_new(FALSE, 0);
 	fixed = gtk_fixed_new();
+	GTK_WIDGET_SET_FLAGS(fixed, GTK_CAN_FOCUS);
+	gtk_widget_add_events(fixed, GDK_KEY_PRESS_MASK);
+    gtk_widget_add_events(fixed, GDK_KEY_RELEASE_MASK);
+	g_signal_connect(GTK_OBJECT(fixed), "key_press_event", G_CALLBACK(window_key_callback), NULL);
+	
     drawing_area = gtk_socket_new();
     //gtk_widget_set_size_request(drawing_area, 1, 1);
     song_title = gtk_entry_new();

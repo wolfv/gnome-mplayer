@@ -1,4 +1,5 @@
 Development
+	Try and make keyboard controls work in XEmbed mode
 0.4.4
 	Experamental dvdnav:// support by starting gnome-mplayer 
 		with dvdnav:// as the filename to play
