@@ -1255,17 +1255,12 @@ GtkWidget *create_window(gint windowid)
 	//gtk_widget_add_accelerator (GTK_WIDGET(menuitem_pause), "activate",
 	//				    accel_group,' ', 0, GTK_ACCEL_VISIBLE);				   
 	
-//	g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
+	g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
 						
     vbox = gtk_vbox_new(FALSE, 0);
     hbox = gtk_hbox_new(FALSE, 0);
 	controls_box = gtk_vbox_new(FALSE, 0);
 	fixed = gtk_fixed_new();
-	GTK_WIDGET_SET_FLAGS(fixed, GTK_CAN_FOCUS);
-	gtk_widget_add_events(fixed, GDK_KEY_PRESS_MASK);
-    gtk_widget_add_events(fixed, GDK_KEY_RELEASE_MASK);
-	g_signal_connect(GTK_OBJECT(fixed), "key_press_event", G_CALLBACK(window_key_callback), NULL);
-	
     drawing_area = gtk_socket_new();
     //gtk_widget_set_size_request(drawing_area, 1, 1);
     song_title = gtk_entry_new();
