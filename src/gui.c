@@ -1252,9 +1252,6 @@ GtkWidget *create_window(gint windowid)
 	gtk_widget_add_accelerator (GTK_WIDGET(menuitem_showcontrols), "activate",
 					    accel_group,'c', 0, GTK_ACCEL_VISIBLE);				   
 
-	//gtk_widget_add_accelerator (GTK_WIDGET(menuitem_pause), "activate",
-	//				    accel_group,' ', 0, GTK_ACCEL_VISIBLE);				   
-	
 	g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
 						
     vbox = gtk_vbox_new(FALSE, 0);
