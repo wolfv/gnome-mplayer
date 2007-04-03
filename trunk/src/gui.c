@@ -759,6 +759,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_widget_show(menubar);
         }
         fullscreen = 0;
+        if (window_x < 250) {
+            gtk_widget_hide(fs_event_box);
+        }
         if (GDK_IS_DRAWABLE(window_container))
             gdk_drawable_get_size(GDK_DRAWABLE(window_container), &width, &height);
         if (width > 0 && height > 0)
@@ -772,6 +775,10 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         }
         gtk_window_fullscreen(GTK_WINDOW(window));
         fullscreen = 1;
+        if (window_x < 250) {
+            gtk_widget_show(fs_event_box);
+        }
+		
     }
     while (gtk_events_pending())
         gtk_main_iteration();
