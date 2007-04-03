@@ -32,6 +32,6 @@
 gint play_file(gchar * filename, gint playlist);
 gint detect_playlist(gchar * filename);
 gboolean update_mplayer_config();
-gboolean send_command(gchar *command);
-gboolean streaming_media(gchar *filename);
-#endif // _SUPPORT_H
+gboolean send_command(gchar * command);
+gboolean streaming_media(gchar * filename);
+#endif                          // _SUPPORT_H
