@@ -132,6 +132,8 @@ int main(int argc, char *argv[])
 	idledata->volume = 100.0;
 	idledata->length = 0.0;
 	
+	// call g_type_init or otherwise we can crash
+	g_type_init();
 	gconf = gconf_client_get_default();
 	cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
 	if (cache_size == 0) 
