@@ -1,4 +1,5 @@
 Development
+	Make fullscreen button appear when in fullscreen and hide it when window is small
 	Version bump
 	Try and make keyboard controls work in XEmbed mode
 0.4.4
