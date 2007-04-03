@@ -21,7 +21,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301,  USA
  */
- 
+
 #ifndef _COMMON_H
 #define _COMMON_H
 
@@ -52,33 +52,33 @@ typedef enum {
 PLAYSTATE state;
 
 typedef struct _IdleData {
-	gchar info[1024];
-	gdouble percent;
-	gdouble cachepercent;
-	gchar progress_text[1024];
-	gdouble volume;
-	gchar vol_tooltip[128];
-	gint x;
-	gint y;
-	gint last_x;
-	gint last_y;
-	gint width;
-	gint height;
-	gint videopresent;
-	gboolean fullscreen;
-	gboolean showcontrols;
-	gdouble position;
-	gdouble length;
+    gchar info[1024];
+    gdouble percent;
+    gdouble cachepercent;
+    gchar progress_text[1024];
+    gdouble volume;
+    gchar vol_tooltip[128];
+    gint x;
+    gint y;
+    gint last_x;
+    gint last_y;
+    gint width;
+    gint height;
+    gint videopresent;
+    gboolean fullscreen;
+    gboolean showcontrols;
+    gdouble position;
+    gdouble length;
 } IdleData;
 
 IdleData *idledata;
 
 
 typedef struct _ThreadData {
-	gchar filename[1024];
-	gint streaming;
-	gint player_window;
-	gint playlist;
+    gchar filename[1024];
+    gint streaming;
+    gint player_window;
+    gint playlist;
 } ThreadData;
 
 gint cache_size;
@@ -97,8 +97,8 @@ gint actual_x, actual_y;
 gint play_x, play_y;
 gint last_x, last_y;
 gchar vm[10];
-gchar* vo;
-gchar* ao;
+gchar *vo;
+gchar *ao;
 
 
 
@@ -122,8 +122,8 @@ gboolean set_volume(void *data);
 gboolean set_fullscreen(void *data);
 gboolean set_show_controls(void *data);
 gboolean set_window_visible(void *data);
-void make_button(gchar *src, gchar *href);
-void dbus_open_by_hrefid(gchar *hrefid);
+void make_button(gchar * src, gchar * href);
+void dbus_open_by_hrefid(gchar * hrefid);
 void dbus_open_next();
 void dbus_cancel();
 
@@ -133,6 +133,4 @@ gpointer launch_player(gpointer data);
 gboolean update_mplayer_config();
 gboolean read_mplayer_config();
 
-#endif /* _COMMON_H */
-
- 
+#endif                          /* _COMMON_H */

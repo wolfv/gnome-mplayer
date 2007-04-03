@@ -25,7 +25,7 @@
 #include <glib.h>
 #include "support.h"
 
-	
+
 gint std_in;
 gint std_out;
 gint std_err;
@@ -35,7 +35,7 @@ GIOChannel *channel_in;
 GIOChannel *channel_err;
 
 GThread *thread;
-extern GMutex* thread_running;
+extern GMutex *thread_running;
 
 
 gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpointer data);

@@ -47,7 +47,7 @@ gint detect_playlist(gchar * filename)
             if (strstr(g_strdown(buffer), "[reference]") != 0) {
                 playlist = 1;
             }
-			
+
             if (strstr(g_strdown(buffer), "<asx") != 0) {
                 playlist = 1;
             }
@@ -59,7 +59,7 @@ gint detect_playlist(gchar * filename)
             if (strstr(g_strdown(buffer), "rtsp://") != 0) {
                 playlist = 1;
             }
-			
+
 
         }
         fclose(fp);
@@ -91,10 +91,10 @@ gboolean update_mplayer_config()
             //printf("%s\n", data);
             def = g_strconcat("[default]\n", data, NULL);
             g_file_set_contents(filename, def, -1, NULL);
-			g_free(data);
-			g_free(def);
-			g_error_free(error);
-			error = NULL;
+            g_free(data);
+            g_free(def);
+            g_error_free(error);
+            error = NULL;
             g_key_file_load_from_file(config,
                                       filename,
                                       G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
@@ -102,18 +102,18 @@ gboolean update_mplayer_config()
         }
     }
 
-	if (vo != NULL && strlen(vo) != 0) {
-		g_key_file_set_string(config,"gnome-mplayer","vo",vo);
-	} else {
-		g_key_file_remove_key(config,"gnome-mplayer","vo",NULL);
-	}
+    if (vo != NULL && strlen(vo) != 0) {
+        g_key_file_set_string(config, "gnome-mplayer", "vo", vo);
+    } else {
+        g_key_file_remove_key(config, "gnome-mplayer", "vo", NULL);
+    }
 
-	if (ao != NULL && strlen(ao) != 0 ) {
-		g_key_file_set_string(config,"gnome-mplayer","ao",ao);
-	} else {
-		g_key_file_remove_key(config,"gnome-mplayer","ao",NULL);
-	}
-	
+    if (ao != NULL && strlen(ao) != 0) {
+        g_key_file_set_string(config, "gnome-mplayer", "ao", ao);
+    } else {
+        g_key_file_remove_key(config, "gnome-mplayer", "ao", NULL);
+    }
+
     data = g_key_file_to_data(config, NULL, NULL);
     //printf("%i\n%s", strlen(data), data);
 
@@ -148,46 +148,49 @@ gboolean read_mplayer_config()
             //printf("%s\n", data);
             def = g_strconcat("[default]\n", data, NULL);
             g_file_set_contents(filename, def, -1, NULL);
-			g_free(data);
-			
-			g_error_free(error);
-			error = NULL;
+            g_free(data);
+
+            g_error_free(error);
+            error = NULL;
             g_key_file_load_from_data(config,
-                                      (const gchar*)def, strlen(def), 
+                                      (const gchar *) def, strlen(def),
                                       G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
                                       &error);
-			g_free(def);
-			
+            g_free(def);
+
         }
     }
 
-	if (vo != NULL) g_free(vo);
-	if (ao != NULL) g_free(ao);
-	vo = g_key_file_get_string(config,"gnome-mplayer","vo",NULL);
-	ao = g_key_file_get_string(config,"gnome-mplayer","ao",NULL);
-	
-	
+    if (vo != NULL)
+        g_free(vo);
+    if (ao != NULL)
+        g_free(ao);
+    vo = g_key_file_get_string(config, "gnome-mplayer", "vo", NULL);
+    ao = g_key_file_get_string(config, "gnome-mplayer", "ao", NULL);
+
+
     g_free(filename);
     g_key_file_free(config);
 
-	printf("vo = %s ao = %s\n",vo,ao);
+    printf("vo = %s ao = %s\n", vo, ao);
     return TRUE;
 }
 
-gboolean streaming_media(gchar *filename) {
-	gboolean ret;
-	
-	ret = TRUE;
-	
-	if (strstr(filename,"dvd://") != NULL) {
-		ret = FALSE;
-	} else if (strstr(filename,"dvdnav://") != NULL) {
-		ret = FALSE;
-	} else if (strstr(filename,"cdda://") != NULL ) {
-		ret = FALSE;
-	} else {
-		ret = !g_file_test(filename,G_FILE_TEST_EXISTS);
-	}
-	
-	return ret;
+gboolean streaming_media(gchar * filename)
+{
+    gboolean ret;
+
+    ret = TRUE;
+
+    if (strstr(filename, "dvd://") != NULL) {
+        ret = FALSE;
+    } else if (strstr(filename, "dvdnav://") != NULL) {
+        ret = FALSE;
+    } else if (strstr(filename, "cdda://") != NULL) {
+        ret = FALSE;
+    } else {
+        ret = !g_file_test(filename, G_FILE_TEST_EXISTS);
+    }
+
+    return ret;
 }
