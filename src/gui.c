@@ -254,7 +254,8 @@ gboolean resize_window(void *data)
                         gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                         total_height -= req.height;
                     }
-                    gtk_widget_set_size_request(fixed, window_x, total_height);
+					if (window_x > 0 && total_height > 0)
+						gtk_widget_set_size_request(fixed, window_x, total_height);
                     gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
                 }
             }
@@ -268,7 +269,8 @@ gboolean resize_window(void *data)
                     gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                     total_height -= req.height;
                 }
-                gtk_widget_set_size_request(fixed, window_x, total_height);
+				if (window_x > 0 && total_height > 0)
+					gtk_widget_set_size_request(fixed, window_x, total_height);
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             } else {
                 gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
