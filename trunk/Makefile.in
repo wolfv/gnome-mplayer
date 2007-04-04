@@ -38,9 +38,9 @@ build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/configure AUTHORS COPYING ChangeLog INSTALL NEWS \
-	config.guess config.sub depcomp install-sh ltmain.sh missing \
-	mkinstalldirs
+	$(srcdir)/gnome-mplayer.spec.in $(top_srcdir)/configure \
+	AUTHORS COPYING ChangeLog INSTALL NEWS config.guess config.sub \
+	depcomp install-sh ltmain.sh missing mkinstalldirs
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
@@ -50,7 +50,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = gnome-mplayer.spec
 SOURCES =
 DIST_SOURCES =
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
@@ -208,7 +208,7 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 SUBDIRS = src po debian
-gnome_mplayerdocdir = ${prefix}/doc/gnome-mplayer
+gnome_mplayerdocdir = ${prefix}/share/doc/gnome-mplayer
 gnome_mplayerdoc_DATA = \
 	README\
 	COPYING\
@@ -223,7 +223,7 @@ desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
 icondir = ${prefix}/share/pixmaps
 icon_DATA = gnome-mplayer.png
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA)
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) gnome-mplayer.spec.in
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -278,6 +278,8 @@ $(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
+gnome-mplayer.spec: $(top_builddir)/config.status $(srcdir)/gnome-mplayer.spec.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -475,7 +477,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/DOCS/tech $(distdir)/po
+	$(mkdir_p) $(distdir)/. $(distdir)/DOCS/tech $(distdir)/po
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \

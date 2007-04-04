@@ -3,7 +3,7 @@
 
 SUBDIRS = src po debian
 
-gnome_mplayerdocdir = ${prefix}/doc/gnome-mplayer
+gnome_mplayerdocdir = ${prefix}/share/doc/gnome-mplayer
 gnome_mplayerdoc_DATA = \
 	README\
 	COPYING\
@@ -20,7 +20,7 @@ desktop_DATA = gnome-mplayer.desktop
 icondir = ${prefix}/share/pixmaps
 icon_DATA = gnome-mplayer.png
 
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA)
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) gnome-mplayer.spec.in
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

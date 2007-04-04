@@ -1,0 +1,38 @@
+%define ver @VERSION@
+
+
+Name: gnome-mplayer
+Summary: GNOME Frontend for MPlayer
+Version: %{ver}
+Release: 1
+License: GPL
+Group: Multimedia
+Packager: Kevin DeKorte <kdekorte@gmail.com>
+Source0: http://dekorte.homeip.net/download/gnome-mplayer/gnome-mplayer-%{ver}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+Requires: mplayer
+
+%description
+GNOME MPlayer is a simple GUI for MPlayer. It is based heavily on the mplayerplug-in source code and can basically be seen as a standalone version of that. GNOME MPlayer is currently changing alot. However, it is good enough that I can use it as my default viewer for media on my personal machine.
+
+%prep
+%setup -q
+
+%build
+%configure
+make %{?_smp_mflags}
+
+%install
+rm -rf %buildroot
+make install DESTDIR=%buildroot
+
+%clean
+rm -rf $buildroot
+
+%files
+%defattr(-,root,root,-)
+%{_docdir}/%{name}
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/locale
+%{_datadir}/pixmaps/gnome-mplayer.png
