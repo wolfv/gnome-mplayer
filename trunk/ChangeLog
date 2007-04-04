@@ -1,4 +1,5 @@
 Development
+	Protect gtk_set_size_request calls
 	Create autobuilding spec file
 	Make fullscreen button appear when in fullscreen and hide it when window is small
 	Version bump
