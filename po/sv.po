@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-03 16:32-0600\n"
+"POT-Creation-Date: 2007-04-09 14:32-0600\n"
 "PO-Revision-Date: 2007-03-13 14:49+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -95,148 +95,148 @@ msgstr "%i.%02i.%02i / %i.%02i.%02i | %2i%% ▼"
 msgid "%i:%02i:%02i / %i:%02i:%02i"
 msgstr "%i.%02i.%02i / %i.%02i.%02i"
 
-#: src/gui.c:353 src/gui.c:592 src/thread.c:218
+#: src/gui.c:355 src/gui.c:603 src/thread.c:218
 #, c-format
 msgid "Volume %i%%"
 msgstr "Volym %i%%"
 
-#: src/gui.c:517
+#: src/gui.c:528
 msgid "Pause"
 msgstr "Paus"
 
-#: src/gui.c:518
+#: src/gui.c:529
 msgid "Playing"
 msgstr "Spelar"
 
-#: src/gui.c:524 src/gui.c:550 src/gui.c:554 src/gui.c:1379
+#: src/gui.c:535 src/gui.c:561 src/gui.c:565 src/gui.c:1425
 msgid "Play"
 msgstr "Spela"
 
-#: src/gui.c:525
+#: src/gui.c:536
 msgid "Paused"
 msgstr "Pausad"
 
-#: src/gui.c:557
+#: src/gui.c:568
 msgid "Stopped"
 msgstr "Stoppad"
 
-#: src/gui.c:616
+#: src/gui.c:629
 msgid "Open File"
 msgstr "Öppna fil"
 
-#: src/gui.c:650 src/gui.c:1076
+#: src/gui.c:674 src/gui.c:1121
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:654
+#: src/gui.c:678
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "En mediaspelare för GNOME som använder MPlayer"
 
-#: src/gui.c:865
+#: src/gui.c:910
 msgid "GNOME MPlayer Configuration"
 msgstr "Konfiguration av GNOME MPlayer"
 
-#: src/gui.c:868
+#: src/gui.c:913
 msgid "OK"
 msgstr "OK"
 
-#: src/gui.c:872
+#: src/gui.c:917
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/gui.c:922
+#: src/gui.c:967
 msgid "Video Output:"
 msgstr "Videoutmatning:"
 
-#: src/gui.c:928
+#: src/gui.c:973
 msgid "Audio Output:"
 msgstr "Ljudutmatning:"
 
-#: src/gui.c:935
+#: src/gui.c:980
 msgid "Minimum Cache Size:"
 msgstr "Minsta cachestorlek:"
 
-#: src/gui.c:1119
+#: src/gui.c:1166
 #, fuzzy
 msgid "S_how Controls"
 msgstr "Visa kontroller"
 
-#: src/gui.c:1123
+#: src/gui.c:1170
 #, fuzzy
 msgid "_Full Screen"
 msgstr "Helskärm"
 
 #. File Menu
-#: src/gui.c:1163
+#: src/gui.c:1210
 #, fuzzy
 msgid "_File"
 msgstr "Arkiv"
 
-#: src/gui.c:1170
+#: src/gui.c:1217
 msgid "Open _DVD"
 msgstr ""
 
-#: src/gui.c:1173
+#: src/gui.c:1220
 #, fuzzy
 msgid "Open _Audio CD"
 msgstr "Spela ljud-cd"
 
 #. Edit Menu
-#: src/gui.c:1189
+#: src/gui.c:1236
 #, fuzzy
 msgid "_Edit"
 msgstr "Redigera"
 
 #. View Menu
-#: src/gui.c:1201
+#: src/gui.c:1248
 #, fuzzy
 msgid "_View"
 msgstr "Arkiv"
 
-#: src/gui.c:1207
+#: src/gui.c:1254
 #, fuzzy
 msgid "_Fullscreen"
 msgstr "Helskärm"
 
-#: src/gui.c:1212
+#: src/gui.c:1259
 msgid "_Normal (1:1)"
 msgstr ""
 
-#: src/gui.c:1215
+#: src/gui.c:1262
 msgid "_Double Size (2:1)"
 msgstr ""
 
-#: src/gui.c:1218
+#: src/gui.c:1265
 msgid "_Half Size (1:2)"
 msgstr ""
 
-#: src/gui.c:1222
+#: src/gui.c:1269
 #, fuzzy
 msgid "_Controls"
 msgstr "Visa kontroller"
 
 #. Help Menu
-#: src/gui.c:1236
+#: src/gui.c:1283
 #, fuzzy
 msgid "_Help"
 msgstr "Hjälp"
 
-#: src/gui.c:1367
+#: src/gui.c:1413
 msgid "Rewind"
 msgstr "Tillbaka"
 
-#: src/gui.c:1392
+#: src/gui.c:1438
 msgid "Stop"
 msgstr "Stoppa"
 
-#: src/gui.c:1405
+#: src/gui.c:1451
 msgid "Fast Forward"
 msgstr "Snabbspola"
 
-#: src/gui.c:1424
-msgid "Volume 100%"
-msgstr "Volym 100%"
-
-#: src/gui.c:1434
+#: src/gui.c:1470
 msgid "Full Screen"
 msgstr "Helskärm"
+
+#: src/gui.c:1482
+msgid "Volume 100%"
+msgstr "Volym 100%"

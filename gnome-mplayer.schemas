@@ -1,0 +1,29 @@
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/cache_size</key>
+      <applyto>/apps/gnome-mplayer/preferences/cache_size</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>2000</default>
+      <locale name="C">
+        <short>Cache size</short>
+        <long>The memory cache size for playing</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/last_dir</key>
+      <applyto>/apps/gnome-mplayer/preferences/last_dir</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Last directory</short>
+        <long>Last visited direcory with open dialog</long>
+      </locale>
+    </schema>
+
+  </schemalist>
+</gconfschemafile>

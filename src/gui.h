@@ -158,7 +158,6 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 void vol_slider_callback(GtkRange * range, gpointer user_data);
 gboolean fs_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 
-
 void menuitem_open_callback(GtkMenuItem * menuitem, void *data);
 void menuitem_quit_callback(GtkMenuItem * menuitem, void *data);
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data);

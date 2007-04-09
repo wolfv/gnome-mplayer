@@ -26,6 +26,7 @@
 #define _COMMON_H
 
 #define CACHE_SIZE		"/apps/gnome-mplayer/preferences/cache_size"
+#define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 
 // JavaScript Playstates
 #define STATE_UNDEFINED     0

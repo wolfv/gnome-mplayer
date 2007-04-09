@@ -66,11 +66,14 @@ am__vpath_adj = case $$p in \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(desktopdir)" \
-	"$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(icondir)"
+	"$(DESTDIR)$(gnome_mplayerdocdir)" \
+	"$(DESTDIR)$(gnome_mplayeretcdir)" "$(DESTDIR)$(icondir)"
 desktopDATA_INSTALL = $(INSTALL_DATA)
 gnome_mplayerdocDATA_INSTALL = $(INSTALL_DATA)
+gnome_mplayeretcDATA_INSTALL = $(INSTALL_DATA)
 iconDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(desktop_DATA) $(gnome_mplayerdoc_DATA) $(icon_DATA)
+DATA = $(desktop_DATA) $(gnome_mplayerdoc_DATA) \
+	$(gnome_mplayeretc_DATA) $(icon_DATA)
 ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = $(SUBDIRS)
@@ -219,11 +222,13 @@ gnome_mplayerdoc_DATA = \
 	DOCS/tech/dbus.txt \
 	DOCS/tech/plugin-interaction.txt
 
+gnome_mplayeretcdir = ${sysconfdir}/gconf/schemas
+gnome_mplayeretc_DATA = gnome-mplayer.schemas
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
 icondir = ${prefix}/share/pixmaps
 icon_DATA = gnome-mplayer.png
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) gnome-mplayer.spec.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) $(gnome_mplayeretc_DATA) gnome-mplayer.spec.in
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -323,6 +328,23 @@ uninstall-gnome_mplayerdocDATA:
 	  f=$(am__strip_dir) \
 	  echo " rm -f '$(DESTDIR)$(gnome_mplayerdocdir)/$$f'"; \
 	  rm -f "$(DESTDIR)$(gnome_mplayerdocdir)/$$f"; \
+	done
+install-gnome_mplayeretcDATA: $(gnome_mplayeretc_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(gnome_mplayeretcdir)" || $(mkdir_p) "$(DESTDIR)$(gnome_mplayeretcdir)"
+	@list='$(gnome_mplayeretc_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(gnome_mplayeretcDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(gnome_mplayeretcdir)/$$f'"; \
+	  $(gnome_mplayeretcDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(gnome_mplayeretcdir)/$$f"; \
+	done
+
+uninstall-gnome_mplayeretcDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(gnome_mplayeretc_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(gnome_mplayeretcdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(gnome_mplayeretcdir)/$$f"; \
 	done
 install-iconDATA: $(icon_DATA)
 	@$(NORMAL_INSTALL)
@@ -624,7 +646,7 @@ check: check-recursive
 all-am: Makefile $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(icondir)"; do \
+	for dir in "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(gnome_mplayeretcdir)" "$(DESTDIR)$(icondir)"; do \
 	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
 	done
 install: install-recursive
@@ -672,7 +694,7 @@ info: info-recursive
 info-am:
 
 install-data-am: install-desktopDATA install-gnome_mplayerdocDATA \
-	install-iconDATA
+	install-gnome_mplayeretcDATA install-iconDATA
 
 install-exec-am:
 
@@ -701,7 +723,8 @@ ps: ps-recursive
 ps-am:
 
 uninstall-am: uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
-	uninstall-iconDATA uninstall-info-am
+	uninstall-gnome_mplayeretcDATA uninstall-iconDATA \
+	uninstall-info-am
 
 uninstall-info: uninstall-info-recursive
 
@@ -714,14 +737,15 @@ uninstall-info: uninstall-info-recursive
 	distuninstallcheck dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am \
 	install-desktopDATA install-exec install-exec-am \
-	install-gnome_mplayerdocDATA install-iconDATA install-info \
-	install-info-am install-man install-strip installcheck \
-	installcheck-am installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic maintainer-clean-recursive \
-	mostlyclean mostlyclean-generic mostlyclean-libtool \
-	mostlyclean-recursive pdf pdf-am ps ps-am tags tags-recursive \
-	uninstall uninstall-am uninstall-desktopDATA \
-	uninstall-gnome_mplayerdocDATA uninstall-iconDATA \
+	install-gnome_mplayerdocDATA install-gnome_mplayeretcDATA \
+	install-iconDATA install-info install-info-am install-man \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
+	maintainer-clean-recursive mostlyclean mostlyclean-generic \
+	mostlyclean-libtool mostlyclean-recursive pdf pdf-am ps ps-am \
+	tags tags-recursive uninstall uninstall-am \
+	uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
+	uninstall-gnome_mplayeretcDATA uninstall-iconDATA \
 	uninstall-info-am
 
 

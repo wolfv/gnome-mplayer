@@ -14,13 +14,16 @@ gnome_mplayerdoc_DATA = \
 	DOCS/tech/dbus.txt \
 	DOCS/tech/plugin-interaction.txt
 
+gnome_mplayeretcdir = ${sysconfdir}/gconf/schemas
+gnome_mplayeretc_DATA = gnome-mplayer.schemas
+
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
 
 icondir = ${prefix}/share/pixmaps
 icon_DATA = gnome-mplayer.png
 
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) gnome-mplayer.spec.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) $(gnome_mplayeretc_DATA) gnome-mplayer.spec.in
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

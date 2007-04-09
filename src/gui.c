@@ -494,12 +494,21 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 {
 
     // printf("key = %i\n",event->keyval);
+	switch (event->keyval)
+	{
+		case GDK_Right:
+			return ff_callback (NULL,NULL,NULL);
+			break;
+		case GDK_Left:
+			return rew_callback (NULL,NULL,NULL);
+			break;
+		case GDK_space:
+			return play_callback(NULL, NULL, NULL);
+		    break;
+		default:
+			return FALSE;
+	}
 
-    if (event->keyval == GDK_space) {
-        return play_callback(NULL, NULL, NULL);
-    }
-
-    return FALSE;
 }
 
 gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
@@ -614,20 +623,33 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 
     GtkWidget *dialog;
     gchar *filename;
-
+	GConfClient *gconf;
+	gchar *last_dir;
+	
     dialog = gtk_file_chooser_dialog_new(_("Open File"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_OPEN,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 
+	gconf = gconf_client_get_default ();
+	last_dir = gconf_client_get_string (gconf,LAST_DIR,NULL);
+	if (last_dir != NULL)
+		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog),last_dir);
+	
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER (dialog));
+		gconf_client_set_string(gconf,LAST_DIR,last_dir,NULL);
+		g_free(last_dir);
+		
         shutdown();
         play_file((gchar *) filename, 0);
         g_free(filename);
     }
+	
+	g_object_unref(G_OBJECT(gconf));
     gtk_widget_destroy(dialog);
 
 }
@@ -1118,9 +1140,11 @@ GtkWidget *create_window(gint windowid)
     delete_signal_id =
         g_signal_connect(GTK_OBJECT(window), "delete_event", G_CALLBACK(delete_callback), NULL);
 
+    accel_group = gtk_accel_group_new();
+
     popup_menu = GTK_MENU(gtk_menu_new());
     menubar = gtk_menu_bar_new();
-    menuitem_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, NULL));
+    menuitem_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_open));
     gtk_widget_show(GTK_WIDGET(menuitem_open));
     menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
@@ -1155,7 +1179,7 @@ GtkWidget *create_window(gint windowid)
     menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep3));
     gtk_widget_show(GTK_WIDGET(menuitem_sep3));
-    menuitem_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL));
+    menuitem_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_quit));
     gtk_widget_show(GTK_WIDGET(menuitem_quit));
 
@@ -1188,7 +1212,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(GTK_WIDGET(menuitem_file));
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), GTK_WIDGET(menuitem_file));
     gtk_menu_item_set_submenu(menuitem_file, GTK_WIDGET(menu_file));
-    menuitem_file_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, NULL));
+    menuitem_file_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open));
     menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_dvd));
@@ -1197,7 +1221,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_acd));
     menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep1));
-    menuitem_file_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, NULL));
+    menuitem_file_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_quit));
     g_signal_connect(GTK_OBJECT(menuitem_file_open), "activate",
                      G_CALLBACK(menuitem_open_callback), NULL);
@@ -1266,7 +1290,6 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_help_about), "activate",
                      G_CALLBACK(menuitem_about_callback), NULL);
 
-    accel_group = gtk_accel_group_new();
     gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_fullscreen), "activate",
                                accel_group, 'f', 0, GTK_ACCEL_VISIBLE);
@@ -1283,7 +1306,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_showcontrols), "activate",
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
 
-    g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
+    g_signal_connect(GTK_OBJECT(window), "key_release_event", G_CALLBACK(window_key_callback), NULL);
 
     vbox = gtk_vbox_new(FALSE, 0);
     hbox = gtk_hbox_new(FALSE, 0);
