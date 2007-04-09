@@ -1445,10 +1445,9 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_show(hbox);
     gtk_widget_show(vbox);
-    gtk_widget_show_all(window);
-    //gtk_widget_hide(fixed);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
 
+	gtk_widget_realize(window);
+	
     if (windowid != 0) {
         while (gtk_events_pending())
             gtk_main_iteration();
@@ -1465,6 +1464,8 @@ GtkWidget *create_window(gint windowid)
             gtk_widget_hide(fs_event_box);
         }
     }
+    gtk_widget_show_all(window);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
 
     g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), NULL);
     g_signal_connect(G_OBJECT(fixed), "expose_event", G_CALLBACK(expose_fixed_callback), NULL);
