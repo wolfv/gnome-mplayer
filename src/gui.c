@@ -770,6 +770,10 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         if (window_x < 250) {
             gtk_widget_hide(fs_event_box);
         }
+		if (window_x < 170) {
+			gtk_widget_hide(GTK_WIDGET(progress));
+		}
+
         if (GDK_IS_DRAWABLE(window_container))
             gdk_drawable_get_size(GDK_DRAWABLE(window_container), &width, &height);
         if (width > 0 && height > 0)
@@ -792,6 +796,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         if (window_x < 250) {
             gtk_widget_show(fs_event_box);
         }
+		if (window_x < 170) {
+			gtk_widget_show(GTK_WIDGET(progress));
+		}
 		
     }
     while (gtk_events_pending())
@@ -1422,40 +1429,41 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_events(ff_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(ff_event_box), "button_press_event", G_CALLBACK(ff_callback), NULL);
     gtk_widget_set_size_request(GTK_WIDGET(ff_event_box), 22, 16);
-
     gtk_container_add(GTK_CONTAINER(ff_event_box), image_ff);
     gtk_box_pack_start(GTK_BOX(hbox), ff_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_ff);
     gtk_widget_show(ff_event_box);
 
-
+	// progress bar
     progress = GTK_PROGRESS_BAR(gtk_progress_bar_new());
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(progress), TRUE, TRUE, 2);
     gtk_widget_set_events(GTK_WIDGET(progress), GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(progress), "button_press_event", G_CALLBACK(progress_callback), NULL);
     gtk_widget_show(GTK_WIDGET(progress));
 
-    vol_slider = gtk_hscale_new_with_range(0.0, 100.0, 1.0);
-    volume_tip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(volume_tip, vol_slider, _("Volume 100%"), NULL);
-    gtk_widget_set_size_request(vol_slider, 44, 16);
-    gtk_box_pack_start(GTK_BOX(hbox), vol_slider, FALSE, FALSE, 0);
-    gtk_scale_set_draw_value(GTK_SCALE(vol_slider), FALSE);
-    gtk_range_set_value(GTK_RANGE(vol_slider), 100.0);
-    g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_slider_callback), NULL);
-    gtk_widget_show(vol_slider);
-
+	// fullscreen button, pack from end for this button and the vol slider
     fs_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, fs_event_box, _("Full Screen"), NULL);
     gtk_widget_set_events(fs_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(fs_event_box), "button_press_event", G_CALLBACK(fs_callback), NULL);
     gtk_widget_set_size_request(GTK_WIDGET(fs_event_box), 22, 16);
-
     gtk_container_add(GTK_CONTAINER(fs_event_box), image_fs);
-    gtk_box_pack_start(GTK_BOX(hbox), fs_event_box, FALSE, FALSE, 0);
+    gtk_box_pack_end(GTK_BOX(hbox), fs_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_fs);
     gtk_widget_show(fs_event_box);
+	
+	// volume control
+    vol_slider = gtk_hscale_new_with_range(0.0, 100.0, 1.0);
+    volume_tip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(volume_tip, vol_slider, _("Volume 100%"), NULL);
+    gtk_widget_set_size_request(vol_slider, 44, 16);
+    gtk_box_pack_end(GTK_BOX(hbox), vol_slider, FALSE, FALSE, 0);
+    gtk_scale_set_draw_value(GTK_SCALE(vol_slider), FALSE);
+    gtk_range_set_value(GTK_RANGE(vol_slider), 100.0);
+    g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_slider_callback), NULL);
+    gtk_widget_show(vol_slider);
+
 
 	gtk_widget_realize(window);
 	
@@ -1481,6 +1489,10 @@ GtkWidget *create_window(gint windowid)
             gtk_widget_hide(ff_event_box);
             gtk_widget_hide(fs_event_box);
         }
+		
+		if (window_x < 170) {
+			gtk_widget_hide(GTK_WIDGET(progress));
+		}
 	}
 	
     g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), NULL);
