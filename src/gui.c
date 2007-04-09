@@ -785,16 +785,18 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 			
             gdk_window_reparent(window->window, window_container, 0, 0);
             gtk_widget_map(window);
+			
+			if (window_x < 250) {
+				gtk_widget_hide(fs_event_box);
+			}
+			if (window_x < 170) {
+				gtk_widget_hide(GTK_WIDGET(progress));
+			}
         } else {
             gtk_widget_show(menubar);
         }
         fullscreen = 0;
-        if (window_x < 250) {
-            gtk_widget_hide(fs_event_box);
-        }
-		if (window_x < 170) {
-			gtk_widget_hide(GTK_WIDGET(progress));
-		}
+
 
         if (GDK_IS_DRAWABLE(window_container))
             gdk_drawable_get_size(GDK_DRAWABLE(window_container), &width, &height);
@@ -810,17 +812,19 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 			
             gdk_window_reparent(window->window, NULL, 0, 0);
             gtk_widget_map(window);
-        } else {
+
+			if (window_x < 250) {
+				gtk_widget_show(fs_event_box);
+			}
+			if (window_x < 170) {
+				gtk_widget_show(GTK_WIDGET(progress));
+			}
+
+		} else {
             gtk_widget_hide(menubar);
         }
         gtk_window_fullscreen(GTK_WINDOW(window));
         fullscreen = 1;
-        if (window_x < 250) {
-            gtk_widget_show(fs_event_box);
-        }
-		if (window_x < 170) {
-			gtk_widget_show(GTK_WIDGET(progress));
-		}
 		
     }
     while (gtk_events_pending())
