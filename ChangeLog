@@ -1,4 +1,5 @@
 Development
+	Make sure proper controls are visible when embedded
 	Make windows keep from popping when embedded
 	Protect gtk_set_size_request calls
 	Create autobuilding spec file

@@ -1443,9 +1443,6 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(image_fs);
     gtk_widget_show(fs_event_box);
 
-    gtk_widget_show(hbox);
-    gtk_widget_show(vbox);
-
 	gtk_widget_realize(window);
 	
     if (windowid != 0) {
@@ -1457,16 +1454,21 @@ GtkWidget *create_window(gint windowid)
             gtk_widget_unmap(window);
         gdk_window_reparent(window->window, window_container, 0, 0);
         gtk_widget_map(window);
+
+    }
+	
+    gtk_widget_show_all(window);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
+	
+    if (windowid != 0) {
         gtk_widget_hide(GTK_WIDGET(song_title));
         if (window_x < 250) {
             gtk_widget_hide(rew_event_box);
             gtk_widget_hide(ff_event_box);
             gtk_widget_hide(fs_event_box);
         }
-    }
-    gtk_widget_show_all(window);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
-
+	}
+	
     g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), NULL);
     g_signal_connect(G_OBJECT(fixed), "expose_event", G_CALLBACK(expose_fixed_callback), NULL);
 
