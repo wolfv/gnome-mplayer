@@ -43,11 +43,16 @@ void shutdown()
 
 gboolean send_command(gchar * command)
 {
-
-    write(std_in, command, strlen(command));
+	gint ret;
+	
+    ret = write(std_in, command, strlen(command));
     fsync(std_in);
-    return TRUE;
-
+	if (ret < 0) {
+		return FALSE;
+	} else {
+		return TRUE;
+	}
+	
 }
 
 gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpointer data)
