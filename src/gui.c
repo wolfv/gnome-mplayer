@@ -755,6 +755,12 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         gtk_window_unfullscreen(GTK_WINDOW(window));
 
         if (embed_window != 0) {
+            while (gtk_events_pending())
+                gtk_main_iteration();
+
+            if (GTK_WIDGET_MAPPED(window))
+                gtk_widget_unmap(window);
+			
             gdk_window_reparent(window->window, window_container, 0, 0);
             gtk_widget_map(window);
         } else {
@@ -770,6 +776,12 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_resize(GTK_WINDOW(window), width, height);
     } else {
         if (embed_window != 0) {
+            while (gtk_events_pending())
+                gtk_main_iteration();
+
+            if (GTK_WIDGET_MAPPED(window))
+                gtk_widget_unmap(window);
+			
             gdk_window_reparent(window->window, NULL, 0, 0);
             gtk_widget_map(window);
         } else {
@@ -784,6 +796,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
     }
     while (gtk_events_pending())
         gtk_main_iteration();
+	
     if (GDK_IS_DRAWABLE(drawing_area->window)) {
         gc = gdk_gc_new(drawing_area->window);
         gdk_drawable_get_size(GDK_DRAWABLE(drawing_area->window), &width, &height);
@@ -792,6 +805,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gdk_draw_rectangle(drawing_area->window, gc, TRUE, 0, 0, width, height);
         gdk_gc_unref(gc);
     }
+	
     while (gtk_events_pending())
         gtk_main_iteration();
 
