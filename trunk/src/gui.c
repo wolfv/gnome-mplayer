@@ -926,6 +926,48 @@ void contrast_callback(GtkRange * range, gpointer data)
 	idle->contrast = contrast;
 }
 
+void gamma_callback(GtkRange * range, gpointer data)
+{
+    gint gamma;
+    gchar *cmd;
+    IdleData *idle = (IdleData *) data;
+
+    gamma = (gint) gtk_range_get_value(range);
+    cmd = g_strdup_printf("gamma %i 1\n", gamma);
+    send_command(cmd);
+    g_free(cmd);
+    send_command("get_property gamma\n");
+	idle->hue = gamma;
+}
+
+void hue_callback(GtkRange * range, gpointer data)
+{
+    gint hue;
+    gchar *cmd;
+    IdleData *idle = (IdleData *) data;
+
+    hue = (gint) gtk_range_get_value(range);
+    cmd = g_strdup_printf("hue %i 1\n", hue);
+    send_command(cmd);
+    g_free(cmd);
+    send_command("get_property hue\n");
+	idle->hue = hue;
+}
+
+void saturation_callback(GtkRange * range, gpointer data)
+{
+    gint saturation;
+    gchar *cmd;
+    IdleData *idle = (IdleData *) data;
+
+    saturation = (gint) gtk_range_get_value(range);
+    cmd = g_strdup_printf("saturation %i 1\n", saturation);
+    send_command(cmd);
+    g_free(cmd);
+    send_command("get_property saturation\n");
+	idle->saturation = saturation;
+}
+
 void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 {
 	GtkWidget *adv_window;
@@ -936,7 +978,9 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 	GtkWidget *label;
 	GtkWidget *brightness;
 	GtkWidget *contrast;
-	
+	GtkWidget *gamma;
+	GtkWidget *hue;
+	GtkWidget *saturation;
 	gint i = 0;
 	
 	adv_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -975,9 +1019,40 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), contrast, 1, 2, i, i + 1);
+	i++;
+
+	label = gtk_label_new(_("Gamma"));
+	gamma = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+	gtk_widget_set_size_request(gamma,200,-1);
+    gtk_range_set_value(GTK_RANGE(gamma), idledata->gamma);
+    gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), gamma, 1, 2, i, i + 1);
+	i++;
+
+	label = gtk_label_new(_("Hue"));
+	hue = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+	gtk_widget_set_size_request(hue,200,-1);
+    gtk_range_set_value(GTK_RANGE(hue), idledata->hue);
+    gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), hue, 1, 2, i, i + 1);
+	i++;
+
+	label = gtk_label_new(_("Saturation"));
+	saturation = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+	gtk_widget_set_size_request(saturation,200,-1);
+    gtk_range_set_value(GTK_RANGE(saturation), idledata->saturation);
+    gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), saturation, 1, 2, i, i + 1);
+	i++;
 	
     g_signal_connect(G_OBJECT(brightness), "value_changed", G_CALLBACK(brightness_callback), idledata);
     g_signal_connect(G_OBJECT(contrast), "value_changed", G_CALLBACK(contrast_callback), idledata);
+    g_signal_connect(G_OBJECT(gamma), "value_changed", G_CALLBACK(gamma_callback), idledata);
+    g_signal_connect(G_OBJECT(hue), "value_changed", G_CALLBACK(hue_callback), idledata);
+    g_signal_connect(G_OBJECT(saturation), "value_changed", G_CALLBACK(saturation_callback), idledata);
 	
     adv_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     g_signal_connect_swapped(GTK_OBJECT(adv_close), "clicked",

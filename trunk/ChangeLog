@@ -1,4 +1,8 @@
 Development
+	Implement more Advanced Video Controls
+		Gamma, Hue and Saturation
+			Gamma and Hue only seem to work with a vo of gl:yuv=3 or gl:yuv=4
+			Saturation seems to need a vo of gl to work
 	Implement Advanced Video Controls dialog 
 		Brightness and Contrast are supported at the moment
 	Add 'm' as mute toggle key.
