@@ -505,6 +505,15 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 		case GDK_space:
 			return play_callback(NULL, NULL, NULL);
 		    break;
+		case GDK_m:
+			if (idledata->mute) {
+				send_command("mute 0");
+				idledata->mute = 0;
+			} else {
+				send_command("mute 1");
+				idledata->mute = 1;
+			}
+		    return FALSE;
 		default:
 			return FALSE;
 	}
@@ -889,6 +898,97 @@ void config_close(GtkWidget * widget, void *data)
     gtk_widget_destroy(widget);
 }
 
+void brightness_callback(GtkRange * range, gpointer data)
+{
+    gint brightness;
+    gchar *cmd;
+    IdleData *idle = (IdleData *) data;
+
+    brightness = (gint) gtk_range_get_value(range);
+    cmd = g_strdup_printf("brightness %i 1\n", brightness);
+    send_command(cmd);
+    g_free(cmd);
+    send_command("get_property brightness\n");
+	idle->brightness = brightness;
+}
+
+void contrast_callback(GtkRange * range, gpointer data)
+{
+    gint contrast;
+    gchar *cmd;
+    IdleData *idle = (IdleData *) data;
+
+    contrast = (gint) gtk_range_get_value(range);
+    cmd = g_strdup_printf("contrast %i 1\n", contrast);
+    send_command(cmd);
+    g_free(cmd);
+    send_command("get_property contrast\n");
+	idle->contrast = contrast;
+}
+
+void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
+{
+	GtkWidget *adv_window;
+	GtkWidget *adv_vbox;
+	GtkWidget *adv_hbutton_box;
+	GtkWidget *adv_table;
+	GtkWidget *adv_close;
+	GtkWidget *label;
+	GtkWidget *brightness;
+	GtkWidget *contrast;
+	
+	gint i = 0;
+	
+	adv_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_type_hint(GTK_WINDOW(adv_window),GDK_WINDOW_TYPE_HINT_UTILITY);
+	gtk_window_set_resizable(GTK_WINDOW(adv_window), FALSE);
+	gtk_window_set_title(GTK_WINDOW(adv_window), _("Advanced Video Controls"));
+
+    adv_vbox = gtk_vbox_new(FALSE, 10);
+    adv_hbutton_box = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+    adv_table = gtk_table_new(20, 2, FALSE);
+
+    gtk_container_add(GTK_CONTAINER(adv_vbox), adv_table);
+    gtk_container_add(GTK_CONTAINER(adv_vbox), adv_hbutton_box);
+    gtk_container_add(GTK_CONTAINER(adv_window), adv_vbox);
+
+    gtk_container_set_border_width(GTK_CONTAINER(adv_window), 5);
+	
+	label = gtk_label_new(_("Adjust Video Settings:"));
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
+	i++;
+	
+	label = gtk_label_new(_("Brightness"));
+	brightness = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+	gtk_widget_set_size_request(brightness,200,-1);
+    gtk_range_set_value(GTK_RANGE(brightness), idledata->brightness);
+    gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), brightness, 1, 2, i, i + 1);
+	i++;
+	
+	label = gtk_label_new(_("Contrast"));
+	contrast = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+	gtk_widget_set_size_request(contrast,200,-1);
+    gtk_range_set_value(GTK_RANGE(contrast), idledata->contrast);
+    gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), contrast, 1, 2, i, i + 1);
+	
+    g_signal_connect(G_OBJECT(brightness), "value_changed", G_CALLBACK(brightness_callback), idledata);
+    g_signal_connect(G_OBJECT(contrast), "value_changed", G_CALLBACK(contrast_callback), idledata);
+	
+    adv_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    g_signal_connect_swapped(GTK_OBJECT(adv_close), "clicked",
+                             GTK_SIGNAL_FUNC(config_close), adv_window);
+	
+	gtk_container_add(GTK_CONTAINER(adv_hbutton_box),adv_close);
+	gtk_widget_show_all(adv_window);
+	
+}
+
+
 void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 {
     GtkWidget *config_window;
@@ -914,11 +1014,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_window_set_title(GTK_WINDOW(config_window), _("GNOME MPlayer Configuration"));
     gtk_container_set_border_width(GTK_CONTAINER(config_window), 5);
     gtk_window_set_default_size(GTK_WINDOW(config_window), 300, 300);
-    conf_ok = gtk_button_new_with_label(_("OK"));
+    conf_ok = gtk_button_new_from_stock(GTK_STOCK_OK);
     g_signal_connect_swapped(GTK_OBJECT(conf_ok), "clicked",
                              GTK_SIGNAL_FUNC(config_apply), config_window);
 
-    conf_cancel = gtk_button_new_with_label(_("Cancel"));
+    conf_cancel = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     g_signal_connect_swapped(GTK_OBJECT(conf_cancel), "clicked",
                              GTK_SIGNAL_FUNC(config_close), config_window);
 
@@ -1270,8 +1370,13 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_onetotwo));
     menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
+    menuitem_view_advanced = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Advanced Options")));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_advanced));
+    menuitem_view_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep3));
     menuitem_view_controls = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_controls));
+	
     g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "activate",
                      G_CALLBACK(menuitem_view_fullscreen_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_onetoone), "activate",
@@ -1280,6 +1385,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_view_twotoone_callback), idledata);
     g_signal_connect(GTK_OBJECT(menuitem_view_onetotwo), "activate",
                      G_CALLBACK(menuitem_view_onetotwo_callback), idledata);
+    g_signal_connect(GTK_OBJECT(menuitem_view_advanced), "activate",
+                     G_CALLBACK(menuitem_advanced_callback), idledata);
     g_signal_connect(GTK_OBJECT(menuitem_view_controls), "activate",
                      G_CALLBACK(menuitem_view_controls_callback), NULL);
 

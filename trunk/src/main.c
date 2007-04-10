@@ -131,6 +131,11 @@ int main(int argc, char *argv[])
     idledata->videopresent = 1;
     idledata->volume = 100.0;
     idledata->length = 0.0;
+	idledata->brightness = 0;
+	idledata->contrast = 0;
+	idledata->gamma = 0;
+	idledata->hue = 0;
+	idledata->saturation = 0;
 
     // call g_type_init or otherwise we can crash
     g_type_init();

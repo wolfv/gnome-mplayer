@@ -76,6 +76,8 @@ GtkMenuItem *menuitem_view_onetoone;
 GtkMenuItem *menuitem_view_twotoone;
 GtkMenuItem *menuitem_view_onetotwo;
 GtkMenuItem *menuitem_view_sep2;
+GtkMenuItem *menuitem_view_advanced;
+GtkMenuItem *menuitem_view_sep3;
 GtkMenuItem *menuitem_view_controls;
 GtkMenu *menu_help;
 GtkMenuItem *menuitem_help_about;
