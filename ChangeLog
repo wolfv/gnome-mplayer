@@ -1,4 +1,5 @@
 Development
+	When setting vo and ao options via Preferences, add some extra vo flags
 	Implement more Advanced Video Controls
 		Gamma, Hue and Saturation
 			Gamma and Hue only seem to work with a vo of gl:yuv=3 or gl:yuv=4
