@@ -220,6 +220,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_volume");
         sscanf(buf, "ANS_volume=%i", &volume);
         idledata->volume = volume;
+		idledata->mute = 0;
         buf = g_strdup_printf(_("Volume %i%%"), volume);
         g_strlcpy(idledata->vol_tooltip, buf, 128);
         g_idle_add(set_volume_tip, idledata);

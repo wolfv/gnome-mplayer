@@ -1,6 +1,12 @@
 Development
+	Implement Advanced Video Controls dialog 
+		Brightness and Contrast are supported at the moment
+	Add 'm' as mute toggle key.
+	Fix crasher when not running under GNOME
 	Error result in send_command
 	GUI enhancements from Dmitry Stropaloff <helions8_AT_gmail.com> 
+		More keyboard accelerators
+		Remembering the last directory opened
 	Change packing order for volume control and FS button so that they are aligned right
 	Make sure proper controls are visible when embedded
 	Make windows keep from popping when embedded

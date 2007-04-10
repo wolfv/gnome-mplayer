@@ -58,6 +58,7 @@ typedef struct _IdleData {
     gdouble cachepercent;
     gchar progress_text[1024];
     gdouble volume;
+	gint mute;
     gchar vol_tooltip[128];
     gint x;
     gint y;
@@ -70,6 +71,11 @@ typedef struct _IdleData {
     gboolean showcontrols;
     gdouble position;
     gdouble length;
+	gint brightness;
+	gint contrast;
+	gint gamma;
+	gint hue;
+	gint saturation;
 } IdleData;
 
 IdleData *idledata;
