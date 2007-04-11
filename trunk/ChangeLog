@@ -1,4 +1,6 @@
 Development
+	Uppercase the codec names
+	Grab a few more items for the Details screen
 	Added Russian translation from Dmitry Stropaloff 
 	Keep Advanced Video Controls insync with value from keyboard
 	Pretty up the dialogs

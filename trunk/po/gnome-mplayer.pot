@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-11 12:16-0600\n"
+"POT-Creation-Date: 2007-04-11 15:02-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,7 +109,7 @@ msgstr ""
 msgid "Playing"
 msgstr ""
 
-#: src/gui.c:583 src/gui.c:609 src/gui.c:613 src/gui.c:1784
+#: src/gui.c:583 src/gui.c:609 src/gui.c:613 src/gui.c:1814
 msgid "Play"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Open File"
 msgstr ""
 
-#: src/gui.c:722 src/gui.c:1467
+#: src/gui.c:722 src/gui.c:1497
 msgid "GNOME MPlayer"
 msgstr ""
 
@@ -149,150 +149,158 @@ msgstr ""
 msgid "Video Format:"
 msgstr ""
 
-#: src/gui.c:1068
+#: src/gui.c:1070
+msgid "Video Codec:"
+msgstr ""
+
+#: src/gui.c:1081
 msgid "Video FPS:"
 msgstr ""
 
-#: src/gui.c:1077
+#: src/gui.c:1090
 msgid "Video Bitrate:"
 msgstr ""
 
-#: src/gui.c:1092
+#: src/gui.c:1107
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr ""
 
-#: src/gui.c:1099
+#: src/gui.c:1114
 msgid "Audio Codec:"
 msgstr ""
 
-#: src/gui.c:1111
+#: src/gui.c:1128
 msgid "Audio Bitrate:"
 msgstr ""
 
-#: src/gui.c:1148
-msgid "Advanced Video Controls"
-msgstr ""
-
-#: src/gui.c:1161
-msgid "<span weight=\"bold\">Adjust Video Settings</span>"
-msgstr ""
-
-#: src/gui.c:1168
-msgid "Brightness"
+#: src/gui.c:1139
+msgid "Audio Sample Rate:"
 msgstr ""
 
 #: src/gui.c:1178
-msgid "Contrast"
+msgid "Advanced Video Controls"
 msgstr ""
 
-#: src/gui.c:1188
-msgid "Gamma"
+#: src/gui.c:1191
+msgid "<span weight=\"bold\">Adjust Video Settings</span>"
 msgstr ""
 
 #: src/gui.c:1198
-msgid "Hue"
+msgid "Brightness"
 msgstr ""
 
 #: src/gui.c:1208
+msgid "Contrast"
+msgstr ""
+
+#: src/gui.c:1218
+msgid "Gamma"
+msgstr ""
+
+#: src/gui.c:1228
+msgid "Hue"
+msgstr ""
+
+#: src/gui.c:1238
 msgid "Saturation"
 msgstr ""
 
-#: src/gui.c:1256
+#: src/gui.c:1286
 msgid "GNOME MPlayer Configuration"
 msgstr ""
 
-#: src/gui.c:1313
+#: src/gui.c:1343
 msgid "Video Output:"
 msgstr ""
 
-#: src/gui.c:1319
+#: src/gui.c:1349
 msgid "Audio Output:"
 msgstr ""
 
-#: src/gui.c:1326
+#: src/gui.c:1356
 msgid "Minimum Cache Size:"
 msgstr ""
 
-#: src/gui.c:1512
+#: src/gui.c:1542
 msgid "S_how Controls"
 msgstr ""
 
-#: src/gui.c:1516
+#: src/gui.c:1546
 msgid "_Full Screen"
 msgstr ""
 
 #. File Menu
-#: src/gui.c:1556
+#: src/gui.c:1586
 msgid "_File"
 msgstr ""
 
-#: src/gui.c:1563
+#: src/gui.c:1593
 msgid "Open _DVD"
 msgstr ""
 
-#: src/gui.c:1566
+#: src/gui.c:1596
 msgid "Open _Audio CD"
 msgstr ""
 
-#: src/gui.c:1570
+#: src/gui.c:1600
 msgid "Details"
 msgstr ""
 
 #. Edit Menu
-#: src/gui.c:1588
+#: src/gui.c:1618
 msgid "_Edit"
 msgstr ""
 
 #. View Menu
-#: src/gui.c:1600
+#: src/gui.c:1630
 msgid "_View"
 msgstr ""
 
-#: src/gui.c:1606
+#: src/gui.c:1636
 msgid "_Fullscreen"
 msgstr ""
 
-#: src/gui.c:1611
+#: src/gui.c:1641
 msgid "_Normal (1:1)"
 msgstr ""
 
-#: src/gui.c:1614
+#: src/gui.c:1644
 msgid "_Double Size (2:1)"
 msgstr ""
 
-#: src/gui.c:1617
+#: src/gui.c:1647
 msgid "_Half Size (1:2)"
 msgstr ""
 
-#: src/gui.c:1621
+#: src/gui.c:1651
 msgid "_Advanced Options"
 msgstr ""
 
-#: src/gui.c:1625
+#: src/gui.c:1655
 msgid "_Controls"
 msgstr ""
 
 #. Help Menu
-#: src/gui.c:1642
+#: src/gui.c:1672
 msgid "_Help"
 msgstr ""
 
-#: src/gui.c:1772
+#: src/gui.c:1802
 msgid "Rewind"
 msgstr ""
 
-#: src/gui.c:1797
+#: src/gui.c:1827
 msgid "Stop"
 msgstr ""
 
-#: src/gui.c:1810
+#: src/gui.c:1840
 msgid "Fast Forward"
 msgstr ""
 
-#: src/gui.c:1829
+#: src/gui.c:1859
 msgid "Full Screen"
 msgstr ""
 
-#: src/gui.c:1841
+#: src/gui.c:1871
 msgid "Volume 100%"
 msgstr ""
