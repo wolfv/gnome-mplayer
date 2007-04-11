@@ -505,6 +505,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 				return rew_callback (NULL,NULL,NULL);
 				break;
 			case GDK_space:
+			case GDK_p:
 				return play_callback(NULL, NULL, NULL);
 				break;
 			case GDK_m:
