@@ -519,27 +519,35 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 			
 			case GDK_1:	
 				send_command("contrast -5\n");
+			    send_command("get_property contrast\n");
 				return FALSE;
 			case GDK_2:	
 				send_command("contrast 5\n");
+			    send_command("get_property contrast\n");
 				return FALSE;
 			case GDK_3:	
 				send_command("brightness -5\n");
+			    send_command("get_property brightness\n");
 				return FALSE;
 			case GDK_4:	
 				send_command("brightness 5\n");
+			    send_command("get_property brightness\n");
 				return FALSE;
 			case GDK_5:	
 				send_command("hue -5\n");
+			    send_command("get_property hue\n");
 				return FALSE;
 			case GDK_6:	
 				send_command("hue 5\n");
+			    send_command("get_property hue\n");
 				return FALSE;
 			case GDK_7:	
 				send_command("saturation -5\n");
+			    send_command("get_property saturation\n");
 				return FALSE;
 			case GDK_8:	
 				send_command("saturation 5\n");
+			    send_command("get_property saturation\n");
 				return FALSE;
 				
 			default:
