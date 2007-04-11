@@ -1,4 +1,5 @@
 Development
+	Pretty up the dialogs
 	Add in mplayer keyboard controls for brightness, contrast, hue and saturation
 	Change zoom and normal accelerators to Ctrl-2 and Ctrl-1 
 	Implement File->Details dialog
