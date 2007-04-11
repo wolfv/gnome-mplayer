@@ -76,6 +76,11 @@ typedef struct _IdleData {
 	gint gamma;
 	gint hue;
 	gint saturation;
+	gchar video_format[64];
+	gchar video_fps[16];
+	gchar video_bitrate[16];
+	gchar audio_codec[16];
+	gchar audio_bitrate[16];
 } IdleData;
 
 IdleData *idledata;
