@@ -968,6 +968,118 @@ void saturation_callback(GtkRange * range, gpointer data)
 	idle->saturation = saturation;
 }
 
+void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
+{
+	GtkWidget *details_window;
+	GtkWidget *details_vbox;
+	GtkWidget *details_hbutton_box;
+	GtkWidget *details_table;
+	GtkWidget *details_close;
+	GtkWidget *label;
+	gchar *buf;
+	gint i = 0;
+	IdleData *idle = (IdleData *) data;
+	
+	details_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_type_hint(GTK_WINDOW(details_window),GDK_WINDOW_TYPE_HINT_UTILITY);
+	gtk_window_set_resizable(GTK_WINDOW(details_window), FALSE);
+	gtk_window_set_title(GTK_WINDOW(details_window), _("File Details"));
+
+    details_vbox = gtk_vbox_new(FALSE, 10);
+    details_hbutton_box = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+    details_table = gtk_table_new(20, 2, FALSE);
+
+    gtk_container_add(GTK_CONTAINER(details_vbox), details_table);
+    gtk_container_add(GTK_CONTAINER(details_vbox), details_hbutton_box);
+    gtk_container_add(GTK_CONTAINER(details_window), details_vbox);
+
+    gtk_container_set_border_width(GTK_CONTAINER(details_window), 5);
+	
+	if (idle->videopresent ) {
+		label = gtk_label_new(_("<span weight=\"bold\">Video Details</span>"));
+		gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+		i++;
+		
+		label = gtk_label_new(_("Video Size:"));
+		gtk_widget_set_size_request(label,150,-1);
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+		buf = g_strdup_printf("%i x %i",idle->width,idle->height);
+		label = gtk_label_new(buf);
+		gtk_widget_set_size_request(label,100,-1);
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
+		g_free(buf);
+		i++;
+
+		label = gtk_label_new(_("Video Format:"));
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+		label = gtk_label_new(idle->video_format);
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
+		i++;
+
+		label = gtk_label_new(_("Video FPS:"));
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+		label = gtk_label_new(idle->video_fps);
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
+		i++;
+
+		label = gtk_label_new(_("Video Bitrate:"));
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+		label = gtk_label_new(idle->video_bitrate);
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
+		i++;
+
+		label = gtk_label_new("");
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+		i++;
+	}
+	
+	label = gtk_label_new(_("<span weight=\"bold\">Audio Details</span>"));
+	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
+	gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+    gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+	i++;
+
+	label = gtk_label_new(_("Audio Codec:"));
+	gtk_widget_set_size_request(label,150,-1);
+	gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+    gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+	label = gtk_label_new(idle->audio_codec);
+	gtk_widget_set_size_request(label,100,-1);
+	gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+    gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
+	i++;
+	
+	
+	label = gtk_label_new(_("Audio Bitrate:"));
+	gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+    gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+	label = gtk_label_new(idle->audio_bitrate);
+	gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+    gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
+	i++;
+	
+    details_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    g_signal_connect_swapped(GTK_OBJECT(details_close), "clicked",
+                             GTK_SIGNAL_FUNC(config_close), details_window);
+	
+	gtk_container_add(GTK_CONTAINER(details_hbutton_box),details_close);
+	gtk_widget_show_all(details_window);
+	
+}
+
+
 void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 {
 	GtkWidget *adv_window;
@@ -999,7 +1111,8 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_container_set_border_width(GTK_CONTAINER(adv_window), 5);
 	
-	label = gtk_label_new(_("Adjust Video Settings:"));
+	label = gtk_label_new(_("<span weight=\"bold\">Adjust Video Settings</span>"));
+	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
 	i++;
 	
@@ -1400,6 +1513,10 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_acd));
     menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep1));
+    menuitem_file_details = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Details")));
+    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_details));
+    menuitem_file_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep2));
     menuitem_file_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_quit));
     g_signal_connect(GTK_OBJECT(menuitem_file_open), "activate",
@@ -1408,6 +1525,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_open_dvd_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_acd), "activate",
                      G_CALLBACK(menuitem_open_acd_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_details), "activate",
+                     G_CALLBACK(menuitem_details_callback), idledata);
     g_signal_connect(GTK_OBJECT(menuitem_file_quit), "activate",
                      G_CALLBACK(menuitem_quit_callback), NULL);
 

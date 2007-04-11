@@ -239,6 +239,36 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_progress_value, idledata);
     }
 
+    if (strstr(mplayer_output->str, "ID_VIDEO_FORMAT") != 0) {
+		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        buf = strstr(mplayer_output->str, "ID_VIDEO_FORMAT") + strlen("ID_VIDEO_FORMAT=");
+        g_strlcpy(idledata->video_format,buf,64);
+    }
+	
+    if (strstr(mplayer_output->str, "ID_VIDEO_FPS") != 0) {
+		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        buf = strstr(mplayer_output->str, "ID_VIDEO_FPS") + strlen("ID_VIDEO_FPS=");
+        g_strlcpy(idledata->video_fps,buf,16);
+    }
+	
+    if (strstr(mplayer_output->str, "ID_VIDEO_BITRATE") != 0) {
+		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        buf = strstr(mplayer_output->str, "ID_VIDEO_BITRATE") + strlen("ID_VIDEO_BITRATE=");
+        g_strlcpy(idledata->video_bitrate,buf,16);
+    }
+
+    if (strstr(mplayer_output->str, "ID_AUDIO_CODEC") != 0) {
+		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        buf = strstr(mplayer_output->str, "ID_AUDIO_CODEC") + strlen("ID_AUDIO_CODEC=");
+        g_strlcpy(idledata->audio_codec,buf,16);
+    }
+	
+    if (strstr(mplayer_output->str, "ID_AUDIO_BITRATE") != 0) {
+		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        buf = strstr(mplayer_output->str, "ID_AUDIO_BITRATE") + strlen("ID_AUDIO_BITRATE=");
+        g_strlcpy(idledata->audio_bitrate,buf,16);
+    }
+	
     if (strstr(mplayer_output->str, "File not found") != 0) {
     }
 
@@ -348,6 +378,7 @@ gpointer launch_player(gpointer data)
     // argv[arg++] = g_strdup_printf("-zoom");
     argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
+    argv[arg++] = g_strdup_printf("-identify");
     argv[arg++] = g_strdup_printf("-softvol");
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     if (strcmp(threaddata->filename, "dvdnav://") == 0) {
