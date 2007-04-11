@@ -1,4 +1,6 @@
 Development
+	Add in mplayer keyboard controls for brightness, contrast, hue and saturation
+	Change zoom and normal accelerators to Ctrl-2 and Ctrl-1 
 	Implement File->Details dialog
 	When setting vo and ao options via Preferences, add some extra vo flags
 	Implement more Advanced Video Controls
