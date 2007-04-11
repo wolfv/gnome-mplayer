@@ -494,29 +494,59 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 {
 
     // printf("key = %i\n",event->keyval);
-	switch (event->keyval)
-	{
-		case GDK_Right:
-			return ff_callback (NULL,NULL,NULL);
-			break;
-		case GDK_Left:
-			return rew_callback (NULL,NULL,NULL);
-			break;
-		case GDK_space:
-			return play_callback(NULL, NULL, NULL);
-		    break;
-		case GDK_m:
-			if (idledata->mute) {
-				send_command("mute 0");
-				idledata->mute = 0;
-			} else {
-				send_command("mute 1");
-				idledata->mute = 1;
-			}
-		    return FALSE;
-		default:
-			return FALSE;
+    // printf("state = %i\n",event->state);
+	if (event->state == 16) {
+		switch (event->keyval)
+		{
+			case GDK_Right:
+				return ff_callback (NULL,NULL,NULL);
+				break;
+			case GDK_Left:
+				return rew_callback (NULL,NULL,NULL);
+				break;
+			case GDK_space:
+				return play_callback(NULL, NULL, NULL);
+				break;
+			case GDK_m:
+				if (idledata->mute) {
+					send_command("mute 0\n");
+					idledata->mute = 0;
+				} else {
+					send_command("mute 1\n");
+					idledata->mute = 1;
+				}
+				return FALSE;
+			
+			case GDK_1:	
+				send_command("contrast -5\n");
+				return FALSE;
+			case GDK_2:	
+				send_command("contrast 5\n");
+				return FALSE;
+			case GDK_3:	
+				send_command("brightness -5\n");
+				return FALSE;
+			case GDK_4:	
+				send_command("brightness 5\n");
+				return FALSE;
+			case GDK_5:	
+				send_command("hue -5\n");
+				return FALSE;
+			case GDK_6:	
+				send_command("hue 5\n");
+				return FALSE;
+			case GDK_7:	
+				send_command("saturation -5\n");
+				return FALSE;
+			case GDK_8:	
+				send_command("saturation 5\n");
+				return FALSE;
+				
+			default:
+				return FALSE;
+		}
 	}
+	return FALSE;
 
 }
 
@@ -1603,15 +1633,15 @@ GtkWidget *create_window(gint windowid)
                                accel_group, 'f', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
-                               accel_group, '1', 0, GTK_ACCEL_VISIBLE);
+                               accel_group, '1', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_twotoone), "activate",
-                               accel_group, '2', 0, GTK_ACCEL_VISIBLE);
+                               accel_group, '2', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_showcontrols), "activate",
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
 
-    g_signal_connect(GTK_OBJECT(window), "key_release_event", G_CALLBACK(window_key_callback), NULL);
+    g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
 
     vbox = gtk_vbox_new(FALSE, 0);
     hbox = gtk_hbox_new(FALSE, 0);
