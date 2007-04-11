@@ -270,6 +270,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_strlcpy(idledata->video_format,buf,64);
     }
 	
+    if (strstr(mplayer_output->str, "ID_VIDEO_CODEC") != 0) {
+		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        buf = strstr(mplayer_output->str, "ID_VIDEO_CODEC") + strlen("ID_VIDEO_CODEC=");
+        g_strlcpy(idledata->video_codec,buf,16);
+    }
+
     if (strstr(mplayer_output->str, "ID_VIDEO_FPS") != 0) {
 		g_string_truncate(mplayer_output,mplayer_output->len -1);
         buf = strstr(mplayer_output->str, "ID_VIDEO_FPS") + strlen("ID_VIDEO_FPS=");
@@ -292,6 +298,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 		g_string_truncate(mplayer_output,mplayer_output->len -1);
         buf = strstr(mplayer_output->str, "ID_AUDIO_BITRATE") + strlen("ID_AUDIO_BITRATE=");
         g_strlcpy(idledata->audio_bitrate,buf,16);
+    }
+
+    if (strstr(mplayer_output->str, "ID_AUDIO_RATE") != 0) {
+		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        buf = strstr(mplayer_output->str, "ID_AUDIO_RATE") + strlen("ID_AUDIO_RATE=");
+        g_strlcpy(idledata->audio_samplerate,buf,16);
     }
 	
     if (strstr(mplayer_output->str, "File not found") != 0) {
