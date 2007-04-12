@@ -1,4 +1,5 @@
 Development
+	Don't allow song_title to obtain focus
 	Updated ru translation
 	More keyboard accelerators Up/Down + PgUp/PgDn
 	Don't map window when it hasn't been shown yet in embed mode
