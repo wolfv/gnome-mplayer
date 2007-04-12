@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-11 15:02-0600\n"
-"PO-Revision-Date: 2007-04-11 22:05+0300\n"
+"PO-Revision-Date: 2007-04-12 22:40+0300\n"
 "Last-Translator: Dmitry Stropaloff <helions8@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "Показывать панель управления в окне"
 
 #: src/main.c:148
 msgid "- GNOME Media player based on MPlayer"
-msgstr "GNOME Media player основанный на MPlayer"
+msgstr "- GNOME Media player основанный на MPlayer"
 
 #: src/main.c:186 src/main.c:208
 msgid "Playing DVD"
@@ -151,13 +151,12 @@ msgid "Video Format:"
 msgstr "Формат видео:"
 
 #: src/gui.c:1070
-#, fuzzy
 msgid "Video Codec:"
-msgstr "Аудио кодек:"
+msgstr "Кодек видео:"
 
 #: src/gui.c:1081
 msgid "Video FPS:"
-msgstr "Число FPS:"
+msgstr "Число кадров/сек (FPS):"
 
 #: src/gui.c:1090
 msgid "Video Bitrate:"
@@ -176,9 +175,8 @@ msgid "Audio Bitrate:"
 msgstr "Битрейт аудио:"
 
 #: src/gui.c:1139
-#, fuzzy
 msgid "Audio Sample Rate:"
-msgstr "Битрейт аудио:"
+msgstr "Частота дискретизации аудио:"
 
 #: src/gui.c:1178
 msgid "Advanced Video Controls"
@@ -290,7 +288,7 @@ msgstr "_Справка"
 
 #: src/gui.c:1802
 msgid "Rewind"
-msgstr "Перемтока назад"
+msgstr "Перемотка назад"
 
 #: src/gui.c:1827
 msgid "Stop"
@@ -307,3 +305,4 @@ msgstr "Полноэкранный режим"
 #: src/gui.c:1871
 msgid "Volume 100%"
 msgstr "Громкость 100%"
+
