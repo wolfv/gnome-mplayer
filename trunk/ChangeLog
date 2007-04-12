@@ -1,4 +1,5 @@
 Development
+	When embedded set initial window size without need for resize event
 	Uppercase the codec names
 	Grab a few more items for the Details screen
 	Added Russian translation from Dmitry Stropaloff 

@@ -1905,6 +1905,9 @@ GtkWidget *create_window(gint windowid)
 		if (window_x < 170) {
 			gtk_widget_hide(GTK_WIDGET(progress));
 		}
+		if (window_x > 0 && window_y > 0) {
+			gtk_window_resize(GTK_WINDOW(window),window_x,window_y);
+		}
 	}
 	
     g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), NULL);
