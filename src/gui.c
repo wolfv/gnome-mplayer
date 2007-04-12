@@ -1724,6 +1724,7 @@ GtkWidget *create_window(gint windowid)
     song_title = gtk_entry_new();
     gtk_entry_set_editable(GTK_ENTRY(song_title), FALSE);
 	//gtk_widget_set_state(song_title, GTK_STATE_INSENSITIVE);
+	GTK_WIDGET_UNSET_FLAGS(song_title, GTK_CAN_FOCUS);
 	
     if (windowid == 0)
         gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
