@@ -1,4 +1,6 @@
 Development
+	Updated ru translation
+	More keyboard accelerators Up/Down + PgUp/PgDn
 	Don't map window when it hasn't been shown yet in embed mode
 	When embedded set initial window size without need for resize event
 	Uppercase the codec names

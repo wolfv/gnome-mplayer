@@ -495,7 +495,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 
     // printf("key = %i\n",event->keyval);
     // printf("state = %i\n",event->state);
-	if (event->state == 16) {
+	// printf("other = %i\n", event->state & ~GDK_CONTROL_MASK);
+	
+	// We don't want to handle CTRL accelerators here
+	// if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
+	if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
 		switch (event->keyval)
 		{
 			case GDK_Right:
@@ -504,7 +508,23 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 			case GDK_Left:
 				return rew_callback (NULL,NULL,NULL);
 				break;
-			case GDK_space:
+			case GDK_Page_Up:
+				if (state == PLAYING)
+					send_command("seek +600 0\n");
+				return FALSE;
+			case GDK_Page_Down:
+				if (state == PLAYING)
+					send_command("seek -600 0\n");
+				return FALSE;
+			case GDK_Up:
+				if (state == PLAYING)
+					send_command("seek +60 0\n");
+				return FALSE;
+			case GDK_Down:
+				if (state == PLAYING)
+					send_command("seek -60 0\n");
+				return FALSE;
+            case GDK_space:
 			case GDK_p:
 				return play_callback(NULL, NULL, NULL);
 				break;
@@ -1703,6 +1723,8 @@ GtkWidget *create_window(gint windowid)
     //gtk_widget_set_size_request(drawing_area, 1, 1);
     song_title = gtk_entry_new();
     gtk_entry_set_editable(GTK_ENTRY(song_title), FALSE);
+	//gtk_widget_set_state(song_title, GTK_STATE_INSENSITIVE);
+	
     if (windowid == 0)
         gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
