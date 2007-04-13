@@ -1728,6 +1728,7 @@ GtkWidget *create_window(gint windowid)
 	
     if (windowid == 0)
         gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
+	
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), song_title, FALSE, FALSE, 0);
@@ -1762,8 +1763,6 @@ GtkWidget *create_window(gint windowid)
 
     error = NULL;
     icon_theme = gtk_icon_theme_get_default();
-
-
 
     pb_icon = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
 
