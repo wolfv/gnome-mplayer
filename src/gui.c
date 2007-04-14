@@ -66,9 +66,17 @@ gboolean set_media_info(void *data)
 {
 
     IdleData *idle = (IdleData *) data;
-
+	gchar * buf;
+	
     if (GTK_IS_WIDGET(song_title)) {
-        gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
+		if (idle->streaming) { 
+			gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
+		} else {
+			gtk_widget_hide(song_title);
+			buf = g_strdup_printf(_("GNOME MPlayer - %s"), idle->info);
+			gtk_window_set_title(GTK_WINDOW(window), buf);
+			g_free(buf);
+		}
     }
     return FALSE;
 }
@@ -276,7 +284,7 @@ gboolean resize_window(void *data)
                 gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
-                gtk_widget_show(GTK_WIDGET(song_title));
+				gtk_widget_show(GTK_WIDGET(song_title));
                 gtk_widget_hide_all(GTK_WIDGET(fixed));
                 gtk_widget_size_request(GTK_WIDGET(menubar), &req);
                 total_height = req.height;

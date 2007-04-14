@@ -1,4 +1,6 @@
 Development
+	Show media in title bar
+	Only show song_title in window when streaming and when no video
 0.4.5
 	Don't allow song_title to obtain focus
 	Updated ru translation
