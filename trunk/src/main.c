@@ -92,6 +92,7 @@ gint play_file(gchar * filename, gint playlist)
         thread_data->playlist = playlist;
         // thread_data->streaming = !g_file_test(thread_data->filename,G_FILE_TEST_EXISTS);
         thread_data->streaming = streaming_media(thread_data->filename);
+		idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
 
         g_idle_add(hide_buttons, thread_data);

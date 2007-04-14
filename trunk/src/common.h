@@ -56,6 +56,7 @@ typedef struct _IdleData {
     gchar info[1024];
     gdouble percent;
     gdouble cachepercent;
+	gint streaming;
     gchar progress_text[1024];
     gdouble volume;
 	gint mute;
