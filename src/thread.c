@@ -44,8 +44,8 @@ void shutdown()
 gboolean send_command(gchar * command)
 {
 	gint ret;
-	
-    ret = write(std_in, command, strlen(command));
+
+	ret = write(std_in, command, strlen(command));
     fsync(std_in);
 	if (ret < 0) {
 		return FALSE;
@@ -383,7 +383,6 @@ gpointer launch_player(gpointer data)
     gint arg = 0;
 
     ThreadData *threaddata = (ThreadData *) data;
-
 
     fullscreen = 0;
     videopresent = 1;

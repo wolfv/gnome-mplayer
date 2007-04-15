@@ -196,11 +196,10 @@ gboolean set_volume_from_slider(gpointer data)
     cmd = g_strdup_printf("volume %i 1\n", vol);
     send_command(cmd);
     g_free(cmd);
+    send_command("get_property volume\n");
     if (state == PAUSED || state == STOPPED) {
         send_command("pause\n");
     }
-
-    send_command("get_property volume\n");
 
     return FALSE;
 }
@@ -518,19 +517,19 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 				break;
 			case GDK_Page_Up:
 				if (state == PLAYING)
-					send_command("seek +600 0\n");
+					send_command("pausing_keep seek +600 0\n");
 				return FALSE;
 			case GDK_Page_Down:
 				if (state == PLAYING)
-					send_command("seek -600 0\n");
+					send_command("pausing_keep seek -600 0\n");
 				return FALSE;
 			case GDK_Up:
 				if (state == PLAYING)
-					send_command("seek +60 0\n");
+					send_command("pausing_keep seek +60 0\n");
 				return FALSE;
 			case GDK_Down:
 				if (state == PLAYING)
-					send_command("seek -60 0\n");
+					send_command("pausing_keep seek -60 0\n");
 				return FALSE;
             case GDK_space:
 			case GDK_p:
@@ -538,44 +537,44 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 				break;
 			case GDK_m:
 				if (idledata->mute) {
-					send_command("mute 0\n");
+					send_command("pausing_keep mute 0\n");
 					idledata->mute = 0;
 				} else {
-					send_command("mute 1\n");
+					send_command("pausing_keep mute 1\n");
 					idledata->mute = 1;
 				}
 				return FALSE;
 			
 			case GDK_1:	
-				send_command("contrast -5\n");
+				send_command("pausing_keep contrast -5\n");
 			    send_command("get_property contrast\n");
 				return FALSE;
 			case GDK_2:	
-				send_command("contrast 5\n");
+				send_command("pausing_keep contrast 5\n");
 			    send_command("get_property contrast\n");
 				return FALSE;
 			case GDK_3:	
-				send_command("brightness -5\n");
+				send_command("pausing_keep brightness -5\n");
 			    send_command("get_property brightness\n");
 				return FALSE;
 			case GDK_4:	
-				send_command("brightness 5\n");
+				send_command("pausing_keep brightness 5\n");
 			    send_command("get_property brightness\n");
 				return FALSE;
 			case GDK_5:	
-				send_command("hue -5\n");
+				send_command("pausing_keep hue -5\n");
 			    send_command("get_property hue\n");
 				return FALSE;
 			case GDK_6:	
-				send_command("hue 5\n");
+				send_command("pausing_keep hue 5\n");
 			    send_command("get_property hue\n");
 				return FALSE;
 			case GDK_7:	
-				send_command("saturation -5\n");
+				send_command("pausing_keep saturation -5\n");
 			    send_command("get_property saturation\n");
 				return FALSE;
 			case GDK_8:	
-				send_command("saturation 5\n");
+				send_command("pausing_keep saturation 5\n");
 			    send_command("get_property saturation\n");
 				return FALSE;
 				
@@ -671,7 +670,7 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
     gchar *buf;
 
     vol = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("volume %i 1\n", vol);
+    cmd = g_strdup_printf("pausing_keep volume %i 1\n", vol);
     send_command(cmd);
     g_free(cmd);
     if (idledata->volume != vol) {
@@ -682,7 +681,6 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
         g_free(buf);
     }
     send_command("get_property volume\n");
-
 }
 
 
@@ -972,7 +970,7 @@ void brightness_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     brightness = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("brightness %i 1\n", brightness);
+    cmd = g_strdup_printf("pausing_keep brightness %i 1\n", brightness);
     send_command(cmd);
     g_free(cmd);
     send_command("get_property brightness\n");
@@ -986,7 +984,7 @@ void contrast_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     contrast = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("contrast %i 1\n", contrast);
+    cmd = g_strdup_printf("pausing_keep contrast %i 1\n", contrast);
     send_command(cmd);
     g_free(cmd);
     send_command("get_property contrast\n");
@@ -1000,7 +998,7 @@ void gamma_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     gamma = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("gamma %i 1\n", gamma);
+    cmd = g_strdup_printf("pausing_keep gamma %i 1\n", gamma);
     send_command(cmd);
     g_free(cmd);
     send_command("get_property gamma\n");
@@ -1014,7 +1012,7 @@ void hue_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     hue = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("hue %i 1\n", hue);
+    cmd = g_strdup_printf("pausing_keep hue %i 1\n", hue);
     send_command(cmd);
     g_free(cmd);
     send_command("get_property hue\n");
@@ -1028,7 +1026,7 @@ void saturation_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     saturation = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("saturation %i 1\n", saturation);
+    cmd = g_strdup_printf("pausing_keep saturation %i 1\n", saturation);
     send_command(cmd);
     g_free(cmd);
     send_command("get_property saturation\n");

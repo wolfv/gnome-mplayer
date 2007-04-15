@@ -116,7 +116,6 @@ gchar *vo;
 gchar *ao;
 
 
-
 GtkWidget *create_window(gint windowid);
 gint get_player_window();
 gboolean hide_buttons(void *data);
