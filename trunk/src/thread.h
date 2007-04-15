@@ -37,7 +37,6 @@ GIOChannel *channel_err;
 GThread *thread;
 extern GMutex *thread_running;
 
-
 gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpointer data);
 gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer data);
 gboolean thread_query(gpointer data);
