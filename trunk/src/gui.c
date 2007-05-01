@@ -133,7 +133,7 @@ gboolean set_progress_time(void *data)
 
     if (hour == 0 && length_hour == 0) {
 
-        if ((int) idle->length == 0) {
+        if ((int) idle->length == 0 || idle->position > idle->length) {
             if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
                 g_snprintf(idle->progress_text, 128,
                            _("%2i:%02i | %2i%% \342\226\274"),
@@ -154,7 +154,7 @@ gboolean set_progress_time(void *data)
             }
         }
     } else {
-        if ((int) idle->length == 0) {
+        if ((int) idle->length == 0 || idle->position > idle->length) {
 
             if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
                 g_snprintf(idle->progress_text, 128,
@@ -425,6 +425,8 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     if (control_id != 0)
         dbus_cancel();
 
+	dbus_unhook();
+	
     while (gtk_events_pending())
         gtk_main_iteration();
     gtk_main_quit();

@@ -1,4 +1,5 @@
 Development
+	Add in support for disabling the screen saver via dbus while we're running
 	Try to keep pause state on video and volume changes
 	Show media in title bar
 	Only show song_title in window when streaming and when no video
