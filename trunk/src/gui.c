@@ -271,8 +271,9 @@ gboolean resize_window(void *data)
                 total_height = window_y;
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
-                gtk_widget_hide_all(GTK_WIDGET(fixed));
+                gtk_widget_hide_all(GTK_WIDGET(drawing_area));
                 if (showcontrols) {
+					gtk_widget_show(song_title);
                     gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                     total_height -= req.height;
                 }
@@ -288,6 +289,7 @@ gboolean resize_window(void *data)
                 gtk_widget_size_request(GTK_WIDGET(menubar), &req);
                 total_height = req.height;
                 if (showcontrols) {
+					gtk_widget_show(song_title);
                     gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                     total_height += req.height;
                 }
@@ -1919,6 +1921,7 @@ GtkWidget *create_window(gint windowid)
     }
 	
     gtk_widget_show_all(window);
+	gtk_widget_hide(song_title);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
 	
     if (windowid != 0) {

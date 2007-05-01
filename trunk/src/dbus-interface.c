@@ -553,10 +553,12 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 	app = g_strdup_printf("gnome-mplayer");
 	reason = g_strdup_printf("playback");
 	dbus_message_append_args(message,DBUS_TYPE_STRING,&app, DBUS_TYPE_STRING,&reason,DBUS_TYPE_INVALID);
-	reply_message = dbus_connection_send_with_reply_and_block(connection,message,2000,&error);
-	dbus_message_get_args(reply_message,&error,DBUS_TYPE_INT32,&cookie,NULL);
+	reply_message = dbus_connection_send_with_reply_and_block(connection,message,200,&error);
+	if (reply_message) {
+		dbus_message_get_args(reply_message,&error,DBUS_TYPE_INT32,&cookie,NULL);
+		dbus_message_unref(reply_message);
+	}
 	
-	dbus_message_unref(reply_message);
 	dbus_message_unref(message);
 	dbus_error_free(&error);
 	
