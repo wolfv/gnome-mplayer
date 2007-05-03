@@ -1,4 +1,5 @@
 Development
+	Version bump
 	Add in support for disabling the screen saver via dbus while we're running
 	Try to keep pause state on video and volume changes
 	Show media in title bar
