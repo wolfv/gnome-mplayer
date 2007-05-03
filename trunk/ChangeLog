@@ -1,4 +1,5 @@
 Development
+	debian package fixes, as seen at getdeb.net
 	Version bump
 	Add in support for disabling the screen saver via dbus while we're running
 	Try to keep pause state on video and volume changes
