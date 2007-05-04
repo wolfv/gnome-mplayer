@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: gnome-mplayer
 Architecture: any
-Depends: ${shlibs:Depends} mplayer
+Depends: ${shlibs:Depends}
 Description: GNOME MPlayer is a simple GUI for MPlayer
  It is based heavily on the mplayerplug-in source code and
  can basically be seen as a standalone version of that.
