@@ -580,8 +580,4 @@ void dbus_unhook() {
 	dbus_message_unref(message);
 	dbus_error_free(&error);
 
-    dbus_connection_flush(connection);
-    dbus_connection_remove_filter(connection,filter_func, NULL);
-    dbus_connection_unref(connection);
-
 }
