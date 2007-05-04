@@ -954,7 +954,8 @@ void config_apply(GtkWidget * widget, void *data)
 
     update_mplayer_config();
 
-    cache_size = (int) gtk_range_get_value(GTK_RANGE(config_cachesize));
+    //cache_size = (int) gtk_range_get_value(GTK_RANGE(config_cachesize));
+	cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     gconf = gconf_client_get_default();
     gconf_client_set_int(gconf, CACHE_SIZE, cache_size, NULL);
     g_object_unref(G_OBJECT(gconf));
@@ -1310,7 +1311,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_table = gtk_table_new(20, 2, FALSE);
 
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_table);
-    gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
     gtk_container_add(GTK_CONTAINER(config_window), conf_vbox);
 
     gtk_window_set_title(GTK_WINDOW(config_window), _("GNOME MPlayer Configuration"));
@@ -1372,29 +1372,46 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     conf_label = gtk_label_new(_("Video Output:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, 0, 1);
     gtk_widget_show(conf_label);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vo, 1, 2, 0, 1);
 
     conf_label = gtk_label_new(_("Audio Output:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, 1, 2);
     gtk_widget_show(conf_label);
-    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_ao, 1, 2, 1, 2);
-
-    conf_label = gtk_label_new(_("Minimum Cache Size:"));
-    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+	
+    conf_label = gtk_label_new("");
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, 2, 3);
     gtk_widget_show(conf_label);
-    config_cachesize = gtk_hscale_new_with_range(0, 32767, 512);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_cachesize, 1, 2, 2, 3);
-    gtk_range_set_value(GTK_RANGE(config_cachesize), cache_size);
+	
+    conf_table = gtk_table_new(20, 2, FALSE);
+    gtk_container_add(GTK_CONTAINER(conf_vbox), conf_table);
+
+    conf_label = gtk_label_new(_("Minimum Cache Size:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, 3, 4);
+    gtk_widget_show(conf_label);
+    config_cachesize = gtk_spin_button_new_with_range(0, 32767, 512);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_cachesize, 1, 2, 3, 4);
+    //gtk_range_set_value(GTK_RANGE(config_cachesize), cache_size);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_cachesize), cache_size);
+	gtk_entry_set_width_chars(GTK_ENTRY(config_cachesize),10);
+	gtk_entry_set_editable(GTK_ENTRY(config_cachesize),FALSE);
+	gtk_entry_set_alignment(GTK_ENTRY(config_cachesize),1);
     gtk_widget_show(config_cachesize);
 
 
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_ok);
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_cancel);
+    gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
 
     gtk_widget_show_all(config_window);
 
