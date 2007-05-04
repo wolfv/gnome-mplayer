@@ -55,6 +55,7 @@ static GOptionEntry entries[] = {
     {"playlist", 0, 0, G_OPTION_ARG_NONE, &playlist, N_("File Argument is a playlist"), NULL},
     {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more ouput on the console"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"), "I"},
+    {"autostart", 0, 0, G_OPTION_ARG_INT, &autostart, N_("Autostart the media default to 1, set to 0 to load but don't play"), "I"},	
     {NULL}
 };
 
@@ -95,9 +96,11 @@ gint play_file(gchar * filename, gint playlist)
 		idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
 
-        g_idle_add(hide_buttons, thread_data);
-
-        g_thread_create(launch_player, thread_data, TRUE, NULL);
+		if (autostart) {
+			g_idle_add(hide_buttons, thread_data);
+			g_thread_create(launch_player, thread_data, TRUE, NULL);
+		} 
+		autostart = 1;
     }
     return 0;
 }
@@ -120,13 +123,14 @@ int main(int argc, char *argv[])
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 #endif
-
+	
     playlist = 0;
     embed_window = 0;
     control_id = 0;
     window_x = 0;
     window_y = 0;
     showcontrols = 1;
+	autostart = 1;
     videopresent = 1;
     idledata = (IdleData *) g_new0(IdleData, 1);
     idledata->videopresent = 1;

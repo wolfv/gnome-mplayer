@@ -107,6 +107,7 @@ gint window_x;
 gint window_y;
 gint control_id;
 gint verbose;
+gint autostart;
 gchar *lastfile;
 gint actual_x, actual_y;
 gint play_x, play_y;
