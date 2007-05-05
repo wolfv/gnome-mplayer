@@ -1,4 +1,5 @@
 Development
+	"Highlight" buttons on mouse over
 	Clean up dbus_unhook
 	Implement autostart option
 	Make some changes to the preferences dialog
