@@ -1323,6 +1323,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_window_set_resizable(GTK_WINDOW(config_window), FALSE);
     conf_vbox = gtk_vbox_new(FALSE, 10);
     conf_hbutton_box = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
     conf_table = gtk_table_new(20, 2, FALSE);
 
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_table);
@@ -1337,7 +1338,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     conf_cancel = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     g_signal_connect_swapped(GTK_OBJECT(conf_cancel), "clicked",
-                             GTK_SIGNAL_FUNC(config_close), config_window);
+                             GTK_SIGNAL_FUNC(config_apply), config_window);
 
     config_vo = gtk_combo_box_entry_new_text();
     if (config_vo != NULL) {
@@ -1424,7 +1425,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(config_cachesize);
 
 
-    gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_ok);
+    //gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_ok);
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_cancel);
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
 
