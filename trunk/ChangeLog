@@ -1,4 +1,5 @@
 Development
+	HIG for Edit -> Preferences
 	"Highlight" buttons on mouse over
 	Clean up dbus_unhook
 	Implement autostart option
