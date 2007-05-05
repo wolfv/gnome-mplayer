@@ -695,6 +695,21 @@ gboolean fs_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     return FALSE;
 }
 
+gboolean enter_button_callback (GtkWidget *widget, GdkEventCrossing *event, gpointer data)
+{
+    gdk_draw_rectangle(widget->window, widget->style->fg_gc[GTK_STATE_INSENSITIVE], FALSE, 0, 0, widget->allocation.width-1,
+                           widget->allocation.height-1);
+
+	return FALSE;
+}
+
+gboolean leave_button_callback (GtkWidget *widget, GdkEventCrossing *event, gpointer data)
+{
+	
+    gdk_draw_rectangle(widget->window, widget->style->bg_gc[GTK_STATE_NORMAL], FALSE, 0, 0, widget->allocation.width-1,
+                           widget->allocation.height-1);
+	return FALSE;
+}
 
 void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 {
@@ -1849,6 +1864,8 @@ GtkWidget *create_window(gint windowid)
     gtk_tooltips_set_tip(tooltip, rew_event_box, _("Rewind"), NULL);
     gtk_widget_set_events(rew_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(rew_event_box), "button_press_event", G_CALLBACK(rew_callback), NULL);
+    g_signal_connect(G_OBJECT(rew_event_box), "enter_notify_event", G_CALLBACK(enter_button_callback), NULL);
+    g_signal_connect(G_OBJECT(rew_event_box), "leave_notify_event", G_CALLBACK(leave_button_callback), NULL);
     gtk_widget_set_size_request(GTK_WIDGET(rew_event_box), 22, 16);
 
     gtk_container_add(GTK_CONTAINER(rew_event_box), image_rew);
@@ -1862,6 +1879,8 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_events(play_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(play_event_box),
                      "button_press_event", G_CALLBACK(play_callback), NULL);
+    g_signal_connect(G_OBJECT(play_event_box), "enter_notify_event", G_CALLBACK(enter_button_callback), NULL);
+    g_signal_connect(G_OBJECT(play_event_box), "leave_notify_event", G_CALLBACK(leave_button_callback), NULL);
     gtk_widget_set_size_request(GTK_WIDGET(play_event_box), 22, 16);
 
     gtk_container_add(GTK_CONTAINER(play_event_box), image_play);
@@ -1875,6 +1894,8 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_events(stop_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(stop_event_box),
                      "button_press_event", G_CALLBACK(stop_callback), NULL);
+    g_signal_connect(G_OBJECT(stop_event_box), "enter_notify_event", G_CALLBACK(enter_button_callback), NULL);
+    g_signal_connect(G_OBJECT(stop_event_box), "leave_notify_event", G_CALLBACK(leave_button_callback), NULL);
     gtk_widget_set_size_request(GTK_WIDGET(stop_event_box), 22, 16);
 
     gtk_container_add(GTK_CONTAINER(stop_event_box), image_stop);
@@ -1887,6 +1908,8 @@ GtkWidget *create_window(gint windowid)
     gtk_tooltips_set_tip(tooltip, ff_event_box, _("Fast Forward"), NULL);
     gtk_widget_set_events(ff_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(ff_event_box), "button_press_event", G_CALLBACK(ff_callback), NULL);
+    g_signal_connect(G_OBJECT(ff_event_box), "enter_notify_event", G_CALLBACK(enter_button_callback), NULL);
+    g_signal_connect(G_OBJECT(ff_event_box), "leave_notify_event", G_CALLBACK(leave_button_callback), NULL);
     gtk_widget_set_size_request(GTK_WIDGET(ff_event_box), 22, 16);
     gtk_container_add(GTK_CONTAINER(ff_event_box), image_ff);
     gtk_box_pack_start(GTK_BOX(hbox), ff_event_box, FALSE, FALSE, 0);
@@ -1906,6 +1929,8 @@ GtkWidget *create_window(gint windowid)
     gtk_tooltips_set_tip(tooltip, fs_event_box, _("Full Screen"), NULL);
     gtk_widget_set_events(fs_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(fs_event_box), "button_press_event", G_CALLBACK(fs_callback), NULL);
+    g_signal_connect(G_OBJECT(fs_event_box), "enter_notify_event", G_CALLBACK(enter_button_callback), NULL);
+    g_signal_connect(G_OBJECT(fs_event_box), "leave_notify_event", G_CALLBACK(leave_button_callback), NULL);
     gtk_widget_set_size_request(GTK_WIDGET(fs_event_box), 22, 16);
     gtk_container_add(GTK_CONTAINER(fs_event_box), image_fs);
     gtk_box_pack_end(GTK_BOX(hbox), fs_event_box, FALSE, FALSE, 0);
