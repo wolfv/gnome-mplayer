@@ -1381,7 +1381,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             if (gtk_combo_box_get_active(GTK_COMBO_BOX(config_ao))
                 == -1) {
                 gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), ao);
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 4);
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 5);
             }
         }
     }
