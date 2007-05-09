@@ -1,3 +1,14 @@
+gnome-mplayer (0.4.6-1) unstable; urgency=low
+  * New upstream release
+
+ -- Michael Rasmussen <mir@datanom.net>  Fri, 11 May 2007 18:56:46 +0100
+
+gnome-mplayer (0.4.5-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Michael Rasmussen <mir@datanom.net>  Wed, 11 Apr 2007 18:56:46 +0100
+
 gnome-mplayer (0.4.4-1) unstable; urgency=low
 
   * New upstream release
