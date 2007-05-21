@@ -1398,7 +1398,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vo, 1, 2, i, i + 1);
+	gtk_widget_set_size_request(GTK_WIDGET(config_vo),100,-1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_vo, 1, 2, i, i + 1, GTK_SHRINK,GTK_SHRINK,0,0);
 	i++;
 	
     conf_label = gtk_label_new(_("Audio Output:"));
@@ -1407,7 +1408,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_ao, 1, 2, i, i + 1);
+	gtk_widget_set_size_request(GTK_WIDGET(config_ao),100,-1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_ao, 1, 2, i, i + 1, GTK_SHRINK,GTK_SHRINK,0,0);
 	i++;
 	
     conf_label = gtk_label_new("");
@@ -1433,10 +1435,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     config_cachesize = gtk_spin_button_new_with_range(0, 32767, 512);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_cachesize, 1, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_cachesize, 1, 2, i, i + 1, GTK_SHRINK,GTK_SHRINK,0,0);
     //gtk_range_set_value(GTK_RANGE(config_cachesize), cache_size);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_cachesize), cache_size);
-	gtk_entry_set_width_chars(GTK_ENTRY(config_cachesize),10);
+	gtk_entry_set_width_chars(GTK_ENTRY(config_cachesize),6);
 	gtk_entry_set_editable(GTK_ENTRY(config_cachesize),FALSE);
 	gtk_entry_set_alignment(GTK_ENTRY(config_cachesize),1);
     gtk_widget_show(config_cachesize);
