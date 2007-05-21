@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-20 08:01-0600\n"
+"POT-Creation-Date: 2007-05-21 12:20-0600\n"
 "PO-Revision-Date: 2007-03-14 10:39+0100\n"
 "Last-Translator: vicente carro fernandez <vicentecarro@andaluciajunta.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -122,7 +122,7 @@ msgstr "Pausar"
 msgid "Playing"
 msgstr "Reproduciendo"
 
-#: src/gui.c:614 src/gui.c:640 src/gui.c:644 src/gui.c:1879
+#: src/gui.c:614 src/gui.c:640 src/gui.c:644 src/gui.c:1896
 msgid "Play"
 msgstr "Reproducir"
 
@@ -140,7 +140,7 @@ msgstr "Parado"
 msgid "Open File"
 msgstr "Abrir fichero"
 
-#: src/gui.c:767 src/gui.c:1558
+#: src/gui.c:767 src/gui.c:1575
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
@@ -228,113 +228,124 @@ msgstr "Tono"
 msgid "Saturation"
 msgstr "Saturación"
 
-#: src/gui.c:1332
+#: src/gui.c:1333
 #, fuzzy
 msgid "GNOME MPlayer Configuration"
 msgstr "Configuración de GNOME MPlayer"
 
 #: src/gui.c:1389
+#, fuzzy
+msgid "<span weight=\"bold\">Adjust Output Settings</span>"
+msgstr "<span weight=\"bold\">Configuración de ajustes de vídeo</span"
+
+#: src/gui.c:1396
 msgid "Video Output:"
 msgstr "Salida de Vídeo:"
 
-#: src/gui.c:1396
+#: src/gui.c:1404
 msgid "Audio Output:"
 msgstr "Salida de Audio:"
 
-#: src/gui.c:1413
-msgid "Minimum Cache Size:"
+#: src/gui.c:1423
+#, fuzzy
+msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
+msgstr "<span weight=\"bold\">Configuración de ajustes de vídeo</span"
+
+#: src/gui.c:1430
+#, fuzzy
+msgid "Minimum Cache Size (KB):"
 msgstr "Tamaño mínimo de la Caché:"
 
-#: src/gui.c:1603
+#: src/gui.c:1620
 #, fuzzy
 msgid "S_how Controls"
 msgstr "Mostrar controles"
 
-#: src/gui.c:1607
+#: src/gui.c:1624
 #, fuzzy
 msgid "_Full Screen"
 msgstr "Pantalla completa"
 
 #. File Menu
-#: src/gui.c:1647
+#: src/gui.c:1664
 #, fuzzy
 msgid "_File"
 msgstr "Archivo"
 
-#: src/gui.c:1654
+#: src/gui.c:1671
 msgid "Open _DVD"
 msgstr "Abrir _DVD"
 
-#: src/gui.c:1657
+#: src/gui.c:1674
 #, fuzzy
 msgid "Open _Audio CD"
 msgstr "Reproducir CD de _Audio"
 
-#: src/gui.c:1661
+#: src/gui.c:1678
 msgid "Details"
 msgstr "Detalles"
 
 #. Edit Menu
-#: src/gui.c:1679
+#: src/gui.c:1696
 #, fuzzy
 msgid "_Edit"
 msgstr "Editar"
 
 #. View Menu
-#: src/gui.c:1691
+#: src/gui.c:1708
 #, fuzzy
 msgid "_View"
 msgstr "Archivo"
 
-#: src/gui.c:1697
+#: src/gui.c:1714
 #, fuzzy
 msgid "_Fullscreen"
 msgstr "Pantalla completa"
 
-#: src/gui.c:1702
+#: src/gui.c:1719
 msgid "_Normal (1:1)"
 msgstr "Tamaño _Normal (1:1)"
 
-#: src/gui.c:1705
+#: src/gui.c:1722
 msgid "_Double Size (2:1)"
 msgstr "Tamaño _Doble(2:1)"
 
-#: src/gui.c:1708
+#: src/gui.c:1725
 msgid "_Half Size (1:2)"
 msgstr "Tamaño _Mitad (1:2)"
 
-#: src/gui.c:1712
+#: src/gui.c:1729
 msgid "_Advanced Options"
 msgstr "Opciones _Avanzadas"
 
-#: src/gui.c:1716
+#: src/gui.c:1733
 #, fuzzy
 msgid "_Controls"
 msgstr "Mostrar controles"
 
 #. Help Menu
-#: src/gui.c:1733
+#: src/gui.c:1750
 #, fuzzy
 msgid "_Help"
 msgstr "Ayuda"
 
-#: src/gui.c:1865
+#: src/gui.c:1882
 msgid "Rewind"
 msgstr "Retroceder"
 
-#: src/gui.c:1894
+#: src/gui.c:1911
 msgid "Stop"
 msgstr "Parar"
 
-#: src/gui.c:1909
+#: src/gui.c:1926
 msgid "Fast Forward"
 msgstr "Avanzar"
 
-#: src/gui.c:1930
+#: src/gui.c:1947
 msgid "Full Screen"
 msgstr "Pantalla completa"
 
-#: src/gui.c:1944
+#: src/gui.c:1961
 msgid "Volume 100%"
 msgstr "Volumen 100%"
 
