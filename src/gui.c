@@ -697,7 +697,7 @@ gboolean fs_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean enter_button_callback (GtkWidget *widget, GdkEventCrossing *event, gpointer data)
 {
-    gdk_draw_rectangle(widget->window, widget->style->fg_gc[GTK_STATE_INSENSITIVE], FALSE, 0, 0, widget->allocation.width-1,
+    gdk_draw_rectangle(widget->window, widget->style->fg_gc[GTK_STATE_NORMAL], FALSE, 0, 0, widget->allocation.width-1,
                            widget->allocation.height-1);
 
 	return FALSE;
@@ -1316,7 +1316,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *conf_cancel;
     GtkWidget *conf_table;
     GtkWidget *conf_label;
-
+	gint i = 0;
+	
     read_mplayer_config();
 
     config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -1385,38 +1386,54 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             }
         }
     }
+	conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Output Settings</span>"));
+	gtk_label_set_use_markup(GTK_LABEL(conf_label),TRUE);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+	gtk_misc_set_padding(GTK_MISC(conf_label),0,6);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+	i++;
 
     conf_label = gtk_label_new(_("Video Output:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, 0, 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vo, 1, 2, 0, 1);
-
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vo, 1, 2, i, i + 1);
+	i++;
+	
     conf_label = gtk_label_new(_("Audio Output:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, 1, 2);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_ao, 1, 2, 1, 2);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_ao, 1, 2, i, i + 1);
+	i++;
 	
     conf_label = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, 2, 3);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
+	i++;
 	
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_table);
-
-    conf_label = gtk_label_new(_("Minimum Cache Size:"));
+	i = 0;
+	conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Configuration Settings</span>"));
+	gtk_label_set_use_markup(GTK_LABEL(conf_label),TRUE);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+	gtk_misc_set_padding(GTK_MISC(conf_label),0,6);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+	i++;
+	
+    conf_label = gtk_label_new(_("Minimum Cache Size (KB):"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, 3, 4);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     config_cachesize = gtk_spin_button_new_with_range(0, 32767, 512);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_cachesize, 1, 2, 3, 4);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_cachesize, 1, 2, i, i + 1);
     //gtk_range_set_value(GTK_RANGE(config_cachesize), cache_size);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_cachesize), cache_size);
 	gtk_entry_set_width_chars(GTK_ENTRY(config_cachesize),10);
