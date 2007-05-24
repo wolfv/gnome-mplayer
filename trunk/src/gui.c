@@ -1982,7 +1982,8 @@ GtkWidget *create_window(gint windowid)
 
     }
 	
-    gtk_widget_show_all(window);
+	if (windowid != -1)
+		gtk_widget_show_all(window);
 	gtk_widget_hide(song_title);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
 	
