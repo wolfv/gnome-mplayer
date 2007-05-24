@@ -1,4 +1,5 @@
 Development
+	Fix problem with looping when window_id not specified but control_id is
 	More GUI Changes to Preferences Dialog
 0.4.6
 	Update Spanish translation
