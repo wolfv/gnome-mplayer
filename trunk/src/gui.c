@@ -233,6 +233,11 @@ gboolean resize_window(void *data)
 
     if (GTK_IS_WIDGET(window)) {
         if (idle->videopresent) {
+			if (embed_window == -1) {
+				gtk_widget_show_all(window);
+				gtk_widget_hide(song_title);
+				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
+			}
             gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
             if (window_x == 0 && window_y == 0) {
                 gtk_widget_show_all(GTK_WIDGET(fixed));
@@ -1576,7 +1581,7 @@ GtkWidget *create_window(gint windowid)
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
 
-    if (windowid != 0) {
+    if (windowid > 0) {
         gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
         GTK_WIDGET_SET_FLAGS(window, GTK_CAN_FOCUS);
     }

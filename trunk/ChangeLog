@@ -1,4 +1,5 @@
 Development
+	If embed_window is -1 but then we get a video, show the window
 	If --window=-1 then don't show the window at all, used for background media
 	Fix problem with looping when window_id not specified but control_id is
 	More GUI Changes to Preferences Dialog
