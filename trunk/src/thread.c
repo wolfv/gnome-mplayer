@@ -417,6 +417,8 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-identify");
     argv[arg++] = g_strdup_printf("-softvol");
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
+    argv[arg++] = g_strdup_printf("-osdlevel");
+    argv[arg++] = g_strdup_printf("0");
     if (strcmp(threaddata->filename, "dvdnav://") == 0) {
         argv[arg++] = g_strdup_printf("-mouse-movements");
     } else if (strcmp(threaddata->filename, "dvd://") != 0) {
