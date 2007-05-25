@@ -148,6 +148,7 @@ int main(int argc, char *argv[])
     cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
     if (cache_size == 0)
         cache_size = 2000;
+    osdlevel = gconf_client_get_int(gconf, OSDLEVEL, NULL);
     g_object_unref(G_OBJECT(gconf));
 
     context = g_option_context_new(_("- GNOME Media player based on MPlayer"));

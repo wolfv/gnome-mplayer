@@ -148,6 +148,7 @@ GtkWidget *song_title;
 GtkWidget *config_vo;
 GtkWidget *config_ao;
 GtkWidget *config_cachesize;
+GtkWidget *config_osdlevel;
 
 GtkAccelGroup *accel_group;
 
