@@ -1971,7 +1971,8 @@ GtkWidget *create_window(gint windowid)
     gtk_scale_set_draw_value(GTK_SCALE(vol_slider), FALSE);
     gtk_range_set_value(GTK_RANGE(vol_slider), 100.0);
     g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_slider_callback), NULL);
-    gtk_widget_show(vol_slider);
+	GTK_WIDGET_UNSET_FLAGS(vol_slider, GTK_CAN_FOCUS);
+	gtk_widget_show(vol_slider);
 
 
 	gtk_widget_realize(window);
