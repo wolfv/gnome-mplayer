@@ -26,6 +26,7 @@
 #define _COMMON_H
 
 #define CACHE_SIZE		"/apps/gnome-mplayer/preferences/cache_size"
+#define OSDLEVEL		"/apps/gnome-mplayer/preferences/osdlevel"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 
 // JavaScript Playstates
@@ -97,6 +98,7 @@ typedef struct _ThreadData {
 } ThreadData;
 
 gint cache_size;
+gint osdlevel;
 gint streaming;
 gint showcontrols;
 gint fullscreen;

@@ -1,4 +1,5 @@
 Development
+	Allow setting osdlevel in Edit->Preferences
 	Set osdlevel to 0 by default (plan to change this in the Preferences eventually)
 	Set vol_slider so that left and right don't activate it and the media forward/rev
 	If embed_window is -1 but then we get a video, show the window
