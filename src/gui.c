@@ -959,7 +959,8 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
 void config_apply(GtkWidget * widget, void *data)
 {
     GConfClient *gconf;
-
+	gchar *cmd;
+	
     if (vo != NULL) {
         g_free(vo);
         vo = NULL;
@@ -977,8 +978,13 @@ void config_apply(GtkWidget * widget, void *data)
     //cache_size = (int) gtk_range_get_value(GTK_RANGE(config_cachesize));
 	cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));	
-    gconf = gconf_client_get_default();
+    cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
+    send_command(cmd);
+    g_free(cmd);
+
+	gconf = gconf_client_get_default();
     gconf_client_set_int(gconf, CACHE_SIZE, cache_size, NULL);
+    gconf_client_set_int(gconf, OSDLEVEL, osdlevel, NULL);
     g_object_unref(G_OBJECT(gconf));
 
     gtk_widget_destroy(widget);
