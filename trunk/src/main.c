@@ -54,7 +54,7 @@ static GOptionEntry entries[] = {
     {"controlid", 0, 0, G_OPTION_ARG_INT, &control_id, N_("Unique DBUS controller id"), "CID"},
     {"playlist", 0, 0, G_OPTION_ARG_NONE, &playlist, N_("File Argument is a playlist"), NULL},
     {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more ouput on the console"), NULL},
-    {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"), "I"},
+    {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"), "[0|1]"},
     {"autostart", 0, 0, G_OPTION_ARG_INT, &autostart, N_("Autostart the media default to 1, set to 0 to load but don't play"), "[0|1]"},	
     {NULL}
 };
