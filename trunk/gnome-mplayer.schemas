@@ -12,6 +12,18 @@
         <long>The memory cache size for playing</long>
       </locale>
     </schema>
+ 
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/osdlevel</key>
+      <applyto>/apps/gnome-mplayer/preferences/osdlevel</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>OSD Level</short>
+        <long>Value for the On Screen Display Setting</long>
+      </locale>
+    </schema>
 
     <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/last_dir</key>
