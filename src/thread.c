@@ -28,13 +28,12 @@
 
 void shutdown()
 {
-
+	printf("state = %i quit = %i\n",state,QUIT);
     if (state != QUIT) {
         idledata->percent = 1.0;
         g_idle_add(set_progress_value, idledata);
         g_idle_add(set_stop, idledata);
         send_command("quit\n");
-
     }
     while (gtk_events_pending())
         gtk_main_iteration();
@@ -72,7 +71,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("%s", mplayer_output->str);
 
-    if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
+ 	if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
 
@@ -89,7 +88,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         gtk_widget_destroy(dialog);
         g_free(error_msg);
     }
-
+	
     if (status != G_IO_STATUS_NORMAL) {
         g_string_free(mplayer_output, TRUE);
         return FALSE;
@@ -120,10 +119,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     mplayer_output = g_string_new("");
-
-    // printf("thread_reader state = %i\n",state);
-    if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
-        printf("%s", mplayer_output->str);
 
     if (state == QUIT) {
         g_string_free(mplayer_output, TRUE);
@@ -160,6 +155,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         }
     }
 
+    //printf("thread_reader state = %i : status = %i\n",state,status);
+    if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
+        printf("%s", mplayer_output->str);
 
 
     if (strstr(mplayer_output->str, "(Quit)") != NULL) {
@@ -411,6 +409,8 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
+    //argv[arg++] = g_strdup_printf("-msglevel");
+    //argv[arg++] = g_strdup_printf("all=4");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
     argv[arg++] = g_strdup_printf("-softvol");
