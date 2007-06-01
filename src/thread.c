@@ -28,7 +28,7 @@
 
 void shutdown()
 {
-	printf("state = %i quit = %i\n",state,QUIT);
+	// printf("state = %i quit = %i\n",state,QUIT);
     if (state != QUIT) {
         idledata->percent = 1.0;
         g_idle_add(set_progress_value, idledata);
@@ -154,12 +154,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             return FALSE;
         }
     }
+	if ((strstr(mplayer_output->str, "A:") != NULL) || (strstr(mplayer_output->str, "V:") != NULL)) {
+		return TRUE;
+	}
 
     //printf("thread_reader state = %i : status = %i\n",state,status);
     if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("%s", mplayer_output->str);
 
-
+	
     if (strstr(mplayer_output->str, "(Quit)") != NULL) {
         state = QUIT;
         g_idle_add(set_stop, idledata);
@@ -409,8 +412,9 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
-    //argv[arg++] = g_strdup_printf("-msglevel");
-    //argv[arg++] = g_strdup_printf("all=4");
+    argv[arg++] = g_strdup_printf("-msglevel");
+    argv[arg++] = g_strdup_printf("all=5");
+    //argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
     argv[arg++] = g_strdup_printf("-softvol");
@@ -455,8 +459,8 @@ gpointer launch_player(gpointer data)
         channel_err = g_io_channel_unix_new(std_err);
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
-        g_io_add_watch(channel_in, G_IO_IN | G_IO_HUP, thread_reader, NULL);
-        g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
+        g_io_add_watch(channel_in, G_IO_IN | G_IO_HUP | G_IO_NVAL, thread_reader, NULL);
+        g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP | G_IO_NVAL, thread_reader_error, NULL);
 
         g_idle_add(set_play, NULL);
         g_timeout_add(500, thread_query, NULL);
