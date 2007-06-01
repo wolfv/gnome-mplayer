@@ -420,6 +420,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 {
     shutdown();
+		  
     if (lastfile != NULL) {
         g_free(lastfile);
         lastfile = NULL;

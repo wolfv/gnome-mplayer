@@ -122,6 +122,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     mplayer_output = g_string_new("");
 
     // printf("thread_reader state = %i\n",state);
+    if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
+        printf("%s", mplayer_output->str);
 
     if (state == QUIT) {
         g_string_free(mplayer_output, TRUE);
@@ -158,8 +160,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         }
     }
 
-    if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
-        printf("%s", mplayer_output->str);
 
 
     if (strstr(mplayer_output->str, "(Quit)") != NULL) {
@@ -382,7 +382,7 @@ gpointer launch_player(gpointer data)
     char *argv[255];
     gint arg = 0;
 
-    ThreadData *threaddata = (ThreadData *) data;
+    threaddata = (ThreadData *) data;
 
     fullscreen = 0;
     videopresent = 1;
@@ -411,8 +411,6 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
-    // argv[arg++] = g_strdup_printf("-zoom");
-    argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
     argv[arg++] = g_strdup_printf("-softvol");

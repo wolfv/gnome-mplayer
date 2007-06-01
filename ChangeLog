@@ -1,4 +1,5 @@
 Development
+	Use of the -quiet option may cause mplayer not to be shutdown
 	Add -framedrop to the list of default options for mplayer
 	When you set the osdlevel, apply it immediately
 	Allow setting osdlevel in Edit->Preferences
