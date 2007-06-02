@@ -73,9 +73,17 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         return FALSE;
     }
 
+	
+    if (state == QUIT) {
+        g_idle_add(set_stop, idledata);
+        state = QUIT;
+        g_mutex_unlock(thread_running);
+        return FALSE;
+    }
+	
     mplayer_output = g_string_new("");
 
-    status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
+	status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
     if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("%s", mplayer_output->str);
 
@@ -126,17 +134,17 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         return FALSE;
     }
 
-    mplayer_output = g_string_new("");
 
     if (state == QUIT) {
-        g_string_free(mplayer_output, TRUE);
         g_idle_add(set_stop, idledata);
         state = QUIT;
         g_mutex_unlock(thread_running);
         return FALSE;
     }
 
-    status = g_io_channel_read_line_string(source, mplayer_output, NULL, &error);
+    mplayer_output = g_string_new("");
+
+	status = g_io_channel_read_line_string(source, mplayer_output, NULL, &error);
     if (status != G_IO_STATUS_NORMAL) {
         if (error != NULL) {
             //printf("%i: %s\n",error->code,error->message);
