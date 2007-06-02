@@ -1,4 +1,6 @@
 Development
+	fix invalid error, when no filename is specified
+	Show warning message and don't start mplayer when file is not found.
 	Use of the -quiet option may cause mplayer not to be shutdown
 	Add -framedrop to the list of default options for mplayer
 	When you set the osdlevel, apply it immediately

@@ -71,15 +71,17 @@ gint play_file(gchar * filename, gint playlist)
     shutdown();
     g_strlcpy(thread_data->filename, filename, 1024);
 	
-	if (!g_file_test(filename, G_FILE_TEST_EXISTS)) {
-    	error_msg = g_strdup_printf("%s not found\n",filename);
-        dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                        GTK_BUTTONS_CLOSE, error_msg);
-        gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
-        gtk_dialog_run(GTK_DIALOG(dialog));
-        gtk_widget_destroy(dialog);		
-    	return 1;
-    }
+	if (g_ascii_strcasecmp(filename,"") != 0) {
+		if (!g_file_test(filename, G_FILE_TEST_EXISTS)) {
+			error_msg = g_strdup_printf("%s not found\n",filename);
+			dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+											GTK_BUTTONS_CLOSE, error_msg);
+			gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
+			gtk_dialog_run(GTK_DIALOG(dialog));
+			gtk_widget_destroy(dialog);		
+			return 1;
+		}
+	}
 	
 
     if (lastfile != NULL) {
