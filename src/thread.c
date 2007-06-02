@@ -54,6 +54,14 @@ gboolean send_command(gchar * command)
 	
 }
 
+gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
+{
+        g_idle_add(set_stop, idledata);
+        state = QUIT;
+        g_mutex_unlock(thread_running);
+        return FALSE; 
+}
+
 gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpointer data)
 {
     GString *mplayer_output;
@@ -460,8 +468,9 @@ gpointer launch_player(gpointer data)
         channel_err = g_io_channel_unix_new(std_err);
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
-        g_io_add_watch(channel_in, G_IO_IN | G_IO_HUP | G_IO_NVAL, thread_reader, NULL);
-        g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP | G_IO_NVAL, thread_reader_error, NULL);
+        g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
+        g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR, thread_reader_error, NULL);
+        g_io_add_watch(channel_in, G_IO_HUP, thread_complete, NULL);
 
         g_idle_add(set_play, NULL);
         g_timeout_add(500, thread_query, NULL);
