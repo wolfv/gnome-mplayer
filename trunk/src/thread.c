@@ -145,14 +145,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 error = NULL;
                 return FALSE;
             }
-/*        } else {
+        } else {
             g_string_free(mplayer_output, TRUE);
             g_idle_add(set_stop, idledata);
             state = QUIT;
             g_mutex_unlock(thread_running);
             error = NULL;
             return FALSE;
-*/        }
+        }
     }
 	if ((strstr(mplayer_output->str, "A:") != NULL) || (strstr(mplayer_output->str, "V:") != NULL)) {
 		g_string_free(mplayer_output, TRUE);
@@ -415,7 +415,7 @@ gpointer launch_player(gpointer data)
     }
     //argv[arg++] = g_strdup_printf("-msglevel");
     //argv[arg++] = g_strdup_printf("all=5");
-    //argv[arg++] = g_strdup_printf("-quiet");
+    argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
     argv[arg++] = g_strdup_printf("-softvol");
