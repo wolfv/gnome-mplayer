@@ -44,6 +44,7 @@ gboolean send_command(gchar * command)
 {
 	gint ret;
 
+	// printf("send command = %s\n",command);
 	ret = write(std_in, command, strlen(command));
     fsync(std_in);
 	if (ret < 0) {
@@ -56,10 +57,10 @@ gboolean send_command(gchar * command)
 
 gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
 {
-        g_idle_add(set_stop, idledata);
-        state = QUIT;
-        g_mutex_unlock(thread_running);
-        return FALSE; 
+	g_idle_add(set_stop, idledata);
+	state = QUIT;
+	g_mutex_unlock(thread_running);
+	return FALSE; 
 }
 
 gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpointer data)
@@ -68,7 +69,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     GIOStatus status;
     gchar *error_msg = NULL;
     GtkWidget *dialog;
-
+	
     if (source == NULL) {
         return FALSE;
     }
@@ -85,7 +86,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
 	status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
     if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
-        printf("%s", mplayer_output->str);
+        printf("ERROR: %s", mplayer_output->str);
 
  	if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
@@ -180,7 +181,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         printf("%s", mplayer_output->str);
 
 	
-    if (strstr(mplayer_output->str, "(Quit)") != NULL) {
+    if ((strstr(mplayer_output->str, "(Quit)") != NULL) || (strstr(mplayer_output->str, "(End of file)") != NULL)) {
         state = QUIT;
         g_idle_add(set_stop, idledata);
         g_string_free(mplayer_output, TRUE);
@@ -384,7 +385,6 @@ gboolean thread_query(gpointer data)
         }
     } else {
         if (state == QUIT) {
-            shutdown();
             return FALSE;
         } else {
             return TRUE;
@@ -400,7 +400,7 @@ gpointer launch_player(gpointer data)
     char *argv[255];
     gint arg = 0;
 
-    threaddata = (ThreadData *) data;
+    ThreadData *threaddata = (ThreadData *) data;
 
     fullscreen = 0;
     videopresent = 1;
@@ -477,7 +477,7 @@ gpointer launch_player(gpointer data)
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
         g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
-        g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR, thread_reader_error, NULL);
+        g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
         g_io_add_watch(channel_in, G_IO_HUP, thread_complete, NULL);
 
         g_idle_add(set_play, NULL);
@@ -489,7 +489,7 @@ gpointer launch_player(gpointer data)
     }
 
     g_mutex_lock(thread_running);
-    // printf("Thread completing\n");
+    printf("Thread completing\n");
     idledata->percent = 1.0;
     idledata->position = idledata->length;
     g_idle_add(set_progress_value, idledata);
@@ -502,17 +502,17 @@ gpointer launch_player(gpointer data)
     threaddata = NULL;
 
     if (channel_in != NULL) {
-        g_io_channel_unref(channel_in);
+        g_io_channel_shutdown(channel_in, FALSE, NULL);
         channel_in = NULL;
     }
 
     if (channel_out != NULL) {
-        g_io_channel_unref(channel_out);
+        g_io_channel_shutdown(channel_out, FALSE, NULL);
         channel_out = NULL;
     }
 
     if (channel_err != NULL) {
-        g_io_channel_unref(channel_err);
+        g_io_channel_shutdown(channel_err, FALSE, NULL);
         channel_err = NULL;
     }
 
@@ -523,5 +523,7 @@ gpointer launch_player(gpointer data)
         arg++;
     }
     g_mutex_unlock(thread_running);
-    return NULL;
+    printf("Thread done\n");
+
+	return NULL;
 }
