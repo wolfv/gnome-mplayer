@@ -1,4 +1,6 @@
 Development
+	Hide drawing area on media quit
+	Fix problem with error reader not shutting down correctly.
 	fix invalid error, when no filename is specified
 	Show warning message and don't start mplayer when file is not found.
 	Use of the -quiet option may cause mplayer not to be shutdown

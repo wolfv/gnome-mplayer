@@ -648,6 +648,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (state == QUIT) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+			gtk_widget_hide(drawing_area);
         }
 
         g_strlcpy(idledata->progress_text, _("Stopped"), 1024);

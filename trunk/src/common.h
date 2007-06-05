@@ -96,7 +96,6 @@ typedef struct _ThreadData {
     gint player_window;
     gint playlist;
 } ThreadData;
-ThreadData *threaddata;
 
 gint cache_size;
 gint osdlevel;
