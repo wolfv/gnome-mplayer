@@ -1552,7 +1552,7 @@ void make_button(gchar * src, gchar * hrefid)
         filename = g_strdup_printf("%s/00000001.jpg", dirname);
 
         // run mplayer and try to get the first frame and convert it to a jpeg
-        command = g_strdup_printf("mplayer -vo jpeg:outdir=%s -frames 1 %s", dirname, src);
+        command = g_strdup_printf("mplayer -vo jpeg:outdir=%s -x %i -y %i -frames 1 %s", dirname, window_x, window_y , src);
         if (!g_spawn_command_line_sync(command, NULL, NULL, &exit_status, &error))
             printf("Error when running When running command: %s\n%s\n", command, error->message);
 
