@@ -1,4 +1,5 @@
 Development
+	Scale the button image
 	Hide drawing area on media quit
 	Fix problem with error reader not shutting down correctly.
 	fix invalid error, when no filename is specified
