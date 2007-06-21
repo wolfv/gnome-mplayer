@@ -1538,12 +1538,22 @@ void make_button(gchar * src, gchar * hrefid)
     gchar *dirname = NULL;
     gchar *filename = NULL;
     gint exit_status;
-    gchar *command;
+	gchar *stdout;
+	gchar *stderr;
+	gchar *av[255];
+	gint ac = 0;
 
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), FALSE);
 
     error = NULL;
-    pb_button = gdk_pixbuf_new_from_file(src, &error);
+	// only try if src ne NULL
+	if (src != NULL) {
+	    pb_button = gdk_pixbuf_new_from_file(src, &error);
+	} else {
+		return;
+	}
+
+	// if we can't directly load the file into a pixbuf it might be a media file
     if (error != NULL) {
         g_error_free(error);
         error = NULL;
@@ -1552,11 +1562,24 @@ void make_button(gchar * src, gchar * hrefid)
         filename = g_strdup_printf("%s/00000001.jpg", dirname);
 
         // run mplayer and try to get the first frame and convert it to a jpeg
-        command = g_strdup_printf("mplayer -vo jpeg:outdir=%s -x %i -y %i -frames 1 %s", dirname, window_x, window_y , src);
-        if (!g_spawn_command_line_sync(command, NULL, NULL, &exit_status, &error))
-            printf("Error when running When running command: %s\n%s\n", command, error->message);
-
-        g_free(command);
+		av[ac++] = g_strdup_printf("mplayer");
+		av[ac++] = g_strdup_printf("-vo");
+		av[ac++] = g_strdup_printf("jpeg:outdir=%s",dirname);
+		av[ac++] = g_strdup_printf("-x");
+		av[ac++] = g_strdup_printf("%i", window_x);
+		av[ac++] = g_strdup_printf("-y");
+		av[ac++] = g_strdup_printf("%i", window_y);
+		av[ac++] = g_strdup_printf("-frames");
+		av[ac++] = g_strdup_printf("1");
+		av[ac++] = g_strdup_printf("%s",src);
+		av[ac] = NULL;
+		
+		g_spawn_sync(NULL,av,NULL,G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr, &exit_status, &error);
+		if (error != NULL) {
+			printf("Error when running: %s\n",error->message);
+			g_error_free(error);
+			error = NULL;
+		}
 
         if (g_file_test(filename, G_FILE_TEST_EXISTS)) {
             pb_button = gdk_pixbuf_new_from_file(filename, &error);
@@ -1565,9 +1588,20 @@ void make_button(gchar * src, gchar * hrefid)
                 error = NULL;
             }
         }
+
+	    if (filename != NULL) {
+			if (g_file_test(filename, G_FILE_TEST_EXISTS))
+		        g_remove(filename);
+	        g_free(filename);
+	    }
+
+	    if (dirname != NULL) {
+	        g_remove(dirname);
+	        g_free(dirname);
+	    }
     }
 
-    if (GDK_IS_PIXBUF(pb_button)) {
+    if (pb_button != NULL && GDK_IS_PIXBUF(pb_button)) {
 
         button_event_box = gtk_event_box_new();
         image_button = gtk_image_new_from_pixbuf(pb_button);
@@ -1581,15 +1615,7 @@ void make_button(gchar * src, gchar * hrefid)
     };
 
 
-    if (filename != NULL) {
-        g_remove(filename);
-        g_free(filename);
-    }
 
-    if (dirname != NULL) {
-        g_remove(dirname);
-        g_free(dirname);
-    }
 }
 
 
