@@ -28,7 +28,7 @@
 
 void shutdown()
 {
-	// printf("state = %i quit = %i\n",state,QUIT);
+    // printf("state = %i quit = %i\n",state,QUIT);
     if (state != QUIT) {
         idledata->percent = 1.0;
         g_idle_add(set_progress_value, idledata);
@@ -42,25 +42,25 @@ void shutdown()
 
 gboolean send_command(gchar * command)
 {
-	gint ret;
+    gint ret;
 
-	// printf("send command = %s\n",command);
-	ret = write(std_in, command, strlen(command));
+    // printf("send command = %s\n",command);
+    ret = write(std_in, command, strlen(command));
     fsync(std_in);
-	if (ret < 0) {
-		return FALSE;
-	} else {
-		return TRUE;
-	}
-	
+    if (ret < 0) {
+        return FALSE;
+    } else {
+        return TRUE;
+    }
+
 }
 
 gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
 {
-	g_idle_add(set_stop, idledata);
-	state = QUIT;
-	g_mutex_unlock(thread_running);
-	return FALSE; 
+    g_idle_add(set_stop, idledata);
+    state = QUIT;
+    g_mutex_unlock(thread_running);
+    return FALSE;
 }
 
 gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpointer data)
@@ -69,26 +69,26 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     GIOStatus status;
     gchar *error_msg = NULL;
     GtkWidget *dialog;
-	
+
     if (source == NULL) {
         return FALSE;
     }
 
-	
+
     if (state == QUIT) {
         g_idle_add(set_stop, idledata);
         state = QUIT;
         g_mutex_unlock(thread_running);
         return FALSE;
     }
-	
+
     mplayer_output = g_string_new("");
 
-	status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
+    status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
     if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("ERROR: %s", mplayer_output->str);
 
- 	if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
+    if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
 
@@ -105,7 +105,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         gtk_widget_destroy(dialog);
         g_free(error_msg);
     }
-	
+
     if (status != G_IO_STATUS_NORMAL) {
         g_string_free(mplayer_output, TRUE);
         return FALSE;
@@ -145,7 +145,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     mplayer_output = g_string_new("");
 
-	status = g_io_channel_read_line_string(source, mplayer_output, NULL, &error);
+    status = g_io_channel_read_line_string(source, mplayer_output, NULL, &error);
     if (status != G_IO_STATUS_NORMAL) {
         if (error != NULL) {
             //printf("%i: %s\n",error->code,error->message);
@@ -171,17 +171,17 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             return FALSE;
         }
     }
-	if ((strstr(mplayer_output->str, "A:") != NULL) || (strstr(mplayer_output->str, "V:") != NULL)) {
-		g_string_free(mplayer_output, TRUE);
-		return TRUE;
-	}
-
+    if ((strstr(mplayer_output->str, "A:") != NULL) || (strstr(mplayer_output->str, "V:") != NULL)) {
+        g_string_free(mplayer_output, TRUE);
+        return TRUE;
+    }
     //printf("thread_reader state = %i : status = %i\n",state,status);
     if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("%s", mplayer_output->str);
 
-	
-    if ((strstr(mplayer_output->str, "(Quit)") != NULL) || (strstr(mplayer_output->str, "(End of file)") != NULL)) {
+
+    if ((strstr(mplayer_output->str, "(Quit)") != NULL)
+        || (strstr(mplayer_output->str, "(End of file)") != NULL)) {
         state = QUIT;
         g_idle_add(set_stop, idledata);
         g_string_free(mplayer_output, TRUE);
@@ -239,7 +239,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_volume");
         sscanf(buf, "ANS_volume=%i", &volume);
         idledata->volume = volume;
-		idledata->mute = 0;
+        idledata->mute = 0;
         buf = g_strdup_printf(_("Volume %i%%"), volume);
         g_strlcpy(idledata->vol_tooltip, buf, 128);
         g_idle_add(set_volume_tip, idledata);
@@ -250,7 +250,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_brightness");
         sscanf(buf, "ANS_brightness=%i", &idledata->brightness);
     }
-	
+
     if (strstr(mplayer_output->str, "ANS_contrast") != 0) {
         buf = strstr(mplayer_output->str, "ANS_contrast");
         sscanf(buf, "ANS_contrast=%i", &idledata->contrast);
@@ -260,17 +260,17 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_gamma");
         sscanf(buf, "ANS_gamma=%i", &idledata->gamma);
     }
-	
+
     if (strstr(mplayer_output->str, "ANS_hue") != 0) {
         buf = strstr(mplayer_output->str, "ANS_hue");
         sscanf(buf, "ANS_hue=%i", &idledata->hue);
     }
-	
+
     if (strstr(mplayer_output->str, "ANS_saturation") != 0) {
         buf = strstr(mplayer_output->str, "ANS_saturation");
         sscanf(buf, "ANS_saturation=%i", &idledata->saturation);
     }
-	
+
     if (strstr(mplayer_output->str, "Cache fill") != 0) {
         buf = strstr(mplayer_output->str, "Cache fill");
         sscanf(buf, "Cache fill: %f%%", &percent);
@@ -284,47 +284,47 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     if (strstr(mplayer_output->str, "ID_VIDEO_FORMAT") != 0) {
-		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_VIDEO_FORMAT") + strlen("ID_VIDEO_FORMAT=");
-        g_strlcpy(idledata->video_format,buf,64);
+        g_strlcpy(idledata->video_format, buf, 64);
     }
-	
+
     if (strstr(mplayer_output->str, "ID_VIDEO_CODEC") != 0) {
-		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_VIDEO_CODEC") + strlen("ID_VIDEO_CODEC=");
-        g_strlcpy(idledata->video_codec,buf,16);
+        g_strlcpy(idledata->video_codec, buf, 16);
     }
 
     if (strstr(mplayer_output->str, "ID_VIDEO_FPS") != 0) {
-		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_VIDEO_FPS") + strlen("ID_VIDEO_FPS=");
-        g_strlcpy(idledata->video_fps,buf,16);
+        g_strlcpy(idledata->video_fps, buf, 16);
     }
-	
+
     if (strstr(mplayer_output->str, "ID_VIDEO_BITRATE") != 0) {
-		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_VIDEO_BITRATE") + strlen("ID_VIDEO_BITRATE=");
-        g_strlcpy(idledata->video_bitrate,buf,16);
+        g_strlcpy(idledata->video_bitrate, buf, 16);
     }
 
     if (strstr(mplayer_output->str, "ID_AUDIO_CODEC") != 0) {
-		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_AUDIO_CODEC") + strlen("ID_AUDIO_CODEC=");
-        g_strlcpy(idledata->audio_codec,buf,16);
+        g_strlcpy(idledata->audio_codec, buf, 16);
     }
-	
+
     if (strstr(mplayer_output->str, "ID_AUDIO_BITRATE") != 0) {
-		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_AUDIO_BITRATE") + strlen("ID_AUDIO_BITRATE=");
-        g_strlcpy(idledata->audio_bitrate,buf,16);
+        g_strlcpy(idledata->audio_bitrate, buf, 16);
     }
 
     if (strstr(mplayer_output->str, "ID_AUDIO_RATE") != 0) {
-		g_string_truncate(mplayer_output,mplayer_output->len -1);
+        g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_AUDIO_RATE") + strlen("ID_AUDIO_RATE=");
-        g_strlcpy(idledata->audio_samplerate,buf,16);
+        g_strlcpy(idledata->audio_samplerate, buf, 16);
     }
-	
+
     if (strstr(mplayer_output->str, "File not found") != 0) {
     }
 
@@ -372,6 +372,15 @@ gboolean thread_query(gpointer data)
     int size;
 
     //printf("thread_query state = %i\n",state);
+
+    // this function wakes up every 1/2 second and so 
+    // this is where we should put in some code to detect if the media is getting 
+    // to close to the amount cached and if so pause until we have a 5% gap or something
+
+    // idledata->percent > (idledata->cachepercent - 0.05)
+    //              autopause
+    // else
+    // 
 
     if (state == PLAYING) {
         size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
@@ -429,8 +438,6 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
-    //argv[arg++] = g_strdup_printf("-msglevel");
-    //argv[arg++] = g_strdup_printf("all=5");
     argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
@@ -438,7 +445,7 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-framedrop");
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-osdlevel");
-    argv[arg++] = g_strdup_printf("%i",osdlevel);
+    argv[arg++] = g_strdup_printf("%i", osdlevel);
     if (strcmp(threaddata->filename, "dvdnav://") == 0) {
         argv[arg++] = g_strdup_printf("-mouse-movements");
     } else if (strcmp(threaddata->filename, "dvd://") != 0) {
@@ -525,5 +532,5 @@ gpointer launch_player(gpointer data)
     g_mutex_unlock(thread_running);
     printf("Thread done\n");
 
-	return NULL;
+    return NULL;
 }

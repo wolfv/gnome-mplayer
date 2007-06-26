@@ -54,8 +54,10 @@ static GOptionEntry entries[] = {
     {"controlid", 0, 0, G_OPTION_ARG_INT, &control_id, N_("Unique DBUS controller id"), "CID"},
     {"playlist", 0, 0, G_OPTION_ARG_NONE, &playlist, N_("File Argument is a playlist"), NULL},
     {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more ouput on the console"), NULL},
-    {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"), "[0|1]"},
-    {"autostart", 0, 0, G_OPTION_ARG_INT, &autostart, N_("Autostart the media default to 1, set to 0 to load but don't play"), "[0|1]"},	
+    {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
+     "[0|1]"},
+    {"autostart", 0, 0, G_OPTION_ARG_INT, &autostart,
+     N_("Autostart the media default to 1, set to 0 to load but don't play"), "[0|1]"},
     {NULL}
 };
 
@@ -65,26 +67,27 @@ gint play_file(gchar * filename, gint playlist)
 {
 
     ThreadData *thread_data = (ThreadData *) g_malloc(sizeof(ThreadData));
-	GtkWidget *dialog;
-	gchar *error_msg = NULL;
-	
+    GtkWidget *dialog;
+    gchar *error_msg = NULL;
+
     shutdown();
     g_strlcpy(thread_data->filename, filename, 1024);
-	
-	if (g_ascii_strcasecmp(filename,"") != 0) {
-		if (!streaming_media(filename)) {
-			if (!g_file_test(filename, G_FILE_TEST_EXISTS)) {
-				error_msg = g_strdup_printf("%s not found\n",filename);
-				dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-												GTK_BUTTONS_CLOSE, error_msg);
-				gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
-				gtk_dialog_run(GTK_DIALOG(dialog));
-				gtk_widget_destroy(dialog);		
-				return 1;
-			}
-		}
-	}
-	
+
+    if (g_ascii_strcasecmp(filename, "") != 0) {
+        if (!streaming_media(filename)) {
+            if (!g_file_test(filename, G_FILE_TEST_EXISTS)) {
+                error_msg = g_strdup_printf("%s not found\n", filename);
+                dialog =
+                    gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                           GTK_BUTTONS_CLOSE, error_msg);
+                gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
+                gtk_dialog_run(GTK_DIALOG(dialog));
+                gtk_widget_destroy(dialog);
+                return 1;
+            }
+        }
+    }
+
 
     if (lastfile != NULL) {
         g_free(lastfile);
@@ -109,14 +112,14 @@ gint play_file(gchar * filename, gint playlist)
         thread_data->playlist = playlist;
         // thread_data->streaming = !g_file_test(thread_data->filename,G_FILE_TEST_EXISTS);
         thread_data->streaming = streaming_media(thread_data->filename);
-		idledata->streaming = thread_data->streaming;
+        idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
 
-		if (autostart) {
-			g_idle_add(hide_buttons, thread_data);
-			g_thread_create(launch_player, thread_data, TRUE, NULL);
-		} 
-		autostart = 1;
+        if (autostart) {
+            g_idle_add(hide_buttons, thread_data);
+            g_thread_create(launch_player, thread_data, TRUE, NULL);
+        }
+        autostart = 1;
     }
     return 0;
 }
@@ -139,24 +142,24 @@ int main(int argc, char *argv[])
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 #endif
-	
+
     playlist = 0;
     embed_window = 0;
     control_id = 0;
     window_x = 0;
     window_y = 0;
     showcontrols = 1;
-	autostart = 1;
+    autostart = 1;
     videopresent = 1;
     idledata = (IdleData *) g_new0(IdleData, 1);
     idledata->videopresent = 1;
     idledata->volume = 100.0;
     idledata->length = 0.0;
-	idledata->brightness = 0;
-	idledata->contrast = 0;
-	idledata->gamma = 0;
-	idledata->hue = 0;
-	idledata->saturation = 0;
+    idledata->brightness = 0;
+    idledata->contrast = 0;
+    idledata->gamma = 0;
+    idledata->hue = 0;
+    idledata->saturation = 0;
 
     // call g_type_init or otherwise we can crash
     g_type_init();

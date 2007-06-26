@@ -104,26 +104,26 @@ gboolean update_mplayer_config()
 
     if (vo != NULL && strlen(vo) != 0) {
         g_key_file_set_string(config, "gnome-mplayer", "vo", vo);
-		if (g_ascii_strcasecmp(vo,"x11") == 0) {
-			// make full screen work when using x11
-			g_key_file_set_string(config, "gnome-mplayer", "zoom", "1");
-			// make advanced video controls work on x11
-			g_key_file_set_string(config, "gnome-mplayer", "vf", "eq2");
-		}
-		
-		if (g_ascii_strcasecmp(vo,"xv") == 0) {
-			// make advanced video controls work on xv
-			g_key_file_remove_key(config, "gnome-mplayer", "zoom", NULL);
-			g_key_file_set_string(config, "gnome-mplayer", "vf", "eq2");
-		}
-		
-		if (g_ascii_strcasecmp(vo,"gl") == 0 || g_ascii_strcasecmp(vo,"gl2") == 0 ) {
-			// if vf=eq2 is set and we use gl, then mplayer crashes
-			g_key_file_remove_key(config, "gnome-mplayer", "zoom", NULL);
-			g_key_file_remove_key(config, "gnome-mplayer", "vf", NULL);
-		}
-		
-			
+        if (g_ascii_strcasecmp(vo, "x11") == 0) {
+            // make full screen work when using x11
+            g_key_file_set_string(config, "gnome-mplayer", "zoom", "1");
+            // make advanced video controls work on x11
+            g_key_file_set_string(config, "gnome-mplayer", "vf", "eq2");
+        }
+
+        if (g_ascii_strcasecmp(vo, "xv") == 0) {
+            // make advanced video controls work on xv
+            g_key_file_remove_key(config, "gnome-mplayer", "zoom", NULL);
+            g_key_file_set_string(config, "gnome-mplayer", "vf", "eq2");
+        }
+
+        if (g_ascii_strcasecmp(vo, "gl") == 0 || g_ascii_strcasecmp(vo, "gl2") == 0) {
+            // if vf=eq2 is set and we use gl, then mplayer crashes
+            g_key_file_remove_key(config, "gnome-mplayer", "zoom", NULL);
+            g_key_file_remove_key(config, "gnome-mplayer", "vf", NULL);
+        }
+
+
     } else {
         g_key_file_remove_key(config, "gnome-mplayer", "vo", NULL);
     }
