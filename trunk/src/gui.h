@@ -152,6 +152,15 @@ GtkWidget *config_osdlevel;
 
 GtkAccelGroup *accel_group;
 
+//Define MIME for DnD
+#define DRAG_NAME_0		"text/plain"
+#define DRAG_INFO_0		0
+#define DRAG_NAME_1		"text/uri-list"
+#define DRAG_INFO_1		1
+#define DRAG_NAME_2		"STRING"
+#define DRAG_INFO_2		2
+
+
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data);
 
