@@ -596,7 +596,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 
 }
 
-void drop_callback(GtkWidget * widget, GdkDragContext * dc,
+gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                    gint x, gint y, GtkSelectionData * selection_data,
                    guint info, guint t, gpointer data)
 {
@@ -606,9 +606,9 @@ void drop_callback(GtkWidget * widget, GdkDragContext * dc,
      * occure and selection_data will be NULL.
      */
     if (selection_data == NULL)
-        return;
+        return FALSE;
     if (selection_data->length < 0)
-        return;
+        return FALSE;
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
         filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
@@ -616,6 +616,7 @@ void drop_callback(GtkWidget * widget, GdkDragContext * dc,
         shutdown();
         play_file(filename, 0);
     }
+	return FALSE;
 }
 
 
