@@ -94,6 +94,8 @@ GtkMenuItem *menuitem_stop;
 GtkMenuItem *menuitem_sep1;
 GtkMenuItem *menuitem_sep2;
 GtkMenuItem *menuitem_sep3;
+GtkMenuItem *menuitem_sep4;
+GtkMenuItem *menuitem_save;
 GtkMenuItem *menuitem_showcontrols;
 GtkMenuItem *menuitem_fullscreen;
 GtkMenuItem *menuitem_config;
