@@ -52,6 +52,7 @@ gboolean hide_buttons(void *data)
         if (td->streaming) {
             gtk_widget_hide(ff_event_box);
             gtk_widget_hide(rew_event_box);
+			gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save),FALSE);
         } else {
             if (embed_window == 0 || window_x > 250) {
                 gtk_widget_show(ff_event_box);
@@ -788,21 +789,21 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
 {
 	// save dialog
-	GtkWidget *dialog;
+	GtkWidget *file_chooser_save;
     gchar *filename;
 	FILE *fin;
 	FILE *fout;
 	char buffer[1000];
 	gint count;
 	
-	dialog = gtk_file_chooser_dialog_new(_("Save As..."),
+	file_chooser_save = gtk_file_chooser_dialog_new(_("Save As..."),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_SAVE,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
 
-    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
-        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+    if (gtk_dialog_run(GTK_DIALOG(file_chooser_save)) == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser_save));
 	   
 		// printf("Copy %s to %s\n",lastfile, filename);	   
 	   
@@ -820,7 +821,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
         g_free(filename);
     }
 
-    gtk_widget_destroy(dialog);
+    gtk_widget_destroy(file_chooser_save);
 
 }
 

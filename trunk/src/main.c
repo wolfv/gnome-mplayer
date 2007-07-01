@@ -115,7 +115,7 @@ gint play_file(gchar * filename, gint playlist)
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
 
-        if (autostart) {
+		if (autostart) {
             g_idle_add(hide_buttons, thread_data);
             g_thread_create(launch_player, thread_data, TRUE, NULL);
         }
