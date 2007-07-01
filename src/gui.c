@@ -785,11 +785,6 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
     play_file("cdda://", 0);
 }
 
-void store_filename(GtkWidget * widget, void *data)
-{
-	
-}
-
 void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
 {
 	// save dialog
