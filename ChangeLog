@@ -1,4 +1,5 @@
 Development
+	French translation by Starcrasher
 	Implement Save As dialog when running under gecko-mediaplayer (feature not finished)
 	Implement drag and drop support patch from Alexandre Damien
 	Scale the button image
