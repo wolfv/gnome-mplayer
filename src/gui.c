@@ -785,6 +785,52 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
     play_file("cdda://", 0);
 }
 
+void store_filename(GtkWidget * widget, void *data)
+{
+	
+}
+
+void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
+{
+	// save dialog
+	GtkWidget *dialog;
+    gchar *filename;
+	FILE *fin;
+	FILE *fout;
+	char buffer[1000];
+	gint count;
+	
+	dialog = gtk_file_chooser_dialog_new(_("Save As..."),
+                                         GTK_WINDOW(window),
+                                         GTK_FILE_CHOOSER_ACTION_SAVE,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
+
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+	   
+		// printf("Copy %s to %s\n",lastfile, filename);	   
+	   
+		fin = g_fopen(lastfile, "rb");
+		fout = g_fopen(filename, "wb");
+		if (fin != NULL && fout != NULL) {
+			while (!feof(fin)) {
+				count = fread(buffer, 1, 1000, fin);
+				fwrite(buffer, 1, count, fout);
+			}
+			fclose(fout);
+			fclose(fin);
+		}
+		
+        g_free(filename);
+    }
+
+    gtk_widget_destroy(dialog);
+
+}
+
+
+
 void menuitem_quit_callback(GtkMenuItem * menuitem, void *data)
 {
     delete_callback(NULL, NULL, NULL);
@@ -1679,6 +1725,7 @@ GtkWidget *create_window(gint windowid)
 
     accel_group = gtk_accel_group_new();
 
+	// right click menu
     popup_menu = GTK_MENU(gtk_menu_new());
     menubar = gtk_menu_bar_new();
     menuitem_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group));
@@ -1713,7 +1760,18 @@ GtkWidget *create_window(gint windowid)
     menuitem_config = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_PROPERTIES, NULL));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_config));
     gtk_widget_show(GTK_WIDGET(menuitem_config));
-    menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    
+	menuitem_sep4 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep4));
+    menuitem_save = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, accel_group));
+    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_save));
+	// we only want to show the save option when under control of gecko-mediaplayer
+	if (control_id != 0) {
+    	gtk_widget_show(GTK_WIDGET(menuitem_sep4));
+    	gtk_widget_show(GTK_WIDGET(menuitem_save));
+	}
+	
+	menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep3));
     gtk_widget_show(GTK_WIDGET(menuitem_sep3));
     menuitem_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group));
@@ -1735,7 +1793,9 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_fs_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
-    g_signal_connect(GTK_OBJECT(menuitem_quit), "activate",
+    g_signal_connect(GTK_OBJECT(menuitem_save), "activate",
+                     G_CALLBACK(menuitem_save_callback), NULL);
+	g_signal_connect(GTK_OBJECT(menuitem_quit), "activate",
                      G_CALLBACK(menuitem_quit_callback), NULL);
 
     g_signal_connect_swapped(G_OBJECT(window),
