@@ -86,11 +86,19 @@ gboolean set_progress_value(void *data)
 {
 
     IdleData *idle = (IdleData *) data;
-
+	gchar *text;
 
     if (GTK_IS_WIDGET(progress)) {
         gtk_progress_bar_update(progress, idle->percent);
+		if (idle->cachepercent < 1.0 && state == PAUSED) {
+			text = g_strdup_printf(_("Paused | %2i%% \342\226\274"),(gint)(idle->cachepercent * 100));
+			gtk_progress_bar_set_text(progress, text);
+			g_free(text);
+		} else {
+			gtk_progress_bar_set_text(progress, idle->progress_text);
+		}
     }
+	
     return FALSE;
 }
 
