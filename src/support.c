@@ -192,7 +192,9 @@ gboolean read_mplayer_config()
     g_free(filename);
     g_key_file_free(config);
 
-    printf("vo = %s ao = %s\n", vo, ao);
+	if (verbose)
+    	printf("vo = %s ao = %s\n", vo, ao);
+	
     return TRUE;
 }
 
