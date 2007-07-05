@@ -181,6 +181,10 @@ int main(int argc, char *argv[])
 
     if (!g_thread_supported())
         g_thread_init(NULL);
+	
+	if (verbose)
+		printf(_("GNOME MPlayer v%s\n"), VERSION);
+	
     create_window(embed_window);
 
 
