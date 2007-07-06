@@ -1642,6 +1642,8 @@ void make_button(gchar * src, gchar * hrefid)
         av[ac++] = g_strdup_printf("mplayer");
         av[ac++] = g_strdup_printf("-vo");
         av[ac++] = g_strdup_printf("jpeg:outdir=%s", dirname);
+        av[ac++] = g_strdup_printf("-ao");
+        av[ac++] = g_strdup_printf("null");
         av[ac++] = g_strdup_printf("-x");
         av[ac++] = g_strdup_printf("%i", window_x);
         av[ac++] = g_strdup_printf("-y");
