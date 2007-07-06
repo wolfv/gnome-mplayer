@@ -1,4 +1,5 @@
 Development
+	More channel io cleanup, make sure that when one channel is closed the others are closed as well
 	Allow updating of downloaded percentage while media is paused
 	French translation by Starcrasher
 	Implement Save As dialog when running under gecko-mediaplayer (feature not finished)

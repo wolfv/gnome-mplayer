@@ -59,6 +59,8 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
 {
     g_idle_add(set_stop, idledata);
     state = QUIT;
+	g_source_remove(watch_in_id);
+	g_source_remove(watch_err_id);
     g_mutex_unlock(thread_running);
     return FALSE;
 }
@@ -71,6 +73,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     GtkWidget *dialog;
 
     if (source == NULL) {
+		g_source_remove(watch_in_id);
+		g_source_remove(watch_in_hup_id);
         return FALSE;
     }
 
@@ -78,6 +82,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (state == QUIT) {
         g_idle_add(set_stop, idledata);
         state = QUIT;
+		g_source_remove(watch_in_id);
+		g_source_remove(watch_in_hup_id);
         g_mutex_unlock(thread_running);
         return FALSE;
     }
@@ -132,6 +138,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GtkWidget *dialog;
 
     if (source == NULL) {
+		g_source_remove(watch_err_id);
+		g_source_remove(watch_in_hup_id);
         return FALSE;
     }
 
@@ -139,6 +147,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (state == QUIT) {
         g_idle_add(set_stop, idledata);
         state = QUIT;
+		g_source_remove(watch_err_id);
+		g_source_remove(watch_in_hup_id);
         g_mutex_unlock(thread_running);
         return FALSE;
     }
@@ -483,9 +493,9 @@ gpointer launch_player(gpointer data)
         channel_err = g_io_channel_unix_new(std_err);
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
-        g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
-        g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
-        g_io_add_watch(channel_in, G_IO_HUP, thread_complete, NULL);
+        watch_in_id = g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
+        watch_err_id = g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
+        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
 
         g_idle_add(set_play, NULL);
         g_timeout_add(500, thread_query, NULL);
