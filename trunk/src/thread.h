@@ -34,6 +34,10 @@ GIOChannel *channel_out;
 GIOChannel *channel_in;
 GIOChannel *channel_err;
 
+guint watch_in_id;
+guint watch_err_id;
+guint watch_in_hup_id;
+
 GThread *thread;
 extern GMutex *thread_running;
 
