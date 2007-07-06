@@ -216,3 +216,23 @@ gboolean streaming_media(gchar * filename)
 
     return ret;
 }
+
+gboolean device_name(gchar * filename)
+{
+    gboolean ret;
+
+    ret = TRUE;
+
+    if (g_ascii_strncasecmp(filename, "dvd://",strlen("dvd://")) == 0) {
+        ret = TRUE;
+    } else if (g_ascii_strncasecmp(filename, "dvdnav://",strlen("dvdnav://")) == 0) {
+        ret = TRUE;
+    } else if (g_ascii_strncasecmp(filename, "cdda://",strlen("cdda://")) == 0) {
+        ret = TRUE;
+    } else {
+        ret = FALSE;
+    }
+
+    return ret;
+}
+
