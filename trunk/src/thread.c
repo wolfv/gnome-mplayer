@@ -98,9 +98,12 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         error_msg = g_strdup(mplayer_output->str);
     }
 
-    if (strstr(mplayer_output->str, "Failed to open") != 0) {
-        if (strstr(mplayer_output->str, "LIRC") == 0)
-            error_msg = g_strdup(mplayer_output->str);
+    if (strstr(mplayer_output->str, "Failed to open") != NULL) {
+        if (strstr(mplayer_output->str, "LIRC") == NULL &&
+			strstr(mplayer_output->str, "/dev/rtc") == NULL &&
+			strstr(mplayer_output->str, "registry file") == NULL) {
+            	error_msg = g_strdup(mplayer_output->str);
+		}
     }
 
     if (error_msg != NULL) {
