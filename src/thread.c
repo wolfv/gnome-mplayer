@@ -512,9 +512,11 @@ gpointer launch_player(gpointer data)
     g_idle_add(set_progress_value, idledata);
     g_idle_add(set_progress_time, idledata);
 
-    if (embed_window != 0 || control_id != 0)
+    if (embed_window != 0 || control_id != 0) {
+		dbus_send_event("MediaComplete",0);
         dbus_open_next();
-
+	}
+	
     g_free(threaddata);
     threaddata = NULL;
 

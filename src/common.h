@@ -143,6 +143,7 @@ void make_button(gchar * src, gchar * href);
 void dbus_open_by_hrefid(gchar * hrefid);
 void dbus_open_next();
 void dbus_cancel();
+void dbus_send_event(gchar *event, gint button);
 void dbus_unhook();
 
 void shutdown();
