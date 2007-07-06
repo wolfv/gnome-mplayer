@@ -34,4 +34,5 @@ gint detect_playlist(gchar * filename);
 gboolean update_mplayer_config();
 gboolean send_command(gchar * command);
 gboolean streaming_media(gchar * filename);
+gboolean device_name(gchar * filename);
 #endif                          // _SUPPORT_H
