@@ -370,8 +370,6 @@ gboolean set_position(void *data)
     return FALSE;
 }
 
-
-
 gboolean set_volume(void *data)
 {
     IdleData *idle = (IdleData *) data;
@@ -422,12 +420,23 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
     menu = GTK_MENU(widget);
     gtk_widget_grab_focus(fixed);
     if (event->type == GDK_BUTTON_PRESS) {
+		
         event_button = (GdkEventButton *) event;
+		dbus_send_event("MouseDown",event_button->button);
+		dbus_send_event("Clicked",0);
+		
         if (event_button->button == 3) {
             gtk_menu_popup(menu, NULL, NULL, NULL, NULL, event_button->button, event_button->time);
             return TRUE;
         }
     }
+	
+    if (event->type == GDK_BUTTON_RELEASE) {
+		
+        event_button = (GdkEventButton *) event;
+		dbus_send_event("MouseUp",event_button->button);
+	}	
+	
     return FALSE;
 }
 
@@ -1811,6 +1820,9 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect_swapped(G_OBJECT(window),
                              "button_press_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
+    g_signal_connect_swapped(G_OBJECT(window),
+                             "button_release_event",
+                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
 
 
     // File Menu
@@ -1978,6 +1990,9 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect_swapped(G_OBJECT(drawing_area),
                              "button_press_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
+    g_signal_connect_swapped(G_OBJECT(drawing_area),
+                             "button_release_event",
+                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
 
     gtk_widget_add_events(fixed, GDK_BUTTON_PRESS_MASK);
     gtk_widget_add_events(fixed, GDK_BUTTON_RELEASE_MASK);
@@ -1985,12 +2000,18 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect_swapped(G_OBJECT(fixed),
                              "button_press_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
+    g_signal_connect_swapped(G_OBJECT(fixed),
+                             "button_release_event",
+                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
 
     gtk_widget_add_events(song_title, GDK_BUTTON_PRESS_MASK);
     gtk_widget_add_events(song_title, GDK_BUTTON_RELEASE_MASK);
 
     g_signal_connect_swapped(G_OBJECT(song_title),
                              "button_press_event",
+                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
+    g_signal_connect_swapped(G_OBJECT(song_title),
+                             "button_release_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
 
     gtk_widget_show(menubar);
