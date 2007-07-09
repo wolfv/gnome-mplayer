@@ -496,6 +496,11 @@ void dbus_send_event(gchar *event, gint button)
 
     path = g_strdup_printf("/control/%i", control_id);
 	localevent = g_strdup_printf("%s",event);
+	
+	if (verbose) {
+		printf("Posting Event %s\n",localevent);
+	}
+	
     message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Event");
 	if (g_ascii_strcasecmp(localevent,"MouseDown") == 0 || g_ascii_strcasecmp(localevent,"MouseUp") == 0) {
     	dbus_message_append_args(message, DBUS_TYPE_STRING, &localevent, DBUS_TYPE_INT32, &button, DBUS_TYPE_INVALID);
