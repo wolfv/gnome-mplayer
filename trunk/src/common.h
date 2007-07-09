@@ -117,7 +117,7 @@ gint last_x, last_y;
 gchar vm[10];
 gchar *vo;
 gchar *ao;
-
+gint disable_context_menu;
 
 GtkWidget *create_window(gint windowid);
 gint get_player_window();

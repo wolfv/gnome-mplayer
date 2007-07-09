@@ -425,7 +425,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 		dbus_send_event("MouseDown",event_button->button);
 		dbus_send_event("MouseClicked",0);
 		
-        if (event_button->button == 3) {
+        if (event_button->button == 3 && disable_context_menu == 0) {
             gtk_menu_popup(menu, NULL, NULL, NULL, NULL, event_button->button, event_button->time);
             return TRUE;
         }
