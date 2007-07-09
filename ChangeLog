@@ -1,4 +1,5 @@
 Development
+	Add startup flag --disablecontextmenu which blocks the popup menu
 	Send EnterWindow and LeaveWindow events
 	Send MouseUp, MouseDown and MouseClicked events 
 	GUI message improvements

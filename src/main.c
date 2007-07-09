@@ -58,6 +58,7 @@ static GOptionEntry entries[] = {
      "[0|1]"},
     {"autostart", 0, 0, G_OPTION_ARG_INT, &autostart,
      N_("Autostart the media default to 1, set to 0 to load but don't play"), "[0|1]"},
+	{"disablecontextmenu", 0, 0, G_OPTION_ARG_NONE, &disable_context_menu, N_("Disable popup menu on right click"), NULL},
     {NULL}
 };
 
@@ -153,6 +154,7 @@ int main(int argc, char *argv[])
     showcontrols = 1;
     autostart = 1;
     videopresent = 1;
+	disable_context_menu = 0;
     idledata = (IdleData *) g_new0(IdleData, 1);
     idledata->videopresent = 1;
     idledata->volume = 100.0;
