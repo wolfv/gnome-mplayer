@@ -423,7 +423,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 		
         event_button = (GdkEventButton *) event;
 		dbus_send_event("MouseDown",event_button->button);
-		dbus_send_event("Clicked",0);
+		dbus_send_event("MouseClicked",0);
 		
         if (event_button->button == 3) {
             gtk_menu_popup(menu, NULL, NULL, NULL, NULL, event_button->button, event_button->time);
@@ -437,6 +437,19 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 		dbus_send_event("MouseUp",event_button->button);
 	}	
 	
+    return FALSE;
+}
+
+gboolean notification_handler(GtkWidget * widget, GdkEventCrossing * event, void *data)
+{
+    if (event->type == GDK_ENTER_NOTIFY) {
+		dbus_send_event("EnterWindow",0);
+    }
+
+    if (event->type == GDK_LEAVE_NOTIFY) {
+		dbus_send_event("LeaveWindow",0);
+    }
+
     return FALSE;
 }
 
@@ -1823,6 +1836,12 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect_swapped(G_OBJECT(window),
                              "button_release_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
+    g_signal_connect_swapped(G_OBJECT(window),
+                             "enter_notify_event",
+                             G_CALLBACK(notification_handler), NULL);
+    g_signal_connect_swapped(G_OBJECT(window),
+                             "leave_notify_event",
+                             G_CALLBACK(notification_handler), NULL);
 
 
     // File Menu

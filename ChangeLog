@@ -1,4 +1,6 @@
 Development
+	Send EnterWindow and LeaveWindow events
+	Send MouseUp, MouseDown and MouseClicked events 
 	GUI message improvements
 	Send MediaComplete event to gecko-mediaplayer 
 	More channel io cleanup, make sure that when one channel is closed the others are closed as well
