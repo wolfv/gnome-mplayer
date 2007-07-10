@@ -510,6 +510,9 @@ gpointer launch_player(gpointer data)
 
     g_mutex_lock(thread_running);
     printf("Thread completing\n");
+	g_source_remove(watch_in_id);
+	g_source_remove(watch_err_id);
+	g_source_remove(watch_in_hup_id);
     idledata->percent = 1.0;
     idledata->position = idledata->length;
     g_idle_add(set_progress_value, idledata);
