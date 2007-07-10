@@ -97,7 +97,7 @@ gboolean update_mplayer_config()
             error = NULL;
             g_key_file_load_from_file(config,
                                       filename,
-                                      G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
+                                      G_KEY_FILE_KEEP_TRANSLATIONS,
                                       &error);
         }
     }
@@ -159,7 +159,7 @@ gboolean read_mplayer_config()
     filename = g_strdup_printf("%s/.mplayer/config", getenv("HOME"));
     g_key_file_load_from_file(config,
                               filename,
-                              G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, &error);
+                              G_KEY_FILE_KEEP_TRANSLATIONS, &error);
 
     if (error != NULL) {
         //printf("%i\n%s\n", error->code, error->message);
