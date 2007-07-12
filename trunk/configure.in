@@ -41,6 +41,5 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 po/Makefile.in
-debian/Makefile
 gnome-mplayer.spec
 ])
