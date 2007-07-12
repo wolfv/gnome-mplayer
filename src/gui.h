@@ -1,9 +1,9 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * callbacks.h
+ * gui.h
  * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
  * 
- * callbacks.h is free software.
+ * gui.h is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software

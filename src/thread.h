@@ -1,9 +1,9 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * support.h
+ * thread.h
  * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
  * 
- * support.h is free software.
+ * thread.h is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
