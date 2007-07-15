@@ -1,4 +1,5 @@
 Development
+	zn_CH (Chinese Simplified) translation by Lobster DB
 	Add startup flag --disablecontextmenu which blocks the popup menu
 	Send EnterWindow and LeaveWindow events
 	Send MouseUp, MouseDown and MouseClicked events 
