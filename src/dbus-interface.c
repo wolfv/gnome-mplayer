@@ -10,13 +10,13 @@
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
  * 
- * dbus-interface.c.h is distributed in the hope that it will be useful,
+ * callbacks.h is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with dbus-interface.c.  If not, write to:
+ * along with callbacks.h.  If not, write to:
  * 	The Free Software Foundation, Inc.,
  * 	51 Franklin Street, Fifth Floor
  * 	Boston, MA  02110-1301, USA.
@@ -492,22 +492,25 @@ void dbus_send_event(gchar *event, gint button)
 {
     gchar *path;
 	gchar *localevent;
+	gint localbutton = 0;
     DBusMessage *message;
 
-    path = g_strdup_printf("/control/%i", control_id);
-	localevent = g_strdup_printf("%s",event);
+	localbutton = button;
 	
 	if (verbose) {
 		printf("Posting Event %s\n",localevent);
 	}
 	
-    message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Event");
-   	dbus_message_append_args(message, DBUS_TYPE_STRING, &localevent, DBUS_TYPE_INT32, &button, DBUS_TYPE_INVALID);
-    dbus_connection_send(connection, message, NULL);
-    dbus_message_unref(message);
-    g_free(path);
-	g_free(localevent);
-
+	if (connection != NULL) {
+		path = g_strdup_printf("/control/%i", control_id);
+		localevent = g_strdup_printf("%s",event);
+		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Event");
+		dbus_message_append_args(message, DBUS_TYPE_STRING, &localevent, DBUS_TYPE_INT32, &localbutton, DBUS_TYPE_INVALID);
+		dbus_connection_send(connection, message, NULL);
+		dbus_message_unref(message);
+		g_free(path);
+		g_free(localevent);
+	}
 }
 
 gboolean GetProperty(gchar * property)
