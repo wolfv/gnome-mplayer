@@ -1,4 +1,4 @@
-Development
+0.4.7
 	Fix crash when dbus_send_event is called but connection is not initialized
 	Updated .desktop file from Ubuntu
 	Copyright changes from Ubuntu

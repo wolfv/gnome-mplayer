@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-12 15:35-0600\n"
+"POT-Creation-Date: 2007-07-17 10:06-0600\n"
 "PO-Revision-Date: 2007-03-14 10:39+0100\n"
 "Last-Translator: vicente carro fernandez <vicentecarro@andaluciajunta.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -370,6 +370,18 @@ msgstr "Pantalla completa"
 #: src/gui.c:2187
 msgid "Volume 100%"
 msgstr "Volumen 100%"
+
+#. printf("Percent = %f\n",percent);
+#. printf("Buffer = %s\n",buf);
+#: src/thread.c:292
+#, c-format
+msgid "Cache fill: %2.2f%%"
+msgstr ""
+
+#: src/thread.c:300
+#, c-format
+msgid "Connecting"
+msgstr ""
 
 #~ msgid "OK"
 #~ msgstr "Aceptar"
