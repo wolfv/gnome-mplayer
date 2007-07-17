@@ -10,13 +10,13 @@
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
  * 
- * thread.c is distributed in the hope that it will be useful,
+ * callbacks.h is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with thread.c.  If not, write to:
+ * along with callbacks.h.  If not, write to:
  * 	The Free Software Foundation, Inc.,
  * 	51 Franklin Street, Fifth Floor
  * 	Boston, MA  02110-1301, USA.
@@ -289,13 +289,19 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "Cache fill: %f%%", &percent);
         //printf("Percent = %f\n",percent);
         //printf("Buffer = %s\n",buf);
-        buf = g_strdup_printf("Cache fill: %2.2f%%", percent);
+        buf = g_strdup_printf(_("Cache fill: %2.2f%%"), percent);
         g_strlcpy(idledata->progress_text, buf, 1024);
         g_idle_add(set_progress_text, idledata);
         idledata->percent = percent / 100.0;
         g_idle_add(set_progress_value, idledata);
     }
 
+    if (strstr(mplayer_output->str, "Connecting") != 0) {
+        buf = g_strdup_printf(_("Connecting"));
+        g_strlcpy(idledata->progress_text, buf, 1024);
+        g_idle_add(set_progress_text, idledata);
+    }
+	
     if (strstr(mplayer_output->str, "ID_VIDEO_FORMAT") != 0) {
         g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_VIDEO_FORMAT") + strlen("ID_VIDEO_FORMAT=");

@@ -11,6 +11,7 @@ Packager: Kevin DeKorte <kdekorte@gmail.com>
 Source0: http://dekorte.homeip.net/download/gnome-mplayer/gnome-mplayer-%{ver}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Requires: mplayer
+BuildRequires: gcc-c++, pkgconfig, gettext, gnome-desktop-devel
 
 %description
 GNOME MPlayer is a simple GUI for MPlayer. It is based heavily on the mplayerplug-in source code and can basically be seen as a standalone version of that. GNOME MPlayer is currently changing alot. However, it is good enough that I can use it as my default viewer for media on my personal machine.
