@@ -1,4 +1,7 @@
 0.4.7
+	Add "-idx" option to mplayer when not running with a control id, -idx is bad for partially downloaded media
+		ie from the plugin
+	Cleanup a couple of garbage messages
 	Fix crash when dbus_send_event is called but connection is not initialized
 	Updated .desktop file from Ubuntu
 	Copyright changes from Ubuntu

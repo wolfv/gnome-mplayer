@@ -474,9 +474,12 @@ gpointer launch_player(gpointer data)
     }
     argv[arg++] = g_strdup_printf("-wid");
     player_window = get_player_window();
-
     argv[arg++] = g_strdup_printf("0x%x", player_window);
-    if (playlist || threaddata->playlist)
+
+	if (control_id == 0)
+		argv[arg++] = g_strdup_printf("-idx");
+
+	if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
     argv[arg] = g_strdup_printf("%s", threaddata->filename);
     argv[arg + 1] = NULL;
