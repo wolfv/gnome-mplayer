@@ -69,8 +69,8 @@ gboolean set_media_info(void *data)
     IdleData *idle = (IdleData *) data;
     gchar *buf;
 
-    if (data != NULL && GTK_IS_WIDGET(song_title)) {
-        if (idle != NULL && idle->streaming) {
+    if (data != NULL && idle != NULL && GTK_IS_WIDGET(song_title)) {
+        if (idle->streaming) {
             gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
         } else {
             gtk_widget_hide(song_title);
