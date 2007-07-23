@@ -1,3 +1,5 @@
+Development
+	Italian translation by Cesare Tirabassi
 0.4.7
 	Add "-idx" option to mplayer when not running with a control id, -idx is bad for partially downloaded media
 		ie from the plugin
