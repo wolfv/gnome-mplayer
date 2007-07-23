@@ -318,7 +318,11 @@ gboolean resize_window(void *data)
 
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
 
     }
     return FALSE;
@@ -1858,6 +1862,9 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_acd =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Audio CD")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_acd));
+    menuitem_file_open_playlist =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Playlist")));
+    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_playlist));
     menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep1));
     menuitem_file_details = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Details")));
@@ -1896,7 +1903,13 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(GTK_WIDGET(menuitem_view));
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), GTK_WIDGET(menuitem_view));
     gtk_menu_item_set_submenu(menuitem_view, GTK_WIDGET(menu_view));
-    menuitem_view_fullscreen =
+    menuitem_view_playlist =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Playlist")));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_playlist));
+    menuitem_view_sep0 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep0));
+
+	menuitem_view_fullscreen =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Fullscreen")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_fullscreen));
     menuitem_view_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
@@ -2233,7 +2246,11 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
 
     while (gtk_events_pending())

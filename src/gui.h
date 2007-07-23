@@ -62,6 +62,7 @@ GtkMenu *menu_file;
 GtkMenuItem *menuitem_file_open;
 GtkMenuItem *menuitem_file_open_dvd;
 GtkMenuItem *menuitem_file_open_acd;
+GtkMenuItem *menuitem_file_open_playlist;
 GtkMenuItem *menuitem_file_sep1;
 GtkMenuItem *menuitem_file_details;
 GtkMenuItem *menuitem_file_sep2;
@@ -72,6 +73,8 @@ GtkMenuItem *menuitem_edit_config;
 GtkMenuItem *menuitem_help;
 GtkMenuItem *menuitem_view;
 GtkMenu *menu_view;
+GtkMenuItem *menuitem_view_playlist;
+GtkMenuItem *menuitem_view_sep0;
 GtkMenuItem *menuitem_view_fullscreen;
 GtkMenuItem *menuitem_view_sep1;
 GtkMenuItem *menuitem_view_onetoone;
@@ -101,7 +104,6 @@ GtkMenuItem *menuitem_fullscreen;
 GtkMenuItem *menuitem_config;
 GtkMenuItem *menuitem_quit;
 gulong delete_signal_id;
-
 
 GtkWidget *vbox;
 GtkWidget *hbox;

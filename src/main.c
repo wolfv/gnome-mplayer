@@ -189,8 +189,11 @@ int main(int argc, char *argv[])
 	if (verbose)
 		printf(_("GNOME MPlayer v%s\n"), VERSION);
 	
+	// setup playliststore
+	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_INT);
+	gtk_list_store_append(playliststore,&iter);
+	
     create_window(embed_window);
-
 
     fullscreen = 0;
     lastfile = NULL;
@@ -245,8 +248,6 @@ int main(int argc, char *argv[])
             set_media_info(_("Playing Audio CD"));
             play_file("cdda://", playlist);
         }
-
-
 
     } else {
         // local file
