@@ -98,6 +98,13 @@ typedef struct _ThreadData {
     gint playlist;
 } ThreadData;
 
+enum {
+	ITEM_COLUMN,
+	COUNT_COLUMN,
+	N_COLUMNS
+};
+
+
 gint cache_size;
 gint osdlevel;
 gint streaming;
@@ -119,6 +126,10 @@ gchar vm[10];
 gchar *vo;
 gchar *ao;
 gint disable_context_menu;
+
+// playlist stuff
+GtkListStore *playliststore;
+GtkTreeIter iter;
 
 GtkWidget *create_window(gint windowid);
 gint get_player_window();
