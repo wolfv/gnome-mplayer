@@ -124,6 +124,7 @@ gint play_file(gchar * filename, gint playlist)
         }
         autostart = 1;
     }
+	
     return 0;
 }
 
@@ -139,6 +140,7 @@ int main(int argc, char *argv[])
     GError *error = NULL;
     GOptionContext *context;
     GConfClient *gconf;
+	gint i, count;
 
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -190,8 +192,7 @@ int main(int argc, char *argv[])
 		printf(_("GNOME MPlayer v%s\n"), VERSION);
 	
 	// setup playliststore
-	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_INT);
-	gtk_list_store_append(playliststore,&iter);
+	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);
 	
     create_window(embed_window);
 
@@ -252,12 +253,23 @@ int main(int argc, char *argv[])
     } else {
         // local file
         // detect if playlist here, so even if not specified it can be picked up
-        if (argv[fileindex] != NULL) {
+		i = fileindex;
+		
+        while (argv[i] != NULL) {
             if (playlist == 0)
-                playlist = detect_playlist(argv[fileindex]);
-            set_media_info(argv[fileindex]);
-            play_file(argv[fileindex], playlist);
+                playlist = detect_playlist(argv[i]);
+			gtk_list_store_append(playliststore,&iter);
+			gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,argv[i],COUNT_COLUMN,0,PLAYLIST_COLUMN,playlist, -1);
+			i++;
         }
+		
+		if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+			set_media_info(filename);
+			play_file(filename, playlist);
+			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+			g_free(filename);
+		}
     }
 
     dbus_hookup(embed_window, control_id);

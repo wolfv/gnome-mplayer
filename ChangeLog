@@ -1,4 +1,8 @@
 Development
+	Real basic playlist support, pass in multiple filenames on the command line and all will be played in order
+	When receiving "Connecting" message, reset progress bar to 0%
+	Start with playlist support
+	Rather than deactivating the entire view menu only disable the "video" options until a video is present
 	Italian translation by Cesare Tirabassi
 0.4.7
 	Add "-idx" option to mplayer when not running with a control id, -idx is bad for partially downloaded media

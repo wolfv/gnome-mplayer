@@ -101,6 +101,7 @@ typedef struct _ThreadData {
 enum {
 	ITEM_COLUMN,
 	COUNT_COLUMN,
+	PLAYLIST_COLUMN,
 	N_COLUMNS
 };
 

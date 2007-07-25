@@ -1728,6 +1728,55 @@ void make_button(gchar * src, gchar * hrefid)
 
 }
 
+void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
+
+	GtkWidget *playlist_window;
+	GtkWidget *close;
+	GtkWidget *list;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+    GtkWidget *vbox;
+    GtkWidget *hbox;
+	
+	playlist_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_type_hint(GTK_WINDOW(playlist_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+    gtk_window_set_title(GTK_WINDOW(playlist_window), _("Playlist"));
+
+    vbox = gtk_vbox_new(FALSE, 10);
+    hbox = gtk_hbutton_box_new();
+    gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+	
+	list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
+
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Items to Play"),
+                                                   renderer,
+                                                   "text", ITEM_COLUMN,
+                                                   NULL);
+	gtk_tree_view_column_set_expand(column, TRUE);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (list), column);
+
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes ("",
+                                                   renderer,
+                                                   "text", COUNT_COLUMN,
+                                                   NULL);
+	gtk_tree_view_column_set_expand(column, FALSE);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (list), column);
+
+	
+    close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    g_signal_connect_swapped(GTK_OBJECT(close), "clicked",
+                             GTK_SIGNAL_FUNC(config_close), playlist_window);
+
+    gtk_container_add(GTK_CONTAINER(hbox), close);
+    gtk_box_pack_start(GTK_BOX(vbox),list,TRUE,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
+    gtk_container_add(GTK_CONTAINER(playlist_window), vbox);
+	
+	gtk_widget_show_all(playlist_window);
+	
+}
 
 GtkWidget *create_window(gint windowid)
 {
@@ -1933,6 +1982,8 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_controls = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_controls));
 
+    g_signal_connect(GTK_OBJECT(menuitem_view_playlist), "activate",
+                     G_CALLBACK(menuitem_view_playlist_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "activate",
                      G_CALLBACK(menuitem_view_fullscreen_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_onetoone), "activate",
