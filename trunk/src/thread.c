@@ -300,6 +300,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = g_strdup_printf(_("Connecting"));
         g_strlcpy(idledata->progress_text, buf, 1024);
         g_idle_add(set_progress_text, idledata);
+        idledata->percent = 0.0;
+        g_idle_add(set_progress_value, idledata);
     }
 	
     if (strstr(mplayer_output->str, "ID_VIDEO_FORMAT") != 0) {
@@ -427,6 +429,8 @@ gpointer launch_player(gpointer data)
     gint player_window;
     char *argv[255];
     gint arg = 0;
+	gchar *filename;
+	gint count;
 
     ThreadData *threaddata = (ThreadData *) data;
 
@@ -558,6 +562,14 @@ gpointer launch_player(gpointer data)
     }
     g_mutex_unlock(thread_running);
     printf("Thread done\n");
+
+	if (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&iter)) {
+		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+		set_media_info(filename);
+		play_file(filename, playlist);
+		gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+		g_free(filename);
+	}
 
     return NULL;
 }
