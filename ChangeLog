@@ -1,4 +1,5 @@
 Development
+	Support [playlist] and [reference] playlists
 	Real basic playlist support, pass in multiple filenames on the command line and all will be played in order
 	When receiving "Connecting" message, reset progress bar to 0%
 	Start with playlist support

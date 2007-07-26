@@ -68,6 +68,48 @@ gint detect_playlist(gchar * filename)
     return playlist;
 }
 
+gint parse_playlist(gchar * filename)
+{
+	gint ret;
+	
+	ret = parse_basic(filename);
+	
+	return ret;
+}
+
+gint parse_basic(gchar * filename)
+{
+	FILE *fp;
+    gint ret = 0;
+    gchar *buffer;
+
+    fp = fopen(filename, "r");
+	buffer = g_new0(gchar,1024);
+	
+    if (fp != NULL) {
+        while (!feof(fp)) {
+            memset(buffer, 0, sizeof(buffer));
+            buffer = fgets(buffer, 1024, fp);
+			if (buffer != NULL) {
+				printf("buffer=%s\n",buffer);
+				if (strstr(g_strdown(buffer), "[playlist]") != 0) {
+					ret = 1;
+				}else if (strstr(g_strdown(buffer), "[reference]") != 0) {
+					ret = 1;
+				} else if (ret == 1) {
+					gtk_list_store_append(playliststore,&iter);
+					gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,g_strchomp(buffer),COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
+				}
+			}
+		}
+	}
+
+	g_free(buffer);
+	buffer = NULL;
+	return ret;
+	
+}
+
 gboolean update_mplayer_config()
 {
 
