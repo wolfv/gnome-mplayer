@@ -258,14 +258,20 @@ int main(int argc, char *argv[])
         while (argv[i] != NULL) {
             if (playlist == 0)
                 playlist = detect_playlist(argv[i]);
-			gtk_list_store_append(playliststore,&iter);
-			gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,argv[i],COUNT_COLUMN,0,PLAYLIST_COLUMN,playlist, -1);
+			
+			if (!playlist ) {
+				gtk_list_store_append(playliststore,&iter);
+				gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,argv[i],COUNT_COLUMN,0,PLAYLIST_COLUMN,playlist, -1);
+			} else {
+				parse_playlist(argv[i]);	
+			}
 			i++;
         }
 		
 		if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 			set_media_info(filename);
+			printf("playing - %s\n",filename);
 			play_file(filename, playlist);
 			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 			g_free(filename);
