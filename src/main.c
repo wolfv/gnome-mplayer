@@ -263,7 +263,11 @@ int main(int argc, char *argv[])
 				gtk_list_store_append(playliststore,&iter);
 				gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,argv[i],COUNT_COLUMN,0,PLAYLIST_COLUMN,playlist, -1);
 			} else {
-				parse_playlist(argv[i]);	
+				if (!parse_playlist(argv[i])) {	
+					gtk_list_store_append(playliststore,&iter);
+					gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,argv[i],COUNT_COLUMN,0,PLAYLIST_COLUMN,playlist, -1);
+				}
+				
 			}
 			i++;
         }

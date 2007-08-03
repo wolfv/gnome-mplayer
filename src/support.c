@@ -72,6 +72,9 @@ gint parse_playlist(gchar * filename)
 {
 	gint ret;
 	
+	// try and parse a playlist in various forms
+	// if a parsing does not work then, return 0
+	
 	ret = parse_basic(filename);
 	
 	return ret;

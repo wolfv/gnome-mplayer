@@ -14,7 +14,7 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = gnome-mplayer
+bin_PROGRAMS = gnome-mplayer 
 
 gnome_mplayer_SOURCES = \
 	../config.h \

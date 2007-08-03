@@ -35,8 +35,6 @@ void shutdown()
         g_idle_add(set_stop, idledata);
         send_command("quit\n");
     }
-    while (gtk_events_pending())
-        gtk_main_iteration();
 
 }
 
@@ -119,9 +117,6 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         g_string_free(mplayer_output, TRUE);
         return FALSE;
     }
-
-    while (gtk_events_pending())
-        gtk_main_iteration();
 
     g_string_free(mplayer_output, TRUE);
     return TRUE;
@@ -372,8 +367,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             g_strlcpy(idledata->info, message, 1024);
         g_idle_add(set_media_info, idledata);
     }
-    while (gtk_events_pending())
-        gtk_main_iteration();
 
     if (error_msg != NULL) {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
