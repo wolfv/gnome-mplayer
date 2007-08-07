@@ -653,6 +653,8 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
         g_strchomp(filename);
         shutdown();
+		gtk_list_store_append(playliststore,&iter);
+		gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,filename,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
         play_file(filename, 0);
     }
 	return FALSE;
@@ -2274,6 +2276,7 @@ GtkWidget *create_window(gint windowid)
     if (windowid != -1)
         gtk_widget_show_all(window);
     gtk_widget_hide(song_title);
+	gtk_widget_hide(fixed);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
 
     if (windowid != 0) {

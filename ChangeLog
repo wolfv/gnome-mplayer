@@ -1,4 +1,5 @@
 Development
+	Hide fixed drawing_area on startup (hopefully this won't cause mplayer to fail)
 	Don't call gtk directly from a thread
 	Support [playlist] and [reference] playlists
 	Real basic playlist support, pass in multiple filenames on the command line and all will be played in order
