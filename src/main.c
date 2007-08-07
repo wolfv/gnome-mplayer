@@ -282,6 +282,7 @@ int main(int argc, char *argv[])
 		}
     }
 
+		
     dbus_hookup(embed_window, control_id);
 
     gtk_main();

@@ -49,8 +49,8 @@
 #include "../pixmaps/media-playback-stop.xpm"
 #include "../pixmaps/media-seek-backward.xpm"
 #include "../pixmaps/media-seek-forward.xpm"
-// #include "../pixmaps/media-skip-backward.xpm"
-// #include "../pixmaps/media-skip-forward.xpm"
+#include "../pixmaps/media-skip-backward.xpm"
+#include "../pixmaps/media-skip-forward.xpm"
 #include "../pixmaps/view-fullscreen.xpm"
 
 GtkWidget *window;
@@ -118,6 +118,8 @@ GdkPixbuf *pb_stop;
 GdkPixbuf *pb_ff;
 GdkPixbuf *pb_rew;
 GdkPixbuf *pb_fs;
+GdkPixbuf *pb_skip_f;
+GdkPixbuf *pb_skip_b;
 GdkPixbuf *pb_icon;
 GdkPixbuf *pb_button;
 GtkWidget *button_event_box;
@@ -134,6 +136,9 @@ GtkWidget *play_event_box;
 GtkWidget *stop_event_box;
 GtkWidget *ff_event_box;
 GtkWidget *rew_event_box;
+GtkWidget *prev_event_box;
+GtkWidget *next_event_box;
+
 GtkWidget *fs_event_box;
 GtkProgressBar *progress;
 GtkWidget *vol_slider;
@@ -143,6 +148,8 @@ GtkWidget *image_pause;
 GtkWidget *image_stop;
 GtkWidget *image_ff;
 GtkWidget *image_rew;
+GtkWidget *image_skip_f;
+GtkWidget *image_skip_b;
 GtkWidget *image_fs;
 GtkWidget *image_icon;
 GtkTooltips *tooltip;
