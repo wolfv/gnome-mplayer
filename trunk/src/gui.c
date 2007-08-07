@@ -47,7 +47,6 @@ gboolean hide_buttons(void *data)
 
     ThreadData *td = (ThreadData *) data;
 
-
     if (GTK_IS_WIDGET(ff_event_box)) {
         if (td->streaming) {
             gtk_widget_hide(ff_event_box);
@@ -60,6 +59,15 @@ gboolean hide_buttons(void *data)
             }
         }
     }
+
+	printf("count = %i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
+	if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
+		gtk_widget_hide(prev_event_box);
+		gtk_widget_hide(next_event_box);
+	} else {
+		gtk_widget_show(prev_event_box);
+		gtk_widget_show(next_event_box);
+	}
     return FALSE;
 }
 
@@ -73,6 +81,7 @@ gboolean set_media_info(void *data)
         if (idle->streaming) {
             gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
         } else {
+			gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
             gtk_widget_hide(song_title);
             buf = g_strdup_printf(_("GNOME MPlayer - %s"), idle->info);
             gtk_window_set_title(GTK_WINDOW(window), buf);
@@ -653,6 +662,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
         g_strchomp(filename);
         shutdown();
+		gtk_list_store_clear(playliststore);
 		gtk_list_store_append(playliststore,&iter);
 		gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,filename,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
         play_file(filename, 0);
@@ -808,6 +818,9 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
         g_free(last_dir);
 
         shutdown();
+		gtk_list_store_clear(playliststore);
+		gtk_list_store_append(playliststore,&iter);
+		gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,filename,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
         play_file((gchar *) filename, 0);
         g_free(filename);
     }
@@ -1738,15 +1751,24 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
     GtkWidget *vbox;
+	GtkWidget *box;
+	GtkWidget *vbutton_box;
     GtkWidget *hbox;
+	GtkWidget *moveup;
+	GtkWidget *movedown;
 	
 	playlist_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_widget_set_size_request(GTK_WIDGET(playlist_window),300,200);
     gtk_window_set_type_hint(GTK_WINDOW(playlist_window), GDK_WINDOW_TYPE_HINT_UTILITY);
     gtk_window_set_title(GTK_WINDOW(playlist_window), _("Playlist"));
 
     vbox = gtk_vbox_new(FALSE, 10);
     hbox = gtk_hbutton_box_new();
+	box = gtk_hbox_new(FALSE,10);
+	vbutton_box = gtk_vbutton_box_new();
+	
     gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+    gtk_vbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	
 	list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
 
@@ -1772,7 +1794,18 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
                              GTK_SIGNAL_FUNC(config_close), playlist_window);
 
     gtk_container_add(GTK_CONTAINER(hbox), close);
-    gtk_box_pack_start(GTK_BOX(vbox),list,TRUE,TRUE,0);
+	
+	moveup = gtk_button_new_from_stock(GTK_STOCK_GO_UP);
+	movedown = gtk_button_new_from_stock(GTK_STOCK_GO_DOWN);
+	gtk_widget_set_sensitive(moveup,FALSE);
+	gtk_widget_set_sensitive(movedown,FALSE);
+    gtk_container_add(GTK_CONTAINER(vbutton_box), moveup);
+    gtk_container_add(GTK_CONTAINER(vbutton_box), movedown);
+	
+	
+	gtk_box_pack_start(GTK_BOX(box),list,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box),vbutton_box,FALSE,FALSE,0);
+    gtk_box_pack_start(GTK_BOX(vbox),box,TRUE,TRUE,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
     gtk_container_add(GTK_CONTAINER(playlist_window), vbox);
 	
@@ -2115,6 +2148,8 @@ GtkWidget *create_window(gint windowid)
         && gtk_icon_theme_has_icon(icon_theme, "media-playback-stop")
         && gtk_icon_theme_has_icon(icon_theme, "media-seek-forward")
         && gtk_icon_theme_has_icon(icon_theme, "media-seek-backward")
+        && gtk_icon_theme_has_icon(icon_theme, "media-skip-forward")
+        && gtk_icon_theme_has_icon(icon_theme, "media-skip-backward")
         && gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
 
         pb_play = gtk_icon_theme_load_icon(icon_theme, "media-playback-start", 16, 0, &error);
@@ -2122,6 +2157,8 @@ GtkWidget *create_window(gint windowid)
         pb_stop = gtk_icon_theme_load_icon(icon_theme, "media-playback-stop", 16, 0, &error);
         pb_ff = gtk_icon_theme_load_icon(icon_theme, "media-seek-forward", 16, 0, &error);
         pb_rew = gtk_icon_theme_load_icon(icon_theme, "media-seek-backward", 16, 0, &error);
+        pb_skip_f = gtk_icon_theme_load_icon(icon_theme, "media-skip-forward", 16, 0, &error);
+        pb_skip_b = gtk_icon_theme_load_icon(icon_theme, "media-skip-backward", 16, 0, &error);
         pb_fs = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", 16, 0, &error);
 
     } else if (gtk_icon_theme_has_icon(icon_theme, "stock_media-play")
@@ -2129,6 +2166,8 @@ GtkWidget *create_window(gint windowid)
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-stop")
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-fwd")
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-rew")
+               && gtk_icon_theme_has_icon(icon_theme, "stock_media-prev")
+               && gtk_icon_theme_has_icon(icon_theme, "stock_media-next")
                && gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
 
         pb_play = gtk_icon_theme_load_icon(icon_theme, "stock_media-play", 16, 0, &error);
@@ -2136,6 +2175,8 @@ GtkWidget *create_window(gint windowid)
         pb_stop = gtk_icon_theme_load_icon(icon_theme, "stock_media-stop", 16, 0, &error);
         pb_ff = gtk_icon_theme_load_icon(icon_theme, "stock_media-fwd", 16, 0, &error);
         pb_rew = gtk_icon_theme_load_icon(icon_theme, "stock_media-rew", 16, 0, &error);
+        pb_skip_f = gtk_icon_theme_load_icon(icon_theme, "stock_media-next", 16, 0, &error);
+        pb_skip_b = gtk_icon_theme_load_icon(icon_theme, "stock_media-prev", 16, 0, &error);
         pb_fs = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", 16, 0, &error);
 
     } else {
@@ -2145,6 +2186,8 @@ GtkWidget *create_window(gint windowid)
         pb_stop = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_stop_xpm);
         pb_ff = gdk_pixbuf_new_from_xpm_data((const char **) media_seek_forward_xpm);
         pb_rew = gdk_pixbuf_new_from_xpm_data((const char **) media_seek_backward_xpm);
+        pb_skip_f = gdk_pixbuf_new_from_xpm_data((const char **) media_skip_forward_xpm);
+        pb_skip_b = gdk_pixbuf_new_from_xpm_data((const char **) media_skip_backward_xpm);
         pb_fs = gdk_pixbuf_new_from_xpm_data((const char **) view_fullscreen_xpm);
 
     }
@@ -2155,10 +2198,30 @@ GtkWidget *create_window(gint windowid)
 
     image_ff = gtk_image_new_from_pixbuf(pb_ff);
     image_rew = gtk_image_new_from_pixbuf(pb_rew);
+	
+	image_skip_b = gtk_image_new_from_pixbuf(pb_skip_b);
+	image_skip_f = gtk_image_new_from_pixbuf(pb_skip_f);
+	
     image_fs = gtk_image_new_from_pixbuf(pb_fs);
 
     gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
 
+    prev_event_box = gtk_event_box_new();
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, prev_event_box, _("Previous"), NULL);
+    gtk_widget_set_events(prev_event_box, GDK_BUTTON_PRESS_MASK);
+    g_signal_connect(G_OBJECT(prev_event_box), "button_press_event", G_CALLBACK(rew_callback), NULL);
+    g_signal_connect(G_OBJECT(prev_event_box), "enter_notify_event",
+                     G_CALLBACK(enter_button_callback), NULL);
+    g_signal_connect(G_OBJECT(prev_event_box), "leave_notify_event",
+                     G_CALLBACK(leave_button_callback), NULL);
+    gtk_widget_set_size_request(GTK_WIDGET(prev_event_box), 22, 16);
+
+    gtk_container_add(GTK_CONTAINER(prev_event_box), image_skip_b);
+    gtk_box_pack_start(GTK_BOX(hbox), prev_event_box, FALSE, FALSE, 0);
+    gtk_widget_show(image_skip_b);
+    gtk_widget_show(prev_event_box);
+	
     rew_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, rew_event_box, _("Rewind"), NULL);
@@ -2224,6 +2287,22 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(image_ff);
     gtk_widget_show(ff_event_box);
 
+    next_event_box = gtk_event_box_new();
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, next_event_box, _("Next"), NULL);
+    gtk_widget_set_events(next_event_box, GDK_BUTTON_PRESS_MASK);
+    g_signal_connect(G_OBJECT(next_event_box), "button_press_event", G_CALLBACK(rew_callback), NULL);
+    g_signal_connect(G_OBJECT(next_event_box), "enter_notify_event",
+                     G_CALLBACK(enter_button_callback), NULL);
+    g_signal_connect(G_OBJECT(next_event_box), "leave_notify_event",
+                     G_CALLBACK(leave_button_callback), NULL);
+    gtk_widget_set_size_request(GTK_WIDGET(next_event_box), 22, 16);
+
+    gtk_container_add(GTK_CONTAINER(next_event_box), image_skip_f);
+    gtk_box_pack_start(GTK_BOX(hbox), next_event_box, FALSE, FALSE, 0);
+    gtk_widget_show(image_skip_f);
+    gtk_widget_show(next_event_box);
+	
     // progress bar
     progress = GTK_PROGRESS_BAR(gtk_progress_bar_new());
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(progress), TRUE, TRUE, 2);
@@ -2306,6 +2385,8 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
+	gtk_widget_hide(prev_event_box);
+	gtk_widget_hide(next_event_box);
 
     while (gtk_events_pending())
         gtk_main_iteration();

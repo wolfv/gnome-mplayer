@@ -1,4 +1,7 @@
 Development
+	More playlist work, when opening a file or drag and dropping a file to the player window, clear the list
+		and play the selected file. 
+	If the playlist has more than 1 item in it, show some extra buttons (they don't work yet)
 	Hide fixed drawing_area on startup (hopefully this won't cause mplayer to fail)
 	Don't call gtk directly from a thread
 	Support [playlist] and [reference] playlists
