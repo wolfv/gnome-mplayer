@@ -554,17 +554,27 @@ gpointer launch_player(gpointer data)
         arg++;
     }
     g_mutex_unlock(thread_running);
-    printf("Thread done\n");
+    // printf("Thread done\n");
 
 	if (dontplaynext == FALSE) {
-		if (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&iter)) {
+		if (random_order == 0 && gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&iter)) {
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 			set_media_info(filename);
 			play_file(filename, playlist);
 			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 			g_free(filename);
+		} else if(random_order == 1) {
+			// Umm...
 		} else {
-			printf("end of thread playlist is empty\n");
+			// printf("end of thread playlist is empty\n");
+			if (loop) {
+				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+				set_media_info(filename);
+				play_file(filename, playlist);
+				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+				g_free(filename);
+			}
 		}
 	} else {
 		dontplaynext = FALSE;

@@ -128,6 +128,7 @@ gchar *vo;
 gchar *ao;
 gint disable_context_menu;
 gint loop;
+gint random_order;
 gboolean dontplaynext;
 
 // playlist stuff

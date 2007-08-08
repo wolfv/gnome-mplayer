@@ -33,6 +33,7 @@ gint play_file(gchar * filename, gint playlist);
 gint detect_playlist(gchar * filename);
 gint parse_playlist(gchar * filename);
 gint parse_basic(gchar * filename);
+gint parse_cdda(gchar * filename);
 
 gboolean update_mplayer_config();
 gboolean send_command(gchar * command);
