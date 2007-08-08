@@ -60,6 +60,7 @@ static GOptionEntry entries[] = {
      N_("Autostart the media default to 1, set to 0 to load but don't play"), "[0|1]"},
 	{"disablecontextmenu", 0, 0, G_OPTION_ARG_NONE, &disable_context_menu, N_("Disable popup menu on right click"), NULL},
 	{"loop",0,0,G_OPTION_ARG_NONE, &loop, N_("Play all files on the playlist forever"),NULL},
+	{"random",0,0,G_OPTION_ARG_NONE, &random_order, N_("Play items on playlist in random order"),NULL},
     {NULL}
 };
 
@@ -108,8 +109,8 @@ gint play_file(gchar * filename, gint playlist)
     // printf("Ready to spawn\n");
 
     streaming = 0;
-    if (playlist == 0)
-        playlist = detect_playlist(thread_data->filename);
+//    if (playlist == 0)
+//        playlist = detect_playlist(thread_data->filename);
 
     if (filename != NULL && strlen(filename) != 0) {
         thread_data->player_window = 0;
@@ -249,7 +250,17 @@ int main(int argc, char *argv[])
             }
         } else {
             set_media_info(_("Playing Audio CD"));
-            play_file("cdda://", playlist);
+			parse_cdda("cdda://");
+			
+            //play_file("cdda://", playlist);
+			if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+				set_media_info(filename);
+				printf("playing - %s is playlist = %i\n",filename,playlist);
+				play_file(filename, playlist);
+				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+				g_free(filename);
+			}
         }
 
     } else {
@@ -277,7 +288,7 @@ int main(int argc, char *argv[])
 		if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 			set_media_info(filename);
-			printf("playing - %s\n",filename);
+			printf("playing - %s is playlist = %i\n",filename,playlist);
 			play_file(filename, playlist);
 			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 			g_free(filename);

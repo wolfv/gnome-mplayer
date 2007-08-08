@@ -32,50 +32,58 @@ gint detect_playlist(gchar * filename)
     gchar buffer[16 * 1024];
     gint size;
 
-    fp = fopen(filename, "r");
+	if (g_strncasecmp(filename,"cdda://",7) == 0) {
+		playlist = 1;
+	} else {
+		
+		
+		fp = fopen(filename, "r");
 
-    if (fp != NULL) {
-        if (!feof(fp)) {
-            memset(buffer, 0, sizeof(buffer));
-            size = fread(buffer, 1, sizeof(buffer) - 1, fp);
+		if (fp != NULL) {
+			if (!feof(fp)) {
+				memset(buffer, 0, sizeof(buffer));
+				size = fread(buffer, 1, sizeof(buffer) - 1, fp);
 
-            //printf("buffer=%s\n",buffer);
-            if (strstr(g_strdown(buffer), "[playlist]") != 0) {
-                playlist = 1;
-            }
+				//printf("buffer=%s\n",buffer);
+				if (strstr(g_strdown(buffer), "[playlist]") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "[reference]") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "[reference]") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "<asx") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "<asx") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "http://") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "http://") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "rtsp://") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "rtsp://") != 0) {
+					playlist = 1;
+				}
 
 
-        }
-        fclose(fp);
-    }
+			}
+			fclose(fp);
+		}
+	}
     // printf("playlist detection = %i\n", playlist);
     return playlist;
 }
 
 gint parse_playlist(gchar * filename)
 {
-	gint ret;
+	gint ret = 0;
 	
 	// try and parse a playlist in various forms
 	// if a parsing does not work then, return 0
 	
 	ret = parse_basic(filename);
+	if (ret != 1)
+		ret = parse_cdda(filename);
 	
 	return ret;
 }
@@ -113,6 +121,64 @@ gint parse_basic(gchar * filename)
 	buffer = NULL;
 	return ret;
 	
+}
+
+gint parse_cdda(gchar* filename) {
+	
+    GError *error;
+    gint exit_status;
+    gchar *stdout;
+    gchar *stderr;
+    gchar *av[255];
+    gint ac = 0;
+	gint ret = 0;
+	gchar **output;
+	gchar *track;
+	gint num;
+	
+	if (g_strncasecmp(filename,"cdda://",7) != 0) {
+		return 0;
+	} else {
+		playlist = 0;
+        // run mplayer and try to get the first frame and convert it to a jpeg
+        av[ac++] = g_strdup_printf("mplayer");
+        av[ac++] = g_strdup_printf("-vo");
+        av[ac++] = g_strdup_printf("null");
+        av[ac++] = g_strdup_printf("-ao");
+        av[ac++] = g_strdup_printf("null");
+        av[ac++] = g_strdup_printf("-frames");
+        av[ac++] = g_strdup_printf("0");
+        av[ac++] = g_strdup_printf("-identify");
+        av[ac++] = g_strdup_printf("cdda://");
+        av[ac] = NULL;
+		
+		error = NULL;
+		
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+                     &exit_status, &error);
+        if (error != NULL) {
+            printf("Error when running: %s\n", error->message);
+            g_error_free(error);
+            error = NULL;
+        }
+		output = g_strsplit(stdout,"\n",0);
+		ac = 0;
+		while(output[ac] != NULL) {
+			if (g_strncasecmp(output[ac],"ID_CDDA_TRACK_",strlen("ID_CDDA_TRACK_")) == 0) {
+				sscanf(output[ac], "ID_CDDA_TRACK_%i_", &num);
+				track = g_strdup_printf("cdda://%i",num);
+				gtk_list_store_append(playliststore,&iter);
+				gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,track,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
+				g_free(track);
+			}
+			ac++;
+		}
+		g_strfreev(output);
+		
+		ret = 1;
+	}
+	
+	return ret;
 }
 
 gboolean update_mplayer_config()

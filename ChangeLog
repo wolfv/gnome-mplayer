@@ -1,4 +1,5 @@
 Development
+	Add CDDA parsing. So grab the track list off the CD and make it into a playlist
 	Drag and drop to the playlist works
 	More playlist work. The prev and next media buttons work properly now
 	More playlist work, when opening a file or drag and dropping a file to the player window, clear the list

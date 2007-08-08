@@ -82,7 +82,7 @@ gboolean set_media_info(void *data)
             gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
         } else {
 			gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
-            gtk_widget_hide(song_title);
+            //gtk_widget_hide(song_title);
             buf = g_strdup_printf(_("GNOME MPlayer - %s"), idle->info);
             gtk_window_set_title(GTK_WINDOW(window), buf);
             g_free(buf);
@@ -255,9 +255,9 @@ gboolean resize_window(void *data)
 
     if (GTK_IS_WIDGET(window)) {
         if (idle->videopresent) {
+            gtk_widget_hide(song_title);
             if (embed_window == -1) {
                 gtk_widget_show_all(window);
-                gtk_widget_hide(song_title);
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols),
                                                showcontrols);
             }
@@ -786,7 +786,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
 		do {
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&localfilename, -1);
-			printf("iter = %s   local = %s \n",iterfilename,localfilename);
+			// printf("iter = %s   local = %s \n",iterfilename,localfilename);
 			if (g_ascii_strcasecmp(iterfilename,localfilename) == 0) {
 				// we found the current iter
 				break;
@@ -836,7 +836,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		g_free(filename);
 		iter = localiter;
 	} else {
-		printf("playlist is empty, resetting to end of list\n");
+		// printf("playlist is empty, resetting to end of list\n");
 		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
 		do {
 			iter = localiter;	
