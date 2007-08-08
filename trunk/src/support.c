@@ -94,14 +94,16 @@ gint parse_basic(gchar * filename)
             memset(buffer, 0, sizeof(buffer));
             buffer = fgets(buffer, 1024, fp);
 			if (buffer != NULL) {
+				g_strchomp(buffer);
 				printf("buffer=%s\n",buffer);
-				if (strstr(g_strdown(buffer), "[playlist]") != 0) {
+				
+				if (g_strcasecmp(buffer, "[playlist]") == 0) {
 					ret = 1;
-				}else if (strstr(g_strdown(buffer), "[reference]") != 0) {
+				}else if (g_strcasecmp(buffer, "[reference]") == 0) {
 					ret = 1;
 				} else if (ret == 1) {
 					gtk_list_store_append(playliststore,&iter);
-					gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,g_strchomp(buffer),COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
+					gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,buffer,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
 				}
 			}
 		}

@@ -1,4 +1,6 @@
 Development
+	Drag and drop to the playlist works
+	More playlist work. The prev and next media buttons work properly now
 	More playlist work, when opening a file or drag and dropping a file to the player window, clear the list
 		and play the selected file. 
 	If the playlist has more than 1 item in it, show some extra buttons (they don't work yet)
