@@ -60,7 +60,7 @@ gboolean hide_buttons(void *data)
         }
     }
 
-	printf("count = %i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
+	// printf("count = %i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
 	if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
 		gtk_widget_hide(prev_event_box);
 		gtk_widget_hide(next_event_box);
