@@ -635,7 +635,15 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             send_command("pausing_keep saturation 5\n");
             send_command("get_property saturation\n");
             return FALSE;
-
+		case GDK_bracketleft:
+			send_command("pausing_keep speed_mult 0.90\n");
+			return FALSE;
+		case GDK_bracketright:
+			send_command("pausing_keep speed_mult 1.10\n");
+			return FALSE;
+		case GDK_BackSpace:
+			send_command("pausing_keep speed_set 1.0\n");
+			return FALSE;
         default:
             return FALSE;
         }
