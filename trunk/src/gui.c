@@ -641,6 +641,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 		case GDK_bracketright:
 			send_command("pausing_keep speed_mult 1.10\n");
 			return FALSE;
+		case GDK_braceleft:
+			send_command("pausing_keep speed_mult 0.50\n");
+			return FALSE;
+		case GDK_braceright:
+			send_command("pausing_keep speed_mult 2.0\n");
+			return FALSE;
 		case GDK_BackSpace:
 			send_command("pausing_keep speed_set 1.0\n");
 			return FALSE;
