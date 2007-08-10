@@ -1,5 +1,6 @@
 Development
-	Implemnent BackSpace as return to default speed and fix something dumb
+	Implement speed doublt key } and speed half key {
+	Implement BackSpace as return to default speed and fix something dumb
 	Implement speed increase key ] and speed decrease key [
 	Add CDDA parsing. So grab the track list off the CD and make it into a playlist
 	Drag and drop to the playlist works
