@@ -134,6 +134,7 @@ gboolean dontplaynext;
 // playlist stuff
 GtkListStore *playliststore;
 GtkTreeIter iter;
+GtkTreeSelection *selection;
 
 GtkWidget *create_window(gint windowid);
 gint get_player_window();

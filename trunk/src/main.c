@@ -169,6 +169,7 @@ int main(int argc, char *argv[])
     idledata->gamma = 0;
     idledata->hue = 0;
     idledata->saturation = 0;
+	selection = NULL;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
