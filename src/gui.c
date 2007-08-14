@@ -650,6 +650,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 		case GDK_BackSpace:
 			send_command("pausing_keep speed_set 1.0\n");
 			return FALSE;
+		case GDK_9:
+			gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider))-10);			
+			return FALSE;
+		case GDK_0:
+			gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider))+10);			
+			return FALSE;
         default:
             return FALSE;
         }
@@ -703,6 +709,11 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
         g_strchomp(filename);
 		gtk_list_store_append(playliststore,&localiter);
 		gtk_list_store_set(playliststore,&localiter,ITEM_COLUMN,filename,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
+		if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
+			iter = localiter;
+			shutdown();
+			play_file(filename,0);
+		}
     }
 	return FALSE;
 }
@@ -1946,9 +1957,11 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
-	path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
-	gtk_tree_selection_select_path(selection,path);	
-	gtk_tree_path_free(path);
+	if(gtk_list_store_iter_is_valid(playliststore,&iter)) {
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+		gtk_tree_selection_select_path(selection,path);	
+		gtk_tree_path_free(path);
+	}
 
 	g_signal_connect(GTK_OBJECT(list), "row_activated", GTK_SIGNAL_FUNC(playlist_select_callback),
                      NULL);
