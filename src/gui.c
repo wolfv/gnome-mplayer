@@ -794,6 +794,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 	GtkTreeIter localiter;
 	GtkTreeIter previter;
 	gboolean valid = FALSE;
+	GtkTreePath *path;
 	
 	if (gtk_list_store_iter_is_valid(playliststore,&iter)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&iterfilename,-1);
@@ -830,7 +831,14 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		g_free(filename);
 		iter = previter;
 	}	
-    return FALSE;
+
+	if (GTK_IS_TREE_SELECTION(selection)) {
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+		gtk_tree_selection_select_path(selection,path);	
+		gtk_tree_path_free(path);
+	}
+
+	return FALSE;
 }
 
 gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
@@ -839,6 +847,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 	gint count;
 	gint playlist;
 	GtkTreeIter localiter = iter;
+	GtkTreePath *path;
 	
 	dontplaynext = TRUE;
 	if (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter)) {
@@ -857,6 +866,13 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 			gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter);
 		} while (gtk_list_store_iter_is_valid(playliststore,&localiter));
 	}
+	
+	if (GTK_IS_TREE_SELECTION(selection)) {
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+		gtk_tree_selection_select_path(selection,path);	
+		gtk_tree_path_free(path);
+	}
+	
     return FALSE;
 }
 
@@ -1224,6 +1240,7 @@ void config_apply(GtkWidget * widget, void *data)
 
 void config_close(GtkWidget * widget, void *data)
 {
+	selection = NULL;
     gtk_widget_destroy(widget);
 }
 
@@ -1871,6 +1888,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkWidget *movedown;
 	GtkTargetEntry target_entry[3];
 	gint i = 0;
+	GtkTreePath *path;
 	
 	playlist_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_size_request(GTK_WIDGET(playlist_window),300,200);
@@ -1905,7 +1923,11 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 
 	
 	list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
-
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
+	path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+	gtk_tree_selection_select_path(selection,path);	
+	gtk_tree_path_free(path);
+	
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Items to Play"),
                                                    renderer,
