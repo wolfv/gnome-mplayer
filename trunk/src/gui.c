@@ -2360,7 +2360,11 @@ GtkWidget *create_window(gint windowid)
 	
     image_fs = gtk_image_new_from_pixbuf(pb_fs);
 
-    gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
+	if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
+		gtk_window_set_icon_name (GTK_WINDOW (window), "gnome-mplayer");
+	} else {
+    	gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
+	}
 
     prev_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
