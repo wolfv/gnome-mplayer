@@ -1921,6 +1921,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkTreePath *path;
 	GdkRectangle rect;
 	
+	if (GTK_IS_TREE_SELECTION(selection)) return;
+	
 	playlist_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	//gtk_widget_set_size_request(GTK_WIDGET(playlist_window),300,200);
     gtk_window_set_type_hint(GTK_WINDOW(playlist_window), GDK_WINDOW_TYPE_HINT_UTILITY);
