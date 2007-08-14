@@ -1,4 +1,5 @@
 Development
+	Better drag and drop support for playlist
 	Add dbus method Add "filename" to append a filename to the playlist
 	Fix up dbus interface to use internal playlist
 	Active selected song in playlist on doubleclick
