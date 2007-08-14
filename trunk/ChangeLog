@@ -1,4 +1,5 @@
 Development
+	Active selected song in playlist on doubleclick
 	Make selected item on playlist follow active item
 	Implement speed doublt key } and speed half key {
 	Implement BackSpace as return to default speed and fix something dumb

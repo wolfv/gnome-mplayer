@@ -1873,6 +1873,23 @@ void make_button(gchar * src, gchar * hrefid)
 
 }
 
+gboolean playlist_select_callback(GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer data) {
+
+	gchar *filename;
+	gint count;
+	gint playlist;
+
+	if( gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
+		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+		shutdown();
+		set_media_info(filename);
+		play_file(filename, playlist);
+		gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+		g_free(filename);
+	}	
+	return FALSE;
+}
+
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 
 	GtkWidget *playlist_window;
@@ -1889,6 +1906,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkTargetEntry target_entry[3];
 	gint i = 0;
 	GtkTreePath *path;
+	GdkRectangle rect;
 	
 	playlist_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_size_request(GTK_WIDGET(playlist_window),300,200);
@@ -1923,10 +1941,14 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 
 	
 	list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
+
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
 	path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
 	gtk_tree_selection_select_path(selection,path);	
 	gtk_tree_path_free(path);
+
+	g_signal_connect(GTK_OBJECT(list), "row_activated", GTK_SIGNAL_FUNC(playlist_select_callback),
+                     NULL);
 	
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Items to Play"),
@@ -1966,6 +1988,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
     gtk_container_add(GTK_CONTAINER(playlist_window), vbox);
 	
 	gtk_widget_show_all(playlist_window);
+	gdk_window_get_frame_extents(window->window,&rect);
+	gtk_window_move(GTK_WINDOW(playlist_window),rect.x + rect.width, rect.y);
 	
 }
 
