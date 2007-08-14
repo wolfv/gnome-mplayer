@@ -1,4 +1,6 @@
 Development
+	Add dbus method Add "filename" to append a filename to the playlist
+	Fix up dbus interface to use internal playlist
 	Active selected song in playlist on doubleclick
 	Make selected item on playlist follow active item
 	Implement speed doublt key } and speed half key {

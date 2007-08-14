@@ -1880,6 +1880,7 @@ gboolean playlist_select_callback(GtkTreeView *view, GtkTreePath *path, GtkTreeV
 	gint playlist;
 
 	if( gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
+		dontplaynext = TRUE;
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 		shutdown();
 		set_media_info(filename);
@@ -1899,7 +1900,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkTreeViewColumn *column;
     GtkWidget *vbox;
 	GtkWidget *box;
-	GtkWidget *vbutton_box;
+	GtkWidget *ctrlbox;
+	GtkWidget *closebox;
     GtkWidget *hbox;
 	GtkWidget *moveup;
 	GtkWidget *movedown;
@@ -1909,17 +1911,18 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GdkRectangle rect;
 	
 	playlist_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_widget_set_size_request(GTK_WIDGET(playlist_window),300,200);
+	//gtk_widget_set_size_request(GTK_WIDGET(playlist_window),300,200);
     gtk_window_set_type_hint(GTK_WINDOW(playlist_window), GDK_WINDOW_TYPE_HINT_UTILITY);
     gtk_window_set_title(GTK_WINDOW(playlist_window), _("Playlist"));
 
     vbox = gtk_vbox_new(FALSE, 10);
     hbox = gtk_hbutton_box_new();
 	box = gtk_hbox_new(FALSE,10);
-	vbutton_box = gtk_vbutton_box_new();
+	ctrlbox = gtk_hbutton_box_new();
+	closebox = gtk_hbutton_box_new();
 	
     gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-    gtk_vbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+    gtk_button_box_set_layout(GTK_BUTTON_BOX(ctrlbox),GTK_BUTTONBOX_START);
 
 // Give the window the property to accept DnD
     target_entry[i].target = DRAG_NAME_0;
@@ -1971,20 +1974,25 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
     g_signal_connect_swapped(GTK_OBJECT(close), "clicked",
                              GTK_SIGNAL_FUNC(config_close), playlist_window);
 
-    gtk_container_add(GTK_CONTAINER(hbox), close);
+    //gtk_container_add(GTK_CONTAINER(hbox), close);
 	
 	moveup = gtk_button_new_from_stock(GTK_STOCK_GO_UP);
 	movedown = gtk_button_new_from_stock(GTK_STOCK_GO_DOWN);
 	gtk_widget_set_sensitive(moveup,FALSE);
 	gtk_widget_set_sensitive(movedown,FALSE);
-    gtk_container_add(GTK_CONTAINER(vbutton_box), moveup);
-    gtk_container_add(GTK_CONTAINER(vbutton_box), movedown);
+    gtk_container_add(GTK_CONTAINER(ctrlbox), moveup);
+    gtk_container_add(GTK_CONTAINER(ctrlbox), movedown);
 	
+    gtk_container_add(GTK_CONTAINER(closebox), close);
 	
-	gtk_box_pack_start(GTK_BOX(box),list,TRUE,TRUE,0);
-	gtk_box_pack_start(GTK_BOX(box),vbutton_box,FALSE,FALSE,0);
+	gtk_box_pack_start(GTK_BOX(vbox),list,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(hbox),ctrlbox,FALSE,FALSE,0);
+	gtk_box_pack_start(GTK_BOX(hbox),closebox,FALSE,FALSE,0);
+	
     gtk_box_pack_start(GTK_BOX(vbox),box,TRUE,TRUE,0);
     gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE,FALSE,0);
+	
+	
     gtk_container_add(GTK_CONTAINER(playlist_window), vbox);
 	
 	gtk_widget_show_all(playlist_window);
