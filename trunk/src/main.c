@@ -196,7 +196,7 @@ int main(int argc, char *argv[])
 		printf(_("GNOME MPlayer v%s\n"), VERSION);
 	
 	// setup playliststore
-	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);
+	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);
 	
     create_window(embed_window);
 
@@ -274,12 +274,10 @@ int main(int argc, char *argv[])
                 playlist = detect_playlist(argv[i]);
 			
 			if (!playlist ) {
-				gtk_list_store_append(playliststore,&iter);
-				gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,argv[i],COUNT_COLUMN,0,PLAYLIST_COLUMN,playlist, -1);
+				add_item_to_playlist(argv[i],playlist);
 			} else {
 				if (!parse_playlist(argv[i])) {	
-					gtk_list_store_append(playliststore,&iter);
-					gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,argv[i],COUNT_COLUMN,0,PLAYLIST_COLUMN,playlist, -1);
+					add_item_to_playlist(argv[i],playlist);
 				}
 				
 			}

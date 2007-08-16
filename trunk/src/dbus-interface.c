@@ -93,8 +93,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
 						gtk_list_store_clear(playliststore);
-						gtk_list_store_append(playliststore,&iter);
-						gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,s,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
+						add_item_to_playlist(s,0);
                         play_file(s, 0);
                     } else {
                         dbus_error_free(&error);
@@ -108,8 +107,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
 						if (!parse_playlist(s)) {	
-							gtk_list_store_append(playliststore,&iter);
-							gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,s,COUNT_COLUMN,0,PLAYLIST_COLUMN,1, -1);
+							add_item_to_playlist(s,1);
 						}
 						if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 							gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&s, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
@@ -140,9 +138,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-						gtk_list_store_append(playliststore,&iter);
-						gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,s,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
-                    } else {
+						add_item_to_playlist(s,0);
+					} else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;

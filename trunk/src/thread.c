@@ -473,8 +473,11 @@ gpointer launch_player(gpointer data)
     player_window = get_player_window();
     argv[arg++] = g_strdup_printf("0x%x", player_window);
 
-	if (control_id == 0)
+	if (control_id == 0) {
 		argv[arg++] = g_strdup_printf("-idx");
+	} else {
+		argv[arg++] = g_strdup_printf("-cookies");
+	}
 
 	if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");

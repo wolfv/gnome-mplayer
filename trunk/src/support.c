@@ -110,8 +110,7 @@ gint parse_basic(gchar * filename)
 				}else if (g_strcasecmp(buffer, "[reference]") == 0) {
 					ret = 1;
 				} else if (ret == 1) {
-					gtk_list_store_append(playliststore,&iter);
-					gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,buffer,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
+					add_item_to_playlist(buffer,0);
 				}
 			}
 		}
@@ -167,8 +166,7 @@ gint parse_cdda(gchar* filename) {
 			if (g_strncasecmp(output[ac],"ID_CDDA_TRACK_",strlen("ID_CDDA_TRACK_")) == 0) {
 				sscanf(output[ac], "ID_CDDA_TRACK_%i_", &num);
 				track = g_strdup_printf("cdda://%i",num);
-				gtk_list_store_append(playliststore,&iter);
-				gtk_list_store_set(playliststore,&iter,ITEM_COLUMN,track,COUNT_COLUMN,0,PLAYLIST_COLUMN,0, -1);
+				add_item_to_playlist(track,0);
 				g_free(track);
 			}
 			ac++;
@@ -347,5 +345,34 @@ gboolean device_name(gchar * filename)
     }
 
     return ret;
+}
+
+GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist) 
+{
+	gchar *desc;
+	gchar *url;
+	GtkTreeIter localiter;
+	
+	if (!device_name(itemname) && !streaming_media(itemname)) {
+		desc = g_strdup_printf("%s",g_strrstr(itemname,"/")+sizeof(gchar));
+	} else {
+		url = g_strrstr(itemname,"http://");
+
+		if (g_ascii_strncasecmp(itemname, "cdda://",strlen("cdda://")) == 0) {
+			desc = g_strdup_printf("CD Track %s",itemname + strlen("cdda://"));
+		} else {
+			desc = g_strdup_printf("Device or Stream");
+		}
+	}
+	
+	gtk_list_store_append(playliststore,&localiter);
+	gtk_list_store_set(playliststore,&localiter,ITEM_COLUMN,itemname,
+					   DESCRIPTION_COLUMN,desc,
+					   COUNT_COLUMN,0,
+					   PLAYLIST_COLUMN,playlist, -1);
+	
+	g_free(desc);
+	
+	return localiter;
 }
 

@@ -39,4 +39,5 @@ gboolean update_mplayer_config();
 gboolean send_command(gchar * command);
 gboolean streaming_media(gchar * filename);
 gboolean device_name(gchar * filename);
+GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist);
 #endif                          // _SUPPORT_H
