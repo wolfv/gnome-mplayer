@@ -376,3 +376,31 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 	return localiter;
 }
 
+gboolean next_item_in_playlist(GtkTreeIter *iter) 
+{
+	gint items;
+    GRand *rand;
+	gint num;
+	
+	if (random_order) {
+		items = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL);
+		rand = g_rand_new();
+		num = g_rand_int_range(rand, 0, items);
+		g_rand_free(rand);
+		
+		if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore),iter,NULL,num)) {
+			return TRUE;	
+		} else {
+			return FALSE;
+		}
+			
+	} else {
+		if (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),iter)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+	
+}
+
