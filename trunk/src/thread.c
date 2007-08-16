@@ -424,6 +424,7 @@ gpointer launch_player(gpointer data)
     gint arg = 0;
 	gchar *filename;
 	gint count;
+	GtkTreePath *path;
 
     ThreadData *threaddata = (ThreadData *) data;
 
@@ -560,14 +561,18 @@ gpointer launch_player(gpointer data)
     // printf("Thread done\n");
 
 	if (dontplaynext == FALSE) {
-		if (random_order == 0 && gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&iter)) {
+		if (next_item_in_playlist(&iter)) {
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 			set_media_info(filename);
 			play_file(filename, playlist);
 			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 			g_free(filename);
-		} else if(random_order == 1) {
-			// Umm...
+			if (GTK_IS_TREE_SELECTION(selection)) {
+				path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+				gtk_tree_selection_select_path(selection,path);	
+				gtk_tree_path_free(path);
+			}
+			
 		} else {
 			// printf("end of thread playlist is empty\n");
 			if (loop) {
@@ -577,6 +582,11 @@ gpointer launch_player(gpointer data)
 				play_file(filename, playlist);
 				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 				g_free(filename);
+				if (GTK_IS_TREE_SELECTION(selection)) {
+					path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+					gtk_tree_selection_select_path(selection,path);	
+					gtk_tree_path_free(path);
+				}
 			}
 		}
 	} else {

@@ -822,12 +822,17 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter));
 		g_free(iterfilename);
 	} else {
-		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
-		do {
-			previter = localiter;
+		if (random_order) {
+			next_item_in_playlist(&previter);
 			valid = TRUE;
-			gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter);
-		} while (gtk_list_store_iter_is_valid(playliststore,&localiter));
+		} else {
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
+			do {
+				previter = localiter;
+				valid = TRUE;
+				gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter);
+			} while (gtk_list_store_iter_is_valid(playliststore,&localiter));
+		}
 	}
 		
 	if (valid) {
@@ -859,7 +864,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 	GtkTreePath *path;
 	
 	dontplaynext = TRUE;
-	if (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter)) {
+	if (next_item_in_playlist(&localiter)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 		shutdown();
 		set_media_info(filename);

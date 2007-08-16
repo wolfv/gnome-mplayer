@@ -1,5 +1,5 @@
 Development
-	Enable --random flag (prev item on playlist is st
+	Enable --random flag (prev item on playlist is still not great here)
 	More GUI work on the playlist
 	Common function to add item to playlist
 	Only let there be one active playlist dialog
