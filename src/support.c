@@ -113,6 +113,7 @@ gint parse_basic(gchar * filename)
 					add_item_to_playlist(buffer,0);
 				}
 			}
+			if (ret != 1) break;
 		}
 	}
 
@@ -395,10 +396,19 @@ gboolean next_item_in_playlist(GtkTreeIter *iter)
 		}
 			
 	} else {
-		if (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),iter)) {
-			return TRUE;
+		if (!gtk_list_store_iter_is_valid(playliststore,iter)) {
+			if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),iter)) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+				
 		} else {
-			return FALSE;
+			if (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),iter)) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
 		}
 	}
 	

@@ -669,7 +669,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                    guint info, guint t, gpointer data)
 {
     gchar *filename;
-
+	GtkTreeIter localiter;
     /* Important, check if we actually got data.  Sometimes errors
      * occure and selection_data will be NULL.
      */
@@ -683,8 +683,14 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         g_strchomp(filename);
         shutdown();
 		gtk_list_store_clear(playliststore);
-		add_item_to_playlist(filename,0);
-        play_file(filename, 0);
+		if(!parse_playlist(filename)) {
+			localiter = add_item_to_playlist(filename,0);
+		}
+		if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
+			iter = localiter;
+			shutdown();
+			play_file(filename,0);
+		}
     }
 	return FALSE;
 }
@@ -706,7 +712,9 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
         filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
         g_strchomp(filename);
-		localiter = add_item_to_playlist(filename,0);
+		if(!parse_playlist(filename)) {
+			localiter = add_item_to_playlist(filename,0);
+		}
 		if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
 			iter = localiter;
 			shutdown();
@@ -724,6 +732,10 @@ gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
+	gchar *filename;
+	gint count,playlist;
+	GtkTreePath *path;
+	
     if (data == NULL) {
         if (state == PAUSED || state == STOPPED) {
             send_command("pause\n");
@@ -745,7 +757,20 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (state == QUIT) {
             if (lastfile != NULL) {
                 play_file(lastfile, 0);
-            }
+            } else {
+				if(next_item_in_playlist(&iter)) {
+					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+					set_media_info(filename);
+					play_file(filename, playlist);
+					gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+					g_free(filename);
+					if (GTK_IS_TREE_SELECTION(selection)) {
+						path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+						gtk_tree_selection_select_path(selection,path);	
+						gtk_tree_path_free(path);
+					}
+				}
+			}
         }
     }
     return FALSE;
