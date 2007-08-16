@@ -1,4 +1,6 @@
 Development
+	When playlist is dropped on window or playlist viewer, don't autoplay, but setup to start at first item, unless random
+	Load a playlist when dropped on the playlist window or on the player window
 	Enable --random flag (prev item on playlist is still not great here)
 	More GUI work on the playlist
 	Common function to add item to playlist
