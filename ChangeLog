@@ -1,4 +1,6 @@
 Development
+	More GUI work on the playlist
+	Common function to add item to playlist
 	Only let there be one active playlist dialog
 	Better drag and drop support for playlist
 	Add dbus method Add "filename" to append a filename to the playlist
