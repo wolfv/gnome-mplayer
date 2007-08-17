@@ -1,4 +1,5 @@
 Development
+	Fix problem with reference playlist where files had Ref prefix
 	When playlist is dropped on window or playlist viewer, don't autoplay, but setup to start at first item, unless random
 	Load a playlist when dropped on the playlist window or on the player window
 	Enable --random flag (prev item on playlist is still not great here)
