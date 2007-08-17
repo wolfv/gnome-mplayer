@@ -93,7 +93,9 @@ gint parse_basic(gchar * filename)
 	FILE *fp;
     gint ret = 0;
     gchar *buffer;
-
+	gint ref;
+	gchar *url;
+	
     fp = fopen(filename, "r");
 	buffer = g_new0(gchar,1024);
 	
@@ -110,7 +112,14 @@ gint parse_basic(gchar * filename)
 				}else if (g_strcasecmp(buffer, "[reference]") == 0) {
 					ret = 1;
 				} else if (ret == 1) {
-					add_item_to_playlist(buffer,0);
+					if (g_ascii_strncasecmp(buffer,"ref",3) == 0) { 
+						url = g_new0(gchar,1024);
+						sscanf(buffer,"Ref%i=%s\n",&ref,url);
+						add_item_to_playlist(url,0);
+						g_free(url);
+					} else {
+						add_item_to_playlist(buffer,0);
+					}
 				}
 			}
 			if (ret != 1) break;
