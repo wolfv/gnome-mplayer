@@ -106,6 +106,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+						gtk_list_store_clear(playliststore);
 						if (!parse_playlist(s)) {	
 							add_item_to_playlist(s,1);
 						}
