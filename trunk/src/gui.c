@@ -1911,6 +1911,35 @@ void make_button(gchar * src, gchar * hrefid)
 
 }
 
+void save_playlist(GtkWidget * widget, void *data)
+{
+    GtkWidget *dialog;
+    gchar *filename;
+	GtkFileFilter *filter;
+
+    dialog = gtk_file_chooser_dialog_new(_("Save Playlist"),
+                                         GTK_WINDOW(window),
+                                         GTK_FILE_CHOOSER_ACTION_SAVE,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
+
+	gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
+	filter = gtk_file_filter_new();
+	gtk_file_filter_set_name(filter,"Playlist (*.pls)");
+	gtk_file_filter_add_pattern(filter,"*.pls");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
+	
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		save_playlist_pls(filename);
+	}
+	
+	gtk_widget_destroy(dialog);
+
+}
+
+
 gboolean playlist_select_callback(GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer data) {
 
 	gchar *filename;
@@ -1944,6 +1973,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
     GtkWidget *hbox;
 	GtkWidget *moveup;
 	GtkWidget *movedown;
+	GtkWidget *savelist;
 	GtkTargetEntry target_entry[3];
 	gint i = 0;
 	GtkTreePath *path;
@@ -2022,11 +2052,14 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	
 	moveup = gtk_button_new_from_stock(GTK_STOCK_GO_UP);
 	movedown = gtk_button_new_from_stock(GTK_STOCK_GO_DOWN);
+	savelist = gtk_button_new_from_stock(GTK_STOCK_SAVE);
 	gtk_widget_set_sensitive(moveup,FALSE);
 	gtk_widget_set_sensitive(movedown,FALSE);
     gtk_container_add(GTK_CONTAINER(ctrlbox), moveup);
     gtk_container_add(GTK_CONTAINER(ctrlbox), movedown);
-	
+    gtk_container_add(GTK_CONTAINER(ctrlbox), savelist);
+	g_signal_connect(GTK_OBJECT(savelist),"clicked",GTK_SIGNAL_FUNC(save_playlist),NULL);
+		
     gtk_container_add(GTK_CONTAINER(closebox), close);
 
 	scrolled = gtk_scrolled_window_new(NULL,NULL);
