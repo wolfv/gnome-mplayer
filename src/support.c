@@ -423,3 +423,25 @@ gboolean next_item_in_playlist(GtkTreeIter *iter)
 	
 }
 
+gboolean save_playlist_pls(gchar *filename) 
+{
+	FILE *contents;
+	gchar *itemname;
+	GtkTreeIter localiter;
+	
+	contents = fopen(filename,"w");
+	if (contents != NULL) {
+		fprintf(contents,"[playlist]\n");
+		if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter)) {
+			do {
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&itemname,-1);
+				fprintf(contents,"%s\n",itemname);
+			} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter));
+		}
+
+		fclose(contents);	
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
