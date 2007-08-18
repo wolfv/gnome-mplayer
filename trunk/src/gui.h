@@ -69,6 +69,8 @@ GtkMenuItem *menuitem_file_sep2;
 GtkMenuItem *menuitem_file_quit;
 GtkMenuItem *menuitem_edit;
 GtkMenu *menu_edit;
+GtkMenuItem *menuitem_edit_random;
+GtkMenuItem *menuitem_edit_sep1;
 GtkMenuItem *menuitem_edit_config;
 GtkMenuItem *menuitem_help;
 GtkMenuItem *menuitem_view;

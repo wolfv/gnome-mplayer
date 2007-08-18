@@ -1079,6 +1079,12 @@ void menuitem_stop_callback(GtkMenuItem * menuitem, void *data)
     stop_callback(GTK_WIDGET(menuitem), NULL, NULL);
 }
 
+void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
+{
+    random_order = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random));
+}
+
+
 void menuitem_view_fullscreen_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
@@ -1939,6 +1945,41 @@ void save_playlist(GtkWidget * widget, void *data)
 
 }
 
+void load_playlist(GtkWidget * widget, void *data)
+{
+    GtkWidget *dialog;
+    gchar *filename;
+	GtkFileFilter *filter;
+
+    dialog = gtk_file_chooser_dialog_new(_("Open Playlist"),
+                                         GTK_WINDOW(window),
+                                         GTK_FILE_CHOOSER_ACTION_OPEN,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+
+	gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
+	filter = gtk_file_filter_new();
+	gtk_file_filter_set_name(filter,"Playlist (*.pls)");
+	gtk_file_filter_add_pattern(filter,"*.pls");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
+
+	filter = gtk_file_filter_new();
+	gtk_file_filter_set_name(filter,"Reference Playlist (*.ref)");
+	gtk_file_filter_add_pattern(filter,"*.ref");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
+	
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		gtk_list_store_clear(playliststore);
+		if (!parse_playlist(filename)) {	
+			add_item_to_playlist(filename,1);
+		}
+
+	}
+	
+	gtk_widget_destroy(dialog);
+}
 
 gboolean playlist_select_callback(GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer data) {
 
@@ -1974,6 +2015,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkWidget *moveup;
 	GtkWidget *movedown;
 	GtkWidget *savelist;
+	GtkWidget *loadlist;
 	GtkTargetEntry target_entry[3];
 	gint i = 0;
 	GtkTreePath *path;
@@ -2053,12 +2095,15 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	moveup = gtk_button_new_from_stock(GTK_STOCK_GO_UP);
 	movedown = gtk_button_new_from_stock(GTK_STOCK_GO_DOWN);
 	savelist = gtk_button_new_from_stock(GTK_STOCK_SAVE);
+	loadlist = gtk_button_new_from_stock(GTK_STOCK_OPEN);
 	gtk_widget_set_sensitive(moveup,FALSE);
 	gtk_widget_set_sensitive(movedown,FALSE);
     gtk_container_add(GTK_CONTAINER(ctrlbox), moveup);
     gtk_container_add(GTK_CONTAINER(ctrlbox), movedown);
     gtk_container_add(GTK_CONTAINER(ctrlbox), savelist);
 	g_signal_connect(GTK_OBJECT(savelist),"clicked",GTK_SIGNAL_FUNC(save_playlist),NULL);
+    gtk_container_add(GTK_CONTAINER(ctrlbox), loadlist);
+	g_signal_connect(GTK_OBJECT(loadlist),"clicked",GTK_SIGNAL_FUNC(load_playlist),NULL);
 		
     gtk_container_add(GTK_CONTAINER(closebox), close);
 
@@ -2244,9 +2289,20 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(GTK_WIDGET(menuitem_edit));
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), GTK_WIDGET(menuitem_edit));
     gtk_menu_item_set_submenu(menuitem_edit, GTK_WIDGET(menu_edit));
-    menuitem_edit_config =
+
+    menuitem_edit_random =
+        GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Shuffle Playlist")));
+ 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), random_order);	
+    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_random));
+	
+    menuitem_edit_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_sep1));
+	
+	menuitem_edit_config =
         GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_PROPERTIES, NULL));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_config));
+    g_signal_connect(GTK_OBJECT(menuitem_edit_random), "activate",
+                     G_CALLBACK(menuitem_edit_random_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
 
