@@ -1818,6 +1818,9 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
 
             percent = event->x / width;
 
+			if (idledata->cachepercent > 0.0 && percent > idledata->cachepercent) {
+				percent = idledata->cachepercent - 0.05;
+			}
             cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
             send_command(cmd);
             g_free(cmd);
