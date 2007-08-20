@@ -202,6 +202,7 @@ int main(int argc, char *argv[])
     create_window(embed_window);
 
     fullscreen = 0;
+	autopause = FALSE;
     lastfile = NULL;
     state = QUIT;
     channel_in = NULL;
