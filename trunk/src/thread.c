@@ -389,11 +389,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 	
     g_string_free(mplayer_output, TRUE);
-	
-	while(gtk_events_pending()) {
-		gtk_main_iteration();
-	}
-	
+
     return TRUE;
 
 }
@@ -487,6 +483,8 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-cache");
         argv[arg++] = g_strdup_printf("%i", cache_size);
     }
+	argv[arg++] = g_strdup_printf("-user-agent");
+	argv[arg++] = g_strdup_printf("NSPlayer");
     argv[arg++] = g_strdup_printf("-wid");
     player_window = get_player_window();
     argv[arg++] = g_strdup_printf("0x%x", player_window);
@@ -495,8 +493,6 @@ gpointer launch_player(gpointer data)
 		argv[arg++] = g_strdup_printf("-idx");
 	} else {
 		argv[arg++] = g_strdup_printf("-cookies");
-		argv[arg++] = g_strdup_printf("-user-agent");
-		argv[arg++] = g_strdup_printf("NSPlayer");
 	}
 
 	if (playlist || threaddata->playlist)
@@ -525,9 +521,9 @@ gpointer launch_player(gpointer data)
         channel_err = g_io_channel_unix_new(std_err);
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
-        watch_in_id = g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
-        watch_err_id = g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
-        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
+        watch_in_id = g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_IN, thread_reader, NULL,NULL);
+        watch_err_id = g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL, NULL);
+        watch_in_hup_id = g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete, NULL, NULL);
 
         g_idle_add(set_play, NULL);
         g_timeout_add(500, thread_query, NULL);

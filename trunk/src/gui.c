@@ -111,6 +111,26 @@ gboolean set_progress_value(void *data)
 			gtk_progress_bar_set_text(progress, idle->progress_text);
 		}
     }
+		
+	if (idle->cachepercent > 0.0 && idle->cachepercent < 1.0) {
+		if (!autopause) {
+			if (idle->percent + 0.05 > idle->cachepercent) {
+            	return play_callback(NULL, NULL, NULL);
+				autopause = TRUE;
+			}
+		} else {
+			if (idle->cachepercent > idle->percent + 0.10) {
+            	return play_callback(NULL, NULL, NULL);
+				autopause = FALSE;
+			}
+		}
+		
+	} else {
+		if (autopause) {
+            return play_callback(NULL, NULL, NULL);
+			autopause = FALSE;
+		}
+	}
 	
     return FALSE;
 }
