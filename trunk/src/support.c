@@ -65,6 +65,10 @@ gint detect_playlist(gchar * filename)
 					playlist = 1;
 				}
 
+				if (strstr(g_strdown(buffer), "pnm://") != 0) {
+					playlist = 1;
+				}
+
 
 			}
 			fclose(fp);

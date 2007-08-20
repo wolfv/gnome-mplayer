@@ -1,4 +1,7 @@
 Development
+	When given a url to play and under control of gecko-mediaplayer pass -user-agent NSPlayer to mplayer
+	Add support for real media pnm:// urls
+	Make the GUI responsive while caching from a website
 	Enable setting random playback from "Edit" menu
 	Add playlist loading
 	Add playlist saving to .pls file type

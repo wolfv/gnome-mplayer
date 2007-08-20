@@ -170,6 +170,7 @@ int main(int argc, char *argv[])
     idledata->hue = 0;
     idledata->saturation = 0;
 	selection = NULL;
+	lastinput = NULL;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
