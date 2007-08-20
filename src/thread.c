@@ -179,6 +179,18 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             return FALSE;
         }
     }
+	
+	if (lastinput != NULL) {
+		if (g_ascii_strcasecmp(lastinput,mplayer_output->str) == 0) {
+			return TRUE;
+		} else {
+			g_free(lastinput);
+			lastinput = g_strdup(mplayer_output->str);
+		}
+	} else {
+		lastinput = g_strdup(mplayer_output->str);
+	}
+	
     if ((strstr(mplayer_output->str, "A:") != NULL) || (strstr(mplayer_output->str, "V:") != NULL)) {
         g_string_free(mplayer_output, TRUE);
         return TRUE;
@@ -375,8 +387,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         gtk_widget_destroy(dialog);
         g_free(error_msg);
     }
-
+	
     g_string_free(mplayer_output, TRUE);
+	
+	while(gtk_events_pending()) {
+		gtk_main_iteration();
+	}
+	
     return TRUE;
 
 }
@@ -430,7 +447,7 @@ gpointer launch_player(gpointer data)
 
     fullscreen = 0;
     videopresent = 1;
-
+	
     g_mutex_lock(thread_running);
 
     g_strlcpy(idledata->info, threaddata->filename, 1024);
@@ -478,6 +495,8 @@ gpointer launch_player(gpointer data)
 		argv[arg++] = g_strdup_printf("-idx");
 	} else {
 		argv[arg++] = g_strdup_printf("-cookies");
+		argv[arg++] = g_strdup_printf("-user-agent");
+		argv[arg++] = g_strdup_printf("NSPlayer");
 	}
 
 	if (playlist || threaddata->playlist)
@@ -532,6 +551,9 @@ gpointer launch_player(gpointer data)
 		dbus_send_event("MediaComplete",0);
         dbus_open_next();
 	}
+	
+	if (lastinput != NULL)
+		g_free(lastinput);
 	
     g_free(threaddata);
     threaddata = NULL;

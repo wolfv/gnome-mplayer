@@ -93,8 +93,9 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
 						gtk_list_store_clear(playliststore);
-						add_item_to_playlist(s,0);
-                        play_file(s, 0);
+						playlist = detect_playlist(s);
+						add_item_to_playlist(s,playlist);
+                        play_file(s, playlist);
                     } else {
                         dbus_error_free(&error);
                     }
@@ -526,7 +527,7 @@ void dbus_send_event(gchar *event, gint button)
 		path = g_strdup_printf("/control/%i", control_id);
 		localevent = g_strdup_printf("%s",event);
 		if (verbose) {
-			printf("Posting Event %s\n",localevent);
+			//printf("Posting Event %s\n",localevent);
 		}
 		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Event");
 		dbus_message_append_args(message, DBUS_TYPE_STRING, &localevent, DBUS_TYPE_INT32, &localbutton, DBUS_TYPE_INVALID);
