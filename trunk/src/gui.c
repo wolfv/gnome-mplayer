@@ -112,25 +112,31 @@ gboolean set_progress_value(void *data)
 		}
     }
 		
-	if (idle->cachepercent > 0.0 && idle->cachepercent < 1.0) {
-		if (!autopause) {
-			if (idle->percent + 0.05 > idle->cachepercent) {
-            	return play_callback(NULL, NULL, NULL);
+	if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9) {
+		if (autopause == FALSE && state == PLAYING) {
+			if ((idle->percent + 0.05) > idle->cachepercent) {
+            	pause_callback(NULL, NULL, NULL);
 				autopause = TRUE;
 			}
-		} else {
-			if (idle->cachepercent > idle->percent + 0.10) {
-            	return play_callback(NULL, NULL, NULL);
+		} else if (autopause == TRUE && state == PAUSED) {
+			if (idle->cachepercent > (idle->percent + 0.10)) {
+            	play_callback(NULL, NULL, NULL);
 				autopause = FALSE;
 			}
 		}
 		
-	} else {
-		if (autopause) {
-            return play_callback(NULL, NULL, NULL);
+	} 
+	
+	if (idle->cachepercent > 0.9) {
+		if (autopause == TRUE && state == PAUSED) {
+            play_callback(NULL, NULL, NULL);
 			autopause = FALSE;
 		}
 	}
+	
+	//printf("cachepercent = %f\n",idle->cachepercent);
+	//printf("percent = %f\n",idle->percent);
+	//printf("autopause = %i\n",autopause);
 	
     return FALSE;
 }
