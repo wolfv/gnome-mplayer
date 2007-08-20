@@ -100,8 +100,11 @@ gboolean set_progress_value(void *data)
     if (GTK_IS_WIDGET(progress)) {
 		if (state == QUIT) {
         	gtk_progress_bar_update(progress, idle->cachepercent);
+			gtk_widget_set_sensitive(play_event_box,FALSE);
+			
 		} else {
         	gtk_progress_bar_update(progress, idle->percent);
+			gtk_widget_set_sensitive(play_event_box,TRUE);
 		}
 		if (idle->cachepercent < 1.0 && state == PAUSED) {
 			text = g_strdup_printf(_("Paused | %2i%% \342\226\274"),(gint)(idle->cachepercent * 100));
@@ -116,11 +119,13 @@ gboolean set_progress_value(void *data)
 		if (autopause == FALSE && state == PLAYING) {
 			if ((idle->percent + 0.05) > idle->cachepercent) {
             	pause_callback(NULL, NULL, NULL);
+				gtk_widget_set_sensitive(play_event_box,FALSE);
 				autopause = TRUE;
 			}
 		} else if (autopause == TRUE && state == PAUSED) {
 			if (idle->cachepercent > (idle->percent + 0.10)) {
             	play_callback(NULL, NULL, NULL);
+				gtk_widget_set_sensitive(play_event_box,TRUE);
 				autopause = FALSE;
 			}
 		}
@@ -130,6 +135,7 @@ gboolean set_progress_value(void *data)
 	if (idle->cachepercent > 0.9) {
 		if (autopause == TRUE && state == PAUSED) {
             play_callback(NULL, NULL, NULL);
+			gtk_widget_set_sensitive(play_event_box,TRUE);
 			autopause = FALSE;
 		}
 	}
