@@ -45,8 +45,9 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) support.$(OBJEXT) \
-	main.$(OBJEXT) dbus-interface.$(OBJEXT) thread.$(OBJEXT)
+am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
+	support.$(OBJEXT) main.$(OBJEXT) dbus-interface.$(OBJEXT) \
+	thread.$(OBJEXT)
 gnome_mplayer_OBJECTS = $(am_gnome_mplayer_OBJECTS)
 am__DEPENDENCIES_1 =
 gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
@@ -216,6 +217,8 @@ gnome_mplayer_SOURCES = \
 	../config.h \
 	gui.c \
 	gui.h \
+	playlist.c \
+	playlist.h \
 	support.c \
 	support.h \
 	main.c \
@@ -311,6 +314,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus-interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/playlist.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/support.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/thread.Po@am__quote@
 
