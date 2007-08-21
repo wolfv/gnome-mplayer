@@ -73,6 +73,8 @@ gint play_file(gchar * filename, gint playlist)
     GtkWidget *dialog;
     gchar *error_msg = NULL;
 
+	printf("playing - %s\n",filename);
+	
     shutdown();
     g_strlcpy(thread_data->filename, filename, 1024);
 
@@ -93,29 +95,25 @@ gint play_file(gchar * filename, gint playlist)
 		}
     }
 
-
     if (lastfile != NULL) {
         g_free(lastfile);
         lastfile = NULL;
     }
 
     lastfile = g_strdup(thread_data->filename);
+	
     last_x = 0;
     last_y = 0;
     idledata->width = 0;
     idledata->height = 0;
     idledata->x = 0;
     idledata->y = 0;
-    // printf("Ready to spawn\n");
 
     streaming = 0;
-//    if (playlist == 0)
-//        playlist = detect_playlist(thread_data->filename);
 
     if (filename != NULL && strlen(filename) != 0) {
         thread_data->player_window = 0;
         thread_data->playlist = playlist;
-        // thread_data->streaming = !g_file_test(thread_data->filename,G_FILE_TEST_EXISTS);
         thread_data->streaming = streaming_media(thread_data->filename);
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
@@ -170,8 +168,8 @@ int main(int argc, char *argv[])
     idledata->hue = 0;
     idledata->saturation = 0;
 	selection = NULL;
-	lastinput = NULL;
-
+	lastfile = NULL;
+	
     // call g_type_init or otherwise we can crash
     g_type_init();
     gconf = gconf_client_get_default();
@@ -203,7 +201,6 @@ int main(int argc, char *argv[])
 
     fullscreen = 0;
 	autopause = FALSE;
-    lastfile = NULL;
     state = QUIT;
     channel_in = NULL;
     channel_err = NULL;

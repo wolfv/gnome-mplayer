@@ -140,6 +140,9 @@ gboolean set_progress_value(void *data)
 		}
 	}
 	
+	if (state == QUIT) {
+		gtk_widget_set_sensitive(play_event_box,TRUE);
+	}
 	//printf("cachepercent = %f\n",idle->cachepercent);
 	//printf("percent = %f\n",idle->percent);
 	//printf("autopause = %i\n",autopause);
@@ -502,10 +505,6 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 {
     shutdown();
 
-    if (lastfile != NULL) {
-        g_free(lastfile);
-        lastfile = NULL;
-    }
     if (idledata != NULL) {
         g_free(idledata);
         idledata = NULL;
@@ -787,10 +786,19 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
         }
         if (state == QUIT) {
-            if (lastfile != NULL) {
-                play_file(lastfile, 0);
-            } else {
-				if(next_item_in_playlist(&iter)) {
+			if(next_item_in_playlist(&iter)) {
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+				set_media_info(filename);
+				play_file(filename, playlist);
+				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+				g_free(filename);
+				if (GTK_IS_TREE_SELECTION(selection)) {
+					path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+					gtk_tree_selection_select_path(selection,path);	
+					gtk_tree_path_free(path);
+				}
+			} else {
+				if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 					set_media_info(filename);
 					play_file(filename, playlist);
@@ -1017,6 +1025,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
         gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
         g_free(last_dir);
 
+		dontplaynext = TRUE;
         shutdown();
 		gtk_list_store_clear(playliststore);
 		add_item_to_playlist(filename,0);
@@ -1057,7 +1066,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_dialog_run(GTK_DIALOG(file_chooser_save)) == GTK_RESPONSE_ACCEPT) {
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser_save));
 	   
-		// printf("Copy %s to %s\n",lastfile, filename);	   
+		printf("Copy %s to %s\n",lastfile, filename);	   
 	   
 		fin = g_fopen(lastfile, "rb");
 		fout = g_fopen(filename, "wb");
