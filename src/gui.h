@@ -28,6 +28,7 @@
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-value.h>
+#include "playlist.h"
 
 /*
 #include "../pixmaps/play_down_small.xpm"
@@ -43,15 +44,7 @@
 #include "../pixmaps/fs_down_small.xpm"
 #include "../pixmaps/fs_up_small.xpm"
 */
-#include "../pixmaps/gnome_mplayer.xpm"
-#include "../pixmaps/media-playback-pause.xpm"
-#include "../pixmaps/media-playback-start.xpm"
-#include "../pixmaps/media-playback-stop.xpm"
-#include "../pixmaps/media-seek-backward.xpm"
-#include "../pixmaps/media-seek-forward.xpm"
-#include "../pixmaps/media-skip-backward.xpm"
-#include "../pixmaps/media-skip-forward.xpm"
-#include "../pixmaps/view-fullscreen.xpm"
+
 
 GtkWidget *window;
 GdkWindow *window_container;
@@ -176,6 +169,7 @@ GtkAccelGroup *accel_group;
 
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data);
+void config_close(GtkWidget * widget, void *data);
 
 gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data);

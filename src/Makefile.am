@@ -20,6 +20,8 @@ gnome_mplayer_SOURCES = \
 	../config.h \
 	gui.c \
 	gui.h \
+	playlist.c \
+	playlist.h \
 	support.c \
 	support.h \
 	main.c \
