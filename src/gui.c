@@ -101,10 +101,10 @@ gboolean set_progress_value(void *data)
 		if (state == QUIT) {
         	gtk_progress_bar_update(progress, idle->cachepercent);
 			gtk_widget_set_sensitive(play_event_box,FALSE);
-			
 		} else {
         	gtk_progress_bar_update(progress, idle->percent);
-			gtk_widget_set_sensitive(play_event_box,TRUE);
+			if (autopause == FALSE)
+	            gtk_widget_set_sensitive(play_event_box,TRUE); 			
 		}
 		if (idle->cachepercent < 1.0 && state == PAUSED) {
 			text = g_strdup_printf(_("Paused | %2i%% \342\226\274"),(gint)(idle->cachepercent * 100));
