@@ -180,17 +180,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         }
     }
 	
-	if (lastinput != NULL) {
-		if (g_ascii_strcasecmp(lastinput,mplayer_output->str) == 0) {
-			return TRUE;
-		} else {
-			g_free(lastinput);
-			lastinput = g_strdup(mplayer_output->str);
-		}
-	} else {
-		lastinput = g_strdup(mplayer_output->str);
-	}
-	
     if ((strstr(mplayer_output->str, "A:") != NULL) || (strstr(mplayer_output->str, "V:") != NULL)) {
         g_string_free(mplayer_output, TRUE);
         return TRUE;
@@ -524,6 +513,9 @@ gpointer launch_player(gpointer data)
         watch_in_id = g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_IN, thread_reader, NULL,NULL);
         watch_err_id = g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL, NULL);
         watch_in_hup_id = g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete, NULL, NULL);
+//        watch_in_id = g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
+//        watch_err_id = g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
+//        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
 
         g_idle_add(set_play, NULL);
         g_timeout_add(500, thread_query, NULL);
@@ -534,6 +526,9 @@ gpointer launch_player(gpointer data)
     }
 
     g_mutex_lock(thread_running);
+    while (gtk_events_pending()) {
+        gtk_main_iteration();
+	}	
     printf("Thread completing\n");
 	g_source_remove(watch_in_id);
 	g_source_remove(watch_err_id);
@@ -547,10 +542,7 @@ gpointer launch_player(gpointer data)
 		dbus_send_event("MediaComplete",0);
         dbus_open_next();
 	}
-	
-	if (lastinput != NULL)
-		g_free(lastinput);
-	
+		
     g_free(threaddata);
     threaddata = NULL;
 
@@ -605,7 +597,7 @@ gpointer launch_player(gpointer data)
 					gtk_tree_selection_select_path(selection,path);	
 					gtk_tree_path_free(path);
 				}
-			}
+			} 
 		}
 	} else {
 		dontplaynext = FALSE;

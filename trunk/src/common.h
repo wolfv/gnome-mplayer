@@ -106,7 +106,7 @@ enum {
 	N_COLUMNS
 };
 
-
+gchar *lastfile;
 gint cache_size;
 gint osdlevel;
 gint streaming;
@@ -120,7 +120,6 @@ gint window_y;
 gint control_id;
 gint verbose;
 gint autostart;
-gchar *lastfile;
 gint actual_x, actual_y;
 gint play_x, play_y;
 gint last_x, last_y;
@@ -131,7 +130,6 @@ gint disable_context_menu;
 gint loop;
 gint random_order;
 gboolean dontplaynext;
-gchar *lastinput;
 gboolean autopause;
 
 // playlist stuff

@@ -1,4 +1,5 @@
 Development
+	Fix several problems with the GUI crashing and clean up a couple of minor issues
 	Change priority of thread polling to low
 	When given a url to play and under control of gecko-mediaplayer pass -user-agent NSPlayer to mplayer
 	Add support for real media pnm:// urls
