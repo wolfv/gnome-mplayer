@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME MPlayer 0.4.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-18 07:46-0600\n"
+"POT-Creation-Date: 2007-08-21 12:01-0600\n"
 "PO-Revision-Date: 2007-07-15 06:27+0800\n"
 "Last-Translator:  Wenzheng Hu <db.lobster@gmail.com>\n"
 "Language-Team: Chinese (simplified) <translation-team-zh-cn@lists."
@@ -52,307 +52,337 @@ msgstr "自动播放媒体文件, 默认为 1, 设置为 0 后加载文件但不
 msgid "Disable popup menu on right click"
 msgstr "禁用右键弹出菜单"
 
-#: src/main.c:177
+#: src/main.c:62
+msgid "Play all files on the playlist forever"
+msgstr ""
+
+#: src/main.c:63
+msgid "Play items on playlist in random order"
+msgstr ""
+
+#: src/main.c:182
 msgid "- GNOME Media player based on MPlayer"
 msgstr "- GNOME 媒体播放器基于 MPlayer"
 
-#: src/main.c:190
+#: src/main.c:195
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:219 src/main.c:241
+#: src/main.c:226 src/main.c:248
 msgid "Playing DVD"
 msgstr "正在播放 DVD"
 
-#: src/main.c:245
+#: src/main.c:252
 msgid "Playing Audio CD"
 msgstr "正在播放音频 CD"
 
-#: src/gui.c:77
+#. gtk_widget_hide(song_title);
+#: src/gui.c:95
 #, c-format
 msgid "GNOME MPlayer - %s"
 msgstr "GNOME MPlayer - %s"
 
-#: src/gui.c:98
+#: src/gui.c:119
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Paused | %2i%% ▼"
 
-#: src/gui.c:152
+#: src/gui.c:205
 #, c-format
 msgid "%2i:%02i | %2i%% ▼"
 msgstr "%2i:%02i | %2i%% ▼"
 
-#: src/gui.c:155
+#: src/gui.c:208
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/gui.c:160
+#: src/gui.c:213
 #, c-format
 msgid "%2i:%02i / %2i:%02i | %2i%% ▼"
 msgstr "%2i:%02i / %2i:%02i | %2i%% ▼"
 
-#: src/gui.c:165
+#: src/gui.c:218
 #, c-format
 msgid "%2i:%02i / %2i:%02i"
 msgstr "%2i:%02i / %2i:%02i"
 
-#: src/gui.c:174
+#: src/gui.c:227
 #, c-format
 msgid "%i:%02i:%02i | %2i%% ▼"
 msgstr "%i:%02i:%02i | %2i%% ▼"
 
-#: src/gui.c:177
+#: src/gui.c:230
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/gui.c:184
+#: src/gui.c:237
 #, c-format
 msgid "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
 msgstr "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
 
-#: src/gui.c:190
+#: src/gui.c:243
 #, c-format
 msgid "%i:%02i:%02i / %i:%02i:%02i"
 msgstr "%i:%02i:%02i / %i:%02i:%02i"
 
-#: src/gui.c:381 src/gui.c:746 src/thread.c:256
+#: src/gui.c:438 src/gui.c:949 src/thread.c:252
 #, c-format
 msgid "Volume %i%%"
 msgstr "音量 %i%%"
 
-#: src/gui.c:670
+#: src/gui.c:754
 msgid "Pause"
 msgstr "暂停"
 
-#: src/gui.c:671
+#: src/gui.c:755
 msgid "Playing"
 msgstr "正在播放"
 
-#: src/gui.c:677 src/gui.c:703 src/gui.c:707 src/gui.c:2114
+#: src/gui.c:761 src/gui.c:809 src/gui.c:813 src/gui.c:2385
 msgid "Play"
 msgstr "播放"
 
-#: src/gui.c:678
+#: src/gui.c:762
 msgid "Paused"
 msgstr "已暂停"
 
-#: src/gui.c:711
+#: src/gui.c:817
 msgid "Stopped"
 msgstr "已停止"
 
-#: src/gui.c:786
+#: src/gui.c:989
 msgid "Open File"
 msgstr "打开文件"
 
-#: src/gui.c:833
+#: src/gui.c:1039
 msgid "Save As..."
 msgstr "另存为..."
 
-#: src/gui.c:872 src/gui.c:1736
+#: src/gui.c:1078 src/gui.c:1951
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:876
+#: src/gui.c:1082
 #, fuzzy
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "一个为 GNOME 准备的使用 MPlayer 的播放器"
 
-#: src/gui.c:1183
+#: src/gui.c:1396
 msgid "File Details"
 msgstr "文件细节"
 
-#: src/gui.c:1197
+#: src/gui.c:1410
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">视频细节</span>"
 
-#: src/gui.c:1204
+#: src/gui.c:1417
 msgid "Video Size:"
 msgstr "视频大小:"
 
-#: src/gui.c:1217
+#: src/gui.c:1430
 msgid "Video Format:"
 msgstr "视频格式:"
 
-#: src/gui.c:1228
+#: src/gui.c:1441
 msgid "Video Codec:"
 msgstr "视频编码器:"
 
-#: src/gui.c:1239
+#: src/gui.c:1452
 msgid "Video FPS:"
 msgstr "视频帧数:"
 
-#: src/gui.c:1248
+#: src/gui.c:1461
 msgid "Video Bitrate:"
 msgstr "视频位率:"
 
-#: src/gui.c:1265
+#: src/gui.c:1478
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">音频细节</span>"
 
-#: src/gui.c:1272
+#: src/gui.c:1485
 msgid "Audio Codec:"
 msgstr "音频编码器:"
 
-#: src/gui.c:1286
+#: src/gui.c:1499
 msgid "Audio Bitrate:"
 msgstr "音频位率:"
 
-#: src/gui.c:1297
+#: src/gui.c:1510
 msgid "Audio Sample Rate:"
 msgstr "音频采样率:"
 
-#: src/gui.c:1336
+#: src/gui.c:1549
 msgid "Advanced Video Controls"
 msgstr "高级视频控制"
 
-#: src/gui.c:1349
+#: src/gui.c:1562
 msgid "<span weight=\"bold\">Adjust Video Settings</span>"
 msgstr "<span weight=\"bold\">调整视频选项</span>"
 
-#: src/gui.c:1356
+#: src/gui.c:1569
 msgid "Brightness"
 msgstr "亮度"
 
-#: src/gui.c:1366
+#: src/gui.c:1579
 msgid "Contrast"
 msgstr "对比"
 
-#: src/gui.c:1376
+#: src/gui.c:1589
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/gui.c:1386
+#: src/gui.c:1599
 msgid "Hue"
 msgstr "色调"
 
-#: src/gui.c:1396
+#: src/gui.c:1609
 msgid "Saturation"
 msgstr "饱和度"
 
-#: src/gui.c:1447
+#: src/gui.c:1660
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME MPlayer 设置"
 
-#: src/gui.c:1503
+#: src/gui.c:1716
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">调整输出选项</span>"
 
-#: src/gui.c:1510
+#: src/gui.c:1723
 msgid "Video Output:"
 msgstr "视频输出:"
 
-#: src/gui.c:1520
+#: src/gui.c:1733
 msgid "Audio Output:"
 msgstr "音频输出"
 
-#: src/gui.c:1541
+#: src/gui.c:1754
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">调整设置选项</span>"
 
-#: src/gui.c:1548
+#: src/gui.c:1761
 msgid "Minimum Cache Size (KB):"
 msgstr "最小缓存大小(KB):"
 
-#: src/gui.c:1565
+#: src/gui.c:1778
 msgid "On Screen Display Level:"
 msgstr "屏显 (OSD) 等级:"
 
-#: src/gui.c:1782
+#: src/gui.c:1997
 msgid "S_how Controls"
 msgstr "显示控制(_H)"
 
-#: src/gui.c:1786
+#: src/gui.c:2001
 msgid "_Full Screen"
 msgstr "全屏(_F)"
 
 #. File Menu
-#: src/gui.c:1848
+#: src/gui.c:2063
 msgid "_File"
 msgstr "文件(_F)"
 
-#: src/gui.c:1856
+#: src/gui.c:2071
 msgid "Open _DVD"
 msgstr "播放 DVD(_D)"
 
-#: src/gui.c:1859
+#: src/gui.c:2074
 msgid "Open _Audio CD"
 msgstr "播放音频 CD(_A)"
 
-#: src/gui.c:1863
+#: src/gui.c:2077
+msgid "Open Playlist"
+msgstr ""
+
+#: src/gui.c:2081
 msgid "Details"
 msgstr "细节"
 
 #. Edit Menu
-#: src/gui.c:1882
+#: src/gui.c:2100
 msgid "_Edit"
 msgstr "编辑(_E)"
 
+#: src/gui.c:2107
+msgid "Shuffle Playlist"
+msgstr ""
+
 #. View Menu
-#: src/gui.c:1894
+#: src/gui.c:2123
 msgid "_View"
 msgstr "查看(_V)"
 
-#: src/gui.c:1900
+#: src/gui.c:2129
+#, fuzzy
+msgid "_Playlist"
+msgstr "正在播放"
+
+#: src/gui.c:2135
 msgid "_Fullscreen"
 msgstr "全屏(_F)"
 
-#: src/gui.c:1905
+#: src/gui.c:2140
 msgid "_Normal (1:1)"
 msgstr "普通大小(_N) (1:1)"
 
-#: src/gui.c:1908
+#: src/gui.c:2143
 msgid "_Double Size (2:1)"
 msgstr "双倍大小(2:1)"
 
-#: src/gui.c:1911
+#: src/gui.c:2146
 msgid "_Half Size (1:2)"
 msgstr "一半大小(1:2)"
 
-#: src/gui.c:1916
+#: src/gui.c:2151
 msgid "_Advanced Options"
 msgstr "高级选项(_A)"
 
-#: src/gui.c:1920
+#: src/gui.c:2155
 msgid "_Controls"
 msgstr "控制(_C)"
 
 #. Help Menu
-#: src/gui.c:1937
+#: src/gui.c:2174
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: src/gui.c:2098
+#: src/gui.c:2353
+msgid "Previous"
+msgstr ""
+
+#: src/gui.c:2369
 msgid "Rewind"
 msgstr "快退"
 
-#: src/gui.c:2131
+#: src/gui.c:2402
 msgid "Stop"
 msgstr "停止"
 
-#: src/gui.c:2148
+#: src/gui.c:2419
 msgid "Fast Forward"
 msgstr "快进"
 
-#: src/gui.c:2171
+#: src/gui.c:2434
+msgid "Next"
+msgstr ""
+
+#: src/gui.c:2458
 msgid "Full Screen"
 msgstr "全屏"
 
-#: src/gui.c:2187
+#: src/gui.c:2474
 msgid "Volume 100%"
 msgstr "音量 100%"
 
 #. printf("Percent = %f\n",percent);
 #. printf("Buffer = %s\n",buf);
-#: src/thread.c:292
+#: src/thread.c:288
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr ""
 
-#: src/thread.c:300
+#: src/thread.c:296
 #, c-format
 msgid "Connecting"
 msgstr ""
