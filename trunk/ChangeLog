@@ -1,4 +1,7 @@
 Development
+	Add directory remembering to Save and Load Playlist dialogs
+	Add Add and Remove buttons to the playlist window
+	Split playlist code into its own module
 	Fix several problems with the GUI crashing and clean up a couple of minor issues
 	Change priority of thread polling to low
 	When given a url to play and under control of gecko-mediaplayer pass -user-agent NSPlayer to mplayer
