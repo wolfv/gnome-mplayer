@@ -1,4 +1,5 @@
 Development
+	Fix app icon selection code, it was not loading it properly from the theme
 	Add directory remembering to Save and Load Playlist dialogs
 	Add Add and Remove buttons to the playlist window
 	Split playlist code into its own module
