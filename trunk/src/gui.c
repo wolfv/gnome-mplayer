@@ -2277,7 +2277,6 @@ GtkWidget *create_window(gint windowid)
     error = NULL;
     icon_theme = gtk_icon_theme_get_default();
 
-    pb_icon = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
 
     // ok if the theme has all the icons we need, use them, otherwise use the default GNOME ones
 
@@ -2343,10 +2342,11 @@ GtkWidget *create_window(gint windowid)
     image_fs = gtk_image_new_from_pixbuf(pb_fs);
 
 	if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
-		gtk_window_set_icon_name (GTK_WINDOW (window), "gnome-mplayer");
+		pb_icon = gtk_icon_theme_load_icon(icon_theme,"gnome-mplayer",16,0,NULL);
 	} else {
-    	gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
+	    pb_icon = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
 	}
+   	gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
 
     prev_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
