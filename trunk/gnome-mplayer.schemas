@@ -26,6 +26,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/verbose</key>
+      <applyto>/apps/gnome-mplayer/preferences/verbose</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Verbose Messages</short>
+        <long>Set Verbose debug messages to be default</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/last_dir</key>
       <applyto>/apps/gnome-mplayer/preferences/last_dir</applyto>
       <owner>gnome-mplayer</owner>

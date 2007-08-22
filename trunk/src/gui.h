@@ -155,6 +155,8 @@ GtkWidget *config_vo;
 GtkWidget *config_ao;
 GtkWidget *config_cachesize;
 GtkWidget *config_osdlevel;
+GtkWidget *config_verbose;
+
 
 GtkAccelGroup *accel_group;
 

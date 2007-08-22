@@ -28,6 +28,7 @@
 
 #define CACHE_SIZE		"/apps/gnome-mplayer/preferences/cache_size"
 #define OSDLEVEL		"/apps/gnome-mplayer/preferences/osdlevel"
+#define VERBOSE			"/apps/gnome-mplayer/preferences/verbose"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 
 // JavaScript Playstates

@@ -1290,6 +1290,7 @@ void config_apply(GtkWidget * widget, void *data)
     //cache_size = (int) gtk_range_get_value(GTK_RANGE(config_cachesize));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
+	verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
     cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
     send_command(cmd);
     g_free(cmd);
@@ -1297,6 +1298,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf = gconf_client_get_default();
     gconf_client_set_int(gconf, CACHE_SIZE, cache_size, NULL);
     gconf_client_set_int(gconf, OSDLEVEL, osdlevel, NULL);
+    gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
     g_object_unref(G_OBJECT(gconf));
 
     gtk_widget_destroy(widget);
@@ -1785,6 +1787,15 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_osdlevel, 1, 2, i, i + 1);
     i++;
 
+    conf_label = gtk_label_new(_("Verbose Debug Enabled:"));
+    config_verbose = gtk_check_button_new();
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose),verbose);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 1, 2, i, i + 1);
+    i++;
+	
     //gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_ok);
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_cancel);
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
