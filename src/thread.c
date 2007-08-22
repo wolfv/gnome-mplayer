@@ -113,11 +113,6 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         g_free(error_msg);
     }
 
-    if (status != G_IO_STATUS_NORMAL) {
-        g_string_free(mplayer_output, TRUE);
-        return FALSE;
-    }
-
     g_string_free(mplayer_output, TRUE);
     return TRUE;
 
