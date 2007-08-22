@@ -184,6 +184,8 @@ int main(int argc, char *argv[])
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
 
+	if (verbose == 0)	
+    	verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
 
     gnome_program_init(PACKAGE, VERSION, LIBGNOMEUI_MODULE,
                        argc, argv, GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR, NULL);
