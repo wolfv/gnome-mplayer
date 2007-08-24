@@ -1393,6 +1393,8 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     IdleData *idle = (IdleData *) data;
 
     details_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+   	gtk_window_set_icon(GTK_WINDOW(details_window), pb_icon);
+	
     gtk_window_set_type_hint(GTK_WINDOW(details_window), GDK_WINDOW_TYPE_HINT_UTILITY);
     gtk_window_set_resizable(GTK_WINDOW(details_window), FALSE);
     gtk_window_set_title(GTK_WINDOW(details_window), _("File Details"));
