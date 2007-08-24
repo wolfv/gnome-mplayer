@@ -1,4 +1,5 @@
 Development
+	Autodetection and loading of m3u playlists
 	Implement many of the suggestions from JP at Zenwalk
 	Add verbose flag to edit->preferences dialog
 	Fix app icon selection code, it was not loading it properly from the theme
