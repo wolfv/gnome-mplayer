@@ -127,7 +127,7 @@ gboolean set_progress_value(void *data)
 	if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9) {
 		if (autopause == FALSE && state == PLAYING) {
 			if ((idle->percent + 0.05) > idle->cachepercent) {
-				send_command(("seek -1 0\n");
+				send_command("seek -1 0\n");
             	pause_callback(NULL, NULL, NULL);
 				gtk_widget_set_sensitive(play_event_box,FALSE);
 				autopause = TRUE;
@@ -1181,7 +1181,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 {
 
     gint width = 0, height = 0;
-    GdkGC *gc;
+    // GdkGC *gc;
 	
     //printf("doing fullscreen callback\n");
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
