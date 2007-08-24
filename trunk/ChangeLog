@@ -1,4 +1,5 @@
 Development
+	Implement drag and drop of multiple files to the playlist
 	Autodetection and loading of m3u playlists
 	Implement many of the suggestions from JP at Zenwalk
 	Add verbose flag to edit->preferences dialog

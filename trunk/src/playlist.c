@@ -47,6 +47,8 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 {
     gchar *filename;
 	GtkTreeIter localiter;
+	gchar **list;
+	gint i = 0;
     /* Important, check if we actually got data.  Sometimes errors
      * occure and selection_data will be NULL.
      */
@@ -57,15 +59,25 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
         filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
-        g_strchomp(filename);
-		if(!parse_playlist(filename)) {
-			localiter = add_item_to_playlist(filename,0);
+		list = g_strsplit(filename,"\n",0);
+		
+		while(list[i] != NULL) {
+			g_strchomp(list[i]);
+			if(strlen(list[i]) > 0) {
+				if(!parse_playlist(list[i])) {
+					localiter = add_item_to_playlist(list[i],0);
+				}
+			}
+			i++;
 		}
+
 		if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
 			iter = localiter;
 			shutdown();
-			play_file(filename,0);
+			play_file(list[0],0);
 		}
+		
+		g_strfreev(list);
     }
 	update_gui();
 	return FALSE;

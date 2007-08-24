@@ -95,6 +95,7 @@ gint parse_playlist(gchar * filename)
 	return ret;
 }
 
+// parse_basic covers .pls, .m3u and reference playlist types 
 gint parse_basic(gchar * filename)
 {
 	FILE *fp;
@@ -350,6 +351,8 @@ gboolean streaming_media(gchar * filename)
         ret = FALSE;
     } else if (strstr(filename, "cdda://") != NULL) {
         ret = FALSE;
+    } else if (strstr(filename, "file://") != NULL) {
+        ret = FALSE;
     } else {
         ret = !g_file_test(filename, G_FILE_TEST_EXISTS);
     }
@@ -389,7 +392,7 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 
 		if (g_ascii_strncasecmp(itemname, "cdda://",strlen("cdda://")) == 0) {
 			desc = g_strdup_printf("CD Track %s",itemname + strlen("cdda://"));
-		} else {
+		}else {
 			desc = g_strdup_printf("Device or Stream");
 		}
 	}
