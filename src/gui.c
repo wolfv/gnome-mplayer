@@ -1181,7 +1181,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
     gint width = 0, height = 0;
     GdkGC *gc;
-
+	
     //printf("doing fullscreen callback\n");
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
         gtk_window_unfullscreen(GTK_WINDOW(window));
@@ -1237,6 +1237,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         fullscreen = 1;
 
     }
+/*
     while (gtk_events_pending())
         gtk_main_iteration();
 
@@ -1251,7 +1252,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
     while (gtk_events_pending())
         gtk_main_iteration();
-
+*/
 }
 
 void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
