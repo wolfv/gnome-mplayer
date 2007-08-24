@@ -31,6 +31,7 @@ gint detect_playlist(gchar * filename)
     gint playlist = 0;
     gchar buffer[16 * 1024];
     gint size;
+	gchar **output;
 
 	if (g_strncasecmp(filename,"cdda://",7) == 0) {
 		playlist = 1;
@@ -43,8 +44,8 @@ gint detect_playlist(gchar * filename)
 			if (!feof(fp)) {
 				memset(buffer, 0, sizeof(buffer));
 				size = fread(buffer, 1, sizeof(buffer) - 1, fp);
-
-				//printf("buffer=%s\n",buffer);
+				output = g_strsplit(buffer,"\n",0);
+				// printf("buffer=%s\n",buffer);
 				if (strstr(g_strdown(buffer), "[playlist]") != 0) {
 					playlist = 1;
 				}
@@ -68,8 +69,10 @@ gint detect_playlist(gchar * filename)
 				if (strstr(g_strdown(buffer), "pnm://") != 0) {
 					playlist = 1;
 				}
-
-
+				if (g_file_test(output[0], G_FILE_TEST_EXISTS)) {
+					playlist = 1;
+				}
+				g_strfreev(output);
 			}
 			fclose(fp);
 		}
@@ -119,6 +122,9 @@ gint parse_basic(gchar * filename)
 					ret = 1;
 				}else if (g_strncasecmp(buffer, "Version",strlen("Version")) == 0) {
 					ret = 1;
+				} else if(g_file_test(buffer, G_FILE_TEST_EXISTS)) {
+					ret = 1;
+					add_item_to_playlist(buffer,0);
 				} else if (ret == 1) {
 					if (g_ascii_strncasecmp(buffer,"ref",3) == 0) { 
 						url = g_new0(gchar,1024);
@@ -428,7 +434,6 @@ gboolean next_item_in_playlist(GtkTreeIter *iter)
 			}
 		}
 	}
-	
 }
 
 gboolean save_playlist_pls(gchar *filename) 

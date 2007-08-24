@@ -107,9 +107,10 @@ void save_playlist(GtkWidget * widget, void *data)
         gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
         g_free(last_dir);
 		
-		if (g_strrstr(filename,"m3u") != NULL) {
+		if (g_strrstr(filename,".m3u") != NULL) {
 			save_playlist_m3u(filename);
-		} else {
+		}
+		if (g_strrstr(filename,".pls") != NULL) {
 			save_playlist_pls(filename);
 		}
 	}
