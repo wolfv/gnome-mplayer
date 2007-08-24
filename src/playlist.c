@@ -94,6 +94,11 @@ void save_playlist(GtkWidget * widget, void *data)
 	gtk_file_filter_set_name(filter,"Playlist (*.pls)");
 	gtk_file_filter_add_pattern(filter,"*.pls");
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
+
+	filter = gtk_file_filter_new();
+	gtk_file_filter_set_name(filter,"MP3 Playlist (*.m3u)");
+	gtk_file_filter_add_pattern(filter,"*.m3u");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
 	
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
@@ -102,7 +107,11 @@ void save_playlist(GtkWidget * widget, void *data)
         gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
         g_free(last_dir);
 		
-		save_playlist_pls(filename);
+		if (g_strrstr(filename,"m3u") != NULL) {
+			save_playlist_m3u(filename);
+		} else {
+			save_playlist_pls(filename);
+		}
 	}
 	
 	gtk_widget_destroy(dialog);
@@ -136,6 +145,11 @@ void load_playlist(GtkWidget * widget, void *data)
 	filter = gtk_file_filter_new();
 	gtk_file_filter_set_name(filter,"Reference Playlist (*.ref)");
 	gtk_file_filter_add_pattern(filter,"*.ref");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
+
+	filter = gtk_file_filter_new();
+	gtk_file_filter_set_name(filter,"MP3 Playlist (*.m3u)");
+	gtk_file_filter_add_pattern(filter,"*.m3u");
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
 	
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
@@ -203,11 +217,24 @@ void remove_from_playlist(GtkWidget * widget, gpointer data)
 {
 	GtkTreeSelection *sel;
 	GtkTreeView *view = (GtkTreeView *)data;
+	GtkTreeIter localiter;
+	GtkTreePath *path;
 	
 	sel = gtk_tree_view_get_selection(view);
 	
 	if (gtk_tree_selection_get_selected(sel,NULL,&iter)) {
+		localiter = iter;
+		gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter);
 		if(gtk_list_store_remove(playliststore, &iter)){
+			iter = localiter;
+			if (!gtk_list_store_iter_is_valid(playliststore,&iter)) {
+				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+			}
+			if (GTK_IS_TREE_SELECTION(selection)) {
+				path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+				gtk_tree_selection_select_path(selection,path);	
+				gtk_tree_path_free(path);
+			}
 		} 
 	}
 	update_gui();
@@ -255,11 +282,15 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	gint i = 0;
 	GtkTreePath *path;
 	GdkRectangle rect;
+	GtkAccelGroup *accel_group;
+
 	
 	if (GTK_IS_TREE_SELECTION(selection)) return;
 	
 	playlist_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	//gtk_widget_set_size_request(GTK_WIDGET(playlist_window),300,200);
+   	gtk_window_set_icon(GTK_WINDOW(playlist_window), pb_icon);
+	
     gtk_window_set_type_hint(GTK_WINDOW(playlist_window), GDK_WINDOW_TYPE_HINT_UTILITY);
     gtk_window_set_title(GTK_WINDOW(playlist_window), _("Playlist"));
 
@@ -346,6 +377,11 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	g_signal_connect(GTK_OBJECT(add),"clicked",GTK_SIGNAL_FUNC(add_to_playlist),NULL);
     gtk_container_add(GTK_CONTAINER(ctrlbox), remove);
 	g_signal_connect(GTK_OBJECT(remove),"clicked",GTK_SIGNAL_FUNC(remove_from_playlist),list);
+	
+    accel_group = gtk_accel_group_new();
+    gtk_window_add_accel_group(GTK_WINDOW(playlist_window), accel_group);
+    gtk_widget_add_accelerator(GTK_WIDGET(remove), "clicked",
+                               accel_group, GDK_Delete, 0, GTK_ACCEL_VISIBLE);
 	
 	GTK_WIDGET_SET_FLAGS(close, GTK_CAN_DEFAULT);
     gtk_container_add(GTK_CONTAINER(closebox), close);

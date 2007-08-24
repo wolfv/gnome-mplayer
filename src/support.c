@@ -115,10 +115,19 @@ gint parse_basic(gchar * filename)
 					ret = 1;
 				}else if (g_strcasecmp(buffer, "[reference]") == 0) {
 					ret = 1;
+				}else if (g_strncasecmp(buffer, "NumberOfEntries",strlen("NumberOfEntries")) == 0) {
+					ret = 1;
+				}else if (g_strncasecmp(buffer, "Version",strlen("Version")) == 0) {
+					ret = 1;
 				} else if (ret == 1) {
 					if (g_ascii_strncasecmp(buffer,"ref",3) == 0) { 
 						url = g_new0(gchar,1024);
 						sscanf(buffer,"Ref%i=%s\n",&ref,url);
+						add_item_to_playlist(url,0);
+						g_free(url);
+					} else if (g_ascii_strncasecmp(buffer,"file",4) == 0) { 
+						url = g_new0(gchar,1024);
+						sscanf(buffer,"File%i=%s\n",&ref,url);
 						add_item_to_playlist(url,0);
 						g_free(url);
 					} else {
@@ -427,10 +436,36 @@ gboolean save_playlist_pls(gchar *filename)
 	FILE *contents;
 	gchar *itemname;
 	GtkTreeIter localiter;
+	gint i = 1;
+	
+	contents = fopen(filename,"w");
+	fprintf(contents,"[playlist]\n");
+	fprintf(contents,"NumberOfEntries=%i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
+	fprintf(contents,"Version=2\n");
+	if (contents != NULL) {
+		if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter)) {
+			do {
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&itemname,-1);
+				fprintf(contents,"File%i=%s\n",i++,itemname);
+			} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter));
+		}
+
+		fclose(contents);	
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
+
+
+gboolean save_playlist_m3u(gchar *filename) 
+{
+	FILE *contents;
+	gchar *itemname;
+	GtkTreeIter localiter;
 	
 	contents = fopen(filename,"w");
 	if (contents != NULL) {
-		fprintf(contents,"[playlist]\n");
 		if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter)) {
 			do {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&itemname,-1);

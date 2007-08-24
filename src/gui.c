@@ -1650,6 +1650,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     read_mplayer_config();
 
     config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+   	gtk_window_set_icon(GTK_WINDOW(config_window), pb_icon);
+	
     gtk_window_set_resizable(GTK_WINDOW(config_window), FALSE);
     conf_vbox = gtk_vbox_new(FALSE, 10);
     conf_hbutton_box = gtk_hbutton_box_new();
@@ -1947,8 +1949,18 @@ void make_button(gchar * src, gchar * hrefid)
                          G_CALLBACK(load_href_callback), hrefid);
         gtk_widget_show_all(button_event_box);
 
-    };
+    } else {
+		if (verbose)
+			printf("unable to make button from media, using default\n");
+        button_event_box = gtk_event_box_new();
+        image_button = gtk_image_new_from_pixbuf(pb_icon);
+        gtk_container_add(GTK_CONTAINER(button_event_box), image_button);
+        gtk_box_pack_start(GTK_BOX(vbox), button_event_box, FALSE, FALSE, 0);
 
+        g_signal_connect(G_OBJECT(button_event_box), "button_press_event",
+                         G_CALLBACK(load_href_callback), hrefid);
+        gtk_widget_show_all(button_event_box);
+	}
 
 
 }
