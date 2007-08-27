@@ -94,6 +94,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
 						gtk_list_store_clear(playliststore);
+						selection = NULL;
 						playlist = detect_playlist(s);
 						if (!playlist ) {
 							add_item_to_playlist(s,playlist);
@@ -127,6 +128,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
 						gtk_list_store_clear(playliststore);
+						selection = NULL;
 						if (!parse_playlist(s)) {	
 							add_item_to_playlist(s,1);
 						}
@@ -162,7 +164,6 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Add") == 0) {
-                    shutdown();
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {

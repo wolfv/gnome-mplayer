@@ -743,7 +743,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 			play_file(list[0],0);
 		}
 		g_strfreev(list);
-
+		update_gui();
     }
 	return FALSE;
 }
