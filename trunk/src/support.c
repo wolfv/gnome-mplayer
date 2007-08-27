@@ -128,14 +128,22 @@ gint parse_basic(gchar * filename)
 				} else if (ret == 1) {
 					if (g_ascii_strncasecmp(buffer,"ref",3) == 0) { 
 						parse = g_strsplit(buffer,"=",2);
-						g_strchomp(parse[1]);
-						add_item_to_playlist(parse[1],0);
-						g_strfreev(parse);
+						if (parse != NULL) {
+							if (parse[1] != NULL) {
+								g_strchomp(parse[1]);
+								add_item_to_playlist(parse[1],0);
+							}	
+							g_strfreev(parse);
+						}						
 					} else if (g_ascii_strncasecmp(buffer,"file",4) == 0) { 
 						parse = g_strsplit(buffer,"=",2);
-						g_strchomp(parse[1]);
-						add_item_to_playlist(parse[1],0);
-						g_strfreev(parse);
+						if (parse != NULL) {
+							if (parse[1] != NULL) {
+								g_strchomp(parse[1]);
+								add_item_to_playlist(parse[1],0);
+							}	
+							g_strfreev(parse);
+						}						
 					} else {
 						add_item_to_playlist(buffer,0);
 					}
