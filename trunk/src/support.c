@@ -393,7 +393,11 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 	GtkTreeIter localiter;
 	
 	if (!device_name(itemname) && !streaming_media(itemname)) {
-		desc = g_strdup_printf("%s",g_strrstr(itemname,"/")+sizeof(gchar));
+		if (g_strrstr(itemname,"/") != NULL) {
+			desc = g_strdup_printf("%s",g_strrstr(itemname,"/")+sizeof(gchar));
+		} else {
+			desc = g_strdup(itemname);
+		}
 	} else {
 		url = g_strrstr(itemname,"http://");
 
