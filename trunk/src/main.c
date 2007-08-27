@@ -283,13 +283,16 @@ int main(int argc, char *argv[])
 				tmp[0] = '\0';
 				chdir(path);
 				getcwd(cwd,1024);
-printf("cwd %s\n",cwd);					
 				if (g_ascii_strcasecmp(cwd,path) != 0) {
 					g_free(path);
 					path = g_strdup(cwd);
 				}
+			} else {
+				if (path != NULL)
+					g_free(path);
+				getcwd(cwd,1024);
+				path = g_strdup(cwd);
 			}
-			printf("%s\n",path);
             if (playlist == 0)
                 playlist = detect_playlist(argv[i]);
 			
