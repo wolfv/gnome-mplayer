@@ -101,8 +101,7 @@ gint parse_basic(gchar * filename)
 	FILE *fp;
     gint ret = 0;
     gchar *buffer;
-	gint ref;
-	gchar *url;
+	gchar **parse;
 	
     fp = fopen(filename, "r");
 	buffer = g_new0(gchar,1024);
@@ -128,15 +127,15 @@ gint parse_basic(gchar * filename)
 					add_item_to_playlist(buffer,0);
 				} else if (ret == 1) {
 					if (g_ascii_strncasecmp(buffer,"ref",3) == 0) { 
-						url = g_new0(gchar,1024);
-						sscanf(buffer,"Ref%i=%s\n",&ref,url);
-						add_item_to_playlist(url,0);
-						g_free(url);
+						parse = g_strsplit(buffer,"=",2);
+						g_strchomp(parse[1]);
+						add_item_to_playlist(parse[1],0);
+						g_strfreev(parse);
 					} else if (g_ascii_strncasecmp(buffer,"file",4) == 0) { 
-						url = g_new0(gchar,1024);
-						sscanf(buffer,"File%i=%s\n",&ref,url);
-						add_item_to_playlist(url,0);
-						g_free(url);
+						parse = g_strsplit(buffer,"=",2);
+						g_strchomp(parse[1]);
+						add_item_to_playlist(parse[1],0);
+						g_strfreev(parse);
 					} else {
 						add_item_to_playlist(buffer,0);
 					}
