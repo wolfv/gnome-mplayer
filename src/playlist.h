@@ -25,4 +25,5 @@
 #include <gnome.h>
 #include <glib.h>
 #include <glib/gstdio.h>
+void update_gui();
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data);
