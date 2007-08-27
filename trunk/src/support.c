@@ -392,10 +392,12 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 		if (g_ascii_strncasecmp(itemname, "cdda://",strlen("cdda://")) == 0) {
 			desc = g_strdup_printf("CD Track %s",itemname + strlen("cdda://"));
 		}else if (g_ascii_strncasecmp(itemname, "file://",strlen("file://")) == 0) {
-			itemname = itemname + sizeof(gchar) * 7;
+			itemname = itemname + sizeof(gchar) * strlen("file://");
 			desc = g_strdup_printf("%s",g_strrstr(itemname,"/")+sizeof(gchar));
-		}else {
-			desc = g_strdup_printf("Device or Stream");
+		}else if (device_name(itemname)) {
+			desc = g_strdup_printf("Device - %s",itemname);
+		} else {
+			desc = g_strdup_printf("Stream from %s",itemname);
 		}
 	}
 	
