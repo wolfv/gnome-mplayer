@@ -132,6 +132,7 @@ gint loop;
 gint random_order;
 gboolean dontplaynext;
 gboolean autopause;
+gchar *path;
 
 // playlist stuff
 GtkListStore *playliststore;

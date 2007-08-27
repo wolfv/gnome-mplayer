@@ -32,6 +32,7 @@ gint detect_playlist(gchar * filename)
     gchar buffer[16 * 1024];
     gint size;
 	gchar **output;
+	gchar *file;
 
 	if (g_strncasecmp(filename,"cdda://",7) == 0) {
 		playlist = 1;
@@ -45,6 +46,7 @@ gint detect_playlist(gchar * filename)
 				memset(buffer, 0, sizeof(buffer));
 				size = fread(buffer, 1, sizeof(buffer) - 1, fp);
 				output = g_strsplit(buffer,"\n",0);
+				g_strchomp(output[0]);
 				// printf("buffer=%s\n",buffer);
 				if (strstr(g_strdown(buffer), "[playlist]") != 0) {
 					playlist = 1;
@@ -72,12 +74,20 @@ gint detect_playlist(gchar * filename)
 				if (g_file_test(output[0], G_FILE_TEST_EXISTS)) {
 					playlist = 1;
 				}
+				
+				file = g_strdup_printf("%s/%s",path,output[0]);
+				printf("file = '%s'\n",file);
+				if (g_file_test(file, G_FILE_TEST_EXISTS)) {
+					playlist = 1;
+				}
+				g_free(file);
+				
 				g_strfreev(output);
 			}
 			fclose(fp);
 		}
 	}
-    // printf("playlist detection = %i\n", playlist);
+    printf("playlist detection = %i\n", playlist);
     return playlist;
 }
 
@@ -102,6 +112,7 @@ gint parse_basic(gchar * filename)
     gint ret = 0;
     gchar *buffer;
 	gchar **parse;
+	gchar *file;
 	
     fp = fopen(filename, "r");
 	buffer = g_new0(gchar,1024);
@@ -113,6 +124,7 @@ gint parse_basic(gchar * filename)
 			if (buffer != NULL) {
 				g_strchomp(buffer);
 				printf("buffer=%s\n",buffer);
+				file = g_strdup_printf("%s/%s",path,buffer);
 				
 				if (g_strcasecmp(buffer, "[playlist]") == 0) {
 					ret = 1;
@@ -122,6 +134,9 @@ gint parse_basic(gchar * filename)
 					ret = 1;
 				}else if (g_strncasecmp(buffer, "Version",strlen("Version")) == 0) {
 					ret = 1;
+				} else if(g_file_test(file, G_FILE_TEST_EXISTS)) {
+					ret = 1;
+					add_item_to_playlist(file,0);
 				} else if(g_file_test(buffer, G_FILE_TEST_EXISTS)) {
 					ret = 1;
 					add_item_to_playlist(buffer,0);
@@ -148,6 +163,7 @@ gint parse_basic(gchar * filename)
 						add_item_to_playlist(buffer,0);
 					}
 				}
+				g_free(file);
 			}
 			if (ret != 1) break;
 		}

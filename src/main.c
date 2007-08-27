@@ -38,6 +38,7 @@
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-value.h>
+#include <glib/gstdio.h>
 
 #include "common.h"
 #include "support.h"
@@ -141,6 +142,8 @@ int main(int argc, char *argv[])
     GOptionContext *context;
     GConfClient *gconf;
 	gint i, count;
+	gchar cwd[1024];
+	gchar *tmp;
 
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -169,6 +172,7 @@ int main(int argc, char *argv[])
     idledata->saturation = 0;
 	selection = NULL;
 	lastfile = NULL;
+	path = NULL;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -271,6 +275,21 @@ int main(int argc, char *argv[])
 		i = fileindex;
 		
         while (argv[i] != NULL) {
+			if (g_strrstr(argv[i],"/") != NULL) {
+				if (path != NULL)
+					g_free(path);
+				path = g_strdup(argv[i]);
+				tmp = g_strrstr(path,"/");
+				tmp[0] = '\0';
+				chdir(path);
+				getcwd(cwd,1024);
+printf("cwd %s\n",cwd);					
+				if (g_ascii_strcasecmp(cwd,path) != 0) {
+					g_free(path);
+					path = g_strdup(cwd);
+				}
+			}
+			printf("%s\n",path);
             if (playlist == 0)
                 playlist = detect_playlist(argv[i]);
 			
