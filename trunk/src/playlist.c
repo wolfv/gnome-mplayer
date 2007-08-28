@@ -87,6 +87,7 @@ void save_playlist(GtkWidget * widget, void *data)
 {
     GtkWidget *dialog;
     gchar *filename;
+	gchar *new_filename;
 	GtkFileFilter *filter;
     GConfClient *gconf;
     gchar *last_dir;
@@ -125,6 +126,13 @@ void save_playlist(GtkWidget * widget, void *data)
 		if (g_strrstr(filename,".pls") != NULL) {
 			save_playlist_pls(filename);
 		}
+		
+		if (g_strrstr(filename,".") == NULL) {
+			new_filename = g_strdup_printf("%s.pls",filename);
+			save_playlist_pls(new_filename);
+			g_free(new_filename);
+		}			
+		g_free(filename);
 	}
 	
 	gtk_widget_destroy(dialog);
@@ -338,7 +346,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 
 	
 	list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
-	gtk_widget_set_size_request(GTK_WIDGET(list),-1,400);
+	gtk_widget_set_size_request(GTK_WIDGET(list),-1,300);
 	
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
 	if(gtk_list_store_iter_is_valid(playliststore,&iter)) {
