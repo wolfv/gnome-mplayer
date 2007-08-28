@@ -40,6 +40,9 @@ gint detect_playlist(gchar * filename)
 		
 		
 		fp = fopen(filename, "r");
+		if (path != NULL)
+			g_free(path);
+		path = get_path(filename);
 
 		if (fp != NULL) {
 			if (!feof(fp)) {
@@ -124,6 +127,9 @@ gint parse_basic(gchar * filename)
 			if (buffer != NULL) {
 				g_strchomp(buffer);
 				printf("buffer=%s\n",buffer);
+				if (path != NULL)
+					g_free(path);
+				path = get_path(filename);
 				file = g_strdup_printf("%s/%s",path,buffer);
 				
 				if (g_strcasecmp(buffer, "[playlist]") == 0) {
@@ -519,3 +525,21 @@ gboolean save_playlist_m3u(gchar *filename)
 		return FALSE;
 	}
 }
+
+gchar *get_path(gchar *filename) {
+
+	gchar cwd[1024];
+	gchar *tmp = NULL;
+	gchar *path = NULL;
+	
+	if (g_strrstr(filename,"/") != NULL) {
+		path = g_strdup(filename);
+		tmp = g_strrstr(path,"/");
+		tmp[0] = '\0';
+	} else {
+		getcwd(cwd,1024);
+		path = g_strdup(cwd);
+	}
+	
+	return path;
+}	
