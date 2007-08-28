@@ -126,14 +126,13 @@ gboolean set_progress_value(void *data)
 		
 	if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9) {
 		if (autopause == FALSE && state == PLAYING) {
-			if ((idle->percent + 0.05) > idle->cachepercent) {
-				send_command("seek -1 0\n");
+			if ((idle->percent + 0.10) > idle->cachepercent) {
             	pause_callback(NULL, NULL, NULL);
 				gtk_widget_set_sensitive(play_event_box,FALSE);
 				autopause = TRUE;
 			}
 		} else if (autopause == TRUE && state == PAUSED) {
-			if (idle->cachepercent > (idle->percent + 0.10)) {
+			if (idle->cachepercent > (idle->percent + 0.20)) {
             	play_callback(NULL, NULL, NULL);
 				gtk_widget_set_sensitive(play_event_box,TRUE);
 				autopause = FALSE;
