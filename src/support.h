@@ -36,7 +36,7 @@ gint parse_basic(gchar * filename);
 gint parse_cdda(gchar * filename);
 gboolean save_playlist_pls(gchar *filename);
 gboolean save_playlist_m3u(gchar *filename);
-
+gchar *get_path(gchar *filename) ;
 gboolean update_mplayer_config();
 gboolean send_command(gchar * command);
 gboolean streaming_media(gchar * filename);

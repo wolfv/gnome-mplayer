@@ -1,4 +1,5 @@
 Development
+	Redo the path to items on playlist code
 	Fix up playlist loading so it can handle items where the playlist is specified as a fully qualified filename
 		and items in the playlist are not
 	Implement drag and drop of multiple files to the main window, play if only one
