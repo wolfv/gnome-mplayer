@@ -1035,7 +1035,22 @@ void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
 }
 void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 {
-    play_file("cdda://", 0);
+	gchar *filename;
+	gint count;
+	gint playlist;
+	
+	parse_cdda("cdda://");
+	
+	//play_file("cdda://", playlist);
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
+		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+		set_media_info(filename);
+		printf("playing - %s is playlist = %i\n",filename,playlist);
+		play_file(filename, playlist);
+		gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+		g_free(filename);
+	}
+	
 }
 
 void menuitem_save_callback(GtkMenuItem * menuitem, void *data)

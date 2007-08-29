@@ -1,4 +1,4 @@
-Development
+0.5.0
 	If filename is not specified on playlist save then assume .pls
 	Redo the path to items on playlist code
 	Fix up playlist loading so it can handle items where the playlist is specified as a fully qualified filename
