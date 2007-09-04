@@ -1,4 +1,5 @@
 Development
+	Add loop control as a menu option Edit->Loop Playlist
 	Use private dbus connection
 0.5.0
 	If filename is not specified on playlist save then assume .pls
