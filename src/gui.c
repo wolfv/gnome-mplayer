@@ -1131,6 +1131,11 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
     random_order = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random));
 }
 
+void menuitem_edit_loop_callback(GtkMenuItem * menuitem, void *data)
+{
+    loop = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_loop));
+}
+
 
 void menuitem_view_fullscreen_callback(GtkMenuItem * menuitem, void *data)
 {
@@ -2164,6 +2169,11 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Shuffle Playlist")));
  	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), random_order);	
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_random));
+
+    menuitem_edit_loop =
+        GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Loop Playlist")));
+ 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_loop), loop);	
+    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_loop));
 	
     menuitem_edit_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_sep1));
@@ -2173,6 +2183,8 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_config));
     g_signal_connect(GTK_OBJECT(menuitem_edit_random), "activate",
                      G_CALLBACK(menuitem_edit_random_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_edit_loop), "activate",
+                     G_CALLBACK(menuitem_edit_loop_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
 
