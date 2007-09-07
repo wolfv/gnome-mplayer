@@ -129,6 +129,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
 						gtk_list_store_clear(playliststore);
+						gtk_list_store_clear(nonrandomplayliststore);
 						selection = NULL;
 						if (!parse_playlist(s)) {	
 							add_item_to_playlist(s,1);

@@ -181,6 +181,8 @@ void load_playlist(GtkWidget * widget, void *data)
         g_free(last_dir);
 		
 		gtk_list_store_clear(playliststore);
+		gtk_list_store_clear(nonrandomplayliststore);
+		
 		if (!parse_playlist(filename)) {	
 			add_item_to_playlist(filename,1);
 		}
