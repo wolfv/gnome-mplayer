@@ -1,4 +1,5 @@
 Development
+	Redo the randomization backend
 	Add loop control as a menu option Edit->Loop Playlist
 	Use private dbus connection
 0.5.0

@@ -440,6 +440,12 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 					   DESCRIPTION_COLUMN,desc,
 					   COUNT_COLUMN,0,
 					   PLAYLIST_COLUMN,playlist, -1);
+
+	gtk_list_store_append(nonrandomplayliststore,&localiter);
+	gtk_list_store_set(nonrandomplayliststore,&localiter,ITEM_COLUMN,itemname,
+					   DESCRIPTION_COLUMN,desc,
+					   COUNT_COLUMN,0,
+					   PLAYLIST_COLUMN,playlist, -1);
 	
 	g_free(desc);
 	
@@ -448,31 +454,14 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 
 gboolean next_item_in_playlist(GtkTreeIter *iter) 
 {
-	gint items;
-    GRand *rand;
-	gint num;
 	
-	if (random_order) {
-		items = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL);
-		rand = g_rand_new();
-		num = g_rand_int_range(rand, 0, items);
-		g_rand_free(rand);
-		
-		if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore),iter,NULL,num)) {
-			return TRUE;	
-		} else {
-			return FALSE;
-		}
-			
+	if (!gtk_list_store_iter_is_valid(playliststore,iter)) {
+		return FALSE;
 	} else {
-		if (!gtk_list_store_iter_is_valid(playliststore,iter)) {
-			return FALSE;
+		if (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),iter)) {
+			return TRUE;
 		} else {
-			if (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),iter)) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
+			return FALSE;
 		}
 	}
 }
@@ -543,3 +532,73 @@ gchar *get_path(gchar *filename) {
 	
 	return path;
 }	
+
+void copy_playlist(GtkListStore *source, GtkListStore *dest) {
+
+	GtkTreeIter sourceiter;
+	GtkTreeIter destiter;
+	gchar *itemname;
+	gchar *desc;
+	gint count;
+	gint playlist;
+	
+	gtk_list_store_clear(dest);
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(source),&sourceiter)) {
+		do {
+			gtk_tree_model_get(GTK_TREE_MODEL(source), &sourceiter, ITEM_COLUMN,&itemname,
+							   DESCRIPTION_COLUMN,&desc,
+							   COUNT_COLUMN,&count,
+							   PLAYLIST_COLUMN,&playlist, -1);
+			
+			gtk_list_store_append(dest,&destiter);
+			gtk_list_store_set(dest,&destiter,ITEM_COLUMN,itemname,
+							   DESCRIPTION_COLUMN,desc,
+							   COUNT_COLUMN,count,
+							   PLAYLIST_COLUMN,playlist, -1);
+
+		} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(source),&sourceiter));
+	}
+	
+}
+
+void randomize_playlist(GtkListStore *store) {
+	
+	GtkTreeIter a;
+	GtkTreeIter b;
+	gint i;
+	gint items;
+	gint swapid;
+	GRand *rand;
+	gchar *iterfilename;
+	gchar *localfilename;
+	
+	gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&iterfilename,-1);
+	
+	items = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(store),NULL);
+    rand = g_rand_new();
+	
+	for (i = 0; i < items; i++) {
+    	swapid = g_rand_int_range(rand, 0, items);
+		if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store),&a,NULL,i)) {
+			if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store),&b,NULL,swapid)) {
+				gtk_list_store_swap(store,&a,&b);
+			}
+		}
+	}
+	g_rand_free(rand);
+
+
+	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store),&a);
+	do {
+		gtk_tree_model_get(GTK_TREE_MODEL(store), &a, ITEM_COLUMN,&localfilename, -1);
+		// printf("iter = %s   local = %s \n",iterfilename,localfilename);
+		if (g_ascii_strcasecmp(iterfilename,localfilename) == 0) {
+			// we found the current iter
+			break;
+		}
+		g_free(localfilename);
+	} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(store),&a));
+	g_free(iterfilename);
+	iter = a;
+	
+}
