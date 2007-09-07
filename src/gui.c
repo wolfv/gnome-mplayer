@@ -878,17 +878,12 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter));
 		g_free(iterfilename);
 	} else {
-		if (random_order) {
-			next_item_in_playlist(&previter);
+		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
+		do {
+			previter = localiter;
 			valid = TRUE;
-		} else {
-			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
-			do {
-				previter = localiter;
-				valid = TRUE;
-				gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter);
-			} while (gtk_list_store_iter_is_valid(playliststore,&localiter));
-		}
+			gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter);
+		} while (gtk_list_store_iter_is_valid(playliststore,&localiter));
 	}
 		
 	if (valid) {
@@ -1129,6 +1124,11 @@ void menuitem_stop_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
 {
     random_order = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random));
+	if (random_order) {
+		randomize_playlist(playliststore);	
+	} else {
+		copy_playlist(nonrandomplayliststore,playliststore);
+	}
 }
 
 void menuitem_edit_loop_callback(GtkMenuItem * menuitem, void *data)

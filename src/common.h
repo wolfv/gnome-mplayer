@@ -136,6 +136,7 @@ gchar *path;
 
 // playlist stuff
 GtkListStore *playliststore;
+GtkListStore *nonrandomplayliststore;
 GtkTreeIter iter;
 GtkTreeSelection *selection;
 

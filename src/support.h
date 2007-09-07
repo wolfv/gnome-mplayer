@@ -43,4 +43,6 @@ gboolean streaming_media(gchar * filename);
 gboolean device_name(gchar * filename);
 GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist);
 gboolean next_item_in_playlist(GtkTreeIter *iter); 
+void copy_playlist(GtkListStore *source, GtkListStore *dest);
+void randomize_playlist(GtkListStore *store);
 #endif                          // _SUPPORT_H
