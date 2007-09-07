@@ -725,6 +725,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
 		list = g_strsplit(filename,"\n",0);
 		gtk_list_store_clear(playliststore);
+		gtk_list_store_clear(nonrandomplayliststore);		
 		
 		while(list[i] != NULL) {
 			g_strchomp(list[i]);
@@ -1014,6 +1015,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 		dontplaynext = TRUE;
         shutdown();
 		gtk_list_store_clear(playliststore);
+		gtk_list_store_clear(nonrandomplayliststore);		
 		add_item_to_playlist(filename,0);
         play_file((gchar *) filename, 0);
         g_free(filename);
