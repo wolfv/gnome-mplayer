@@ -49,7 +49,8 @@ gint detect_playlist(gchar * filename)
 				memset(buffer, 0, sizeof(buffer));
 				size = fread(buffer, 1, sizeof(buffer) - 1, fp);
 				output = g_strsplit(buffer,"\n",0);
-				g_strchomp(output[0]);
+				if (output[0] != NULL)
+					g_strchomp(output[0]);
 				// printf("buffer=%s\n",buffer);
 				if (strstr(g_strdown(buffer), "[playlist]") != 0) {
 					playlist = 1;
