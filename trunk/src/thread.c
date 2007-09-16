@@ -468,8 +468,11 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-mouse-movements");
     } else if (strcmp(threaddata->filename, "dvd://") != 0) {
         argv[arg++] = g_strdup_printf("-nomouseinput");
-        argv[arg++] = g_strdup_printf("-cache");
-        argv[arg++] = g_strdup_printf("%i", cache_size);
+		if (threaddata->streaming) {
+		} else {
+        	argv[arg++] = g_strdup_printf("-cache");
+        	argv[arg++] = g_strdup_printf("%i", cache_size);
+		}
     }
 	argv[arg++] = g_strdup_printf("-user-agent");
 	argv[arg++] = g_strdup_printf("NSPlayer");
