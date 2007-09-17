@@ -54,6 +54,7 @@ GtkMenuItem *menuitem_file;
 GtkMenu *menu_file;
 GtkMenuItem *menuitem_file_open;
 GtkMenuItem *menuitem_file_open_dvd;
+GtkMenuItem *menuitem_file_open_dvdnav;
 GtkMenuItem *menuitem_file_open_acd;
 GtkMenuItem *menuitem_file_open_playlist;
 GtkMenuItem *menuitem_file_sep1;

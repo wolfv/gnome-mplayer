@@ -472,10 +472,10 @@ gpointer launch_player(gpointer data)
 		} else {
         	argv[arg++] = g_strdup_printf("-cache");
         	argv[arg++] = g_strdup_printf("%i", cache_size);
+			argv[arg++] = g_strdup_printf("-user-agent");
+			argv[arg++] = g_strdup_printf("NSPlayer");
 		}
     }
-	argv[arg++] = g_strdup_printf("-user-agent");
-	argv[arg++] = g_strdup_printf("NSPlayer");
     argv[arg++] = g_strdup_printf("-wid");
     player_window = get_player_window();
     argv[arg++] = g_strdup_printf("0x%x", player_window);

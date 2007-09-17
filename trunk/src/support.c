@@ -36,6 +36,10 @@ gint detect_playlist(gchar * filename)
 
 	if (g_strncasecmp(filename,"cdda://",7) == 0) {
 		playlist = 1;
+	} else if (g_strncasecmp(filename,"dvd://",6) == 0) {
+		playlist = 1;
+	} else if (g_strncasecmp(filename,"dvdnav://",9) == 0) {
+		playlist = 1;
 	} else {
 		
 		
@@ -105,6 +109,8 @@ gint parse_playlist(gchar * filename)
 	ret = parse_basic(filename);
 	if (ret != 1)
 		ret = parse_cdda(filename);
+	if (ret != 1)
+		ret = parse_dvd(filename);
 	
 	return ret;
 }
@@ -141,6 +147,15 @@ gint parse_basic(gchar * filename)
 					ret = 1;
 				}else if (g_strncasecmp(buffer, "Version",strlen("Version")) == 0) {
 					ret = 1;
+				}else if (g_strncasecmp(buffer, "rtsp://",strlen("rtsp://")) == 0) {
+					ret = 1;
+					add_item_to_playlist(buffer,0);
+				}else if (g_strncasecmp(buffer, "http://",strlen("http://")) == 0) {
+					ret = 1;
+					add_item_to_playlist(buffer,0);
+				}else if (g_strncasecmp(buffer, "mms://",strlen("mms://")) == 0) {
+					ret = 1;
+					add_item_to_playlist(buffer,0);
 				} else if(g_file_test(file, G_FILE_TEST_EXISTS)) {
 					ret = 1;
 					add_item_to_playlist(file,0);
@@ -238,6 +253,67 @@ gint parse_cdda(gchar* filename) {
 	
 	return ret;
 }
+
+// This function pulls the playlist for dvd and dvdnav
+gint parse_dvd(gchar* filename) {
+	
+    GError *error;
+    gint exit_status;
+    gchar *stdout;
+    gchar *stderr;
+    gchar *av[255];
+    gint ac = 0;
+	gint ret = 0;
+	gchar **output;
+	gchar *track;
+	gint num;
+	
+	if (g_strncasecmp(filename,"dvd://",strlen("dvd://")) == 0 || g_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
+		playlist = 0;
+        // run mplayer and try to get the first frame and convert it to a jpeg
+        av[ac++] = g_strdup_printf("mplayer");
+        av[ac++] = g_strdup_printf("-vo");
+        av[ac++] = g_strdup_printf("null");
+        av[ac++] = g_strdup_printf("-ao");
+        av[ac++] = g_strdup_printf("null");
+        av[ac++] = g_strdup_printf("-frames");
+        av[ac++] = g_strdup_printf("0");
+        av[ac++] = g_strdup_printf("-identify");
+        av[ac++] = g_strdup_printf("dvd://");
+        av[ac] = NULL;
+		
+		error = NULL;
+		
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+                     &exit_status, &error);
+        if (error != NULL) {
+            printf("Error when running: %s\n", error->message);
+            g_error_free(error);
+            error = NULL;
+        }
+		output = g_strsplit(stdout,"\n",0);
+		ac = 0;
+		while(output[ac] != NULL) {
+			if (g_strncasecmp(output[ac],"ID_DVD_TITLE_",strlen("ID_DVD_TITLE_")) == 0) {
+				if (strstr(output[ac],"LENGTH") != NULL) {
+					sscanf(output[ac], "ID_DVD_TITLE_%i", &num);
+					track = g_strdup_printf("dvd://%i",num);
+					add_item_to_playlist(track,0);
+					g_free(track);
+				}
+			}
+			ac++;
+		}
+		g_strfreev(output);
+		
+		ret = 1;
+	} else {
+		return 0;
+	}
+	
+	return ret;
+}
+
 
 gboolean update_mplayer_config()
 {
