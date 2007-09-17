@@ -34,6 +34,7 @@ gint detect_playlist(gchar * filename);
 gint parse_playlist(gchar * filename);
 gint parse_basic(gchar * filename);
 gint parse_cdda(gchar * filename);
+gint parse_dvd(gchar * filename);
 gboolean save_playlist_pls(gchar *filename);
 gboolean save_playlist_m3u(gchar *filename);
 gchar *get_path(gchar *filename) ;

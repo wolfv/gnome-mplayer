@@ -1,4 +1,5 @@
 Development
+	DVD and DVD with menu support improved playlist support
 	Redo the randomization backend
 	Add loop control as a menu option Edit->Loop Playlist
 	Use private dbus connection
