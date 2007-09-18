@@ -108,6 +108,7 @@ gboolean set_progress_value(void *data)
 
     if (GTK_IS_WIDGET(progress)) {
 		if (state == QUIT) {
+			js_state = STATE_BUFFERING;
         	gtk_progress_bar_update(progress, idle->cachepercent);
 			gtk_widget_set_sensitive(play_event_box,FALSE);
 		} else {
@@ -763,6 +764,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (state == PAUSED || state == STOPPED) {
             send_command("pause\n");
             state = PLAYING;
+			js_state = STATE_PLAYING;
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
             g_strlcpy(idledata->progress_text, _("Playing"), 1024);
@@ -770,6 +772,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         } else if (state == PLAYING) {
             send_command("pause\n");
             state = PAUSED;
+			js_state = STATE_PAUSED;
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
             g_strlcpy(idledata->progress_text, _("Paused"), 1024);

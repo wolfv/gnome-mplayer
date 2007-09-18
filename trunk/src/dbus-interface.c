@@ -393,6 +393,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                           "    </method>\n"
                                           "    <method name=\"GetCacheSize\">\n"
                                           "    </method>\n"
+                                          "    <method name=\"GetPlayState\">\n"
+                                          "    </method>\n"
                                           "    <signal name=\"Open\">\n"
                                           "        <arg name=\"url\" type=\"s\" />\n"
                                           "    </signal>\n"
@@ -480,6 +482,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetCacheSize")) {
                     reply_message = dbus_message_new_method_return(message);
                     dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &cache_size,
+                                             DBUS_TYPE_INVALID);
+                    dbus_connection_send(connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetPlayState")) {
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &js_state,
                                              DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
