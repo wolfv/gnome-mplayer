@@ -133,6 +133,7 @@ gint random_order;
 gboolean dontplaynext;
 gboolean autopause;
 gchar *path;
+gint js_state;
 
 // playlist stuff
 GtkListStore *playliststore;
