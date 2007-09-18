@@ -300,6 +300,7 @@ gboolean resize_window(void *data)
 
     if (GTK_IS_WIDGET(window)) {
         if (idle->videopresent) {
+			dbus_disable_screensaver();
             gtk_widget_hide(song_title);
             if (embed_window == -1) {
                 gtk_widget_show_all(window);
