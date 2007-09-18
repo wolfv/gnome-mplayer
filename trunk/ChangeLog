@@ -1,4 +1,5 @@
 Development
+	Only disable screen saver when we play a video
 	Implement GetPlayState dbus method
 	DVD and DVD with menu support improved playlist support
 	Redo the randomization backend

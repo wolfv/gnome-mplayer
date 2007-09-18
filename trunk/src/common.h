@@ -167,6 +167,7 @@ void dbus_open_next();
 void dbus_cancel();
 void dbus_send_event(gchar *event, gint button);
 void dbus_unhook();
+void dbus_disable_screensaver();
 
 void shutdown();
 gpointer launch_player(gpointer data);
