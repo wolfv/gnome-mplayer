@@ -231,10 +231,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Terminate") == 0) {
                     shutdown();
-                    dbus_connection_flush(connection);
-                    dbus_connection_remove_filter(connection, filter_func, NULL);
-					dbus_connection_close(connection);
-                    dbus_connection_unref(connection);
+					dbus_unhook();
                     connection = NULL;
                     gtk_main_quit();
                     return DBUS_HANDLER_RESULT_HANDLED;
