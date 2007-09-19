@@ -822,6 +822,8 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (state == PLAYING) {
             send_command("seek 0 2\npause\n");
             state = STOPPED;
+			autopause = FALSE;
+			gtk_widget_set_sensitive(play_event_box,TRUE);
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
         }
@@ -900,6 +902,11 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		gtk_list_store_set(playliststore,&previter,COUNT_COLUMN,count+1, -1);
 		g_free(filename);
 		iter = previter;
+		if (autopause) {
+			autopause = FALSE;
+			gtk_widget_set_sensitive(play_event_box,TRUE);
+			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+		}
 	}	
 
 	if (GTK_IS_TREE_SELECTION(selection)) {
@@ -928,6 +935,11 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		gtk_list_store_set(playliststore,&localiter,COUNT_COLUMN,count+1, -1);
 		g_free(filename);
 		iter = localiter;
+		if (autopause) {
+			autopause = FALSE;
+			gtk_widget_set_sensitive(play_event_box,TRUE);
+			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+		}
 	} else {
 		// printf("playlist is empty, resetting to end of list\n");
 		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
