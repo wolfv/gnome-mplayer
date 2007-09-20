@@ -159,6 +159,11 @@ GtkWidget *config_cachesize;
 GtkWidget *config_osdlevel;
 GtkWidget *config_verbose;
 
+GtkWidget *config_qt;
+GtkWidget *config_real;
+GtkWidget *config_wmp;
+GtkWidget *config_dvx;
+
 
 GtkAccelGroup *accel_group;
 

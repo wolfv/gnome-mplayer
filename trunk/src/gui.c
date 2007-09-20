@@ -1350,6 +1350,8 @@ void config_apply(GtkWidget * widget, void *data)
 {
     GConfClient *gconf;
     gchar *cmd;
+	gint oldosd;
+	gchar *filename;
 
     if (vo != NULL) {
         g_free(vo);
@@ -1367,18 +1369,44 @@ void config_apply(GtkWidget * widget, void *data)
 
     //cache_size = (int) gtk_range_get_value(GTK_RANGE(config_cachesize));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
+	oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
 	verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
-    cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
-    send_command(cmd);
-    g_free(cmd);
+	if (oldosd != osdlevel) {
+		cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
+		send_command(cmd);
+		g_free(cmd);
+	}
 
+	qt_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_qt));
+	real_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_real));
+	wmp_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_wmp));
+	dvx_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_dvx));
+	
     gconf = gconf_client_get_default();
     gconf_client_set_int(gconf, CACHE_SIZE, cache_size, NULL);
     gconf_client_set_int(gconf, OSDLEVEL, osdlevel, NULL);
     gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
+	gconf_client_set_bool(gconf, DISABLE_QT, qt_disabled, NULL);
+	gconf_client_set_bool(gconf, DISABLE_REAL, real_disabled, NULL);
+	gconf_client_set_bool(gconf, DISABLE_WMP, wmp_disabled, NULL);
+	gconf_client_set_bool(gconf, DISABLE_DVX, dvx_disabled, NULL);
     g_object_unref(G_OBJECT(gconf));
-
+	
+	filename = g_strdup_printf("%s/.mozilla/pluginreg.dat",g_getenv("HOME"));
+	g_remove(filename);
+	g_free(filename);
+	filename = g_strdup_printf("%s/.firefox/pluginreg.dat",g_getenv("HOME"));
+	g_remove(filename);
+	g_free(filename);
+	filename = g_strdup_printf("%s/.mozilla/firefox/pluginreg.dat",g_getenv("HOME"));
+	g_remove(filename);
+	g_free(filename);
+	
+	dbus_reload_plugins();
+	
+	
+	
     gtk_widget_destroy(widget);
 }
 
@@ -1725,6 +1753,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *conf_cancel;
     GtkWidget *conf_table;
     GtkWidget *conf_label;
+	GtkWidget *conf_page1;
+	GtkWidget *conf_page2;
+	GtkWidget *notebook;
     gint i = 0;
 
     read_mplayer_config();
@@ -1734,11 +1765,19 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 	
     gtk_window_set_resizable(GTK_WINDOW(config_window), FALSE);
     conf_vbox = gtk_vbox_new(FALSE, 10);
+	conf_page1 = gtk_vbox_new(FALSE, 10);
+	conf_page2 = gtk_vbox_new(FALSE, 10);
     conf_hbutton_box = gtk_hbutton_box_new();
     gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
     conf_table = gtk_table_new(20, 2, FALSE);
 
-    gtk_container_add(GTK_CONTAINER(conf_vbox), conf_table);
+	notebook = gtk_notebook_new();
+	conf_label = gtk_label_new(_("Player"));
+	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page1, conf_label);
+	conf_label = gtk_label_new(_("Plugin"));
+	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page2, conf_label);
+	
+    gtk_container_add(GTK_CONTAINER(conf_vbox), notebook);
     gtk_container_add(GTK_CONTAINER(config_window), conf_vbox);
 
     gtk_window_set_title(GTK_WINDOW(config_window), _("GNOME MPlayer Configuration"));
@@ -1832,8 +1871,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(conf_label);
     i++;
 
-    conf_table = gtk_table_new(20, 2, FALSE);
-    gtk_container_add(GTK_CONTAINER(conf_vbox), conf_table);
+	gtk_container_add(GTK_CONTAINER(conf_page1),conf_table);
+
+	conf_table = gtk_table_new(20, 2, FALSE);
+    gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
     i = 0;
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Configuration Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
@@ -1877,8 +1918,54 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 1, 2, i, i + 1);
     i++;
+
+	conf_table = gtk_table_new(20, 2, FALSE);
+    gtk_container_add(GTK_CONTAINER(conf_page2), conf_table);
+	i = 0;
+    conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"));
+    gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    i++;
 	
-    //gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_ok);
+    conf_label = gtk_label_new(_("QuickTime Emulation:"));
+    config_qt = gtk_check_button_new();
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_qt),!qt_disabled);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_qt, 1, 2, i, i + 1);
+    i++;
+
+    conf_label = gtk_label_new(_("RealPlayer Emulation:"));
+    config_real = gtk_check_button_new();
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_real),!real_disabled);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_real, 1, 2, i, i + 1);
+    i++;
+
+    conf_label = gtk_label_new(_("Windows Media Player Emulation:"));
+    config_wmp = gtk_check_button_new();
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_wmp),!wmp_disabled);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_wmp, 1, 2, i, i + 1);
+    i++;
+
+    conf_label = gtk_label_new(_("DiVX Player Emulation:"));
+    config_dvx = gtk_check_button_new();
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_dvx),!dvx_disabled);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_dvx, 1, 2, i, i + 1);
+    i++;
+	
+
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_cancel);
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
 

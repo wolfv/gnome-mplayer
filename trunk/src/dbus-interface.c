@@ -550,6 +550,19 @@ void dbus_cancel()
 
 }
 
+void dbus_reload_plugins()
+{
+    gchar *path;
+    DBusMessage *message;
+
+    path = g_strdup_printf("/control/%i", control_id);
+    message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "ReloadPlugins");
+    dbus_connection_send(connection, message, NULL);
+    dbus_message_unref(message);
+    g_free(path);
+
+}
+
 void dbus_send_event(gchar *event, gint button)
 {
     gchar *path;

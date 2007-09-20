@@ -31,6 +31,12 @@
 #define VERBOSE			"/apps/gnome-mplayer/preferences/verbose"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 
+#define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
+#define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"
+#define DISABLE_WMP		"/apps/gecko-mediaplayer/preferences/disable_wmp"
+#define DISABLE_DVX		"/apps/gecko-mediaplayer/preferences/disable_dvx"
+
+
 // JavaScript Playstates
 #define STATE_UNDEFINED     0
 #define STATE_STOPPED       1
@@ -135,6 +141,11 @@ gboolean autopause;
 gchar *path;
 gint js_state;
 
+gboolean qt_disabled;
+gboolean real_disabled;
+gboolean wmp_disabled;
+gboolean dvx_disabled;
+
 // playlist stuff
 GtkListStore *playliststore;
 GtkListStore *nonrandomplayliststore;
@@ -165,6 +176,7 @@ void make_button(gchar * src, gchar * href);
 void dbus_open_by_hrefid(gchar * hrefid);
 void dbus_open_next();
 void dbus_cancel();
+void dbus_reload_plugins();
 void dbus_send_event(gchar *event, gint button);
 void dbus_unhook();
 void dbus_disable_screensaver();
