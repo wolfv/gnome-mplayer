@@ -53,8 +53,10 @@ gint detect_playlist(gchar * filename)
 				memset(buffer, 0, sizeof(buffer));
 				size = fread(buffer, 1, sizeof(buffer) - 1, fp);
 				output = g_strsplit(buffer,"\n",0);
-				if (output[0] != NULL)
+				if (output[0] != NULL) {
 					g_strchomp(output[0]);
+					g_strchug(output[0]);
+				}
 				// printf("buffer=%s\n",buffer);
 				if (strstr(g_strdown(buffer), "[playlist]") != 0) {
 					playlist = 1;
@@ -108,6 +110,8 @@ gint parse_playlist(gchar * filename)
 	
 	ret = parse_basic(filename);
 	if (ret != 1)
+		ret = parse_ram(filename);
+	if (ret != 1)
 		ret = parse_cdda(filename);
 	if (ret != 1)
 		ret = parse_dvd(filename);
@@ -133,6 +137,7 @@ gint parse_basic(gchar * filename)
             buffer = fgets(buffer, 1024, fp);
 			if (buffer != NULL) {
 				g_strchomp(buffer);
+				g_strchug(buffer);
 				printf("buffer=%s\n",buffer);
 				if (path != NULL)
 					g_free(path);
@@ -147,9 +152,6 @@ gint parse_basic(gchar * filename)
 					ret = 1;
 				}else if (g_strncasecmp(buffer, "Version",strlen("Version")) == 0) {
 					ret = 1;
-				}else if (g_strncasecmp(buffer, "rtsp://",strlen("rtsp://")) == 0) {
-					ret = 1;
-					add_item_to_playlist(buffer,0);
 				}else if (g_strncasecmp(buffer, "http://",strlen("http://")) == 0) {
 					ret = 1;
 					add_item_to_playlist(buffer,0);
@@ -168,6 +170,7 @@ gint parse_basic(gchar * filename)
 						if (parse != NULL) {
 							if (parse[1] != NULL) {
 								g_strchomp(parse[1]);
+								g_strchug(parse[1]);
 								add_item_to_playlist(parse[1],0);
 							}	
 							g_strfreev(parse);
@@ -177,6 +180,7 @@ gint parse_basic(gchar * filename)
 						if (parse != NULL) {
 							if (parse[1] != NULL) {
 								g_strchomp(parse[1]);
+								g_strchug(parse[1]);
 								add_item_to_playlist(parse[1],0);
 							}	
 							g_strfreev(parse);
@@ -195,6 +199,33 @@ gint parse_basic(gchar * filename)
 	buffer = NULL;
 	return ret;
 	
+}
+
+gint parse_ram(gchar* filename) {
+	
+    gint ac = 0;
+	gint ret = 0;
+	gchar **output;
+	gchar *data;
+
+	g_file_get_contents(filename,&data, NULL, NULL);
+	output = g_strsplit(data,"\r",0);
+	ac = 0;
+	while(output[ac] != NULL) {
+		g_strchomp(output[ac]);
+		g_strchug(output[ac]);
+		if (g_strncasecmp(output[ac], "rtsp://",strlen("rtsp://")) == 0) {
+				ret = 1;
+				add_item_to_playlist(output[ac],0);
+		}else if (g_strncasecmp(output[ac], "pnm://",strlen("pnm://")) == 0) {
+				ret = 1;
+				add_item_to_playlist(output[ac],0);
+		}
+		ac++;
+	}
+	g_strfreev(output);
+	g_free(data);
+	return ret;
 }
 
 gint parse_cdda(gchar* filename) {
