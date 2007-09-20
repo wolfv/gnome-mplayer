@@ -181,6 +181,10 @@ int main(int argc, char *argv[])
     if (cache_size == 0)
         cache_size = 2000;
     osdlevel = gconf_client_get_int(gconf, OSDLEVEL, NULL);
+	qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
+	real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
+	wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
+	dvx_disabled = gconf_client_get_bool(gconf, DISABLE_DVX, NULL);
     g_object_unref(G_OBJECT(gconf));
 
     context = g_option_context_new(_("- GNOME Media player based on MPlayer"));
