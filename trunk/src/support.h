@@ -33,6 +33,7 @@ gint play_file(gchar * filename, gint playlist);
 gint detect_playlist(gchar * filename);
 gint parse_playlist(gchar * filename);
 gint parse_basic(gchar * filename);
+gint parse_ram(gchar* filename);
 gint parse_cdda(gchar * filename);
 gint parse_dvd(gchar * filename);
 gboolean save_playlist_pls(gchar *filename);

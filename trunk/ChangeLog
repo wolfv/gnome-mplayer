@@ -1,4 +1,5 @@
 Development
+	Updated RAM parser
 	Allow enabling and disabling of plugin emulation via the Edit->Preferences (Plugin) tab
 	Reenable play button when autopaused and stop, prev or next is clicked
 	Only disable screen saver when we play a video
