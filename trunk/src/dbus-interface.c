@@ -513,13 +513,15 @@ void dbus_open_by_hrefid(gchar * hrefid)
     id = g_strdup(hrefid);
 	if (verbose)
     	printf("requesting id = %s\n", id);
-    path = g_strdup_printf("/control/%i", control_id);
-    message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "RequestById");
-    dbus_message_append_args(message, DBUS_TYPE_STRING, &id, DBUS_TYPE_INVALID);
-    dbus_connection_send(connection, message, NULL);
-    dbus_message_unref(message);
-    g_free(path);
-
+	if (connection != NULL && control_id != 0) {
+		path = g_strdup_printf("/control/%i", control_id);
+		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "RequestById");
+		dbus_message_append_args(message, DBUS_TYPE_STRING, &id, DBUS_TYPE_INVALID);
+		dbus_connection_send(connection, message, NULL);
+		dbus_message_unref(message);
+		g_free(path);
+	}
+	g_free(id);
 }
 
 void dbus_open_next()
@@ -527,12 +529,13 @@ void dbus_open_next()
     gchar *path;
     DBusMessage *message;
 
-    path = g_strdup_printf("/control/%i", control_id);
-    message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Next");
-    dbus_connection_send(connection, message, NULL);
-    dbus_message_unref(message);
-    g_free(path);
-
+	if (connection != NULL && control_id != 0) {
+		path = g_strdup_printf("/control/%i", control_id);
+		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Next");
+		dbus_connection_send(connection, message, NULL);
+		dbus_message_unref(message);
+		g_free(path);
+	}
 }
 
 void dbus_cancel()
@@ -542,12 +545,14 @@ void dbus_cancel()
     gint id;
 
     id = control_id;
-    path = g_strdup_printf("/control/%i", control_id);
-    message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Cancel");
-    dbus_message_append_args(message, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
-    dbus_connection_send(connection, message, NULL);
-    dbus_message_unref(message);
-    g_free(path);
+	if (connection != NULL && control_id != 0) {
+		path = g_strdup_printf("/control/%i", control_id);
+		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Cancel");
+		dbus_message_append_args(message, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
+		dbus_connection_send(connection, message, NULL);
+		dbus_message_unref(message);
+		g_free(path);
+	}
 
 }
 
