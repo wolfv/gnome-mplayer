@@ -86,7 +86,6 @@ gint detect_playlist(gchar * filename)
 				}
 				
 				file = g_strdup_printf("%s/%s",path,output[0]);
-				printf("file = '%s'\n",file);
 				if (g_file_test(file, G_FILE_TEST_EXISTS)) {
 					playlist = 1;
 				}
@@ -97,7 +96,8 @@ gint detect_playlist(gchar * filename)
 			fclose(fp);
 		}
 	}
-    printf("playlist detection = %i\n", playlist);
+	if (verbose)
+    	printf("playlist detection = %i\n", playlist);
     return playlist;
 }
 
