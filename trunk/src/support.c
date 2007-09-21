@@ -206,25 +206,36 @@ gint parse_ram(gchar* filename) {
     gint ac = 0;
 	gint ret = 0;
 	gchar **output;
-	gchar *data;
+	FILE *fp;
+    gchar *buffer;
 
-	g_file_get_contents(filename,&data, NULL, NULL);
-	output = g_strsplit(data,"\r",0);
-	ac = 0;
-	while(output[ac] != NULL) {
-		g_strchomp(output[ac]);
-		g_strchug(output[ac]);
-		if (g_strncasecmp(output[ac], "rtsp://",strlen("rtsp://")) == 0) {
-				ret = 1;
-				add_item_to_playlist(output[ac],0);
-		}else if (g_strncasecmp(output[ac], "pnm://",strlen("pnm://")) == 0) {
-				ret = 1;
-				add_item_to_playlist(output[ac],0);
+    fp = fopen(filename, "r");
+	buffer = g_new0(gchar,1024);
+	
+    if (fp != NULL) {
+        while (!feof(fp)) {
+            memset(buffer, 0, sizeof(buffer));
+            buffer = fgets(buffer, 1024, fp);
+			if (buffer != NULL) {
+				output = g_strsplit(buffer,"\r",0);
+				ac = 0;
+				while(output[ac] != NULL) {
+					g_strchomp(output[ac]);
+					g_strchug(output[ac]);
+					if (g_strncasecmp(output[ac], "rtsp://",strlen("rtsp://")) == 0) {
+							ret = 1;
+							add_item_to_playlist(output[ac],0);
+					}else if (g_strncasecmp(output[ac], "pnm://",strlen("pnm://")) == 0) {
+							ret = 1;
+							add_item_to_playlist(output[ac],0);
+					}
+					ac++;
+				}
+				g_strfreev(output);
+			}
+			if (ret != 1) break;
 		}
-		ac++;
 	}
-	g_strfreev(output);
-	g_free(data);
 	return ret;
 }
 
