@@ -574,7 +574,7 @@ void dbus_send_event(gchar *event, gint button)
 	localbutton = button;
 	
 	
-	if (connection != NULL) {
+	if (connection != NULL && control_id != 0) {
 		path = g_strdup_printf("/control/%i", control_id);
 		localevent = g_strdup_printf("%s",event);
 		if (verbose) {
