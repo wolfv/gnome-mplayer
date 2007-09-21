@@ -663,15 +663,17 @@ void dbus_unhook()
 {
 
     DBusMessage *message;
-    message =
-        dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-                                     "org.gnome.ScreenSaver", "UnInhibit");
-    dbus_message_append_args(message, DBUS_TYPE_INT32, &cookie, DBUS_TYPE_INVALID);
-    dbus_connection_send(connection, message, NULL);
-    dbus_message_unref(message);
-	dbus_connection_close(connection);
-	dbus_connection_unref(connection);
-
+	
+	if (connection != NULL) {
+		message =
+			dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+										 "org.gnome.ScreenSaver", "UnInhibit");
+		dbus_message_append_args(message, DBUS_TYPE_INT32, &cookie, DBUS_TYPE_INVALID);
+		dbus_connection_send(connection, message, NULL);
+		dbus_message_unref(message);
+		dbus_connection_close(connection);
+		dbus_connection_unref(connection);
+	}
 }
 
 void dbus_disable_screensaver()
@@ -682,20 +684,22 @@ void dbus_disable_screensaver()
     const gchar *app;
     const gchar *reason;
 	
-    dbus_error_init(&error);
-    message =
-        dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-                                     "org.gnome.ScreenSaver", "Inhibit");
-    app = g_strdup_printf("gnome-mplayer");
-    reason = g_strdup_printf("playback");
-    dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
-                             DBUS_TYPE_INVALID);
-    reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
-    if (reply_message) {
-        dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &cookie, NULL);
-        dbus_message_unref(reply_message);
-    }
+	if (connection != NULL) {
+		dbus_error_init(&error);
+		message =
+			dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+										 "org.gnome.ScreenSaver", "Inhibit");
+		app = g_strdup_printf("gnome-mplayer");
+		reason = g_strdup_printf("playback");
+		dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
+								 DBUS_TYPE_INVALID);
+		reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
+		if (reply_message) {
+			dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &cookie, NULL);
+			dbus_message_unref(reply_message);
+		}
 
-    dbus_message_unref(message);
-    dbus_error_free(&error);
+		dbus_message_unref(message);
+		dbus_error_free(&error);
+	}
 }	
