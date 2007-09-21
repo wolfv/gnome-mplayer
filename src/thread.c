@@ -201,7 +201,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "VO:");
         sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &actual_x, &actual_y, &play_x, &play_y);
 
-        printf("Resizing to %i x %i \n", actual_x, actual_y);
+		if (verbose)
+        	printf("Resizing to %i x %i \n", actual_x, actual_y);
         idledata->width = actual_x;
         idledata->height = actual_y;
         idledata->videopresent = 1;
@@ -495,7 +496,8 @@ gpointer launch_player(gpointer data)
                                   NULL, NULL, NULL, &std_in, &std_out, &std_err, NULL);
 
     if (ok) {
-        printf("Spawn succeeded for filename %s\n", threaddata->filename);
+		if (verbose)
+        	printf("Spawn succeeded for filename %s\n", threaddata->filename);
         state = PAUSED;
 
         if (channel_in != NULL) {
@@ -530,8 +532,9 @@ gpointer launch_player(gpointer data)
     g_mutex_lock(thread_running);
     while (gtk_events_pending()) {
         gtk_main_iteration();
-	}	
-    printf("Thread completing\n");
+	}
+	if (verbose)
+    	printf("Thread completing\n");
 	g_source_remove(watch_in_id);
 	g_source_remove(watch_err_id);
 	g_source_remove(watch_in_hup_id);

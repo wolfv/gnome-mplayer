@@ -511,7 +511,8 @@ void dbus_open_by_hrefid(gchar * hrefid)
     gchar *id;
 
     id = g_strdup(hrefid);
-    printf("requesting id = %s\n", id);
+	if (verbose)
+    	printf("requesting id = %s\n", id);
     path = g_strdup_printf("/control/%i", control_id);
     message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "RequestById");
     dbus_message_append_args(message, DBUS_TYPE_STRING, &id, DBUS_TYPE_INVALID);
@@ -622,13 +623,15 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 
     match = g_strdup_printf("type='signal',interface='com.gnome.mplayer'");
     dbus_bus_add_match(connection, match, &error);
-    printf("Using match: %s\n", match);
+	if (verbose)
+    	printf("Using match: %s\n", match);
     g_free(match);
     dbus_error_free(&error);
 
     dbus_connection_add_filter(connection, filter_func, NULL, NULL);
 
-    printf("Proxy connections and Command connected\n");
+	if (verbose)
+    	printf("Proxy connections and Command connected\n");
 
     if (control_id != 0) {
         path = g_strdup_printf("com.gnome.mplayer.cid%i", control_id);
