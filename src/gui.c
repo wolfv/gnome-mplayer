@@ -313,18 +313,20 @@ gboolean resize_window(void *data)
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
                 //printf("%i x %i \n",idle->x,idle->y);
-                if (idle->width > 0 && idle->height > 0) {
-                    gtk_widget_set_size_request(fixed, idle->width, idle->height);
-                    gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
-                    total_height = idle->height;
-                    gtk_widget_size_request(GTK_WIDGET(menubar), &req);
-                    total_height += req.height;
-                    if (showcontrols) {
-                        gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
-                        total_height += req.height;
-                    }
-                    gtk_window_resize(GTK_WINDOW(window), idle->width, total_height);
-                }
+				if (!userresize) {
+					if (idle->width > 0 && idle->height > 0) {
+						gtk_widget_set_size_request(fixed, idle->width, idle->height);
+						gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
+						total_height = idle->height;
+						gtk_widget_size_request(GTK_WIDGET(menubar), &req);
+						total_height += req.height;
+						if (showcontrols) {
+							gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
+							total_height += req.height;
+						}
+						gtk_window_resize(GTK_WINDOW(window), idle->width, total_height);
+					}
+				}
             } else {
                 if (window_x > 0 && window_y > 0) {
                     total_height = window_y;
@@ -557,7 +559,6 @@ gboolean expose_fixed_callback(GtkWidget * widget, GdkEventExpose * event, gpoin
                            event->area.height);
         gdk_gc_unref(gc);
     }
-
     return FALSE;
 }
 
@@ -586,6 +587,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
                 new_height = allocation->height;
                 new_width = allocation->height * movie_ratio;
             }
+			userresize = TRUE;
         }
         //printf("new movie size = %i x %i (%i x %i)\n",new_width,new_height,allocation->width, allocation->height);
         gtk_widget_set_usize(drawing_area, new_width, new_height);

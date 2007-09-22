@@ -140,6 +140,7 @@ gboolean dontplaynext;
 gboolean autopause;
 gchar *path;
 gint js_state;
+gboolean userresize;
 
 gboolean qt_disabled;
 gboolean real_disabled;

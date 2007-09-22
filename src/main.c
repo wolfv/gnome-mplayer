@@ -174,6 +174,7 @@ int main(int argc, char *argv[])
 	lastfile = NULL;
 	path = NULL;
 	js_state = STATE_UNDEFINED;
+	userresize = FALSE;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();
