@@ -1026,6 +1026,8 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		if (filename == NULL)
+			filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
         gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
         g_free(last_dir);
@@ -1033,10 +1035,12 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 		dontplaynext = TRUE;
         shutdown();
 		gtk_list_store_clear(playliststore);
-		gtk_list_store_clear(nonrandomplayliststore);		
-		add_item_to_playlist(filename,0);
-        play_file((gchar *) filename, 0);
-        g_free(filename);
+		gtk_list_store_clear(nonrandomplayliststore);	
+		if (filename != NULL) {
+			add_item_to_playlist(filename,0);
+			play_file((gchar *) filename, 0);
+			g_free(filename);
+		}
     }
 
     g_object_unref(G_OBJECT(gconf));
