@@ -1,4 +1,5 @@
 Development
+	Don't resize the video window automatically after first video played
 	Quiet the output from the app when -v option not specified
 	Updated RAM parser
 	Allow enabling and disabling of plugin emulation via the Edit->Preferences (Plugin) tab
