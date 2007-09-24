@@ -1,4 +1,5 @@
 Development
+	Rework Edit->Preferences dialog
 	Allow input of a URL into the Open dialog
 	Don't resize the video window automatically after first video played
 	Quiet the output from the app when -v option not specified
