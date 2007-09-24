@@ -1761,6 +1761,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *conf_label;
 	GtkWidget *conf_page1;
 	GtkWidget *conf_page2;
+	GtkWidget *conf_page3;
 	GtkWidget *notebook;
     gint i = 0;
 
@@ -1773,6 +1774,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_vbox = gtk_vbox_new(FALSE, 10);
 	conf_page1 = gtk_vbox_new(FALSE, 10);
 	conf_page2 = gtk_vbox_new(FALSE, 10);
+	conf_page3 = gtk_vbox_new(FALSE, 10);
     conf_hbutton_box = gtk_hbutton_box_new();
     gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
     conf_table = gtk_table_new(20, 2, FALSE);
@@ -1782,7 +1784,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page1, conf_label);
 	conf_label = gtk_label_new(_("Plugin"));
 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page2, conf_label);
-	
+	conf_label = gtk_label_new(_("Advanced"));
+	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page3, conf_label);
+
     gtk_container_add(GTK_CONTAINER(conf_vbox), notebook);
     gtk_container_add(GTK_CONTAINER(config_window), conf_vbox);
 
@@ -1916,14 +1920,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_osdlevel, 1, 2, i, i + 1);
     i++;
 
-    conf_label = gtk_label_new(_("Verbose Debug Enabled:"));
-    config_verbose = gtk_check_button_new();
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose),verbose);
-    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
-    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 1, 2, i, i + 1);
-    i++;
 
 	conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page2), conf_table);
@@ -1935,43 +1931,42 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     i++;
 	
-    conf_label = gtk_label_new(_("QuickTime Emulation:"));
-    config_qt = gtk_check_button_new();
+    config_qt = gtk_check_button_new_with_label(_("QuickTime Emulation"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_qt),!qt_disabled);
-    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_qt, 1, 2, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_qt, 0, 1, i, i + 1);
     i++;
 
-    conf_label = gtk_label_new(_("RealPlayer Emulation:"));
-    config_real = gtk_check_button_new();
+    config_real = gtk_check_button_new_with_label(_("RealPlayer Emulation"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_real),!real_disabled);
-    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_real, 1, 2, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_real, 0, 1, i, i + 1);
     i++;
 
-    conf_label = gtk_label_new(_("Windows Media Player Emulation:"));
-    config_wmp = gtk_check_button_new();
+    config_wmp = gtk_check_button_new_with_label(_("Windows Media Player Emulation"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_wmp),!wmp_disabled);
-    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_wmp, 1, 2, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_wmp, 0, 1, i, i + 1);
     i++;
 
-    conf_label = gtk_label_new(_("DiVX Player Emulation:"));
-    config_dvx = gtk_check_button_new();
+    config_dvx = gtk_check_button_new_with_label(_("DiVX Player Emulation"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_dvx),!dvx_disabled);
-    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_dvx, 1, 2, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_dvx, 0, 1, i, i + 1);
     i++;
 	
-
+	conf_table = gtk_table_new(20, 2, FALSE);
+    gtk_container_add(GTK_CONTAINER(conf_page3), conf_table);
+	i = 0;
+    conf_label = gtk_label_new(_("<span weight=\"bold\">Advanced Settings</span>"));
+    gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    i++;
+	
+    config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose),verbose);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 1, i, i + 1);
+    i++;
+	
+	
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_cancel);
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
 
