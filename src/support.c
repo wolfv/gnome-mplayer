@@ -85,12 +85,14 @@ gint detect_playlist(gchar * filename)
 					playlist = 1;
 				}
 				
-				file = g_strdup_printf("%s/%s",path,output[0]);
-				if (g_file_test(file, G_FILE_TEST_EXISTS)) {
-					playlist = 1;
+				if (strlen(output[0]) > 0) {
+					file = g_strdup_printf("%s/%s",path,output[0]);
+					if (g_file_test(file, G_FILE_TEST_EXISTS)) {
+						playlist = 1;
+					}
+					g_free(file);
 				}
-				g_free(file);
-				
+
 				g_strfreev(output);
 			}
 			fclose(fp);
@@ -138,7 +140,7 @@ gint parse_basic(gchar * filename)
 			if (buffer != NULL) {
 				g_strchomp(buffer);
 				g_strchug(buffer);
-				printf("buffer=%s\n",buffer);
+				// printf("buffer=%s\n",buffer);
 				if (path != NULL)
 					g_free(path);
 				path = get_path(filename);
