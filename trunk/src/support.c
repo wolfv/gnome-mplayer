@@ -667,10 +667,15 @@ void copy_playlist(GtkListStore *source, GtkListStore *dest) {
 
 	GtkTreeIter sourceiter;
 	GtkTreeIter destiter;
+	GtkTreeIter a;
+	gchar *iterfilename;
+	gchar *localfilename;
 	gchar *itemname;
 	gchar *desc;
 	gint count;
 	gint playlist;
+	
+	gtk_tree_model_get(GTK_TREE_MODEL(dest), &iter, ITEM_COLUMN,&iterfilename,-1);
 	
 	gtk_list_store_clear(dest);
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(source),&sourceiter)) {
@@ -689,6 +694,18 @@ void copy_playlist(GtkListStore *source, GtkListStore *dest) {
 		} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(source),&sourceiter));
 	}
 	
+	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(dest),&a);
+	do {
+		gtk_tree_model_get(GTK_TREE_MODEL(dest), &a, ITEM_COLUMN,&localfilename, -1);
+		// printf("iter = %s   local = %s \n",iterfilename,localfilename);
+		if (g_ascii_strcasecmp(iterfilename,localfilename) == 0) {
+			// we found the current iter
+			break;
+		}
+		g_free(localfilename);
+	} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(dest),&a));
+	g_free(iterfilename);
+	iter = a;	
 }
 
 void randomize_playlist(GtkListStore *store) {
