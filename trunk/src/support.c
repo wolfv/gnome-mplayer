@@ -126,7 +126,7 @@ gint parse_basic(gchar * filename)
     gint ret = 0;
     gchar *buffer;
 	gchar **parse;
-	gchar *file;
+	gchar *file = NULL;
 	
     fp = fopen(filename, "r");
 	buffer = g_new0(gchar,1024);
@@ -142,26 +142,35 @@ gint parse_basic(gchar * filename)
 				if (path != NULL)
 					g_free(path);
 				path = get_path(filename);
-				file = g_strdup_printf("%s/%s",path,buffer);
+				if (strlen(buffer) > 0)
+					file = g_strdup_printf("%s/%s",path,buffer);
 				
 				if (g_strcasecmp(buffer, "[playlist]") == 0) {
+					//printf("playlist\n");
 					ret = 1;
 				}else if (g_strcasecmp(buffer, "[reference]") == 0) {
+					//printf("ref\n");
 					ret = 1;
 				}else if (g_strncasecmp(buffer, "NumberOfEntries",strlen("NumberOfEntries")) == 0) {
+					//printf("num\n");
 					ret = 1;
 				}else if (g_strncasecmp(buffer, "Version",strlen("Version")) == 0) {
+					//printf("ver\n");
 					ret = 1;
 				}else if (g_strncasecmp(buffer, "http://",strlen("http://")) == 0) {
+					//printf("http\n");
 					ret = 1;
 					add_item_to_playlist(buffer,0);
 				}else if (g_strncasecmp(buffer, "mms://",strlen("mms://")) == 0) {
+					//printf("mms\n");
 					ret = 1;
 					add_item_to_playlist(buffer,0);
 				} else if(g_file_test(file, G_FILE_TEST_EXISTS)) {
+					//printf("ft file - %s\n", file);
 					ret = 1;
 					add_item_to_playlist(file,0);
 				} else if(g_file_test(buffer, G_FILE_TEST_EXISTS)) {
+					//printf("ft buffer - %s\n", buffer);
 					ret = 1;
 					add_item_to_playlist(buffer,0);
 				} else if (ret == 1) {
