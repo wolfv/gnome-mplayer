@@ -81,11 +81,11 @@ gint detect_playlist(gchar * filename)
 				if (strstr(g_strdown(buffer), "pnm://") != 0) {
 					playlist = 1;
 				}
-				if (g_file_test(output[0], G_FILE_TEST_EXISTS)) {
+				if (output[0] != NULL && g_file_test(output[0], G_FILE_TEST_EXISTS)) {
 					playlist = 1;
 				}
 				
-				if (strlen(output[0]) > 0) {
+				if (output[0] != NULL && strlen(output[0]) > 0) {
 					file = g_strdup_printf("%s/%s",path,output[0]);
 					if (g_file_test(file, G_FILE_TEST_EXISTS)) {
 						playlist = 1;
