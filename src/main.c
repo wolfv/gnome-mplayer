@@ -264,7 +264,10 @@ int main(int argc, char *argv[])
         } else {
             set_media_info(_("Playing Audio CD"));
 			parse_cdda("cdda://");
-			
+			if (random_order) {
+				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+				randomize_playlist(playliststore);
+			}
             //play_file("cdda://", playlist);
 			if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
@@ -296,10 +299,14 @@ int main(int argc, char *argv[])
 			}
 			i++;
         }
-		
+				
 		if (argv[fileindex] != NULL && g_strncasecmp(argv[fileindex],"dvdnav://",9) == 0) {
 			play_file(argv[fileindex], 0);
 		} else {
+			if (random_order) {
+				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+				randomize_playlist(playliststore);
+			}
 			if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 				set_media_info(filename);

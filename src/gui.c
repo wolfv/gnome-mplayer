@@ -1174,12 +1174,21 @@ void menuitem_stop_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
 {
+	GtkTreePath *path;
+	
     random_order = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random));
 	if (random_order) {
 		randomize_playlist(playliststore);	
 	} else {
 		copy_playlist(nonrandomplayliststore,playliststore);
 	}
+
+	if (GTK_IS_TREE_SELECTION(selection)) {
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+		gtk_tree_selection_select_path(selection,path);	
+		gtk_tree_path_free(path);
+	}
+	
 }
 
 void menuitem_edit_loop_callback(GtkMenuItem * menuitem, void *data)
@@ -2325,6 +2334,7 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
 
+	
     // View Menu
     menuitem_view = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_View")));
     menu_view = GTK_MENU(gtk_menu_new());
