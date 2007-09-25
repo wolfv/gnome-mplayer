@@ -247,8 +247,10 @@ int main(int argc, char *argv[])
             mnt = getmntent(fp);
             if (mnt)
                 //printf("%s is at %s\n",mnt->mnt_fsname,mnt->mnt_dir);
-                if (strcmp(argv[fileindex], mnt->mnt_fsname) == 0)
-                    break;
+				if (argv[fileindex] != NULL && mnt->mnt_fsname != NULL) {
+					if (strcmp(argv[fileindex], mnt->mnt_fsname) == 0)
+						break;
+				}
         }
         while (mnt);
         endmntent(fp);
