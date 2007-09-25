@@ -158,7 +158,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s,
                                               DBUS_TYPE_STRING, &hrefid, DBUS_TYPE_INVALID)) {
-                        make_button(s, hrefid);
+                        make_button(s, g_strdup(hrefid));
                     } else {
                         dbus_error_free(&error);
                     }
