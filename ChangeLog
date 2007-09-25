@@ -1,4 +1,5 @@
 Development
+	Fix bug in OpenButton, pointer data was getting over written
 	Fix to allow --random to be set correctly on commandline
 	Fix problem with crashing when switching between random and non-random order
 	Fix problem with parse_basic where buffer is blank and so the path was valid, but filename was not
