@@ -704,6 +704,17 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         }
     }
+	
+	if ((fullscreen == 1) && (event->state & GDK_CONTROL_MASK)) {
+		switch(event->keyval) {
+			case GDK_f:
+				idledata->fullscreen = FALSE;
+				set_fullscreen(idledata);
+				return TRUE;
+			default:
+				return FALSE;
+		}
+	}
     return FALSE;
 
 }
@@ -1340,22 +1351,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         fullscreen = 1;
 
     }
-/*
-    while (gtk_events_pending())
-        gtk_main_iteration();
 
-    if (GDK_IS_DRAWABLE(drawing_area->window)) {
-        gc = gdk_gc_new(drawing_area->window);
-        gdk_drawable_get_size(GDK_DRAWABLE(drawing_area->window), &width, &height);
-        //printf("drawing box %i x %i\n",width,height);
-        if (width > 0 && height > 0)
-            gdk_draw_rectangle(drawing_area->window, gc, TRUE, 0, 0, width, height);
-        gdk_gc_unref(gc);
-    }
-
-    while (gtk_events_pending())
-        gtk_main_iteration();
-*/
 }
 
 void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
