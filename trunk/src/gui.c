@@ -835,6 +835,8 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             gtk_widget_hide(drawing_area);
         }
 
+		idledata->percent = 0;
+		g_idle_add(set_progress_value,idledata);
         g_strlcpy(idledata->progress_text, _("Stopped"), 1024);
         g_idle_add(set_progress_text, idledata);
     }
