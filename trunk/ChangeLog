@@ -1,4 +1,5 @@
 Development
+	When Paused and the progress bar is clicked, set state back to playing
 	Make FF/REW go insensitve on pause
 	Reset progess bar on stop
 	Fix bug in OpenButton, pointer data was getting over written
