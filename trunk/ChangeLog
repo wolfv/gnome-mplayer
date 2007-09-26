@@ -1,4 +1,5 @@
 Development
+	Allow CTRL-F to take the display out of fullscreen mode
 	When Paused and the progress bar is clicked, set state back to playing
 	Make FF/REW go insensitve on pause
 	Reset progess bar on stop
