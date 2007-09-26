@@ -2010,7 +2010,7 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
             percent = event->x / width;
 
 			if (idledata->cachepercent > 0.0 && percent > idledata->cachepercent) {
-				percent = idledata->cachepercent - 0.05;
+				percent = idledata->cachepercent - 0.10;
 			}
 			if (!autopause) {
 				if (!idledata->streaming) {
