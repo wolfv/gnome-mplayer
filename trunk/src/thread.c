@@ -108,6 +108,10 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 		error_msg = g_strdup_printf(_("Compressed SWF format not supported"));
 	}
 	
+	if (strstr(mplayer_output->str,"Error while decoding frame") != NULL) {
+		g_idle_add(set_rew, idledata);
+	}
+	
     if (error_msg != NULL) {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
                                         GTK_BUTTONS_CLOSE, error_msg);
