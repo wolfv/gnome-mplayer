@@ -2021,6 +2021,7 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
 					cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
 					send_command(cmd);
 					g_free(cmd);
+					state = PLAYING;
 				}
 			}
 
