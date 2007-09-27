@@ -2034,11 +2034,13 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
 				percent = idledata->cachepercent - 0.10;
 			}
 			if (!idledata->streaming) {
-				if (!autopause && state == PLAYING) {
-					cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
-					send_command(cmd);
-					g_free(cmd);
-					state = PLAYING;
+				if (!autopause) {
+					if (state == PLAYING) {
+						cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
+						send_command(cmd);
+						g_free(cmd);
+						state = PLAYING;
+					}
 				}
 			}
 
