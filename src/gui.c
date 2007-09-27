@@ -2007,7 +2007,7 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
         } else {
             gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, &height);
 
-            percent = event->x / width;
+            percent = (gdouble)event->x / (gdouble)width;
 
 			if (idledata->cachepercent > 0.0 && percent > idledata->cachepercent) {
 				percent = idledata->cachepercent - 0.10;
