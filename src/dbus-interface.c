@@ -315,6 +315,19 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
+				if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetURL") == 0) {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                        g_strlcpy(idledata->url, s, 1024);
+						show_copyurl(idledata);
+					} else {
+                        dbus_error_free(&error);
+                    }
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+				
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetShowControls") == 0
                     && idledata != NULL) {
                     dbus_error_init(&error);

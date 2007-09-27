@@ -63,6 +63,7 @@ PLAYSTATE state;
 
 typedef struct _IdleData {
     gchar info[1024];
+	gchar url[1024];
     gdouble percent;
     gdouble cachepercent;
     gint streaming;
@@ -156,6 +157,7 @@ GtkTreeSelection *selection;
 GtkWidget *create_window(gint windowid);
 gint get_player_window();
 gboolean hide_buttons(void *data);
+gboolean show_copyurl(void *data);
 gboolean set_media_info(void *data);
 gboolean set_progress_value(void *data);
 gboolean set_progress_text(void *data);
