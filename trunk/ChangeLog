@@ -1,4 +1,5 @@
 Development
+	Implement Copy URL function on right click menu when running in plugin mode
 	On error "Error while decoding frame" rewind 10 seconds to find key frame again
 	Allow CTRL-F to take the display out of fullscreen mode
 	When Paused and the progress bar is clicked, set state back to playing

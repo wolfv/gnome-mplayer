@@ -92,6 +92,7 @@ GtkMenuItem *menuitem_play;
 GtkMenuItem *menuitem_pause;
 GtkMenuItem *menuitem_stop;
 GtkMenuItem *menuitem_sep1;
+GtkMenuItem *menuitem_copyurl;
 GtkMenuItem *menuitem_sep2;
 GtkMenuItem *menuitem_sep3;
 GtkMenuItem *menuitem_sep4;

@@ -80,6 +80,13 @@ gboolean hide_buttons(void *data)
     return FALSE;
 }
 
+gboolean show_copyurl(void *data)
+{
+    gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
+	return FALSE;
+		
+}
+
 gboolean set_media_info(void *data)
 {
 
@@ -1354,6 +1361,20 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
 }
 
+void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
+{
+	GtkClipboard *clipboard;
+	gchar *url;
+	
+	url = g_strdup(idledata->url);
+	clipboard = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	gtk_clipboard_set_text(clipboard, url, -1);
+	clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+	gtk_clipboard_set_text(clipboard, url, -1);
+
+	g_free(url);
+}
+
 void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
 {
     if (gtk_check_menu_item_get_active(menuitem)) {
@@ -2213,6 +2234,8 @@ GtkWidget *create_window(gint windowid)
     menuitem_fullscreen = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Full Screen")));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_fullscreen));
     gtk_widget_show(GTK_WIDGET(menuitem_fullscreen));
+    menuitem_copyurl = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Copy URL")));
+    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_copyurl));
     menuitem_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep2));
     gtk_widget_show(GTK_WIDGET(menuitem_sep2));
@@ -2250,6 +2273,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_showcontrols_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_fullscreen), "toggled",
                      G_CALLBACK(menuitem_fs_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_copyurl), "activate",
+                     G_CALLBACK(menuitem_copyurl_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_save), "activate",
