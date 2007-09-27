@@ -2033,8 +2033,8 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
 			if (idledata->cachepercent > 0.0 && percent > idledata->cachepercent) {
 				percent = idledata->cachepercent - 0.10;
 			}
-			if (!autopause) {
-				if (!idledata->streaming) {
+			if (!idledata->streaming) {
+				if (!autopause && state == PLAYING) {
 					cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
 					send_command(cmd);
 					g_free(cmd);
