@@ -109,7 +109,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 	}
 	
 	if (strstr(mplayer_output->str,"Error while decoding frame") != NULL) {
-		g_idle_add(set_rew, idledata);
+		//g_idle_add(set_rew, idledata);
 	}
 	
     if (error_msg != NULL) {
