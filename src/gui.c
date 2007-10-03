@@ -228,7 +228,7 @@ gboolean set_progress_time(void *data)
             }
         }
     } else {
-        if ((int) idle->length == 0 || idle->position > idle->length) {
+        if ((int) idle->length == 0 || idle->position > idle->length || length_hour > 24) {
 
             if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
                 g_snprintf(idle->progress_text, 128,
