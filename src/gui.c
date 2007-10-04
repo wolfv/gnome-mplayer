@@ -315,12 +315,13 @@ gboolean resize_window(void *data)
                                                showcontrols);
             }
             gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+			
             if (window_x == 0 && window_y == 0) {
                 gtk_widget_show_all(GTK_WIDGET(fixed));
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
                 //printf("%i x %i \n",idle->x,idle->y);
-				if (!userresize) {
+				if (last_window_width == 0 && last_window_height == 0) {
 					if (idle->width > 0 && idle->height > 0) {
 						gtk_widget_set_size_request(fixed, idle->width, idle->height);
 						gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
@@ -332,6 +333,8 @@ gboolean resize_window(void *data)
 							total_height += req.height;
 						}
 						gtk_window_resize(GTK_WINDOW(window), idle->width, total_height);
+						last_window_width = idle->width;
+						last_window_height = total_height;
 					}
 				}
             } else {
@@ -594,7 +597,6 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
                 new_height = allocation->height;
                 new_width = allocation->height * movie_ratio;
             }
-			userresize = TRUE;
         }
         //printf("new movie size = %i x %i (%i x %i)\n",new_width,new_height,allocation->width, allocation->height);
         gtk_widget_set_usize(drawing_area, new_width, new_height);

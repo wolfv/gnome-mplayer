@@ -131,6 +131,7 @@ gint autostart;
 gint actual_x, actual_y;
 gint play_x, play_y;
 gint last_x, last_y;
+gint last_window_width, last_window_height;
 gchar vm[10];
 gchar *vo;
 gchar *ao;
@@ -141,7 +142,6 @@ gboolean dontplaynext;
 gboolean autopause;
 gchar *path;
 gint js_state;
-gboolean userresize;
 
 gboolean qt_disabled;
 gboolean real_disabled;

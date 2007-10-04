@@ -156,6 +156,8 @@ int main(int argc, char *argv[])
     control_id = 0;
     window_x = 0;
     window_y = 0;
+	last_window_width = 0;
+	last_window_height = 0;
     showcontrols = 1;
     autostart = 1;
     videopresent = 1;
@@ -174,7 +176,6 @@ int main(int argc, char *argv[])
 	lastfile = NULL;
 	path = NULL;
 	js_state = STATE_UNDEFINED;
-	userresize = FALSE;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();

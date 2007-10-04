@@ -1,3 +1,5 @@
+Development
+	Handle the resize code differently so that kvbc.com works
 0.5.1
 	Hide total time display on streaming media when total time is greater than 24 hours
 	Implement Copy URL function on right click menu when running in plugin mode
