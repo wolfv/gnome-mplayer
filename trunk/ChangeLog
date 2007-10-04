@@ -1,4 +1,4 @@
-Development
+0.5.1
 	Hide total time display on streaming media when total time is greater than 24 hours
 	Implement Copy URL function on right click menu when running in plugin mode
 	On error "Error while decoding frame" rewind 10 seconds to find key frame again
