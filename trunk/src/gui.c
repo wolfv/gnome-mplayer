@@ -332,6 +332,10 @@ gboolean resize_window(void *data)
 							gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
 							total_height += req.height;
 						}
+						if (GTK_IS_WIDGET(plvbox)) {
+							gtk_widget_size_request(GTK_WIDGET(plvbox), &req);
+							total_height += req.height;
+						}
 						gtk_window_resize(GTK_WINDOW(window), idle->width, total_height);
 						last_window_width = idle->width;
 						last_window_height = total_height;
@@ -737,39 +741,45 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 	gchar **list;
 	gint i = 0;
 	
-    /* Important, check if we actually got data.  Sometimes errors
-     * occure and selection_data will be NULL.
-     */
-    if (selection_data == NULL)
-        return FALSE;
-    if (selection_data->length < 0)
-        return FALSE;
+	if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+		return playlist_drop_callback(widget,dc,x,y,selection_data,info,t,data);
+	} else {
+	
+	    /* Important, check if we actually got data.  Sometimes errors
+	     * occure and selection_data will be NULL.
+	     */
+	    if (selection_data == NULL)
+	        return FALSE;
+	    if (selection_data->length < 0)
+	        return FALSE;
 
-    if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
-        filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
-		list = g_strsplit(filename,"\n",0);
-		gtk_list_store_clear(playliststore);
-		gtk_list_store_clear(nonrandomplayliststore);		
-		
-		while(list[i] != NULL) {
-			g_strchomp(list[i]);
-			if(strlen(list[i]) > 0) {
-				if(!parse_playlist(list[i])) {
-					localiter = add_item_to_playlist(list[i],0);
+	    if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
+	        filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
+			list = g_strsplit(filename,"\n",0);
+			gtk_list_store_clear(playliststore);
+			gtk_list_store_clear(nonrandomplayliststore);		
+			
+			while(list[i] != NULL) {
+				g_strchomp(list[i]);
+				if(strlen(list[i]) > 0) {
+					if(!parse_playlist(list[i])) {
+						localiter = add_item_to_playlist(list[i],0);
+					}
 				}
+				i++;
 			}
-			i++;
-		}
-		
-		if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
-			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
-			shutdown();
-			play_file(list[0],0);
-		}
-		g_strfreev(list);
-		update_gui();
-    }
-	return FALSE;
+			
+			if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
+				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+				shutdown();
+				play_file(list[0],0);
+			}
+			g_strfreev(list);
+			update_gui();
+	    }
+		return FALSE;
+	}
+	
 }
 
 gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
@@ -1458,7 +1468,7 @@ void config_apply(GtkWidget * widget, void *data)
 void config_close(GtkWidget * widget, void *data)
 {
 	selection = NULL;
-    gtk_widget_destroy(widget);
+	gtk_widget_destroy(widget);
 }
 
 void brightness_callback(GtkRange * range, gpointer data)
