@@ -1,4 +1,5 @@
 Development
+	Move playlist from window to panel (still needs cleanup)
 	Handle the resize code differently so that kvbc.com works
 0.5.1
 	Hide total time display on streaming media when total time is greater than 24 hours
