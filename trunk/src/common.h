@@ -183,6 +183,7 @@ void dbus_open_by_hrefid(gchar * hrefid);
 void dbus_open_next();
 void dbus_cancel();
 void dbus_reload_plugins();
+void dbus_send_rpsignal(gchar * signal);
 void dbus_send_event(gchar *event, gint button);
 void dbus_unhook();
 void dbus_disable_screensaver();
