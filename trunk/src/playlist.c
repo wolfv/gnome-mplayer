@@ -319,12 +319,16 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	
 	if (GTK_IS_WIDGET(plvbox)) {
 		if (GTK_WIDGET_VISIBLE(plvbox)) {
+			if (idledata->videopresent == FALSE)
+				gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
 			gtk_widget_hide_all(plvbox);
 		} else {
+			gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
 			gtk_widget_show_all(plvbox);
 		}
 		
 	} else {
+		gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
 		playlist_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 		//gtk_widget_set_size_request(GTK_WIDGET(playlist_window),300,200);
 	   	gtk_window_set_icon(GTK_WINDOW(playlist_window), pb_icon);
@@ -436,8 +440,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	    gtk_box_pack_start(GTK_BOX(plvbox),hbox,FALSE,FALSE,0);
 		
 		
-	    gtk_container_add(GTK_CONTAINER(vbox), plvbox);
-		
+	    //gtk_container_add(GTK_CONTAINER(vbox), plvbox);
+		gtk_paned_add2(GTK_PANED(pane),plvbox);
 	    //gtk_container_add(GTK_CONTAINER(playlist_window), vbox);
 		gtk_widget_show_all(plvbox);
 		

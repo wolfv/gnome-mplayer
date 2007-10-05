@@ -62,6 +62,8 @@ static GOptionEntry entries[] = {
 	{"disablecontextmenu", 0, 0, G_OPTION_ARG_NONE, &disable_context_menu, N_("Disable popup menu on right click"), NULL},
 	{"loop",0,0,G_OPTION_ARG_NONE, &loop, N_("Play all files on the playlist forever"),NULL},
 	{"random",0,0,G_OPTION_ARG_NONE, &random_order, N_("Play items on playlist in random order"),NULL},
+	{"rpname",0,0,G_OPTION_ARG_STRING, &rpname, N_("Real Player Name"),"NAME"},
+	{"rptarget",0,0,G_OPTION_ARG_STRING, &rptarget, N_("Real Player Target to control"),"TARGET"},
     {NULL}
 };
 
@@ -206,6 +208,13 @@ int main(int argc, char *argv[])
 	
 	if (verbose)
 		printf(_("GNOME MPlayer v%s\n"), VERSION);
+
+	if (rpname == NULL)
+		rpname = g_strdup("NONE");
+	
+printf("name = %s\n",rpname);
+printf("target = %s\n",rptarget);
+	
 	
 	// setup playliststore
 	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);

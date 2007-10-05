@@ -1,4 +1,8 @@
 Development
+	Add hotkey "#" to switch audio
+	Add command line options rpname and rptarget, this is for better real player support
+	Fix some resizing issues with new layout
+	Embed playlist in a vertical pane
 	Move playlist from window to panel (still needs cleanup)
 	Handle the resize code differently so that kvbc.com works
 0.5.1
