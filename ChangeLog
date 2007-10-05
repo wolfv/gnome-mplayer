@@ -1,4 +1,5 @@
 Development
+	Move playlist to horizontal pane and redo buttons (shifting between horz and vert could be easy now)
 	Add hotkey "#" to switch audio
 	Add command line options rpname and rptarget, this is for better real player support
 	Fix some resizing issues with new layout
