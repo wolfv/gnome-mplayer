@@ -509,7 +509,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
             } else {
-                // printf("path didn't match\n");
+				if (verbose)
+	                printf("path didn't match - %s\n",dbus_message_get_path(message));
             }
 
         }
@@ -571,6 +572,26 @@ void dbus_cancel()
 	}
 
 }
+
+void dbus_send_rpsignal(gchar * signal)
+{
+    gchar *path;
+	gchar *localsignal;
+    DBusMessage *message;
+    gint id;
+
+    id = control_id;
+	if (connection != NULL && rptarget != NULL) {
+		path = g_strdup_printf("/control/%s", rptarget);
+		localsignal = g_strdup(signal);
+		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
+		dbus_connection_send(connection, message, NULL);
+		dbus_message_unref(message);
+		g_free(localsignal);
+		g_free(path);
+	}
+}
+
 
 void dbus_reload_plugins()
 {

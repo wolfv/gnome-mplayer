@@ -839,6 +839,11 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 			
 
         }
+		
+		if (rptarget != NULL) {
+			dbus_send_rpsignal("Play");
+		}
+		
         if (state == QUIT) {
 			if(next_item_in_playlist(&iter)) {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
@@ -875,6 +880,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     if (data == NULL) {
         if (state == PAUSED) {
             send_command("pause\n");
+			dbus_send_rpsignal("Play");
             state = PLAYING;
         }
         if (state == PLAYING) {
@@ -891,6 +897,10 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             gtk_widget_hide(drawing_area);
         }
 
+		if (rptarget != NULL) {
+			dbus_send_rpsignal("Stop");
+		}
+		
 		idledata->percent = 0;
 		g_idle_add(set_progress_value,idledata);
         g_strlcpy(idledata->progress_text, _("Stopped"), 1024);
@@ -905,7 +915,12 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     if (state == PLAYING) {
         send_command("seek +10 0\n");
     }
-    return FALSE;
+
+	if (rptarget != NULL) {
+		dbus_send_rpsignal("FastForward");
+	}
+    
+	return FALSE;
 }
 
 gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
@@ -913,7 +928,12 @@ gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     if (state == PLAYING) {
         send_command("seek -10 0\n");
     }
-    return FALSE;
+
+	if (rptarget != NULL) {
+		dbus_send_rpsignal("FastReverse");
+	}
+    
+	return FALSE;
 }
 
 gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
