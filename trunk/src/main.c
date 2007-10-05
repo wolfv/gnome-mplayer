@@ -212,6 +212,14 @@ int main(int argc, char *argv[])
 	if (rpname == NULL)
 		rpname = g_strdup("NONE");
 		
+	if (rpname != NULL && rptarget != NULL) {
+		if (g_strcasecmp(rpname,rptarget) == 0) {
+			g_free(rptarget);
+			rptarget = NULL;
+		}
+	}
+	
+	
 	// setup playliststore
 	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);
 	nonrandomplayliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);
