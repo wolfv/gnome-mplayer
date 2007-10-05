@@ -166,7 +166,7 @@ int main(int argc, char *argv[])
 	disable_context_menu = 0;
 	dontplaynext = FALSE;
     idledata = (IdleData *) g_new0(IdleData, 1);
-    idledata->videopresent = 1;
+    idledata->videopresent = FALSE;
     idledata->volume = 100.0;
     idledata->length = 0.0;
     idledata->brightness = 0;
@@ -211,11 +211,7 @@ int main(int argc, char *argv[])
 
 	if (rpname == NULL)
 		rpname = g_strdup("NONE");
-	
-printf("name = %s\n",rpname);
-printf("target = %s\n",rptarget);
-	
-	
+		
 	// setup playliststore
 	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);
 	nonrandomplayliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);

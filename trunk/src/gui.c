@@ -303,6 +303,7 @@ gboolean resize_window(void *data)
 
     IdleData *idle = (IdleData *) data;
     gint total_height = 0;
+	gint total_width = 0;
     GtkRequisition req;
 
     if (GTK_IS_WIDGET(window)) {
@@ -336,7 +337,9 @@ gboolean resize_window(void *data)
 							gtk_widget_size_request(GTK_WIDGET(plvbox), &req);
 							total_height += req.height;
 						}
-						gtk_window_resize(GTK_WINDOW(window), idle->width, total_height);
+						total_width = idle->width + req.width;
+						
+						gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
 						last_window_width = idle->width;
 						last_window_height = total_height;
 					}
@@ -379,7 +382,11 @@ gboolean resize_window(void *data)
                     gtk_widget_set_size_request(fixed, window_x, total_height);
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             } else {
-                gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
+				if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+					gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+				} else {
+	                gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
+				}
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
                 gtk_widget_show(GTK_WIDGET(song_title));
@@ -2550,8 +2557,8 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_show(menubar);
     gtk_widget_show(drawing_area);
-	pane = gtk_vpaned_new();
-	gtk_paned_add1(GTK_PANED(pane),vbox);
+	pane = gtk_hpaned_new();
+	gtk_paned_pack1(GTK_PANED(pane),vbox,TRUE,TRUE);
 	
     gtk_container_add(GTK_CONTAINER(window), pane);
 
