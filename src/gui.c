@@ -351,6 +351,10 @@ gboolean resize_window(void *data)
                         gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                         total_height -= req.height;
                     }
+					if (GTK_IS_WIDGET(plvbox)) {
+						gtk_widget_size_request(GTK_WIDGET(plvbox), &req);
+						total_height += req.height;
+					}
                     if (window_x > 0 && total_height > 0)
                         gtk_widget_set_size_request(fixed, window_x, total_height);
                     gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
@@ -367,6 +371,10 @@ gboolean resize_window(void *data)
                     gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                     total_height -= req.height;
                 }
+				if (GTK_IS_WIDGET(plvbox)) {
+					gtk_widget_size_request(GTK_WIDGET(plvbox), &req);
+					total_height += req.height;
+				}
                 if (window_x > 0 && total_height > 0)
                     gtk_widget_set_size_request(fixed, window_x, total_height);
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
@@ -383,6 +391,10 @@ gboolean resize_window(void *data)
                     gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                     total_height += req.height;
                 }
+				if (GTK_IS_WIDGET(plvbox)) {
+					gtk_widget_size_request(GTK_WIDGET(plvbox), &req);
+					total_height += req.height;
+				}
                 gtk_window_resize(GTK_WINDOW(window), req.width, total_height);
             }
         }
@@ -712,6 +724,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 			return FALSE;
 		case GDK_0:
 			gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider))+10);			
+			return FALSE;
+		case GDK_numbersign:
+			send_command("pausing_keep switch_audio\n");
 			return FALSE;
         default:
             return FALSE;
@@ -2535,7 +2550,10 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_show(menubar);
     gtk_widget_show(drawing_area);
-    gtk_container_add(GTK_CONTAINER(window), vbox);
+	pane = gtk_vpaned_new();
+	gtk_paned_add1(GTK_PANED(pane),vbox);
+	
+    gtk_container_add(GTK_CONTAINER(window), pane);
 
     error = NULL;
     icon_theme = gtk_icon_theme_get_default();

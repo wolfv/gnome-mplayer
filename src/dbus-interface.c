@@ -62,6 +62,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     gchar *path1;
     gchar *path2;
     gchar *path3;
+	gchar *path4;
     GString *xml;
     gchar *xml_string;
 	gint count;
@@ -78,13 +79,15 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     path1 = g_strdup_printf("/control/%i", control_id);
     path2 = g_strdup_printf("/window/%i", embed_window);
     path3 = g_strdup_printf("/pid/%i", getpid());
+	path4 = g_strdup_printf("/control/%s", rpname);
 
     if (dbus_message_get_path(message)) {
 
         if (g_ascii_strcasecmp(dbus_message_get_path(message), "/") == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), path1) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), path2) == 0 ||
-            g_ascii_strcasecmp(dbus_message_get_path(message), path3) == 0) {
+            g_ascii_strcasecmp(dbus_message_get_path(message), path3) == 0 ||
+            g_ascii_strcasecmp(dbus_message_get_path(message), path4) == 0) {
 
             // printf("Path matched %s\n", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {

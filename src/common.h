@@ -142,6 +142,9 @@ gboolean dontplaynext;
 gboolean autopause;
 gchar *path;
 gint js_state;
+gchar *rpname;
+gchar *rptarget;
+
 
 gboolean qt_disabled;
 gboolean real_disabled;

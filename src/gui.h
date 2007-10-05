@@ -103,6 +103,7 @@ GtkMenuItem *menuitem_config;
 GtkMenuItem *menuitem_quit;
 gulong delete_signal_id;
 
+GtkWidget *pane;
 GtkWidget *vbox;
 GtkWidget *hbox;
 GtkWidget *controls_box;
