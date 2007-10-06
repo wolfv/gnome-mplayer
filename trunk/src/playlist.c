@@ -315,6 +315,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkTreePath *path;
 	GtkAccelGroup *accel_group;
 	GValue value = {0, };
+	GtkTooltips *tooltip;
 	
 	//if (GTK_IS_TREE_SELECTION(selection)){
 	//	return;
@@ -381,6 +382,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 
 		
 	    close = gtk_button_new();
+	    tooltip = gtk_tooltips_new();
+	    gtk_tooltips_set_tip(tooltip, close, _("Close Playlist View"), NULL);
 		gtk_container_add(GTK_CONTAINER(close),gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
 		
 	    g_signal_connect_swapped(GTK_OBJECT(close), "clicked",
@@ -388,21 +391,29 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 
 
 		loadlist = gtk_button_new();
+	    tooltip = gtk_tooltips_new();
+	    gtk_tooltips_set_tip(tooltip, loadlist, _("Open Playlist"), NULL);
 		gtk_container_add(GTK_CONTAINER(loadlist),gtk_image_new_from_stock(GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU));
 	    gtk_box_pack_start(GTK_BOX(ctrlbox), loadlist,FALSE,FALSE,0);
 		g_signal_connect(GTK_OBJECT(loadlist),"clicked",GTK_SIGNAL_FUNC(load_playlist),NULL);
 
 		savelist = gtk_button_new();
+	    tooltip = gtk_tooltips_new();
+	    gtk_tooltips_set_tip(tooltip, savelist, _("Save Playlist"), NULL);
 		gtk_container_add(GTK_CONTAINER(savelist),gtk_image_new_from_stock(GTK_STOCK_SAVE, GTK_ICON_SIZE_MENU));
 	    gtk_box_pack_start(GTK_BOX(ctrlbox), savelist,FALSE,FALSE,0);
 		g_signal_connect(GTK_OBJECT(savelist),"clicked",GTK_SIGNAL_FUNC(save_playlist),NULL);
 
 		add = gtk_button_new();
+	    tooltip = gtk_tooltips_new();
+	    gtk_tooltips_set_tip(tooltip, add, _("Add Item to Playlist"), NULL);
 		gtk_button_set_image(GTK_BUTTON(add),gtk_image_new_from_stock(GTK_STOCK_ADD, GTK_ICON_SIZE_MENU));
 	    gtk_box_pack_start(GTK_BOX(ctrlbox), add,FALSE,FALSE,0);
 		g_signal_connect(GTK_OBJECT(add),"clicked",GTK_SIGNAL_FUNC(add_to_playlist),NULL);
 
 		remove = gtk_button_new();
+	    tooltip = gtk_tooltips_new();
+	    gtk_tooltips_set_tip(tooltip, remove, _("Remove Item from Playlist"), NULL);
 		gtk_button_set_image(GTK_BUTTON(remove),gtk_image_new_from_stock(GTK_STOCK_REMOVE, GTK_ICON_SIZE_MENU));
 	    gtk_box_pack_start(GTK_BOX(ctrlbox), remove,FALSE,FALSE,0);
 		g_signal_connect(GTK_OBJECT(remove),"clicked",GTK_SIGNAL_FUNC(remove_from_playlist),list);

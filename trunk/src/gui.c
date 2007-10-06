@@ -333,15 +333,17 @@ gboolean resize_window(void *data)
 							gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
 							total_height += req.height;
 						}
-						if (GTK_IS_WIDGET(plvbox)) {
+						
+						total_width = idle->width;
+						if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
 							gtk_widget_size_request(GTK_WIDGET(plvbox), &req);
 							total_height += req.height;
+							total_width = idle->width + req.width;
 						}
-						total_width = idle->width + req.width;
 						
 						gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
 						last_window_width = idle->width;
-						last_window_height = total_height;
+						last_window_height = idle->height;
 					}
 				}
             } else {
