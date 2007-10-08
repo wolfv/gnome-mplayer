@@ -90,6 +90,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
             g_ascii_strcasecmp(dbus_message_get_path(message), path3) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), path4) == 0) {
 
+			idledata->fromdbus = TRUE;
+				
             // printf("Path matched %s\n", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Open") == 0) {
@@ -195,36 +197,31 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Play") == 0
                     && idledata != NULL) {
-					if (!control_instance)
-	                    g_idle_add(set_play, idledata);
+                    g_idle_add(set_play, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Pause") == 0
                     && idledata != NULL) {
-					if (!control_instance)
-	                    g_idle_add(set_pause, idledata);
+                    g_idle_add(set_pause, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Stop") == 0
                     && idledata != NULL) {
-					if (!control_instance)
-	                    g_idle_add(set_stop, idledata);
+                    g_idle_add(set_stop, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastForward") == 0
                     && idledata != NULL) {
-					if (!control_instance)
-	                    g_idle_add(set_ff, idledata);
+	                g_idle_add(set_ff, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastReverse") == 0
                     && idledata != NULL) {
-					if (!control_instance)
-	                    g_idle_add(set_rew, idledata);
+	                g_idle_add(set_rew, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
@@ -590,7 +587,7 @@ void dbus_send_rpsignal(gchar * signal)
     gint id;
 
     id = control_id;
-	if (connection != NULL && rpconsole != NULL && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 1) {
+	if (connection != NULL && rpconsole != NULL) {
 		path = g_strdup_printf("/console/%s", rpconsole);
 		localsignal = g_strdup(signal);
 		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
@@ -609,7 +606,7 @@ void dbus_send_rpsignal_with_double(gchar * signal, gdouble value)
     gint id;
 
     id = control_id;
-	if (connection != NULL && rpconsole != NULL && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 1) {
+	if (connection != NULL && rpconsole != NULL) {
 		path = g_strdup_printf("/console/%s", rpconsole);
 		localsignal = g_strdup(signal);
 		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
@@ -628,9 +625,9 @@ void dbus_send_rpsignal_with_string(gchar * signal, gchar* value)
     DBusMessage *message;
     gint id;
 	gchar *localstr;
-	
+
     id = control_id;
-	if (connection != NULL && rpconsole != NULL && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 1) {
+	if (connection != NULL && rpconsole != NULL) {
 		path = g_strdup_printf("/console/%s", rpconsole);
 		localsignal = g_strdup(signal);
 		localstr = g_strdup(value);

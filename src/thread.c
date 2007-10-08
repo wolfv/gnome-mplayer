@@ -144,7 +144,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         return FALSE;
     }
 
-
+	idledata->fromdbus = FALSE;
+	
     if (state == QUIT) {
         g_idle_add(set_stop, idledata);
         state = QUIT;

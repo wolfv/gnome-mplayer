@@ -94,6 +94,7 @@ typedef struct _IdleData {
     gchar audio_codec[16];
     gchar audio_bitrate[16];
     gchar audio_samplerate[16];
+	gboolean fromdbus;
 } IdleData;
 
 IdleData *idledata;
