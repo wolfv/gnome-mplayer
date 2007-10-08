@@ -63,7 +63,8 @@ static GOptionEntry entries[] = {
 	{"loop",0,0,G_OPTION_ARG_NONE, &loop, N_("Play all files on the playlist forever"),NULL},
 	{"random",0,0,G_OPTION_ARG_NONE, &random_order, N_("Play items on playlist in random order"),NULL},
 	{"rpname",0,0,G_OPTION_ARG_STRING, &rpname, N_("Real Player Name"),"NAME"},
-	{"rptarget",0,0,G_OPTION_ARG_STRING, &rptarget, N_("Real Player Target to control"),"TARGET"},
+	{"rpconsole",0,0,G_OPTION_ARG_STRING, &rpconsole, N_("Real Player Console ID"),"CONSOLE"},
+	{"rpcontrols",0,0,G_OPTION_ARG_STRING, &rpcontrols, N_("Real Player Console Controls"),"Control Name,..."},
     {NULL}
 };
 
@@ -178,6 +179,7 @@ int main(int argc, char *argv[])
 	lastfile = NULL;
 	path = NULL;
 	js_state = STATE_UNDEFINED;
+	control_instance = TRUE;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -209,16 +211,8 @@ int main(int argc, char *argv[])
 	if (verbose)
 		printf(_("GNOME MPlayer v%s\n"), VERSION);
 
-	if (rpname == NULL)
-		rpname = g_strdup("NONE");
-		
-	if (rpname != NULL && rptarget != NULL) {
-		if (g_strcasecmp(rpname,rptarget) == 0) {
-			g_free(rptarget);
-			rptarget = NULL;
-		}
-	}
-	
+	if (rpconsole == NULL)
+		rpconsole = g_strdup("NONE");
 	
 	// setup playliststore
 	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);

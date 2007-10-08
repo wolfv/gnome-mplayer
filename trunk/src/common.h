@@ -143,8 +143,9 @@ gboolean autopause;
 gchar *path;
 gint js_state;
 gchar *rpname;
-gchar *rptarget;
-
+gchar *rpconsole;
+gchar *rpcontrols;
+gboolean control_instance;
 
 gboolean qt_disabled;
 gboolean real_disabled;
@@ -184,6 +185,8 @@ void dbus_open_next();
 void dbus_cancel();
 void dbus_reload_plugins();
 void dbus_send_rpsignal(gchar * signal);
+void dbus_send_rpsignal_with_double(gchar * signal, gdouble value);
+void dbus_send_rpsignal_with_string(gchar * signal, gchar* value);
 void dbus_send_event(gchar *event, gint button);
 void dbus_unhook();
 void dbus_disable_screensaver();

@@ -63,8 +63,8 @@ gboolean hide_buttons(void *data)
 			gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save),FALSE);
         } else {
             if (embed_window == 0 || window_x > 250) {
-                gtk_widget_show(ff_event_box);
-                gtk_widget_show(rew_event_box);
+                gtk_widget_show_all(ff_event_box);
+                gtk_widget_show_all(rew_event_box);
             }
         }
     }
@@ -74,8 +74,8 @@ gboolean hide_buttons(void *data)
 		gtk_widget_hide(prev_event_box);
 		gtk_widget_hide(next_event_box);
 	} else {
-		gtk_widget_show(prev_event_box);
-		gtk_widget_show(next_event_box);
+		gtk_widget_show_all(prev_event_box);
+		gtk_widget_show_all(next_event_box);
 	}
     return FALSE;
 }
@@ -126,6 +126,7 @@ gboolean set_progress_value(void *data)
 		if (idle->cachepercent < 1.0 && state == PAUSED) {
 			text = g_strdup_printf(_("Paused | %2i%% \342\226\274"),(gint)(idle->cachepercent * 100));
 			gtk_progress_bar_set_text(progress, text);
+			dbus_send_rpsignal_with_string("SetProgressText",text);
 			g_free(text);
 		} else {
 			gtk_progress_bar_set_text(progress, idle->progress_text);
@@ -176,6 +177,7 @@ gboolean set_progress_text(void *data)
     if (GTK_IS_WIDGET(progress)) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
+	dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
     return FALSE;
 }
 
@@ -258,6 +260,8 @@ gboolean set_progress_time(void *data)
     if (GTK_IS_WIDGET(progress) && idle->position > 0) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
+	dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
+
     return FALSE;
 }
 
@@ -842,7 +846,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
         }
 		
-		if (rptarget != NULL) {
+		if (rpconsole != NULL) {
 			dbus_send_rpsignal("Play");
 		}
 		
@@ -899,7 +903,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             gtk_widget_hide(drawing_area);
         }
 
-		if (rptarget != NULL) {
+		if (rpconsole != NULL) {
 			dbus_send_rpsignal("Stop");
 		}
 		
@@ -918,7 +922,7 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         send_command("seek +10 0\n");
     }
 
-	if (rptarget != NULL) {
+	if (rpconsole != NULL) {
 		dbus_send_rpsignal("FastForward");
 	}
     
@@ -931,7 +935,7 @@ gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         send_command("seek -10 0\n");
     }
 
-	if (rptarget != NULL) {
+	if (rpconsole != NULL) {
 		dbus_send_rpsignal("FastReverse");
 	}
     
@@ -2237,6 +2241,7 @@ GtkWidget *create_window(gint windowid)
     GtkIconTheme *icon_theme;
     GtkTargetEntry target_entry[3];
     gint i = 0;
+	gchar **visuals;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
@@ -2804,31 +2809,77 @@ GtkWidget *create_window(gint windowid)
 
     }
 
-    if (windowid != -1)
-        gtk_widget_show_all(window);
-    gtk_widget_hide(song_title);
+	if (rpcontrols == NULL) {	
+	    if (windowid != -1)
+	        gtk_widget_show_all(window);
+	    gtk_widget_hide(song_title);
+		
+		if (windowid == 0 && control_id == 0)
+			gtk_widget_hide(fixed);
+		
+	    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
+
+	    if (windowid != 0) {
+	        gtk_widget_hide(GTK_WIDGET(song_title));
+	        if (window_x < 250) {
+	            gtk_widget_hide(rew_event_box);
+	            gtk_widget_hide(ff_event_box);
+	            gtk_widget_hide(fs_event_box);
+	        }
+
+	        if (window_x < 170) {
+	            gtk_widget_hide(GTK_WIDGET(progress));
+	        }
+	        if (window_x > 0 && window_y > 0) {
+	            gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
+	        }
+	    }
+	} else {
+		
+		if (windowid != -1)
+			gtk_widget_show_all(window);
 	
-	if (windowid == 0 && control_id == 0)
 		gtk_widget_hide(fixed);
-	
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
+		gtk_widget_hide(menubar);
+		gtk_widget_hide_all(controls_box);
+		
+		printf("showing the following controls = %s\n",rpcontrols);
+		visuals = g_strsplit(rpcontrols,",",0);
+		i = 0;
+		while(visuals[i] != NULL) {
+			if (g_strcasecmp(visuals[i],"statusbar") == 0 || g_strcasecmp(visuals[i],"infopanel") == 0) {
+				gtk_widget_show(GTK_WIDGET(progress));	
+				gtk_widget_show(controls_box);
+				gtk_widget_show(hbox);
+				control_instance = FALSE;
+			}
+			if (g_strcasecmp(visuals[i],"volumeslider") == 0) {
+				gtk_widget_show(GTK_WIDGET(vol_slider));	
+				gtk_widget_show(controls_box);
+				gtk_widget_show(hbox);
+			}
+			if (g_strcasecmp(visuals[i],"playbutton") == 0) {
+				gtk_widget_show_all(GTK_WIDGET(play_event_box));	
+				gtk_widget_show(controls_box);
+				gtk_widget_show(hbox);
+			}
+			if (g_strcasecmp(visuals[i],"stopbutton") == 0) {
+				gtk_widget_show_all(GTK_WIDGET(stop_event_box));	
+				gtk_widget_show(controls_box);
+				gtk_widget_show(hbox);
+			}
 
-    if (windowid != 0) {
-        gtk_widget_hide(GTK_WIDGET(song_title));
-        if (window_x < 250) {
-            gtk_widget_hide(rew_event_box);
-            gtk_widget_hide(ff_event_box);
-            gtk_widget_hide(fs_event_box);
-        }
-
-        if (window_x < 170) {
-            gtk_widget_hide(GTK_WIDGET(progress));
-        }
-        if (window_x > 0 && window_y > 0) {
-            gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
-        }
-    }
-
+			if (g_strcasecmp(visuals[i],"imagewindow") == 0) {
+				gtk_widget_show_all(GTK_WIDGET(fixed));	
+				control_instance = FALSE;
+			}
+			
+			i++;
+		}
+		
+		
+	}
+		
     g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), NULL);
     g_signal_connect(G_OBJECT(fixed), "expose_event", G_CALLBACK(expose_fixed_callback), NULL);
 

@@ -79,7 +79,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     path1 = g_strdup_printf("/control/%i", control_id);
     path2 = g_strdup_printf("/window/%i", embed_window);
     path3 = g_strdup_printf("/pid/%i", getpid());
-	path4 = g_strdup_printf("/control/%s", rpname);
+	
+	path4 = g_strdup_printf("/console/%s", rpconsole);
 
     if (dbus_message_get_path(message)) {
 
@@ -96,28 +97,30 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-						gtk_list_store_clear(playliststore);
-						gtk_list_store_clear(nonrandomplayliststore);
-						selection = NULL;
-						playlist = detect_playlist(s);
-						if (!playlist ) {
-							add_item_to_playlist(s,playlist);
-						} else {
-							if (!parse_playlist(s)) {	
+						if (strlen(s) > 0) {
+							gtk_list_store_clear(playliststore);
+							gtk_list_store_clear(nonrandomplayliststore);
+							selection = NULL;
+							playlist = detect_playlist(s);
+							if (!playlist ) {
 								add_item_to_playlist(s,playlist);
+							} else {
+								if (!parse_playlist(s)) {	
+									add_item_to_playlist(s,playlist);
+								}
 							}
-						}
-						if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
-							gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&s, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-							set_media_info(s);
-							play_file(s, playlist);
-							gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-						}
-							
-						if (GTK_IS_TREE_SELECTION(selection)) {
-							treepath = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
-							gtk_tree_selection_select_path(selection,treepath);	
-							gtk_tree_path_free(treepath);
+							if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
+								gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&s, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+								set_media_info(s);
+								play_file(s, playlist);
+								gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+							}
+								
+							if (GTK_IS_TREE_SELECTION(selection)) {
+								treepath = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+								gtk_tree_selection_select_path(selection,treepath);	
+								gtk_tree_path_free(treepath);
+							}
 						}
 							
                     } else {
@@ -172,7 +175,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-						add_item_to_playlist(s,0);
+						if (strlen(s) > 0)
+																												add_item_to_playlist(s,0);
 					} else {
                         dbus_error_free(&error);
                     }
@@ -191,31 +195,36 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Play") == 0
                     && idledata != NULL) {
-                    g_idle_add(set_play, idledata);
+					if (!control_instance)
+	                    g_idle_add(set_play, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Pause") == 0
                     && idledata != NULL) {
-                    g_idle_add(set_pause, idledata);
+					if (!control_instance)
+	                    g_idle_add(set_pause, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Stop") == 0
                     && idledata != NULL) {
-                    g_idle_add(set_stop, idledata);
+					if (!control_instance)
+	                    g_idle_add(set_stop, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastForward") == 0
                     && idledata != NULL) {
-                    g_idle_add(set_ff, idledata);
+					if (!control_instance)
+	                    g_idle_add(set_ff, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastReverse") == 0
                     && idledata != NULL) {
-                    g_idle_add(set_rew, idledata);
+					if (!control_instance)
+	                    g_idle_add(set_rew, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
@@ -581,8 +590,8 @@ void dbus_send_rpsignal(gchar * signal)
     gint id;
 
     id = control_id;
-	if (connection != NULL && rptarget != NULL) {
-		path = g_strdup_printf("/control/%s", rptarget);
+	if (connection != NULL && rpconsole != NULL && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 1) {
+		path = g_strdup_printf("/console/%s", rpconsole);
 		localsignal = g_strdup(signal);
 		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
 		dbus_connection_send(connection, message, NULL);
@@ -592,6 +601,48 @@ void dbus_send_rpsignal(gchar * signal)
 	}
 }
 
+void dbus_send_rpsignal_with_double(gchar * signal, gdouble value)
+{
+    gchar *path;
+	gchar *localsignal;
+    DBusMessage *message;
+    gint id;
+
+    id = control_id;
+	if (connection != NULL && rpconsole != NULL && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 1) {
+		path = g_strdup_printf("/console/%s", rpconsole);
+		localsignal = g_strdup(signal);
+		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
+        dbus_message_append_args(message, DBUS_TYPE_DOUBLE, &value, DBUS_TYPE_INVALID);
+		dbus_connection_send(connection, message, NULL);
+		dbus_message_unref(message);
+		g_free(localsignal);
+		g_free(path);
+	}
+}
+
+void dbus_send_rpsignal_with_string(gchar * signal, gchar* value)
+{
+    gchar *path;
+	gchar *localsignal;
+    DBusMessage *message;
+    gint id;
+	gchar *localstr;
+	
+    id = control_id;
+	if (connection != NULL && rpconsole != NULL && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 1) {
+		path = g_strdup_printf("/console/%s", rpconsole);
+		localsignal = g_strdup(signal);
+		localstr = g_strdup(value);
+		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &localstr, DBUS_TYPE_INVALID);
+		dbus_connection_send(connection, message, NULL);
+		dbus_message_unref(message);
+		g_free(localstr);
+		g_free(localsignal);
+		g_free(path);
+	}
+}
 
 void dbus_reload_plugins()
 {
