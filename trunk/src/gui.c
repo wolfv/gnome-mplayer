@@ -2880,6 +2880,13 @@ GtkWidget *create_window(gint windowid)
 				gtk_widget_show_all(GTK_WIDGET(fixed));	
 				control_instance = FALSE;
 			}
+
+			if (g_strcasecmp(visuals[i],"controlpanel") == 0) {
+				gtk_widget_show(controls_box);
+				gtk_widget_show_all(hbox);
+				gtk_widget_hide(GTK_WIDGET(progress));
+				control_instance = FALSE;
+			}
 			
 			i++;
 		}
