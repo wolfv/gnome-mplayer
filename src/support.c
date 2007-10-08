@@ -578,8 +578,8 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 					   PLAYLIST_COLUMN,playlist, -1);
 	
 	g_free(desc);
-	
-	return localiter;
+	return localiter;	
+
 }
 
 gboolean next_item_in_playlist(GtkTreeIter *iter) 
