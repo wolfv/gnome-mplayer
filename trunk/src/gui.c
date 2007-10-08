@@ -114,7 +114,7 @@ gboolean set_progress_value(void *data)
 	gchar *text;
 
     if (GTK_IS_WIDGET(progress)) {
-		if (state == QUIT) {
+		if (state == QUIT && idle->cachepercent > 0) {
 			js_state = STATE_BUFFERING;
         	gtk_progress_bar_update(progress, idle->cachepercent);
 			gtk_widget_set_sensitive(play_event_box,FALSE);
@@ -126,7 +126,6 @@ gboolean set_progress_value(void *data)
 		if (idle->cachepercent < 1.0 && state == PAUSED) {
 			text = g_strdup_printf(_("Paused | %2i%% \342\226\274"),(gint)(idle->cachepercent * 100));
 			gtk_progress_bar_set_text(progress, text);
-			dbus_send_rpsignal_with_string("SetProgressText",text);
 			g_free(text);
 		} else {
 			gtk_progress_bar_set_text(progress, idle->progress_text);
@@ -164,6 +163,8 @@ gboolean set_progress_value(void *data)
 	//printf("cachepercent = %f\n",idle->cachepercent);
 	//printf("percent = %f\n",idle->percent);
 	//printf("autopause = %i\n",autopause);
+	if(idle->fromdbus == FALSE)
+		dbus_send_rpsignal_with_double("SetPercent",idle->percent);
 	
     return FALSE;
 }
@@ -177,7 +178,7 @@ gboolean set_progress_text(void *data)
     if (GTK_IS_WIDGET(progress)) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
-	dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
+	//dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
     return FALSE;
 }
 
@@ -260,7 +261,9 @@ gboolean set_progress_time(void *data)
     if (GTK_IS_WIDGET(progress) && idle->position > 0) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
-	dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
+	
+	if(idle->fromdbus == FALSE)
+		dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
 
     return FALSE;
 }
@@ -375,7 +378,7 @@ gboolean resize_window(void *data)
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
                 gtk_widget_hide_all(GTK_WIDGET(drawing_area));
-                if (showcontrols) {
+                if (showcontrols && rpcontrols == NULL) {
                     gtk_widget_show(song_title);
                     gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                     total_height -= req.height;
@@ -399,7 +402,7 @@ gboolean resize_window(void *data)
                 gtk_widget_hide_all(GTK_WIDGET(fixed));
                 gtk_widget_size_request(GTK_WIDGET(menubar), &req);
                 total_height = req.height;
-                if (showcontrols) {
+                if (showcontrols && rpcontrols == NULL) {
                     gtk_widget_show(song_title);
                     gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                     total_height += req.height;
@@ -483,6 +486,7 @@ gboolean set_volume(void *data)
         gtk_tooltips_set_tip(volume_tip, vol_slider, idle->vol_tooltip, NULL);
         g_free(buf);
     }
+
     return FALSE;
 }
 
@@ -846,7 +850,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
         }
 		
-		if (rpconsole != NULL) {
+		if (rpconsole != NULL && widget != NULL) {
 			dbus_send_rpsignal("Play");
 		}
 		
@@ -903,7 +907,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             gtk_widget_hide(drawing_area);
         }
 
-		if (rpconsole != NULL) {
+		if (rpconsole != NULL && widget != NULL) {
 			dbus_send_rpsignal("Stop");
 		}
 		
@@ -922,7 +926,7 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         send_command("seek +10 0\n");
     }
 
-	if (rpconsole != NULL) {
+	if (rpconsole != NULL && widget != NULL) {
 		dbus_send_rpsignal("FastForward");
 	}
     
@@ -935,7 +939,7 @@ gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         send_command("seek -10 0\n");
     }
 
-	if (rpconsole != NULL) {
+	if (rpconsole != NULL && widget != NULL) {
 		dbus_send_rpsignal("FastReverse");
 	}
     
@@ -1067,6 +1071,9 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
         g_free(buf);
     }
     send_command("get_property volume\n");
+	
+	dbus_send_rpsignal_with_double("Volume",gtk_range_get_value(GTK_RANGE(vol_slider)));
+	
 }
 
 
