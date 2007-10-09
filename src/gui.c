@@ -114,7 +114,7 @@ gboolean set_progress_value(void *data)
 	gchar *text;
 
     if (GTK_IS_WIDGET(progress)) {
-		if (state == QUIT && idle->cachepercent > 0) {
+		if (state == QUIT && idle->cachepercent > 0 && idle->cachepercent < 1) {
 			js_state = STATE_BUFFERING;
         	gtk_progress_bar_update(progress, idle->cachepercent);
 			gtk_widget_set_sensitive(play_event_box,FALSE);
@@ -2791,10 +2791,16 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(fs_event_box);
 
     // volume control
-    vol_slider = gtk_hscale_new_with_range(0.0, 100.0, 1.0);
+	if (window_y > window_x) {
+	    vol_slider = gtk_vscale_new_with_range(0.0, 100.0, 1.0);
+		gtk_widget_set_size_request(vol_slider, -1, window_y);
+		gtk_range_set_inverted(GTK_RANGE(vol_slider),TRUE);
+	} else {
+	    vol_slider = gtk_hscale_new_with_range(0.0, 100.0, 1.0);
+    	gtk_widget_set_size_request(vol_slider, 44, 16);
+	}
     volume_tip = gtk_tooltips_new();
     gtk_tooltips_set_tip(volume_tip, vol_slider, _("Volume 100%"), NULL);
-    gtk_widget_set_size_request(vol_slider, 44, 16);
     gtk_box_pack_end(GTK_BOX(hbox), vol_slider, FALSE, FALSE, 0);
     gtk_scale_set_draw_value(GTK_SCALE(vol_slider), FALSE);
     gtk_range_set_value(GTK_RANGE(vol_slider), 100.0);
