@@ -114,7 +114,7 @@ gboolean set_progress_value(void *data)
 	gchar *text;
 
     if (GTK_IS_WIDGET(progress)) {
-		if (state == QUIT && idle->cachepercent > 0 && idle->cachepercent < 1) {
+		if (state == QUIT && rpcontrols == NULL) {
 			js_state = STATE_BUFFERING;
         	gtk_progress_bar_update(progress, idle->cachepercent);
 			gtk_widget_set_sensitive(play_event_box,FALSE);
@@ -2822,7 +2822,7 @@ GtkWidget *create_window(gint windowid)
 
     }
 
-	if (rpcontrols == NULL) {	
+	if (rpcontrols == NULL || g_strcasecmp(rpcontrols, "all") == 0) {	
 	    if (windowid != -1)
 	        gtk_widget_show_all(window);
 	    gtk_widget_hide(song_title);
@@ -2860,12 +2860,25 @@ GtkWidget *create_window(gint windowid)
 		visuals = g_strsplit(rpcontrols,",",0);
 		i = 0;
 		while(visuals[i] != NULL) {
-			if (g_strcasecmp(visuals[i],"statusbar") == 0 || g_strcasecmp(visuals[i],"infopanel") == 0) {
+			if (g_strcasecmp(visuals[i],"statusbar") == 0
+				|| g_strcasecmp(visuals[i],"statusfield") == 0
+				|| g_strcasecmp(visuals[i],"positionfield") == 0
+				|| g_strcasecmp(visuals[i],"positionslider") == 0
+				|| g_strcasecmp(visuals[i],"infopanel") == 0) {
 				gtk_widget_show(GTK_WIDGET(progress));	
 				gtk_widget_show(controls_box);
 				gtk_widget_show(hbox);
 				control_instance = FALSE;
 			}
+			if (g_strcasecmp(visuals[i],"infovolumepanel") == 0 ) {
+				gtk_widget_show(GTK_WIDGET(progress));	
+				gtk_widget_show(GTK_WIDGET(vol_slider));
+				gtk_widget_show(controls_box);
+				gtk_widget_show(hbox);
+				control_instance = FALSE;
+			}
+			
+			
 			if (g_strcasecmp(visuals[i],"volumeslider") == 0) {
 				gtk_widget_show(GTK_WIDGET(vol_slider));	
 				gtk_widget_show(controls_box);
@@ -2878,6 +2891,21 @@ GtkWidget *create_window(gint windowid)
 			}
 			if (g_strcasecmp(visuals[i],"stopbutton") == 0) {
 				gtk_widget_show_all(GTK_WIDGET(stop_event_box));	
+				gtk_widget_show(controls_box);
+				gtk_widget_show(hbox);
+			}
+			if (g_strcasecmp(visuals[i],"pausebutton") == 0) {
+				gtk_widget_show_all(GTK_WIDGET(play_event_box));	
+				gtk_widget_show(controls_box);
+				gtk_widget_show(hbox);
+			}
+			if (g_strcasecmp(visuals[i],"ffctrl") == 0) {
+				gtk_widget_show_all(GTK_WIDGET(ff_event_box));	
+				gtk_widget_show(controls_box);
+				gtk_widget_show(hbox);
+			}
+			if (g_strcasecmp(visuals[i],"rwctrl") == 0) {
+				gtk_widget_show_all(GTK_WIDGET(rew_event_box));	
 				gtk_widget_show(controls_box);
 				gtk_widget_show(hbox);
 			}

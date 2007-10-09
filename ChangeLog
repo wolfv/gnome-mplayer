@@ -1,4 +1,5 @@
 Development
+	90% coverage of RealPlayer 'controls'
 	More work on realplayer emulation
 	Playlist tooltips
 	Setup some of the infrastructure for RealPlayer support
