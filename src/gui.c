@@ -2814,8 +2814,8 @@ GtkWidget *create_window(gint windowid)
         window_container = gdk_window_foreign_new(windowid);
         if (GTK_WIDGET_MAPPED(window))
             gtk_widget_unmap(window);
-		if (GDK_IS_WINDOW(window_container))
-        	gdk_window_reparent(window->window, window_container, 0, 0);
+		
+       	gdk_window_reparent(window->window, window_container, 0, 0);
 
     }
 
