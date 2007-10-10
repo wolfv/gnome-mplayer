@@ -209,7 +209,7 @@ int main(int argc, char *argv[])
         g_thread_init(NULL);
 	
 	if (verbose)
-		printf(_("GNOME MPlayer v%s\n"), VERSION);
+		printf(_("GNOME MPlayer v%s pid = %i\n"), VERSION,getpid());
 
 	if (rpconsole == NULL)
 		rpconsole = g_strdup("NONE");

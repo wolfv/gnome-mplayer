@@ -71,11 +71,12 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     message_type = dbus_message_get_type(message);
     sender = dbus_message_get_sender(message);
     destination = dbus_message_get_destination(message);
-/*
-    printf("path=%s; interface=%s; member=%s; data=%s\n",
+
+	if (verbose)
+    	printf("path=%s; interface=%s; member=%s; data=%s\n",
                dbus_message_get_path(message),
                dbus_message_get_interface(message), dbus_message_get_member(message), s);
-*/
+
     path1 = g_strdup_printf("/control/%i", control_id);
     path2 = g_strdup_printf("/window/%i", embed_window);
     path3 = g_strdup_printf("/pid/%i", getpid());
@@ -586,8 +587,11 @@ void dbus_send_rpsignal(gchar * signal)
     DBusMessage *message;
     gint id;
 
+	if (g_strcasecmp(rpconsole,"NONE") == 0)
+		return;
+	
     id = control_id;
-	if (connection != NULL && rpconsole != NULL) {
+	if (connection != NULL) {
 		path = g_strdup_printf("/console/%s", rpconsole);
 		localsignal = g_strdup(signal);
 		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
@@ -605,8 +609,11 @@ void dbus_send_rpsignal_with_double(gchar * signal, gdouble value)
     DBusMessage *message;
     gint id;
 
+	if (g_strcasecmp(rpconsole,"NONE") == 0)
+		return;
+	
     id = control_id;
-	if (connection != NULL && rpconsole != NULL) {
+	if (connection != NULL) {
 		path = g_strdup_printf("/console/%s", rpconsole);
 		localsignal = g_strdup(signal);
 		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
@@ -626,8 +633,11 @@ void dbus_send_rpsignal_with_string(gchar * signal, gchar* value)
     gint id;
 	gchar *localstr;
 
+	if (g_strcasecmp(rpconsole,"NONE") == 0)
+		return;
+	
     id = control_id;
-	if (connection != NULL && rpconsole != NULL) {
+	if (connection != NULL) {
 		path = g_strdup_printf("/console/%s", rpconsole);
 		localsignal = g_strdup(signal);
 		localstr = g_strdup(value);
