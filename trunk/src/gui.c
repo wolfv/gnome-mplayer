@@ -2818,8 +2818,6 @@ GtkWidget *create_window(gint windowid)
        	gdk_window_reparent(window->window, window_container, 0, 0);
 
     }
-
-	printf("rpcontrols = %s\n",rpcontrols);
 	
 	if (rpcontrols == NULL || (rpcontrols != NULL && g_strcasecmp(rpcontrols, "all") == 0)) {	
 	    if (windowid != -1)

@@ -2292,7 +2292,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gnome-mplayer
- VERSION=0.5.2-dev
+ VERSION=0.5.2
 
 
 cat >>confdefs.h <<_ACEOF
