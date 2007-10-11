@@ -72,12 +72,11 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     sender = dbus_message_get_sender(message);
     destination = dbus_message_get_destination(message);
 
-/*	if (verbose)
-    	printf("path=%s; interface=%s; member=%s; data=%s\n",
-               dbus_message_get_path(message),
-               dbus_message_get_interface(message), dbus_message_get_member(message), s);
-*/
-    path1 = g_strdup_printf("/control/%i", control_id);
+//    	printf("path=%s; interface=%s; member=%s; data=%s\n",
+//               dbus_message_get_path(message),
+//               dbus_message_get_interface(message), dbus_message_get_member(message), s);
+
+	path1 = g_strdup_printf("/control/%i", control_id);
     path2 = g_strdup_printf("/window/%i", embed_window);
     path3 = g_strdup_printf("/pid/%i", getpid());
 	
