@@ -2787,7 +2787,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(fs_event_box);
 
     // volume control
-	if (window_y > window_x) {
+	if ((window_y > window_x) && (rpcontrols != NULL && g_strcasecmp(rpcontrols, "volumeslider") == 0)) {
 	    vol_slider = gtk_vscale_new_with_range(0.0, 100.0, 1.0);
 		gtk_widget_set_size_request(vol_slider, -1, window_y);
 		gtk_range_set_inverted(GTK_RANGE(vol_slider),TRUE);
