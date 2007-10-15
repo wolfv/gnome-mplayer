@@ -1,4 +1,5 @@
 Development
+	Use the filesize and the stream_pos to help out with the buffering/autopause
 	90% coverage of RealPlayer 'controls'
 	More work on realplayer emulation
 	Playlist tooltips
