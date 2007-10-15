@@ -112,6 +112,8 @@ gboolean set_progress_value(void *data)
 
     IdleData *idle = (IdleData *) data;
 	gchar *text;
+    struct stat buf;
+	gchar *iterfilename;
 
 	if (GTK_IS_WIDGET(progress)) {
 		if (state == QUIT && rpcontrols == NULL) {
@@ -134,7 +136,10 @@ gboolean set_progress_value(void *data)
 		
 	if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9) {
 		if (autopause == FALSE && state == PLAYING) {
-			if ((idle->percent + 0.05) > idle->cachepercent) {
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&iterfilename,-1);
+			g_stat(iterfilename, &buf);
+			//printf("filename = %s, disk size = %i, byte pos = %i\n",iterfilename,buf.st_size,idle->byte_pos);
+			if (((idle->percent + 0.05) > idle->cachepercent) || ((idle->byte_pos + (512*1024)) > buf.st_size )) {
             	pause_callback(NULL, NULL, NULL);
 				gtk_widget_set_sensitive(play_event_box,FALSE);
 				autopause = TRUE;

@@ -232,7 +232,7 @@ int main(int argc, char *argv[])
     thread_running = g_mutex_new();
 
     //printf("opening %s\n", argv[fileindex]);
-    stat(argv[fileindex], &buf);
+    g_stat(argv[fileindex], &buf);
     //printf("is block %i\n", S_ISBLK(buf.st_mode));
     //printf("is character %i\n", S_ISCHR(buf.st_mode));
     //printf("is reg %i\n", S_ISREG(buf.st_mode));

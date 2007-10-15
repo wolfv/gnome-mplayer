@@ -249,6 +249,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_progress_time, idledata);
     }
 
+    if (strstr(mplayer_output->str, "ANS_stream_pos") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_stream_pos");
+        sscanf(buf, "ANS_stream_pos=%li", &idledata->byte_pos);
+        g_idle_add(set_progress_time, idledata);
+    }
+	
     if (strstr(mplayer_output->str, "ANS_volume") != 0) {
         buf = strstr(mplayer_output->str, "ANS_volume");
         sscanf(buf, "ANS_volume=%i", &volume);
@@ -411,6 +417,7 @@ gboolean thread_query(gpointer data)
         } else {
             send_command("get_time_length\n");
             send_command("get_time_pos\n");
+            send_command("get_property stream_pos\n");
             return TRUE;
         }
     } else {
