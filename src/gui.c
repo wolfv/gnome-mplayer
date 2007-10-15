@@ -183,7 +183,9 @@ gboolean set_progress_text(void *data)
     if (GTK_IS_WIDGET(progress)) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
-	//dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
+	if(idle->fromdbus == FALSE) {
+		dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
+	}
     return FALSE;
 }
 
