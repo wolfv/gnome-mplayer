@@ -60,6 +60,7 @@ typedef enum {
 } PLAYSTATE;
 
 PLAYSTATE state;
+PLAYSTATE guistate;
 
 typedef struct _IdleData {
     gchar info[1024];
@@ -170,6 +171,7 @@ gboolean set_progress_text(void *data);
 gboolean set_progress_time(void *data);
 gboolean set_volume_from_slider(gpointer data);
 gboolean set_volume_tip(void *data);
+gboolean set_gui_state(void *data);
 gboolean resize_window(void *data);
 gboolean set_play(void *data);
 gboolean set_pause(void *data);
@@ -187,6 +189,7 @@ void dbus_open_next();
 void dbus_cancel();
 void dbus_reload_plugins();
 void dbus_send_rpsignal(gchar * signal);
+void dbus_send_rpsignal_with_int(gchar * signal, int value);
 void dbus_send_rpsignal_with_double(gchar * signal, gdouble value);
 void dbus_send_rpsignal_with_string(gchar * signal, gchar* value);
 void dbus_send_event(gchar *event, gint button);

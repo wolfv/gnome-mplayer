@@ -363,6 +363,17 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
+				if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetGUIState") == 0) {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_INT32, &guistate,DBUS_TYPE_INVALID)) {
+                        g_idle_add(set_gui_state, NULL);
+                    } else {
+                        dbus_error_free(&error);
+                    }
+                    return DBUS_HANDLER_RESULT_HANDLED;
+				}
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Ping") == 0) {
                     if (control_id != 0) {
                         path = g_strdup_printf("/control/%i", control_id);
@@ -594,6 +605,29 @@ void dbus_send_rpsignal(gchar * signal)
 		path = g_strdup_printf("/console/%s", rpconsole);
 		localsignal = g_strdup(signal);
 		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
+		dbus_connection_send(connection, message, NULL);
+		dbus_message_unref(message);
+		g_free(localsignal);
+		g_free(path);
+	}
+}
+
+void dbus_send_rpsignal_with_int(gchar * signal, int value)
+{
+    gchar *path;
+	gchar *localsignal;
+    DBusMessage *message;
+    gint id;
+
+	if (g_strcasecmp(rpconsole,"NONE") == 0)
+		return;
+	
+    id = control_id;
+	if (connection != NULL) {
+		path = g_strdup_printf("/console/%s", rpconsole);
+		localsignal = g_strdup(signal);
+		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
+        dbus_message_append_args(message, DBUS_TYPE_INT32, &value, DBUS_TYPE_INVALID);
 		dbus_connection_send(connection, message, NULL);
 		dbus_message_unref(message);
 		g_free(localsignal);
