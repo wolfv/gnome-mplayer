@@ -1,4 +1,5 @@
 Development
+	Enable tooltip showing complete filename when hovering over item in playlist
 	When running in realplayer mode, make sure GUI is properly updated
 	Use the filesize and the stream_pos to help out with the buffering/autopause
 	90% coverage of RealPlayer 'controls'
