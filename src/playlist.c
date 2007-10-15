@@ -83,6 +83,25 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 	return FALSE;
 }
 
+gboolean playlist_motion_callback(GtkWidget *widget, GdkEventMotion *event, gpointer user_data)
+{
+	GtkTreePath *localpath;
+	GtkTreeIter localiter;
+	gchar *iterfilename;
+	
+	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(widget), event->x, event->y,&localpath, NULL, NULL, NULL);
+	
+	if (localpath != NULL) {
+		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore),&localiter,localpath)) {
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&iterfilename,-1);
+			gtk_tooltips_set_tip(playlisttip,widget, iterfilename, NULL);
+		}
+	}
+	return FALSE;
+	
+}
+
+
 void save_playlist(GtkWidget * widget, void *data)
 {
     GtkWidget *dialog;
@@ -360,8 +379,11 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 			gtk_tree_path_free(path);
 		}
 
-		g_signal_connect(GTK_OBJECT(list), "row_activated", GTK_SIGNAL_FUNC(playlist_select_callback),
+		g_signal_connect(G_OBJECT(list), "row_activated", G_CALLBACK(playlist_select_callback),
 	                     NULL);
+		g_signal_connect(G_OBJECT(list), "motion-notify-event",G_CALLBACK(playlist_motion_callback), NULL);		
+		
+		playlisttip = gtk_tooltips_new();
 		
 		renderer = gtk_cell_renderer_text_new ();
 		column = gtk_tree_view_column_new_with_attributes (_("Items to Play"),
