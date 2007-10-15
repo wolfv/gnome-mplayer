@@ -511,7 +511,7 @@ gboolean set_volume(void *data)
     gchar *buf;
 
     if (GTK_IS_WIDGET(vol_slider)) {
-        printf("setting slider to %f\n", idle->volume);
+        // printf("setting slider to %f\n", idle->volume);
         gtk_range_set_value(GTK_RANGE(vol_slider), idle->volume);
         buf = g_strdup_printf(_("Volume %i%%"), (gint) idle->volume);
         g_strlcpy(idledata->vol_tooltip, buf, 128);
