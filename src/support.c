@@ -140,10 +140,11 @@ gint parse_basic(gchar * filename)
 			if (buffer != NULL) {
 				g_strchomp(buffer);
 				g_strchug(buffer);
-				// printf("buffer=%s\n",buffer);
+				//printf("buffer=%s\n",buffer);
 				if (path != NULL)
 					g_free(path);
 				path = get_path(filename);
+				//printf("path=%s\n",path);
 				if (strlen(buffer) > 0)
 					file = g_strdup_printf("%s/%s",path,buffer);
 				
@@ -200,7 +201,8 @@ gint parse_basic(gchar * filename)
 						add_item_to_playlist(buffer,0);
 					}
 				}
-				g_free(file);
+				if (strlen(buffer) > 0)
+					g_free(file);
 			}
 			if (ret != 1) break;
 		}
@@ -565,18 +567,19 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 		}
 	}
 	
-	gtk_list_store_append(playliststore,&localiter);
-	gtk_list_store_set(playliststore,&localiter,ITEM_COLUMN,itemname,
-					   DESCRIPTION_COLUMN,desc,
-					   COUNT_COLUMN,0,
-					   PLAYLIST_COLUMN,playlist, -1);
+	if (strlen(itemname) > 0) {
+		gtk_list_store_append(playliststore,&localiter);
+		gtk_list_store_set(playliststore,&localiter,ITEM_COLUMN,itemname,
+						   DESCRIPTION_COLUMN,desc,
+						   COUNT_COLUMN,0,
+						   PLAYLIST_COLUMN,playlist, -1);
 
-	gtk_list_store_append(nonrandomplayliststore,&localiter);
-	gtk_list_store_set(nonrandomplayliststore,&localiter,ITEM_COLUMN,itemname,
-					   DESCRIPTION_COLUMN,desc,
-					   COUNT_COLUMN,0,
-					   PLAYLIST_COLUMN,playlist, -1);
-	
+		gtk_list_store_append(nonrandomplayliststore,&localiter);
+		gtk_list_store_set(nonrandomplayliststore,&localiter,ITEM_COLUMN,itemname,
+						   DESCRIPTION_COLUMN,desc,
+						   COUNT_COLUMN,0,
+						   PLAYLIST_COLUMN,playlist, -1);
+	}
 	g_free(desc);
 	return localiter;	
 
