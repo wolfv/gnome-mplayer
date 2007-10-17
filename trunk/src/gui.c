@@ -1140,7 +1140,9 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     gchar *filename;
     GConfClient *gconf;
     gchar *last_dir;
-
+	gint playlist;
+	GtkTreeIter localiter;
+	
     dialog = gtk_file_chooser_dialog_new(_("Open File"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -1165,9 +1167,25 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
         shutdown();
 		gtk_list_store_clear(playliststore);
 		gtk_list_store_clear(nonrandomplayliststore);	
+
 		if (filename != NULL) {
-			add_item_to_playlist(filename,0);
-			play_file((gchar *) filename, 0);
+
+			playlist = detect_playlist(filename);
+		
+			if (!playlist ) {
+				localiter = add_item_to_playlist(filename,playlist);
+			} else {
+				if (!parse_playlist(filename)) {	
+					localiter = add_item_to_playlist(filename,playlist);
+				}
+				
+			}
+			
+			g_free(filename);
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&filename, -1);
+			iter = localiter;
+			play_file(filename, 0);
 			g_free(filename);
 		}
     }
