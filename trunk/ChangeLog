@@ -1,4 +1,5 @@
 Development
+	Fix crasher in parse_basic and then if the itemname is passed in blank, don't add it to the list
 	Enable tooltip showing complete filename when hovering over item in playlist
 	When running in realplayer mode, make sure GUI is properly updated
 	Use the filesize and the stream_pos to help out with the buffering/autopause
