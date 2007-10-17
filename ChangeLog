@@ -1,4 +1,5 @@
 Development
+	Allow opening of playlist via File->Open Menu
 	Disable File->Details until first file is loaded
 	Add src/playlist.c to POTFILES.in
 	Fix crasher in parse_basic and then if the itemname is passed in blank, don't add it to the list
