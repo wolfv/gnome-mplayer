@@ -68,6 +68,7 @@ gboolean hide_buttons(void *data)
             }
         }
     }
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), TRUE);
 
 	// printf("count = %i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
 	if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
@@ -2971,6 +2972,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
 	gtk_widget_hide(prev_event_box);
 	gtk_widget_hide(next_event_box);

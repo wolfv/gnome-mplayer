@@ -4,3 +4,4 @@ src/gui.c
 src/support.c
 src/dbus-interface.c
 src/thread.c
+src/playlist.c
