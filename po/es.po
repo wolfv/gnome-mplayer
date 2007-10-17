@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-15 08:52-0600\n"
+"POT-Creation-Date: 2007-10-17 11:35-0600\n"
 "PO-Revision-Date: 2007-03-14 10:39+0100\n"
 "Last-Translator: vicente carro fernandez <vicentecarro@andaluciajunta.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -81,7 +81,7 @@ msgstr "- Reproductor multimedia de GNOME basado en MPlayer"
 
 #: src/main.c:212
 #, fuzzy, c-format
-msgid "GNOME MPlayer v%s pid = %i\n"
+msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer"
 
 #: src/main.c:247 src/main.c:271
@@ -172,7 +172,7 @@ msgstr "Pausado"
 msgid "Stopped"
 msgstr "Parado"
 
-#: src/gui.c:1143
+#: src/gui.c:1143 src/playlist.c:223
 msgid "Open File"
 msgstr "Abrir fichero"
 
@@ -378,7 +378,7 @@ msgstr ""
 msgid "Open _Audio CD"
 msgstr "Reproducir CD de _Audio"
 
-#: src/gui.c:2418
+#: src/gui.c:2418 src/playlist.c:169 src/playlist.c:429
 msgid "Open Playlist"
 msgstr ""
 
@@ -488,6 +488,33 @@ msgstr ""
 #, c-format
 msgid "Connecting"
 msgstr ""
+
+#: src/playlist.c:114 src/playlist.c:436
+#, fuzzy
+msgid "Save Playlist"
+msgstr "Reproduciendo"
+
+#: src/playlist.c:401
+msgid "Items to Play"
+msgstr ""
+
+#: src/playlist.c:420
+#, fuzzy
+msgid "Close Playlist View"
+msgstr "Reproduciendo"
+
+#: src/playlist.c:443
+#, fuzzy
+msgid "Add Item to Playlist"
+msgstr "Reproduciendo"
+
+#: src/playlist.c:450
+msgid "Remove Item from Playlist"
+msgstr ""
+
+#, fuzzy
+#~ msgid "GNOME MPlayer v%s pid = %i\n"
+#~ msgstr "GNOME MPlayer"
 
 #~ msgid "OK"
 #~ msgstr "Aceptar"
