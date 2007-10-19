@@ -428,15 +428,16 @@ gboolean resize_window(void *data)
                     gtk_widget_set_size_request(fixed, window_x, total_height);
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             } else {
+               	gtk_widget_hide_all(GTK_WIDGET(fixed));
 				if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
 					gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+					gtk_widget_show(GTK_WIDGET(fixed));
 				} else {
 	                gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
 				}
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
                 gtk_widget_show(GTK_WIDGET(song_title));
-                gtk_widget_hide_all(GTK_WIDGET(fixed));
                 gtk_widget_size_request(GTK_WIDGET(menubar), &req);
                 total_height = req.height;
                 if (showcontrols && rpcontrols == NULL) {
