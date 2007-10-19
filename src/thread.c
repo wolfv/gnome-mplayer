@@ -137,6 +137,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GError *error = NULL;
     gchar *error_msg = NULL;
     GtkWidget *dialog;
+	gchar **parse;
+	gint name,artist;
 
     if (source == NULL) {
 		g_source_remove(watch_err_id);
@@ -291,6 +293,35 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_saturation=%i", &idledata->saturation);
     }
 
+	if (strstr(mplayer_output->str, "ANS_metadata") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_metadata");
+        g_strlcpy(idledata->metadata, buf + strlen("ANS_metadata="), 1024);
+		//printf("metadata = %s\n",idledata->metadata);
+		parse = g_strsplit(idledata->metadata,",",-1);
+		if (parse != NULL) {
+			i = 0;
+			artist = -1;
+			name = -1;
+			while(parse[i] != NULL) {
+				if (g_strcasecmp(parse[i],"name") == 0) {
+					name = i + 1;
+				}
+				if (g_strcasecmp(parse[i],"artist") == 0) {
+					artist = i + 1;
+				}
+				i++;
+			}
+			if (name >0 && artist >0) {
+				message = g_strdup_printf("%s - %s",parse[name],parse[artist]);
+				//printf("message = %s\n",message);
+				g_strlcpy(idledata->info, message, 1024);
+				g_free(message);
+				g_idle_add(set_media_info, idledata);
+			}
+			g_strfreev(parse);	
+		}
+    }
+
     if (strstr(mplayer_output->str, "Cache fill") != 0) {
         buf = strstr(mplayer_output->str, "Cache fill");
         sscanf(buf, "Cache fill: %f%%", &percent);
@@ -418,6 +449,7 @@ gboolean thread_query(gpointer data)
             send_command("get_time_length\n");
             send_command("get_time_pos\n");
             send_command("get_property stream_pos\n");
+			send_command("get_property metadata\n");
             return TRUE;
         }
     } else {
