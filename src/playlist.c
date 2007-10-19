@@ -33,9 +33,11 @@ void update_gui()
 	if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
 		gtk_widget_hide(prev_event_box);
 		gtk_widget_hide(next_event_box);
+	    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
 	} else {
 		gtk_widget_show(prev_event_box);
 		gtk_widget_show(next_event_box);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
 	}		
 }	
 	
@@ -75,8 +77,9 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 			iter = localiter;
 			shutdown();
 			play_file(list[0],0);
+		} else {
+		    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
 		}
-		
 		g_strfreev(list);
     }
 	update_gui();
