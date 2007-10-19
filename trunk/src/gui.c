@@ -74,9 +74,11 @@ gboolean hide_buttons(void *data)
 	if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
 		gtk_widget_hide(prev_event_box);
 		gtk_widget_hide(next_event_box);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
 	} else {
 		gtk_widget_show_all(prev_event_box);
 		gtk_widget_show_all(next_event_box);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
 	}
     return FALSE;
 }
@@ -2991,6 +2993,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
 	gtk_widget_hide(prev_event_box);
 	gtk_widget_hide(next_event_box);
