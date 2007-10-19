@@ -97,6 +97,7 @@ typedef struct _IdleData {
     gchar audio_bitrate[16];
     gchar audio_samplerate[16];
 	gboolean fromdbus;
+	gchar metadata[1024];
 } IdleData;
 
 IdleData *idledata;
