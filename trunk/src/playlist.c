@@ -322,7 +322,6 @@ void playlist_close(GtkWidget * widget, void *data)
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 
 	GtkWidget *close;
-	GtkWidget *list;
 	GtkWidget *scrolled;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
@@ -340,6 +339,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkTooltips *tooltip;
 	GtkRequisition plreq;	
 	GtkRequisition winreq;	
+	gchar *coltitle;
 	
 	//if (GTK_IS_TREE_SELECTION(selection)){
 	//	return;
@@ -353,7 +353,6 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 				g_value_set_boolean(&value,TRUE);
 				gtk_container_child_set_property(GTK_CONTAINER(pane),plvbox,"shrink",&value);
 				gtk_widget_hide_all(plvbox);
-				gtk_widget_hide(GTK_WIDGET(media_label));
 			} else {
 				gtk_widget_size_request(GTK_WIDGET(plvbox), &plreq);
 				gtk_widget_size_request(GTK_WIDGET(window), &winreq);
@@ -370,8 +369,6 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 				//gtk_window_resize(GTK_WINDOW(window),winreq.width + plreq.width,winreq.height + plreq.height);
 			}			
 			gtk_widget_show_all(plvbox);
-			if (idledata->videopresent == FALSE)
-				gtk_widget_show(GTK_WIDGET(media_label));
 
 		}
 		
@@ -409,6 +406,11 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	                                                   renderer,
 	                                                   "text", DESCRIPTION_COLUMN,
 	                                                   NULL);
+		if (playlistname != NULL) {
+			coltitle = g_strdup_printf(_("%s items"),playlistname);
+			gtk_tree_view_column_set_title(column,coltitle);
+			g_free(coltitle);
+		}
 		gtk_tree_view_column_set_expand(column, TRUE);
 		gtk_tree_view_column_set_max_width(column,40);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (list), column);
@@ -484,7 +486,6 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	    //gtk_container_add(GTK_CONTAINER(playlist_window), vbox);
 			
 		gtk_widget_show_all(plvbox);
-		gtk_widget_show(GTK_WIDGET(media_label));
 		
 		// gtk_widget_show_all(playlist_window);
 		gtk_widget_grab_default(close);

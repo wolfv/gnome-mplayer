@@ -319,15 +319,22 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 					//g_strlcpy(idledata->info, message, 1024);
 					//g_free(message);
 					//g_idle_add(set_media_info, idledata);
-					message = g_strdup_printf("<b>Title:</b>\t%s\n<b>Artist:</b>\t%s",parse[name],parse[artist]);
+					message = g_strdup_printf("\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>File:</b>\t%s\n",parse[name],parse[artist],idledata->info);
 					g_strlcpy(idledata->media_info, message, 1024);
 					g_free(message);
 					g_idle_add(set_media_label, idledata);
-				}
+				} else {
+					message = g_strdup_printf("\n<b>File:</b>\t%s\n",idledata->info);
+					g_strlcpy(idledata->media_info, message, 1024);
+					g_free(message);
+					g_idle_add(set_media_label, idledata);
+				}					
 				g_strfreev(parse);	
 			}
 		} else {
-			g_strlcpy(idledata->media_info, "", 1024);
+			message = g_strdup_printf("\n<b>File:</b>\t%s\n",idledata->info);
+			g_strlcpy(idledata->media_info, message, 1024);
+			g_free(message);
 			g_idle_add(set_media_label, idledata);
 		}
     }

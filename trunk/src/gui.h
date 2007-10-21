@@ -71,6 +71,7 @@ GtkMenuItem *menuitem_help;
 GtkMenuItem *menuitem_view;
 GtkMenu *menu_view;
 GtkMenuItem *menuitem_view_playlist;
+GtkMenuItem *menuitem_view_info;
 GtkMenuItem *menuitem_view_sep0;
 GtkMenuItem *menuitem_view_fullscreen;
 GtkMenuItem *menuitem_view_sep1;

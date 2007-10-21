@@ -180,6 +180,7 @@ int main(int argc, char *argv[])
 	path = NULL;
 	js_state = STATE_UNDEFINED;
 	control_instance = TRUE;
+	playlistname = NULL;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();

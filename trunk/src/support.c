@@ -33,7 +33,9 @@ gint detect_playlist(gchar * filename)
     gint size;
 	gchar **output;
 	gchar *file;
-
+	GtkTreeViewColumn *column;
+	gchar *coltitle;
+	
 	if (g_strncasecmp(filename,"cdda://",7) == 0) {
 		playlist = 1;
 	} else if (g_strncasecmp(filename,"dvd://",6) == 0) {
@@ -100,12 +102,26 @@ gint detect_playlist(gchar * filename)
 	}
 	if (verbose)
     	printf("playlist detection = %i\n", playlist);
+	if (!playlist) {
+		if (playlistname != NULL)
+			g_free(playlistname);
+		playlistname = NULL;
+		if (GTK_WIDGET(list)) {
+			column = gtk_tree_view_get_column(GTK_TREE_VIEW(list),0);
+			coltitle = g_strdup_printf(_("Items to Play"));
+			gtk_tree_view_column_set_title(column,coltitle);
+			g_free(coltitle);
+		}
+	}		
+	
     return playlist;
 }
 
 gint parse_playlist(gchar * filename)
 {
 	gint ret = 0;
+	GtkTreeViewColumn *column;
+	gchar *coltitle;
 	
 	// try and parse a playlist in various forms
 	// if a parsing does not work then, return 0
@@ -117,6 +133,30 @@ gint parse_playlist(gchar * filename)
 		ret = parse_cdda(filename);
 	if (ret != 1)
 		ret = parse_dvd(filename);
+	if (ret == 1) {
+		if (playlistname != NULL)
+			g_free(playlistname);
+		if (g_strrstr(filename,"/") != NULL) {
+			playlistname = g_strdup_printf("%s",g_strrstr(filename,"/") + 1);
+		} else {
+			playlistname = g_strdup(filename);
+		}
+		if (GTK_WIDGET(list)) {
+			column = gtk_tree_view_get_column(GTK_TREE_VIEW(list),0);
+			coltitle = g_strdup_printf(_("%s items"),playlistname);
+			gtk_tree_view_column_set_title(column,coltitle);
+			g_free(coltitle);
+		}
+	} else {
+		g_free(playlistname);
+		playlistname = NULL;
+		if (GTK_WIDGET(list)) {
+			column = gtk_tree_view_get_column(GTK_TREE_VIEW(list),0);
+			coltitle = g_strdup_printf(_("Items to Play"));
+			gtk_tree_view_column_set_title(column,coltitle);
+			g_free(coltitle);
+		}
+	}		
 	
 	return ret;
 }
