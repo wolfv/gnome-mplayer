@@ -151,6 +151,7 @@ gchar *rpname;
 gchar *rpconsole;
 gchar *rpcontrols;
 gboolean control_instance;
+gchar *playlistname;
 
 gboolean qt_disabled;
 gboolean real_disabled;
@@ -162,6 +163,7 @@ GtkListStore *playliststore;
 GtkListStore *nonrandomplayliststore;
 GtkTreeIter iter;
 GtkTreeSelection *selection;
+GtkWidget *list;
 
 GtkWidget *create_window(gint windowid);
 gint get_player_window();

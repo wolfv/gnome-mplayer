@@ -1,4 +1,6 @@
 Development
+	Show the playlist filename in the first column header of the playlist view
+	Don't show the song_title widget, but show the media label widget
 	Show the media media data when video is no present
 	Show 'playback area' as filler when playlist is shown
 	Allow updating of song title and artist from http://www.thedividingline.com
