@@ -110,6 +110,23 @@ gboolean set_media_info(void *data)
     return FALSE;
 }
 
+gboolean set_media_label(void *data)
+{
+
+    IdleData *idle = (IdleData *) data;
+
+    if (data != NULL && idle != NULL && GTK_IS_WIDGET(media_label)) {
+	    gtk_label_set_markup(GTK_LABEL(media_label), idle->media_info);
+    }
+	
+	if (idle->videopresent == FALSE)
+		gtk_widget_show(media_label);
+	
+    return FALSE;
+}
+
+
+
 gboolean set_progress_value(void *data)
 {
 
@@ -431,7 +448,7 @@ gboolean resize_window(void *data)
                	gtk_widget_hide_all(GTK_WIDGET(fixed));
 				if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
 					gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-					gtk_widget_show(GTK_WIDGET(fixed));
+					gtk_widget_show(GTK_WIDGET(media_label));
 				} else {
 	                gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
 				}
@@ -2598,6 +2615,8 @@ GtkWidget *create_window(gint windowid)
     fixed = gtk_fixed_new();
     drawing_area = gtk_socket_new();
     //gtk_widget_set_size_request(drawing_area, 1, 1);
+	media_label = gtk_label_new("Media");
+	gtk_misc_set_alignment(GTK_MISC(media_label),0,0);
     song_title = gtk_entry_new();
     gtk_entry_set_editable(GTK_ENTRY(song_title), FALSE);
     //gtk_widget_set_state(song_title, GTK_STATE_INSENSITIVE);
@@ -2608,6 +2627,7 @@ GtkWidget *create_window(gint windowid)
 
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), media_label, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), song_title, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(vbox), controls_box, FALSE, FALSE, 0);
@@ -2881,6 +2901,7 @@ GtkWidget *create_window(gint windowid)
 	    if (windowid != -1)
 	        gtk_widget_show_all(window);
 	    gtk_widget_hide(song_title);
+		gtk_widget_hide(media_label);
 		
 		if (windowid == 0 && control_id == 0)
 			gtk_widget_hide(fixed);
@@ -2910,6 +2931,7 @@ GtkWidget *create_window(gint windowid)
 	
 		gtk_widget_hide(fixed);
 		gtk_widget_hide(menubar);
+		gtk_widget_hide(media_label);
 		gtk_widget_hide_all(controls_box);
 		
 		printf("showing the following controls = %s\n",rpcontrols);

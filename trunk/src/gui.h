@@ -109,6 +109,7 @@ GtkWidget *hbox;
 GtkWidget *controls_box;
 
 GtkWidget *fixed;
+GtkWidget *media_label;
 
 GtkWidget *drawing_area;
 GdkPixbuf *pb_play;

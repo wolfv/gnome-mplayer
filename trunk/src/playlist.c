@@ -316,7 +316,7 @@ void playlist_close(GtkWidget * widget, void *data)
 	g_value_set_boolean(&value,TRUE);
 	gtk_container_child_set_property(GTK_CONTAINER(pane),plvbox,"shrink",&value);
 	gtk_widget_hide_all(plvbox);
-	
+	gtk_widget_hide(media_label);
 }
 
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
@@ -353,7 +353,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 				g_value_set_boolean(&value,TRUE);
 				gtk_container_child_set_property(GTK_CONTAINER(pane),plvbox,"shrink",&value);
 				gtk_widget_hide_all(plvbox);
-				gtk_widget_hide(GTK_WIDGET(fixed));
+				gtk_widget_hide(GTK_WIDGET(media_label));
 			} else {
 				gtk_widget_size_request(GTK_WIDGET(plvbox), &plreq);
 				gtk_widget_size_request(GTK_WIDGET(window), &winreq);
@@ -371,7 +371,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 			}			
 			gtk_widget_show_all(plvbox);
 			if (idledata->videopresent == FALSE)
-				gtk_widget_show(GTK_WIDGET(fixed));
+				gtk_widget_show(GTK_WIDGET(media_label));
 
 		}
 		
@@ -484,7 +484,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	    //gtk_container_add(GTK_CONTAINER(playlist_window), vbox);
 			
 		gtk_widget_show_all(plvbox);
-		gtk_widget_show(GTK_WIDGET(fixed));
+		gtk_widget_show(GTK_WIDGET(media_label));
 		
 		// gtk_widget_show_all(playlist_window);
 		gtk_widget_grab_default(close);
