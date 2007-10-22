@@ -771,14 +771,14 @@ void randomize_playlist(GtkListStore *store) {
 		
 		for (i = 0; i < items; i++) {
 			swapid = g_rand_int_range(rand, 0, items);
-			if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store),&a,NULL,i)) {
-				if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store),&b,NULL,swapid)) {
-					gtk_list_store_swap(store,&a,&b);
+			if (i != swapid) {
+				if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store),&a,NULL,i)) {
+					if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store),&b,NULL,swapid)) {
+						gtk_list_store_swap(store,&a,&b);
+					}
 				}
 			}
 		}
-		g_rand_free(rand);
-
 
 		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store),&a);
 		do {

@@ -692,9 +692,11 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         idledata->x = (allocation->width - new_width) / 2;
         idledata->y = (allocation->height - new_height) / 2;
         g_idle_add(move_window, idledata);
-    }
+    	return FALSE;
+    } else {
+		return TRUE;
+	}
 
-    return FALSE;
 }
 
 gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer user_data)
