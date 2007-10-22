@@ -51,6 +51,8 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 	GtkTreeIter localiter;
 	gchar **list;
 	gint i = 0;
+	gint playlist;
+	
     /* Important, check if we actually got data.  Sometimes errors
      * occure and selection_data will be NULL.
      */
@@ -66,17 +68,29 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 		while(list[i] != NULL) {
 			g_strchomp(list[i]);
 			if(strlen(list[i]) > 0) {
-				if(!parse_playlist(list[i])) {
-					localiter = add_item_to_playlist(list[i],0);
+				
+				playlist = detect_playlist(list[i]);
+		
+				if (!playlist ) {
+					add_item_to_playlist(list[i],playlist);
+				} else {
+					if(!parse_playlist(list[i])) {
+						localiter = add_item_to_playlist(list[i],playlist);
+					}
 				}
+				
 			}
 			i++;
 		}
 
 		if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
-			iter = localiter;
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename,PLAYLIST_COLUMN,&playlist,-1);
+
 			shutdown();
-			play_file(list[0],0);
+			play_file(filename,playlist);
+			g_free(filename);
+			
 		} else {
 		    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
 		}
