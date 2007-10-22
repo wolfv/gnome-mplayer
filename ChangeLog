@@ -1,4 +1,5 @@
 Development
+	Fix for BBC Radio
 	Show the playlist filename in the first column header of the playlist view
 	Don't show the song_title widget, but show the media label widget
 	Show the media media data when video is no present
