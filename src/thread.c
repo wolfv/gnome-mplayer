@@ -319,12 +319,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 					//g_strlcpy(idledata->info, message, 1024);
 					//g_free(message);
 					//g_idle_add(set_media_info, idledata);
-					message = g_markup_printf_escaped("\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>File:</b>\t%s\n",parse[name],parse[artist],idledata->info);
+					message = g_markup_printf_escaped("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>File:</b>\t%s\n</small>",parse[name],parse[artist],idledata->info);
 					g_strlcpy(idledata->media_info, message, 1024);
 					g_free(message);
 					g_idle_add(set_media_label, idledata);
 				} else {
-					message = g_markup_printf_escaped("\n<b>File:</b>\t%s\n",idledata->info);
+					message = g_markup_printf_escaped("<small>\n<b>File:</b>\t%s\n</small>",idledata->info);
 					g_strlcpy(idledata->media_info, message, 1024);
 					g_free(message);
 					g_idle_add(set_media_label, idledata);
@@ -332,7 +332,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 				g_strfreev(parse);	
 			}
 		} else {
-			message = g_markup_printf_escaped("\n<b>File:</b>\t%s\n",idledata->info);
+			message = g_markup_printf_escaped("<small>\n<b>File:</b>\t%s\n</small>",idledata->info);
 			g_strlcpy(idledata->media_info, message, 1024);
 			g_free(message);
 			g_idle_add(set_media_label, idledata);
