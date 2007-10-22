@@ -438,16 +438,10 @@ gboolean resize_window(void *data)
                 gtk_widget_set_size_request(drawing_area, -1, -1);
                 gtk_widget_hide_all(GTK_WIDGET(drawing_area));
                 if (showcontrols && rpcontrols == NULL) {
-                    //gtk_widget_show(song_title);
                     gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                     total_height -= req.height;
                 }
-				if (GTK_IS_WIDGET(plvbox)) {
-					gtk_widget_size_request(GTK_WIDGET(plvbox), &req);
-					total_height += req.height;
-				}
                 if (window_x > 0 && total_height > 0) {
-					//gtk_widget_hide(GTK_WIDGET(fixed));
                     gtk_widget_set_size_request(media_label, window_x, total_height);
 				}
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
@@ -456,22 +450,21 @@ gboolean resize_window(void *data)
 					gtk_widget_hide_all(GTK_WIDGET(fixed));
 					if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
 						gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+						gtk_widget_show(GTK_WIDGET(fixed));
 						gtk_widget_show(GTK_WIDGET(media_label));
 					} else {
 						gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
 					}
 					gtk_widget_set_size_request(fixed, -1, -1);
 					gtk_widget_set_size_request(drawing_area, -1, -1);
-					//gtk_widget_show(GTK_WIDGET(song_title));
 					gtk_widget_size_request(GTK_WIDGET(menubar), &req);
 					total_height = req.height;
 					if (showcontrols && rpcontrols == NULL) {
-						//gtk_widget_show(song_title);
 						gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
 						total_height += req.height;
 					}
-					if (GTK_IS_WIDGET(plvbox)) {
-						gtk_widget_size_request(GTK_WIDGET(plvbox), &req);
+					if (GTK_WIDGET_VISIBLE(media_label)) {
+						gtk_widget_size_request(GTK_WIDGET(media_label), &req);
 						total_height += req.height;
 					}
 					gtk_window_resize(GTK_WINDOW(window), req.width, total_height);
@@ -657,7 +650,7 @@ gboolean expose_fixed_callback(GtkWidget * widget, GdkEventExpose * event, gpoin
 {
     GdkGC *gc;
 
-    if (GDK_IS_DRAWABLE(fixed->window) && videopresent) {
+    if (GDK_IS_DRAWABLE(fixed->window) && idledata->videopresent) {
         gc = gdk_gc_new(fixed->window);
         // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
         gdk_draw_rectangle(fixed->window, gc, TRUE, event->area.x, event->area.y, event->area.width,
@@ -1411,6 +1404,10 @@ void menuitem_view_onetoone_callback(GtkMenuItem * menuitem, void *data)
         total_height = idle->height;
         gtk_widget_size_request(GTK_WIDGET(menubar), &req);
         total_height += req.height;
+		if (GTK_WIDGET_VISIBLE(media_label)) {
+			gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+			total_height += req.height;
+		}
         gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
         total_height += req.height;
         gtk_window_resize(GTK_WINDOW(window), idle->width, total_height);
@@ -1430,6 +1427,10 @@ void menuitem_view_twotoone_callback(GtkMenuItem * menuitem, void *data)
         total_height = idle->height * 2;
         gtk_widget_size_request(GTK_WIDGET(menubar), &req);
         total_height += req.height;
+		if (GTK_WIDGET_VISIBLE(media_label)) {
+			gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+			total_height += req.height;
+		}
         gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
         total_height += req.height;
         gtk_window_resize(GTK_WINDOW(window), idle->width * 2, total_height);
@@ -1450,6 +1451,10 @@ void menuitem_view_onetotwo_callback(GtkMenuItem * menuitem, void *data)
         total_height = idle->height / 2;
         gtk_widget_size_request(GTK_WIDGET(menubar), &req);
         total_height += req.height;
+		if (GTK_WIDGET_VISIBLE(media_label)) {
+			gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+			total_height += req.height;
+		}
         gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
         total_height += req.height;
         gtk_window_resize(GTK_WINDOW(window), idle->width / 2, total_height);
@@ -2660,7 +2665,7 @@ GtkWidget *create_window(gint windowid)
 
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), media_label, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), media_label, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), song_title, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(vbox), controls_box, FALSE, FALSE, 0);
