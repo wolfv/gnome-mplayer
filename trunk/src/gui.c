@@ -119,8 +119,10 @@ gboolean set_media_label(void *data)
 	    gtk_label_set_markup(GTK_LABEL(media_label), idle->media_info);
     }
 	
-	if (idle->videopresent == FALSE)
+	if (idle->videopresent == FALSE) {
+		gtk_widget_hide(GTK_WIDGET(fixed));
 		gtk_widget_show(media_label);
+	}
 	
     return FALSE;
 }
@@ -444,7 +446,7 @@ gboolean resize_window(void *data)
 					total_height += req.height;
 				}
                 if (window_x > 0 && total_height > 0) {
-					gtk_widget_hide(GTK_WIDGET(fixed));
+					//gtk_widget_hide(GTK_WIDGET(fixed));
                     gtk_widget_set_size_request(media_label, window_x, total_height);
 				}
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
