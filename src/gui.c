@@ -397,6 +397,10 @@ gboolean resize_window(void *data)
 							gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
 							total_height += req.height;
 						}
+						if (GTK_WIDGET_VISIBLE(media_label)) {
+							gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+							total_height += req.height;
+						}
 						
 						total_width = idle->width;
 						if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
@@ -420,11 +424,8 @@ gboolean resize_window(void *data)
                         gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                         total_height -= req.height;
                     }
-					if (GTK_IS_WIDGET(plvbox)) {
-						gtk_widget_size_request(GTK_WIDGET(plvbox), &req);
-						total_height += req.height;
-					}
-                    if (window_x > 0 && total_height > 0)
+
+					if (window_x > 0 && total_height > 0)
                         gtk_widget_set_size_request(fixed, window_x, total_height);
                     gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
                 }
@@ -833,6 +834,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 	GtkTreeIter localiter;
 	gchar **list;
 	gint i = 0;
+	gint playlist;
 	
 	if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
 		return playlist_drop_callback(widget,dc,x,y,selection_data,info,t,data);
@@ -855,8 +857,14 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 			while(list[i] != NULL) {
 				g_strchomp(list[i]);
 				if(strlen(list[i]) > 0) {
-					if(!parse_playlist(list[i])) {
-						localiter = add_item_to_playlist(list[i],0);
+       				playlist = detect_playlist(list[i]);
+			
+					if (!playlist ) {
+						add_item_to_playlist(list[i],playlist);
+					} else {
+						if(!parse_playlist(list[i])) {
+							localiter = add_item_to_playlist(list[i],playlist);
+						}
 					}
 				}
 				i++;
@@ -864,8 +872,11 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 			
 			if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
 				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename,PLAYLIST_COLUMN,&playlist,-1);
+
 				shutdown();
-				play_file(list[0],0);
+				play_file(filename,playlist);
+				g_free(filename);
 			}
 			g_strfreev(list);
 			update_gui();
