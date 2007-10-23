@@ -95,6 +95,7 @@ gboolean set_media_info(void *data)
 
     IdleData *idle = (IdleData *) data;
     gchar *buf;
+	gchar *name;
 
     if (data != NULL && idle != NULL && GTK_IS_WIDGET(song_title)) {
         if (idle->streaming) {
@@ -102,9 +103,15 @@ gboolean set_media_info(void *data)
         } else {
 			gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
             //gtk_widget_hide(song_title);
-            buf = g_strdup_printf(_("GNOME MPlayer - %s"), idle->info);
+			if (g_strrstr(idle->info,"/") != NULL) {
+				name = g_strdup_printf("%s",g_strrstr(idle->info,"/") + 1);
+			} else {
+				name = g_strdup(idle->info);
+			}			
+            buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
             gtk_window_set_title(GTK_WINDOW(window), buf);
             g_free(buf);
+			g_free(name);
         }
     }
     return FALSE;
@@ -120,7 +127,6 @@ gboolean set_media_label(void *data)
     }
 	
 	if (idle->videopresent == FALSE) {
-		gtk_widget_hide(GTK_WIDGET(fixed));
 		gtk_widget_show(media_label);
 	}
 	
@@ -2488,9 +2494,9 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_acd =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Audio CD")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_acd));
-    menuitem_file_open_playlist =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Playlist")));
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_playlist));
+//    menuitem_file_open_playlist =
+//        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Playlist")));
+//    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_playlist));
     menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep1));
     menuitem_file_details = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Details")));
