@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-17 11:35-0600\n"
+"POT-Creation-Date: 2007-10-23 11:17-0600\n"
 "PO-Revision-Date: 2007-05-18 06:36-0600\n"
 "Last-Translator: Dmitry Stropaloff <helions8@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -72,421 +72,456 @@ msgstr ""
 msgid "Real Player Console Controls"
 msgstr ""
 
-#: src/main.c:197
+#: src/main.c:198
 msgid "- GNOME Media player based on MPlayer"
 msgstr "- GNOME Media player основанный на MPlayer"
 
-#: src/main.c:212
+#: src/main.c:213
 #, fuzzy, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME·MPlayer·-·%s"
 
-#: src/main.c:247 src/main.c:271
+#: src/main.c:248 src/main.c:272
 msgid "Playing DVD"
 msgstr "Воспроизведение DVD "
 
-#: src/main.c:275
+#: src/main.c:276
 msgid "Playing Audio CD"
 msgstr "Воспроизведение Аудио-диска"
 
-#. gtk_widget_hide(song_title);
-#: src/gui.c:102
-#, c-format
-msgid "GNOME MPlayer - %s"
-msgstr "GNOME·MPlayer·-·%s"
+#: src/gui.c:111
+#, fuzzy, c-format
+msgid "%s - GNOME MPlayer"
+msgstr "GNOME MPlayer"
 
-#: src/gui.c:129
+#: src/gui.c:157
 #, fuzzy, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "%2i:%02i | %2i%% ▼"
 
-#: src/gui.c:223
+#: src/gui.c:251
 #, c-format
 msgid "%2i:%02i | %2i%% ▼"
 msgstr "%2i:%02i | %2i%% ▼"
 
-#: src/gui.c:226
+#: src/gui.c:254
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/gui.c:231
+#: src/gui.c:259
 #, c-format
 msgid "%2i:%02i / %2i:%02i | %2i%% ▼"
 msgstr "%2i:%02i / %2i:%02i | %2i%% ▼"
 
-#: src/gui.c:236
+#: src/gui.c:264
 #, c-format
 msgid "%2i:%02i / %2i:%02i"
 msgstr "%2i:%02i / %2i:%02i"
 
-#: src/gui.c:245
+#: src/gui.c:273
 #, c-format
 msgid "%i:%02i:%02i | %2i%% ▼"
 msgstr "%i:%02i:%02i | %2i%% ▼"
 
-#: src/gui.c:248
+#: src/gui.c:276
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/gui.c:255
+#: src/gui.c:283
 #, c-format
 msgid "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
 msgstr "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
 
-#: src/gui.c:261
+#: src/gui.c:289
 #, c-format
 msgid "%i:%02i:%02i / %i:%02i:%02i"
 msgstr "%i:%02i:%02i / %i:%02i:%02i"
 
-#: src/gui.c:319 src/gui.c:866
+#: src/gui.c:347 src/gui.c:907
 msgid "Pause"
 msgstr "Пауза"
 
-#: src/gui.c:326 src/gui.c:333 src/gui.c:876 src/gui.c:933 src/gui.c:937
-#: src/gui.c:2739
+#: src/gui.c:354 src/gui.c:361 src/gui.c:917 src/gui.c:974 src/gui.c:978
+#: src/gui.c:2827
 msgid "Play"
 msgstr "Воспроизвести"
 
-#: src/gui.c:516 src/gui.c:1100 src/thread.c:263
+#: src/gui.c:545 src/gui.c:1141 src/thread.c:265
 #, c-format
 msgid "Volume %i%%"
 msgstr "Громкость %i%%"
 
-#: src/gui.c:867
+#: src/gui.c:908
 msgid "Playing"
 msgstr "Воспроизведение"
 
-#: src/gui.c:877
+#: src/gui.c:918
 msgid "Paused"
 msgstr "Пауза"
 
-#: src/gui.c:948
+#: src/gui.c:989
 msgid "Stopped"
 msgstr "Остановлен"
 
-#: src/gui.c:1143 src/playlist.c:223
+#: src/gui.c:1186 src/playlist.c:240
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: src/gui.c:1240
+#: src/gui.c:1299
 msgid "Save As..."
 msgstr ""
 
-#: src/gui.c:1279 src/gui.c:2286
+#: src/gui.c:1338 src/gui.c:2366
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:1283
+#: src/gui.c:1342
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "Медиа проигрыватель для среды GNOME, который использует MPlayer"
 
-#: src/gui.c:1648
+#: src/gui.c:1728
 msgid "File Details"
 msgstr "Информация о файле"
 
-#: src/gui.c:1662
+#: src/gui.c:1742
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">Информация о видео</span>"
 
-#: src/gui.c:1669
+#: src/gui.c:1749
 msgid "Video Size:"
 msgstr "Размер видео:"
 
-#: src/gui.c:1682
+#: src/gui.c:1762
 msgid "Video Format:"
 msgstr "Формат видео:"
 
-#: src/gui.c:1693
+#: src/gui.c:1773
 msgid "Video Codec:"
 msgstr "Кодек видео:"
 
-#: src/gui.c:1704
+#: src/gui.c:1784
 msgid "Video FPS:"
 msgstr "Число кадров/сек (FPS):"
 
-#: src/gui.c:1713
+#: src/gui.c:1793
 msgid "Video Bitrate:"
 msgstr "Битрейт видео:"
 
-#: src/gui.c:1730
+#: src/gui.c:1810
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Информация об аудио</span>"
 
-#: src/gui.c:1737
+#: src/gui.c:1817
 msgid "Audio Codec:"
 msgstr "Аудио кодек:"
 
-#: src/gui.c:1751
+#: src/gui.c:1831
 msgid "Audio Bitrate:"
 msgstr "Битрейт аудио:"
 
-#: src/gui.c:1762
+#: src/gui.c:1842
 msgid "Audio Sample Rate:"
 msgstr "Частота дискретизации аудио:"
 
-#: src/gui.c:1801
+#: src/gui.c:1881
 msgid "Advanced Video Controls"
 msgstr "Дополнительное управление видео"
 
-#: src/gui.c:1814
+#: src/gui.c:1894
 msgid "<span weight=\"bold\">Adjust Video Settings</span>"
 msgstr "<span weight=\"bold\">Изменить настройки видео</span>"
 
-#: src/gui.c:1821
+#: src/gui.c:1901
 msgid "Brightness"
 msgstr "Яркость"
 
-#: src/gui.c:1831
+#: src/gui.c:1911
 msgid "Contrast"
 msgstr "Контраст"
 
-#: src/gui.c:1841
+#: src/gui.c:1921
 msgid "Gamma"
 msgstr "Гамма"
 
-#: src/gui.c:1851
+#: src/gui.c:1931
 msgid "Hue"
 msgstr "Тон"
 
-#: src/gui.c:1861
+#: src/gui.c:1941
 msgid "Saturation"
 msgstr "Насыщенность"
 
-#: src/gui.c:1919
+#: src/gui.c:1999
 #, fuzzy
 msgid "Player"
 msgstr "Воспроизвести"
 
-#: src/gui.c:1921
+#: src/gui.c:2001
 #, fuzzy
 msgid "Plugin"
 msgstr "Воспроизведение"
 
-#: src/gui.c:1923
+#: src/gui.c:2003
 #, fuzzy
 msgid "Advanced"
 msgstr "_Дополнительные настройки"
 
-#: src/gui.c:1929
+#: src/gui.c:2009
 msgid "GNOME MPlayer Configuration"
 msgstr "Настройка GNOME MPlayer"
 
-#: src/gui.c:1985
+#: src/gui.c:2065
 #, fuzzy
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Изменить настройки видео</span>"
 
-#: src/gui.c:1992
+#: src/gui.c:2072
 msgid "Video Output:"
 msgstr "Вывод видео:"
 
-#: src/gui.c:2002
+#: src/gui.c:2082
 msgid "Audio Output:"
 msgstr "Вывод аудио:"
 
-#: src/gui.c:2025
+#: src/gui.c:2105
 #, fuzzy
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">Изменить настройки видео</span>"
 
-#: src/gui.c:2032
+#: src/gui.c:2112
 #, fuzzy
 msgid "Minimum Cache Size (KB):"
 msgstr "Минимальный размер кеша:"
 
-#: src/gui.c:2049
+#: src/gui.c:2129
 msgid "On Screen Display Level:"
 msgstr ""
 
-#: src/gui.c:2063
+#: src/gui.c:2143
 #, fuzzy
 msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 msgstr "<span weight=\"bold\">Изменить настройки видео</span>"
 
-#: src/gui.c:2070
+#: src/gui.c:2150
 msgid "QuickTime Emulation"
 msgstr ""
 
-#: src/gui.c:2075
+#: src/gui.c:2155
 msgid "RealPlayer Emulation"
 msgstr ""
 
-#: src/gui.c:2080
+#: src/gui.c:2160
 msgid "Windows Media Player Emulation"
 msgstr ""
 
-#: src/gui.c:2085
+#: src/gui.c:2165
 msgid "DiVX Player Emulation"
 msgstr ""
 
-#: src/gui.c:2093
+#: src/gui.c:2173
 #, fuzzy
 msgid "<span weight=\"bold\">Advanced Settings</span>"
 msgstr "<span weight=\"bold\">Изменить настройки видео</span>"
 
-#: src/gui.c:2100
+#: src/gui.c:2180
 msgid "Verbose Debug Enabled"
 msgstr ""
 
-#: src/gui.c:2332
+#: src/gui.c:2412
 msgid "S_how Controls"
 msgstr "Показать панель _управления"
 
-#: src/gui.c:2336
+#: src/gui.c:2416
 msgid "_Full Screen"
 msgstr "Полноэкранный _режим"
 
-#: src/gui.c:2339
+#: src/gui.c:2419
 msgid "_Copy URL"
 msgstr ""
 
 #. File Menu
-#: src/gui.c:2402
+#: src/gui.c:2482
 msgid "_File"
 msgstr "_Файл"
 
-#: src/gui.c:2410
+#: src/gui.c:2490
 msgid "Open _DVD"
 msgstr "Отк_рыть DVD"
 
-#: src/gui.c:2412
+#: src/gui.c:2492
 msgid "Open DVD with _Menus"
 msgstr ""
 
-#: src/gui.c:2415
+#: src/gui.c:2495
 msgid "Open _Audio CD"
 msgstr "Открыть _Аудио-диск"
 
-#: src/gui.c:2418 src/playlist.c:169 src/playlist.c:429
-msgid "Open Playlist"
-msgstr ""
-
-#: src/gui.c:2422
+#: src/gui.c:2502
 msgid "Details"
 msgstr "Детали"
 
 #. Edit Menu
-#: src/gui.c:2443
+#: src/gui.c:2523
 msgid "_Edit"
 msgstr "_Правка"
 
-#: src/gui.c:2450
+#: src/gui.c:2530
 msgid "Shuffle Playlist"
 msgstr ""
 
-#: src/gui.c:2455
+#: src/gui.c:2535
 #, fuzzy
 msgid "Loop Playlist"
 msgstr "Воспроизведение"
 
 #. View Menu
-#: src/gui.c:2474
+#: src/gui.c:2554
 msgid "_View"
 msgstr "_Вид"
 
-#: src/gui.c:2480
+#: src/gui.c:2560
 #, fuzzy
 msgid "_Playlist"
 msgstr "Воспроизведение"
 
-#: src/gui.c:2486
+#: src/gui.c:2563
+msgid "_Info"
+msgstr ""
+
+#: src/gui.c:2569
 msgid "_Fullscreen"
 msgstr "Полноэкранный _режим"
 
-#: src/gui.c:2491
+#: src/gui.c:2574
 msgid "_Normal (1:1)"
 msgstr "_Нормальный размер (1:1)"
 
-#: src/gui.c:2494
+#: src/gui.c:2577
 msgid "_Double Size (2:1)"
 msgstr "_Двойной размер (2:1)"
 
-#: src/gui.c:2497
+#: src/gui.c:2580
 msgid "_Half Size (1:2)"
 msgstr "_Половинный размер (1:2)"
 
-#: src/gui.c:2502
+#: src/gui.c:2585
 msgid "_Advanced Options"
 msgstr "_Дополнительные настройки"
 
-#: src/gui.c:2506
+#: src/gui.c:2589
 msgid "_Controls"
 msgstr "Панель _управления"
 
 #. Help Menu
-#: src/gui.c:2525
+#: src/gui.c:2610
 msgid "_Help"
 msgstr "_Справка"
 
-#: src/gui.c:2707
+#: src/gui.c:2795
 msgid "Previous"
 msgstr ""
 
-#: src/gui.c:2723
+#: src/gui.c:2811
 msgid "Rewind"
 msgstr "Перемотка назад"
 
-#: src/gui.c:2756
+#: src/gui.c:2844
 msgid "Stop"
 msgstr "Стоп"
 
-#: src/gui.c:2773
+#: src/gui.c:2861
 msgid "Fast Forward"
 msgstr "Перемотка вперед"
 
-#: src/gui.c:2788
+#: src/gui.c:2876
 msgid "Next"
 msgstr ""
 
-#: src/gui.c:2812
+#: src/gui.c:2900
 msgid "Full Screen"
 msgstr "Полноэкранный режим"
 
-#: src/gui.c:2835
+#: src/gui.c:2923
 msgid "Volume 100%"
 msgstr "Громкость 100%"
+
+#: src/support.c:111 src/support.c:155 src/playlist.c:422
+#, c-format
+msgid "Items to Play"
+msgstr ""
+
+#: src/support.c:146 src/playlist.c:427
+#, c-format
+msgid "%s items"
+msgstr ""
 
 #: src/thread.c:108
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr ""
 
+#. message = g_strdup_printf("%s - %s",parse[name],parse[artist]);
+#. printf("message = %s\n",message);
+#. g_strlcpy(idledata->info, message, 1024);
+#. g_free(message);
+#. g_idle_add(set_media_info, idledata);
+#: src/thread.c:322
+#, c-format
+msgid ""
+"<small>\n"
+"<b>Title:</b>\t%s\n"
+"<b>Artist:</b>\t%s\n"
+"<b>File:</b>\t%s\n"
+"</small>"
+msgstr ""
+
+#: src/thread.c:327 src/thread.c:335
+#, c-format
+msgid ""
+"<small>\n"
+"<b>File:</b>\t%s\n"
+"</small>"
+msgstr ""
+
 #. printf("Percent = %f\n",percent);
 #. printf("Buffer = %s\n",buf);
-#: src/thread.c:299
+#: src/thread.c:347
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr ""
 
-#: src/thread.c:307
+#: src/thread.c:355
 #, c-format
 msgid "Connecting"
 msgstr ""
 
-#: src/playlist.c:114 src/playlist.c:436
+#: src/playlist.c:131 src/playlist.c:462
 #, fuzzy
 msgid "Save Playlist"
 msgstr "Воспроизведение"
 
-#: src/playlist.c:401
-msgid "Items to Play"
+#: src/playlist.c:186 src/playlist.c:455
+msgid "Open Playlist"
 msgstr ""
 
-#: src/playlist.c:420
+#: src/playlist.c:446
 #, fuzzy
 msgid "Close Playlist View"
 msgstr "Воспроизведение"
 
-#: src/playlist.c:443
+#: src/playlist.c:469
 #, fuzzy
 msgid "Add Item to Playlist"
 msgstr "Воспроизведение"
 
-#: src/playlist.c:450
+#: src/playlist.c:476
 msgid "Remove Item from Playlist"
 msgstr ""
+
+#~ msgid "GNOME MPlayer - %s"
+#~ msgstr "GNOME·MPlayer·-·%s"
 
 #, fuzzy
 #~ msgid "GNOME MPlayer v%s pid = %i\n"
