@@ -498,18 +498,13 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	    gtk_box_pack_start(GTK_BOX(plvbox),hbox,FALSE,FALSE,0);
 		
 		
-	    //gtk_container_add(GTK_CONTAINER(vbox), plvbox);
 		gtk_paned_pack2(GTK_PANED(pane),plvbox,FALSE,FALSE);
-	    //gtk_container_add(GTK_CONTAINER(playlist_window), vbox);
 			
 		gtk_widget_show_all(plvbox);
 		if (idledata->videopresent == FALSE) {
 			gtk_widget_show(GTK_WIDGET(fixed));
 		}
 		
-		// gtk_widget_show_all(playlist_window);
 		gtk_widget_grab_default(close);
-		//gdk_window_get_frame_extents(window->window,&rect);
-		//gtk_window_move(GTK_WINDOW(playlist_window),rect.x + rect.width, rect.y);
 	}	
 }
