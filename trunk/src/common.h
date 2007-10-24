@@ -150,6 +150,7 @@ gint js_state;
 gchar *rpname;
 gchar *rpconsole;
 gchar *rpcontrols;
+gboolean show_media_label;
 gboolean control_instance;
 gchar *playlistname;
 
