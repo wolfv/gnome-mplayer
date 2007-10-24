@@ -1,4 +1,5 @@
 Development
+	When running in RP emulation, update the media label over the bus
 	Fix problem with media info being shown on BBC News site when it should not
 	Fix dragging and dropping of a playlist that is not parsable (ASX for example)
 	Fix for BBC Radio

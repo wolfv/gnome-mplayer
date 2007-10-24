@@ -311,6 +311,19 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
+				if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetMediaLabel") == 0
+                    && idledata != NULL) {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                        g_strlcpy(idledata->media_info, s, 1024);
+                        g_idle_add(set_media_label, idledata);
+                    } else {
+                        dbus_error_free(&error);
+                    }
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetInfo") == 0
                     && idledata != NULL) {
                     dbus_error_init(&error);
