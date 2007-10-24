@@ -126,7 +126,7 @@ gboolean set_media_label(void *data)
 	    gtk_label_set_markup(GTK_LABEL(media_label), idle->media_info);
     }
 	
-	if (idle->videopresent == FALSE) {
+	if (idle->videopresent == FALSE && show_media_label) {
 		gtk_widget_show(media_label);
 	}
 	
@@ -2948,6 +2948,7 @@ GtkWidget *create_window(gint windowid)
 	        gtk_widget_show_all(window);
 	    gtk_widget_hide(song_title);
 		gtk_widget_hide(media_label);
+		show_media_label = TRUE;
 		
 		if (windowid == 0 && control_id == 0)
 			gtk_widget_hide(fixed);
@@ -2978,6 +2979,8 @@ GtkWidget *create_window(gint windowid)
 		gtk_widget_hide(fixed);
 		gtk_widget_hide(menubar);
 		gtk_widget_hide(media_label);
+		show_media_label = FALSE;
+
 		gtk_widget_hide_all(controls_box);
 		
 		printf("showing the following controls = %s\n",rpcontrols);
@@ -2987,8 +2990,7 @@ GtkWidget *create_window(gint windowid)
 			if (g_strcasecmp(visuals[i],"statusbar") == 0
 				|| g_strcasecmp(visuals[i],"statusfield") == 0
 				|| g_strcasecmp(visuals[i],"positionfield") == 0
-				|| g_strcasecmp(visuals[i],"positionslider") == 0
-				|| g_strcasecmp(visuals[i],"infopanel") == 0) {
+				|| g_strcasecmp(visuals[i],"positionslider") == 0) {
 				gtk_widget_show(GTK_WIDGET(progress));	
 				gtk_widget_show(controls_box);
 				gtk_widget_show(hbox);
@@ -2999,10 +3001,14 @@ GtkWidget *create_window(gint windowid)
 				gtk_widget_show(controls_box);
 				gtk_widget_show(hbox);
 				gtk_widget_show(GTK_WIDGET(media_label));	
+				show_media_label = TRUE;
+
 				control_instance = FALSE;
 			}
 			if (g_strcasecmp(visuals[i],"infopanel") == 0) {
 				gtk_widget_show(GTK_WIDGET(media_label));	
+				show_media_label = TRUE;
+
 				control_instance = FALSE;
 			}
 			
