@@ -130,6 +130,10 @@ gboolean set_media_label(void *data)
 		gtk_widget_show(media_label);
 	}
 	
+	if(idle->fromdbus == FALSE) {
+		dbus_send_rpsignal_with_string("SetMediaLabel",idle->media_info);
+	}
+	
     return FALSE;
 }
 
