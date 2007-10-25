@@ -1,4 +1,5 @@
 Development
+	Fix some problems identified by Starcrasher
 	Updated French translation
 	Try to handle UTF8 title and artist names better
 	When running in RP emulation, update the media label over the bus

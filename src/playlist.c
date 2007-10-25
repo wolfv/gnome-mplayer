@@ -140,12 +140,12 @@ void save_playlist(GtkWidget * widget, void *data)
 
 	gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
 	filter = gtk_file_filter_new();
-	gtk_file_filter_set_name(filter,"Playlist (*.pls)");
+	gtk_file_filter_set_name(filter,_("Playlist (*.pls)"));
 	gtk_file_filter_add_pattern(filter,"*.pls");
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
 
 	filter = gtk_file_filter_new();
-	gtk_file_filter_set_name(filter,"MP3 Playlist (*.m3u)");
+	gtk_file_filter_set_name(filter,_("MP3 Playlist (*.m3u)"));
 	gtk_file_filter_add_pattern(filter,"*.m3u");
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
 	
@@ -195,17 +195,17 @@ void load_playlist(GtkWidget * widget, void *data)
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
 	
 	filter = gtk_file_filter_new();
-	gtk_file_filter_set_name(filter,"Playlist (*.pls)");
+	gtk_file_filter_set_name(filter,_("Playlist (*.pls)"));
 	gtk_file_filter_add_pattern(filter,"*.pls");
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
 
 	filter = gtk_file_filter_new();
-	gtk_file_filter_set_name(filter,"Reference Playlist (*.ref)");
+	gtk_file_filter_set_name(filter,_("Reference Playlist (*.ref)"));
 	gtk_file_filter_add_pattern(filter,"*.ref");
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
 
 	filter = gtk_file_filter_new();
-	gtk_file_filter_set_name(filter,"MP3 Playlist (*.m3u)");
+	gtk_file_filter_set_name(filter,_("MP3 Playlist (*.m3u)"));
 	gtk_file_filter_add_pattern(filter,"*.m3u");
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),filter);
 	
@@ -314,6 +314,7 @@ gboolean playlist_select_callback(GtkTreeView *view, GtkTreePath *path, GtkTreeV
 		play_file(filename, playlist);
 		gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 		g_free(filename);
+		dontplaynext = FALSE;
 	}	
 	return FALSE;
 }

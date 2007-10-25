@@ -1184,7 +1184,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     gchar *filename;
     GConfClient *gconf;
     gchar *last_dir;
-	gint playlist;
+	gint playlist, count;
 	GtkTreeIter localiter;
 	
     dialog = gtk_file_chooser_dialog_new(_("Open File"),
@@ -1226,11 +1226,13 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 			}
 			
 			g_free(filename);
-			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
-			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&filename, -1);
-			iter = localiter;
-			play_file(filename, 0);
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename,COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+			set_media_info(filename);
+			play_file(filename, playlist);
+			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 			g_free(filename);
+			dontplaynext = FALSE;
 		}
     }
 
