@@ -25,6 +25,17 @@
 #include "thread.h"
 #include "common.h"
 
+void strip_unicode(gchar * data, gsize len)
+{
+    gsize i = 0;
+
+    for (i = 0; i < len; i++) {
+        if (!g_unichar_validate(data[i])) {
+            data[i] = ' ';
+        }
+    }
+
+}
 
 void shutdown()
 {
@@ -139,6 +150,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GtkWidget *dialog;
 	gchar **parse;
 	gint name,artist;
+	gchar *utf8name;
+	gchar *utf8artist;
 
     if (source == NULL) {
 		g_source_remove(watch_err_id);
@@ -296,7 +309,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 	if (strstr(mplayer_output->str, "ANS_metadata") != 0) {
         buf = strstr(mplayer_output->str, "ANS_metadata");
         g_strlcpy(idledata->metadata, buf + strlen("ANS_metadata="), 1024);
-		//printf("metadata = %s\n",idledata->metadata);
+		printf("metadata = %s\n",idledata->metadata);
 		
 		if (idledata->metadata != NULL) {
 			parse = g_strsplit(idledata->metadata,",",-1);
@@ -319,9 +332,22 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 					//g_strlcpy(idledata->info, message, 1024);
 					//g_free(message);
 					//g_idle_add(set_media_info, idledata);
-					message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>File:</b>\t%s\n</small>"),parse[name],parse[artist],idledata->info);
+					utf8name = g_locale_to_utf8(parse[name],-1, NULL, NULL,NULL);
+					if (utf8name == NULL) {
+						strip_unicode(parse[name],strlen(parse[name]));
+						utf8name = g_strdup(parse[name]);
+					}
+					utf8artist = g_locale_to_utf8(parse[artist],-1, NULL, NULL,NULL);
+					if (utf8artist == NULL) {
+						strip_unicode(parse[artist],strlen(parse[artist]));
+						utf8artist = g_strdup(parse[artist]);
+					}
+					
+					message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>File:</b>\t%s\n</small>"),utf8name,utf8artist,idledata->info);
 					g_strlcpy(idledata->media_info, message, 1024);
 					g_free(message);
+					g_free(utf8name);
+					g_free(utf8artist);
 					g_idle_add(set_media_label, idledata);
 				} else {
 					message = g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),idledata->info);
