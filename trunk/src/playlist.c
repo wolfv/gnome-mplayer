@@ -314,7 +314,11 @@ gboolean playlist_select_callback(GtkTreeView *view, GtkTreePath *path, GtkTreeV
 		play_file(filename, playlist);
 		gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 		g_free(filename);
-		dontplaynext = FALSE;
+		if (state == 3) {
+			dontplaynext = FALSE;
+		} else {
+			dontplaynext = TRUE;
+		}
 	}	
 	return FALSE;
 }
