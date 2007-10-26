@@ -308,6 +308,7 @@ gboolean playlist_select_callback(GtkTreeView *view, GtkTreePath *path, GtkTreeV
 
 	if( gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+		printf("state = %i\n",js_state);
 		shutdown();
 		set_media_info(filename);
 		play_file(filename, playlist);
