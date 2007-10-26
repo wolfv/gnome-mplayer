@@ -1,4 +1,5 @@
 Development
+	Fix problem with playlist position after double clicking
 	Fix some problems identified by Starcrasher
 	Updated French translation
 	Try to handle UTF8 title and artist names better
