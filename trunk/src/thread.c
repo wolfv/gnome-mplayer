@@ -309,6 +309,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 	if (strstr(mplayer_output->str, "ANS_metadata") != 0) {
         buf = strstr(mplayer_output->str, "ANS_metadata");
         g_strlcpy(idledata->metadata, buf + strlen("ANS_metadata="), 1024);
+		g_strchomp(idledata->metadata);
 		// printf("metadata = %s\n",idledata->metadata);
 		
 		if (idledata->metadata != NULL) {

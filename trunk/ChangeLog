@@ -1,4 +1,5 @@
 Development
+	Remove extra carrage returns from metadata
 	Fix problem with playlist position after double clicking
 	Fix some problems identified by Starcrasher
 	Updated French translation
