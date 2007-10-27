@@ -38,7 +38,7 @@ msgstr "L'argument fichier est une liste de lecture"
 
 #: src/main.c:57
 msgid "Show more ouput on the console"
-msgstr "En voir d'avantage dans la console"
+msgstr "Affichage plus verbeux dans la console"
 
 #: src/main.c:58
 msgid "Show the controls in window"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: src/main.c:62
 msgid "Disable popup menu on right click"
-msgstr "Désactiver le menu contextuel surgissant"
+msgstr "Désactiver le menu contextuel sur click droit"
 
 #: src/main.c:63
 msgid "Play all files on the playlist forever"
@@ -271,7 +271,7 @@ msgstr "Lecteur"
 
 #: src/gui.c:2007
 msgid "Plugin"
-msgstr "Greffon"
+msgstr "Plugin"
 
 #: src/gui.c:2009
 msgid "Advanced"
@@ -287,11 +287,11 @@ msgstr "<span weight=\"bold\">Définition des paramètres de sortie</span>"
 
 #: src/gui.c:2078
 msgid "Video Output:"
-msgstr "Greffon de sortie vidéo :"
+msgstr "Sortie vidéo :"
 
 #: src/gui.c:2088
 msgid "Audio Output:"
-msgstr "Greffon de sortie audio :"
+msgstr "Sortie audio :"
 
 #: src/gui.c:2111
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
@@ -309,7 +309,7 @@ msgstr "Niveau OSD :"
 #: src/gui.c:2149
 msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 msgstr ""
-"<span weight=\"bold\">Définition des paramètres d'émulation du greffon</span>"
+"<span weight=\"bold\">Définition des paramètres d'émulation du plugin</span>"
 
 #: src/gui.c:2156
 msgid "QuickTime Emulation"
@@ -375,11 +375,11 @@ msgstr "_Édition"
 
 #: src/gui.c:2536
 msgid "Shuffle Playlist"
-msgstr "Mélanger la liste de lecture"
+msgstr "Lecture aléatoire"
 
 #: src/gui.c:2541
 msgid "Loop Playlist"
-msgstr "Lire la liste de lecture en boucle"
+msgstr "Lecture en boucle"
 
 #. View Menu
 #: src/gui.c:2560
@@ -523,11 +523,11 @@ msgstr "Ouvrir une liste de lecture"
 
 #: src/playlist.c:203
 msgid "Reference Playlist (*.ref)"
-msgstr ""
+msgstr "Liste de lecture réference (*.ref)"
 
 #: src/playlist.c:450
 msgid "Close Playlist View"
-msgstr "Fermer la vue de la liste de lecture"
+msgstr "Fermer la liste de lecture"
 
 #: src/playlist.c:473
 msgid "Add Item to Playlist"
