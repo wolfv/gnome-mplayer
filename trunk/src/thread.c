@@ -550,8 +550,6 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-identify");
     argv[arg++] = g_strdup_printf("-softvol");
     argv[arg++] = g_strdup_printf("-framedrop");
-    argv[arg++] = g_strdup_printf("-aid");
-    argv[arg++] = g_strdup_printf("1");
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-osdlevel");
     argv[arg++] = g_strdup_printf("%i", osdlevel);
