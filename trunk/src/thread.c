@@ -550,6 +550,8 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-identify");
     argv[arg++] = g_strdup_printf("-softvol");
     argv[arg++] = g_strdup_printf("-framedrop");
+    argv[arg++] = g_strdup_printf("-aid");
+    argv[arg++] = g_strdup_printf("1");
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-osdlevel");
     argv[arg++] = g_strdup_printf("%i", osdlevel);
@@ -558,11 +560,11 @@ gpointer launch_player(gpointer data)
     } else if (strcmp(threaddata->filename, "dvd://") != 0) {
         argv[arg++] = g_strdup_printf("-nomouseinput");
 		if (threaddata->streaming) {
+			argv[arg++] = g_strdup_printf("-user-agent");
+			argv[arg++] = g_strdup_printf("NSPlayer");
 		} else {
         	argv[arg++] = g_strdup_printf("-cache");
         	argv[arg++] = g_strdup_printf("%i", cache_size);
-			argv[arg++] = g_strdup_printf("-user-agent");
-			argv[arg++] = g_strdup_printf("NSPlayer");
 		}
     }
     argv[arg++] = g_strdup_printf("-wid");
