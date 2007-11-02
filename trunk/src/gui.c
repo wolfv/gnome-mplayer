@@ -53,11 +53,10 @@ gint get_player_window()
 
 gboolean hide_buttons(void *data)
 {
-
-    ThreadData *td = (ThreadData *) data;
-
+	IdleData *idle = (IdleData *) data;
+	
     if (GTK_IS_WIDGET(ff_event_box)) {
-        if (td->streaming) {
+        if (idle->streaming) {
             gtk_widget_hide(ff_event_box);
             gtk_widget_hide(rew_event_box);
 			gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save),FALSE);
@@ -128,8 +127,6 @@ gboolean set_media_label(void *data)
 	
 	if (idle->videopresent == FALSE && show_media_label) {
 		gtk_widget_show(media_label);
-	} else {
-		gtk_widget_hide(media_label);
 	}
 	
 	if(idle->fromdbus == FALSE) {
@@ -388,6 +385,8 @@ gboolean resize_window(void *data)
             gtk_widget_hide(song_title);
             if (embed_window == -1) {
                 gtk_widget_show_all(window);
+				gtk_widget_hide(media_label);
+				hide_buttons(idle);
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols),
                                                showcontrols);
             }
@@ -1396,8 +1395,10 @@ void menuitem_view_info_callback(GtkMenuItem * menuitem, void *data)
 	if (GTK_IS_WIDGET(media_label)) {
 		if (GTK_WIDGET_VISIBLE(media_label)) {
 			gtk_widget_hide(media_label);
+			show_media_label = FALSE;
 		} else {
 			gtk_widget_show(media_label);
+			show_media_label = TRUE;
 		}
 	}
 }
