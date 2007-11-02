@@ -124,7 +124,7 @@ gint play_file(gchar * filename, gint playlist)
         streaming = thread_data->streaming;
 
 		if (autostart) {
-            g_idle_add(hide_buttons, thread_data);
+            g_idle_add(hide_buttons, idledata);
 			js_state = STATE_PLAYING;
             g_thread_create(launch_player, thread_data, TRUE, NULL);
         }
