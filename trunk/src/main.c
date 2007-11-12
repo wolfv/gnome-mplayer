@@ -232,23 +232,18 @@ int main(int argc, char *argv[])
     read_mplayer_config();
     thread_running = g_mutex_new();
 
-    //printf("opening %s\n", argv[fileindex]);
+    printf("opening %s\n", argv[fileindex]);
     g_stat(argv[fileindex], &buf);
-    //printf("is block %i\n", S_ISBLK(buf.st_mode));
-    //printf("is character %i\n", S_ISCHR(buf.st_mode));
-    //printf("is reg %i\n", S_ISREG(buf.st_mode));
-    //printf("is dir %i\n", S_ISDIR(buf.st_mode));
-    //printf("playlist %i\n", playlist);
-    //printf("embedded in window id %i\n", embed_window);
-
-    if (S_ISDIR(buf.st_mode)) {
-        // might have a DVD here
-        printf("Directory support not implemented yet\n");
-        if (argv[fileindex] != NULL) {
-            set_media_info(_("Playing DVD"));
-            play_file("dvd://", playlist);
-        }
-    } else if (S_ISBLK(buf.st_mode)) {
+	if (verbose) {
+    	printf("is block %i\n", S_ISBLK(buf.st_mode));
+    	printf("is character %i\n", S_ISCHR(buf.st_mode));
+    	printf("is reg %i\n", S_ISREG(buf.st_mode));
+    	printf("is dir %i\n", S_ISDIR(buf.st_mode));
+    	printf("playlist %i\n", playlist);
+    	printf("embedded in window id %i\n", embed_window);
+	}
+	
+	if (S_ISBLK(buf.st_mode)) {
         // might have a block device, so could be a DVD
 
         fp = setmntent("/etc/mtab", "r");
