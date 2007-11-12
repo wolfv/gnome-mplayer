@@ -1,4 +1,5 @@
 Development
+	Work around bug in g_stat reporting a mms url as a directory.
 	Add pulse to the list of possible AO devices
 	For dvdnav:// urls don't load it as a playlist
 	Add fallback support for playlist media (playlist within playlist)
