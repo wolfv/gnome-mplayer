@@ -40,8 +40,8 @@ gint detect_playlist(gchar * filename)
 		playlist = 1;
 	} else if (g_strncasecmp(filename,"dvd://",6) == 0) {
 		playlist = 1;
-	} else if (g_strncasecmp(filename,"dvdnav://",9) == 0) {
-		playlist = 1;
+//	} else if (g_strncasecmp(filename,"dvdnav://",9) == 0) {
+//		playlist = 1;
 	} else {
 		
 		
@@ -363,7 +363,7 @@ gint parse_dvd(gchar* filename) {
 	gchar *track;
 	gint num;
 	
-	if (g_strncasecmp(filename,"dvd://",strlen("dvd://")) == 0 || g_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
+	if (g_strncasecmp(filename,"dvd://",strlen("dvd://")) == 0) {	// || g_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
 		playlist = 0;
         // run mplayer and try to get the first frame and convert it to a jpeg
         av[ac++] = g_strdup_printf("mplayer");
@@ -602,6 +602,9 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 			desc = g_strdup_printf("%s",g_strrstr(itemname,"/")+sizeof(gchar));
 		}else if (device_name(itemname)) {
 			desc = g_strdup_printf("Device - %s",itemname);
+			if (g_strncasecmp(itemname,"dvdnav://",strlen("dvdnav://") == 0))
+				loop =1;
+			
 		} else {
 			desc = g_strdup_printf("Stream from %s",itemname);
 		}

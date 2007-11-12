@@ -312,6 +312,7 @@ int main(int argc, char *argv[])
         }
 				
 		if (argv[fileindex] != NULL && g_strncasecmp(argv[fileindex],"dvdnav://",9) == 0) {
+			loop = 1;
 			play_file(argv[fileindex], 0);
 		} else {
 			if (random_order) {

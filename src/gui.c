@@ -661,7 +661,7 @@ gboolean expose_fixed_callback(GtkWidget * widget, GdkEventExpose * event, gpoin
 {
     GdkGC *gc;
 
-    if (GDK_IS_DRAWABLE(fixed->window) && idledata->videopresent) {
+    if (GDK_IS_DRAWABLE(fixed->window)) {
         gc = gdk_gc_new(fixed->window);
         // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
         gdk_draw_rectangle(fixed->window, gc, TRUE, event->area.x, event->area.y, event->area.width,
@@ -678,7 +678,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     gint new_width, new_height;
 
 
-    if (actual_x > 0 && actual_y > 0 && videopresent) {
+    if (actual_x > 0 && actual_y > 0) {
 
         movie_ratio = (gdouble) actual_x / (gdouble) actual_y;
         window_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
@@ -702,7 +702,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
         idledata->x = (allocation->width - new_width) / 2;
         idledata->y = (allocation->height - new_height) / 2;
-        g_idle_add(move_window, idledata);
+        move_window(idledata);
     	return FALSE;
     } else {
 		return TRUE;
@@ -2053,6 +2053,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "esd");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "jack");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "oss");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "pulse");
         if (ao != NULL) {
             if (strcmp(ao, "alsa") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 0);
@@ -2064,10 +2065,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 3);
             if (strcmp(ao, "oss") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 4);
+            if (strcmp(ao, "pulse") == 0)
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 5);
             if (gtk_combo_box_get_active(GTK_COMBO_BOX(config_ao))
                 == -1) {
                 gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), ao);
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 5);
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 6);
             }
         }
     }
@@ -2689,7 +2692,7 @@ GtkWidget *create_window(gint windowid)
 
     //gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK);
     //gtk_widget_add_events(drawing_area, GDK_BUTTON_RELEASE_MASK);
-    // gtk_widget_add_events(drawing_area, GDK_EXPOSURE_MASK);
+    //gtk_widget_add_events(drawing_area, GDK_STRUCTURE_MASK);
 
     g_signal_connect_swapped(G_OBJECT(drawing_area),
                              "button_press_event",
