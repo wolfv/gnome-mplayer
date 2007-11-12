@@ -114,6 +114,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
             	error_msg = g_strdup(mplayer_output->str);
 		}
     }
+	
+	if (strstr(mplayer_output->str, "Failed to initiate \"video/X-ASF-PF\" RTP subsession") != NULL) {
+		dontplaynext = TRUE;
+		playback_error = ERROR_RETRY_WITH_PLAYLIST;
+	}
 
 	if (strstr(mplayer_output->str,"Compressed SWF format not supported") != NULL) {
 		error_msg = g_strdup_printf(_("Compressed SWF format not supported"));
@@ -520,6 +525,7 @@ gpointer launch_player(gpointer data)
 
     fullscreen = 0;
     videopresent = 1;
+	playback_error = NO_ERROR;
 	
     g_mutex_lock(thread_running);
 
@@ -635,9 +641,6 @@ gpointer launch_player(gpointer data)
 		dbus_send_event("MediaComplete",0);
         dbus_open_next();
 	}
-		
-    g_free(threaddata);
-    threaddata = NULL;
 
     if (channel_in != NULL) {
         g_io_channel_shutdown(channel_in, FALSE, NULL);
@@ -693,8 +696,14 @@ gpointer launch_player(gpointer data)
 			} 
 		}
 	} else {
+		if (playback_error == ERROR_RETRY_WITH_PLAYLIST) {
+			play_file(threaddata->filename,1);
+		}
 		dontplaynext = FALSE;
 	}
+
+	g_free(threaddata);
+    threaddata = NULL;
 
     return NULL;
 }

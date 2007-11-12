@@ -1,3 +1,7 @@
+Development
+	Add pulse to the list of possible AO devices
+	For dvdnav:// urls don't load it as a playlist
+	Add fallback support for playlist media (playlist within playlist)
 0.5.2
 	Minor GUI cleanup
 	Remove extra carrage returns from metadata
