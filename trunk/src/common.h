@@ -160,6 +160,8 @@ gboolean show_media_label;
 gboolean control_instance;
 gchar *playlistname;
 
+GThread *thread;
+
 gboolean qt_disabled;
 gboolean real_disabled;
 gboolean wmp_disabled;

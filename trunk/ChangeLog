@@ -1,4 +1,5 @@
 Development
+	Fix mplayer not being shutdown on F8
 	When we are on GTK 2.12, use the Volume Button widget
 	Work around bug in g_stat reporting a mms url as a directory.
 	Add pulse to the list of possible AO devices

@@ -126,7 +126,7 @@ gint play_file(gchar * filename, gint playlist)
 		if (autostart) {
             g_idle_add(hide_buttons, idledata);
 			js_state = STATE_PLAYING;
-            g_thread_create(launch_player, thread_data, TRUE, NULL);
+            thread = g_thread_create(launch_player, thread_data, TRUE, NULL);
         }
         autostart = 1;
     }
@@ -181,6 +181,7 @@ int main(int argc, char *argv[])
 	js_state = STATE_UNDEFINED;
 	control_instance = TRUE;
 	playlistname = NULL;
+	thread = NULL;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();
