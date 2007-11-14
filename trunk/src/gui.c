@@ -2401,8 +2401,11 @@ GtkWidget *create_window(gint windowid)
     GtkTargetEntry target_entry[3];
     gint i = 0;
 	gchar **visuals;
-	GtkAdjustment *adj;
 
+#ifdef GTK2_12_ENABLED	
+	GtkAdjustment *adj;
+#endif
+	
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
 
