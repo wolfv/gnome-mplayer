@@ -53,7 +53,7 @@ gboolean send_command(gchar * command)
 {
     gint ret;
 
-    // printf("send command = %s\n",command);
+    //printf("send command = %s\n",command);
     ret = write(std_in, command, strlen(command));
     fsync(std_in);
     if (ret < 0) {
@@ -608,7 +608,7 @@ gpointer launch_player(gpointer data)
         channel_err = g_io_channel_unix_new(std_err);
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
-        watch_in_id = g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_IN, thread_reader, NULL,NULL);
+        watch_in_id = g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader, NULL,NULL);
         watch_err_id = g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL, NULL);
         watch_in_hup_id = g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete, NULL, NULL);
 //        watch_in_id = g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
@@ -624,9 +624,6 @@ gpointer launch_player(gpointer data)
     }
 
     g_mutex_lock(thread_running);
-    while (gtk_events_pending()) {
-        gtk_main_iteration();
-	}
 	if (verbose)
     	printf("Thread completing\n");
 	g_source_remove(watch_in_id);
@@ -704,6 +701,6 @@ gpointer launch_player(gpointer data)
 
 	g_free(threaddata);
     threaddata = NULL;
-
+	thread = NULL;
     return NULL;
 }

@@ -630,6 +630,9 @@ gboolean notification_handler(GtkWidget * widget, GdkEventCrossing * event, void
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 {
     shutdown();
+	while(gtk_events_pending() || thread != NULL) {
+		gtk_main_iteration();
+	}
 
     if (idledata != NULL) {
         g_free(idledata);
@@ -640,11 +643,9 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
         dbus_cancel();
 
     dbus_unhook();
-
-//    while (gtk_events_pending())
-//        gtk_main_iteration();
+	
     gtk_main_quit();
-    return TRUE;
+    return FALSE;
 }
 
 gboolean move_window(void *data)
@@ -2954,6 +2955,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(image_fs);
     gtk_widget_show(fs_event_box);
 
+	
     // volume control
 	if ((window_y > window_x) && (rpcontrols != NULL && g_strcasecmp(rpcontrols, "volumeslider") == 0)) {
 	    vol_slider = gtk_vscale_new_with_range(0.0, 100.0, 1.0);
@@ -2970,6 +2972,7 @@ GtkWidget *create_window(gint windowid)
 		gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),100.0);
 		gtk_widget_set_size_request(vol_slider, -1, 22);
 		g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_button_callback), NULL);
+		gtk_button_set_relief(GTK_BUTTON(vol_slider),GTK_RELIEF_NONE);
 #else
 	    vol_slider = gtk_hscale_new_with_range(0.0, 100.0, 1.0);
     	gtk_widget_set_size_request(vol_slider, 44, 16);
