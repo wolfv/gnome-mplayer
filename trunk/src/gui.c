@@ -311,7 +311,11 @@ gboolean set_volume_from_slider(gpointer data)
     gint vol;
     gchar *cmd;
 
+#ifdef GTK2_12_ENABLED
+	vol = (gint) gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
+#else 
     vol = (gint) gtk_range_get_value(GTK_RANGE(vol_slider));
+#endif
     cmd = g_strdup_printf("volume %i 1\n", vol);
     send_command(cmd);
     g_free(cmd);
@@ -1154,6 +1158,30 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
 	
 }
 
+#ifdef GTK2_12_ENABLED
+void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
+{
+    gint vol;
+    gchar *cmd;
+    gchar *buf;
+
+    vol = (gint) gtk_scale_button_get_value(GTK_SCALE_BUTTON(volume));
+    cmd = g_strdup_printf("pausing_keep volume %i 1\n", vol);
+    send_command(cmd);
+    g_free(cmd);
+    if (idledata->volume != vol) {
+
+        buf = g_strdup_printf(_("Volume %i%%"), vol);
+        g_strlcpy(idledata->vol_tooltip, buf, 128);
+        g_idle_add(set_volume_tip, idledata);
+        g_free(buf);
+    }
+    send_command("get_property volume\n");
+	
+	dbus_send_rpsignal_with_double("Volume",gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)));
+	
+}
+#endif
 
 gboolean fs_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
@@ -2373,6 +2401,7 @@ GtkWidget *create_window(gint windowid)
     GtkTargetEntry target_entry[3];
     gint i = 0;
 	gchar **visuals;
+	GtkAdjustment *adj;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
@@ -2928,15 +2957,27 @@ GtkWidget *create_window(gint windowid)
 		gtk_widget_set_size_request(vol_slider, -1, window_y);
 		gtk_range_set_inverted(GTK_RANGE(vol_slider),TRUE);
 	} else {
+#ifdef GTK2_12_ENABLED
+		vol_slider = gtk_volume_button_new();
+		adj = gtk_scale_button_get_adjustment(GTK_SCALE_BUTTON(vol_slider));
+		adj->lower = 0.0;
+		adj->upper = 100.0;
+		adj->step_increment = 1.0;
+		gtk_scale_button_set_adjustment(GTK_SCALE_BUTTON(vol_slider),adj);
+		gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),100.0);
+		gtk_widget_set_size_request(vol_slider, 44, 22);
+		g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_button_callback), NULL);
+#else
 	    vol_slider = gtk_hscale_new_with_range(0.0, 100.0, 1.0);
     	gtk_widget_set_size_request(vol_slider, 44, 16);
+		gtk_scale_set_draw_value(GTK_SCALE(vol_slider), FALSE);
+		gtk_range_set_value(GTK_RANGE(vol_slider), 100.0);
+		g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_slider_callback), NULL);
+#endif
 	}
     volume_tip = gtk_tooltips_new();
     gtk_tooltips_set_tip(volume_tip, vol_slider, _("Volume 100%"), NULL);
     gtk_box_pack_end(GTK_BOX(hbox), vol_slider, FALSE, FALSE, 0);
-    gtk_scale_set_draw_value(GTK_SCALE(vol_slider), FALSE);
-    gtk_range_set_value(GTK_RANGE(vol_slider), 100.0);
-    g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_slider_callback), NULL);
     GTK_WIDGET_UNSET_FLAGS(vol_slider, GTK_CAN_FOCUS);
     gtk_widget_show(vol_slider);
 
