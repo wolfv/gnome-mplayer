@@ -84,7 +84,13 @@ gboolean hide_buttons(void *data)
 
 gboolean show_copyurl(void *data)
 {
+	IdleData *idle = (IdleData *) data;
+	gchar *buf;
+	
     gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
+	buf = g_strdup_printf(_("%s - GNOME MPlayer"), idle->url);
+    gtk_window_set_title(GTK_WINDOW(window), buf);	
+	
 	return FALSE;
 		
 }
