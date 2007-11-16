@@ -1237,7 +1237,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-		if (filename == NULL)
+		if (filename == NULL || g_file_test(filename, G_FILE_TEST_EXISTS) == FALSE)
 			filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
         gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
