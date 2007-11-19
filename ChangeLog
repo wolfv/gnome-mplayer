@@ -1,5 +1,6 @@
 Development
-	On file open if file does not exist, try URI
+	Added pt_BR translation
+	On file open if file does not exi
 	When SetURL is passed in, set the media file in title bar to the URL
 	Fix mplayer not being shutdown on F8
 	When we are on GTK 2.12, use the Volume Button widget
