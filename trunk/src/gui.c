@@ -70,7 +70,7 @@ gboolean hide_buttons(void *data)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), TRUE);
 
 	// printf("count = %i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
-	if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2) {
+	if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2 && lastfile != NULL && g_strncasecmp(lastfile,"dvdnav",6) != 0) {
 		gtk_widget_hide(prev_event_box);
 		gtk_widget_hide(next_event_box);
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
@@ -824,6 +824,10 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 		case GDK_numbersign:
 			send_command("pausing_keep switch_audio\n");
 			return FALSE;
+		case GDK_v:
+			send_command("pausing_keep sub_visibility\n");
+		case GDK_j:
+			send_command("pausing_keep sub_select\n");
         default:
             return FALSE;
         }
@@ -1049,20 +1053,25 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 	
 	if (gtk_list_store_iter_is_valid(playliststore,&iter)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&iterfilename,-1);
-		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
-		do {
-			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&localfilename, -1);
-			// printf("iter = %s   local = %s \n",iterfilename,localfilename);
-			if (g_ascii_strcasecmp(iterfilename,localfilename) == 0) {
-				// we found the current iter
-				break;
-			} else {
-				valid = TRUE;
-				previter = localiter;
-			}
-			g_free(localfilename);
-		} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter));
-		g_free(iterfilename);
+		if (g_strncasecmp(lastfile,"dvdnav",strlen("dvdnav")) == 0) {
+			valid = FALSE;
+			send_command("seek_chapter -1 0\n");
+		} else {
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
+			do {
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&localfilename, -1);
+				// printf("iter = %s   local = %s \n",iterfilename,localfilename);
+				if (g_ascii_strcasecmp(iterfilename,localfilename) == 0) {
+					// we found the current iter
+					break;
+				} else {
+					valid = TRUE;
+					previter = localiter;
+				}
+				g_free(localfilename);
+			} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter));
+			g_free(iterfilename);
+		}
 	} else {
 		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
 		do {
@@ -1070,6 +1079,11 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 			valid = TRUE;
 			gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter);
 		} while (gtk_list_store_iter_is_valid(playliststore,&localiter));
+		
+		if (g_strncasecmp(lastfile,"dvdnav",strlen("dvdnav")) == 0) {
+			valid = FALSE;
+			send_command("seek_chapter -1 0\n");
+		}		
 	}
 		
 	if (valid) {
@@ -1108,31 +1122,41 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 	GtkTreeIter localiter = iter;
 	GtkTreePath *path;
 	
-	dontplaynext = TRUE;
-	if (next_item_in_playlist(&localiter)) {
-		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-		shutdown();
-		set_media_info(filename);
-		play_file(filename, playlist);
-		gtk_list_store_set(playliststore,&localiter,COUNT_COLUMN,count+1, -1);
-		g_free(filename);
-		iter = localiter;
-		if (autopause) {
-			autopause = FALSE;
-			gtk_widget_set_sensitive(play_event_box,TRUE);
-			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+	if (gtk_list_store_iter_is_valid(playliststore,&iter)) {
+		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename,-1);
+		if (g_strncasecmp(lastfile,"dvdnav",strlen("dvdnav")) == 0) {
+			send_command("seek_chapter 1 0\n");
+		} else {	
+			dontplaynext = TRUE;
+			if (next_item_in_playlist(&localiter)) {
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+				shutdown();
+				set_media_info(filename);
+				play_file(filename, playlist);
+				gtk_list_store_set(playliststore,&localiter,COUNT_COLUMN,count+1, -1);
+				g_free(filename);
+				iter = localiter;
+				if (autopause) {
+					autopause = FALSE;
+					gtk_widget_set_sensitive(play_event_box,TRUE);
+					gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+				}
+				gtk_widget_set_sensitive(ff_event_box, TRUE);
+				gtk_widget_set_sensitive(rew_event_box, TRUE);
+			} else {
+				// printf("playlist is empty, resetting to end of list\n");
+				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
+				do {
+					iter = localiter;	
+					gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter);
+				} while (gtk_list_store_iter_is_valid(playliststore,&localiter));
+			}
 		}
-		gtk_widget_set_sensitive(ff_event_box, TRUE);
-		gtk_widget_set_sensitive(rew_event_box, TRUE);
 	} else {
-		// printf("playlist is empty, resetting to end of list\n");
-		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter);
-		do {
-			iter = localiter;	
-			gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter);
-		} while (gtk_list_store_iter_is_valid(playliststore,&localiter));
+		if (g_strncasecmp(lastfile,"dvdnav",strlen("dvdnav")) == 0) {
+			send_command("seek_chapter 1 0\n");
+		}
 	}
-	
 	if (GTK_IS_TREE_SELECTION(selection)) {
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
 		gtk_tree_selection_select_path(selection,path);	

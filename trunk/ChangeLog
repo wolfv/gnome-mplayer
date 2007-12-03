@@ -1,4 +1,7 @@
 Development
+	Key j selects visible subtitle
+	Key v toggles subtitle visibility
+	When using dvdnav:// prev and next should do chapter seeks
 	Added pt_BR translation
 	On file open if file does not exi
 	When SetURL is passed in, set the media file in title bar to the URL
