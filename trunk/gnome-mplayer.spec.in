@@ -4,7 +4,7 @@
 Name: gnome-mplayer
 Summary: GNOME Frontend for MPlayer
 Version: %{ver}
-Release: f%{fedora}-1
+Release: f%{fedora}_1
 License: GPL
 Group: Multimedia
 Packager: Kevin DeKorte <kdekorte@gmail.com>
