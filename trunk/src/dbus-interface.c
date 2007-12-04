@@ -24,7 +24,7 @@
 
 #include "dbus-interface.h"
 #include "support.h"
-
+#include <unistd.h>
 /*
 
 To send command to ALL running gnome-mplayers (multihead applications)
