@@ -25,9 +25,10 @@
 #ifndef _SUPPORT_H
 #define _SUPPORT_H
 
-#include "gnome.h"
+#include "gui.h"
 #include "common.h"
-
+#include <string.h>
+#include <stdlib.h>
 
 gint play_file(gchar * filename, gint playlist);
 gint detect_playlist(gchar * filename);

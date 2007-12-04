@@ -22,9 +22,12 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 #include <glib.h>
 #include <glib/gstdio.h>
+#include <glib/gi18n.h>
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-value.h>

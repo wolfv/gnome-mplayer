@@ -32,13 +32,15 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <libintl.h>
 
-#include <bonobo.h>
-#include <gnome.h>
+//#include <bonobo.h>
+// #include <gnome.h>
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-value.h>
 #include <glib/gstdio.h>
+#include <glib/gi18n.h>
 
 #include "common.h"
 #include "support.h"
@@ -204,8 +206,8 @@ int main(int argc, char *argv[])
 	if (verbose == 0)	
     	verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
 
-    gnome_program_init(PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-                       argc, argv, GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR, NULL);
+//    gnome_program_init(PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+//                       argc, argv, GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR, NULL);
 
     if (!g_thread_supported())
         g_thread_init(NULL);

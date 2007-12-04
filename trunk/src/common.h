@@ -22,6 +22,7 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
+#include <gtk/gtk.h>
 
 #ifndef _COMMON_H
 #define _COMMON_H

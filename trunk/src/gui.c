@@ -26,8 +26,6 @@
 #  include <config.h>
 #endif
 
-#include <gnome.h>
-
 #include "gui.h"
 #include "support.h"
 #include "common.h"

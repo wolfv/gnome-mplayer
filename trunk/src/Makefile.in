@@ -51,7 +51,7 @@ am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
 gnome_mplayer_OBJECTS = $(am_gnome_mplayer_OBJECTS)
 am__DEPENDENCIES_1 =
 gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 gnome_mplayer_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(gnome_mplayer_LDFLAGS) $(LDFLAGS) -o $@
@@ -104,15 +104,17 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
+GCONF_CFLAGS = @GCONF_CFLAGS@
+GCONF_LIBS = @GCONF_LIBS@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
-GNOME_CFLAGS = @GNOME_CFLAGS@
-GNOME_LIBS = @GNOME_LIBS@
 GREP = @GREP@
 GTK2_12_CFLAGS = @GTK2_12_CFLAGS@
 GTK2_12_DEFINES = @GTK2_12_DEFINES@
 GTK2_12_LIBS = @GTK2_12_LIBS@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBS = @GTK_LIBS@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -209,8 +211,9 @@ INCLUDES = \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-I../pixmaps \
-	$(GNOME_CFLAGS) \
-	$(DBUS_CFLAGS)
+	$(GTK_CFLAGS) \
+	$(DBUS_CFLAGS) \
+	$(GCONF_CFLAGS)
 
 AM_CFLAGS = \
 	 -Wall\
@@ -242,7 +245,7 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/view-fullscreen.xpm
 
 gnome_mplayer_LDFLAGS = 
-gnome_mplayer_LDADD = $(GNOME_LIBS) $(DBUS_LIBS)
+gnome_mplayer_LDADD = $(GTK_LIBS) $(DBUS_LIBS) $(GCONF_LIBS)
 EXTRA_DIST = 
 all: all-am
 
