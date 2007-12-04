@@ -1400,7 +1400,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *authors[] = { "Kevin DeKorte", NULL };
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"),
-                          "logo", pb_icon,
+                          "logo", pb_logo,
                           "authors", authors,
                           "copyright", "Copyright © 2007 Kevin DeKorte",
                           "comments", _("A media player for GNOME that uses MPlayer"),
@@ -2858,8 +2858,10 @@ GtkWidget *create_window(gint windowid)
 
 	if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
 		pb_icon = gtk_icon_theme_load_icon(icon_theme,"gnome-mplayer",16,0,NULL);
+		pb_logo = gtk_icon_theme_load_icon(icon_theme,"gnome-mplayer",64,0,NULL);
 	} else {
 	    pb_icon = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
+	    pb_logo = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
 	}
    	gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
 
