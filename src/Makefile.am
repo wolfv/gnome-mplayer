@@ -7,8 +7,9 @@ INCLUDES = \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-I../pixmaps \
-	$(GNOME_CFLAGS) \
-	$(DBUS_CFLAGS)
+	$(GTK_CFLAGS) \
+	$(DBUS_CFLAGS) \
+	$(GCONF_CFLAGS)
 
 AM_CFLAGS =\
 	 -Wall\
@@ -43,7 +44,7 @@ gnome_mplayer_SOURCES = \
 
 gnome_mplayer_LDFLAGS = 
 
-gnome_mplayer_LDADD = $(GNOME_LIBS) $(DBUS_LIBS)
+gnome_mplayer_LDADD = $(GTK_LIBS) $(DBUS_LIBS) $(GCONF_LIBS)
 
 EXTRA_DIST = 
 	

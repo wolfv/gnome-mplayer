@@ -1,4 +1,5 @@
 Development
+	Removal of dependancies on libgnome and libgnomeui
 	Key j selects visible subtitle
 	Key v toggles subtitle visibility
 	When using dvdnav:// prev and next should do chapter seeks

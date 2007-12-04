@@ -25,6 +25,7 @@
 #include <glib.h>
 #include "support.h"
 #include "common.h"
+#include <unistd.h>
 
 gint std_in;
 gint std_out;
