@@ -1598,6 +1598,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
         } else {
             gtk_widget_hide(menubar);
+			if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox))
+				menuitem_view_playlist_callback(NULL,NULL);
         }
         gtk_window_fullscreen(GTK_WINDOW(window));
         fullscreen = 1;
@@ -2494,7 +2496,7 @@ GtkWidget *create_window(gint windowid)
     menuitem_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep2));
     gtk_widget_show(GTK_WIDGET(menuitem_sep2));
-    menuitem_config = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_PROPERTIES, NULL));
+    menuitem_config = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES, NULL));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_config));
     gtk_widget_show(GTK_WIDGET(menuitem_config));
     
@@ -2613,7 +2615,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_sep1));
 	
 	menuitem_edit_config =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_PROPERTIES, NULL));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES, NULL));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_config));
     g_signal_connect(GTK_OBJECT(menuitem_edit_random), "activate",
                      G_CALLBACK(menuitem_edit_random_callback), NULL);
