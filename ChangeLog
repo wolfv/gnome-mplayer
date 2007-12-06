@@ -1,4 +1,6 @@
 Development
+	Hide Playlist when fullscreen is selected
+	Change Properties to Preferences
 	Removal of dependancies on libgnome and libgnomeui
 	Key j selects visible subtitle
 	Key v toggles subtitle visibility
