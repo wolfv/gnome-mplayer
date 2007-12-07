@@ -2623,6 +2623,9 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_edit_loop_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_config), "activate",
+                               accel_group, 'p', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	
 
 	
     // View Menu
@@ -2666,6 +2669,8 @@ GtkWidget *create_window(gint windowid)
 
     g_signal_connect(GTK_OBJECT(menuitem_view_playlist), "activate",
                      G_CALLBACK(menuitem_view_playlist_callback), NULL);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_playlist), "activate",
+                               accel_group, 'l', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     g_signal_connect(GTK_OBJECT(menuitem_view_info), "activate",
                      G_CALLBACK(menuitem_view_info_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "activate",
