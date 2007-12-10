@@ -1580,8 +1580,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_resize(GTK_WINDOW(window), width, height);
     } else {
         if (embed_window != 0) {
-            while (gtk_events_pending())
-                gtk_main_iteration();
+            //while (gtk_events_pending())
+            //    gtk_main_iteration();
 
             if (GTK_WIDGET_MAPPED(window))
                 gtk_widget_unmap(window);
@@ -2283,6 +2283,7 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
 			if (idledata->cachepercent > 0.0 && percent > idledata->cachepercent) {
 				percent = idledata->cachepercent - 0.10;
 			}
+			
 			if (!idledata->streaming) {
 				if (!autopause) {
 					if (state == PLAYING) {
