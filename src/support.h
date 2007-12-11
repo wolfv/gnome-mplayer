@@ -29,6 +29,7 @@
 #include "common.h"
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 gint play_file(gchar * filename, gint playlist);
 gint detect_playlist(gchar * filename);
