@@ -180,6 +180,7 @@ gint get_player_window();
 gboolean hide_buttons(void *data);
 gboolean show_copyurl(void *data);
 gboolean set_media_info(void *data);
+gboolean set_media_info_name(gchar *filename);
 gboolean set_media_label(void *data);
 gboolean set_progress_value(void *data);
 gboolean set_progress_text(void *data);

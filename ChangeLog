@@ -1,4 +1,5 @@
 Development
+	Fix bug in set_media_info calls, where wrong variable being sent
 	Polish and Korean Translations
 	Acclerator I (show/hide info window)
 	Accelerators Ctrl-P (Preferences) and Ctrl-L (Playlist)

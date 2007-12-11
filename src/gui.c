@@ -120,6 +120,29 @@ gboolean set_media_info(void *data)
     return FALSE;
 }
 
+gboolean set_media_info_name(gchar *filename)
+{
+
+    gchar *buf;
+	gchar *name;
+
+    if (filename != NULL && GTK_IS_WIDGET(song_title)) {
+		gtk_entry_set_text(GTK_ENTRY(song_title), filename);
+		//gtk_widget_hide(song_title);
+		if (g_strrstr(filename,"/") != NULL) {
+			name = g_strdup_printf("%s",g_strrstr(filename,"/") + 1);
+		} else {
+			name = g_strdup(filename);
+		}			
+		buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
+		gtk_window_set_title(GTK_WINDOW(window), buf);
+		g_free(buf);
+		g_free(name);
+    }
+    return FALSE;
+}
+
+
 gboolean set_media_label(void *data)
 {
 
@@ -947,7 +970,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (state == QUIT) {
 			if(next_item_in_playlist(&iter)) {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-				set_media_info(filename);
+				set_media_info_name(filename);
 				play_file(filename, playlist);
 				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 				g_free(filename);
@@ -959,7 +982,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 			} else {
 				if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-					set_media_info(filename);
+					set_media_info_name(filename);
 					play_file(filename, playlist);
 					gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 					g_free(filename);
@@ -1088,7 +1111,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 		dontplaynext = TRUE;
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &previter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 		shutdown();
-		set_media_info(filename);
+		set_media_info_name(filename);
 		play_file(filename, playlist);
 		gtk_list_store_set(playliststore,&previter,COUNT_COLUMN,count+1, -1);
 		g_free(filename);
@@ -1129,7 +1152,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 			if (next_item_in_playlist(&localiter)) {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 				shutdown();
-				set_media_info(filename);
+				set_media_info_name(filename);
 				play_file(filename, playlist);
 				gtk_list_store_set(playliststore,&localiter,COUNT_COLUMN,count+1, -1);
 				g_free(filename);
@@ -1286,7 +1309,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 			g_free(filename);
 			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename,COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-			set_media_info(filename);
+			set_media_info_name(filename);
 			play_file(filename, playlist);
 			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 			g_free(filename);
@@ -1312,7 +1335,7 @@ void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
 	//play_file("dvd://", 0);
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-		set_media_info(filename);
+		set_media_info_name(filename);
 		printf("playing - %s is playlist = %i\n",filename,playlist);
 		play_file(filename, playlist);
 		gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
@@ -1341,7 +1364,7 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 	//play_file("cdda://", playlist);
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-		set_media_info(filename);
+		set_media_info_name(filename);
 		printf("playing - %s is playlist = %i\n",filename,playlist);
 		play_file(filename, playlist);
 		gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
