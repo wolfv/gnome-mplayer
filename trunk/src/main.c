@@ -267,11 +267,11 @@ int main(int argc, char *argv[])
             filename = g_strdup_printf("%s/VIDEO_TS", mnt->mnt_dir);
             stat(filename, &buf);
             if (S_ISDIR(buf.st_mode)) {
-                set_media_info(_("Playing DVD"));
+                set_media_info_name(_("Playing DVD"));
                 play_file("dvd://", playlist);
             }
         } else {
-            set_media_info(_("Playing Audio CD"));
+            set_media_info_name(_("Playing Audio CD"));
 			parse_cdda("cdda://");
 			if (random_order) {
 				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
