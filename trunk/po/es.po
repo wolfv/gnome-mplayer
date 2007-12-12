@@ -98,12 +98,12 @@ msgstr "%s - GNOME MPlayer"
 #: src/gui.c:187
 #, fuzzy, c-format
 msgid "Paused | %2i%% ▼"
-msgstr "Detenido brevemente | %2i%% âŒ"
+msgstr "Detenido brevemente | %2i%% ▼"
 
 #: src/gui.c:281
 #, fuzzy, c-format
 msgid "%2i:%02i | %2i%% ▼"
-msgstr "%2i:%02i | %2i%% âŒ"
+msgstr "%2i:%02i | %2i%% ▼"
 
 #: src/gui.c:284
 #, c-format
@@ -113,7 +113,7 @@ msgstr "%2i:%02i"
 #: src/gui.c:289
 #, fuzzy, c-format
 msgid "%2i:%02i / %2i:%02i | %2i%% ▼"
-msgstr "%2i:%02i / %2i:%02i | %2i%% âŒ"
+msgstr "%2i:%02i / %2i:%02i | %2i%% ▼"
 
 #: src/gui.c:294
 #, c-format
@@ -123,7 +123,7 @@ msgstr "%2i:%02i / %2i:%02i"
 #: src/gui.c:303
 #, fuzzy, c-format
 msgid "%i:%02i:%02i | %2i%% ▼"
-msgstr "%i:%02i:%02i | %2i%% âŒ"
+msgstr "%i:%02i:%02i | %2i%% ▼"
 
 #: src/gui.c:306
 #, c-format
@@ -133,7 +133,7 @@ msgstr "%i:%02i:%02i"
 #: src/gui.c:313
 #, fuzzy, c-format
 msgid "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
-msgstr "%i:%02i:%02i / %i:%02i:%02i | %2i%% âŒ"
+msgstr "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
 
 #: src/gui.c:319
 #, c-format
