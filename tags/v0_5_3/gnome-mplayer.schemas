@@ -1,0 +1,53 @@
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/cache_size</key>
+      <applyto>/apps/gnome-mplayer/preferences/cache_size</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>2000</default>
+      <locale name="C">
+        <short>Cache size</short>
+        <long>The memory cache size for playing</long>
+      </locale>
+    </schema>
+ 
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/osdlevel</key>
+      <applyto>/apps/gnome-mplayer/preferences/osdlevel</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>OSD Level</short>
+        <long>Value for the On Screen Display Setting</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/verbose</key>
+      <applyto>/apps/gnome-mplayer/preferences/verbose</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Verbose Messages</short>
+        <long>Set Verbose debug messages to be default</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/last_dir</key>
+      <applyto>/apps/gnome-mplayer/preferences/last_dir</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Last directory</short>
+        <long>Last visited direcory with open dialog</long>
+      </locale>
+    </schema>
+
+  </schemalist>
+</gconfschemafile>
