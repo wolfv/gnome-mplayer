@@ -1,4 +1,4 @@
-Development
+0.5.3
 	Fix bug in set_media_info calls, where wrong variable being sent
 	Polish and Korean Translations
 	Acclerator I (show/hide info window)
