@@ -573,15 +573,21 @@ gboolean set_position(void *data)
 gboolean set_volume(void *data)
 {
     IdleData *idle = (IdleData *) data;
-    gchar *buf;
-
+#ifndef GTK2_12_ENABLED
+    gchar *buf = NULL;
+#endif
+	
     if (GTK_IS_WIDGET(vol_slider)) {
         // printf("setting slider to %f\n", idle->volume);
+#ifdef GTK2_12_ENABLED
+		gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),idle->volume);
+#else
         gtk_range_set_value(GTK_RANGE(vol_slider), idle->volume);
         buf = g_strdup_printf(_("Volume %i%%"), (gint) idle->volume);
         g_strlcpy(idledata->vol_tooltip, buf, 128);
         gtk_tooltips_set_tip(volume_tip, vol_slider, idle->vol_tooltip, NULL);
         g_free(buf);
+#endif
     }
 
     return FALSE;

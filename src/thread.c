@@ -228,8 +228,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
 		if (verbose)
         	printf("Resizing to %i x %i \n", actual_x, actual_y);
-        idledata->width = actual_x;
-        idledata->height = actual_y;
+		if (play_x >= actual_x && play_y >= actual_y) {
+			actual_x = play_x;
+			actual_y = play_y;
+		} 
+       	idledata->width = actual_x;
+       	idledata->height = actual_y;
         idledata->videopresent = 1;
         g_idle_add(resize_window, idledata);
         videopresent = 1;
