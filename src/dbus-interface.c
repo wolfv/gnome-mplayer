@@ -309,13 +309,16 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Terminate") == 0) {
-                    shutdown();
+/*
+					shutdown();
 					while(gtk_events_pending() || thread != NULL) {
 						gtk_main_iteration();
 					}					
 					dbus_unhook();
                     gtk_main_quit();
-                    return DBUS_HANDLER_RESULT_HANDLED;
+*/
+					g_idle_add(set_quit, idledata);
+					return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Volume") == 0
