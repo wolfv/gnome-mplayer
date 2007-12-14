@@ -314,7 +314,6 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 						gtk_main_iteration();
 					}					
 					dbus_unhook();
-                    connection = NULL;
                     gtk_main_quit();
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
@@ -968,6 +967,7 @@ void dbus_unhook()
 		dbus_message_unref(message);
 		dbus_connection_close(connection);
 		dbus_connection_unref(connection);
+		connection = NULL;
 	}
 }
 
