@@ -148,6 +148,8 @@ GtkWidget *fs_event_box;
 GtkProgressBar *progress;
 GtkWidget *vol_slider;
 
+gboolean in_button;
+
 GtkWidget *image_play;
 GtkWidget *image_pause;
 GtkWidget *image_stop;

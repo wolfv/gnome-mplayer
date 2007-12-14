@@ -156,9 +156,8 @@ gboolean set_media_label(void *data)
 		gtk_widget_show(media_label);
 	}
 	
-	if(idle->fromdbus == FALSE) {
-		dbus_send_rpsignal_with_string("SetMediaLabel",idle->media_info);
-	}
+	if (idle->fromdbus == FALSE)
+		dbus_send_rpsignal_with_string("RP_SetMediaLabel",idle->media_info);
 	
     return FALSE;
 }
@@ -223,13 +222,12 @@ gboolean set_progress_value(void *data)
 	if (state == QUIT) {
 		gtk_widget_set_sensitive(play_event_box,TRUE);
 	}
-	//printf("cachepercent = %f\n",idle->cachepercent);
-	//printf("percent = %f\n",idle->percent);
-	//printf("autopause = %i\n",autopause);
-	if(idle->fromdbus == FALSE) {
-		dbus_send_rpsignal_with_double("SetPercent",idle->percent);
+	if (idle->fromdbus == FALSE) {
+		dbus_send_rpsignal_with_double("RP_SetPercent",idle->percent);
+		dbus_send_rpsignal_with_int("RP_SetGUIState",state);
 	}
-    return FALSE;
+	
+	return FALSE;
 }
 
 gboolean set_progress_text(void *data)
@@ -241,9 +239,9 @@ gboolean set_progress_text(void *data)
     if (GTK_IS_WIDGET(progress)) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
-	if(idle->fromdbus == FALSE) {
-		dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
-	}
+	if (idle->fromdbus == FALSE)
+		dbus_send_rpsignal_with_string("RP_SetProgressText",idle->progress_text);
+	
     return FALSE;
 }
 
@@ -327,8 +325,8 @@ gboolean set_progress_time(void *data)
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
 	
-	if(idle->fromdbus == FALSE)
-		dbus_send_rpsignal_with_string("SetProgressText",idle->progress_text);
+	if (idle->fromdbus == FALSE)
+		dbus_send_rpsignal_with_string("RP_SetProgressText",idle->progress_text);
 
     return FALSE;
 }
@@ -377,26 +375,26 @@ gboolean set_window_visible(void *data)
 gboolean set_gui_state(void *data)
 {
 	if (guistate == PLAYING) {
-            gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
-			gtk_widget_set_sensitive(ff_event_box, FALSE);
-			gtk_widget_set_sensitive(rew_event_box, FALSE);
-	}
-	
-	if (guistate == PAUSED) {
-            gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
+			gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
 			gtk_widget_set_sensitive(ff_event_box, TRUE);
 			gtk_widget_set_sensitive(rew_event_box, TRUE);
 	}
 	
-	if (guistate == STOPPED) {
-            gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+	if (guistate == PAUSED) {
+			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+			gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
 			gtk_widget_set_sensitive(ff_event_box, FALSE);
 			gtk_widget_set_sensitive(rew_event_box, FALSE);
 	}
-
+	
+	if (guistate == STOPPED) {
+			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+			gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+			gtk_widget_set_sensitive(ff_event_box, FALSE);
+			gtk_widget_set_sensitive(rew_event_box, FALSE);
+	}
+	
 	return FALSE;
 }
 
@@ -527,21 +525,21 @@ gboolean resize_window(void *data)
 gboolean set_play(void *data)
 {
 
-    play_callback(NULL, NULL, NULL);    // ok is just not NULL which is what we want
+    play_callback(NULL, NULL, data);    
     return FALSE;
 }
 
 gboolean set_pause(void *data)
 {
 
-    pause_callback(NULL, NULL, NULL);   // ok is just not NULL which is what we want
+    pause_callback(NULL, NULL, data);   
     return FALSE;
 }
 
 gboolean set_stop(void *data)
 {
 
-    stop_callback(NULL, NULL, NULL);    // ok is just not NULL which is what we want
+    stop_callback(NULL, NULL, data);    
     return FALSE;
 }
 
@@ -941,40 +939,47 @@ gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
+	IdleData *idle = (IdleData *) data;
 	gchar *filename;
 	gint count,playlist;
 	GtkTreePath *path;
+
+	if (state == PAUSED || state == STOPPED) {
+		send_command("seek 0 0\n");
+		state = PLAYING;
+		js_state = STATE_PLAYING;
+		gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
+		gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
+		g_strlcpy(idledata->progress_text, _("Playing"), 1024);
+		g_idle_add(set_progress_text, idledata);
+		gtk_widget_set_sensitive(ff_event_box, TRUE);
+		gtk_widget_set_sensitive(rew_event_box, TRUE);
+	} else if (state == PLAYING) {
+		send_command("pause\n");
+		state = PAUSED;
+		js_state = STATE_PAUSED;
+		gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+		gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+		g_strlcpy(idledata->progress_text, _("Paused"), 1024);
+		g_idle_add(set_progress_text, idledata);
+		gtk_widget_set_sensitive(ff_event_box, FALSE);
+		gtk_widget_set_sensitive(rew_event_box, FALSE);
+	}
 	
-    if (data == NULL) {
-        if (state == PAUSED || state == STOPPED) {
-            send_command("pause\n");
-            state = PLAYING;
-			js_state = STATE_PLAYING;
-            gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
-            g_strlcpy(idledata->progress_text, _("Playing"), 1024);
-            g_idle_add(set_progress_text, idledata);
-			gtk_widget_set_sensitive(ff_event_box, TRUE);
-			gtk_widget_set_sensitive(rew_event_box, TRUE);
-        } else if (state == PLAYING) {
-            send_command("pause\n");
-            state = PAUSED;
-			js_state = STATE_PAUSED;
-            gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
-            g_strlcpy(idledata->progress_text, _("Paused"), 1024);
-            g_idle_add(set_progress_text, idledata);
-			gtk_widget_set_sensitive(ff_event_box, FALSE);
-			gtk_widget_set_sensitive(rew_event_box, FALSE);
-        }
-		
-		if (idledata->fromdbus == FALSE) {
-			dbus_send_rpsignal("Play");
-		}
-		dbus_send_rpsignal_with_int("SetGUIState",state);
-		
-        if (state == QUIT) {
-			if(next_item_in_playlist(&iter)) {
+	if (state == QUIT) {
+		if(next_item_in_playlist(&iter)) {
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+			set_media_info_name(filename);
+			play_file(filename, playlist);
+			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+			g_free(filename);
+			if (GTK_IS_TREE_SELECTION(selection)) {
+				path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+				gtk_tree_selection_select_path(selection,path);	
+				gtk_tree_path_free(path);
+			}
+		} else {
+			if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 				set_media_info_name(filename);
 				play_file(filename, playlist);
@@ -985,57 +990,51 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 					gtk_tree_selection_select_path(selection,path);	
 					gtk_tree_path_free(path);
 				}
-			} else {
-				if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
-					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-					set_media_info_name(filename);
-					play_file(filename, playlist);
-					gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-					g_free(filename);
-					if (GTK_IS_TREE_SELECTION(selection)) {
-						path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
-						gtk_tree_selection_select_path(selection,path);	
-						gtk_tree_path_free(path);
-					}
-				}
 			}
-        }
-    }
-    return FALSE;
+		}
+	}
+
+	if (idle == NULL) {
+		dbus_send_rpsignal("RP_Play");
+	}		
+	dbus_send_rpsignal_with_int("RP_SetGUIState",state);
+	
+	return FALSE;
 }
 
 gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    if (data == NULL) {
-        if (state == PAUSED) {
-            send_command("pause\n");
-			dbus_send_rpsignal("Play");
-            state = PLAYING;
-        }
-        if (state == PLAYING) {
-            send_command("seek 0 2\npause\n");
-            state = STOPPED;
-			autopause = FALSE;
-			gtk_widget_set_sensitive(play_event_box,TRUE);
-            gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
-        }
-        if (state == QUIT) {
-            gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
-            gtk_widget_hide(drawing_area);
-        }
+	IdleData *idle = (IdleData *) data;
+	
+	if (state == PAUSED) {
+		send_command("pause\n");
+		dbus_send_rpsignal("RP_Play");
+		state = PLAYING;
+	}
+	if (state == PLAYING) {
+		send_command("seek 0 2\npause\n");
+		state = STOPPED;
+		autopause = FALSE;
+		gtk_widget_set_sensitive(play_event_box,TRUE);
+		gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+		gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+	}
+	if (state == QUIT) {
+		gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+		gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+		gtk_widget_hide(drawing_area);
+	}
+	
+	idledata->percent = 0;
+	g_idle_add(set_progress_value,idledata);
+	g_strlcpy(idledata->progress_text, _("Stopped"), 1024);
+	g_idle_add(set_progress_text, idledata);
 
-		if (rpconsole != NULL && widget != NULL) {
-			dbus_send_rpsignal("Stop");
-		}
-		dbus_send_rpsignal_with_int("SetGUIState",state);
+	if (idle == NULL) {
+		dbus_send_rpsignal("RP_Stop");
+	} 
 		
-		idledata->percent = 0;
-		g_idle_add(set_progress_value,idledata);
-        g_strlcpy(idledata->progress_text, _("Stopped"), 1024);
-        g_idle_add(set_progress_text, idledata);
-    }
+	dbus_send_rpsignal_with_int("RP_SetGUIState",state);
 
     return FALSE;
 }
@@ -1047,7 +1046,7 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
 	if (rpconsole != NULL && widget != NULL) {
-		dbus_send_rpsignal("FastForward");
+		dbus_send_rpsignal("RP_FastForward");
 	}
     
 	return FALSE;
@@ -1060,7 +1059,7 @@ gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
 	if (rpconsole != NULL && widget != NULL) {
-		dbus_send_rpsignal("FastReverse");
+		dbus_send_rpsignal("RP_FastReverse");
 	}
     
 	return FALSE;
@@ -1212,7 +1211,7 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
     }
     send_command("get_property volume\n");
 	
-	dbus_send_rpsignal_with_double("Volume",gtk_range_get_value(GTK_RANGE(vol_slider)));
+	dbus_send_rpsignal_with_double("RP_Volume",gtk_range_get_value(GTK_RANGE(vol_slider)));
 	
 }
 
@@ -1236,7 +1235,7 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
     }
     send_command("get_property volume\n");
 	
-	dbus_send_rpsignal_with_double("Volume",gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)));
+	dbus_send_rpsignal_with_double("RP_Volume",gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)));
 	
 }
 #endif
@@ -1253,6 +1252,7 @@ gboolean enter_button_callback(GtkWidget * widget, GdkEventCrossing * event, gpo
     gdk_draw_rectangle(widget->window, widget->style->fg_gc[GTK_STATE_NORMAL], FALSE, 0, 0,
                        widget->allocation.width - 1, widget->allocation.height - 1);
 
+	in_button = TRUE;
     return FALSE;
 }
 
@@ -1261,6 +1261,7 @@ gboolean leave_button_callback(GtkWidget * widget, GdkEventCrossing * event, gpo
 
     gdk_draw_rectangle(widget->window, widget->style->bg_gc[GTK_STATE_NORMAL], FALSE, 0, 0,
                        widget->allocation.width - 1, widget->allocation.height - 1);
+	in_button = FALSE;
     return FALSE;
 }
 
@@ -2466,6 +2467,8 @@ GtkWidget *create_window(gint windowid)
 #ifdef GTK2_12_ENABLED	
 	GtkAdjustment *adj;
 #endif
+	
+	in_button = FALSE;
 	
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
