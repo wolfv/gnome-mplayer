@@ -557,6 +557,13 @@ gboolean set_rew(void *data)
     return FALSE;
 }
 
+gboolean set_quit(void *data)
+{
+
+    delete_callback(NULL, NULL, NULL);     
+    return FALSE;
+}
+
 gboolean set_position(void *data)
 {
     gchar *cmd;
