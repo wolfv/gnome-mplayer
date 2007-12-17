@@ -564,6 +564,8 @@ gboolean streaming_media(gchar * filename)
         ret = FALSE;
     } else if (strstr(filename, "cdda://") != NULL) {
         ret = FALSE;
+    } else if (strstr(filename, "tv://") != NULL) {
+        ret = FALSE;
 //    } else if (strstr(filename, "file://") != NULL) {
 //        ret = FALSE;
     } else {
@@ -584,6 +586,8 @@ gboolean device_name(gchar * filename)
     } else if (g_ascii_strncasecmp(filename, "dvdnav://",strlen("dvdnav://")) == 0) {
         ret = TRUE;
     } else if (g_ascii_strncasecmp(filename, "cdda://",strlen("cdda://")) == 0) {
+        ret = TRUE;
+    } else if (g_ascii_strncasecmp(filename, "tv://",strlen("tv://")) == 0) {
         ret = TRUE;
     } else {
         ret = FALSE;

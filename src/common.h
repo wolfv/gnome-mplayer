@@ -163,6 +163,13 @@ gboolean show_media_label;
 gboolean control_instance;
 gchar *playlistname;
 
+// tv stuff
+gchar *tv_device;
+gchar *tv_driver;
+gchar *tv_input;
+gint tv_width;
+gint tv_height;
+
 GThread *thread;
 
 gboolean qt_disabled;

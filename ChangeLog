@@ -1,4 +1,5 @@
 Development
+	Add support for tv:// type devices
 	Update playlist viewer to show metadata (if present) from the files.
 	Add open location to the file menu
 	Improved RealPlayer emulation, the BBC News site works better now
