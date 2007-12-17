@@ -593,6 +593,10 @@ gpointer launch_player(gpointer data)
 		argv[arg++] = g_strdup_printf("-tv:height");
 		argv[arg++] = g_strdup_printf("%i",tv_height);
 	}
+	if (tv_fps > 0) {
+		argv[arg++] = g_strdup_printf("-tv:fps");
+		argv[arg++] = g_strdup_printf("%i",tv_fps);
+	}
 	
 	if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");

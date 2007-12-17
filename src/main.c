@@ -72,6 +72,7 @@ static GOptionEntry entries[] = {
     {"tvinput",0,0,G_OPTION_ARG_STRING, &tv_input, N_("TV input name"),"INPUT"},	
 	{"tvwidth",0,0,G_OPTION_ARG_INT, &tv_width, N_("Width of TV input"),"WIDTH"},	
 	{"tvheight",0,0,G_OPTION_ARG_INT, &tv_height, N_("Height of TV input"),"HEIGHT"},	
+	{"tvfps",0,0,G_OPTION_ARG_INT, &tv_fps, N_("Frames per second from TV input"),"FPS"},	
     {NULL}
 };
 
@@ -194,6 +195,7 @@ int main(int argc, char *argv[])
 	tv_driver = NULL;
 	tv_width = 0;
 	tv_height = 0;
+	tv_fps = 0;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();

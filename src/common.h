@@ -169,6 +169,7 @@ gchar *tv_driver;
 gchar *tv_input;
 gint tv_width;
 gint tv_height;
+gint tv_fps;
 
 GThread *thread;
 
