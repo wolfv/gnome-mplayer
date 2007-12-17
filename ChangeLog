@@ -1,4 +1,5 @@
 Development
+	In metadata capture, use name and author in addition to Title and Artist
 	Add tvfps option (needed for some webcams)
 		my pwc webcam works best with --tvdriver=v4l --tvfps=30
 	Add support for tv:// type devices
