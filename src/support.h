@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void strip_unicode(gchar * data, gsize len);
 gint play_file(gchar * filename, gint playlist);
 gint detect_playlist(gchar * filename);
 gint parse_playlist(gchar * filename);

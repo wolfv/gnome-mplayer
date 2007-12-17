@@ -325,7 +325,7 @@ gboolean set_progress_time(void *data)
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
 	
-	if (idle->fromdbus == FALSE)
+	if (idle->fromdbus == FALSE && state != PAUSED)
 		dbus_send_rpsignal_with_string("RP_SetProgressText",idle->progress_text);
 
     return FALSE;

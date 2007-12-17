@@ -24,6 +24,18 @@
 
 #include "support.h"
 
+void strip_unicode(gchar * data, gsize len)
+{
+    gsize i = 0;
+
+    for (i = 0; i < len; i++) {
+        if (!g_unichar_validate(data[i])) {
+            data[i] = ' ';
+        }
+    }
+
+}
+
 gint detect_playlist(gchar * filename)
 {
 
@@ -580,17 +592,107 @@ gboolean device_name(gchar * filename)
     return ret;
 }
 
+void get_metadata(gchar* name, gchar **title, gchar **artist, gchar **length) {
+	
+    GError *error;
+    gint exit_status;
+    gchar *stdout;
+    gchar *stderr;
+    gchar *av[255];
+    gint ac = 0;
+	gchar **output;
+	gfloat seconds;
+	gint hour = 0;
+	gint min = 0;
+	gchar *localtitle;
+	
+	av[ac++] = g_strdup_printf("mplayer");
+	av[ac++] = g_strdup_printf("-vo");
+	av[ac++] = g_strdup_printf("null");
+	av[ac++] = g_strdup_printf("-ao");
+	av[ac++] = g_strdup_printf("null");
+	av[ac++] = g_strdup_printf("-frames");
+	av[ac++] = g_strdup_printf("0");
+	av[ac++] = g_strdup_printf("-identify");
+	av[ac++] = g_strdup_printf("-nocache");
+	av[ac++] = g_strdup_printf("%s",name);
+	av[ac] = NULL;
+	
+	error = NULL;
+	
+	g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+				 &exit_status, &error);
+	if (error != NULL) {
+		printf("Error when running: %s\n", error->message);
+		g_error_free(error);
+		error = NULL;
+	}
+	output = g_strsplit(stdout,"\n",0);
+	ac = 0;
+	while(output[ac] != NULL) {
+		if (g_strncasecmp(output[ac],"ID_LENGTH",strlen("ID_LENGTH")) == 0) {
+			sscanf(output[ac], "ID_LENGTH=%f", &seconds);
+			if (seconds >= 3600) {
+				hour = seconds / 3600;
+				seconds = seconds - (hour * 3600);
+			}
+			if (seconds >= 60) {
+				min = seconds / 60;
+				seconds = seconds - (min * 60);
+			}
+			if (hour > 0) {
+				*length = g_strdup_printf("%i:%02i:%02.1f",hour,min,seconds);
+			} else {
+				*length = g_strdup_printf("%02i:%02.1f",min,seconds);
+			}
+		}
+		
+		if (g_strncasecmp(output[ac],"ID_CLIP_INFO_NAME",strlen("ID_CLIP_INFO_NAME")) == 0) {
+			if (strstr(output[ac],"Title") != NULL) {
+				localtitle = strstr(output[ac+1],"=") + 1;
+				*title = g_locale_to_utf8(localtitle,-1, NULL, NULL,NULL);
+				if (*title == NULL) {
+					*title = g_strdup(localtitle);
+					strip_unicode(*title,strlen(*title));
+				}				
+				printf("title = %s\n",*title);
+			}
+			if (strstr(output[ac],"Artist") != NULL) {
+				localtitle = strstr(output[ac+1],"=") + 1;
+				*artist = g_locale_to_utf8(localtitle,-1, NULL, NULL,NULL);
+				if (*artist == NULL) {
+					*artist = g_strdup(localtitle);
+					strip_unicode(*artist,strlen(*artist));
+				}				
+			}
+		}
+		
+		
+		ac++;
+	}
+	g_strfreev(output);
+
+}
+
+
+
 GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist) 
 {
-	gchar *desc;
+	gchar *desc = NULL;
 	gchar *url;
 	GtkTreeIter localiter;
+	gchar *artist = NULL;
+	gchar *length = NULL;
 	
 	if (!device_name(itemname) && !streaming_media(itemname)) {
-		if (g_strrstr(itemname,"/") != NULL) {
-			desc = g_strdup_printf("%s",g_strrstr(itemname,"/")+sizeof(gchar));
-		} else {
-			desc = g_strdup(itemname);
+		get_metadata(itemname, &desc, &artist, &length);
+
+		if (desc == NULL) {
+			if (g_strrstr(itemname,"/") != NULL) {
+				desc = g_strdup_printf("%s",g_strrstr(itemname,"/")+sizeof(gchar));
+			} else {
+				desc = g_strdup(itemname);
+			}
 		}
 	} else {
 		url = g_strrstr(itemname,"http://");
@@ -615,13 +717,19 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 		gtk_list_store_set(playliststore,&localiter,ITEM_COLUMN,itemname,
 						   DESCRIPTION_COLUMN,desc,
 						   COUNT_COLUMN,0,
-						   PLAYLIST_COLUMN,playlist, -1);
+						   PLAYLIST_COLUMN, playlist, 
+						   ARTIST_COLUMN, artist,
+						   LENGTH_COLUMN, length,-1);
+
 
 		gtk_list_store_append(nonrandomplayliststore,&localiter);
 		gtk_list_store_set(nonrandomplayliststore,&localiter,ITEM_COLUMN,itemname,
 						   DESCRIPTION_COLUMN,desc,
 						   COUNT_COLUMN,0,
-						   PLAYLIST_COLUMN,playlist, -1);
+						   PLAYLIST_COLUMN, playlist, 
+						   ARTIST_COLUMN, artist,
+						   LENGTH_COLUMN, length,-1);
+
 	}
 	g_free(desc);
 	return localiter;	
@@ -720,6 +828,8 @@ void copy_playlist(GtkListStore *source, GtkListStore *dest) {
 	gchar *desc;
 	gint count;
 	gint playlist;
+	gchar *artist;
+	gchar *length;
 	
 	gtk_tree_model_get(GTK_TREE_MODEL(dest), &iter, ITEM_COLUMN,&iterfilename,-1);
 	
@@ -727,15 +837,19 @@ void copy_playlist(GtkListStore *source, GtkListStore *dest) {
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(source),&sourceiter)) {
 		do {
 			gtk_tree_model_get(GTK_TREE_MODEL(source), &sourceiter, ITEM_COLUMN,&itemname,
-							   DESCRIPTION_COLUMN,&desc,
-							   COUNT_COLUMN,&count,
-							   PLAYLIST_COLUMN,&playlist, -1);
+							   DESCRIPTION_COLUMN, &desc,
+							   COUNT_COLUMN, &count,
+							   PLAYLIST_COLUMN, &playlist, 
+							   ARTIST_COLUMN, &artist,
+							   LENGTH_COLUMN, &length,-1);
 			
 			gtk_list_store_append(dest,&destiter);
 			gtk_list_store_set(dest,&destiter,ITEM_COLUMN,itemname,
-							   DESCRIPTION_COLUMN,desc,
-							   COUNT_COLUMN,count,
-							   PLAYLIST_COLUMN,playlist, -1);
+							   DESCRIPTION_COLUMN, desc,
+							   COUNT_COLUMN, count,
+							   PLAYLIST_COLUMN, playlist, 
+							   ARTIST_COLUMN, artist,
+							   LENGTH_COLUMN, length,-1);
 
 		} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(source),&sourceiter));
 	}
