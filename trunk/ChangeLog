@@ -1,4 +1,5 @@
 Development
+	Add open location to the file menu
 	Improved RealPlayer emulation, the BBC News site works better now
 	Fix remote volume setting, when running in GTK >= 2.12 mode
 0.5.3
