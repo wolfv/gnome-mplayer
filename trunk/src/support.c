@@ -652,16 +652,15 @@ void get_metadata(gchar* name, gchar **title, gchar **artist, gchar **length) {
 		}
 		
 		if (g_strncasecmp(output[ac],"ID_CLIP_INFO_NAME",strlen("ID_CLIP_INFO_NAME")) == 0) {
-			if (strstr(output[ac],"Title") != NULL) {
+			if (strstr(output[ac],"Title") != NULL || strstr(output[ac],"name") != NULL) {
 				localtitle = strstr(output[ac+1],"=") + 1;
 				*title = g_locale_to_utf8(localtitle,-1, NULL, NULL,NULL);
 				if (*title == NULL) {
 					*title = g_strdup(localtitle);
 					strip_unicode(*title,strlen(*title));
 				}				
-				printf("title = %s\n",*title);
 			}
-			if (strstr(output[ac],"Artist") != NULL) {
+			if (strstr(output[ac],"Artist") != NULL || strstr(output[ac],"author") != NULL) {
 				localtitle = strstr(output[ac+1],"=") + 1;
 				*artist = g_locale_to_utf8(localtitle,-1, NULL, NULL,NULL);
 				if (*artist == NULL) {
