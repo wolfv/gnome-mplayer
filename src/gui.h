@@ -56,6 +56,7 @@ GtkWidget *menubar;
 GtkMenuItem *menuitem_file;
 GtkMenu *menu_file;
 GtkMenuItem *menuitem_file_open;
+GtkMenuItem *menuitem_file_open_location;
 GtkMenuItem *menuitem_file_open_dvd;
 GtkMenuItem *menuitem_file_open_dvdnav;
 GtkMenuItem *menuitem_file_open_acd;
@@ -173,6 +174,8 @@ GtkWidget *config_qt;
 GtkWidget *config_real;
 GtkWidget *config_wmp;
 GtkWidget *config_dvx;
+
+GtkWidget *open_location;
 
 // Playlist container
 GtkWidget *plvbox;
