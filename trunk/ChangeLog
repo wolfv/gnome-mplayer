@@ -1,4 +1,6 @@
 Development
+	Add tvfps option (needed for some webcams)
+		my pwc webcam works best with --tvdriver=v4l --tvfps=30
 	Add support for tv:// type devices
 	Update playlist viewer to show metadata (if present) from the files.
 	Add open location to the file menu
