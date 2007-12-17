@@ -25,18 +25,6 @@
 #include "thread.h"
 #include "common.h"
 
-void strip_unicode(gchar * data, gsize len)
-{
-    gsize i = 0;
-
-    for (i = 0; i < len; i++) {
-        if (!g_unichar_validate(data[i])) {
-            data[i] = ' ';
-        }
-    }
-
-}
-
 void shutdown()
 {
     // printf("state = %i quit = %i\n",state,QUIT);
