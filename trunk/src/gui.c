@@ -672,10 +672,10 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 		gtk_main_iteration();
 	}
 
-    if (idledata != NULL) {
-        g_free(idledata);
-        idledata = NULL;
-    }
+    //if (idledata != NULL) {
+    //    g_free(idledata);
+    //    idledata = NULL;
+    //}
 
     if (control_id != 0)
         dbus_cancel();
