@@ -573,6 +573,27 @@ gpointer launch_player(gpointer data)
 		argv[arg++] = g_strdup_printf("-cookies");
 	}
 
+	if (tv_device != NULL) {
+		argv[arg++] = g_strdup_printf("-tv:device");
+		argv[arg++] = g_strdup_printf("%s",tv_device);
+	}
+	if (tv_driver != NULL) {
+		argv[arg++] = g_strdup_printf("-tv:driver");
+		argv[arg++] = g_strdup_printf("%s",tv_driver);
+	}
+	if (tv_input != NULL) {
+		argv[arg++] = g_strdup_printf("-tv:input");
+		argv[arg++] = g_strdup_printf("%s",tv_input);
+	}
+	if (tv_width > 0) {
+		argv[arg++] = g_strdup_printf("-tv:width");
+		argv[arg++] = g_strdup_printf("%i",tv_width);
+	}
+	if (tv_height > 0) {
+		argv[arg++] = g_strdup_printf("-tv:height");
+		argv[arg++] = g_strdup_printf("%i",tv_height);
+	}
+	
 	if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
     argv[arg] = g_strdup_printf("%s", threaddata->filename);

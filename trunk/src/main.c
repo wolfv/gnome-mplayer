@@ -67,6 +67,11 @@ static GOptionEntry entries[] = {
 	{"rpname",0,0,G_OPTION_ARG_STRING, &rpname, N_("Real Player Name"),"NAME"},
 	{"rpconsole",0,0,G_OPTION_ARG_STRING, &rpconsole, N_("Real Player Console ID"),"CONSOLE"},
 	{"rpcontrols",0,0,G_OPTION_ARG_STRING, &rpcontrols, N_("Real Player Console Controls"),"Control Name,..."},
+	{"tvdevice",0,0,G_OPTION_ARG_STRING, &tv_device, N_("TV device name"),"DEVICE"},	
+    {"tvdriver",0,0,G_OPTION_ARG_STRING, &tv_driver, N_("TV driver name (v4l|v4l2)"),"DRIVER"},	
+    {"tvinput",0,0,G_OPTION_ARG_STRING, &tv_input, N_("TV input name"),"INPUT"},	
+	{"tvwidth",0,0,G_OPTION_ARG_INT, &tv_width, N_("Width of TV input"),"WIDTH"},	
+	{"tvheight",0,0,G_OPTION_ARG_INT, &tv_height, N_("Height of TV input"),"HEIGHT"},	
     {NULL}
 };
 
@@ -185,6 +190,10 @@ int main(int argc, char *argv[])
 	playlistname = NULL;
 	thread = NULL;
 	rpconsole = NULL;
+	tv_device = NULL;
+	tv_driver = NULL;
+	tv_width = 0;
+	tv_height = 0;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();
