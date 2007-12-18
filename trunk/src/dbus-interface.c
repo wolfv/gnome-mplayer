@@ -98,7 +98,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-						if (strlen(s) > 0) {
+ 						if (strlen(s) > 0 && control_instance == FALSE) {
 							gtk_list_store_clear(playliststore);
 							gtk_list_store_clear(nonrandomplayliststore);
 							selection = NULL;
@@ -113,8 +113,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 							if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 								gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&s, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 								set_media_info_name(s);
-								if (control_instance == FALSE)
-									play_file(s, playlist);
+								play_file(s, playlist);
 								gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 							}
 								

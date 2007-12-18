@@ -376,27 +376,29 @@ gboolean set_window_visible(void *data)
 
 gboolean set_gui_state(void *data)
 {
-	if (guistate == PLAYING) {
-			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
-			gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
-			gtk_widget_set_sensitive(ff_event_box, TRUE);
-			gtk_widget_set_sensitive(rew_event_box, TRUE);
-	}
-	
-	if (guistate == PAUSED) {
-			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
-			gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
-			gtk_widget_set_sensitive(ff_event_box, FALSE);
-			gtk_widget_set_sensitive(rew_event_box, FALSE);
-	}
-	
-	if (guistate == STOPPED) {
-			gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
-			gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
-			gtk_widget_set_sensitive(ff_event_box, FALSE);
-			gtk_widget_set_sensitive(rew_event_box, FALSE);
-	}
-	
+	if (lastguistate != guistate) {
+		if (guistate == PLAYING) {
+				gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
+				gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
+				gtk_widget_set_sensitive(ff_event_box, TRUE);
+				gtk_widget_set_sensitive(rew_event_box, TRUE);
+		}
+		
+		if (guistate == PAUSED) {
+				gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+				gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+				gtk_widget_set_sensitive(ff_event_box, FALSE);
+				gtk_widget_set_sensitive(rew_event_box, FALSE);
+		}
+		
+		if (guistate == STOPPED) {
+				gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
+				gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+				gtk_widget_set_sensitive(ff_event_box, FALSE);
+				gtk_widget_set_sensitive(rew_event_box, FALSE);
+		}
+		lastguistate = guistate;
+	}	
 	return FALSE;
 }
 

@@ -67,6 +67,7 @@ typedef enum {
 
 PLAYSTATE state;
 PLAYSTATE guistate;
+PLAYSTATE lastguistate;
 PLAYBACK_ERROR playback_error;
 
 typedef struct _IdleData {

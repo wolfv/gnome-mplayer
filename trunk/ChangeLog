@@ -1,4 +1,5 @@
 Development
+	Only update guistate when it has changed
 	Try and fix problem with BBC site
 	Set alignment of length in playlist to be right aligned
 	When loading a dvd w/menus get the dvd title and put it in the playlist
