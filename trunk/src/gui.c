@@ -580,14 +580,21 @@ gboolean set_position(void *data)
 gboolean set_volume(void *data)
 {
     IdleData *idle = (IdleData *) data;
-#ifndef GTK2_12_ENABLED
     gchar *buf = NULL;
-#endif
 	
     if (GTK_IS_WIDGET(vol_slider)) {
         // printf("setting slider to %f\n", idle->volume);
 #ifdef GTK2_12_ENABLED
-		gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),idle->volume);
+		if (rpcontrols != NULL && g_strcasecmp(rpcontrols, "volumeslider") == 0) {
+			gtk_range_set_value(GTK_RANGE(vol_slider),idle->volume);
+			buf = g_strdup_printf(_("Volume %i%%"), (gint) idle->volume);
+			g_strlcpy(idledata->vol_tooltip, buf, 128);
+			gtk_tooltips_set_tip(volume_tip, vol_slider, idle->vol_tooltip, NULL);
+			g_free(buf);
+		} else {
+			gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),idle->volume);
+		}
+			
 #else
         gtk_range_set_value(GTK_RANGE(vol_slider), idle->volume);
         buf = g_strdup_printf(_("Volume %i%%"), (gint) idle->volume);
@@ -1231,7 +1238,11 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
     gchar *cmd;
     gchar *buf;
 
-    vol = (gint) gtk_scale_button_get_value(GTK_SCALE_BUTTON(volume));
+	if (rpcontrols != NULL && g_strcasecmp(rpcontrols, "volumeslider") == 0) {
+    	vol = (gint) gtk_range_get_value(GTK_RANGE(vol_slider));
+	} else {
+    	vol = (gint) gtk_scale_button_get_value(GTK_SCALE_BUTTON(volume));
+	}
     cmd = g_strdup_printf("pausing_keep volume %i 1\n", vol);
     send_command(cmd);
     g_free(cmd);
@@ -3277,7 +3288,6 @@ GtkWidget *create_window(gint windowid)
 				gtk_widget_show(controls_box);
 				gtk_widget_show_all(hbox);
 				gtk_widget_hide(GTK_WIDGET(progress));
-				control_instance = FALSE;
 			}
 			
 			i++;
