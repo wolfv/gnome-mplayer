@@ -113,7 +113,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 							if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 								gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&s, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 								set_media_info_name(s);
-								play_file(s, playlist);
+								if (control_instance == FALSE)
+									play_file(s, playlist);
 								gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 							}
 								
