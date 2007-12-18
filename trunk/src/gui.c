@@ -1024,7 +1024,8 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 	
 	if (state == PAUSED) {
 		send_command("pause\n");
-		dbus_send_rpsignal("RP_Play");
+		if (idle == NULL)
+			dbus_send_rpsignal("RP_Play");
 		state = PLAYING;
 	}
 	if (state == PLAYING) {
