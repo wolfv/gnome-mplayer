@@ -452,6 +452,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	                                                   "text", LENGTH_COLUMN,
 	                                                   NULL);
 		gtk_tree_view_column_set_expand(column, FALSE);
+		gtk_tree_view_column_set_alignment(column, 1.0);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (list), column);
 		
 		

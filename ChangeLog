@@ -1,4 +1,7 @@
 Development
+	Set alignment of length in playlist to be right aligned
+	When loading a dvd w/menus get the dvd title and put it in the playlist
+	When loading a dvd get the track length
 	In metadata capture, use name and author in addition to Title and Artist
 	Add tvfps option (needed for some webcams)
 		my pwc webcam works best with --tvdriver=v4l --tvfps=30
