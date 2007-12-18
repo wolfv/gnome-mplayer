@@ -57,7 +57,8 @@ gboolean hide_buttons(void *data)
         if (idle->streaming) {
             gtk_widget_hide(ff_event_box);
             gtk_widget_hide(rew_event_box);
-			gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save),FALSE);
+			if (GTK_IS_WIDGET(menuitem_save)) 
+				gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save),FALSE);
         } else {
             if (embed_window == 0 || window_x > 250) {
                 gtk_widget_show_all(ff_event_box);
@@ -65,7 +66,8 @@ gboolean hide_buttons(void *data)
             }
         }
     }
-    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), TRUE);
+	if (GTK_IS_WIDGET(menuitem_file_details)) 
+    	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), TRUE);
 
 	// printf("count = %i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
 	if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL) < 2 && lastfile != NULL && g_strncasecmp(lastfile,"dvdnav",6) != 0) {
@@ -1426,7 +1428,6 @@ void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
 	gtk_list_store_clear(nonrandomplayliststore);
 	parse_dvd("dvd://");
  	
-	//play_file("dvd://", 0);
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 		set_media_info_name(filename);
@@ -1441,7 +1442,8 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
 {
 	gtk_list_store_clear(playliststore);
 	gtk_list_store_clear(nonrandomplayliststore);
-	parse_dvd("dvdnav://");
+	add_item_to_playlist("dvdnav://",0);
+	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
     play_file("dvdnav://", 0);
 }
 
@@ -1455,7 +1457,6 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 	gtk_list_store_clear(nonrandomplayliststore);
 	parse_cdda("cdda://");
 	
-	//play_file("cdda://", playlist);
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 		set_media_info_name(filename);

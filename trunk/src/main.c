@@ -321,10 +321,10 @@ int main(int argc, char *argv[])
 			i++;
         }
 				
-		if (argv[fileindex] != NULL && g_strncasecmp(argv[fileindex],"dvdnav://",9) == 0) {
-			loop = 1;
-			play_file(argv[fileindex], 0);
-		} else {
+//		if (argv[fileindex] != NULL && g_strncasecmp(argv[fileindex],"dvdnav://",9) == 0) {
+//			loop = 1;
+//			play_file(argv[fileindex], 0);
+//		} else {
 			if (random_order) {
 				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
 				randomize_playlist(playliststore);
@@ -338,7 +338,7 @@ int main(int argc, char *argv[])
 				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 				g_free(filename);
 			}
-		}
+//		}
     }
 
 		

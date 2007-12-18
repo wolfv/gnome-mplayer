@@ -634,8 +634,9 @@ void get_metadata(gchar* name, gchar **title, gchar **artist, gchar **length) {
 	output = g_strsplit(stdout,"\n",0);
 	ac = 0;
 	while(output[ac] != NULL) {
-		if (g_strncasecmp(output[ac],"ID_LENGTH",strlen("ID_LENGTH")) == 0) {
-			sscanf(output[ac], "ID_LENGTH=%f", &seconds);
+		if (strstr(output[ac],"_LENGTH") != NULL && g_strncasecmp(name,"dvdnav://",strlen("dvdnav://")) != 0) {
+			localtitle = strstr(output[ac],"=") + 1;
+			sscanf(localtitle, "%f", &seconds);
 			if (seconds >= 3600) {
 				hour = seconds / 3600;
 				seconds = seconds - (hour * 3600);
@@ -650,6 +651,7 @@ void get_metadata(gchar* name, gchar **title, gchar **artist, gchar **length) {
 				*length = g_strdup_printf("%02i:%02.1f",min,seconds);
 			}
 		}
+		
 		
 		if (g_strncasecmp(output[ac],"ID_CLIP_INFO_NAME",strlen("ID_CLIP_INFO_NAME")) == 0) {
 			if (strstr(output[ac],"Title") != NULL || strstr(output[ac],"name") != NULL) {
@@ -670,9 +672,23 @@ void get_metadata(gchar* name, gchar **title, gchar **artist, gchar **length) {
 			}
 		}
 		
-		
+		if (strstr(output[ac],"DVD Title:") != NULL && g_strncasecmp(name,"dvdnav://",strlen("dvdnav://")) == 0) {
+			localtitle = g_strrstr(output[ac],":") + 1;
+			printf("localtitle = %s\n",localtitle);
+			*title = g_locale_to_utf8(localtitle,-1, NULL, NULL,NULL);
+			if (*title == NULL) {
+				*title = g_strdup(localtitle);
+				strip_unicode(*title,strlen(*title));
+			}				
+		}
 		ac++;
 	}
+	
+	if (*title == NULL && g_strncasecmp(name,"dvd://",strlen("dvd://")) == 0) {
+		localtitle = g_strrstr(name,"/") + 1;
+		*title = g_strdup_printf("DVD Track %s",localtitle);
+	}
+	
 	g_strfreev(output);
 
 }
@@ -706,9 +722,12 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 			itemname = itemname + sizeof(gchar) * strlen("file://");
 			desc = g_strdup_printf("%s",g_strrstr(itemname,"/")+sizeof(gchar));
 		}else if (device_name(itemname)) {
-			desc = g_strdup_printf("Device - %s",itemname);
-			if (g_strncasecmp(itemname,"dvdnav://",strlen("dvdnav://") == 0))
+			if (g_strncasecmp(itemname,"dvdnav://",strlen("dvdnav://") == 0)) {
 				loop =1;
+			} 
+			get_metadata(itemname,&desc,&artist,&length);
+			if (desc == NULL)
+				desc = g_strdup_printf("Device - %s",itemname);
 			
 		} else {
 			desc = g_strdup_printf("Stream from %s",itemname);
