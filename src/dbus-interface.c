@@ -98,29 +98,31 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
- 						if (strlen(s) > 0 && control_instance == FALSE) {
-							gtk_list_store_clear(playliststore);
-							gtk_list_store_clear(nonrandomplayliststore);
-							selection = NULL;
-							playlist = detect_playlist(s);
-							if (!playlist ) {
-								add_item_to_playlist(s,playlist);
-							} else {
-								if (!parse_playlist(s)) {	
+ 						if (strlen(s) > 0) {
+							if (strcmp(rpconsole,"NONE") == 0 || control_instance == FALSE) {
+								gtk_list_store_clear(playliststore);
+								gtk_list_store_clear(nonrandomplayliststore);
+								selection = NULL;
+								playlist = detect_playlist(s);
+								if (!playlist ) {
 									add_item_to_playlist(s,playlist);
+								} else {
+									if (!parse_playlist(s)) {	
+										add_item_to_playlist(s,playlist);
+									}
 								}
-							}
-							if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
-								gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&s, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-								set_media_info_name(s);
-								play_file(s, playlist);
-								gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-							}
-								
-							if (GTK_IS_TREE_SELECTION(selection)) {
-								treepath = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
-								gtk_tree_selection_select_path(selection,treepath);	
-								gtk_tree_path_free(treepath);
+								if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
+									gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&s, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+									set_media_info_name(s);
+									play_file(s, playlist);
+									gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+								}
+									
+								if (GTK_IS_TREE_SELECTION(selection)) {
+									treepath = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
+									gtk_tree_selection_select_path(selection,treepath);	
+									gtk_tree_path_free(treepath);
+								}
 							}
 						}
 							
