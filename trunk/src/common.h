@@ -163,6 +163,7 @@ gchar *rpcontrols;
 gboolean show_media_label;
 gboolean control_instance;
 gchar *playlistname;
+gboolean ok_to_play;
 
 // tv stuff
 gchar *tv_device;

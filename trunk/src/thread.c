@@ -52,6 +52,21 @@ gboolean send_command(gchar * command)
 
 }
 
+gboolean play(void *data)
+{
+	PlayData *p = (PlayData *) data;
+
+	if (ok_to_play) {
+		while(gtk_events_pending() || thread != NULL) {
+			gtk_main_iteration();
+		}		
+		play_file(p->filename,p->playlist);
+	}
+	g_free(p);
+	
+	return FALSE;
+}
+
 gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
 {
     g_idle_add(set_stop, idledata);
@@ -155,6 +170,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 	idledata->fromdbus = FALSE;
 	
     if (state == QUIT) {
+		if (verbose)
+			printf("Thread: state = QUIT, shutting down\n");
         g_idle_add(set_stop, idledata);
         state = QUIT;
 		g_source_remove(watch_err_id);
@@ -481,6 +498,12 @@ gboolean thread_query(gpointer data)
     // else
     // 
 
+	if (data == NULL) {
+		if (verbose)
+			printf("shutting down threadquery since threaddata is NULL\n");
+		return FALSE;
+	}
+	
     if (state == PLAYING) {
         size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
         if (size == -1) {
@@ -512,6 +535,7 @@ gpointer launch_player(gpointer data)
 	gchar *filename;
 	gint count;
 	GtkTreePath *path;
+	PlayData *p = (PlayData *) g_malloc(sizeof(PlayData));;
 
     ThreadData *threaddata = (ThreadData *) data;
 
@@ -553,16 +577,20 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("%i", osdlevel);
     if (strcmp(threaddata->filename, "dvdnav://") == 0) {
         argv[arg++] = g_strdup_printf("-mouse-movements");
-    } else if (strcmp(threaddata->filename, "dvd://") != 0) {
-        argv[arg++] = g_strdup_printf("-nomouseinput");
-		if (threaddata->streaming) {
-			argv[arg++] = g_strdup_printf("-user-agent");
-			argv[arg++] = g_strdup_printf("NSPlayer");
+    } else {
+		if (g_strncasecmp(threaddata->filename, "dvd://",strlen("dvd://")) == 0) {
+			// argv[arg++] = g_strdup_printf("-nocache");
 		} else {
-        	argv[arg++] = g_strdup_printf("-cache");
-        	argv[arg++] = g_strdup_printf("%i", cache_size);
+			argv[arg++] = g_strdup_printf("-nomouseinput");
+			if (threaddata->streaming) {
+				argv[arg++] = g_strdup_printf("-user-agent");
+				argv[arg++] = g_strdup_printf("NSPlayer");
+			} else {
+				argv[arg++] = g_strdup_printf("-cache");
+				argv[arg++] = g_strdup_printf("%i", cache_size);
+			}
 		}
-    }
+	}
     argv[arg++] = g_strdup_printf("-wid");
     player_window = get_player_window();
     argv[arg++] = g_strdup_printf("0x%x", player_window);
@@ -633,7 +661,7 @@ gpointer launch_player(gpointer data)
 //        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
 
         g_idle_add(set_play, NULL);
-        g_timeout_add(500, thread_query, NULL);
+        g_timeout_add_seconds(1, thread_query, threaddata);
 
     } else {
         state = QUIT;
@@ -684,7 +712,9 @@ gpointer launch_player(gpointer data)
 		if (next_item_in_playlist(&iter)) {
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 			set_media_info_name(filename);
-			play_file(filename, playlist);
+			g_strlcpy(p->filename,filename,4096);
+			p->playlist = playlist;
+			g_idle_add(play,p);
 			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 			g_free(filename);
 			if (GTK_IS_TREE_SELECTION(selection)) {
@@ -699,7 +729,9 @@ gpointer launch_player(gpointer data)
 				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
 				set_media_info_name(filename);
-				play_file(filename, playlist);
+				g_strlcpy(p->filename,filename,4096);
+				p->playlist = playlist;
+				g_idle_add(play,p);
 				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 				g_free(filename);
 				if (GTK_IS_TREE_SELECTION(selection)) {
@@ -711,7 +743,9 @@ gpointer launch_player(gpointer data)
 		}
 	} else {
 		if (playback_error == ERROR_RETRY_WITH_PLAYLIST) {
-			play_file(threaddata->filename,1);
+			g_strlcpy(p->filename,threaddata->filename,4096);
+			p->playlist = 1;
+			g_idle_add(play,p);
 		}
 		dontplaynext = FALSE;
 	}

@@ -27,6 +27,11 @@
 #include "common.h"
 #include <unistd.h>
 
+typedef struct _PlayData {
+    gchar filename[4096];
+	gint playlist;
+} PlayData;
+
 gint std_in;
 gint std_out;
 gint std_err;
