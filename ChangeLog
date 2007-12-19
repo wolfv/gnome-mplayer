@@ -1,4 +1,5 @@
 Development
+	Rework how next file is launched,may help CPU usage issues
 	Only update guistate when it has changed
 	Try and fix problem with BBC site
 	Set alignment of length in playlist to be right aligned

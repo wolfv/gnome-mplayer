@@ -196,6 +196,7 @@ int main(int argc, char *argv[])
 	tv_width = 0;
 	tv_height = 0;
 	tv_fps = 0;
+	ok_to_play = TRUE;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -217,9 +218,6 @@ int main(int argc, char *argv[])
 
 	if (verbose == 0)	
     	verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
-
-//    gnome_program_init(PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-//                       argc, argv, GNOME_PARAM_APP_DATADIR, PACKAGE_DATA_DIR, NULL);
 
     if (!g_thread_supported())
         g_thread_init(NULL);
@@ -247,17 +245,18 @@ int main(int argc, char *argv[])
     read_mplayer_config();
     thread_running = g_mutex_new();
 
-    printf("opening %s\n", argv[fileindex]);
-    g_stat(argv[fileindex], &buf);
-	if (verbose) {
-    	printf("is block %i\n", S_ISBLK(buf.st_mode));
-    	printf("is character %i\n", S_ISCHR(buf.st_mode));
-    	printf("is reg %i\n", S_ISREG(buf.st_mode));
-    	printf("is dir %i\n", S_ISDIR(buf.st_mode));
-    	printf("playlist %i\n", playlist);
-    	printf("embedded in window id %i\n", embed_window);
-	}
-	
+	if (argv[fileindex] != NULL) {
+		g_stat(argv[fileindex], &buf);
+		if (verbose) {
+    		printf("opening %s\n", argv[fileindex]);
+			printf("is block %i\n", S_ISBLK(buf.st_mode));
+			printf("is character %i\n", S_ISCHR(buf.st_mode));
+			printf("is reg %i\n", S_ISREG(buf.st_mode));
+			printf("is dir %i\n", S_ISDIR(buf.st_mode));
+			printf("playlist %i\n", playlist);
+			printf("embedded in window id %i\n", embed_window);
+		}
+	}	
 	if (S_ISBLK(buf.st_mode)) {
         // might have a block device, so could be a DVD
 
