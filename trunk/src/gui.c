@@ -1493,6 +1493,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
 	FILE *fout;
 	char buffer[1000];
 	gint count;
+	gchar *default_name;
 	
 	file_chooser_save = gtk_file_chooser_dialog_new(_("Save As..."),
                                          GTK_WINDOW(window),
@@ -1500,6 +1501,17 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
 
+	default_name = g_strrstr(idledata->url,"/");
+	if (default_name == NULL)
+		default_name = idledata->url;
+	g_strlcpy(buffer,default_name,1000);
+	while(g_strrstr(buffer,"&") != NULL) {
+		default_name = g_strrstr(buffer,"&");
+		default_name[0] = '\0';
+	}
+	
+	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(file_chooser_save),buffer);
+	
     if (gtk_dialog_run(GTK_DIALOG(file_chooser_save)) == GTK_RESPONSE_ACCEPT) {
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser_save));
 	   
