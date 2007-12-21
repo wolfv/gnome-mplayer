@@ -5,7 +5,7 @@ Name: gnome-mplayer
 Summary: GNOME Frontend for MPlayer
 Version: %{ver}
 Release: 1%{?dist}
-License: GPL
+License: GPLv2+
 Group: Multimedia
 Packager: Kevin DeKorte <kdekorte@gmail.com>
 Source0: http://dekorte.homeip.net/download/gnome-mplayer/gnome-mplayer-%{ver}.tar.gz

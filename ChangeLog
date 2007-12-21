@@ -1,4 +1,5 @@
 Development
+	On Popup->Save As, set default filename to filename from URL
 	Rework how next file is launched,may help CPU usage issues
 	Only update guistate when it has changed
 	Try and fix problem with BBC site
