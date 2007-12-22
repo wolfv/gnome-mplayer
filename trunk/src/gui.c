@@ -2792,13 +2792,15 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Playlist")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_playlist));
     menuitem_view_info =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Info")));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Media _Info")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_info));
     menuitem_view_sep0 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep0));
 
+//	menuitem_view_fullscreen =
+//        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Fullscreen")));
 	menuitem_view_fullscreen =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Fullscreen")));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_FULLSCREEN,NULL));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_fullscreen));
     menuitem_view_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep1));
@@ -2812,19 +2814,21 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_onetotwo));
     menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    menuitem_view_controls = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
-    menuitem_view_advanced =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Advanced Options")));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_advanced));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_controls));
     menuitem_view_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep3));
-    menuitem_view_controls = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Controls")));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_controls));
+    menuitem_view_advanced =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Advanced Options...")));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_advanced));
 
     g_signal_connect(GTK_OBJECT(menuitem_view_playlist), "activate",
                      G_CALLBACK(menuitem_view_playlist_callback), NULL);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_playlist), "activate",
                                accel_group, 'l', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_file_open_location), "activate",
+                               accel_group, 'u', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_info), "activate",
                                accel_group, 'i', 0, GTK_ACCEL_VISIBLE);
     g_signal_connect(GTK_OBJECT(menuitem_view_info), "activate",
@@ -2868,7 +2872,10 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_showcontrols), "activate",
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls), "activate",
+                               accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
 
+ 
     g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
 
     // Give the window the property to accept DnD
