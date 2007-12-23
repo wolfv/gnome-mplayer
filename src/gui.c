@@ -685,11 +685,6 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 		gtk_main_iteration();
 	}
 
-    //if (idledata != NULL) {
-    //    g_free(idledata);
-    //    idledata = NULL;
-    //}
-
     if (control_id != 0)
         dbus_cancel();
 
@@ -697,6 +692,17 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 	
     gtk_main_quit();
     return FALSE;
+}
+
+gboolean motion_notify_callback(GtkWidget *widget, GdkEventMotion *event, gpointer data)
+{
+	GTimeVal currenttime;
+	
+	g_get_current_time(&currenttime);
+	
+	last_movement_time = currenttime.tv_sec;
+	g_idle_add(make_panel_and_mouse_visible,NULL);
+	return TRUE;
 }
 
 gboolean move_window(void *data)
@@ -1264,6 +1270,49 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
 	
 }
 #endif
+
+gboolean make_panel_and_mouse_invisible(gpointer data) 
+{
+	//char cursor_bits[] = {0x00};
+	//GdkColor cursor_color = { 0, 0, 0, 0 };
+	//GdkPixmap *cursor_source;
+	GTimeVal currenttime;
+	
+	if (fullscreen) {
+		g_get_current_time(&currenttime);
+		g_time_val_add(&currenttime,-5 * G_USEC_PER_SEC);
+		//printf("last = %li, current = %li\n",last_movement_time,currenttime.tv_sec);
+		if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
+			// do stuff	
+			// printf("making panel invisible\n");	
+			if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box)) {
+				gtk_widget_hide(controls_box);
+			}		
+		}
+	}
+//	cursor_source = gdk_pixmap_create_from_data (NULL, cursor_bits, 1,1,32,&cursor_color,&cursor_color);
+	
+//	cursor = gdk_cursor_new_from_pixmap (cursor_source, NULL, &cursor_color, &cursor_color, 0, 0);
+//	gdk_pixmap_unref(cursor_source);
+//	gdk_window_set_cursor(window->window,cursor);
+	return FALSE;
+}
+
+gboolean make_panel_and_mouse_visible(gpointer data) 
+{
+	if (fullscreen) {
+		if (cursor != NULL) {
+			gdk_cursor_unref(cursor);	
+			cursor = NULL;
+		}
+		
+		if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
+			gtk_widget_show(controls_box);
+		}
+	}
+	
+	return FALSE;
+}
 
 gboolean fs_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
@@ -2585,6 +2634,8 @@ GtkWidget *create_window(gint windowid)
 #endif
 	
 	in_button = FALSE;
+	last_movement_time = -1;
+	cursor = NULL;
 	
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
@@ -2605,9 +2656,11 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_add_events(window, GDK_KEY_PRESS_MASK);
     gtk_widget_add_events(window, GDK_VISIBILITY_NOTIFY_MASK);
     gtk_widget_add_events(window, GDK_STRUCTURE_MASK);
+	gtk_widget_add_events(window, GDK_POINTER_MOTION_MASK);
 
     delete_signal_id =
         g_signal_connect(GTK_OBJECT(window), "delete_event", G_CALLBACK(delete_callback), NULL);
+    g_signal_connect(GTK_OBJECT(window), "motion_notify_event", G_CALLBACK(motion_notify_callback), NULL);
 
     accel_group = gtk_accel_group_new();
 
@@ -2725,7 +2778,7 @@ GtkWidget *create_window(gint windowid)
 //    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_playlist));
     menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep1));
-    menuitem_file_details = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Details")));
+    menuitem_file_details = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("D_etails")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_details));
     menuitem_file_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep2));
@@ -2756,12 +2809,12 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_edit, GTK_WIDGET(menu_edit));
 
     menuitem_edit_random =
-        GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Shuffle Playlist")));
+        GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Shuffle Playlist")));
  	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), random_order);	
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_random));
 
     menuitem_edit_loop =
-        GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Loop Playlist")));
+        GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Loop Playlist")));
  	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_loop), loop);	
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_loop));
 	

@@ -212,6 +212,7 @@ gboolean set_volume(void *data);
 gboolean set_fullscreen(void *data);
 gboolean set_show_controls(void *data);
 gboolean set_window_visible(void *data);
+gboolean make_panel_and_mouse_invisible(gpointer data);
 void make_button(gchar * src, gchar * href);
 void dbus_open_by_hrefid(gchar * hrefid);
 void dbus_open_next();

@@ -1,4 +1,6 @@
 Development
+	Make control panel disappear in FS mode after 5 seconds of no mouse movement
+	More shortcuts
 	Some GUI Polish
 	On Popup->Save As, set default filename to filename from URL
 	Rework how next file is launched,may help CPU usage issues
