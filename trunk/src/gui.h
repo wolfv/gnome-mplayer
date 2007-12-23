@@ -191,6 +191,9 @@ GtkAccelGroup *accel_group;
 #define DRAG_NAME_2		"STRING"
 #define DRAG_INFO_2		2
 
+GdkCursor *cursor;
+
+glong last_movement_time;
 
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data);
@@ -203,7 +206,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 void vol_slider_callback(GtkRange * range, gpointer user_data);
 gboolean fs_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
-
+gboolean make_panel_and_mouse_visible(gpointer data);
 void menuitem_open_callback(GtkMenuItem * menuitem, void *data);
 void menuitem_quit_callback(GtkMenuItem * menuitem, void *data);
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data);
