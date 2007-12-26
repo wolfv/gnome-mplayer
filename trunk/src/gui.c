@@ -410,9 +410,12 @@ gboolean resize_window(void *data)
     gint total_height = 0;
 	gint total_width = 0;
     GtkRequisition req;
-
+	GTimeVal currenttime;
+	
     if (GTK_IS_WIDGET(window)) {
         if (idle->videopresent) {
+			g_get_current_time(&currenttime);
+			last_movement_time = currenttime.tv_sec;
     		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), TRUE);
 			dbus_disable_screensaver();
             gtk_widget_hide(song_title);
@@ -639,7 +642,12 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 {
     GtkMenu *menu;
     GdkEventButton *event_button;
-
+	GTimeVal currenttime;
+	
+	g_get_current_time(&currenttime);
+	last_movement_time = currenttime.tv_sec;
+	g_idle_add(make_panel_and_mouse_visible,NULL);
+	
     menu = GTK_MENU(widget);
     gtk_widget_grab_focus(fixed);
     if (event->type == GDK_BUTTON_PRESS) {
@@ -699,10 +707,10 @@ gboolean motion_notify_callback(GtkWidget *widget, GdkEventMotion *event, gpoint
 	GTimeVal currenttime;
 	
 	g_get_current_time(&currenttime);
-	
 	last_movement_time = currenttime.tv_sec;
+
 	g_idle_add(make_panel_and_mouse_visible,NULL);
-	return TRUE;
+	return FALSE;
 }
 
 gboolean move_window(void *data)
@@ -1273,43 +1281,37 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
 
 gboolean make_panel_and_mouse_invisible(gpointer data) 
 {
-	//char cursor_bits[] = {0x00};
-	//GdkColor cursor_color = { 0, 0, 0, 0 };
-	//GdkPixmap *cursor_source;
+	GdkColor cursor_color = { 0, 0, 0, 0 };
+	GdkPixmap *cursor_source;
+	GdkCursor *cursor;
 	GTimeVal currenttime;
 	
 	if (fullscreen) {
 		g_get_current_time(&currenttime);
 		g_time_val_add(&currenttime,-5 * G_USEC_PER_SEC);
-		//printf("last = %li, current = %li\n",last_movement_time,currenttime.tv_sec);
 		if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
-			// do stuff	
-			// printf("making panel invisible\n");	
 			if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box)) {
 				gtk_widget_hide(controls_box);
-			}		
+			}
+			cursor_source = gdk_pixmap_new(NULL,1,1,1);
+			cursor = gdk_cursor_new_from_pixmap (cursor_source, cursor_source, &cursor_color, &cursor_color, 0, 0);
+			gdk_pixmap_unref(cursor_source);
+			gdk_window_set_cursor(window->window,cursor);
+			gdk_cursor_unref(cursor);
 		}
 	}
-//	cursor_source = gdk_pixmap_create_from_data (NULL, cursor_bits, 1,1,32,&cursor_color,&cursor_color);
-	
-//	cursor = gdk_cursor_new_from_pixmap (cursor_source, NULL, &cursor_color, &cursor_color, 0, 0);
-//	gdk_pixmap_unref(cursor_source);
-//	gdk_window_set_cursor(window->window,cursor);
 	return FALSE;
 }
 
 gboolean make_panel_and_mouse_visible(gpointer data) 
 {
 	if (fullscreen) {
-		if (cursor != NULL) {
-			gdk_cursor_unref(cursor);	
-			cursor = NULL;
-		}
 		
 		if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
 			gtk_widget_show(controls_box);
 		}
 	}
+	gdk_window_set_cursor(window->window,NULL);
 	
 	return FALSE;
 }
@@ -1773,6 +1775,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gdk_drawable_get_size(GDK_DRAWABLE(window_container), &width, &height);
         if (width > 0 && height > 0)
             gtk_window_resize(GTK_WINDOW(window), width, height);
+		if (showcontrols)
+			gtk_widget_show(controls_box);
+		
     } else {
         if (embed_window != 0) {
             //while (gtk_events_pending())
@@ -2635,7 +2640,6 @@ GtkWidget *create_window(gint windowid)
 	
 	in_button = FALSE;
 	last_movement_time = -1;
-	cursor = NULL;
 	
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
@@ -2977,6 +2981,9 @@ GtkWidget *create_window(gint windowid)
     //gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK);
     //gtk_widget_add_events(drawing_area, GDK_BUTTON_RELEASE_MASK);
     //gtk_widget_add_events(drawing_area, GDK_STRUCTURE_MASK);
+	gtk_widget_add_events(drawing_area, GDK_POINTER_MOTION_MASK);
+
+    g_signal_connect(GTK_OBJECT(drawing_area), "motion_notify_event", G_CALLBACK(motion_notify_callback), NULL);
 
     g_signal_connect_swapped(G_OBJECT(drawing_area),
                              "button_press_event",
