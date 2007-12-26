@@ -191,8 +191,6 @@ GtkAccelGroup *accel_group;
 #define DRAG_NAME_2		"STRING"
 #define DRAG_INFO_2		2
 
-GdkCursor *cursor;
-
 glong last_movement_time;
 
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
