@@ -215,6 +215,12 @@ int main(int argc, char *argv[])
     g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
+	
+	if (error != NULL) {
+		printf("%s\n",error->message);
+		printf(_("Run 'gnome-mplayer --help' to see a full list of available command line options."));
+		return 1;
+	}
 
 	if (verbose == 0)	
     	verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
@@ -231,10 +237,10 @@ int main(int argc, char *argv[])
 	// setup playliststore
 	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT,G_TYPE_STRING,G_TYPE_STRING);
 	nonrandomplayliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT,G_TYPE_STRING,G_TYPE_STRING);
-	
+
     create_window(embed_window);
 
-    fullscreen = 0;
+	fullscreen = 0;
 	autopause = FALSE;
     state = QUIT;
     channel_in = NULL;
