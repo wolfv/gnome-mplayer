@@ -525,6 +525,10 @@ gboolean resize_window(void *data)
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), idle->videopresent);
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), idle->videopresent);
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_default), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_four_three), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), idle->videopresent);
+		
     }
     return FALSE;
 }
@@ -751,6 +755,11 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     if (actual_x > 0 && actual_y > 0) {
 
         movie_ratio = (gdouble) actual_x / (gdouble) actual_y;
+		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))
+        	movie_ratio = 4.0 / 3.0;
+		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine)))
+        	movie_ratio = 16.0 / 9.0;
+		
         window_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
 
         if (allocation->width == idledata->width && allocation->height == idledata->width) {
@@ -2233,6 +2242,38 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 
 }
 
+void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
+{
+	static gint i = 0;
+	
+	if ((gpointer)menuitem == (gpointer)menuitem_view_aspect_default) {
+		i++;
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_four_three), FALSE);
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_sixteen_nine), FALSE);	
+		i--;
+	}
+	
+	if ((gpointer)menuitem == (gpointer)menuitem_view_aspect_four_three) {
+		i++;
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_default), FALSE);
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_sixteen_nine), FALSE);	
+		i--;
+	}
+	
+	if ((gpointer)menuitem == (gpointer)menuitem_view_aspect_sixteen_nine) {
+		i++;
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_default), FALSE);
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_four_three), FALSE);	
+		i--;
+	}
+	
+	if (i == 0) {
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem), TRUE);
+		allocate_fixed_callback(fixed, &fixed->allocation, NULL);		
+	}
+	
+	
+}
 
 void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 {
@@ -2870,7 +2911,17 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_onetotwo =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_onetotwo));
-    menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    menuitem_view_sep4 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep4));
+	menuitem_view_aspect_default = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_efault Aspect")));
+	gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_aspect_default));
+	menuitem_view_aspect_four_three = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_4:3 Aspect")));
+	gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_aspect_four_three));
+	menuitem_view_aspect_sixteen_nine = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_16:9 Aspect")));
+	gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_aspect_sixteen_nine));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_default), TRUE);
+	
+	menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     menuitem_view_controls = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_controls));
@@ -2898,10 +2949,16 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_view_twotoone_callback), idledata);
     g_signal_connect(GTK_OBJECT(menuitem_view_onetotwo), "activate",
                      G_CALLBACK(menuitem_view_onetotwo_callback), idledata);
-    g_signal_connect(GTK_OBJECT(menuitem_view_advanced), "activate",
-                     G_CALLBACK(menuitem_advanced_callback), idledata);
+    g_signal_connect(GTK_OBJECT(menuitem_view_aspect_default), "activate",
+                     G_CALLBACK(menuitem_view_aspect_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_aspect_four_three), "activate",
+                     G_CALLBACK(menuitem_view_aspect_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_aspect_sixteen_nine), "activate",
+                     G_CALLBACK(menuitem_view_aspect_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_controls), "activate",
                      G_CALLBACK(menuitem_view_controls_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_advanced), "activate",
+                     G_CALLBACK(menuitem_advanced_callback), idledata);
 
     // Help Menu
     menuitem_help = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Help")));
@@ -3389,7 +3446,10 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_default), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_four_three), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
