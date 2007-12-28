@@ -82,10 +82,14 @@ GtkMenuItem *menuitem_view_sep1;
 GtkMenuItem *menuitem_view_onetoone;
 GtkMenuItem *menuitem_view_twotoone;
 GtkMenuItem *menuitem_view_onetotwo;
+GtkMenuItem *menuitem_view_sep4;
+GtkMenuItem *menuitem_view_aspect_default;
+GtkMenuItem *menuitem_view_aspect_four_three;
+GtkMenuItem *menuitem_view_aspect_sixteen_nine;
 GtkMenuItem *menuitem_view_sep2;
-GtkMenuItem *menuitem_view_advanced;
-GtkMenuItem *menuitem_view_sep3;
 GtkMenuItem *menuitem_view_controls;
+GtkMenuItem *menuitem_view_sep3;
+GtkMenuItem *menuitem_view_advanced;
 GtkMenu *menu_help;
 GtkMenuItem *menuitem_help_about;
 

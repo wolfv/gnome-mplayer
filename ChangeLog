@@ -1,4 +1,5 @@
 Development
+	Add view menu options for changing the aspect ratio of the media
 	GUI for setting subtitles, but it doesn't actually use the subtitle yet
 	Fix all kinds GTK warnings when a bad commandline option is issued
 	Make mouse disappear when panel disappears
