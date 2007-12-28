@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
 	
 	if (error != NULL) {
 		printf("%s\n",error->message);
-		printf(_("Run 'gnome-mplayer --help' to see a full list of available command line options."));
+		printf(_("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
 		return 1;
 	}
 
@@ -235,8 +235,8 @@ int main(int argc, char *argv[])
 		rpconsole = g_strdup("NONE");
 	
 	// setup playliststore
-	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT,G_TYPE_STRING,G_TYPE_STRING);
-	nonrandomplayliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT,G_TYPE_STRING,G_TYPE_STRING);
+	playliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+	nonrandomplayliststore = gtk_list_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
 
     create_window(embed_window);
 

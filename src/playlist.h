@@ -27,6 +27,8 @@
 #include <glib/gstdio.h>
 
 GtkTooltips *playlisttip;
+GtkMenu *playlist_popup_menu;
+GtkMenuItem *playlist_set_subtitle;
 
 void update_gui();
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data);

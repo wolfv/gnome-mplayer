@@ -114,6 +114,7 @@ IdleData *idledata;
 
 typedef struct _ThreadData {
     gchar filename[1024];
+	gchar subtitle[1024];
     gint streaming;
     gint player_window;
     gint playlist;
@@ -126,6 +127,7 @@ enum {
 	PLAYLIST_COLUMN,
 	ARTIST_COLUMN,
 	LENGTH_COLUMN,
+	SUBTITLE_COLUMN,
 	N_COLUMNS
 };
 
