@@ -41,6 +41,50 @@ void update_gui()
 	}		
 }	
 	
+gboolean playlist_popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
+{
+    GtkMenu *menu;
+    GdkEventButton *event_button;
+	
+    menu = GTK_MENU(widget);
+    gtk_widget_grab_focus(fixed);
+    if (event->type == GDK_BUTTON_PRESS) {
+		
+        event_button = (GdkEventButton *) event;
+		
+        if (event_button->button == 3) {
+            gtk_menu_popup(menu, NULL, NULL, NULL, NULL, event_button->button, event_button->time);
+            return TRUE;
+        }
+    }
+	return FALSE;
+}
+
+void playlist_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
+{
+	GtkTreeSelection *sel;
+	GtkTreeView *view = (GtkTreeView *)data;
+	GtkTreeIter localiter;
+	gchar *subtitle;
+	GtkWidget *dialog;
+	
+	sel = gtk_tree_view_get_selection(view);
+	
+	if (gtk_tree_selection_get_selected(sel,NULL,&localiter)) {
+		
+    	dialog = gtk_file_chooser_dialog_new(_("Set Subtitle"),
+                                         GTK_WINDOW(window),
+                                         GTK_FILE_CHOOSER_ACTION_OPEN,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+			subtitle = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));		
+			gtk_list_store_set(playliststore, &localiter,SUBTITLE_COLUMN,subtitle,-1);
+		}
+		gtk_widget_destroy(dialog);
+	}
+	
+}
 
 
 gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
@@ -105,13 +149,20 @@ gboolean playlist_motion_callback(GtkWidget *widget, GdkEventMotion *event, gpoi
 	GtkTreePath *localpath;
 	GtkTreeIter localiter;
 	gchar *iterfilename;
+	gchar *itersubtitle;
+	gchar *tip;
 	
 	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(widget), event->x, event->y,&localpath, NULL, NULL, NULL);
 	
 	if (localpath != NULL) {
 		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore),&localiter,localpath)) {
-			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&iterfilename,-1);
-			gtk_tooltips_set_tip(playlisttip,widget, iterfilename, NULL);
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&iterfilename,SUBTITLE_COLUMN,&itersubtitle,-1);
+			if (itersubtitle == NULL) {
+				tip = g_strdup_printf("%s",iterfilename);
+			} else {
+				tip = g_strdup_printf(_("Filename: %s\nSubtitle: %s"),iterfilename,itersubtitle);
+			}
+			gtk_tooltips_set_tip(playlisttip,widget, tip, NULL);
 		}
 	}
 	return FALSE;
@@ -407,6 +458,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	    //gtk_button_box_set_layout(GTK_BUTTON_BOX(ctrlbox),GTK_BUTTONBOX_START);
 	
 		list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
+		gtk_widget_add_events(list, GDK_BUTTON_PRESS_MASK);
 		gtk_widget_set_size_request(GTK_WIDGET(list),-1,-1);
 		
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
@@ -530,6 +582,18 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 			gtk_widget_show(GTK_WIDGET(fixed));
 		}
 		
+		playlist_popup_menu = GTK_MENU(gtk_menu_new());
+		playlist_set_subtitle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Set Subtitle")));
+   		g_signal_connect(GTK_OBJECT(playlist_set_subtitle), "activate",
+                     G_CALLBACK(playlist_set_subtitle_callback), list);
+		
+		gtk_menu_append(playlist_popup_menu, GTK_WIDGET(playlist_set_subtitle));		
+    	g_signal_connect_swapped(G_OBJECT(list),
+                             "button_press_event",
+                             G_CALLBACK(playlist_popup_handler), GTK_OBJECT(playlist_popup_menu));
+		gtk_widget_show_all(GTK_WIDGET(playlist_popup_menu));
+		
+											  
 		gtk_widget_grab_default(close);
 	}	
 }
