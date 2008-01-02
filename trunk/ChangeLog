@@ -1,4 +1,7 @@
 Development
+	Subtitles should now work now, set them with either 
+		--subtitle on the command line 
+		or by right clicking on the playlist panel and adding a subtitle to an item on the playlist
 	Add view menu options for changing the aspect ratio of the media
 	GUI for setting subtitles, but it doesn't actually use the subtitle yet
 	Fix all kinds GTK warnings when a bad commandline option is issued

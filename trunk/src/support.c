@@ -741,6 +741,7 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 						   COUNT_COLUMN,0,
 						   PLAYLIST_COLUMN, playlist, 
 						   ARTIST_COLUMN, artist,
+						   SUBTITLE_COLUMN, subtitle,
 						   LENGTH_COLUMN, length,-1);
 
 
@@ -750,6 +751,7 @@ GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist)
 						   COUNT_COLUMN,0,
 						   PLAYLIST_COLUMN, playlist, 
 						   ARTIST_COLUMN, artist,
+						   SUBTITLE_COLUMN, subtitle,
 						   LENGTH_COLUMN, length,-1);
 
 	}
@@ -851,6 +853,7 @@ void copy_playlist(GtkListStore *source, GtkListStore *dest) {
 	gint count;
 	gint playlist;
 	gchar *artist;
+	gchar *subtitle;
 	gchar *length;
 	
 	gtk_tree_model_get(GTK_TREE_MODEL(dest), &iter, ITEM_COLUMN,&iterfilename,-1);
@@ -863,6 +866,7 @@ void copy_playlist(GtkListStore *source, GtkListStore *dest) {
 							   COUNT_COLUMN, &count,
 							   PLAYLIST_COLUMN, &playlist, 
 							   ARTIST_COLUMN, &artist,
+							   SUBTITLE_COLUMN, &subtitle,
 							   LENGTH_COLUMN, &length,-1);
 			
 			gtk_list_store_append(dest,&destiter);
@@ -871,6 +875,7 @@ void copy_playlist(GtkListStore *source, GtkListStore *dest) {
 							   COUNT_COLUMN, count,
 							   PLAYLIST_COLUMN, playlist, 
 							   ARTIST_COLUMN, artist,
+							   SUBTITLE_COLUMN, subtitle,
 							   LENGTH_COLUMN, length,-1);
 
 		} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(source),&sourceiter));
