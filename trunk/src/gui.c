@@ -568,6 +568,20 @@ gboolean set_rew(void *data)
     return FALSE;
 }
 
+gboolean set_prev(void *data)
+{
+
+    prev_callback(NULL, NULL, NULL);     
+    return FALSE;
+}
+
+gboolean set_next(void *data)
+{
+
+    next_callback(NULL, NULL, NULL);     
+    return FALSE;
+}
+
 gboolean set_quit(void *data)
 {
 

@@ -206,6 +206,8 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 gboolean pause_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
+gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
+gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 void vol_slider_callback(GtkRange * range, gpointer user_data);
 gboolean fs_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 gboolean make_panel_and_mouse_visible(gpointer data);

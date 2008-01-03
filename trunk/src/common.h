@@ -209,6 +209,8 @@ gboolean set_pause(void *data);
 gboolean set_stop(void *data);
 gboolean set_ff(void *data);
 gboolean set_rew(void *data);
+gboolean set_prev(void *data);
+gboolean set_next(void *data);
 gboolean set_quit(void *data);
 gboolean set_position(void *data);
 gboolean set_volume(void *data);

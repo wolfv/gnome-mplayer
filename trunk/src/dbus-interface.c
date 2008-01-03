@@ -57,6 +57,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     gchar *s = NULL;
     gchar *hrefid = NULL;
     gchar *path = NULL;
+	gchar *keyname = NULL;
     DBusError error;
     DBusMessage *reply_message;
     gchar *path1;
@@ -73,9 +74,9 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     sender = dbus_message_get_sender(message);
     destination = dbus_message_get_destination(message);
 
-//    	printf("path=%s; interface=%s; member=%s; data=%s\n",
-//               dbus_message_get_path(message),
-//               dbus_message_get_interface(message), dbus_message_get_member(message), s);
+    	printf("path=%s; interface=%s; member=%s; data=%s\n",
+               dbus_message_get_path(message),
+             dbus_message_get_interface(message), dbus_message_get_member(message), s);
 
 	path1 = g_strdup_printf("/control/%i", control_id);
     path2 = g_strdup_printf("/window/%i", embed_window);
@@ -89,7 +90,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
             g_ascii_strcasecmp(dbus_message_get_path(message), path1) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), path2) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), path3) == 0 ||
-            g_ascii_strcasecmp(dbus_message_get_path(message), path4) == 0) {
+            g_ascii_strcasecmp(dbus_message_get_path(message), path4) == 0 ||
+			g_ascii_strcasecmp(dbus_message_get_path(message), "/org/gnome/SettingsDaemon") == 0) {
 				
             // printf("Path matched %s\n", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
@@ -542,6 +544,32 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
 				}
+				
+				if (g_ascii_strcasecmp(dbus_message_get_member(message), "MediaPlayerKeyPressed") == 0) {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_STRING, &keyname, DBUS_TYPE_INVALID)) {
+						if(g_strncasecmp(keyname,"Play",strlen("Play")) == 0) {
+							idledata->fromdbus = TRUE;
+							g_idle_add(set_play, idledata);
+						}
+						if(g_strncasecmp(keyname,"Stop",strlen("Stop")) == 0) {
+							idledata->fromdbus = TRUE;
+							g_idle_add(set_stop, idledata);
+						}
+						if(g_strncasecmp(keyname,"Previous",strlen("Previous")) == 0) {
+							idledata->fromdbus = TRUE;
+							g_idle_add(set_prev, idledata);
+						}
+						if(g_strncasecmp(keyname,"Next",strlen("Next")) == 0) {
+							idledata->fromdbus = TRUE;
+							g_idle_add(set_next, idledata);
+						}
+                    } else {
+                        dbus_error_free(&error);
+                    }
+                    return DBUS_HANDLER_RESULT_HANDLED;
+				}
 
 
 				if (g_ascii_strcasecmp(dbus_message_get_member(message), "Ping") == 0) {
@@ -934,6 +962,13 @@ gboolean dbus_hookup(gint windowid, gint controlid)
     g_free(match);
     dbus_error_free(&error);
 
+    match = g_strdup_printf("type='signal',interface='org.gnome.SettingsDaemon'");
+    dbus_bus_add_match(connection, match, &error);
+	if (verbose)
+    	printf("Using match: %s\n", match);
+    g_free(match);
+    dbus_error_free(&error);
+	
     dbus_connection_add_filter(connection, filter_func, NULL, NULL);
 
 	if (verbose)
