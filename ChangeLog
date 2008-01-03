@@ -1,4 +1,6 @@
 Development
+	Handle events from gnome-keybinding-properties, player now listens for dbus messages and handles them
+		events: Play, Previous, Next, Stop
 	Subtitles should now work now, set them with either 
 		--subtitle on the command line 
 		or by right clicking on the playlist panel and adding a subtitle to an item on the playlist
