@@ -231,12 +231,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "VO:");
         sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &actual_x, &actual_y, &play_x, &play_y);
 
-		if (verbose)
-        	printf("Resizing to %i x %i \n", actual_x, actual_y);
 		if (play_x >= actual_x && play_y >= actual_y) {
 			actual_x = play_x;
 			actual_y = play_y;
 		} 
+		if (verbose)
+        	printf("Resizing to %i x %i \n", actual_x, actual_y);
        	idledata->width = actual_x;
        	idledata->height = actual_y;
         idledata->videopresent = 1;
