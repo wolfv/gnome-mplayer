@@ -326,7 +326,6 @@ gint parse_cdda(gchar* filename) {
 		return 0;
 	} else {
 		playlist = 0;
-        // run mplayer and try to get the first frame and convert it to a jpeg
         av[ac++] = g_strdup_printf("mplayer");
         av[ac++] = g_strdup_printf("-vo");
         av[ac++] = g_strdup_printf("null");
