@@ -314,8 +314,13 @@ gint parse_cdda(gchar* filename) {
     gint ac = 0;
 	gint ret = 0;
 	gchar **output;
-	gchar *track;
+	gchar *track = NULL;
+	gchar *title = NULL;
+	gchar *artist = NULL;
+	gchar *length = NULL;
+	gchar *ptr = NULL;
 	gint num;
+	GtkTreeIter localiter;
 	
 	if (g_strncasecmp(filename,"cdda://",7) != 0) {
 		return 0;
@@ -330,7 +335,7 @@ gint parse_cdda(gchar* filename) {
         av[ac++] = g_strdup_printf("-frames");
         av[ac++] = g_strdup_printf("0");
         av[ac++] = g_strdup_printf("-identify");
-        av[ac++] = g_strdup_printf("cdda://");
+        av[ac++] = g_strdup_printf("cddb://");
         av[ac] = NULL;
 		
 		error = NULL;
@@ -345,12 +350,53 @@ gint parse_cdda(gchar* filename) {
 		output = g_strsplit(stdout,"\n",0);
 		ac = 0;
 		while(output[ac] != NULL) {
-			if (g_strncasecmp(output[ac],"ID_CDDA_TRACK_",strlen("ID_CDDA_TRACK_")) == 0) {
-				sscanf(output[ac], "ID_CDDA_TRACK_%i_", &num);
-				track = g_strdup_printf("cdda://%i",num);
-				add_item_to_playlist(track,0);
-				g_free(track);
+
+			if (g_strncasecmp(output[ac]," artist",strlen(" artist")) == 0) {
+				artist = g_strdup_printf("%s",output[ac] + strlen(" artist=["));
+				ptr = g_strrstr(artist,"]");
+				if (ptr != NULL)
+					ptr[0] = '\0';
 			}
+
+			if (g_strncasecmp(output[ac]," album",strlen(" album")) == 0) {
+				playlistname = g_strdup_printf("%s",output[ac] + strlen(" album=["));
+				ptr = g_strrstr(playlistname,"]");
+				if (ptr != NULL)
+					ptr[0] = '\0';
+			}
+			
+			if (g_strncasecmp(output[ac],"  #",3) == 0) {
+				sscanf(output[ac], "  #%i", &num);
+				track = g_strdup_printf("cdda://%i",num);
+				title = g_strdup_printf("%s",output[ac] + 26);
+				ptr = g_strrstr(title,"]");
+				if (ptr != NULL)
+					ptr[0] = '\0';
+				
+				length = g_strdup_printf("%c%c%c%c%c%c%c%c",output[ac][7],output[ac][8],output[ac][9],output[ac][10],
+										 				output[ac][11],output[ac][12],output[ac][13],output[ac][14]);
+				
+				// printf("track = %s, artist = %s, title = %s, length = %s\n",track,artist,title,length);
+				gtk_list_store_append(playliststore,&localiter);
+				gtk_list_store_set(playliststore,&localiter,ITEM_COLUMN,track,
+								   DESCRIPTION_COLUMN,title,
+								   COUNT_COLUMN,0,
+								   PLAYLIST_COLUMN, 0, 
+								   ARTIST_COLUMN, artist,
+								   SUBTITLE_COLUMN, NULL,
+								   LENGTH_COLUMN, length,-1);
+
+
+				gtk_list_store_append(nonrandomplayliststore,&localiter);
+				gtk_list_store_set(nonrandomplayliststore,&localiter,ITEM_COLUMN,track,
+								   DESCRIPTION_COLUMN,title,
+								   COUNT_COLUMN,0,
+								   PLAYLIST_COLUMN, 0, 
+								   ARTIST_COLUMN, artist,
+								   SUBTITLE_COLUMN, NULL,
+								   LENGTH_COLUMN, length,-1);
+				
+			}	
 			ac++;
 		}
 		g_strfreev(output);

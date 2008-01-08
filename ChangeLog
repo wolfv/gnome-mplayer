@@ -1,4 +1,5 @@
 Development
+	CDDB support added into the parse cdda code, may need to implement fallback for non-cddb enabled mplayer
 	Handle events from gnome-keybinding-properties, player now listens for dbus messages and handles them
 		events: Play, Previous, Next, Stop
 	Subtitles should now work now, set them with either 
