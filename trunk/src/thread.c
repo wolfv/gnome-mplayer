@@ -324,7 +324,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_metadata");
         g_strlcpy(idledata->metadata, buf + strlen("ANS_metadata="), 1024);
 		g_strchomp(idledata->metadata);
-		// printf("metadata = %s\n",idledata->metadata);
 		
 		if (idledata->metadata != NULL) {
 			parse = g_strsplit(idledata->metadata,",",-1);
@@ -365,7 +364,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 					g_free(utf8artist);
 					g_idle_add(set_media_label, idledata);
 				} else {
-					message = g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),idledata->info);
+					if (g_strncasecmp(idledata->info,"cdda",4) == 0) {
+						gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,DESCRIPTION_COLUMN,&utf8name,ARTIST_COLUMN,&utf8artist,-1);
+						message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n</small>"),utf8name,utf8artist);					
+						g_free(utf8name);
+						g_free(utf8artist);
+					} else {
+						message = g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),idledata->info);
+					}
 					g_strlcpy(idledata->media_info, message, 1024);
 					g_free(message);
 					g_idle_add(set_media_label, idledata);
