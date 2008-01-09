@@ -158,6 +158,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GtkWidget *dialog;
 	gchar **parse;
 	gint name,artist;
+	gchar *cdname;
+	gchar *cdartist;
 	gchar *utf8name;
 	gchar *utf8artist;
 
@@ -365,11 +367,23 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 					g_idle_add(set_media_label, idledata);
 				} else {
 					if (g_strncasecmp(idledata->info,"cdda",4) == 0 && gtk_list_store_iter_is_valid(playliststore,&iter)) {
-						gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,DESCRIPTION_COLUMN,&utf8name,ARTIST_COLUMN,&utf8artist,-1);
+						gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,DESCRIPTION_COLUMN,&cdname,ARTIST_COLUMN,&cdartist,-1);
+						utf8name = g_locale_to_utf8(cdname,-1, NULL, NULL,NULL);
+						if (utf8name == NULL) {
+							strip_unicode(cdname,strlen(cdname));
+							utf8name = g_strdup(cdname);
+						}
+						utf8artist = g_locale_to_utf8(cdartist,-1, NULL, NULL,NULL);
+						if (utf8artist == NULL) {
+							strip_unicode(cdartist,strlen(cdartist));
+							utf8artist = g_strdup(cdartist);
+						}
 						message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),utf8name,utf8artist,playlistname);					
+						g_strlcpy(idledata->info,utf8name, 1024);
+						g_free(cdname);
+						g_free(cdartist);
 						g_free(utf8name);
 						g_free(utf8artist);
-						g_strlcpy(idledata->info,utf8name, 1024);
 					} else {
 						message = g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),idledata->info);
 					}

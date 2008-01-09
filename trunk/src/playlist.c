@@ -383,6 +383,8 @@ void playlist_close(GtkWidget * widget, void *data)
 
 	if (idledata->videopresent == FALSE) {
 		gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+		gtk_widget_hide(GTK_WIDGET(fixed));
+		gtk_widget_set_size_request(window,-1,-1);
 	}
 	g_value_set_boolean(&value,TRUE);
 	gtk_container_child_set_property(GTK_CONTAINER(pane),plvbox,"shrink",&value);
