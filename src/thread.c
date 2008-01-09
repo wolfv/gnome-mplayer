@@ -379,7 +379,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 							utf8artist = g_strdup(cdartist);
 						}
 						message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),utf8name,utf8artist,playlistname);					
-						g_strlcpy(idledata->info,utf8name, 1024);
 						g_free(cdname);
 						g_free(cdartist);
 						g_free(utf8name);
