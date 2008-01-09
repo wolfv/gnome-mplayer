@@ -1,4 +1,5 @@
 Development
+	When playing audio files don't smash window when playlist is hidden and then reopened
 	CDDB support added into the parse cdda code, may need to implement fallback for non-cddb enabled mplayer
 	Handle events from gnome-keybinding-properties, player now listens for dbus messages and handles them
 		events: Play, Previous, Next, Stop
