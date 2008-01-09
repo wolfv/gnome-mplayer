@@ -369,6 +369,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 						message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),utf8name,utf8artist,playlistname);					
 						g_free(utf8name);
 						g_free(utf8artist);
+						g_strlcpy(idledata->info,utf8name, 1024);
 					} else {
 						message = g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),idledata->info);
 					}
