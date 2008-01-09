@@ -323,7 +323,7 @@ gboolean set_progress_time(void *data)
         }
     }
 
-    if (GTK_IS_WIDGET(progress) && idle->position > 0) {
+    if (GTK_IS_WIDGET(progress) && idle->position > 0 && state != PAUSED) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
 	
