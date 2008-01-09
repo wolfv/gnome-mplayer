@@ -366,7 +366,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 				} else {
 					if (g_strncasecmp(idledata->info,"cdda",4) == 0 && gtk_list_store_iter_is_valid(playliststore,&iter)) {
 						gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,DESCRIPTION_COLUMN,&utf8name,ARTIST_COLUMN,&utf8artist,-1);
-						message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n</small>"),utf8name,utf8artist);					
+						message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),utf8name,utf8artist,playlistname);					
 						g_free(utf8name);
 						g_free(utf8artist);
 					} else {
