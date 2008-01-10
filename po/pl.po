@@ -10,12 +10,12 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer 0.5.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-01-09 09:40-0700\n"
-"PO-Revision-Date: 2007-12-08 12:52+0100\n"
+"PO-Revision-Date: 2008-01-10 18:33+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <gnomepl@pandora.info.bielsko.pl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: src/main.c:54
 msgid "Window to embed in"
@@ -77,31 +77,31 @@ msgstr "Elementy sterujące konsoli Real Player"
 
 #: src/main.c:70
 msgid "Subtitle file for first media file"
-msgstr ""
+msgstr "Plik napisów dla pierwszego pliku multimediów"
 
 #: src/main.c:71
 msgid "TV device name"
-msgstr ""
+msgstr "Nazwa urządzenia TV"
 
 #: src/main.c:72
 msgid "TV driver name (v4l|v4l2)"
-msgstr ""
+msgstr "Nazwa urządzenia TV (v4l|v4l2)"
 
 #: src/main.c:73
 msgid "TV input name"
-msgstr ""
+msgstr "Nazwa wejścia TV"
 
 #: src/main.c:74
 msgid "Width of TV input"
-msgstr ""
+msgstr "Szerokość wejścia TV"
 
 #: src/main.c:75
 msgid "Height of TV input"
-msgstr ""
+msgstr "Wysokość wejścia TV"
 
 #: src/main.c:76
 msgid "Frames per second from TV input"
-msgstr ""
+msgstr "Ilość klatek na sekundę z wejścia TV"
 
 #: src/main.c:222
 msgid "- GNOME Media player based on MPlayer"
@@ -113,6 +113,8 @@ msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr ""
+"Uruchom 'gnome-mplayer --help' aby zobaczyć pełną listę dostępnych opcji "
+"wiersza polecenia.\n"
 
 #: src/main.c:240
 #, c-format
@@ -209,11 +211,11 @@ msgstr "Otwórz plik"
 
 #: src/gui.c:1484
 msgid "Open Location"
-msgstr ""
+msgstr "Otwórz lokalizację"
 
 #: src/gui.c:1486
 msgid "Location:"
-msgstr ""
+msgstr "Lokalizacja:"
 
 #: src/gui.c:1572
 msgid "Save As..."
@@ -309,7 +311,7 @@ msgstr "Wtyczka"
 
 #: src/gui.c:2326
 msgid "Advanced"
-msgstr "Zaawansowanr"
+msgstr "Zaawansowane"
 
 #: src/gui.c:2332
 msgid "GNOME MPlayer Configuration"
@@ -369,7 +371,7 @@ msgstr "Gadatliwe debugowanie włączone"
 
 #: src/gui.c:2748
 msgid "S_how Controls"
-msgstr "P_okaż elementy sterujące"
+msgstr "Pokaż elementy _sterujące"
 
 #: src/gui.c:2752
 msgid "_Full Screen"
@@ -386,7 +388,7 @@ msgstr "_Plik"
 
 #: src/gui.c:2826
 msgid "Open _Location"
-msgstr ""
+msgstr "Otwórz _lokalizację"
 
 #: src/gui.c:2828
 msgid "Open _DVD"
@@ -401,9 +403,8 @@ msgid "Open _Audio CD"
 msgstr "Otwórz _Audio CD"
 
 #: src/gui.c:2840
-#, fuzzy
 msgid "D_etails"
-msgstr "Szczegóły"
+msgstr "_Szczegóły"
 
 #. Edit Menu
 #: src/gui.c:2864
@@ -411,14 +412,12 @@ msgid "_Edit"
 msgstr "_Edycja"
 
 #: src/gui.c:2871
-#, fuzzy
 msgid "_Shuffle Playlist"
-msgstr "Wymieszaj listę odtwarzania"
+msgstr "_Wymieszaj listę odtwarzania"
 
 #: src/gui.c:2876
-#, fuzzy
 msgid "_Loop Playlist"
-msgstr "Zapętl listę odtwarzania"
+msgstr "_Zapętl listę odtwarzania"
 
 #. View Menu
 #: src/gui.c:2898
@@ -430,9 +429,8 @@ msgid "_Playlist"
 msgstr "_Lista odtwarzania"
 
 #: src/gui.c:2907
-#, fuzzy
 msgid "Media _Info"
-msgstr "_Informacje"
+msgstr "_Informacje o "
 
 #: src/gui.c:2920
 msgid "_Normal (1:1)"
@@ -444,28 +442,27 @@ msgstr "Po_dwójny rozmiar (2:1)"
 
 #: src/gui.c:2926
 msgid "_Half Size (1:2)"
-msgstr "_Połowa rozmiaru (1:2)"
+msgstr "P_ołowa rozmiaru (1:2)"
 
 #: src/gui.c:2930
 msgid "D_efault Aspect"
-msgstr ""
+msgstr "Domyślne proporcje _obrazu"
 
 #: src/gui.c:2932
 msgid "_4:3 Aspect"
-msgstr ""
+msgstr "Proporcje obrazu _4:3"
 
 #: src/gui.c:2934
 msgid "_16:9 Aspect"
-msgstr ""
+msgstr "Proporcje obrazu _16:9"
 
 #: src/gui.c:2939
 msgid "_Controls"
 msgstr "Elementy _sterujące"
 
 #: src/gui.c:2945
-#, fuzzy
 msgid "_Advanced Options..."
-msgstr "_Zaawansowane opcje"
+msgstr "_Zaawansowane opcje..."
 
 #. Help Menu
 #: src/gui.c:2978
@@ -531,7 +528,7 @@ msgstr ""
 "</small>"
 
 #: src/thread.c:369
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<small>\n"
 "<b>Title:</b>\t%s\n"
@@ -542,7 +539,7 @@ msgstr ""
 "<small>\n"
 "<b>Tytuł:</b>\t%s\n"
 "<b>Wykonawca:</b>\t%s\n"
-"<b>Plik:</b>\t%s\n"
+"<b>Album:</b>\t%s\n"
 "</small>"
 
 #: src/thread.c:374 src/thread.c:383
@@ -570,7 +567,7 @@ msgstr "Łączenie"
 
 #: src/playlist.c:75
 msgid "Set Subtitle"
-msgstr ""
+msgstr "Ustaw napisy"
 
 #: src/playlist.c:163
 #, c-format
@@ -578,6 +575,8 @@ msgid ""
 "Filename: %s\n"
 "Subtitle: %s"
 msgstr ""
+"Nazwa pliku: %s\n"
+"Napisy: %s"
 
 #: src/playlist.c:182 src/playlist.c:540
 msgid "Save Playlist"
@@ -601,11 +600,11 @@ msgstr "Referencyjna lista odtwarzania (*.ref)"
 
 #: src/playlist.c:494
 msgid "Artist"
-msgstr ""
+msgstr "Artysta"
 
 #: src/playlist.c:504
 msgid "Length"
-msgstr ""
+msgstr "Długość"
 
 #: src/playlist.c:524
 msgid "Close Playlist View"
@@ -621,7 +620,7 @@ msgstr "Usuń element z listy odtwarzania"
 
 #: src/playlist.c:588
 msgid "_Set Subtitle"
-msgstr ""
+msgstr "Ustaw _napisy"
 
 #~ msgid "_Fullscreen"
 #~ msgstr "Pełny _ekran"
