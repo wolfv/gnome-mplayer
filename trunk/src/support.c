@@ -321,6 +321,7 @@ gint parse_cdda(gchar* filename) {
 	gchar *ptr = NULL;
 	gint num;
 	GtkTreeIter localiter;
+	gboolean ok;
 	
 	if (g_strncasecmp(filename,"cdda://",7) != 0) {
 		return 0;
@@ -374,27 +375,37 @@ gint parse_cdda(gchar* filename) {
 				
 				length = g_strdup_printf("%c%c%c%c%c%c%c%c",output[ac][7],output[ac][8],output[ac][9],output[ac][10],
 										 				output[ac][11],output[ac][12],output[ac][13],output[ac][14]);
-				
-				// printf("track = %s, artist = %s, title = %s, length = %s\n",track,artist,title,length);
-				gtk_list_store_append(playliststore,&localiter);
-				gtk_list_store_set(playliststore,&localiter,ITEM_COLUMN,track,
-								   DESCRIPTION_COLUMN,title,
-								   COUNT_COLUMN,0,
-								   PLAYLIST_COLUMN, 0, 
-								   ARTIST_COLUMN, artist,
-								   SUBTITLE_COLUMN, NULL,
-								   LENGTH_COLUMN, length,-1);
+
+				ok = FALSE;
+				if (strlen(filename) > 7) {
+					if (g_strcasecmp(filename,track) == 0) {
+						ok = TRUE;
+					}
+				} else {
+					ok = TRUE;
+				}
+					
+				if (ok) {
+					// printf("track = %s, artist = %s, title = %s, length = %s\n",track,artist,title,length);
+					gtk_list_store_append(playliststore,&localiter);
+					gtk_list_store_set(playliststore,&localiter,ITEM_COLUMN,track,
+									   DESCRIPTION_COLUMN,title,
+									   COUNT_COLUMN,0,
+									   PLAYLIST_COLUMN, 0, 
+									   ARTIST_COLUMN, artist,
+									   SUBTITLE_COLUMN, NULL,
+									   LENGTH_COLUMN, length,-1);
 
 
-				gtk_list_store_append(nonrandomplayliststore,&localiter);
-				gtk_list_store_set(nonrandomplayliststore,&localiter,ITEM_COLUMN,track,
-								   DESCRIPTION_COLUMN,title,
-								   COUNT_COLUMN,0,
-								   PLAYLIST_COLUMN, 0, 
-								   ARTIST_COLUMN, artist,
-								   SUBTITLE_COLUMN, NULL,
-								   LENGTH_COLUMN, length,-1);
-				
+					gtk_list_store_append(nonrandomplayliststore,&localiter);
+					gtk_list_store_set(nonrandomplayliststore,&localiter,ITEM_COLUMN,track,
+									   DESCRIPTION_COLUMN,title,
+									   COUNT_COLUMN,0,
+									   PLAYLIST_COLUMN, 0, 
+									   ARTIST_COLUMN, artist,
+									   SUBTITLE_COLUMN, NULL,
+									   LENGTH_COLUMN, length,-1);
+				}
 			}	
 			ac++;
 		}

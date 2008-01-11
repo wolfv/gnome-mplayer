@@ -1436,34 +1436,35 @@ void open_location_callback(GtkWidget * widget, void *data)
 	
 	filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(open_location)));
 	
-	dontplaynext = TRUE;
-	shutdown();
-	gtk_list_store_clear(playliststore);
-	gtk_list_store_clear(nonrandomplayliststore);	
+	if (filename != NULL && strlen(filename) > 0) {
+		dontplaynext = TRUE;
+		shutdown();
+		gtk_list_store_clear(playliststore);
+		gtk_list_store_clear(nonrandomplayliststore);	
 
-	if (filename != NULL) {
+		if (filename != NULL) {
 
-		playlist = detect_playlist(filename);
-	
-		if (!playlist ) {
-			localiter = add_item_to_playlist(filename,playlist);
-		} else {
-			if (!parse_playlist(filename)) {	
+			playlist = detect_playlist(filename);
+		
+			if (!playlist ) {
 				localiter = add_item_to_playlist(filename,playlist);
+			} else {
+				if (!parse_playlist(filename)) {	
+					localiter = add_item_to_playlist(filename,playlist);
+				}
+				
 			}
 			
+			g_free(filename);
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename,COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+			set_media_info_name(filename);
+			play_file(filename, playlist);
+			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+			g_free(filename);
+			dontplaynext = FALSE;
 		}
-		
-		g_free(filename);
-		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
-		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename,COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-		set_media_info_name(filename);
-		play_file(filename, playlist);
-		gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-		g_free(filename);
-		dontplaynext = FALSE;
 	}
-
 	gtk_widget_destroy(widget);
 }
 
@@ -1493,6 +1494,7 @@ void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
 	button_box = gtk_hbox_new(FALSE,6);
 	cancel_button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
 	open_button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
+	GTK_WIDGET_SET_FLAGS(open_button, GTK_CAN_DEFAULT);
 	gtk_box_pack_end(GTK_BOX(button_box),open_button, FALSE, FALSE, 0);
 	gtk_box_pack_end(GTK_BOX(button_box),cancel_button, FALSE, FALSE, 0);
 	
@@ -1505,6 +1507,7 @@ void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
 	gtk_container_add(GTK_CONTAINER(vbox),button_box);
 	gtk_container_add(GTK_CONTAINER(open_window),vbox);
 	gtk_widget_show_all(open_window);
+	gtk_widget_grab_default(open_button);
 }
 
 
