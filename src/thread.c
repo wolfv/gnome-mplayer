@@ -687,7 +687,7 @@ gpointer launch_player(gpointer data)
 //        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
 
         g_idle_add(set_play, NULL);
-        g_timeout_add_seconds(1, thread_query, threaddata);
+        g_timeout_add(500, thread_query, threaddata);
 
     } else {
         state = QUIT;
