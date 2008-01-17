@@ -1,3 +1,5 @@
+Development
+	Fix a couple of possible NULL pointer issues
 0.5.4
 	Fix up on GUI issues
 	When playing audio files don't smash window when playlist is hidden and then reopened
