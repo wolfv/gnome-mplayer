@@ -272,74 +272,69 @@ int main(int argc, char *argv[])
 			printf("playlist %i\n", playlist);
 			printf("embedded in window id %i\n", embed_window);
 		}
-	}	
-	if (S_ISBLK(buf.st_mode)) {
-        // might have a block device, so could be a DVD
+		if (S_ISBLK(buf.st_mode)) {
+	        // might have a block device, so could be a DVD
 
-        fp = setmntent("/etc/mtab", "r");
-        do {
-            mnt = getmntent(fp);
-            if (mnt)
-                //printf("%s is at %s\n",mnt->mnt_fsname,mnt->mnt_dir);
-				if (argv[fileindex] != NULL && mnt->mnt_fsname != NULL) {
-					if (strcmp(argv[fileindex], mnt->mnt_fsname) == 0)
-						break;
+	        fp = setmntent("/etc/mtab", "r");
+	        do {
+	            mnt = getmntent(fp);
+	            if (mnt)
+	                //printf("%s is at %s\n",mnt->mnt_fsname,mnt->mnt_dir);
+					if (argv[fileindex] != NULL && mnt->mnt_fsname != NULL) {
+						if (strcmp(argv[fileindex], mnt->mnt_fsname) == 0)
+							break;
+					}
+	        }
+	        while (mnt);
+	        endmntent(fp);
+
+	        if (mnt) {
+	            printf("%s is mounted on %s\n", argv[fileindex], mnt->mnt_dir);
+	            filename = g_strdup_printf("%s/VIDEO_TS", mnt->mnt_dir);
+	            stat(filename, &buf);
+	            if (S_ISDIR(buf.st_mode)) {
+	                set_media_info_name(_("Playing DVD"));
+	                play_file("dvd://", playlist);
+	            }
+	        } else {
+	            set_media_info_name(_("Playing Audio CD"));
+				parse_cdda("cdda://");
+				if (random_order) {
+					gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+					randomize_playlist(playliststore);
 				}
-        }
-        while (mnt);
-        endmntent(fp);
+	            //play_file("cdda://", playlist);
+				if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
+					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+					set_media_info_name(filename);
+					if (verbose)
+						printf("playing - %s is playlist = %i\n",filename,playlist);
+					play_file(filename, playlist);
+					gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
+					g_free(filename);
+				}
+	        }
 
-        if (mnt) {
-            printf("%s is mounted on %s\n", argv[fileindex], mnt->mnt_dir);
-            filename = g_strdup_printf("%s/VIDEO_TS", mnt->mnt_dir);
-            stat(filename, &buf);
-            if (S_ISDIR(buf.st_mode)) {
-                set_media_info_name(_("Playing DVD"));
-                play_file("dvd://", playlist);
-            }
-        } else {
-            set_media_info_name(_("Playing Audio CD"));
-			parse_cdda("cdda://");
-			if (random_order) {
-				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
-				randomize_playlist(playliststore);
-			}
-            //play_file("cdda://", playlist);
-			if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
-				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-				set_media_info_name(filename);
-				if (verbose)
-					printf("playing - %s is playlist = %i\n",filename,playlist);
-				play_file(filename, playlist);
-				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-				g_free(filename);
-			}
-        }
-
-    } else {
-        // local file
-        // detect if playlist here, so even if not specified it can be picked up
-		i = fileindex;
-		
-        while (argv[i] != NULL) {
-            if (playlist == 0)
-                playlist = detect_playlist(argv[i]);
+	    } else {
+	        // local file
+	        // detect if playlist here, so even if not specified it can be picked up
+			i = fileindex;
 			
-			if (!playlist ) {
-				add_item_to_playlist(argv[i],playlist);
-			} else {
-				if (!parse_playlist(argv[i])) {	
+	        while (argv[i] != NULL) {
+	            if (playlist == 0)
+	                playlist = detect_playlist(argv[i]);
+				
+				if (!playlist ) {
 					add_item_to_playlist(argv[i],playlist);
+				} else {
+					if (!parse_playlist(argv[i])) {	
+						add_item_to_playlist(argv[i],playlist);
+					}
+					
 				}
-				
-			}
-			i++;
-        }
-				
-//		if (argv[fileindex] != NULL && g_strncasecmp(argv[fileindex],"dvdnav://",9) == 0) {
-//			loop = 1;
-//			play_file(argv[fileindex], 0);
-//		} else {
+				i++;
+	        }
+					
 			if (random_order) {
 				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
 				randomize_playlist(playliststore);
@@ -353,9 +348,8 @@ int main(int argc, char *argv[])
 				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
 				g_free(filename);
 			}
-//		}
-    }
-
+	    }
+	}
 		
     dbus_hookup(embed_window, control_id);
 
