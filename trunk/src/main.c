@@ -93,7 +93,9 @@ gint play_file(gchar * filename, gint playlist)
     shutdown();
     g_strlcpy(thread_data->filename, filename, 1024);
 	
-	gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,SUBTITLE_COLUMN,&subtitle,-1);
+	if (gtk_list_store_iter_is_valid(playliststore,&iter))
+		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,SUBTITLE_COLUMN,&subtitle,-1);
+		
 	if (subtitle != NULL) {
 		g_strlcpy(thread_data->subtitle,subtitle,1024);	
 	}
