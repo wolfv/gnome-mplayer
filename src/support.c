@@ -301,6 +301,9 @@ gint parse_ram(gchar* filename) {
 			if (ret != 1) break;
 		}
 	}
+	g_free(buffer);
+	buffer = NULL;
+	
 	return ret;
 }
 
@@ -308,8 +311,8 @@ gint parse_cdda(gchar* filename) {
 	
     GError *error;
     gint exit_status;
-    gchar *stdout;
-    gchar *stderr;
+    gchar *stdout = NULL;
+    gchar *stderr = NULL;
     gchar *av[255];
     gint ac = 0;
 	gint ret = 0;
@@ -406,10 +409,31 @@ gint parse_cdda(gchar* filename) {
 									   SUBTITLE_COLUMN, NULL,
 									   LENGTH_COLUMN, length,-1);
 				}
+				if (track != NULL) {
+					g_free(track);
+					track = NULL;
+				}
+				if (title != NULL) {
+					g_free(title);
+					title = NULL;
+				}
+				if (artist != NULL) {
+					g_free(artist);
+					artist = NULL;
+				}
+				if (length != NULL) {
+					g_free(length);
+					length = NULL;
+				}
+					
 			}	
 			ac++;
 		}
 		g_strfreev(output);
+		if (stdout != NULL)
+			g_free(stdout);
+		if (stderr != NULL)
+			g_free(stderr);
 		
 		ret = 1;
 	}
@@ -656,15 +680,15 @@ void get_metadata(gchar* name, gchar **title, gchar **artist, gchar **length) {
 	
     GError *error;
     gint exit_status;
-    gchar *stdout;
-    gchar *stderr;
+    gchar *stdout = NULL;
+    gchar *stderr = NULL;
     gchar *av[255];
     gint ac = 0;
 	gchar **output;
 	gfloat seconds;
 	gint hour = 0;
 	gint min = 0;
-	gchar *localtitle;
+	gchar *localtitle = NULL;
 	
 	av[ac++] = g_strdup_printf("mplayer");
 	av[ac++] = g_strdup_printf("-vo");
@@ -730,7 +754,6 @@ void get_metadata(gchar* name, gchar **title, gchar **artist, gchar **length) {
 		
 		if (strstr(output[ac],"DVD Title:") != NULL && g_strncasecmp(name,"dvdnav://",strlen("dvdnav://")) == 0) {
 			localtitle = g_strrstr(output[ac],":") + 1;
-			printf("localtitle = %s\n",localtitle);
 			*title = g_locale_to_utf8(localtitle,-1, NULL, NULL,NULL);
 			if (*title == NULL) {
 				*title = g_strdup(localtitle);
@@ -746,6 +769,10 @@ void get_metadata(gchar* name, gchar **title, gchar **artist, gchar **length) {
 	}
 	
 	g_strfreev(output);
+	if (stdout != NULL)
+		g_free(stdout);
+	if (stderr != NULL)
+		g_free(stderr);
 
 }
 
@@ -754,7 +781,7 @@ void get_metadata(gchar* name, gchar **title, gchar **artist, gchar **length) {
 GtkTreeIter add_item_to_playlist(gchar *itemname,gint playlist) 
 {
 	gchar *desc = NULL;
-	gchar *url;
+	gchar *url = NULL;
 	GtkTreeIter localiter;
 	gchar *artist = NULL;
 	gchar *length = NULL;
@@ -846,6 +873,7 @@ gboolean save_playlist_pls(gchar *filename)
 			do {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&itemname,-1);
 				fprintf(contents,"File%i=%s\n",i++,itemname);
+				g_free(itemname);
 			} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter));
 		}
 
@@ -869,6 +897,7 @@ gboolean save_playlist_m3u(gchar *filename)
 			do {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&itemname,-1);
 				fprintf(contents,"%s\n",itemname);
+				g_free(itemname);
 			} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&localiter));
 		}
 
@@ -934,6 +963,15 @@ void copy_playlist(GtkListStore *source, GtkListStore *dest) {
 							   SUBTITLE_COLUMN, subtitle,
 							   LENGTH_COLUMN, length,-1);
 
+			g_free(desc);
+			desc = NULL;			
+			g_free(artist);
+			artist = NULL;
+			g_free(subtitle);
+			subtitle = NULL;
+			g_free(length);
+			length = NULL;
+			
 		} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(source),&sourceiter));
 	}
 	
