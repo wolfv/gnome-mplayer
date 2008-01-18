@@ -90,6 +90,7 @@ gboolean show_copyurl(void *data)
     gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
 	buf = g_strdup_printf(_("%s - GNOME MPlayer"), idle->url);
     gtk_window_set_title(GTK_WINDOW(window), buf);	
+	g_free(buf);
 	
 	return FALSE;
 		
@@ -196,12 +197,15 @@ gboolean set_progress_value(void *data)
 	if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9) {
 		if (autopause == FALSE && state == PLAYING) {
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&iterfilename,-1);
-			g_stat(iterfilename, &buf);
-			//printf("filename = %s, disk size = %i, byte pos = %i\n",iterfilename,buf.st_size,idle->byte_pos);
-			if (((idle->percent + 0.05) > idle->cachepercent) || ((idle->byte_pos + (512*1024)) > buf.st_size )) {
-            	pause_callback(NULL, NULL, NULL);
-				gtk_widget_set_sensitive(play_event_box,FALSE);
-				autopause = TRUE;
+			if (iterfilename != NULL) {
+				g_stat(iterfilename, &buf);
+				//printf("filename = %s, disk size = %i, byte pos = %i\n",iterfilename,buf.st_size,idle->byte_pos);
+				if (((idle->percent + 0.05) > idle->cachepercent) || ((idle->byte_pos + (512*1024)) > buf.st_size )) {
+	            	pause_callback(NULL, NULL, NULL);
+					gtk_widget_set_sensitive(play_event_box,FALSE);
+					autopause = TRUE;
+				}
+				g_free(iterfilename);
 			}
 		} else if (autopause == TRUE && state == PAUSED) {
 			if (idle->cachepercent > (idle->percent + 0.10)) {
@@ -1923,8 +1927,6 @@ void config_apply(GtkWidget * widget, void *data)
 	
 	dbus_reload_plugins();
 	
-	
-	
     gtk_widget_destroy(widget);
 }
 
@@ -2593,8 +2595,8 @@ void make_button(gchar * src, gchar * hrefid)
     gchar *dirname = NULL;
     gchar *filename = NULL;
     gint exit_status;
-    gchar *stdout;
-    gchar *stderr;
+    gchar *stdout = NULL;
+    gchar *stderr = NULL;
     gchar *av[255];
     gint ac = 0;
 
@@ -2657,6 +2659,12 @@ void make_button(gchar * src, gchar * hrefid)
             g_remove(dirname);
             g_free(dirname);
         }
+		
+		if (stderr != NULL) 
+			g_free(stderr);
+		
+		if (stdout != NULL)
+			g_free(stdout);
     }
 
     if (pb_button != NULL && GDK_IS_PIXBUF(pb_button)) {
