@@ -1,6 +1,6 @@
 Development
 	Add softvol option to Edit->Preferences Advanced tab
-	Change mplayer option -softvol to -af volume seems to help
+	Change mplayer option -softvol to -af volume seems to help (DELETED)
 	Try to eliminate some memory leaks
 	Fix a couple of possible NULL pointer issues
 0.5.4
