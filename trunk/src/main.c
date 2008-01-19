@@ -57,6 +57,7 @@ static GOptionEntry entries[] = {
     {"controlid", 0, 0, G_OPTION_ARG_INT, &control_id, N_("Unique DBUS controller id"), "CID"},
     {"playlist", 0, 0, G_OPTION_ARG_NONE, &playlist, N_("File Argument is a playlist"), NULL},
     {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more ouput on the console"), NULL},
+    {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
      "[0|1]"},
     {"autostart", 0, 0, G_OPTION_ARG_INT, &autostart,
@@ -207,6 +208,7 @@ int main(int argc, char *argv[])
 	tv_height = 0;
 	tv_fps = 0;
 	ok_to_play = TRUE;
+	softvol = 0;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -215,6 +217,7 @@ int main(int argc, char *argv[])
     if (cache_size == 0)
         cache_size = 2000;
     osdlevel = gconf_client_get_int(gconf, OSDLEVEL, NULL);
+    softvol = gconf_client_get_int(gconf, SOFTVOL, NULL);
 	qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
 	real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
 	wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);

@@ -29,6 +29,7 @@
 
 #define CACHE_SIZE		"/apps/gnome-mplayer/preferences/cache_size"
 #define OSDLEVEL		"/apps/gnome-mplayer/preferences/osdlevel"
+#define SOFTVOL			"/apps/gnome-mplayer/preferences/softvol"
 #define VERBOSE			"/apps/gnome-mplayer/preferences/verbose"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 
@@ -143,6 +144,7 @@ gint embed_window;
 gint window_x;
 gint window_y;
 gint control_id;
+gint softvol;
 gint verbose;
 gint autostart;
 gint actual_x, actual_y;
