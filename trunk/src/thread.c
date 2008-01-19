@@ -588,10 +588,15 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
-    argv[arg++] = g_strdup_printf("-quiet");
+    //argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
-    argv[arg++] = g_strdup_printf("-softvol");
+	// this argument seems to cause noise in some videos
+    // argv[arg++] = g_strdup_printf("-softvol");
+	// but using an audio filter seems ok
+	argv[arg++] = g_strdup_printf("-af");
+    argv[arg++] = g_strdup_printf("volume");
+	
     argv[arg++] = g_strdup_printf("-framedrop");
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-osdlevel");
