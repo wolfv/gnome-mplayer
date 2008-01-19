@@ -564,6 +564,11 @@ gpointer launch_player(gpointer data)
     videopresent = 1;
 	playback_error = NO_ERROR;
 	
+	while(embed_window != -1 && !GTK_WIDGET_VISIBLE(window)) {
+		if (verbose)
+			printf("waiting for gui\n");	
+	}
+	
     g_mutex_lock(thread_running);
 
     g_strlcpy(idledata->info, threaddata->filename, 1024);
