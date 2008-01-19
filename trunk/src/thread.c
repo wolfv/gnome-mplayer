@@ -368,21 +368,40 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 				} else {
 					if (g_strncasecmp(idledata->info,"cdda",4) == 0 && gtk_list_store_iter_is_valid(playliststore,&iter)) {
 						gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,DESCRIPTION_COLUMN,&cdname,ARTIST_COLUMN,&cdartist,-1);
-						utf8name = g_locale_to_utf8(cdname,-1, NULL, NULL,NULL);
-						if (utf8name == NULL) {
-							strip_unicode(cdname,strlen(cdname));
-							utf8name = g_strdup(cdname);
+						if (cdname != NULL) {						
+							utf8name = g_locale_to_utf8(cdname,-1, NULL, NULL,NULL);
+							if (utf8name == NULL) {
+								strip_unicode(cdname,strlen(cdname));
+								utf8name = g_strdup(cdname);
+							}
+						} else {
+							utf8name = g_strdup(_("Unknown"));
 						}
-						utf8artist = g_locale_to_utf8(cdartist,-1, NULL, NULL,NULL);
-						if (utf8artist == NULL) {
-							strip_unicode(cdartist,strlen(cdartist));
-							utf8artist = g_strdup(cdartist);
+						
+						if (cdartist != NULL) {
+							utf8artist = g_locale_to_utf8(cdartist,-1, NULL, NULL,NULL);
+							if (utf8artist == NULL) {
+								strip_unicode(cdartist,strlen(cdartist));
+								utf8artist = g_strdup(cdartist);
+							}
+						} else {
+							utf8artist = g_strdup(_("Unknown"));
 						}
+						
 						message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),utf8name,utf8artist,playlistname);					
-						g_free(cdname);
-						g_free(cdartist);
+						if (cdname != NULL) {						
+							g_free(cdname);
+							cdname = NULL;
+						}
+						if (cdartist != NULL) {
+							g_free(cdartist);
+							cdartist = NULL;
+						}
 						g_free(utf8name);
+						utf8name = NULL;
 						g_free(utf8artist);
+						utf8name = NULL;
+						
 					} else {
 						message = g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),idledata->info);
 					}

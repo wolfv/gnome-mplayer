@@ -3490,8 +3490,8 @@ GtkWidget *create_window(gint windowid)
 	gtk_widget_hide(prev_event_box);
 	gtk_widget_hide(next_event_box);
 
-    while (gtk_events_pending())
-        gtk_main_iteration();
+    //while (gtk_events_pending())
+    //    gtk_main_iteration();
 
     return window;
 }
