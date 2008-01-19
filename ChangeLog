@@ -1,4 +1,5 @@
 Development
+	Apply change to addmulti patch to allow opening playlists in the add to playlist dialog
 	Apply 'addmulti' patch from James Carthew
 	Add softvol option to Edit->Preferences Advanced tab
 	Change mplayer option -softvol to -af volume seems to help (DELETED)

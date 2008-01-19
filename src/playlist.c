@@ -280,7 +280,18 @@ void load_playlist(GtkWidget * widget, void *data)
 }
 
 void add_item_to_playlist_callback (gpointer data, gpointer user_data) {
-add_item_to_playlist((gchar*)data, (gint)user_data);
+	gchar *filename = (gchar*)data;
+	gint playlist;
+	
+	playlist = detect_playlist(filename);
+	if (!playlist ) {
+		add_item_to_playlist(filename,playlist);
+	} else {
+		if (!parse_playlist(filename)) {	
+			add_item_to_playlist(filename,playlist);
+		}
+	}	
+
 }
 
 void add_to_playlist(GtkWidget * widget, void *data)
@@ -295,7 +306,8 @@ void add_to_playlist(GtkWidget * widget, void *data)
                                          GTK_FILE_CHOOSER_ACTION_OPEN,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
-/*allow multiple files to be selected*/
+	
+	/*allow multiple files to be selected*/
     gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (dialog), TRUE);
 
     gconf = gconf_client_get_default();
@@ -311,18 +323,7 @@ void add_to_playlist(GtkWidget * widget, void *data)
         gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
         g_free(last_dir);
 
-		g_slist_foreach(filename, &add_item_to_playlist_callback, (gpointer)playlist);
-
-//OLD Code
-/*        playlist = detect_playlist(filename);
-		if (!playlist ) {
-			add_item_to_playlist(filename,playlist);
-		} else {
-			if (!parse_playlist(filename)) {	
-				add_item_to_playlist(filename,playlist);
-			}
-		}
-*/
+		g_slist_foreach(filename, &add_item_to_playlist_callback, NULL);
 		g_slist_free(filename);
     }
 	update_gui();
