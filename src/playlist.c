@@ -279,20 +279,24 @@ void load_playlist(GtkWidget * widget, void *data)
 	gtk_widget_destroy(dialog);
 }
 
+void add_item_to_playlist_callback (gpointer data, gpointer user_data) {
+add_item_to_playlist((gchar*)data, (gint)user_data);
+}
+
 void add_to_playlist(GtkWidget * widget, void *data)
 {
 	
     GtkWidget *dialog;
-    gchar *filename;
+	GSList* filename;
     GConfClient *gconf;
     gchar *last_dir;
-	gint playlist;
-
     dialog = gtk_file_chooser_dialog_new(_("Open File"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_OPEN,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+/*allow multiple files to be selected*/
+    gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (dialog), TRUE);
 
     gconf = gconf_client_get_default();
     last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
@@ -301,13 +305,16 @@ void add_to_playlist(GtkWidget * widget, void *data)
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+        filename = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+
         last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
         gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
         g_free(last_dir);
 
-        playlist = detect_playlist(filename);
-			
+		g_slist_foreach(filename, &add_item_to_playlist_callback, (gpointer)playlist);
+
+//OLD Code
+/*        playlist = detect_playlist(filename);
 		if (!playlist ) {
 			add_item_to_playlist(filename,playlist);
 		} else {
@@ -315,13 +322,14 @@ void add_to_playlist(GtkWidget * widget, void *data)
 				add_item_to_playlist(filename,playlist);
 			}
 		}
-        g_free(filename);
+*/
+		g_slist_free(filename);
     }
 	update_gui();
     g_object_unref(G_OBJECT(gconf));
     gtk_widget_destroy(dialog);
-	
 }
+
 
 void remove_from_playlist(GtkWidget * widget, gpointer data)
 {
