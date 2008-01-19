@@ -596,11 +596,10 @@ gpointer launch_player(gpointer data)
     //argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
+	
 	// this argument seems to cause noise in some videos
-    // argv[arg++] = g_strdup_printf("-softvol");
-	// but using an audio filter seems ok
-	argv[arg++] = g_strdup_printf("-af");
-    argv[arg++] = g_strdup_printf("volume");
+    if (softvol)
+		argv[arg++] = g_strdup_printf("-softvol");
 	
     argv[arg++] = g_strdup_printf("-framedrop");
     argv[arg++] = g_strdup_printf("-noconsolecontrols");

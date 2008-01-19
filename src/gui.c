@@ -1893,6 +1893,7 @@ void config_apply(GtkWidget * widget, void *data)
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
 	oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
+	softvol = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_softvol));
 	verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
 	if (oldosd != osdlevel) {
 		cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
@@ -1908,6 +1909,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf = gconf_client_get_default();
     gconf_client_set_int(gconf, CACHE_SIZE, cache_size, NULL);
     gconf_client_set_int(gconf, OSDLEVEL, osdlevel, NULL);
+    gconf_client_set_int(gconf, SOFTVOL, softvol, NULL);
     gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
 	gconf_client_set_bool(gconf, DISABLE_QT, qt_disabled, NULL);
 	gconf_client_set_bool(gconf, DISABLE_REAL, real_disabled, NULL);
@@ -2508,6 +2510,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    i++;
+
+    config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol),softvol);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 1, i, i + 1);
     i++;
 	
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
