@@ -41,7 +41,6 @@
 
 gint get_player_window()
 {
-
     if (GTK_IS_WIDGET(drawing_area)) {
         return gtk_socket_get_id(GTK_SOCKET(drawing_area));
     } else {

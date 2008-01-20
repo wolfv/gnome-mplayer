@@ -1,4 +1,5 @@
 Development
+	Remove direct gtk call from thread (gtk_main_iteration), bad idea to call this from thread
 	Fix stupid memory free in parse_cdda
 	Fix potential segfault in cdartist/cdname code
 	Apply change to addmulti patch to allow opening playlists in the add to playlist dialog
