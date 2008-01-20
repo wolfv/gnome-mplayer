@@ -534,7 +534,15 @@ gboolean update_mplayer_config()
                                       filename,
                                       G_KEY_FILE_KEEP_TRANSLATIONS,
                                       &error);
-        }
+			if (error != NULL) {
+				// something bad happened...
+	            g_error_free(error);
+	            error = NULL;
+			}
+        } else {
+            g_error_free(error);
+            error = NULL;
+		}			
     }
 
     if (vo != NULL && strlen(vo) != 0) {

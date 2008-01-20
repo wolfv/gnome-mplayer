@@ -776,6 +776,8 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         	movie_ratio = 4.0 / 3.0;
 		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine)))
         	movie_ratio = 16.0 / 9.0;
+		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten)))
+        	movie_ratio = 16.0 / 10.0;
 		
         window_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
 
@@ -2272,6 +2274,7 @@ void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
 		i++;
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_four_three), FALSE);
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_sixteen_nine), FALSE);	
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_sixteen_ten), FALSE);	
 		i--;
 	}
 	
@@ -2279,6 +2282,7 @@ void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
 		i++;
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_default), FALSE);
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_sixteen_nine), FALSE);	
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_sixteen_ten), FALSE);	
 		i--;
 	}
 	
@@ -2286,6 +2290,15 @@ void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
 		i++;
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_default), FALSE);
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_four_three), FALSE);	
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_sixteen_ten), FALSE);	
+		i--;
+	}
+
+	if ((gpointer)menuitem == (gpointer)menuitem_view_aspect_sixteen_ten) {
+		i++;
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_default), FALSE);
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_four_three), FALSE);	
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_sixteen_nine), FALSE);	
 		i--;
 	}
 	
@@ -2952,6 +2965,8 @@ GtkWidget *create_window(gint windowid)
 	gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_aspect_four_three));
 	menuitem_view_aspect_sixteen_nine = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_16:9 Aspect")));
 	gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_aspect_sixteen_nine));
+	menuitem_view_aspect_sixteen_ten = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("1_6:10 Aspect")));
+	gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_aspect_sixteen_ten));
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_default), TRUE);
 	
 	menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
@@ -2987,6 +3002,8 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_view_aspect_four_three), "activate",
                      G_CALLBACK(menuitem_view_aspect_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_aspect_sixteen_nine), "activate",
+                     G_CALLBACK(menuitem_view_aspect_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_aspect_sixteen_ten), "activate",
                      G_CALLBACK(menuitem_view_aspect_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_controls), "activate",
                      G_CALLBACK(menuitem_view_controls_callback), NULL);
