@@ -86,6 +86,7 @@ GtkMenuItem *menuitem_view_sep4;
 GtkMenuItem *menuitem_view_aspect_default;
 GtkMenuItem *menuitem_view_aspect_four_three;
 GtkMenuItem *menuitem_view_aspect_sixteen_nine;
+GtkMenuItem *menuitem_view_aspect_sixteen_ten;
 GtkMenuItem *menuitem_view_sep2;
 GtkMenuItem *menuitem_view_controls;
 GtkMenuItem *menuitem_view_sep3;
