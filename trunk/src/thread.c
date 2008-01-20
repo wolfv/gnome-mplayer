@@ -604,9 +604,6 @@ gpointer launch_player(gpointer data)
     g_idle_add(set_media_info, idledata);
     //g_idle_add(set_window_visible, idledata);
 
-    while (gtk_events_pending())
-        gtk_main_iteration();
-
     argv[arg++] = g_strdup_printf("mplayer");
     if (vo != NULL) {
         argv[arg++] = g_strdup_printf("-profile");
@@ -675,7 +672,7 @@ gpointer launch_player(gpointer data)
 		argv[arg++] = g_strdup_printf("%i",tv_fps);
 	}
 
-	if (strlen(threaddata->subtitle) > 0) {
+	if (threaddata->subtitle != NULL && strlen(threaddata->subtitle) > 0) {
 		argv[arg++] = g_strdup_printf("-sub");
 		argv[arg++] = g_strdup_printf("%s",threaddata->subtitle);
 	}
