@@ -33,3 +33,4 @@ gint window_width,window_height;
 
 void update_gui();
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data);
+void add_item_to_playlist_callback (gpointer data, gpointer user_data);
