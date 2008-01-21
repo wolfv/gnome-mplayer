@@ -312,8 +312,10 @@ void add_to_playlist(GtkWidget * widget, void *data)
 
     gconf = gconf_client_get_default();
     last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
-    if (last_dir != NULL)
+    if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+		g_free(last_dir);
+	}
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 

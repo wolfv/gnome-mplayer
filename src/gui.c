@@ -1373,11 +1373,11 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 {
 
     GtkWidget *dialog;
-    gchar *filename;
+	GSList* filename;
+	gchar* name;
     GConfClient *gconf;
     gchar *last_dir;
 	gint playlist, count;
-	GtkTreeIter localiter;
 	
     dialog = gtk_file_chooser_dialog_new(_("Open File"),
                                          GTK_WINDOW(window),
@@ -1385,16 +1385,19 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 
+	/*allow multiple files to be selected*/
+    gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (dialog), TRUE);
+
     gconf = gconf_client_get_default();
     last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
-    if (last_dir != NULL)
+    if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+		g_free(last_dir);
+	}
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-		if (filename == NULL || g_file_test(filename, G_FILE_TEST_EXISTS) == FALSE)
-			filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+        filename = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
 		if (last_dir != NULL) {
 	        gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
@@ -1407,25 +1410,15 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 		gtk_list_store_clear(nonrandomplayliststore);	
 
 		if (filename != NULL) {
+			g_slist_foreach(filename, &add_item_to_playlist_callback, NULL);
+			g_slist_free(filename);
 
-			playlist = detect_playlist(filename);
-		
-			if (!playlist ) {
-				localiter = add_item_to_playlist(filename,playlist);
-			} else {
-				if (!parse_playlist(filename)) {	
-					localiter = add_item_to_playlist(filename,playlist);
-				}
-				
-			}
-			
-			g_free(filename);
 			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
-			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename,COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-			set_media_info_name(filename);
-			play_file(filename, playlist);
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&name,COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
+			set_media_info_name(name);
+			play_file(name, playlist);
 			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-			g_free(filename);
+			g_free(name);
 			dontplaynext = FALSE;
 		}
     }
