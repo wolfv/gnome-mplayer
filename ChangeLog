@@ -1,4 +1,5 @@
 Development
+	Implement View->Show Subtitles
 	Implement multi-select on File->Open dialog
 	Add 16:10 aspect
 	Remove direct gtk call from thread (gtk_main_iteration), bad idea to call this from thread
