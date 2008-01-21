@@ -1765,6 +1765,24 @@ void menuitem_view_controls_callback(GtkMenuItem * menuitem, void *data)
                                                                    (menuitem_showcontrols)));
 }
 
+void menuitem_view_subtitles_callback(GtkMenuItem * menuitem, void *data)
+{
+	gchar *cmd;
+//	set_sub_visibility
+	cmd = g_strdup_printf("pausing_keep sub_visibility\n");
+	send_command(cmd);
+    g_free(cmd);
+}
+
+//	Switch Audio Streams 
+void menuitem_sound_switch_callback(GtkMenuItem * menuitem, void *data)
+{
+	gchar *cmd;
+	cmd = g_strdup_printf("pausing_keep switch_audio\n");
+	send_command(cmd);
+    g_free(cmd);
+}
+
 void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 {
 
@@ -2963,8 +2981,10 @@ GtkWidget *create_window(gint windowid)
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem_view_aspect_default), TRUE);
 	
 	menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+	menuitem_view_subtitles = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Show _Subtitles")));
     menuitem_view_controls = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
+	gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_subtitles));	
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_controls));
     menuitem_view_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep3));
@@ -2998,6 +3018,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_view_aspect_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_aspect_sixteen_ten), "activate",
                      G_CALLBACK(menuitem_view_aspect_callback), NULL);
+	g_signal_connect(GTK_OBJECT(menuitem_view_subtitles), "activate",
+                     G_CALLBACK(menuitem_view_subtitles_callback), NULL);	
     g_signal_connect(GTK_OBJECT(menuitem_view_controls), "activate",
                      G_CALLBACK(menuitem_view_controls_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_advanced), "activate",
@@ -3031,7 +3053,10 @@ GtkWidget *create_window(gint windowid)
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls), "activate",
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
-
+	gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
+                               accel_group, 'j', 0, GTK_ACCEL_VISIBLE);
+//    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_sound_switch), "activate",
+//                               accel_group, '#', 0, GTK_ACCEL_VISIBLE);
  
     g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
 
