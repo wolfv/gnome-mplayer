@@ -529,7 +529,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 				gtk_widget_size_request(GTK_WIDGET(plvbox), &plreq);
 			} else {
 				gtk_widget_show(GTK_WIDGET(fixed));
-				gtk_widget_set_size_request(window,window_width,window_height);
+				gtk_window_resize(GTK_WINDOW(window),window_width,window_height);
 			}
 			gtk_widget_show_all(plvbox);
 
