@@ -410,7 +410,18 @@ gint parse_cdda(gchar* filename) {
 									   SUBTITLE_COLUMN, NULL,
 									   LENGTH_COLUMN, length,-1);
 				}
-					
+				if (track != NULL) {
+					g_free(track);
+					track = NULL;
+				}
+				if (title != NULL) {
+					g_free(title);
+					title = NULL;
+				}	
+				if (length != NULL) {
+					g_free(length);
+					length = NULL;
+				}				
 			}	
 			ac++;
 		}
@@ -419,22 +430,12 @@ gint parse_cdda(gchar* filename) {
 			g_free(stdout);
 		if (stderr != NULL)
 			g_free(stderr);
-		if (track != NULL) {
-			g_free(track);
-			track = NULL;
-		}
-		if (title != NULL) {
-			g_free(title);
-			title = NULL;
-		}
+
 		if (artist != NULL) {
 			g_free(artist);
 			artist = NULL;
 		}
-		if (length != NULL) {
-			g_free(length);
-			length = NULL;
-		}
+
 		
 		ret = 1;
 	}

@@ -685,6 +685,13 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
         }
     }
 	
+    if (event->type == GDK_2BUTTON_PRESS) {
+        event_button = (GdkEventButton *) event;
+        if (event_button->button == 1) {
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);			
+		}
+	}
+	
     if (event->type == GDK_BUTTON_RELEASE) {
 		
         event_button = (GdkEventButton *) event;
@@ -913,10 +920,13 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 		case GDK_numbersign:
 			send_command("pausing_keep switch_audio\n");
 			return FALSE;
-		case GDK_v:
-			send_command("pausing_keep sub_visibility\n");
 		case GDK_j:
 			send_command("pausing_keep sub_select\n");
+		case GDK_q:
+			delete_callback(NULL, NULL, NULL);
+            return FALSE;
+		case GDK_v:
+			send_command("pausing_keep sub_visibility\n");
         default:
             return FALSE;
         }
