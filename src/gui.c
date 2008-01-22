@@ -496,31 +496,31 @@ gboolean resize_window(void *data)
 				}
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             } else {
-				if (embed_window != -1 && !GTK_WIDGET_VISIBLE(plvbox)) {
-					gtk_widget_hide_all(GTK_WIDGET(fixed));
+				if (embed_window != -1) {
 					if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
-						gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-						gtk_widget_show(GTK_WIDGET(fixed));
-						gtk_widget_show(GTK_WIDGET(media_label));
+						gtk_widget_hide(drawing_area);
 					} else {
-						gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
-					}
-					gtk_widget_set_size_request(fixed, -1, -1);
-					gtk_widget_set_size_request(drawing_area, -1, -1);
-					gtk_widget_size_request(GTK_WIDGET(menubar), &req);
-					total_height = req.height;
-					if (showcontrols && rpcontrols == NULL) {
-						gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
-						total_height += req.height;
-					}
-					if (GTK_WIDGET_VISIBLE(media_label)) {
-						gtk_widget_size_request(GTK_WIDGET(media_label), &req);
-						total_height += req.height;
-					}
-					gtk_window_resize(GTK_WINDOW(window), req.width, total_height);
-				} else {
-					if (GTK_WIDGET_VISIBLE(plvbox)) {
-						gtk_widget_hide(drawing_area);	
+						gtk_widget_hide_all(GTK_WIDGET(fixed));
+						if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+							gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+							gtk_widget_show(GTK_WIDGET(fixed));
+							gtk_widget_show(GTK_WIDGET(media_label));
+						} else {
+							gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
+						}
+						gtk_widget_set_size_request(fixed, -1, -1);
+						gtk_widget_set_size_request(drawing_area, -1, -1);
+						gtk_widget_size_request(GTK_WIDGET(menubar), &req);
+						total_height = req.height;
+						if (showcontrols && rpcontrols == NULL) {
+							gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
+							total_height += req.height;
+						}
+						if (GTK_WIDGET_VISIBLE(media_label)) {
+							gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+							total_height += req.height;
+						}
+						gtk_window_resize(GTK_WINDOW(window), req.width, total_height);
 					}
 				}
             }
