@@ -537,6 +537,7 @@ gboolean resize_window(void *data)
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_four_three), idle->videopresent);
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), idle->videopresent);
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
 		
     }
     return FALSE;
@@ -1791,7 +1792,7 @@ void menuitem_view_subtitles_callback(GtkMenuItem * menuitem, void *data)
 }
 
 //	Switch Audio Streams 
-void menuitem_sound_switch_callback(GtkMenuItem * menuitem, void *data)
+void menuitem_edit_switch_audio_callback(GtkMenuItem * menuitem, void *data)
 {
 	gchar *cmd;
 	cmd = g_strdup_printf("pausing_keep switch_audio\n");
@@ -2935,6 +2936,10 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Loop Playlist")));
  	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_loop), loop);	
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_loop));
+
+    menuitem_edit_switch_audio =
+        GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("S_witch Audio Track")));
+    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_switch_audio));
 	
     menuitem_edit_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_sep1));
@@ -2946,6 +2951,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_edit_random_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_loop), "activate",
                      G_CALLBACK(menuitem_edit_loop_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_edit_switch_audio), "activate",
+                     G_CALLBACK(menuitem_edit_switch_audio_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_config), "activate",
@@ -3544,6 +3551,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_four_three), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
