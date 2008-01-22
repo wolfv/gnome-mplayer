@@ -1,4 +1,6 @@
 Development
+	When the playlist is visible there is a new icon (folder). Clicking this allows you to 
+		Select a folder and all the media under that folder is added to the playlist, works recursivly
 	Implement two requested GUI changes, fullscreen on double click and hotkey 'q' to quit
 	Move aspect changes from main view menu to submenu named aspect under view
 	Implement View->Show Subtitles

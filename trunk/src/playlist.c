@@ -294,6 +294,42 @@ void add_item_to_playlist_callback (gpointer data, gpointer user_data) {
 
 }
 
+void add_folder_to_playlist_callback (gpointer data, gpointer user_data) {
+	gchar *filename = (gchar*)data;
+	gint playlist;
+	GDir *dir;
+	gchar *name;
+	gchar *subdir;
+	
+	dir = g_dir_open(filename,0,NULL);
+	if (dir != NULL) {
+		do {
+			name = g_strdup(g_dir_read_name(dir));
+			if (name != NULL) {
+				subdir = g_strdup_printf("%s/%s",filename,name);
+				if (g_file_test(subdir,G_FILE_TEST_IS_DIR)) {
+					add_folder_to_playlist_callback((gpointer)subdir,NULL);
+				} else {
+					playlist = detect_playlist(subdir);
+					if (!playlist ) {
+						add_item_to_playlist(subdir,playlist);
+					} else {
+						if (!parse_playlist(subdir)) {	
+							add_item_to_playlist(subdir,playlist);
+						}
+					}	
+				}
+				g_free(subdir);
+				g_free(name);
+			} else {
+				break;
+			}
+		} while(TRUE);
+		g_dir_close(dir);
+	}	
+
+}
+
 void add_to_playlist(GtkWidget * widget, void *data)
 {
 	
@@ -333,6 +369,44 @@ void add_to_playlist(GtkWidget * widget, void *data)
     gtk_widget_destroy(dialog);
 }
 
+void add_folder_to_playlist(GtkWidget * widget, void *data)
+{
+	
+    GtkWidget *dialog;
+	GSList* filename;
+    GConfClient *gconf;
+    gchar *last_dir;
+    dialog = gtk_file_chooser_dialog_new(_("Choose Directory"),
+                                         GTK_WINDOW(window),
+                                         GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+	
+	/*allow multiple files to be selected*/
+    gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (dialog), TRUE);
+
+    gconf = gconf_client_get_default();
+    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    if (last_dir != NULL) {
+        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+		g_free(last_dir);
+	}
+
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+
+        filename = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+
+        last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
+        gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
+        g_free(last_dir);
+
+		g_slist_foreach(filename, &add_folder_to_playlist_callback, NULL);
+		g_slist_free(filename);
+    }
+	update_gui();
+    g_object_unref(G_OBJECT(gconf));
+    gtk_widget_destroy(dialog);
+}
 
 void remove_from_playlist(GtkWidget * widget, gpointer data)
 {
@@ -417,6 +491,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkWidget *loadlist;
 	GtkWidget *add;
 	GtkWidget *remove;
+	GtkWidget *add_folder;
 	GtkTreePath *path;
 	GtkAccelGroup *accel_group;
 	GValue value = {0, };
@@ -446,7 +521,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 				gtk_widget_set_size_request(window,-1,-1);
 			}
 		} else {
-			g_value_set_boolean(&value,FALSE);
+			g_value_set_boolean(&value,TRUE);
 			gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
 			gtk_container_child_set_property(GTK_CONTAINER(pane),plvbox,"shrink",&value);
 			if (idledata->videopresent) {
@@ -568,6 +643,14 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 		gtk_button_set_image(GTK_BUTTON(remove),gtk_image_new_from_stock(GTK_STOCK_REMOVE, GTK_ICON_SIZE_MENU));
 	    gtk_box_pack_start(GTK_BOX(ctrlbox), remove,FALSE,FALSE,0);
 		g_signal_connect(GTK_OBJECT(remove),"clicked",GTK_SIGNAL_FUNC(remove_from_playlist),list);
+
+		add_folder = gtk_button_new();
+	    tooltip = gtk_tooltips_new();
+	    gtk_tooltips_set_tip(tooltip, add_folder, _("Add Items in Folder to Playlist"), NULL);
+		gtk_button_set_image(GTK_BUTTON(add_folder),gtk_image_new_from_stock(GTK_STOCK_DIRECTORY, GTK_ICON_SIZE_MENU));
+	    gtk_box_pack_start(GTK_BOX(ctrlbox), add_folder,FALSE,FALSE,0);
+		g_signal_connect(GTK_OBJECT(add_folder),"clicked",GTK_SIGNAL_FUNC(add_folder_to_playlist),list);
+		
 		
 		accel_group = gtk_accel_group_new();
 	    gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
