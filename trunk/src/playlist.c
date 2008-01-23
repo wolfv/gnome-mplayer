@@ -315,6 +315,7 @@ void add_folder_to_playlist_callback (gpointer data, gpointer user_data) {
 					add_folder_to_playlist_callback((gpointer)subdir,NULL);
 				} else {
 					list = g_slist_prepend(list,subdir);
+					filecount++;
 				}
 				g_free(name);
 			} else {
@@ -375,6 +376,8 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
 	GSList* filename;
     GConfClient *gconf;
     gchar *last_dir;
+	gchar *message;
+	
     dialog = gtk_file_chooser_dialog_new(_("Choose Directory"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
@@ -399,12 +402,18 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
         gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
         g_free(last_dir);
 
+		filecount = 0;
 		g_slist_foreach(filename, &add_folder_to_playlist_callback, NULL);
 		g_slist_free(filename);
     }
 	update_gui();
     g_object_unref(G_OBJECT(gconf));
     gtk_widget_destroy(dialog);
+	message = g_markup_printf_escaped(_("\n\tFound %i files\n"),filecount);
+	g_strlcpy(idledata->media_info, message, 1024);
+	g_free(message);
+	g_idle_add(set_media_label, idledata);				
+
 }
 
 void remove_from_playlist(GtkWidget * widget, gpointer data)

@@ -30,6 +30,7 @@ GtkTooltips *playlisttip;
 GtkMenu *playlist_popup_menu;
 GtkMenuItem *playlist_set_subtitle;
 gint window_width,window_height;
+gint filecount;
 
 void update_gui();
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data);

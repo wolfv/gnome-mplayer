@@ -117,6 +117,7 @@ GtkMenuItem *menuitem_config;
 GtkMenuItem *menuitem_quit;
 gulong delete_signal_id;
 
+GtkWidget *vbox_master;
 GtkWidget *pane;
 GtkWidget *vbox;
 GtkWidget *hbox;

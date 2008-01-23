@@ -3196,7 +3196,6 @@ GtkWidget *create_window(gint windowid)
 	gtk_box_pack_start(GTK_BOX(vbox), media_label, FALSE, FALSE, 0);
     //gtk_box_pack_start(GTK_BOX(controls_box), song_title, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(vbox), controls_box, FALSE, FALSE, 0);
 
     //gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK);
     //gtk_widget_add_events(drawing_area, GDK_BUTTON_RELEASE_MASK);
@@ -3236,8 +3235,14 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(drawing_area);
 	pane = gtk_hpaned_new();
 	gtk_paned_pack1(GTK_PANED(pane),vbox,TRUE,TRUE);
+
+	vbox_master = gtk_vbox_new(FALSE, 0);
+
+	gtk_box_pack_start(GTK_BOX(vbox_master), pane, TRUE, TRUE, 0);
+
+	gtk_box_pack_start(GTK_BOX(vbox_master), controls_box, FALSE, FALSE, 0);
 	
-    gtk_container_add(GTK_CONTAINER(window), pane);
+    gtk_container_add(GTK_CONTAINER(window), vbox_master);
 
     error = NULL;
     icon_theme = gtk_icon_theme_get_default();
