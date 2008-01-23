@@ -245,6 +245,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(resize_window, idledata);
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
+		send_command("get_property metadata\n");
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -257,7 +258,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->videopresent = 0;
         g_idle_add(resize_window, idledata);
         g_idle_add(set_volume_from_slider, NULL);
-
+		send_command("get_property metadata\n");
     }
 
     if (strstr(mplayer_output->str, "ANS_PERCENT_POSITION") != 0) {
@@ -552,7 +553,6 @@ gboolean thread_query(gpointer data)
             send_command("get_time_length\n");
             send_command("get_time_pos\n");
             send_command("get_property stream_pos\n");
-			send_command("get_property metadata\n");
 			g_idle_add(make_panel_and_mouse_invisible,NULL);
             return TRUE;
         }
