@@ -38,6 +38,7 @@
 #include "../pixmaps/media-skip-backward.xpm"
 #include "../pixmaps/media-skip-forward.xpm"
 #include "../pixmaps/view-fullscreen.xpm"
+#include "langlist.h"
 
 gint get_player_window()
 {

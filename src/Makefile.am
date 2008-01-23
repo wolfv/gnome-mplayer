@@ -40,7 +40,8 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/media-seek-forward.xpm \
 	../pixmaps/media-skip-backward.xpm \
 	../pixmaps/media-skip-forward.xpm \
-	../pixmaps/view-fullscreen.xpm
+	../pixmaps/view-fullscreen.xpm \
+	langlist.h 
 
 gnome_mplayer_LDFLAGS = 
 
@@ -48,3 +49,4 @@ gnome_mplayer_LDADD = $(GTK_LIBS) $(DBUS_LIBS) $(GCONF_LIBS)
 
 EXTRA_DIST = 
 	
+
