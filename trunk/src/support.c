@@ -1029,8 +1029,12 @@ void randomize_playlist(GtkListStore *store) {
     rand = g_rand_new();
 
 	if (items > 0) {
-		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&iterfilename,-1);
-		
+		if (gtk_list_store_iter_is_valid(playliststore,&iter)){
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&iterfilename,-1);
+		} else {
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&iterfilename,-1);
+		}
 		for (i = 0; i < items; i++) {
 			swapid = g_rand_int_range(rand, 0, items);
 			if (i != swapid) {
