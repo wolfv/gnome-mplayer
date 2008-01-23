@@ -294,12 +294,16 @@ void add_item_to_playlist_callback (gpointer data, gpointer user_data) {
 
 }
 
+gint compar(gpointer a, gpointer b){ 
+	return strcasecmp( (char*)a, (char*)b ); 
+}
+
 void add_folder_to_playlist_callback (gpointer data, gpointer user_data) {
 	gchar *filename = (gchar*)data;
-	gint playlist;
 	GDir *dir;
 	gchar *name;
 	gchar *subdir;
+	GSList *list = NULL;
 	
 	dir = g_dir_open(filename,0,NULL);
 	if (dir != NULL) {
@@ -310,21 +314,16 @@ void add_folder_to_playlist_callback (gpointer data, gpointer user_data) {
 				if (g_file_test(subdir,G_FILE_TEST_IS_DIR)) {
 					add_folder_to_playlist_callback((gpointer)subdir,NULL);
 				} else {
-					playlist = detect_playlist(subdir);
-					if (!playlist ) {
-						add_item_to_playlist(subdir,playlist);
-					} else {
-						if (!parse_playlist(subdir)) {	
-							add_item_to_playlist(subdir,playlist);
-						}
-					}	
+					list = g_slist_prepend(list,subdir);
 				}
-				g_free(subdir);
 				g_free(name);
 			} else {
 				break;
 			}
 		} while(TRUE);
+		list = g_slist_sort(list,(GCompareFunc)compar);
+		g_slist_foreach(list, &add_item_to_playlist_callback, NULL);
+		g_slist_free(list);
 		g_dir_close(dir);
 	}	
 
