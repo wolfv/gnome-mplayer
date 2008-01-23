@@ -1,4 +1,5 @@
 Development
+	Implement 'Clear Playlist'
 	Apply Audio and Subtitle Language tab under Edit->Preferences based on a patch from James Carthew
 	Implement Edit->Switch Audio Track based on a patch from James Carthew
 	When the playlist is visible there is a new icon (folder). Clicking this allows you to 

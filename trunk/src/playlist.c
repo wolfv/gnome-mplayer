@@ -436,6 +436,15 @@ void remove_from_playlist(GtkWidget * widget, gpointer data)
 	
 }
 
+void clear_playlist(GtkWidget * widget, void *data) {
+
+	dontplaynext = TRUE;
+    shutdown();
+	gtk_list_store_clear(playliststore);
+	gtk_list_store_clear(nonrandomplayliststore);	
+}
+
+
 gboolean playlist_select_callback(GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer data) {
 
 	gchar *filename;
@@ -493,6 +502,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 	GtkWidget *add;
 	GtkWidget *remove;
 	GtkWidget *add_folder;
+	GtkWidget *clear;
 	GtkTreePath *path;
 	GtkAccelGroup *accel_group;
 	GValue value = {0, };
@@ -651,6 +661,13 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data) {
 		gtk_button_set_image(GTK_BUTTON(add_folder),gtk_image_new_from_stock(GTK_STOCK_DIRECTORY, GTK_ICON_SIZE_MENU));
 	    gtk_box_pack_start(GTK_BOX(ctrlbox), add_folder,FALSE,FALSE,0);
 		g_signal_connect(GTK_OBJECT(add_folder),"clicked",GTK_SIGNAL_FUNC(add_folder_to_playlist),list);
+
+		clear = gtk_button_new();
+	    tooltip = gtk_tooltips_new();
+	    gtk_tooltips_set_tip(tooltip, clear, _("Clear Playlist"), NULL);
+		gtk_button_set_image(GTK_BUTTON(clear),gtk_image_new_from_stock(GTK_STOCK_CLEAR, GTK_ICON_SIZE_MENU));
+	    gtk_box_pack_start(GTK_BOX(ctrlbox), clear,FALSE,FALSE,0);
+		g_signal_connect(GTK_OBJECT(clear),"clicked",GTK_SIGNAL_FUNC(clear_playlist),list);
 		
 		
 		accel_group = gtk_accel_group_new();
