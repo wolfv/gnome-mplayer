@@ -14,7 +14,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301,  USA
  */
  
- gchar *language_list[464] = { "Abkhazian,abk,ab",
+ gchar *langlist[464] = { "Abkhazian,abk,ab",
 								"Achinese,ace",
 								"Acoli,ach",
 								"Adangme,ada",

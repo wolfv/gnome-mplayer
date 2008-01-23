@@ -209,6 +209,8 @@ int main(int argc, char *argv[])
 	tv_fps = 0;
 	ok_to_play = TRUE;
 	softvol = 0;
+	alang = NULL;
+	slang = NULL;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();

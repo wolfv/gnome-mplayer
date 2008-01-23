@@ -1916,6 +1916,8 @@ void config_apply(GtkWidget * widget, void *data)
         ao = NULL;
     }
     ao = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_ao)->child)));
+    alang = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_alang)->child)));
+    slang = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_slang)->child)));
 
     update_mplayer_config();
 
@@ -2351,8 +2353,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 	GtkWidget *conf_page1;
 	GtkWidget *conf_page2;
 	GtkWidget *conf_page3;
+	GtkWidget *conf_page4;
 	GtkWidget *notebook;
     gint i = 0;
+	gint j = -1;
 
     read_mplayer_config();
 
@@ -2364,6 +2368,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 	conf_page1 = gtk_vbox_new(FALSE, 10);
 	conf_page2 = gtk_vbox_new(FALSE, 10);
 	conf_page3 = gtk_vbox_new(FALSE, 10);
+	conf_page4 = gtk_vbox_new(FALSE, 10);
     conf_hbutton_box = gtk_hbutton_box_new();
     gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
     conf_table = gtk_table_new(20, 2, FALSE);
@@ -2373,8 +2378,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page1, conf_label);
 	conf_label = gtk_label_new(_("Plugin"));
 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page2, conf_label);
+	conf_label = gtk_label_new(_("Language Settings"));
+ 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page3, conf_label);	
 	conf_label = gtk_label_new(_("Advanced"));
-	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page3, conf_label);
+	gtk_notebook_append_page(GTK_NOTEBOOK(notebook),conf_page4, conf_label);
 
     gtk_container_add(GTK_CONTAINER(conf_vbox), notebook);
     gtk_container_add(GTK_CONTAINER(config_window), conf_vbox);
@@ -2438,6 +2445,32 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             }
         }
     }
+	
+	config_alang = gtk_combo_box_entry_new_text();
+	if (config_alang != NULL) {
+		i = 0;
+		j = -1;
+		while(i < 464) {
+			if (alang != NULL && g_strncasecmp(alang,langlist[i],strlen(alang)) == 0)
+				j = i;
+			gtk_combo_box_append_text(GTK_COMBO_BOX(config_alang), langlist[i++]);
+			if (j != -1 )
+				gtk_combo_box_set_active(GTK_COMBO_BOX(config_alang), j);
+		}
+	}
+	config_slang = gtk_combo_box_entry_new_text();
+	if (config_slang != NULL) {
+		i = 0;
+		j = -1;
+		while(i < 464) {
+			if (slang != NULL && g_strncasecmp(slang,langlist[i],strlen(slang)) == 0)
+				j = i;
+			gtk_combo_box_append_text(GTK_COMBO_BOX(config_slang), langlist[i++]);
+			if (j != -1 )
+				gtk_combo_box_set_active(GTK_COMBO_BOX(config_slang), j);
+		}
+	}
+	
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Output Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
@@ -2543,8 +2576,38 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_dvx, 0, 1, i, i + 1);
     i++;
 	
-	conf_table = gtk_table_new(20, 2, FALSE);
+ 	conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page3), conf_table);
+ 	i = 0;
+    conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Language Settings</span>"));
+    gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    i++;
+	
+    conf_label = gtk_label_new(_("Default Audio Language"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_widget_set_size_request(GTK_WIDGET(config_alang), 100, -1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_alang, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
+    i++;
+
+    conf_label = gtk_label_new(_("Default Subtitle Language:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_widget_set_size_request(GTK_WIDGET(config_slang), 100, -1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_slang, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
+    i++;	
+	
+	
+	conf_table = gtk_table_new(20, 2, FALSE);
+    gtk_container_add(GTK_CONTAINER(conf_page4), conf_table);
 	i = 0;
     conf_label = gtk_label_new(_("<span weight=\"bold\">Advanced Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);

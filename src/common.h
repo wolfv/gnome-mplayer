@@ -169,6 +169,8 @@ gboolean control_instance;
 gchar *playlistname;
 gboolean ok_to_play;
 gchar *subtitle;
+gchar *alang;
+gchar *slang;
 
 // tv stuff
 gchar *tv_device;
