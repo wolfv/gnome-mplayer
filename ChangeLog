@@ -1,4 +1,5 @@
 Development
+	Performance fix, no need to update the metadata so much, only need to do it once per file
 	Change to GUI layout, with controls and playlist, move playlist into a subpanel
 	After loading the playlist, tell how many files are found
 	Fix crash when you choose to shuffle a playlist when nothing selected in playlist
