@@ -1,12 +1,13 @@
 Development
-	Implement Edit->Switch Audio Track
+	Apply Audio and Subtitle Language tab under Edit->Preferences based on a patch from James Carthew
+	Implement Edit->Switch Audio Track based on a patch from James Carthew
 	When the playlist is visible there is a new icon (folder). Clicking this allows you to 
 		Select a folder and all the media under that folder is added to the playlist, works recursivly
 	Implement two requested GUI changes, fullscreen on double click and hotkey 'q' to quit
 	Move aspect changes from main view menu to submenu named aspect under view
 	Implement View->Show Subtitles
 	Implement multi-select on File->Open dialog
-	Add 16:10 aspect
+	Add 16:10 aspect based on a patch from James Carthew
 	Remove direct gtk call from thread (gtk_main_iteration), bad idea to call this from thread
 	Fix stupid memory free in parse_cdda
 	Fix potential segfault in cdartist/cdname code

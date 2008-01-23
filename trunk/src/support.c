@@ -578,6 +578,18 @@ gboolean update_mplayer_config()
         g_key_file_remove_key(config, "gnome-mplayer", "ao", NULL);
     }
 
+    if (alang != NULL && strlen(alang) != 0) {
+        g_key_file_set_string(config, "gnome-mplayer", "alang", alang);
+    } else {
+        g_key_file_remove_key(config, "gnome-mplayer", "alang", NULL);
+    }
+
+	if (slang != NULL && strlen(slang) != 0) {
+        g_key_file_set_string(config, "gnome-mplayer", "slang", slang);
+    } else {
+        g_key_file_remove_key(config, "gnome-mplayer", "slang", NULL);
+    }
+	
     data = g_key_file_to_data(config, NULL, NULL);
     //printf("%i\n%s", strlen(data), data);
 
@@ -631,6 +643,8 @@ gboolean read_mplayer_config()
         g_free(ao);
     vo = g_key_file_get_string(config, "gnome-mplayer", "vo", NULL);
     ao = g_key_file_get_string(config, "gnome-mplayer", "ao", NULL);
+    alang = g_key_file_get_string(config, "gnome-mplayer", "alang", NULL);
+    slang = g_key_file_get_string(config, "gnome-mplayer", "slang", NULL);
 
 
     g_free(filename);

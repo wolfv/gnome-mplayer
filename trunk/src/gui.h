@@ -180,6 +180,9 @@ GtkWidget *config_osdlevel;
 GtkWidget *config_softvol;
 GtkWidget *config_verbose;
 
+GtkWidget *config_alang;
+GtkWidget *config_slang;
+
 GtkWidget *config_qt;
 GtkWidget *config_real;
 GtkWidget *config_wmp;
