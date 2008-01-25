@@ -488,23 +488,11 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
 
 void playlist_close(GtkWidget * widget, void *data)
 {
-    GValue value = { 0, };
     gint x, y, depth;
 
-    g_value_init(&value, G_TYPE_BOOLEAN);
     gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height, &depth);
+	gtk_container_remove(GTK_CONTAINER(pane),plvbox);
 
-    if (idledata->videopresent == FALSE) {
-        gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
-        gtk_widget_hide(GTK_WIDGET(fixed));
-        gtk_widget_show_all(media_label);
-        gtk_widget_set_size_request(window, -1, -1);
-    } else {
-        gtk_widget_hide(media_label);
-    }
-    g_value_set_boolean(&value, TRUE);
-    gtk_container_child_set_property(GTK_CONTAINER(pane), plvbox, "shrink", &value);
-    gtk_widget_hide_all(plvbox);
 }
 
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
@@ -528,7 +516,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
     GtkAccelGroup *accel_group;
     GValue value = { 0, };
     GtkTooltips *tooltip;
-    GtkRequisition plreq;
+    //GtkRequisition plreq;
     gchar *coltitle;
     gint x, y, depth;
 
@@ -539,47 +527,32 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 
     if (GTK_IS_WIDGET(plvbox)) {
         if (GTK_WIDGET_VISIBLE(plvbox)) {
+            gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height,
+                                    &depth);
             if (idledata->videopresent == FALSE) {
-                gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height,
-                                        &depth);
                 gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
-                g_value_set_boolean(&value, TRUE);
-                gtk_container_child_set_property(GTK_CONTAINER(pane), plvbox, "shrink", &value);
-                gtk_widget_hide_all(plvbox);
                 gtk_widget_hide(GTK_WIDGET(fixed));
                 gtk_widget_show_all(media_label);
                 gtk_widget_set_size_request(window, -1, -1);
             } else {
-                gtk_widget_size_request(GTK_WIDGET(plvbox), &plreq);
-                gtk_widget_hide_all(plvbox);
-                gtk_widget_set_size_request(window, -1, -1);
+				gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+            	gtk_widget_set_size_request(window, -1, -1);
+				gtk_window_set_policy(GTK_WINDOW(window),TRUE,TRUE,TRUE);
             }
-        } else {
-            g_value_set_boolean(&value, TRUE);
-            gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-            gtk_container_child_set_property(GTK_CONTAINER(pane), plvbox, "shrink", &value);
-            if (idledata->videopresent) {
-                gtk_widget_size_request(GTK_WIDGET(plvbox), &plreq);
-            } else {
-                gtk_widget_show(GTK_WIDGET(fixed));
-                gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
-            }
-            gtk_widget_show_all(plvbox);
-
-        }
+			gtk_container_remove(GTK_CONTAINER(pane),plvbox);
+        } 
 
     } else {
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-
-        plvbox = gtk_vbox_new(FALSE, 12);
+		if (window_width != -1) {
+    	    gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
+		}    
+		plvbox = gtk_vbox_new(FALSE, 12);
         hbox = gtk_hbox_new(FALSE, 12);
         gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
         box = gtk_hbox_new(FALSE, 10);
         ctrlbox = gtk_hbox_new(FALSE, 0);
         closebox = gtk_hbox_new(FALSE, 0);
-
-        //gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-        //gtk_button_box_set_layout(GTK_BUTTON_BOX(ctrlbox),GTK_BUTTONBOX_START);
 
         list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
         gtk_widget_add_events(list, GDK_BUTTON_PRESS_MASK);
