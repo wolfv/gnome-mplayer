@@ -54,25 +54,25 @@ gboolean send_command(gchar * command)
 
 gboolean play(void *data)
 {
-	PlayData *p = (PlayData *) data;
+    PlayData *p = (PlayData *) data;
 
-	if (ok_to_play) {
-		while(gtk_events_pending() || thread != NULL) {
-			gtk_main_iteration();
-		}		
-		play_file(p->filename,p->playlist);
-	}
-	g_free(p);
-	
-	return FALSE;
+    if (ok_to_play) {
+        while (gtk_events_pending() || thread != NULL) {
+            gtk_main_iteration();
+        }
+        play_file(p->filename, p->playlist);
+    }
+    g_free(p);
+
+    return FALSE;
 }
 
 gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
 {
     g_idle_add(set_stop, idledata);
     state = QUIT;
-	g_source_remove(watch_in_id);
-	g_source_remove(watch_err_id);
+    g_source_remove(watch_in_id);
+    g_source_remove(watch_err_id);
     g_mutex_unlock(thread_running);
     return FALSE;
 }
@@ -85,8 +85,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     GtkWidget *dialog;
 
     if (source == NULL) {
-		g_source_remove(watch_in_id);
-		g_source_remove(watch_in_hup_id);
+        g_source_remove(watch_in_id);
+        g_source_remove(watch_in_hup_id);
         return FALSE;
     }
 
@@ -94,8 +94,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (state == QUIT) {
         g_idle_add(set_stop, idledata);
         state = QUIT;
-		g_source_remove(watch_in_id);
-		g_source_remove(watch_in_hup_id);
+        g_source_remove(watch_in_id);
+        g_source_remove(watch_in_hup_id);
         g_mutex_unlock(thread_running);
         return FALSE;
     }
@@ -112,25 +112,25 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
-			strstr(mplayer_output->str, "/dev/rtc") == NULL &&
-			strstr(mplayer_output->str, "registry file") == NULL) {
-            	error_msg = g_strdup(mplayer_output->str);
-		}
+            strstr(mplayer_output->str, "/dev/rtc") == NULL &&
+            strstr(mplayer_output->str, "registry file") == NULL) {
+            error_msg = g_strdup(mplayer_output->str);
+        }
     }
-	
-	if (strstr(mplayer_output->str, "Failed to initiate \"video/X-ASF-PF\" RTP subsession") != NULL) {
-		dontplaynext = TRUE;
-		playback_error = ERROR_RETRY_WITH_PLAYLIST;
-	}
 
-	if (strstr(mplayer_output->str,"Compressed SWF format not supported") != NULL) {
-		error_msg = g_strdup_printf(_("Compressed SWF format not supported"));
-	}
-	
-	if (strstr(mplayer_output->str,"Error while decoding frame") != NULL) {
-		//g_idle_add(set_rew, idledata);
-	}
-	
+    if (strstr(mplayer_output->str, "Failed to initiate \"video/X-ASF-PF\" RTP subsession") != NULL) {
+        dontplaynext = TRUE;
+        playback_error = ERROR_RETRY_WITH_PLAYLIST;
+    }
+
+    if (strstr(mplayer_output->str, "Compressed SWF format not supported") != NULL) {
+        error_msg = g_strdup_printf(_("Compressed SWF format not supported"));
+    }
+
+    if (strstr(mplayer_output->str, "Error while decoding frame") != NULL) {
+        //g_idle_add(set_rew, idledata);
+    }
+
     if (error_msg != NULL) {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
                                         GTK_BUTTONS_CLOSE, error_msg);
@@ -156,28 +156,28 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GError *error = NULL;
     gchar *error_msg = NULL;
     GtkWidget *dialog;
-	gchar **parse;
-	gint name,artist;
-	gchar *cdname;
-	gchar *cdartist;
-	gchar *utf8name;
-	gchar *utf8artist;
+    gchar **parse;
+    gint name, artist;
+    gchar *cdname;
+    gchar *cdartist;
+    gchar *utf8name;
+    gchar *utf8artist;
 
     if (source == NULL) {
-		g_source_remove(watch_err_id);
-		g_source_remove(watch_in_hup_id);
+        g_source_remove(watch_err_id);
+        g_source_remove(watch_in_hup_id);
         return FALSE;
     }
 
-	idledata->fromdbus = FALSE;
-	
+    idledata->fromdbus = FALSE;
+
     if (state == QUIT) {
-		if (verbose)
-			printf("Thread: state = QUIT, shutting down\n");
+        if (verbose)
+            printf("Thread: state = QUIT, shutting down\n");
         g_idle_add(set_stop, idledata);
         state = QUIT;
-		g_source_remove(watch_err_id);
-		g_source_remove(watch_in_hup_id);
+        g_source_remove(watch_err_id);
+        g_source_remove(watch_in_hup_id);
         g_mutex_unlock(thread_running);
         return FALSE;
     }
@@ -210,7 +210,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             return FALSE;
         }
     }
-	
+
     if ((strstr(mplayer_output->str, "A:") != NULL) || (strstr(mplayer_output->str, "V:") != NULL)) {
         g_string_free(mplayer_output, TRUE);
         return TRUE;
@@ -233,20 +233,20 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "VO:");
         sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &actual_x, &actual_y, &play_x, &play_y);
 
-		if (play_x >= actual_x && play_y >= actual_y) {
-			actual_x = play_x;
-			actual_y = play_y;
-		} 
-		if (verbose)
-        	printf("Resizing to %i x %i \n", actual_x, actual_y);
-       	idledata->width = actual_x;
-       	idledata->height = actual_y;
+        if (play_x >= actual_x && play_y >= actual_y) {
+            actual_x = play_x;
+            actual_y = play_y;
+        }
+        if (verbose)
+            printf("Resizing to %i x %i \n", actual_x, actual_y);
+        idledata->width = actual_x;
+        idledata->height = actual_y;
         idledata->videopresent = 1;
         g_idle_add(resize_window, idledata);
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
-		send_command("get_property metadata\n");
-		send_command("get_time_length\n");
+        send_command("get_property metadata\n");
+        send_command("get_time_length\n");
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -259,8 +259,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->videopresent = 0;
         g_idle_add(resize_window, idledata);
         g_idle_add(set_volume_from_slider, NULL);
-		send_command("get_property metadata\n");
-		send_command("get_time_length\n");
+        send_command("get_property metadata\n");
+        send_command("get_time_length\n");
     }
 
     if (strstr(mplayer_output->str, "ANS_PERCENT_POSITION") != 0) {
@@ -288,7 +288,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_stream_pos=%i", &idledata->byte_pos);
         g_idle_add(set_progress_time, idledata);
     }
-	
+
     if (strstr(mplayer_output->str, "ANS_volume") != 0) {
         buf = strstr(mplayer_output->str, "ANS_volume");
         sscanf(buf, "ANS_volume=%i", &volume);
@@ -325,101 +325,112 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_saturation=%i", &idledata->saturation);
     }
 
-	if (strstr(mplayer_output->str, "ANS_metadata") != 0) {
+    if (strstr(mplayer_output->str, "ANS_metadata") != 0) {
         buf = strstr(mplayer_output->str, "ANS_metadata");
         g_strlcpy(idledata->metadata, buf + strlen("ANS_metadata="), 1024);
-		g_strchomp(idledata->metadata);
-		
-		if (idledata->metadata != NULL) {
-			parse = g_strsplit(idledata->metadata,",",-1);
-			if (parse != NULL) {
-				i = 0;
-				artist = -1;
-				name = -1;
-				while(parse[i] != NULL) {
-					if (g_strcasecmp(parse[i],"name") == 0 || g_strcasecmp(parse[i],"title") == 0) {
-						name = i + 1;
-					}
-					if (g_strcasecmp(parse[i],"artist") == 0) {
-						artist = i + 1;
-					}
-					i++;
-				}
-				if (name >0 && artist >0) {
-					//message = g_strdup_printf("%s - %s",parse[name],parse[artist]);
-					//printf("message = %s\n",message);
-					//g_strlcpy(idledata->info, message, 1024);
-					//g_free(message);
-					//g_idle_add(set_media_info, idledata);
-					utf8name = g_locale_to_utf8(parse[name],-1, NULL, NULL,NULL);
-					if (utf8name == NULL) {
-						strip_unicode(parse[name],strlen(parse[name]));
-						utf8name = g_strdup(parse[name]);
-					}
-					utf8artist = g_locale_to_utf8(parse[artist],-1, NULL, NULL,NULL);
-					if (utf8artist == NULL) {
-						strip_unicode(parse[artist],strlen(parse[artist]));
-						utf8artist = g_strdup(parse[artist]);
-					}
-					
-					message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>File:</b>\t%s\n</small>"),utf8name,utf8artist,idledata->info);
-					g_strlcpy(idledata->media_info, message, 1024);
-					g_free(message);
-					g_free(utf8name);
-					g_free(utf8artist);
-					g_idle_add(set_media_label, idledata);
-				} else {
-					if (g_strncasecmp(idledata->info,"cdda",4) == 0 && gtk_list_store_iter_is_valid(playliststore,&iter)) {
-						gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,DESCRIPTION_COLUMN,&cdname,ARTIST_COLUMN,&cdartist,-1);
-						if (cdname != NULL) {						
-							utf8name = g_locale_to_utf8(cdname,-1, NULL, NULL,NULL);
-							if (utf8name == NULL) {
-								strip_unicode(cdname,strlen(cdname));
-								utf8name = g_strdup(cdname);
-							}
-						} else {
-							utf8name = g_strdup(_("Unknown"));
-						}
-						
-						if (cdartist != NULL) {
-							utf8artist = g_locale_to_utf8(cdartist,-1, NULL, NULL,NULL);
-							if (utf8artist == NULL) {
-								strip_unicode(cdartist,strlen(cdartist));
-								utf8artist = g_strdup(cdartist);
-							}
-						} else {
-							utf8artist = g_strdup(_("Unknown"));
-						}
-						
-						message = g_markup_printf_escaped(_("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),utf8name,utf8artist,playlistname);					
-						if (cdname != NULL) {						
-							g_free(cdname);
-							cdname = NULL;
-						}
-						if (cdartist != NULL) {
-							g_free(cdartist);
-							cdartist = NULL;
-						}
-						g_free(utf8name);
-						utf8name = NULL;
-						g_free(utf8artist);
-						utf8name = NULL;
-						
-					} else {
-						message = g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),idledata->info);
-					}
-					g_strlcpy(idledata->media_info, message, 1024);
-					g_free(message);
-					g_idle_add(set_media_label, idledata);
-				}					
-				g_strfreev(parse);	
-			}
-		} else {
-			message = g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),idledata->info);
-			g_strlcpy(idledata->media_info, message, 1024);
-			g_free(message);
-			g_idle_add(set_media_label, idledata);
-		}
+        g_strchomp(idledata->metadata);
+
+        if (idledata->metadata != NULL) {
+            parse = g_strsplit(idledata->metadata, ",", -1);
+            if (parse != NULL) {
+                i = 0;
+                artist = -1;
+                name = -1;
+                while (parse[i] != NULL) {
+                    if (g_strcasecmp(parse[i], "name") == 0 || g_strcasecmp(parse[i], "title") == 0) {
+                        name = i + 1;
+                    }
+                    if (g_strcasecmp(parse[i], "artist") == 0) {
+                        artist = i + 1;
+                    }
+                    i++;
+                }
+                if (name > 0 && artist > 0) {
+                    //message = g_strdup_printf("%s - %s",parse[name],parse[artist]);
+                    //printf("message = %s\n",message);
+                    //g_strlcpy(idledata->info, message, 1024);
+                    //g_free(message);
+                    //g_idle_add(set_media_info, idledata);
+                    utf8name = g_locale_to_utf8(parse[name], -1, NULL, NULL, NULL);
+                    if (utf8name == NULL) {
+                        strip_unicode(parse[name], strlen(parse[name]));
+                        utf8name = g_strdup(parse[name]);
+                    }
+                    utf8artist = g_locale_to_utf8(parse[artist], -1, NULL, NULL, NULL);
+                    if (utf8artist == NULL) {
+                        strip_unicode(parse[artist], strlen(parse[artist]));
+                        utf8artist = g_strdup(parse[artist]);
+                    }
+
+                    message =
+                        g_markup_printf_escaped(_
+                                                ("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>File:</b>\t%s\n</small>"),
+                                                utf8name, utf8artist, idledata->info);
+                    g_strlcpy(idledata->media_info, message, 1024);
+                    g_free(message);
+                    g_free(utf8name);
+                    g_free(utf8artist);
+                    g_idle_add(set_media_label, idledata);
+                } else {
+                    if (g_strncasecmp(idledata->info, "cdda", 4) == 0
+                        && gtk_list_store_iter_is_valid(playliststore, &iter)) {
+                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, DESCRIPTION_COLUMN,
+                                           &cdname, ARTIST_COLUMN, &cdartist, -1);
+                        if (cdname != NULL) {
+                            utf8name = g_locale_to_utf8(cdname, -1, NULL, NULL, NULL);
+                            if (utf8name == NULL) {
+                                strip_unicode(cdname, strlen(cdname));
+                                utf8name = g_strdup(cdname);
+                            }
+                        } else {
+                            utf8name = g_strdup(_("Unknown"));
+                        }
+
+                        if (cdartist != NULL) {
+                            utf8artist = g_locale_to_utf8(cdartist, -1, NULL, NULL, NULL);
+                            if (utf8artist == NULL) {
+                                strip_unicode(cdartist, strlen(cdartist));
+                                utf8artist = g_strdup(cdartist);
+                            }
+                        } else {
+                            utf8artist = g_strdup(_("Unknown"));
+                        }
+
+                        message =
+                            g_markup_printf_escaped(_
+                                                    ("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),
+                                                    utf8name, utf8artist, playlistname);
+                        if (cdname != NULL) {
+                            g_free(cdname);
+                            cdname = NULL;
+                        }
+                        if (cdartist != NULL) {
+                            g_free(cdartist);
+                            cdartist = NULL;
+                        }
+                        g_free(utf8name);
+                        utf8name = NULL;
+                        g_free(utf8artist);
+                        utf8name = NULL;
+
+                    } else {
+                        message =
+                            g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),
+                                                    idledata->info);
+                    }
+                    g_strlcpy(idledata->media_info, message, 1024);
+                    g_free(message);
+                    g_idle_add(set_media_label, idledata);
+                }
+                g_strfreev(parse);
+            }
+        } else {
+            message =
+                g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"), idledata->info);
+            g_strlcpy(idledata->media_info, message, 1024);
+            g_free(message);
+            g_idle_add(set_media_label, idledata);
+        }
     }
 
     if (strstr(mplayer_output->str, "Cache fill") != 0) {
@@ -441,7 +452,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->percent = 0.0;
         g_idle_add(set_progress_value, idledata);
     }
-	
+
     if (strstr(mplayer_output->str, "ID_VIDEO_FORMAT") != 0) {
         g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_VIDEO_FORMAT") + strlen("ID_VIDEO_FORMAT=");
@@ -518,7 +529,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         gtk_widget_destroy(dialog);
         g_free(error_msg);
     }
-	
+
     g_string_free(mplayer_output, TRUE);
 
     return TRUE;
@@ -540,22 +551,22 @@ gboolean thread_query(gpointer data)
     // else
     // 
 
-	if (data == NULL) {
-		if (verbose)
-			printf("shutting down threadquery since threaddata is NULL\n");
-		return FALSE;
-	}
-	
+    if (data == NULL) {
+        if (verbose)
+            printf("shutting down threadquery since threaddata is NULL\n");
+        return FALSE;
+    }
+
     if (state == PLAYING) {
         size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
         if (size == -1) {
             shutdown();
             return FALSE;
         } else {
-            
+
             send_command("get_time_pos\n");
             send_command("get_property stream_pos\n");
-			g_idle_add(make_panel_and_mouse_invisible,NULL);
+            g_idle_add(make_panel_and_mouse_invisible, NULL);
             return TRUE;
         }
     } else {
@@ -574,22 +585,22 @@ gpointer launch_player(gpointer data)
     gint player_window;
     char *argv[255];
     gint arg = 0;
-	gchar *filename;
-	gint count;
-	GtkTreePath *path;
-	PlayData *p = (PlayData *) g_malloc(sizeof(PlayData));;
+    gchar *filename;
+    gint count;
+    GtkTreePath *path;
+    PlayData *p = (PlayData *) g_malloc(sizeof(PlayData));;
 
     ThreadData *threaddata = (ThreadData *) data;
 
     fullscreen = 0;
     videopresent = 1;
-	playback_error = NO_ERROR;
-	
-	while(embed_window != -1 && !GTK_WIDGET_VISIBLE(window)) {
-		if (verbose)
-			printf("waiting for gui\n");	
-	}
-	
+    playback_error = NO_ERROR;
+
+    while (embed_window != -1 && !GTK_WIDGET_VISIBLE(window)) {
+        if (verbose)
+            printf("waiting for gui\n");
+    }
+
     g_mutex_lock(thread_running);
 
     g_strlcpy(idledata->info, threaddata->filename, 1024);
@@ -614,11 +625,11 @@ gpointer launch_player(gpointer data)
     //argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
-	
-	// this argument seems to cause noise in some videos
+
+    // this argument seems to cause noise in some videos
     if (softvol)
-		argv[arg++] = g_strdup_printf("-softvol");
-	
+        argv[arg++] = g_strdup_printf("-softvol");
+
     argv[arg++] = g_strdup_printf("-framedrop");
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-osdlevel");
@@ -626,60 +637,60 @@ gpointer launch_player(gpointer data)
     if (strcmp(threaddata->filename, "dvdnav://") == 0) {
         argv[arg++] = g_strdup_printf("-mouse-movements");
     } else {
-		if (g_strncasecmp(threaddata->filename, "dvd://",strlen("dvd://")) == 0) {
-			// argv[arg++] = g_strdup_printf("-nocache");
-		} else {
-			argv[arg++] = g_strdup_printf("-nomouseinput");
-			if (threaddata->streaming) {
-				argv[arg++] = g_strdup_printf("-user-agent");
-				argv[arg++] = g_strdup_printf("NSPlayer");
-			} else {
-				argv[arg++] = g_strdup_printf("-cache");
-				argv[arg++] = g_strdup_printf("%i", cache_size);
-			}
-		}
-	}
+        if (g_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0) {
+            // argv[arg++] = g_strdup_printf("-nocache");
+        } else {
+            argv[arg++] = g_strdup_printf("-nomouseinput");
+            if (threaddata->streaming) {
+                argv[arg++] = g_strdup_printf("-user-agent");
+                argv[arg++] = g_strdup_printf("NSPlayer");
+            } else {
+                argv[arg++] = g_strdup_printf("-cache");
+                argv[arg++] = g_strdup_printf("%i", cache_size);
+            }
+        }
+    }
     argv[arg++] = g_strdup_printf("-wid");
     player_window = get_player_window();
     argv[arg++] = g_strdup_printf("0x%x", player_window);
 
-	if (control_id == 0) {
-		argv[arg++] = g_strdup_printf("-idx");
-	} else {
-		argv[arg++] = g_strdup_printf("-cookies");
-	}
+    if (control_id == 0) {
+        argv[arg++] = g_strdup_printf("-idx");
+    } else {
+        argv[arg++] = g_strdup_printf("-cookies");
+    }
 
-	if (tv_device != NULL) {
-		argv[arg++] = g_strdup_printf("-tv:device");
-		argv[arg++] = g_strdup_printf("%s",tv_device);
-	}
-	if (tv_driver != NULL) {
-		argv[arg++] = g_strdup_printf("-tv:driver");
-		argv[arg++] = g_strdup_printf("%s",tv_driver);
-	}
-	if (tv_input != NULL) {
-		argv[arg++] = g_strdup_printf("-tv:input");
-		argv[arg++] = g_strdup_printf("%s",tv_input);
-	}
-	if (tv_width > 0) {
-		argv[arg++] = g_strdup_printf("-tv:width");
-		argv[arg++] = g_strdup_printf("%i",tv_width);
-	}
-	if (tv_height > 0) {
-		argv[arg++] = g_strdup_printf("-tv:height");
-		argv[arg++] = g_strdup_printf("%i",tv_height);
-	}
-	if (tv_fps > 0) {
-		argv[arg++] = g_strdup_printf("-tv:fps");
-		argv[arg++] = g_strdup_printf("%i",tv_fps);
-	}
+    if (tv_device != NULL) {
+        argv[arg++] = g_strdup_printf("-tv:device");
+        argv[arg++] = g_strdup_printf("%s", tv_device);
+    }
+    if (tv_driver != NULL) {
+        argv[arg++] = g_strdup_printf("-tv:driver");
+        argv[arg++] = g_strdup_printf("%s", tv_driver);
+    }
+    if (tv_input != NULL) {
+        argv[arg++] = g_strdup_printf("-tv:input");
+        argv[arg++] = g_strdup_printf("%s", tv_input);
+    }
+    if (tv_width > 0) {
+        argv[arg++] = g_strdup_printf("-tv:width");
+        argv[arg++] = g_strdup_printf("%i", tv_width);
+    }
+    if (tv_height > 0) {
+        argv[arg++] = g_strdup_printf("-tv:height");
+        argv[arg++] = g_strdup_printf("%i", tv_height);
+    }
+    if (tv_fps > 0) {
+        argv[arg++] = g_strdup_printf("-tv:fps");
+        argv[arg++] = g_strdup_printf("%i", tv_fps);
+    }
 
-	if (threaddata->subtitle != NULL && strlen(threaddata->subtitle) > 0) {
-		argv[arg++] = g_strdup_printf("-sub");
-		argv[arg++] = g_strdup_printf("%s",threaddata->subtitle);
-	}
-	
-	if (playlist || threaddata->playlist)
+    if (threaddata->subtitle != NULL && strlen(threaddata->subtitle) > 0) {
+        argv[arg++] = g_strdup_printf("-sub");
+        argv[arg++] = g_strdup_printf("%s", threaddata->subtitle);
+    }
+
+    if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
     argv[arg] = g_strdup_printf("%s", threaddata->filename);
     argv[arg + 1] = NULL;
@@ -688,8 +699,8 @@ gpointer launch_player(gpointer data)
                                   NULL, NULL, NULL, &std_in, &std_out, &std_err, NULL);
 
     if (ok) {
-		if (verbose)
-        	printf("Spawn succeeded for filename %s\n", threaddata->filename);
+        if (verbose)
+            printf("Spawn succeeded for filename %s\n", threaddata->filename);
         state = PAUSED;
 
         if (channel_in != NULL) {
@@ -706,9 +717,15 @@ gpointer launch_player(gpointer data)
         channel_err = g_io_channel_unix_new(std_err);
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
-        watch_in_id = g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader, NULL,NULL);
-        watch_err_id = g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL, NULL);
-        watch_in_hup_id = g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete, NULL, NULL);
+        watch_in_id =
+            g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader, NULL,
+                                NULL);
+        watch_err_id =
+            g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP,
+                                thread_reader_error, NULL, NULL);
+        watch_in_hup_id =
+            g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete,
+                                NULL, NULL);
 //        watch_in_id = g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
 //        watch_err_id = g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
 //        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
@@ -722,20 +739,20 @@ gpointer launch_player(gpointer data)
     }
 
     g_mutex_lock(thread_running);
-	if (verbose)
-    	printf("Thread completing\n");
-	g_source_remove(watch_in_id);
-	g_source_remove(watch_err_id);
-	g_source_remove(watch_in_hup_id);
+    if (verbose)
+        printf("Thread completing\n");
+    g_source_remove(watch_in_id);
+    g_source_remove(watch_err_id);
+    g_source_remove(watch_in_hup_id);
     idledata->percent = 1.0;
     idledata->position = idledata->length;
     g_idle_add(set_progress_value, idledata);
     g_idle_add(set_progress_time, idledata);
 
     if (embed_window != 0 || control_id != 0) {
-		dbus_send_event("MediaComplete",0);
+        dbus_send_event("MediaComplete", 0);
         dbus_open_next();
-	}
+    }
 
     if (channel_in != NULL) {
         g_io_channel_shutdown(channel_in, FALSE, NULL);
@@ -761,50 +778,52 @@ gpointer launch_player(gpointer data)
     g_mutex_unlock(thread_running);
     // printf("Thread done\n");
 
-	if (dontplaynext == FALSE) {
-		if (next_item_in_playlist(&iter)) {
-			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-			set_media_info_name(filename);
-			g_strlcpy(p->filename,filename,4096);
-			p->playlist = playlist;
-			g_idle_add(play,p);
-			gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-			g_free(filename);
-			if (GTK_IS_TREE_SELECTION(selection)) {
-				path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
-				gtk_tree_selection_select_path(selection,path);	
-				gtk_tree_path_free(path);
-			}
-			
-		} else {
-			// printf("end of thread playlist is empty\n");
-			if (loop) {
-				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
-				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&filename, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-				set_media_info_name(filename);
-				g_strlcpy(p->filename,filename,4096);
-				p->playlist = playlist;
-				g_idle_add(play,p);
-				gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-				g_free(filename);
-				if (GTK_IS_TREE_SELECTION(selection)) {
-					path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
-					gtk_tree_selection_select_path(selection,path);	
-					gtk_tree_path_free(path);
-				}
-			} 
-		}
-	} else {
-		if (playback_error == ERROR_RETRY_WITH_PLAYLIST) {
-			g_strlcpy(p->filename,threaddata->filename,4096);
-			p->playlist = 1;
-			g_idle_add(play,p);
-		}
-		dontplaynext = FALSE;
-	}
+    if (dontplaynext == FALSE) {
+        if (next_item_in_playlist(&iter)) {
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                               COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+            set_media_info_name(filename);
+            g_strlcpy(p->filename, filename, 4096);
+            p->playlist = playlist;
+            g_idle_add(play, p);
+            gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+            g_free(filename);
+            if (GTK_IS_TREE_SELECTION(selection)) {
+                path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+                gtk_tree_selection_select_path(selection, path);
+                gtk_tree_path_free(path);
+            }
 
-	g_free(threaddata);
+        } else {
+            // printf("end of thread playlist is empty\n");
+            if (loop) {
+                gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                                   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+                set_media_info_name(filename);
+                g_strlcpy(p->filename, filename, 4096);
+                p->playlist = playlist;
+                g_idle_add(play, p);
+                gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+                g_free(filename);
+                if (GTK_IS_TREE_SELECTION(selection)) {
+                    path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+                    gtk_tree_selection_select_path(selection, path);
+                    gtk_tree_path_free(path);
+                }
+            }
+        }
+    } else {
+        if (playback_error == ERROR_RETRY_WITH_PLAYLIST) {
+            g_strlcpy(p->filename, threaddata->filename, 4096);
+            p->playlist = 1;
+            g_idle_add(play, p);
+        }
+        dontplaynext = FALSE;
+    }
+
+    g_free(threaddata);
     threaddata = NULL;
-	thread = NULL;
+    thread = NULL;
     return NULL;
 }
