@@ -62,8 +62,8 @@ typedef enum {
 } PLAYSTATE;
 
 typedef enum {
-	NO_ERROR,
-	ERROR_RETRY_WITH_PLAYLIST
+    NO_ERROR,
+    ERROR_RETRY_WITH_PLAYLIST
 } PLAYBACK_ERROR;
 
 PLAYSTATE state;
@@ -73,8 +73,8 @@ PLAYBACK_ERROR playback_error;
 
 typedef struct _IdleData {
     gchar info[1024];
-	gchar media_info[2048];
-	gchar url[1024];
+    gchar media_info[2048];
+    gchar url[1024];
     gdouble percent;
     gdouble cachepercent;
     gint streaming;
@@ -93,7 +93,7 @@ typedef struct _IdleData {
     gboolean showcontrols;
     gdouble position;
     gdouble length;
-	gint byte_pos;
+    gint byte_pos;
     gint brightness;
     gint contrast;
     gint gamma;
@@ -106,8 +106,8 @@ typedef struct _IdleData {
     gchar audio_codec[16];
     gchar audio_bitrate[16];
     gchar audio_samplerate[16];
-	gchar metadata[1024];
-	gboolean fromdbus;
+    gchar metadata[1024];
+    gboolean fromdbus;
 } IdleData;
 
 IdleData *idledata;
@@ -115,21 +115,21 @@ IdleData *idledata;
 
 typedef struct _ThreadData {
     gchar filename[1024];
-	gchar subtitle[1024];
+    gchar subtitle[1024];
     gint streaming;
     gint player_window;
     gint playlist;
 } ThreadData;
 
 enum {
-	ITEM_COLUMN,
-	DESCRIPTION_COLUMN,
-	COUNT_COLUMN,
-	PLAYLIST_COLUMN,
-	ARTIST_COLUMN,
-	LENGTH_COLUMN,
-	SUBTITLE_COLUMN,
-	N_COLUMNS
+    ITEM_COLUMN,
+    DESCRIPTION_COLUMN,
+    COUNT_COLUMN,
+    PLAYLIST_COLUMN,
+    ARTIST_COLUMN,
+    LENGTH_COLUMN,
+    SUBTITLE_COLUMN,
+    N_COLUMNS
 };
 
 gchar *lastfile;
@@ -199,7 +199,7 @@ gint get_player_window();
 gboolean hide_buttons(void *data);
 gboolean show_copyurl(void *data);
 gboolean set_media_info(void *data);
-gboolean set_media_info_name(gchar *filename);
+gboolean set_media_info_name(gchar * filename);
 gboolean set_media_label(void *data);
 gboolean set_progress_value(void *data);
 gboolean set_progress_text(void *data);
@@ -230,8 +230,8 @@ void dbus_reload_plugins();
 void dbus_send_rpsignal(gchar * signal);
 void dbus_send_rpsignal_with_int(gchar * signal, int value);
 void dbus_send_rpsignal_with_double(gchar * signal, gdouble value);
-void dbus_send_rpsignal_with_string(gchar * signal, gchar* value);
-void dbus_send_event(gchar *event, gint button);
+void dbus_send_rpsignal_with_string(gchar * signal, gchar * value);
+void dbus_send_event(gchar * event, gint button);
 void dbus_unhook();
 void dbus_disable_screensaver();
 
