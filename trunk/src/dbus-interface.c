@@ -57,34 +57,34 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     gchar *s = NULL;
     gchar *hrefid = NULL;
     gchar *path = NULL;
-	gchar *keyname = NULL;
+    gchar *keyname = NULL;
     DBusError error;
     DBusMessage *reply_message;
     gchar *path1;
     gchar *path2;
     gchar *path3;
-	gchar *path4;
+    gchar *path4;
     GString *xml;
     gchar *xml_string;
-	gint count;
-	GtkTreePath *treepath;
-	gint source_id;
+    gint count;
+    GtkTreePath *treepath;
+    gint source_id;
 
     message_type = dbus_message_get_type(message);
     sender = dbus_message_get_sender(message);
     destination = dbus_message_get_destination(message);
 
-	/*
-    	printf("path=%s; interface=%s; member=%s; data=%s\n",
-               dbus_message_get_path(message),
-             dbus_message_get_interface(message), dbus_message_get_member(message), s);
-    */
-	
-	path1 = g_strdup_printf("/control/%i", control_id);
+    /*
+       printf("path=%s; interface=%s; member=%s; data=%s\n",
+       dbus_message_get_path(message),
+       dbus_message_get_interface(message), dbus_message_get_member(message), s);
+     */
+
+    path1 = g_strdup_printf("/control/%i", control_id);
     path2 = g_strdup_printf("/window/%i", embed_window);
     path3 = g_strdup_printf("/pid/%i", getpid());
-	
-	path4 = g_strdup_printf("/console/%s", rpconsole);
+
+    path4 = g_strdup_printf("/console/%s", rpconsole);
 
     if (dbus_message_get_path(message)) {
 
@@ -93,8 +93,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
             g_ascii_strcasecmp(dbus_message_get_path(message), path2) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), path3) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), path4) == 0 ||
-			g_ascii_strcasecmp(dbus_message_get_path(message), "/org/gnome/SettingsDaemon") == 0) {
-				
+            g_ascii_strcasecmp(dbus_message_get_path(message), "/org/gnome/SettingsDaemon") == 0) {
+
             // printf("Path matched %s\n", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Open") == 0) {
@@ -102,34 +102,40 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
- 						if (strlen(s) > 0) {
-							if (strcmp(rpconsole,"NONE") == 0 || control_instance == FALSE) {
-								gtk_list_store_clear(playliststore);
-								gtk_list_store_clear(nonrandomplayliststore);
-								selection = NULL;
-								playlist = detect_playlist(s);
-								if (!playlist ) {
-									add_item_to_playlist(s,playlist);
-								} else {
-									if (!parse_playlist(s)) {	
-										add_item_to_playlist(s,playlist);
-									}
-								}
-								if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
-									gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&s, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-									set_media_info_name(s);
-									play_file(s, playlist);
-									gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-								}
-									
-								if (GTK_IS_TREE_SELECTION(selection)) {
-									treepath = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
-									gtk_tree_selection_select_path(selection,treepath);	
-									gtk_tree_path_free(treepath);
-								}
-							}
-						}
-							
+                        if (strlen(s) > 0) {
+                            if (strcmp(rpconsole, "NONE") == 0 || control_instance == FALSE) {
+                                gtk_list_store_clear(playliststore);
+                                gtk_list_store_clear(nonrandomplayliststore);
+                                selection = NULL;
+                                playlist = detect_playlist(s);
+                                if (!playlist) {
+                                    add_item_to_playlist(s, playlist);
+                                } else {
+                                    if (!parse_playlist(s)) {
+                                        add_item_to_playlist(s, playlist);
+                                    }
+                                }
+                                if (gtk_tree_model_get_iter_first
+                                    (GTK_TREE_MODEL(playliststore), &iter)) {
+                                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,
+                                                       ITEM_COLUMN, &s, COUNT_COLUMN, &count,
+                                                       PLAYLIST_COLUMN, &playlist, -1);
+                                    set_media_info_name(s);
+                                    play_file(s, playlist);
+                                    gtk_list_store_set(playliststore, &iter, COUNT_COLUMN,
+                                                       count + 1, -1);
+                                }
+
+                                if (GTK_IS_TREE_SELECTION(selection)) {
+                                    treepath =
+                                        gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),
+                                                                &iter);
+                                    gtk_tree_selection_select_path(selection, treepath);
+                                    gtk_tree_path_free(treepath);
+                                }
+                            }
+                        }
+
                     } else {
                         dbus_error_free(&error);
                     }
@@ -141,25 +147,28 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-						gtk_list_store_clear(playliststore);
-						gtk_list_store_clear(nonrandomplayliststore);
-						selection = NULL;
-						if (!parse_playlist(s)) {	
-							add_item_to_playlist(s,1);
-						}
-						if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter)) {
-							gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,&s, COUNT_COLUMN,&count,PLAYLIST_COLUMN,&playlist,-1);
-							set_media_info_name(s);
-							play_file(s, playlist);
-							gtk_list_store_set(playliststore,&iter,COUNT_COLUMN,count+1, -1);
-						}
+                        gtk_list_store_clear(playliststore);
+                        gtk_list_store_clear(nonrandomplayliststore);
+                        selection = NULL;
+                        if (!parse_playlist(s)) {
+                            add_item_to_playlist(s, 1);
+                        }
+                        if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+                            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
+                                               &s, COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist,
+                                               -1);
+                            set_media_info_name(s);
+                            play_file(s, playlist);
+                            gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+                        }
 
-						if (GTK_IS_TREE_SELECTION(selection)) {
-							treepath = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),&iter);
-							gtk_tree_selection_select_path(selection,treepath);	
-							gtk_tree_path_free(treepath);
-						}
-							
+                        if (GTK_IS_TREE_SELECTION(selection)) {
+                            treepath =
+                                gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+                            gtk_tree_selection_select_path(selection, treepath);
+                            gtk_tree_path_free(treepath);
+                        }
+
                     } else {
                         dbus_error_free(&error);
                     }
@@ -182,14 +191,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-						if (strlen(s) > 0)
-																												add_item_to_playlist(s,0);
-					} else {
+                        if (strlen(s) > 0)
+                            add_item_to_playlist(s, 0);
+                    } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Close") == 0) {
                     shutdown();
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -208,33 +217,35 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Play") == 0
                     && idledata != NULL) {
-					dbus_error_init(&error);	
-					if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {				
-	                	if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-							g_idle_add(set_play, idledata);
-						}
-					} else {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_play, idledata);
+                        }
+                    } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Pause") == 0
                     && idledata != NULL) {
                     g_idle_add(set_pause, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Pause") == 0
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Pause") == 0
                     && idledata != NULL) {
-					dbus_error_init(&error);	
-					if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {				
-	                	if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-							g_idle_add(set_pause, idledata);
-						}
-					} else {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_pause, idledata);
+                        }
+                    } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -246,15 +257,16 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Stop") == 0
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Stop") == 0
                     && idledata != NULL) {
-					dbus_error_init(&error);	
-					if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {				
-	                	if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-							g_idle_add(set_stop, idledata);
-						}
-					} else {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_stop, idledata);
+                        }
+                    } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -262,45 +274,47 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastForward") == 0
                     && idledata != NULL) {
-	                g_idle_add(set_ff, idledata);
+                    g_idle_add(set_ff, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_FastForward") == 0
                     && idledata != NULL) {
-					dbus_error_init(&error);	
-					if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {				
-	                	if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-							g_idle_add(set_ff, idledata);
-						}
-					} else {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_ff, idledata);
+                        }
+                    } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
+
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastReverse") == 0
                     && idledata != NULL) {
-	                g_idle_add(set_rew, idledata);
+                    g_idle_add(set_rew, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_FastReverse") == 0
                     && idledata != NULL) {
-					dbus_error_init(&error);	
-					if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {				
-	                	if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-							g_idle_add(set_rew, idledata);
-						}
-					} else {
-						dbus_error_free(&error);
-					}
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_rew, idledata);
+                        }
+                    } else {
+                        dbus_error_free(&error);
+                    }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Seek") == 0
                     && idledata != NULL) {
                     dbus_error_init(&error);
@@ -323,8 +337,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 					dbus_unhook();
                     gtk_main_quit();
 */
-					g_idle_add(set_quit, idledata);
-					return DBUS_HANDLER_RESULT_HANDLED;
+                    g_idle_add(set_quit, idledata);
+                    return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Volume") == 0
@@ -344,18 +358,18 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->volume), DBUS_TYPE_INT32, &source_id, 
-                         DBUS_TYPE_INVALID)) {
-						if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-                        	g_idle_add(set_volume, idledata);
-						}
+                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->volume), DBUS_TYPE_INT32,
+                         &source_id, DBUS_TYPE_INVALID)) {
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_volume, idledata);
+                        }
                     } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetFullScreen") == 0
                     && idledata != NULL) {
                     dbus_error_init(&error);
@@ -386,18 +400,18 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->percent),DBUS_TYPE_INT32, &source_id,
-                         DBUS_TYPE_INVALID)) {
-						if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-                        	g_idle_add(set_progress_value, idledata);
-						}
+                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->percent), DBUS_TYPE_INT32,
+                         &source_id, DBUS_TYPE_INVALID)) {
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_progress_value, idledata);
+                        }
                     } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetCachePercent") == 0
                     && idledata != NULL) {
                     dbus_error_init(&error);
@@ -423,25 +437,26 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetProgressText") == 0
                     && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id,
+                         DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->progress_text, s, 1024);
-						if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-                        	g_idle_add(set_progress_text, idledata);
-						}
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_progress_text, idledata);
+                        }
                     } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
 
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetMediaLabel") == 0
+
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetMediaLabel") == 0
                     && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
@@ -454,16 +469,17 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetMediaLabel") == 0
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetMediaLabel") == 0
                     && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id,
+                         DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->media_info, s, 1024);
-						if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-                        	g_idle_add(set_media_label, idledata);
-						}
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_media_label, idledata);
+                        }
                     } else {
                         dbus_error_free(&error);
                     }
@@ -483,18 +499,18 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetURL") == 0) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetURL") == 0) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->url, s, 1024);
-						show_copyurl(idledata);
-					} else {
+                        show_copyurl(idledata);
+                    } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
+
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetShowControls") == 0
                     && idledata != NULL) {
@@ -522,59 +538,62 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetGUIState") == 0) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetGUIState") == 0) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &guistate,DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_INT32, &guistate, DBUS_TYPE_INVALID)) {
                         g_idle_add(set_gui_state, NULL);
                     } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
-				}
+                }
 
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetGUIState") == 0) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetGUIState") == 0) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &guistate, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
-						if (source_id != control_id) {
-							idledata->fromdbus = TRUE;
-                        	g_idle_add(set_gui_state, NULL);
-						}
+                        (message, &error, DBUS_TYPE_INT32, &guistate, DBUS_TYPE_INT32, &source_id,
+                         DBUS_TYPE_INVALID)) {
+                        if (source_id != control_id) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_gui_state, NULL);
+                        }
                     } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
-				}
-				
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "MediaPlayerKeyPressed") == 0) {
+                }
+
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "MediaPlayerKeyPressed") ==
+                    0) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_STRING, &keyname, DBUS_TYPE_INVALID)) {
-						if(g_strncasecmp(keyname,"Play",strlen("Play")) == 0) {
-							idledata->fromdbus = TRUE;
-							g_idle_add(set_play, idledata);
-						}
-						if(g_strncasecmp(keyname,"Stop",strlen("Stop")) == 0) {
-							idledata->fromdbus = TRUE;
-							g_idle_add(set_stop, idledata);
-						}
-						if(g_strncasecmp(keyname,"Previous",strlen("Previous")) == 0) {
-							idledata->fromdbus = TRUE;
-							g_idle_add(set_prev, idledata);
-						}
-						if(g_strncasecmp(keyname,"Next",strlen("Next")) == 0) {
-							idledata->fromdbus = TRUE;
-							g_idle_add(set_next, idledata);
-						}
+                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_STRING, &keyname,
+                         DBUS_TYPE_INVALID)) {
+                        if (g_strncasecmp(keyname, "Play", strlen("Play")) == 0) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_play, idledata);
+                        }
+                        if (g_strncasecmp(keyname, "Stop", strlen("Stop")) == 0) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_stop, idledata);
+                        }
+                        if (g_strncasecmp(keyname, "Previous", strlen("Previous")) == 0) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_prev, idledata);
+                        }
+                        if (g_strncasecmp(keyname, "Next", strlen("Next")) == 0) {
+                            idledata->fromdbus = TRUE;
+                            g_idle_add(set_next, idledata);
+                        }
                     } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
-				}
+                }
 
 
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "Ping") == 0) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Ping") == 0) {
                     if (control_id != 0) {
                         path = g_strdup_printf("/control/%i", control_id);
                     }
@@ -726,8 +745,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
             } else {
-				if (verbose)
-	                printf("path didn't match - %s\n",dbus_message_get_path(message));
+                if (verbose)
+                    printf("path didn't match - %s\n", dbus_message_get_path(message));
             }
 
         }
@@ -745,17 +764,17 @@ void dbus_open_by_hrefid(gchar * hrefid)
     gchar *id;
 
     id = g_strdup(hrefid);
-	if (verbose)
-    	printf("requesting id = %s\n", id);
-	if (connection != NULL && control_id != 0) {
-		path = g_strdup_printf("/control/%i", control_id);
-		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "RequestById");
-		dbus_message_append_args(message, DBUS_TYPE_STRING, &id, DBUS_TYPE_INVALID);
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		g_free(path);
-	}
-	g_free(id);
+    if (verbose)
+        printf("requesting id = %s\n", id);
+    if (connection != NULL && control_id != 0) {
+        path = g_strdup_printf("/control/%i", control_id);
+        message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "RequestById");
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &id, DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(path);
+    }
+    g_free(id);
 }
 
 void dbus_open_next()
@@ -763,13 +782,13 @@ void dbus_open_next()
     gchar *path;
     DBusMessage *message;
 
-	if (connection != NULL && control_id != 0) {
-		path = g_strdup_printf("/control/%i", control_id);
-		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Next");
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		g_free(path);
-	}
+    if (connection != NULL && control_id != 0) {
+        path = g_strdup_printf("/control/%i", control_id);
+        message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Next");
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(path);
+    }
 }
 
 void dbus_cancel()
@@ -779,110 +798,113 @@ void dbus_cancel()
     gint id;
 
     id = control_id;
-	if (connection != NULL && control_id != 0) {
-		path = g_strdup_printf("/control/%i", control_id);
-		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Cancel");
-		dbus_message_append_args(message, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		g_free(path);
-	}
+    if (connection != NULL && control_id != 0) {
+        path = g_strdup_printf("/control/%i", control_id);
+        message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Cancel");
+        dbus_message_append_args(message, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(path);
+    }
 
 }
 
 void dbus_send_rpsignal(gchar * signal)
 {
     gchar *path;
-	gchar *localsignal;
+    gchar *localsignal;
     DBusMessage *message;
     gint id;
 
-	if (g_strcasecmp(rpconsole,"NONE") == 0)
-		return;
-	
+    if (g_strcasecmp(rpconsole, "NONE") == 0)
+        return;
+
     id = control_id;
-	if (connection != NULL) {
-		path = g_strdup_printf("/console/%s", rpconsole);
-		localsignal = g_strdup(signal);
-		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
+    if (connection != NULL) {
+        path = g_strdup_printf("/console/%s", rpconsole);
+        localsignal = g_strdup(signal);
+        message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
         dbus_message_append_args(message, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		g_free(localsignal);
-		g_free(path);
-	}
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(localsignal);
+        g_free(path);
+    }
 }
 
 void dbus_send_rpsignal_with_int(gchar * signal, int value)
 {
     gchar *path;
-	gchar *localsignal;
+    gchar *localsignal;
     DBusMessage *message;
     gint id;
 
-	if (g_strcasecmp(rpconsole,"NONE") == 0)
-		return;
-	
+    if (g_strcasecmp(rpconsole, "NONE") == 0)
+        return;
+
     id = control_id;
-	if (connection != NULL) {
-		path = g_strdup_printf("/console/%s", rpconsole);
-		localsignal = g_strdup(signal);
-		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
-        dbus_message_append_args(message, DBUS_TYPE_INT32, &value, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		g_free(localsignal);
-		g_free(path);
-	}
+    if (connection != NULL) {
+        path = g_strdup_printf("/console/%s", rpconsole);
+        localsignal = g_strdup(signal);
+        message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
+        dbus_message_append_args(message, DBUS_TYPE_INT32, &value, DBUS_TYPE_INT32, &id,
+                                 DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(localsignal);
+        g_free(path);
+    }
 }
 
 void dbus_send_rpsignal_with_double(gchar * signal, gdouble value)
 {
     gchar *path;
-	gchar *localsignal;
+    gchar *localsignal;
     DBusMessage *message;
     gint id;
 
-	if (g_strcasecmp(rpconsole,"NONE") == 0)
-		return;
-	
+    if (g_strcasecmp(rpconsole, "NONE") == 0)
+        return;
+
     id = control_id;
-	if (connection != NULL) {
-		path = g_strdup_printf("/console/%s", rpconsole);
-		localsignal = g_strdup(signal);
-		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
-        dbus_message_append_args(message, DBUS_TYPE_DOUBLE, &value, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		g_free(localsignal);
-		g_free(path);
-	}
+    if (connection != NULL) {
+        path = g_strdup_printf("/console/%s", rpconsole);
+        localsignal = g_strdup(signal);
+        message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
+        dbus_message_append_args(message, DBUS_TYPE_DOUBLE, &value, DBUS_TYPE_INT32, &id,
+                                 DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(localsignal);
+        g_free(path);
+    }
 }
 
-void dbus_send_rpsignal_with_string(gchar * signal, gchar* value)
+void dbus_send_rpsignal_with_string(gchar * signal, gchar * value)
 {
     gchar *path;
-	gchar *localsignal;
+    gchar *localsignal;
     DBusMessage *message;
     gint id;
-	gchar *localstr;
+    gchar *localstr;
 
-	if (g_strcasecmp(rpconsole,"NONE") == 0)
-		return;
-	
+    if (g_strcasecmp(rpconsole, "NONE") == 0)
+        return;
+
     id = control_id;
-	if (connection != NULL) {
-		path = g_strdup_printf("/console/%s", rpconsole);
-		localsignal = g_strdup(signal);
-		localstr = g_strdup(value);
-		message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
-        dbus_message_append_args(message, DBUS_TYPE_STRING, &localstr, DBUS_TYPE_INT32, &id,DBUS_TYPE_INVALID);
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		g_free(localstr);
-		g_free(localsignal);
-		g_free(path);
-	}
+    if (connection != NULL) {
+        path = g_strdup_printf("/console/%s", rpconsole);
+        localsignal = g_strdup(signal);
+        localstr = g_strdup(value);
+        message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &localstr, DBUS_TYPE_INT32, &id,
+                                 DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(localstr);
+        g_free(localsignal);
+        g_free(path);
+    }
 }
 
 void dbus_reload_plugins()
@@ -890,39 +912,40 @@ void dbus_reload_plugins()
     gchar *path;
     DBusMessage *message;
 
-	if (connection != NULL && control_id != 0) {
-		path = g_strdup_printf("/control/%i", control_id);
-		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "ReloadPlugins");
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		g_free(path);
-	}
+    if (connection != NULL && control_id != 0) {
+        path = g_strdup_printf("/control/%i", control_id);
+        message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "ReloadPlugins");
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(path);
+    }
 
 }
 
-void dbus_send_event(gchar *event, gint button)
+void dbus_send_event(gchar * event, gint button)
 {
     gchar *path;
-	gchar *localevent;
-	gint localbutton = 0;
+    gchar *localevent;
+    gint localbutton = 0;
     DBusMessage *message;
 
-	localbutton = button;
-	
-	
-	if (connection != NULL && control_id != 0) {
-		path = g_strdup_printf("/control/%i", control_id);
-		localevent = g_strdup_printf("%s",event);
-		if (verbose) {
-			//printf("Posting Event %s\n",localevent);
-		}
-		message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Event");
-		dbus_message_append_args(message, DBUS_TYPE_STRING, &localevent, DBUS_TYPE_INT32, &localbutton, DBUS_TYPE_INVALID);
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		g_free(path);
-		g_free(localevent);
-	}
+    localbutton = button;
+
+
+    if (connection != NULL && control_id != 0) {
+        path = g_strdup_printf("/control/%i", control_id);
+        localevent = g_strdup_printf("%s", event);
+        if (verbose) {
+            //printf("Posting Event %s\n",localevent);
+        }
+        message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Event");
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &localevent, DBUS_TYPE_INT32,
+                                 &localbutton, DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(path);
+        g_free(localevent);
+    }
 }
 
 gboolean GetProperty(gchar * property)
@@ -959,22 +982,22 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 
     match = g_strdup_printf("type='signal',interface='com.gnome.mplayer'");
     dbus_bus_add_match(connection, match, &error);
-	if (verbose)
-    	printf("Using match: %s\n", match);
+    if (verbose)
+        printf("Using match: %s\n", match);
     g_free(match);
     dbus_error_free(&error);
 
     match = g_strdup_printf("type='signal',interface='org.gnome.SettingsDaemon'");
     dbus_bus_add_match(connection, match, &error);
-	if (verbose)
-    	printf("Using match: %s\n", match);
+    if (verbose)
+        printf("Using match: %s\n", match);
     g_free(match);
     dbus_error_free(&error);
-	
+
     dbus_connection_add_filter(connection, filter_func, NULL, NULL);
 
-	if (verbose)
-    	printf("Proxy connections and Command connected\n");
+    if (verbose)
+        printf("Proxy connections and Command connected\n");
 
     if (control_id != 0) {
         path = g_strdup_printf("com.gnome.mplayer.cid%i", control_id);
@@ -999,18 +1022,18 @@ void dbus_unhook()
 {
 
     DBusMessage *message;
-	
-	if (connection != NULL) {
-		message =
-			dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-										 "org.gnome.ScreenSaver", "UnInhibit");
-		dbus_message_append_args(message, DBUS_TYPE_INT32, &cookie, DBUS_TYPE_INVALID);
-		dbus_connection_send(connection, message, NULL);
-		dbus_message_unref(message);
-		dbus_connection_close(connection);
-		dbus_connection_unref(connection);
-		connection = NULL;
-	}
+
+    if (connection != NULL) {
+        message =
+            dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+                                         "org.gnome.ScreenSaver", "UnInhibit");
+        dbus_message_append_args(message, DBUS_TYPE_INT32, &cookie, DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        dbus_connection_close(connection);
+        dbus_connection_unref(connection);
+        connection = NULL;
+    }
 }
 
 void dbus_disable_screensaver()
@@ -1020,23 +1043,23 @@ void dbus_disable_screensaver()
     DBusMessage *message;
     const gchar *app;
     const gchar *reason;
-	
-	if (connection != NULL) {
-		dbus_error_init(&error);
-		message =
-			dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-										 "org.gnome.ScreenSaver", "Inhibit");
-		app = g_strdup_printf("gnome-mplayer");
-		reason = g_strdup_printf("playback");
-		dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
-								 DBUS_TYPE_INVALID);
-		reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
-		if (reply_message) {
-			dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &cookie, NULL);
-			dbus_message_unref(reply_message);
-		}
 
-		dbus_message_unref(message);
-		dbus_error_free(&error);
-	}
-}	
+    if (connection != NULL) {
+        dbus_error_init(&error);
+        message =
+            dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+                                         "org.gnome.ScreenSaver", "Inhibit");
+        app = g_strdup_printf("gnome-mplayer");
+        reason = g_strdup_printf("playback");
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
+                                 DBUS_TYPE_INVALID);
+        reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
+        if (reply_message) {
+            dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &cookie, NULL);
+            dbus_message_unref(reply_message);
+        }
+
+        dbus_message_unref(message);
+        dbus_error_free(&error);
+    }
+}
