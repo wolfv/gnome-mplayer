@@ -889,12 +889,13 @@ gboolean save_playlist_pls(gchar *filename)
 	gchar *itemname;
 	GtkTreeIter localiter;
 	gint i = 1;
+	GtkWidget *dialog;
 	
 	contents = fopen(filename,"w");
-	fprintf(contents,"[playlist]\n");
-	fprintf(contents,"NumberOfEntries=%i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
-	fprintf(contents,"Version=2\n");
 	if (contents != NULL) {
+		fprintf(contents,"[playlist]\n");
+		fprintf(contents,"NumberOfEntries=%i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
+		fprintf(contents,"Version=2\n");
 		if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&localiter)) {
 			do {
 				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,&itemname,-1);
@@ -906,6 +907,12 @@ gboolean save_playlist_pls(gchar *filename)
 		fclose(contents);	
 		return TRUE;
 	} else {
+        dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                        GTK_BUTTONS_CLOSE, _("Unable to save playlist, cannot open file for writing"));
+        gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
+        gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_widget_destroy(dialog);
+		
 		return FALSE;
 	}
 }
@@ -916,6 +923,7 @@ gboolean save_playlist_m3u(gchar *filename)
 	FILE *contents;
 	gchar *itemname;
 	GtkTreeIter localiter;
+	GtkWidget *dialog;
 	
 	contents = fopen(filename,"w");
 	if (contents != NULL) {
@@ -930,6 +938,12 @@ gboolean save_playlist_m3u(gchar *filename)
 		fclose(contents);	
 		return TRUE;
 	} else {
+        dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                        GTK_BUTTONS_CLOSE, _("Unable to save playlist, cannot open file for writing"));
+        gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
+        gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_widget_destroy(dialog);
+		
 		return FALSE;
 	}
 }

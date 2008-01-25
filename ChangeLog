@@ -1,4 +1,6 @@
 Development
+	Make sure media_label doesn't disappear on close playlist
+	Fix crasher when writing playlist to r/o area
 	Fix lost playlistname when using it on CDs (this is the album name)
 	More performance fixes, X usage dropped from 9% to 2% on my machine (1.6Ghz CPU)
 	Performance fix, no need to update the metadata so much, only need to do it once per file
