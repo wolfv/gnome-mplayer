@@ -211,6 +211,7 @@ int main(int argc, char *argv[])
 	softvol = 0;
 	alang = NULL;
 	slang = NULL;
+	playlistname = NULL;
 	
     // call g_type_init or otherwise we can crash
     g_type_init();

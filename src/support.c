@@ -147,18 +147,20 @@ gint parse_playlist(gchar * filename)
 	if (ret != 1)
 		ret = parse_dvd(filename);
 	if (ret == 1) {
-		if (playlistname != NULL)
-			g_free(playlistname);
-		if (g_strrstr(filename,"/") != NULL) {
-			playlistname = g_strdup_printf("%s",g_strrstr(filename,"/") + 1);
-		} else {
-			playlistname = g_strdup(filename);
+		if (playlistname == NULL) {
+			if (g_strrstr(filename,"/") != NULL) {
+				playlistname = g_strdup_printf("%s",g_strrstr(filename,"/") + 1);
+			} else {
+				playlistname = g_strdup(filename);
+			}
 		}
-		if (GTK_WIDGET(list)) {
-			column = gtk_tree_view_get_column(GTK_TREE_VIEW(list),0);
-			coltitle = g_strdup_printf(_("%s items"),playlistname);
-			gtk_tree_view_column_set_title(column,coltitle);
-			g_free(coltitle);
+		if (playlistname != NULL) {
+			if (GTK_WIDGET(list)) {
+				column = gtk_tree_view_get_column(GTK_TREE_VIEW(list),0);
+				coltitle = g_strdup_printf(_("%s items"),playlistname);
+				gtk_tree_view_column_set_title(column,coltitle);
+				g_free(coltitle);
+			}
 		}
 	} else {
 		g_free(playlistname);
