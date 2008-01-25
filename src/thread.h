@@ -29,7 +29,7 @@
 
 typedef struct _PlayData {
     gchar filename[4096];
-	gint playlist;
+    gint playlist;
 } PlayData;
 
 gint std_in;

@@ -232,7 +232,5 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data);
 void menuitem_quit_callback(GtkMenuItem * menuitem, void *data);
 
 gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
-                   gint x, gint y, GtkSelectionData * selection_data,
-                   guint info, guint t, gpointer data);
-
-
+                                gint x, gint y, GtkSelectionData * selection_data,
+                                guint info, guint t, gpointer data);
