@@ -729,6 +729,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 {
     loop = 0;
     ok_to_play = FALSE;
+	dontplaynext = TRUE;
     shutdown();
     while (gtk_events_pending() || thread != NULL) {
         gtk_main_iteration();
