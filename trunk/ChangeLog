@@ -1,4 +1,5 @@
 Development
+	Updated es translation by Festor
 	Fix to allow video window to get small again after playlist visible and then hidden
 	Fix another one of rwf's great dfu tests
 	Make sure media_label doesn't disappear on close playlist
