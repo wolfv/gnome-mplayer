@@ -90,7 +90,7 @@ gint play_file(gchar * filename, gint playlist)
     ThreadData *thread_data = (ThreadData *) g_new0(ThreadData, 1);
     GtkWidget *dialog;
     gchar *error_msg = NULL;
-    gchar *subtitle;
+    gchar *subtitle = NULL;
 
     if (verbose)
         printf("playing - %s\n", filename);
