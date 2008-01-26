@@ -491,6 +491,10 @@ void playlist_close(GtkWidget * widget, void *data)
     gint x, y, depth;
 
     gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height, &depth);
+	gtk_window_set_resizable(GTK_WINDOW(window), FALSE);	
+    gtk_widget_hide(GTK_WIDGET(fixed));
+    gtk_widget_show_all(media_label);
+    gtk_widget_set_size_request(window, -1, -1);
 	gtk_container_remove(GTK_CONTAINER(pane),plvbox);
 
 }
