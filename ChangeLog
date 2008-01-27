@@ -1,4 +1,5 @@
 Development
+	Fix problem with "Next" item in playlist
 	Fix problems with window_key_callback, as found by Diogo Franco
 	Updated es translation by Festor
 	Fix to allow video window to get small again after playlist visible and then hidden

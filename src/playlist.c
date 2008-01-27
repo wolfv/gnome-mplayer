@@ -497,6 +497,7 @@ void playlist_close(GtkWidget * widget, void *data)
     gtk_widget_set_size_request(window, -1, -1);
 	gtk_container_remove(GTK_CONTAINER(pane),plvbox);
 	plvbox = NULL;
+	selection = NULL;
 
 }
 
@@ -546,6 +547,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
             }
 			gtk_container_remove(GTK_CONTAINER(pane),plvbox);
 			plvbox = NULL;
+			selection = NULL;
         } 
 
     } else {

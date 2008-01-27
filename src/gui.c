@@ -1249,31 +1249,14 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
             send_command("seek_chapter 1 0\n");
         } else {
-            dontplaynext = TRUE;
-            if (next_item_in_playlist(&localiter)) {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,
-                                   &filename, COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                shutdown();
-                set_media_info_name(filename);
-                play_file(filename, playlist);
-                gtk_list_store_set(playliststore, &localiter, COUNT_COLUMN, count + 1, -1);
-                g_free(filename);
-                iter = localiter;
-                if (autopause) {
-                    autopause = FALSE;
-                    gtk_widget_set_sensitive(play_event_box, TRUE);
-                    gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
-                }
-                gtk_widget_set_sensitive(ff_event_box, TRUE);
-                gtk_widget_set_sensitive(rew_event_box, TRUE);
-            } else {
-                // printf("playlist is empty, resetting to end of list\n");
-                gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter);
-                do {
-                    iter = localiter;
-                    gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter);
-                } while (gtk_list_store_iter_is_valid(playliststore, &localiter));
+            shutdown();
+            if (autopause) {
+                autopause = FALSE;
+                gtk_widget_set_sensitive(play_event_box, TRUE);
+                gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
             }
+            gtk_widget_set_sensitive(ff_event_box, TRUE);
+            gtk_widget_set_sensitive(rew_event_box, TRUE);
         }
     } else {
         if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
