@@ -56,7 +56,7 @@ gboolean play(void *data)
 {
     PlayData *p = (PlayData *) data;
 
-    if (ok_to_play) {
+    if (ok_to_play && p != NULL) {
         play_file(p->filename, p->playlist);
     }
     g_free(p);

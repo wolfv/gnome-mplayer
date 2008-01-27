@@ -496,6 +496,7 @@ void playlist_close(GtkWidget * widget, void *data)
     gtk_widget_show_all(media_label);
     gtk_widget_set_size_request(window, -1, -1);
 	gtk_container_remove(GTK_CONTAINER(pane),plvbox);
+	plvbox = NULL;
 
 }
 
@@ -544,6 +545,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 				gtk_window_set_policy(GTK_WINDOW(window),TRUE,TRUE,TRUE);
             }
 			gtk_container_remove(GTK_CONTAINER(pane),plvbox);
+			plvbox = NULL;
         } 
 
     } else {
