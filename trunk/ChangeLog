@@ -1,4 +1,5 @@
 Development
+	Move some direct GTK calls out of the thread and into the main loop
 	Fix problem with "Next" item in playlist
 	Fix problems with window_key_callback, as found by Diogo Franco
 	Updated es translation by Festor
