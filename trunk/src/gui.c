@@ -1238,14 +1238,8 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    gchar *filename;
-    gint count;
-    gint playlist;
-    GtkTreeIter localiter = iter;
-    GtkTreePath *path;
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename, -1);
         if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
             send_command("seek_chapter 1 0\n");
         } else {
@@ -1262,11 +1256,6 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
             send_command("seek_chapter 1 0\n");
         }
-    }
-    if (GTK_IS_TREE_SELECTION(selection)) {
-        path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-        gtk_tree_selection_select_path(selection, path);
-        gtk_tree_path_free(path);
     }
 
     return FALSE;
