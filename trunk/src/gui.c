@@ -936,11 +936,13 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_j:
             send_command("pausing_keep sub_select\n");
+			return FALSE;
         case GDK_q:
             delete_callback(NULL, NULL, NULL);
             return FALSE;
         case GDK_v:
             send_command("pausing_keep sub_visibility\n");
+			return FALSE;
         default:
             return FALSE;
         }
