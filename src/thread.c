@@ -55,9 +55,9 @@ gboolean send_command(gchar * command)
 gboolean play(void *data)
 {
     PlayData *p = (PlayData *) data;
-	GtkTreePath *path;
-	gint count;
-	
+    GtkTreePath *path;
+    gint count;
+
     if (ok_to_play && p != NULL) {
         play_file(p->filename, p->playlist);
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COUNT_COLUMN, &count, -1);
@@ -785,30 +785,30 @@ gpointer launch_player(gpointer data)
 
     if (dontplaynext == FALSE) {
         if (next_item_in_playlist(&iter)) {
-			if (gtk_list_store_iter_is_valid(playliststore,&iter)) {
-	            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-	                               COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-				g_strlcpy(idledata->info,filename, 4096);
-				g_idle_add(set_media_info,idledata);
-	            g_strlcpy(p->filename, filename, 4096);
-	            p->playlist = playlist;
-	            g_idle_add(play, p);
-	            g_free(filename);
-			}
+            if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                                   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+                g_strlcpy(idledata->info, filename, 4096);
+                g_idle_add(set_media_info, idledata);
+                g_strlcpy(p->filename, filename, 4096);
+                p->playlist = playlist;
+                g_idle_add(play, p);
+                g_free(filename);
+            }
         } else {
             // printf("end of thread playlist is empty\n");
             if (loop) {
                 gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-				if (gtk_list_store_iter_is_valid(playliststore,&iter)) {
-	                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-	                                   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-					g_strlcpy(idledata->info,filename, 4096);
-					g_idle_add(set_media_info,idledata);
-	                g_strlcpy(p->filename, filename, 4096);
-	                p->playlist = playlist;
-	                g_idle_add(play, p);
-	                g_free(filename);
-				}
+                if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                                       COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+                    g_strlcpy(idledata->info, filename, 4096);
+                    g_idle_add(set_media_info, idledata);
+                    g_strlcpy(p->filename, filename, 4096);
+                    p->playlist = playlist;
+                    g_idle_add(play, p);
+                    g_free(filename);
+                }
             }
         }
     } else {

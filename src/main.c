@@ -216,8 +216,8 @@ int main(int argc, char *argv[])
     alang = NULL;
     slang = NULL;
     playlistname = NULL;
-	window_width = -1;
-	window_height = -1;
+    window_width = -1;
+    window_height = -1;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
