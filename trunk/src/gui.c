@@ -729,7 +729,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 {
     loop = 0;
     ok_to_play = FALSE;
-	dontplaynext = TRUE;
+    dontplaynext = TRUE;
     shutdown();
     while (gtk_events_pending() || thread != NULL) {
         gtk_main_iteration();
@@ -936,13 +936,13 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_j:
             send_command("pausing_keep sub_select\n");
-			return FALSE;
+            return FALSE;
         case GDK_q:
             delete_callback(NULL, NULL, NULL);
             return FALSE;
         case GDK_v:
             send_command("pausing_keep sub_visibility\n");
-			return FALSE;
+            return FALSE;
         default:
             return FALSE;
         }

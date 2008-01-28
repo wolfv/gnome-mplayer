@@ -491,13 +491,13 @@ void playlist_close(GtkWidget * widget, void *data)
     gint x, y, depth;
 
     gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height, &depth);
-	gtk_window_set_resizable(GTK_WINDOW(window), FALSE);	
+    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
     gtk_widget_hide(GTK_WIDGET(fixed));
     gtk_widget_show_all(media_label);
     gtk_widget_set_size_request(window, -1, -1);
-	gtk_container_remove(GTK_CONTAINER(pane),plvbox);
-	plvbox = NULL;
-	selection = NULL;
+    gtk_container_remove(GTK_CONTAINER(pane), plvbox);
+    plvbox = NULL;
+    selection = NULL;
 
 }
 
@@ -533,29 +533,29 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 
     if (GTK_IS_WIDGET(plvbox)) {
         if (GTK_WIDGET_VISIBLE(plvbox)) {
-            gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height,
-                                    &depth);
             if (idledata->videopresent == FALSE) {
+                gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height,
+                                        &depth);
                 gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
                 gtk_widget_hide(GTK_WIDGET(fixed));
                 gtk_widget_show_all(media_label);
                 gtk_widget_set_size_request(window, -1, -1);
             } else {
-				gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-            	gtk_widget_set_size_request(window, -1, -1);
-				gtk_window_set_policy(GTK_WINDOW(window),TRUE,TRUE,TRUE);
+                gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+                gtk_widget_set_size_request(window, -1, -1);
+                gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
             }
-			gtk_container_remove(GTK_CONTAINER(pane),plvbox);
-			plvbox = NULL;
-			selection = NULL;
-        } 
+            gtk_container_remove(GTK_CONTAINER(pane), plvbox);
+            plvbox = NULL;
+            selection = NULL;
+        }
 
     } else {
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-		if (window_width != -1) {
-    	    gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
-		}    
-		plvbox = gtk_vbox_new(FALSE, 12);
+        if (window_width != -1) {
+            gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
+        }
+        plvbox = gtk_vbox_new(FALSE, 12);
         hbox = gtk_hbox_new(FALSE, 12);
         gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
         box = gtk_hbox_new(FALSE, 10);
