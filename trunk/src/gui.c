@@ -831,6 +831,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
 gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer user_data)
 {
+    GTimeVal currenttime;
 
     // printf("key = %i\n",event->keyval);
     // printf("state = %i\n",event->state);
@@ -839,6 +840,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     // We don't want to handle CTRL accelerators here
     // if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
     if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
+
+	    g_get_current_time(&currenttime);
+	    last_movement_time = currenttime.tv_sec;
+
+	    g_idle_add(make_panel_and_mouse_visible, NULL);		
         switch (event->keyval) {
         case GDK_Right:
             return ff_callback(NULL, NULL, NULL);
@@ -1886,10 +1892,12 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
             gtk_widget_hide_all(button_event_box);
         }
         gtk_widget_show(controls_box);
+		showcontrols = TRUE;
     } else {
         //gtk_widget_hide_all(hbox);
         //gtk_widget_hide(song_title);
         gtk_widget_hide(controls_box);
+		showcontrols = FALSE;
     }
 }
 
