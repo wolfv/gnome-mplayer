@@ -154,6 +154,7 @@ gboolean set_media_label(void *data)
 
     if (data != NULL && idle != NULL && GTK_IS_WIDGET(media_label)) {
         gtk_label_set_markup(GTK_LABEL(media_label), idle->media_info);
+		gtk_label_set_max_width_chars(GTK_LABEL(media_label),10);
     }
 
     if (idle->videopresent == FALSE && show_media_label) {
@@ -698,7 +699,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 
     if (event->type == GDK_2BUTTON_PRESS) {
         event_button = (GdkEventButton *) event;
-        if (event_button->button == 1) {
+        if (event_button->button == 1 && idledata->videopresent == TRUE) {
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
         }
     }
