@@ -1,4 +1,6 @@
 Development
+	When double clicking, only all fullscreen call if video present
+	Don't let the media_label get to large when playing audio streams
 	Fix: controls comeback even if hidden after fullscreen being activated/deactivated
 	Move some direct GTK calls out of the thread and into the main loop
 	Fix problem with "Next" item in playlist
