@@ -151,6 +151,7 @@ gint actual_x, actual_y;
 gint play_x, play_y;
 gint last_x, last_y;
 gint last_window_width, last_window_height;
+gint stored_window_width, stored_window_height;
 gchar vm[10];
 gchar *vo;
 gchar *ao;
