@@ -457,6 +457,7 @@ void clear_playlist(GtkWidget * widget, void *data)
     shutdown();
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random),FALSE);
 }
 
 

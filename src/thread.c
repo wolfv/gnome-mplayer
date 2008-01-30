@@ -60,13 +60,15 @@ gboolean play(void *data)
 
     if (ok_to_play && p != NULL) {
         play_file(p->filename, p->playlist);
-        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COUNT_COLUMN, &count, -1);
-        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-        if (GTK_IS_TREE_SELECTION(selection)) {
-            path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-            gtk_tree_selection_select_path(selection, path);
-            gtk_tree_path_free(path);
-        }
+		if (gtk_list_store_iter_is_valid(playliststore, &iter)) {		
+	        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COUNT_COLUMN, &count, -1);
+	        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+	        if (GTK_IS_TREE_SELECTION(selection)) {
+	            path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+	            gtk_tree_selection_select_path(selection, path);
+	            gtk_tree_path_free(path);
+	        }
+		}
     }
     g_free(p);
 
