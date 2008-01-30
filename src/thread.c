@@ -646,7 +646,7 @@ gpointer launch_player(gpointer data)
             // argv[arg++] = g_strdup_printf("-nocache");
         } else {
             argv[arg++] = g_strdup_printf("-nomouseinput");
-            if (threaddata->streaming && force_cache == FALSE) {
+            if (threaddata->streaming && forcecache == FALSE) {
                 argv[arg++] = g_strdup_printf("-user-agent");
                 argv[arg++] = g_strdup_printf("NSPlayer");
             } else {

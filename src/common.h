@@ -31,6 +31,7 @@
 #define OSDLEVEL		"/apps/gnome-mplayer/preferences/osdlevel"
 #define SOFTVOL			"/apps/gnome-mplayer/preferences/softvol"
 #define VERBOSE			"/apps/gnome-mplayer/preferences/verbose"
+#define FORCECACHE		"/apps/gnome-mplayer/preferences/forcecache"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 
 #define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
@@ -134,7 +135,7 @@ enum {
 
 gchar *lastfile;
 gint cache_size;
-gboolean force_cache;
+gboolean forcecache;
 gint osdlevel;
 gint streaming;
 gint showcontrols;

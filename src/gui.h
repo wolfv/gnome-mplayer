@@ -178,7 +178,9 @@ GtkWidget *config_vo;
 GtkWidget *config_ao;
 GtkWidget *config_cachesize;
 GtkWidget *config_osdlevel;
+
 GtkWidget *config_softvol;
+GtkWidget *config_forcecache;
 GtkWidget *config_verbose;
 
 GtkWidget *config_alang;
