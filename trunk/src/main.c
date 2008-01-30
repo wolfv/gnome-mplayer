@@ -67,6 +67,8 @@ static GOptionEntry entries[] = {
     {"loop", 0, 0, G_OPTION_ARG_NONE, &loop, N_("Play all files on the playlist forever"), NULL},
     {"random", 0, 0, G_OPTION_ARG_NONE, &random_order, N_("Play items on playlist in random order"),
      NULL},
+    {"cache", 0, 0, G_OPTION_ARG_INT, &cache_size, N_("Set cache size"),
+     NULL},
     {"rpname", 0, 0, G_OPTION_ARG_STRING, &rpname, N_("Real Player Name"), "NAME"},
     {"rpconsole", 0, 0, G_OPTION_ARG_STRING, &rpconsole, N_("Real Player Console ID"), "CONSOLE"},
     {"rpcontrols", 0, 0, G_OPTION_ARG_STRING, &rpcontrols, N_("Real Player Console Controls"),
@@ -218,27 +220,30 @@ int main(int argc, char *argv[])
     playlistname = NULL;
     window_width = -1;
     window_height = -1;
+	cache_size = 0;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
     gconf = gconf_client_get_default();
-    cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
-    if (cache_size == 0)
-        cache_size = 2000;
     osdlevel = gconf_client_get_int(gconf, OSDLEVEL, NULL);
     softvol = gconf_client_get_int(gconf, SOFTVOL, NULL);
     qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
     dvx_disabled = gconf_client_get_bool(gconf, DISABLE_DVX, NULL);
-    g_object_unref(G_OBJECT(gconf));
 
     context = g_option_context_new(_("- GNOME Media player based on MPlayer"));
     g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
 
-    if (error != NULL) {
+	if (cache_size == 0)
+		cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
+    if (cache_size == 0)
+        cache_size = 2000;
+    g_object_unref(G_OBJECT(gconf));
+
+	if (error != NULL) {
         printf("%s\n", error->message);
         printf(_
                ("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
