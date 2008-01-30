@@ -1,4 +1,5 @@
 Development
+	Updated Edit->Preferences [Advanced] to have the force cache setting
 	Add --forcecache command line flag, forces cache usage when playing streaming media
 	Add --cache command line option, size of cache in Kbytes
 	Remember window size when showing/hiding playlist
