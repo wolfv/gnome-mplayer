@@ -544,6 +544,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
                 gtk_widget_set_size_request(window, -1, -1);
                 gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+				window_width = -1;
+				window_height = -1;
             }
             gtk_container_remove(GTK_CONTAINER(pane), plvbox);
             plvbox = NULL;
