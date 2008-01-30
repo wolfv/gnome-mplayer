@@ -1,4 +1,5 @@
 Development
+	Add --forcecache command line flag, forces cache usage when playing streaming media
 	Add --cache command line option, size of cache in Kbytes
 	Remember window size when showing/hiding playlist
 	When double clicking, only call fullscreen if video present
