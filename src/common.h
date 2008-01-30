@@ -134,6 +134,7 @@ enum {
 
 gchar *lastfile;
 gint cache_size;
+gboolean force_cache;
 gint osdlevel;
 gint streaming;
 gint showcontrols;
