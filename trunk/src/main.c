@@ -222,6 +222,8 @@ int main(int argc, char *argv[])
     playlistname = NULL;
     window_width = -1;
     window_height = -1;
+    stored_window_width = -1;
+    stored_window_height = -1;
 	cache_size = 0;
 	forcecache = FALSE;
 
