@@ -539,7 +539,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
 				window_width = -1;
 				window_height = -1;
-            	gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
+				if (stored_window_width != -1)
+	            	gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
             }
             gtk_container_remove(GTK_CONTAINER(pane), plvbox);
             plvbox = NULL;
