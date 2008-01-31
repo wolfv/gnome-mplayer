@@ -549,8 +549,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
     } else {
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
         if (idledata->videopresent == FALSE) {
-			
-            gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
+			if (window_width != -1)
+	            gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
 			
         } else {
 		
