@@ -489,17 +489,7 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
 
 void playlist_close(GtkWidget * widget, void *data)
 {
-    gint x, y, depth;
-
-    gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height, &depth);
-    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
-    gtk_widget_hide(GTK_WIDGET(fixed));
-    gtk_widget_show_all(media_label);
-    gtk_widget_set_size_request(window, -1, -1);
-    gtk_container_remove(GTK_CONTAINER(pane), plvbox);
-    plvbox = NULL;
-    selection = NULL;
-
+	menuitem_view_playlist_callback(NULL, NULL);	
 }
 
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
@@ -537,6 +527,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
             if (idledata->videopresent == FALSE) {
                 gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height,
                                         &depth);
+				stored_window_width = -1;
+				stored_window_height = -1;
                 gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
                 gtk_widget_hide(GTK_WIDGET(fixed));
                 gtk_widget_show_all(media_label);
@@ -547,18 +539,21 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
 				window_width = -1;
 				window_height = -1;
+            	gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
             }
             gtk_container_remove(GTK_CONTAINER(pane), plvbox);
             plvbox = NULL;
             selection = NULL;
-            gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
         }
 
     } else {
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-        if (window_width != -1) {
+        if (idledata->videopresent == FALSE) {
+			
             gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
+			
         } else {
+		
 			gdk_window_get_geometry(window->window, &x, &y, &stored_window_width, &stored_window_height,
                                         &depth);		
 		}
