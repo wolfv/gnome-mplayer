@@ -678,7 +678,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
     GtkMenu *menu;
     GdkEventButton *event_button;
     GTimeVal currenttime;
-
+	
     g_get_current_time(&currenttime);
     last_movement_time = currenttime.tv_sec;
     g_idle_add(make_panel_and_mouse_visible, NULL);
@@ -696,11 +696,16 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
             return TRUE;
         }
     }
-
+	
     if (event->type == GDK_2BUTTON_PRESS) {
         event_button = (GdkEventButton *) event;
-        if (event_button->button == 1 && idledata->videopresent == TRUE) {
-            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+		if (event_button->button == 1 && idledata->videopresent == TRUE) {
+			if (event_button->x > fixed->allocation.x 
+				&& event_button->y > fixed->allocation.y
+				&& event_button->x < fixed->allocation.x + fixed->allocation.width
+				&& event_button->y < fixed->allocation.y + fixed->allocation.height) {
+            	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+			}
         }
     }
 
@@ -1840,7 +1845,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gdk_drawable_get_size(GDK_DRAWABLE(window_container), &width, &height);
         if (width > 0 && height > 0)
             gtk_window_resize(GTK_WINDOW(window), width, height);
-        if (showcontrols)
+		if (stored_window_width != -1 )
+			gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
+		if (showcontrols)
             gtk_widget_show(controls_box);
 
     } else {
@@ -2946,6 +2953,7 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_quit), "activate",
                      G_CALLBACK(menuitem_quit_callback), NULL);
 
+
     g_signal_connect_swapped(G_OBJECT(window),
                              "button_press_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
@@ -3221,32 +3229,12 @@ GtkWidget *create_window(gint windowid)
     //gtk_box_pack_start(GTK_BOX(controls_box), song_title, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
 
-    //gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK);
-    //gtk_widget_add_events(drawing_area, GDK_BUTTON_RELEASE_MASK);
-    //gtk_widget_add_events(drawing_area, GDK_STRUCTURE_MASK);
     gtk_widget_add_events(drawing_area, GDK_POINTER_MOTION_MASK);
 
     g_signal_connect(GTK_OBJECT(drawing_area), "motion_notify_event",
                      G_CALLBACK(motion_notify_callback), NULL);
 
-    g_signal_connect_swapped(G_OBJECT(drawing_area),
-                             "button_press_event",
-                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
-    g_signal_connect_swapped(G_OBJECT(drawing_area),
-                             "button_release_event",
-                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
-
-    gtk_widget_add_events(fixed, GDK_BUTTON_PRESS_MASK);
-    gtk_widget_add_events(fixed, GDK_BUTTON_RELEASE_MASK);
-
-    g_signal_connect_swapped(G_OBJECT(fixed),
-                             "button_press_event",
-                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
-    g_signal_connect_swapped(G_OBJECT(fixed),
-                             "button_release_event",
-                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
-
-    gtk_widget_add_events(song_title, GDK_BUTTON_PRESS_MASK);
+	gtk_widget_add_events(song_title, GDK_BUTTON_PRESS_MASK);
     gtk_widget_add_events(song_title, GDK_BUTTON_RELEASE_MASK);
 
     g_signal_connect_swapped(G_OBJECT(song_title),
@@ -3258,8 +3246,9 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_show(menubar);
     gtk_widget_show(drawing_area);
+	
     pane = gtk_hpaned_new();
-    gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
+	gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
 
     vbox_master = gtk_vbox_new(FALSE, 0);
 

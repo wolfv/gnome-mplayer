@@ -554,9 +554,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 	            gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
 			
         } else {
-		
-			gdk_window_get_geometry(window->window, &x, &y, &stored_window_width, &stored_window_height,
-                                        &depth);		
+			gdk_window_get_geometry(window->window, &x, &y, &stored_window_width, &stored_window_height, &depth);		
 		}
 		plvbox = gtk_vbox_new(FALSE, 12);
         hbox = gtk_hbox_new(FALSE, 12);
@@ -716,7 +714,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         g_signal_connect_swapped(G_OBJECT(list),
                                  "button_press_event",
                                  G_CALLBACK(playlist_popup_handler),
-                                 GTK_OBJECT(playlist_popup_menu));
+                                 G_OBJECT(playlist_popup_menu));
         gtk_widget_show_all(GTK_WIDGET(playlist_popup_menu));
 
 
