@@ -569,6 +569,8 @@ gboolean thread_query(gpointer data)
 	if (threaddata->done == TRUE) {
         if (verbose)
             printf("shutting down threadquery since threaddata->done is TRUE\n");
+	    g_free(threaddata);
+	    threaddata = NULL;
         return FALSE;
     }
 
@@ -837,8 +839,6 @@ gpointer launch_player(gpointer data)
         dontplaynext = FALSE;
     }
 
-    g_free(threaddata);
-    threaddata = NULL;
     thread = NULL;
     return NULL;
 }
