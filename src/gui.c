@@ -69,7 +69,6 @@ gboolean hide_buttons(void *data)
     if (GTK_IS_WIDGET(menuitem_file_details))
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), TRUE);
 
-    // printf("count = %i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),NULL));
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2 && lastfile != NULL
         && g_strncasecmp(lastfile, "dvdnav", 6) != 0) {
         gtk_widget_hide(prev_event_box);
@@ -80,7 +79,8 @@ gboolean hide_buttons(void *data)
         gtk_widget_show_all(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
     }
-    return FALSE;
+
+	return FALSE;
 }
 
 gboolean show_copyurl(void *data)
@@ -166,8 +166,6 @@ gboolean set_media_label(void *data)
 
     return FALSE;
 }
-
-
 
 gboolean set_progress_value(void *data)
 {
@@ -1811,12 +1809,9 @@ void menuitem_edit_switch_audio_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 {
-
     gint width = 0, height = 0;
-    // GdkGC *gc;
 
-    //printf("doing fullscreen callback\n");
-    if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
+	if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
         gtk_window_unfullscreen(GTK_WINDOW(window));
 
         if (embed_window != 0) {
@@ -1852,8 +1847,6 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
     } else {
         if (embed_window != 0) {
-            //while (gtk_events_pending())
-            //    gtk_main_iteration();
 
             if (GTK_WIDGET_MAPPED(window))
                 gtk_widget_unmap(window);
@@ -1903,8 +1896,6 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
         gtk_widget_show(controls_box);
 		showcontrols = TRUE;
     } else {
-        //gtk_widget_hide_all(hbox);
-        //gtk_widget_hide(song_title);
         gtk_widget_hide(controls_box);
 		showcontrols = FALSE;
     }
@@ -1933,7 +1924,6 @@ void config_apply(GtkWidget * widget, void *data)
 
     update_mplayer_config();
 
-    //cache_size = (int) gtk_range_get_value(GTK_RANGE(config_cachesize));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
