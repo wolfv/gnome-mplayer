@@ -1,4 +1,5 @@
 Development
+	Fix problem where gnome-mplayer uses more and more resources on long playlist
 	Fix segfault when clicking prev or next when nothing has been played
 	When using glib 2.14 or higher use more effiencient timeout method, results in lower X usage
 	Move menubar out of pane
