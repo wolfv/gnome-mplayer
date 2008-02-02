@@ -1211,7 +1211,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter);
         } while (gtk_list_store_iter_is_valid(playliststore, &localiter));
 
-        if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+        if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
             valid = FALSE;
             send_command("seek_chapter -1 0\n");
         }
@@ -1263,7 +1263,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             gtk_widget_set_sensitive(rew_event_box, TRUE);
         }
     } else {
-        if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+        if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
             send_command("seek_chapter 1 0\n");
         }
     }

@@ -547,7 +547,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 gboolean thread_query(gpointer data)
 {
     int size;
-
+	ThreadData *threaddata = (ThreadData *) data;
+	
     //printf("thread_query state = %i\n",state);
 
     // this function wakes up every 1/2 second and so 
@@ -562,6 +563,12 @@ gboolean thread_query(gpointer data)
     if (data == NULL) {
         if (verbose)
             printf("shutting down threadquery since threaddata is NULL\n");
+        return FALSE;
+    }
+
+	if (threaddata->done == TRUE) {
+        if (verbose)
+            printf("shutting down threadquery since threaddata->done is TRUE\n");
         return FALSE;
     }
 
@@ -752,6 +759,7 @@ gpointer launch_player(gpointer data)
     g_mutex_lock(thread_running);
     if (verbose)
         printf("Thread completing\n");
+	threaddata->done = TRUE;
     g_source_remove(watch_in_id);
     g_source_remove(watch_err_id);
     g_source_remove(watch_in_hup_id);
@@ -767,16 +775,19 @@ gpointer launch_player(gpointer data)
 
     if (channel_in != NULL) {
         g_io_channel_shutdown(channel_in, FALSE, NULL);
+		g_io_channel_unref(channel_in);
         channel_in = NULL;
     }
 
     if (channel_out != NULL) {
         g_io_channel_shutdown(channel_out, FALSE, NULL);
+		g_io_channel_unref(channel_out);
         channel_out = NULL;
     }
 
     if (channel_err != NULL) {
         g_io_channel_shutdown(channel_err, FALSE, NULL);
+		g_io_channel_unref(channel_err);
         channel_err = NULL;
     }
 

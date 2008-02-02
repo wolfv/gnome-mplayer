@@ -120,6 +120,7 @@ typedef struct _ThreadData {
     gint streaming;
     gint player_window;
     gint playlist;
+	gboolean done;
 } ThreadData;
 
 enum {
