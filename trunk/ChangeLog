@@ -1,4 +1,5 @@
 Development
+	Reenable -quiet option when running mplayer, drops gnome-mplayer cpu usage 
 	If title from get_metadata is 0 bytes long, then use the file name
 	Only fullscreen when doubleclick is done on the video
 	Fix Playlist windows resize issues

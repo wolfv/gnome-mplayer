@@ -629,7 +629,7 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
-    //argv[arg++] = g_strdup_printf("-quiet");
+    argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
 
