@@ -3211,9 +3211,6 @@ GtkWidget *create_window(gint windowid)
     //gtk_widget_set_state(song_title, GTK_STATE_INSENSITIVE);
     GTK_WIDGET_UNSET_FLAGS(song_title, GTK_CAN_FOCUS);
 
-    if (windowid == 0)
-        gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
-
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), media_label, FALSE, FALSE, 0);
@@ -3235,13 +3232,15 @@ GtkWidget *create_window(gint windowid)
                              "button_release_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
 
-    gtk_widget_show(menubar);
     gtk_widget_show(drawing_area);
 	
     pane = gtk_hpaned_new();
 	gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
 
     vbox_master = gtk_vbox_new(FALSE, 0);
+    if (windowid == 0)
+        gtk_box_pack_start(GTK_BOX(vbox_master), menubar, FALSE, FALSE, 0);
+    gtk_widget_show(menubar);
 
     gtk_box_pack_start(GTK_BOX(vbox_master), pane, TRUE, TRUE, 0);
 
