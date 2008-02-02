@@ -58,6 +58,7 @@ static GOptionEntry entries[] = {
     {"playlist", 0, 0, G_OPTION_ARG_NONE, &playlist, N_("File Argument is a playlist"), NULL},
     {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more ouput on the console"), NULL},
     {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
+    {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
      "[0|1]"},
     {"autostart", 0, 0, G_OPTION_ARG_INT, &autostart,
@@ -227,6 +228,7 @@ int main(int argc, char *argv[])
     stored_window_height = -1;
 	cache_size = 0;
 	forcecache = FALSE;
+	volume = 0;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -249,6 +251,10 @@ int main(int argc, char *argv[])
     if (cache_size == 0)
         cache_size = 2000;
     g_object_unref(G_OBJECT(gconf));
+	
+	if (volume > 0 && volume <= 100) {
+		idledata->volume = (gdouble)volume;
+	}
 
 	if (error != NULL) {
         printf("%s\n", error->message);
