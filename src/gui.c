@@ -3461,7 +3461,7 @@ GtkWidget *create_window(gint windowid)
         adj->upper = 100.0;
         adj->step_increment = 1.0;
         gtk_scale_button_set_adjustment(GTK_SCALE_BUTTON(vol_slider), adj);
-        gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), 100.0);
+        gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), idledata->volume);
         gtk_widget_set_size_request(vol_slider, -1, 22);
         g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_button_callback),
                          NULL);
@@ -3470,7 +3470,7 @@ GtkWidget *create_window(gint windowid)
         vol_slider = gtk_hscale_new_with_range(0.0, 100.0, 1.0);
         gtk_widget_set_size_request(vol_slider, 44, 16);
         gtk_scale_set_draw_value(GTK_SCALE(vol_slider), FALSE);
-        gtk_range_set_value(GTK_RANGE(vol_slider), 100.0);
+        gtk_range_set_value(GTK_RANGE(vol_slider), idledata->volume);
         g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_slider_callback),
                          NULL);
 #endif

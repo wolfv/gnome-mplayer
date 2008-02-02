@@ -175,6 +175,7 @@ gboolean ok_to_play;
 gchar *subtitle;
 gchar *alang;
 gchar *slang;
+gint volume;
 
 // tv stuff
 gchar *tv_device;
