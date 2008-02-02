@@ -818,7 +818,7 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
     if (!device_name(itemname) && !streaming_media(itemname)) {
         get_metadata(itemname, &desc, &artist, &length);
 
-        if (desc == NULL) {
+        if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
             if (g_strrstr(itemname, "/") != NULL) {
                 desc = g_strdup_printf("%s", g_strrstr(itemname, "/") + sizeof(gchar));
             } else {
