@@ -1357,8 +1357,8 @@ gboolean make_panel_and_mouse_visible(gpointer data)
         if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
             gtk_widget_show(controls_box);
         }
+    	gdk_window_set_cursor(window->window, NULL);
     }
-    gdk_window_set_cursor(window->window, NULL);
 
     return FALSE;
 }
@@ -1844,6 +1844,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 			gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
 		if (showcontrols)
             gtk_widget_show(controls_box);
+    	gdk_window_set_cursor(window->window, NULL);
 
     } else {
         if (embed_window != 0) {
