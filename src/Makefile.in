@@ -107,6 +107,9 @@ FFLAGS = @FFLAGS@
 GCONF_CFLAGS = @GCONF_CFLAGS@
 GCONF_LIBS = @GCONF_LIBS@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GLIB2_14_CFLAGS = @GLIB2_14_CFLAGS@
+GLIB2_14_DEFINES = @GLIB2_14_DEFINES@
+GLIB2_14_LIBS = @GLIB2_14_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 GREP = @GREP@
@@ -218,7 +221,8 @@ INCLUDES = \
 AM_CFLAGS = \
 	 -Wall\
 	 -g\
-	 $(GTK2_12_DEFINES) 
+	 $(GTK2_12_DEFINES)\
+	 $(GLIB2_14_DEFINES)
 
 gnome_mplayer_SOURCES = \
 	../config.h \
@@ -242,7 +246,8 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/media-seek-forward.xpm \
 	../pixmaps/media-skip-backward.xpm \
 	../pixmaps/media-skip-forward.xpm \
-	../pixmaps/view-fullscreen.xpm
+	../pixmaps/view-fullscreen.xpm \
+	langlist.h 
 
 gnome_mplayer_LDFLAGS = 
 gnome_mplayer_LDADD = $(GTK_LIBS) $(DBUS_LIBS) $(GCONF_LIBS)

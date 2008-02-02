@@ -14,7 +14,8 @@ INCLUDES = \
 AM_CFLAGS =\
 	 -Wall\
 	 -g\
-	 $(GTK2_12_DEFINES) 
+	 $(GTK2_12_DEFINES)\
+	 $(GLIB2_14_DEFINES)
 
 bin_PROGRAMS = gnome-mplayer 
 
