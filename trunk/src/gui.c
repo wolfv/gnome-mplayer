@@ -505,6 +505,8 @@ gboolean resize_window(void *data)
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             } else {
                 if (embed_window != -1) {
+					show_media_label = TRUE;
+					gtk_widget_show(media_label);						
                     if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
                         // gtk_widget_hide(drawing_area);
 						gtk_widget_hide(vbox);
