@@ -805,6 +805,53 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
 
 }
 
+gint get_bitrate(gchar * name)
+{
+
+    GError *error;
+    gint exit_status;
+    gchar *stdout = NULL;
+    gchar *stderr = NULL;
+    gchar *av[255];
+    gint ac = 0;
+    gchar **output;
+	gint bitrate = 0;
+	
+    av[ac++] = g_strdup_printf("mplayer");
+    av[ac++] = g_strdup_printf("-vo");
+    av[ac++] = g_strdup_printf("null");
+    av[ac++] = g_strdup_printf("-ao");
+    av[ac++] = g_strdup_printf("null");
+    av[ac++] = g_strdup_printf("-frames");
+    av[ac++] = g_strdup_printf("0");
+    av[ac++] = g_strdup_printf("-identify");
+    av[ac++] = g_strdup_printf("-nocache");
+    av[ac++] = g_strdup_printf("%s", name);
+    av[ac] = NULL;
+
+    error = NULL;
+
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+                 &exit_status, &error);
+    if (error != NULL) {
+        printf("Error when running: %s\n", error->message);
+        g_error_free(error);
+        error = NULL;
+    }
+    output = g_strsplit(stdout, "\n", 0);
+    ac = 0;
+    while (output[ac] != NULL) {
+        ac++;
+    }
+
+    g_strfreev(output);
+    if (stdout != NULL)
+        g_free(stdout);
+    if (stderr != NULL)
+        g_free(stderr);
+
+	return bitrate;
+}
 
 
 GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)

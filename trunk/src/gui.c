@@ -1574,7 +1574,7 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
-    parse_cdda("cdda://");
+    parse_playlist("cdda://");
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
