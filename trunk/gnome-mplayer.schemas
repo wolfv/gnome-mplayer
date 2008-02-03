@@ -53,7 +53,7 @@
       <key>/schemas/apps/gnome-mplayer/preferences/vertical</key>
       <applyto>/apps/gnome-mplayer/preferences/vertical</applyto>
       <owner>gnome-mplayer</owner>
-      <type>boolean</type>
+      <type>bool</type>
       <default>FALSE</default>
       <locale name="C">
         <short>Vertical</short>
