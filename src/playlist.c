@@ -700,15 +700,21 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         gtk_paned_pack2(GTK_PANED(pane), plvbox, FALSE, FALSE);
 
 		if (vertical_layout) {
-        	// gtk_widget_set_size_request(plvbox, -1, 300);
+        	gtk_widget_set_size_request(plvbox, -1, 150);
+			if (idledata->videopresent)
+				gtk_window_resize(GTK_WINDOW(window),stored_window_width,stored_window_height+150);
 		} else {	
 	        gtk_widget_set_size_request(plvbox, 300, -1);
+			if (idledata->videopresent)
+				gtk_window_resize(GTK_WINDOW(window),stored_window_width+300,stored_window_height);
 		}
         gtk_widget_show_all(plvbox);
         if (idledata->videopresent == FALSE) {
             gtk_widget_show(GTK_WIDGET(fixed));
-        }
-
+        } else {
+			gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+		}
+		
         playlist_popup_menu = GTK_MENU(gtk_menu_new());
         playlist_set_subtitle =
             GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Set Subtitle")));
