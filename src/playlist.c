@@ -112,7 +112,7 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
         while (list[i] != NULL) {
             g_strchomp(list[i]);
             if (strlen(list[i]) > 0) {
-
+printf("filename = '%s'\n",list[i]);
                 playlist = detect_playlist(list[i]);
 
                 if (!playlist) {
