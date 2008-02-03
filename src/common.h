@@ -31,6 +31,7 @@
 #define OSDLEVEL		"/apps/gnome-mplayer/preferences/osdlevel"
 #define SOFTVOL			"/apps/gnome-mplayer/preferences/softvol"
 #define VERBOSE			"/apps/gnome-mplayer/preferences/verbose"
+#define VERTICAL		"/apps/gnome-mplayer/preferences/vertical"
 #define FORCECACHE		"/apps/gnome-mplayer/preferences/forcecache"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 
@@ -176,6 +177,7 @@ gchar *subtitle;
 gchar *alang;
 gchar *slang;
 gint volume;
+gboolean vertical_layout;
 
 // tv stuff
 gchar *tv_device;

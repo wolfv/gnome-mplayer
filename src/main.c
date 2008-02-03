@@ -72,6 +72,8 @@ static GOptionEntry entries[] = {
      NULL},
     {"forcecache", 0, 0, G_OPTION_ARG_NONE, &forcecache, N_("Force cache usage on streaming sites"),
      NULL},
+	{"vertical", 0, 0, G_OPTION_ARG_NONE, &vertical_layout, N_("Use Vertical Layout"),
+     NULL},	
     {"rpname", 0, 0, G_OPTION_ARG_STRING, &rpname, N_("Real Player Name"), "NAME"},
     {"rpconsole", 0, 0, G_OPTION_ARG_STRING, &rpconsole, N_("Real Player Console ID"), "CONSOLE"},
     {"rpcontrols", 0, 0, G_OPTION_ARG_STRING, &rpcontrols, N_("Real Player Console Controls"),
@@ -229,6 +231,7 @@ int main(int argc, char *argv[])
 	cache_size = 0;
 	forcecache = FALSE;
 	volume = 0;
+	vertical_layout = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -236,6 +239,7 @@ int main(int argc, char *argv[])
     osdlevel = gconf_client_get_int(gconf, OSDLEVEL, NULL);
     softvol = gconf_client_get_int(gconf, SOFTVOL, NULL);
     forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
+    vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
     qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);

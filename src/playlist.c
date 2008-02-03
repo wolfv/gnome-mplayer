@@ -699,7 +699,11 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 
         gtk_paned_pack2(GTK_PANED(pane), plvbox, FALSE, FALSE);
 
-        gtk_widget_set_size_request(plvbox, 300, -1);
+		if (vertical_layout) {
+        	// gtk_widget_set_size_request(plvbox, -1, 300);
+		} else {	
+	        gtk_widget_set_size_request(plvbox, 300, -1);
+		}
         gtk_widget_show_all(plvbox);
         if (idledata->videopresent == FALSE) {
             gtk_widget_show(GTK_WIDGET(fixed));

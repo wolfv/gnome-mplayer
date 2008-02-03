@@ -49,5 +49,17 @@
       </locale>
     </schema>
 
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/vertical</key>
+      <applyto>/apps/gnome-mplayer/preferences/vertical</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>boolean</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Vertical</short>
+        <long>Use Veritical Layout</long>
+      </locale>
+    </schema>
+
   </schemalist>
 </gconfschemafile>
