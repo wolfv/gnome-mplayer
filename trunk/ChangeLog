@@ -1,4 +1,6 @@
 Development
+	Fix bug where video window doesn't disappear when playing audio file after video file
+	Fix bug where only first drag and dropped file got metadata
 	Move thread unlock to very end of the thread.
 	Get seconds in playlist to display right
 	GUI Experiment, when playing audio hide the song detail and black area when the playlist is opened
