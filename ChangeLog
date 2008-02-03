@@ -1,4 +1,5 @@
 Development
+	Make sure media label is visible on audio only files
 	Couple of playlist window resize changes
 	Add commandline option --vertical, which uses a vertical layout for the video and playlist
 	Fix bug where video window doesn't disappear when playing audio file after video file
