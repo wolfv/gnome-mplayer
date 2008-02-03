@@ -754,9 +754,9 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
                 seconds = seconds - (min * 60);
             }
             if (hour > 0) {
-                *length = g_strdup_printf("%i:%02i:%02.1f", hour, min, seconds);
+                *length = g_strdup_printf("%i:%02i:%04.1f", hour, min, seconds);
             } else {
-                *length = g_strdup_printf("%02i:%02.1f", min, seconds);
+                *length = g_strdup_printf("%02i:%04.1f", min, seconds);
             }
         }
 
