@@ -423,7 +423,7 @@ gboolean resize_window(void *data)
     if (GTK_IS_WIDGET(window)) {
         if (idle->videopresent) {
 			gtk_widget_show(vbox);
-			show_media_label == FALSE;
+			show_media_label = FALSE;
 			gtk_widget_hide(media_label);
             g_get_current_time(&currenttime);
             last_movement_time = currenttime.tv_sec;
@@ -3238,7 +3238,11 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_show(drawing_area);
 	
-    pane = gtk_hpaned_new();
+	if (vertical_layout) {
+		pane = gtk_vpaned_new();
+	} else {
+	    pane = gtk_hpaned_new();
+	}
 	gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
 
     vbox_master = gtk_vbox_new(FALSE, 0);
