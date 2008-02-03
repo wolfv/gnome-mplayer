@@ -1,4 +1,6 @@
 Development
+	Move thread unlock to very end of the thread.
+	Get seconds in playlist to display right
 	GUI Experiment, when playing audio hide the song detail and black area when the playlist is opened
 	Command line option to set preferred volume, will take up to 1 second to apply on first song due to GTK idle event timeout
 	Fix problem where gnome-mplayer uses more and more resources on long playlist

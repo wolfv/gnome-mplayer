@@ -799,8 +799,6 @@ gpointer launch_player(gpointer data)
         argv[arg] = NULL;
         arg++;
     }
-    g_mutex_unlock(thread_running);
-    // printf("Thread done\n");
 
     if (dontplaynext == FALSE) {
         if (next_item_in_playlist(&iter)) {
@@ -838,6 +836,8 @@ gpointer launch_player(gpointer data)
         }
         dontplaynext = FALSE;
     }
+    g_mutex_unlock(thread_running);
+    // printf("Thread done\n");
 
     thread = NULL;
     return NULL;
