@@ -583,6 +583,8 @@ gboolean thread_query(gpointer data)
 
             send_command("get_time_pos\n");
             send_command("get_property stream_pos\n");
+			if (threaddata->streaming)
+				send_command("get_property metadata\n");
             g_idle_add(make_panel_and_mouse_invisible, NULL);
             return TRUE;
         }

@@ -1,4 +1,5 @@
 Development
+	Update the metadata when the media is streaming in thread_query
 	Implement get_bitrate dbus method and function
 	Add --showplaylist commandline option
 	Make sure media label is visible on audio only files
