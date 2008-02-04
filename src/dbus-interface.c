@@ -69,6 +69,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     gint count;
     GtkTreePath *treepath;
     gint source_id;
+	gint bitrate;
 
     message_type = dbus_message_get_type(message);
     sender = dbus_message_get_sender(message);
@@ -644,6 +645,9 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                           "    </method>\n"
                                           "    <method name=\"GetPlayState\">\n"
                                           "    </method>\n"
+                                          "    <method name=\"GetBitrate\">\n"
+                                          "        <arg name=\"url\" type=\"s\" />\n"
+                                          "    </method>\n"
                                           "    <signal name=\"Open\">\n"
                                           "        <arg name=\"url\" type=\"s\" />\n"
                                           "    </signal>\n"
@@ -739,6 +743,21 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetPlayState")) {
                     reply_message = dbus_message_new_method_return(message);
                     dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &js_state,
+                                             DBUS_TYPE_INVALID);
+                    dbus_connection_send(connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetBitrate")) {
+					dbus_error_init(&error);
+					if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {					
+						bitrate = get_bitrate(s);
+					} else {
+						dbus_error_free(&error);
+						bitrate = 0;
+					}
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &bitrate,
                                              DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
