@@ -816,6 +816,12 @@ gint get_bitrate(gchar * name)
     gint ac = 0;
     gchar **output;
 	gint bitrate = 0;
+	gdouble vbitrate = 0.0;
+	gdouble abitrate = 0.0;
+	gchar *buf;
+	
+	if (!g_file_test(name, G_FILE_TEST_EXISTS))
+		return 0;
 	
     av[ac++] = g_strdup_printf("mplayer");
     av[ac++] = g_strdup_printf("-vo");
@@ -841,6 +847,14 @@ gint get_bitrate(gchar * name)
     output = g_strsplit(stdout, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
+	    if (strstr(output[ac], "ID_VIDEO_BITRATE") != 0) {
+	        buf = strstr(output[ac], "ID_VIDEO_BITRATE") + strlen("ID_VIDEO_BITRATE=");
+	        vbitrate = g_strtod(buf, NULL);
+	    }
+	    if (strstr(output[ac], "ID_AUDIO_BITRATE") != 0) {
+	        buf = strstr(output[ac], "ID_AUDIO_BITRATE") + strlen("ID_AUDIO_BITRATE=");
+	        abitrate = g_strtod(buf, NULL);
+	    }		
         ac++;
     }
 
@@ -850,6 +864,9 @@ gint get_bitrate(gchar * name)
     if (stderr != NULL)
         g_free(stderr);
 
+	bitrate = vbitrate + abitrate;
+	if (verbose)
+		printf ("bitrate = %i\n",bitrate);
 	return bitrate;
 }
 
@@ -865,7 +882,7 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
 
     if (!device_name(itemname) && !streaming_media(itemname)) {
         get_metadata(itemname, &desc, &artist, &length);
-
+		
         if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
             if (g_strrstr(itemname, "/") != NULL) {
                 desc = g_strdup_printf("%s", g_strrstr(itemname, "/") + sizeof(gchar));
