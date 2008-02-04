@@ -820,6 +820,9 @@ gint get_bitrate(gchar * name)
 	gdouble abitrate = 0.0;
 	gchar *buf;
 	
+	if (name == NULL)
+		return 0;
+	
 	if (!g_file_test(name, G_FILE_TEST_EXISTS))
 		return 0;
 	
