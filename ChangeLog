@@ -1,4 +1,5 @@
 Development
+	Change bitrate calculation when video is present, but mplayer reports the video bitrate as 0
 	Update the metadata when the media is streaming in thread_query
 	Implement get_bitrate dbus method and function
 	Add --showplaylist commandline option
