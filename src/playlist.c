@@ -574,6 +574,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
             gtk_tree_selection_select_path(selection, path);
+			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list),path,NULL,FALSE,0,0);
             gtk_tree_path_free(path);
         }
 
