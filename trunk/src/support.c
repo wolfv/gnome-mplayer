@@ -816,8 +816,8 @@ gint get_bitrate(gchar * name)
     gint ac = 0;
     gchar **output;
 	gint bitrate = 0;
-	gdouble vbitrate = 0.0;
-	gdouble abitrate = 0.0;
+	gint vbitrate = -1;
+	gint abitrate = -1;
 	gchar *buf;
 	
 	if (name == NULL)
@@ -867,7 +867,16 @@ gint get_bitrate(gchar * name)
     if (stderr != NULL)
         g_free(stderr);
 
-	bitrate = vbitrate + abitrate;
+	if (vbitrate <= 0 && abitrate <= 0) {
+		bitrate = 0;
+	} else if (vbitrate == 0 && abitrate > 0) {
+		// mplayer knows there is video, but doesn't know the bit rate
+		// so we make the total bitrate 10 times the audio bitrate
+		bitrate = abitrate * 10;	
+	} else {
+		bitrate = vbitrate + abitrate;
+	}
+	
 	if (verbose)
 		printf ("bitrate = %i\n",bitrate);
 	return bitrate;
