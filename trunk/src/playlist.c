@@ -442,6 +442,8 @@ void remove_from_playlist(GtkWidget * widget, gpointer data)
             if (GTK_IS_TREE_SELECTION(selection)) {
                 path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
                 gtk_tree_selection_select_path(selection, path);
+				if (GTK_IS_WIDGET(list))
+					gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list),path,NULL,FALSE,0,0);
                 gtk_tree_path_free(path);
             }
         }
