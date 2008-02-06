@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer 0.5.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-06 07:19-0700\n"
+"POT-Creation-Date: 2008-02-06 08:39-0700\n"
 "PO-Revision-Date: 2008-02-06 15:42+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <gnomepl@pandora.info.bielsko.pl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: src/main.c:54
 msgid "Window to embed in"
@@ -411,7 +411,8 @@ msgstr "Programowa kontrola dźwięku mplayera włączona"
 
 #: src/gui.c:2651
 msgid "Force the use of cache setting on streaming media"
-msgstr "Wymuś użycie ustawionego bufora na multimediach przesyłanych strumieniowo"
+msgstr ""
+"Wymuś użycie ustawionego bufora na multimediach przesyłanych strumieniowo"
 
 #: src/gui.c:2656
 msgid "Verbose Debug Enabled"
@@ -573,7 +574,8 @@ msgstr "%s elementów"
 
 #: src/support.c:999 src/support.c:1032
 msgid "Unable to save playlist, cannot open file for writing"
-msgstr "Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
+msgstr ""
+"Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
 
 #: src/thread.c:137
 #, c-format
@@ -675,11 +677,17 @@ msgid "Choose Directory"
 msgstr "Wybierz katalog"
 
 #: src/playlist.c:418
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "\n"
+"\tFound %i file\n"
+msgid_plural ""
+"\n"
 "\tFound %i files\n"
-msgstr ""
+msgstr[0] ""
+"\n"
+"\tZnaleziono %i plików\n"
+msgstr[1] ""
 "\n"
 "\tZnaleziono %i plików\n"
 
