@@ -10,12 +10,12 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer 0.5.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-06 07:19-0700\n"
-"PO-Revision-Date: 2008-01-10 18:33+0100\n"
+"PO-Revision-Date: 2008-02-06 15:42+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <gnomepl@pandora.info.bielsko.pl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: src/main.c:54
 msgid "Window to embed in"
@@ -42,13 +42,12 @@ msgid "Show more ouput on the console"
 msgstr "Pokaż więcej wyjścia w konsoli"
 
 #: src/main.c:60
-#, fuzzy
 msgid "Use mplayer software volume control"
-msgstr "Elementy sterujące konsoli Real Player"
+msgstr "Użyj programowej kontroli głośności mplayera"
 
 #: src/main.c:61
 msgid "Set initial volume percentage"
-msgstr ""
+msgstr "Ustaw początkową siłę głosu"
 
 #: src/main.c:62
 msgid "Show the controls in window"
@@ -74,19 +73,19 @@ msgstr "Odtwarzaj elementy listy odtwarzania w losowej kolejności"
 
 #: src/main.c:71
 msgid "Set cache size"
-msgstr ""
+msgstr "Ustaw rozmiar bufora"
 
 #: src/main.c:73
 msgid "Force cache usage on streaming sites"
-msgstr ""
+msgstr "Wymuś użycie bufora na stronach przesyłających strumienie"
 
 #: src/main.c:75
 msgid "Use Vertical Layout"
-msgstr ""
+msgstr "Użyj układu pionowego"
 
 #: src/main.c:77
 msgid "Start with playlist open"
-msgstr ""
+msgstr "Uruchom z otwartą listą odtwarzania"
 
 #: src/main.c:79
 msgid "Real Player Name"
@@ -336,7 +335,7 @@ msgstr "Wtyczka"
 
 #: src/gui.c:2406
 msgid "Language Settings"
-msgstr ""
+msgstr "Ustawienia języka"
 
 #: src/gui.c:2408
 msgid "Advanced"
@@ -391,17 +390,16 @@ msgid "DiVX Player Emulation"
 msgstr "Emulacja DIVX Player"
 
 #: src/gui.c:2607
-#, fuzzy
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
-msgstr "<span weight=\"bold\">Dostosuj ustawienia obrazu</span>"
+msgstr "<span weight=\"bold\">Dostosuj ustawienia języka</span>"
 
 #: src/gui.c:2614
 msgid "Default Audio Language"
-msgstr ""
+msgstr "Domyślny język dźwięku"
 
 #: src/gui.c:2624
 msgid "Default Subtitle Language:"
-msgstr ""
+msgstr "Domyślny język napisów:"
 
 #: src/gui.c:2639
 msgid "<span weight=\"bold\">Advanced Settings</span>"
@@ -409,11 +407,11 @@ msgstr "<span weight=\"bold\">Ustawienia zaawansowane</span>"
 
 #: src/gui.c:2646
 msgid "Mplayer Software Volume Control Enabled"
-msgstr ""
+msgstr "Programowa kontrola dźwięku mplayera włączona"
 
 #: src/gui.c:2651
 msgid "Force the use of cache setting on streaming media"
-msgstr ""
+msgstr "Wymuś użycie ustawionego bufora na multimediach przesyłanych strumieniowo"
 
 #: src/gui.c:2656
 msgid "Verbose Debug Enabled"
@@ -471,7 +469,7 @@ msgstr "_Zapętl listę odtwarzania"
 
 #: src/gui.c:3039
 msgid "S_witch Audio Track"
-msgstr ""
+msgstr "_Przełącz ścieżkę dźwiękową"
 
 #. View Menu
 #: src/gui.c:3062
@@ -499,9 +497,8 @@ msgid "_Half Size (1:2)"
 msgstr "P_ołowa rozmiaru (1:2)"
 
 #: src/gui.c:3093
-#, fuzzy
 msgid "_Aspect"
-msgstr "Proporcje obrazu _4:3"
+msgstr "P_roporcje obrazu"
 
 #: src/gui.c:3101
 msgid "D_efault Aspect"
@@ -516,23 +513,20 @@ msgid "_16:9 Aspect"
 msgstr "Proporcje obrazu _16:9"
 
 #: src/gui.c:3110
-#, fuzzy
 msgid "1_6:10 Aspect"
-msgstr "Proporcje obrazu _16:9"
+msgstr "Proporcje obrazu 1_6:10"
 
 #: src/gui.c:3116
-#, fuzzy
 msgid "Show _Subtitles"
-msgstr "Ustaw napisy"
+msgstr "Pokaż n_apisy"
 
 #: src/gui.c:3117
 msgid "_Controls"
 msgstr "Elementy _sterujące"
 
 #: src/gui.c:3124
-#, fuzzy
 msgid "Advanced _Options..."
-msgstr "_Zaawansowane opcje..."
+msgstr "Opcje _zaawansowane..."
 
 #. Help Menu
 #: src/gui.c:3161
@@ -579,7 +573,7 @@ msgstr "%s elementów"
 
 #: src/support.c:999 src/support.c:1032
 msgid "Unable to save playlist, cannot open file for writing"
-msgstr ""
+msgstr "Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
 
 #: src/thread.c:137
 #, c-format
@@ -603,7 +597,7 @@ msgstr ""
 
 #: src/thread.c:396 src/thread.c:406
 msgid "Unknown"
-msgstr ""
+msgstr "Nieznany"
 
 #: src/thread.c:411
 #, c-format
@@ -678,7 +672,7 @@ msgstr "Referencyjna lista odtwarzania (*.ref)"
 
 #: src/playlist.c:387
 msgid "Choose Directory"
-msgstr ""
+msgstr "Wybierz katalog"
 
 #: src/playlist.c:418
 #, c-format
@@ -686,6 +680,8 @@ msgid ""
 "\n"
 "\tFound %i files\n"
 msgstr ""
+"\n"
+"\tZnaleziono %i plików\n"
 
 #: src/playlist.c:602
 msgid "Artist"
@@ -708,14 +704,12 @@ msgid "Remove Item from Playlist"
 msgstr "Usuń element z listy odtwarzania"
 
 #: src/playlist.c:668
-#, fuzzy
 msgid "Add Items in Folder to Playlist"
-msgstr "Dodaj element do listy odtwarzania"
+msgstr "Dodaj elementy w katalogu do listy odtwarzania"
 
 #: src/playlist.c:677
-#, fuzzy
 msgid "Clear Playlist"
-msgstr "Zapisz listę odtwarzania"
+msgstr "Wyczyść listę odtwarzania"
 
 #: src/playlist.c:723
 msgid "_Set Subtitle"
