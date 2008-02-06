@@ -9,12 +9,13 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-06 08:39-0700\n"
-"PO-Revision-Date: 2008-01-10 17:30+0200\n"
+"PO-Revision-Date: 2008-02-06 18:19+0200\n"
 "Last-Translator: Starcrasher <starcrasher1@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/main.c:54
 msgid "Window to embed in"
@@ -41,17 +42,16 @@ msgid "Show more ouput on the console"
 msgstr "Affichage plus verbeux dans la console"
 
 #: src/main.c:60
-#, fuzzy
 msgid "Use mplayer software volume control"
-msgstr "Contrôles de la console Real Player"
+msgstr "Utiliser le contrôle de volume logiciel de mplayer"
 
 #: src/main.c:61
 msgid "Set initial volume percentage"
-msgstr ""
+msgstr "Fixer le volume initial (pourcentage)"
 
 #: src/main.c:62
 msgid "Show the controls in window"
-msgstr "Montrer les contrôles dans la fenêtre"
+msgstr "Afficher les contrôles dans la fenêtre"
 
 #: src/main.c:65
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -61,7 +61,7 @@ msgstr ""
 
 #: src/main.c:67
 msgid "Disable popup menu on right click"
-msgstr "Désactiver le menu contextuel sur click droit"
+msgstr "Désactiver le menu contextuel sur clic droit"
 
 #: src/main.c:68
 msgid "Play all files on the playlist forever"
@@ -73,19 +73,20 @@ msgstr "Lecture aléatoire des entrées de la liste de lecture"
 
 #: src/main.c:71
 msgid "Set cache size"
-msgstr ""
+msgstr "Fixer la taille de la mémoire tampon"
 
 #: src/main.c:73
 msgid "Force cache usage on streaming sites"
 msgstr ""
+"Forcer l'utilisation de la mémoire tampon pour les sites diffusant des flux"
 
 #: src/main.c:75
 msgid "Use Vertical Layout"
-msgstr ""
+msgstr "Utiliser la présentation verticale"
 
 #: src/main.c:77
 msgid "Start with playlist open"
-msgstr ""
+msgstr "Lancer avec la liste de lecture affichée"
 
 #: src/main.c:79
 msgid "Real Player Name"
@@ -101,7 +102,7 @@ msgstr "Contrôles de la console Real Player"
 
 #: src/main.c:83
 msgid "Subtitle file for first media file"
-msgstr "Fichier de sous-titres pour le premier fichier"
+msgstr "Fichier de sous-titres pour le premier fichier vidéo"
 
 #: src/main.c:85
 msgid "TV device name"
@@ -345,7 +346,7 @@ msgstr "Plugin"
 
 #: src/gui.c:2406
 msgid "Language Settings"
-msgstr ""
+msgstr "Sélection du langage"
 
 #: src/gui.c:2408
 msgid "Advanced"
@@ -402,17 +403,16 @@ msgid "DiVX Player Emulation"
 msgstr "Émulation DiVX Player"
 
 #: src/gui.c:2607
-#, fuzzy
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
-msgstr "<span weight=\"bold\">Définition des paramètres vidéo</span>"
+msgstr "<span weight=\"bold\">Définition des paramètres de langage</span>"
 
 #: src/gui.c:2614
 msgid "Default Audio Language"
-msgstr ""
+msgstr "Langage utilisé par défaut pour la piste audio :"
 
 #: src/gui.c:2624
 msgid "Default Subtitle Language:"
-msgstr ""
+msgstr "Langage utilisé par défaut pour les sous-titres :"
 
 #: src/gui.c:2639
 msgid "<span weight=\"bold\">Advanced Settings</span>"
@@ -420,11 +420,12 @@ msgstr "<span weight=\"bold\">Paramètres avancés</span>"
 
 #: src/gui.c:2646
 msgid "Mplayer Software Volume Control Enabled"
-msgstr ""
+msgstr "Activer le contrôle de volume logiciel de Mplayer."
 
 #: src/gui.c:2651
 msgid "Force the use of cache setting on streaming media"
 msgstr ""
+"Forcer l'utilisation des paramètres de la mémoire tampon pour les flux."
 
 #: src/gui.c:2656
 msgid "Verbose Debug Enabled"
@@ -432,7 +433,7 @@ msgstr "Activer le mode verbeux pour le débogage."
 
 #: src/gui.c:2905
 msgid "S_how Controls"
-msgstr "Montrer les contrôles"
+msgstr "Afficher les _contrôles"
 
 #: src/gui.c:2909
 msgid "_Full Screen"
@@ -457,7 +458,7 @@ msgstr "Ouvrir un _DVD"
 
 #: src/gui.c:2989
 msgid "Open DVD with _Menus"
-msgstr "Ouvrir un DVD avec _Menus"
+msgstr "Ouvrir un DVD avec _menus"
 
 #: src/gui.c:2992
 msgid "Open _Audio CD"
@@ -482,7 +483,7 @@ msgstr "Lecture en _boucle"
 
 #: src/gui.c:3039
 msgid "S_witch Audio Track"
-msgstr ""
+msgstr "Changer de pi_ste audio"
 
 #. View Menu
 #: src/gui.c:3062
@@ -510,13 +511,12 @@ msgid "_Half Size (1:2)"
 msgstr "_Demi taille (1:2)"
 
 #: src/gui.c:3093
-#, fuzzy
 msgid "_Aspect"
-msgstr "Aspect _4:3"
+msgstr "_Aspect"
 
 #: src/gui.c:3101
 msgid "D_efault Aspect"
-msgstr "Aspect par défaut"
+msgstr "Aspect par _défaut"
 
 #: src/gui.c:3104
 msgid "_4:3 Aspect"
@@ -524,26 +524,23 @@ msgstr "Aspect _4:3"
 
 #: src/gui.c:3107
 msgid "_16:9 Aspect"
-msgstr "Aspect _16:9"
+msgstr "Aspect 16:_9"
 
 #: src/gui.c:3110
-#, fuzzy
 msgid "1_6:10 Aspect"
-msgstr "Aspect _16:9"
+msgstr "Aspect 16:_10"
 
 #: src/gui.c:3116
-#, fuzzy
 msgid "Show _Subtitles"
-msgstr "Sélection des sous-titres"
+msgstr "Afficher les _sous-titres"
 
 #: src/gui.c:3117
 msgid "_Controls"
 msgstr "_Contrôles"
 
 #: src/gui.c:3124
-#, fuzzy
 msgid "Advanced _Options..."
-msgstr "Options _avancées"
+msgstr "_Options avancées"
 
 #. Help Menu
 #: src/gui.c:3161
@@ -591,11 +588,13 @@ msgstr "Éléments de %s"
 #: src/support.c:999 src/support.c:1032
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
+"Impossible d'ouvrir le fichier en écriture; la liste de lecture ne peut pas "
+"être sauvegardée."
 
 #: src/thread.c:137
 #, c-format
 msgid "Compressed SWF format not supported"
-msgstr "Le format SWF compressé n'est pas supporté."
+msgstr "Le format SWF compressé n'est pris en charge."
 
 #: src/thread.c:377
 #, c-format
@@ -614,7 +613,7 @@ msgstr ""
 
 #: src/thread.c:396 src/thread.c:406
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 #: src/thread.c:411
 #, c-format
@@ -639,7 +638,7 @@ msgid ""
 "</small>"
 msgstr ""
 "<small>\n"
-"<b>Fichier : </b>\t%s\n"
+"<b>Fichier : </b>%s\n"
 "</small>"
 
 #. printf("Percent = %f\n",percent);
@@ -685,14 +684,13 @@ msgstr "Ouvrir une liste de lecture"
 
 #: src/playlist.c:257
 msgid "Reference Playlist (*.ref)"
-msgstr "Liste de lecture réference (*.ref)"
+msgstr "Liste de lecture référence (*.ref)"
 
 #: src/playlist.c:387
 msgid "Choose Directory"
-msgstr ""
+msgstr "Choisir un dossier"
 
 #: src/playlist.c:418
-#, c-format
 msgid ""
 "\n"
 "\tFound %i file\n"
@@ -700,7 +698,11 @@ msgid_plural ""
 "\n"
 "\tFound %i files\n"
 msgstr[0] ""
+"\n"
+"\t%i fichier trouvé\n"
 msgstr[1] ""
+"\n"
+"\t%i fichiers trouvés\n"
 
 #: src/playlist.c:602
 msgid "Artist"
@@ -716,25 +718,20 @@ msgstr "Fermer la liste de lecture"
 
 #: src/playlist.c:651
 msgid "Add Item to Playlist"
-msgstr "Ajouter un élément à la liste de lecture"
+msgstr "Ajouter un ou plusieurs éléments à la liste de lecture"
 
 #: src/playlist.c:659
 msgid "Remove Item from Playlist"
 msgstr "Retirer l'élément sélectionné de la liste de lecture"
 
 #: src/playlist.c:668
-#, fuzzy
 msgid "Add Items in Folder to Playlist"
-msgstr "Ajouter un élément à la liste de lecture"
+msgstr "Ajouter les éléments du dossier à la liste de lecture"
 
 #: src/playlist.c:677
-#, fuzzy
 msgid "Clear Playlist"
-msgstr "Enregistrer la liste de lecture"
+msgstr "Nettoyer la liste de lecture"
 
 #: src/playlist.c:723
 msgid "_Set Subtitle"
 msgstr "_Sélectionner les sous-titres"
-
-#~ msgid "_Fullscreen"
-#~ msgstr "_Plein écran"
