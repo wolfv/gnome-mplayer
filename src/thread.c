@@ -612,7 +612,6 @@ gpointer launch_player(gpointer data)
 
     ThreadData *threaddata = (ThreadData *) data;
 
-    fullscreen = 0;
     videopresent = 1;
     playback_error = NO_ERROR;
 
