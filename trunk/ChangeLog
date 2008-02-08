@@ -1,4 +1,5 @@
 Development
+	Add Edit->Preferences [Advanced] options for --vertical and --showplaylist
 	Fix problem with fullscreen varible being set to FALSE when it should not be
 	Implemented ngettext support for plural items
 	Keep the selected item in the playlist visible as the playlist progresses
