@@ -1,21 +1,22 @@
+# translation of pl.po to Polish
 # Polish translation of gnome-mplayer.
 # Copyright (C) 2007 THE gnome-mplayer'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-mplayer package.
-# Julian Sikorski <belegdol@gmail.com>, 2007.
-# , fuzzy
-# 
-# 
+#
+# Julian Sikorski <belegdol@gmail.com>, 2007, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-mplayer 0.5.3\n"
+"Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-08 08:49-0700\n"
-"PO-Revision-Date: 2008-02-06 15:42+0100\n"
+"PO-Revision-Date: 2008-02-08 17:01+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
-"Language-Team: Polish <gnomepl@pandora.info.bielsko.pl>\n"
+"Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/main.c:54
 msgid "Window to embed in"
@@ -234,11 +235,12 @@ msgid "Open File"
 msgstr "Otwórz plik"
 
 #: src/gui.c:1463 src/support.c:126 src/support.c:174 src/playlist.c:381
-#, fuzzy, c-format
+#, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
-msgstr[0] "Elementy do odtwarzania"
+msgstr[0] "Element do odtwarzania"
 msgstr[1] "Elementy do odtwarzania"
+msgstr[2] "Elementów do odtwarzania"
 
 #: src/gui.c:1525
 msgid "Open Location"
@@ -428,8 +430,7 @@ msgstr "Programowa kontrola dźwięku mplayera włączona"
 
 #: src/gui.c:2673
 msgid "Force the use of cache setting on streaming media"
-msgstr ""
-"Wymuś użycie ustawionego bufora na multimediach przesyłanych strumieniowo"
+msgstr "Wymuś użycie ustawionego bufora na multimediach przesyłanych strumieniowo"
 
 #: src/gui.c:2678
 msgid "Verbose Debug Enabled"
@@ -586,8 +587,7 @@ msgstr "%s elementów"
 
 #: src/support.c:1003 src/support.c:1036
 msgid "Unable to save playlist, cannot open file for writing"
-msgstr ""
-"Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
+msgstr "Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
 
 #: src/thread.c:137
 #, c-format
@@ -689,7 +689,7 @@ msgid "Choose Directory"
 msgstr "Wybierz katalog"
 
 #: src/playlist.c:428
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "\tFound %i file\n"
@@ -698,17 +698,20 @@ msgid_plural ""
 "\tFound %i files\n"
 msgstr[0] ""
 "\n"
-"\tZnaleziono %i plików\n"
+"\tZnaleziono %i plik\n"
 msgstr[1] ""
+"\n"
+"\tZnaleziono %i pliki\n"
+msgstr[2] ""
 "\n"
 "\tZnaleziono %i plików\n"
 
 #: src/playlist.c:601
-#, fuzzy
 msgid "Item to play"
 msgid_plural "Items to Play"
-msgstr[0] "Elementy do odtwarzania"
+msgstr[0] "Element do odtwarzania"
 msgstr[1] "Elementy do odtwarzania"
+msgstr[2] "Elementów do odtwarzania"
 
 #: src/playlist.c:614
 msgid "Artist"
@@ -742,5 +745,3 @@ msgstr "Wyczyść listę odtwarzania"
 msgid "_Set Subtitle"
 msgstr "Ustaw _napisy"
 
-#~ msgid "_Fullscreen"
-#~ msgstr "Pełny _ekran"
