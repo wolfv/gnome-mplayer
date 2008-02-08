@@ -60,6 +60,18 @@
         <long>Use Veritical Layout</long>
       </locale>
     </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/showplaylist</key>
+      <applyto>/apps/gnome-mplayer/preferences/showplaylist</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Show Playlist</short>
+        <long>Make the playlist visible when gnome-mplayer is started</long>
+      </locale>
+    </schema>
 
   </schemalist>
 </gconfschemafile>
