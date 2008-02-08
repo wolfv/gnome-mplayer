@@ -48,6 +48,7 @@ gint detect_playlist(gchar * filename)
     gchar *file;
     GtkTreeViewColumn *column;
     gchar *coltitle;
+	gint count;
 
     if (g_strncasecmp(filename, "cdda://", 7) == 0) {
         playlist = 1;
@@ -121,7 +122,8 @@ gint detect_playlist(gchar * filename)
         playlistname = NULL;
         if (GTK_WIDGET(list)) {
             column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
-            coltitle = g_strdup_printf(_("Items to Play"));
+			count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+            coltitle = g_strdup_printf(ngettext("Item to Play","Items to Play",count));
             gtk_tree_view_column_set_title(column, coltitle);
             g_free(coltitle);
         }
@@ -135,6 +137,7 @@ gint parse_playlist(gchar * filename)
     gint ret = 0;
     GtkTreeViewColumn *column;
     gchar *coltitle;
+	gint count;
 
     // try and parse a playlist in various forms
     // if a parsing does not work then, return 0
@@ -167,7 +170,8 @@ gint parse_playlist(gchar * filename)
         playlistname = NULL;
         if (GTK_WIDGET(list)) {
             column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
-            coltitle = g_strdup_printf(_("Items to Play"));
+			count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+            coltitle = g_strdup_printf(ngettext("Item to Play","Items to Play",count));
             gtk_tree_view_column_set_title(column, coltitle);
             g_free(coltitle);
         }
