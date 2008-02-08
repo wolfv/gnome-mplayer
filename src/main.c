@@ -243,6 +243,7 @@ int main(int argc, char *argv[])
     softvol = gconf_client_get_int(gconf, SOFTVOL, NULL);
     forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
     vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
+    playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);
     qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);

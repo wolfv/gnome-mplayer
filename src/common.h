@@ -34,6 +34,7 @@
 #define VERTICAL		"/apps/gnome-mplayer/preferences/vertical"
 #define FORCECACHE		"/apps/gnome-mplayer/preferences/forcecache"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
+#define SHOWPLAYLIST	"/apps/gnome-mplayer/preferences/showplaylist"
 
 #define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
 #define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"

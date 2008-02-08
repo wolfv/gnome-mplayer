@@ -179,6 +179,8 @@ GtkWidget *config_ao;
 GtkWidget *config_cachesize;
 GtkWidget *config_osdlevel;
 
+GtkWidget *config_playlist_visible;
+GtkWidget *config_vertical_layout;
 GtkWidget *config_softvol;
 GtkWidget *config_forcecache;
 GtkWidget *config_verbose;
