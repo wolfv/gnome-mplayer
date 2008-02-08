@@ -293,7 +293,7 @@ int main(int argc, char *argv[])
 
     create_window(embed_window);
 
-	if (playlist_visible == TRUE)
+	if (playlist_visible == TRUE && embed_window == 0)
 		menuitem_view_playlist_callback(NULL,NULL);
 	
     fullscreen = 0;
