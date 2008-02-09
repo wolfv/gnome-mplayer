@@ -1458,11 +1458,13 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     }
 
     g_object_unref(G_OBJECT(gconf));
-    column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
-	count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-    coltitle = g_strdup_printf(ngettext("Item to Play","Items to Play",count));
-    gtk_tree_view_column_set_title(column, coltitle);
-    g_free(coltitle);	
+	if (GTK_IS_WIDGET(list)) {
+	    column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
+		count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+	    coltitle = g_strdup_printf(ngettext("Item to Play","Items to Play",count));
+	    gtk_tree_view_column_set_title(column, coltitle);
+	    g_free(coltitle);	
+	}
     gtk_widget_destroy(dialog);
 
 }

@@ -1,4 +1,6 @@
 Development
+	Only respect --showplaylist if no files are specified
+	Fix a GTK warning when playlist is not visible
 	Make sure playlist is only shown when not embedded
 	Add some more code for proper handling of plural messages
 	Add Edit->Preferences [Advanced] options for --vertical and --showplaylist
