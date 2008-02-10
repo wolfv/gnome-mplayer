@@ -40,13 +40,12 @@ msgid "Show more ouput on the console"
 msgstr "콘솔에 자세한 출력을 보여주기"
 
 #: src/main.c:60
-#, fuzzy
 msgid "Use mplayer software volume control"
-msgstr "실제 재생기 콘솔 제어"
+msgstr "엠플레이어의 소프트웨어 볼륨 조절 기능 사용"
 
 #: src/main.c:61
 msgid "Set initial volume percentage"
-msgstr ""
+msgstr "초기 볼륨 크기 설정"
 
 #: src/main.c:62
 msgid "Show the controls in window"
@@ -70,19 +69,19 @@ msgstr "재생목록을 랜덤 재생하기"
 
 #: src/main.c:71
 msgid "Set cache size"
-msgstr ""
+msgstr "캐쉬 크기 설정"
 
 #: src/main.c:73
 msgid "Force cache usage on streaming sites"
-msgstr ""
+msgstr "스트리밍 사이트에 대해서 강제로 캐쉬 사용하기"
 
 #: src/main.c:75
 msgid "Use Vertical Layout"
-msgstr ""
+msgstr "수직 레이아웃 사용"
 
 #: src/main.c:77
 msgid "Start with playlist open"
-msgstr ""
+msgstr "시작할 때 플레이리스트 열기"
 
 #: src/main.c:79
 msgid "Real Player Name"
@@ -230,11 +229,10 @@ msgid "Open File"
 msgstr "파일 열기"
 
 #: src/gui.c:1463 src/support.c:126 src/support.c:174 src/playlist.c:381
-#, fuzzy, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
-msgstr[0] "재생 목록"
-msgstr[1] "재생 목록"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/gui.c:1525
 msgid "Open Location"
@@ -338,7 +336,7 @@ msgstr "플러그인"
 
 #: src/gui.c:2418
 msgid "Language Settings"
-msgstr ""
+msgstr "언어"
 
 #: src/gui.c:2420
 msgid "Advanced"
@@ -366,7 +364,7 @@ msgstr "<span weight=\"bold\">Configuration 설정 조절</span>"
 
 #: src/gui.c:2558
 msgid "Minimum Cache Size (KB):"
-msgstr "미리읽기 최소 크기 (KB):"
+msgstr "캐쉬 최소 크기 (KB):"
 
 #: src/gui.c:2575
 msgid "On Screen Display Level:"
@@ -393,17 +391,16 @@ msgid "DiVX Player Emulation"
 msgstr "DiVX 플레이어 흉내내기"
 
 #: src/gui.c:2619
-#, fuzzy
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
-msgstr "<span weight=\"bold\">비디오 설정 조절</span>"
+msgstr "<span weight=\"bold\">언어 설정</span>"
 
 #: src/gui.c:2626
 msgid "Default Audio Language"
-msgstr ""
+msgstr "기본 오디오 언어:"
 
 #: src/gui.c:2636
 msgid "Default Subtitle Language:"
-msgstr ""
+msgstr "기본 자막 언어:"
 
 #: src/gui.c:2651
 msgid "<span weight=\"bold\">Advanced Settings</span>"
@@ -411,19 +408,19 @@ msgstr "<span weight=\"bold\">추가 설정</span>"
 
 #: src/gui.c:2658
 msgid "Start with playlist visible"
-msgstr ""
+msgstr "시작할 때 재생 목록 보여주기"
 
 #: src/gui.c:2663
 msgid "Start with playlist below media window"
-msgstr ""
+msgstr "시작할 때 미디어 창 아래에 재생 목록 배치"
 
 #: src/gui.c:2668
 msgid "Mplayer Software Volume Control Enabled"
-msgstr ""
+msgstr "엠플레이어의 소프트웨어 볼륨 조절 기능 사용"
 
 #: src/gui.c:2673
 msgid "Force the use of cache setting on streaming media"
-msgstr ""
+msgstr "스트리밍 미디어에 대해서 캐쉬 설정 사용 강제하기"
 
 #: src/gui.c:2678
 msgid "Verbose Debug Enabled"
@@ -481,7 +478,7 @@ msgstr "목록 반복 재생(_L)"
 
 #: src/gui.c:3061
 msgid "S_witch Audio Track"
-msgstr ""
+msgstr "오디오 트랙 변경(_W)"
 
 #. View Menu
 #: src/gui.c:3084
@@ -509,9 +506,8 @@ msgid "_Half Size (1:2)"
 msgstr "절반(1:2) 크기(_H)"
 
 #: src/gui.c:3115
-#, fuzzy
 msgid "_Aspect"
-msgstr "4:3 비율(_4)"
+msgstr "화면 비율(_A)"
 
 #: src/gui.c:3123
 msgid "D_efault Aspect"
@@ -526,23 +522,20 @@ msgid "_16:9 Aspect"
 msgstr "16:9 비율(_1)"
 
 #: src/gui.c:3132
-#, fuzzy
 msgid "1_6:10 Aspect"
-msgstr "16:9 비율(_1)"
+msgstr "16:10 비율(_6)"
 
 #: src/gui.c:3138
-#, fuzzy
 msgid "Show _Subtitles"
-msgstr "자막 지정"
+msgstr "자막 보기(_S)"
 
 #: src/gui.c:3139
 msgid "_Controls"
 msgstr "컨트롤(_C)"
 
 #: src/gui.c:3146
-#, fuzzy
 msgid "Advanced _Options..."
-msgstr "추가 옵션(_A)"
+msgstr "추가 옵션...(_O)"
 
 #. Help Menu
 #: src/gui.c:3183
@@ -584,7 +577,7 @@ msgstr "%s 목록"
 
 #: src/support.c:1003 src/support.c:1036
 msgid "Unable to save playlist, cannot open file for writing"
-msgstr ""
+msgstr "저잘하려는 파일을 열수 없어서, 재생목록을 저장할 수 없습니다."
 
 #: src/thread.c:137
 #, c-format
@@ -608,7 +601,7 @@ msgstr ""
 
 #: src/thread.c:396 src/thread.c:406
 msgid "Unknown"
-msgstr ""
+msgstr "알수 없음"
 
 #: src/thread.c:411
 #, c-format
@@ -683,7 +676,7 @@ msgstr "Reference Playlist (*.ref)"
 
 #: src/playlist.c:397
 msgid "Choose Directory"
-msgstr ""
+msgstr "디렉토리 선택"
 
 #: src/playlist.c:428
 #, c-format
@@ -697,11 +690,10 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/playlist.c:601
-#, fuzzy
 msgid "Item to play"
 msgid_plural "Items to Play"
-msgstr[0] "재생 목록"
-msgstr[1] "재생 목록"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/playlist.c:614
 msgid "Artist"
@@ -724,14 +716,12 @@ msgid "Remove Item from Playlist"
 msgstr "재생목록에서 항목 지우기"
 
 #: src/playlist.c:680
-#, fuzzy
 msgid "Add Items in Folder to Playlist"
 msgstr "재생목록에 항목 추가"
 
 #: src/playlist.c:689
-#, fuzzy
 msgid "Clear Playlist"
-msgstr "재생목록 저장하기"
+msgstr "재생목록 지우기"
 
 #: src/playlist.c:735
 msgid "_Set Subtitle"
