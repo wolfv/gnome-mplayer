@@ -5,15 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-mplayer 0.5.4\n"
+"Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-08 08:49-0700\n"
-"PO-Revision-Date: 2008-01-10 05:51+0900\n"
+"PO-Revision-Date: 2008-02-11 10:22+0900\n"
 "Last-Translator: ByeongSik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n == 1)? 0 : 1;\n"
 
 #: src/main.c:54
 msgid "Window to embed in"
@@ -231,8 +232,8 @@ msgstr "파일 열기"
 #: src/gui.c:1463 src/support.c:126 src/support.c:174 src/playlist.c:381
 msgid "Item to Play"
 msgid_plural "Items to Play"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "재생할 항목"
+msgstr[1] "재생할 항목들"
 
 #: src/gui.c:1525
 msgid "Open Location"
@@ -687,13 +688,17 @@ msgid_plural ""
 "\n"
 "\tFound %i files\n"
 msgstr[0] ""
+"\n"
+"\t%i개의 파일을 찾았습니다\n"
 msgstr[1] ""
+"\n"
+"\t%i개의 파일들을 찾았습니다\n"
 
 #: src/playlist.c:601
 msgid "Item to play"
 msgid_plural "Items to Play"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "재생할 항목"
+msgstr[1] "재생할 항목들"
 
 #: src/playlist.c:614
 msgid "Artist"
