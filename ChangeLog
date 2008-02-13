@@ -1,4 +1,4 @@
-Development
+0.6.0
 	Updated Polish and Korean translations
 	Only respect --showplaylist if no files are specified
 	Fix a GTK warning when playlist is not visible
