@@ -60,6 +60,8 @@ GtkMenuItem *menuitem_file_open_location;
 GtkMenuItem *menuitem_file_open_dvd;
 GtkMenuItem *menuitem_file_open_dvdnav;
 GtkMenuItem *menuitem_file_open_acd;
+GtkMenuItem *menuitem_file_open_atv;
+GtkMenuItem *menuitem_file_open_dtv;
 GtkMenuItem *menuitem_file_open_playlist;
 GtkMenuItem *menuitem_file_sep1;
 GtkMenuItem *menuitem_file_details;
