@@ -23,7 +23,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#  include <config.h>
+#include <config.h>
 #endif
 
 #include "gui.h"
@@ -1613,6 +1613,75 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 
 }
 
+void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
+{
+	gtk_list_store_clear(playliststore);
+	gtk_list_store_clear(nonrandomplayliststore);
+	add_item_to_playlist("tv://",0);
+	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+    play_file("tv://", 0);
+}
+
+void parseChannels( FILE *f ) {
+	int	parsing = 0,
+		    i = 0,
+		    firstW = 0,
+		    firstP = 0;
+	char	ch,
+		    s[20],
+		    strout[50];
+
+	while( parsing == 0 ) {
+		ch = fgetc( f ); // Read in the next character
+		if( ch != EOF ) {
+			// If the line is empty or commented, we want to skip it.
+			if((( ch == '\n' ) && ( i == 0 )) || (( ch == '#' ) && (i == 0 ))) {
+				firstW++;
+				firstP++;
+			}
+			if( (ch != ':') && (firstW == 0) ) {
+				s[i] = ch;
+				i++;
+			} else {
+				if(( ch == ':' ) && ( firstP == 0 )) {
+					s[i] = '\0';
+					strout[50] = '\0';
+					strcpy( strout, "dvb://" );
+					strcat( strout, s);
+					add_item_to_playlist( strout, 0 ); //add to playlist
+					i = 0;
+					firstW++;
+					firstP++;
+				}
+				if( ch == '\n' ) {
+					firstW = 0;
+					firstP = 0;
+				}
+			}
+		} else
+			parsing++;
+	} //END while
+} //END parseChannels
+
+void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
+{
+    gtk_list_store_clear(playliststore);
+    gtk_list_store_clear(nonrandomplayliststore);
+	FILE *fi; // FILE pointer to use to open the conf file
+    gchar *mpconf;
+    mpconf = g_strdup_printf("%s/.mplayer/channels.conf", getenv("HOME"));
+	fi = fopen( mpconf, "r"); // Make sure this is pointing to
+					    // the appropriate file
+	if( fi != NULL ) {
+		parseChannels( fi );
+		//fclose( fi );
+	} else
+		printf( "Unable to open the config file\n"); //can change this to whatever error message system is used
+
+    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&iter);
+	play_file("dvb://", 0);
+}
+
 void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
 {
     // save dialog
@@ -3023,6 +3092,12 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_acd =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Audio CD")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_acd));
+   menuitem_file_open_atv =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Analog TV")));
+    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_atv));
+   menuitem_file_open_dtv =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Digital TV")));
+    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_dtv));
 //    menuitem_file_open_playlist =
 //        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Playlist")));
 //    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_playlist));
@@ -3046,8 +3121,12 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_open_dvdnav_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_acd), "activate",
                      G_CALLBACK(menuitem_open_acd_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_atv), "activate",
+                     G_CALLBACK(menuitem_open_atv_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_dtv), "activate",
+                     G_CALLBACK(menuitem_open_dtv_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_details), "activate",
-                     G_CALLBACK(menuitem_details_callback), idledata);
+                     G_CALLBACK(menuitem_details_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_quit), "activate",
                      G_CALLBACK(menuitem_quit_callback), NULL);
 
