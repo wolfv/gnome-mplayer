@@ -959,6 +959,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_v:
             send_command("pausing_keep sub_visibility\n");
             return FALSE;
+		case GDK_plus:
+			send_command("pausing_keep audio_delay 0.1 0\n");
+			return FALSE;
+		case GDK_minus:
+			send_command("pausing_keep audio_delay -0.1 0\n");
+			return FALSE;
         default:
             return FALSE;
         }

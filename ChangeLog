@@ -1,3 +1,5 @@
+Development
+	Implement audio delay changes with +/- keys
 0.6.0
 	Updated Polish and Korean translations
 	Only respect --showplaylist if no files are specified
