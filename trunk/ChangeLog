@@ -1,4 +1,5 @@
 Development
+	Try to prevent crash when viewing file details from a tv input
 	Apply patches from James Carthew for Analog and Digital TV support
 	Implement audio delay changes with +/- keys
 0.6.0
