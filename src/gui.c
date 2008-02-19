@@ -1645,7 +1645,7 @@ void parseChannels( FILE *f ) {
 			} else {
 				if(( ch == ':' ) && ( firstP == 0 )) {
 					s[i] = '\0';
-					strout[50] = '\0';
+					strout[49] = '\0';
 					strcpy( strout, "dvb://" );
 					strcat( strout, s);
 					add_item_to_playlist( strout, 0 ); //add to playlist
