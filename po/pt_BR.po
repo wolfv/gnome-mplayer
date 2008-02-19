@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-13 07:18-0700\n"
-"PO-Revision-Date: 2008-02-17 11:36-0800\n"
+"PO-Revision-Date: 2008-02-19 13:26-0800\n"
 "Last-Translator: \n"
 "Language-Team: Portugese <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -242,7 +242,7 @@ msgstr "Abrir Arquivo"
 #: src/support.c:126
 #: src/support.c:174
 #: src/playlist.c:381
-#, fuzzy, c-format
+#, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
 msgstr[0] "Arquivo"
@@ -717,7 +717,6 @@ msgstr[1] ""
 "\tEncontrado %i arquivos\n"
 
 #: src/playlist.c:601
-#, fuzzy
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Arquivos"
@@ -729,7 +728,7 @@ msgstr "Artista"
 
 #: src/playlist.c:622
 msgid "Length"
-msgstr "Duração"
+msgstr "Tempo"
 
 #: src/playlist.c:637
 msgid "Close Playlist View"
