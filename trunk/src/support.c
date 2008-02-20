@@ -48,7 +48,7 @@ gint detect_playlist(gchar * filename)
     gchar *file;
     GtkTreeViewColumn *column;
     gchar *coltitle;
-	gint count;
+    gint count;
 
     if (g_strncasecmp(filename, "cdda://", 7) == 0) {
         playlist = 1;
@@ -122,8 +122,8 @@ gint detect_playlist(gchar * filename)
         playlistname = NULL;
         if (GTK_WIDGET(list)) {
             column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
-			count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-            coltitle = g_strdup_printf(ngettext("Item to Play","Items to Play",count));
+            count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+            coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
             gtk_tree_view_column_set_title(column, coltitle);
             g_free(coltitle);
         }
@@ -137,7 +137,7 @@ gint parse_playlist(gchar * filename)
     gint ret = 0;
     GtkTreeViewColumn *column;
     gchar *coltitle;
-	gint count;
+    gint count;
 
     // try and parse a playlist in various forms
     // if a parsing does not work then, return 0
@@ -170,8 +170,8 @@ gint parse_playlist(gchar * filename)
         playlistname = NULL;
         if (GTK_WIDGET(list)) {
             column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
-			count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-            coltitle = g_strdup_printf(ngettext("Item to Play","Items to Play",count));
+            count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+            coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
             gtk_tree_view_column_set_title(column, coltitle);
             g_free(coltitle);
         }
@@ -819,17 +819,17 @@ gint get_bitrate(gchar * name)
     gchar *av[255];
     gint ac = 0;
     gchar **output;
-	gint bitrate = 0;
-	gint vbitrate = -1;
-	gint abitrate = -1;
-	gchar *buf;
-	
-	if (name == NULL)
-		return 0;
-	
-	if (!g_file_test(name, G_FILE_TEST_EXISTS))
-		return 0;
-	
+    gint bitrate = 0;
+    gint vbitrate = -1;
+    gint abitrate = -1;
+    gchar *buf;
+
+    if (name == NULL)
+        return 0;
+
+    if (!g_file_test(name, G_FILE_TEST_EXISTS))
+        return 0;
+
     av[ac++] = g_strdup_printf("mplayer");
     av[ac++] = g_strdup_printf("-vo");
     av[ac++] = g_strdup_printf("null");
@@ -854,14 +854,14 @@ gint get_bitrate(gchar * name)
     output = g_strsplit(stdout, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
-	    if (strstr(output[ac], "ID_VIDEO_BITRATE") != 0) {
-	        buf = strstr(output[ac], "ID_VIDEO_BITRATE") + strlen("ID_VIDEO_BITRATE=");
-	        vbitrate = g_strtod(buf, NULL);
-	    }
-	    if (strstr(output[ac], "ID_AUDIO_BITRATE") != 0) {
-	        buf = strstr(output[ac], "ID_AUDIO_BITRATE") + strlen("ID_AUDIO_BITRATE=");
-	        abitrate = g_strtod(buf, NULL);
-	    }		
+        if (strstr(output[ac], "ID_VIDEO_BITRATE") != 0) {
+            buf = strstr(output[ac], "ID_VIDEO_BITRATE") + strlen("ID_VIDEO_BITRATE=");
+            vbitrate = g_strtod(buf, NULL);
+        }
+        if (strstr(output[ac], "ID_AUDIO_BITRATE") != 0) {
+            buf = strstr(output[ac], "ID_AUDIO_BITRATE") + strlen("ID_AUDIO_BITRATE=");
+            abitrate = g_strtod(buf, NULL);
+        }
         ac++;
     }
 
@@ -871,19 +871,19 @@ gint get_bitrate(gchar * name)
     if (stderr != NULL)
         g_free(stderr);
 
-	if (vbitrate <= 0 && abitrate <= 0) {
-		bitrate = 0;
-	} else if (vbitrate == 0 && abitrate > 0) {
-		// mplayer knows there is video, but doesn't know the bit rate
-		// so we make the total bitrate 10 times the audio bitrate
-		bitrate = abitrate * 10;	
-	} else {
-		bitrate = vbitrate + abitrate;
-	}
-	
-	if (verbose)
-		printf ("bitrate = %i\n",bitrate);
-	return bitrate;
+    if (vbitrate <= 0 && abitrate <= 0) {
+        bitrate = 0;
+    } else if (vbitrate == 0 && abitrate > 0) {
+        // mplayer knows there is video, but doesn't know the bit rate
+        // so we make the total bitrate 10 times the audio bitrate
+        bitrate = abitrate * 10;
+    } else {
+        bitrate = vbitrate + abitrate;
+    }
+
+    if (verbose)
+        printf("bitrate = %i\n", bitrate);
+    return bitrate;
 }
 
 
@@ -894,11 +894,11 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
     GtkTreeIter localiter;
     gchar *artist = NULL;
     gchar *length = NULL;
-	gchar *file = NULL;
+    gchar *file = NULL;
 
     if (!device_name(itemname) && !streaming_media(itemname)) {
         get_metadata(itemname, &desc, &artist, &length);
-		
+
         if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
             if (g_strrstr(itemname, "/") != NULL) {
                 desc = g_strdup_printf("%s", g_strrstr(itemname, "/") + sizeof(gchar));
@@ -913,20 +913,20 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
             desc = g_strdup_printf("CD Track %s", itemname + strlen("cdda://"));
         } else if (g_ascii_strncasecmp(itemname, "file://", strlen("file://")) == 0) {
             file = itemname + sizeof(gchar) * strlen("file://");
-			get_metadata(file, &desc, &artist, &length);
-			if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
-	            if (g_strrstr(file, "/") != NULL) {
-	                desc = g_strdup_printf("%s", g_strrstr(file, "/") + sizeof(gchar));
-	            } else {
-	                desc = g_strdup(file);
-	            }
-	        }
+            get_metadata(file, &desc, &artist, &length);
+            if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
+                if (g_strrstr(file, "/") != NULL) {
+                    desc = g_strdup_printf("%s", g_strrstr(file, "/") + sizeof(gchar));
+                } else {
+                    desc = g_strdup(file);
+                }
+            }
         } else if (device_name(itemname)) {
             if (g_strncasecmp(itemname, "dvdnav://", strlen("dvdnav://") == 0)) {
                 loop = 1;
             }
             get_metadata(itemname, &desc, &artist, &length);
-            if (desc == NULL|| (desc != NULL && strlen(desc) == 0))
+            if (desc == NULL || (desc != NULL && strlen(desc) == 0))
                 desc = g_strdup_printf("Device - %s", itemname);
 
         } else {
@@ -1077,10 +1077,10 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
     gchar *subtitle;
     gchar *length;
 
-	if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-	    gtk_tree_model_get(GTK_TREE_MODEL(dest), &iter, ITEM_COLUMN, &iterfilename, -1);
-	}
-	
+    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(dest), &iter, ITEM_COLUMN, &iterfilename, -1);
+    }
+
     gtk_list_store_clear(dest);
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(source), &sourceiter)) {
         do {
@@ -1112,18 +1112,18 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
     }
 
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(dest), &a);
-	if (gtk_list_store_iter_is_valid(playliststore, &a)) {
-	    do {
-	        gtk_tree_model_get(GTK_TREE_MODEL(dest), &a, ITEM_COLUMN, &localfilename, -1);
-	        // printf("iter = %s   local = %s \n",iterfilename,localfilename);
-	        if (g_ascii_strcasecmp(iterfilename, localfilename) == 0) {
-	            // we found the current iter
-	            break;
-	        }
-	        g_free(localfilename);
-	    } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(dest), &a));
-    	iter = a;
-	}
+    if (gtk_list_store_iter_is_valid(playliststore, &a)) {
+        do {
+            gtk_tree_model_get(GTK_TREE_MODEL(dest), &a, ITEM_COLUMN, &localfilename, -1);
+            // printf("iter = %s   local = %s \n",iterfilename,localfilename);
+            if (g_ascii_strcasecmp(iterfilename, localfilename) == 0) {
+                // we found the current iter
+                break;
+            }
+            g_free(localfilename);
+        } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(dest), &a));
+        iter = a;
+    }
     g_free(iterfilename);
 }
 

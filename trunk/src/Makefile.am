@@ -50,4 +50,9 @@ gnome_mplayer_LDADD = $(GTK_LIBS) $(DBUS_LIBS) $(GCONF_LIBS)
 
 EXTRA_DIST = 
 	
-
+indent:
+	indent -kr -l100 -i4 -nut *.c
+	indent -kr -l100 -i4 -nut *.h
+	rm *~
+	
+	
