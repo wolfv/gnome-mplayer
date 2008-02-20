@@ -72,10 +72,10 @@ static GOptionEntry entries[] = {
      NULL},
     {"forcecache", 0, 0, G_OPTION_ARG_NONE, &forcecache, N_("Force cache usage on streaming sites"),
      NULL},
-	{"vertical", 0, 0, G_OPTION_ARG_NONE, &vertical_layout, N_("Use Vertical Layout"),
-     NULL},	
-	{"showplaylist", 0, 0, G_OPTION_ARG_NONE, &playlist_visible, N_("Start with playlist open"),
-     NULL},	
+    {"vertical", 0, 0, G_OPTION_ARG_NONE, &vertical_layout, N_("Use Vertical Layout"),
+     NULL},
+    {"showplaylist", 0, 0, G_OPTION_ARG_NONE, &playlist_visible, N_("Start with playlist open"),
+     NULL},
     {"rpname", 0, 0, G_OPTION_ARG_STRING, &rpname, N_("Real Player Name"), "NAME"},
     {"rpconsole", 0, 0, G_OPTION_ARG_STRING, &rpconsole, N_("Real Player Console ID"), "CONSOLE"},
     {"rpcontrols", 0, 0, G_OPTION_ARG_STRING, &rpcontrols, N_("Real Player Console Controls"),
@@ -106,8 +106,8 @@ gint play_file(gchar * filename, gint playlist)
 
     shutdown();
     g_strlcpy(thread_data->filename, filename, 1024);
-	thread_data->done = FALSE;
-	
+    thread_data->done = FALSE;
+
     if (gtk_list_store_iter_is_valid(playliststore, &iter))
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, SUBTITLE_COLUMN, &subtitle, -1);
 
@@ -230,11 +230,11 @@ int main(int argc, char *argv[])
     window_height = -1;
     stored_window_width = -1;
     stored_window_height = -1;
-	cache_size = 0;
-	forcecache = FALSE;
-	volume = 0;
-	vertical_layout = FALSE;
-	playlist_visible = FALSE;
+    cache_size = 0;
+    forcecache = FALSE;
+    volume = 0;
+    vertical_layout = FALSE;
+    playlist_visible = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -254,17 +254,17 @@ int main(int argc, char *argv[])
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
 
-	if (cache_size == 0)
-		cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
+    if (cache_size == 0)
+        cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
     if (cache_size == 0)
         cache_size = 2000;
     g_object_unref(G_OBJECT(gconf));
-	
-	if (volume > 0 && volume <= 100) {
-		idledata->volume = (gdouble)volume;
-	}
 
-	if (error != NULL) {
+    if (volume > 0 && volume <= 100) {
+        idledata->volume = (gdouble) volume;
+    }
+
+    if (error != NULL) {
         printf("%s\n", error->message);
         printf(_
                ("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
@@ -395,9 +395,9 @@ int main(int argc, char *argv[])
             }
         }
     } else {
-		if (playlist_visible == TRUE && embed_window == 0)
-			menuitem_view_playlist_callback(NULL,NULL);
-	}		
+        if (playlist_visible == TRUE && embed_window == 0)
+            menuitem_view_playlist_callback(NULL, NULL);
+    }
 
     dbus_hookup(embed_window, control_id);
 

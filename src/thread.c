@@ -60,17 +60,17 @@ gboolean play(void *data)
 
     if (ok_to_play && p != NULL) {
         play_file(p->filename, p->playlist);
-		if (gtk_list_store_iter_is_valid(playliststore, &iter)) {		
-	        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COUNT_COLUMN, &count, -1);
-	        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-	        if (GTK_IS_TREE_SELECTION(selection)) {
-	            path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-	            gtk_tree_selection_select_path(selection, path);
-				if (GTK_IS_WIDGET(list))
-					gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list),path,NULL,FALSE,0,0);
-	            gtk_tree_path_free(path);
-	        }
-		}
+        if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COUNT_COLUMN, &count, -1);
+            gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+            if (GTK_IS_TREE_SELECTION(selection)) {
+                path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+                gtk_tree_selection_select_path(selection, path);
+                if (GTK_IS_WIDGET(list))
+                    gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
+                gtk_tree_path_free(path);
+            }
+        }
     }
     g_free(p);
 
@@ -549,8 +549,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 gboolean thread_query(gpointer data)
 {
     int size;
-	ThreadData *threaddata = (ThreadData *) data;
-	
+    ThreadData *threaddata = (ThreadData *) data;
+
     //printf("thread_query state = %i\n",state);
 
     // this function wakes up every 1/2 second and so 
@@ -568,11 +568,11 @@ gboolean thread_query(gpointer data)
         return FALSE;
     }
 
-	if (threaddata->done == TRUE) {
+    if (threaddata->done == TRUE) {
         if (verbose)
             printf("shutting down threadquery since threaddata->done is TRUE\n");
-	    g_free(threaddata);
-	    threaddata = NULL;
+        g_free(threaddata);
+        threaddata = NULL;
         return FALSE;
     }
 
@@ -585,8 +585,8 @@ gboolean thread_query(gpointer data)
 
             send_command("get_time_pos\n");
             send_command("get_property stream_pos\n");
-			if (threaddata->streaming)
-				send_command("get_property metadata\n");
+            if (threaddata->streaming)
+                send_command("get_property metadata\n");
             g_idle_add(make_panel_and_mouse_invisible, NULL);
             return TRUE;
         }
@@ -751,11 +751,11 @@ gpointer launch_player(gpointer data)
 
         g_idle_add(set_play, NULL);
 #ifdef GLIB2_14_ENABLED
-		g_timeout_add_seconds(1,thread_query, threaddata);
+        g_timeout_add_seconds(1, thread_query, threaddata);
 #else
         g_timeout_add(1000, thread_query, threaddata);
 #endif
-		
+
     } else {
         state = QUIT;
         printf("Spawn failed for filename %s\n", threaddata->filename);
@@ -764,7 +764,7 @@ gpointer launch_player(gpointer data)
     g_mutex_lock(thread_running);
     if (verbose)
         printf("Thread completing\n");
-	threaddata->done = TRUE;
+    threaddata->done = TRUE;
     g_source_remove(watch_in_id);
     g_source_remove(watch_err_id);
     g_source_remove(watch_in_hup_id);
@@ -780,19 +780,19 @@ gpointer launch_player(gpointer data)
 
     if (channel_in != NULL) {
         g_io_channel_shutdown(channel_in, FALSE, NULL);
-		g_io_channel_unref(channel_in);
+        g_io_channel_unref(channel_in);
         channel_in = NULL;
     }
 
     if (channel_out != NULL) {
         g_io_channel_shutdown(channel_out, FALSE, NULL);
-		g_io_channel_unref(channel_out);
+        g_io_channel_unref(channel_out);
         channel_out = NULL;
     }
 
     if (channel_err != NULL) {
         g_io_channel_shutdown(channel_err, FALSE, NULL);
-		g_io_channel_unref(channel_err);
+        g_io_channel_unref(channel_err);
         channel_err = NULL;
     }
 
@@ -803,7 +803,7 @@ gpointer launch_player(gpointer data)
         arg++;
     }
 
-	g_mutex_unlock(thread_running);
+    g_mutex_unlock(thread_running);
     // printf("Thread done\n");
 
     if (dontplaynext == FALSE) {
