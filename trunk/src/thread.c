@@ -756,72 +756,52 @@ gpointer launch_player(gpointer data)
         g_timeout_add(1000, thread_query, threaddata);
 #endif
 
-    } else {
-        state = QUIT;
-        printf("Spawn failed for filename %s\n", threaddata->filename);
-    }
+        g_mutex_lock(thread_running);
+        if (verbose)
+            printf("Thread completing\n");
+        threaddata->done = TRUE;
+        g_source_remove(watch_in_id);
+        g_source_remove(watch_err_id);
+        g_source_remove(watch_in_hup_id);
+        idledata->percent = 1.0;
+        idledata->position = idledata->length;
+        g_idle_add(set_progress_value, idledata);
+        g_idle_add(set_progress_time, idledata);
 
-    g_mutex_lock(thread_running);
-    if (verbose)
-        printf("Thread completing\n");
-    threaddata->done = TRUE;
-    g_source_remove(watch_in_id);
-    g_source_remove(watch_err_id);
-    g_source_remove(watch_in_hup_id);
-    idledata->percent = 1.0;
-    idledata->position = idledata->length;
-    g_idle_add(set_progress_value, idledata);
-    g_idle_add(set_progress_time, idledata);
+        if (embed_window != 0 || control_id != 0) {
+            dbus_send_event("MediaComplete", 0);
+            dbus_open_next();
+        }
 
-    if (embed_window != 0 || control_id != 0) {
-        dbus_send_event("MediaComplete", 0);
-        dbus_open_next();
-    }
+        if (channel_in != NULL) {
+            g_io_channel_shutdown(channel_in, FALSE, NULL);
+            g_io_channel_unref(channel_in);
+            channel_in = NULL;
+        }
 
-    if (channel_in != NULL) {
-        g_io_channel_shutdown(channel_in, FALSE, NULL);
-        g_io_channel_unref(channel_in);
-        channel_in = NULL;
-    }
+        if (channel_out != NULL) {
+            g_io_channel_shutdown(channel_out, FALSE, NULL);
+            g_io_channel_unref(channel_out);
+            channel_out = NULL;
+        }
 
-    if (channel_out != NULL) {
-        g_io_channel_shutdown(channel_out, FALSE, NULL);
-        g_io_channel_unref(channel_out);
-        channel_out = NULL;
-    }
+        if (channel_err != NULL) {
+            g_io_channel_shutdown(channel_err, FALSE, NULL);
+            g_io_channel_unref(channel_err);
+            channel_err = NULL;
+        }
 
-    if (channel_err != NULL) {
-        g_io_channel_shutdown(channel_err, FALSE, NULL);
-        g_io_channel_unref(channel_err);
-        channel_err = NULL;
-    }
+        arg = 0;
+        while (argv[arg] != NULL) {
+            g_free(argv[arg]);
+            argv[arg] = NULL;
+            arg++;
+        }
 
-    arg = 0;
-    while (argv[arg] != NULL) {
-        g_free(argv[arg]);
-        argv[arg] = NULL;
-        arg++;
-    }
+        g_mutex_unlock(thread_running);
 
-    g_mutex_unlock(thread_running);
-    // printf("Thread done\n");
-
-    if (dontplaynext == FALSE) {
-        if (next_item_in_playlist(&iter)) {
-            if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-                                   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                g_strlcpy(idledata->info, filename, 4096);
-                g_idle_add(set_media_info, idledata);
-                g_strlcpy(p->filename, filename, 4096);
-                p->playlist = playlist;
-                g_idle_add(play, p);
-                g_free(filename);
-            }
-        } else {
-            // printf("end of thread playlist is empty\n");
-            if (loop) {
-                gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+        if (dontplaynext == FALSE) {
+            if (next_item_in_playlist(&iter)) {
                 if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
                     gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
                                        COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
@@ -832,16 +812,41 @@ gpointer launch_player(gpointer data)
                     g_idle_add(play, p);
                     g_free(filename);
                 }
+            } else {
+                // printf("end of thread playlist is empty\n");
+                if (loop) {
+                    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+                    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
+                                           &filename, COUNT_COLUMN, &count, PLAYLIST_COLUMN,
+                                           &playlist, -1);
+                        g_strlcpy(idledata->info, filename, 4096);
+                        g_idle_add(set_media_info, idledata);
+                        g_strlcpy(p->filename, filename, 4096);
+                        p->playlist = playlist;
+                        g_idle_add(play, p);
+                        g_free(filename);
+                    }
+                }
             }
+        } else {
+            if (playback_error == ERROR_RETRY_WITH_PLAYLIST) {
+                g_strlcpy(p->filename, threaddata->filename, 4096);
+                p->playlist = 1;
+                g_idle_add(play, p);
+            }
+            dontplaynext = FALSE;
         }
+
     } else {
-        if (playback_error == ERROR_RETRY_WITH_PLAYLIST) {
-            g_strlcpy(p->filename, threaddata->filename, 4096);
-            p->playlist = 1;
-            g_idle_add(play, p);
-        }
-        dontplaynext = FALSE;
+        state = QUIT;
+        printf("Spawn failed for filename %s\n", threaddata->filename);
+        g_mutex_unlock(thread_running);
     }
+
+    // printf("Thread done\n");
+
+
 
     thread = NULL;
     return NULL;

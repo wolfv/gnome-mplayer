@@ -1,4 +1,6 @@
 Development
+	Fix crash when mplayer is not in the path
+	Version bump
 	Updated pt_BR translation
 	Try to prevent crash when viewing file details from a tv input
 	Apply patches from James Carthew for Analog and Digital TV support
