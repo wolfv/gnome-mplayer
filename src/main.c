@@ -28,7 +28,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <mntent.h>
+#include <mntent_compat.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
