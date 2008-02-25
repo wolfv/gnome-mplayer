@@ -27,6 +27,8 @@ gnome_mplayer_SOURCES = \
 	playlist.h \
 	support.c \
 	support.h \
+	mntent_compat.h \
+	mntent_compat.c \
 	main.c \
 	dbus-interface.c \
 	dbus-interface.h \
