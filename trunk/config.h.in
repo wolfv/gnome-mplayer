@@ -7,6 +7,9 @@
 #undef GETTEXT_PACKAGE
 
 /* Define to 1 if you have GTK 2.12 or higher */
+#undef GLIB2_14_ENABLED
+
+/* Define to 1 if you have GTK 2.12 or higher */
 #undef GTK2_12_ENABLED
 
 /* Define to 1 if you have the `bind_textdomain_codeset' function. */
@@ -32,6 +35,9 @@
 
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the <mntent.h> header file. */
+#undef HAVE_MNTENT_H
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
