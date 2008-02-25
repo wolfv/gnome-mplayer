@@ -741,6 +741,7 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
         printf("Error when running: %s\n", error->message);
         g_error_free(error);
         error = NULL;
+        return;
     }
     output = g_strsplit(stdout, "\n", 0);
     ac = 0;
