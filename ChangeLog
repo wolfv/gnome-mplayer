@@ -1,4 +1,5 @@
 Development
+	Detect mntent.h in configure process
 	Fix crash when mplayer is not in the path
 	Version bump
 	Updated pt_BR translation

@@ -8,6 +8,9 @@
 #define GETTEXT_PACKAGE "gnome-mplayer"
 
 /* Define to 1 if you have GTK 2.12 or higher */
+#define GLIB2_14_ENABLED 1
+
+/* Define to 1 if you have GTK 2.12 or higher */
 #define GTK2_12_ENABLED 1
 
 /* Define to 1 if you have the `bind_textdomain_codeset' function. */
@@ -33,6 +36,9 @@
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
+
+/* Define to 1 if you have the <mntent.h> header file. */
+#define HAVE_MNTENT_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
