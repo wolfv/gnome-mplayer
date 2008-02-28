@@ -438,7 +438,7 @@ gint parse_cdda(gchar * filename)
             ac++;
         }
 		
-		printf("add count = %i \n",addcount);
+		// printf("add count = %i \n",addcount);
 		if (addcount == 0) {
 			ac = 0;
 			while (output[ac] != NULL) {
