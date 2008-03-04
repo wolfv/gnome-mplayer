@@ -1,4 +1,5 @@
 Development
+	Add subtitle delay hotkeys of z & x
 	Fix problem with CD playback where either CDDB can't be reached or CD not found
 	Hopefully fix the code so it can compile on FreeBSD
 	Detect mntent.h in configure process
