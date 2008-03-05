@@ -97,6 +97,7 @@ gboolean show_copyurl(void *data)
 
 }
 
+
 gboolean set_media_info(void *data)
 {
 
@@ -104,12 +105,8 @@ gboolean set_media_info(void *data)
     gchar *buf;
     gchar *name;
 
-    if (data != NULL && idle != NULL && GTK_IS_WIDGET(song_title)) {
-        if (idle->streaming) {
-            gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
-        } else {
-            gtk_entry_set_text(GTK_ENTRY(song_title), idle->info);
-            //gtk_widget_hide(song_title);
+    if (data != NULL && idle != NULL) {
+        if (idle->streaming == FALSE) {
             if (g_strrstr(idle->info, "/") != NULL) {
                 name = g_strdup_printf("%s", g_strrstr(idle->info, "/") + 1);
             } else {
@@ -124,15 +121,14 @@ gboolean set_media_info(void *data)
     return FALSE;
 }
 
+
 gboolean set_media_info_name(gchar * filename)
 {
 
     gchar *buf;
     gchar *name;
 
-    if (filename != NULL && GTK_IS_WIDGET(song_title)) {
-        gtk_entry_set_text(GTK_ENTRY(song_title), filename);
-        //gtk_widget_hide(song_title);
+    if (filename != NULL ) {
         if (g_strrstr(filename, "/") != NULL) {
             name = g_strdup_printf("%s", g_strrstr(filename, "/") + 1);
         } else {
@@ -429,7 +425,6 @@ gboolean resize_window(void *data)
             last_movement_time = currenttime.tv_sec;
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), TRUE);
             dbus_disable_screensaver();
-            gtk_widget_hide(song_title);
             if (embed_window == -1) {
                 gtk_widget_show_all(window);
                 gtk_widget_hide(media_label);
@@ -3342,32 +3337,16 @@ GtkWidget *create_window(gint windowid)
     //gtk_widget_set_size_request(drawing_area, 1, 1);
     media_label = gtk_label_new("Media");
     gtk_misc_set_alignment(GTK_MISC(media_label), 0, 0);
-    song_title = gtk_entry_new();
-    gtk_entry_set_editable(GTK_ENTRY(song_title), FALSE);
-    //gtk_widget_set_state(song_title, GTK_STATE_INSENSITIVE);
-    GTK_WIDGET_UNSET_FLAGS(song_title, GTK_CAN_FOCUS);
 
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), media_label, FALSE, FALSE, 0);
-    //gtk_box_pack_start(GTK_BOX(controls_box), song_title, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
 
     gtk_widget_add_events(drawing_area, GDK_POINTER_MOTION_MASK);
 
     g_signal_connect(GTK_OBJECT(drawing_area), "motion_notify_event",
                      G_CALLBACK(motion_notify_callback), NULL);
-
-    gtk_widget_add_events(song_title, GDK_BUTTON_PRESS_MASK);
-    gtk_widget_add_events(song_title, GDK_BUTTON_RELEASE_MASK);
-
-    g_signal_connect_swapped(G_OBJECT(song_title),
-                             "button_press_event",
-                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
-    g_signal_connect_swapped(G_OBJECT(song_title),
-                             "button_release_event",
-                             G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
-
     gtk_widget_show(drawing_area);
 
     if (vertical_layout) {
@@ -3639,7 +3618,6 @@ GtkWidget *create_window(gint windowid)
     if (rpcontrols == NULL || (rpcontrols != NULL && g_strcasecmp(rpcontrols, "all") == 0)) {
         if (windowid != -1)
             gtk_widget_show_all(window);
-        gtk_widget_hide(song_title);
         gtk_widget_hide(media_label);
         show_media_label = TRUE;
 
@@ -3649,7 +3627,6 @@ GtkWidget *create_window(gint windowid)
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
 
         if (windowid > 0) {
-            gtk_widget_hide(GTK_WIDGET(song_title));
             if (window_x < 250) {
                 gtk_widget_hide(rew_event_box);
                 gtk_widget_hide(ff_event_box);
@@ -3669,7 +3646,6 @@ GtkWidget *create_window(gint windowid)
         if (windowid != -1)
             gtk_widget_show_all(window);
 
-        gtk_widget_hide(song_title);
         gtk_widget_hide(fixed);
         gtk_widget_hide(menubar);
         gtk_widget_hide(media_label);
