@@ -174,7 +174,6 @@ GtkWidget *image_fs;
 GtkWidget *image_icon;
 GtkTooltips *tooltip;
 GtkTooltips *volume_tip;
-GtkWidget *song_title;
 
 GtkWidget *config_vo;
 GtkWidget *config_ao;
