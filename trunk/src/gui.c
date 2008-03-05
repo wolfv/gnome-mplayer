@@ -128,7 +128,7 @@ gboolean set_media_info_name(gchar * filename)
     gchar *buf;
     gchar *name;
 
-    if (filename != NULL ) {
+    if (filename != NULL) {
         if (g_strrstr(filename, "/") != NULL) {
             name = g_strdup_printf("%s", g_strrstr(filename, "/") + 1);
         } else {
@@ -963,12 +963,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_KP_Subtract:
             send_command("pausing_keep audio_delay -0.1 0\n");
             return FALSE;
-	case GDK_z:
-	    send_command("pausing_keep sub_delay -0.1 0\n");
-	    return FALSE;
+        case GDK_z:
+            send_command("pausing_keep sub_delay -0.1 0\n");
+            return FALSE;
         case GDK_x:
-	    send_command("pausing_keep sub_delay 0.1 0\n");
-	    return FALSE;
+            send_command("pausing_keep sub_delay 0.1 0\n");
+            return FALSE;
         default:
             return FALSE;
         }

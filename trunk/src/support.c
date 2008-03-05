@@ -336,7 +336,7 @@ gint parse_cdda(gchar * filename)
     gint num;
     GtkTreeIter localiter;
     gboolean ok;
-	gint addcount = 0;
+    gint addcount = 0;
 
     if (g_strncasecmp(filename, "cdda://", 7) != 0) {
         return 0;
@@ -420,7 +420,7 @@ gint parse_cdda(gchar * filename)
                                        PLAYLIST_COLUMN, 0,
                                        ARTIST_COLUMN, artist,
                                        SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, length, -1);
-					addcount++;
+                    addcount++;
                 }
                 if (track != NULL) {
                     g_free(track);
@@ -437,21 +437,21 @@ gint parse_cdda(gchar * filename)
             }
             ac++;
         }
-		
-		// printf("add count = %i \n",addcount);
-		if (addcount == 0) {
-			ac = 0;
-			while (output[ac] != NULL) {
-				if (g_strncasecmp(output[ac], "ID_CDDA_TRACK__", strlen("ID_CDDA_TRACK_")) == 0) {
+
+        // printf("add count = %i \n",addcount);
+        if (addcount == 0) {
+            ac = 0;
+            while (output[ac] != NULL) {
+                if (g_strncasecmp(output[ac], "ID_CDDA_TRACK__", strlen("ID_CDDA_TRACK_")) == 0) {
                     sscanf(output[ac], "ID_CDDA_TRACK_%i", &num);
                     track = g_strdup_printf("cdda://%i", num);
                     add_item_to_playlist(track, 0);
                     g_free(track);
                 }
-				ac++;
-			}
-		}
-		
+                ac++;
+            }
+        }
+
         g_strfreev(output);
         if (stdout != NULL)
             g_free(stdout);
