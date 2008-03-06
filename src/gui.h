@@ -33,22 +33,6 @@
 #include <gconf/gconf-value.h>
 #include "playlist.h"
 
-/*
-#include "../pixmaps/play_down_small.xpm"
-#include "../pixmaps/play_up_small.xpm"
-#include "../pixmaps/pause_down_small.xpm"
-#include "../pixmaps/pause_up_small.xpm"
-#include "../pixmaps/stop_down_small.xpm"
-#include "../pixmaps/stop_up_small.xpm"
-#include "../pixmaps/ff_down_small.xpm"
-#include "../pixmaps/ff_up_small.xpm"
-#include "../pixmaps/rew_down_small.xpm"
-#include "../pixmaps/rew_up_small.xpm"
-#include "../pixmaps/fs_down_small.xpm"
-#include "../pixmaps/fs_up_small.xpm"
-*/
-
-
 GtkWidget *window;
 GdkWindow *window_container;
 
