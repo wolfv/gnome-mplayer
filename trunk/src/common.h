@@ -36,6 +36,7 @@
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 #define SHOWPLAYLIST	"/apps/gnome-mplayer/preferences/showplaylist"
 #define DISABLEFULLSCREEN	"/apps/gnome-mplayer/preferences/disablefullscreen"
+#define DISABLECONTEXTMENU	"/apps/gnome-mplayer/preferences/disablecontextmenu"
 
 #define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
 #define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"
@@ -161,7 +162,7 @@ gint stored_window_width, stored_window_height;
 gchar vm[10];
 gchar *vo;
 gchar *ao;
-gint disable_context_menu;
+gboolean disable_context_menu;
 gboolean disable_fullscreen;
 gint loop;
 gint random_order;

@@ -1,4 +1,5 @@
 Development
+	Add gconf key /apps/gnome-mplayer/preferences/disablecontextmenu to set default value of --disablecontextmenu
 	Add gconf key /apps/gnome-mplayer/preferences/disablefullscreen to set default value of --disablefullscreen
 	Add commandline option "--disablefullscreen", which disables all fullscreen options
 	Purge GtkWidget 'song_title', not used anymore
