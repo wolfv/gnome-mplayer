@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-08 08:22-0700\n"
+"POT-Creation-Date: 2008-03-08 08:47-0700\n"
 "PO-Revision-Date: 2008-01-26 13:24+0100\n"
 "Last-Translator: Festor Wailon Dacoba <festor90@gmail.com>\n"
 "Language-Team: \n"
@@ -132,11 +132,11 @@ msgstr "Altura de la entrada de TV"
 msgid "Frames per second from TV input"
 msgstr "Imágenes por segundo de la entrada de TV"
 
-#: src/main.c:255
+#: src/main.c:257
 msgid "- GNOME Media player based on MPlayer"
 msgstr "- jugador de medios del GNOME basado en MPlayer"
 
-#: src/main.c:273
+#: src/main.c:275
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -144,16 +144,16 @@ msgid ""
 msgstr ""
 "Ejecuta 'gnome-mplayer --help' para ver una lista completa de los comandos.\n"
 
-#: src/main.c:284
+#: src/main.c:286
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:342
+#: src/main.c:344
 msgid "Playing DVD"
 msgstr "Reproducir DVD"
 
-#: src/main.c:346
+#: src/main.c:348
 msgid "Playing Audio CD"
 msgstr "Reproducir CD Audio"
 
