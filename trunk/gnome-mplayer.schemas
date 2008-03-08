@@ -73,5 +73,17 @@
       </locale>
     </schema>
 
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disablefullscreen</key>
+      <applyto>/apps/gnome-mplayer/preferences/disablefullscreen</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Fullscreen Options</short>
+        <long>When set to TRUE all fullscreen menu options and keyboard options are disabled</long>
+      </locale>
+    </schema>
+
   </schemalist>
 </gconfschemafile>

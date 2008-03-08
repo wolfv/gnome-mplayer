@@ -35,6 +35,7 @@
 #define FORCECACHE		"/apps/gnome-mplayer/preferences/forcecache"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 #define SHOWPLAYLIST	"/apps/gnome-mplayer/preferences/showplaylist"
+#define DISABLEFULLSCREEN	"/apps/gnome-mplayer/preferences/disablefullscreen"
 
 #define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
 #define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"
@@ -161,7 +162,7 @@ gchar vm[10];
 gchar *vo;
 gchar *ao;
 gint disable_context_menu;
-gint disable_fullscreen;
+gboolean disable_fullscreen;
 gint loop;
 gint random_order;
 gboolean dontplaynext;
