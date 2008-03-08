@@ -161,6 +161,7 @@ gchar vm[10];
 gchar *vo;
 gchar *ao;
 gint disable_context_menu;
+gint disable_fullscreen;
 gint loop;
 gint random_order;
 gboolean dontplaynext;

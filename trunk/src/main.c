@@ -65,6 +65,8 @@ static GOptionEntry entries[] = {
      N_("Autostart the media default to 1, set to 0 to load but don't play"), "[0|1]"},
     {"disablecontextmenu", 0, 0, G_OPTION_ARG_NONE, &disable_context_menu,
      N_("Disable popup menu on right click"), NULL},
+    {"disablefullscreen", 0, 0, G_OPTION_ARG_NONE, &disable_fullscreen,
+     N_("Disable fullscreen options in browser mode"), NULL},
     {"loop", 0, 0, G_OPTION_ARG_NONE, &loop, N_("Play all files on the playlist forever"), NULL},
     {"random", 0, 0, G_OPTION_ARG_NONE, &random_order, N_("Play items on playlist in random order"),
      NULL},
@@ -235,6 +237,7 @@ int main(int argc, char *argv[])
     volume = 0;
     vertical_layout = FALSE;
     playlist_visible = FALSE;
+	disable_fullscreen = 0;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
