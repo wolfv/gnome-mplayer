@@ -34,5 +34,4 @@ dist-hook:
 	done
 
 install-data-hook:
-	update-desktop-database ${datadir}/applications
-	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule ${sysconfdir}/gconf/schemas/gnome-mplayer.schemas
+	if [ -e ${sysconfdir}/gconf/schemas/gnome-mplayer.schemas ]; then GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule ${sysconfdir}/gconf/schemas/gnome-mplayer.schemas;	fi
