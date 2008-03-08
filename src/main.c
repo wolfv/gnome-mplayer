@@ -237,7 +237,7 @@ int main(int argc, char *argv[])
     volume = 0;
     vertical_layout = FALSE;
     playlist_visible = FALSE;
-	disable_fullscreen = 0;
+	disable_fullscreen = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -247,6 +247,7 @@ int main(int argc, char *argv[])
     forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
     vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
     playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);
+    disable_fullscreen = gconf_client_get_bool(gconf, DISABLEFULLSCREEN, NULL);
     qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
