@@ -198,7 +198,7 @@ int main(int argc, char *argv[])
     showcontrols = 1;
     autostart = 1;
     videopresent = 1;
-    disable_context_menu = 0;
+    disable_context_menu = FALSE;
     dontplaynext = FALSE;
     idledata = (IdleData *) g_new0(IdleData, 1);
     idledata->videopresent = FALSE;
@@ -248,6 +248,7 @@ int main(int argc, char *argv[])
     vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
     playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);
     disable_fullscreen = gconf_client_get_bool(gconf, DISABLEFULLSCREEN, NULL);
+    disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
     qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
