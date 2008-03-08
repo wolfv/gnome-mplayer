@@ -712,6 +712,8 @@ info-am:
 
 install-data-am: install-desktopDATA install-gnome_mplayerdocDATA \
 	install-gnome_mplayeretcDATA install-iconDATA
+	@$(NORMAL_INSTALL)
+	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 
 install-dvi: install-dvi-recursive
 
@@ -751,7 +753,7 @@ uninstall-am: uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
 	uninstall-gnome_mplayeretcDATA uninstall-iconDATA
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
-	install-strip
+	install-data-am install-strip
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
 	all all-am am--refresh check check-am clean clean-generic \
@@ -761,17 +763,18 @@ uninstall-am: uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
 	distclean-libtool distclean-tags distcleancheck distdir \
 	distuninstallcheck dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am \
-	install-desktopDATA install-dvi install-dvi-am install-exec \
-	install-exec-am install-gnome_mplayerdocDATA \
-	install-gnome_mplayeretcDATA install-html install-html-am \
-	install-iconDATA install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
-	ps ps-am tags tags-recursive uninstall uninstall-am \
-	uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
-	uninstall-gnome_mplayeretcDATA uninstall-iconDATA
+	install-data-hook install-desktopDATA install-dvi \
+	install-dvi-am install-exec install-exec-am \
+	install-gnome_mplayerdocDATA install-gnome_mplayeretcDATA \
+	install-html install-html-am install-iconDATA install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs installdirs-am maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic \
+	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-recursive \
+	uninstall uninstall-am uninstall-desktopDATA \
+	uninstall-gnome_mplayerdocDATA uninstall-gnome_mplayeretcDATA \
+	uninstall-iconDATA
 
 
 # Copy all the spec files. Of cource, only one is actually used.
@@ -781,6 +784,10 @@ dist-hook:
 			cp -p $$specfile $(distdir); \
 		fi \
 	done
+
+install-data-hook:
+	update-desktop-database ${datadir}/applications
+	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule ${sysconfdir}/gconf/schemas/gnome-mplayer.schemas
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
