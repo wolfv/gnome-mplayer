@@ -1,4 +1,5 @@
 Development
+	Document Keyboard Shortcuts in file DOCS/keyboard_shortcuts.txt
 	Updated French Translation
 	Fix install code so that it works during an rpmbuild
 	Fix install code so that gnome-mplayer.schema is properly installed when installing from source
