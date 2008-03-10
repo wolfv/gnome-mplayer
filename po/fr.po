@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-08 08:47-0700\n"
-"PO-Revision-Date: 2008-02-12 09:50+0200\n"
+"PO-Revision-Date: 2008-03-09 15:18+0200\n"
 "Last-Translator: Starcrasher <starcrasher1@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Désactiver le menu contextuel sur clic droit"
 
 #: src/main.c:69
 msgid "Disable fullscreen options in browser mode"
-msgstr ""
+msgstr "Désactiver le mode plein écran dans le navigateur"
 
 #: src/main.c:70
 msgid "Play all files on the playlist forever"
@@ -469,29 +469,27 @@ msgstr "_Fichier"
 
 #: src/gui.c:3093
 msgid "Open _Location"
-msgstr "Ouvrir un _emplacement"
+msgstr "Lire un _emplacement"
 
 #: src/gui.c:3095
 msgid "Open _DVD"
-msgstr "Ouvrir un _DVD"
+msgstr "Lire un _DVD"
 
 #: src/gui.c:3098
 msgid "Open DVD with _Menus"
-msgstr "Ouvrir un DVD avec _menus"
+msgstr "Lire un DVD avec _menus"
 
 #: src/gui.c:3101
 msgid "Open _Audio CD"
-msgstr "Ouvrir un CD _Audio"
+msgstr "Lire un CD _Audio"
 
 #: src/gui.c:3104
-#, fuzzy
 msgid "Open _Analog TV"
-msgstr "Ouvrir un CD _Audio"
+msgstr "Regarder la _TV Analogique"
 
 #: src/gui.c:3107
-#, fuzzy
 msgid "Open _Digital TV"
-msgstr "Ouvrir un _DVD"
+msgstr "Regarder la TV _Numérique"
 
 #: src/gui.c:3114
 msgid "D_etails"
