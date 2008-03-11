@@ -156,6 +156,13 @@ gint play_file(gchar * filename, gint playlist)
         thread_data->streaming = streaming_media(thread_data->filename);
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
+		g_strlcpy(idledata->video_format, "", 64);
+		g_strlcpy(idledata->video_codec, "", 64);
+		g_strlcpy(idledata->video_fps, "", 64);
+		g_strlcpy(idledata->video_bitrate, "", 64);
+		g_strlcpy(idledata->audio_codec, "", 64);
+		g_strlcpy(idledata->audio_bitrate, "", 64);
+		g_strlcpy(idledata->audio_samplerate, "", 64);
 
         if (autostart) {
             g_idle_add(hide_buttons, idledata);
@@ -209,6 +216,13 @@ int main(int argc, char *argv[])
     idledata->gamma = 0;
     idledata->hue = 0;
     idledata->saturation = 0;
+	g_strlcpy(idledata->video_format, "", 64);
+	g_strlcpy(idledata->video_codec, "", 64);
+	g_strlcpy(idledata->video_fps, "", 64);
+	g_strlcpy(idledata->video_bitrate, "", 64);
+	g_strlcpy(idledata->audio_codec, "", 64);
+	g_strlcpy(idledata->audio_bitrate, "", 64);
+	g_strlcpy(idledata->audio_samplerate, "", 64);
     selection = NULL;
     lastfile = NULL;
     path = NULL;
