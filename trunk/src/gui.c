@@ -156,6 +156,26 @@ gboolean set_media_label(void *data)
     if (idle->videopresent == FALSE && show_media_label) {
         gtk_widget_show(media_label);
     }
+	
+	if (strlen(idle->video_format) > 0 
+		|| strlen(idle->video_codec) > 0
+		|| strlen(idle->video_fps) > 0
+		|| strlen(idle->video_bitrate) > 0
+		|| strlen(idle->audio_codec) > 0
+		|| strlen(idle->audio_bitrate) > 0
+		|| strlen(idle->audio_samplerate) > 0) {
+		
+		/*
+		printf("details: %i,%i,%i,%i,%i,%i,%i\n",	strlen(idle->video_format),strlen(idle->video_codec),
+			   strlen(idle->video_fps),strlen(idle->video_bitrate),strlen(idle->audio_codec),
+			   strlen(idle->audio_bitrate),strlen(idle->audio_samplerate));
+		printf("details: %s,%s,%s,%s,%s,%s,%s\n",	idle->video_format,idle->video_codec,
+			   idle->video_fps,idle->video_bitrate,idle->audio_codec,
+			   idle->audio_bitrate,idle->audio_samplerate);
+		*/
+			
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details),TRUE);
+	}								
 
     if (idle->fromdbus == FALSE)
         dbus_send_rpsignal_with_string("RP_SetMediaLabel", idle->media_info);
@@ -2158,8 +2178,8 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *label;
     gchar *buf;
     gint i = 0;
-    IdleData *idle = (IdleData *) data;
-
+	IdleData *idle = idledata;
+	
     details_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_icon(GTK_WINDOW(details_window), pb_icon);
 
@@ -3740,6 +3760,7 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(G_OBJECT(fixed), "expose_event", G_CALLBACK(expose_fixed_callback), NULL);
 
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), FALSE);
