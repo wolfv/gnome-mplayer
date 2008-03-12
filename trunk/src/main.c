@@ -252,12 +252,13 @@ int main(int argc, char *argv[])
     vertical_layout = FALSE;
     playlist_visible = FALSE;
 	disable_fullscreen = FALSE;
+	softvol = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
     gconf = gconf_client_get_default();
     osdlevel = gconf_client_get_int(gconf, OSDLEVEL, NULL);
-    softvol = gconf_client_get_int(gconf, SOFTVOL, NULL);
+    softvol = gconf_client_get_bool(gconf, SOFTVOL, NULL);
     forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
     vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
     playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);

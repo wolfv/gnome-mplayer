@@ -2046,7 +2046,7 @@ void config_apply(GtkWidget * widget, void *data)
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
-    softvol = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_softvol));
+    softvol = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_softvol));
     verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
@@ -2065,7 +2065,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf = gconf_client_get_default();
     gconf_client_set_int(gconf, CACHE_SIZE, cache_size, NULL);
     gconf_client_set_int(gconf, OSDLEVEL, osdlevel, NULL);
-    gconf_client_set_int(gconf, SOFTVOL, softvol, NULL);
+    gconf_client_set_bool(gconf, SOFTVOL, softvol, NULL);
     gconf_client_set_bool(gconf, FORCECACHE, forcecache, NULL);
     gconf_client_set_bool(gconf, SHOWPLAYLIST, playlist_visible, NULL);
     gconf_client_set_bool(gconf, VERTICAL, vertical_layout, NULL);
