@@ -3378,7 +3378,7 @@ GtkWidget *create_window(gint windowid)
     fixed = gtk_fixed_new();
     drawing_area = gtk_socket_new();
     //gtk_widget_set_size_request(drawing_area, 1, 1);
-    media_label = gtk_label_new("Media");
+    media_label = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(media_label), 0, 0);
 
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
@@ -3798,7 +3798,8 @@ GtkWidget *create_window(gint windowid)
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
     gtk_widget_hide(prev_event_box);
     gtk_widget_hide(next_event_box);
-
+	gtk_widget_hide(media_label);
+	
     //while (gtk_events_pending())
     //    gtk_main_iteration();
 
