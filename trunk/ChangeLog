@@ -1,4 +1,5 @@
 Development
+	Restore playlist visibility when coming out of fullscreen
 	Handle dbus messages from /org/gnome/SettingsDaemon/MediaKeys
 	Switch softvol from gint to gboolean
 	Update schema to provide missing forcecache and softvol options

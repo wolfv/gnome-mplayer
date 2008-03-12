@@ -75,11 +75,11 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     sender = dbus_message_get_sender(message);
     destination = dbus_message_get_destination(message);
 
-    
+    /*
        printf("path=%s; interface=%s; member=%s; data=%s\n",
        dbus_message_get_path(message),
        dbus_message_get_interface(message), dbus_message_get_member(message), s);
-    
+     */
 
     path1 = g_strdup_printf("/control/%i", control_id);
     path2 = g_strdup_printf("/window/%i", embed_window);
@@ -95,7 +95,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
             g_ascii_strcasecmp(dbus_message_get_path(message), path3) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), path4) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), "/org/gnome/SettingsDaemon") == 0 ||
-			g_ascii_strcasecmp(dbus_message_get_path(message), "/org/gnome/SettingsDaemon/MediaKeys") == 0) {
+            g_ascii_strcasecmp(dbus_message_get_path(message),
+                               "/org/gnome/SettingsDaemon/MediaKeys") == 0) {
 
             // printf("Path matched %s\n", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
@@ -1021,7 +1022,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
     g_free(match);
     dbus_error_free(&error);
 
-	match = g_strdup_printf("type='signal',interface='org.gnome.SettingsDaemon.MediaKeys'");
+    match = g_strdup_printf("type='signal',interface='org.gnome.SettingsDaemon.MediaKeys'");
     dbus_bus_add_match(connection, match, &error);
     if (verbose)
         printf("Using match: %s\n", match);
