@@ -3117,20 +3117,34 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_location =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Location")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_location));
-    menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_dvd));
-    menuitem_file_open_dvdnav =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD with _Menus")));
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_dvdnav));
     menuitem_file_open_acd =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Audio CD")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_acd));
+
+	menuitem_file_dvd = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_DVD")));
+    menu_file_dvd = GTK_MENU(gtk_menu_new());
+    gtk_widget_show(GTK_WIDGET(menuitem_file_dvd));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_dvd));
+    gtk_menu_item_set_submenu(menuitem_file_dvd, GTK_WIDGET(menu_file_dvd));
+	
+	menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD Direct")));
+    gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvd));
+    menuitem_file_open_dvdnav =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD with _Menus")));
+    gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvdnav));
+
+	menuitem_file_tv = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_TV")));
+    menu_file_tv = GTK_MENU(gtk_menu_new());
+    gtk_widget_show(GTK_WIDGET(menuitem_file_tv));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_tv));
+    gtk_menu_item_set_submenu(menuitem_file_tv, GTK_WIDGET(menu_file_tv));
+	
     menuitem_file_open_atv =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Analog _TV")));
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_atv));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Analog TV")));
+    gtk_menu_append(menu_file_tv, GTK_WIDGET(menuitem_file_open_atv));
     menuitem_file_open_dtv =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Digital T_V")));
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_dtv));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Digital TV")));
+    gtk_menu_append(menu_file_tv, GTK_WIDGET(menuitem_file_open_dtv));
 //    menuitem_file_open_playlist =
 //        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Playlist")));
 //    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_playlist));
@@ -3233,7 +3247,7 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_onetotwo =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_onetotwo));
-    menuitem_view_sep4 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    //menuitem_view_sep4 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
 
     menuitem_view_aspect = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Aspect")));
     menu_view_aspect = GTK_MENU(gtk_menu_new());
@@ -3241,7 +3255,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_aspect));
     gtk_menu_item_set_submenu(menuitem_view_aspect, GTK_WIDGET(menu_view_aspect));
 
-    gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_sep4));
+    //gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_sep4));
     menuitem_view_aspect_default =
         GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_efault Aspect")));
     gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_aspect_default));
