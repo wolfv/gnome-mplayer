@@ -97,5 +97,29 @@
       </locale>
     </schema>
 
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/forcecache</key>
+      <applyto>/apps/gnome-mplayer/preferences/forcecache</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Force the cache setting</short>
+        <long>When set to TRUE the cache value is always used, even for streaming media</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/softvol</key>
+      <applyto>/apps/gnome-mplayer/preferences/softvol</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Have mplayer use the softvol option</short>
+        <long>When set to TRUE the softvol option is passed to mplayer, useful for machines without pulseaudio</long>
+      </locale>
+    </schema>
+    
   </schemalist>
 </gconfschemafile>

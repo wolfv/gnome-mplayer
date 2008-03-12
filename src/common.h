@@ -151,7 +151,7 @@ gint embed_window;
 gint window_x;
 gint window_y;
 gint control_id;
-gint softvol;
+gboolean softvol;
 gint verbose;
 gint autostart;
 gint actual_x, actual_y;

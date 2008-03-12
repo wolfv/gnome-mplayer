@@ -1,4 +1,6 @@
 Development
+	Switch softvol from gint to gboolean
+	Update schema to provide missing forcecache and softvol options
 	Make File->Details data have only values of active media
 	Make File->Details sensitive when Media Data becomes available
 	Document Keyboard Shortcuts in file DOCS/keyboard_shortcuts.txt
