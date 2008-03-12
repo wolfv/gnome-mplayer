@@ -3126,10 +3126,10 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Audio CD")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_acd));
     menuitem_file_open_atv =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Analog TV")));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Analog _TV")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_atv));
     menuitem_file_open_dtv =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Digital TV")));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Digital T_V")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_dtv));
 //    menuitem_file_open_playlist =
 //        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Playlist")));
