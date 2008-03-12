@@ -1,4 +1,5 @@
 Development
+	Handle dbus messages from /org/gnome/SettingsDaemon/MediaKeys
 	Switch softvol from gint to gboolean
 	Update schema to provide missing forcecache and softvol options
 	Make File->Details data have only values of active media
