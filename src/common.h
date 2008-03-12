@@ -183,6 +183,7 @@ gchar *slang;
 gint volume;
 gboolean vertical_layout;
 gboolean playlist_visible;
+gboolean restore_playlist;
 
 // tv stuff
 gchar *tv_device;
