@@ -124,7 +124,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
             strstr(mplayer_output->str, "registry file") == NULL) {
-            error_msg = g_strdup(mplayer_output->str);
+            // error_msg = g_strdup(mplayer_output->str);
+			error_msg = g_strdup_printf(_("Failed to open %s"),mplayer_output->str + strlen("Failed to open "));
         }
     }
 
@@ -144,7 +145,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (error_msg != NULL) {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
                                         GTK_BUTTONS_CLOSE, error_msg);
-        gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
+        gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
         gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
         g_free(error_msg);
