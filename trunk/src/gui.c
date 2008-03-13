@@ -1766,7 +1766,12 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           "copyright", "Copyright © 2007 Kevin DeKorte",
                           "comments", _("A media player for GNOME that uses MPlayer"),
                           "version", VERSION, 
-						  "license", _("GPL v2"),
+						  "license", _("Gnome MPlayer is free software; you can redistribute it and/or modify it under\nthe terms of the GNU General Public License as published by the Free\nSoftware Foundation; either version 2 of the License, or (at your option)\nany later version."
+ 									 "\n\nGnome MPlayer is distributed in the hope that it will be useful, but WITHOUT\nANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\nFITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\nmore details."
+									 "\n\nYou should have received a copy of the GNU General Public License along with\nGnome MPlayer if not, write to the\n\nFree Software Foundation, Inc.,\n51 Franklin St, Fifth Floor\nBoston, MA 02110-1301 USA")
+
+						  
+						  ,
 						  "website", "http://code.google.com/p/gnome-mplayer/",
 						  "translator-credits", "Chinese (simplified) - Wenzheng Hu\n"
 						  						"French - Starcrasher\n"

@@ -1,4 +1,5 @@
 Development
+	Update License text on About box
 	Handle "Unable to open DVD" messages and give warning to display
 	Add some stuff to the About dialog
 	Fix some translation items
