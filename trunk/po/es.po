@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-13 07:23-0600\n"
+"POT-Creation-Date: 2008-03-13 07:54-0600\n"
 "PO-Revision-Date: 2008-01-26 13:24+0100\n"
 "Last-Translator: Festor Wailon Dacoba <festor90@gmail.com>\n"
 "Language-Team: \n"
@@ -216,7 +216,7 @@ msgstr "Pausar"
 msgid "Play"
 msgstr "Reproducir"
 
-#: src/gui.c:648 src/gui.c:658 src/gui.c:1327 src/gui.c:1355 src/thread.c:307
+#: src/gui.c:648 src/gui.c:658 src/gui.c:1327 src/gui.c:1355 src/thread.c:308
 #, c-format
 msgid "Volume %i%%"
 msgstr "Volumen %i%%"
@@ -615,12 +615,23 @@ msgstr "%s archivos"
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 
-#: src/thread.c:137
+#. error_msg = g_strdup(mplayer_output->str);
+#: src/thread.c:128
+#, c-format
+msgid "Failed to open %s"
+msgstr ""
+
+#: src/thread.c:138
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Formato comprimido de SWF no soportado"
 
-#: src/thread.c:377
+#: src/thread.c:148
+#, fuzzy
+msgid "GNOME MPlayer Error"
+msgstr "GNOME MPlayer"
+
+#: src/thread.c:378
 #, c-format
 msgid ""
 "<small>\n"
@@ -635,11 +646,11 @@ msgstr ""
 "<b>Archivo:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:396 src/thread.c:406
+#: src/thread.c:397 src/thread.c:407
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: src/thread.c:411
+#: src/thread.c:412
 #, c-format
 msgid ""
 "<small>\n"
@@ -654,7 +665,7 @@ msgstr ""
 "<b>Album:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:428 src/thread.c:439
+#: src/thread.c:429 src/thread.c:440
 #, c-format
 msgid ""
 "<small>\n"
@@ -667,12 +678,12 @@ msgstr ""
 
 #. printf("Percent = %f\n",percent);
 #. printf("Buffer = %s\n",buf);
-#: src/thread.c:451
+#: src/thread.c:452
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Almacenando en el cache: %2.2f%%"
 
-#: src/thread.c:459
+#: src/thread.c:460
 #, c-format
 msgid "Connecting"
 msgstr "Conectando"
