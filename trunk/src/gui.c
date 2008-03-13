@@ -1759,13 +1759,24 @@ void menuitem_quit_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 {
-    gchar *authors[] = { "Kevin DeKorte", NULL };
+    gchar *authors[] = { "Kevin DeKorte","James Carthew", NULL };
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"),
                           "logo", pb_logo,
                           "authors", authors,
                           "copyright", "Copyright © 2007 Kevin DeKorte",
                           "comments", _("A media player for GNOME that uses MPlayer"),
-                          "version", VERSION, NULL);
+                          "version", VERSION, 
+						  "license", _("GPL v2"),
+						  "website", "http://code.google.com/p/gnome-mplayer/",
+						  "translator-credits", "Chinese (simplified) - Wenzheng Hu\n"
+						  						"French - Starcrasher\n"
+						  						"Italian - Cesare Tirabassi\n"
+						  						"Korean - ByeongSik Jeon\n"
+												"Polish - Julian Sikorski\n"
+												"Russian - Dmitry Stropaloff\n"
+						  						"Spanish - Festor Wailon Dacoba\n"
+						  						"Swedish - Daniel Nylander",
+						  NULL);
 }
 
 void menuitem_play_callback(GtkMenuItem * menuitem, void *data)
