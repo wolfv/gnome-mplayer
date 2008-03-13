@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-13 07:54-0600\n"
+"POT-Creation-Date: 2008-03-13 10:46-0600\n"
 "PO-Revision-Date: 2008-02-11 10:22+0900\n"
 "Last-Translator: ByeongSik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
@@ -213,7 +213,7 @@ msgstr "일시 정지"
 msgid "Play"
 msgstr "재생"
 
-#: src/gui.c:648 src/gui.c:658 src/gui.c:1327 src/gui.c:1355 src/thread.c:308
+#: src/gui.c:648 src/gui.c:658 src/gui.c:1327 src/gui.c:1355 src/thread.c:312
 #, c-format
 msgid "Volume %i%%"
 msgstr "볼륨 %i%%"
@@ -607,7 +607,17 @@ msgstr "볼륨 100%"
 msgid "%s items"
 msgstr "%s 목록"
 
-#: src/support.c:1021 src/support.c:1054
+#: src/support.c:515 src/thread.c:133
+#, c-format
+msgid "Couldn't open DVD device: %s"
+msgstr ""
+
+#: src/support.c:534 src/thread.c:152
+#, fuzzy
+msgid "GNOME MPlayer Error"
+msgstr "그놈 엠플레이어"
+
+#: src/support.c:1036 src/support.c:1069
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "저잘하려는 파일을 열수 없어서, 재생목록을 저장할 수 없습니다."
 
@@ -617,17 +627,12 @@ msgstr "저잘하려는 파일을 열수 없어서, 재생목록을 저장할 �
 msgid "Failed to open %s"
 msgstr ""
 
-#: src/thread.c:138
+#: src/thread.c:142
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "압축된 SWF 포맷 지원하지 않음"
 
-#: src/thread.c:148
-#, fuzzy
-msgid "GNOME MPlayer Error"
-msgstr "그놈 엠플레이어"
-
-#: src/thread.c:378
+#: src/thread.c:382
 #, c-format
 msgid ""
 "<small>\n"
@@ -642,11 +647,11 @@ msgstr ""
 "<b>파일:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:397 src/thread.c:407
+#: src/thread.c:401 src/thread.c:411
 msgid "Unknown"
 msgstr "알수 없음"
 
-#: src/thread.c:412
+#: src/thread.c:416
 #, c-format
 msgid ""
 "<small>\n"
@@ -661,7 +666,7 @@ msgstr ""
 "<b>앨범:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:429 src/thread.c:440
+#: src/thread.c:433 src/thread.c:444
 #, c-format
 msgid ""
 "<small>\n"
@@ -674,12 +679,12 @@ msgstr ""
 
 #. printf("Percent = %f\n",percent);
 #. printf("Buffer = %s\n",buf);
-#: src/thread.c:452
+#: src/thread.c:456
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "미리 읽기: %2.2f%%"
 
-#: src/thread.c:460
+#: src/thread.c:464
 #, c-format
 msgid "Connecting"
 msgstr "연결중"

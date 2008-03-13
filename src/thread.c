@@ -129,6 +129,10 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         }
     }
 
+	if (strstr(mplayer_output->str, "Couldn't open DVD device:") != NULL) {
+		error_msg = g_strdup_printf(_("Couldn't open DVD device: %s"),mplayer_output->str + strlen("Couldn't open DVD device: "));
+    }
+
     if (strstr(mplayer_output->str, "Failed to initiate \"video/X-ASF-PF\" RTP subsession") != NULL) {
         dontplaynext = TRUE;
         playback_error = ERROR_RETRY_WITH_PLAYLIST;
