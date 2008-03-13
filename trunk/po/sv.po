@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-13 06:12-0600\n"
+"POT-Creation-Date: 2008-03-13 07:05-0600\n"
 "PO-Revision-Date: 2007-05-18 06:37-0600\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -127,27 +127,28 @@ msgstr ""
 msgid "Frames per second from TV input"
 msgstr ""
 
-#: src/main.c:272
-msgid "- GNOME Media player based on MPlayer"
+#: src/main.c:181 src/main.c:182
+#, fuzzy
+msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "- GNOME-mediaspelare baserad på MPlayer"
 
-#: src/main.c:290
+#: src/main.c:303
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr ""
 
-#: src/main.c:301
+#: src/main.c:314
 #, fuzzy, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer - %s"
 
-#: src/main.c:359
+#: src/main.c:372
 msgid "Playing DVD"
 msgstr "Spelar dvd"
 
-#: src/main.c:363
+#: src/main.c:376
 msgid "Playing Audio CD"
 msgstr "Spela ljud-cd"
 
