@@ -1,4 +1,5 @@
 Development
+	Fix some translation items
 	Rework File Menu a little bit
 	Restore playlist visibility when coming out of fullscreen
 	Handle dbus messages from /org/gnome/SettingsDaemon/MediaKeys
