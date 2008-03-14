@@ -125,12 +125,16 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
             strstr(mplayer_output->str, "registry file") == NULL) {
             // error_msg = g_strdup(mplayer_output->str);
-			error_msg = g_strdup_printf(_("Failed to open %s"),mplayer_output->str + strlen("Failed to open "));
+            error_msg =
+                g_strdup_printf(_("Failed to open %s"),
+                                mplayer_output->str + strlen("Failed to open "));
         }
     }
 
-	if (strstr(mplayer_output->str, "Couldn't open DVD device:") != NULL) {
-		error_msg = g_strdup_printf(_("Couldn't open DVD device: %s"),mplayer_output->str + strlen("Couldn't open DVD device: "));
+    if (strstr(mplayer_output->str, "Couldn't open DVD device:") != NULL) {
+        error_msg =
+            g_strdup_printf(_("Couldn't open DVD device: %s"),
+                            mplayer_output->str + strlen("Couldn't open DVD device: "));
     }
 
     if (strstr(mplayer_output->str, "Failed to initiate \"video/X-ASF-PF\" RTP subsession") != NULL) {
