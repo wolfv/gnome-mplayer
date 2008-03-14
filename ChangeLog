@@ -1,4 +1,5 @@
 Development
+	When selecting OSD Level, use words rather than numbers to display level
 	Popup warning if we can't load the subtitle file
 	Add "Edit->Set Subtitle" menu in
 	Update License text on About box
