@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-14 10:36-0600\n"
+"POT-Creation-Date: 2008-03-14 10:45-0600\n"
 "PO-Revision-Date: 2008-02-19 13:26-0800\n"
 "Last-Translator: \n"
 "Language-Team: Portugese <LL@li.org>\n"
@@ -642,7 +642,7 @@ msgstr "Volume 100%"
 msgid "%s items"
 msgstr "%s arquivos"
 
-#: src/support.c:516 src/thread.c:136
+#: src/support.c:516 src/thread.c:133
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr ""
@@ -657,10 +657,18 @@ msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Erro ao salvar lista de reprodução, impossível abrir arquivo para escrever"
 
-#: src/thread.c:129
+#. error_msg = g_strdup(mplayer_output->str);
+#: src/thread.c:128
 #, c-format
 msgid "Failed to open %s"
 msgstr ""
+
+#: src/thread.c:137
+#, fuzzy, c-format
+msgid "Cannot load subtitles: %s"
+msgstr ""
+"Nome do arquivo: %s\n"
+"Legenda: %s"
 
 #: src/thread.c:146
 #, c-format

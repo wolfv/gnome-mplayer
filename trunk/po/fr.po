@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-14 10:36-0600\n"
+"POT-Creation-Date: 2008-03-14 10:45-0600\n"
 "PO-Revision-Date: 2008-03-09 15:18+0200\n"
 "Last-Translator: Starcrasher <starcrasher1@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -650,7 +650,7 @@ msgstr "Volume 100%"
 msgid "%s items"
 msgstr "Éléments de %s"
 
-#: src/support.c:516 src/thread.c:136
+#: src/support.c:516 src/thread.c:133
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr ""
@@ -666,10 +666,18 @@ msgstr ""
 "Impossible d'ouvrir le fichier en écriture; la liste de lecture ne peut pas "
 "être sauvegardée."
 
-#: src/thread.c:129
+#. error_msg = g_strdup(mplayer_output->str);
+#: src/thread.c:128
 #, c-format
 msgid "Failed to open %s"
 msgstr "Echec de l'ouverture %s"
+
+#: src/thread.c:137
+#, fuzzy, c-format
+msgid "Cannot load subtitles: %s"
+msgstr ""
+"Nom de fichier : %s\n"
+"Sous-titre : %s"
 
 #: src/thread.c:146
 #, c-format
