@@ -443,6 +443,7 @@ gboolean resize_window(void *data)
             g_get_current_time(&currenttime);
             last_movement_time = currenttime.tv_sec;
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), TRUE);
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), TRUE);
             dbus_disable_screensaver();
             if (embed_window == -1) {
                 gtk_widget_show_all(window);
@@ -504,6 +505,7 @@ gboolean resize_window(void *data)
             }
         } else {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
             if (window_x > 0 && window_y > 0) {
                 total_height = window_y;
                 gtk_widget_set_size_request(fixed, -1, -1);
@@ -1759,29 +1761,29 @@ void menuitem_quit_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 {
-    gchar *authors[] = { "Kevin DeKorte","James Carthew", NULL };
+    gchar *authors[] = { "Kevin DeKorte", "James Carthew", NULL };
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"),
                           "logo", pb_logo,
                           "authors", authors,
                           "copyright", "Copyright © 2007 Kevin DeKorte",
                           "comments", _("A media player for GNOME that uses MPlayer"),
-                          "version", VERSION, 
-						  "license", _("Gnome MPlayer is free software; you can redistribute it and/or modify it under\nthe terms of the GNU General Public License as published by the Free\nSoftware Foundation; either version 2 of the License, or (at your option)\nany later version."
- 									 "\n\nGnome MPlayer is distributed in the hope that it will be useful, but WITHOUT\nANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\nFITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\nmore details."
-									 "\n\nYou should have received a copy of the GNU General Public License along with\nGnome MPlayer if not, write to the\n\nFree Software Foundation, Inc.,\n51 Franklin St, Fifth Floor\nBoston, MA 02110-1301 USA")
+                          "version", VERSION,
+                          "license",
+                          _
+                          ("Gnome MPlayer is free software; you can redistribute it and/or modify it under\nthe terms of the GNU General Public License as published by the Free\nSoftware Foundation; either version 2 of the License, or (at your option)\nany later version."
+                           "\n\nGnome MPlayer is distributed in the hope that it will be useful, but WITHOUT\nANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\nFITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\nmore details."
+                           "\n\nYou should have received a copy of the GNU General Public License along with\nGnome MPlayer if not, write to the\n\nFree Software Foundation, Inc.,\n51 Franklin St, Fifth Floor\nBoston, MA 02110-1301 USA")
 
-						  
-						  ,
-						  "website", "http://code.google.com/p/gnome-mplayer/",
-						  "translator-credits", "Chinese (simplified) - Wenzheng Hu\n"
-						  						"French - Starcrasher\n"
-						  						"Italian - Cesare Tirabassi\n"
-						  						"Korean - ByeongSik Jeon\n"
-												"Polish - Julian Sikorski\n"
-												"Russian - Dmitry Stropaloff\n"
-						  						"Spanish - Festor Wailon Dacoba\n"
-						  						"Swedish - Daniel Nylander",
-						  NULL);
+
+                          ,
+                          "website", "http://code.google.com/p/gnome-mplayer/",
+                          "translator-credits", "Chinese (simplified) - Wenzheng Hu\n"
+                          "French - Starcrasher\n"
+                          "Italian - Cesare Tirabassi\n"
+                          "Korean - ByeongSik Jeon\n"
+                          "Polish - Julian Sikorski\n"
+                          "Russian - Dmitry Stropaloff\n"
+                          "Spanish - Festor Wailon Dacoba\n" "Swedish - Daniel Nylander", NULL);
 }
 
 void menuitem_play_callback(GtkMenuItem * menuitem, void *data)
@@ -1938,6 +1940,33 @@ void menuitem_edit_switch_audio_callback(GtkMenuItem * menuitem, void *data)
     cmd = g_strdup_printf("pausing_keep switch_audio\n");
     send_command(cmd);
     g_free(cmd);
+}
+
+void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
+{
+    gchar *cmd;
+    gchar *subtitle = NULL;
+    GtkWidget *dialog;
+
+    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+        dialog = gtk_file_chooser_dialog_new(_("Set Subtitle"),
+                                             GTK_WINDOW(window),
+                                             GTK_FILE_CHOOSER_ACTION_OPEN,
+                                             GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                             GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+        if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+            subtitle = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+            gtk_list_store_set(playliststore, &iter, SUBTITLE_COLUMN, subtitle, -1);
+        }
+        gtk_widget_destroy(dialog);
+
+        if (subtitle != NULL) {
+            cmd = g_strdup_printf("pausing_keep sub_load %s\n", subtitle);
+            send_command(cmd);
+            g_free(cmd);
+            g_free(subtitle);
+        }
+    }
 }
 
 void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
@@ -3137,24 +3166,25 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Audio CD")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_acd));
 
-	menuitem_file_dvd = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_DVD")));
+    menuitem_file_dvd = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_DVD")));
     menu_file_dvd = GTK_MENU(gtk_menu_new());
     gtk_widget_show(GTK_WIDGET(menuitem_file_dvd));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_dvd));
     gtk_menu_item_set_submenu(menuitem_file_dvd, GTK_WIDGET(menu_file_dvd));
-	
-	menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD Direct")));
+
+    menuitem_file_open_dvd =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD Direct")));
     gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvd));
     menuitem_file_open_dvdnav =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD with _Menus")));
     gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvdnav));
 
-	menuitem_file_tv = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_TV")));
+    menuitem_file_tv = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_TV")));
     menu_file_tv = GTK_MENU(gtk_menu_new());
     gtk_widget_show(GTK_WIDGET(menuitem_file_tv));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_tv));
     gtk_menu_item_set_submenu(menuitem_file_tv, GTK_WIDGET(menu_file_tv));
-	
+
     menuitem_file_open_atv =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Analog TV")));
     gtk_menu_append(menu_file_tv, GTK_WIDGET(menuitem_file_open_atv));
@@ -3212,6 +3242,8 @@ GtkWidget *create_window(gint windowid)
     menuitem_edit_switch_audio =
         GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("S_witch Audio Track")));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_switch_audio));
+    menuitem_edit_set_subtitle = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Sub_title")));
+    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_set_subtitle));
 
     menuitem_edit_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_sep1));
@@ -3225,6 +3257,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_edit_loop_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_switch_audio), "activate",
                      G_CALLBACK(menuitem_edit_switch_audio_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_edit_set_subtitle), "activate",
+                     G_CALLBACK(menuitem_edit_set_subtitle_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_config), "activate",
@@ -3797,6 +3831,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), FALSE);
@@ -3814,8 +3849,8 @@ GtkWidget *create_window(gint windowid)
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
     gtk_widget_hide(prev_event_box);
     gtk_widget_hide(next_event_box);
-	gtk_widget_hide(media_label);
-	
+    gtk_widget_hide(media_label);
+
     //while (gtk_events_pending())
     //    gtk_main_iteration();
 

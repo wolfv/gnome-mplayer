@@ -60,6 +60,7 @@ GtkMenu *menu_edit;
 GtkMenuItem *menuitem_edit_random;
 GtkMenuItem *menuitem_edit_loop;
 GtkMenuItem *menuitem_edit_switch_audio;
+GtkMenuItem *menuitem_edit_set_subtitle;
 GtkMenuItem *menuitem_edit_sep1;
 GtkMenuItem *menuitem_edit_config;
 GtkMenuItem *menuitem_help;

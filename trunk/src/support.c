@@ -484,9 +484,9 @@ gint parse_dvd(gchar * filename)
     gchar **output;
     gchar *track;
     gint num;
-	gchar *error_msg = NULL;
-	GtkWidget *dialog;
-	
+    gchar *error_msg = NULL;
+    GtkWidget *dialog;
+
     if (g_strncasecmp(filename, "dvd://", strlen("dvd://")) == 0) {     // || g_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
         playlist = 0;
         // run mplayer and try to get the first frame and convert it to a jpeg
@@ -511,9 +511,11 @@ gint parse_dvd(gchar * filename)
             error = NULL;
         }
         output = g_strsplit(stdout, "\n", 0);
-		if (strstr(stderr, "Couldn't open DVD device:") != NULL) {
-			error_msg = g_strdup_printf(_("Couldn't open DVD device: %s"),stderr + strlen("Couldn't open DVD device: "));
-	    }
+        if (strstr(stderr, "Couldn't open DVD device:") != NULL) {
+            error_msg =
+                g_strdup_printf(_("Couldn't open DVD device: %s"),
+                                stderr + strlen("Couldn't open DVD device: "));
+        }
         ac = 0;
         while (output[ac] != NULL) {
             if (g_strncasecmp(output[ac], "ID_DVD_TITLE_", strlen("ID_DVD_TITLE_")) == 0) {
@@ -525,20 +527,20 @@ gint parse_dvd(gchar * filename)
                 }
             }
             ac++;
-			
+
         }
         g_strfreev(output);
-		if (error_msg != NULL) {
-	        dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-	                                        GTK_BUTTONS_CLOSE, error_msg);
-	        gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
-	        gtk_dialog_run(GTK_DIALOG(dialog));
-	        gtk_widget_destroy(dialog);
-	        g_free(error_msg);
-			ret = 0;
-    	} else {
-        	ret = 1;
-		}
+        if (error_msg != NULL) {
+            dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                            GTK_BUTTONS_CLOSE, error_msg);
+            gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
+            gtk_dialog_run(GTK_DIALOG(dialog));
+            gtk_widget_destroy(dialog);
+            g_free(error_msg);
+            ret = 0;
+        } else {
+            ret = 1;
+        }
     } else {
         return 0;
     }

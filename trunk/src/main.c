@@ -268,11 +268,11 @@ int main(int argc, char *argv[])
     dvx_disabled = gconf_client_get_bool(gconf, DISABLE_DVX, NULL);
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
-#ifdef GTK2_12_ENABLED	
-	g_option_context_set_translation_domain(context,"UTF-8");
-	g_option_context_set_translate_func(context,(GTranslateFunc)gettext,NULL,NULL);
+#ifdef GTK2_12_ENABLED
+    g_option_context_set_translation_domain(context, "UTF-8");
+    g_option_context_set_translate_func(context, (GTranslateFunc) gettext, NULL, NULL);
 #endif
-	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
+    g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
 
