@@ -1947,13 +1947,24 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
     gchar *cmd;
     gchar *subtitle = NULL;
     GtkWidget *dialog;
-
+	gchar *path;
+	gchar *item;
+	gchar *p;
+	
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &item,-1);
+
+		path = g_strdup(item);
+		p = g_strrstr(path,"/");
+		if (p != NULL)
+			p[1] = '\0';
+		
         dialog = gtk_file_chooser_dialog_new(_("Set Subtitle"),
                                              GTK_WINDOW(window),
                                              GTK_FILE_CHOOSER_ACTION_OPEN,
                                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                              GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), path);
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
             subtitle = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
             gtk_list_store_set(playliststore, &iter, SUBTITLE_COLUMN, subtitle, -1);
@@ -1962,6 +1973,9 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
 
         if (subtitle != NULL) {
             cmd = g_strdup_printf("pausing_keep sub_load %s\n", subtitle);
+            send_command(cmd);
+            g_free(cmd);
+            cmd = g_strdup_printf("pausing_keep sub_visibility 1");
             send_command(cmd);
             g_free(cmd);
             g_free(subtitle);

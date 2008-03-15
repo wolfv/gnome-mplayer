@@ -1,4 +1,6 @@
 Development
+	Couple of minor changes to the Set Subtitle code
+	Updated French translation from Starcrasher
 	Make the OSD level change on the fly when selecting it in the preferences page
 	When selecting OSD Level, use words rather than numbers to display level
 	Popup warning if we can't load the subtitle file
