@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-14 10:59-0600\n"
-"PO-Revision-Date: 2008-03-09 15:18+0200\n"
+"PO-Revision-Date: 2008-03-14 21:00+0200\n"
 "Last-Translator: Starcrasher <starcrasher1@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -296,7 +296,26 @@ msgid ""
 "Free Software Foundation, Inc.,\n"
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
-msgstr ""
+msgstr "Gnome MPlayer est un logiciel libre ; vous pouvez le redistribuer et/ou"
+" le modifier au titre des clauses \n"
+"de la Licence Publique Générale GNU, telle que publiée par la "
+"Free Software Foundation ; \n"
+"soit la version 2 de la Licence, ou (à votre discrétion) une version "
+"ultérieure quelconque.\n"
+"\n"
+"Gnome MPlayer est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE "
+"GARANTIE ; sans même \n"
+"une garantie implicite de COMMERCIABILITÉ ou DE CONFORMITÉ À UNE UTILISATION "
+"PARTICULIÈRE.\n"
+" Voir la Licence Publique Générale GNU pour plus de détails.\n"
+"\n"
+"Vous devriez avoir reçu un exemplaire de la Licence Publique Générale GNU avec"
+" ce programme ; si \n"
+"ce n'est pas le cas, écrivez à la\n"
+"\n"
+"Free Software Foundation Inc.,\n"
+"51 Franklin Street, Fifth Floor,\n"
+"Boston, MA 02110-1301, USA."
 
 #: src/gui.c:1952 src/playlist.c:75
 msgid "Set Subtitle"
@@ -376,19 +395,19 @@ msgstr "Saturation"
 
 #: src/gui.c:2539
 msgid "No Display"
-msgstr ""
+msgstr "Aucun affichage"
 
 #: src/gui.c:2541
 msgid "Minimal"
-msgstr ""
+msgstr "Minimal"
 
 #: src/gui.c:2543
 msgid "Timer"
-msgstr ""
+msgstr "Chronomètre"
 
 #: src/gui.c:2545
 msgid "Timer/Total"
-msgstr ""
+msgstr "Chronomètre/Total"
 
 #: src/gui.c:2585
 msgid "Player"
@@ -396,7 +415,7 @@ msgstr "Lecteur"
 
 #: src/gui.c:2587
 msgid "Plugin"
-msgstr "Plugin"
+msgstr "Greffon"
 
 #: src/gui.c:2589
 msgid "Language Settings"
@@ -438,7 +457,7 @@ msgstr "Niveau OSD :"
 #: src/gui.c:2762
 msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 msgstr ""
-"<span weight=\"bold\">Définition des paramètres d'émulation du plugin</span>"
+"<span weight=\"bold\">Définition des paramètres d'émulation du greffon</span>"
 
 #: src/gui.c:2769
 msgid "QuickTime Emulation"
@@ -519,30 +538,28 @@ msgid "Open _Audio CD"
 msgstr "Lire un CD _Audio"
 
 #: src/gui.c:3189
-#, fuzzy
 msgid "_DVD"
 msgstr "Lire un _DVD"
 
 #: src/gui.c:3195
-#, fuzzy
 msgid "Open _DVD Direct"
-msgstr "Lire un _DVD"
+msgstr "_DVD direct"
 
 #: src/gui.c:3198
 msgid "Open DVD with _Menus"
-msgstr "Lire un DVD avec _menus"
+msgstr "DVD avec _menus"
 
 #: src/gui.c:3201
 msgid "_TV"
-msgstr ""
+msgstr "Regarder la _TV"
 
 #: src/gui.c:3208
 msgid "Open _Analog TV"
-msgstr "Regarder la _TV Analogique"
+msgstr "_TV Analogique"
 
 #: src/gui.c:3211
 msgid "Open _Digital TV"
-msgstr "Regarder la TV _Numérique"
+msgstr "TV _Numérique"
 
 #: src/gui.c:3218
 msgid "D_etails"
@@ -566,9 +583,8 @@ msgid "S_witch Audio Track"
 msgstr "Changer de pi_ste audio"
 
 #: src/gui.c:3265
-#, fuzzy
 msgid "Set Sub_title"
-msgstr "Sélection des sous-titres"
+msgstr "Sélection des sous-_titres"
 
 #. View Menu
 #: src/gui.c:3290
@@ -669,12 +685,11 @@ msgstr "Éléments de %s"
 #: src/support.c:516 src/thread.c:133
 #, c-format
 msgid "Couldn't open DVD device: %s"
-msgstr ""
+msgstr "Impossible d'ouvrir le périphérique : %s"
 
 #: src/support.c:536 src/thread.c:156
-#, fuzzy
 msgid "GNOME MPlayer Error"
-msgstr "GNOME MPlayer"
+msgstr "Erreur de GNOME MPlayer"
 
 #: src/support.c:1038 src/support.c:1071
 msgid "Unable to save playlist, cannot open file for writing"
@@ -686,14 +701,12 @@ msgstr ""
 #: src/thread.c:128
 #, c-format
 msgid "Failed to open %s"
-msgstr "Echec de l'ouverture %s"
+msgstr "Échec à l'ouverture de %s"
 
 #: src/thread.c:137
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot load subtitles: %s"
-msgstr ""
-"Nom de fichier : %s\n"
-"Sous-titre : %s"
+msgstr "Impossible de charger les sous-titres : %s"
 
 #: src/thread.c:146
 #, c-format
@@ -842,3 +855,4 @@ msgstr "Nettoyer la liste de lecture"
 #: src/playlist.c:747
 msgid "_Set Subtitle"
 msgstr "_Sélectionner les sous-titres"
+
