@@ -1972,10 +1972,13 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
         gtk_widget_destroy(dialog);
 
         if (subtitle != NULL) {
-            cmd = g_strdup_printf("pausing_keep sub_load %s\n", subtitle);
+            cmd = g_strdup_printf("pausing_keep sub_remove\n");
             send_command(cmd);
             g_free(cmd);
-            cmd = g_strdup_printf("pausing_keep sub_visibility 1");
+            cmd = g_strdup_printf("pausing_keep sub_load \"%s\"\n", subtitle);
+            send_command(cmd);
+            g_free(cmd);
+            cmd = g_strdup_printf("pausing_keep sub_file 0");
             send_command(cmd);
             g_free(cmd);
             g_free(subtitle);
