@@ -1373,13 +1373,25 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     GdkPixmap *cursor_source;
     GdkCursor *cursor;
     GTimeVal currenttime;
-
+	gint i;
+    static gboolean working;
+	GtkRequisition req;
+	
     if (fullscreen) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -5 * G_USEC_PER_SEC);
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
-            if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box)) {
-                gtk_widget_hide(controls_box);
+            if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box) && working != TRUE) {\
+				working = TRUE;
+				gtk_widget_size_request(controls_box,&req);
+				
+				for (i = req.height ; i > 0; i--) {
+				    gtk_widget_set_size_request(controls_box,req.width,i);   
+					while (gtk_events_pending ()) gtk_main_iteration (); 
+				}
+
+				gtk_widget_hide(controls_box);
+				working = FALSE;
             }
             cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
             cursor =
@@ -1398,6 +1410,7 @@ gboolean make_panel_and_mouse_visible(gpointer data)
     if (fullscreen) {
 
         if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
+			gtk_widget_set_size_request(controls_box,-1,-1);   
             gtk_widget_show(controls_box);
         }
         gdk_window_set_cursor(window->window, NULL);
