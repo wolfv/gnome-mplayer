@@ -1,4 +1,5 @@
 Development
+	Updated Korean translation by ByeongSik Jeon
 	In playlist, set subtitles to be loaded from same directory as video file by default.
 	Make control box reappear when going out of fullscreen using only keyboard
 	Make control box slide away when fullscreen.
