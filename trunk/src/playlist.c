@@ -67,16 +67,25 @@ void playlist_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
     GtkTreeIter localiter;
     gchar *subtitle;
     GtkWidget *dialog;
-
+	gchar *path;
+	gchar *item;
+	gchar *p;
+	
     sel = gtk_tree_view_get_selection(view);
 
     if (gtk_tree_selection_get_selected(sel, NULL, &localiter)) {
-
+		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN, &item,-1);
+		path = g_strdup(item);
+		p = g_strrstr(path,"/");
+		if (p != NULL)
+			p[1] = '\0';
+		
         dialog = gtk_file_chooser_dialog_new(_("Set Subtitle"),
                                              GTK_WINDOW(window),
                                              GTK_FILE_CHOOSER_ACTION_OPEN,
                                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                              GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), path);
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
             subtitle = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
             gtk_list_store_set(playliststore, &localiter, SUBTITLE_COLUMN, subtitle, -1);
