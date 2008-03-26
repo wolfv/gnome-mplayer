@@ -2025,7 +2025,6 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         } else {
             gtk_widget_show(menubar);
         }
-        fullscreen = 0;
 
         if (restore_playlist) {
             menuitem_view_playlist_callback(NULL, NULL);
@@ -2037,10 +2036,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_resize(GTK_WINDOW(window), width, height);
         if (stored_window_width != -1)
             gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
-        if (showcontrols)
-            gtk_widget_show(controls_box);
-        gdk_window_set_cursor(window->window, NULL);
-
+		make_panel_and_mouse_visible(NULL);
+        fullscreen = 0;
     } else {
         if (embed_window != 0) {
 
