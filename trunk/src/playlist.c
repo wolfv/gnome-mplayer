@@ -626,7 +626,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
             g_free(coltitle);
         }
         gtk_tree_view_column_set_expand(column, TRUE);
-        gtk_tree_view_column_set_max_width(column, 40);
+        //gtk_tree_view_column_set_max_width(column, 40);
+		gtk_tree_view_column_set_resizable(column, TRUE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
         renderer = gtk_cell_renderer_text_new();
@@ -634,20 +635,23 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                                                           renderer, "text", ARTIST_COLUMN, NULL);
         gtk_tree_view_column_set_expand(column, TRUE);
         gtk_tree_view_column_set_max_width(column, 20);
+		gtk_tree_view_column_set_resizable(column, TRUE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
 
         renderer = gtk_cell_renderer_text_new();
         column = gtk_tree_view_column_new_with_attributes(_("Length"),
                                                           renderer, "text", LENGTH_COLUMN, NULL);
-        gtk_tree_view_column_set_expand(column, FALSE);
+        //gtk_tree_view_column_set_expand(column, FALSE);
         gtk_tree_view_column_set_alignment(column, 1.0);
+		gtk_tree_view_column_set_resizable(column, FALSE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
 
         renderer = gtk_cell_renderer_text_new();
         column = gtk_tree_view_column_new_with_attributes("", renderer, "text", COUNT_COLUMN, NULL);
-        gtk_tree_view_column_set_expand(column, FALSE);
+        //gtk_tree_view_column_set_expand(column, FALSE);
+		gtk_tree_view_column_set_resizable(column, FALSE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
 
@@ -722,7 +726,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 
         scrolled = gtk_scrolled_window_new(NULL, NULL);
         gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled),
-                                       GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+                                       GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
         gtk_container_add(GTK_CONTAINER(scrolled), list);
 
         gtk_box_pack_start(GTK_BOX(plvbox), scrolled, TRUE, TRUE, 0);
