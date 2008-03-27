@@ -1373,25 +1373,26 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     GdkPixmap *cursor_source;
     GdkCursor *cursor;
     GTimeVal currenttime;
-	gint i;
+    gint i;
     static gboolean working;
-	GtkRequisition req;
-	
+    GtkRequisition req;
+
     if (fullscreen) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -5 * G_USEC_PER_SEC);
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
-            if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box) && working != TRUE) {\
-				working = TRUE;
-				gtk_widget_size_request(controls_box,&req);
-				
-				for (i = req.height ; i > 0; i--) {
-				    gtk_widget_set_size_request(controls_box,req.width,i);   
-					while (gtk_events_pending ()) gtk_main_iteration (); 
-				}
+            if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box) && working != TRUE) {
+                working = TRUE;
+                gtk_widget_size_request(controls_box, &req);
 
-				gtk_widget_hide(controls_box);
-				working = FALSE;
+                for (i = req.height; i > 0; i--) {
+                    gtk_widget_set_size_request(controls_box, req.width, i);
+                    while (gtk_events_pending())
+                        gtk_main_iteration();
+                }
+
+                gtk_widget_hide(controls_box);
+                working = FALSE;
             }
             cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
             cursor =
@@ -1410,7 +1411,7 @@ gboolean make_panel_and_mouse_visible(gpointer data)
     if (fullscreen) {
 
         if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
-			gtk_widget_set_size_request(controls_box,-1,-1);   
+            gtk_widget_set_size_request(controls_box, -1, -1);
             gtk_widget_show(controls_box);
         }
         gdk_window_set_cursor(window->window, NULL);
@@ -1854,6 +1855,7 @@ void menuitem_view_info_callback(GtkMenuItem * menuitem, void *data)
         }
     }
 }
+
 void menuitem_view_fullscreen_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
@@ -1882,6 +1884,7 @@ void menuitem_view_onetoone_callback(GtkMenuItem * menuitem, void *data)
         gtk_window_resize(GTK_WINDOW(window), idle->width, total_height);
     }
 }
+
 void menuitem_view_twotoone_callback(GtkMenuItem * menuitem, void *data)
 {
     gint total_height;
@@ -1960,24 +1963,24 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
     gchar *cmd;
     gchar *subtitle = NULL;
     GtkWidget *dialog;
-	gchar *path;
-	gchar *item;
-	gchar *p;
-	
-    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &item,-1);
+    gchar *path;
+    gchar *item;
+    gchar *p;
 
-		path = g_strdup(item);
-		p = g_strrstr(path,"/");
-		if (p != NULL)
-			p[1] = '\0';
-		
+    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &item, -1);
+
+        path = g_strdup(item);
+        p = g_strrstr(path, "/");
+        if (p != NULL)
+            p[1] = '\0';
+
         dialog = gtk_file_chooser_dialog_new(_("Set Subtitle"),
                                              GTK_WINDOW(window),
                                              GTK_FILE_CHOOSER_ACTION_OPEN,
                                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                              GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
-		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), path);
+        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), path);
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
             subtitle = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
             gtk_list_store_set(playliststore, &iter, SUBTITLE_COLUMN, subtitle, -1);
@@ -2036,7 +2039,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_resize(GTK_WINDOW(window), width, height);
         if (stored_window_width != -1)
             gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
-		make_panel_and_mouse_visible(NULL);
+        make_panel_and_mouse_visible(NULL);
         fullscreen = 0;
     } else {
         if (embed_window != 0) {
@@ -2562,7 +2565,7 @@ static gchar *osdlevel_format_callback(GtkScale * scale, gdouble value)
 {
     gchar *cmd;
     gchar *text;
-	
+
     switch ((gint) value) {
 
     case 0:

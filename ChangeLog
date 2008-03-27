@@ -1,4 +1,5 @@
 Development
+	Implement moving media files up and down the playlist
 	Allow column resize in playlist viewer
 	Updated Korean translation by ByeongSik Jeon
 	In playlist, set subtitles to be loaded from same directory as video file by default.
