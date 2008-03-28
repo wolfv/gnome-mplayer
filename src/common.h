@@ -138,6 +138,14 @@ enum {
     N_COLUMNS
 };
 
+//Define MIME for DnD
+#define DRAG_NAME_0		"text/plain"
+#define DRAG_INFO_0		0
+#define DRAG_NAME_1		"text/uri-list"
+#define DRAG_INFO_1		1
+#define DRAG_NAME_2		"STRING"
+#define DRAG_INFO_2		2
+
 gchar *lastfile;
 gint cache_size;
 gboolean forcecache;

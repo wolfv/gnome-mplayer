@@ -1018,55 +1018,52 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
     gchar **list;
     gint i = 0;
     gint playlist;
+	gint itemcount;
+	
+    /* Important, check if we actually got data.  Sometimes errors
+        * occure and selection_data will be NULL.
+        */
+    if (selection_data == NULL)
+        return FALSE;
+    if (selection_data->length < 0)
+        return FALSE;
 
-    if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
-        return playlist_drop_callback(widget, dc, x, y, selection_data, info, t, data);
-    } else {
+    if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
+        filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
+        list = g_strsplit(filename, "\n", 0);
+        //gtk_list_store_clear(playliststore);
+        //gtk_list_store_clear(nonrandomplayliststore);
+		itemcount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+		
+        while (list[i] != NULL) {
+            g_strchomp(list[i]);
+            if (strlen(list[i]) > 0) {
+                playlist = detect_playlist(list[i]);
 
-        /* Important, check if we actually got data.  Sometimes errors
-         * occure and selection_data will be NULL.
-         */
-        if (selection_data == NULL)
-            return FALSE;
-        if (selection_data->length < 0)
-            return FALSE;
-
-        if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
-            filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
-            list = g_strsplit(filename, "\n", 0);
-            gtk_list_store_clear(playliststore);
-            gtk_list_store_clear(nonrandomplayliststore);
-
-            while (list[i] != NULL) {
-                g_strchomp(list[i]);
-                if (strlen(list[i]) > 0) {
-                    playlist = detect_playlist(list[i]);
-
-                    if (!playlist) {
-                        add_item_to_playlist(list[i], playlist);
-                    } else {
-                        if (!parse_playlist(list[i])) {
-                            localiter = add_item_to_playlist(list[i], playlist);
-                        }
+                if (!playlist) {
+                    add_item_to_playlist(list[i], playlist);
+                } else {
+                    if (!parse_playlist(list[i])) {
+                        localiter = add_item_to_playlist(list[i], playlist);
                     }
                 }
-                i++;
             }
-
-            if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2) {
-                gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-                                   PLAYLIST_COLUMN, &playlist, -1);
-
-                shutdown();
-                play_file(filename, playlist);
-                g_free(filename);
-            }
-            g_strfreev(list);
-            update_gui();
+            i++;
         }
-        return FALSE;
+
+        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > itemcount) {
+			gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &iter, NULL, itemcount);
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                                PLAYLIST_COLUMN, &playlist, -1);
+
+            shutdown();
+            play_file(filename, playlist);
+            g_free(filename);
+        }
+        g_strfreev(list);
+        update_gui();
     }
+    return FALSE;
 
 }
 
