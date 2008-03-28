@@ -212,8 +212,11 @@ gboolean playlist_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
                 tip = g_strdup_printf("%s", iterfilename);
             } else {
                 tip = g_strdup_printf(_("Filename: %s\nSubtitle: %s"), iterfilename, itersubtitle);
+                g_free(itersubtitle);
             }
             gtk_tooltips_set_tip(playlisttip, widget, tip, NULL);
+            g_free(tip);
+            g_free(iterfilename);
         }
         gtk_tree_path_free(localpath);
     }
@@ -344,7 +347,7 @@ void add_item_to_playlist_callback(gpointer data, gpointer user_data)
             add_item_to_playlist(filename, playlist);
         }
     }
-
+    g_free(filename);
 }
 
 gint compar(gpointer a, gpointer b)
@@ -357,7 +360,7 @@ void add_folder_to_playlist_callback(gpointer data, gpointer user_data)
     gchar *filename = (gchar *) data;
     GDir *dir;
     gchar *name;
-    gchar *subdir;
+    gchar *subdir = NULL;
     GSList *list = NULL;
 
     dir = g_dir_open(filename, 0, NULL);
@@ -368,6 +371,7 @@ void add_folder_to_playlist_callback(gpointer data, gpointer user_data)
                 subdir = g_strdup_printf("%s/%s", filename, name);
                 if (g_file_test(subdir, G_FILE_TEST_IS_DIR)) {
                     add_folder_to_playlist_callback((gpointer) subdir, NULL);
+                    g_free(subdir);
                 } else {
                     list = g_slist_prepend(list, subdir);
                     filecount++;
@@ -698,7 +702,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         closebox = gtk_hbox_new(FALSE, 0);
 
         list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
-		gtk_tree_view_set_reorderable(GTK_TREE_VIEW(list),TRUE);
+        gtk_tree_view_set_reorderable(GTK_TREE_VIEW(list), TRUE);
         gtk_widget_add_events(list, GDK_BUTTON_PRESS_MASK);
         gtk_widget_set_size_request(GTK_WIDGET(list), -1, -1);
 

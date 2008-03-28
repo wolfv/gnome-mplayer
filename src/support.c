@@ -325,7 +325,7 @@ gint parse_cdda(gchar * filename)
     gchar *stdout = NULL;
     gchar *stderr = NULL;
     gchar *av[255];
-    gint ac = 0;
+    gint ac = 0, i;
     gint ret = 0;
     gchar **output;
     gchar *track = NULL;
@@ -357,6 +357,9 @@ gint parse_cdda(gchar * filename)
 
         g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
                      &exit_status, &error);
+        for (i = 0; i < ac; i++) {
+            g_free(av[i]);
+        }
         if (error != NULL) {
             printf("Error when running: %s\n", error->message);
             g_error_free(error);
@@ -479,7 +482,7 @@ gint parse_dvd(gchar * filename)
     gchar *stdout;
     gchar *stderr;
     gchar *av[255];
-    gint ac = 0;
+    gint ac = 0, i;
     gint ret = 0;
     gchar **output;
     gchar *track;
@@ -505,9 +508,16 @@ gint parse_dvd(gchar * filename)
 
         g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
                      &exit_status, &error);
+        for (i = 0; i < ac; i++) {
+            g_free(av[i]);
+        }
         if (error != NULL) {
             printf("Error when running: %s\n", error->message);
             g_error_free(error);
+            if (stdout != NULL)
+                g_free(stdout);
+            if (stderr != NULL)
+                g_free(stderr);
             error = NULL;
         }
         output = g_strsplit(stdout, "\n", 0);
@@ -702,6 +712,8 @@ gboolean streaming_media(gchar * filename)
 
     ret = TRUE;
 
+    if (filename == NULL)
+        return FALSE;
     if (strstr(filename, "dvd://") != NULL) {
         ret = FALSE;
     } else if (strstr(filename, "dvdnav://") != NULL) {
@@ -748,7 +760,7 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
     gchar *stdout = NULL;
     gchar *stderr = NULL;
     gchar *av[255];
-    gint ac = 0;
+    gint ac = 0, i;
     gchar **output;
     gfloat seconds;
     gint hour = 0;
@@ -771,10 +783,19 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
 
     g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
                  &exit_status, &error);
+
+    for (i = 0; i < ac; i++) {
+        g_free(av[i]);
+    }
+
     if (error != NULL) {
         printf("Error when running: %s\n", error->message);
         g_error_free(error);
         error = NULL;
+        if (stdout != NULL)
+            g_free(stdout);
+        if (stderr != NULL)
+            g_free(stderr);
         return;
     }
     output = g_strsplit(stdout, "\n", 0);
@@ -852,7 +873,7 @@ gint get_bitrate(gchar * name)
     gchar *stdout = NULL;
     gchar *stderr = NULL;
     gchar *av[255];
-    gint ac = 0;
+    gint ac = 0, i;
     gchar **output;
     gint bitrate = 0;
     gint vbitrate = -1;
@@ -881,9 +902,16 @@ gint get_bitrate(gchar * name)
 
     g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
                  &exit_status, &error);
+    for (i = 0; i < ac; i++) {
+        g_free(av[i]);
+    }
     if (error != NULL) {
         printf("Error when running: %s\n", error->message);
         g_error_free(error);
+        if (stdout != NULL)
+            g_free(stdout);
+        if (stderr != NULL)
+            g_free(stderr);
         error = NULL;
     }
     output = g_strsplit(stdout, "\n", 0);
@@ -925,7 +953,6 @@ gint get_bitrate(gchar * name)
 GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
 {
     gchar *desc = NULL;
-    gchar *url = NULL;
     GtkTreeIter localiter;
     gchar *artist = NULL;
     gchar *length = NULL;
@@ -935,6 +962,8 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
         get_metadata(itemname, &desc, &artist, &length);
 
         if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
+            if (desc != NULL)
+                g_free(desc);
             if (g_strrstr(itemname, "/") != NULL) {
                 desc = g_strdup_printf("%s", g_strrstr(itemname, "/") + sizeof(gchar));
             } else {
@@ -942,7 +971,6 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
             }
         }
     } else {
-        url = g_strrstr(itemname, "http://");
 
         if (g_ascii_strncasecmp(itemname, "cdda://", strlen("cdda://")) == 0) {
             desc = g_strdup_printf("CD Track %s", itemname + strlen("cdda://"));
@@ -950,6 +978,8 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
             file = itemname + sizeof(gchar) * strlen("file://");
             get_metadata(file, &desc, &artist, &length);
             if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
+                if (desc != NULL)
+                    g_free(desc);
                 if (g_strrstr(file, "/") != NULL) {
                     desc = g_strdup_printf("%s", g_strrstr(file, "/") + sizeof(gchar));
                 } else {
@@ -962,7 +992,9 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
             }
             get_metadata(itemname, &desc, &artist, &length);
             if (desc == NULL || (desc != NULL && strlen(desc) == 0))
-                desc = g_strdup_printf("Device - %s", itemname);
+                if (desc != NULL)
+                    g_free(desc);
+            desc = g_strdup_printf("Device - %s", itemname);
 
         } else {
             desc = g_strdup_printf("Stream from %s", itemname);
@@ -988,7 +1020,17 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
                            SUBTITLE_COLUMN, subtitle, LENGTH_COLUMN, length, -1);
 
     }
-    g_free(desc);
+    if (desc != NULL)
+        g_free(desc);
+    if (artist != NULL)
+        g_free(artist);
+    if (subtitle != NULL)
+        g_free(subtitle);
+    if (length != NULL)
+        g_free(length);
+    if (file != NULL)
+        g_free(file);
+
     return localiter;
 
 }
