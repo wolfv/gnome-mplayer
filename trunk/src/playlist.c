@@ -89,10 +89,10 @@ gboolean button_release_callback(GtkWidget * widget, GdkEvent * event, gpointer 
             gtk_widget_set_sensitive(down, TRUE);
         }
     } else {
-        sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
-        gtk_tree_selection_unselect_all(sel);
-        gtk_widget_set_sensitive(up, FALSE);
-        gtk_widget_set_sensitive(down, FALSE);
+        //sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
+        //gtk_tree_selection_unselect_all(sel);
+        //gtk_widget_set_sensitive(up, FALSE);
+        //gtk_widget_set_sensitive(down, FALSE);
     }
 
     return FALSE;
