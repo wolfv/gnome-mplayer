@@ -465,6 +465,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         //printf("Buffer = %s\n",buf);
         buf = g_strdup_printf(_("Cache fill: %2.2f%%"), percent);
         g_strlcpy(idledata->progress_text, buf, 1024);
+        g_free(buf);
         g_idle_add(set_progress_text, idledata);
         idledata->percent = percent / 100.0;
         g_idle_add(set_progress_value, idledata);
@@ -473,6 +474,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "Connecting") != 0) {
         buf = g_strdup_printf(_("Connecting"));
         g_strlcpy(idledata->progress_text, buf, 1024);
+        g_free(buf);
         g_idle_add(set_progress_text, idledata);
         idledata->percent = 0.0;
         g_idle_add(set_progress_value, idledata);
@@ -542,8 +544,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 }
             }
         }
-        if (message)
+        if (message) {
             g_strlcpy(idledata->info, message, 1024);
+            g_free(message);
+            message = NULL;
+        }
         g_idle_add(set_media_info, idledata);
     }
 

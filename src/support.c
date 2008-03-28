@@ -363,6 +363,10 @@ gint parse_cdda(gchar * filename)
         if (error != NULL) {
             printf("Error when running: %s\n", error->message);
             g_error_free(error);
+            if (stdout != NULL)
+                g_free(stdout);
+            if (stderr != NULL)
+                g_free(stderr);
             error = NULL;
         }
         output = g_strsplit(stdout, "\n", 0);
