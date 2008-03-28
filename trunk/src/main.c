@@ -123,6 +123,7 @@ gint play_file(gchar * filename, gint playlist)
     }
     if (subtitle != NULL) {
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
+        g_free(subtitle);
     }
 
     if (g_ascii_strcasecmp(filename, "") != 0) {

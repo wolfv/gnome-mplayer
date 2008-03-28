@@ -732,6 +732,13 @@ gpointer launch_player(gpointer data)
                                   G_SPAWN_SEARCH_PATH,
                                   NULL, NULL, NULL, &std_in, &std_out, &std_err, NULL);
 
+    arg = 0;
+    while (argv[arg] != NULL) {
+        g_free(argv[arg]);
+        argv[arg] = NULL;
+        arg++;
+    }
+
     if (ok) {
         if (verbose)
             printf("Spawn succeeded for filename %s\n", threaddata->filename);
@@ -806,12 +813,6 @@ gpointer launch_player(gpointer data)
             channel_err = NULL;
         }
 
-        arg = 0;
-        while (argv[arg] != NULL) {
-            g_free(argv[arg]);
-            argv[arg] = NULL;
-            arg++;
-        }
 
         g_mutex_unlock(thread_running);
 

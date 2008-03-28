@@ -84,7 +84,6 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     path1 = g_strdup_printf("/control/%i", control_id);
     path2 = g_strdup_printf("/window/%i", embed_window);
     path3 = g_strdup_printf("/pid/%i", getpid());
-
     path4 = g_strdup_printf("/console/%s", rpconsole);
 
     if (dbus_message_get_path(message)) {
@@ -782,6 +781,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     g_free(path1);
     g_free(path2);
     g_free(path3);
+    g_free(path4);
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
