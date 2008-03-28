@@ -1018,11 +1018,11 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
     gchar **list;
     gint i = 0;
     gint playlist;
-	gint itemcount;
-	
+    gint itemcount;
+
     /* Important, check if we actually got data.  Sometimes errors
-        * occure and selection_data will be NULL.
-        */
+     * occure and selection_data will be NULL.
+     */
     if (selection_data == NULL)
         return FALSE;
     if (selection_data->length < 0)
@@ -1033,8 +1033,8 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         list = g_strsplit(filename, "\n", 0);
         //gtk_list_store_clear(playliststore);
         //gtk_list_store_clear(nonrandomplayliststore);
-		itemcount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-		
+        itemcount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+
         while (list[i] != NULL) {
             g_strchomp(list[i]);
             if (strlen(list[i]) > 0) {
@@ -1052,9 +1052,9 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         }
 
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > itemcount) {
-			gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &iter, NULL, itemcount);
+            gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &iter, NULL, itemcount);
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-                                PLAYLIST_COLUMN, &playlist, -1);
+                               PLAYLIST_COLUMN, &playlist, -1);
 
             shutdown();
             play_file(filename, playlist);
