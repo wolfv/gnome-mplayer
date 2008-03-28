@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-25 13:09+0900\n"
+"POT-Creation-Date: 2008-03-27 12:07-0600\n"
 "PO-Revision-Date: 2008-03-25 13:14+0900\n"
 "Last-Translator: ByeongSik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
@@ -229,38 +229,38 @@ msgstr "일시정지됨"
 msgid "Stopped"
 msgstr "정지됨"
 
-#: src/gui.c:1459 src/playlist.c:351
+#: src/gui.c:1460 src/playlist.c:399
 msgid "Open File"
 msgstr "파일 열기"
 
-#: src/gui.c:1508 src/support.c:126 src/support.c:174 src/playlist.c:382
+#: src/gui.c:1509 src/support.c:126 src/support.c:174 src/playlist.c:430
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
 msgstr[0] "재생할 항목"
 msgstr[1] "재생할 항목들"
 
-#: src/gui.c:1571
+#: src/gui.c:1572
 msgid "Open Location"
 msgstr "주소 열기"
 
-#: src/gui.c:1573
+#: src/gui.c:1574
 msgid "Location:"
 msgstr "주소:"
 
-#: src/gui.c:1728
+#: src/gui.c:1729
 msgid "Save As..."
 msgstr "다른 이름으로 저장..."
 
-#: src/gui.c:1778 src/gui.c:3095
+#: src/gui.c:1779 src/gui.c:3095
 msgid "GNOME MPlayer"
 msgstr "그놈 엠플레이어"
 
-#: src/gui.c:1782
+#: src/gui.c:1783
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "엠플레이어를 사용하는 그놈용 미디어 재생기"
 
-#: src/gui.c:1786
+#: src/gui.c:1787
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -283,7 +283,7 @@ msgid ""
 "Boston, MA 02110-1301 USA"
 msgstr ""
 
-#: src/gui.c:1975 src/playlist.c:75
+#: src/gui.c:1978 src/playlist.c:121
 msgid "Set Subtitle"
 msgstr "자막 지정"
 
@@ -640,7 +640,7 @@ msgstr "전체 화면"
 msgid "Volume 100%"
 msgstr "볼륨 100%"
 
-#: src/support.c:163 src/playlist.c:615
+#: src/support.c:163 src/playlist.c:730
 #, c-format
 msgid "%s items"
 msgstr "%s 목록"
@@ -730,7 +730,7 @@ msgstr "미리 읽기: %2.2f%%"
 msgid "Connecting"
 msgstr "연결중"
 
-#: src/playlist.c:167
+#: src/playlist.c:214
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -739,31 +739,31 @@ msgstr ""
 "파일 이름: %s\n"
 "자막: %s"
 
-#: src/playlist.c:186 src/playlist.c:665
+#: src/playlist.c:234 src/playlist.c:784
 msgid "Save Playlist"
 msgstr "재생목록 저장하기"
 
-#: src/playlist.c:198 src/playlist.c:253
+#: src/playlist.c:246 src/playlist.c:301
 msgid "Playlist (*.pls)"
 msgstr "Playlist (*.pls)"
 
-#: src/playlist.c:203 src/playlist.c:263
+#: src/playlist.c:251 src/playlist.c:311
 msgid "MP3 Playlist (*.m3u)"
 msgstr "MP3 Playlist (*.m3u)"
 
-#: src/playlist.c:241 src/playlist.c:657
+#: src/playlist.c:289 src/playlist.c:776
 msgid "Open Playlist"
 msgstr "재생목록 열기"
 
-#: src/playlist.c:258
+#: src/playlist.c:306
 msgid "Reference Playlist (*.ref)"
 msgstr "Reference Playlist (*.ref)"
 
-#: src/playlist.c:398
+#: src/playlist.c:446
 msgid "Choose Directory"
 msgstr "디렉토리 선택"
 
-#: src/playlist.c:430
+#: src/playlist.c:478
 #, c-format
 msgid ""
 "\n"
@@ -778,40 +778,48 @@ msgstr[1] ""
 "\n"
 "\t%i개의 파일들을 찾았습니다\n"
 
-#: src/playlist.c:612
+#: src/playlist.c:727
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "재생할 항목"
 msgstr[1] "재생할 항목들"
 
-#: src/playlist.c:624
+#: src/playlist.c:740
 msgid "Artist"
 msgstr "아티스트"
 
-#: src/playlist.c:632
+#: src/playlist.c:749
 msgid "Length"
 msgstr "길이"
 
-#: src/playlist.c:647
+#: src/playlist.c:766
 msgid "Close Playlist View"
 msgstr "재생목록 보기 닫기"
 
-#: src/playlist.c:673
+#: src/playlist.c:792
 msgid "Add Item to Playlist"
 msgstr "재생목록에 항목 추가"
 
-#: src/playlist.c:681
+#: src/playlist.c:800
 msgid "Remove Item from Playlist"
 msgstr "재생목록에서 항목 지우기"
 
-#: src/playlist.c:690
+#: src/playlist.c:809
 msgid "Add Items in Folder to Playlist"
 msgstr "재생목록에 항목 추가"
 
-#: src/playlist.c:699
+#: src/playlist.c:818
 msgid "Clear Playlist"
 msgstr "재생목록 지우기"
 
-#: src/playlist.c:747
+#: src/playlist.c:826
+msgid "Move Item Up"
+msgstr ""
+
+#: src/playlist.c:835
+msgid "Move Item Down"
+msgstr ""
+
+#: src/playlist.c:884
 msgid "_Set Subtitle"
 msgstr "자막 지정(_S)"

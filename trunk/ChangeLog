@@ -1,4 +1,6 @@
 Development
+	Rework drag and drop, when dragging and dropping to window file is played immediately,
+		when dragging and dropping to playlist file is added to playlist. Playlist is never cleared.
 	Implement moving media files up and down the playlist
 	Allow column resize in playlist viewer
 	Updated Korean translation by ByeongSik Jeon
