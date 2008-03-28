@@ -644,9 +644,9 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
     gchar *coltitle;
     gint x, y, depth;
     gint count;
-	GtkTargetEntry target_entry[3];
+    GtkTargetEntry target_entry[3];
     gint i = 0;
-	
+
     g_value_init(&value, G_TYPE_BOOLEAN);
 
     if (GTK_IS_WIDGET(plvbox)) {
@@ -715,26 +715,26 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                          G_CALLBACK(button_release_callback), NULL);
         g_signal_connect(G_OBJECT(list), "motion-notify-event",
                          G_CALLBACK(playlist_motion_callback), NULL);
-	    // Give the window the property to accept DnD
-	    target_entry[i].target = DRAG_NAME_0;
-	    target_entry[i].flags = 0;
-	    target_entry[i++].info = DRAG_INFO_0;
-	    target_entry[i].target = DRAG_NAME_1;
-	    target_entry[i].flags = 0;
-	    target_entry[i++].info = DRAG_INFO_1;
-	    target_entry[i].target = DRAG_NAME_2;
-	    target_entry[i].flags = 0;
-	    target_entry[i++].info = DRAG_INFO_2;
+        // Give the window the property to accept DnD
+        target_entry[i].target = DRAG_NAME_0;
+        target_entry[i].flags = 0;
+        target_entry[i++].info = DRAG_INFO_0;
+        target_entry[i].target = DRAG_NAME_1;
+        target_entry[i].flags = 0;
+        target_entry[i++].info = DRAG_INFO_1;
+        target_entry[i].target = DRAG_NAME_2;
+        target_entry[i].flags = 0;
+        target_entry[i++].info = DRAG_INFO_2;
 
-	    gtk_drag_dest_set(plvbox,
-	                      GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_HIGHLIGHT |
-	                      GTK_DEST_DEFAULT_DROP, target_entry, i, GDK_ACTION_LINK);
+        gtk_drag_dest_set(plvbox,
+                          GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_HIGHLIGHT |
+                          GTK_DEST_DEFAULT_DROP, target_entry, i, GDK_ACTION_LINK);
 
-	    //Connect the signal for DnD
-	    g_signal_connect(GTK_OBJECT(plvbox), "drag_data_received", GTK_SIGNAL_FUNC(playlist_drop_callback),
-	                     NULL);
-		
-		
+        //Connect the signal for DnD
+        g_signal_connect(GTK_OBJECT(plvbox), "drag_data_received",
+                         GTK_SIGNAL_FUNC(playlist_drop_callback), NULL);
+
+
         playlisttip = gtk_tooltips_new();
 
         count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);

@@ -102,8 +102,8 @@ gint play_file(gchar * filename, gint playlist)
     GtkWidget *dialog;
     gchar *error_msg = NULL;
     gchar *subtitle = NULL;
-	GtkTreePath *path;
-	
+    GtkTreePath *path;
+
     if (verbose)
         printf("playing - %s\n", filename);
 
@@ -113,14 +113,14 @@ gint play_file(gchar * filename, gint playlist)
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, SUBTITLE_COLUMN, &subtitle, -1);
-		if (GTK_IS_TREE_SELECTION(selection)) {
+        if (GTK_IS_TREE_SELECTION(selection)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
             gtk_tree_selection_select_path(selection, path);
             if (GTK_IS_WIDGET(list))
                 gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
             gtk_tree_path_free(path);
         }
-	}
+    }
     if (subtitle != NULL) {
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
     }
