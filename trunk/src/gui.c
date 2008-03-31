@@ -233,7 +233,6 @@ gboolean set_progress_value(void *data)
                 autopause = FALSE;
             }
         }
-
     }
 
     if (idle->cachepercent > 0.9) {
