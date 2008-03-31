@@ -1,4 +1,5 @@
 Development
+	Show current / total items in title bar when playlist has more than 1 item in it
 	Memleak hunting
 	Enable list reordering with single call, cool
 	Rework drag and drop, when dragging and dropping to window file is played immediately,
