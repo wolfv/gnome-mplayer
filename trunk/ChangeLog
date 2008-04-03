@@ -1,4 +1,6 @@
 Development
+	Hide playlist if started with controlid
+	New bitrate detector, based on mencoder
 	Show current / total items in title bar when playlist has more than 1 item in it
 	Memleak hunting
 	Enable list reordering with single call, cool

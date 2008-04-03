@@ -883,6 +883,7 @@ gint get_bitrate(gchar * name)
     gint vbitrate = -1;
     gint abitrate = -1;
     gchar *buf;
+	gint startsec = 0, endpos = 0;
 
     if (name == NULL)
         return 0;
@@ -917,20 +918,84 @@ gint get_bitrate(gchar * name)
         if (stderr != NULL)
             g_free(stderr);
         error = NULL;
+		return 0;
     }
     output = g_strsplit(stdout, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
-        if (strstr(output[ac], "ID_VIDEO_BITRATE") != 0) {
-            buf = strstr(output[ac], "ID_VIDEO_BITRATE") + strlen("ID_VIDEO_BITRATE=");
-            vbitrate = g_strtod(buf, NULL);
-        }
-        if (strstr(output[ac], "ID_AUDIO_BITRATE") != 0) {
-            buf = strstr(output[ac], "ID_AUDIO_BITRATE") + strlen("ID_AUDIO_BITRATE=");
-            abitrate = g_strtod(buf, NULL);
-        }
-        ac++;
+		// find the length	
+        if (strstr(output[ac], "ID_LENGTH") != 0) {
+            buf = strstr(output[ac], "ID_LENGTH") + strlen("ID_LENGTH=");
+            endpos = (gint)g_strtod(buf, NULL) / 6;	// pick a spot early in the file
+			startsec = endpos - 1;
+		}
+		ac++;
+		
+	}	
+	g_strfreev(output);
+    if (stdout != NULL) {
+        g_free(stdout);
+		stdout = NULL;
+	}
+	
+    if (stderr != NULL) {
+        g_free(stderr);
+		stderr = NULL;
+	}
+	if (verbose)
+        printf("ss=%i, ep = %i\n", startsec,endpos);
+	
+	ac = 0;
+    av[ac++] = g_strdup_printf("mencoder");
+    av[ac++] = g_strdup_printf("-ovc");
+    av[ac++] = g_strdup_printf("copy");
+    av[ac++] = g_strdup_printf("-oac");
+    av[ac++] = g_strdup_printf("copy");
+    av[ac++] = g_strdup_printf("-o");
+    av[ac++] = g_strdup_printf("/dev/null");
+    av[ac++] = g_strdup_printf("-quiet");
+    av[ac++] = g_strdup_printf("-ss");
+    av[ac++] = g_strdup_printf("%i",startsec);
+    av[ac++] = g_strdup_printf("-endpos");
+    av[ac++] = g_strdup_printf("%i",endpos);
+    av[ac++] = g_strdup_printf("%s", name);
+    av[ac] = NULL;
+
+    error = NULL;
+
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+                 &exit_status, &error);
+    for (i = 0; i < ac; i++) {
+        g_free(av[i]);
     }
+    if (error != NULL) {
+        printf("Error when running: %s\n", error->message);
+        g_error_free(error);
+        if (stdout != NULL)
+            g_free(stdout);
+        if (stderr != NULL)
+            g_free(stderr);
+        error = NULL;
+		return 0;
+    }
+    output = g_strsplit(stdout, "\n", 0);
+    ac = 0;
+    while (output[ac] != NULL) {
+        if (strstr(output[ac], "Video stream") != 0) {
+            buf = g_strrstr(output[ac],"(");
+			if (buf != NULL) {
+	            vbitrate = (gint)g_strtod(buf + sizeof(gchar), NULL);
+			}
+		}
+        if (strstr(output[ac], "Audio stream") != 0) {
+            buf = g_strrstr(output[ac],"(");
+			if (buf != NULL) {
+	            abitrate = (gint)g_strtod(buf + sizeof(gchar), NULL);
+			}
+		}
+		ac++;
+		
+	}	
 
     g_strfreev(output);
     if (stdout != NULL)
