@@ -1005,7 +1005,7 @@ gint get_bitrate(gchar * name)
 
     if (vbitrate <= 0 && abitrate <= 0) {
         bitrate = 0;
-    } else if (vbitrate == 0 && abitrate > 0) {
+    } else if (vbitrate <= 0 && abitrate > 0) {
         // mplayer knows there is video, but doesn't know the bit rate
         // so we make the total bitrate 10 times the audio bitrate
         bitrate = abitrate * 10;
