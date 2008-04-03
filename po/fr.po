@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-27 12:07-0600\n"
-"PO-Revision-Date: 2008-03-14 21:00+0200\n"
+"PO-Revision-Date: 2008-03-28 16:40+0200\n"
 "Last-Translator: Starcrasher <starcrasher1@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -854,11 +854,11 @@ msgstr "Nettoyer la liste de lecture"
 
 #: src/playlist.c:826
 msgid "Move Item Up"
-msgstr ""
+msgstr "Déplacer l'élément vers le début de la liste"
 
 #: src/playlist.c:835
 msgid "Move Item Down"
-msgstr ""
+msgstr "Déplacer l'élément vers la fin de la liste"
 
 #: src/playlist.c:884
 msgid "_Set Subtitle"
