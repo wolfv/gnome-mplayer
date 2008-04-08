@@ -1,4 +1,5 @@
 Development
+	Make C return controls panel to proper height
 	Hide playlist if started with controlid
 	New bitrate detector, based on mencoder
 	Show current / total items in title bar when playlist has more than 1 item in it
