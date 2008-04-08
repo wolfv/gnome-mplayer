@@ -1,4 +1,5 @@
 Development
+	When using F to go fullscreen, make sure the control bar knows to disappear
 	Make C return controls panel to proper height
 	Hide playlist if started with controlid
 	New bitrate detector, based on mencoder

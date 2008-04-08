@@ -294,8 +294,9 @@ int main(int argc, char *argv[])
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
     }
-	
-	if (playlist_visible && control_id != 0) playlist_visible = FALSE;
+
+    if (playlist_visible && control_id != 0)
+        playlist_visible = FALSE;
 
     if (error != NULL) {
         printf("%s\n", error->message);

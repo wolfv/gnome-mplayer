@@ -883,7 +883,7 @@ gint get_bitrate(gchar * name)
     gint vbitrate = -1;
     gint abitrate = -1;
     gchar *buf;
-	gint startsec = 0, endpos = 0;
+    gint startsec = 0, endpos = 0;
 
     if (name == NULL)
         return 0;
@@ -918,34 +918,34 @@ gint get_bitrate(gchar * name)
         if (stderr != NULL)
             g_free(stderr);
         error = NULL;
-		return 0;
+        return 0;
     }
     output = g_strsplit(stdout, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
-		// find the length	
+        // find the length      
         if (strstr(output[ac], "ID_LENGTH") != 0) {
             buf = strstr(output[ac], "ID_LENGTH") + strlen("ID_LENGTH=");
-            endpos = (gint)g_strtod(buf, NULL) / 6;	// pick a spot early in the file
-			startsec = endpos - 1;
-		}
-		ac++;
-		
-	}	
-	g_strfreev(output);
+            endpos = (gint) g_strtod(buf, NULL) / 6;    // pick a spot early in the file
+            startsec = endpos - 1;
+        }
+        ac++;
+
+    }
+    g_strfreev(output);
     if (stdout != NULL) {
         g_free(stdout);
-		stdout = NULL;
-	}
-	
+        stdout = NULL;
+    }
+
     if (stderr != NULL) {
         g_free(stderr);
-		stderr = NULL;
-	}
-	if (verbose)
-        printf("ss=%i, ep = %i\n", startsec,endpos);
-	
-	ac = 0;
+        stderr = NULL;
+    }
+    if (verbose)
+        printf("ss=%i, ep = %i\n", startsec, endpos);
+
+    ac = 0;
     av[ac++] = g_strdup_printf("mencoder");
     av[ac++] = g_strdup_printf("-ovc");
     av[ac++] = g_strdup_printf("copy");
@@ -955,9 +955,9 @@ gint get_bitrate(gchar * name)
     av[ac++] = g_strdup_printf("/dev/null");
     av[ac++] = g_strdup_printf("-quiet");
     av[ac++] = g_strdup_printf("-ss");
-    av[ac++] = g_strdup_printf("%i",startsec);
+    av[ac++] = g_strdup_printf("%i", startsec);
     av[ac++] = g_strdup_printf("-endpos");
-    av[ac++] = g_strdup_printf("%i",endpos);
+    av[ac++] = g_strdup_printf("%i", endpos);
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
@@ -976,26 +976,26 @@ gint get_bitrate(gchar * name)
         if (stderr != NULL)
             g_free(stderr);
         error = NULL;
-		return 0;
+        return 0;
     }
     output = g_strsplit(stdout, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
         if (strstr(output[ac], "Video stream") != 0) {
-            buf = g_strrstr(output[ac],"(");
-			if (buf != NULL) {
-	            vbitrate = (gint)g_strtod(buf + sizeof(gchar), NULL);
-			}
-		}
+            buf = g_strrstr(output[ac], "(");
+            if (buf != NULL) {
+                vbitrate = (gint) g_strtod(buf + sizeof(gchar), NULL);
+            }
+        }
         if (strstr(output[ac], "Audio stream") != 0) {
-            buf = g_strrstr(output[ac],"(");
-			if (buf != NULL) {
-	            abitrate = (gint)g_strtod(buf + sizeof(gchar), NULL);
-			}
-		}
-		ac++;
-		
-	}	
+            buf = g_strrstr(output[ac], "(");
+            if (buf != NULL) {
+                abitrate = (gint) g_strtod(buf + sizeof(gchar), NULL);
+            }
+        }
+        ac++;
+
+    }
 
     g_strfreev(output);
     if (stdout != NULL)
