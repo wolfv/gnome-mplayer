@@ -363,7 +363,7 @@ gboolean set_progress_time(void *data)
 
     if (idle->fromdbus == FALSE && state != PAUSED)
         dbus_send_rpsignal_with_string("RP_SetProgressText", idle->progress_text);
-
+	
     return FALSE;
 }
 
@@ -2100,6 +2100,7 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
         if (GTK_IS_WIDGET(button_event_box)) {
             gtk_widget_hide_all(button_event_box);
         }
+		gtk_widget_set_size_request(controls_box, -1, -1);
         gtk_widget_show(controls_box);
         showcontrols = TRUE;
     } else {
