@@ -104,9 +104,9 @@ gboolean set_media_info(void *data)
     IdleData *idle = (IdleData *) data;
     gchar *buf;
     gchar *name;
-	GtkTreePath *path;
-	gint current,total;
-	
+    GtkTreePath *path;
+    gint current, total;
+
 
     if (data != NULL && idle != NULL) {
         if (idle->streaming == FALSE) {
@@ -115,16 +115,16 @@ gboolean set_media_info(void *data)
             } else {
                 name = g_strdup(idle->info);
             }
-			
-			total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-			path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-			current = (gint)g_strtod(gtk_tree_path_to_string(path),NULL);
-			gtk_tree_path_free(path);
-			if (total > 1) {
-            	buf = g_strdup_printf(_("%s - (%i/%i)- GNOME MPlayer"), name, current+1,total);
-			} else {	
-            	buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
-			}
+
+            total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+            path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+            current = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
+            gtk_tree_path_free(path);
+            if (total > 1) {
+                buf = g_strdup_printf(_("%s - (%i/%i)- GNOME MPlayer"), name, current + 1, total);
+            } else {
+                buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
+            }
             gtk_window_set_title(GTK_WINDOW(window), buf);
             g_free(buf);
             g_free(name);
@@ -363,7 +363,7 @@ gboolean set_progress_time(void *data)
 
     if (idle->fromdbus == FALSE && state != PAUSED)
         dbus_send_rpsignal_with_string("RP_SetProgressText", idle->progress_text);
-	
+
     return FALSE;
 }
 
@@ -2075,7 +2075,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             restore_playlist = TRUE;
             menuitem_view_playlist_callback(NULL, NULL);
         }
-
+        motion_notify_callback(NULL, NULL, NULL);
     }
 
 }
@@ -2100,7 +2100,7 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
         if (GTK_IS_WIDGET(button_event_box)) {
             gtk_widget_hide_all(button_event_box);
         }
-		gtk_widget_set_size_request(controls_box, -1, -1);
+        gtk_widget_set_size_request(controls_box, -1, -1);
         gtk_widget_show(controls_box);
         showcontrols = TRUE;
     } else {
