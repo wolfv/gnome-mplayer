@@ -561,7 +561,7 @@ msgstr "_View"
 
 #: ../src/gui.c:3346
 msgid "_Playlist"
-msgstr "_Playing"
+msgstr "_Playlist"
 
 #: ../src/gui.c:3348
 msgid "Media _Info"
