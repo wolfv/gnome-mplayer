@@ -558,7 +558,8 @@ gboolean resize_window(void *data)
                             gtk_widget_size_request(GTK_WIDGET(media_label), &req);
                             total_height += req.height;
                         }
-                        gtk_window_resize(GTK_WINDOW(window), req.width, total_height);
+						if (req.width > 0 && total_height >0)
+	                        gtk_window_resize(GTK_WINDOW(window), req.width, total_height);
                     }
                 }
             }
@@ -2045,7 +2046,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gdk_drawable_get_size(GDK_DRAWABLE(window_container), &width, &height);
         if (width > 0 && height > 0)
             gtk_window_resize(GTK_WINDOW(window), width, height);
-        if (stored_window_width != -1)
+        if (stored_window_width != -1 && stored_window_width > 0)
             gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
         make_panel_and_mouse_visible(NULL);
         fullscreen = 0;
