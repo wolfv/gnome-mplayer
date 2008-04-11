@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-08 11:29-0600\n"
-"PO-Revision-Date: 2008-03-28 16:40+0200\n"
+"PO-Revision-Date: 2008-04-09 10:45+0200\n"
 "Last-Translator: Starcrasher <starcrasher1@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -164,9 +164,9 @@ msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
 
 #: ../src/gui.c:124
-#, fuzzy, c-format
+#, c-format
 msgid "%s - (%i/%i)- GNOME MPlayer"
-msgstr "%s - GNOME MPlayer"
+msgstr "%s - (%i/%i) - GNOME MPlayer"
 
 # c-format
 #: ../src/gui.c:217
@@ -702,7 +702,7 @@ msgstr "Erreur de GNOME MPlayer"
 #: ../src/support.c:1149 ../src/support.c:1182
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
-"Impossible d'ouvrir le fichier en écriture; la liste de lecture ne peut pas "
+"Impossible d'ouvrir le fichier en écriture ; la liste de lecture ne peut pas "
 "être sauvegardée."
 
 #: ../src/thread.c:129

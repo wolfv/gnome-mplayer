@@ -1,4 +1,7 @@
 Development
+	Take off the hint on the File->Details window eventually this data should be moved to the main window
+	Updated Polish and French translations, by the usual suspects
+	After randomizing, select first item on the list
 	When using F to go fullscreen, make sure the control bar knows to disappear
 	Make C return controls panel to proper height
 	Hide playlist if started with controlid

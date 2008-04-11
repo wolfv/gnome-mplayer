@@ -1838,6 +1838,7 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (GTK_IS_TREE_SELECTION(selection)) {
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
             gtk_tree_selection_select_path(selection, path);
             if (GTK_IS_WIDGET(list))
@@ -2273,7 +2274,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     details_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_icon(GTK_WINDOW(details_window), pb_icon);
 
-    gtk_window_set_type_hint(GTK_WINDOW(details_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+    // gtk_window_set_type_hint(GTK_WINDOW(details_window), GDK_WINDOW_TYPE_HINT_UTILITY);
     gtk_window_set_resizable(GTK_WINDOW(details_window), FALSE);
     gtk_window_set_title(GTK_WINDOW(details_window), _("File Details"));
 
