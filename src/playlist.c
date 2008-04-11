@@ -65,7 +65,7 @@ gboolean playlist_popup_handler(GtkWidget * widget, GdkEvent * event, void *data
 gboolean button_release_callback(GtkWidget * widget, GdkEvent * event, gpointer data)
 {
     GtkTreePath *path;
-    GtkTreeSelection *sel;
+    // GtkTreeSelection *sel;
     gint pos;
     GdkEventButton *event_button;
 
