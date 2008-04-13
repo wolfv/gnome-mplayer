@@ -819,11 +819,11 @@ msgstr "재생목록 지우기"
 
 #: src/playlist.c:848
 msgid "Move Item Up"
-msgstr ""
+msgstr "위로 올리기"
 
 #: src/playlist.c:857
 msgid "Move Item Down"
-msgstr ""
+msgstr "아래로 내리기"
 
 #: src/playlist.c:906
 msgid "_Set Subtitle"

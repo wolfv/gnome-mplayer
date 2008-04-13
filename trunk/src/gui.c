@@ -121,7 +121,7 @@ gboolean set_media_info(void *data)
             current = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
             gtk_tree_path_free(path);
             if (total > 1) {
-                buf = g_strdup_printf(_("%s - (%i/%i)- GNOME MPlayer"), name, current + 1, total);
+                buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
             } else {
                 buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
             }
