@@ -1,4 +1,5 @@
 Development
+	Move File->Details into the main window
 	Break out of drop callback if filename is NULL
 0.6.1
 	Updated Korean translation by ByeongSik Jeon
