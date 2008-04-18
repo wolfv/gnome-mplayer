@@ -119,7 +119,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
-
+    
+	if (strstr(mplayer_output->str, "signal") != NULL) {
+        error_msg = g_strdup(mplayer_output->str);
+    }
+	
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
@@ -235,11 +239,19 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             return FALSE;
         }
     }
-
+	
+    if (strstr(mplayer_output->str, "ID_SIGNAL") != NULL) {
+		g_mutex_unlock(thread_running);
+        g_string_free(mplayer_output, TRUE);
+		state = QUIT;
+        return FALSE;
+    }
+	
     if ((strstr(mplayer_output->str, "A:") != NULL) || (strstr(mplayer_output->str, "V:") != NULL)) {
         g_string_free(mplayer_output, TRUE);
         return TRUE;
     }
+	
     //printf("thread_reader state = %i : status = %i\n",state,status);
     if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("%s", mplayer_output->str);
