@@ -2071,6 +2071,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
         } else {
             gtk_widget_hide(menubar);
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_file_details),FALSE);
+			while(gtk_events_pending()) gtk_main_iteration();
         }
 
         gtk_window_fullscreen(GTK_WINDOW(window));
