@@ -172,7 +172,11 @@ gint play_file(gchar * filename, gint playlist)
         g_strlcpy(idledata->audio_codec, "", 64);
         g_strlcpy(idledata->audio_bitrate, "", 64);
         g_strlcpy(idledata->audio_samplerate, "", 64);
-
+		gtk_widget_set_size_request(drawing_area, 10, 10);
+		gtk_widget_realize(fixed);
+		gtk_widget_realize(drawing_area);
+		while(gtk_events_pending()) gtk_main_iteration();
+		
         if (autostart) {
             g_idle_add(hide_buttons, idledata);
             js_state = STATE_PLAYING;
