@@ -1,4 +1,6 @@
 Development
+	Minor change to initialization, make sure that window for mplayer is initialized and visible
+		if it is not, sometimes xv output fails
 	Hide the file details area when we go fullscreen
 	Don't hang when mplayer crashes and report error
 	Move File->Details into the main window
