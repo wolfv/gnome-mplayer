@@ -172,6 +172,9 @@ gint play_file(gchar * filename, gint playlist)
         g_strlcpy(idledata->audio_codec, "", 64);
         g_strlcpy(idledata->audio_bitrate, "", 64);
         g_strlcpy(idledata->audio_samplerate, "", 64);
+		
+		// these next 3 lines are here to make sure the window is available for mplayer to draw to
+		// for some vo's (like xv) if the window is not visible and big enough the vo setup fails
 		gtk_widget_set_size_request(drawing_area, 16, 16);
 		gtk_widget_show_all(fixed);
 		while(gtk_events_pending()) gtk_main_iteration();
