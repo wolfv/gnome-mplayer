@@ -1,0 +1,125 @@
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/cache_size</key>
+      <applyto>/apps/gnome-mplayer/preferences/cache_size</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>2000</default>
+      <locale name="C">
+        <short>Cache size</short>
+        <long>The memory cache size for playing</long>
+      </locale>
+    </schema>
+ 
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/osdlevel</key>
+      <applyto>/apps/gnome-mplayer/preferences/osdlevel</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>OSD Level</short>
+        <long>Value for the On Screen Display Setting</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/verbose</key>
+      <applyto>/apps/gnome-mplayer/preferences/verbose</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Verbose Messages</short>
+        <long>Set Verbose debug messages to be default</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/last_dir</key>
+      <applyto>/apps/gnome-mplayer/preferences/last_dir</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Last directory</short>
+        <long>Last visited direcory with open dialog</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/vertical</key>
+      <applyto>/apps/gnome-mplayer/preferences/vertical</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Vertical</short>
+        <long>Use Veritical Layout</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/showplaylist</key>
+      <applyto>/apps/gnome-mplayer/preferences/showplaylist</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Show Playlist</short>
+        <long>Make the playlist visible when gnome-mplayer is started</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disablefullscreen</key>
+      <applyto>/apps/gnome-mplayer/preferences/disablefullscreen</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Fullscreen Options</short>
+        <long>When set to TRUE all fullscreen menu options and keyboard options are disabled</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disablecontextmenu</key>
+      <applyto>/apps/gnome-mplayer/preferences/disablecontextmenu</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Context Menu</short>
+        <long>When set to TRUE the right-click context menu is disabled</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/forcecache</key>
+      <applyto>/apps/gnome-mplayer/preferences/forcecache</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Force the cache setting</short>
+        <long>When set to TRUE the cache value is always used, even for streaming media</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/softvol</key>
+      <applyto>/apps/gnome-mplayer/preferences/softvol</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Have mplayer use the softvol option</short>
+        <long>When set to TRUE the softvol option is passed to mplayer, useful for machines without pulseaudio</long>
+      </locale>
+    </schema>
+    
+  </schemalist>
+</gconfschemafile>
