@@ -37,6 +37,8 @@
 #define SHOWPLAYLIST	"/apps/gnome-mplayer/preferences/showplaylist"
 #define DISABLEFULLSCREEN	"/apps/gnome-mplayer/preferences/disablefullscreen"
 #define DISABLECONTEXTMENU	"/apps/gnome-mplayer/preferences/disablecontextmenu"
+#define SUBTITLEFONT	"/apps/gnome-mplayer/preferences/subtitlefont"
+#define SUBTITLESCALE	"/apps/gnome-mplayer/preferences/subtitlescale"
 
 #define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
 #define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"
@@ -192,6 +194,8 @@ gint volume;
 gboolean vertical_layout;
 gboolean playlist_visible;
 gboolean restore_playlist;
+const gchar *subtitlefont;
+gdouble subtitle_scale;
 
 // tv stuff
 gchar *tv_device;

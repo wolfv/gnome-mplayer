@@ -277,6 +277,11 @@ int main(int argc, char *argv[])
     playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);
     disable_fullscreen = gconf_client_get_bool(gconf, DISABLEFULLSCREEN, NULL);
     disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
+	subtitlefont = gconf_client_get_string(gconf,SUBTITLEFONT,NULL);
+	subtitle_scale = gconf_client_get_float(gconf,SUBTITLESCALE,NULL);
+	if (subtitle_scale < 0.25) {
+		subtitle_scale = 1.0;
+	}
     qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
