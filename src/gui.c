@@ -2146,6 +2146,8 @@ void config_apply(GtkWidget * widget, void *data)
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
+	subtitlefont = gtk_font_button_get_font_name(GTK_FONT_BUTTON(config_subtitle_font));
+    subtitle_scale = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(config_subtitle_scale));
     if (oldosd != osdlevel) {
         cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
         send_command(cmd);
@@ -2165,6 +2167,8 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_bool(gconf, SHOWPLAYLIST, playlist_visible, NULL);
     gconf_client_set_bool(gconf, VERTICAL, vertical_layout, NULL);
     gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
+    gconf_client_set_string(gconf, SUBTITLEFONT, subtitlefont, NULL);
+    gconf_client_set_float(gconf, SUBTITLESCALE, subtitle_scale, NULL);
 
     gconf_client_set_bool(gconf, DISABLE_QT, qt_disabled, NULL);
     gconf_client_set_bool(gconf, DISABLE_REAL, real_disabled, NULL);
@@ -2613,6 +2617,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *conf_page2;
     GtkWidget *conf_page3;
     GtkWidget *conf_page4;
+    GtkWidget *conf_page5;
     GtkWidget *notebook;
     gint i = 0;
     gint j = -1;
@@ -2628,6 +2633,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_page2 = gtk_vbox_new(FALSE, 10);
     conf_page3 = gtk_vbox_new(FALSE, 10);
     conf_page4 = gtk_vbox_new(FALSE, 10);
+    conf_page5 = gtk_vbox_new(FALSE, 10);
     conf_hbutton_box = gtk_hbutton_box_new();
     gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
     conf_table = gtk_table_new(20, 2, FALSE);
@@ -2639,8 +2645,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page2, conf_label);
     conf_label = gtk_label_new(_("Language Settings"));
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page3, conf_label);
-    conf_label = gtk_label_new(_("Advanced"));
+    conf_label = gtk_label_new(_("Subtitles"));
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page4, conf_label);
+    conf_label = gtk_label_new(_("Advanced"));
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page5, conf_label);
 
     gtk_container_add(GTK_CONTAINER(conf_vbox), notebook);
     gtk_container_add(GTK_CONTAINER(config_window), conf_vbox);
@@ -2867,10 +2875,53 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_slang, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
                      0);
     i++;
-
-
+	
+	// Page 4
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page4), conf_table);
+    i = 0;
+    conf_label = gtk_label_new(_("<span weight=\"bold\">Subtitle Settings</span>"));
+    gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    i++;
+	
+    conf_label = gtk_label_new(_("Subtitle Font:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+	config_subtitle_font = gtk_font_button_new();
+	if (subtitlefont != NULL) {
+		gtk_font_button_set_font_name(GTK_FONT_BUTTON(config_subtitle_font),subtitlefont);
+	}
+	gtk_font_button_set_show_size(GTK_FONT_BUTTON(config_subtitle_font),FALSE);
+	gtk_font_button_set_use_size(GTK_FONT_BUTTON(config_subtitle_font),FALSE);
+	gtk_font_button_set_use_font(GTK_FONT_BUTTON(config_subtitle_font),TRUE);
+	gtk_font_button_set_title(GTK_FONT_BUTTON(config_subtitle_font),_("Subtitle Font Selection"));
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_font, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+                     0);
+    i++;	
+
+    conf_label = gtk_label_new(_("Subtitle Font Scaling:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+	config_subtitle_scale = gtk_spin_button_new_with_range(0.25, 10, 0.25);
+    gtk_widget_set_size_request(config_subtitle_scale, 100, -1);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_subtitle_scale), subtitle_scale);
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_scale, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+                     0);
+    i++;	
+	
+
+	// Page 5
+    conf_table = gtk_table_new(20, 2, FALSE);
+    gtk_container_add(GTK_CONTAINER(conf_page5), conf_table);
     i = 0;
     conf_label = gtk_label_new(_("<span weight=\"bold\">Advanced Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);

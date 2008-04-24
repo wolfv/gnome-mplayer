@@ -180,6 +180,9 @@ GtkWidget *config_verbose;
 GtkWidget *config_alang;
 GtkWidget *config_slang;
 
+GtkWidget *config_subtitle_font;
+GtkWidget *config_subtitle_scale;
+
 GtkWidget *config_qt;
 GtkWidget *config_real;
 GtkWidget *config_wmp;

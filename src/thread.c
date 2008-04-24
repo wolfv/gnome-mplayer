@@ -640,8 +640,10 @@ gpointer launch_player(gpointer data)
     gint arg = 0;
     gchar *filename;
     gint count;
-    PlayData *p = (PlayData *) g_malloc(sizeof(PlayData));;
-
+    PlayData *p = (PlayData *) g_malloc(sizeof(PlayData));
+	gchar *fontname;
+	gchar *size;
+	
     ThreadData *threaddata = (ThreadData *) data;
 
     videopresent = 1;
@@ -740,6 +742,19 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-sub");
         argv[arg++] = g_strdup_printf("%s", threaddata->subtitle);
     }
+	
+	// subtitle stuff
+	argv[arg++] = g_strdup_printf("-ass");
+	argv[arg++] = g_strdup_printf("-ass-font-scale");
+	argv[arg++] = g_strdup_printf("%1.1f",subtitle_scale);
+	if (subtitlefont != NULL) {
+		fontname = g_strdup(subtitlefont);
+		size = g_strrstr(fontname," ");
+		size[0] = '\0';
+		argv[arg++] = g_strdup_printf("-ass-force-style");
+		argv[arg++] = g_strdup_printf("FontName=%s",fontname);
+		g_free(fontname);
+	}
 
     if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
