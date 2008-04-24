@@ -155,8 +155,8 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
         filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
-		if (filename == NULL)
-			return FALSE;
+        if (filename == NULL)
+            return FALSE;
         list = g_strsplit(filename, "\n", 0);
 
         while (list[i] != NULL) {
