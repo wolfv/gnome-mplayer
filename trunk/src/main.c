@@ -172,13 +172,14 @@ gint play_file(gchar * filename, gint playlist)
         g_strlcpy(idledata->audio_codec, "", 64);
         g_strlcpy(idledata->audio_bitrate, "", 64);
         g_strlcpy(idledata->audio_samplerate, "", 64);
-		
-		// these next 3 lines are here to make sure the window is available for mplayer to draw to
-		// for some vo's (like xv) if the window is not visible and big enough the vo setup fails
-		gtk_widget_set_size_request(drawing_area, 16, 16);
-		gtk_widget_show_all(fixed);
-		while(gtk_events_pending()) gtk_main_iteration();
-		
+
+        // these next 3 lines are here to make sure the window is available for mplayer to draw to
+        // for some vo's (like xv) if the window is not visible and big enough the vo setup fails
+        gtk_widget_set_size_request(drawing_area, 16, 16);
+        gtk_widget_show_all(fixed);
+        while (gtk_events_pending())
+            gtk_main_iteration();
+
         if (autostart) {
             g_idle_add(hide_buttons, idledata);
             js_state = STATE_PLAYING;
@@ -277,11 +278,11 @@ int main(int argc, char *argv[])
     playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);
     disable_fullscreen = gconf_client_get_bool(gconf, DISABLEFULLSCREEN, NULL);
     disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
-	subtitlefont = gconf_client_get_string(gconf,SUBTITLEFONT,NULL);
-	subtitle_scale = gconf_client_get_float(gconf,SUBTITLESCALE,NULL);
-	if (subtitle_scale < 0.25) {
-		subtitle_scale = 1.0;
-	}
+    subtitlefont = gconf_client_get_string(gconf, SUBTITLEFONT, NULL);
+    subtitle_scale = gconf_client_get_float(gconf, SUBTITLESCALE, NULL);
+    if (subtitle_scale < 0.25) {
+        subtitle_scale = 1.0;
+    }
     qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);

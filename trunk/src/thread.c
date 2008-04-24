@@ -119,11 +119,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
-    
-	if (strstr(mplayer_output->str, "signal") != NULL) {
+
+    if (strstr(mplayer_output->str, "signal") != NULL) {
         error_msg = g_strdup(mplayer_output->str);
     }
-	
+
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
@@ -239,19 +239,18 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             return FALSE;
         }
     }
-	
+
     if (strstr(mplayer_output->str, "ID_SIGNAL") != NULL) {
-		g_mutex_unlock(thread_running);
+        g_mutex_unlock(thread_running);
         g_string_free(mplayer_output, TRUE);
-		state = QUIT;
+        state = QUIT;
         return FALSE;
     }
-	
+
     if ((strstr(mplayer_output->str, "A:") != NULL) || (strstr(mplayer_output->str, "V:") != NULL)) {
         g_string_free(mplayer_output, TRUE);
         return TRUE;
     }
-	
     //printf("thread_reader state = %i : status = %i\n",state,status);
     if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("%s", mplayer_output->str);
@@ -641,9 +640,9 @@ gpointer launch_player(gpointer data)
     gchar *filename;
     gint count;
     PlayData *p = (PlayData *) g_malloc(sizeof(PlayData));
-	gchar *fontname;
-	gchar *size;
-	
+    gchar *fontname;
+    gchar *size;
+
     ThreadData *threaddata = (ThreadData *) data;
 
     videopresent = 1;
@@ -742,19 +741,18 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-sub");
         argv[arg++] = g_strdup_printf("%s", threaddata->subtitle);
     }
-	
-	// subtitle stuff
-	argv[arg++] = g_strdup_printf("-ass");
-	argv[arg++] = g_strdup_printf("-ass-font-scale");
-	argv[arg++] = g_strdup_printf("%1.1f",subtitle_scale);
-	if (subtitlefont != NULL) {
-		fontname = g_strdup(subtitlefont);
-		size = g_strrstr(fontname," ");
-		size[0] = '\0';
-		argv[arg++] = g_strdup_printf("-ass-force-style");
-		argv[arg++] = g_strdup_printf("FontName=%s",fontname);
-		g_free(fontname);
-	}
+    // subtitle stuff
+    argv[arg++] = g_strdup_printf("-ass");
+    argv[arg++] = g_strdup_printf("-ass-font-scale");
+    argv[arg++] = g_strdup_printf("%1.1f", subtitle_scale);
+    if (subtitlefont != NULL) {
+        fontname = g_strdup(subtitlefont);
+        size = g_strrstr(fontname, " ");
+        size[0] = '\0';
+        argv[arg++] = g_strdup_printf("-ass-force-style");
+        argv[arg++] = g_strdup_printf("FontName=%s", fontname);
+        g_free(fontname);
+    }
 
     if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
