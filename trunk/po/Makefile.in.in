@@ -51,7 +51,7 @@ INCLUDES = -I.. -I$(top_srcdir)/intl
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
-LANGS="en es"
+LANGS=@ALL_LINGUAS@
 SOURCES = 
 POFILES = @POFILES@
 #POFILES=$(shell for lang in "$(LANGS)"; do printf "$$lang.po "; done);
