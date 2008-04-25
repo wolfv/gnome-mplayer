@@ -1071,6 +1071,20 @@ void dbus_unhook()
     }
 }
 
+void dbus_enable_screensaver()
+{
+    DBusMessage *message;
+
+    if (connection != NULL) {
+        message =
+            dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+                                         "org.gnome.ScreenSaver", "UnInhibit");
+        dbus_message_append_args(message, DBUS_TYPE_INT32, &cookie, DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+	}
+}
+
 void dbus_disable_screensaver()
 {
     DBusError error;

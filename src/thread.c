@@ -848,7 +848,7 @@ gpointer launch_player(gpointer data)
             channel_err = NULL;
         }
 
-
+		dbus_enable_screensaver();
         g_mutex_unlock(thread_running);
 
         if (dontplaynext == FALSE) {
