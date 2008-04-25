@@ -754,6 +754,11 @@ gpointer launch_player(gpointer data)
         g_free(fontname);
     }
 
+    if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
+        argv[arg++] = g_strdup_printf("-subcp");
+        argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
+    }
+
     if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
     argv[arg] = g_strdup_printf("%s", threaddata->filename);

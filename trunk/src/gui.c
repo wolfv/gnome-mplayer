@@ -2134,8 +2134,25 @@ void config_apply(GtkWidget * widget, void *data)
         ao = NULL;
     }
     ao = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_ao)->child)));
+
+    if (alang != NULL) {
+        g_free(alang);
+        alang = NULL;
+    }
     alang = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_alang)->child)));
+
+    if (slang != NULL) {
+        g_free(slang);
+        slang = NULL;
+    }
     slang = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_slang)->child)));
+
+    if (subtitle_codepage != NULL) {
+        g_free(subtitle_codepage);
+        subtitle_codepage = NULL;
+    }
+    subtitle_codepage =
+        g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_subtitle_codepage)->child)));
 
     update_mplayer_config();
 
@@ -2170,6 +2187,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
     gconf_client_set_string(gconf, SUBTITLEFONT, subtitlefont, NULL);
     gconf_client_set_float(gconf, SUBTITLESCALE, subtitle_scale, NULL);
+    gconf_client_set_string(gconf, SUBTITLECODEPAGE, subtitle_codepage, NULL);
 
     gconf_client_set_bool(gconf, DISABLE_QT, qt_disabled, NULL);
     gconf_client_set_bool(gconf, DISABLE_REAL, real_disabled, NULL);
@@ -2738,6 +2756,20 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_slang), j);
         }
     }
+    config_subtitle_codepage = gtk_combo_box_entry_new_text();
+    if (config_subtitle_codepage != NULL) {
+        i = 0;
+        j = -1;
+        while (i < 24) {
+            if (subtitle_codepage != NULL
+                && g_strncasecmp(subtitle_codepage, codepagelist[i],
+                                 strlen(subtitle_codepage)) == 0)
+                j = i;
+            gtk_combo_box_append_text(GTK_COMBO_BOX(config_subtitle_codepage), codepagelist[i++]);
+            if (j != -1)
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_subtitle_codepage), j);
+        }
+    }
 
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Output Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
@@ -2916,6 +2948,17 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_set_size_request(config_subtitle_scale, 100, -1);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_subtitle_scale), subtitle_scale);
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_scale, 1, 2, i, i + 1, GTK_SHRINK,
+                     GTK_SHRINK, 0, 0);
+    i++;
+
+    conf_label = gtk_label_new(_("Subtitle File Encoding:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_codepage, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     i++;
 
