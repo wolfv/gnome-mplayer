@@ -260,6 +260,7 @@ void dbus_send_rpsignal_with_double(gchar * signal, gdouble value);
 void dbus_send_rpsignal_with_string(gchar * signal, gchar * value);
 void dbus_send_event(gchar * event, gint button);
 void dbus_unhook();
+void dbus_enable_screensaver();
 void dbus_disable_screensaver();
 
 void shutdown();
