@@ -267,6 +267,8 @@ int main(int argc, char *argv[])
     playlist_visible = FALSE;
     disable_fullscreen = FALSE;
     softvol = FALSE;
+    subtitlefont = NULL;
+    subtitle_codepage = NULL;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -283,6 +285,8 @@ int main(int argc, char *argv[])
     if (subtitle_scale < 0.25) {
         subtitle_scale = 1.0;
     }
+    subtitle_codepage = gconf_client_get_string(gconf, SUBTITLECODEPAGE, NULL);
+
     qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);

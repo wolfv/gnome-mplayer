@@ -1,4 +1,5 @@
 Development
+	Added support for subtitle code page selection
 	Implement subtitle font selection and font scaling, still to do code pages
 	Adding sr and sr@latin translations by Милош Поповић <gpopac@gmail.com>
 	Minor change to initialization, make sure that window for mplayer is initialized and realized
