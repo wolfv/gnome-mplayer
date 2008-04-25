@@ -120,6 +120,42 @@
         <long>When set to TRUE the softvol option is passed to mplayer, useful for machines without pulseaudio</long>
       </locale>
     </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitlecodepage</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitlecodepage</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Codepage to use when loading subtitle files</short>
+        <long>Codepage to use when loading subtitle files</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitlefont</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitlefont</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Default font to use for subtitles</short>
+        <long>Default font to use for subtitles</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitlescale</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitlescale</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>float</type>
+      <default>1.0</default>
+      <locale name="C">
+        <short>Default font scaling to use for subtitles</short>
+        <long>Default font scaling to use for subtitles</long>
+      </locale>
+    </schema>
     
   </schemalist>
 </gconfschemafile>

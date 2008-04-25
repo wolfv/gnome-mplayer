@@ -1,4 +1,5 @@
 Development
+	Update gconf schema for new subtitle stored values
 	Only Inhibit screen save while video media is playing
 	Added support for subtitle code page selection
 	Implement subtitle font selection and font scaling, still to do code pages
