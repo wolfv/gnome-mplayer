@@ -170,6 +170,7 @@ GtkWidget *config_vo;
 GtkWidget *config_ao;
 GtkWidget *config_cachesize;
 GtkWidget *config_osdlevel;
+GtkWidget *config_framedrop;
 
 GtkWidget *config_playlist_visible;
 GtkWidget *config_vertical_layout;

@@ -74,6 +74,8 @@ static GOptionEntry entries[] = {
      NULL},
     {"forcecache", 0, 0, G_OPTION_ARG_NONE, &forcecache, N_("Force cache usage on streaming sites"),
      NULL},
+    {"disableframedrop", 0, 0, G_OPTION_ARG_NONE, &disable_framedrop, N_("Don't skip drawing frames to better keep sync"),
+     NULL},
     {"vertical", 0, 0, G_OPTION_ARG_NONE, &vertical_layout, N_("Use Vertical Layout"),
      NULL},
     {"showplaylist", 0, 0, G_OPTION_ARG_NONE, &playlist_visible, N_("Start with playlist open"),
@@ -266,6 +268,7 @@ int main(int argc, char *argv[])
     vertical_layout = FALSE;
     playlist_visible = FALSE;
     disable_fullscreen = FALSE;
+	disable_framedrop = FALSE;
     softvol = FALSE;
     subtitlefont = NULL;
     subtitle_codepage = NULL;
@@ -279,6 +282,7 @@ int main(int argc, char *argv[])
     forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
     vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
     playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);
+    disable_framedrop = gconf_client_get_bool(gconf, DISABLEFRAMEDROP, NULL);
     disable_fullscreen = gconf_client_get_bool(gconf, DISABLEFULLSCREEN, NULL);
     disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
     subtitlefont = gconf_client_get_string(gconf, SUBTITLEFONT, NULL);
