@@ -2122,6 +2122,7 @@ void config_apply(GtkWidget * widget, void *data)
     gchar *cmd;
     gint oldosd;
     gchar *filename;
+	GdkColor sub_color;
 
     if (vo != NULL) {
         g_free(vo);
@@ -2164,8 +2165,18 @@ void config_apply(GtkWidget * widget, void *data)
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
-    subtitlefont = gtk_font_button_get_font_name(GTK_FONT_BUTTON(config_subtitle_font));
+	if (subtitlefont != NULL) {
+		g_free(subtitlefont);
+		subtitlefont = NULL;
+	}    
+	subtitlefont = g_strdup(gtk_font_button_get_font_name(GTK_FONT_BUTTON(config_subtitle_font)));
     subtitle_scale = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(config_subtitle_scale));
+	gtk_color_button_get_color(GTK_COLOR_BUTTON(config_subtitle_color),&sub_color);
+	if (subtitle_color != NULL) {
+		g_free(subtitle_color);
+		subtitle_color = NULL;
+	}
+	subtitle_color = g_strdup_printf("%02x%02x%02x00",sub_color.red >> 8 ,sub_color.green >> 8,sub_color.blue >> 8);
     if (oldosd != osdlevel) {
         cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
         send_command(cmd);
@@ -2188,6 +2199,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_string(gconf, SUBTITLEFONT, subtitlefont, NULL);
     gconf_client_set_float(gconf, SUBTITLESCALE, subtitle_scale, NULL);
     gconf_client_set_string(gconf, SUBTITLECODEPAGE, subtitle_codepage, NULL);
+    gconf_client_set_string(gconf, SUBTITLECOLOR, subtitle_color, NULL);
 
     gconf_client_set_bool(gconf, DISABLE_QT, qt_disabled, NULL);
     gconf_client_set_bool(gconf, DISABLE_REAL, real_disabled, NULL);
@@ -2638,9 +2650,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *conf_page4;
     GtkWidget *conf_page5;
     GtkWidget *notebook;
+	GdkColor sub_color;
     gint i = 0;
     gint j = -1;
-
+	
     read_mplayer_config();
 
     config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -2760,7 +2773,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_subtitle_codepage != NULL) {
         i = 0;
         j = -1;
-        while (i < 24) {
+        while (i < 25) {
             if (subtitle_codepage != NULL
                 && g_strncasecmp(subtitle_codepage, codepagelist[i],
                                  strlen(subtitle_codepage)) == 0)
@@ -2937,7 +2950,32 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_font, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     i++;
+	
+    conf_label = gtk_label_new(_("Subtitle Color:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    config_subtitle_color = gtk_color_button_new();
+	if (subtitle_color != NULL && strlen(subtitle_color) > 5) {
+		sub_color.red = g_ascii_xdigit_value(subtitle_color[0]) << 4;
+		sub_color.red += g_ascii_xdigit_value(subtitle_color[1]);
+		sub_color.red = sub_color.red << 8;
+		sub_color.green = g_ascii_xdigit_value(subtitle_color[2]) << 4;
+		sub_color.green += g_ascii_xdigit_value(subtitle_color[3]);
+		sub_color.green = sub_color.green << 8;
+		sub_color.blue = g_ascii_xdigit_value(subtitle_color[4]) << 4;
+		sub_color.blue += g_ascii_xdigit_value(subtitle_color[5]);
+		sub_color.blue = sub_color.blue << 8;
+		gtk_color_button_set_color(GTK_COLOR_BUTTON(config_subtitle_color),&sub_color);
+	}
+    gtk_color_button_set_title(GTK_COLOR_BUTTON(config_subtitle_color), _("Subtitle Color Selection"));
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_color, 1, 2, i, i + 1, GTK_SHRINK,
+                     GTK_SHRINK, 0, 0);
+    i++;
 
+	
     conf_label = gtk_label_new(_("Subtitle Font Scaling:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);

@@ -146,6 +146,18 @@
     </schema>
     
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitlecolor</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitlecolor</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Default color to use for subtitles</short>
+        <long>Default color to use for subtitles</long>
+      </locale>
+    </schema>
+    
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/subtitlescale</key>
       <applyto>/apps/gnome-mplayer/preferences/subtitlescale</applyto>
       <owner>gnome-mplayer</owner>
