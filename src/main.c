@@ -74,7 +74,8 @@ static GOptionEntry entries[] = {
      NULL},
     {"forcecache", 0, 0, G_OPTION_ARG_NONE, &forcecache, N_("Force cache usage on streaming sites"),
      NULL},
-    {"disableframedrop", 0, 0, G_OPTION_ARG_NONE, &disable_framedrop, N_("Don't skip drawing frames to better keep sync"),
+    {"disableframedrop", 0, 0, G_OPTION_ARG_NONE, &disable_framedrop,
+     N_("Don't skip drawing frames to better keep sync"),
      NULL},
     {"vertical", 0, 0, G_OPTION_ARG_NONE, &vertical_layout, N_("Use Vertical Layout"),
      NULL},
@@ -268,12 +269,12 @@ int main(int argc, char *argv[])
     vertical_layout = FALSE;
     playlist_visible = FALSE;
     disable_fullscreen = FALSE;
-	disable_framedrop = FALSE;
+    disable_framedrop = FALSE;
     softvol = FALSE;
     subtitlefont = NULL;
     subtitle_codepage = NULL;
-	subtitle_color = NULL;
-	
+    subtitle_color = NULL;
+
     // call g_type_init or otherwise we can crash
     g_type_init();
     gconf = gconf_client_get_default();
