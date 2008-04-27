@@ -2158,6 +2158,7 @@ void config_apply(GtkWidget * widget, void *data)
     update_mplayer_config();
 
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
+    disable_framedrop = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_framedrop));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
     softvol = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_softvol));
@@ -2193,6 +2194,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_int(gconf, OSDLEVEL, osdlevel, NULL);
     gconf_client_set_bool(gconf, SOFTVOL, softvol, NULL);
     gconf_client_set_bool(gconf, FORCECACHE, forcecache, NULL);
+    gconf_client_set_bool(gconf, DISABLEFRAMEDROP, disable_framedrop, NULL);
     gconf_client_set_bool(gconf, SHOWPLAYLIST, playlist_visible, NULL);
     gconf_client_set_bool(gconf, VERTICAL, vertical_layout, NULL);
     gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
@@ -2607,7 +2609,6 @@ void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
 
 static gchar *osdlevel_format_callback(GtkScale * scale, gdouble value)
 {
-    gchar *cmd;
     gchar *text;
 
     switch ((gint) value) {
@@ -2628,10 +2629,20 @@ static gchar *osdlevel_format_callback(GtkScale * scale, gdouble value)
         text = g_strdup("How did we get here?");
     }
 
+    return text;
+}
+
+void osdlevel_change_callback(GtkRange * range, gpointer data)
+{
+    gchar *cmd;
+    gint value;
+
+	value = gtk_range_get_value(range);
     cmd = g_strdup_printf("pausing_keep osd %i\n", (gint) value);
     send_command(cmd);
     g_free(cmd);
-    return text;
+
+	return;
 }
 
 
@@ -2774,7 +2785,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         i = 0;
         j = -1;
         while (i < 25) {
-            if (subtitle_codepage != NULL
+            if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 1
                 && g_strncasecmp(subtitle_codepage, codepagelist[i],
                                  strlen(subtitle_codepage)) == 0)
                 j = i;
@@ -2852,6 +2863,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_osdlevel = gtk_hscale_new_with_range(0.0, 3.0, 1.0);
     g_signal_connect(GTK_OBJECT(config_osdlevel), "format-value",
                      GTK_SIGNAL_FUNC(osdlevel_format_callback), NULL);
+    g_signal_connect(GTK_OBJECT(config_osdlevel), "value-changed",
+                     GTK_SIGNAL_FUNC(osdlevel_change_callback), NULL);
     gtk_widget_set_size_request(config_osdlevel, 100, -1);
     gtk_range_set_value(GTK_RANGE(config_osdlevel), osdlevel);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
@@ -2859,7 +2872,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_osdlevel, 1, 2, i, i + 1);
     i++;
-
 
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page2), conf_table);
@@ -2906,7 +2918,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
-    gtk_widget_set_size_request(GTK_WIDGET(config_alang), 100, -1);
+    gtk_widget_set_size_request(GTK_WIDGET(config_alang), 200, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_alang, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
                      0);
     i++;
@@ -2917,7 +2929,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_widget_set_size_request(GTK_WIDGET(config_slang), 100, -1);
+    gtk_widget_set_size_request(GTK_WIDGET(config_slang), 200, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_slang, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
                      0);
     i++;
@@ -2969,6 +2981,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 		sub_color.blue += g_ascii_xdigit_value(subtitle_color[5]);
 		sub_color.blue = sub_color.blue << 8;
 		gtk_color_button_set_color(GTK_COLOR_BUTTON(config_subtitle_color),&sub_color);
+	} else {
+		sub_color.red = 0xFF << 8;
+		sub_color.green = 0xFF << 8;
+		sub_color.blue = 0xFF << 8;
+		gtk_color_button_set_color(GTK_COLOR_BUTTON(config_subtitle_color),&sub_color);
 	}
     gtk_color_button_set_title(GTK_COLOR_BUTTON(config_subtitle_color), _("Subtitle Color Selection"));
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_color, 1, 2, i, i + 1, GTK_SHRINK,
@@ -2983,7 +3000,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     config_subtitle_scale = gtk_spin_button_new_with_range(0.25, 10, 0.25);
-    gtk_widget_set_size_request(config_subtitle_scale, 100, -1);
+    gtk_widget_set_size_request(config_subtitle_scale, 50, -1);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_subtitle_scale), subtitle_scale);
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_scale, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
@@ -2995,6 +3012,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_widget_set_size_request(GTK_WIDGET(config_subtitle_codepage), 200, -1);
 
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_codepage, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
@@ -3028,6 +3046,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 1, i, i + 1);
     i++;
 
+    config_framedrop = gtk_check_button_new_with_mnemonic(_("_Drop frames"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_framedrop), !disable_framedrop);
+	gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 1, i, i + 1);
+    i++;
+	
     config_forcecache =
         gtk_check_button_new_with_label(_("Force the use of cache setting on streaming media"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_forcecache), forcecache);

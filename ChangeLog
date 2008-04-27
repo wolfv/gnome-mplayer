@@ -1,4 +1,7 @@
 Development
+	Some minor GUI changes to preferences dialog
+	Take Diogo's OSD change patch into consideration and only update OSD level on value change
+	Apply framedrop page from Diogo Franco <diogomfranco@gmail.com>
 	Add option to specify subtitle color
 	Update gconf schema for new subtitle stored values
 	Only Inhibit screen save while video media is playing
