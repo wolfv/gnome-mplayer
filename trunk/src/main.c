@@ -269,7 +269,8 @@ int main(int argc, char *argv[])
     softvol = FALSE;
     subtitlefont = NULL;
     subtitle_codepage = NULL;
-
+	subtitle_color = NULL;
+	
     // call g_type_init or otherwise we can crash
     g_type_init();
     gconf = gconf_client_get_default();
@@ -286,6 +287,7 @@ int main(int argc, char *argv[])
         subtitle_scale = 1.0;
     }
     subtitle_codepage = gconf_client_get_string(gconf, SUBTITLECODEPAGE, NULL);
+    subtitle_color = gconf_client_get_string(gconf, SUBTITLECOLOR, NULL);
 
     qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);

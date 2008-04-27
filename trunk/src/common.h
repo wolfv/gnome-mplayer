@@ -40,6 +40,7 @@
 #define SUBTITLEFONT	"/apps/gnome-mplayer/preferences/subtitlefont"
 #define SUBTITLESCALE	"/apps/gnome-mplayer/preferences/subtitlescale"
 #define SUBTITLECODEPAGE	"/apps/gnome-mplayer/preferences/subtitlecodepage"
+#define SUBTITLECOLOR	"/apps/gnome-mplayer/preferences/subtitlecolor"
 
 #define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
 #define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"
@@ -195,9 +196,10 @@ gint volume;
 gboolean vertical_layout;
 gboolean playlist_visible;
 gboolean restore_playlist;
-const gchar *subtitlefont;
+gchar *subtitlefont;
 gdouble subtitle_scale;
 gchar *subtitle_codepage;
+gchar *subtitle_color;
 
 // tv stuff
 gchar *tv_device;

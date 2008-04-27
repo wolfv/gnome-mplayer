@@ -183,6 +183,7 @@ GtkWidget *config_slang;
 GtkWidget *config_subtitle_font;
 GtkWidget *config_subtitle_scale;
 GtkWidget *config_subtitle_codepage;
+GtkWidget *config_subtitle_color;
 
 GtkWidget *config_qt;
 GtkWidget *config_real;

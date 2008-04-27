@@ -480,7 +480,8 @@ gchar *langlist[464] = { "Abkhazian,abk,ab",
     "Zuni,zun",
 };
 
-gchar *codepagelist[24] = { "UNICODE",
+gchar *codepagelist[25] = { "",
+    "UNICODE",
     "BIG5",
     "CP874",
     "CP936",
