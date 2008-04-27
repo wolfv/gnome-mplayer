@@ -755,11 +755,11 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("FontName=%s", fontname);
         g_free(fontname);
     }
-	
-	if (subtitle_color != NULL && strlen(subtitle_color) > 0) {
+
+    if (subtitle_color != NULL && strlen(subtitle_color) > 0) {
         argv[arg++] = g_strdup_printf("-ass-color");
         argv[arg++] = g_strdup_printf("%s", subtitle_color);
-	}		
+    }
 
     if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
         argv[arg++] = g_strdup_printf("-subcp");
@@ -855,7 +855,7 @@ gpointer launch_player(gpointer data)
             channel_err = NULL;
         }
 
-		dbus_enable_screensaver();
+        dbus_enable_screensaver();
         g_mutex_unlock(thread_running);
 
         if (dontplaynext == FALSE) {

@@ -2122,7 +2122,7 @@ void config_apply(GtkWidget * widget, void *data)
     gchar *cmd;
     gint oldosd;
     gchar *filename;
-	GdkColor sub_color;
+    GdkColor sub_color;
 
     if (vo != NULL) {
         g_free(vo);
@@ -2158,7 +2158,8 @@ void config_apply(GtkWidget * widget, void *data)
     update_mplayer_config();
 
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
-    disable_framedrop = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_framedrop));
+    disable_framedrop =
+        !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_framedrop));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
     softvol = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_softvol));
@@ -2166,18 +2167,20 @@ void config_apply(GtkWidget * widget, void *data)
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
-	if (subtitlefont != NULL) {
-		g_free(subtitlefont);
-		subtitlefont = NULL;
-	}    
-	subtitlefont = g_strdup(gtk_font_button_get_font_name(GTK_FONT_BUTTON(config_subtitle_font)));
+    if (subtitlefont != NULL) {
+        g_free(subtitlefont);
+        subtitlefont = NULL;
+    }
+    subtitlefont = g_strdup(gtk_font_button_get_font_name(GTK_FONT_BUTTON(config_subtitle_font)));
     subtitle_scale = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(config_subtitle_scale));
-	gtk_color_button_get_color(GTK_COLOR_BUTTON(config_subtitle_color),&sub_color);
-	if (subtitle_color != NULL) {
-		g_free(subtitle_color);
-		subtitle_color = NULL;
-	}
-	subtitle_color = g_strdup_printf("%02x%02x%02x00",sub_color.red >> 8 ,sub_color.green >> 8,sub_color.blue >> 8);
+    gtk_color_button_get_color(GTK_COLOR_BUTTON(config_subtitle_color), &sub_color);
+    if (subtitle_color != NULL) {
+        g_free(subtitle_color);
+        subtitle_color = NULL;
+    }
+    subtitle_color =
+        g_strdup_printf("%02x%02x%02x00", sub_color.red >> 8, sub_color.green >> 8,
+                        sub_color.blue >> 8);
     if (oldosd != osdlevel) {
         cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
         send_command(cmd);
@@ -2637,12 +2640,12 @@ void osdlevel_change_callback(GtkRange * range, gpointer data)
     gchar *cmd;
     gint value;
 
-	value = gtk_range_get_value(range);
+    value = gtk_range_get_value(range);
     cmd = g_strdup_printf("pausing_keep osd %i\n", (gint) value);
     send_command(cmd);
     g_free(cmd);
 
-	return;
+    return;
 }
 
 
@@ -2661,10 +2664,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *conf_page4;
     GtkWidget *conf_page5;
     GtkWidget *notebook;
-	GdkColor sub_color;
+    GdkColor sub_color;
     gint i = 0;
     gint j = -1;
-	
+
     read_mplayer_config();
 
     config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -2962,7 +2965,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_font, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     i++;
-	
+
     conf_label = gtk_label_new(_("Subtitle Color:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -2970,29 +2973,30 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     config_subtitle_color = gtk_color_button_new();
-	if (subtitle_color != NULL && strlen(subtitle_color) > 5) {
-		sub_color.red = g_ascii_xdigit_value(subtitle_color[0]) << 4;
-		sub_color.red += g_ascii_xdigit_value(subtitle_color[1]);
-		sub_color.red = sub_color.red << 8;
-		sub_color.green = g_ascii_xdigit_value(subtitle_color[2]) << 4;
-		sub_color.green += g_ascii_xdigit_value(subtitle_color[3]);
-		sub_color.green = sub_color.green << 8;
-		sub_color.blue = g_ascii_xdigit_value(subtitle_color[4]) << 4;
-		sub_color.blue += g_ascii_xdigit_value(subtitle_color[5]);
-		sub_color.blue = sub_color.blue << 8;
-		gtk_color_button_set_color(GTK_COLOR_BUTTON(config_subtitle_color),&sub_color);
-	} else {
-		sub_color.red = 0xFF << 8;
-		sub_color.green = 0xFF << 8;
-		sub_color.blue = 0xFF << 8;
-		gtk_color_button_set_color(GTK_COLOR_BUTTON(config_subtitle_color),&sub_color);
-	}
-    gtk_color_button_set_title(GTK_COLOR_BUTTON(config_subtitle_color), _("Subtitle Color Selection"));
+    if (subtitle_color != NULL && strlen(subtitle_color) > 5) {
+        sub_color.red = g_ascii_xdigit_value(subtitle_color[0]) << 4;
+        sub_color.red += g_ascii_xdigit_value(subtitle_color[1]);
+        sub_color.red = sub_color.red << 8;
+        sub_color.green = g_ascii_xdigit_value(subtitle_color[2]) << 4;
+        sub_color.green += g_ascii_xdigit_value(subtitle_color[3]);
+        sub_color.green = sub_color.green << 8;
+        sub_color.blue = g_ascii_xdigit_value(subtitle_color[4]) << 4;
+        sub_color.blue += g_ascii_xdigit_value(subtitle_color[5]);
+        sub_color.blue = sub_color.blue << 8;
+        gtk_color_button_set_color(GTK_COLOR_BUTTON(config_subtitle_color), &sub_color);
+    } else {
+        sub_color.red = 0xFF << 8;
+        sub_color.green = 0xFF << 8;
+        sub_color.blue = 0xFF << 8;
+        gtk_color_button_set_color(GTK_COLOR_BUTTON(config_subtitle_color), &sub_color);
+    }
+    gtk_color_button_set_title(GTK_COLOR_BUTTON(config_subtitle_color),
+                               _("Subtitle Color Selection"));
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_color, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     i++;
 
-	
+
     conf_label = gtk_label_new(_("Subtitle Font Scaling:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -3048,9 +3052,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     config_framedrop = gtk_check_button_new_with_mnemonic(_("_Drop frames"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_framedrop), !disable_framedrop);
-	gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 1, i, i + 1);
     i++;
-	
+
     config_forcecache =
         gtk_check_button_new_with_label(_("Force the use of cache setting on streaming media"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_forcecache), forcecache);
