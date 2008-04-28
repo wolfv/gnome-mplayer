@@ -175,12 +175,13 @@ gint play_file(gchar * filename, gint playlist)
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
         g_strlcpy(idledata->video_format, "", 64);
-        g_strlcpy(idledata->video_codec, "", 64);
-        g_strlcpy(idledata->video_fps, "", 64);
-        g_strlcpy(idledata->video_bitrate, "", 64);
-        g_strlcpy(idledata->audio_codec, "", 64);
-        g_strlcpy(idledata->audio_bitrate, "", 64);
-        g_strlcpy(idledata->audio_samplerate, "", 64);
+        g_strlcpy(idledata->video_codec, "", 16);
+        g_strlcpy(idledata->video_fps, "", 16);
+        g_strlcpy(idledata->video_bitrate, "", 16);
+        g_strlcpy(idledata->audio_codec, "", 16);
+        g_strlcpy(idledata->audio_bitrate, "", 16);
+        g_strlcpy(idledata->audio_samplerate, "", 16);
+        g_strlcpy(idledata->audio_channels, "", 16);
 
         // these next 3 lines are here to make sure the window is available for mplayer to draw to
         // for some vo's (like xv) if the window is not visible and big enough the vo setup fails

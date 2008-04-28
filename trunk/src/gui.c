@@ -2427,6 +2427,18 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
         }
         i++;
 
+        label = gtk_label_new(_("Audio Channels:"));
+        gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+        gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+        gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+        if (idle != NULL) {
+            buf = g_ascii_strup(idle->audio_channels, -1);
+            label = gtk_label_new(buf);
+            g_free(buf);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
+        }
+        i++;		
 
         label = gtk_label_new(_("Audio Bitrate:"));
         gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
