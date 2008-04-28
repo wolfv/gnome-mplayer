@@ -1740,6 +1740,8 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
     char buffer[1000];
     gint count;
     gchar *default_name;
+	GtkWidget *dialog;
+	gchar *msg;
 
     file_chooser_save = gtk_file_chooser_dialog_new(_("Save As..."),
                                                     GTK_WINDOW(window),
@@ -1772,8 +1774,16 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
             }
             fclose(fout);
             fclose(fin);
-        }
-
+        } else {
+			msg = g_strdup_printf(_("Unable to save '%s'"),filename);
+			dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                        GTK_BUTTONS_CLOSE, msg);
+        	gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
+        	gtk_dialog_run(GTK_DIALOG(dialog));
+        	gtk_widget_destroy(dialog);
+			g_free(msg);
+		}
+		
         g_free(filename);
     }
 
