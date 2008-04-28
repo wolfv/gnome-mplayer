@@ -980,7 +980,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             send_command("pausing_keep switch_audio\n");
             return FALSE;
         case GDK_j:
-            send_command("pausing_keep sub_select\n");
+			send_command("pausing_keep sub_select\n");
             return FALSE;
         case GDK_q:
             delete_callback(NULL, NULL, NULL);
@@ -3719,8 +3719,8 @@ GtkWidget *create_window(gint windowid)
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls), "activate",
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
-                               accel_group, 'j', 0, GTK_ACCEL_VISIBLE);
+//    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
+//                               accel_group, 'j', 0, GTK_ACCEL_VISIBLE);
 //    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_sound_switch), "activate",
 //                               accel_group, '#', 0, GTK_ACCEL_VISIBLE);
 

@@ -1,4 +1,5 @@
 Development
+	J key overloaded incorrectly
 	Add number of audio channels to details display
 	More config options and enhancements from Diogo
 	Fix crash when dragging and dropping multiple files to playlist
