@@ -39,4 +39,7 @@ q - Quit immediately
 z - Decrease Subtitle Delay
 x - Increate Subtitle Delay
 
+Ctrl-D - Show/Hide file details
+Ctrl-P - Show/Hide playlist
+Ctrl-F/F - Un/Fullscreen
 
