@@ -533,6 +533,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_strlcpy(idledata->audio_samplerate, buf, 16);
     }
 
+	if (strstr(mplayer_output->str, "ID_AUDIO_NCH") != 0) {
+        g_string_truncate(mplayer_output, mplayer_output->len - 1);
+        buf = strstr(mplayer_output->str, "ID_AUDIO_NCH") + strlen("ID_AUDIO_NCH=");
+        g_strlcpy(idledata->audio_channels, buf, 16);
+    }
+
     if (strstr(mplayer_output->str, "File not found") != 0) {
     }
 
