@@ -2646,6 +2646,34 @@ static gchar *osdlevel_format_callback(GtkScale * scale, gdouble value)
     return text;
 }
 
+static gchar *pplevel_format_callback(GtkScale * scale, gdouble value)
+{
+    gchar *text;
+
+    switch ((gint) value) {
+
+    case 0:
+        text = g_strdup(_("No Postprocessing"));
+        break;
+    case 1:
+	case 2:
+        text = g_strdup(_("Minimal Postprocessing"));
+        break;
+    case 3:
+	case 4:
+        text = g_strdup(_("More Postprocessing"));
+        break;
+    case 5:
+	case 6:
+        text = g_strdup(_("Maximum Postprocessing"));
+        break;
+    default:
+        text = g_strdup("How did we get here?");
+    }
+
+    return text;
+}
+
 void osdlevel_change_callback(GtkRange * range, gpointer data)
 {
     gchar *cmd;
@@ -2884,7 +2912,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_SIGNAL_FUNC(osdlevel_format_callback), NULL);
     g_signal_connect(GTK_OBJECT(config_osdlevel), "value-changed",
                      GTK_SIGNAL_FUNC(osdlevel_change_callback), NULL);
-    gtk_widget_set_size_request(config_osdlevel, 100, -1);
+    gtk_widget_set_size_request(config_osdlevel, 150, -1);
     gtk_range_set_value(GTK_RANGE(config_osdlevel), osdlevel);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -2894,7 +2922,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     conf_label = gtk_label_new(_("Post-processing level:"));
     config_pplevel = gtk_hscale_new_with_range(0.0, 6.0, 1.0);
-    gtk_widget_set_size_request(config_pplevel, 100, -1);
+	g_signal_connect(GTK_OBJECT(config_pplevel), "format-value",
+                     GTK_SIGNAL_FUNC(pplevel_format_callback), NULL);	
+    gtk_widget_set_size_request(config_pplevel, 150, -1);
     gtk_range_set_value(GTK_RANGE(config_pplevel), pplevel);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);

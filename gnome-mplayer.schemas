@@ -26,6 +26,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/pplevel</key>
+      <applyto>/apps/gnome-mplayer/preferences/pplevel</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Postprocessing Level</short>
+        <long>Value for the Postprocessing Setting</long>
+      </locale>
+    </schema>
+    
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/verbose</key>
       <applyto>/apps/gnome-mplayer/preferences/verbose</applyto>
       <owner>gnome-mplayer</owner>
