@@ -1786,7 +1786,7 @@ void menuitem_quit_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 {
-    gchar *authors[] = { "Kevin DeKorte", "James Carthew", NULL };
+    gchar *authors[] = { "Kevin DeKorte", "James Carthew","Diogo Franco", NULL };
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"),
                           "logo", pb_logo,
                           "authors", authors,
@@ -1808,6 +1808,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           "Korean - ByeongSik Jeon\n"
                           "Polish - Julian Sikorski\n"
                           "Russian - Dmitry Stropaloff\n"
+						  "Serbian - Милош Поповић\n"
                           "Spanish - Festor Wailon Dacoba\n" "Swedish - Daniel Nylander", NULL);
 }
 
@@ -2160,8 +2161,12 @@ void config_apply(GtkWidget * widget, void *data)
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     disable_framedrop =
         !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_framedrop));
+    disable_ass = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_ass));
+    disable_embeddedfonts =
+        !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_embeddedfonts));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
+    pplevel = (gint) gtk_range_get_value(GTK_RANGE(config_pplevel));
     softvol = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_softvol));
     verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
@@ -2192,11 +2197,16 @@ void config_apply(GtkWidget * widget, void *data)
     wmp_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_wmp));
     dvx_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_dvx));
 
+    extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
+
     gconf = gconf_client_get_default();
     gconf_client_set_int(gconf, CACHE_SIZE, cache_size, NULL);
     gconf_client_set_int(gconf, OSDLEVEL, osdlevel, NULL);
+    gconf_client_set_int(gconf, PPLEVEL, pplevel, NULL);
     gconf_client_set_bool(gconf, SOFTVOL, softvol, NULL);
     gconf_client_set_bool(gconf, FORCECACHE, forcecache, NULL);
+    gconf_client_set_bool(gconf, DISABLEASS, disable_ass, NULL);
+    gconf_client_set_bool(gconf, DISABLEEMBEDDEDFONTS, disable_embeddedfonts, NULL);
     gconf_client_set_bool(gconf, DISABLEFRAMEDROP, disable_framedrop, NULL);
     gconf_client_set_bool(gconf, SHOWPLAYLIST, playlist_visible, NULL);
     gconf_client_set_bool(gconf, VERTICAL, vertical_layout, NULL);
@@ -2205,6 +2215,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_float(gconf, SUBTITLESCALE, subtitle_scale, NULL);
     gconf_client_set_string(gconf, SUBTITLECODEPAGE, subtitle_codepage, NULL);
     gconf_client_set_string(gconf, SUBTITLECOLOR, subtitle_color, NULL);
+    gconf_client_set_string(gconf, EXTRAOPTS, extraopts, NULL);
 
     gconf_client_set_bool(gconf, DISABLE_QT, qt_disabled, NULL);
     gconf_client_set_bool(gconf, DISABLE_REAL, real_disabled, NULL);
@@ -2648,6 +2659,11 @@ void osdlevel_change_callback(GtkRange * range, gpointer data)
     return;
 }
 
+void ass_toggle_callback(GtkToggleButton * source, gpointer user_data)
+{
+    gtk_widget_set_sensitive(config_subtitle_color, gtk_toggle_button_get_active(source));
+    gtk_widget_set_sensitive(config_embeddedfonts, gtk_toggle_button_get_active(source));
+}
 
 void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 {
@@ -2876,6 +2892,16 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_osdlevel, 1, 2, i, i + 1);
     i++;
 
+    conf_label = gtk_label_new(_("Post-processing level:"));
+    config_pplevel = gtk_hscale_new_with_range(0.0, 6.0, 1.0);
+    gtk_widget_set_size_request(config_pplevel, 100, -1);
+    gtk_range_set_value(GTK_RANGE(config_pplevel), pplevel);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pplevel, 1, 2, i, i + 1);
+    i++;
+
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page2), conf_table);
     i = 0;
@@ -2948,6 +2974,20 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     i++;
 
+    config_ass = gtk_check_button_new_with_mnemonic(_("Enable _ASS"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_ass), !disable_ass);
+    g_signal_connect(GTK_OBJECT(config_ass), "toggled", GTK_SIGNAL_FUNC(ass_toggle_callback), NULL);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_ass, 0, 2, i, i + 1);
+    gtk_widget_show(config_ass);
+    i++;
+
+    config_embeddedfonts = gtk_check_button_new_with_mnemonic(_("Use _Embedded Fonts"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_embeddedfonts), !disable_embeddedfonts);
+    gtk_widget_set_sensitive(config_embeddedfonts, !disable_ass);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_embeddedfonts, 0, 2, i, i + 1);
+    gtk_widget_show(config_embeddedfonts);
+    i++;
+
     conf_label = gtk_label_new(_("Subtitle Font:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -2992,6 +3032,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     }
     gtk_color_button_set_title(GTK_COLOR_BUTTON(config_subtitle_color),
                                _("Subtitle Color Selection"));
+    gtk_widget_set_sensitive(config_subtitle_color, !disable_ass);
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_color, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     i++;
@@ -3031,41 +3072,51 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1);
     i++;
 
     config_playlist_visible = gtk_check_button_new_with_label(_("Start with playlist visible"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_playlist_visible), playlist_visible);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_playlist_visible, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_playlist_visible, 0, 2, i, i + 1);
     i++;
 
     config_vertical_layout =
         gtk_check_button_new_with_label(_("Start with playlist below media window"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_vertical_layout), vertical_layout);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vertical_layout, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vertical_layout, 0, 2, i, i + 1);
     i++;
 
     config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 2, i, i + 1);
     i++;
 
     config_framedrop = gtk_check_button_new_with_mnemonic(_("_Drop frames"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_framedrop), !disable_framedrop);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 2, i, i + 1);
     i++;
 
     config_forcecache =
         gtk_check_button_new_with_label(_("Force the use of cache setting on streaming media"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_forcecache), forcecache);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_forcecache, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_forcecache, 0, 2, i, i + 1);
     i++;
 
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose), verbose);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 1, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 2, i, i + 1);
     i++;
 
+    conf_label = gtk_label_new(_("Extra Options to MPlayer:"));
+    config_extraopts = gtk_entry_new();
+    gtk_entry_set_text(GTK_ENTRY(config_extraopts), ((extraopts) ? extraopts : ""));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_entry_set_width_chars(GTK_ENTRY(config_extraopts), 40);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    i++;
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_extraopts, 0, 1, i, i + 1);
+    i++;
 
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_cancel);
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);

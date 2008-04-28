@@ -77,6 +77,12 @@ static GOptionEntry entries[] = {
     {"disableframedrop", 0, 0, G_OPTION_ARG_NONE, &disable_framedrop,
      N_("Don't skip drawing frames to better keep sync"),
      NULL},
+    {"disableass", 0, 0, G_OPTION_ARG_NONE, &disable_ass,
+     N_("Use the old subtitle rendering system"),
+     NULL},
+    {"disableembeddedfonts", 0, 0, G_OPTION_ARG_NONE, &disable_embeddedfonts,
+     N_("Don't use fonts embedded on matroska files"),
+     NULL},
     {"vertical", 0, 0, G_OPTION_ARG_NONE, &vertical_layout, N_("Use Vertical Layout"),
      NULL},
     {"showplaylist", 0, 0, G_OPTION_ARG_NONE, &playlist_visible, N_("Start with playlist open"),
@@ -279,6 +285,7 @@ int main(int argc, char *argv[])
     g_type_init();
     gconf = gconf_client_get_default();
     osdlevel = gconf_client_get_int(gconf, OSDLEVEL, NULL);
+    pplevel = gconf_client_get_int(gconf, PPLEVEL, NULL);
     softvol = gconf_client_get_bool(gconf, SOFTVOL, NULL);
     forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
     vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
@@ -286,6 +293,8 @@ int main(int argc, char *argv[])
     disable_framedrop = gconf_client_get_bool(gconf, DISABLEFRAMEDROP, NULL);
     disable_fullscreen = gconf_client_get_bool(gconf, DISABLEFULLSCREEN, NULL);
     disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
+    disable_ass = gconf_client_get_bool(gconf, DISABLEASS, NULL);
+    disable_embeddedfonts = gconf_client_get_bool(gconf, DISABLEEMBEDDEDFONTS, NULL);
     subtitlefont = gconf_client_get_string(gconf, SUBTITLEFONT, NULL);
     subtitle_scale = gconf_client_get_float(gconf, SUBTITLESCALE, NULL);
     if (subtitle_scale < 0.25) {
@@ -298,6 +307,8 @@ int main(int argc, char *argv[])
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
     dvx_disabled = gconf_client_get_bool(gconf, DISABLE_DVX, NULL);
+
+    extraopts = gconf_client_get_string(gconf, EXTRAOPTS, NULL);
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
 #ifdef GTK2_12_ENABLED

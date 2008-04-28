@@ -29,12 +29,15 @@
 
 #define CACHE_SIZE		"/apps/gnome-mplayer/preferences/cache_size"
 #define OSDLEVEL		"/apps/gnome-mplayer/preferences/osdlevel"
+#define PPLEVEL		"/apps/gnome-mplayer/preferences/pplevel"
 #define SOFTVOL			"/apps/gnome-mplayer/preferences/softvol"
 #define VERBOSE			"/apps/gnome-mplayer/preferences/verbose"
 #define VERTICAL		"/apps/gnome-mplayer/preferences/vertical"
 #define FORCECACHE		"/apps/gnome-mplayer/preferences/forcecache"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 #define SHOWPLAYLIST	"/apps/gnome-mplayer/preferences/showplaylist"
+#define DISABLEASS          "/apps/gnome-mplayer/preferences/disableass"
+#define DISABLEEMBEDDEDFONTS    "/apps/gnome-mplayer/preferences/disableembeddedfonts"
 #define DISABLEFRAMEDROP	"/apps/gnome-mplayer/preferences/disableframedrop"
 #define DISABLEFULLSCREEN	"/apps/gnome-mplayer/preferences/disablefullscreen"
 #define DISABLECONTEXTMENU	"/apps/gnome-mplayer/preferences/disablecontextmenu"
@@ -42,6 +45,8 @@
 #define SUBTITLESCALE	"/apps/gnome-mplayer/preferences/subtitlescale"
 #define SUBTITLECODEPAGE	"/apps/gnome-mplayer/preferences/subtitlecodepage"
 #define SUBTITLECOLOR	"/apps/gnome-mplayer/preferences/subtitlecolor"
+
+#define EXTRAOPTS		"/apps/gnome-mplayer/preferences/extraopts"
 
 #define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
 #define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"
@@ -155,6 +160,7 @@ gchar *lastfile;
 gint cache_size;
 gboolean forcecache;
 gint osdlevel;
+gint pplevel;
 gint streaming;
 gint showcontrols;
 gint fullscreen;
@@ -198,10 +204,14 @@ gint volume;
 gboolean vertical_layout;
 gboolean playlist_visible;
 gboolean restore_playlist;
+gboolean disable_ass;
+gboolean disable_embeddedfonts;
 gchar *subtitlefont;
 gdouble subtitle_scale;
 gchar *subtitle_codepage;
 gchar *subtitle_color;
+
+gchar *extraopts;
 
 // tv stuff
 gchar *tv_device;

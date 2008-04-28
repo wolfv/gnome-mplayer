@@ -744,26 +744,63 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%s", threaddata->subtitle);
     }
     // subtitle stuff
-    argv[arg++] = g_strdup_printf("-ass");
-    argv[arg++] = g_strdup_printf("-ass-font-scale");
-    argv[arg++] = g_strdup_printf("%1.1f", subtitle_scale);
-    if (subtitlefont != NULL && strlen(subtitlefont) > 0) {
-        fontname = g_strdup(subtitlefont);
-        size = g_strrstr(fontname, " ");
-        size[0] = '\0';
-        argv[arg++] = g_strdup_printf("-ass-force-style");
-        argv[arg++] = g_strdup_printf("FontName=%s", fontname);
-        g_free(fontname);
-    }
+    if (!disable_ass) {
+        argv[arg++] = g_strdup_printf("-ass");
 
-    if (subtitle_color != NULL && strlen(subtitle_color) > 0) {
-        argv[arg++] = g_strdup_printf("-ass-color");
-        argv[arg++] = g_strdup_printf("%s", subtitle_color);
+        // Simply ommiting '-embeddedfonts' did not work
+        if (disable_embeddedfonts)
+            argv[arg++] = g_strdup_printf("-noembeddedfonts");
+        else
+            argv[arg++] = g_strdup_printf("-embeddedfonts");
+
+        argv[arg++] = g_strdup_printf("-ass-font-scale");
+        argv[arg++] = g_strdup_printf("%1.1f", subtitle_scale);
+        if (subtitlefont != NULL && strlen(subtitlefont) > 0) {
+            fontname = g_strdup(subtitlefont);
+            size = g_strrstr(fontname, " ");
+            size[0] = '\0';
+            argv[arg++] = g_strdup_printf("-ass-force-style");
+            argv[arg++] = g_strdup_printf("FontName=%s", fontname);
+            g_free(fontname);
+        }
+
+        if (subtitle_color != NULL && strlen(subtitle_color) > 0) {
+            argv[arg++] = g_strdup_printf("-ass-color");
+            argv[arg++] = g_strdup_printf("%s", subtitle_color);
+        }
+
+    } else {
+        argv[arg++] = g_strdup_printf("-subfont-text-scale");
+        argv[arg++] = g_strdup_printf("%d", (int) (subtitle_scale * 5));        // 5 is the default
+
+        if (subtitlefont != NULL && strlen(subtitlefont) > 0) {
+            fontname = g_strdup(subtitlefont);
+            size = g_strrstr(fontname, " ");
+            size[0] = '\0';
+            argv[arg++] = g_strdup_printf("-subfont");
+            argv[arg++] = g_strdup_printf("%s", fontname);
+            g_free(fontname);
+        }
     }
 
     if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
         argv[arg++] = g_strdup_printf("-subcp");
         argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
+    }
+
+    if (pplevel > 0) {
+        argv[arg++] = g_strdup_printf("-vf");
+        argv[arg++] = g_strdup_printf("pp=ac/tn:a");
+        argv[arg++] = g_strdup_printf("-autoq");
+        argv[arg++] = g_strdup_printf("%d", pplevel);
+    }
+
+    if (extraopts != NULL) {
+        char **opts = g_strsplit(extraopts, " ", -1);
+        int i;
+        for (i = 0; opts[i] != NULL; i++)
+            argv[arg++] = g_strdup(opts[i]);
+        g_strfreev(opts);
     }
 
     if (playlist || threaddata->playlist)
