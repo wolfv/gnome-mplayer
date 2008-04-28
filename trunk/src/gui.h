@@ -171,6 +171,7 @@ GtkWidget *config_ao;
 GtkWidget *config_cachesize;
 GtkWidget *config_osdlevel;
 GtkWidget *config_framedrop;
+GtkWidget *config_pplevel;
 
 GtkWidget *config_playlist_visible;
 GtkWidget *config_vertical_layout;
@@ -181,6 +182,8 @@ GtkWidget *config_verbose;
 GtkWidget *config_alang;
 GtkWidget *config_slang;
 
+GtkWidget *config_ass;
+GtkWidget *config_embeddedfonts;
 GtkWidget *config_subtitle_font;
 GtkWidget *config_subtitle_scale;
 GtkWidget *config_subtitle_codepage;
@@ -190,6 +193,8 @@ GtkWidget *config_qt;
 GtkWidget *config_real;
 GtkWidget *config_wmp;
 GtkWidget *config_dvx;
+
+GtkWidget *config_extraopts;
 
 GtkWidget *open_location;
 
