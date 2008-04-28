@@ -871,6 +871,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer user_data)
 {
     GTimeVal currenttime;
+	gchar *cmd;
 
     // printf("key = %i\n",event->keyval);
     // printf("state = %i\n",event->state);
@@ -1003,6 +1004,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             send_command("pausing_keep sub_delay 0.1 0\n");
             return FALSE;
         default:
+            cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
+            send_command(cmd);
+            g_free(cmd);
             return FALSE;
         }
     }

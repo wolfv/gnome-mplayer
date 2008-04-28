@@ -795,7 +795,7 @@ gpointer launch_player(gpointer data)
     }
 
     if (pplevel > 0) {
-        argv[arg++] = g_strdup_printf("-vf");
+        argv[arg++] = g_strdup_printf("-vf-add");
         argv[arg++] = g_strdup_printf("pp=ac/tn:a");
         argv[arg++] = g_strdup_printf("-autoq");
         argv[arg++] = g_strdup_printf("%d", pplevel);
@@ -808,7 +808,11 @@ gpointer launch_player(gpointer data)
             argv[arg++] = g_strdup(opts[i]);
         g_strfreev(opts);
     }
+    
+	argv[arg++] = g_strdup_printf("-vf-add");
+    argv[arg++] = g_strdup_printf("screenshot");
 
+	
     if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
     argv[arg] = g_strdup_printf("%s", threaddata->filename);

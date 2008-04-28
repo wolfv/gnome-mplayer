@@ -1,4 +1,6 @@
 Development
+	Add in screenshot filter
+	Pass keys to mplayer, if not handled
 	Add Ctrl-D shortcut for details window
 	J key overloaded incorrectly
 	Add number of audio channels to details display
