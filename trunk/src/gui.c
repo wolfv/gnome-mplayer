@@ -2920,12 +2920,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     conf_label = gtk_label_new(_("On Screen Display Level:"));
     config_osdlevel = gtk_hscale_new_with_range(0.0, 3.0, 1.0);
+	gtk_range_set_value(GTK_RANGE(config_osdlevel), osdlevel);
     g_signal_connect(GTK_OBJECT(config_osdlevel), "format-value",
                      GTK_SIGNAL_FUNC(osdlevel_format_callback), NULL);
     g_signal_connect(GTK_OBJECT(config_osdlevel), "value-changed",
                      GTK_SIGNAL_FUNC(osdlevel_change_callback), NULL);
     gtk_widget_set_size_request(config_osdlevel, 150, -1);
-    gtk_range_set_value(GTK_RANGE(config_osdlevel), osdlevel);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
@@ -3546,7 +3546,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_details_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_quit), "activate",
                      G_CALLBACK(menuitem_quit_callback), NULL);
-
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_file_details), "activate",
+                               accel_group, 'd', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     // Edit Menu
     menuitem_edit = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Edit")));
     menu_edit = GTK_MENU(gtk_menu_new());
