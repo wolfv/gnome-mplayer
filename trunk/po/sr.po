@@ -65,7 +65,7 @@ msgstr "Онемогућава мени десног тастера"
 
 #: src/main.c:69
 msgid "Disable fullscreen options in browser mode"
-msgstr ""
+msgstr "Онемофући приказ преко целог екрана у Интернет прегледнику"
 
 #: src/main.c:70
 msgid "Play all files on the playlist forever"
@@ -85,7 +85,7 @@ msgstr "Приморава коришћење оставе на адресама
 
 #: src/main.c:77
 msgid "Don't skip drawing frames to better keep sync"
-msgstr ""
+msgstr "Не прескачи исцртавајуће кадрове ради боље синхронизације"
 
 #: src/main.c:79
 msgid "Use Vertical Layout"
@@ -136,9 +136,8 @@ msgid "Frames per second from TV input"
 msgstr "Број кадрова у секунди за ТВ улаз"
 
 #: src/main.c:301
-#, fuzzy
 msgid "[FILES...] - GNOME Media player based on MPlayer"
-msgstr "- Гномов биоскоп и музичка кутија заснован на Мплејеру"
+msgstr "[ДАТОТЕКЕ...] - Гномов биоскоп и музичка кутија заснован на Мплејеру"
 
 #: src/main.c:326
 #, c-format
@@ -168,9 +167,9 @@ msgid "%s - GNOME MPlayer"
 msgstr "%s - Гномов мплејер"
 
 #: src/gui.c:124
-#, fuzzy, c-format
+#, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
-msgstr "%s - Гномов мплејер"
+msgstr "%s - (%i/%i) - Гномов мплејер"
 
 #: src/gui.c:217
 #, c-format
@@ -297,6 +296,22 @@ msgid ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 msgstr ""
+"Гномов мплејер је слободан софтвер; Дозвољено је његово ширење\n"
+"(растурање), вршење(уношење) измена под условима Гну-ове Опште\n"
+"Јавне Лиценце (ОЈЛ), верзије 2 или било које накнадне верзије а\n"
+"коју је објавила Задужбина Слободног Софтвера.\n"
+"\n"
+"Гномов мплејер се расподељује у намери да ће бити користан, без\n"
+"икаквог јамства; укључујућу без ограничења, јамство да је без\n"
+"недостатака, спреман за тржиште или сврсисходан. За више детаља\n"
+"прочитајте Општу Јавну Лиценцу.\n"
+"\n"
+"Требало је да сте добили један примерак Опште Јавне Лиценцезаједно\n"
+"са Гномовим мплејером; ако то није случај, пишите на адресу:\n"
+"\n"
+"FreeSoftware Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor\n"
+"Boston,MA 02110-1302, USA"
 
 #: src/gui.c:1990 src/playlist.c:121
 msgid "Set Subtitle"
@@ -372,19 +387,19 @@ msgstr "Засићенсот"
 
 #: src/gui.c:2617
 msgid "No Display"
-msgstr ""
+msgstr "Без екрана"
 
 #: src/gui.c:2620
 msgid "Minimal"
-msgstr ""
+msgstr "Минимално"
 
 #: src/gui.c:2623
 msgid "Timer"
-msgstr ""
+msgstr "Протекло време"
 
 #: src/gui.c:2626
 msgid "Timer/Total"
-msgstr ""
+msgstr "Протекли време/укупно"
 
 #: src/gui.c:2685
 msgid "Player"
@@ -399,9 +414,8 @@ msgid "Language Settings"
 msgstr "Поставке језика"
 
 #: src/gui.c:2691
-#, fuzzy
 msgid "Subtitles"
-msgstr "Постави титл"
+msgstr "Титлови"
 
 #: src/gui.c:2693
 msgid "Advanced"
@@ -469,35 +483,32 @@ msgid "Default Subtitle Language:"
 msgstr "Подразумевани језик титлова:"
 
 #: src/gui.c:2941
-#, fuzzy
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\">Подешавања видеа</span>"
+msgstr "<span weight=\"bold\">Подешавања титла</span>"
 
 #: src/gui.c:2948
-#, fuzzy
 msgid "Subtitle Font:"
-msgstr "Постави титл"
+msgstr "Фонт:"
 
 #: src/gui.c:2961
 msgid "Subtitle Font Selection"
-msgstr ""
+msgstr "Избор фонта за титл"
 
 #: src/gui.c:2966
-#, fuzzy
 msgid "Subtitle Color:"
-msgstr "Постави титл"
+msgstr "Боја:"
 
 #: src/gui.c:2990
 msgid "Subtitle Color Selection"
-msgstr ""
+msgstr "Избор боје за титл"
 
 #: src/gui.c:2996
 msgid "Subtitle Font Scaling:"
-msgstr ""
+msgstr "Величина:"
 
 #: src/gui.c:3009
 msgid "Subtitle File Encoding:"
-msgstr ""
+msgstr "Кодирање:"
 
 #: src/gui.c:3026
 msgid "<span weight=\"bold\">Advanced Settings</span>"
@@ -517,7 +528,7 @@ msgstr "Омогући Мплејерову програмску контрол�
 
 #: src/gui.c:3049
 msgid "_Drop frames"
-msgstr ""
+msgstr "_Одбаци кадрове"
 
 #: src/gui.c:3055
 msgid "Force the use of cache setting on streaming media"
@@ -553,14 +564,12 @@ msgid "Open _Audio CD"
 msgstr "Отвори _звучни диск"
 
 #: src/gui.c:3396
-#, fuzzy
 msgid "_DVD"
-msgstr "Отвори _ДВД"
+msgstr "_ДВД"
 
 #: src/gui.c:3403
-#, fuzzy
 msgid "Open _DVD Direct"
-msgstr "Отвори _ДВД"
+msgstr "_Непосредно отвори ДВД"
 
 #: src/gui.c:3406
 msgid "Open DVD with _Menus"
@@ -568,17 +577,15 @@ msgstr "Отвори ДВД са _менијима"
 
 #: src/gui.c:3409
 msgid "_TV"
-msgstr ""
+msgstr "_ТВ"
 
 #: src/gui.c:3416
-#, fuzzy
 msgid "Open _Analog TV"
-msgstr "Отвори _звучни диск"
+msgstr "Отвори _аналогни ТВ"
 
 #: src/gui.c:3419
-#, fuzzy
 msgid "Open _Digital TV"
-msgstr "Отвори _ДВД"
+msgstr "Отвори _дигитални ТВ"
 
 #: src/gui.c:3426
 msgid "D_etails"
@@ -602,9 +609,8 @@ msgid "S_witch Audio Track"
 msgstr "Замени звучну стазу"
 
 #: src/gui.c:3472
-#, fuzzy
 msgid "Set Sub_title"
-msgstr "Постави титл"
+msgstr "Постави _титл"
 
 #. View Menu
 #: src/gui.c:3497
@@ -705,12 +711,11 @@ msgstr "%s ставки"
 #: src/support.c:530 src/thread.c:140
 #, c-format
 msgid "Couldn't open DVD device: %s"
-msgstr ""
+msgstr "Не могу да отворим ДВД уређај: %s"
 
 #: src/support.c:550 src/thread.c:166
-#, fuzzy
 msgid "GNOME MPlayer Error"
-msgstr "Гномов мплејер"
+msgstr "Грешка у Гномовом мплејеру"
 
 #: src/support.c:1149 src/support.c:1182
 msgid "Unable to save playlist, cannot open file for writing"
@@ -720,14 +725,12 @@ msgstr ""
 #: src/thread.c:133
 #, c-format
 msgid "Failed to open %s"
-msgstr ""
+msgstr "Не могу да отворим %s"
 
 #: src/thread.c:146
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot load subtitles: %s"
-msgstr ""
-"Име датотеке: %s\n"
-"Титл: %s"
+msgstr "Не могу да учитам титл: %s"
 
 #: src/thread.c:156
 #, c-format
@@ -879,11 +882,11 @@ msgstr "Очисти листу"
 
 #: src/playlist.c:850
 msgid "Move Item Up"
-msgstr ""
+msgstr "Помери ставку навише"
 
 #: src/playlist.c:859
 msgid "Move Item Down"
-msgstr ""
+msgstr "Помери ставку наниже"
 
 #: src/playlist.c:908
 msgid "_Set Subtitle"
