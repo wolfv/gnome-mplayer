@@ -2126,6 +2126,7 @@ void config_apply(GtkWidget * widget, void *data)
     GConfClient *gconf;
     gchar *cmd;
     gint oldosd;
+	gboolean old_disable_framedrop;
     gchar *filename;
     GdkColor sub_color;
 
@@ -2163,6 +2164,7 @@ void config_apply(GtkWidget * widget, void *data)
     update_mplayer_config();
 
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
+	old_disable_framedrop = disable_framedrop;
     disable_framedrop =
         !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_framedrop));
     disable_ass = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_ass));
@@ -2190,7 +2192,15 @@ void config_apply(GtkWidget * widget, void *data)
     subtitle_color =
         g_strdup_printf("%02x%02x%02x00", sub_color.red >> 8, sub_color.green >> 8,
                         sub_color.blue >> 8);
-    if (oldosd != osdlevel) {
+	
+    if (old_disable_framedrop != disable_framedrop)
+    {
+        cmd = g_strdup_printf("pausing_keep frame_drop %d\n", !disable_framedrop);
+        send_command(cmd);
+        g_free(cmd);
+    }
+
+	if (oldosd != osdlevel) {
         cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
         send_command(cmd);
         g_free(cmd);

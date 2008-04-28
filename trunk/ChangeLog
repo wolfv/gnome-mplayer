@@ -1,4 +1,5 @@
 Development
+	Apply framedrop setting immediately on Preferences close
 	Add in screenshot filter
 	Pass keys to mplayer, if not handled
 	Add Ctrl-D shortcut for details window
