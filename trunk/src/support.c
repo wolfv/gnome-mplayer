@@ -1097,8 +1097,6 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
         g_free(subtitle);
     if (length != NULL)
         g_free(length);
-    if (file != NULL)
-        g_free(file);
 
     return localiter;
 
