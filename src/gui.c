@@ -987,7 +987,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             delete_callback(NULL, NULL, NULL);
             return FALSE;
         case GDK_v:
-            send_command("pausing_keep sub_visibility\n");
+            //send_command("pausing_keep sub_visibility\n");
             return FALSE;
         case GDK_plus:
         case GDK_KP_Add:
@@ -3693,6 +3693,8 @@ GtkWidget *create_window(gint windowid)
                                accel_group, 'u', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_info), "activate",
                                accel_group, 'i', 0, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
+                               accel_group, 'v', 0, GTK_ACCEL_VISIBLE);
     g_signal_connect(GTK_OBJECT(menuitem_view_info), "activate",
                      G_CALLBACK(menuitem_view_info_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "activate",

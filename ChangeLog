@@ -1,4 +1,5 @@
 Development
+	Map 'Show/Hide Subtitles' to V hotkey, since that is the mplayer default
 	Add F11 as another way to go fullscreen, think that is 5 ways now... crazy
 	Show error dialog when save fails
 	Apply framedrop setting immediately on Preferences close
