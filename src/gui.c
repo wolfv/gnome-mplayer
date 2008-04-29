@@ -1003,6 +1003,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_x:
             send_command("pausing_keep sub_delay 0.1 0\n");
             return FALSE;
+		case GDK_F11:
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+			return FALSE;
         default:
             cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
             send_command(cmd);
@@ -3733,7 +3736,8 @@ GtkWidget *create_window(gint windowid)
 
         gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_fullscreen), "activate",
                                    accel_group, 'f', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-    }
+
+	}
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
                                accel_group, '1', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 

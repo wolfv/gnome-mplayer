@@ -1,4 +1,5 @@
 Development
+	Add F11 as another way to go fullscreen, think that is 5 ways now... crazy
 	Show error dialog when save fails
 	Apply framedrop setting immediately on Preferences close
 	Add in screenshot filter
