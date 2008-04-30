@@ -1752,7 +1752,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                                     GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
 
-    default_name = g_strrstr(idledata->url, "/");
+    default_name = g_strrstr(idledata->url, "/") + sizeof(gchar);
     if (default_name == NULL)
         default_name = idledata->url;
     g_strlcpy(buffer, default_name, 1000);
