@@ -1820,7 +1820,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           ,
                           "website", "http://code.google.com/p/gnome-mplayer/",
                           "translator-credits", "Chinese (simplified) - Wenzheng Hu\n"
-                          "French - Starcrasher\n"
+                          "French - Alexandre Bedot\n"
                           "Italian - Cesare Tirabassi\n"
                           "Korean - ByeongSik Jeon\n"
                           "Polish - Julian Sikorski\n"
