@@ -871,7 +871,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer user_data)
 {
     GTimeVal currenttime;
-	gchar *cmd;
+    gchar *cmd;
 
     // printf("key = %i\n",event->keyval);
     // printf("state = %i\n",event->state);
@@ -981,7 +981,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             send_command("pausing_keep switch_audio\n");
             return FALSE;
         case GDK_j:
-			send_command("pausing_keep sub_select\n");
+            send_command("pausing_keep sub_select\n");
             return FALSE;
         case GDK_q:
             delete_callback(NULL, NULL, NULL);
@@ -1003,9 +1003,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_x:
             send_command("pausing_keep sub_delay 0.1 0\n");
             return FALSE;
-		case GDK_F11:
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
-			return FALSE;
+        case GDK_F11:
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+            return FALSE;
         default:
             cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
             send_command(cmd);
@@ -1743,8 +1743,8 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
     char buffer[1000];
     gint count;
     gchar *default_name;
-	GtkWidget *dialog;
-	gchar *msg;
+    GtkWidget *dialog;
+    gchar *msg;
 
     file_chooser_save = gtk_file_chooser_dialog_new(_("Save As..."),
                                                     GTK_WINDOW(window),
@@ -1778,15 +1778,15 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
             fclose(fout);
             fclose(fin);
         } else {
-			msg = g_strdup_printf(_("Unable to save '%s'"),filename);
-			dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                        GTK_BUTTONS_CLOSE, msg);
-        	gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
-        	gtk_dialog_run(GTK_DIALOG(dialog));
-        	gtk_widget_destroy(dialog);
-			g_free(msg);
-		}
-		
+            msg = g_strdup_printf(_("Unable to save '%s'"), filename);
+            dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                            GTK_BUTTONS_CLOSE, msg);
+            gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
+            gtk_dialog_run(GTK_DIALOG(dialog));
+            gtk_widget_destroy(dialog);
+            g_free(msg);
+        }
+
         g_free(filename);
     }
 
@@ -1803,7 +1803,7 @@ void menuitem_quit_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 {
-    gchar *authors[] = { "Kevin DeKorte", "James Carthew","Diogo Franco", NULL };
+    gchar *authors[] = { "Kevin DeKorte", "James Carthew", "Diogo Franco", NULL };
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"),
                           "logo", pb_logo,
                           "authors", authors,
@@ -1825,7 +1825,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           "Korean - ByeongSik Jeon\n"
                           "Polish - Julian Sikorski\n"
                           "Russian - Dmitry Stropaloff\n"
-						  "Serbian - Милош Поповић\n"
+                          "Serbian - Милош Поповић\n"
                           "Spanish - Festor Wailon Dacoba\n" "Swedish - Daniel Nylander", NULL);
 }
 
@@ -2067,8 +2067,11 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gdk_drawable_get_size(GDK_DRAWABLE(window_container), &width, &height);
         if (width > 0 && height > 0)
             gtk_window_resize(GTK_WINDOW(window), width, height);
-        if (stored_window_width != -1 && stored_window_width > 0)
+        if (stored_window_width != -1 && stored_window_width > 0) {
+            if (GTK_WIDGET_FLAGS(controls_box) & GTK_VISIBLE)
+                stored_window_height += controls_box->allocation.height;
             gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
+        }
         make_panel_and_mouse_visible(NULL);
         fullscreen = 0;
     } else {
@@ -2093,6 +2096,11 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             while (gtk_events_pending())
                 gtk_main_iteration();
         }
+
+        gtk_window_get_size(GTK_WINDOW(window), &stored_window_width, &stored_window_height);
+
+        if (GTK_WIDGET_FLAGS(controls_box) & GTK_VISIBLE)
+            stored_window_height -= controls_box->allocation.height;
 
         gtk_window_fullscreen(GTK_WINDOW(window));
         fullscreen = 1;
@@ -2121,15 +2129,25 @@ void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
 {
+    int width, height;
+
     if (gtk_check_menu_item_get_active(menuitem)) {
         if (GTK_IS_WIDGET(button_event_box)) {
             gtk_widget_hide_all(button_event_box);
         }
         gtk_widget_set_size_request(controls_box, -1, -1);
         gtk_widget_show(controls_box);
+        if (!fullscreen && embed_window == 0) {
+            gtk_window_get_size(GTK_WINDOW(window), &width, &height);
+            gtk_window_resize(GTK_WINDOW(window), width, height + controls_box->allocation.height);
+        }
         showcontrols = TRUE;
     } else {
         gtk_widget_hide(controls_box);
+        if (!fullscreen && embed_window == 0) {
+            gtk_window_get_size(GTK_WINDOW(window), &width, &height);
+            gtk_window_resize(GTK_WINDOW(window), width, height - controls_box->allocation.height);
+        }
         showcontrols = FALSE;
     }
 }
@@ -2139,7 +2157,7 @@ void config_apply(GtkWidget * widget, void *data)
     GConfClient *gconf;
     gchar *cmd;
     gint oldosd;
-	gboolean old_disable_framedrop;
+    gboolean old_disable_framedrop;
     gchar *filename;
     GdkColor sub_color;
 
@@ -2177,7 +2195,7 @@ void config_apply(GtkWidget * widget, void *data)
     update_mplayer_config();
 
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
-	old_disable_framedrop = disable_framedrop;
+    old_disable_framedrop = disable_framedrop;
     disable_framedrop =
         !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_framedrop));
     disable_ass = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_ass));
@@ -2205,15 +2223,14 @@ void config_apply(GtkWidget * widget, void *data)
     subtitle_color =
         g_strdup_printf("%02x%02x%02x00", sub_color.red >> 8, sub_color.green >> 8,
                         sub_color.blue >> 8);
-	
-    if (old_disable_framedrop != disable_framedrop)
-    {
+
+    if (old_disable_framedrop != disable_framedrop) {
         cmd = g_strdup_printf("pausing_keep frame_drop %d\n", !disable_framedrop);
         send_command(cmd);
         g_free(cmd);
     }
 
-	if (oldosd != osdlevel) {
+    if (oldosd != osdlevel) {
         cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
         send_command(cmd);
         g_free(cmd);
@@ -2454,20 +2471,21 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
         }
         i++;
 
-		if (idle->audio_channels != NULL && strlen(idle->audio_channels) > 0 && g_strtod(idle->audio_channels,NULL) >= 1) {
-	        label = gtk_label_new(_("Audio Channels:"));
-	        gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-	        gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-	        gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-	        if (idle != NULL) {
-	            buf = g_ascii_strup(idle->audio_channels, -1);
-	            label = gtk_label_new(buf);
-	            g_free(buf);
-	            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-	            gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
-	        }
-	        i++;		
-		}
+        if (idle->audio_channels != NULL && strlen(idle->audio_channels) > 0
+            && g_strtod(idle->audio_channels, NULL) >= 1) {
+            label = gtk_label_new(_("Audio Channels:"));
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+            gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+            if (idle != NULL) {
+                buf = g_ascii_strup(idle->audio_channels, -1);
+                label = gtk_label_new(buf);
+                g_free(buf);
+                gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+                gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
+            }
+            i++;
+        }
 
         label = gtk_label_new(_("Audio Bitrate:"));
         gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
@@ -2697,15 +2715,15 @@ static gchar *pplevel_format_callback(GtkScale * scale, gdouble value)
         text = g_strdup(_("No Postprocessing"));
         break;
     case 1:
-	case 2:
+    case 2:
         text = g_strdup(_("Minimal Postprocessing"));
         break;
     case 3:
-	case 4:
+    case 4:
         text = g_strdup(_("More Postprocessing"));
         break;
     case 5:
-	case 6:
+    case 6:
         text = g_strdup(_("Maximum Postprocessing"));
         break;
     default:
@@ -2949,7 +2967,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     conf_label = gtk_label_new(_("On Screen Display Level:"));
     config_osdlevel = gtk_hscale_new_with_range(0.0, 3.0, 1.0);
-	gtk_range_set_value(GTK_RANGE(config_osdlevel), osdlevel);
+    gtk_range_set_value(GTK_RANGE(config_osdlevel), osdlevel);
     g_signal_connect(GTK_OBJECT(config_osdlevel), "format-value",
                      GTK_SIGNAL_FUNC(osdlevel_format_callback), NULL);
     g_signal_connect(GTK_OBJECT(config_osdlevel), "value-changed",
@@ -2963,8 +2981,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     conf_label = gtk_label_new(_("Post-processing level:"));
     config_pplevel = gtk_hscale_new_with_range(0.0, 6.0, 1.0);
-	g_signal_connect(GTK_OBJECT(config_pplevel), "format-value",
-                     GTK_SIGNAL_FUNC(pplevel_format_callback), NULL);	
+    g_signal_connect(GTK_OBJECT(config_pplevel), "format-value",
+                     GTK_SIGNAL_FUNC(pplevel_format_callback), NULL);
     gtk_widget_set_size_request(config_pplevel, 150, -1);
     gtk_range_set_value(GTK_RANGE(config_pplevel), pplevel);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
@@ -3741,7 +3759,7 @@ GtkWidget *create_window(gint windowid)
         gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_fullscreen), "activate",
                                    accel_group, 'f', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-	}
+    }
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
                                accel_group, '1', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 

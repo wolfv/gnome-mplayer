@@ -533,7 +533,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_strlcpy(idledata->audio_samplerate, buf, 16);
     }
 
-	if (strstr(mplayer_output->str, "ID_AUDIO_NCH") != 0) {
+    if (strstr(mplayer_output->str, "ID_AUDIO_NCH") != 0) {
         g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "ID_AUDIO_NCH") + strlen("ID_AUDIO_NCH=");
         g_strlcpy(idledata->audio_channels, buf, 16);
@@ -808,11 +808,11 @@ gpointer launch_player(gpointer data)
             argv[arg++] = g_strdup(opts[i]);
         g_strfreev(opts);
     }
-    
-	argv[arg++] = g_strdup_printf("-vf-add");
+
+    argv[arg++] = g_strdup_printf("-vf-add");
     argv[arg++] = g_strdup_printf("screenshot");
 
-	
+
     if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
     argv[arg] = g_strdup_printf("%s", threaddata->filename);
