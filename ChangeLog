@@ -1,4 +1,5 @@
 Development
+	When hiding controls, keep playback window the same size, when not fullscreen or embedded
 	Fix problem with 'Save As..' where filename started with a /
 	Updated French translation
 	Only show audio channels in file details when not 0
