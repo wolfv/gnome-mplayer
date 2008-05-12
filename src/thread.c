@@ -933,6 +933,10 @@ gpointer launch_player(gpointer data)
                         g_free(filename);
                     }
                 }
+				
+				if (quit_on_complete) {
+					g_idle_add(set_quit, idledata);
+				}
             }
         } else {
             if (playback_error == ERROR_RETRY_WITH_PLAYLIST) {

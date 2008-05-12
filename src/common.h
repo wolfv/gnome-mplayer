@@ -211,7 +211,7 @@ gchar *subtitlefont;
 gdouble subtitle_scale;
 gchar *subtitle_codepage;
 gchar *subtitle_color;
-
+gboolean quit_on_complete;
 gchar *extraopts;
 
 // tv stuff

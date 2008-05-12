@@ -68,6 +68,7 @@ static GOptionEntry entries[] = {
     {"disablefullscreen", 0, 0, G_OPTION_ARG_NONE, &disable_fullscreen,
      N_("Disable fullscreen options in browser mode"), NULL},
     {"loop", 0, 0, G_OPTION_ARG_NONE, &loop, N_("Play all files on the playlist forever"), NULL},
+    {"quit_on_complete", 'q', 0, G_OPTION_ARG_NONE, &quit_on_complete, N_("Quit application when last file on playlist is played"), NULL},
     {"random", 0, 0, G_OPTION_ARG_NONE, &random_order, N_("Play items on playlist in random order"),
      NULL},
     {"cache", 0, 0, G_OPTION_ARG_INT, &cache_size, N_("Set cache size"),
@@ -281,6 +282,7 @@ int main(int argc, char *argv[])
     subtitlefont = NULL;
     subtitle_codepage = NULL;
     subtitle_color = NULL;
+	quit_on_complete = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
