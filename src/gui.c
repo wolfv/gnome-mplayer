@@ -1408,7 +1408,11 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     GdkPixmap *cursor_source;
     GdkCursor *cursor;
     GTimeVal currenttime;
-
+    static gboolean working;
+	
+	if (working) return FALSE;
+	working = TRUE;
+	
     if (fullscreen) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -5 * G_USEC_PER_SEC);
@@ -1423,6 +1427,8 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
             gdk_cursor_unref(cursor);
         }
     }
+	
+	working = FALSE;
     return FALSE;
 }
 
