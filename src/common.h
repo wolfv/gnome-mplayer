@@ -223,6 +223,7 @@ gint tv_height;
 gint tv_fps;
 
 GThread *thread;
+GMutex *slide_away;
 
 gboolean qt_disabled;
 gboolean real_disabled;
