@@ -1393,12 +1393,14 @@ gboolean slide_panel_away(gpointer data)
         gtk_widget_size_request(controls_box, &req);
         if (req.height <= 1) {
             gtk_widget_hide(controls_box);
+            g_mutex_unlock(slide_away);
             return FALSE;
         } else {
             gtk_widget_set_size_request(controls_box, req.width, req.height - 1);
             return TRUE;
         }
     }
+    g_mutex_unlock(slide_away);
     return FALSE;
 }
 
@@ -1408,16 +1410,14 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     GdkPixmap *cursor_source;
     GdkCursor *cursor;
     GTimeVal currenttime;
-    static gboolean working;
-	
-	if (working) return FALSE;
-	working = TRUE;
-	
+
     if (fullscreen) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -5 * G_USEC_PER_SEC);
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
-            g_timeout_add(40, slide_panel_away, NULL);
+            if (g_mutex_trylock(slide_away)) {
+                g_timeout_add(40, slide_panel_away, NULL);
+            }
             cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
             cursor =
                 gdk_cursor_new_from_pixmap(cursor_source, cursor_source, &cursor_color,
@@ -1426,9 +1426,8 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
             gdk_window_set_cursor(window->window, cursor);
             gdk_cursor_unref(cursor);
         }
+
     }
-	
-	working = FALSE;
     return FALSE;
 }
 

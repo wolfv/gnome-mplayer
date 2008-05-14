@@ -284,6 +284,7 @@ int main(int argc, char *argv[])
     subtitle_codepage = NULL;
     subtitle_color = NULL;
     quit_on_complete = FALSE;
+    slide_away = NULL;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -375,6 +376,7 @@ int main(int argc, char *argv[])
 
     read_mplayer_config();
     thread_running = g_mutex_new();
+    slide_away = g_mutex_new();
 
     if (argv[fileindex] != NULL) {
         g_stat(argv[fileindex], &buf);
