@@ -1385,33 +1385,35 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
 }
 #endif
 
+gboolean slide_panel_away(gpointer data)
+{
+    GtkRequisition req;
+
+    if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box)) {
+        gtk_widget_size_request(controls_box, &req);
+        if (req.height <= 1) {
+            gtk_widget_hide(controls_box);
+            return FALSE;
+        } else {
+            gtk_widget_set_size_request(controls_box, req.width, req.height - 1);
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
 gboolean make_panel_and_mouse_invisible(gpointer data)
 {
     GdkColor cursor_color = { 0, 0, 0, 0 };
     GdkPixmap *cursor_source;
     GdkCursor *cursor;
     GTimeVal currenttime;
-    gint i;
-    static gboolean working;
-    GtkRequisition req;
 
     if (fullscreen) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -5 * G_USEC_PER_SEC);
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
-            if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box) && working != TRUE) {
-                working = TRUE;
-                gtk_widget_size_request(controls_box, &req);
-
-                for (i = req.height; i > 0; i--) {
-                    gtk_widget_set_size_request(controls_box, req.width, i);
-                    while (gtk_events_pending())
-                        gtk_main_iteration();
-                }
-
-                gtk_widget_hide(controls_box);
-                working = FALSE;
-            }
+            g_timeout_add(40, slide_panel_away, NULL);
             cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
             cursor =
                 gdk_cursor_new_from_pixmap(cursor_source, cursor_source, &cursor_color,
@@ -1755,9 +1757,9 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
     default_name = g_strrstr(idledata->url, "/");
     if (default_name == NULL) {
         default_name = idledata->url;
-	} else {
-		default_name += sizeof(gchar);
-	}
+    } else {
+        default_name += sizeof(gchar);
+    }
     g_strlcpy(buffer, default_name, 1000);
     while (g_strrstr(buffer, "&") != NULL) {
         default_name = g_strrstr(buffer, "&");
