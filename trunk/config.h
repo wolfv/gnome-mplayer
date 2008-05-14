@@ -83,4 +83,4 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "0.6.1"
+#define VERSION "0.6.2"
