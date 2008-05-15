@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-15 06:35-0600\n"
-"PO-Revision-Date: 2008-04-30 10:25+0200\n"
+"PO-Revision-Date: 2008-05-15 15:08+0200\n"
 "Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -74,6 +74,8 @@ msgstr "Lecture en boucle de tous les fichiers de la liste de lecture"
 #: src/main.c:72
 msgid "Quit application when last file on playlist is played"
 msgstr ""
+"Quitter l'application lorsque le dernier fichier de la liste de lecture a "
+"été joué"
 
 #: src/main.c:73
 msgid "Play items on playlist in random order"
@@ -94,11 +96,11 @@ msgstr "Désactiver le saut d'images pour mieux garder la synchronisation"
 
 #: src/main.c:83
 msgid "Use the old subtitle rendering system"
-msgstr ""
+msgstr "Utiliser l'ancien système de rendu des sous-titres"
 
 #: src/main.c:86
 msgid "Don't use fonts embedded on matroska files"
-msgstr ""
+msgstr "Ne pas utiliser les fontes intégrées dans les fichiers matroska"
 
 #: src/main.c:88
 msgid "Use Vertical Layout"
@@ -289,9 +291,9 @@ msgid "Save As..."
 msgstr "Enregister sous..."
 
 #: src/gui.c:1791
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save '%s'"
-msgstr "Échec à l'ouverture de %s"
+msgstr "« %s » ne peut pas être sauvé(e)."
 
 #: src/gui.c:1794 src/support.c:550 src/thread.c:166
 msgid "GNOME MPlayer Error"
@@ -327,21 +329,21 @@ msgid ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 msgstr ""
-"Gnome MPlayer est un logiciel libre ; vous pouvez le redistribuer et/ou le "
+"Gnome MPlayer est un logiciel libre ; vous pouvez le redistribuer et/ou le "
 "modifier au titre des clauses\n"
 " de la Licence Publique Générale GNU, telle que publiée par la Free Software "
-"Foundation ;\n"
+"Foundation ;\n"
 " soit la version 2 de la Licence, ou (à votre discrétion) une version "
 "ultérieure quelconque.\n"
 "\n"
 "Gnome MPlayer est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE "
-"GARANTIE ; sans même\n"
+"GARANTIE ; sans même\n"
 " une garantie implicite de COMMERCIABILITÉ ou DE CONFORMITÉ À UNE "
 "UTILISATION PARTICULIÈRE.\n"
 "Voir la Licence Publique Générale GNU pour plus de détails.\n"
 "\n"
 "Vous devriez avoir reçu un exemplaire de la Licence Publique Générale GNU "
-"avec ce programme ;\n"
+"avec ce programme ;\n"
 " si ce n'est pas le cas, écrivez à la\n"
 "\n"
 "Free Software Foundation Inc.,\n"
@@ -385,9 +387,8 @@ msgid "Audio Codec:"
 msgstr "Codec audio :"
 
 #: src/gui.c:2489
-#, fuzzy
 msgid "Audio Channels:"
-msgstr "Codec audio :"
+msgstr "Nombre de canaux audio :"
 
 #: src/gui.c:2503
 msgid "Audio Bitrate:"
@@ -443,19 +444,19 @@ msgstr "Chronomètre/Total"
 
 #: src/gui.c:2728
 msgid "No Postprocessing"
-msgstr ""
+msgstr "Aucun post-traitement"
 
 #: src/gui.c:2732
 msgid "Minimal Postprocessing"
-msgstr ""
+msgstr "Post-traitement minimal"
 
 #: src/gui.c:2736
 msgid "More Postprocessing"
-msgstr ""
+msgstr "Plus de post-traitement"
 
 #: src/gui.c:2740
 msgid "Maximum Postprocessing"
-msgstr ""
+msgstr "Post-traitement maximum"
 
 #: src/gui.c:2804
 msgid "Player"
@@ -508,7 +509,7 @@ msgstr "Niveau OSD :"
 
 #: src/gui.c:2995
 msgid "Post-processing level:"
-msgstr ""
+msgstr "Niveau du post-traitement :"
 
 #: src/gui.c:3010
 msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
@@ -549,11 +550,11 @@ msgstr "<span weight=\"bold\">Paramètres des sous-titres</span>"
 
 #: src/gui.c:3079
 msgid "Enable _ASS"
-msgstr ""
+msgstr "Activer _ASS"
 
 #: src/gui.c:3086
 msgid "Use _Embedded Fonts"
-msgstr ""
+msgstr "Utiliser les fontes _intégrées."
 
 #: src/gui.c:3093
 msgid "Subtitle Font:"
@@ -597,7 +598,7 @@ msgstr "Activer le contrôle de volume logiciel de Mplayer."
 
 #: src/gui.c:3196
 msgid "_Drop frames"
-msgstr "Activer le saut d'images."
+msgstr "Activer le _saut d'images."
 
 #: src/gui.c:3202
 msgid "Force the use of cache setting on streaming media"
@@ -610,7 +611,7 @@ msgstr "Activer le mode verbeux pour le débogage."
 
 #: src/gui.c:3212
 msgid "Extra Options to MPlayer:"
-msgstr ""
+msgstr "Options additionnelles pour MPlayer :"
 
 #: src/gui.c:3466
 msgid "S_how Controls"
@@ -790,7 +791,7 @@ msgstr "Impossible d'ouvrir le périphérique : %s"
 #: src/support.c:1147 src/support.c:1180
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
-"Impossible d'ouvrir le fichier en écriture ; la liste de lecture ne peut pas "
+"Impossible d'ouvrir le fichier en écriture ; la liste de lecture ne peut pas "
 "être sauvegardée."
 
 #: src/thread.c:133
