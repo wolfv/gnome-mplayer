@@ -1,4 +1,5 @@
 Development
+	When stopping streaming media, kill the stream when stop clicked rather than pausing it
 	Change menu slide away to a timeout from a loop
 	Added patch for quit on complete option to command line
 	Resize patch from Diogo
