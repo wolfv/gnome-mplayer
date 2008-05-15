@@ -813,11 +813,13 @@ gboolean expose_fixed_callback(GtkWidget * widget, GdkEventExpose * event, gpoin
     GdkGC *gc;
 
     if (GDK_IS_DRAWABLE(fixed->window)) {
-        gc = gdk_gc_new(fixed->window);
-        // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
-        gdk_draw_rectangle(fixed->window, gc, TRUE, event->area.x, event->area.y, event->area.width,
-                           event->area.height);
-        gdk_gc_unref(gc);
+		if (videopresent) {
+	        gc = gdk_gc_new(fixed->window);
+	        // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
+	        gdk_draw_rectangle(fixed->window, gc, TRUE, event->area.x, event->area.y, event->area.width,
+	                           event->area.height);
+	        gdk_gc_unref(gc);
+		}
     }
     return FALSE;
 }
