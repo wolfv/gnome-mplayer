@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
     last_window_height = 0;
     showcontrols = 1;
     autostart = 1;
-    videopresent = 1;
+    videopresent = 0;
     disable_context_menu = FALSE;
     dontplaynext = FALSE;
     idledata = (IdleData *) g_new0(IdleData, 1);

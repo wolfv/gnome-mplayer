@@ -651,7 +651,7 @@ gpointer launch_player(gpointer data)
 
     ThreadData *threaddata = (ThreadData *) data;
 
-    videopresent = 1;
+    videopresent = 0;
     playback_error = NO_ERROR;
 
     while (embed_window != -1 && !GTK_WIDGET_VISIBLE(window)) {
