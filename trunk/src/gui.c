@@ -1175,9 +1175,15 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         state = PLAYING;
     }
     if (state == PLAYING) {
-        send_command("seek 0 2\npause\n");
-        state = STOPPED;
-        autopause = FALSE;
+		if (idledata != NULL && idledata->streaming) {
+			send_command("quit\n");
+			state = QUIT;
+			autopause = FALSE;
+		} else {
+	        send_command("seek 0 2\npause\n");
+	        state = STOPPED;
+	        autopause = FALSE;
+		}
         gtk_widget_set_sensitive(play_event_box, TRUE);
         gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
         gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
