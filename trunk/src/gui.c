@@ -1340,6 +1340,12 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     return FALSE;
 }
 
+gboolean menu_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
+{
+	send_command("dvdnav 5\n");
+	return FALSE;
+}
+
 void vol_slider_callback(GtkRange * range, gpointer user_data)
 {
     gint vol;
@@ -1659,6 +1665,7 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
     add_item_to_playlist("dvdnav://", 0);
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     play_file("dvdnav://", 0);
+	gtk_widget_show(menu_event_box);
 }
 
 void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
@@ -3871,6 +3878,7 @@ GtkWidget *create_window(gint windowid)
         && gtk_icon_theme_has_icon(icon_theme, "media-seek-backward")
         && gtk_icon_theme_has_icon(icon_theme, "media-skip-forward")
         && gtk_icon_theme_has_icon(icon_theme, "media-skip-backward")
+        && gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_INDEX)
         && gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
 
         pb_play = gtk_icon_theme_load_icon(icon_theme, "media-playback-start", 16, 0, &error);
@@ -3880,6 +3888,7 @@ GtkWidget *create_window(gint windowid)
         pb_rew = gtk_icon_theme_load_icon(icon_theme, "media-seek-backward", 16, 0, &error);
         pb_next = gtk_icon_theme_load_icon(icon_theme, "media-skip-forward", 16, 0, &error);
         pb_prev = gtk_icon_theme_load_icon(icon_theme, "media-skip-backward", 16, 0, &error);
+        pb_menu = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_INDEX, 16, 0, &error);
         pb_fs = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", 16, 0, &error);
 
     } else if (gtk_icon_theme_has_icon(icon_theme, "stock_media-play")
@@ -3889,6 +3898,7 @@ GtkWidget *create_window(gint windowid)
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-rew")
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-prev")
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-next")
+		       && gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_INDEX)
                && gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
 
         pb_play = gtk_icon_theme_load_icon(icon_theme, "stock_media-play", 16, 0, &error);
@@ -3898,6 +3908,7 @@ GtkWidget *create_window(gint windowid)
         pb_rew = gtk_icon_theme_load_icon(icon_theme, "stock_media-rew", 16, 0, &error);
         pb_next = gtk_icon_theme_load_icon(icon_theme, "stock_media-next", 16, 0, &error);
         pb_prev = gtk_icon_theme_load_icon(icon_theme, "stock_media-prev", 16, 0, &error);
+        pb_menu = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_INDEX, 16, 0, &error);
         pb_fs = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", 16, 0, &error);
 
     } else {
@@ -3909,6 +3920,7 @@ GtkWidget *create_window(gint windowid)
         pb_rew = gdk_pixbuf_new_from_xpm_data((const char **) media_seek_backward_xpm);
         pb_next = gdk_pixbuf_new_from_xpm_data((const char **) media_skip_forward_xpm);
         pb_prev = gdk_pixbuf_new_from_xpm_data((const char **) media_skip_backward_xpm);
+        pb_menu = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_INDEX, 16, 0, &error);
         pb_fs = gdk_pixbuf_new_from_xpm_data((const char **) view_fullscreen_xpm);
 
     }
@@ -3922,7 +3934,8 @@ GtkWidget *create_window(gint windowid)
 
     image_prev = gtk_image_new_from_pixbuf(pb_prev);
     image_next = gtk_image_new_from_pixbuf(pb_next);
-
+	image_menu = gtk_image_new_from_pixbuf(pb_menu);
+	
     image_fs = gtk_image_new_from_pixbuf(pb_fs);
 
     if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
@@ -3934,6 +3947,23 @@ GtkWidget *create_window(gint windowid)
     }
     gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
 
+	menu_event_box = gtk_event_box_new();
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, menu_event_box, _("Menu"), NULL);
+    gtk_widget_set_events(menu_event_box, GDK_BUTTON_PRESS_MASK);
+    g_signal_connect(G_OBJECT(menu_event_box), "button_press_event", G_CALLBACK(menu_callback),
+                     NULL);
+    g_signal_connect(G_OBJECT(menu_event_box), "enter_notify_event",
+                     G_CALLBACK(enter_button_callback), NULL);
+    g_signal_connect(G_OBJECT(menu_event_box), "leave_notify_event",
+                     G_CALLBACK(leave_button_callback), NULL);
+    gtk_widget_set_size_request(GTK_WIDGET(menu_event_box), 22, 16);
+
+    gtk_container_add(GTK_CONTAINER(menu_event_box), image_menu);
+    gtk_box_pack_start(GTK_BOX(hbox), menu_event_box, FALSE, FALSE, 0);
+    gtk_widget_show(image_menu);
+    gtk_widget_show(menu_event_box);
+	
     prev_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, prev_event_box, _("Previous"), NULL);
@@ -4111,6 +4141,7 @@ GtkWidget *create_window(gint windowid)
         if (windowid != -1)
             gtk_widget_show_all(window);
         gtk_widget_hide(media_label);
+		gtk_widget_hide(menu_event_box);
         show_media_label = TRUE;
         if (disable_fullscreen)
             gtk_widget_hide(fs_event_box);
