@@ -1639,9 +1639,9 @@ void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
 {
-    gchar *filename;
+    gchar *filename = NULL; 
     gint count;
-    gint playlist;
+    gint playlist = 0; 
 
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
@@ -1670,9 +1670,9 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 {
-    gchar *filename;
+    gchar *filename = NULL;
     gint count;
-    gint playlist;
+    gint playlist = 0;
 
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
@@ -1705,8 +1705,8 @@ void parseChannels(FILE * f)
     char ch, s[20], strout[50];
 
     while (parsing == 0) {
-        ch = fgetc(f);          // Read in the next character
-        if (ch != EOF) {
+        ch = (char)fgetc(f);          // Read in the next character
+        if ((int)ch != EOF) {
             // If the line is empty or commented, we want to skip it.
             if (((ch == '\n') && (i == 0)) || ((ch == '#') && (i == 0))) {
                 firstW++;
