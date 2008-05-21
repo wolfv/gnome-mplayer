@@ -1,4 +1,5 @@
 Development
+	Updated Polish and Korean translations
 	When playing DVD's with navigation, add menu button to left hand side
 	Only draw black background when we have video present
 	When stopping streaming media, kill the stream when stop clicked rather than pausing it

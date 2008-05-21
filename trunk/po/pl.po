@@ -9,15 +9,14 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-17 10:13-0600\n"
-"PO-Revision-Date: 2008-04-10 18:15+0100\n"
+"PO-Revision-Date: 2008-05-21 17:42+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/main.c:54
 msgid "Window to embed in"
@@ -57,9 +56,7 @@ msgstr "Pokaż elementy sterujące w oknie"
 
 #: src/main.c:65
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
-msgstr ""
-"Odtwarzaj media automatycznie (domyślne) 1, ustaw na 0 aby ładować lecz nie "
-"odtwarzać"
+msgstr "Odtwarzaj media automatycznie (domyślne) 1, ustaw na 0 aby ładować lecz nie odtwarzać"
 
 #: src/main.c:67
 msgid "Disable popup menu on right click"
@@ -75,7 +72,7 @@ msgstr "Odtwarzaj wszystkie pliki listy odtwarzania w nieskończoność"
 
 #: src/main.c:72
 msgid "Quit application when last file on playlist is played"
-msgstr ""
+msgstr "Zakończ aplikację po odtworzeniu ostatniego pliku z listy"
 
 #: src/main.c:73
 msgid "Play items on playlist in random order"
@@ -91,15 +88,15 @@ msgstr "Wymuś użycie bufora na stronach przesyłających strumienie"
 
 #: src/main.c:80
 msgid "Don't skip drawing frames to better keep sync"
-msgstr ""
+msgstr "Nie pomijaj rysowania klatek aby zachować lepszą synchronizację"
 
 #: src/main.c:83
 msgid "Use the old subtitle rendering system"
-msgstr ""
+msgstr "Użyj starego systemu renderowania napisów"
 
 #: src/main.c:86
 msgid "Don't use fonts embedded on matroska files"
-msgstr ""
+msgstr "Nie używaj czcionek osadzonych w plikach matroska"
 
 #: src/main.c:88
 msgid "Use Vertical Layout"
@@ -155,12 +152,8 @@ msgstr "[FILES...] - Odtwarzacz multimediów dla GNOME oparty na MPlayerze"
 
 #: src/main.c:344
 #, c-format
-msgid ""
-"Run 'gnome-mplayer --help' to see a full list of available command line "
-"options.\n"
-msgstr ""
-"Uruchom 'gnome-mplayer --help' aby zobaczyć pełną listę dostępnych opcji "
-"wiersza polecenia.\n"
+msgid "Run 'gnome-mplayer --help' to see a full list of available command line options.\n"
+msgstr "Uruchom 'gnome-mplayer --help' aby zobaczyć pełną listę dostępnych opcji wiersza polecenia.\n"
 
 #: src/main.c:355
 #, c-format
@@ -175,7 +168,9 @@ msgstr "Odtwarzanie DVD"
 msgid "Playing Audio CD"
 msgstr "Odtwarzanie Audio CD"
 
-#: src/gui.c:92 src/gui.c:126 src/gui.c:149
+#: src/gui.c:92
+#: src/gui.c:126
+#: src/gui.c:149
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
@@ -230,16 +225,25 @@ msgstr "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
 msgid "%i:%02i:%02i / %i:%02i:%02i"
 msgstr "%i:%02i:%02i / %i:%02i:%02i"
 
-#: src/gui.c:416 src/gui.c:1110
+#: src/gui.c:416
+#: src/gui.c:1110
 msgid "Pause"
 msgstr "Pauza"
 
-#: src/gui.c:423 src/gui.c:430 src/gui.c:1120 src/gui.c:1191 src/gui.c:1195
+#: src/gui.c:423
+#: src/gui.c:430
+#: src/gui.c:1120
+#: src/gui.c:1191
+#: src/gui.c:1195
 #: src/gui.c:4002
 msgid "Play"
 msgstr "Odtwarzaj"
 
-#: src/gui.c:662 src/gui.c:672 src/gui.c:1361 src/gui.c:1389 src/thread.c:333
+#: src/gui.c:662
+#: src/gui.c:672
+#: src/gui.c:1361
+#: src/gui.c:1389
+#: src/thread.c:333
 #, c-format
 msgid "Volume %i%%"
 msgstr "Głośność %i%%"
@@ -256,11 +260,15 @@ msgstr "Zapauzowany"
 msgid "Stopped"
 msgstr "Zatrzymany"
 
-#: src/gui.c:1499 src/playlist.c:405
+#: src/gui.c:1499
+#: src/playlist.c:405
 msgid "Open File"
 msgstr "Otwórz plik"
 
-#: src/gui.c:1548 src/support.c:126 src/support.c:174 src/playlist.c:436
+#: src/gui.c:1548
+#: src/support.c:126
+#: src/support.c:174
+#: src/playlist.c:436
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
@@ -281,15 +289,18 @@ msgid "Save As..."
 msgstr "Zapisz jako..."
 
 #: src/gui.c:1806
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save '%s'"
-msgstr "Nie udało się otworzyć %s"
+msgstr "Nie udało się zapisać %s"
 
-#: src/gui.c:1809 src/support.c:550 src/thread.c:166
+#: src/gui.c:1809
+#: src/support.c:550
+#: src/thread.c:166
 msgid "GNOME MPlayer Error"
 msgstr "Błąd GNOME MPlayer"
 
-#: src/gui.c:1832 src/gui.c:3432
+#: src/gui.c:1832
+#: src/gui.c:3432
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
@@ -299,20 +310,17 @@ msgstr "Odtwarzacz multimediów dla GNOME korzystający z MPlayera"
 
 #: src/gui.c:1840
 msgid ""
-"Gnome MPlayer is free software; you can redistribute it and/or modify it "
-"under\n"
+"Gnome MPlayer is free software; you can redistribute it and/or modify it under\n"
 "the terms of the GNU General Public License as published by the Free\n"
 "Software Foundation; either version 2 of the License, or (at your option)\n"
 "any later version.\n"
 "\n"
-"Gnome MPlayer is distributed in the hope that it will be useful, but "
-"WITHOUT\n"
+"Gnome MPlayer is distributed in the hope that it will be useful, but WITHOUT\n"
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\n"
 "FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\n"
 "more details.\n"
 "\n"
-"You should have received a copy of the GNU General Public License along "
-"with\n"
+"You should have received a copy of the GNU General Public License along with\n"
 "Gnome MPlayer if not, write to the\n"
 "\n"
 "Free Software Foundation, Inc.,\n"
@@ -321,12 +329,10 @@ msgid ""
 msgstr ""
 "Gnome MPlayer jest wolnym oprogramowaniem; możesz go rozprowadzać dalej\n"
 "i/lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU, wydanej\n"
-"przez Fundację Wolnego Oprogramowania - według wersji 2-giej tej Licencji "
-"lub\n"
+"przez Fundację Wolnego Oprogramowania - według wersji 2-giej tej Licencji lub\n"
 "którejś z późniejszych wersji.\n"
 "\n"
-"Gnome MPlayer rozpowszechniany jest z nadzieją, iż będzie on użyteczny - "
-"jednak\n"
+"Gnome MPlayer rozpowszechniany jest z nadzieją, iż będzie on użyteczny - jednak\n"
 "BEZ JAKIEJKOLWIEK GWARANCJI, nawet domyślnej gwarancji PRZYDATNOŚCI\n"
 "HANDLOWEJ albo PRZYDATNOŚCI DO OKREŚLONYCH ZASTOSOWAŃ. W celu\n"
 "uzyskania bliższych informacji - Powszechna Licencja Publiczna GNU.\n"
@@ -338,13 +344,14 @@ msgstr ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 
-#: src/gui.c:2033 src/playlist.c:121
+#: src/gui.c:2033
+#: src/playlist.c:121
 msgid "Set Subtitle"
 msgstr "Ustaw napisy"
 
 #: src/gui.c:2412
 msgid "<span weight=\"bold\">Video Details</span>"
-msgstr "<span weight=\"bold\">Szczegóły pliku</span>"
+msgstr "<span weight=\"bold\">Szczegóły obrazu</span>"
 
 #: src/gui.c:2419
 msgid "Video Size:"
@@ -375,9 +382,8 @@ msgid "Audio Codec:"
 msgstr "Kodek dźwięku:"
 
 #: src/gui.c:2504
-#, fuzzy
 msgid "Audio Channels:"
-msgstr "Kodek dźwięku:"
+msgstr "Kanały dźwięku:"
 
 #: src/gui.c:2518
 msgid "Audio Bitrate:"
@@ -433,19 +439,19 @@ msgstr "Czasomierz/całkowity"
 
 #: src/gui.c:2743
 msgid "No Postprocessing"
-msgstr ""
+msgstr "Brak postprocessingu"
 
 #: src/gui.c:2747
 msgid "Minimal Postprocessing"
-msgstr ""
+msgstr "Minimalny postprocessing"
 
 #: src/gui.c:2751
 msgid "More Postprocessing"
-msgstr ""
+msgstr "Więcej postprocessingu"
 
 #: src/gui.c:2755
 msgid "Maximum Postprocessing"
-msgstr ""
+msgstr "Maksymalny postprocessing"
 
 #: src/gui.c:2819
 msgid "Player"
@@ -460,9 +466,8 @@ msgid "Language Settings"
 msgstr "Ustawienia języka"
 
 #: src/gui.c:2825
-#, fuzzy
 msgid "Subtitles"
-msgstr "Ustaw napisy"
+msgstr "Napisy"
 
 #: src/gui.c:2827
 msgid "Advanced"
@@ -498,7 +503,7 @@ msgstr "Poziom OSD:"
 
 #: src/gui.c:3010
 msgid "Post-processing level:"
-msgstr ""
+msgstr "Poziom postprocessingu:"
 
 #: src/gui.c:3025
 msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
@@ -533,43 +538,40 @@ msgid "Default Subtitle Language:"
 msgstr "Domyślny język napisów:"
 
 #: src/gui.c:3087
-#, fuzzy
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\">Dostosuj ustawienia obrazu</span>"
+msgstr "<span weight=\"bold\">Ustawienia napisów</span>"
 
 #: src/gui.c:3094
 msgid "Enable _ASS"
-msgstr ""
+msgstr "Włącz _ASS"
 
 #: src/gui.c:3101
 msgid "Use _Embedded Fonts"
-msgstr ""
+msgstr "Użyj o_sadzonych czcionek"
 
 #: src/gui.c:3108
-#, fuzzy
 msgid "Subtitle Font:"
-msgstr "Ustaw napisy"
+msgstr "Czcionka napisów:"
 
 #: src/gui.c:3121
 msgid "Subtitle Font Selection"
-msgstr ""
+msgstr "Wybór czcionki napisów"
 
 #: src/gui.c:3126
-#, fuzzy
 msgid "Subtitle Color:"
-msgstr "Ustaw napisy"
+msgstr "Kolor napisów:"
 
 #: src/gui.c:3151
 msgid "Subtitle Color Selection"
-msgstr ""
+msgstr "Wybór koloru napisów"
 
 #: src/gui.c:3158
 msgid "Subtitle Font Scaling:"
-msgstr ""
+msgstr "Skalowanie czcionki napisów:"
 
 #: src/gui.c:3171
 msgid "Subtitle File Encoding:"
-msgstr ""
+msgstr "Kodowanie czcionki napisów:"
 
 #: src/gui.c:3188
 msgid "<span weight=\"bold\">Advanced Settings</span>"
@@ -589,12 +591,11 @@ msgstr "Programowa kontrola dźwięku mplayera włączona"
 
 #: src/gui.c:3211
 msgid "_Drop frames"
-msgstr ""
+msgstr "_Opuszczaj klatki"
 
 #: src/gui.c:3217
 msgid "Force the use of cache setting on streaming media"
-msgstr ""
-"Wymuś użycie ustawionego bufora na multimediach przesyłanych strumieniowo"
+msgstr "Wymuś użycie ustawionego bufora na multimediach przesyłanych strumieniowo"
 
 #: src/gui.c:3222
 msgid "Verbose Debug Enabled"
@@ -602,7 +603,7 @@ msgstr "Gadatliwe debugowanie włączone"
 
 #: src/gui.c:3227
 msgid "Extra Options to MPlayer:"
-msgstr ""
+msgstr "Dodatkowe opcje dla MPlayera:"
 
 #: src/gui.c:3481
 msgid "S_how Controls"
@@ -743,7 +744,7 @@ msgstr "_Pomoc"
 
 #: src/gui.c:3952
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: src/gui.c:3969
 msgid "Previous"
@@ -773,20 +774,22 @@ msgstr "Pełny ekran"
 msgid "Volume 100%"
 msgstr "Głośność 100%"
 
-#: src/support.c:163 src/playlist.c:754
+#: src/support.c:163
+#: src/playlist.c:754
 #, c-format
 msgid "%s items"
 msgstr "%s elementów"
 
-#: src/support.c:530 src/thread.c:140
+#: src/support.c:530
+#: src/thread.c:140
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Nie udało się otworzyć urządzenia DVD: %s"
 
-#: src/support.c:1147 src/support.c:1180
+#: src/support.c:1147
+#: src/support.c:1180
 msgid "Unable to save playlist, cannot open file for writing"
-msgstr ""
-"Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
+msgstr "Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
 
 #: src/thread.c:133
 #, c-format
@@ -818,7 +821,8 @@ msgstr ""
 "<b>Plik:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:422 src/thread.c:432
+#: src/thread.c:422
+#: src/thread.c:432
 msgid "Unknown"
 msgstr "Nieznany"
 
@@ -837,7 +841,8 @@ msgstr ""
 "<b>Album:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:454 src/thread.c:465
+#: src/thread.c:454
+#: src/thread.c:465
 #, c-format
 msgid ""
 "<small>\n"
@@ -869,19 +874,23 @@ msgstr ""
 "Nazwa pliku: %s\n"
 "Napisy: %s"
 
-#: src/playlist.c:239 src/playlist.c:808
+#: src/playlist.c:239
+#: src/playlist.c:808
 msgid "Save Playlist"
 msgstr "Zapisz listę odtwarzania"
 
-#: src/playlist.c:251 src/playlist.c:306
+#: src/playlist.c:251
+#: src/playlist.c:306
 msgid "Playlist (*.pls)"
 msgstr "Lista odtwarzania (*.pls)"
 
-#: src/playlist.c:256 src/playlist.c:316
+#: src/playlist.c:256
+#: src/playlist.c:316
 msgid "MP3 Playlist (*.m3u)"
 msgstr "Lista odtwarzania MP3 (*.m3u)"
 
-#: src/playlist.c:294 src/playlist.c:800
+#: src/playlist.c:294
+#: src/playlist.c:800
 msgid "Open Playlist"
 msgstr "Otwórz listę odtwarzania"
 
@@ -960,3 +969,4 @@ msgstr "Ustaw _napisy"
 
 #~ msgid "File Details"
 #~ msgstr "Szczegóły pliku"
+
