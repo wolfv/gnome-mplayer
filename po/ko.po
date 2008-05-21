@@ -30,11 +30,11 @@ msgstr "그놈 엠플레이어를 내장할 창의 높이"
 
 #: src/main.c:57
 msgid "Unique DBUS controller id"
-msgstr "유일한 DBUS 제어기 ID"
+msgstr "단일의 DBUS 제어기 ID"
 
 #: src/main.c:58
 msgid "File Argument is a playlist"
-msgstr "인자로 재생목록 파일명을 써준다"
+msgstr "인자로 재생 목록 파일명을 써준다"
 
 #: src/main.c:59
 msgid "Show more ouput on the console"
@@ -66,15 +66,15 @@ msgstr "웹브라우저 안에서 동작할 때 전체화면 옵션 비활성화
 
 #: src/main.c:70
 msgid "Play all files on the playlist forever"
-msgstr "재생목록을 반복 재생하기"
+msgstr "재생 목록을 반복 재생하기"
 
 #: src/main.c:72
 msgid "Quit application when last file on playlist is played"
-msgstr ""
+msgstr "재생 목록에서 마지막 파일의 재생이 끝났을 때 프로그램 끝내기 "
 
 #: src/main.c:73
 msgid "Play items on playlist in random order"
-msgstr "재생목록을 랜덤 재생하기"
+msgstr "재생 목록을 랜덤 재생하기"
 
 #: src/main.c:75
 msgid "Set cache size"
@@ -86,15 +86,15 @@ msgstr "스트리밍 사이트에 대해서 강제로 캐쉬 사용하기"
 
 #: src/main.c:80
 msgid "Don't skip drawing frames to better keep sync"
-msgstr ""
+msgstr "프레임을 드롭하지 않기"
 
 #: src/main.c:83
 msgid "Use the old subtitle rendering system"
-msgstr ""
+msgstr "자막을 렌더링하는데 예전 방법 사용하기"
 
 #: src/main.c:86
 msgid "Don't use fonts embedded on matroska files"
-msgstr ""
+msgstr "Matroska 파일에 내장된 글꼴 사용하지 않기"
 
 #: src/main.c:88
 msgid "Use Vertical Layout"
@@ -274,9 +274,9 @@ msgid "Save As..."
 msgstr "다른 이름으로 저장..."
 
 #: src/gui.c:1806
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save '%s'"
-msgstr "%s을(를) 여는 데 실패했습니다."
+msgstr "%s 저장 실패"
 
 #: src/gui.c:1809 src/support.c:550 src/thread.c:166
 msgid "GNOME MPlayer Error"
@@ -350,9 +350,8 @@ msgid "Audio Codec:"
 msgstr "오디오 코덱:"
 
 #: src/gui.c:2504
-#, fuzzy
 msgid "Audio Channels:"
-msgstr "오디오 코덱:"
+msgstr "오디오 채널:"
 
 #: src/gui.c:2518
 msgid "Audio Bitrate:"
@@ -408,19 +407,19 @@ msgstr "현재시간/전체시간"
 
 #: src/gui.c:2743
 msgid "No Postprocessing"
-msgstr ""
+msgstr "하지 않기"
 
 #: src/gui.c:2747
 msgid "Minimal Postprocessing"
-msgstr ""
+msgstr "최소"
 
 #: src/gui.c:2751
 msgid "More Postprocessing"
-msgstr ""
+msgstr "중간"
 
 #: src/gui.c:2755
 msgid "Maximum Postprocessing"
-msgstr ""
+msgstr "최대"
 
 #: src/gui.c:2819
 msgid "Player"
@@ -435,9 +434,8 @@ msgid "Language Settings"
 msgstr "언어"
 
 #: src/gui.c:2825
-#, fuzzy
 msgid "Subtitles"
-msgstr "자막 지정"
+msgstr "자막"
 
 #: src/gui.c:2827
 msgid "Advanced"
@@ -473,7 +471,7 @@ msgstr "OSD 보기 방법:"
 
 #: src/gui.c:3010
 msgid "Post-processing level:"
-msgstr ""
+msgstr "후처리 단계:"
 
 #: src/gui.c:3025
 msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
@@ -508,43 +506,40 @@ msgid "Default Subtitle Language:"
 msgstr "기본 자막 언어:"
 
 #: src/gui.c:3087
-#, fuzzy
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\">비디오 설정 조절</span>"
+msgstr "<span weight=\"bold\">자막 설정</span>"
 
 #: src/gui.c:3094
 msgid "Enable _ASS"
-msgstr ""
+msgstr "ASS 자막 렌더링 시스템(_A)"
 
 #: src/gui.c:3101
 msgid "Use _Embedded Fonts"
-msgstr ""
+msgstr "내장된 글꼴 사용(_E)"
 
 #: src/gui.c:3108
-#, fuzzy
 msgid "Subtitle Font:"
-msgstr "자막 지정"
+msgstr "자막 글꼴:"
 
 #: src/gui.c:3121
 msgid "Subtitle Font Selection"
-msgstr ""
+msgstr "자막 글꼴 선택하기"
 
 #: src/gui.c:3126
-#, fuzzy
 msgid "Subtitle Color:"
-msgstr "자막 지정"
+msgstr "자막 색깔:"
 
 #: src/gui.c:3151
 msgid "Subtitle Color Selection"
-msgstr ""
+msgstr "자막 색깔 선택하기"
 
 #: src/gui.c:3158
 msgid "Subtitle Font Scaling:"
-msgstr ""
+msgstr "자막 크기:"
 
 #: src/gui.c:3171
 msgid "Subtitle File Encoding:"
-msgstr ""
+msgstr "자막 파일 인코딩:"
 
 #: src/gui.c:3188
 msgid "<span weight=\"bold\">Advanced Settings</span>"
@@ -564,7 +559,7 @@ msgstr "엠플레이어의 소프트웨어 볼륨 조절 기능 사용"
 
 #: src/gui.c:3211
 msgid "_Drop frames"
-msgstr ""
+msgstr "프레임 드롭(_E)"
 
 #: src/gui.c:3217
 msgid "Force the use of cache setting on streaming media"
@@ -576,7 +571,7 @@ msgstr "자세한 디버그 정보 보여주기"
 
 #: src/gui.c:3227
 msgid "Extra Options to MPlayer:"
-msgstr ""
+msgstr "이외에 엠플레이어에 옵션 지정:"
 
 #: src/gui.c:3481
 msgid "S_how Controls"
@@ -659,7 +654,7 @@ msgstr "보기(_V)"
 
 #: src/gui.c:3675
 msgid "_Playlist"
-msgstr "재생목록(_P)"
+msgstr "재생 목록(_P)"
 
 #: src/gui.c:3677
 msgid "Media _Info"
@@ -717,7 +712,7 @@ msgstr "도움말(_H)"
 
 #: src/gui.c:3952
 msgid "Menu"
-msgstr ""
+msgstr "메뉴"
 
 #: src/gui.c:3969
 msgid "Previous"
@@ -759,7 +754,7 @@ msgstr "DVD 장치 %s을(를) 열 수 없습니다."
 
 #: src/support.c:1147 src/support.c:1180
 msgid "Unable to save playlist, cannot open file for writing"
-msgstr "저장하려는 파일을 열 수 없어서, 재생목록을 저장할 수 없습니다."
+msgstr "저장하려는 파일을 열 수 없어서, 재생 목록을 저장할 수 없습니다."
 
 #: src/thread.c:133
 #, c-format
@@ -844,7 +839,7 @@ msgstr ""
 
 #: src/playlist.c:239 src/playlist.c:808
 msgid "Save Playlist"
-msgstr "재생목록 저장하기"
+msgstr "재생 목록 저장하기"
 
 #: src/playlist.c:251 src/playlist.c:306
 msgid "Playlist (*.pls)"
@@ -856,7 +851,7 @@ msgstr "MP3 Playlist (*.m3u)"
 
 #: src/playlist.c:294 src/playlist.c:800
 msgid "Open Playlist"
-msgstr "재생목록 열기"
+msgstr "재생 목록 열기"
 
 #: src/playlist.c:311
 msgid "Reference Playlist (*.ref)"
@@ -897,23 +892,23 @@ msgstr "길이"
 
 #: src/playlist.c:790
 msgid "Close Playlist View"
-msgstr "재생목록 보기 닫기"
+msgstr "재생 목록 보기 닫기"
 
 #: src/playlist.c:816
 msgid "Add Item to Playlist"
-msgstr "재생목록에 항목 추가"
+msgstr "재생 목록에 항목 추가"
 
 #: src/playlist.c:824
 msgid "Remove Item from Playlist"
-msgstr "재생목록에서 항목 지우기"
+msgstr "재생 목록에서 항목 지우기"
 
 #: src/playlist.c:833
 msgid "Add Items in Folder to Playlist"
-msgstr "재생목록에 항목 추가"
+msgstr "재생 목록에 항목 추가"
 
 #: src/playlist.c:842
 msgid "Clear Playlist"
-msgstr "재생목록 지우기"
+msgstr "재생 목록 지우기"
 
 #: src/playlist.c:850
 msgid "Move Item Up"
