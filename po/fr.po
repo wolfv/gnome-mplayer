@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-05-17 10:13-0600\n"
-"PO-Revision-Date: 2008-05-15 15:08+0200\n"
+"PO-Revision-Date: 2008-05-22 11:50+0200\n"
 "Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -190,7 +190,7 @@ msgstr "%s - (%i/%i) - GNOME MPlayer"
 #: src/gui.c:217
 #, c-format
 msgid "Paused | %2i%% ▼"
-msgstr "En Pause | %2i%% ▼"
+msgstr "En pause | %2i%% ▼"
 
 # c-format
 #: src/gui.c:315
@@ -752,7 +752,7 @@ msgstr "Aid_e"
 
 #: src/gui.c:3952
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: src/gui.c:3969
 msgid "Previous"
