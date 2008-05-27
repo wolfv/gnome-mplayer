@@ -756,6 +756,21 @@ gboolean device_name(gchar * filename)
     return ret;
 }
 
+gchar *metadata_to_utf8(gchar * string)
+{
+    const gchar *lang;
+    lang = g_getenv("LANG");
+
+    if (lang != NULL && !g_ascii_strncasecmp(lang, "zh_TW", 5)) {
+        // zh_TW usually use BIG5 on tags, if the file is from Windows
+        if (g_utf8_validate(string, strlen(string), NULL) == FALSE) {
+            return g_convert(string, -1, "UTF-8", "BIG5", NULL, NULL, NULL);
+        }
+    }
+
+    return g_locale_to_utf8(string, -1, NULL, NULL, NULL);
+}
+
 void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length)
 {
 
@@ -828,7 +843,7 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
         if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
             if (strstr(output[ac], "Title") != NULL || strstr(output[ac], "name") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
-                *title = g_locale_to_utf8(localtitle, -1, NULL, NULL, NULL);
+                *title = metadata_to_utf8(localtitle);
                 if (*title == NULL) {
                     *title = g_strdup(localtitle);
                     strip_unicode(*title, strlen(*title));
@@ -836,7 +851,7 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
             }
             if (strstr(output[ac], "Artist") != NULL || strstr(output[ac], "author") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
-                *artist = g_locale_to_utf8(localtitle, -1, NULL, NULL, NULL);
+                *artist = metadata_to_utf8(localtitle);
                 if (*artist == NULL) {
                     *artist = g_strdup(localtitle);
                     strip_unicode(*artist, strlen(*artist));
@@ -847,7 +862,7 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
         if (strstr(output[ac], "DVD Title:") != NULL
             && g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) == 0) {
             localtitle = g_strrstr(output[ac], ":") + 1;
-            *title = g_locale_to_utf8(localtitle, -1, NULL, NULL, NULL);
+            *title = metadata_to_utf8(localtitle);
             if (*title == NULL) {
                 *title = g_strdup(localtitle);
                 strip_unicode(*title, strlen(*title));

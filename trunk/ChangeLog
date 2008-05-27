@@ -1,3 +1,5 @@
+Development
+	For the zh_TW locale convert from BIG5 to UTF-8 rather than locale to UTF-8
 0.6.2
 	Updated French translation
 	Updated Polish and Korean translations
