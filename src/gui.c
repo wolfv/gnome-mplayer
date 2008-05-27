@@ -813,13 +813,13 @@ gboolean expose_fixed_callback(GtkWidget * widget, GdkEventExpose * event, gpoin
     GdkGC *gc;
 
     if (GDK_IS_DRAWABLE(fixed->window)) {
-		if (videopresent) {
-	        gc = gdk_gc_new(fixed->window);
-	        // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
-	        gdk_draw_rectangle(fixed->window, gc, TRUE, event->area.x, event->area.y, event->area.width,
-	                           event->area.height);
-	        gdk_gc_unref(gc);
-		}
+        if (videopresent) {
+            gc = gdk_gc_new(fixed->window);
+            // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
+            gdk_draw_rectangle(fixed->window, gc, TRUE, event->area.x, event->area.y,
+                               event->area.width, event->area.height);
+            gdk_gc_unref(gc);
+        }
     }
     return FALSE;
 }
@@ -1177,15 +1177,15 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         state = PLAYING;
     }
     if (state == PLAYING) {
-		if (idledata != NULL && idledata->streaming) {
-			send_command("quit\n");
-			state = QUIT;
-			autopause = FALSE;
-		} else {
-	        send_command("seek 0 2\npause\n");
-	        state = STOPPED;
-	        autopause = FALSE;
-		}
+        if (idledata != NULL && idledata->streaming) {
+            send_command("quit\n");
+            state = QUIT;
+            autopause = FALSE;
+        } else {
+            send_command("seek 0 2\npause\n");
+            state = STOPPED;
+            autopause = FALSE;
+        }
         gtk_widget_set_sensitive(play_event_box, TRUE);
         gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
         gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
@@ -1342,8 +1342,8 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean menu_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-	send_command("dvdnav 5\n");
-	return FALSE;
+    send_command("dvdnav 5\n");
+    return FALSE;
 }
 
 void vol_slider_callback(GtkRange * range, gpointer user_data)
@@ -1665,7 +1665,7 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
     add_item_to_playlist("dvdnav://", 0);
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     play_file("dvdnav://", 0);
-	gtk_widget_show(menu_event_box);
+    gtk_widget_show(menu_event_box);
 }
 
 void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
@@ -3898,7 +3898,7 @@ GtkWidget *create_window(gint windowid)
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-rew")
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-prev")
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-next")
-		       && gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_INDEX)
+               && gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_INDEX)
                && gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
 
         pb_play = gtk_icon_theme_load_icon(icon_theme, "stock_media-play", 16, 0, &error);
@@ -3934,8 +3934,8 @@ GtkWidget *create_window(gint windowid)
 
     image_prev = gtk_image_new_from_pixbuf(pb_prev);
     image_next = gtk_image_new_from_pixbuf(pb_next);
-	image_menu = gtk_image_new_from_pixbuf(pb_menu);
-	
+    image_menu = gtk_image_new_from_pixbuf(pb_menu);
+
     image_fs = gtk_image_new_from_pixbuf(pb_fs);
 
     if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
@@ -3947,7 +3947,7 @@ GtkWidget *create_window(gint windowid)
     }
     gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
 
-	menu_event_box = gtk_event_box_new();
+    menu_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, menu_event_box, _("Menu"), NULL);
     gtk_widget_set_events(menu_event_box, GDK_BUTTON_PRESS_MASK);
@@ -3963,7 +3963,7 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(hbox), menu_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_menu);
     gtk_widget_show(menu_event_box);
-	
+
     prev_event_box = gtk_event_box_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, prev_event_box, _("Previous"), NULL);
@@ -4141,7 +4141,7 @@ GtkWidget *create_window(gint windowid)
         if (windowid != -1)
             gtk_widget_show_all(window);
         gtk_widget_hide(media_label);
-		gtk_widget_hide(menu_event_box);
+        gtk_widget_hide(menu_event_box);
         show_media_label = TRUE;
         if (disable_fullscreen)
             gtk_widget_hide(fs_event_box);
