@@ -727,6 +727,16 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
             gtk_menu_popup(menu, NULL, NULL, NULL, NULL, event_button->button, event_button->time);
             return TRUE;
         }
+		
+        if (event_button->button == 1 && idledata->videopresent == TRUE) {
+            if (event_button->x > fixed->allocation.x
+                && event_button->y > fixed->allocation.y
+                && event_button->x < fixed->allocation.x + fixed->allocation.width
+                && event_button->y < fixed->allocation.y + fixed->allocation.height) {
+                play_callback(NULL, NULL, NULL);
+            }		
+		}		
+
     }
 
     if (event->type == GDK_2BUTTON_PRESS) {
@@ -746,7 +756,8 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 
         event_button = (GdkEventButton *) event;
         dbus_send_event("MouseUp", event_button->button);
-    }
+
+	}
 
     return FALSE;
 }
@@ -1009,9 +1020,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
             return FALSE;
         default:
-            cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
-            send_command(cmd);
-            g_free(cmd);
+			if (state == PLAYING) {
+                cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
+                send_command(cmd);
+                g_free(cmd);
+			}
             return FALSE;
         }
     }
