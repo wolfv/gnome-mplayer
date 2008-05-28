@@ -6,7 +6,8 @@ Name[sr@latin]=Gnomov Mplejer
 GenericName=Media Player
 Comment=Play your media
 Comment[sr]=Пуштање мултимедијалних датотека
-Comment[sr@latin]=Puštanje multimedijalnih datotekaExec=gnome-mplayer
+Comment[sr@latin]=Puštanje multimedijalnih datoteka
+Exec=gnome-mplayer
 Icon=gnome-mplayer
 StartupNotify=true
 Terminal=false
