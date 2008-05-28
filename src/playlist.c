@@ -534,22 +534,26 @@ void move_item_up(GtkWidget * widget, void *data)
     GtkTreeSelection *sel;
     GtkTreeIter localiter, a, b;
     GtkTreePath *path;
-    gint pos;
+    gint pos = 0;
 
     sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
     if (gtk_tree_selection_get_selected(sel, NULL, &localiter)) {
         path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &localiter);
-        pos = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
-        gtk_tree_path_free(path);
-        if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
-            if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &b, NULL, pos - 1)) {
-                gtk_list_store_swap(playliststore, &a, &b);
+        if (path != NULL) {
+            pos = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
+            gtk_tree_path_free(path);
+
+            if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
+                if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &b, NULL, pos - 1)) {
+                    gtk_list_store_swap(playliststore, &a, &b);
+                }
             }
-        }
-        if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(nonrandomplayliststore), &a, NULL, pos)) {
             if (gtk_tree_model_iter_nth_child
-                (GTK_TREE_MODEL(nonrandomplayliststore), &b, NULL, pos - 1)) {
-                gtk_list_store_swap(nonrandomplayliststore, &a, &b);
+                (GTK_TREE_MODEL(nonrandomplayliststore), &a, NULL, pos)) {
+                if (gtk_tree_model_iter_nth_child
+                    (GTK_TREE_MODEL(nonrandomplayliststore), &b, NULL, pos - 1)) {
+                    gtk_list_store_swap(nonrandomplayliststore, &a, &b);
+                }
             }
         }
         if (pos - 1 <= 0) {
@@ -566,22 +570,25 @@ void move_item_down(GtkWidget * widget, void *data)
     GtkTreeSelection *sel;
     GtkTreeIter localiter, a, b;
     GtkTreePath *path;
-    gint pos;
+    gint pos = 0;
 
     sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
     if (gtk_tree_selection_get_selected(sel, NULL, &localiter)) {
         path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &localiter);
-        pos = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
-        gtk_tree_path_free(path);
-        if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
-            if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &b, NULL, pos + 1)) {
-                gtk_list_store_swap(playliststore, &a, &b);
+        if (path != NULL) {
+            pos = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
+            gtk_tree_path_free(path);
+            if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
+                if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &b, NULL, pos + 1)) {
+                    gtk_list_store_swap(playliststore, &a, &b);
+                }
             }
-        }
-        if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(nonrandomplayliststore), &a, NULL, pos)) {
             if (gtk_tree_model_iter_nth_child
-                (GTK_TREE_MODEL(nonrandomplayliststore), &b, NULL, pos + 1)) {
-                gtk_list_store_swap(nonrandomplayliststore, &a, &b);
+                (GTK_TREE_MODEL(nonrandomplayliststore), &a, NULL, pos)) {
+                if (gtk_tree_model_iter_nth_child
+                    (GTK_TREE_MODEL(nonrandomplayliststore), &b, NULL, pos + 1)) {
+                    gtk_list_store_swap(nonrandomplayliststore, &a, &b);
+                }
             }
         }
         if (pos + 2 == gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)) {
