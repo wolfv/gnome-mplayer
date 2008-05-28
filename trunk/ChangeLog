@@ -1,4 +1,5 @@
 Development
+	Added some sr adn sr@latin translations to .desktop file
 	Fix assertion when switching videos
 	Change control bar to use GTK Buttons over custom widgets
 	Allow pause/unpause on single click
