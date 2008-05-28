@@ -727,15 +727,15 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
             gtk_menu_popup(menu, NULL, NULL, NULL, NULL, event_button->button, event_button->time);
             return TRUE;
         }
-		
+
         if (event_button->button == 1 && idledata->videopresent == TRUE) {
             if (event_button->x > fixed->allocation.x
                 && event_button->y > fixed->allocation.y
                 && event_button->x < fixed->allocation.x + fixed->allocation.width
                 && event_button->y < fixed->allocation.y + fixed->allocation.height) {
                 play_callback(NULL, NULL, NULL);
-            }		
-		}		
+            }
+        }
 
     }
 
@@ -757,7 +757,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
         event_button = (GdkEventButton *) event;
         dbus_send_event("MouseUp", event_button->button);
 
-	}
+    }
 
     return FALSE;
 }
@@ -1020,11 +1020,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
             return FALSE;
         default:
-			if (state == PLAYING) {
+            if (state == PLAYING) {
                 cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
                 send_command(cmd);
                 g_free(cmd);
-			}
+            }
             return FALSE;
         }
     }
@@ -1652,9 +1652,9 @@ void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
 {
-    gchar *filename = NULL; 
+    gchar *filename = NULL;
     gint count;
-    gint playlist = 0; 
+    gint playlist = 0;
 
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
@@ -1718,8 +1718,8 @@ void parseChannels(FILE * f)
     char ch, s[20], strout[50];
 
     while (parsing == 0) {
-        ch = (char)fgetc(f);          // Read in the next character
-        if ((int)ch != EOF) {
+        ch = (char) fgetc(f);   // Read in the next character
+        if ((int) ch != EOF) {
             // If the line is empty or commented, we want to skip it.
             if (((ch == '\n') && (i == 0)) || ((ch == '#') && (i == 0))) {
                 firstW++;
