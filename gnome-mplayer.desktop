@@ -1,9 +1,12 @@
 [Desktop Entry]
 Version=1.0
 Name=GNOME MPlayer
+Name[sr]=Гномов Мплејер
+Name[sr@latin]=Gnomov Mplejer
 GenericName=Media Player
 Comment=Play your media
-Exec=gnome-mplayer
+Comment[sr]=Пуштање мултимедијалних датотека
+Comment[sr@latin]=Puštanje multimedijalnih datotekaExec=gnome-mplayer
 Icon=gnome-mplayer
 StartupNotify=true
 Terminal=false
