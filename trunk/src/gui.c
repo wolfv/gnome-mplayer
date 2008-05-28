@@ -118,8 +118,10 @@ gboolean set_media_info(void *data)
 
             total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-            current = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
-            gtk_tree_path_free(path);
+            if (path != NULL) {
+                current = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
+                gtk_tree_path_free(path);
+            }
             if (total > 1) {
                 buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
             } else {
