@@ -191,6 +191,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gchar *cdartist;
     gchar *utf8name;
     gchar *utf8artist;
+	gdouble old_pos;
 
     if (source == NULL) {
         g_source_remove(watch_err_id);
@@ -314,8 +315,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {
+		old_pos = idledata->position;
         buf = strstr(mplayer_output->str, "ANS_TIME_POSITION");
         sscanf(buf, "ANS_TIME_POSITION=%lf", &idledata->position);
+		if (idledata->position < old_pos) {
+			send_command("get_time_length\n");
+		}
         g_idle_add(set_progress_time, idledata);
     }
 
