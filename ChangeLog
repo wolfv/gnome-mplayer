@@ -1,4 +1,7 @@
 Development
+	Use icon from panana as found at
+		http://www.gnome-look.org/content/show.php/Gnome-mplayer+icon?content=77766
+		license is GPL on image
 	Added some sr adn sr@latin translations to .desktop file
 	Fix assertion when switching videos
 	Change control bar to use GTK Buttons over custom widgets
