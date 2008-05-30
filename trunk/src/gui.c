@@ -105,7 +105,7 @@ gboolean set_media_info(void *data)
     gchar *buf;
     gchar *name;
     GtkTreePath *path;
-    gint current, total;
+    gint current = 0, total;
 
 
     if (data != NULL && idle != NULL) {
