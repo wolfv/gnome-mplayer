@@ -35,6 +35,7 @@ gint get_bitrate(gchar * name);
 void strip_unicode(gchar * data, gsize len);
 gint play_file(gchar * filename, gint playlist);
 gint detect_playlist(gchar * filename);
+gchar *metadata_to_utf8(gchar * string);
 gint parse_playlist(gchar * filename);
 gint parse_basic(gchar * filename);
 gint parse_ram(gchar * filename);

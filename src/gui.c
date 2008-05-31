@@ -125,7 +125,11 @@ gboolean set_media_info(void *data)
             if (total > 1) {
                 buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
             } else {
-                buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
+				if (name == NULL || strlen(name) < 1) {
+	                buf = g_strdup_printf(_("GNOME MPlayer"));
+				} else {
+	                buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
+				}
             }
             gtk_window_set_title(GTK_WINDOW(window), buf);
             g_free(buf);
@@ -1860,6 +1864,8 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           ,
                           "website", "http://code.google.com/p/gnome-mplayer/",
                           "translator-credits", "Chinese (simplified) - Wenzheng Hu\n"
+						  "Chinese (Hong Kong) - Hialan Liu\n"
+						  "Chinese (Taiwan) - Hailan Liu\n"
                           "French - Alexandre Bedot\n"
                           "Italian - Cesare Tirabassi\n"
                           "Korean - ByeongSik Jeon\n"

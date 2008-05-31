@@ -392,12 +392,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     //g_strlcpy(idledata->info, message, 1024);
                     //g_free(message);
                     //g_idle_add(set_media_info, idledata);
-                    utf8name = g_locale_to_utf8(parse[name], -1, NULL, NULL, NULL);
+                    utf8name = metadata_to_utf8(parse[name]);
                     if (utf8name == NULL) {
                         strip_unicode(parse[name], strlen(parse[name]));
                         utf8name = g_strdup(parse[name]);
                     }
-                    utf8artist = g_locale_to_utf8(parse[artist], -1, NULL, NULL, NULL);
+                    utf8artist = metadata_to_utf8(parse[artist]);
                     if (utf8artist == NULL) {
                         strip_unicode(parse[artist], strlen(parse[artist]));
                         utf8artist = g_strdup(parse[artist]);
