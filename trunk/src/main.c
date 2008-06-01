@@ -117,7 +117,7 @@ gint play_file(gchar * filename, gint playlist)
 
     if (verbose)
         printf("playing - %s\n", filename);
-	
+
     shutdown();
     g_strlcpy(thread_data->filename, filename, 1024);
     thread_data->done = FALSE;
