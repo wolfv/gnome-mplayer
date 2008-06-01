@@ -605,17 +605,23 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
                                   GtkTreeViewColumn * column, gpointer data)
 {
 
-    gchar *filename;
+    gchar *filename = NULL;
     gint count;
     gint playlist;
+	gchar *cmd = NULL;
 
     if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
                            COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
         dontplaynext = TRUE;
-        shutdown();
+		if (state == QUIT) {
+        	play_file(filename, playlist);
+		} else {
+			cmd = g_strdup_printf("loadfile \"%s\"\n",filename);
+			send_command(cmd);
+			g_free(cmd);
+		}
         set_media_info_name(filename);
-        play_file(filename, playlist);
         gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
         g_free(filename);
         if (state == 3) {
