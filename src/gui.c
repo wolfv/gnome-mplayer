@@ -906,10 +906,20 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         g_idle_add(make_panel_and_mouse_visible, NULL);
         switch (event->keyval) {
         case GDK_Right:
-            return ff_callback(NULL, NULL, NULL);
+			if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+				send_command("dvdnav 4\n");
+				return FALSE;
+			} else {
+	            return ff_callback(NULL, NULL, NULL);
+			}
             break;
         case GDK_Left:
-            return rew_callback(NULL, NULL, NULL);
+			if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+				send_command("dvdnav 3\n");
+				return FALSE;
+			} else {
+	            return rew_callback(NULL, NULL, NULL);
+			}
             break;
         case GDK_Page_Up:
             if (state == PLAYING)
@@ -920,14 +930,28 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 send_command("pausing_keep seek -600 0\n");
             return FALSE;
         case GDK_Up:
-            if (state == PLAYING)
-                send_command("pausing_keep seek +60 0\n");
+			if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+				send_command("dvdnav 1\n");
+			} else {
+	            if (state == PLAYING)
+	                send_command("pausing_keep seek +60 0\n");
+			}
+				
             return FALSE;
         case GDK_Down:
-            if (state == PLAYING)
-                send_command("pausing_keep seek -60 0\n");
+			if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+				send_command("dvdnav 2\n");
+			} else {
+	            if (state == PLAYING)
+	                send_command("pausing_keep seek -60 0\n");
+			}
             return FALSE;
-        case GDK_space:
+        case GDK_Return:
+			if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+				send_command("dvdnav 6\n");
+			}
+			return FALSE;	
+		case GDK_space:
         case GDK_p:
             return play_callback(NULL, NULL, NULL);
             break;
@@ -1271,7 +1295,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
         if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
             valid = FALSE;
-            send_command("seek_chapter -1 0\n");
+            send_command("seek_chapter -2 0\n");
         } else {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter);
             do {
