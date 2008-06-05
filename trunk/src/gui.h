@@ -183,6 +183,7 @@ GtkWidget *config_verbose;
 
 GtkWidget *config_alang;
 GtkWidget *config_slang;
+GtkWidget *config_metadata_codepage;
 
 GtkWidget *config_ass;
 GtkWidget *config_embeddedfonts;

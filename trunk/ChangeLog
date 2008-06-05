@@ -1,4 +1,5 @@
 Development
+    Added a new config option to the 'Preferences | Language Settings' tab to allow for locale encoding settings for metadata
     Handle keyboard events when running in DVD w/menu mode to allow arrow and enter key usage
 	Make double clicking on playlist item work a little better
 	Added Cantonise and Taiwanise translations by hailan
@@ -6,7 +7,7 @@ Development
 	Use icon from panana as found at
 		http://www.gnome-look.org/content/show.php/Gnome-mplayer+icon?content=77766
 		license is GPL on image
-	Added some sr adn sr@latin translations to .desktop file
+	Added some sr and sr@latin translations to .desktop file
 	Fix assertion when switching videos
 	Change control bar to use GTK Buttons over custom widgets
 	Allow pause/unpause on single click

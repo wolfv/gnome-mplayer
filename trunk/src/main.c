@@ -268,6 +268,7 @@ int main(int argc, char *argv[])
     softvol = 0;
     alang = NULL;
     slang = NULL;
+	metadata_codepage = NULL;
     playlistname = NULL;
     window_width = -1;
     window_height = -1;
@@ -301,6 +302,7 @@ int main(int argc, char *argv[])
     disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
     disable_ass = gconf_client_get_bool(gconf, DISABLEASS, NULL);
     disable_embeddedfonts = gconf_client_get_bool(gconf, DISABLEEMBEDDEDFONTS, NULL);
+    metadata_codepage = gconf_client_get_string(gconf, METADATACODEPAGE, NULL);
     subtitlefont = gconf_client_get_string(gconf, SUBTITLEFONT, NULL);
     subtitle_scale = gconf_client_get_float(gconf, SUBTITLESCALE, NULL);
     if (subtitle_scale < 0.25) {

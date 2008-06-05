@@ -41,6 +41,7 @@
 #define DISABLEFRAMEDROP	"/apps/gnome-mplayer/preferences/disableframedrop"
 #define DISABLEFULLSCREEN	"/apps/gnome-mplayer/preferences/disablefullscreen"
 #define DISABLECONTEXTMENU	"/apps/gnome-mplayer/preferences/disablecontextmenu"
+#define METADATACODEPAGE	"/apps/gnome-mplayer/preferences/metadatacodepage"
 #define SUBTITLEFONT	"/apps/gnome-mplayer/preferences/subtitlefont"
 #define SUBTITLESCALE	"/apps/gnome-mplayer/preferences/subtitlescale"
 #define SUBTITLECODEPAGE	"/apps/gnome-mplayer/preferences/subtitlecodepage"
@@ -201,6 +202,7 @@ gboolean ok_to_play;
 gchar *subtitle;
 gchar *alang;
 gchar *slang;
+gchar *metadata_codepage;
 gint volume;
 gboolean vertical_layout;
 gboolean playlist_visible;
