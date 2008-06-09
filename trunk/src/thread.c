@@ -320,6 +320,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_TIME_POSITION=%lf", &idledata->position);
         if (idledata->position < old_pos) {
             send_command("get_time_length\n");
+            state = PLAYING;
         }
         g_idle_add(set_progress_time, idledata);
     }

@@ -1,6 +1,8 @@
 Development
-    Added a new config option to the 'Preferences | Language Settings' tab to allow for locale encoding settings for metadata
-    Handle keyboard events when running in DVD w/menu mode to allow arrow and enter key usage
+	Couple of minor cleanups
+	Updated pt_BR translation
+        Added a new config option to the 'Preferences | Language Settings' tab to allow for locale encoding settings for metadata
+        Handle keyboard events when running in DVD w/menu mode to allow arrow and enter key usage
 	Make double clicking on playlist item work a little better
 	Added Cantonise and Taiwanise translations by hailan
 	Make sure DVD chapter length is right in display (makes episode DVDs display better)
