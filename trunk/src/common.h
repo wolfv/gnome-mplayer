@@ -174,6 +174,7 @@ gint window_y;
 gint control_id;
 gboolean softvol;
 gint verbose;
+gint reallyverbose;
 gint autostart;
 gint actual_x, actual_y;
 gint play_x, play_y;

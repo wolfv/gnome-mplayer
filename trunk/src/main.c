@@ -56,7 +56,8 @@ static GOptionEntry entries[] = {
     {"height", 'h', 0, G_OPTION_ARG_INT, &window_y, N_("Height of window to embed in"), "Y"},
     {"controlid", 0, 0, G_OPTION_ARG_INT, &control_id, N_("Unique DBUS controller id"), "CID"},
     {"playlist", 0, 0, G_OPTION_ARG_NONE, &playlist, N_("File Argument is a playlist"), NULL},
-    {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more ouput on the console"), NULL},
+    {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more output on the console"), NULL},
+    {"reallyverbose", '\0', 0, G_OPTION_ARG_NONE, &reallyverbose, N_("Show even more output on the console"), NULL},
     {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
     {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
@@ -287,6 +288,8 @@ int main(int argc, char *argv[])
     subtitle_color = NULL;
     quit_on_complete = FALSE;
     slide_away = NULL;
+	verbose = 0;
+	reallyverbose = 0;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -346,10 +349,13 @@ int main(int argc, char *argv[])
                ("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
         return 1;
     }
-
+	
     if (verbose == 0)
         verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
 
+	if (reallyverbose)
+		verbose = 2;
+	
     if (!g_thread_supported())
         g_thread_init(NULL);
 
