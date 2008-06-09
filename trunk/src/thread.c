@@ -698,6 +698,11 @@ gpointer launch_player(gpointer data)
     if (!disable_framedrop)
         argv[arg++] = g_strdup_printf("-framedrop");
 
+	if (!disable_deinterlace) {
+        argv[arg++] = g_strdup_printf("-vf-add");
+        argv[arg++] = g_strdup_printf("yadif");
+	}
+	
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-osdlevel");
     argv[arg++] = g_strdup_printf("%i", osdlevel);

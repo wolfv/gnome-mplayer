@@ -172,6 +172,7 @@ GtkWidget *config_vo;
 GtkWidget *config_ao;
 GtkWidget *config_cachesize;
 GtkWidget *config_osdlevel;
+GtkWidget *config_deinterlace;
 GtkWidget *config_framedrop;
 GtkWidget *config_pplevel;
 

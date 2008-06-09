@@ -1,4 +1,5 @@
 Development
+    Use the video filter yadif by default, but give user the option of disabling it via command line or via preferences
     For dvdnav:// media, add the -nocache option to the mplayer startup command
     Add --reallyverbose command line option, to help with debugging
 	Couple of minor cleanups

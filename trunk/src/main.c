@@ -77,6 +77,9 @@ static GOptionEntry entries[] = {
      NULL},
     {"forcecache", 0, 0, G_OPTION_ARG_NONE, &forcecache, N_("Force cache usage on streaming sites"),
      NULL},
+    {"disabledeinterlace", 0, 0, G_OPTION_ARG_NONE, &disable_deinterlace,
+     N_("Disable the deinterlace filter"),
+     NULL},
     {"disableframedrop", 0, 0, G_OPTION_ARG_NONE, &disable_framedrop,
      N_("Don't skip drawing frames to better keep sync"),
      NULL},
@@ -300,6 +303,7 @@ int main(int argc, char *argv[])
     forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
     vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
     playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);
+    disable_deinterlace = gconf_client_get_bool(gconf, DISABLEDEINTERLACE, NULL);
     disable_framedrop = gconf_client_get_bool(gconf, DISABLEFRAMEDROP, NULL);
     disable_fullscreen = gconf_client_get_bool(gconf, DISABLEFULLSCREEN, NULL);
     disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
