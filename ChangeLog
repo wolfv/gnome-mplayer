@@ -1,4 +1,6 @@
 Development
+    For dvdnav:// media, add the -nocache option to the mplayer startup command
+    Add --reallyverbose command line option, to help with debugging
 	Couple of minor cleanups
 	Updated pt_BR translation
         Added a new config option to the 'Preferences | Language Settings' tab to allow for locale encoding settings for metadata
