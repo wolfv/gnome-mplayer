@@ -41,7 +41,8 @@ gboolean send_command(gchar * command)
 {
     gint ret;
 
-    //printf("send command = %s\n",command);
+	if (verbose > 1)
+	    printf("send command = %s\n",command);
     ret = write(std_in, command, strlen(command));
     fsync(std_in);
     if (ret < 0) {
