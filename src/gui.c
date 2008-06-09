@@ -2278,6 +2278,8 @@ void config_apply(GtkWidget * widget, void *data)
 
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     old_disable_framedrop = disable_framedrop;
+    disable_deinterlace =
+        !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_deinterlace));
     disable_framedrop =
         !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_framedrop));
     disable_ass = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_ass));
@@ -2333,6 +2335,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_bool(gconf, FORCECACHE, forcecache, NULL);
     gconf_client_set_bool(gconf, DISABLEASS, disable_ass, NULL);
     gconf_client_set_bool(gconf, DISABLEEMBEDDEDFONTS, disable_embeddedfonts, NULL);
+    gconf_client_set_bool(gconf, DISABLEDEINTERLACE, disable_deinterlace, NULL);
     gconf_client_set_bool(gconf, DISABLEFRAMEDROP, disable_framedrop, NULL);
     gconf_client_set_bool(gconf, SHOWPLAYLIST, playlist_visible, NULL);
     gconf_client_set_bool(gconf, VERTICAL, vertical_layout, NULL);
@@ -3289,6 +3292,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 2, i, i + 1);
     i++;
 
+    config_deinterlace = gtk_check_button_new_with_mnemonic(_("De_interlace Video"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_deinterlace), !disable_deinterlace);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_deinterlace, 0, 2, i, i + 1);
+    i++;
+	
     config_framedrop = gtk_check_button_new_with_mnemonic(_("_Drop frames"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_framedrop), !disable_framedrop);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 2, i, i + 1);

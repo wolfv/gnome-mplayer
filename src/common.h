@@ -38,6 +38,7 @@
 #define SHOWPLAYLIST	"/apps/gnome-mplayer/preferences/showplaylist"
 #define DISABLEASS          "/apps/gnome-mplayer/preferences/disableass"
 #define DISABLEEMBEDDEDFONTS    "/apps/gnome-mplayer/preferences/disableembeddedfonts"
+#define DISABLEDEINTERLACE	"/apps/gnome-mplayer/preferences/disable_deinterlace"
 #define DISABLEFRAMEDROP	"/apps/gnome-mplayer/preferences/disableframedrop"
 #define DISABLEFULLSCREEN	"/apps/gnome-mplayer/preferences/disablefullscreen"
 #define DISABLECONTEXTMENU	"/apps/gnome-mplayer/preferences/disablecontextmenu"
@@ -184,6 +185,7 @@ gint stored_window_width, stored_window_height;
 gchar vm[10];
 gchar *vo;
 gchar *ao;
+gboolean disable_deinterlace;
 gboolean disable_framedrop;
 gboolean disable_context_menu;
 gboolean disable_fullscreen;
