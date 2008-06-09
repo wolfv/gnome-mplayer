@@ -2258,7 +2258,7 @@ void config_apply(GtkWidget * widget, void *data)
     }
     slang = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_slang)->child)));
 
-	if (metadata_codepage != NULL) {
+    if (metadata_codepage != NULL) {
         g_free(metadata_codepage);
         metadata_codepage = NULL;
     }
@@ -2980,7 +2980,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             if (j != -1)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_metadata_codepage), j);
         }
-    }	
+    }
     config_subtitle_codepage = gtk_combo_box_entry_new_text();
     if (config_subtitle_codepage != NULL) {
         i = 0;
@@ -3158,7 +3158,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_metadata_codepage, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     i++;
-	
+
     // Page 4
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page4), conf_table);

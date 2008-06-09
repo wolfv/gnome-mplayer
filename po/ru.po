@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-05 12:02-0600\n"
+"POT-Creation-Date: 2008-06-09 06:47-0600\n"
 "PO-Revision-Date: 2007-05-18 06:36-0600\n"
 "Last-Translator: Dmitry Stropaloff <helions8@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -238,7 +238,7 @@ msgstr "Пауза"
 msgid "Play"
 msgstr "Воспроизвести"
 
-#: src/gui.c:668 src/gui.c:678 src/gui.c:1404 src/gui.c:1432 src/thread.c:338
+#: src/gui.c:668 src/gui.c:678 src/gui.c:1404 src/gui.c:1432 src/thread.c:339
 #, c-format
 msgid "Volume %i%%"
 msgstr "Громкость %i%%"
@@ -797,7 +797,7 @@ msgstr ""
 msgid "Compressed SWF format not supported"
 msgstr ""
 
-#: src/thread.c:408
+#: src/thread.c:409
 #, c-format
 msgid ""
 "<small>\n"
@@ -807,11 +807,11 @@ msgid ""
 "</small>"
 msgstr ""
 
-#: src/thread.c:427 src/thread.c:437
+#: src/thread.c:428 src/thread.c:438
 msgid "Unknown"
 msgstr ""
 
-#: src/thread.c:442
+#: src/thread.c:443
 #, c-format
 msgid ""
 "<small>\n"
@@ -821,7 +821,7 @@ msgid ""
 "</small>"
 msgstr ""
 
-#: src/thread.c:459 src/thread.c:470
+#: src/thread.c:460 src/thread.c:471
 #, c-format
 msgid ""
 "<small>\n"
@@ -831,12 +831,12 @@ msgstr ""
 
 #. printf("Percent = %f\n",percent);
 #. printf("Buffer = %s\n",buf);
-#: src/thread.c:482
+#: src/thread.c:483
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr ""
 
-#: src/thread.c:491
+#: src/thread.c:492
 #, c-format
 msgid "Connecting"
 msgstr ""

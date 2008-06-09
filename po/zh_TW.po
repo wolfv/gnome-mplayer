@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-05 12:02-0600\n"
+"POT-Creation-Date: 2008-06-09 06:47-0600\n"
 "PO-Revision-Date: 2008-05-31 17:11+0800\n"
 "Last-Translator: Hialan Liu <hialan.liu@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
@@ -237,7 +237,7 @@ msgstr "暫停"
 msgid "Play"
 msgstr "播放"
 
-#: src/gui.c:668 src/gui.c:678 src/gui.c:1404 src/gui.c:1432 src/thread.c:338
+#: src/gui.c:668 src/gui.c:678 src/gui.c:1404 src/gui.c:1432 src/thread.c:339
 #, c-format
 msgid "Volume %i%%"
 msgstr "音量 %i%%"
@@ -775,7 +775,7 @@ msgstr "無法讀取字幕：%s"
 msgid "Compressed SWF format not supported"
 msgstr "未支援壓縮的 SWF 格式"
 
-#: src/thread.c:408
+#: src/thread.c:409
 #, c-format
 msgid ""
 "<small>\n"
@@ -790,11 +790,11 @@ msgstr ""
 "<b>檔案：</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:427 src/thread.c:437
+#: src/thread.c:428 src/thread.c:438
 msgid "Unknown"
 msgstr "未知"
 
-#: src/thread.c:442
+#: src/thread.c:443
 #, c-format
 msgid ""
 "<small>\n"
@@ -809,7 +809,7 @@ msgstr ""
 "<b>專輯：</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:459 src/thread.c:470
+#: src/thread.c:460 src/thread.c:471
 #, c-format
 msgid ""
 "<small>\n"
@@ -822,12 +822,12 @@ msgstr ""
 
 #. printf("Percent = %f\n",percent);
 #. printf("Buffer = %s\n",buf);
-#: src/thread.c:482
+#: src/thread.c:483
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "填滿快取：%2.2f%%"
 
-#: src/thread.c:491
+#: src/thread.c:492
 #, c-format
 msgid "Connecting"
 msgstr "正在連接"

@@ -268,7 +268,7 @@ int main(int argc, char *argv[])
     softvol = 0;
     alang = NULL;
     slang = NULL;
-	metadata_codepage = NULL;
+    metadata_codepage = NULL;
     playlistname = NULL;
     window_width = -1;
     window_height = -1;

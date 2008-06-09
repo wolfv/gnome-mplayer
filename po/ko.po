@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-05 12:02-0600\n"
+"POT-Creation-Date: 2008-06-09 06:47-0600\n"
 "PO-Revision-Date: 2008-03-25 13:14+0900\n"
 "Last-Translator: ByeongSik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
@@ -238,7 +238,7 @@ msgstr "일시 정지"
 msgid "Play"
 msgstr "재생"
 
-#: src/gui.c:668 src/gui.c:678 src/gui.c:1404 src/gui.c:1432 src/thread.c:338
+#: src/gui.c:668 src/gui.c:678 src/gui.c:1404 src/gui.c:1432 src/thread.c:339
 #, c-format
 msgid "Volume %i%%"
 msgstr "볼륨 %i%%"
@@ -777,7 +777,7 @@ msgstr "자막 %s을(를) 불러올 수 없습니다."
 msgid "Compressed SWF format not supported"
 msgstr "압축된 SWF 포맷 지원하지 않음"
 
-#: src/thread.c:408
+#: src/thread.c:409
 #, c-format
 msgid ""
 "<small>\n"
@@ -792,11 +792,11 @@ msgstr ""
 "<b>파일:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:427 src/thread.c:437
+#: src/thread.c:428 src/thread.c:438
 msgid "Unknown"
 msgstr "알 수 없음"
 
-#: src/thread.c:442
+#: src/thread.c:443
 #, c-format
 msgid ""
 "<small>\n"
@@ -811,7 +811,7 @@ msgstr ""
 "<b>앨범:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:459 src/thread.c:470
+#: src/thread.c:460 src/thread.c:471
 #, c-format
 msgid ""
 "<small>\n"
@@ -824,12 +824,12 @@ msgstr ""
 
 #. printf("Percent = %f\n",percent);
 #. printf("Buffer = %s\n",buf);
-#: src/thread.c:482
+#: src/thread.c:483
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "미리 읽기: %2.2f%%"
 
-#: src/thread.c:491
+#: src/thread.c:492
 #, c-format
 msgid "Connecting"
 msgstr "연결중"

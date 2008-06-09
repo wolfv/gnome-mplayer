@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnomov mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-05 12:02-0600\n"
+"POT-Creation-Date: 2008-06-09 06:47-0600\n"
 "PO-Revision-Date: 2008-04-23 14:55+0000\n"
 "Last-Translator: Милош Поповић <gpopac@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
@@ -242,7 +242,7 @@ msgstr "Паузирај"
 msgid "Play"
 msgstr "Пусти"
 
-#: src/gui.c:668 src/gui.c:678 src/gui.c:1404 src/gui.c:1432 src/thread.c:338
+#: src/gui.c:668 src/gui.c:678 src/gui.c:1404 src/gui.c:1432 src/thread.c:339
 #, c-format
 msgid "Volume %i%%"
 msgstr "Звук %i%%"
@@ -801,7 +801,7 @@ msgstr "Не могу да учитам титл: %s"
 msgid "Compressed SWF format not supported"
 msgstr "Упаковани SWF запис није подржан"
 
-#: src/thread.c:408
+#: src/thread.c:409
 #, c-format
 msgid ""
 "<small>\n"
@@ -816,11 +816,11 @@ msgstr ""
 "<b>Датотека:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:427 src/thread.c:437
+#: src/thread.c:428 src/thread.c:438
 msgid "Unknown"
 msgstr "Непознато"
 
-#: src/thread.c:442
+#: src/thread.c:443
 #, c-format
 msgid ""
 "<small>\n"
@@ -835,7 +835,7 @@ msgstr ""
 "<b>Албум:</b>\t%s\n"
 "</small>"
 
-#: src/thread.c:459 src/thread.c:470
+#: src/thread.c:460 src/thread.c:471
 #, c-format
 msgid ""
 "<small>\n"
@@ -848,12 +848,12 @@ msgstr ""
 
 #. printf("Percent = %f\n",percent);
 #. printf("Buffer = %s\n",buf);
-#: src/thread.c:482
+#: src/thread.c:483
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Попуњеност оставе: %2.2f%%"
 
-#: src/thread.c:491
+#: src/thread.c:492
 #, c-format
 msgid "Connecting"
 msgstr "Повезујем се"
