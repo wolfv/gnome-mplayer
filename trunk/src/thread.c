@@ -701,6 +701,8 @@ gpointer launch_player(gpointer data)
 	if (!disable_deinterlace) {
         argv[arg++] = g_strdup_printf("-vf-add");
         argv[arg++] = g_strdup_printf("yadif");
+        argv[arg++] = g_strdup_printf("-vf-add");
+        argv[arg++] = g_strdup_printf("scale");
 	}
 	
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
