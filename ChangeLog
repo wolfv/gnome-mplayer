@@ -1,4 +1,5 @@
 Development
+    Rework vf patch a little
     Add scale video filter when we add yadif video filter
     Use the video filter yadif by default, but give user the option of disabling it via command line or via preferences
     For dvdnav:// media, add the -nocache option to the mplayer startup command
