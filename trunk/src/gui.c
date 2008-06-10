@@ -1898,7 +1898,10 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           "Polish - Julian Sikorski\n"
                           "Russian - Dmitry Stropaloff\n"
                           "Serbian - Милош Поповић\n"
-                          "Spanish - Festor Wailon Dacoba\n" "Swedish - Daniel Nylander", NULL);
+                          "Spanish - Festor Wailon Dacoba\n" 
+						  "Swedish - Daniel Nylander\n"
+						  "Turkish - Onur Küçük"
+						  , NULL);
 }
 
 void menuitem_play_callback(GtkMenuItem * menuitem, void *data)
