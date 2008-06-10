@@ -699,10 +699,8 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-framedrop");
 
 	if (!disable_deinterlace) {
-        argv[arg++] = g_strdup_printf("-vf-add");
-        argv[arg++] = g_strdup_printf("yadif");
-        argv[arg++] = g_strdup_printf("-vf-add");
-        argv[arg++] = g_strdup_printf("scale");
+        argv[arg++] = g_strdup_printf("-vf-pre");
+        argv[arg++] = g_strdup_printf("yadif,softskip,scale");
 	}
 	
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
