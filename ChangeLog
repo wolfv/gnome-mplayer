@@ -1,4 +1,5 @@
 Development
+    Disable the setting of -user-agent when playing streaming media, as mplayer may crash when it is set
     Add Turkish translation by Onur Küçük
     Rework vf patch a little
     Add scale video filter when we add yadif video filter

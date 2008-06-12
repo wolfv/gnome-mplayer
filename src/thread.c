@@ -715,8 +715,8 @@ gpointer launch_player(gpointer data)
         } else {
             argv[arg++] = g_strdup_printf("-nomouseinput");
             if (threaddata->streaming && forcecache == FALSE) {
-                argv[arg++] = g_strdup_printf("-user-agent");
-                argv[arg++] = g_strdup_printf("NSPlayer");
+                //argv[arg++] = g_strdup_printf("-user-agent");
+                //argv[arg++] = g_strdup_printf("NSPlayer");
             } else {
                 argv[arg++] = g_strdup_printf("-cache");
                 argv[arg++] = g_strdup_printf("%i", cache_size);
@@ -830,6 +830,15 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-playlist");
     argv[arg] = g_strdup_printf("%s", threaddata->filename);
     argv[arg + 1] = NULL;
+	
+	if (verbose > 1) {
+		arg = 0;
+		while (argv[arg] != NULL) {
+			printf("%s ",argv[arg++]);
+		}
+		printf("\n");
+	}
+	
     ok = g_spawn_async_with_pipes(NULL, argv, NULL,
                                   G_SPAWN_SEARCH_PATH,
                                   NULL, NULL, NULL, &std_in, &std_out, &std_err, NULL);
