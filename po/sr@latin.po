@@ -1,7 +1,8 @@
 # Serbian translation of brasero
 # Courtesy of Prevod.org team (http://prevod.org/) -- 2006, 2007.
 # 
-# This file is distributed under the same license as the gnome-power-manager package.
+# Copyright (C) 2008 Kevin DeKorte <kdekorte@gmail.com>
+# This file is distributed under the same license as the gnome-mplayer package.
 # 
 # Maintainer: Miloš Popović <gpopac@gmail.com>
 # 

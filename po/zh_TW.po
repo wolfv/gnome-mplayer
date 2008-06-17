@@ -1,6 +1,6 @@
 # Chinese (Taiwan) translation of GNOME MPlayer
-# Copyright (C) 2007 Free Software Foundation, Inc.
-# This file is distributed under the same license as the GNOME MPlayer package.
+# Copyright (C) 2008 Kevin DeKorte <kdekorte@gmail.com>
+# This file is distributed under the same license as the gnome-mplayer package.
 # Hialan Liu <hialan.liu@gmail.com>, 2008.
 #
 msgid ""
