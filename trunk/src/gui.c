@@ -4031,7 +4031,7 @@ GtkWidget *create_window(gint windowid)
     image_fs = gtk_image_new_from_pixbuf(pb_fs);
 
     if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
-        pb_icon = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 16, 0, NULL);
+        pb_icon = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 64, 0, NULL);
         pb_logo = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 64, 0, NULL);
     } else {
         pb_icon = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
