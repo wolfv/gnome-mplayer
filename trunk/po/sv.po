@@ -1,5 +1,5 @@
 # Swedish translation for gnome-mplayer
-# Copyright (C) 2007 Free Software Foundation, Inc.
+# Copyright (C) 2008 Kevin DeKorte <kdekorte@gmail.com>
 # This file is distributed under the same license as the gnome-mplayer package.
 # Daniel Nylander <po@danielnylander.se>, 2007.
 #
