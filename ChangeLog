@@ -1,4 +1,5 @@
 Development
+    Make icon look better in avant-window-navigator
     Disable the setting of -user-agent when playing streaming media, as mplayer may crash when it is set
     Add Turkish translation by Onur Küçük
     Rework vf patch a little
