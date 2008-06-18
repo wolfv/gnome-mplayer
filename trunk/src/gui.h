@@ -197,6 +197,7 @@ GtkWidget *config_qt;
 GtkWidget *config_real;
 GtkWidget *config_wmp;
 GtkWidget *config_dvx;
+GtkWidget *config_noembed;
 
 GtkWidget *config_extraopts;
 

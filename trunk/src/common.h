@@ -54,6 +54,7 @@
 #define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"
 #define DISABLE_WMP		"/apps/gecko-mediaplayer/preferences/disable_wmp"
 #define DISABLE_DVX		"/apps/gecko-mediaplayer/preferences/disable_dvx"
+#define DISABLE_EMBEDDING		"/apps/gecko-mediaplayer/preferences/disable_embedding"
 
 
 // JavaScript Playstates
@@ -234,6 +235,7 @@ gboolean qt_disabled;
 gboolean real_disabled;
 gboolean wmp_disabled;
 gboolean dvx_disabled;
+gboolean embedding_disabled;
 
 // playlist stuff
 GtkListStore *playliststore;
