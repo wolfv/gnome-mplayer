@@ -1,4 +1,5 @@
 Development
+    When embedded draw the black background on load
     Add Preference to plugin option to disable embedding, some people find it useful
     Make icon look better in avant-window-navigator
     Disable the setting of -user-agent when playing streaming media, as mplayer may crash when it is set
