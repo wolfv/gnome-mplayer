@@ -2327,6 +2327,7 @@ void config_apply(GtkWidget * widget, void *data)
     real_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_real));
     wmp_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_wmp));
     dvx_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_dvx));
+    embedding_disabled = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_noembed));
 
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
 
@@ -2354,6 +2355,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_bool(gconf, DISABLE_REAL, real_disabled, NULL);
     gconf_client_set_bool(gconf, DISABLE_WMP, wmp_disabled, NULL);
     gconf_client_set_bool(gconf, DISABLE_DVX, dvx_disabled, NULL);
+    gconf_client_set_bool(gconf, DISABLE_EMBEDDING, embedding_disabled, NULL);
     g_object_unref(G_OBJECT(gconf));
 
     filename = g_strdup_printf("%s/.mozilla/pluginreg.dat", g_getenv("HOME"));
@@ -3124,6 +3126,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_dvx, 0, 1, i, i + 1);
     i++;
 
+    config_noembed = gtk_check_button_new_with_label(_("Disable Player Embedding"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_noembed), embedding_disabled);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_noembed, 0, 1, i, i + 1);
+    i++;
+	
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page3), conf_table);
     i = 0;
@@ -4241,7 +4248,7 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_realize(window);
 
-    if (windowid != 0) {
+    if (windowid != 0 && embedding_disabled == FALSE) {
         while (gtk_events_pending())
             gtk_main_iteration();
 

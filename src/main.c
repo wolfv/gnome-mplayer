@@ -293,6 +293,7 @@ int main(int argc, char *argv[])
     slide_away = NULL;
 	verbose = 0;
 	reallyverbose = 0;
+	embedding_disabled = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -322,7 +323,8 @@ int main(int argc, char *argv[])
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
     dvx_disabled = gconf_client_get_bool(gconf, DISABLE_DVX, NULL);
-
+	embedding_disabled = gconf_client_get_bool(gconf, DISABLE_EMBEDDING, NULL);
+	
     extraopts = gconf_client_get_string(gconf, EXTRAOPTS, NULL);
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
