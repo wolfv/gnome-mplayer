@@ -1,6 +1,6 @@
 # French translation of GNOME MPlayer.
 # Alexandre Bedot <alexandre.bedot@free.fr>, 2007,2008.
-# This file is distributed under the same license as the GNOME MPlayer package.
+# This file is distributed under the same license as the gnome-mplayer package.
 # Copyright (C) Kevin DeKorte 2006-2008 <kdekorte@gmail.com>
 #
 #
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-18 07:34-0600\n"
-"PO-Revision-Date: 2008-05-22 11:50+0200\n"
+"PO-Revision-Date: 2008-06-18 17:30+0200\n"
 "Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,14 +38,12 @@ msgid "File Argument is a playlist"
 msgstr "L'argument fichier est une liste de lecture"
 
 #: src/main.c:59
-#, fuzzy
 msgid "Show more output on the console"
 msgstr "Affichage plus verbeux dans la console"
 
 #: src/main.c:60
-#, fuzzy
 msgid "Show even more output on the console"
-msgstr "Affichage plus verbeux dans la console"
+msgstr "Affichage encore plus verbeux dans la console"
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
@@ -98,7 +96,7 @@ msgstr ""
 
 #: src/main.c:81
 msgid "Disable the deinterlace filter"
-msgstr ""
+msgstr "Désactiver le filtre de désentrelacement"
 
 #: src/main.c:84
 msgid "Don't skip drawing frames to better keep sync"
@@ -544,9 +542,8 @@ msgid "DiVX Player Emulation"
 msgstr "Émulation DiVX Player"
 
 #: src/gui.c:3129
-#, fuzzy
 msgid "Disable Player Embedding"
-msgstr "Émulation DiVX Player"
+msgstr "Désactiver l'embarquement du lecteur"
 
 #: src/gui.c:3137
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -561,9 +558,8 @@ msgid "Default Subtitle Language:"
 msgstr "Langage utilisé par défaut pour les sous-titres :"
 
 #: src/gui.c:3165
-#, fuzzy
 msgid "File Metadata Encoding:"
-msgstr "Encodage du fichier de sous-titres :"
+msgstr "Encodage des métadonnées :"
 
 #: src/gui.c:3181
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
@@ -579,7 +575,7 @@ msgstr "Utiliser les fontes _intégrées."
 
 #: src/gui.c:3202
 msgid "Subtitle Font:"
-msgstr "Sélection des sous-titres :"
+msgstr "Police des sous-titres :"
 
 #: src/gui.c:3215
 msgid "Subtitle Font Selection"
@@ -619,7 +615,7 @@ msgstr "Activer le contrôle de volume logiciel de Mplayer."
 
 #: src/gui.c:3305
 msgid "De_interlace Video"
-msgstr ""
+msgstr "_Désentrelacer la vidéo."
 
 #: src/gui.c:3310
 msgid "_Drop frames"
