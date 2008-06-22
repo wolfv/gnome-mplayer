@@ -41,8 +41,8 @@ gboolean send_command(gchar * command)
 {
     gint ret;
 
-	if (verbose > 1)
-	    printf("send command = %s\n",command);
+    if (verbose > 1)
+        printf("send command = %s\n", command);
     ret = write(std_in, command, strlen(command));
     fsync(std_in);
     if (ret < 0) {
@@ -698,11 +698,11 @@ gpointer launch_player(gpointer data)
     if (!disable_framedrop)
         argv[arg++] = g_strdup_printf("-framedrop");
 
-	if (!disable_deinterlace) {
+    if (!disable_deinterlace) {
         argv[arg++] = g_strdup_printf("-vf-pre");
         argv[arg++] = g_strdup_printf("yadif,softskip,scale");
-	}
-	
+    }
+
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-osdlevel");
     argv[arg++] = g_strdup_printf("%i", osdlevel);
@@ -830,15 +830,15 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-playlist");
     argv[arg] = g_strdup_printf("%s", threaddata->filename);
     argv[arg + 1] = NULL;
-	
-	if (verbose > 1) {
-		arg = 0;
-		while (argv[arg] != NULL) {
-			printf("%s ",argv[arg++]);
-		}
-		printf("\n");
-	}
-	
+
+    if (verbose > 1) {
+        arg = 0;
+        while (argv[arg] != NULL) {
+            printf("%s ", argv[arg++]);
+        }
+        printf("\n");
+    }
+
     ok = g_spawn_async_with_pipes(NULL, argv, NULL,
                                   G_SPAWN_SEARCH_PATH,
                                   NULL, NULL, NULL, &std_in, &std_out, &std_err, NULL);

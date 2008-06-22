@@ -57,7 +57,8 @@ static GOptionEntry entries[] = {
     {"controlid", 0, 0, G_OPTION_ARG_INT, &control_id, N_("Unique DBUS controller id"), "CID"},
     {"playlist", 0, 0, G_OPTION_ARG_NONE, &playlist, N_("File Argument is a playlist"), NULL},
     {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more output on the console"), NULL},
-    {"reallyverbose", '\0', 0, G_OPTION_ARG_NONE, &reallyverbose, N_("Show even more output on the console"), NULL},
+    {"reallyverbose", '\0', 0, G_OPTION_ARG_NONE, &reallyverbose,
+     N_("Show even more output on the console"), NULL},
     {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
     {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
@@ -291,10 +292,10 @@ int main(int argc, char *argv[])
     subtitle_color = NULL;
     quit_on_complete = FALSE;
     slide_away = NULL;
-	verbose = 0;
-	reallyverbose = 0;
-	embedding_disabled = FALSE;
-	disable_pause_on_click = FALSE;
+    verbose = 0;
+    reallyverbose = 0;
+    embedding_disabled = FALSE;
+    disable_pause_on_click = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -311,7 +312,7 @@ int main(int argc, char *argv[])
     disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
     disable_ass = gconf_client_get_bool(gconf, DISABLEASS, NULL);
     disable_embeddedfonts = gconf_client_get_bool(gconf, DISABLEEMBEDDEDFONTS, NULL);
-	disable_pause_on_click = gconf_client_get_bool(gconf,DISABLEPAUSEONCLICK, NULL);
+    disable_pause_on_click = gconf_client_get_bool(gconf, DISABLEPAUSEONCLICK, NULL);
     metadata_codepage = gconf_client_get_string(gconf, METADATACODEPAGE, NULL);
     subtitlefont = gconf_client_get_string(gconf, SUBTITLEFONT, NULL);
     subtitle_scale = gconf_client_get_float(gconf, SUBTITLESCALE, NULL);
@@ -325,8 +326,8 @@ int main(int argc, char *argv[])
     real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
     dvx_disabled = gconf_client_get_bool(gconf, DISABLE_DVX, NULL);
-	embedding_disabled = gconf_client_get_bool(gconf, DISABLE_EMBEDDING, NULL);
-	
+    embedding_disabled = gconf_client_get_bool(gconf, DISABLE_EMBEDDING, NULL);
+
     extraopts = gconf_client_get_string(gconf, EXTRAOPTS, NULL);
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
@@ -357,13 +358,13 @@ int main(int argc, char *argv[])
                ("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
         return 1;
     }
-	
+
     if (verbose == 0)
         verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
 
-	if (reallyverbose)
-		verbose = 2;
-	
+    if (reallyverbose)
+        verbose = 2;
+
     if (!g_thread_supported())
         g_thread_init(NULL);
 

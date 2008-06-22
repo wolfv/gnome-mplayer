@@ -1049,8 +1049,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_F11:
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
             return FALSE;
-		case GDK_Escape:
-			return delete_callback(NULL, NULL, NULL);
+        case GDK_Escape:
+            return delete_callback(NULL, NULL, NULL);
         default:
             if (state == PLAYING) {
                 cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
@@ -1898,10 +1898,8 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           "Polish - Julian Sikorski\n"
                           "Russian - Dmitry Stropaloff\n"
                           "Serbian - Милош Поповић\n"
-                          "Spanish - Festor Wailon Dacoba\n" 
-						  "Swedish - Daniel Nylander\n"
-						  "Turkish - Onur Küçük"
-						  , NULL);
+                          "Spanish - Festor Wailon Dacoba\n"
+                          "Swedish - Daniel Nylander\n" "Turkish - Onur Küçük", NULL);
 }
 
 void menuitem_play_callback(GtkMenuItem * menuitem, void *data)
@@ -2288,7 +2286,8 @@ void config_apply(GtkWidget * widget, void *data)
     disable_ass = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_ass));
     disable_embeddedfonts =
         !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_embeddedfonts));
-	disable_pause_on_click = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_pause_on_click));
+    disable_pause_on_click =
+        !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_pause_on_click));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
     pplevel = (gint) gtk_range_get_value(GTK_RANGE(config_pplevel));
@@ -3132,7 +3131,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_noembed), embedding_disabled);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_noembed, 0, 1, i, i + 1);
     i++;
-	
+
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page3), conf_table);
     i = 0;
@@ -3299,11 +3298,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vertical_layout, 0, 2, i, i + 1);
     i++;
 
-	config_pause_on_click = gtk_check_button_new_with_label(_("Pause playback on mouse click"));
+    config_pause_on_click = gtk_check_button_new_with_label(_("Pause playback on mouse click"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_pause_on_click), !disable_pause_on_click);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
-    i++;	
-	
+    i++;
+
     config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 2, i, i + 1);
@@ -3313,7 +3312,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_deinterlace), !disable_deinterlace);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_deinterlace, 0, 2, i, i + 1);
     i++;
-	
+
     config_framedrop = gtk_check_button_new_with_mnemonic(_("_Drop frames"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_framedrop), !disable_framedrop);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 2, i, i + 1);
