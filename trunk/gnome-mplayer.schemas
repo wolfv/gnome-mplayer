@@ -122,8 +122,8 @@
     </schema>
 
    <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disablepauseonclick</key>
-      <applyto>/apps/gnome-mplayer/preferences/disablepauseonclick</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable_pause_on_click</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable_pause_on_click</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
