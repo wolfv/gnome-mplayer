@@ -734,7 +734,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
             return TRUE;
         }
 
-        if (event_button->button == 1 && idledata->videopresent == TRUE) {
+        if (event_button->button == 1 && idledata->videopresent == TRUE && !disable_pause_on_click) {
             if (event_button->x > fixed->allocation.x
                 && event_button->y > fixed->allocation.y
                 && event_button->x < fixed->allocation.x + fixed->allocation.width
@@ -2288,6 +2288,7 @@ void config_apply(GtkWidget * widget, void *data)
     disable_ass = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_ass));
     disable_embeddedfonts =
         !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_embeddedfonts));
+	disable_pause_on_click = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_pause_on_click));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
     pplevel = (gint) gtk_range_get_value(GTK_RANGE(config_pplevel));
@@ -2341,6 +2342,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_bool(gconf, DISABLEEMBEDDEDFONTS, disable_embeddedfonts, NULL);
     gconf_client_set_bool(gconf, DISABLEDEINTERLACE, disable_deinterlace, NULL);
     gconf_client_set_bool(gconf, DISABLEFRAMEDROP, disable_framedrop, NULL);
+    gconf_client_set_bool(gconf, DISABLEPAUSEONCLICK, disable_pause_on_click, NULL);
     gconf_client_set_bool(gconf, SHOWPLAYLIST, playlist_visible, NULL);
     gconf_client_set_bool(gconf, VERTICAL, vertical_layout, NULL);
     gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
@@ -3297,6 +3299,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vertical_layout, 0, 2, i, i + 1);
     i++;
 
+	config_pause_on_click = gtk_check_button_new_with_label(_("Pause playback on mouse click"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_pause_on_click), !disable_pause_on_click);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
+    i++;	
+	
     config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 2, i, i + 1);

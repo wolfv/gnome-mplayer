@@ -121,6 +121,18 @@
       </locale>
     </schema>
 
+   <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disablepauseonclick</key>
+      <applyto>/apps/gnome-mplayer/preferences/disablepauseonclick</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Pause on Click action</short>
+        <long>When set to TRUE the ability to pause on mouse click is disabled</long>
+      </locale>
+    </schema>
+
     <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/forcecache</key>
       <applyto>/apps/gnome-mplayer/preferences/forcecache</applyto>
