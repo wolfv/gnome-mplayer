@@ -126,7 +126,7 @@
       <applyto>/apps/gnome-mplayer/preferences/disable_pause_on_click</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
-      <default>FALSE</default>
+      <default>TRUE</default>
       <locale name="C">
         <short>Disable Pause on Click action</short>
         <long>When set to TRUE the ability to pause on mouse click is disabled</long>
