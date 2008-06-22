@@ -42,6 +42,7 @@
 #define DISABLEFRAMEDROP	"/apps/gnome-mplayer/preferences/disableframedrop"
 #define DISABLEFULLSCREEN	"/apps/gnome-mplayer/preferences/disablefullscreen"
 #define DISABLECONTEXTMENU	"/apps/gnome-mplayer/preferences/disablecontextmenu"
+#define DISABLEPAUSEONCLICK	"/apps/gnome-mplayer/preferences/disable_pause_on_click"
 #define METADATACODEPAGE	"/apps/gnome-mplayer/preferences/metadatacodepage"
 #define SUBTITLEFONT	"/apps/gnome-mplayer/preferences/subtitlefont"
 #define SUBTITLESCALE	"/apps/gnome-mplayer/preferences/subtitlescale"
@@ -190,6 +191,7 @@ gboolean disable_deinterlace;
 gboolean disable_framedrop;
 gboolean disable_context_menu;
 gboolean disable_fullscreen;
+gboolean disable_pause_on_click;
 gint loop;
 gint random_order;
 gboolean dontplaynext;

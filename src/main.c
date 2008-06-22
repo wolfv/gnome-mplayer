@@ -294,6 +294,7 @@ int main(int argc, char *argv[])
 	verbose = 0;
 	reallyverbose = 0;
 	embedding_disabled = FALSE;
+	disable_pause_on_click = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -310,6 +311,7 @@ int main(int argc, char *argv[])
     disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
     disable_ass = gconf_client_get_bool(gconf, DISABLEASS, NULL);
     disable_embeddedfonts = gconf_client_get_bool(gconf, DISABLEEMBEDDEDFONTS, NULL);
+	disable_pause_on_click = gconf_client_get_bool(gconf,DISABLEPAUSEONCLICK, NULL);
     metadata_codepage = gconf_client_get_string(gconf, METADATACODEPAGE, NULL);
     subtitlefont = gconf_client_get_string(gconf, SUBTITLEFONT, NULL);
     subtitle_scale = gconf_client_get_float(gconf, SUBTITLESCALE, NULL);
