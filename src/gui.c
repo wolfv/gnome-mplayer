@@ -1877,7 +1877,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"),
                           "logo", pb_logo,
                           "authors", authors,
-                          "copyright", "Copyright © 2007 Kevin DeKorte",
+                          "copyright", "Copyright © 2007,2008 Kevin DeKorte",
                           "comments", _("A media player for GNOME that uses MPlayer"),
                           "version", VERSION,
                           "license",
