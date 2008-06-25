@@ -1,4 +1,5 @@
 Development
+    Fix file details update on new file, also fix resize issues with file details
     Added Romainian translation
     Set 'pause on mouse click' to be an Advanced Preference
     When embedded draw the black background on load
