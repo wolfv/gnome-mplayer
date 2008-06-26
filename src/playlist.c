@@ -620,6 +620,8 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
             cmd = g_strdup_printf("loadfile \"%s\"\n", filename);
             send_command(cmd);
             g_free(cmd);
+			if (state != PLAYING)
+				play_callback(NULL,NULL,NULL);
         }
         set_media_info_name(filename);
         gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
