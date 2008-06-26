@@ -587,10 +587,10 @@ gboolean resize_window(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
-		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_file_details))) {
-			//gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_file_details),FALSE);
-			menuitem_details_callback(NULL,NULL);
-		}			
+        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_file_details))) {
+            //gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_file_details),FALSE);
+            menuitem_details_callback(NULL, NULL);
+        }
     }
     return FALSE;
 }
@@ -2466,21 +2466,22 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     gint width, height;
     static gint normal_width = -1, normal_height = -1;
     GtkRequisition req;
-	gboolean noresize = FALSE;
+    gboolean noresize = FALSE;
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_file_details))) {
         if (GTK_IS_WIDGET(details_table)) {
             gtk_widget_destroy(details_table);
             details_table = NULL;
             gtk_window_resize(GTK_WINDOW(window), normal_width, normal_height);
-			while(gtk_events_pending()) gtk_main_iteration();
+            while (gtk_events_pending())
+                gtk_main_iteration();
         }
     } else {
         if (GTK_IS_WIDGET(details_table)) {
             gtk_widget_destroy(details_table);
             details_table = NULL;
-			noresize = TRUE;
-		}
+            noresize = TRUE;
+        }
         details_table = gtk_table_new(20, 2, FALSE);
 
         gtk_container_add(GTK_CONTAINER(details_vbox), details_table);
@@ -2619,19 +2620,19 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
         }
         i++;
 
-		if (!GTK_WIDGET_VISIBLE(details_table)) {
-			if (noresize == FALSE) {
-		        gdk_window_get_geometry(window->window, NULL, NULL, &width, &height, NULL);
-		        normal_width = width;
-			    normal_height = height;
-			}
-	        gtk_widget_show_all(details_table);
-			if (noresize == FALSE) {
-		        gtk_widget_size_request(GTK_WIDGET(details_table), &req);
-		        height += req.height;
-		        gtk_window_resize(GTK_WINDOW(window), width, height);
-			}
-		}
+        if (!GTK_WIDGET_VISIBLE(details_table)) {
+            if (noresize == FALSE) {
+                gdk_window_get_geometry(window->window, NULL, NULL, &width, &height, NULL);
+                normal_width = width;
+                normal_height = height;
+            }
+            gtk_widget_show_all(details_table);
+            if (noresize == FALSE) {
+                gtk_widget_size_request(GTK_WIDGET(details_table), &req);
+                height += req.height;
+                gtk_window_resize(GTK_WINDOW(window), width, height);
+            }
+        }
     }
 }
 
