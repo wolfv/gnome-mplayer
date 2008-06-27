@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-22 10:37-0600\n"
-"PO-Revision-Date: 2008-06-18 17:30+0200\n"
+"PO-Revision-Date: 2008-06-24 08:00+0200\n"
 "Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -611,7 +611,7 @@ msgstr "Lancer avec la liste de lecture sous la fenêtre média."
 
 #: src/gui.c:3301
 msgid "Pause playback on mouse click"
-msgstr ""
+msgstr "Mettre en pause avec un simple clic de souris."
 
 #: src/gui.c:3306
 msgid "Mplayer Software Volume Control Enabled"

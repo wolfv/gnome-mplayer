@@ -1,4 +1,5 @@
 Development
+    When selecting an item in the playlist, start it playing if media is paused or stopped.
     Set deinterlace filter to be disabled by default in gconf
     Fix file details update on new file, also fix resize issues with file details
     Added Romainian translation
