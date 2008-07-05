@@ -103,7 +103,9 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
 
     if (state == QUIT) {
-        g_idle_add(set_stop, idledata);
+		if (verbose > 1)
+            printf("Thread Error: state = QUIT, shutting down\n");        
+		g_idle_add(set_stop, idledata);
         state = QUIT;
         g_source_remove(watch_in_id);
         g_source_remove(watch_in_hup_id);
