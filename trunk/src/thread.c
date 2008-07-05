@@ -689,7 +689,8 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
-    argv[arg++] = g_strdup_printf("-quiet");
+	if (verbose < 2)
+	    argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
 
@@ -841,6 +842,7 @@ gpointer launch_player(gpointer data)
         printf("\n");
     }
 
+	state = PAUSED;
     ok = g_spawn_async_with_pipes(NULL, argv, NULL,
                                   G_SPAWN_SEARCH_PATH,
                                   NULL, NULL, NULL, &std_in, &std_out, &std_err, NULL);
