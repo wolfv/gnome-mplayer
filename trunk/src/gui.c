@@ -1020,12 +1020,24 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             send_command("pausing_keep speed_set 1.0\n");
             return FALSE;
         case GDK_9:
+#ifdef GTK2_12_ENABLED
+            gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),
+                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) -
+                                       10);
+#else
             gtk_range_set_value(GTK_RANGE(vol_slider),
                                 gtk_range_get_value(GTK_RANGE(vol_slider)) - 10);
+#endif
             return FALSE;
         case GDK_0:
+#ifdef GTK2_12_ENABLED
+            gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),
+                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) +
+                                       10);
+#else
             gtk_range_set_value(GTK_RANGE(vol_slider),
                                 gtk_range_get_value(GTK_RANGE(vol_slider)) + 10);
+#endif
             return FALSE;
         case GDK_numbersign:
             send_command("pausing_keep switch_audio\n");

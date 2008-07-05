@@ -103,9 +103,9 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
 
     if (state == QUIT) {
-		if (verbose > 1)
-            printf("Thread Error: state = QUIT, shutting down\n");        
-		g_idle_add(set_stop, idledata);
+        if (verbose > 1)
+            printf("Thread Error: state = QUIT, shutting down\n");
+        g_idle_add(set_stop, idledata);
         state = QUIT;
         g_source_remove(watch_in_id);
         g_source_remove(watch_in_hup_id);
@@ -689,8 +689,8 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
-	if (verbose < 2)
-	    argv[arg++] = g_strdup_printf("-quiet");
+    if (verbose < 2)
+        argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
     argv[arg++] = g_strdup_printf("-identify");
 
@@ -842,7 +842,7 @@ gpointer launch_player(gpointer data)
         printf("\n");
     }
 
-	state = PAUSED;
+    state = PAUSED;
     ok = g_spawn_async_with_pipes(NULL, argv, NULL,
                                   G_SPAWN_SEARCH_PATH,
                                   NULL, NULL, NULL, &std_in, &std_out, &std_err, NULL);
