@@ -1,4 +1,5 @@
 Development
+    .desktop file requested changes
     Apply volume patch fix for gtk versions
 0.6.3
     When selecting an item in the playlist, start it playing if media is paused or stopped.
