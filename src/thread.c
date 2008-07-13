@@ -553,9 +553,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
 	if (strstr(mplayer_output->str, "pause supported by hardware") != 0) {
 		g_idle_add(set_pause,NULL);
+		g_idle_add(set_pause,NULL);
     }
 
 	if (strstr(mplayer_output->str, "resume supported by hardware") != 0) {
+		g_idle_add(set_play,NULL);
 		g_idle_add(set_play,NULL);
     }
 
@@ -586,6 +588,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_media_info, idledata);
     }
 
+	if (verbose > 1) {
+		printf("MPLAYER OUTPUT: %s\n",mplayer_output->str);
+	}
+		
     if (error_msg != NULL) {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
                                         GTK_BUTTONS_OK, error_msg);
