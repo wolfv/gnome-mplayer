@@ -1167,9 +1167,12 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     GtkTreePath *path;
 
     if (state == PAUSED || state == STOPPED) {
-        send_command("seek 0 0\n");
+		if (idle == NULL || idle->gui_update == FALSE) 
+	        send_command("seek 0 0\n");
         state = PLAYING;
         js_state = STATE_PLAYING;
+		if (idle != NULL)
+			idle->gui_update = FALSE;
         gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
         gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
         g_strlcpy(idledata->progress_text, _("Playing"), 1024);
@@ -1177,9 +1180,12 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         gtk_widget_set_sensitive(ff_event_box, TRUE);
         gtk_widget_set_sensitive(rew_event_box, TRUE);
     } else if (state == PLAYING) {
-        send_command("pause\n");
+		if (idle == NULL || idle->gui_update == FALSE)
+	        send_command("pause\n");
         state = PAUSED;
         js_state = STATE_PAUSED;
+		if (idle != NULL)
+			idle->gui_update = FALSE;
         gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
         gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
         g_strlcpy(idledata->progress_text, _("Paused"), 1024);
