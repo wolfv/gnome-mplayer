@@ -128,6 +128,7 @@ typedef struct _IdleData {
     gchar audio_channels[16];
     gchar metadata[1024];
     gboolean fromdbus;
+	gboolean gui_update;
 } IdleData;
 
 IdleData *idledata;
