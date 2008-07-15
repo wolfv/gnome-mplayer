@@ -551,10 +551,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "File not found") != 0) {
     }
 
-	if (strstr(mplayer_output->str, "ID_PAUSE") != 0) {
-		idledata->gui_update = TRUE;
-		g_idle_add(set_pause,idledata);
-    }
+	//if (strstr(mplayer_output->str, "ID_PAUSE") != 0) {
+	//	idledata->gui_update = TRUE;
+	//	g_idle_add(set_pause,idledata);
+    //}
 
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
