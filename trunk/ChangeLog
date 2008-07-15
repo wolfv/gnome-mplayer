@@ -1,5 +1,5 @@
 Development
-    Try to support LIRC device play/pause
+    Add new dbus methods: VolumeUp and VolumeDown
     .desktop file requested changes
     Apply volume patch fix for gtk versions
 0.6.3

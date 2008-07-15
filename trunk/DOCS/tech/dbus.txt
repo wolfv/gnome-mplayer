@@ -19,6 +19,8 @@ SetPercent		double:
 SetProgressText	string:
 SetShowControls	boolean:
 Volume			double;
+VolumeUp
+VolumeDown
 Ping
 
 

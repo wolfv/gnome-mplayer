@@ -361,7 +361,25 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
+                
+				if (g_ascii_strcasecmp(dbus_message_get_member(message), "VolumeUp") == 0
+                    && idledata != NULL) {
+					if (idledata->volume < 100) {
+						idledata->volume++;
+						g_idle_add(set_volume, idledata);
+					}
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
 
+				if (g_ascii_strcasecmp(dbus_message_get_member(message), "VolumeDown") == 0
+                    && idledata != NULL) {
+					if (idledata->volume > 0) {
+						idledata->volume--;
+						g_idle_add(set_volume, idledata);
+					}
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+				
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Volume") == 0
                     && idledata != NULL) {
                     dbus_error_init(&error);
