@@ -1,4 +1,5 @@
 Development
+    Revert change for lirc workaround, since to use lirc, irexec + dbus-send is recommended
     Add new dbus methods: VolumeUp and VolumeDown
     .desktop file requested changes
     Apply volume patch fix for gtk versions
