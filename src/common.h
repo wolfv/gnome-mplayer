@@ -49,6 +49,7 @@
 #define SUBTITLECODEPAGE	"/apps/gnome-mplayer/preferences/subtitlecodepage"
 #define SUBTITLECOLOR	"/apps/gnome-mplayer/preferences/subtitlecolor"
 
+#define MPLAYER_BIN		"/apps/gnome-mplayer/preferences/mplayer_bin"
 #define EXTRAOPTS		"/apps/gnome-mplayer/preferences/extraopts"
 
 #define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
@@ -220,6 +221,7 @@ gdouble subtitle_scale;
 gchar *subtitle_codepage;
 gchar *subtitle_color;
 gboolean quit_on_complete;
+gchar *mplayer_bin;
 gchar *extraopts;
 
 // tv stuff

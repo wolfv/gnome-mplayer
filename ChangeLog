@@ -1,4 +1,5 @@
 Development
+    Allow mplayer location to be specified in Edit->Preferences [Advanced]
     Revert change for lirc workaround, since to use lirc, irexec + dbus-send is recommended
     Add new dbus methods: VolumeUp and VolumeDown
     .desktop file requested changes

@@ -2348,6 +2348,11 @@ void config_apply(GtkWidget * widget, void *data)
     dvx_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_dvx));
     embedding_disabled = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_noembed));
 
+    mplayer_bin = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_mplayer_bin)));
+	if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+		g_free(mplayer_bin);
+		mplayer_bin = NULL;
+	}
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
 
     gconf = gconf_client_get_default();
@@ -2369,6 +2374,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_float(gconf, SUBTITLESCALE, subtitle_scale, NULL);
     gconf_client_set_string(gconf, SUBTITLECODEPAGE, subtitle_codepage, NULL);
     gconf_client_set_string(gconf, SUBTITLECOLOR, subtitle_color, NULL);
+    gconf_client_set_string(gconf, MPLAYER_BIN, mplayer_bin, NULL);
     gconf_client_set_string(gconf, EXTRAOPTS, extraopts, NULL);
 
     gconf_client_set_bool(gconf, DISABLE_QT, qt_disabled, NULL);
@@ -3361,6 +3367,17 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 2, i, i + 1);
     i++;
 
+    conf_label = gtk_label_new(_("MPlayer Executable:"));
+    config_mplayer_bin = gtk_entry_new();
+    gtk_entry_set_text(GTK_ENTRY(config_mplayer_bin), ((mplayer_bin) ? mplayer_bin : ""));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_entry_set_width_chars(GTK_ENTRY(config_mplayer_bin), 40);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    i++;
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_mplayer_bin, 0, 1, i, i + 1);
+    i++;
+	
     conf_label = gtk_label_new(_("Extra Options to MPlayer:"));
     config_extraopts = gtk_entry_new();
     gtk_entry_set_text(GTK_ENTRY(config_extraopts), ((extraopts) ? extraopts : ""));

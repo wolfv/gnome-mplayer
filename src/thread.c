@@ -688,7 +688,11 @@ gpointer launch_player(gpointer data)
     g_idle_add(set_media_info, idledata);
     //g_idle_add(set_window_visible, idledata);
 
-    argv[arg++] = g_strdup_printf("mplayer");
+	if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+	    argv[arg++] = g_strdup_printf("mplayer");
+	} else {
+	    argv[arg++] = g_strdup_printf("%s", mplayer_bin);
+	}		
     if (vo != NULL && strlen(vo) > 0) {
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");

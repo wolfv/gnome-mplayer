@@ -200,6 +200,7 @@ GtkWidget *config_wmp;
 GtkWidget *config_dvx;
 GtkWidget *config_noembed;
 
+GtkWidget *config_mplayer_bin;
 GtkWidget *config_extraopts;
 
 GtkWidget *open_location;

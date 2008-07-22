@@ -296,6 +296,7 @@ int main(int argc, char *argv[])
     reallyverbose = 0;
     embedding_disabled = FALSE;
     disable_pause_on_click = FALSE;
+	mplayer_bin = NULL;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -328,6 +329,11 @@ int main(int argc, char *argv[])
     dvx_disabled = gconf_client_get_bool(gconf, DISABLE_DVX, NULL);
     embedding_disabled = gconf_client_get_bool(gconf, DISABLE_EMBEDDING, NULL);
 
+    mplayer_bin = gconf_client_get_string(gconf, MPLAYER_BIN, NULL);
+	if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+		g_free(mplayer_bin);
+		mplayer_bin = NULL;
+	}	
     extraopts = gconf_client_get_string(gconf, EXTRAOPTS, NULL);
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
