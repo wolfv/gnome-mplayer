@@ -58,6 +58,10 @@
 #define DISABLE_DVX		"/apps/gecko-mediaplayer/preferences/disable_dvx"
 #define DISABLE_EMBEDDING		"/apps/gecko-mediaplayer/preferences/disable_embedding"
 
+#define REMEMBER_LOC		"/apps/gnome-mplayer/preferences/remember_loc"
+#define WINDOW_X		"/apps/gnome-mplayer/preferences/window_x"
+#define WINDOW_Y		"/apps/gnome-mplayer/preferences/window_y"
+
 
 // JavaScript Playstates
 #define STATE_UNDEFINED     0
@@ -223,6 +227,10 @@ gchar *subtitle_color;
 gboolean quit_on_complete;
 gchar *mplayer_bin;
 gchar *extraopts;
+
+gboolean remember_loc;
+gint window_x;
+gint window_y;
 
 // tv stuff
 gchar *tv_device;

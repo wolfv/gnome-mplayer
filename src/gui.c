@@ -793,6 +793,15 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     loop = 0;
     ok_to_play = FALSE;
     dontplaynext = TRUE;
+	GConfClient *gconf;
+	
+	if (remember_loc) {
+		gconf = gconf_client_get_default();
+		gtk_window_get_position(GTK_WINDOW(window),&window_x,&window_y);
+		gconf_client_set_int(gconf, WINDOW_X, window_x, NULL);
+		gconf_client_set_int(gconf, WINDOW_Y, window_y, NULL);
+	}
+	
     shutdown();
     while (gtk_events_pending() || thread != NULL) {
         gtk_main_iteration();
@@ -2315,6 +2324,8 @@ void config_apply(GtkWidget * widget, void *data)
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
+    remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
+	
     if (subtitlefont != NULL) {
         g_free(subtitlefont);
         subtitlefont = NULL;
@@ -2368,14 +2379,17 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_bool(gconf, DISABLEPAUSEONCLICK, disable_pause_on_click, NULL);
     gconf_client_set_bool(gconf, SHOWPLAYLIST, playlist_visible, NULL);
     gconf_client_set_bool(gconf, VERTICAL, vertical_layout, NULL);
+	gconf_client_set_bool(gconf, REMEMBER_LOC, remember_loc, NULL);
     gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
     gconf_client_set_string(gconf, METADATACODEPAGE, metadata_codepage, NULL);
     gconf_client_set_string(gconf, SUBTITLEFONT, subtitlefont, NULL);
     gconf_client_set_float(gconf, SUBTITLESCALE, subtitle_scale, NULL);
     gconf_client_set_string(gconf, SUBTITLECODEPAGE, subtitle_codepage, NULL);
     gconf_client_set_string(gconf, SUBTITLECOLOR, subtitle_color, NULL);
-    gconf_client_set_string(gconf, MPLAYER_BIN, mplayer_bin, NULL);
-    gconf_client_set_string(gconf, EXTRAOPTS, extraopts, NULL);
+	if (mplayer_bin != NULL)
+	    gconf_client_set_string(gconf, MPLAYER_BIN, mplayer_bin, NULL);
+	if (extraopts != NULL)
+	    gconf_client_set_string(gconf, EXTRAOPTS, extraopts, NULL);
 
     gconf_client_set_bool(gconf, DISABLE_QT, qt_disabled, NULL);
     gconf_client_set_bool(gconf, DISABLE_REAL, real_disabled, NULL);
@@ -3336,6 +3350,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vertical_layout, 0, 2, i, i + 1);
     i++;
 
+    config_remember_loc =
+        gtk_check_button_new_with_label(_("Remember Window Location"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_remember_loc), remember_loc);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_remember_loc, 0, 2, i, i + 1);
+    i++;
+	
     config_pause_on_click = gtk_check_button_new_with_label(_("Pause playback on mouse click"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_pause_on_click), !disable_pause_on_click);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
@@ -4313,7 +4333,11 @@ GtkWidget *create_window(gint windowid)
 
         gdk_window_reparent(window->window, window_container, 0, 0);
 
-    }
+    } else {
+		if (remember_loc) {
+			gtk_window_move(GTK_WINDOW(window),window_x,window_y);
+		}
+	}
 
     if (rpcontrols == NULL || (rpcontrols != NULL && g_strcasecmp(rpcontrols, "all") == 0)) {
         if (windowid != -1)

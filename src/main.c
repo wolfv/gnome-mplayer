@@ -336,6 +336,10 @@ int main(int argc, char *argv[])
 	}	
     extraopts = gconf_client_get_string(gconf, EXTRAOPTS, NULL);
 
+	remember_loc = gconf_client_get_bool(gconf, REMEMBER_LOC, NULL);
+	window_x = gconf_client_get_int(gconf, WINDOW_X, NULL);
+	window_y = gconf_client_get_int(gconf, WINDOW_Y, NULL);
+	
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
 #ifdef GTK2_12_ENABLED
     g_option_context_set_translation_domain(context, "UTF-8");
