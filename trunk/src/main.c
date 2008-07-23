@@ -296,7 +296,7 @@ int main(int argc, char *argv[])
     reallyverbose = 0;
     embedding_disabled = FALSE;
     disable_pause_on_click = FALSE;
-	mplayer_bin = NULL;
+    mplayer_bin = NULL;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -330,16 +330,16 @@ int main(int argc, char *argv[])
     embedding_disabled = gconf_client_get_bool(gconf, DISABLE_EMBEDDING, NULL);
 
     mplayer_bin = gconf_client_get_string(gconf, MPLAYER_BIN, NULL);
-	if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
-		g_free(mplayer_bin);
-		mplayer_bin = NULL;
-	}	
+    if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+        g_free(mplayer_bin);
+        mplayer_bin = NULL;
+    }
     extraopts = gconf_client_get_string(gconf, EXTRAOPTS, NULL);
 
-	remember_loc = gconf_client_get_bool(gconf, REMEMBER_LOC, NULL);
-	loc_window_x = gconf_client_get_int(gconf, WINDOW_X, NULL);
-	loc_window_y = gconf_client_get_int(gconf, WINDOW_Y, NULL);
-	
+    remember_loc = gconf_client_get_bool(gconf, REMEMBER_LOC, NULL);
+    loc_window_x = gconf_client_get_int(gconf, WINDOW_X, NULL);
+    loc_window_y = gconf_client_get_int(gconf, WINDOW_Y, NULL);
+
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
 #ifdef GTK2_12_ENABLED
     g_option_context_set_translation_domain(context, "UTF-8");
