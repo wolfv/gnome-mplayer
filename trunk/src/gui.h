@@ -202,6 +202,7 @@ GtkWidget *config_noembed;
 
 GtkWidget *config_mplayer_bin;
 GtkWidget *config_extraopts;
+GtkWidget *config_remember_loc;
 
 GtkWidget *open_location;
 
