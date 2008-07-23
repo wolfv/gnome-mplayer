@@ -229,8 +229,8 @@ gchar *mplayer_bin;
 gchar *extraopts;
 
 gboolean remember_loc;
-gint window_x;
-gint window_y;
+gint loc_window_x;
+gint loc_window_y;
 
 // tv stuff
 gchar *tv_device;

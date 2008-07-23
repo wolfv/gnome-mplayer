@@ -326,6 +326,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             state = PLAYING;
         }
         g_idle_add(set_progress_time, idledata);
+		idledata->percent = idledata->position / idledata->length;
+        g_idle_add(set_progress_value, idledata);		
     }
 
     if (strstr(mplayer_output->str, "ANS_stream_pos") != 0) {
@@ -627,13 +629,14 @@ gboolean thread_query(gpointer data)
     }
 
     if (state == PLAYING) {
-        size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
+		// size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
+		size = write(std_in, "get_time_pos\n", strlen("get_time_pos\n"));
         if (size == -1) {
             shutdown();
             return FALSE;
         } else {
 
-            send_command("get_time_pos\n");
+            //send_command("get_time_pos\n");
             send_command("get_property stream_pos\n");
             if (threaddata->streaming)
                 send_command("get_property metadata\n");
