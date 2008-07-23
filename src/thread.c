@@ -326,8 +326,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             state = PLAYING;
         }
         g_idle_add(set_progress_time, idledata);
-		idledata->percent = idledata->position / idledata->length;
-        g_idle_add(set_progress_value, idledata);		
+        idledata->percent = idledata->position / idledata->length;
+        g_idle_add(set_progress_value, idledata);
     }
 
     if (strstr(mplayer_output->str, "ANS_stream_pos") != 0) {
@@ -580,10 +580,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_media_info, idledata);
     }
 
-	if (verbose > 1) {
-		printf("MPLAYER OUTPUT: %s\n",mplayer_output->str);
-	}
-		
+    if (verbose > 1) {
+        printf("MPLAYER OUTPUT: %s\n", mplayer_output->str);
+    }
+
     if (error_msg != NULL) {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
                                         GTK_BUTTONS_OK, error_msg);
@@ -629,8 +629,8 @@ gboolean thread_query(gpointer data)
     }
 
     if (state == PLAYING) {
-		// size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
-		size = write(std_in, "get_time_pos\n", strlen("get_time_pos\n"));
+        // size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
+        size = write(std_in, "get_time_pos\n", strlen("get_time_pos\n"));
         if (size == -1) {
             shutdown();
             return FALSE;
@@ -691,11 +691,11 @@ gpointer launch_player(gpointer data)
     g_idle_add(set_media_info, idledata);
     //g_idle_add(set_window_visible, idledata);
 
-	if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
-	    argv[arg++] = g_strdup_printf("mplayer");
-	} else {
-	    argv[arg++] = g_strdup_printf("%s", mplayer_bin);
-	}		
+    if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+        argv[arg++] = g_strdup_printf("mplayer");
+    } else {
+        argv[arg++] = g_strdup_printf("%s", mplayer_bin);
+    }
     if (vo != NULL && strlen(vo) > 0) {
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
