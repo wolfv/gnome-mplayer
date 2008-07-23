@@ -1,4 +1,6 @@
 Development
+    Fix window x and y size issues, from window location patch
+    Workaround for progress bar bug in mplayer
     Add setting remember window location to be specified in Edit->Preferences [Advanced]
     Allow mplayer location to be specified in Edit->Preferences [Advanced]
     Revert change for lirc workaround, since to use lirc, irexec + dbus-send is recommended

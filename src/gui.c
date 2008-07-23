@@ -214,9 +214,11 @@ gboolean set_progress_value(void *data)
             gtk_progress_bar_update(progress, idle->cachepercent);
             gtk_widget_set_sensitive(play_event_box, FALSE);
         } else {
-            gtk_progress_bar_update(progress, idle->percent);
-            if (autopause == FALSE)
-                gtk_widget_set_sensitive(play_event_box, TRUE);
+			if (idle->percent > 0.0 && idle->percent < 1.0) {
+	            gtk_progress_bar_update(progress, idle->percent);
+	            if (autopause == FALSE)
+	                gtk_widget_set_sensitive(play_event_box, TRUE);
+			}
         }
         if (idle->cachepercent < 1.0 && state == PAUSED) {
             text =
@@ -475,7 +477,7 @@ gboolean resize_window(void *data)
                 gtk_widget_show_all(GTK_WIDGET(fixed));
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
-                //printf("%i x %i \n",idle->x,idle->y);
+                // printf("%i x %i \n",idle->x,idle->y);
                 if (last_window_width == 0 && last_window_height == 0) {
                     if (idle->width > 0 && idle->height > 0) {
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
@@ -797,9 +799,9 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 	
 	if (remember_loc) {
 		gconf = gconf_client_get_default();
-		gtk_window_get_position(GTK_WINDOW(window),&window_x,&window_y);
-		gconf_client_set_int(gconf, WINDOW_X, window_x, NULL);
-		gconf_client_set_int(gconf, WINDOW_Y, window_y, NULL);
+		gtk_window_get_position(GTK_WINDOW(window),&loc_window_x,&loc_window_y);
+		gconf_client_set_int(gconf, WINDOW_X, loc_window_x, NULL);
+		gconf_client_set_int(gconf, WINDOW_Y, loc_window_y, NULL);
 	}
 	
     shutdown();
@@ -4335,7 +4337,7 @@ GtkWidget *create_window(gint windowid)
 
     } else {
 		if (remember_loc) {
-			gtk_window_move(GTK_WINDOW(window),window_x,window_y);
+			gtk_window_move(GTK_WINDOW(window),loc_window_x,loc_window_y);
 		}
 	}
 
