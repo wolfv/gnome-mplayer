@@ -326,8 +326,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             state = PLAYING;
         }
         g_idle_add(set_progress_time, idledata);
-        idledata->percent = idledata->position / idledata->length;
-        g_idle_add(set_progress_value, idledata);
+		if ((int)idledata->length != 0) {
+	        idledata->percent = idledata->position / idledata->length;
+	        g_idle_add(set_progress_value, idledata);
+		}
     }
 
     if (strstr(mplayer_output->str, "ANS_stream_pos") != 0) {
