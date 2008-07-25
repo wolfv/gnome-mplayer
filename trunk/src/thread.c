@@ -329,6 +329,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 		if ((int)idledata->length != 0) {
 	        idledata->percent = idledata->position / idledata->length;
 	        g_idle_add(set_progress_value, idledata);
+		} else {
+			send_command("get_percent_pos\n");
 		}
     }
 
