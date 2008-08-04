@@ -1,4 +1,5 @@
 Development
+    Don't set volume on media start, but set it if adjusted before open or during caching
     Fix window x and y size issues, from window location patch
     Workaround for progress bar bug in mplayer
     Add setting remember window location to be specified in Edit->Preferences [Advanced]
