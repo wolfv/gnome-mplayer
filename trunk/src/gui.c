@@ -669,8 +669,8 @@ gboolean set_volume(void *data)
     IdleData *idle = (IdleData *) data;
     gchar *buf = NULL;
 
-    if (GTK_IS_WIDGET(vol_slider)) {
-        // printf("setting slider to %f\n", idle->volume);
+    if (GTK_IS_WIDGET(vol_slider) && idle->volume >= 0 && idle->volume <= 100) {
+        //printf("setting slider to %f\n", idle->volume);
 #ifdef GTK2_12_ENABLED
         if (rpcontrols != NULL && g_strcasecmp(rpcontrols, "volumeslider") == 0) {
             gtk_range_set_value(GTK_RANGE(vol_slider), idle->volume);

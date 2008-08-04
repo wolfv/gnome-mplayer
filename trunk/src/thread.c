@@ -687,7 +687,7 @@ gpointer launch_player(gpointer data)
     idledata->width = 1;
     idledata->height = 1;
     idledata->videopresent = 1;
-    idledata->volume = 100.0;
+    idledata->volume = -1;
     idledata->length = 0.0;
 
     g_idle_add(set_progress_value, idledata);
