@@ -843,6 +843,10 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-vf-add");
     argv[arg++] = g_strdup_printf("screenshot");
 
+	if (idledata->device != NULL) {
+    	argv[arg++] = g_strdup_printf("-dvd-device");
+    	argv[arg++] = g_strdup_printf("%s", idledata->device);
+	}	
 
     if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
