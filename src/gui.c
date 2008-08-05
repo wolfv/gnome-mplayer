@@ -1720,6 +1720,10 @@ void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
+	if (idledata->device != NULL) {
+		g_free(idledata->device);
+		idledata->device = NULL;
+	}
     parse_dvd("dvd://");
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
@@ -1783,6 +1787,10 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
+	if (idledata->device != NULL) {
+		g_free(idledata->device);
+		idledata->device = NULL;
+	}
     add_item_to_playlist("dvdnav://", 0);
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     play_file("dvdnav://", 0);
