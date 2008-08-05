@@ -1343,13 +1343,16 @@ void randomize_playlist(GtkListStore * store)
 
 gdouble get_alsa_volume()
 {
-    gint err;
+    gdouble vol = 100.0;
+ 
+#ifdef HAVE_ASOUNDLIB
+	
+	gint err;
     snd_mixer_t *mhandle;
     snd_mixer_elem_t *elem;
     snd_mixer_selem_id_t *sid;
     glong get_vol, pmin, pmax;
     gfloat f_multi;
-    gdouble vol = 100.0;
     gboolean found = FALSE;
 
     if ((err = snd_mixer_open(&mhandle, 0)) < 0) {
@@ -1420,6 +1423,9 @@ gdouble get_alsa_volume()
     }
 
     snd_mixer_close(mhandle);
+	
+#endif	
+	
     if (verbose)
         printf("Using volume of %3.2lf\n", vol);
     return vol;
