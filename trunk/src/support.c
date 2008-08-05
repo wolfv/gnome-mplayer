@@ -508,6 +508,10 @@ gint parse_dvd(gchar * filename)
         av[ac++] = g_strdup_printf("-frames");
         av[ac++] = g_strdup_printf("0");
         av[ac++] = g_strdup_printf("-identify");
+		if (idledata->device != NULL) {
+        	av[ac++] = g_strdup_printf("-dvd-device");
+        	av[ac++] = g_strdup_printf("%s", idledata->device);
+		}
         av[ac++] = g_strdup_printf("dvd://");
         av[ac] = NULL;
 

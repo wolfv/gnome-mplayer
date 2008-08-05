@@ -1733,6 +1733,52 @@ void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
     }
 }
 
+void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
+{   
+	GtkWidget *dialog;
+    gchar *filename = NULL;
+    gint count;
+    gint playlist = 0;
+	GConfClient *gconf;
+	gchar *last_dir;
+	
+    dialog = gtk_file_chooser_dialog_new(_("Choose Disk Directory"),
+                                         GTK_WINDOW(window),
+                                         GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+    gconf = gconf_client_get_default();
+    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    if (last_dir != NULL) {
+        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+        g_free(last_dir);
+    }
+	
+	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+
+	    gtk_list_store_clear(playliststore);
+	    gtk_list_store_clear(nonrandomplayliststore);
+		add_item_to_playlist("dvdnav://", 0);
+	    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+		idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+				
+	    parse_dvd("dvd://");
+
+	    if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+	        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+	                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+	        set_media_info_name(filename);
+	        printf("playing - %s is playlist = %i\n", filename, playlist);
+	        play_file(filename, playlist);
+	        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+	        g_free(filename);
+	    }	
+	}
+	g_object_unref(G_OBJECT(gconf));
+    gtk_widget_destroy(dialog);
+
+}
+
 void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
@@ -1741,6 +1787,51 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     play_file("dvdnav://", 0);
     gtk_widget_show(menu_event_box);
+}
+
+void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
+{
+	GtkWidget *dialog;
+    gchar *filename = NULL;
+    gint count;
+    gint playlist = 0;
+	GConfClient *gconf;
+	gchar *last_dir;
+	
+    dialog = gtk_file_chooser_dialog_new(_("Choose Disk Directory"),
+                                         GTK_WINDOW(window),
+                                         GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+    gconf = gconf_client_get_default();
+    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    if (last_dir != NULL) {
+        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+        g_free(last_dir);
+    }
+	
+	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+
+	    gtk_list_store_clear(playliststore);
+	    gtk_list_store_clear(nonrandomplayliststore);
+		idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+				
+	    play_file("dvdnav://", 0);
+	    gtk_widget_show(menu_event_box);	
+
+	    if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+	        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+	                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+	        set_media_info_name(filename);
+	        printf("playing - %s is playlist = %i\n", filename, playlist);
+	        play_file(filename, playlist);
+	        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+	        g_free(filename);
+	    }	
+	}
+	g_object_unref(G_OBJECT(gconf));
+    gtk_widget_destroy(dialog);
+
 }
 
 void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
@@ -3752,11 +3843,17 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_file_dvd, GTK_WIDGET(menu_file_dvd));
 
     menuitem_file_open_dvd =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD Direct")));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
     gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvd));
     menuitem_file_open_dvdnav =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD with _Menus")));
     gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvdnav));
+    menuitem_file_open_dvd_folder =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD from Folder")));
+    gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvd_folder));
+    menuitem_file_open_dvdnav_folder =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from Folder with _Menus")));
+    gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvdnav_folder));
 
     menuitem_file_tv = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_TV")));
     menu_file_tv = GTK_MENU(gtk_menu_new());
@@ -3791,6 +3888,10 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_open_dvd_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_dvdnav), "activate",
                      G_CALLBACK(menuitem_open_dvdnav_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_dvd_folder), "activate",
+                     G_CALLBACK(menuitem_open_dvd_folder_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_dvdnav_folder), "activate",
+                     G_CALLBACK(menuitem_open_dvdnav_folder_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_acd), "activate",
                      G_CALLBACK(menuitem_open_acd_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_atv), "activate",

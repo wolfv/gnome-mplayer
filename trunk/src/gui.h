@@ -46,6 +46,8 @@ GtkMenuItem *menuitem_file_dvd;
 GtkMenu *menu_file_dvd;
 GtkMenuItem *menuitem_file_open_dvd;
 GtkMenuItem *menuitem_file_open_dvdnav;
+GtkMenuItem *menuitem_file_open_dvd_folder;
+GtkMenuItem *menuitem_file_open_dvdnav_folder;
 GtkMenuItem *menuitem_file_open_acd;
 GtkMenuItem *menuitem_file_tv;
 GtkMenu *menu_file_tv;
