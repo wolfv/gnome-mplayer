@@ -23,6 +23,9 @@
  */
 
 #include "support.h"
+static char *device = "default";
+static char *pcm_mix = "PCM";
+static char *master_mix = "Master";
 
 void strip_unicode(gchar * data, gsize len)
 {
@@ -1336,4 +1339,88 @@ void randomize_playlist(GtkListStore * store)
         iter = a;
     }
     g_rand_free(rand);
+}
+
+gdouble get_alsa_volume()
+{
+    gint err;
+    snd_mixer_t *mhandle;
+    snd_mixer_elem_t *elem;
+    snd_mixer_selem_id_t *sid;
+    glong get_vol, pmin, pmax;
+    gfloat f_multi;
+    gdouble vol = 100.0;
+    gboolean found = FALSE;
+
+    if ((err = snd_mixer_open(&mhandle, 0)) < 0) {
+        if (verbose)
+            printf("Mixer open error %s\n", snd_strerror(err));
+        return vol;
+    }
+
+    if ((err = snd_mixer_attach(mhandle, device)) < 0) {
+        if (verbose)
+            printf("Mixer attach error %s\n", snd_strerror(err));
+        return vol;
+    }
+
+    if ((err = snd_mixer_selem_register(mhandle, NULL, NULL)) < 0) {
+        if (verbose)
+            printf("Mixer register error %s\n", snd_strerror(err));
+        return vol;
+    }
+
+    if ((err = snd_mixer_load(mhandle)) < 0) {
+        if (verbose)
+            printf("Mixer load error %s\n", snd_strerror(err));
+        return vol;
+    }
+
+
+    snd_mixer_selem_id_alloca(&sid);
+    snd_mixer_selem_id_set_index(sid, 0);
+    snd_mixer_selem_id_set_name(sid, pcm_mix);
+
+    elem = snd_mixer_find_selem(mhandle, sid);
+    if (!elem) {
+        if (verbose)
+            printf("Unable to find PCM Mixer control, trying Master\n");
+    } else {
+        snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
+        f_multi = (100 / (float) (pmax - pmin));
+        snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
+        vol = (gdouble) ((get_vol - pmin) * f_multi);
+        if (verbose) {
+            printf("PCM Range is %li to %li \n", pmin, pmax);
+            printf("PCM Volume is %lf\n", vol);
+        }
+        found = TRUE;
+    }
+
+    if (!found) {
+        snd_mixer_selem_id_alloca(&sid);
+        snd_mixer_selem_id_set_index(sid, 0);
+        snd_mixer_selem_id_set_name(sid, master_mix);
+
+        elem = snd_mixer_find_selem(mhandle, sid);
+        if (!elem) {
+            if (verbose)
+                printf("Unable to find Master Mixer control, using default of 100%%\n");
+        } else {
+            snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
+            f_multi = (100 / (float) (pmax - pmin));
+            snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
+            vol = (gdouble) ((get_vol - pmin) * f_multi);
+            if (verbose) {
+                printf("Master Range is %li to %li \n", pmin, pmax);
+                printf("Master Volume is %lf\n", vol);
+            }
+            found = TRUE;
+        }
+    }
+
+    snd_mixer_close(mhandle);
+    if (verbose)
+        printf("Using volume of %3.2lf\n", vol);
+    return vol;
 }

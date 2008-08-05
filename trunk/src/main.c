@@ -355,9 +355,15 @@ int main(int argc, char *argv[])
         cache_size = 2000;
     g_object_unref(G_OBJECT(gconf));
 
+    if (volume == 0) {
+        volume = (gint) get_alsa_volume();
+    }
+
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
     }
+
+
 
     if (playlist_visible && control_id != 0)
         playlist_visible = FALSE;

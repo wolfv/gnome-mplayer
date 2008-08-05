@@ -30,6 +30,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <asoundlib.h>
 
 gint get_bitrate(gchar * name);
 void strip_unicode(gchar * data, gsize len);
@@ -52,4 +53,5 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist);
 gboolean next_item_in_playlist(GtkTreeIter * iter);
 void copy_playlist(GtkListStore * source, GtkListStore * dest);
 void randomize_playlist(GtkListStore * store);
+gdouble get_alsa_volume();
 #endif                          // _SUPPORT_H

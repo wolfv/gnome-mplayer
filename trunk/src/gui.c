@@ -2151,7 +2151,12 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
                 gtk_widget_unmap(window);
 
             gdk_window_reparent(window->window, window_container, 0, 0);
+            //XReparentWindow(GDK_WINDOW_XDISPLAY(window->window),
+            //      GDK_WINDOW_XWINDOW(window->window),
+            //      embed_window, 0, 0);
+            //gdk_window_set_focus_on_map(window->window,TRUE);
             gtk_widget_map(window);
+            //gtk_window_move(GTK_WINDOW(window),0,0);
 
             if (window_x < 250) {
                 gtk_widget_hide(fs_event_box);
