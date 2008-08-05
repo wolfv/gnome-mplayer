@@ -3857,10 +3857,10 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD with _Menus")));
     gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvdnav));
     menuitem_file_open_dvd_folder =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD from Folder")));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from _Folder")));
     gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvd_folder));
     menuitem_file_open_dvdnav_folder =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from Folder with _Menus")));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from Folder with M_enus")));
     gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvdnav_folder));
 
     menuitem_file_tv = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_TV")));
