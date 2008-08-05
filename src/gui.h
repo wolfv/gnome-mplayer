@@ -21,9 +21,10 @@
  * 	51 Franklin Street, Fifth Floor
  * 	Boston, MA  02110-1301, USA.
  */
-
+//#include <X11/Xlib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+//#include <gdk/gdkx.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib.h>
 #include <glib/gstdio.h>

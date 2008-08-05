@@ -51,7 +51,8 @@ am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
 gnome_mplayer_OBJECTS = $(am_gnome_mplayer_OBJECTS)
 am__DEPENDENCIES_1 =
 gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
 gnome_mplayer_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(gnome_mplayer_LDFLAGS) $(LDFLAGS) -o $@
@@ -74,6 +75,8 @@ CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 ALL_LINGUAS = @ALL_LINGUAS@
+ALSA_CFLAGS = @ALSA_CFLAGS@
+ALSA_LIBS = @ALSA_LIBS@
 AMTAR = @AMTAR@
 AR = @AR@
 AUTOCONF = @AUTOCONF@
@@ -217,7 +220,8 @@ INCLUDES = \
 	-I../pixmaps \
 	$(GTK_CFLAGS) \
 	$(DBUS_CFLAGS) \
-	$(GCONF_CFLAGS)
+	$(GCONF_CFLAGS) \
+	$(ALSA_CFLAGS)
 
 AM_CFLAGS = \
 	 -Wall\
@@ -253,7 +257,7 @@ gnome_mplayer_SOURCES = \
 	langlist.h 
 
 gnome_mplayer_LDFLAGS = 
-gnome_mplayer_LDADD = $(GTK_LIBS) $(DBUS_LIBS) $(GCONF_LIBS)
+gnome_mplayer_LDADD = $(GTK_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS)
 EXTRA_DIST = 
 all: all-am
 

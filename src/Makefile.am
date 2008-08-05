@@ -9,7 +9,8 @@ INCLUDES = \
 	-I../pixmaps \
 	$(GTK_CFLAGS) \
 	$(DBUS_CFLAGS) \
-	$(GCONF_CFLAGS)
+	$(GCONF_CFLAGS) \
+	$(ALSA_CFLAGS)
 
 AM_CFLAGS =\
 	 -Wall\
@@ -48,7 +49,7 @@ gnome_mplayer_SOURCES = \
 
 gnome_mplayer_LDFLAGS = 
 
-gnome_mplayer_LDADD = $(GTK_LIBS) $(DBUS_LIBS) $(GCONF_LIBS)
+gnome_mplayer_LDADD = $(GTK_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS)
 
 EXTRA_DIST = 
 	

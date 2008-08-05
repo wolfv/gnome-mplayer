@@ -326,12 +326,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             state = PLAYING;
         }
         g_idle_add(set_progress_time, idledata);
-		if ((int)idledata->length != 0) {
-	        idledata->percent = idledata->position / idledata->length;
-	        g_idle_add(set_progress_value, idledata);
-		} else {
-			send_command("get_percent_pos\n");
-		}
+        if ((int) idledata->length != 0) {
+            idledata->percent = idledata->position / idledata->length;
+            g_idle_add(set_progress_value, idledata);
+        } else {
+            send_command("get_percent_pos\n");
+        }
     }
 
     if (strstr(mplayer_output->str, "ANS_stream_pos") != 0) {
@@ -687,7 +687,7 @@ gpointer launch_player(gpointer data)
     idledata->width = 1;
     idledata->height = 1;
     idledata->videopresent = 1;
-    idledata->volume = -1;
+    idledata->volume = volume;
     idledata->length = 0.0;
 
     g_idle_add(set_progress_value, idledata);
