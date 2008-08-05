@@ -1,4 +1,5 @@
 Development
+    Make dependency on alsa optional, just uses default of 100% when not present
     Add new requirement of alsa-lib-devel, and then use PCM or Master volume setting for default volume
     Don't set volume on media start, but set it if adjusted before open or during caching
     Fix window x and y size issues, from window location patch

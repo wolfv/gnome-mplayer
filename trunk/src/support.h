@@ -30,7 +30,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#ifdef HAVE_ASOUNDLIB
 #include <asoundlib.h>
+#endif
 
 gint get_bitrate(gchar * name);
 void strip_unicode(gchar * data, gsize len);

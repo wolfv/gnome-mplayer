@@ -13,6 +13,9 @@
 /* Define to 1 if you have GTK 2.12 or higher */
 #define GTK2_12_ENABLED 1
 
+/* Define to 1 if you have asoundlib development packages */
+#define HAVE_ASOUNDLIB 1
+
 /* Define to 1 if you have the `bind_textdomain_codeset' function. */
 #define HAVE_BIND_TEXTDOMAIN_CODESET 1
 
