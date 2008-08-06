@@ -356,6 +356,9 @@ int main(int argc, char *argv[])
     if (reallyverbose)
         verbose = 2;
 
+	if (verbose)
+        printf(_("GNOME MPlayer v%s\n"), VERSION);
+
     if (cache_size == 0)
         cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
     if (cache_size == 0)
@@ -382,9 +385,6 @@ int main(int argc, char *argv[])
 
     if (!g_thread_supported())
         g_thread_init(NULL);
-
-    if (verbose)
-        printf(_("GNOME MPlayer v%s\n"), VERSION);
 
     if (rpconsole == NULL)
         rpconsole = g_strdup("NONE");
