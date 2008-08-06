@@ -3065,6 +3065,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                              GTK_SIGNAL_FUNC(config_apply), config_window);
 
     config_vo = gtk_combo_box_entry_new_text();
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_vo, _("mplayer video output device\nx11 should always work, try xv or gl for better performance"), NULL);
     if (config_vo != NULL) {
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "gl");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "x11");
@@ -3085,6 +3087,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     }
 
     config_ao = gtk_combo_box_entry_new_text();
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_ao, _("mplayer audio output device\nalsa or oss should always work, try esd in gnome, arts in kde, or pulse on newer distributions"), NULL);
     if (config_ao != NULL) {
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "alsa");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "arts");
@@ -3178,7 +3182,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
-    gtk_widget_set_size_request(GTK_WIDGET(config_vo), 100, -1);
+    gtk_widget_set_size_request(GTK_WIDGET(config_vo), 200, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_vo, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
                      0);
     i++;
@@ -3189,7 +3193,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_widget_set_size_request(GTK_WIDGET(config_ao), 100, -1);
+    gtk_widget_set_size_request(GTK_WIDGET(config_ao), 200, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_ao, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
                      0);
     i++;
@@ -3219,6 +3223,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     config_cachesize = gtk_spin_button_new_with_range(0, 32767, 512);
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_cachesize, _("Amount of data to cache when playing media from network, use higher values for slow networks."), NULL);
     gtk_widget_set_size_request(config_cachesize, 100, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_cachesize, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
@@ -3345,7 +3351,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     i++;
 
-    config_ass = gtk_check_button_new_with_mnemonic(_("Enable _ASS"));
+    config_ass = gtk_check_button_new_with_mnemonic(_("Enable _Advanced Substation Alpha (ASS) Subtitle Support"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_ass), !disable_ass);
     g_signal_connect(GTK_OBJECT(config_ass), "toggled", GTK_SIGNAL_FUNC(ass_toggle_callback), NULL);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_ass, 0, 2, i, i + 1);
@@ -3468,16 +3474,22 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
 
     config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_softvol, _("Set this option if changing the volume in Gnome MPlayer changes the master volume"), NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 2, i, i + 1);
     i++;
 
     config_deinterlace = gtk_check_button_new_with_mnemonic(_("De_interlace Video"));
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_deinterlace, _("Set this option is video looks striped"), NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_deinterlace), !disable_deinterlace);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_deinterlace, 0, 2, i, i + 1);
     i++;
 
     config_framedrop = gtk_check_button_new_with_mnemonic(_("_Drop frames"));
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_framedrop, _("Set this option if video is well behind the audio"), NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_framedrop), !disable_framedrop);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 2, i, i + 1);
     i++;
@@ -3489,12 +3501,16 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
 
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_verbose, _("When this option is set, extra debug information is sent to the terminal or into ~/.xsession-errors"), NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose), verbose);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 2, i, i + 1);
     i++;
 
     conf_label = gtk_label_new(_("MPlayer Executable:"));
     config_mplayer_bin = gtk_entry_new();
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_mplayer_bin, _("Use this option to specify a mplayer application that is not in the path"), NULL);
     gtk_entry_set_text(GTK_ENTRY(config_mplayer_bin), ((mplayer_bin) ? mplayer_bin : ""));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -3506,6 +3522,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     conf_label = gtk_label_new(_("Extra Options to MPlayer:"));
     config_extraopts = gtk_entry_new();
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_extraopts, _("Add any extra mplayer options here (filters etc)"), NULL);
     gtk_entry_set_text(GTK_ENTRY(config_extraopts), ((extraopts) ? extraopts : ""));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
