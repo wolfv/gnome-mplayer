@@ -477,7 +477,8 @@ gboolean resize_window(void *data)
                 gtk_widget_show_all(GTK_WIDGET(fixed));
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
-                // printf("%i x %i \n",idle->x,idle->y);
+				if (verbose)
+                	printf("Changing window size to %i x %i \n",idle->width,idle->height);
                 if (last_window_width == 0 && last_window_height == 0) {
                     if (idle->width > 0 && idle->height > 0) {
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
