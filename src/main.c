@@ -350,6 +350,12 @@ int main(int argc, char *argv[])
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
 
+	if (verbose == 0)
+        verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
+
+    if (reallyverbose)
+        verbose = 2;
+
     if (cache_size == 0)
         cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
     if (cache_size == 0)
@@ -364,8 +370,6 @@ int main(int argc, char *argv[])
         idledata->volume = (gdouble) volume;
     }
 
-
-
     if (playlist_visible && control_id != 0)
         playlist_visible = FALSE;
 
@@ -375,12 +379,6 @@ int main(int argc, char *argv[])
                ("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
         return 1;
     }
-
-    if (verbose == 0)
-        verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
-
-    if (reallyverbose)
-        verbose = 2;
 
     if (!g_thread_supported())
         g_thread_init(NULL);
