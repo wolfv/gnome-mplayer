@@ -477,8 +477,8 @@ gboolean resize_window(void *data)
                 gtk_widget_show_all(GTK_WIDGET(fixed));
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
-				if (verbose)
-                	printf("Changing window size to %i x %i \n",idle->width,idle->height);
+                if (verbose)
+                    printf("Changing window size to %i x %i \n", idle->width, idle->height);
                 if (last_window_width == 0 && last_window_height == 0) {
                     if (idle->width > 0 && idle->height > 0) {
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
@@ -528,8 +528,8 @@ gboolean resize_window(void *data)
                 }
             }
         } else {
-			if (fullscreen)
-				fs_callback(NULL,NULL,NULL);
+            if (fullscreen)
+                fs_callback(NULL, NULL, NULL);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
             if (window_x > 0 && window_y > 0) {
@@ -1723,10 +1723,10 @@ void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
-	if (idledata->device != NULL) {
-		g_free(idledata->device);
-		idledata->device = NULL;
-	}
+    if (idledata->device != NULL) {
+        g_free(idledata->device);
+        idledata->device = NULL;
+    }
     parse_dvd("dvd://");
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
@@ -1741,14 +1741,14 @@ void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
 }
 
 void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
-{   
-	GtkWidget *dialog;
+{
+    GtkWidget *dialog;
     gchar *filename = NULL;
     gint count;
     gint playlist = 0;
-	GConfClient *gconf;
-	gchar *last_dir;
-	
+    GConfClient *gconf;
+    gchar *last_dir;
+
     dialog = gtk_file_chooser_dialog_new(_("Choose Disk Directory"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
@@ -1760,28 +1760,28 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
-	
-	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-	    gtk_list_store_clear(playliststore);
-	    gtk_list_store_clear(nonrandomplayliststore);
-		add_item_to_playlist("dvdnav://", 0);
-	    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-		idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
-				
-	    parse_dvd("dvd://");
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-	    if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-	        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-	                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-	        set_media_info_name(filename);
-	        printf("playing - %s is playlist = %i\n", filename, playlist);
-	        play_file(filename, playlist);
-	        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-	        g_free(filename);
-	    }	
-	}
-	g_object_unref(G_OBJECT(gconf));
+        gtk_list_store_clear(playliststore);
+        gtk_list_store_clear(nonrandomplayliststore);
+        add_item_to_playlist("dvdnav://", 0);
+        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+        idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+
+        parse_dvd("dvd://");
+
+        if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                               COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+            set_media_info_name(filename);
+            printf("playing - %s is playlist = %i\n", filename, playlist);
+            play_file(filename, playlist);
+            gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+            g_free(filename);
+        }
+    }
+    g_object_unref(G_OBJECT(gconf));
     gtk_widget_destroy(dialog);
 
 }
@@ -1790,10 +1790,10 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
-	if (idledata->device != NULL) {
-		g_free(idledata->device);
-		idledata->device = NULL;
-	}
+    if (idledata->device != NULL) {
+        g_free(idledata->device);
+        idledata->device = NULL;
+    }
     add_item_to_playlist("dvdnav://", 0);
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     play_file("dvdnav://", 0);
@@ -1802,13 +1802,13 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
 {
-	GtkWidget *dialog;
+    GtkWidget *dialog;
     gchar *filename = NULL;
     gint count;
     gint playlist = 0;
-	GConfClient *gconf;
-	gchar *last_dir;
-	
+    GConfClient *gconf;
+    gchar *last_dir;
+
     dialog = gtk_file_chooser_dialog_new(_("Choose Disk Directory"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
@@ -1820,27 +1820,27 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
-	
-	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-	    gtk_list_store_clear(playliststore);
-	    gtk_list_store_clear(nonrandomplayliststore);
-		idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
-				
-	    play_file("dvdnav://", 0);
-	    gtk_widget_show(menu_event_box);	
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-	    if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-	        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-	                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-	        set_media_info_name(filename);
-	        printf("playing - %s is playlist = %i\n", filename, playlist);
-	        play_file(filename, playlist);
-	        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-	        g_free(filename);
-	    }	
-	}
-	g_object_unref(G_OBJECT(gconf));
+        gtk_list_store_clear(playliststore);
+        gtk_list_store_clear(nonrandomplayliststore);
+        idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+
+        play_file("dvdnav://", 0);
+        gtk_widget_show(menu_event_box);
+
+        if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                               COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+            set_media_info_name(filename);
+            printf("playing - %s is playlist = %i\n", filename, playlist);
+            play_file(filename, playlist);
+            gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+            g_free(filename);
+        }
+    }
+    g_object_unref(G_OBJECT(gconf));
     gtk_widget_destroy(dialog);
 
 }
@@ -2883,6 +2883,17 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 
 }
 
+void menuitem_view_angle_callback(GtkMenuItem * menuitem, gpointer data)
+{
+    gchar *cmd;
+
+    cmd = g_strdup_printf("pausing_keep switch_angle\n");
+    send_command(cmd);
+    g_free(cmd);
+
+    return;
+}
+
 void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
 {
     static gint i = 0;
@@ -3067,8 +3078,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                              GTK_SIGNAL_FUNC(config_apply), config_window);
 
     config_vo = gtk_combo_box_entry_new_text();
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_vo, _("mplayer video output device\nx11 should always work, try xv or gl for better performance"), NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_vo,
+                         _
+                         ("mplayer video output device\nx11 should always work, try xv or gl for better performance"),
+                         NULL);
     if (config_vo != NULL) {
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "gl");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "x11");
@@ -3089,8 +3103,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     }
 
     config_ao = gtk_combo_box_entry_new_text();
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_ao, _("mplayer audio output device\nalsa or oss should always work, try esd in gnome, arts in kde, or pulse on newer distributions"), NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_ao,
+                         _
+                         ("mplayer audio output device\nalsa or oss should always work, try esd in gnome, arts in kde, or pulse on newer distributions"),
+                         NULL);
     if (config_ao != NULL) {
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "alsa");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "arts");
@@ -3225,8 +3242,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     config_cachesize = gtk_spin_button_new_with_range(0, 32767, 512);
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_cachesize, _("Amount of data to cache when playing media from network, use higher values for slow networks."), NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_cachesize,
+                         _
+                         ("Amount of data to cache when playing media from network, use higher values for slow networks."),
+                         NULL);
     gtk_widget_set_size_request(config_cachesize, 100, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_cachesize, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
@@ -3353,7 +3373,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     i++;
 
-    config_ass = gtk_check_button_new_with_mnemonic(_("Enable _Advanced Substation Alpha (ASS) Subtitle Support"));
+    config_ass =
+        gtk_check_button_new_with_mnemonic(_
+                                           ("Enable _Advanced Substation Alpha (ASS) Subtitle Support"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_ass), !disable_ass);
     g_signal_connect(GTK_OBJECT(config_ass), "toggled", GTK_SIGNAL_FUNC(ass_toggle_callback), NULL);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_ass, 0, 2, i, i + 1);
@@ -3476,22 +3498,27 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
 
     config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_softvol, _("Set this option if changing the volume in Gnome MPlayer changes the master volume"), NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_softvol,
+                         _
+                         ("Set this option if changing the volume in Gnome MPlayer changes the master volume"),
+                         NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 2, i, i + 1);
     i++;
 
     config_deinterlace = gtk_check_button_new_with_mnemonic(_("De_interlace Video"));
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_deinterlace, _("Set this option if video looks striped"), NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_deinterlace, _("Set this option if video looks striped"),
+                         NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_deinterlace), !disable_deinterlace);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_deinterlace, 0, 2, i, i + 1);
     i++;
 
     config_framedrop = gtk_check_button_new_with_mnemonic(_("_Drop frames"));
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_framedrop, _("Set this option if video is well behind the audio"), NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_framedrop,
+                         _("Set this option if video is well behind the audio"), NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_framedrop), !disable_framedrop);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 2, i, i + 1);
     i++;
@@ -3503,16 +3530,22 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
 
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_verbose, _("When this option is set, extra debug information is sent to the terminal or into ~/.xsession-errors"), NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_verbose,
+                         _
+                         ("When this option is set, extra debug information is sent to the terminal or into ~/.xsession-errors"),
+                         NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose), verbose);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 2, i, i + 1);
     i++;
 
     conf_label = gtk_label_new(_("MPlayer Executable:"));
     config_mplayer_bin = gtk_entry_new();
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_mplayer_bin, _("Use this option to specify a mplayer application that is not in the path"), NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_mplayer_bin,
+                         _
+                         ("Use this option to specify a mplayer application that is not in the path"),
+                         NULL);
     gtk_entry_set_text(GTK_ENTRY(config_mplayer_bin), ((mplayer_bin) ? mplayer_bin : ""));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -3524,8 +3557,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     conf_label = gtk_label_new(_("Extra Options to MPlayer:"));
     config_extraopts = gtk_entry_new();
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_extraopts, _("Add any extra mplayer options here (filters etc)"), NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_extraopts,
+                         _("Add any extra mplayer options here (filters etc)"), NULL);
     gtk_entry_set_text(GTK_ENTRY(config_extraopts), ((extraopts) ? extraopts : ""));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -3871,8 +3905,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_dvd));
     gtk_menu_item_set_submenu(menuitem_file_dvd, GTK_WIDGET(menu_file_dvd));
 
-    menuitem_file_open_dvd =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
+    menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
     gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvd));
     menuitem_file_open_dvdnav =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD with _Menus")));
@@ -4033,9 +4066,11 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     menuitem_view_subtitles =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Show _Subtitles")));
+    menuitem_view_angle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Switch An_gle")));
     menuitem_view_controls = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_subtitles));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_angle));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_controls));
     menuitem_view_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep3));
@@ -4073,6 +4108,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_view_aspect_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_subtitles), "activate",
                      G_CALLBACK(menuitem_view_subtitles_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_angle), "activate",
+                     G_CALLBACK(menuitem_view_angle_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_controls), "activate",
                      G_CALLBACK(menuitem_view_controls_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_advanced), "activate",
@@ -4108,6 +4145,8 @@ GtkWidget *create_window(gint windowid)
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls), "activate",
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_angle), "activate",
+                               accel_group, 'a', 0, GTK_ACCEL_VISIBLE);
 //    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
 //                               accel_group, 'j', 0, GTK_ACCEL_VISIBLE);
 //    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_sound_switch), "activate",

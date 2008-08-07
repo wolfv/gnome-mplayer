@@ -508,10 +508,10 @@ gint parse_dvd(gchar * filename)
         av[ac++] = g_strdup_printf("-frames");
         av[ac++] = g_strdup_printf("0");
         av[ac++] = g_strdup_printf("-identify");
-		if (idledata->device != NULL) {
-        	av[ac++] = g_strdup_printf("-dvd-device");
-        	av[ac++] = g_strdup_printf("%s", idledata->device);
-		}
+        if (idledata->device != NULL) {
+            av[ac++] = g_strdup_printf("-dvd-device");
+            av[ac++] = g_strdup_printf("%s", idledata->device);
+        }
         av[ac++] = g_strdup_printf("dvd://");
         av[ac] = NULL;
 
@@ -652,11 +652,11 @@ gboolean update_mplayer_config()
     } else {
         g_key_file_remove_key(config, "gnome-mplayer", "slang", NULL);
     }
-	
+
     g_key_file_remove_key(config, "gnome-mplayer", "really-quiet", NULL);
-	g_key_file_set_string(config, "gnome-mplayer", "msglevel", "5");
-    
-	data = g_key_file_to_data(config, NULL, NULL);
+    g_key_file_set_string(config, "gnome-mplayer", "msglevel", "5");
+
+    data = g_key_file_to_data(config, NULL, NULL);
     //printf("%i\n%s", strlen(data), data);
 
     g_file_set_contents(filename, data, -1, NULL);
@@ -1351,10 +1351,10 @@ void randomize_playlist(GtkListStore * store)
 gdouble get_alsa_volume()
 {
     gdouble vol = 100.0;
- 
+
 #ifdef HAVE_ASOUNDLIB
-	
-	gint err;
+
+    gint err;
     snd_mixer_t *mhandle;
     snd_mixer_elem_t *elem;
     snd_mixer_selem_id_t *sid;
@@ -1430,9 +1430,9 @@ gdouble get_alsa_volume()
     }
 
     snd_mixer_close(mhandle);
-	
-#endif	
-	
+
+#endif
+
     if (verbose)
         printf("Using volume of %3.2lf\n", vol);
     return vol;
