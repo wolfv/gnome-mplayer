@@ -652,8 +652,10 @@ gboolean update_mplayer_config()
     } else {
         g_key_file_remove_key(config, "gnome-mplayer", "slang", NULL);
     }
-
-    data = g_key_file_to_data(config, NULL, NULL);
+	
+	g_key_file_set_string(config, "gnome-mplayer", "really-quiet", "0");
+    
+	data = g_key_file_to_data(config, NULL, NULL);
     //printf("%i\n%s", strlen(data), data);
 
     g_file_set_contents(filename, data, -1, NULL);
