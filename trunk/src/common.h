@@ -99,7 +99,7 @@ typedef struct _IdleData {
     gchar info[1024];
     gchar media_info[2048];
     gchar url[1024];
-	gchar *device;
+    gchar *device;
     gdouble percent;
     gdouble cachepercent;
     gint streaming;

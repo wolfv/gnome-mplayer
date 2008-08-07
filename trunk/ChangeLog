@@ -1,4 +1,5 @@
 Development
+    Added menu option and hot key 'A' to switch angles Issue 35
     Fix Issue 43, audio file after fullscreen video and drag and drop of a folder to the playlist
     Add tooltips to Preferences screen
     Make sure that DVD w/o folder options open media from /dev/dvd

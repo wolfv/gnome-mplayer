@@ -248,7 +248,7 @@ int main(int argc, char *argv[])
     idledata->gamma = 0;
     idledata->hue = 0;
     idledata->saturation = 0;
-	idledata->device = NULL;
+    idledata->device = NULL;
     g_strlcpy(idledata->video_format, "", 64);
     g_strlcpy(idledata->video_codec, "", 64);
     g_strlcpy(idledata->video_fps, "", 64);
@@ -350,13 +350,13 @@ int main(int argc, char *argv[])
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
 
-	if (verbose == 0)
+    if (verbose == 0)
         verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
 
     if (reallyverbose)
         verbose = 2;
 
-	if (verbose)
+    if (verbose)
         printf(_("GNOME MPlayer v%s\n"), VERSION);
 
     if (cache_size == 0)
