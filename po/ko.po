@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 13:05-0600\n"
-"PO-Revision-Date: 2008-03-25 13:14+0900\n"
+"POT-Creation-Date: 2008-08-07 07:04-0600\n"
+"PO-Revision-Date: 2008-08-07 11:31+0900\n"
 "Last-Translator: ByeongSik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -30,21 +30,19 @@ msgstr "그놈 엠플레이어를 내장할 창의 높이"
 
 #: src/main.c:57
 msgid "Unique DBUS controller id"
-msgstr "단일의 DBUS 제어기 ID"
+msgstr "DBUS 제어기 ID"
 
 #: src/main.c:58
 msgid "File Argument is a playlist"
 msgstr "인자로 재생 목록 파일명을 써준다"
 
 #: src/main.c:59
-#, fuzzy
 msgid "Show more output on the console"
-msgstr "콘솔에 자세한 출력을 보여주기"
+msgstr "콘솔에 출력 보여주기"
 
 #: src/main.c:61
-#, fuzzy
 msgid "Show even more output on the console"
-msgstr "콘솔에 자세한 출력을 보여주기"
+msgstr "콘솔에 좀 더 자세한 출력 보여주기"
 
 #: src/main.c:62
 msgid "Use mplayer software volume control"
@@ -56,7 +54,7 @@ msgstr "초기 볼륨 크기 설정"
 
 #: src/main.c:64
 msgid "Show the controls in window"
-msgstr "창 안에 컨트롤을 보여주기"
+msgstr "창 안에 컨트롤 보여주기"
 
 #: src/main.c:67
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -76,7 +74,7 @@ msgstr "재생 목록을 반복 재생하기"
 
 #: src/main.c:74
 msgid "Quit application when last file on playlist is played"
-msgstr "재생 목록에서 마지막 파일의 재생이 끝났을 때 프로그램 끝내기 "
+msgstr "재생 목록에서 마지막 파일의 재생이 끝났을 때 프로그램 끝내기"
 
 #: src/main.c:75
 msgid "Play items on playlist in random order"
@@ -92,7 +90,7 @@ msgstr "스트리밍 사이트에 대해서 강제로 캐쉬 사용하기"
 
 #: src/main.c:82
 msgid "Disable the deinterlace filter"
-msgstr ""
+msgstr "디인터레이스 필터 끄기"
 
 #: src/main.c:85
 msgid "Don't skip drawing frames to better keep sync"
@@ -285,9 +283,8 @@ msgid "Location:"
 msgstr "주소:"
 
 #: src/gui.c:1750 src/gui.c:1810
-#, fuzzy
 msgid "Choose Disk Directory"
-msgstr "디렉토리 선택"
+msgstr "디스크 디렉토리 선택"
 
 #: src/gui.c:1946
 msgid "Save As..."
@@ -466,6 +463,9 @@ msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
 msgstr ""
+"엠플레이어의 비디오 출력 장치\n"
+"x11은 항상 동작합니다. xv나 gl로 설정했을 때 더 나은 성능을 얻을 수도 있습니"
+"다."
 
 #: src/gui.c:3091
 msgid ""
@@ -473,6 +473,9 @@ msgid ""
 "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
 "newer distributions"
 msgstr ""
+"엠플레이어 오디오 출력 장치\n"
+"alsa나 oss는 항상 동작합니다. 그놈에서는 esd를, KDE에서는 arts를, 또는 최근 "
+"배포판에서는 pulse를 선택해도 됩니다."
 
 #: src/gui.c:3173
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -499,6 +502,8 @@ msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
 msgstr ""
+"네트워트를 통해서 재생 시 캐쉬 데이터 크기입니다. 느린 네트워크에서는좀 더 "
+"큰 값을 사용하십시오."
 
 #: src/gui.c:3239
 msgid "On Screen Display Level:"
@@ -529,9 +534,8 @@ msgid "DiVX Player Emulation"
 msgstr "DiVX 플레이어 흉내내기"
 
 #: src/gui.c:3295
-#, fuzzy
 msgid "Disable Player Embedding"
-msgstr "DiVX 플레이어 흉내내기"
+msgstr "브라우저 창 안에 내장하지 않기"
 
 #: src/gui.c:3303
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -546,9 +550,8 @@ msgid "Default Subtitle Language:"
 msgstr "기본 자막 언어:"
 
 #: src/gui.c:3331
-#, fuzzy
 msgid "File Metadata Encoding:"
-msgstr "자막 파일 인코딩:"
+msgstr "파일 메타데이터 인코딩:"
 
 #: src/gui.c:3347
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
@@ -556,7 +559,7 @@ msgstr "<span weight=\"bold\">자막 설정</span>"
 
 #: src/gui.c:3354
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
-msgstr ""
+msgstr "자막을 보기 위해서 _Advanced Substation Alpha (ASS) 사용하기"
 
 #: src/gui.c:3361
 msgid "Use _Embedded Fonts"
@@ -600,11 +603,11 @@ msgstr "시작할 때 미디어 창 아래에 재생 목록 배치"
 
 #: src/gui.c:3466
 msgid "Remember Window Location"
-msgstr ""
+msgstr "창 위치 기억하기"
 
 #: src/gui.c:3471
 msgid "Pause playback on mouse click"
-msgstr ""
+msgstr "마우스로 클릭했을 때 재생 일시중지"
 
 #: src/gui.c:3476
 msgid "Mplayer Software Volume Control Enabled"
@@ -615,14 +618,16 @@ msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
+"그놈 엠플레이어 볼륨 조절로 마스터 볼륨을 조절하려면 이 옵션을설정하십시오."
 
 #: src/gui.c:3483
 msgid "De_interlace Video"
-msgstr ""
+msgstr "비디오 디인터레이스(_I)"
 
 #: src/gui.c:3485
-msgid "Set this option is video looks striped"
-msgstr ""
+#, fuzzy
+msgid "Set this option if video looks striped"
+msgstr "비디오에 스트립이 생긴다(looks striped)면 이 옵션을 선택하십시오"
 
 #: src/gui.c:3490
 msgid "_Drop frames"
@@ -630,11 +635,11 @@ msgstr "프레임 드롭(_E)"
 
 #: src/gui.c:3492
 msgid "Set this option if video is well behind the audio"
-msgstr ""
+msgstr "비디오가 오디오에 비해 늦어진다면 이 옵션을 선택하십시오"
 
 #: src/gui.c:3498
 msgid "Force the use of cache setting on streaming media"
-msgstr "스트리밍 미디어에 대해서 캐쉬 설정 사용 강제하기"
+msgstr "스트리밍 미디어에 대해서 강제로 캐쉬 설정 사용하기"
 
 #: src/gui.c:3503
 msgid "Verbose Debug Enabled"
@@ -645,23 +650,26 @@ msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
 msgstr ""
+"이 옵션을 설정하게 되면, 외부 디버그 정보가 터미널이나  ~/.xsession-errors파"
+"일에 보내집니다."
 
 #: src/gui.c:3510
 msgid "MPlayer Executable:"
-msgstr ""
+msgstr "엠플레이어 실행 파일:"
 
 #: src/gui.c:3513
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
+"엠플레이어 실행 파일이 PATH 안에 없을 경우 여기에 정확한 경로를 명시하십시오"
 
 #: src/gui.c:3523
 msgid "Extra Options to MPlayer:"
-msgstr "이외에 엠플레이어에 옵션 지정:"
+msgstr "추가 엠플레이어 옵션:"
 
 #: src/gui.c:3526
 msgid "Add any extra mplayer options here (filters etc)"
-msgstr ""
+msgstr "기타 다른 엠플레이어 옵션(필터 옵션 등)을 여기에 추가할 수 있습니다"
 
 #: src/gui.c:3779
 msgid "S_how Controls"
@@ -693,23 +701,20 @@ msgid "_DVD"
 msgstr "_DVD"
 
 #: src/gui.c:3873
-#, fuzzy
 msgid "Open _DVD"
-msgstr "직접 DVD 열기(_D)"
+msgstr "DVD 열기(_D)"
 
 #: src/gui.c:3876
 msgid "Open DVD with _Menus"
 msgstr "메뉴와 함께 DVD 열기(_M)"
 
 #: src/gui.c:3879
-#, fuzzy
 msgid "Open DVD from _Folder"
-msgstr "직접 DVD 열기(_D)"
+msgstr "폴더에서 DVD 열기(_F)"
 
 #: src/gui.c:3882
-#, fuzzy
 msgid "Open DVD from Folder with M_enus"
-msgstr "메뉴와 함께 DVD 열기(_M)"
+msgstr "메뉴와 함께 폴더에서 DVD 열기(_E)"
 
 #: src/gui.c:3885
 msgid "_TV"
@@ -1022,9 +1027,3 @@ msgstr "아래로 내리기"
 #: src/playlist.c:918
 msgid "_Set Subtitle"
 msgstr "자막 지정(_S)"
-
-#~ msgid "Enable _ASS"
-#~ msgstr "ASS 자막 렌더링 시스템(_A)"
-
-#~ msgid "File Details"
-#~ msgstr "재생 정보"

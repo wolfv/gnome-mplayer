@@ -3482,7 +3482,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     config_deinterlace = gtk_check_button_new_with_mnemonic(_("De_interlace Video"));
 	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_deinterlace, _("Set this option is video looks striped"), NULL);
+    gtk_tooltips_set_tip(tooltip, config_deinterlace, _("Set this option if video looks striped"), NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_deinterlace), !disable_deinterlace);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_deinterlace, 0, 2, i, i + 1);
     i++;

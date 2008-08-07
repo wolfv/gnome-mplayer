@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 13:05-0600\n"
+"POT-Creation-Date: 2008-08-07 07:04-0600\n"
 "PO-Revision-Date: 2008-06-24 08:00+0200\n"
 "Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -656,7 +656,7 @@ msgid "De_interlace Video"
 msgstr "_Désentrelacer la vidéo."
 
 #: src/gui.c:3485
-msgid "Set this option is video looks striped"
+msgid "Set this option if video looks striped"
 msgstr ""
 
 #: src/gui.c:3490
