@@ -163,16 +163,19 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
             g_strchomp(list[i]);
             if (strlen(list[i]) > 0) {
                 printf("filename = '%s'\n", list[i]);
-                playlist = detect_playlist(list[i]);
+				if (g_file_test(list[i],G_FILE_TEST_IS_DIR)) {
+					add_folder_to_playlist_callback(list[i],NULL);	
+				} else {
+	                playlist = detect_playlist(list[i]);
 
-                if (!playlist) {
-                    add_item_to_playlist(list[i], playlist);
-                } else {
-                    if (!parse_playlist(list[i])) {
-                        localiter = add_item_to_playlist(list[i], playlist);
-                    }
-                }
-
+	                if (!playlist) {
+	                    add_item_to_playlist(list[i], playlist);
+	                } else {
+	                    if (!parse_playlist(list[i])) {
+	                        localiter = add_item_to_playlist(list[i], playlist);
+	                    }
+	                }
+				}
             }
             i++;
         }

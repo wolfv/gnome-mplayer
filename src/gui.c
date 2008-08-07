@@ -528,6 +528,8 @@ gboolean resize_window(void *data)
                 }
             }
         } else {
+			if (fullscreen)
+				fs_callback(NULL,NULL,NULL);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
             if (window_x > 0 && window_y > 0) {
