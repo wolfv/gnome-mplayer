@@ -106,6 +106,8 @@ static GOptionEntry entries[] = {
     {"tvwidth", 0, 0, G_OPTION_ARG_INT, &tv_width, N_("Width of TV input"), "WIDTH"},
     {"tvheight", 0, 0, G_OPTION_ARG_INT, &tv_height, N_("Height of TV input"), "HEIGHT"},
     {"tvfps", 0, 0, G_OPTION_ARG_INT, &tv_fps, N_("Frames per second from TV input"), "FPS"},
+    {"single_instance", 0, 0, G_OPTION_ARG_NONE, &single_instance, N_("Only allow one instance"),
+     "FPS"},
     {NULL}
 };
 
@@ -298,6 +300,7 @@ int main(int argc, char *argv[])
     embedding_disabled = FALSE;
     disable_pause_on_click = FALSE;
     mplayer_bin = NULL;
+    single_instance = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();

@@ -228,6 +228,7 @@ gchar *subtitle_color;
 gboolean quit_on_complete;
 gchar *mplayer_bin;
 gchar *extraopts;
+gboolean single_instance;
 
 gboolean remember_loc;
 gint loc_window_x;

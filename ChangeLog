@@ -1,4 +1,5 @@
 Development
+    Add --single_instance command line option to only allow one instance to run
     Added menu option and hot key 'A' to switch angles Issue 35
     Fix Issue 43, audio file after fullscreen video and drag and drop of a folder to the playlist
     Add tooltips to Preferences screen

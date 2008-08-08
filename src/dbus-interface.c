@@ -1009,6 +1009,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
     gchar *path;
     DBusMessage *reply_message;
     gint id;
+    gint ret;
 
     dbus_error_init(&error);
     connection = dbus_bus_get_private(type, &error);
@@ -1054,8 +1055,10 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 
     if (control_id != 0) {
         path = g_strdup_printf("com.gnome.mplayer.cid%i", control_id);
-        dbus_bus_request_name(connection, path, 0, NULL);
+        ret = dbus_bus_request_name(connection, path, 0, NULL);
         g_free(path);
+        if (single_instance && ret > 1)
+            exit(1);
         path = g_strdup_printf("/control/%i", control_id);
         id = control_id;
         reply_message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Ready");
@@ -1064,7 +1067,9 @@ gboolean dbus_hookup(gint windowid, gint controlid)
         dbus_message_unref(reply_message);
         g_free(path);
     } else {
-        dbus_bus_request_name(connection, "com.gnome.mplayer", 0, NULL);
+        ret = dbus_bus_request_name(connection, "com.gnome.mplayer", 0, NULL);
+        if (single_instance && ret > 1)
+            exit(1);
     }
 
 
