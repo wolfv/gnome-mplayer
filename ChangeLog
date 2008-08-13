@@ -1,4 +1,5 @@
 Development
+    Hook scroll wheel to FF and REW controls
     Updated tr and ko translations
     Add --single_instance command line option to only allow one instance to run
     Added menu option and hot key 'A' to switch angles Issue 35
