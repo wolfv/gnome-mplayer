@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-13 09:53-0600\n"
-"PO-Revision-Date: 2008-08-06 11:30+0200\n"
+"PO-Revision-Date: 2008-08-13 21:05+0200\n"
 "Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -160,7 +160,7 @@ msgstr "Nombre d'images par seconde de l'entrée TV"
 
 #: src/main.c:109
 msgid "Only allow one instance"
-msgstr ""
+msgstr "Ne permettre qu'une seule instance"
 
 #: src/main.c:347
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -504,6 +504,8 @@ msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
 msgstr ""
+"Périphérique de sortie vidéo de mplayer\n"
+"x11 devrait toujours fonctionner, essayez xv ou gl pour plus de performance."
 
 #: src/gui.c:3134
 msgid ""
@@ -511,6 +513,9 @@ msgid ""
 "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
 "newer distributions"
 msgstr ""
+"Périphérique de sortie audio de mplayer\n"
+"alsa ou oss devrait toujours fonctionner, essayez esd avec GNOME, arts avec "
+"KDE, ou pulse sur les distributions récentes."
 
 #: src/gui.c:3217
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -538,6 +543,9 @@ msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
 msgstr ""
+"La quantité de données à mettre dans la mémoire tampon lorsque l'on joue un "
+"fichier sur le réseau, utilisez des valeurs plus élevées pour les réseaux "
+"lents."
 
 #: src/gui.c:3286
 msgid "On Screen Display Level:"
@@ -570,7 +578,7 @@ msgstr "Émulation DiVX Player"
 
 #: src/gui.c:3342
 msgid "Disable Player Embedding"
-msgstr "Désactiver l'embarquement du lecteur"
+msgstr "Désactiver l'embarquement du lecteur."
 
 #: src/gui.c:3350
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -594,7 +602,7 @@ msgstr "<span weight=\"bold\">Paramètres des sous-titres</span>"
 
 #: src/gui.c:3403
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
-msgstr ""
+msgstr "Activer le support des sous-titres _ASS (Advanced Substation Alpha)."
 
 #: src/gui.c:3410
 msgid "Use _Embedded Fonts"
@@ -653,6 +661,8 @@ msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
+"Activez cette option si changer le volume dans GNOME MPlayer change "
+"également le volume maître."
 
 #: src/gui.c:3535
 msgid "De_interlace Video"
@@ -660,7 +670,7 @@ msgstr "_Désentrelacer la vidéo."
 
 #: src/gui.c:3537
 msgid "Set this option if video looks striped"
-msgstr ""
+msgstr "Activez cette option si la vidéo parait rayée"
 
 #: src/gui.c:3543
 msgid "_Drop frames"
@@ -669,6 +679,7 @@ msgstr "Activer le _saut d'images."
 #: src/gui.c:3546
 msgid "Set this option if video is well behind the audio"
 msgstr ""
+"Activez cette option si la vidéo est très en retard par rapport au son."
 
 #: src/gui.c:3552
 msgid "Force the use of cache setting on streaming media"
@@ -684,6 +695,8 @@ msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
 msgstr ""
+"Lorsque cette option est activée, des informations de débogage "
+"supplémentaires sont envoyées vers le terminal ou dans ~/.xsession-errors."
 
 #: src/gui.c:3567
 msgid "MPlayer Executable:"
@@ -693,6 +706,8 @@ msgstr "Exécutable MPlayer :"
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
+"Utilisez cette option pour spécifier une application mplayer qui n'est pas "
+"dans le chemin de recherche."
 
 #: src/gui.c:3583
 msgid "Extra Options to MPlayer:"
@@ -700,7 +715,7 @@ msgstr "Options additionnelles pour MPlayer :"
 
 #: src/gui.c:3587
 msgid "Add any extra mplayer options here (filters etc)"
-msgstr ""
+msgstr "Ajoutez ici toutes options additionnelles pour mplayer (filtres etc)."
 
 #: src/gui.c:3840
 msgid "S_how Controls"
@@ -753,7 +768,7 @@ msgstr "Regarder la _TV"
 
 #: src/gui.c:3955
 msgid "Open _Analog TV"
-msgstr "_TV Analogique"
+msgstr "TV _Analogique"
 
 #: src/gui.c:3958
 msgid "Open _Digital TV"
@@ -786,11 +801,13 @@ msgstr "Sélection des sous-_titres"
 
 #: src/gui.c:4018
 msgid "_Take Screenshot"
-msgstr ""
+msgstr "Prendre un _cliché de la vidéo"
 
 #: src/gui.c:4021
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr ""
+"Les fichiers, nommés « shotNNNN.png », seront enregistrés dans le répertoire "
+"de travail."
 
 #. View Menu
 #: src/gui.c:4049
@@ -844,7 +861,7 @@ msgstr "Afficher les _sous-titres"
 
 #: src/gui.c:4105
 msgid "Switch An_gle"
-msgstr ""
+msgstr "Changer l'an_gle de vue"
 
 #: src/gui.c:4106
 msgid "_Controls"
@@ -980,9 +997,8 @@ msgid "Connecting"
 msgstr "Connexion en cours"
 
 #: src/thread.c:570
-#, fuzzy
 msgid "GNOME MPlayer Notification"
-msgstr "Configuration de GNOME MPlayer"
+msgstr "Notification de GNOME MPlayer"
 
 #: src/playlist.c:219
 #, c-format
@@ -1077,6 +1093,3 @@ msgstr "Déplacer l'élément vers la fin de la liste"
 #: src/playlist.c:921
 msgid "_Set Subtitle"
 msgstr "_Sélectionner les sous-titres"
-
-#~ msgid "Enable _ASS"
-#~ msgstr "Activer _ASS"

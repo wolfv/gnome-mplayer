@@ -564,7 +564,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 	if (strstr(mplayer_output->str, "*** screenshot") != 0) {
         buf = strstr(mplayer_output->str, "'") + 1;
 		buf[12] = '\0';
-		message = g_strdup_printf("Screenshot saved to '%s'",buf);
+		message = g_strdup_printf(_("Screenshot saved to '%s'"),buf);
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
                                         GTK_BUTTONS_OK, message);
 		gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Notification"));
