@@ -738,7 +738,8 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
     if (event->type == GDK_BUTTON_PRESS) {
 
         event_button = (GdkEventButton *) event;
-        dbus_send_event("MouseDown", event_button->button);
+
+		dbus_send_event("MouseDown", event_button->button);
         dbus_send_event("MouseClicked", 0);
 
         if (event_button->button == 3 && disable_context_menu == 0) {
@@ -755,6 +756,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
             }
         }
 
+		
     }
 
     if (event->type == GDK_2BUTTON_PRESS) {
@@ -778,6 +780,20 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
     }
 
     return FALSE;
+}
+
+gboolean drawing_area_scroll_event_callback(GtkWidget * widget, GdkEventScroll *event, gpointer data)
+{
+	
+	if (event->direction == GDK_SCROLL_UP) {
+		set_ff(NULL);
+	}
+	
+	if (event->direction == GDK_SCROLL_DOWN) {
+		set_rew(NULL);
+	}
+	
+	return TRUE;
 }
 
 gboolean notification_handler(GtkWidget * widget, GdkEventCrossing * event, void *data)
@@ -3877,6 +3893,9 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect_swapped(G_OBJECT(window),
                              "button_release_event",
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
+    g_signal_connect_swapped(G_OBJECT(window),
+                             "scroll_event",
+                             G_CALLBACK(drawing_area_scroll_event_callback), GTK_OBJECT(drawing_area));
     g_signal_connect_swapped(G_OBJECT(window),
                              "enter_notify_event", G_CALLBACK(notification_handler), NULL);
     g_signal_connect_swapped(G_OBJECT(window),
