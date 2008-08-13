@@ -581,6 +581,8 @@ gboolean resize_window(void *data)
         }
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), idle->videopresent);
+    	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), idle->videopresent);
+    	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), idle->videopresent);
@@ -2251,6 +2253,15 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
             g_free(subtitle);
         }
     }
+}
+
+//      Take Screenshot 
+void menuitem_edit_take_screenshot_callback(GtkMenuItem * menuitem, void *data)
+{
+    gchar *cmd;
+    cmd = g_strdup_printf("pausing_keep screenshot 0\n");
+    send_command(cmd);
+    g_free(cmd);
 }
 
 void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
@@ -4006,7 +4017,11 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_switch_audio));
     menuitem_edit_set_subtitle = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Sub_title")));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_set_subtitle));
-
+    menuitem_edit_take_screenshot = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Take Screenshot")));
+    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_take_screenshot));
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, GTK_WIDGET(menuitem_edit_take_screenshot), _("Files named ’shotNNNN.png’ will be saved in the working directory"), NULL);
+	
     menuitem_edit_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_sep1));
 
@@ -4021,10 +4036,14 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_edit_switch_audio_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_set_subtitle), "activate",
                      G_CALLBACK(menuitem_edit_set_subtitle_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_edit_take_screenshot), "activate",
+                     G_CALLBACK(menuitem_edit_take_screenshot_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_config), "activate",
                                accel_group, 'p', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_take_screenshot), "activate",
+                               accel_group, 't', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 
 
@@ -4657,6 +4676,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), FALSE);
