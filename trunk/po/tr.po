@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-07 07:04-0600\n"
-"PO-Revision-Date: 2008-06-24 23:26+0300\n"
+"PO-Revision-Date: 2008-08-11 15:25+0300\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -287,9 +287,8 @@ msgid "Location:"
 msgstr "Konum:"
 
 #: src/gui.c:1750 src/gui.c:1810
-#, fuzzy
 msgid "Choose Disk Directory"
-msgstr "Klasör Seç"
+msgstr "Disk Klasörü Seç"
 
 #: src/gui.c:1946
 msgid "Save As..."
@@ -468,6 +467,8 @@ msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
 msgstr ""
+"MPlayer görüntü çıktı aygıtı\n"
+"genellikle x11 sorunsuz olarak çalışır, daha iyi performans için xv ya da gl/gl2 deneyiniz"
 
 #: src/gui.c:3091
 msgid ""
@@ -475,6 +476,9 @@ msgid ""
 "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
 "newer distributions"
 msgstr ""
+"MPlayer ses çıktı aygıtı\n"
+"genellikle alsa ya da oss sorunsuz çalışır, GNOME altında esd, KDE altında arts ya da "
+"yeni sürüm dağıtımlarda pulse deneyiniz"
 
 #: src/gui.c:3173
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -501,6 +505,8 @@ msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
 msgstr ""
+"Ağ üzerinden oynatmada önbelleklenecek veri miktarı, yavaş ağ bağlantılarında "
+"yüksek değerler kullanınız"
 
 #: src/gui.c:3239
 msgid "On Screen Display Level:"
@@ -556,7 +562,7 @@ msgstr "<span weight=\"bold\">Altyazı Ayarları</span>"
 
 #: src/gui.c:3354
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
-msgstr ""
+msgstr "_Gelişmiş Alfa Altyazı (ASS) Desteğini Etkinleştir"
 
 #: src/gui.c:3361
 msgid "Use _Embedded Fonts"
@@ -600,7 +606,7 @@ msgstr "Açılışta oynatma listesini ana pencerenin altında aç"
 
 #: src/gui.c:3466
 msgid "Remember Window Location"
-msgstr ""
+msgstr "Pencere Konumunu Hatırla"
 
 #: src/gui.c:3471
 msgid "Pause playback on mouse click"
@@ -615,6 +621,8 @@ msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
+"Gnome MPlayer altında ses seviyesi değiştirilince ana ses seviyesinin değişmesini istiyorsanız "
+"bu seçeneği işaretleyin"
 
 #: src/gui.c:3483
 msgid "De_interlace Video"
@@ -622,7 +630,7 @@ msgstr "Görün_tü Satırlarını Birleştir (Deinterlace)"
 
 #: src/gui.c:3485
 msgid "Set this option if video looks striped"
-msgstr ""
+msgstr "Görüntü tırtıklı görünüyorsa bu seçeneği işaretleyin"
 
 #: src/gui.c:3490
 msgid "_Drop frames"
@@ -630,7 +638,7 @@ msgstr "_Kare atla"
 
 #: src/gui.c:3492
 msgid "Set this option if video is well behind the audio"
-msgstr ""
+msgstr "Görüntü sesten çok geride kalıyorsa bu seçeneği işaretleyin"
 
 #: src/gui.c:3498
 msgid "Force the use of cache setting on streaming media"
@@ -645,15 +653,16 @@ msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
 msgstr ""
+"Bu seçenek seçildiğinde detaylı inceleme bilgileri terminale ya da ~/.xsession-errors "
+"dosyasına yönlendirilir"
 
 #: src/gui.c:3510
 msgid "MPlayer Executable:"
-msgstr ""
+msgstr "MPlayer Çalıştırılabilir Dosyası:"
 
 #: src/gui.c:3513
-msgid ""
-"Use this option to specify a mplayer application that is not in the path"
-msgstr ""
+msgid "Use this option to specify a mplayer application that is not in the path"
+msgstr "Hızlı erişim yolunda (PATH) olmayan bir mplayer uygulamasını çalıştırmak için bu seçeneği kullanın"
 
 #: src/gui.c:3523
 msgid "Extra Options to MPlayer:"
@@ -661,7 +670,7 @@ msgstr "MPlayer ekstra parametreleri:"
 
 #: src/gui.c:3526
 msgid "Add any extra mplayer options here (filters etc)"
-msgstr ""
+msgstr "Ekstra mplayer seçeneklerini buraya ekleyin (filtre vs.)"
 
 #: src/gui.c:3779
 msgid "S_how Controls"
@@ -693,23 +702,20 @@ msgid "_DVD"
 msgstr "_DVD"
 
 #: src/gui.c:3873
-#, fuzzy
 msgid "Open _DVD"
-msgstr "Direkt _DVD Aç"
+msgstr "_DVD Aç"
 
 #: src/gui.c:3876
 msgid "Open DVD with _Menus"
 msgstr "DVD'yi _Menü ile Aç"
 
 #: src/gui.c:3879
-#, fuzzy
 msgid "Open DVD from _Folder"
-msgstr "Direkt _DVD Aç"
+msgstr "Di_zinden DVD Aç"
 
 #: src/gui.c:3882
-#, fuzzy
 msgid "Open DVD from Folder with M_enus"
-msgstr "DVD'yi _Menü ile Aç"
+msgstr "Dizinden DVD'yi _Menü ile Aç"
 
 #: src/gui.c:3885
 msgid "_TV"
@@ -1023,5 +1029,3 @@ msgstr "Öğeyi Aşağı İndir"
 msgid "_Set Subtitle"
 msgstr "_Altyazı Ayarla"
 
-#~ msgid "Enable _ASS"
-#~ msgstr "_ASS Aç"
