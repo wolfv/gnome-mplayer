@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-13 13:52-0600\n"
-"PO-Revision-Date: 2008-08-07 11:31+0900\n"
+"PO-Revision-Date: 2008-08-14 11:07+0900\n"
 "Last-Translator: ByeongSik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "콘솔에 좀 더 자세한 출력 보여주기"
 
 #: src/main.c:62
 msgid "Use mplayer software volume control"
-msgstr "엠플레이어의 소프트웨어 볼륨 조절 기능 사용"
+msgstr "엠플레이어 소프트웨어 볼륨 조절 기능 사용"
 
 #: src/main.c:63
 msgid "Set initial volume percentage"
@@ -154,7 +154,7 @@ msgstr "TV 입력의 프레임/초"
 
 #: src/main.c:109
 msgid "Only allow one instance"
-msgstr ""
+msgstr "그놈 엠플레이어를 하나만 실행합니다"
 
 #: src/main.c:347
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -758,11 +758,11 @@ msgstr "자막 지정(_T)"
 
 #: src/gui.c:4020
 msgid "_Take Screenshot"
-msgstr ""
+msgstr "스크린샷 찍기(_T)"
 
 #: src/gui.c:4023
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
-msgstr ""
+msgstr "작업 디렉토리 안에 'shotNNNN.png' 형태의 파일로 저장합니다"
 
 #. View Menu
 #: src/gui.c:4051
@@ -816,7 +816,7 @@ msgstr "자막 보기(_S)"
 
 #: src/gui.c:4107
 msgid "Switch An_gle"
-msgstr ""
+msgstr "화면 시점 바꾸기(_G)"
 
 #: src/gui.c:4108
 msgid "_Controls"
@@ -952,12 +952,11 @@ msgstr "연결중"
 #: src/thread.c:567
 #, c-format
 msgid "Screenshot saved to '%s'"
-msgstr ""
+msgstr "스크린샷이 '%s' 파일로 저장되었습니다"
 
 #: src/thread.c:570
-#, fuzzy
 msgid "GNOME MPlayer Notification"
-msgstr "그놈 엠플레이어 설정"
+msgstr "그놈 엠플레이어 알림"
 
 #: src/playlist.c:219
 #, c-format
