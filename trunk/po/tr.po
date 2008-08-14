@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-13 13:52-0600\n"
-"PO-Revision-Date: 2008-08-11 15:25+0300\n"
+"PO-Revision-Date: 2008-08-14 14:50+0300\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -157,7 +157,7 @@ msgstr "TV girişi FPS değeri"
 
 #: src/main.c:109
 msgid "Only allow one instance"
-msgstr ""
+msgstr "Sadece bir program çalışsın"
 
 #: src/main.c:347
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -666,8 +666,7 @@ msgid "MPlayer Executable:"
 msgstr "MPlayer Çalıştırılabilir Dosyası:"
 
 #: src/gui.c:3574
-msgid ""
-"Use this option to specify a mplayer application that is not in the path"
+msgid "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Hızlı erişim yolunda (PATH) olmayan bir mplayer uygulamasını çalıştırmak "
 "için bu seçeneği kullanın"
@@ -764,11 +763,11 @@ msgstr "Alt_yazı Seç"
 
 #: src/gui.c:4020
 msgid "_Take Screenshot"
-msgstr ""
+msgstr "_Ekran Görüntüsü Yakala"
 
 #: src/gui.c:4023
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
-msgstr ""
+msgstr "Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
 
 #. View Menu
 #: src/gui.c:4051
@@ -822,7 +821,7 @@ msgstr "_Atyazıları Göster"
 
 #: src/gui.c:4107
 msgid "Switch An_gle"
-msgstr ""
+msgstr "A_çı Değiştir"
 
 #: src/gui.c:4108
 msgid "_Controls"
@@ -958,12 +957,11 @@ msgstr "Bağlanıyor"
 #: src/thread.c:567
 #, c-format
 msgid "Screenshot saved to '%s'"
-msgstr ""
+msgstr "Ekran görüntüsü '%s' olarak kaydedildi"
 
 #: src/thread.c:570
-#, fuzzy
 msgid "GNOME MPlayer Notification"
-msgstr "GNOME MPlayer Yapılandırması"
+msgstr "GNOME MPlayer Uyarısı"
 
 #: src/playlist.c:219
 #, c-format
@@ -1058,3 +1056,4 @@ msgstr "Öğeyi Aşağı İndir"
 #: src/playlist.c:921
 msgid "_Set Subtitle"
 msgstr "_Altyazı Ayarla"
+
