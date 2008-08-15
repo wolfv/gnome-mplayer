@@ -560,20 +560,20 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
-	
-	if (strstr(mplayer_output->str, "*** screenshot") != 0) {
+
+    if (strstr(mplayer_output->str, "*** screenshot") != 0) {
         buf = strstr(mplayer_output->str, "'") + 1;
-		buf[12] = '\0';
-		message = g_strdup_printf(_("Screenshot saved to '%s'"),buf);
+        buf[12] = '\0';
+        message = g_strdup_printf(_("Screenshot saved to '%s'"), buf);
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
                                         GTK_BUTTONS_OK, message);
-		gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Notification"));
-		gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Notification"));
+        gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
         g_free(message);
-		message = NULL;
+        message = NULL;
     }
-	
+
     if (strstr(mplayer_output->str, "ICY Info") != NULL) {
         buf = strstr(mplayer_output->str, "'");
         if (message) {
