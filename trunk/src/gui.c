@@ -581,8 +581,8 @@ gboolean resize_window(void *data)
         }
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), idle->videopresent);
-    	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), idle->videopresent);
-    	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), idle->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), idle->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), idle->videopresent);
@@ -741,7 +741,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 
         event_button = (GdkEventButton *) event;
 
-		dbus_send_event("MouseDown", event_button->button);
+        dbus_send_event("MouseDown", event_button->button);
         dbus_send_event("MouseClicked", 0);
 
         if (event_button->button == 3 && disable_context_menu == 0) {
@@ -758,7 +758,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
             }
         }
 
-		
+
     }
 
     if (event->type == GDK_2BUTTON_PRESS) {
@@ -784,18 +784,19 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
     return FALSE;
 }
 
-gboolean drawing_area_scroll_event_callback(GtkWidget * widget, GdkEventScroll *event, gpointer data)
+gboolean drawing_area_scroll_event_callback(GtkWidget * widget, GdkEventScroll * event,
+                                            gpointer data)
 {
-	
-	if (event->direction == GDK_SCROLL_UP) {
-		set_ff(NULL);
-	}
-	
-	if (event->direction == GDK_SCROLL_DOWN) {
-		set_rew(NULL);
-	}
-	
-	return TRUE;
+
+    if (event->direction == GDK_SCROLL_UP) {
+        set_ff(NULL);
+    }
+
+    if (event->direction == GDK_SCROLL_DOWN) {
+        set_rew(NULL);
+    }
+
+    return TRUE;
 }
 
 gboolean notification_handler(GtkWidget * widget, GdkEventCrossing * event, void *data)
@@ -3906,11 +3907,12 @@ GtkWidget *create_window(gint windowid)
                              G_CALLBACK(popup_handler), GTK_OBJECT(popup_menu));
     g_signal_connect_swapped(G_OBJECT(window),
                              "scroll_event",
-                             G_CALLBACK(drawing_area_scroll_event_callback), GTK_OBJECT(drawing_area));
-    g_signal_connect_swapped(G_OBJECT(window),
-                             "enter_notify_event", G_CALLBACK(notification_handler), NULL);
-    g_signal_connect_swapped(G_OBJECT(window),
-                             "leave_notify_event", G_CALLBACK(notification_handler), NULL);
+                             G_CALLBACK(drawing_area_scroll_event_callback),
+                             GTK_OBJECT(drawing_area));
+    g_signal_connect_swapped(G_OBJECT(window), "enter_notify_event",
+                             G_CALLBACK(notification_handler), NULL);
+    g_signal_connect_swapped(G_OBJECT(window), "leave_notify_event",
+                             G_CALLBACK(notification_handler), NULL);
 
 
     // File Menu
@@ -4017,11 +4019,14 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_switch_audio));
     menuitem_edit_set_subtitle = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Sub_title")));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_set_subtitle));
-    menuitem_edit_take_screenshot = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Take Screenshot")));
+    menuitem_edit_take_screenshot =
+        GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Take Screenshot")));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_take_screenshot));
-	tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, GTK_WIDGET(menuitem_edit_take_screenshot), _("Files named ’shotNNNN.png’ will be saved in the working directory"), NULL);
-	
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, GTK_WIDGET(menuitem_edit_take_screenshot),
+                         _("Files named ’shotNNNN.png’ will be saved in the working directory"),
+                         NULL);
+
     menuitem_edit_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_sep1));
 
