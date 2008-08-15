@@ -14,7 +14,7 @@ Requires: mplayer
 BuildRequires: gcc-c++, pkgconfig, gettext, glib2-devel gtk2-devel GConf2-devel dbus-devel dbus-glib-devel alsa-lib-devel
 
 %description
-GNOME MPlayer is a simple GUI for MPlayer. It is based heavily on the mplayerplug-in source code and can basically be seen as a standalone version of that. GNOME MPlayer is currently changing alot. However, it is good enough that I can use it as my default viewer for media on my personal machine.
+GNOME MPlayer is a simple GUI for MPlayer based on the Gnome HIG. However, the code is not dependent on any Gnome library
 
 %prep
 %setup -q
