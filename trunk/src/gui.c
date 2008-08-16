@@ -725,6 +725,11 @@ gboolean set_show_controls(void *data)
     return FALSE;
 }
 
+gboolean get_show_controls()
+{
+	return gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols));
+}
+
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 {
     GtkMenu *menu;

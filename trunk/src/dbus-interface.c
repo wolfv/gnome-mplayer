@@ -719,15 +719,16 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetFullScreen")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, fullscreen,
+                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, &fullscreen,
                                              DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetShowControls")) {
+					showcontrols = get_show_controls();
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, fullscreen,
+                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, &showcontrols,
                                              DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
