@@ -218,6 +218,7 @@ GtkWidget *plvbox;
 GtkAccelGroup *accel_group;
 
 glong last_movement_time;
+gboolean mouse_down_in_progress;
 
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data);
