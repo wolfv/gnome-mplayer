@@ -1,4 +1,5 @@
 Development
+    Make progress bar function like a slider bar
     Fix open DVD from folder, it was incorrectly using dvdnav:// instead of dvd://
     Hard code disable_deinterlace to be TRUE by default
     Apply dbus patches from Sebastian Reichel

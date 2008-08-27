@@ -3642,9 +3642,51 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
             }
 
         }
-    }
+		mouse_down_in_progress = TRUE;
+	
+    } else {
+		mouse_down_in_progress = FALSE;
+	}
 
     return TRUE;
+}
+
+gboolean progress_leave_callback(GtkWidget *widget, GdkEventCrossing *event,  gpointer data)
+{
+	mouse_down_in_progress = FALSE;
+	return TRUE;
+}
+
+gboolean progress_motion_callback(GtkWidget *widget, GdkEventMotion *event,  gpointer data)
+{
+    gchar *cmd;
+    gdouble percent;
+    gint width;
+    gint height;
+
+	if (mouse_down_in_progress) {
+		
+		gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, &height);
+
+        percent = (gdouble) event->x / (gdouble) width;
+
+        if (idledata->cachepercent > 0.0 && percent > idledata->cachepercent) {
+            percent = idledata->cachepercent - 0.10;
+        }
+
+        if (!idledata->streaming) {
+            if (!autopause) {
+                if (state == PLAYING) {
+                    cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
+                    send_command(cmd);
+                    g_free(cmd);
+                    state = PLAYING;
+                }
+            }
+        }		
+		
+	}
+	return TRUE;
 }
 
 gboolean load_href_callback(GtkWidget * widget, GdkEventExpose * event, gchar * hrefid)
@@ -3964,9 +4006,6 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_dtv =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Digital TV")));
     gtk_menu_append(menu_file_tv, GTK_WIDGET(menuitem_file_open_dtv));
-//    menuitem_file_open_playlist =
-//        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open Playlist")));
-//    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_playlist));
     menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep1));
     menuitem_file_details = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_etails")));
@@ -4068,8 +4107,6 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_sep0 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep0));
 
-//      menuitem_view_fullscreen =
-//        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Fullscreen")));
     menuitem_view_fullscreen =
         GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_FULLSCREEN, NULL));
     menuitem_view_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
@@ -4086,7 +4123,6 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_onetotwo =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_onetotwo));
-    //menuitem_view_sep4 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
 
     menuitem_view_aspect = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Aspect")));
     menu_view_aspect = GTK_MENU(gtk_menu_new());
@@ -4094,7 +4130,6 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_aspect));
     gtk_menu_item_set_submenu(menuitem_view_aspect, GTK_WIDGET(menu_view_aspect));
 
-    //gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_sep4));
     menuitem_view_aspect_default =
         GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_efault Aspect")));
     gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_aspect_default));
@@ -4193,10 +4228,6 @@ GtkWidget *create_window(gint windowid)
                                accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_angle), "activate",
                                accel_group, 'a', 0, GTK_ACCEL_VISIBLE);
-//    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
-//                               accel_group, 'j', 0, GTK_ACCEL_VISIBLE);
-//    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_sound_switch), "activate",
-//                               accel_group, '#', 0, GTK_ACCEL_VISIBLE);
 
     g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
 
@@ -4225,7 +4256,6 @@ GtkWidget *create_window(gint windowid)
     controls_box = gtk_vbox_new(FALSE, 0);
     fixed = gtk_fixed_new();
     drawing_area = gtk_socket_new();
-    //gtk_widget_set_size_request(drawing_area, 1, 1);
     media_label = gtk_label_new("");
     details_vbox = gtk_vbox_new(FALSE, 10);
     gtk_misc_set_alignment(GTK_MISC(media_label), 0, 0);
@@ -4342,7 +4372,6 @@ GtkWidget *create_window(gint windowid)
     }
     gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
 
-//    menu_event_box = gtk_event_box_new();
     menu_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(menu_event_box), image_menu);
     gtk_button_set_relief(GTK_BUTTON(menu_event_box), GTK_RELIEF_NONE);
@@ -4351,18 +4380,11 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_events(menu_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(menu_event_box), "button_press_event", G_CALLBACK(menu_callback),
                      NULL);
-//    g_signal_connect(G_OBJECT(menu_event_box), "enter_notify_event",
-//                     G_CALLBACK(enter_button_callback), NULL);
-//    g_signal_connect(G_OBJECT(menu_event_box), "leave_notify_event",
-//                     G_CALLBACK(leave_button_callback), NULL);
-//    gtk_widget_set_size_request(GTK_WIDGET(menu_event_box), 22, 16);
 
-//    gtk_container_add(GTK_CONTAINER(menu_event_box), image_menu);
     gtk_box_pack_start(GTK_BOX(hbox), menu_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_menu);
     gtk_widget_show(menu_event_box);
 
-    //prev_event_box = gtk_event_box_new();
     prev_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(prev_event_box), image_prev);
     gtk_button_set_relief(GTK_BUTTON(prev_event_box), GTK_RELIEF_NONE);
@@ -4371,18 +4393,11 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_events(prev_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(prev_event_box), "button_press_event", G_CALLBACK(prev_callback),
                      NULL);
-//    g_signal_connect(G_OBJECT(prev_event_box), "enter_notify_event",
-//                     G_CALLBACK(enter_button_callback), NULL);
-//    g_signal_connect(G_OBJECT(prev_event_box), "leave_notify_event",
-//                     G_CALLBACK(leave_button_callback), NULL);
-//    gtk_widget_set_size_request(GTK_WIDGET(prev_event_box), 22, 16);
 
-//    gtk_container_add(GTK_CONTAINER(prev_event_box), image_prev);
     gtk_box_pack_start(GTK_BOX(hbox), prev_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_prev);
     gtk_widget_show(prev_event_box);
 
-    //rew_event_box = gtk_event_box_new();
     rew_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(rew_event_box), image_rew);
     gtk_button_set_relief(GTK_BUTTON(rew_event_box), GTK_RELIEF_NONE);
@@ -4390,18 +4405,10 @@ GtkWidget *create_window(gint windowid)
     gtk_tooltips_set_tip(tooltip, rew_event_box, _("Rewind"), NULL);
     gtk_widget_set_events(rew_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(rew_event_box), "button_press_event", G_CALLBACK(rew_callback), NULL);
-//    g_signal_connect(G_OBJECT(rew_event_box), "enter_notify_event",
-//                     G_CALLBACK(enter_button_callback), NULL);
-//    g_signal_connect(G_OBJECT(rew_event_box), "leave_notify_event",
-//                     G_CALLBACK(leave_button_callback), NULL);
-//    gtk_widget_set_size_request(GTK_WIDGET(rew_event_box), 22, 16);
-
-//    gtk_container_add(GTK_CONTAINER(rew_event_box), image_rew);
     gtk_box_pack_start(GTK_BOX(hbox), rew_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_rew);
     gtk_widget_show(rew_event_box);
 
-//    play_event_box = gtk_event_box_new();
     play_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(play_event_box), image_play);
     gtk_button_set_relief(GTK_BUTTON(play_event_box), GTK_RELIEF_NONE);
@@ -4410,18 +4417,10 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_events(play_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(play_event_box),
                      "button_press_event", G_CALLBACK(play_callback), NULL);
-//    g_signal_connect(G_OBJECT(play_event_box), "enter_notify_event",
-//                     G_CALLBACK(enter_button_callback), NULL);
-//    g_signal_connect(G_OBJECT(play_event_box), "leave_notify_event",
-//                     G_CALLBACK(leave_button_callback), NULL);
-//    gtk_widget_set_size_request(GTK_WIDGET(play_event_box), 22, 16);
-
-//    gtk_container_add(GTK_CONTAINER(play_event_box), image_play);
     gtk_box_pack_start(GTK_BOX(hbox), play_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_play);
     gtk_widget_show(play_event_box);
 
-//    stop_event_box = gtk_event_box_new();
     stop_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(stop_event_box), image_stop);
     gtk_button_set_relief(GTK_BUTTON(stop_event_box), GTK_RELIEF_NONE);
@@ -4430,18 +4429,10 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_events(stop_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(stop_event_box),
                      "button_press_event", G_CALLBACK(stop_callback), NULL);
-//    g_signal_connect(G_OBJECT(stop_event_box), "enter_notify_event",
-//                     G_CALLBACK(enter_button_callback), NULL);
-//    g_signal_connect(G_OBJECT(stop_event_box), "leave_notify_event",
-//                     G_CALLBACK(leave_button_callback), NULL);
-//    gtk_widget_set_size_request(GTK_WIDGET(stop_event_box), 22, 16);
-
-//    gtk_container_add(GTK_CONTAINER(stop_event_box), image_stop);
     gtk_box_pack_start(GTK_BOX(hbox), stop_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_stop);
     gtk_widget_show(stop_event_box);
 
-//    ff_event_box = gtk_event_box_new();
     ff_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(ff_event_box), image_ff);
     gtk_button_set_relief(GTK_BUTTON(ff_event_box), GTK_RELIEF_NONE);
@@ -4449,17 +4440,10 @@ GtkWidget *create_window(gint windowid)
     gtk_tooltips_set_tip(tooltip, ff_event_box, _("Fast Forward"), NULL);
     gtk_widget_set_events(ff_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(ff_event_box), "button_press_event", G_CALLBACK(ff_callback), NULL);
-//    g_signal_connect(G_OBJECT(ff_event_box), "enter_notify_event",
-//                     G_CALLBACK(enter_button_callback), NULL);
-//    g_signal_connect(G_OBJECT(ff_event_box), "leave_notify_event",
-//                     G_CALLBACK(leave_button_callback), NULL);
-//    gtk_widget_set_size_request(GTK_WIDGET(ff_event_box), 22, 16);
-//    gtk_container_add(GTK_CONTAINER(ff_event_box), image_ff);
     gtk_box_pack_start(GTK_BOX(hbox), ff_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_ff);
     gtk_widget_show(ff_event_box);
 
-//    next_event_box = gtk_event_box_new();
     next_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(next_event_box), image_next);
     gtk_button_set_relief(GTK_BUTTON(next_event_box), GTK_RELIEF_NONE);
@@ -4468,13 +4452,6 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_events(next_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(next_event_box), "button_press_event", G_CALLBACK(next_callback),
                      NULL);
-//    g_signal_connect(G_OBJECT(next_event_box), "enter_notify_event",
-//                     G_CALLBACK(enter_button_callback), NULL);
-//    g_signal_connect(G_OBJECT(next_event_box), "leave_notify_event",
-//                     G_CALLBACK(leave_button_callback), NULL);
-//    gtk_widget_set_size_request(GTK_WIDGET(next_event_box), 22, 16);
-
-//    gtk_container_add(GTK_CONTAINER(next_event_box), image_next);
     gtk_box_pack_start(GTK_BOX(hbox), next_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_next);
     gtk_widget_show(next_event_box);
@@ -4483,11 +4460,16 @@ GtkWidget *create_window(gint windowid)
     progress = GTK_PROGRESS_BAR(gtk_progress_bar_new());
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(progress), TRUE, TRUE, 2);
     gtk_widget_set_events(GTK_WIDGET(progress), GDK_BUTTON_PRESS_MASK);
+    gtk_widget_add_events(GTK_WIDGET(progress), GDK_BUTTON_RELEASE_MASK);
+    gtk_widget_add_events(GTK_WIDGET(progress), GDK_POINTER_MOTION_MASK);
+    gtk_widget_add_events(GTK_WIDGET(progress), GDK_LEAVE_NOTIFY_MASK);
     g_signal_connect(G_OBJECT(progress), "button_press_event", G_CALLBACK(progress_callback), NULL);
+    g_signal_connect(G_OBJECT(progress), "button_release_event", G_CALLBACK(progress_callback), NULL);
+    g_signal_connect(G_OBJECT(progress), "motion_notify_event", G_CALLBACK(progress_motion_callback), NULL);
+    g_signal_connect(G_OBJECT(progress), "leave_notify_event", G_CALLBACK(progress_leave_callback), NULL);
     gtk_widget_show(GTK_WIDGET(progress));
 
     // fullscreen button, pack from end for this button and the vol slider
-    //fs_event_box = gtk_event_box_new();
     fs_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(fs_event_box), image_fs);
     gtk_button_set_relief(GTK_BUTTON(fs_event_box), GTK_RELIEF_NONE);
@@ -4495,12 +4477,6 @@ GtkWidget *create_window(gint windowid)
     gtk_tooltips_set_tip(tooltip, fs_event_box, _("Full Screen"), NULL);
     gtk_widget_set_events(fs_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(fs_event_box), "button_press_event", G_CALLBACK(fs_callback), NULL);
-    //g_signal_connect(G_OBJECT(fs_event_box), "enter_notify_event",
-    //                 G_CALLBACK(enter_button_callback), NULL);
-    //g_signal_connect(G_OBJECT(fs_event_box), "leave_notify_event",
-    //                 G_CALLBACK(leave_button_callback), NULL);
-    //gtk_widget_set_size_request(GTK_WIDGET(fs_event_box), 22, 16);
-    //gtk_container_add(GTK_CONTAINER(fs_event_box), image_fs);
     gtk_box_pack_end(GTK_BOX(hbox), fs_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_fs);
     if (!disable_fullscreen)
