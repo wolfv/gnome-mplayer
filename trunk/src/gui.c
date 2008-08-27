@@ -1789,8 +1789,6 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
 
         gtk_list_store_clear(playliststore);
         gtk_list_store_clear(nonrandomplayliststore);
-        add_item_to_playlist("dvdnav://", 0);
-        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
         parse_dvd("dvd://");
@@ -4524,7 +4522,7 @@ GtkWidget *create_window(gint windowid)
         adj->step_increment = 1.0;
         gtk_scale_button_set_adjustment(GTK_SCALE_BUTTON(vol_slider), adj);
         gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), idledata->volume);
-        gtk_widget_set_size_request(vol_slider, -1, 22);
+        gtk_widget_set_size_request(vol_slider, -1, 16);
         g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_button_callback),
                          NULL);
         gtk_button_set_relief(GTK_BUTTON(vol_slider), GTK_RELIEF_NONE);
