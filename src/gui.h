@@ -32,6 +32,7 @@
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-value.h>
+#include <math.h>
 #include "playlist.h"
 
 GtkWidget *window;

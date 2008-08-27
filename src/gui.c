@@ -3663,7 +3663,8 @@ gboolean progress_motion_callback(GtkWidget *widget, GdkEventMotion *event,  gpo
     gdouble percent;
     gint width;
     gint height;
-
+	static gdouble last_percent;
+	
 	if (mouse_down_in_progress) {
 		
 		gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, &height);
@@ -3676,11 +3677,12 @@ gboolean progress_motion_callback(GtkWidget *widget, GdkEventMotion *event,  gpo
 
         if (!idledata->streaming) {
             if (!autopause) {
-                if (state == PLAYING) {
+                if (state == PLAYING && (fabs(last_percent - percent) > 0.01)) {
                     cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
                     send_command(cmd);
                     g_free(cmd);
                     state = PLAYING;
+					last_percent = percent;
                 }
             }
         }		
