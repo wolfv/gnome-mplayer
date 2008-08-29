@@ -1,4 +1,5 @@
 Development
+    Mute during drag seek
     Select volume button icon size correctly
     Comment out tight button settings due to icon clipping
     Tighten up the buttons a little more
