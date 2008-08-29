@@ -3678,7 +3678,7 @@ gboolean progress_motion_callback(GtkWidget *widget, GdkEventMotion *event,  gpo
         if (!idledata->streaming) {
             if (!autopause) {
                 if (state == PLAYING && (fabs(last_percent - percent) > 0.01)) {
-                    cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
+                    cmd = g_strdup_printf("mute 1\nseek %i 1\nmute 0\n", (gint) (percent * 100));
                     send_command(cmd);
                     g_free(cmd);
                     state = PLAYING;
