@@ -4414,6 +4414,7 @@ GtkWidget *create_window(gint windowid)
     play_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(play_event_box), image_play);
     gtk_button_set_relief(GTK_BUTTON(play_event_box), GTK_RELIEF_NONE);
+	gtk_button_set_alignment(GTK_BUTTON(play_event_box),0,0);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
     gtk_widget_set_events(play_event_box, GDK_BUTTON_PRESS_MASK);
