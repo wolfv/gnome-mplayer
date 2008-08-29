@@ -1,4 +1,5 @@
 Development
+    Tighten up the buttons a little more
     Change progress bar seeking method to only work in 1% increments
     Make progress bar function like a slider bar
     Fix open DVD from folder, it was incorrectly using dvdnav:// instead of dvd://

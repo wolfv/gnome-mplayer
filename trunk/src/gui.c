@@ -4377,6 +4377,7 @@ GtkWidget *create_window(gint windowid)
     menu_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(menu_event_box), image_menu);
     gtk_button_set_relief(GTK_BUTTON(menu_event_box), GTK_RELIEF_NONE);
+    gtk_widget_set_size_request(menu_event_box, -1, 22);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, menu_event_box, _("Menu"), NULL);
     gtk_widget_set_events(menu_event_box, GDK_BUTTON_PRESS_MASK);
@@ -4390,6 +4391,7 @@ GtkWidget *create_window(gint windowid)
     prev_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(prev_event_box), image_prev);
     gtk_button_set_relief(GTK_BUTTON(prev_event_box), GTK_RELIEF_NONE);
+    gtk_widget_set_size_request(prev_event_box, -1, 22);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, prev_event_box, _("Previous"), NULL);
     gtk_widget_set_events(prev_event_box, GDK_BUTTON_PRESS_MASK);
@@ -4403,6 +4405,7 @@ GtkWidget *create_window(gint windowid)
     rew_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(rew_event_box), image_rew);
     gtk_button_set_relief(GTK_BUTTON(rew_event_box), GTK_RELIEF_NONE);
+    gtk_widget_set_size_request(rew_event_box, -1, 22);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, rew_event_box, _("Rewind"), NULL);
     gtk_widget_set_events(rew_event_box, GDK_BUTTON_PRESS_MASK);
@@ -4414,6 +4417,7 @@ GtkWidget *create_window(gint windowid)
     play_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(play_event_box), image_play);
     gtk_button_set_relief(GTK_BUTTON(play_event_box), GTK_RELIEF_NONE);
+    gtk_widget_set_size_request(play_event_box, -1, 22);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
     gtk_widget_set_events(play_event_box, GDK_BUTTON_PRESS_MASK);
@@ -4426,6 +4430,7 @@ GtkWidget *create_window(gint windowid)
     stop_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(stop_event_box), image_stop);
     gtk_button_set_relief(GTK_BUTTON(stop_event_box), GTK_RELIEF_NONE);
+    gtk_widget_set_size_request(stop_event_box, -1, 22);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, stop_event_box, _("Stop"), NULL);
     gtk_widget_set_events(stop_event_box, GDK_BUTTON_PRESS_MASK);
@@ -4438,6 +4443,7 @@ GtkWidget *create_window(gint windowid)
     ff_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(ff_event_box), image_ff);
     gtk_button_set_relief(GTK_BUTTON(ff_event_box), GTK_RELIEF_NONE);
+    gtk_widget_set_size_request(ff_event_box, -1, 22);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, ff_event_box, _("Fast Forward"), NULL);
     gtk_widget_set_events(ff_event_box, GDK_BUTTON_PRESS_MASK);
@@ -4449,7 +4455,8 @@ GtkWidget *create_window(gint windowid)
     next_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(next_event_box), image_next);
     gtk_button_set_relief(GTK_BUTTON(next_event_box), GTK_RELIEF_NONE);
-    tooltip = gtk_tooltips_new();
+    gtk_widget_set_size_request(next_event_box, -1, 22);
+	tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, next_event_box, _("Next"), NULL);
     gtk_widget_set_events(next_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(next_event_box), "button_press_event", G_CALLBACK(next_callback),
@@ -4460,6 +4467,7 @@ GtkWidget *create_window(gint windowid)
 
     // progress bar
     progress = GTK_PROGRESS_BAR(gtk_progress_bar_new());
+	//gtk_widget_set_size_request(progress, -1, 16);
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(progress), TRUE, TRUE, 2);
     gtk_widget_set_events(GTK_WIDGET(progress), GDK_BUTTON_PRESS_MASK);
     gtk_widget_add_events(GTK_WIDGET(progress), GDK_BUTTON_RELEASE_MASK);
@@ -4475,6 +4483,7 @@ GtkWidget *create_window(gint windowid)
     fs_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(fs_event_box), image_fs);
     gtk_button_set_relief(GTK_BUTTON(fs_event_box), GTK_RELIEF_NONE);
+	gtk_widget_set_size_request(fs_event_box, -1, 22);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, fs_event_box, _("Full Screen"), NULL);
     gtk_widget_set_events(fs_event_box, GDK_BUTTON_PRESS_MASK);
@@ -4500,7 +4509,7 @@ GtkWidget *create_window(gint windowid)
         adj->step_increment = 1.0;
         gtk_scale_button_set_adjustment(GTK_SCALE_BUTTON(vol_slider), adj);
         gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), idledata->volume);
-        gtk_widget_set_size_request(vol_slider, -1, 16);
+        gtk_widget_set_size_request(vol_slider, -1, 24);
         g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_button_callback),
                          NULL);
         gtk_button_set_relief(GTK_BUTTON(vol_slider), GTK_RELIEF_NONE);
