@@ -57,4 +57,5 @@ gboolean next_item_in_playlist(GtkTreeIter * iter);
 void copy_playlist(GtkListStore * source, GtkListStore * dest);
 void randomize_playlist(GtkListStore * store);
 gdouble get_alsa_volume();
+gchar *seconds_to_string(glong seconds);
 #endif                          // _SUPPORT_H

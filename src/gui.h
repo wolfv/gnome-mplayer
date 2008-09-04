@@ -173,6 +173,7 @@ GtkWidget *image_fs;
 GtkWidget *image_icon;
 GtkTooltips *tooltip;
 GtkTooltips *volume_tip;
+GtkTooltips *progress_tip;
 
 GtkWidget *config_vo;
 GtkWidget *config_ao;
