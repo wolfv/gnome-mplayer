@@ -1437,3 +1437,29 @@ gdouble get_alsa_volume()
         printf("Using volume of %3.2lf\n", vol);
     return vol;
 }
+
+gchar *seconds_to_string(glong seconds)
+{
+    int hour = 0, min = 0;
+	gchar *result = NULL;
+	
+    if (seconds >= 3600) {
+        hour = seconds / 3600;
+        seconds = seconds - (hour * 3600);
+    }
+    if (seconds >= 60) {
+        min = seconds / 60;
+        seconds = seconds - (min * 60);
+    }
+
+	if (hour == 0) {
+    	result = g_strdup_printf(_("%2i:%02i"), min, (int) seconds);
+    } else {
+        result = g_strdup_printf(_("%i:%02i:%02i"), hour, min, (int) seconds);
+    }
+	
+	return result;
+}
+	
+	
+	

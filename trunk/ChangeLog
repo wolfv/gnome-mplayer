@@ -1,4 +1,6 @@
 Development
+    Create tooltips and restruction some code
+    Create function seconds to string (timestamp)
     Mute during drag seek
     Select volume button icon size correctly
     Comment out tight button settings due to icon clipping

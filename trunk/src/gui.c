@@ -291,80 +291,42 @@ gboolean set_progress_text(void *data)
 
 gboolean set_progress_time(void *data)
 {
-    int hour = 0, min = 0, length_hour = 0, length_min = 0;
-    long int seconds, length_seconds;
-
+    glong seconds, length_seconds;
+	gchar *time_position = NULL;
+	gchar *time_length = NULL;
+	
     IdleData *idle = (IdleData *) data;
 
-    seconds = (int) idle->position;
-    if (seconds >= 3600) {
-        hour = seconds / 3600;
-        seconds = seconds - (hour * 3600);
-    }
-    if (seconds >= 60) {
-        min = seconds / 60;
-        seconds = seconds - (min * 60);
-    }
-    length_seconds = (int) idle->length;
-    if (length_seconds >= 3600) {
-        length_hour = length_seconds / 3600;
-        length_seconds = length_seconds - (length_hour * 3600);
-    }
-    if (length_seconds >= 60) {
-        length_min = length_seconds / 60;
-        length_seconds = length_seconds - (length_min * 60);
-    }
+    seconds = (glong) idle->position;
+    length_seconds = (glong) idle->length;
 
-    if (hour == 0 && length_hour == 0) {
-
+	time_position = seconds_to_string(seconds);
+	time_length = seconds_to_string(length_seconds);
+	
+	
         if ((int) idle->length == 0 || idle->position > idle->length) {
             if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
                 g_snprintf(idle->progress_text, 128,
-                           _("%2i:%02i | %2i%% \342\226\274"),
-                           min, (int) seconds, (int) (idle->cachepercent * 100));
+                           _("%s | %2i%% \342\226\274"),
+                           time_position, (int) (idle->cachepercent * 100));
             } else {
-                g_snprintf(idle->progress_text, 128, _("%2i:%02i"), min, (int) seconds);
+                g_snprintf(idle->progress_text, 128, _("%s"), time_position);
             }
         } else {
             if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
                 g_snprintf(idle->progress_text, 128,
-                           _("%2i:%02i / %2i:%02i | %2i%% \342\226\274"),
-                           min, (int) seconds, length_min,
-                           (int) length_seconds, (int) (idle->cachepercent * 100));
+                           _("%s / %s | %2i%% \342\226\274"),
+                           time_position, time_length, (int) (idle->cachepercent * 100));
             } else {
                 g_snprintf(idle->progress_text, 128,
-                           _("%2i:%02i / %2i:%02i"),
-                           min, (int) seconds, length_min, (int) length_seconds);
+                           _("%s / %s"),
+                           time_position,time_length);
             }
         }
-    } else {
-        if ((int) idle->length == 0 || idle->position > idle->length || length_hour > 24) {
 
-            if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
-                g_snprintf(idle->progress_text, 128,
-                           _("%i:%02i:%02i | %2i%% \342\226\274"),
-                           hour, min, (int) seconds, (int) (idle->cachepercent * 100));
-            } else {
-                g_snprintf(idle->progress_text, 128, _("%i:%02i:%02i"), hour, min, (int) seconds);
-            }
-
-        } else {
-
-            if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
-                g_snprintf(idle->progress_text, 128,
-                           _("%i:%02i:%02i / %i:%02i:%02i | %2i%% \342\226\274"),
-                           hour, min, (int) seconds,
-                           length_hour, length_min,
-                           (int) length_seconds, (int) (idle->cachepercent * 100));
-            } else {
-                g_snprintf(idle->progress_text, 128,
-                           _("%i:%02i:%02i / %i:%02i:%02i"),
-                           hour, min, (int) seconds, length_hour, length_min, (int) length_seconds);
-            }
-
-        }
-    }
-
+	g_free(time_position);
+	g_free(time_length);
+	
     if (GTK_IS_WIDGET(progress) && idle->position > 0 && state != PAUSED) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
@@ -3660,6 +3622,8 @@ gboolean progress_leave_callback(GtkWidget *widget, GdkEventCrossing *event,  gp
 gboolean progress_motion_callback(GtkWidget *widget, GdkEventMotion *event,  gpointer data)
 {
     gchar *cmd;
+	gchar *tip;
+	gchar *time;
     gdouble percent;
     gint width;
     gint height;
@@ -3679,6 +3643,11 @@ gboolean progress_motion_callback(GtkWidget *widget, GdkEventMotion *event,  gpo
             if (!autopause) {
                 if (state == PLAYING && (fabs(last_percent - percent) > 0.05)) {
                     cmd = g_strdup_printf("mute 1\nseek %i 1\nmute 0\n", (gint) (percent * 100));
+					time = seconds_to_string(percent * idledata->length);
+					tip = g_strdup_printf(_("Seeking to%s"),time);
+					gtk_tooltips_set_tip(progress_tip,GTK_WIDGET(progress),tip,NULL);
+					g_free(time);
+					g_free(tip);
                     send_command(cmd);
                     g_free(cmd);
                     state = PLAYING;
@@ -4414,7 +4383,6 @@ GtkWidget *create_window(gint windowid)
     play_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(play_event_box), image_play);
     gtk_button_set_relief(GTK_BUTTON(play_event_box), GTK_RELIEF_NONE);
-	gtk_button_set_alignment(GTK_BUTTON(play_event_box),0,0);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
     gtk_widget_set_events(play_event_box, GDK_BUTTON_PRESS_MASK);
@@ -4471,6 +4439,8 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(G_OBJECT(progress), "motion_notify_event", G_CALLBACK(progress_motion_callback), NULL);
     g_signal_connect(G_OBJECT(progress), "leave_notify_event", G_CALLBACK(progress_leave_callback), NULL);
     gtk_widget_show(GTK_WIDGET(progress));
+	progress_tip = gtk_tooltips_new();
+	gtk_tooltips_set_tip(progress_tip,GTK_WIDGET(progress),_("No Information"),NULL);
 
     // fullscreen button, pack from end for this button and the vol slider
     fs_event_box = gtk_button_new();
