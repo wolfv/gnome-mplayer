@@ -1,4 +1,5 @@
 Development
+    Minor cleanups
     Create tooltips and restruction some code
     Create function seconds to string (timestamp)
     Mute during drag seek

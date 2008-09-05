@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnomov mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-04 17:35-0600\n"
+"POT-Creation-Date: 2008-09-05 09:33-0600\n"
 "PO-Revision-Date: 2008-04-23 14:55+0000\n"
 "Last-Translator: Милош Поповић <gpopac@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
@@ -195,7 +195,7 @@ msgstr "%s - Гномов Мплејер"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - Гномов Мплејер"
 
-#: src/gui.c:129 src/gui.c:1993 src/gui.c:3810
+#: src/gui.c:129 src/gui.c:1993 src/gui.c:3814
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "Гномов Мплејер"
@@ -205,24 +205,9 @@ msgstr "Гномов Мплејер"
 msgid "Paused | %2i%% ▼"
 msgstr "Паузирано | %2i%% ▼"
 
-#: src/gui.c:310
-#, fuzzy, c-format
-msgid "%s | %2i%% ▼"
-msgstr "Паузирано | %2i%% ▼"
-
 #: src/gui.c:313
 #, c-format
 msgid "%s"
-msgstr ""
-
-#: src/gui.c:318
-#, fuzzy, c-format
-msgid "%s / %s | %2i%% ▼"
-msgstr "%2i:%02i | %2i%% ▼"
-
-#: src/gui.c:322
-#, c-format
-msgid "%s / %s"
 msgstr ""
 
 #: src/gui.c:386 src/gui.c:1174
@@ -230,7 +215,7 @@ msgid "Pause"
 msgstr "Паузирај"
 
 #: src/gui.c:393 src/gui.c:400 src/gui.c:1184 src/gui.c:1255 src/gui.c:1259
-#: src/gui.c:4387
+#: src/gui.c:4391
 msgid "Play"
 msgstr "Пусти"
 
@@ -678,200 +663,200 @@ msgstr "Додатне Мплејер могућности:"
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "Можете унети било коју могућност Мплејера (нпр. филтере)"
 
-#: src/gui.c:3647
+#: src/gui.c:3651
 #, c-format
-msgid "Seeking to%s"
+msgid "Seeking to %s"
 msgstr ""
 
-#: src/gui.c:3859
+#: src/gui.c:3863
 msgid "S_how Controls"
 msgstr "Прикажи _контроле"
 
-#: src/gui.c:3863
+#: src/gui.c:3867
 msgid "_Full Screen"
 msgstr "_Цео екран"
 
-#: src/gui.c:3868
+#: src/gui.c:3872
 msgid "_Copy URL"
 msgstr "_Умножи адресу"
 
 #. File Menu
-#: src/gui.c:3935
+#: src/gui.c:3939
 msgid "_File"
 msgstr "_Датотека"
 
-#: src/gui.c:3944
+#: src/gui.c:3948
 msgid "Open _Location"
 msgstr "Отвори _адресу"
 
-#: src/gui.c:3947
+#: src/gui.c:3951
 msgid "Open _Audio CD"
 msgstr "Отвори _звучни диск"
 
-#: src/gui.c:3950
+#: src/gui.c:3954
 msgid "_DVD"
 msgstr "_ДВД"
 
-#: src/gui.c:3956
+#: src/gui.c:3960
 msgid "Open _DVD"
 msgstr "_Отвори ДВД"
 
-#: src/gui.c:3959
+#: src/gui.c:3963
 msgid "Open DVD with _Menus"
 msgstr "Отвори ДВД са _менијима"
 
-#: src/gui.c:3962
+#: src/gui.c:3966
 msgid "Open DVD from _Folder"
 msgstr "Отвори ДВД из _фасцикле"
 
-#: src/gui.c:3965
+#: src/gui.c:3969
 msgid "Open DVD from Folder with M_enus"
 msgstr "Отвори ДВД са менијима из ф_асцикле"
 
-#: src/gui.c:3968
+#: src/gui.c:3972
 msgid "_TV"
 msgstr "_ТВ"
 
-#: src/gui.c:3975
+#: src/gui.c:3979
 msgid "Open _Analog TV"
 msgstr "Отвори _аналогни ТВ"
 
-#: src/gui.c:3978
+#: src/gui.c:3982
 msgid "Open _Digital TV"
 msgstr "Отвори _дигитални ТВ"
 
-#: src/gui.c:3982
+#: src/gui.c:3986
 msgid "D_etails"
 msgstr "Осо_бине"
 
 #. Edit Menu
-#: src/gui.c:4015
+#: src/gui.c:4019
 msgid "_Edit"
 msgstr "_Уређивање"
 
-#: src/gui.c:4022
+#: src/gui.c:4026
 msgid "_Shuffle Playlist"
 msgstr "Испре_тумбани режим"
 
-#: src/gui.c:4026
+#: src/gui.c:4030
 msgid "_Loop Playlist"
 msgstr "_Режим понављања"
 
-#: src/gui.c:4031
+#: src/gui.c:4035
 msgid "S_witch Audio Track"
 msgstr "Замени звучну стазу"
 
-#: src/gui.c:4033
+#: src/gui.c:4037
 msgid "Set Sub_title"
 msgstr "Постави _титл"
 
-#: src/gui.c:4036
+#: src/gui.c:4040
 msgid "_Take Screenshot"
 msgstr ""
 
-#: src/gui.c:4040
+#: src/gui.c:4044
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr ""
 
 #. View Menu
-#: src/gui.c:4069
+#: src/gui.c:4073
 msgid "_View"
 msgstr "П_реглед"
 
-#: src/gui.c:4074
+#: src/gui.c:4078
 msgid "_Playlist"
 msgstr "_Листа за пуштање"
 
-#: src/gui.c:4076
+#: src/gui.c:4080
 msgid "Media _Info"
 msgstr "Подаци _о медију"
 
-#: src/gui.c:4089
+#: src/gui.c:4093
 msgid "_Normal (1:1)"
 msgstr "_Нормално (1:1)"
 
-#: src/gui.c:4092
+#: src/gui.c:4096
 msgid "_Double Size (2:1)"
 msgstr "_Удвостручено (2:1)"
 
-#: src/gui.c:4095
+#: src/gui.c:4099
 msgid "_Half Size (1:2)"
 msgstr "_Половично (1:2)"
 
-#: src/gui.c:4098
+#: src/gui.c:4102
 msgid "_Aspect"
 msgstr "_Размера"
 
-#: src/gui.c:4105
+#: src/gui.c:4109
 msgid "D_efault Aspect"
 msgstr "_Подразумевана размера"
 
-#: src/gui.c:4108
+#: src/gui.c:4112
 msgid "_4:3 Aspect"
 msgstr "Размера _4:3"
 
-#: src/gui.c:4111
+#: src/gui.c:4115
 msgid "_16:9 Aspect"
 msgstr "Размера _16:9"
 
-#: src/gui.c:4114
+#: src/gui.c:4118
 msgid "1_6:10 Aspect"
 msgstr "Размера 1_6:10"
 
-#: src/gui.c:4120
+#: src/gui.c:4124
 msgid "Show _Subtitles"
 msgstr "Прикажи _титл"
 
-#: src/gui.c:4121
+#: src/gui.c:4125
 msgid "Switch An_gle"
 msgstr ""
 
-#: src/gui.c:4122
+#: src/gui.c:4126
 msgid "_Controls"
 msgstr "_Контроле"
 
-#: src/gui.c:4130
+#: src/gui.c:4134
 msgid "Advanced _Options..."
 msgstr "Додатне _могућности..."
 
 #. Help Menu
-#: src/gui.c:4171
+#: src/gui.c:4175
 msgid "_Help"
 msgstr "_Помоћ"
 
-#: src/gui.c:4350
+#: src/gui.c:4354
 msgid "Menu"
 msgstr "Мени"
 
-#: src/gui.c:4363
+#: src/gui.c:4367
 msgid "Previous"
 msgstr "Претходно"
 
-#: src/gui.c:4376
+#: src/gui.c:4380
 msgid "Rewind"
 msgstr "Премотај назад"
 
-#: src/gui.c:4399
+#: src/gui.c:4403
 msgid "Stop"
 msgstr "Заустави"
 
-#: src/gui.c:4411
+#: src/gui.c:4415
 msgid "Fast Forward"
 msgstr "Премотај напред"
 
-#: src/gui.c:4422
+#: src/gui.c:4426
 msgid "Next"
 msgstr "Следеће"
 
-#: src/gui.c:4443
+#: src/gui.c:4447
 msgid "No Information"
 msgstr ""
 
-#: src/gui.c:4450
+#: src/gui.c:4454
 msgid "Full Screen"
 msgstr "Цео екран"
 
-#: src/gui.c:4488
+#: src/gui.c:4492
 msgid "Volume 100%"
 msgstr "Јачина звука 100%"
 
@@ -1080,23 +1065,3 @@ msgstr "Помери ставку наниже"
 msgid "_Set Subtitle"
 msgstr "Постави _титл"
 
-#~ msgid "%2i:%02i / %2i:%02i | %2i%% ▼"
-#~ msgstr "%2i:%02i / %2i:%02i | %2i%% ▼"
-
-#~ msgid "%2i:%02i / %2i:%02i"
-#~ msgstr "%2i:%02i / %2i:%02i"
-
-#~ msgid "%i:%02i:%02i | %2i%% ▼"
-#~ msgstr "%i:%02i:%02i | %2i%% ▼"
-
-#~ msgid "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
-#~ msgstr "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
-
-#~ msgid "%i:%02i:%02i / %i:%02i:%02i"
-#~ msgstr "%i:%02i:%02i / %i:%02i:%02i"
-
-#~ msgid "Enable _ASS"
-#~ msgstr "Омогући _ASS"
-
-#~ msgid "File Details"
-#~ msgstr "Подаци о датотеци"

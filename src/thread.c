@@ -336,7 +336,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (strstr(mplayer_output->str, "ANS_stream_pos") != 0) {
         buf = strstr(mplayer_output->str, "ANS_stream_pos");
-        sscanf(buf, "ANS_stream_pos=%i", &idledata->byte_pos);
+        sscanf(buf, "ANS_stream_pos=%li", &idledata->byte_pos);
         g_idle_add(set_progress_time, idledata);
     }
 
