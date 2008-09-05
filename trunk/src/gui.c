@@ -292,41 +292,38 @@ gboolean set_progress_text(void *data)
 gboolean set_progress_time(void *data)
 {
     glong seconds, length_seconds;
-	gchar *time_position = NULL;
-	gchar *time_length = NULL;
-	
+    gchar *time_position = NULL;
+    gchar *time_length = NULL;
+
     IdleData *idle = (IdleData *) data;
 
     seconds = (glong) idle->position;
     length_seconds = (glong) idle->length;
 
-	time_position = seconds_to_string(seconds);
-	time_length = seconds_to_string(length_seconds);
-	
-	
-        if ((int) idle->length == 0 || idle->position > idle->length) {
-            if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
-                g_snprintf(idle->progress_text, 128,
-                           _("%s | %2i%% \342\226\274"),
-                           time_position, (int) (idle->cachepercent * 100));
-            } else {
-                g_snprintf(idle->progress_text, 128, _("%s"), time_position);
-            }
-        } else {
-            if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
-                g_snprintf(idle->progress_text, 128,
-                           _("%s / %s | %2i%% \342\226\274"),
-                           time_position, time_length, (int) (idle->cachepercent * 100));
-            } else {
-                g_snprintf(idle->progress_text, 128,
-                           _("%s / %s"),
-                           time_position,time_length);
-            }
-        }
+    time_position = seconds_to_string(seconds);
+    time_length = seconds_to_string(length_seconds);
 
-	g_free(time_position);
-	g_free(time_length);
-	
+
+    if ((int) idle->length == 0 || idle->position > idle->length) {
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
+            g_snprintf(idle->progress_text, 128,
+                       "%s | %2i%% \342\226\274", time_position, (int) (idle->cachepercent * 100));
+        } else {
+            g_snprintf(idle->progress_text, 128, _("%s"), time_position);
+        }
+    } else {
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
+            g_snprintf(idle->progress_text, 128,
+                       "%s / %s | %2i%% \342\226\274",
+                       time_position, time_length, (int) (idle->cachepercent * 100));
+        } else {
+            g_snprintf(idle->progress_text, 128, "%s / %s", time_position, time_length);
+        }
+    }
+
+    g_free(time_position);
+    g_free(time_length);
+
     if (GTK_IS_WIDGET(progress) && idle->position > 0 && state != PAUSED) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
@@ -689,7 +686,7 @@ gboolean set_show_controls(void *data)
 
 gboolean get_show_controls()
 {
-	return gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols));
+    return gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols));
 }
 
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
@@ -3604,34 +3601,34 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
             }
 
         }
-		mouse_down_in_progress = TRUE;
-	
+        mouse_down_in_progress = TRUE;
+
     } else {
-		mouse_down_in_progress = FALSE;
-	}
+        mouse_down_in_progress = FALSE;
+    }
 
     return TRUE;
 }
 
-gboolean progress_leave_callback(GtkWidget *widget, GdkEventCrossing *event,  gpointer data)
+gboolean progress_leave_callback(GtkWidget * widget, GdkEventCrossing * event, gpointer data)
 {
-	mouse_down_in_progress = FALSE;
-	return TRUE;
+    mouse_down_in_progress = FALSE;
+    return TRUE;
 }
 
-gboolean progress_motion_callback(GtkWidget *widget, GdkEventMotion *event,  gpointer data)
+gboolean progress_motion_callback(GtkWidget * widget, GdkEventMotion * event, gpointer data)
 {
     gchar *cmd;
-	gchar *tip;
-	gchar *time;
+    gchar *tip;
+    gchar *time;
     gdouble percent;
     gint width;
     gint height;
-	static gdouble last_percent;
-	
-	if (mouse_down_in_progress) {
-		
-		gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, &height);
+    static gdouble last_percent;
+
+    if (mouse_down_in_progress) {
+
+        gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, &height);
 
         percent = (gdouble) event->x / (gdouble) width;
 
@@ -3642,22 +3639,27 @@ gboolean progress_motion_callback(GtkWidget *widget, GdkEventMotion *event,  gpo
         if (!idledata->streaming) {
             if (!autopause) {
                 if (state == PLAYING && (fabs(last_percent - percent) > 0.05)) {
-                    cmd = g_strdup_printf("mute 1\nseek %i 1\nmute 0\n", (gint) (percent * 100));
-					time = seconds_to_string(percent * idledata->length);
-					tip = g_strdup_printf(_("Seeking to%s"),time);
-					gtk_tooltips_set_tip(progress_tip,GTK_WIDGET(progress),tip,NULL);
-					g_free(time);
-					g_free(tip);
+                    if (idledata->mute == 0) {
+                        cmd =
+                            g_strdup_printf("mute 1\nseek %i 1\nmute 0\n", (gint) (percent * 100));
+                    } else {
+                        cmd = g_strdup_printf("seek %f 2\n", percent * idledata->length);
+                    }
+                    time = seconds_to_string(percent * idledata->length);
+                    tip = g_strdup_printf(_("Seeking to %s"), time);
+                    gtk_tooltips_set_tip(progress_tip, GTK_WIDGET(progress), tip, NULL);
+                    g_free(time);
+                    g_free(tip);
                     send_command(cmd);
                     g_free(cmd);
                     state = PLAYING;
-					last_percent = percent;
+                    last_percent = percent;
                 }
             }
-        }		
-		
-	}
-	return TRUE;
+        }
+
+    }
+    return TRUE;
 }
 
 gboolean load_href_callback(GtkWidget * widget, GdkEventExpose * event, gchar * hrefid)
@@ -4418,7 +4420,7 @@ GtkWidget *create_window(gint windowid)
     next_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(next_event_box), image_next);
     gtk_button_set_relief(GTK_BUTTON(next_event_box), GTK_RELIEF_NONE);
-	tooltip = gtk_tooltips_new();
+    tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, next_event_box, _("Next"), NULL);
     gtk_widget_set_events(next_event_box, GDK_BUTTON_PRESS_MASK);
     g_signal_connect(G_OBJECT(next_event_box), "button_press_event", G_CALLBACK(next_callback),
@@ -4435,12 +4437,15 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_add_events(GTK_WIDGET(progress), GDK_POINTER_MOTION_MASK);
     gtk_widget_add_events(GTK_WIDGET(progress), GDK_LEAVE_NOTIFY_MASK);
     g_signal_connect(G_OBJECT(progress), "button_press_event", G_CALLBACK(progress_callback), NULL);
-    g_signal_connect(G_OBJECT(progress), "button_release_event", G_CALLBACK(progress_callback), NULL);
-    g_signal_connect(G_OBJECT(progress), "motion_notify_event", G_CALLBACK(progress_motion_callback), NULL);
-    g_signal_connect(G_OBJECT(progress), "leave_notify_event", G_CALLBACK(progress_leave_callback), NULL);
+    g_signal_connect(G_OBJECT(progress), "button_release_event", G_CALLBACK(progress_callback),
+                     NULL);
+    g_signal_connect(G_OBJECT(progress), "motion_notify_event",
+                     G_CALLBACK(progress_motion_callback), NULL);
+    g_signal_connect(G_OBJECT(progress), "leave_notify_event", G_CALLBACK(progress_leave_callback),
+                     NULL);
     gtk_widget_show(GTK_WIDGET(progress));
-	progress_tip = gtk_tooltips_new();
-	gtk_tooltips_set_tip(progress_tip,GTK_WIDGET(progress),_("No Information"),NULL);
+    progress_tip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(progress_tip, GTK_WIDGET(progress), _("No Information"), NULL);
 
     // fullscreen button, pack from end for this button and the vol slider
     fs_event_box = gtk_button_new();
@@ -4471,7 +4476,7 @@ GtkWidget *create_window(gint windowid)
         adj->step_increment = 1.0;
         gtk_scale_button_set_adjustment(GTK_SCALE_BUTTON(vol_slider), adj);
         gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), idledata->volume);
-		gtk_object_set(GTK_OBJECT(vol_slider),"size",GTK_ICON_SIZE_MENU,NULL);
+        gtk_object_set(GTK_OBJECT(vol_slider), "size", GTK_ICON_SIZE_MENU, NULL);
         g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_button_callback),
                          NULL);
         gtk_button_set_relief(GTK_BUTTON(vol_slider), GTK_RELIEF_NONE);

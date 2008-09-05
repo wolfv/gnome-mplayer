@@ -301,7 +301,7 @@ int main(int argc, char *argv[])
     disable_pause_on_click = FALSE;
     mplayer_bin = NULL;
     single_instance = FALSE;
-	disable_deinterlace = TRUE;
+    disable_deinterlace = TRUE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
