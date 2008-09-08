@@ -1,4 +1,5 @@
 Development
+    Menu button being shown in realplayer mode, hide it.
     Minor cleanups
     Create tooltips and restruction some code
     Create function seconds to string (timestamp)
