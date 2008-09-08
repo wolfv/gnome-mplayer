@@ -4551,6 +4551,7 @@ GtkWidget *create_window(gint windowid)
         gtk_widget_hide(fixed);
         gtk_widget_hide(menubar);
         gtk_widget_hide(media_label);
+		gtk_widget_hide(menu_event_box);
         show_media_label = FALSE;
 
         gtk_widget_hide_all(controls_box);
