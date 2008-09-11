@@ -2452,6 +2452,7 @@ void config_apply(GtkWidget * widget, void *data)
 
     update_mplayer_config();
 
+    volume = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     old_disable_framedrop = disable_framedrop;
     disable_deinterlace =
@@ -2516,6 +2517,7 @@ void config_apply(GtkWidget * widget, void *data)
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
 
     gconf = gconf_client_get_default();
+    gconf_client_set_int(gconf, VOLUME, volume, NULL);
     gconf_client_set_int(gconf, CACHE_SIZE, cache_size, NULL);
     gconf_client_set_int(gconf, OSDLEVEL, osdlevel, NULL);
     gconf_client_set_int(gconf, PPLEVEL, pplevel, NULL);
@@ -3291,6 +3293,27 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     i++;
 
+	conf_label = gtk_label_new(_("Default Volume Level:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    config_volume = gtk_spin_button_new_with_range(0, 100, 1);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_volume,
+                         _
+                         ("Default volume for playback, values of 0 or 100 cause the setting from ALSA to be used"),
+                         NULL);
+    gtk_widget_set_size_request(config_volume, 100, -1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_SHRINK,
+                     GTK_SHRINK, 0, 0);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume), volume);
+    gtk_entry_set_width_chars(GTK_ENTRY(config_volume), 6);
+    gtk_entry_set_editable(GTK_ENTRY(config_volume), FALSE);
+    gtk_entry_set_alignment(GTK_ENTRY(config_volume), 1);
+    gtk_widget_show(config_volume);
+    i++;
+	
     conf_label = gtk_label_new(_("Minimum Cache Size (KB):"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);

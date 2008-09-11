@@ -314,6 +314,7 @@ int main(int argc, char *argv[])
     gconf = gconf_client_get_default();
     osdlevel = gconf_client_get_int(gconf, OSDLEVEL, NULL);
     pplevel = gconf_client_get_int(gconf, PPLEVEL, NULL);
+    volume = gconf_client_get_int(gconf, VOLUME, NULL);
     softvol = gconf_client_get_bool(gconf, SOFTVOL, NULL);
     forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
     vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
@@ -384,9 +385,12 @@ int main(int argc, char *argv[])
         printf("Running in single instance mode\n");
     }
 
-    if (volume == 0) {
+    if (volume == 0 || volume == 100) {
         volume = (gint) get_alsa_volume();
-    }
+    } else {
+		if (verbose)
+			printf("Using volume of %i\n",volume);
+	}
 
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
