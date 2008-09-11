@@ -1,4 +1,5 @@
 Development
+    When mouse is over progress bar, show tooltip showing media time where the mouse is
     Menu button being shown in realplayer mode, hide it.
     Minor cleanups
     Create tooltips and restruction some code
