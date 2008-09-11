@@ -291,6 +291,7 @@ gboolean set_fullscreen(void *data);
 gboolean set_show_controls(void *data);
 gboolean get_show_controls();
 gboolean set_window_visible(void *data);
+gboolean set_update_gui(void *data);
 gboolean make_panel_and_mouse_invisible(gpointer data);
 void make_button(gchar * src, gchar * href);
 void dbus_open_by_hrefid(gchar * hrefid);

@@ -176,6 +176,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                                              FALSE, 0, 0);
                             gtk_tree_path_free(treepath);
                         }
+                        g_idle_add(set_update_gui, NULL);
 
                     } else {
                         dbus_error_free(&error);
@@ -200,10 +201,16 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0)
- 							if (!parse_playlist(s)) {
-                            	add_item_to_playlist(s, 1);
-                        	}    
-						} else {
+                            playlist = detect_playlist(s);
+                        if (!playlist) {
+                            add_item_to_playlist(s, playlist);
+                        } else {
+                            if (!parse_playlist(s)) {
+                                add_item_to_playlist(s, playlist);
+                            }
+                        }
+                        g_idle_add(set_update_gui, NULL);
+                    } else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -843,15 +850,18 @@ void dbus_open_next()
 void dbus_open(gchar * arg)
 {
     gchar *path;
+    gchar *localarg;
     DBusMessage *message;
 
     if (connection != NULL) {
         path = g_strdup_printf("/");
         message = dbus_message_new_signal(path, "com.gnome.mplayer", "Add");
-        dbus_message_append_args(message, DBUS_TYPE_STRING, &arg, DBUS_TYPE_INVALID);
+        localarg = g_strdup(arg);
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &localarg, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
         g_free(path);
+        g_free(localarg);
     }
 }
 void dbus_cancel()
@@ -1089,11 +1099,11 @@ gboolean dbus_hookup(gint windowid, gint controlid)
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
                                    -1);
                 dbus_open(filename);
-				while(gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &iter)) {
-                	gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-                    	               -1);
-                	dbus_open(filename);
-				}					
+                while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &iter)) {
+                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                                       -1);
+                    dbus_open(filename);
+                }
             }
             exit(1);
         }

@@ -375,6 +375,20 @@ gboolean set_window_visible(void *data)
     return FALSE;
 }
 
+gboolean set_update_gui(void *data)
+{
+    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2) {
+        gtk_widget_hide(prev_event_box);
+        gtk_widget_hide(next_event_box);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
+    } else {
+        gtk_widget_show(prev_event_box);
+        gtk_widget_show(next_event_box);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
+    }
+    return FALSE;
+}
+
 gboolean set_gui_state(void *data)
 {
     if (lastguistate != guistate) {
