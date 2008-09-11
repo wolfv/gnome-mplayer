@@ -567,6 +567,7 @@ gboolean resize_window(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idle->videopresent);
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_file_details))) {
             //gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_file_details),FALSE);
             menuitem_details_callback(NULL, NULL);
@@ -4735,6 +4736,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
