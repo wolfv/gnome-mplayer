@@ -3658,6 +3658,14 @@ gboolean progress_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
             }
         }
 
+    } else {
+        gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, &height);
+        percent = (gdouble) event->x / (gdouble) width;
+        time = seconds_to_string(percent * idledata->length);
+        tip = g_strdup_printf("%s", time);
+        gtk_tooltips_set_tip(progress_tip, GTK_WIDGET(progress), tip, NULL);
+        g_free(time);
+        g_free(tip);
     }
     return TRUE;
 }
@@ -4551,7 +4559,7 @@ GtkWidget *create_window(gint windowid)
         gtk_widget_hide(fixed);
         gtk_widget_hide(menubar);
         gtk_widget_hide(media_label);
-		gtk_widget_hide(menu_event_box);
+        gtk_widget_hide(menu_event_box);
         show_media_label = FALSE;
 
         gtk_widget_hide_all(controls_box);
