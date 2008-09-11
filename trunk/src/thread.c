@@ -269,6 +269,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         return FALSE;
     }
 
+    if (strstr(mplayer_output->str, "AO:") != NULL) {
+        idledata->audiopresent = TRUE;
+    }
+
     if (strstr(mplayer_output->str, "VO:") != NULL) {
         buf = strstr(mplayer_output->str, "VO:");
         sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &actual_x, &actual_y, &play_x, &play_y);
@@ -281,7 +285,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             printf("Resizing to %i x %i \n", actual_x, actual_y);
         idledata->width = actual_x;
         idledata->height = actual_y;
-        idledata->videopresent = 1;
+        idledata->videopresent = TRUE;
         g_idle_add(resize_window, idledata);
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
@@ -296,7 +300,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         // printf("Resizing to %i x %i \n", actual_x, actual_y);
         idledata->width = actual_x;
         idledata->height = actual_y;
-        idledata->videopresent = 0;
+        idledata->videopresent = FALSE;
         g_idle_add(resize_window, idledata);
         g_idle_add(set_volume_from_slider, NULL);
         send_command("get_property metadata\n");

@@ -838,6 +838,20 @@ void dbus_open_next()
     }
 }
 
+void dbus_open(gchar * arg)
+{
+    gchar *path;
+    DBusMessage *message;
+
+    if (connection != NULL) {
+        path = g_strdup_printf("/");
+        message = dbus_message_new_signal(path, "com.gnome.mplayer", "Add");
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &arg, DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(path);
+    }
+}
 void dbus_cancel()
 {
     gchar *path;
@@ -1011,6 +1025,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
     DBusMessage *reply_message;
     gint id;
     gint ret;
+    gchar *filename;
 
     dbus_error_init(&error);
     connection = dbus_bus_get_private(type, &error);
@@ -1058,8 +1073,6 @@ gboolean dbus_hookup(gint windowid, gint controlid)
         path = g_strdup_printf("com.gnome.mplayer.cid%i", control_id);
         ret = dbus_bus_request_name(connection, path, 0, NULL);
         g_free(path);
-        if (single_instance && ret > 1)
-            exit(1);
         path = g_strdup_printf("/control/%i", control_id);
         id = control_id;
         reply_message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Ready");
@@ -1069,8 +1082,14 @@ gboolean dbus_hookup(gint windowid, gint controlid)
         g_free(path);
     } else {
         ret = dbus_bus_request_name(connection, "com.gnome.mplayer", 0, NULL);
-        if (single_instance && ret > 1)
+        if (single_instance && ret > 1) {
+            if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                                   -1);
+                dbus_open(filename);
+            }
             exit(1);
+        }
     }
 
 

@@ -184,7 +184,9 @@ GtkWidget *config_framedrop;
 GtkWidget *config_pplevel;
 
 GtkWidget *config_playlist_visible;
+GtkWidget *config_details_visible;
 GtkWidget *config_vertical_layout;
+GtkWidget *config_single_instance;
 GtkWidget *config_pause_on_click;
 GtkWidget *config_softvol;
 GtkWidget *config_forcecache;
