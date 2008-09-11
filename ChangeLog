@@ -1,4 +1,5 @@
 Development
+    When adding items to the single instance playlist, handle all items passed in, including all items in playlist
     Ignore single instance preference when running in embedded mode
     When in single instance mode and you start a second player with a filename, 
         the filename is added to the playlist of the first instance 

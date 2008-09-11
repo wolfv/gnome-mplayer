@@ -200,8 +200,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0)
-                            add_item_to_playlist(s, 0);
-                    } else {
+ 							if (!parse_playlist(s)) {
+                            	add_item_to_playlist(s, 1);
+                        	}    
+						} else {
                         dbus_error_free(&error);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -1087,6 +1089,11 @@ gboolean dbus_hookup(gint windowid, gint controlid)
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
                                    -1);
                 dbus_open(filename);
+				while(gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &iter)) {
+                	gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                    	               -1);
+                	dbus_open(filename);
+				}					
             }
             exit(1);
         }
