@@ -865,8 +865,17 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%s", idledata->device);
     }
 
+	filename = g_utf8_strdown(threaddata->filename,-1);
+	if (strstr(filename,".mkv")) {
+        argv[arg++] = g_strdup_printf("-demuxer");
+        argv[arg++] = g_strdup_printf("mkv");
+	}		
+	g_free(filename);
+	
     if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
+
+
     argv[arg] = g_strdup_printf("%s", threaddata->filename);
     argv[arg + 1] = NULL;
 

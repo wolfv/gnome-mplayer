@@ -79,8 +79,7 @@ msgstr "Spiele alle Dateien in der Wiedergabeliste für immer"
 
 #: src/main.c:74
 msgid "Quit application when last file on playlist is played"
-msgstr ""
-"Beende die Anwendung wenn die letzte Datei der Wiedergabeliste gespielt wurde"
+msgstr "Beende die Anwendung wenn die letzte Datei der Wiedergabeliste gespielt wurde"
 
 #: src/main.c:75
 msgid "Play items on playlist in random order"
@@ -185,8 +184,7 @@ msgstr "GNOME MPlayer v%s\n"
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
-msgstr ""
-"Führe 'gnome-mplayer --help' für eine komplette Liste von ver-   fügbaren "
+msgstr "Führe 'gnome-mplayer --help' für eine komplette Liste von ver-   fügbaren "
 "Parametern aus.\n"
 
 #: src/main.c:465
@@ -220,7 +218,7 @@ msgstr "Paused | %2i%% ▼"
 #: src/gui.c:312
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: src/gui.c:383 src/gui.c:1174
 msgid "Pause"
@@ -625,8 +623,7 @@ msgstr "_Verwerfe Einzelbilder"
 
 #: src/gui.c:3572
 msgid "Set this option if video is well behind the audio"
-msgstr ""
-"Aktiviere diese Option, wenn das Video viel langsamer als das Audio "
+msgstr "Aktiviere diese Option, wenn das Video viel langsamer als das Audio "
 "wiedergegeben wird"
 
 #: src/gui.c:3578
@@ -635,7 +632,7 @@ msgstr "Erzwinge die Benutzung des Zwischenspiechers bei Streaming Dateien"
 
 #: src/gui.c:3583
 msgid "Verbose Debug Enabled"
-msgstr ""
+msgstr "Ausführliche Debug Informationen aktivieren"
 
 #: src/gui.c:3587
 msgid ""
@@ -665,7 +662,7 @@ msgstr "Füge hier weitere MPlayer Parameter an (Filter etc.)"
 #: src/gui.c:3710
 #, c-format
 msgid "Seeking to %s"
-msgstr ""
+msgstr "Spuele zu %s"
 
 #: src/gui.c:3930
 msgid "S_how Controls"
@@ -717,7 +714,7 @@ msgstr "Öffne _DVD aus Ordner mit M_enüs"
 
 #: src/gui.c:4039
 msgid "_TV"
-msgstr ""
+msgstr "_TV"
 
 #: src/gui.c:4046
 #, fuzzy
@@ -830,11 +827,11 @@ msgstr "_Hilfe"
 
 #: src/gui.c:4421
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: src/gui.c:4434
 msgid "Previous"
-msgstr ""
+msgstr "Vorheriger Titel"
 
 #: src/gui.c:4447
 msgid "Rewind"
@@ -854,7 +851,7 @@ msgstr "Nächster Titel"
 
 #: src/gui.c:4517
 msgid "No Information"
-msgstr ""
+msgstr "Keine Informationen"
 
 #: src/gui.c:4524
 msgid "Full Screen"
