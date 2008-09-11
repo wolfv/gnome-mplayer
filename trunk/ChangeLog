@@ -1,4 +1,5 @@
 Development
+    New preference in the GUI to set the default startup volume
     Only allow view angle menu item when video is present
     Fix bug, where audio file was being parsed as a playlist when running in single instance mode
     When adding items to the single instance playlist, handle all items passed in, including all items in playlist
