@@ -86,6 +86,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/showdetails</key>
+      <applyto>/apps/gnome-mplayer/preferences/showdetails</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Show Playlist</short>
+        <long>Make the details visible when gnome-mplayer is started</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/disablefullscreen</key>
       <applyto>/apps/gnome-mplayer/preferences/disablefullscreen</applyto>
       <owner>gnome-mplayer</owner>
@@ -228,6 +240,18 @@
         <long>Default font scaling to use for subtitles</long>
       </locale>
     </schema>
-    
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/single_instance</key>
+      <applyto>/apps/gnome-mplayer/preferences/single_instance</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>boolean</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Only allow one instance of the player to run</short>
+        <long>Only allow one instance of the player to run</long>
+      </locale>
+    </schema>
+        
   </schemalist>
 </gconfschemafile>

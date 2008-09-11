@@ -1,4 +1,14 @@
 Development
+    Ignore single instance preference when running in embedded mode
+    When in single instance mode and you start a second player with a filename, 
+        the filename is added to the playlist of the first instance 
+        so now you can select a bunch of files in Nautilus and say open in gnome-mplayer
+        and all the files are opened in a single instance
+    Added preference --new_instance, to override single_instance
+    Made single instance a new preference on Advanced Tab
+    Made show details a new preference on Advanced Tab
+    Made new option --showdetails
+    Fix resize issues with details and playlist open
     German translation by 25Hertz
     When mouse is over progress bar, show tooltip showing media time where the mouse is
     Menu button being shown in realplayer mode, hide it.

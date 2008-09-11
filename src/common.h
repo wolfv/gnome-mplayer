@@ -36,6 +36,7 @@
 #define FORCECACHE		"/apps/gnome-mplayer/preferences/forcecache"
 #define LAST_DIR		"/apps/gnome-mplayer/preferences/last_dir"
 #define SHOWPLAYLIST	"/apps/gnome-mplayer/preferences/showplaylist"
+#define SHOWDETAILS	"/apps/gnome-mplayer/preferences/showdetails"
 #define DISABLEASS          "/apps/gnome-mplayer/preferences/disableass"
 #define DISABLEEMBEDDEDFONTS    "/apps/gnome-mplayer/preferences/disableembeddedfonts"
 #define DISABLEDEINTERLACE	"/apps/gnome-mplayer/preferences/disable_deinterlace"
@@ -61,7 +62,7 @@
 #define REMEMBER_LOC		"/apps/gnome-mplayer/preferences/remember_loc"
 #define WINDOW_X		"/apps/gnome-mplayer/preferences/window_x"
 #define WINDOW_Y		"/apps/gnome-mplayer/preferences/window_y"
-
+#define SINGLE_INSTANCE "/apps/gnome-mplayer/preferences/single_instance"
 
 // JavaScript Playstates
 #define STATE_UNDEFINED     0
@@ -113,7 +114,8 @@ typedef struct _IdleData {
     gint last_y;
     gint width;
     gint height;
-    gint videopresent;
+    gboolean videopresent;
+    gboolean audiopresent;
     gboolean fullscreen;
     gboolean showcontrols;
     gdouble position;
@@ -134,6 +136,7 @@ typedef struct _IdleData {
     gchar audio_channels[16];
     gchar metadata[1024];
     gboolean fromdbus;
+    gboolean window_resized;
 } IdleData;
 
 IdleData *idledata;
@@ -218,6 +221,7 @@ gchar *metadata_codepage;
 gint volume;
 gboolean vertical_layout;
 gboolean playlist_visible;
+gboolean details_visible;
 gboolean restore_playlist;
 gboolean disable_ass;
 gboolean disable_embeddedfonts;
@@ -229,6 +233,7 @@ gboolean quit_on_complete;
 gchar *mplayer_bin;
 gchar *extraopts;
 gboolean single_instance;
+gboolean new_instance;
 
 gboolean remember_loc;
 gint loc_window_x;

@@ -94,6 +94,8 @@ static GOptionEntry entries[] = {
      NULL},
     {"showplaylist", 0, 0, G_OPTION_ARG_NONE, &playlist_visible, N_("Start with playlist open"),
      NULL},
+    {"showdetails", 0, 0, G_OPTION_ARG_NONE, &details_visible, N_("Start with details visible"),
+     NULL},
     {"rpname", 0, 0, G_OPTION_ARG_STRING, &rpname, N_("Real Player Name"), "NAME"},
     {"rpconsole", 0, 0, G_OPTION_ARG_STRING, &rpconsole, N_("Real Player Console ID"), "CONSOLE"},
     {"rpcontrols", 0, 0, G_OPTION_ARG_STRING, &rpcontrols, N_("Real Player Console Controls"),
@@ -107,6 +109,9 @@ static GOptionEntry entries[] = {
     {"tvheight", 0, 0, G_OPTION_ARG_INT, &tv_height, N_("Height of TV input"), "HEIGHT"},
     {"tvfps", 0, 0, G_OPTION_ARG_INT, &tv_fps, N_("Frames per second from TV input"), "FPS"},
     {"single_instance", 0, 0, G_OPTION_ARG_NONE, &single_instance, N_("Only allow one instance"),
+     NULL},
+    {"new_instance", 0, 0, G_OPTION_ARG_NONE, &new_instance,
+     N_("Ignore single instance preference for this instance"),
      NULL},
     {NULL}
 };
@@ -302,6 +307,7 @@ int main(int argc, char *argv[])
     mplayer_bin = NULL;
     single_instance = FALSE;
     disable_deinterlace = TRUE;
+    details_visible = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -312,6 +318,7 @@ int main(int argc, char *argv[])
     forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
     vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
     playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);
+    details_visible = gconf_client_get_bool(gconf, SHOWDETAILS, NULL);
     disable_deinterlace = gconf_client_get_bool(gconf, DISABLEDEINTERLACE, NULL);
     disable_framedrop = gconf_client_get_bool(gconf, DISABLEFRAMEDROP, NULL);
     disable_fullscreen = gconf_client_get_bool(gconf, DISABLEFULLSCREEN, NULL);
@@ -333,6 +340,7 @@ int main(int argc, char *argv[])
     wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
     dvx_disabled = gconf_client_get_bool(gconf, DISABLE_DVX, NULL);
     embedding_disabled = gconf_client_get_bool(gconf, DISABLE_EMBEDDING, NULL);
+    single_instance = gconf_client_get_bool(gconf, SINGLE_INSTANCE, NULL);
 
     mplayer_bin = gconf_client_get_string(gconf, MPLAYER_BIN, NULL);
     if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
@@ -354,6 +362,9 @@ int main(int argc, char *argv[])
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
 
+    if (new_instance)
+        single_instance = FALSE;
+
     if (verbose == 0)
         verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
 
@@ -368,6 +379,10 @@ int main(int argc, char *argv[])
     if (cache_size == 0)
         cache_size = 2000;
     g_object_unref(G_OBJECT(gconf));
+
+    if (verbose && single_instance) {
+        printf("Running in single instance mode\n");
+    }
 
     if (volume == 0) {
         volume = (gint) get_alsa_volume();
@@ -509,6 +524,8 @@ int main(int argc, char *argv[])
         if (playlist_visible == TRUE && embed_window == 0)
             menuitem_view_playlist_callback(NULL, NULL);
     }
+
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_file_details), details_visible);
 
     dbus_hookup(embed_window, control_id);
 
