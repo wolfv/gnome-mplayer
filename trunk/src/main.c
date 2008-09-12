@@ -133,6 +133,8 @@ gint play_file(gchar * filename, gint playlist)
     shutdown();
 	gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs),remove_langs,NULL);
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang),FALSE);
+	gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs),remove_langs,NULL);
+	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang),FALSE);
 
 	g_strlcpy(thread_data->filename, filename, 1024);
     thread_data->done = FALSE;

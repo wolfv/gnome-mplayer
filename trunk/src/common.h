@@ -138,6 +138,7 @@ typedef struct _IdleData {
     gchar metadata[1024];
     gboolean fromdbus;
     gboolean window_resized;
+	gboolean has_chapters;
 } IdleData;
 
 IdleData *idledata;
@@ -300,6 +301,7 @@ gboolean set_window_visible(void *data);
 gboolean set_update_gui(void *data);
 void remove_langs(GtkWidget *item, gpointer data);
 gboolean set_new_lang_menu(gpointer data);
+gboolean set_new_audio_menu(gpointer data);
 gboolean make_panel_and_mouse_invisible(gpointer data);
 void make_button(gchar * src, gchar * href);
 void dbus_open_by_hrefid(gchar * hrefid);

@@ -445,6 +445,28 @@ gboolean set_new_lang_menu(gpointer data)
 	return FALSE;
 }
 
+void menuitem_audio_callback(GtkMenuItem * menuitem, gpointer data)
+{
+		gint * aid = (gint *) data;
+		gchar *cmd;
+		
+		cmd = g_strdup_printf("switch_audio %i\n",*aid);
+		send_command(cmd);
+		g_free(cmd);
+}
+
+gboolean set_new_audio_menu(gpointer data)
+{
+	LangMenu *menu = (LangMenu *)data;
+	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang),TRUE);
+
+	menuitem_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_label(menu->label));
+	gtk_menu_append(menu_edit_audio_langs,GTK_WIDGET(menuitem_lang));
+	g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+                     G_CALLBACK(menuitem_audio_callback), &menu->value);
+	gtk_widget_show(GTK_WIDGET(menuitem_lang));
+	return FALSE;
+}
 
 gboolean resize_window(void *data)
 {
@@ -1357,7 +1379,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
-        if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+        if (idledata->has_chapters) {
             valid = FALSE;
             send_command("seek_chapter -2 0\n");
         } else {
@@ -1385,7 +1407,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter);
         } while (gtk_list_store_iter_is_valid(playliststore, &localiter));
 
-        if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+        if (idledata->has_chapters) {
             valid = FALSE;
             send_command("seek_chapter -1 0\n");
         }
@@ -1426,7 +1448,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-        if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+        if (idledata->has_chapters) {
             send_command("seek_chapter 1 0\n");
         } else {
             shutdown();
@@ -1439,7 +1461,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             gtk_widget_set_sensitive(rew_event_box, TRUE);
         }
     } else {
-        if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+        if (idledata->has_chapters) {
             send_command("seek_chapter 1 0\n");
         }
     }
@@ -4167,10 +4189,17 @@ GtkWidget *create_window(gint windowid)
     menuitem_edit_switch_audio =
         GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("S_witch Audio Track")));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_switch_audio));
+
+    menuitem_edit_select_audio_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Select _Audio Language")));
+	menu_edit_audio_langs = GTK_MENU(gtk_menu_new());
+	gtk_widget_show(GTK_WIDGET(menuitem_edit_select_audio_lang));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_select_audio_lang));
+    gtk_menu_item_set_submenu(menuitem_edit_select_audio_lang, GTK_WIDGET(menu_edit_audio_langs));
+	
     menuitem_edit_set_subtitle = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Sub_title")));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_set_subtitle));
 	
-    menuitem_edit_select_sub_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Select Subtitle L_anguage")));
+    menuitem_edit_select_sub_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("S_elect Subtitle Language")));
 	menu_edit_sub_langs = GTK_MENU(gtk_menu_new());
 	gtk_widget_show(GTK_WIDGET(menuitem_edit_select_sub_lang));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_select_sub_lang));
@@ -4782,6 +4811,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
+	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), FALSE);

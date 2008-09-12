@@ -64,6 +64,8 @@ GtkMenu *menu_edit;
 GtkMenuItem *menuitem_edit_random;
 GtkMenuItem *menuitem_edit_loop;
 GtkMenuItem *menuitem_edit_switch_audio;
+GtkMenuItem *menuitem_edit_select_audio_lang;
+GtkMenu *menu_edit_audio_langs;
 GtkMenuItem *menuitem_edit_set_subtitle;
 GtkMenuItem *menuitem_edit_select_sub_lang;
 GtkMenu *menu_edit_sub_langs;
