@@ -163,6 +163,11 @@ enum {
     N_COLUMNS
 };
 
+typedef struct _LangMenu {
+	gchar *label;
+	int value;
+} LangMenu;
+
 //Define MIME for DnD
 #define DRAG_NAME_0		"text/plain"
 #define DRAG_INFO_0		0
@@ -293,6 +298,8 @@ gboolean set_show_controls(void *data);
 gboolean get_show_controls();
 gboolean set_window_visible(void *data);
 gboolean set_update_gui(void *data);
+void remove_langs(GtkWidget *item, gpointer data);
+gboolean set_new_lang_menu(gpointer data);
 gboolean make_panel_and_mouse_invisible(gpointer data);
 void make_button(gchar * src, gchar * href);
 void dbus_open_by_hrefid(gchar * hrefid);

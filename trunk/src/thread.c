@@ -195,6 +195,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gchar *utf8name;
     gchar *utf8artist;
     gdouble old_pos;
+	LangMenu *menu;
 
     if (source == NULL) {
         g_source_remove(watch_err_id);
@@ -558,6 +559,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_strlcpy(idledata->audio_channels, buf, 16);
     }
 
+    if (strstr(mplayer_output->str, "ID_SID_") != 0) {
+		menu = g_new0(LangMenu,1);
+		sscanf(mplayer_output->str, "ID_SID_%i_", &menu->value);
+        g_string_truncate(mplayer_output, mplayer_output->len - 1);
+        buf = strstr(mplayer_output->str, "_LANG=") + strlen("_LANG=");
+        menu->label = g_strdup(buf);
+		g_idle_add(set_new_lang_menu,menu);
+	}
+	
     if (strstr(mplayer_output->str, "File not found") != 0) {
     }
 
@@ -865,13 +875,14 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%s", idledata->device);
     }
 
+/*	This is needed when lavc is the default decoder, but mkv is the default as of 9/9/08
 	filename = g_utf8_strdown(threaddata->filename,-1);
 	if (strstr(filename,".mkv")) {
         argv[arg++] = g_strdup_printf("-demuxer");
         argv[arg++] = g_strdup_printf("mkv");
 	}		
 	g_free(filename);
-	
+*/	
     if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
 

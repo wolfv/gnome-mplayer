@@ -131,7 +131,10 @@ gint play_file(gchar * filename, gint playlist)
         printf("playing - %s\n", filename);
 
     shutdown();
-    g_strlcpy(thread_data->filename, filename, 1024);
+	gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs),remove_langs,NULL);
+	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang),FALSE);
+
+	g_strlcpy(thread_data->filename, filename, 1024);
     thread_data->done = FALSE;
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -148,7 +151,7 @@ gint play_file(gchar * filename, gint playlist)
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
         g_free(subtitle);
     }
-
+		
     if (g_ascii_strcasecmp(filename, "") != 0) {
         if (!device_name(filename)) {
             if (!streaming_media(filename)) {
