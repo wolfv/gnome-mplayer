@@ -417,6 +417,34 @@ gboolean set_gui_state(void *data)
     return FALSE;
 }
 
+void remove_langs(GtkWidget *item, gpointer data)
+{
+	gtk_widget_destroy(item);
+}
+
+void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer data)
+{
+		gint * sid = (gint *) data;
+		gchar *cmd;
+		
+		cmd = g_strdup_printf("sub_demux %i\n",*sid);
+		send_command(cmd);
+		g_free(cmd);
+}
+
+gboolean set_new_lang_menu(gpointer data)
+{
+	LangMenu *menu = (LangMenu *)data;
+	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang),TRUE);
+
+	menuitem_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_label(menu->label));
+	gtk_menu_append(menu_edit_sub_langs,GTK_WIDGET(menuitem_lang));
+	g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+                     G_CALLBACK(menuitem_lang_callback), &menu->value);
+	gtk_widget_show(GTK_WIDGET(menuitem_lang));
+	return FALSE;
+}
+
 
 gboolean resize_window(void *data)
 {
@@ -4141,7 +4169,14 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_switch_audio));
     menuitem_edit_set_subtitle = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Sub_title")));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_set_subtitle));
-    menuitem_edit_take_screenshot =
+	
+    menuitem_edit_select_sub_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Select Subtitle L_anguage")));
+	menu_edit_sub_langs = GTK_MENU(gtk_menu_new());
+	gtk_widget_show(GTK_WIDGET(menuitem_edit_select_sub_lang));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_select_sub_lang));
+    gtk_menu_item_set_submenu(menuitem_edit_select_sub_lang, GTK_WIDGET(menu_edit_sub_langs));
+
+	menuitem_edit_take_screenshot =
         GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Take Screenshot")));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_take_screenshot));
     tooltip = gtk_tooltips_new();
@@ -4747,6 +4782,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
+	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), FALSE);
