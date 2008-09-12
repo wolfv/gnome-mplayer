@@ -564,8 +564,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 		sscanf(mplayer_output->str, "ID_SID_%i_", &menu->value);
         g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "_LANG=") + strlen("_LANG=");
-        menu->label = g_strdup(buf);
-		g_idle_add(set_new_lang_menu,menu);
+        if (buf != NULL) {
+		    menu->label = g_strdup(buf);
+			g_idle_add(set_new_lang_menu,menu);
+		}
 	}
 
 	if (strstr(mplayer_output->str, "ID_AID_") != 0) {
@@ -573,8 +575,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 		sscanf(mplayer_output->str, "ID_AID_%i_", &menu->value);
         g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "_LANG=") + strlen("_LANG=");
-        menu->label = g_strdup(buf);
-		g_idle_add(set_new_audio_menu,menu);
+        if (buf != NULL) {
+	        menu->label = g_strdup(buf);
+			g_idle_add(set_new_audio_menu,menu);
+		}
 	}
 
 	
