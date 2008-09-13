@@ -309,7 +309,7 @@ gboolean set_progress_time(void *data)
             g_snprintf(idle->progress_text, 128,
                        "%s | %2i%% \342\226\274", time_position, (int) (idle->cachepercent * 100));
         } else {
-            g_snprintf(idle->progress_text, 128, _("%s"), time_position);
+            g_snprintf(idle->progress_text, 128, "%s", time_position);
         }
     } else {
         if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
@@ -377,7 +377,7 @@ gboolean set_window_visible(void *data)
 
 gboolean set_update_gui(void *data)
 {
-    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2) {
+    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2 && idledata->has_chapters == FALSE) {
         gtk_widget_hide(prev_event_box);
         gtk_widget_hide(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);

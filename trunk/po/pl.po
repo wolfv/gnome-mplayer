@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-12 12:20-0600\n"
+"POT-Creation-Date: 2008-09-13 16:58-0600\n"
 "PO-Revision-Date: 2008-08-15 08:48+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -215,11 +215,6 @@ msgstr "GNOME MPlayer"
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Zapauzowany | %2i%% ▼"
-
-#: src/gui.c:312
-#, c-format
-msgid "%s"
-msgstr ""
 
 #: src/gui.c:397 src/gui.c:1239
 msgid "Pause"
@@ -995,12 +990,12 @@ msgstr "Zapełnienie bufora: %2.2f%%"
 msgid "Connecting"
 msgstr "Łączenie"
 
-#: src/thread.c:596
+#: src/thread.c:600
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Zrzut ekranu zapisano do '%s'"
 
-#: src/thread.c:599
+#: src/thread.c:603
 msgid "GNOME MPlayer Notification"
 msgstr "Powiadamianie GNOME MPlayer"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnomov mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-12 12:20-0600\n"
+"POT-Creation-Date: 2008-09-13 16:58-0600\n"
 "PO-Revision-Date: 2008-04-23 14:55+0000\n"
 "Last-Translator: Miloš Popović <gpopac@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
@@ -213,11 +213,6 @@ msgstr "Gnomov Mplejer"
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Pauzirano | %2i%% ▼"
-
-#: src/gui.c:312
-#, c-format
-msgid "%s"
-msgstr ""
 
 #: src/gui.c:397 src/gui.c:1239
 msgid "Pause"
@@ -990,12 +985,12 @@ msgstr "Popunjenost ostave: %2.2f%%"
 msgid "Connecting"
 msgstr "Povezujem se"
 
-#: src/thread.c:596
+#: src/thread.c:600
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr ""
 
-#: src/thread.c:599
+#: src/thread.c:603
 #, fuzzy
 msgid "GNOME MPlayer Notification"
 msgstr "Postavke Gnomovog Mplejera"

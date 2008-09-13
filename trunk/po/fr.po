@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-12 12:20-0600\n"
+"POT-Creation-Date: 2008-09-13 16:58-0600\n"
 "PO-Revision-Date: 2008-08-14 09:27+0200\n"
 "Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -217,11 +217,6 @@ msgstr "GNOME MPlayer"
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "En pause | %2i%% ▼"
-
-#: src/gui.c:312
-#, c-format
-msgid "%s"
-msgstr ""
 
 #: src/gui.c:397 src/gui.c:1239
 msgid "Pause"
@@ -1007,12 +1002,12 @@ msgstr "Mise en mémoire tampon : %2.2f%%"
 msgid "Connecting"
 msgstr "Connexion en cours"
 
-#: src/thread.c:596
+#: src/thread.c:600
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Cliché sauvegardé en tant que « %s »"
 
-#: src/thread.c:599
+#: src/thread.c:603
 msgid "GNOME MPlayer Notification"
 msgstr "Notification de GNOME MPlayer"
 
