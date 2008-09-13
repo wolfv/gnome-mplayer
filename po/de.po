@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-12 12:20-0600\n"
+"POT-Creation-Date: 2008-09-13 16:58-0600\n"
 "PO-Revision-Date: 2007-05-18 06:35-0600\n"
 "Last-Translator: tim__b <info@yaub.haut.indy-fresse.de>\n"
 "Language-Team: tim__b <info@yaub.haut.indy-fresse.de>\n"
@@ -216,11 +216,6 @@ msgstr "GNOME MPlayer"
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Paused | %2i%% ▼"
-
-#: src/gui.c:312
-#, c-format
-msgid "%s"
-msgstr "%s"
 
 #: src/gui.c:397 src/gui.c:1239
 msgid "Pause"
@@ -980,12 +975,12 @@ msgstr "Zwischenspeichernutzung: %2.2f%%"
 msgid "Connecting"
 msgstr "Verbinde"
 
-#: src/thread.c:596
+#: src/thread.c:600
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Schnappschuss in '%s' gespeichert"
 
-#: src/thread.c:599
+#: src/thread.c:603
 #, fuzzy
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer Konfiguration"
@@ -1083,6 +1078,9 @@ msgstr "Titel nach unten bewegen"
 #: src/playlist.c:925
 msgid "_Set Subtitle"
 msgstr "_Setzte Untertitel"
+
+#~ msgid "%s"
+#~ msgstr "%s"
 
 #~ msgid "%2i:%02i | %2i%% ▼"
 #~ msgstr "%2i:%02i | %2i%% ▼"

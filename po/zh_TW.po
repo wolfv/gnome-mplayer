@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-12 12:20-0600\n"
+"POT-Creation-Date: 2008-09-13 16:58-0600\n"
 "PO-Revision-Date: 2008-05-31 17:11+0800\n"
 "Last-Translator: Hialan Liu <hialan.liu@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
@@ -210,11 +210,6 @@ msgstr "GNOME MPlayer"
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "已暫停 | %2i%% ▼"
-
-#: src/gui.c:312
-#, c-format
-msgid "%s"
-msgstr ""
 
 #: src/gui.c:397 src/gui.c:1239
 msgid "Pause"
@@ -959,12 +954,12 @@ msgstr "填滿快取：%2.2f%%"
 msgid "Connecting"
 msgstr "正在連接"
 
-#: src/thread.c:596
+#: src/thread.c:600
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr ""
 
-#: src/thread.c:599
+#: src/thread.c:603
 #, fuzzy
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer 設定"

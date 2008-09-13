@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-12 12:20-0600\n"
+"POT-Creation-Date: 2008-09-13 16:58-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,11 +207,6 @@ msgstr ""
 #: src/gui.c:225
 #, c-format
 msgid "Paused | %2i%% ▼"
-msgstr ""
-
-#: src/gui.c:312
-#, c-format
-msgid "%s"
 msgstr ""
 
 #: src/gui.c:397 src/gui.c:1239
@@ -937,12 +932,12 @@ msgstr ""
 msgid "Connecting"
 msgstr ""
 
-#: src/thread.c:596
+#: src/thread.c:600
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr ""
 
-#: src/thread.c:599
+#: src/thread.c:603
 msgid "GNOME MPlayer Notification"
 msgstr ""
 
