@@ -1,6 +1,7 @@
-# Turkish translation of GNOME MPlayer.
+# translation of tr.po to Turkish
 # İnanç Yıldırgan <inancyildirgan@gmail.com>, 2008.
 # Onur Küçük <onur@pardus.org.tr>, 2008.
+# Turkish translation of GNOME MPlayer.
 # This file is distributed under the same license as the gnome-mplayer package.
 # Copyright (C) Kevin DeKorte 2006-2008 <kdekorte@gmail.com>
 msgid ""
@@ -116,9 +117,8 @@ msgid "Start with playlist open"
 msgstr "Açılışta oynatma listesini aç"
 
 #: src/main.c:97 src/gui.c:3612
-#, fuzzy
 msgid "Start with details visible"
-msgstr "Açılışta oynatma listesini göster"
+msgstr "Açılışta detayları göster"
 
 #: src/main.c:99
 msgid "Real Player Name"
@@ -166,7 +166,7 @@ msgstr "Sadece bir program çalışsın"
 
 #: src/main.c:114
 msgid "Ignore single instance preference for this instance"
-msgstr ""
+msgstr "Bu oturum için birden fazla oturumu sıraya almaya izin ver"
 
 #: src/main.c:362
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -472,13 +472,15 @@ msgstr "<span weight=\"bold\">Ayarları Değiştir</span>"
 
 #: src/gui.c:3346
 msgid "Default Volume Level:"
-msgstr ""
+msgstr "Öntanımlı Ses Seviyesi:"
 
 #: src/gui.c:3355
 msgid ""
 "Default volume for playback, values of 0 or 100 cause the setting from ALSA "
 "to be used"
 msgstr ""
+"Öntanımlı ses seviyesi. Ses seviyesi için ALSA ayarlarının kullanılmasını istiyorsanız "
+"0 ya da 100 olarak ayarlayınız"
 
 #: src/gui.c:3367
 msgid "Minimum Cache Size (KB):"
@@ -589,9 +591,8 @@ msgid "Start with playlist below media window"
 msgstr "Açılışta oynatma listesini ana pencerenin altında aç"
 
 #: src/gui.c:3624
-#, fuzzy
 msgid "Only allow one instance of Gnome MPlayer"
-msgstr "Sadece bir program çalışsın"
+msgstr "Sadece bir Gnome MPlayer çalışsın"
 
 #: src/gui.c:3629
 msgid "Remember Window Location"
@@ -650,8 +651,7 @@ msgid "MPlayer Executable:"
 msgstr "MPlayer Çalıştırılabilir Dosyası:"
 
 #: src/gui.c:3686
-msgid ""
-"Use this option to specify a mplayer application that is not in the path"
+msgid "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Hızlı erişim yolunda (PATH) olmayan bir mplayer uygulamasını çalıştırmak "
 "için bu seçeneği kullanın"
@@ -667,7 +667,7 @@ msgstr "Ekstra mplayer seçeneklerini buraya ekleyin (filtre vs.)"
 #: src/gui.c:3798
 #, c-format
 msgid "Seeking to %s"
-msgstr ""
+msgstr "%s zamanına atlanıyor"
 
 #: src/gui.c:4018
 msgid "S_how Controls"
@@ -692,7 +692,7 @@ msgstr "_Adresi Aç"
 
 #: src/gui.c:4106
 msgid "Open _Audio CD"
-msgstr "Se_s CD'si Aç"
+msgstr "Ses _CD'si Aç"
 
 #: src/gui.c:4109
 msgid "_DVD"
@@ -700,7 +700,7 @@ msgstr "_DVD"
 
 #: src/gui.c:4115
 msgid "Open _DVD"
-msgstr "_DVD Aç"
+msgstr "DVD _Aç"
 
 #: src/gui.c:4118
 msgid "Open DVD with _Menus"
@@ -712,7 +712,7 @@ msgstr "Di_zinden DVD Aç"
 
 #: src/gui.c:4124
 msgid "Open DVD from Folder with M_enus"
-msgstr "Dizinden DVD'yi _Menü ile Aç"
+msgstr "Dizinden DVD'yi M_enü ile Aç"
 
 #: src/gui.c:4127
 msgid "_TV"
@@ -737,29 +737,27 @@ msgstr "Dü_zen"
 
 #: src/gui.c:4181
 msgid "_Shuffle Playlist"
-msgstr "O_ynatma Listesini Karıştır"
+msgstr "Oynatma Listesini _Karıştır"
 
 #: src/gui.c:4185
 msgid "_Loop Playlist"
-msgstr "Oynatma Listesini Yi_nele"
+msgstr "Oynatma Listesini _Yinele"
 
 #: src/gui.c:4190
 msgid "S_witch Audio Track"
-msgstr "Ses İz_ini Değiştir"
+msgstr "_Ses İzini Değiştir"
 
 #: src/gui.c:4193
-#, fuzzy
 msgid "Select _Audio Language"
-msgstr "Öntanımlı Ses Dili"
+msgstr "Öntanımlı _Ses Dili"
 
 #: src/gui.c:4199
 msgid "Set Sub_title"
-msgstr "Alt_yazı Seç"
+msgstr "_Altyazı Seç"
 
 #: src/gui.c:4202
-#, fuzzy
 msgid "S_elect Subtitle Language"
-msgstr "Öntanımlı Altyazı Dili:"
+msgstr "Öntanımlı _Altyazı Dili"
 
 #: src/gui.c:4209
 msgid "_Take Screenshot"
@@ -767,8 +765,7 @@ msgstr "_Ekran Görüntüsü Yakala"
 
 #: src/gui.c:4213
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
-msgstr ""
-"Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
+msgstr "Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
 
 #. View Menu
 #: src/gui.c:4242
@@ -862,7 +859,7 @@ msgstr "Sonraki"
 
 #: src/gui.c:4619
 msgid "No Information"
-msgstr ""
+msgstr "Bilgi Yok"
 
 #: src/gui.c:4626
 msgid "Full Screen"
@@ -1070,3 +1067,4 @@ msgstr "Öğeyi Aşağı İndir"
 #: src/playlist.c:925
 msgid "_Set Subtitle"
 msgstr "_Altyazı Ayarla"
+
