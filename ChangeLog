@@ -1,4 +1,5 @@
 Development
+    Updated Turkish translation
     Keep blank items from appearing in Subtitle and Audio language menus
     Add new menu Edit->Select Audio Language, should work on DVD and mkv files
     Add new menu Edit->Select Subtitle Language, this menu is populated with data from the mkv files for subtitle selection
