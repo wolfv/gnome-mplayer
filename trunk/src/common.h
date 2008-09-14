@@ -241,6 +241,7 @@ gchar *mplayer_bin;
 gchar *extraopts;
 gboolean single_instance;
 gboolean new_instance;
+gboolean replace_and_play;
 
 gboolean remember_loc;
 gint loc_window_x;
