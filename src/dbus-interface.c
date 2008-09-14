@@ -857,8 +857,12 @@ void dbus_open(gchar * arg)
 
     if (connection != NULL) {
         path = g_strdup_printf("/");
-        message = dbus_message_new_signal(path, "com.gnome.mplayer", "Add");
-        localarg = g_strdup(arg);
+		if (replace_and_play) {
+			message = dbus_message_new_signal(path, "com.gnome.mplayer", "Open");
+		} else {
+			message = dbus_message_new_signal(path, "com.gnome.mplayer", "Add");
+		}
+		localarg = g_strdup(arg);
         dbus_message_append_args(message, DBUS_TYPE_STRING, &localarg, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);

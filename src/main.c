@@ -110,6 +110,8 @@ static GOptionEntry entries[] = {
     {"tvfps", 0, 0, G_OPTION_ARG_INT, &tv_fps, N_("Frames per second from TV input"), "FPS"},
     {"single_instance", 0, 0, G_OPTION_ARG_NONE, &single_instance, N_("Only allow one instance"),
      NULL},
+    {"replace_and_play", 0, 0, G_OPTION_ARG_NONE, &replace_and_play, N_("Put single instance mode into replace and play mode"),
+     NULL},
     {"new_instance", 0, 0, G_OPTION_ARG_NONE, &new_instance,
      N_("Ignore single instance preference for this instance"),
      NULL},
@@ -313,6 +315,7 @@ int main(int argc, char *argv[])
     single_instance = FALSE;
     disable_deinterlace = TRUE;
     details_visible = FALSE;
+	replace_and_play = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
