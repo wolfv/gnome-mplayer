@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-13 16:58-0600\n"
-"PO-Revision-Date: 2008-08-14 09:27+0200\n"
-"Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
+"PO-Revision-Date: 2008-09-14 16:36+0200\n"
+"Last-Translator: <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,9 +119,8 @@ msgid "Start with playlist open"
 msgstr "Lancer avec la liste de lecture affichée"
 
 #: src/main.c:97 src/gui.c:3612
-#, fuzzy
 msgid "Start with details visible"
-msgstr "Lancer avec la liste de lecture affichée."
+msgstr "Lancer avec les informations détaillées affichées"
 
 #: src/main.c:99
 msgid "Real Player Name"
@@ -169,7 +168,7 @@ msgstr "Ne permettre qu'une seule instance"
 
 #: src/main.c:114
 msgid "Ignore single instance preference for this instance"
-msgstr ""
+msgstr "Ignorer les paramètres d'instance pour cette fois"
 
 #: src/main.c:362
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -330,7 +329,7 @@ msgstr ""
 
 #: src/gui.c:2292 src/playlist.c:121
 msgid "Set Subtitle"
-msgstr "Sélection des sous-titres"
+msgstr "Sélectionner un fichier de sous-titres"
 
 #: src/gui.c:2725
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -450,7 +449,7 @@ msgstr "Sélection du langage"
 
 #: src/gui.c:3168
 msgid "Subtitles"
-msgstr "Sélection des sous-titres"
+msgstr "Format des sous-titres"
 
 #: src/gui.c:3170
 msgid "Advanced"
@@ -497,13 +496,15 @@ msgstr ""
 
 #: src/gui.c:3346
 msgid "Default Volume Level:"
-msgstr ""
+msgstr "Niveau du volume par défaut"
 
 #: src/gui.c:3355
 msgid ""
 "Default volume for playback, values of 0 or 100 cause the setting from ALSA "
 "to be used"
 msgstr ""
+"Niveau du volume par défaut pour la lecture. Si les valeurs 0 ou 100 sont "
+"utilisées ; la valeur sera extraite de la configuration d'ALSA."
 
 #: src/gui.c:3367
 msgid "Minimum Cache Size (KB):"
@@ -549,7 +550,7 @@ msgstr "Émulation DiVX Player"
 
 #: src/gui.c:3445
 msgid "Disable Player Embedding"
-msgstr "Désactiver l'embarquement du lecteur."
+msgstr "Désactiver l'embarquement du lecteur"
 
 #: src/gui.c:3453
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -569,15 +570,15 @@ msgstr "Encodage des métadonnées :"
 
 #: src/gui.c:3497
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\">Paramètres des sous-titres</span>"
+msgstr "<span weight=\"bold\">Paramètres du format des sous-titres</span>"
 
 #: src/gui.c:3506
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
-msgstr "Activer le support des sous-titres _ASS (Advanced Substation Alpha)."
+msgstr "Activer le support des sous-titres _ASS (Advanced Substation Alpha)"
 
 #: src/gui.c:3513
 msgid "Use _Embedded Fonts"
-msgstr "Utiliser les fontes _intégrées."
+msgstr "Utiliser les fontes _intégrées"
 
 #: src/gui.c:3520
 msgid "Subtitle Font:"
@@ -609,28 +610,27 @@ msgstr "<span weight=\"bold\">Paramètres avancés</span>"
 
 #: src/gui.c:3607
 msgid "Start with playlist visible"
-msgstr "Lancer avec la liste de lecture affichée."
+msgstr "Lancer avec la liste de lecture affichée"
 
 #: src/gui.c:3618
 msgid "Start with playlist below media window"
-msgstr "Lancer avec la liste de lecture sous la fenêtre média."
+msgstr "Lancer avec la liste de lecture sous la fenêtre média"
 
 #: src/gui.c:3624
-#, fuzzy
 msgid "Only allow one instance of Gnome MPlayer"
-msgstr "Ne permettre qu'une seule instance"
+msgstr "Ne permettre qu'une seule instance de GNOME MPlayer"
 
 #: src/gui.c:3629
 msgid "Remember Window Location"
-msgstr "Se rappeler la position de la fenêtre."
+msgstr "Se rappeler la position de la fenêtre"
 
 #: src/gui.c:3634
 msgid "Pause playback on mouse click"
-msgstr "Mettre en pause avec un simple clic de souris."
+msgstr "Mettre en pause avec un simple clic de souris"
 
 #: src/gui.c:3639
 msgid "Mplayer Software Volume Control Enabled"
-msgstr "Activer le contrôle de volume logiciel de Mplayer."
+msgstr "Activer le contrôle de volume logiciel de Mplayer"
 
 #: src/gui.c:3643
 msgid ""
@@ -642,15 +642,15 @@ msgstr ""
 
 #: src/gui.c:3649
 msgid "De_interlace Video"
-msgstr "_Désentrelacer la vidéo."
+msgstr "_Désentrelacer la vidéo"
 
 #: src/gui.c:3651
 msgid "Set this option if video looks striped"
-msgstr "Activez cette option si la vidéo parait rayée"
+msgstr "Activez cette option si la vidéo parait rayée."
 
 #: src/gui.c:3657
 msgid "_Drop frames"
-msgstr "Activer le _saut d'images."
+msgstr "Activer le _saut d'images"
 
 #: src/gui.c:3660
 msgid "Set this option if video is well behind the audio"
@@ -659,12 +659,11 @@ msgstr ""
 
 #: src/gui.c:3666
 msgid "Force the use of cache setting on streaming media"
-msgstr ""
-"Forcer l'utilisation des paramètres de la mémoire tampon pour les flux."
+msgstr "Forcer l'utilisation des paramètres de la mémoire tampon pour les flux"
 
 #: src/gui.c:3671
 msgid "Verbose Debug Enabled"
-msgstr "Activer le mode verbeux pour le débogage."
+msgstr "Activer le mode verbeux pour le débogage"
 
 #: src/gui.c:3675
 msgid ""
@@ -696,7 +695,7 @@ msgstr "Ajoutez ici toutes options additionnelles pour mplayer (filtres etc)."
 #: src/gui.c:3798
 #, c-format
 msgid "Seeking to %s"
-msgstr ""
+msgstr "Recherche de %s"
 
 #: src/gui.c:4018
 msgid "S_how Controls"
@@ -777,18 +776,16 @@ msgid "S_witch Audio Track"
 msgstr "Changer de pi_ste audio"
 
 #: src/gui.c:4193
-#, fuzzy
 msgid "Select _Audio Language"
-msgstr "Langage utilisé par défaut pour la piste audio :"
+msgstr "Sélectionner la pis_te audio"
 
 #: src/gui.c:4199
 msgid "Set Sub_title"
-msgstr "Sélection des sous-_titres"
+msgstr "Choisir un _fichier de sous-titres"
 
 #: src/gui.c:4202
-#, fuzzy
 msgid "S_elect Subtitle Language"
-msgstr "Langage utilisé par défaut pour les sous-titres :"
+msgstr "Sélectionner le _langage utilisé pour les sous-titres"
 
 #: src/gui.c:4209
 msgid "_Take Screenshot"
@@ -819,15 +816,15 @@ msgstr "_Normal (1:1)"
 
 #: src/gui.c:4265
 msgid "_Double Size (2:1)"
-msgstr "_Taille double (2:1)"
+msgstr "Taille _double (2:1)"
 
 #: src/gui.c:4268
 msgid "_Half Size (1:2)"
-msgstr "_Demi taille (1:2)"
+msgstr "Taille _réduite (1:2)"
 
 #: src/gui.c:4271
 msgid "_Aspect"
-msgstr "_Aspect"
+msgstr "Aspec_t"
 
 #: src/gui.c:4278
 msgid "D_efault Aspect"
@@ -851,7 +848,7 @@ msgstr "Afficher les _sous-titres"
 
 #: src/gui.c:4294
 msgid "Switch An_gle"
-msgstr "Changer l'an_gle de vue"
+msgstr "Changer l'_angle de vue"
 
 #: src/gui.c:4295
 msgid "_Controls"
@@ -892,7 +889,7 @@ msgstr "Suivant"
 
 #: src/gui.c:4619
 msgid "No Information"
-msgstr ""
+msgstr "Aucune information"
 
 #: src/gui.c:4626
 msgid "Full Screen"
@@ -1103,4 +1100,4 @@ msgstr "Déplacer l'élément vers la fin de la liste"
 
 #: src/playlist.c:925
 msgid "_Set Subtitle"
-msgstr "_Sélectionner les sous-titres"
+msgstr "Choisir un _fichier de sous-titres"
