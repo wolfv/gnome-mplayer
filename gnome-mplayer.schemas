@@ -245,7 +245,7 @@
       <key>/schemas/apps/gnome-mplayer/preferences/single_instance</key>
       <applyto>/apps/gnome-mplayer/preferences/single_instance</applyto>
       <owner>gnome-mplayer</owner>
-      <type>boolean</type>
+      <type>bool</type>
       <default>FALSE</default>
       <locale name="C">
         <short>Only allow one instance of the player to run</short>

@@ -200,16 +200,18 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-                        if (strlen(s) > 0)
+                        if (strlen(s) > 0) {
                             playlist = detect_playlist(s);
-                        if (!playlist) {
-                            add_item_to_playlist(s, playlist);
-                        } else {
-                            if (!parse_playlist(s)) {
-                                add_item_to_playlist(s, playlist);
-                            }
-                        }
-                        g_idle_add(set_update_gui, NULL);
+							if (!playlist) {
+								add_item_to_playlist(s, playlist);
+							} else {
+								if (!parse_playlist(s)) {
+									add_item_to_playlist(s, playlist);
+								}
+							}
+							g_idle_add(set_update_gui, NULL);
+							// if play on add is set, play the last item on the playlist
+						}
                     } else {
                         dbus_error_free(&error);
                     }
