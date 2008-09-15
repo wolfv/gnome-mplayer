@@ -1106,6 +1106,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
                                    -1);
                 dbus_open(filename);
                 while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &iter)) {
+					replace_and_play = FALSE;
                     gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
                                        -1);
                     dbus_open(filename);

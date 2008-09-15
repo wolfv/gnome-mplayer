@@ -1,4 +1,5 @@
 Development
+    When running in replace and play mode, replace on first song on playlist and add others
     Add command line option, --replace_and_play that switches single instance mode into single item mode
     Updated Turkish translation
     Keep blank items from appearing in Subtitle and Audio language menus
