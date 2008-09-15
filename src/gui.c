@@ -1925,6 +1925,18 @@ void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
     play_file("tv://", 0);
 }
 
+void menuitem_open_recent_callback(GtkRecentChooser *chooser, gpointer data)
+{
+	gint playlist;
+	gchar *filename;
+	
+	filename = g_filename_from_uri(gtk_recent_chooser_get_current_uri(chooser),NULL,NULL);
+	playlist = detect_playlist(filename);
+	play_file(filename,playlist);
+	g_free(filename);
+}
+
+
 void parseChannels(FILE * f)
 {
     int parsing = 0, i = 0, firstW = 0, firstP = 0;
@@ -4136,12 +4148,23 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_dtv =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Digital TV")));
     gtk_menu_append(menu_file_tv, GTK_WIDGET(menuitem_file_open_dtv));
-    menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+#ifdef GTK2_12_ENABLED	
+	recent_manager = gtk_recent_manager_get_default();
+    menuitem_file_recent = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Open _Recent")));
+	gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_recent));
+	menuitem_file_recent_items = gtk_recent_chooser_menu_new_for_manager(recent_manager);
+//	gtk_recent_chooser_set_limit(GTK_RECENT_CHOOSER(menuitem_file_recent_items),4);
+	gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(menuitem_file_recent_items),TRUE);
+	gtk_menu_item_set_submenu(menuitem_file_recent,menuitem_file_recent_items);
+#endif	
+
+	menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep1));
     menuitem_file_details = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_etails")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_details));
     menuitem_file_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep2));
+	
     menuitem_file_quit =
         GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_quit));
@@ -4164,6 +4187,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_open_atv_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_dtv), "activate",
                      G_CALLBACK(menuitem_open_dtv_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_recent_items), "item-activated",
+                     G_CALLBACK(menuitem_open_recent_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_details), "activate",
                      G_CALLBACK(menuitem_details_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_quit), "activate",
