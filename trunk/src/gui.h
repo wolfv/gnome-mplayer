@@ -55,10 +55,13 @@ GtkMenu *menu_file_tv;
 GtkMenuItem *menuitem_file_open_atv;
 GtkMenuItem *menuitem_file_open_dtv;
 GtkMenuItem *menuitem_file_open_playlist;
+GtkMenuItem *menuitem_file_recent;
+GtkWidget *menuitem_file_recent_items;
 GtkMenuItem *menuitem_file_sep1;
 GtkMenuItem *menuitem_file_details;
 GtkMenuItem *menuitem_file_sep2;
 GtkMenuItem *menuitem_file_quit;
+
 GtkMenuItem *menuitem_edit;
 GtkMenu *menu_edit;
 GtkMenuItem *menuitem_edit_random;

@@ -324,4 +324,8 @@ gpointer launch_player(gpointer data);
 gboolean update_mplayer_config();
 gboolean read_mplayer_config();
 
+#ifdef GTK2_12_ENABLED
+GtkRecentManager *recent_manager;
+#endif
+
 #endif                          /* _COMMON_H */
