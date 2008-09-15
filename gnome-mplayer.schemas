@@ -134,6 +134,30 @@
     </schema>
    
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disableass</key>
+      <applyto>/apps/gnome-mplayer/preferences/disableass</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable ASS</short>
+        <long>When set to TRUE the Advanced Substation Alpha (ASS) subtitles are disabled</long>
+      </locale>
+    </schema>
+   
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disableembeddedfonts</key>
+      <applyto>/apps/gnome-mplayer/preferences/disableembeddedfonts</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Embedded Fonts</short>
+        <long>When set to TRUE Subtitle Fonts in the media file are disabled</long>
+      </locale>
+    </schema>
+      
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/disable_deinterlace</key>
       <applyto>/apps/gnome-mplayer/preferences/disable_deinterlace</applyto>
       <owner>gnome-mplayer</owner>
@@ -253,5 +277,65 @@
       </locale>
     </schema>
         
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/extraopts</key>
+      <applyto>/apps/gnome-mplayer/preferences/extraopts</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Extra options to pass to mplayer</short>
+        <long>Extra options to pass to mplayer</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/remember_loc</key>
+      <applyto>/apps/gnome-mplayer/preferences/remember_loc</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Remember location on screen</short>
+        <long>Remember location on screen</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/volume</key>
+      <applyto>/apps/gnome-mplayer/preferences/volume</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>100</default>
+      <locale name="C">
+        <short>Default Volume</short>
+        <long>Default volume to use for mplayer, values of 0 or 100 allow usage of setting from ALSA</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/window_x</key>
+      <applyto>/apps/gnome-mplayer/preferences/window_x</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Window top corner (x)</short>
+        <long>Window top corner (x)</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/window_y</key>
+      <applyto>/apps/gnome-mplayer/preferences/window_y</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Window top corner (y)</short>
+        <long>Window top corner (y)</long>
+      </locale>
+    </schema>
+    
   </schemalist>
 </gconfschemafile>
