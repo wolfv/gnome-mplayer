@@ -122,7 +122,7 @@ typedef struct _IdleData {
     gdouble position;
     gdouble length;
     glong byte_pos;
-	gint chapters;
+    gint chapters;
     gint brightness;
     gint contrast;
     gint gamma;
@@ -139,7 +139,7 @@ typedef struct _IdleData {
     gchar metadata[1024];
     gboolean fromdbus;
     gboolean window_resized;
-	gboolean has_chapters;
+    gboolean has_chapters;
 } IdleData;
 
 IdleData *idledata;
@@ -166,8 +166,8 @@ enum {
 };
 
 typedef struct _LangMenu {
-	gchar *label;
-	int value;
+    gchar *label;
+    int value;
 } LangMenu;
 
 //Define MIME for DnD
@@ -301,7 +301,7 @@ gboolean set_show_controls(void *data);
 gboolean get_show_controls();
 gboolean set_window_visible(void *data);
 gboolean set_update_gui(void *data);
-void remove_langs(GtkWidget *item, gpointer data);
+void remove_langs(GtkWidget * item, gpointer data);
 gboolean set_new_lang_menu(gpointer data);
 gboolean set_new_audio_menu(gpointer data);
 gboolean make_panel_and_mouse_invisible(gpointer data);

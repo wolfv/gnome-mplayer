@@ -110,7 +110,8 @@ static GOptionEntry entries[] = {
     {"tvfps", 0, 0, G_OPTION_ARG_INT, &tv_fps, N_("Frames per second from TV input"), "FPS"},
     {"single_instance", 0, 0, G_OPTION_ARG_NONE, &single_instance, N_("Only allow one instance"),
      NULL},
-    {"replace_and_play", 0, 0, G_OPTION_ARG_NONE, &replace_and_play, N_("Put single instance mode into replace and play mode"),
+    {"replace_and_play", 0, 0, G_OPTION_ARG_NONE, &replace_and_play,
+     N_("Put single instance mode into replace and play mode"),
      NULL},
     {"new_instance", 0, 0, G_OPTION_ARG_NONE, &new_instance,
      N_("Ignore single instance preference for this instance"),
@@ -128,29 +129,29 @@ gint play_file(gchar * filename, gint playlist)
     gchar *error_msg = NULL;
     gchar *subtitle = NULL;
     GtkTreePath *path;
-	gchar *uri = NULL;
+    gchar *uri = NULL;
 
     if (verbose)
         printf("playing - %s\n", filename);
 
     shutdown();
-	gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs),remove_langs,NULL);
-	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang),FALSE);
-	gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs),remove_langs,NULL);
-	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang),FALSE);
+    gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
+    gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
 #ifdef GTK2_12_ENABLED
-	// don't put it on the recent list, if it is running in plugin mode
-	if (control_id == 0) {
-		uri = g_filename_to_uri(filename, NULL, NULL);
-		if (uri != NULL) { 
-			gtk_recent_manager_add_item(recent_manager, uri);
-			g_free(uri);
-		}
-	}
+    // don't put it on the recent list, if it is running in plugin mode
+    if (control_id == 0) {
+        uri = g_filename_to_uri(filename, NULL, NULL);
+        if (uri != NULL) {
+            gtk_recent_manager_add_item(recent_manager, uri);
+            g_free(uri);
+        }
+    }
 #endif
-	
-	
-	g_strlcpy(thread_data->filename, filename, 1024);
+
+
+    g_strlcpy(thread_data->filename, filename, 1024);
     thread_data->done = FALSE;
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -167,7 +168,7 @@ gint play_file(gchar * filename, gint playlist)
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
         g_free(subtitle);
     }
-		
+
     if (g_ascii_strcasecmp(filename, "") != 0) {
         if (!device_name(filename)) {
             if (!streaming_media(filename)) {
@@ -327,7 +328,7 @@ int main(int argc, char *argv[])
     single_instance = FALSE;
     disable_deinterlace = TRUE;
     details_visible = FALSE;
-	replace_and_play = FALSE;
+    replace_and_play = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -408,9 +409,9 @@ int main(int argc, char *argv[])
     if (volume == 0 || volume == 100) {
         volume = (gint) get_alsa_volume();
     } else {
-		if (verbose)
-			printf("Using volume of %i\n",volume);
-	}
+        if (verbose)
+            printf("Using volume of %i\n", volume);
+    }
 
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
