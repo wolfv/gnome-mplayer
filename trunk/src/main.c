@@ -139,10 +139,13 @@ gint play_file(gchar * filename, gint playlist)
 	gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs),remove_langs,NULL);
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang),FALSE);
 #ifdef GTK2_12_ENABLED
-	uri = g_filename_to_uri(filename, NULL, NULL);
-	if (uri != NULL) { 
-		gtk_recent_manager_add_item(recent_manager, uri);
-		g_free(uri);
+	// don't put it on the recent list, if it is running in plugin mode
+	if (control_id == 0) {
+		uri = g_filename_to_uri(filename, NULL, NULL);
+		if (uri != NULL) { 
+			gtk_recent_manager_add_item(recent_manager, uri);
+			g_free(uri);
+		}
 	}
 #endif
 	

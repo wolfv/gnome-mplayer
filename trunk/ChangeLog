@@ -1,4 +1,5 @@
 Development
+    Don't place files on recent list if running in plugin mode
     Implement chapter seeking and detection in mkv files, depends on patch submitted to mplayer
         Patch: http://lists.mplayerhq.hu/pipermail/mplayer-dev-eng/2008-September/058567.html
     Add recently opened files to the File Menu under Open Recent
