@@ -792,8 +792,6 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
     gint ac = 0, i;
     gchar **output;
     gfloat seconds;
-    gint hour = 0;
-    gint min = 0;
     gchar *localtitle = NULL;
 
     av[ac++] = g_strdup_printf("mplayer");
@@ -805,6 +803,10 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
     av[ac++] = g_strdup_printf("0");
     av[ac++] = g_strdup_printf("-identify");
     av[ac++] = g_strdup_printf("-nocache");
+	if (idledata->device != NULL) {
+        av[ac++] = g_strdup_printf("-dvd-device");
+        av[ac++] = g_strdup_printf("%s", idledata->device);
+    }	
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
@@ -831,24 +833,11 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
     ac = 0;
     while (output[ac] != NULL) {
         if (strstr(output[ac], "_LENGTH") != NULL
-            && g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0) {
+            && (g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0 || g_strncasecmp(name, "dvd://", strlen("dvd://")) != 0)) {
             localtitle = strstr(output[ac], "=") + 1;
             sscanf(localtitle, "%f", &seconds);
-            if (seconds >= 3600) {
-                hour = seconds / 3600;
-                seconds = seconds - (hour * 3600);
-            }
-            if (seconds >= 60) {
-                min = seconds / 60;
-                seconds = seconds - (min * 60);
-            }
-            if (hour > 0) {
-                *length = g_strdup_printf("%i:%02i:%04.1f", hour, min, seconds);
-            } else {
-                *length = g_strdup_printf("%02i:%04.1f", min, seconds);
-            }
+			*length = seconds_to_string(seconds);
         }
-
 
         if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
             if (strstr(output[ac], "Title") != NULL || strstr(output[ac], "name") != NULL) {
@@ -1438,7 +1427,7 @@ gdouble get_alsa_volume()
     return vol;
 }
 
-gchar *seconds_to_string(glong seconds)
+gchar *seconds_to_string(gfloat seconds)
 {
     int hour = 0, min = 0;
     gchar *result = NULL;
@@ -1453,10 +1442,9 @@ gchar *seconds_to_string(glong seconds)
     }
 
     if (hour == 0) {
-        result = g_strdup_printf(_("%2i:%02i"), min, (int) seconds);
+        result = g_strdup_printf(_("%2i:%02.0f"), min, seconds);
     } else {
-        result = g_strdup_printf(_("%i:%02i:%02i"), hour, min, (int) seconds);
+        result = g_strdup_printf(_("%i:%02i:%02.0f"), hour, min, seconds);
     }
-
     return result;
 }
