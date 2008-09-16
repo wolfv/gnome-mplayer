@@ -70,7 +70,7 @@ gboolean hide_buttons(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), TRUE);
 
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2 && lastfile != NULL
-        && g_strncasecmp(lastfile, "dvdnav", 6) != 0) {
+        && idledata->has_chapters == FALSE) {
         gtk_widget_hide(prev_event_box);
         gtk_widget_hide(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
