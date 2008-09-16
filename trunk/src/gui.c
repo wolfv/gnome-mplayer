@@ -291,14 +291,14 @@ gboolean set_progress_text(void *data)
 
 gboolean set_progress_time(void *data)
 {
-    glong seconds, length_seconds;
+    gfloat seconds, length_seconds;
     gchar *time_position = NULL;
     gchar *time_length = NULL;
 
     IdleData *idle = (IdleData *) data;
 
-    seconds = (glong) idle->position;
-    length_seconds = (glong) idle->length;
+    seconds = idle->position;
+    length_seconds = idle->length;
 
     time_position = seconds_to_string(seconds);
     time_length = seconds_to_string(length_seconds);
