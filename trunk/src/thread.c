@@ -195,7 +195,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gchar *utf8name;
     gchar *utf8artist;
     gdouble old_pos;
-	LangMenu *menu;
+    LangMenu *menu;
 
     if (source == NULL) {
         g_source_remove(watch_err_id);
@@ -292,7 +292,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_volume_from_slider, NULL);
         send_command("get_property metadata\n");
         send_command("get_time_length\n");
-		send_command("get_property chapters\n");
+        send_command("get_property chapters\n");
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -360,10 +360,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ANS_chapters") != 0) {
         buf = strstr(mplayer_output->str, "ANS_chapters");
         sscanf(buf, "ANS_chapters=%i", &idledata->chapters);
-		if (idledata->chapters > 0) idledata->has_chapters = TRUE;
-		g_idle_add(set_update_gui, NULL);
+        if (idledata->chapters > 0)
+            idledata->has_chapters = TRUE;
+        g_idle_add(set_update_gui, NULL);
     }
-	
+
     if (strstr(mplayer_output->str, "ANS_brightness") != 0) {
         buf = strstr(mplayer_output->str, "ANS_brightness");
         sscanf(buf, "ANS_brightness=%i", &idledata->brightness);
@@ -568,38 +569,38 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     if (strstr(mplayer_output->str, "ID_SID_") != 0) {
-		menu = g_new0(LangMenu,1);
-		sscanf(mplayer_output->str, "ID_SID_%i_", &menu->value);
+        menu = g_new0(LangMenu, 1);
+        sscanf(mplayer_output->str, "ID_SID_%i_", &menu->value);
         g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "_LANG=");
         if (buf != NULL) {
-			buf += strlen("_LANG=");
-		    menu->label = g_strdup(buf);
-			g_idle_add(set_new_lang_menu,menu);
-		}
-	}
+            buf += strlen("_LANG=");
+            menu->label = g_strdup(buf);
+            g_idle_add(set_new_lang_menu, menu);
+        }
+    }
 
-	if (strstr(mplayer_output->str, "ID_AID_") != 0) {
-		menu = g_new0(LangMenu,1);
-		sscanf(mplayer_output->str, "ID_AID_%i_", &menu->value);
+    if (strstr(mplayer_output->str, "ID_AID_") != 0) {
+        menu = g_new0(LangMenu, 1);
+        sscanf(mplayer_output->str, "ID_AID_%i_", &menu->value);
         g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "_LANG=");
         if (buf != NULL) {
-			buf += strlen("_LANG=");
-	        menu->label = g_strdup(buf);
-			g_idle_add(set_new_audio_menu,menu);
-		}
-	}
+            buf += strlen("_LANG=");
+            menu->label = g_strdup(buf);
+            g_idle_add(set_new_audio_menu, menu);
+        }
+    }
 
-	
+
     if (strstr(mplayer_output->str, "File not found") != 0) {
     }
 
     if (strstr(mplayer_output->str, "CHAPTERS") != 0) {
-		idledata->has_chapters = TRUE;
-		g_idle_add(set_update_gui, NULL);
+        idledata->has_chapters = TRUE;
+        g_idle_add(set_update_gui, NULL);
     }
-	
+
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
@@ -911,7 +912,7 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("mkv");
 	}		
 	g_free(filename);
-*/	
+*/
     if (playlist || threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
 

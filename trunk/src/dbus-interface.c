@@ -202,16 +202,16 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0) {
                             playlist = detect_playlist(s);
-							if (!playlist) {
-								add_item_to_playlist(s, playlist);
-							} else {
-								if (!parse_playlist(s)) {
-									add_item_to_playlist(s, playlist);
-								}
-							}
-							g_idle_add(set_update_gui, NULL);
-							// if play on add is set, play the last item on the playlist
-						}
+                            if (!playlist) {
+                                add_item_to_playlist(s, playlist);
+                            } else {
+                                if (!parse_playlist(s)) {
+                                    add_item_to_playlist(s, playlist);
+                                }
+                            }
+                            g_idle_add(set_update_gui, NULL);
+                            // if play on add is set, play the last item on the playlist
+                        }
                     } else {
                         dbus_error_free(&error);
                     }
@@ -857,12 +857,12 @@ void dbus_open(gchar * arg)
 
     if (connection != NULL) {
         path = g_strdup_printf("/");
-		if (replace_and_play) {
-			message = dbus_message_new_signal(path, "com.gnome.mplayer", "Open");
-		} else {
-			message = dbus_message_new_signal(path, "com.gnome.mplayer", "Add");
-		}
-		localarg = g_strdup(arg);
+        if (replace_and_play) {
+            message = dbus_message_new_signal(path, "com.gnome.mplayer", "Open");
+        } else {
+            message = dbus_message_new_signal(path, "com.gnome.mplayer", "Add");
+        }
+        localarg = g_strdup(arg);
         dbus_message_append_args(message, DBUS_TYPE_STRING, &localarg, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
@@ -1106,7 +1106,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
                                    -1);
                 dbus_open(filename);
                 while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &iter)) {
-					replace_and_play = FALSE;
+                    replace_and_play = FALSE;
                     gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
                                        -1);
                     dbus_open(filename);
