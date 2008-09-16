@@ -1,4 +1,6 @@
 Development
+    Implement chapter seeking and detection in mkv files, depends on patch submitted to mplayer
+        Patch: http://lists.mplayerhq.hu/pipermail/mplayer-dev-eng/2008-September/058567.html
     Add recently opened files to the File Menu under Open Recent
     When running in replace and play mode, replace on first song on playlist and add others
     Add command line option, --replace_and_play that switches single instance mode into single item mode

@@ -122,6 +122,7 @@ typedef struct _IdleData {
     gdouble position;
     gdouble length;
     glong byte_pos;
+	gint chapters;
     gint brightness;
     gint contrast;
     gint gamma;
