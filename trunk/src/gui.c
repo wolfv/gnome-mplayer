@@ -1936,6 +1936,17 @@ void menuitem_open_recent_callback(GtkRecentChooser *chooser, gpointer data)
 	g_free(filename);
 }
 
+#ifdef GTK2_12_ENABLED
+void recent_manager_changed_callback(GtkRecentManager *recent_manager, gpointer data)
+{
+	if (GTK_IS_WIDGET(menuitem_file_recent_items))
+		gtk_widget_destroy(menuitem_file_recent_items);
+	menuitem_file_recent_items = gtk_recent_chooser_menu_new();
+	gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(menuitem_file_recent_items),TRUE);
+	gtk_menu_item_set_submenu(menuitem_file_recent,menuitem_file_recent_items);
+	
+}
+#endif
 
 void parseChannels(FILE * f)
 {
@@ -4151,9 +4162,10 @@ GtkWidget *create_window(gint windowid)
 #ifdef GTK2_12_ENABLED	
 	recent_manager = gtk_recent_manager_get_default();
     menuitem_file_recent = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Open _Recent")));
+	g_signal_connect(recent_manager, "changed",
+                     G_CALLBACK(recent_manager_changed_callback), NULL);	
 	gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_recent));
-	menuitem_file_recent_items = gtk_recent_chooser_menu_new_for_manager(recent_manager);
-//	gtk_recent_chooser_set_limit(GTK_RECENT_CHOOSER(menuitem_file_recent_items),4);
+	menuitem_file_recent_items = gtk_recent_chooser_menu_new();
 	gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(menuitem_file_recent_items),TRUE);
 	gtk_menu_item_set_submenu(menuitem_file_recent,menuitem_file_recent_items);
 #endif	

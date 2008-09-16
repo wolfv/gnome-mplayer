@@ -292,6 +292,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_volume_from_slider, NULL);
         send_command("get_property metadata\n");
         send_command("get_time_length\n");
+		send_command("get_property chapters\n");
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -356,6 +357,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_free(buf);
     }
 
+    if (strstr(mplayer_output->str, "ANS_chapters") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_chapters");
+        sscanf(buf, "ANS_chapters=%i", &idledata->chapters);
+		if (idledata->chapters > 0) idledata->has_chapters = TRUE;
+		g_idle_add(set_update_gui, NULL);
+    }
+	
     if (strstr(mplayer_output->str, "ANS_brightness") != 0) {
         buf = strstr(mplayer_output->str, "ANS_brightness");
         sscanf(buf, "ANS_brightness=%i", &idledata->brightness);
@@ -589,7 +597,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (strstr(mplayer_output->str, "CHAPTERS") != 0) {
 		idledata->has_chapters = TRUE;
-		printf("using chapter seeks\n");
+		g_idle_add(set_update_gui, NULL);
     }
 	
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
