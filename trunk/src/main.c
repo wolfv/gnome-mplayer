@@ -140,8 +140,10 @@ gint play_file(gchar * filename, gint playlist)
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang),FALSE);
 #ifdef GTK2_12_ENABLED
 	uri = g_filename_to_uri(filename, NULL, NULL);
-	gtk_recent_manager_add_item(recent_manager, uri);
-	g_free(uri);
+	if (uri != NULL) { 
+		gtk_recent_manager_add_item(recent_manager, uri);
+		g_free(uri);
+	}
 #endif
 	
 	
