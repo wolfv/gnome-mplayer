@@ -427,7 +427,7 @@ void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer sid)
 {
     gchar *cmd;
 
-    cmd = g_strdup_printf("sub_demux %i\n", (gint)sid);
+    cmd = g_strdup_printf("sub_demux %i\n", (gint) sid);
     send_command(cmd);
     g_free(cmd);
 }
@@ -440,11 +440,11 @@ gboolean set_new_lang_menu(gpointer data)
     menuitem_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_label(menu->label));
     gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
     g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-                     G_CALLBACK(menuitem_lang_callback), (gpointer)menu->value);
+                     G_CALLBACK(menuitem_lang_callback), (gpointer) menu->value);
     gtk_widget_show(GTK_WIDGET(menuitem_lang));
-	g_free(menu->label);
-	g_free(menu);
-	
+    g_free(menu->label);
+    g_free(menu);
+
     return FALSE;
 }
 
@@ -452,7 +452,7 @@ void menuitem_audio_callback(GtkMenuItem * menuitem, gpointer aid)
 {
     gchar *cmd;
 
-    cmd = g_strdup_printf("switch_audio %i\n", (gint)aid);
+    cmd = g_strdup_printf("switch_audio %i\n", (gint) aid);
     send_command(cmd);
     g_free(cmd);
 }
@@ -465,11 +465,11 @@ gboolean set_new_audio_menu(gpointer data)
     menuitem_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_label(menu->label));
     gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
     g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-                     G_CALLBACK(menuitem_audio_callback), (gpointer)menu->value);
+                     G_CALLBACK(menuitem_audio_callback), (gpointer) menu->value);
     gtk_widget_show(GTK_WIDGET(menuitem_lang));
-	g_free(menu->label);
-	g_free(menu);
-	
+    g_free(menu->label);
+    g_free(menu);
+
     return FALSE;
 }
 
@@ -2554,8 +2554,8 @@ void config_apply(GtkWidget * widget, void *data)
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
     keep_on_top = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_keep_on_top));
-	gtk_window_set_keep_above (GTK_WINDOW(window),keep_on_top);
-	
+    gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
+
     if (subtitlefont != NULL) {
         g_free(subtitlefont);
         subtitlefont = NULL;
@@ -3680,7 +3680,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_keep_on_top, 0, 2, i, i + 1);
     i++;
 
-	config_pause_on_click = gtk_check_button_new_with_label(_("Pause playback on mouse click"));
+    config_pause_on_click = gtk_check_button_new_with_label(_("Pause playback on mouse click"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_pause_on_click), !disable_pause_on_click);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
     i++;
@@ -4896,7 +4896,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_hide(prev_event_box);
     gtk_widget_hide(next_event_box);
     gtk_widget_hide(media_label);
-	gtk_window_set_keep_above (GTK_WINDOW(window),keep_on_top);
+    gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
     //while (gtk_events_pending())
     //    gtk_main_iteration();
 

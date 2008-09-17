@@ -803,10 +803,10 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
     av[ac++] = g_strdup_printf("0");
     av[ac++] = g_strdup_printf("-identify");
     av[ac++] = g_strdup_printf("-nocache");
-	if (idledata->device != NULL) {
+    if (idledata->device != NULL) {
         av[ac++] = g_strdup_printf("-dvd-device");
         av[ac++] = g_strdup_printf("%s", idledata->device);
-    }	
+    }
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
@@ -833,10 +833,11 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
     ac = 0;
     while (output[ac] != NULL) {
         if (strstr(output[ac], "_LENGTH") != NULL
-            && (g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0 || g_strncasecmp(name, "dvd://", strlen("dvd://")) != 0)) {
+            && (g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0
+                || g_strncasecmp(name, "dvd://", strlen("dvd://")) != 0)) {
             localtitle = strstr(output[ac], "=") + 1;
             sscanf(localtitle, "%f", &seconds);
-			*length = seconds_to_string(seconds);
+            *length = seconds_to_string(seconds);
         }
 
         if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
