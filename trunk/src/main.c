@@ -116,6 +116,9 @@ static GOptionEntry entries[] = {
     {"new_instance", 0, 0, G_OPTION_ARG_NONE, &new_instance,
      N_("Ignore single instance preference for this instance"),
      NULL},
+    {"keep_on_top", 0, 0, G_OPTION_ARG_NONE, &keep_on_top,
+     N_("Keep window on top"),
+     NULL},
     {NULL}
 };
 
@@ -329,6 +332,7 @@ int main(int argc, char *argv[])
     disable_deinterlace = TRUE;
     details_visible = FALSE;
     replace_and_play = FALSE;
+	keep_on_top = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -374,6 +378,7 @@ int main(int argc, char *argv[])
     remember_loc = gconf_client_get_bool(gconf, REMEMBER_LOC, NULL);
     loc_window_x = gconf_client_get_int(gconf, WINDOW_X, NULL);
     loc_window_y = gconf_client_get_int(gconf, WINDOW_Y, NULL);
+    keep_on_top = gconf_client_get_bool(gconf, KEEP_ON_TOP, NULL);
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
 #ifdef GTK2_12_ENABLED

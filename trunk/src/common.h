@@ -63,6 +63,7 @@
 #define REMEMBER_LOC		"/apps/gnome-mplayer/preferences/remember_loc"
 #define WINDOW_X		"/apps/gnome-mplayer/preferences/window_x"
 #define WINDOW_Y		"/apps/gnome-mplayer/preferences/window_y"
+#define KEEP_ON_TOP		"/apps/gnome-mplayer/preferences/keep_on_top"
 #define SINGLE_INSTANCE "/apps/gnome-mplayer/preferences/single_instance"
 
 // JavaScript Playstates
@@ -247,6 +248,7 @@ gboolean replace_and_play;
 gboolean remember_loc;
 gint loc_window_x;
 gint loc_window_y;
+gboolean keep_on_top;
 
 // tv stuff
 gchar *tv_device;
