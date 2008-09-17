@@ -2553,7 +2553,9 @@ void config_apply(GtkWidget * widget, void *data)
     single_instance = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance));
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
-
+    keep_on_top = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_keep_on_top));
+	gtk_window_set_keep_above (GTK_WINDOW(window),keep_on_top);
+	
     if (subtitlefont != NULL) {
         g_free(subtitlefont);
         subtitlefont = NULL;
@@ -2611,6 +2613,7 @@ void config_apply(GtkWidget * widget, void *data)
     gconf_client_set_bool(gconf, VERTICAL, vertical_layout, NULL);
     gconf_client_set_bool(gconf, SINGLE_INSTANCE, single_instance, NULL);
     gconf_client_set_bool(gconf, REMEMBER_LOC, remember_loc, NULL);
+    gconf_client_set_bool(gconf, KEEP_ON_TOP, keep_on_top, NULL);
     gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
     gconf_client_set_string(gconf, METADATACODEPAGE, metadata_codepage, NULL);
     gconf_client_set_string(gconf, SUBTITLEFONT, subtitlefont, NULL);
@@ -3672,7 +3675,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_remember_loc, 0, 2, i, i + 1);
     i++;
 
-    config_pause_on_click = gtk_check_button_new_with_label(_("Pause playback on mouse click"));
+    config_keep_on_top = gtk_check_button_new_with_label(_("Keep window above other windows"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_keep_on_top), keep_on_top);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_keep_on_top, 0, 2, i, i + 1);
+    i++;
+
+	config_pause_on_click = gtk_check_button_new_with_label(_("Pause playback on mouse click"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_pause_on_click), !disable_pause_on_click);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
     i++;
@@ -4888,7 +4896,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_hide(prev_event_box);
     gtk_widget_hide(next_event_box);
     gtk_widget_hide(media_label);
-
+	gtk_window_set_keep_above (GTK_WINDOW(window),keep_on_top);
     //while (gtk_events_pending())
     //    gtk_main_iteration();
 
