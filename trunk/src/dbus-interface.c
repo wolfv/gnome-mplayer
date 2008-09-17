@@ -870,6 +870,7 @@ void dbus_open(gchar * arg)
         g_free(localarg);
     }
 }
+
 void dbus_cancel()
 {
     gchar *path;

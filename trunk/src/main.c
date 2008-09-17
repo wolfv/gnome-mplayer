@@ -332,7 +332,7 @@ int main(int argc, char *argv[])
     disable_deinterlace = TRUE;
     details_visible = FALSE;
     replace_and_play = FALSE;
-	keep_on_top = FALSE;
+    keep_on_top = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
