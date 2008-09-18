@@ -1,4 +1,5 @@
 Development
+    Get rid of message level warning in config file
     Updated Polish translation
 	Add --keep_on_top command line option and add preference to advanced page (this page needs some work)
     Fix minor memory leak in sid and aid menu generation code

@@ -654,7 +654,7 @@ gboolean update_mplayer_config()
     }
 
     g_key_file_remove_key(config, "gnome-mplayer", "really-quiet", NULL);
-    g_key_file_set_string(config, "gnome-mplayer", "msglevel", "5");
+    g_key_file_set_string(config, "gnome-mplayer", "msglevel", "all=5");
 
     data = g_key_file_to_data(config, NULL, NULL);
     //printf("%i\n%s", strlen(data), data);
