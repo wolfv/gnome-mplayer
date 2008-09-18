@@ -1,4 +1,5 @@
 Development
+    Updated Polish translation
 	Add --keep_on_top command line option and add preference to advanced page (this page needs some work)
     Fix minor memory leak in sid and aid menu generation code
     Cleanup some more seconds_to_string code
