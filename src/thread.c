@@ -803,7 +803,8 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("0x%x", player_window);
 
     if (control_id == 0) {
-        argv[arg++] = g_strdup_printf("-idx");
+		if (!idledata->streaming)
+			argv[arg++] = g_strdup_printf("-idx");
     } else {
         argv[arg++] = g_strdup_printf("-cookies");
     }
