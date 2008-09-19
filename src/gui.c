@@ -3413,7 +3413,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
-    config_cachesize = gtk_spin_button_new_with_range(0, 32767, 512);
+    config_cachesize = gtk_spin_button_new_with_range(32, 32767, 512);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_cachesize,
                          _
