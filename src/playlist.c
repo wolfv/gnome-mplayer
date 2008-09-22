@@ -164,7 +164,9 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
             if (strlen(list[i]) > 0) {
                 printf("filename = '%s'\n", list[i]);
                 if (g_file_test(list[i], G_FILE_TEST_IS_DIR)) {
+                    create_folder_progress_window();
                     add_folder_to_playlist_callback(list[i], NULL);
+                    destroy_folder_progress_window();
                 } else {
                     playlist = detect_playlist(list[i]);
 
@@ -352,6 +354,8 @@ void add_item_to_playlist_callback(gpointer data, gpointer user_data)
             add_item_to_playlist(filename, playlist);
         }
     }
+    set_item_add_info(filename);
+
     g_free(filename);
 }
 
@@ -477,7 +481,9 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
         g_free(last_dir);
 
         filecount = 0;
+        create_folder_progress_window();
         g_slist_foreach(filename, &add_folder_to_playlist_callback, NULL);
+        destroy_folder_progress_window();
         g_slist_free(filename);
     }
     update_gui();

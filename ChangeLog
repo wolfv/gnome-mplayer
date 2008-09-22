@@ -1,4 +1,6 @@
 Development
+    Allow drag and drop of folders to main window and playlist and show status properly
+    Add in progress status when adding folder
     Add ability to pass in directory on commandline, may take a second or two to load
     Make the minimum value of cache size to be 32, mplayer will crash with values less than 32
     Get rid of message level warning in config file

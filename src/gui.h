@@ -226,6 +226,10 @@ GtkWidget *config_keep_on_top;
 
 GtkWidget *open_location;
 
+GtkWidget *folder_progress_window;
+GtkWidget *folder_progress_label;
+GtkWidget *folder_progress_bar;
+
 // Playlist container
 GtkWidget *plvbox;
 
@@ -263,3 +267,6 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data);
 gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 gint x, gint y, GtkSelectionData * selection_data,
                                 guint info, guint t, gpointer data);
+
+void create_folder_progress_window();
+void destroy_folder_progress_window();
