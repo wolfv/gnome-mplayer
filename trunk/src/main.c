@@ -514,8 +514,10 @@ int main(int argc, char *argv[])
                     g_free(filename);
                 }
             }
-		} else if (S_ISDIR(buf.st_mode)) {
-			add_folder_to_playlist_callback(argv[fileindex],NULL);
+        } else if (S_ISDIR(buf.st_mode)) {
+            create_folder_progress_window();
+            add_folder_to_playlist_callback(argv[fileindex], NULL);
+            destroy_folder_progress_window();
             if (random_order) {
                 gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
                 randomize_playlist(playliststore);
@@ -530,7 +532,7 @@ int main(int argc, char *argv[])
                 gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
                 g_free(filename);
             }
-			
+
         } else {
             // local file
             // detect if playlist here, so even if not specified it can be picked up

@@ -597,12 +597,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     /* not needed if mplayer patches are approved
-	if (strstr(mplayer_output->str, "CHAPTERS") != 0) {
-        idledata->has_chapters = TRUE;
-        g_idle_add(set_update_gui, NULL);
-    }
-	*/
-	
+       if (strstr(mplayer_output->str, "CHAPTERS") != 0) {
+       idledata->has_chapters = TRUE;
+       g_idle_add(set_update_gui, NULL);
+       }
+     */
+
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
@@ -805,8 +805,8 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("0x%x", player_window);
 
     if (control_id == 0) {
-		if (!idledata->streaming)
-			argv[arg++] = g_strdup_printf("-idx");
+        if (!idledata->streaming)
+            argv[arg++] = g_strdup_printf("-idx");
     } else {
         argv[arg++] = g_strdup_printf("-cookies");
     }

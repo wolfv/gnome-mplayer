@@ -303,6 +303,7 @@ gboolean set_show_controls(void *data);
 gboolean get_show_controls();
 gboolean set_window_visible(void *data);
 gboolean set_update_gui(void *data);
+gboolean set_item_add_info(void *data);
 void remove_langs(GtkWidget * item, gpointer data);
 gboolean set_new_lang_menu(gpointer data);
 gboolean set_new_audio_menu(gpointer data);

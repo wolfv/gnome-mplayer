@@ -418,6 +418,54 @@ gboolean set_gui_state(void *data)
     return FALSE;
 }
 
+void create_folder_progress_window()
+{
+    GtkWidget *vbox;
+    folder_progress_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_modal(GTK_WINDOW(folder_progress_window), TRUE);
+    gtk_window_set_icon(GTK_WINDOW(folder_progress_window), pb_icon);
+    gtk_window_set_resizable(GTK_WINDOW(folder_progress_window), FALSE);
+    gtk_widget_set_size_request(folder_progress_window, 400, -1);
+
+    vbox = gtk_vbox_new(FALSE, 10);
+    folder_progress_bar = gtk_progress_bar_new();
+    gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(folder_progress_bar), 0.10);
+    folder_progress_label = gtk_label_new("");
+    gtk_label_set_ellipsize(GTK_LABEL(folder_progress_label), PANGO_ELLIPSIZE_MIDDLE);
+
+    gtk_container_add(GTK_CONTAINER(vbox), folder_progress_bar);
+    gtk_container_add(GTK_CONTAINER(vbox), folder_progress_label);
+    gtk_container_add(GTK_CONTAINER(folder_progress_window), vbox);
+
+    gtk_widget_show_all(folder_progress_window);
+    while (gtk_events_pending())
+        gtk_main_iteration();
+}
+
+void destroy_folder_progress_window()
+{
+    while (gtk_events_pending())
+        gtk_main_iteration();
+    gtk_widget_destroy(folder_progress_window);
+    folder_progress_window = NULL;
+}
+
+
+gboolean set_item_add_info(void *data)
+{
+    gchar *message;
+    if (GTK_IS_WIDGET(folder_progress_window)) {
+        message = g_strdup_printf(_("Adding %s to playlist"), (gchar *) data);
+        gtk_label_set_text(GTK_LABEL(folder_progress_label), message);
+        gtk_progress_bar_pulse(GTK_PROGRESS_BAR(folder_progress_bar));
+        g_free(message);
+        while (gtk_events_pending())
+            gtk_main_iteration();
+    }
+
+    return FALSE;
+}
+
 void remove_langs(GtkWidget * item, gpointer data)
 {
     gtk_widget_destroy(item);
@@ -1195,13 +1243,19 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         while (list[i] != NULL) {
             g_strchomp(list[i]);
             if (strlen(list[i]) > 0) {
-                playlist = detect_playlist(list[i]);
-
-                if (!playlist) {
-                    add_item_to_playlist(list[i], playlist);
+                if (g_file_test(list[i], G_FILE_TEST_IS_DIR)) {
+                    create_folder_progress_window();
+                    add_folder_to_playlist_callback(list[i], NULL);
+                    destroy_folder_progress_window();
                 } else {
-                    if (!parse_playlist(list[i])) {
-                        localiter = add_item_to_playlist(list[i], playlist);
+                    playlist = detect_playlist(list[i]);
+
+                    if (!playlist) {
+                        add_item_to_playlist(list[i], playlist);
+                    } else {
+                        if (!parse_playlist(list[i])) {
+                            localiter = add_item_to_playlist(list[i], playlist);
+                        }
                     }
                 }
             }
