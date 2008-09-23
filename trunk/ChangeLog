@@ -1,4 +1,5 @@
 Development
+    Set Left alignment in Playlist for Artist column
     Allow drag and drop of folders to main window and playlist and show status properly
     Add in progress status when adding folder
     Add ability to pass in directory on commandline, may take a second or two to load
