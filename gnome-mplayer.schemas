@@ -337,5 +337,17 @@
       </locale>
     </schema>
     
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/keep_on_top</key>
+      <applyto>/apps/gnome-mplayer/preferences/keep_on_top</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Remember location on screen</short>
+        <long>Remember location on screen</long>
+      </locale>
+    </schema>
+    
   </schemalist>
 </gconfschemafile>
