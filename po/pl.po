@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-22 14:02-0600\n"
-"PO-Revision-Date: 2008-09-19 00:37+0200\n"
+"POT-Creation-Date: 2008-09-24 11:31+0200\n"
+"PO-Revision-Date: 2008-09-24 11:42+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -167,7 +167,7 @@ msgstr "Pozwól na tylko jedną instancję"
 
 #: src/main.c:114
 msgid "Put single instance mode into replace and play mode"
-msgstr ""
+msgstr "Ustaw tryb jednej instancji w trybie zastąp i odtwarzaj"
 
 #: src/main.c:117
 msgid "Ignore single instance preference for this instance"
@@ -175,7 +175,7 @@ msgstr "Ignoruj preferencję jednej instancji dla tej instancji"
 
 #: src/main.c:120
 msgid "Keep window on top"
-msgstr ""
+msgstr "Trzymaj okno na wierzchu"
 
 #: src/main.c:383
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -233,9 +233,9 @@ msgid "Play"
 msgstr "Odtwarzaj"
 
 #: src/gui.c:458
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s to playlist"
-msgstr "Dodaj element do listy odtwarzania"
+msgstr "Dodawanie %s do listy odtwarzania"
 
 #: src/gui.c:762 src/gui.c:772 src/gui.c:1549 src/gui.c:1577 src/thread.c:354
 #, c-format
@@ -365,9 +365,8 @@ msgid "Video Bitrate:"
 msgstr "Gęstość bitowa obrazu:"
 
 #: src/gui.c:2873
-#, fuzzy
 msgid "Video Chapters:"
-msgstr "Gęstość bitowa obrazu:"
+msgstr "Rozdziały filmu:"
 
 #: src/gui.c:2892
 msgid "<span weight=\"bold\">Audio Details</span>"
@@ -629,7 +628,7 @@ msgstr "Uruchom z listą odtwarzania poniżej okna multimediów"
 
 #: src/gui.c:3722
 msgid "Only allow one instance of Gnome MPlayer"
-msgstr "Pozwól na tylko jedną instancję Gnome Mplayera"
+msgstr "Pozwól na tylko jedną instancję Gnome MPlayera"
 
 #: src/gui.c:3727
 msgid "Remember Window Location"
@@ -637,7 +636,7 @@ msgstr "Pamiętaj lokalizację okna"
 
 #: src/gui.c:3732
 msgid "Keep window above other windows"
-msgstr ""
+msgstr "Trzymaj okno nad innymi oknami"
 
 #: src/gui.c:3737
 msgid "Pause playback on mouse click"
@@ -771,9 +770,8 @@ msgid "Open _Digital TV"
 msgstr "Otwórz TV _cyfrową"
 
 #: src/gui.c:4244
-#, fuzzy
 msgid "Open _Recent"
-msgstr "Otwórz _lokalizację"
+msgstr "Otwórz _poprzedni"
 
 #: src/gui.c:4254
 msgid "D_etails"
@@ -934,14 +932,14 @@ msgstr ""
 "Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
 
 #: src/support.c:1446
-#, fuzzy, c-format
+#, c-format
 msgid "%2i:%02.0f"
-msgstr "%2i:%02i"
+msgstr "%2i:%02.0f"
 
 #: src/support.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "%i:%02i:%02.0f"
-msgstr "%i:%02i:%02i"
+msgstr "%i:%02i:%02.0f"
 
 #: src/thread.c:136
 #, c-format
@@ -1015,12 +1013,12 @@ msgstr "Zapełnienie bufora: %2.2f%%"
 msgid "Connecting"
 msgstr "Łączenie"
 
-#: src/thread.c:613
+#: src/thread.c:611
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Zrzut ekranu zapisano do '%s'"
 
-#: src/thread.c:616
+#: src/thread.c:614
 msgid "GNOME MPlayer Notification"
 msgstr "Powiadamianie GNOME MPlayer"
 
@@ -1033,7 +1031,7 @@ msgstr ""
 "Nazwa pliku: %s\n"
 "Napisy: %s"
 
-#: src/playlist.c:244 src/playlist.c:831
+#: src/playlist.c:244 src/playlist.c:832
 msgid "Save Playlist"
 msgstr "Zapisz listę odtwarzania"
 
@@ -1045,7 +1043,7 @@ msgstr "Lista odtwarzania (*.pls)"
 msgid "MP3 Playlist (*.m3u)"
 msgstr "Lista odtwarzania MP3 (*.m3u)"
 
-#: src/playlist.c:299 src/playlist.c:823
+#: src/playlist.c:299 src/playlist.c:824
 msgid "Open Playlist"
 msgstr "Otwórz listę odtwarzania"
 
@@ -1086,38 +1084,39 @@ msgstr[2] "Elementów do odtwarzania"
 msgid "Artist"
 msgstr "Artysta"
 
-#: src/playlist.c:796
+#: src/playlist.c:797
 msgid "Length"
 msgstr "Długość"
 
-#: src/playlist.c:813
+#: src/playlist.c:814
 msgid "Close Playlist View"
 msgstr "Zamknij widok listy odtwarzania"
 
-#: src/playlist.c:839
+#: src/playlist.c:840
 msgid "Add Item to Playlist"
 msgstr "Dodaj element do listy odtwarzania"
 
-#: src/playlist.c:847
+#: src/playlist.c:848
 msgid "Remove Item from Playlist"
 msgstr "Usuń element z listy odtwarzania"
 
-#: src/playlist.c:856
+#: src/playlist.c:857
 msgid "Add Items in Folder to Playlist"
 msgstr "Dodaj elementy w katalogu do listy odtwarzania"
 
-#: src/playlist.c:865
+#: src/playlist.c:866
 msgid "Clear Playlist"
 msgstr "Wyczyść listę odtwarzania"
 
-#: src/playlist.c:873
+#: src/playlist.c:874
 msgid "Move Item Up"
 msgstr "Przesuń element w górę"
 
-#: src/playlist.c:882
+#: src/playlist.c:883
 msgid "Move Item Down"
 msgstr "Przesuń element w dół"
 
-#: src/playlist.c:931
+#: src/playlist.c:932
 msgid "_Set Subtitle"
 msgstr "Ustaw _napisy"
+
