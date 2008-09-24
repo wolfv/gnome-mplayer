@@ -2502,6 +2502,10 @@ void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
     gchar *url;
 
     url = g_strdup(idledata->url);
+	if (strlen(url) == 0) {
+		g_free(url);
+		url = g_strdup(lastfile);
+	}
     clipboard = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
     gtk_clipboard_set_text(clipboard, url, -1);
     clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -4129,6 +4133,7 @@ GtkWidget *create_window(gint windowid)
     }
     menuitem_copyurl = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Copy URL")));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_copyurl));
+	gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
     menuitem_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep2));
     gtk_widget_show(GTK_WIDGET(menuitem_sep2));

@@ -1,4 +1,5 @@
 Development
+    Enable Copy URL menu, since we are in string freeze, I will not update this text until next release
     Add missing schema key
     Updated ko, fr and tr translations
     Updated Polish translation
