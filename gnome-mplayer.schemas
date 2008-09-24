@@ -117,7 +117,7 @@
       <default>FALSE</default>
       <locale name="C">
         <short>Disable Mplayer frame drop option</short>
-        <long>When set to TRUE all maplyer is called without the -framedrop option</long>
+        <long>When set to TRUE all mplayer is called without the -framedrop option</long>
       </locale>
     </schema>
         
