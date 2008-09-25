@@ -1222,6 +1222,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
     gint i = 0;
     gint playlist;
     gint itemcount;
+    GError *error;
 
     /* Important, check if we actually got data.  Sometimes errors
      * occure and selection_data will be NULL.
@@ -1232,7 +1233,14 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         return FALSE;
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
-        filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
+        error = NULL;
+        filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, &error);
+        if (error != NULL) {
+			if (verbose)
+                printf("Error when converting uri to filename: %s\n", error->message);
+            g_error_free(error);
+            error = NULL;
+        }
         if (filename == NULL)
             return FALSE;
         list = g_strsplit(filename, "\n", 0);
@@ -1998,16 +2006,17 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
 #ifdef GTK2_12_ENABLED
 void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer data)
 {
-	GtkRecentFilter *recent_filter;
-	
-	if (GTK_IS_WIDGET(menuitem_file_recent_items))
+    GtkRecentFilter *recent_filter;
+
+    if (GTK_IS_WIDGET(menuitem_file_recent_items))
         gtk_widget_destroy(menuitem_file_recent_items);
     menuitem_file_recent_items = gtk_recent_chooser_menu_new();
-	recent_filter = gtk_recent_filter_new();
-	gtk_recent_filter_add_application(recent_filter, g_get_application_name());
-    gtk_recent_chooser_add_filter(GTK_RECENT_CHOOSER(menuitem_file_recent_items), recent_filter);	
+    recent_filter = gtk_recent_filter_new();
+    gtk_recent_filter_add_application(recent_filter, g_get_application_name());
+    gtk_recent_chooser_add_filter(GTK_RECENT_CHOOSER(menuitem_file_recent_items), recent_filter);
     gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(menuitem_file_recent_items), TRUE);
-	gtk_recent_chooser_set_sort_type (GTK_RECENT_CHOOSER (menuitem_file_recent_items), GTK_RECENT_SORT_MRU);
+    gtk_recent_chooser_set_sort_type(GTK_RECENT_CHOOSER(menuitem_file_recent_items),
+                                     GTK_RECENT_SORT_MRU);
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
 
 }
@@ -2508,10 +2517,10 @@ void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
     gchar *url;
 
     url = g_strdup(idledata->url);
-	if (strlen(url) == 0) {
-		g_free(url);
-		url = g_strdup(lastfile);
-	}
+    if (strlen(url) == 0) {
+        g_free(url);
+        url = g_strdup(lastfile);
+    }
     clipboard = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
     gtk_clipboard_set_text(clipboard, url, -1);
     clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -4072,7 +4081,7 @@ GtkWidget *create_window(gint windowid)
     gchar **visuals;
 
 #ifdef GTK2_12_ENABLED
-	GtkRecentFilter *recent_filter;
+    GtkRecentFilter *recent_filter;
     GtkAdjustment *adj;
 #endif
 
@@ -4140,7 +4149,7 @@ GtkWidget *create_window(gint windowid)
     }
     menuitem_copyurl = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Copy URL")));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_copyurl));
-	gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
+    gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
     menuitem_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep2));
     gtk_widget_show(GTK_WIDGET(menuitem_sep2));
@@ -4257,11 +4266,12 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(recent_manager, "changed", G_CALLBACK(recent_manager_changed_callback), NULL);
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_recent));
     menuitem_file_recent_items = gtk_recent_chooser_menu_new();
-	recent_filter = gtk_recent_filter_new();
-	gtk_recent_filter_add_application(recent_filter, g_get_application_name());
-    gtk_recent_chooser_add_filter(GTK_RECENT_CHOOSER(menuitem_file_recent_items), recent_filter);	
+    recent_filter = gtk_recent_filter_new();
+    gtk_recent_filter_add_application(recent_filter, g_get_application_name());
+    gtk_recent_chooser_add_filter(GTK_RECENT_CHOOSER(menuitem_file_recent_items), recent_filter);
     gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(menuitem_file_recent_items), TRUE);
-	gtk_recent_chooser_set_sort_type (GTK_RECENT_CHOOSER (menuitem_file_recent_items), GTK_RECENT_SORT_MRU);
+    gtk_recent_chooser_set_sort_type(GTK_RECENT_CHOOSER(menuitem_file_recent_items),
+                                     GTK_RECENT_SORT_MRU);
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
 #endif
 
@@ -4523,6 +4533,7 @@ GtkWidget *create_window(gint windowid)
     gtk_drag_dest_set(window,
                       GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_HIGHLIGHT |
                       GTK_DEST_DEFAULT_DROP, target_entry, i, GDK_ACTION_LINK);
+    gtk_drag_dest_add_uri_targets(window);
 
     //Connect the signal for DnD
     g_signal_connect(GTK_OBJECT(window), "drag_data_received", GTK_SIGNAL_FUNC(drop_callback),
