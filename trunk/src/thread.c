@@ -596,9 +596,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "File not found") != 0) {
     }
 
-    if ((strstr(mplayer_output->str, "CHAPTERS") != 0) && !(strstr(mplayer_output->str, "ID_CHAPTERS=0") != 0)) {
-       idledata->has_chapters = TRUE;
-       g_idle_add(set_update_gui, NULL);
+    if ((strstr(mplayer_output->str, "CHAPTERS") != 0)
+        && !(strstr(mplayer_output->str, "ID_CHAPTERS=0") != 0)) {
+        idledata->has_chapters = TRUE;
+        g_idle_add(set_update_gui, NULL);
     }
 
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
