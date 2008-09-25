@@ -1998,10 +1998,16 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
 #ifdef GTK2_12_ENABLED
 void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer data)
 {
-    if (GTK_IS_WIDGET(menuitem_file_recent_items))
+	GtkRecentFilter *recent_filter;
+	
+	if (GTK_IS_WIDGET(menuitem_file_recent_items))
         gtk_widget_destroy(menuitem_file_recent_items);
     menuitem_file_recent_items = gtk_recent_chooser_menu_new();
+	recent_filter = gtk_recent_filter_new();
+	gtk_recent_filter_add_application(recent_filter, g_get_application_name());
+    gtk_recent_chooser_add_filter(GTK_RECENT_CHOOSER(menuitem_file_recent_items), recent_filter);	
     gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(menuitem_file_recent_items), TRUE);
+	gtk_recent_chooser_set_sort_type (GTK_RECENT_CHOOSER (menuitem_file_recent_items), GTK_RECENT_SORT_MRU);
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
 
 }
@@ -4066,6 +4072,7 @@ GtkWidget *create_window(gint windowid)
     gchar **visuals;
 
 #ifdef GTK2_12_ENABLED
+	GtkRecentFilter *recent_filter;
     GtkAdjustment *adj;
 #endif
 
@@ -4250,7 +4257,11 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(recent_manager, "changed", G_CALLBACK(recent_manager_changed_callback), NULL);
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_recent));
     menuitem_file_recent_items = gtk_recent_chooser_menu_new();
+	recent_filter = gtk_recent_filter_new();
+	gtk_recent_filter_add_application(recent_filter, g_get_application_name());
+    gtk_recent_chooser_add_filter(GTK_RECENT_CHOOSER(menuitem_file_recent_items), recent_filter);	
     gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(menuitem_file_recent_items), TRUE);
+	gtk_recent_chooser_set_sort_type (GTK_RECENT_CHOOSER (menuitem_file_recent_items), GTK_RECENT_SORT_MRU);
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
 #endif
 
