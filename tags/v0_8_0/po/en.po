@@ -1,0 +1,1056 @@
+# GNOME MPlayer 
+# Copyright (C) 2007 Kevin DeKorte
+# This file is distributed under the same license as the GNOME MPlayer package.
+# Kevin DeKorte <kdekorte@gmail.com> 2007.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-09-22 14:02-0600\n"
+"PO-Revision-Date: 2007-05-18 06:35-0600\n"
+"Last-Translator:  <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/main.c:54
+msgid "Window to embed in"
+msgstr "Window to embed in"
+
+#: src/main.c:55
+msgid "Width of window to embed in"
+msgstr "Width of window to embed in"
+
+#: src/main.c:56
+msgid "Height of window to embed in"
+msgstr "Height of window to embed in"
+
+#: src/main.c:57
+msgid "Unique DBUS controller id"
+msgstr "Unique DBUS controller id"
+
+#: src/main.c:58
+msgid "File Argument is a playlist"
+msgstr "File Argument is a playlist"
+
+#: src/main.c:59
+msgid "Show more output on the console"
+msgstr "Show more output on the console"
+
+#: src/main.c:61
+msgid "Show even more output on the console"
+msgstr "Show even more output on the console"
+
+#: src/main.c:62
+msgid "Use mplayer software volume control"
+msgstr ""
+
+#: src/main.c:63
+msgid "Set initial volume percentage"
+msgstr ""
+
+#: src/main.c:64
+msgid "Show the controls in window"
+msgstr "Show the controls in window"
+
+#: src/main.c:67
+msgid "Autostart the media default to 1, set to 0 to load but don't play"
+msgstr "Autostart the media default to 1, set to 0 to load but don't play"
+
+#: src/main.c:69
+msgid "Disable popup menu on right click"
+msgstr ""
+
+#: src/main.c:71
+msgid "Disable fullscreen options in browser mode"
+msgstr ""
+
+#: src/main.c:72
+msgid "Play all files on the playlist forever"
+msgstr ""
+
+#: src/main.c:74
+msgid "Quit application when last file on playlist is played"
+msgstr ""
+
+#: src/main.c:75
+msgid "Play items on playlist in random order"
+msgstr ""
+
+#: src/main.c:77
+msgid "Set cache size"
+msgstr ""
+
+#: src/main.c:79
+msgid "Force cache usage on streaming sites"
+msgstr ""
+
+#: src/main.c:82
+msgid "Disable the deinterlace filter"
+msgstr ""
+
+#: src/main.c:85
+msgid "Don't skip drawing frames to better keep sync"
+msgstr ""
+
+#: src/main.c:88
+msgid "Use the old subtitle rendering system"
+msgstr ""
+
+#: src/main.c:91
+msgid "Don't use fonts embedded on matroska files"
+msgstr ""
+
+#: src/main.c:93
+msgid "Use Vertical Layout"
+msgstr ""
+
+#: src/main.c:95
+msgid "Start with playlist open"
+msgstr ""
+
+#: src/main.c:97 src/gui.c:3710
+msgid "Start with details visible"
+msgstr ""
+
+#: src/main.c:99
+msgid "Real Player Name"
+msgstr ""
+
+#: src/main.c:100
+msgid "Real Player Console ID"
+msgstr ""
+
+#: src/main.c:101
+msgid "Real Player Console Controls"
+msgstr ""
+
+#: src/main.c:103
+msgid "Subtitle file for first media file"
+msgstr ""
+
+#: src/main.c:105
+msgid "TV device name"
+msgstr ""
+
+#: src/main.c:106
+msgid "TV driver name (v4l|v4l2)"
+msgstr ""
+
+#: src/main.c:107
+msgid "TV input name"
+msgstr ""
+
+#: src/main.c:108
+msgid "Width of TV input"
+msgstr ""
+
+#: src/main.c:109
+msgid "Height of TV input"
+msgstr ""
+
+#: src/main.c:110
+msgid "Frames per second from TV input"
+msgstr ""
+
+#: src/main.c:111
+msgid "Only allow one instance"
+msgstr ""
+
+#: src/main.c:114
+msgid "Put single instance mode into replace and play mode"
+msgstr ""
+
+#: src/main.c:117
+msgid "Ignore single instance preference for this instance"
+msgstr ""
+
+#: src/main.c:120
+msgid "Keep window on top"
+msgstr ""
+
+#: src/main.c:383
+msgid "[FILES...] - GNOME Media player based on MPlayer"
+msgstr "[FILES...] - GNOME Media player based on MPlayer"
+
+#: src/main.c:402
+#, c-format
+msgid "GNOME MPlayer v%s\n"
+msgstr "GNOME MPlayer v%s\n"
+
+#: src/main.c:431
+#, c-format
+msgid ""
+"Run 'gnome-mplayer --help' to see a full list of available command line "
+"options.\n"
+msgstr ""
+
+#: src/main.c:495
+msgid "Playing DVD"
+msgstr "Playing DVD"
+
+#: src/main.c:499
+msgid "Playing Audio CD"
+msgstr "Playing Audio CD"
+
+#: src/gui.c:92 src/gui.c:131 src/gui.c:155
+#, c-format
+msgid "%s - GNOME MPlayer"
+msgstr "%s - GNOME MPlayer"
+
+#: src/gui.c:126
+#, c-format
+msgid "%s - (%i/%i) - GNOME MPlayer"
+msgstr ""
+
+#: src/gui.c:129 src/gui.c:2140 src/gui.c:4072
+#, c-format
+msgid "GNOME MPlayer"
+msgstr "GNOME MPlayer"
+
+#: src/gui.c:225
+#, c-format
+msgid "Paused | %2i%% ▼"
+msgstr ""
+
+#: src/gui.c:398 src/gui.c:1298
+msgid "Pause"
+msgstr "Pause"
+
+#: src/gui.c:405 src/gui.c:412 src/gui.c:1308 src/gui.c:1379 src/gui.c:1383
+#: src/gui.c:4678
+msgid "Play"
+msgstr "Play"
+
+#: src/gui.c:458
+#, c-format
+msgid "Adding %s to playlist"
+msgstr ""
+
+#: src/gui.c:762 src/gui.c:772 src/gui.c:1549 src/gui.c:1577 src/thread.c:354
+#, c-format
+msgid "Volume %i%%"
+msgstr "Volume %i%%"
+
+#: src/gui.c:1299
+msgid "Playing"
+msgstr "Playing"
+
+#: src/gui.c:1309
+msgid "Paused"
+msgstr "Paused"
+
+#: src/gui.c:1389
+msgid "Stopped"
+msgstr "Stopped"
+
+#: src/gui.c:1687 src/playlist.c:412
+msgid "Open File"
+msgstr "Open File"
+
+#: src/gui.c:1736 src/support.c:129 src/support.c:177 src/playlist.c:443
+#, c-format
+msgid "Item to Play"
+msgid_plural "Items to Play"
+msgstr[0] "Item to Play"
+msgstr[1] "Items to Play"
+
+#: src/gui.c:1799
+msgid "Open Location"
+msgstr ""
+
+#: src/gui.c:1801
+msgid "Location:"
+msgstr ""
+
+#: src/gui.c:1862 src/gui.c:1920
+msgid "Choose Disk Directory"
+msgstr ""
+
+#: src/gui.c:2079
+msgid "Save As..."
+msgstr ""
+
+#: src/gui.c:2114
+#, c-format
+msgid "Unable to save '%s'"
+msgstr ""
+
+#: src/gui.c:2117 src/support.c:557 src/thread.c:169
+msgid "GNOME MPlayer Error"
+msgstr ""
+
+#: src/gui.c:2144
+msgid "A media player for GNOME that uses MPlayer"
+msgstr "A media player for GNOME that uses MPlayer"
+
+#: src/gui.c:2148
+msgid ""
+"Gnome MPlayer is free software; you can redistribute it and/or modify it "
+"under\n"
+"the terms of the GNU General Public License as published by the Free\n"
+"Software Foundation; either version 2 of the License, or (at your option)\n"
+"any later version.\n"
+"\n"
+"Gnome MPlayer is distributed in the hope that it will be useful, but "
+"WITHOUT\n"
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\n"
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\n"
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along "
+"with\n"
+"Gnome MPlayer if not, write to the\n"
+"\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin St, Fifth Floor\n"
+"Boston, MA 02110-1301 USA"
+msgstr ""
+
+#: src/gui.c:2374 src/playlist.c:121
+msgid "Set Subtitle"
+msgstr ""
+
+#: src/gui.c:2810
+msgid "<span weight=\"bold\">Video Details</span>"
+msgstr "<span weight=\"bold\">Video Details</span>"
+
+#: src/gui.c:2817
+msgid "Video Size:"
+msgstr "Video Size:"
+
+#: src/gui.c:2830
+msgid "Video Format:"
+msgstr "Video Format:"
+
+#: src/gui.c:2841
+msgid "Video Codec:"
+msgstr "Video Codec:"
+
+#: src/gui.c:2852
+msgid "Video FPS:"
+msgstr "Video FPS:"
+
+#: src/gui.c:2861
+msgid "Video Bitrate:"
+msgstr "Video Bitrate:"
+
+#: src/gui.c:2873
+#, fuzzy
+msgid "Video Chapters:"
+msgstr "Video Bitrate:"
+
+#: src/gui.c:2892
+msgid "<span weight=\"bold\">Audio Details</span>"
+msgstr "<span weight=\"bold\">Audio Details</span>"
+
+#: src/gui.c:2899
+msgid "Audio Codec:"
+msgstr "Audio Codec:"
+
+#: src/gui.c:2916
+msgid "Audio Channels:"
+msgstr "Audio Channels:"
+
+#: src/gui.c:2930
+msgid "Audio Bitrate:"
+msgstr "Audio Bitrate:"
+
+#: src/gui.c:2944
+msgid "Audio Sample Rate:"
+msgstr "Audio Sample Rate:"
+
+#: src/gui.c:3004
+msgid "Advanced Video Controls"
+msgstr "Advanced Video Controls"
+
+#: src/gui.c:3017
+msgid "<span weight=\"bold\">Adjust Video Settings</span>"
+msgstr "<span weight=\"bold\">Adjust Video Settings</span>"
+
+#: src/gui.c:3024
+msgid "Brightness"
+msgstr "Brightness"
+
+#: src/gui.c:3034
+msgid "Contrast"
+msgstr "Contrast"
+
+#: src/gui.c:3044
+msgid "Gamma"
+msgstr "Gamma"
+
+#: src/gui.c:3054
+msgid "Hue"
+msgstr "Hue"
+
+#: src/gui.c:3064
+msgid "Saturation"
+msgstr "Saturation"
+
+#: src/gui.c:3159
+msgid "No Display"
+msgstr ""
+
+#: src/gui.c:3162
+msgid "Minimal"
+msgstr ""
+
+#: src/gui.c:3165
+msgid "Timer"
+msgstr ""
+
+#: src/gui.c:3168
+msgid "Timer/Total"
+msgstr ""
+
+#: src/gui.c:3184
+msgid "No Postprocessing"
+msgstr ""
+
+#: src/gui.c:3188
+msgid "Minimal Postprocessing"
+msgstr ""
+
+#: src/gui.c:3192
+msgid "More Postprocessing"
+msgstr ""
+
+#: src/gui.c:3196
+msgid "Maximum Postprocessing"
+msgstr ""
+
+#: src/gui.c:3260
+msgid "Player"
+msgstr "Player"
+
+#: src/gui.c:3262
+msgid "Plugin"
+msgstr "Plugin"
+
+#: src/gui.c:3264
+msgid "Language Settings"
+msgstr ""
+
+#: src/gui.c:3266
+msgid "Subtitles"
+msgstr ""
+
+#: src/gui.c:3268
+msgid "Advanced"
+msgstr "Advanced"
+
+#: src/gui.c:3274
+msgid "GNOME MPlayer Configuration"
+msgstr "GNOME MPlayer Configuration"
+
+#: src/gui.c:3289
+msgid ""
+"mplayer video output device\n"
+"x11 should always work, try xv or gl for better performance"
+msgstr ""
+
+#: src/gui.c:3314
+msgid ""
+"mplayer audio output device\n"
+"alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+"newer distributions"
+msgstr ""
+
+#: src/gui.c:3397
+msgid "<span weight=\"bold\">Adjust Output Settings</span>"
+msgstr "<span weight=\"bold\">Adjust Output Settings</span>"
+
+#: src/gui.c:3404
+msgid "Video Output:"
+msgstr "Video Output:"
+
+#: src/gui.c:3414
+msgid "Audio Output:"
+msgstr "Audio Output:"
+
+#: src/gui.c:3437
+msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
+msgstr "<span weight=\"bold\">Adjust Configuration Settings</span>"
+
+#: src/gui.c:3444
+msgid "Default Volume Level:"
+msgstr ""
+
+#: src/gui.c:3453
+msgid ""
+"Default volume for playback, values of 0 or 100 cause the setting from ALSA "
+"to be used"
+msgstr ""
+
+#: src/gui.c:3465
+msgid "Minimum Cache Size (KB):"
+msgstr "Minimum·Cache·Size (KB):"
+
+#: src/gui.c:3474
+msgid ""
+"Amount of data to cache when playing media from network, use higher values "
+"for slow networks."
+msgstr ""
+
+#: src/gui.c:3487
+msgid "On Screen Display Level:"
+msgstr ""
+
+#: src/gui.c:3501
+msgid "Post-processing level:"
+msgstr ""
+
+#: src/gui.c:3516
+msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
+msgstr "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
+
+#: src/gui.c:3523
+msgid "QuickTime Emulation"
+msgstr ""
+
+#: src/gui.c:3528
+msgid "RealPlayer Emulation"
+msgstr ""
+
+#: src/gui.c:3533
+msgid "Windows Media Player Emulation"
+msgstr ""
+
+#: src/gui.c:3538
+msgid "DiVX Player Emulation"
+msgstr ""
+
+#: src/gui.c:3543
+msgid "Disable Player Embedding"
+msgstr ""
+
+#: src/gui.c:3551
+msgid "<span weight=\"bold\">Adjust Language Settings</span>"
+msgstr "<span weight=\"bold\">Adjust Language Settings</span>"
+
+#: src/gui.c:3558
+msgid "Default Audio Language"
+msgstr ""
+
+#: src/gui.c:3568
+msgid "Default Subtitle Language:"
+msgstr ""
+
+#: src/gui.c:3579
+msgid "File Metadata Encoding:"
+msgstr ""
+
+#: src/gui.c:3595
+msgid "<span weight=\"bold\">Subtitle Settings</span>"
+msgstr "<span weight=\"bold\">Subtitle Settings</span>"
+
+#: src/gui.c:3604
+msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
+msgstr ""
+
+#: src/gui.c:3611
+msgid "Use _Embedded Fonts"
+msgstr ""
+
+#: src/gui.c:3618
+msgid "Subtitle Font:"
+msgstr ""
+
+#: src/gui.c:3631
+msgid "Subtitle Font Selection"
+msgstr ""
+
+#: src/gui.c:3636
+msgid "Subtitle Color:"
+msgstr ""
+
+#: src/gui.c:3661
+msgid "Subtitle Color Selection"
+msgstr ""
+
+#: src/gui.c:3668
+msgid "Subtitle Font Scaling:"
+msgstr ""
+
+#: src/gui.c:3681
+msgid "Subtitle File Encoding:"
+msgstr ""
+
+#: src/gui.c:3698
+msgid "<span weight=\"bold\">Advanced Settings</span>"
+msgstr "<span weight=\"bold\">Advanced Settings</span>"
+
+#: src/gui.c:3705
+msgid "Start with playlist visible"
+msgstr ""
+
+#: src/gui.c:3716
+msgid "Start with playlist below media window"
+msgstr ""
+
+#: src/gui.c:3722
+msgid "Only allow one instance of Gnome MPlayer"
+msgstr ""
+
+#: src/gui.c:3727
+msgid "Remember Window Location"
+msgstr ""
+
+#: src/gui.c:3732
+msgid "Keep window above other windows"
+msgstr ""
+
+#: src/gui.c:3737
+msgid "Pause playback on mouse click"
+msgstr ""
+
+#: src/gui.c:3742
+msgid "Mplayer Software Volume Control Enabled"
+msgstr ""
+
+#: src/gui.c:3746
+msgid ""
+"Set this option if changing the volume in Gnome MPlayer changes the master "
+"volume"
+msgstr ""
+
+#: src/gui.c:3752
+msgid "De_interlace Video"
+msgstr ""
+
+#: src/gui.c:3754
+msgid "Set this option if video looks striped"
+msgstr ""
+
+#: src/gui.c:3760
+msgid "_Drop frames"
+msgstr ""
+
+#: src/gui.c:3763
+msgid "Set this option if video is well behind the audio"
+msgstr ""
+
+#: src/gui.c:3769
+msgid "Force the use of cache setting on streaming media"
+msgstr ""
+
+#: src/gui.c:3774
+msgid "Verbose Debug Enabled"
+msgstr ""
+
+#: src/gui.c:3778
+msgid ""
+"When this option is set, extra debug information is sent to the terminal or "
+"into ~/.xsession-errors"
+msgstr ""
+
+#: src/gui.c:3784
+msgid "MPlayer Executable:"
+msgstr ""
+
+#: src/gui.c:3789
+msgid ""
+"Use this option to specify a mplayer application that is not in the path"
+msgstr ""
+
+#: src/gui.c:3800
+msgid "Extra Options to MPlayer:"
+msgstr ""
+
+#: src/gui.c:3804
+msgid "Add any extra mplayer options here (filters etc)"
+msgstr ""
+
+#: src/gui.c:3901
+#, c-format
+msgid "Seeking to %s"
+msgstr ""
+
+#: src/gui.c:4121
+msgid "S_how Controls"
+msgstr "S_how Controls"
+
+#: src/gui.c:4125
+msgid "_Full Screen"
+msgstr "_Full Screen"
+
+#: src/gui.c:4130
+msgid "_Copy URL"
+msgstr ""
+
+#. File Menu
+#: src/gui.c:4197
+msgid "_File"
+msgstr "_File"
+
+#: src/gui.c:4206
+msgid "Open _Location"
+msgstr ""
+
+#: src/gui.c:4209
+msgid "Open _Audio CD"
+msgstr "Open _Audio CD"
+
+#: src/gui.c:4212
+msgid "_DVD"
+msgstr "_DVD"
+
+#: src/gui.c:4218
+msgid "Open _DVD"
+msgstr ""
+
+#: src/gui.c:4221
+msgid "Open DVD with _Menus"
+msgstr ""
+
+#: src/gui.c:4224
+msgid "Open DVD from _Folder"
+msgstr ""
+
+#: src/gui.c:4227
+msgid "Open DVD from Folder with M_enus"
+msgstr ""
+
+#: src/gui.c:4230
+msgid "_TV"
+msgstr ""
+
+#: src/gui.c:4237
+msgid "Open _Analog TV"
+msgstr ""
+
+#: src/gui.c:4240
+msgid "Open _Digital TV"
+msgstr ""
+
+#: src/gui.c:4244
+msgid "Open _Recent"
+msgstr ""
+
+#: src/gui.c:4254
+msgid "D_etails"
+msgstr ""
+
+#. Edit Menu
+#: src/gui.c:4290
+msgid "_Edit"
+msgstr "_Edit"
+
+#: src/gui.c:4297
+msgid "_Shuffle Playlist"
+msgstr ""
+
+#: src/gui.c:4301
+msgid "_Loop Playlist"
+msgstr ""
+
+#: src/gui.c:4306
+msgid "S_witch Audio Track"
+msgstr ""
+
+#: src/gui.c:4310
+msgid "Select _Audio Language"
+msgstr ""
+
+#: src/gui.c:4316
+msgid "Set Sub_title"
+msgstr ""
+
+#: src/gui.c:4320
+msgid "S_elect Subtitle Language"
+msgstr ""
+
+#: src/gui.c:4327
+msgid "_Take Screenshot"
+msgstr ""
+
+#: src/gui.c:4331
+msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
+msgstr ""
+
+#. View Menu
+#: src/gui.c:4360
+msgid "_View"
+msgstr "_View"
+
+#: src/gui.c:4365
+msgid "_Playlist"
+msgstr "_Playlist"
+
+#: src/gui.c:4367
+msgid "Media _Info"
+msgstr ""
+
+#: src/gui.c:4380
+msgid "_Normal (1:1)"
+msgstr "_Normal·(1:1)"
+
+#: src/gui.c:4383
+msgid "_Double Size (2:1)"
+msgstr "_Double·Size·(2:1)"
+
+#: src/gui.c:4386
+msgid "_Half Size (1:2)"
+msgstr "_Half·Size·(1:2)"
+
+#: src/gui.c:4389
+msgid "_Aspect"
+msgstr ""
+
+#: src/gui.c:4396
+msgid "D_efault Aspect"
+msgstr ""
+
+#: src/gui.c:4399
+msgid "_4:3 Aspect"
+msgstr ""
+
+#: src/gui.c:4402
+msgid "_16:9 Aspect"
+msgstr ""
+
+#: src/gui.c:4405
+msgid "1_6:10 Aspect"
+msgstr ""
+
+#: src/gui.c:4411
+msgid "Show _Subtitles"
+msgstr ""
+
+#: src/gui.c:4412
+msgid "Switch An_gle"
+msgstr ""
+
+#: src/gui.c:4413
+msgid "_Controls"
+msgstr "_Controls"
+
+#: src/gui.c:4421
+msgid "Advanced _Options..."
+msgstr ""
+
+#. Help Menu
+#: src/gui.c:4462
+msgid "_Help"
+msgstr "_Help"
+
+#: src/gui.c:4641
+msgid "Menu"
+msgstr ""
+
+#: src/gui.c:4654
+msgid "Previous"
+msgstr ""
+
+#: src/gui.c:4667
+msgid "Rewind"
+msgstr "Rewind"
+
+#: src/gui.c:4690
+msgid "Stop"
+msgstr "Stop"
+
+#: src/gui.c:4702
+msgid "Fast Forward"
+msgstr "Fast Forward"
+
+#: src/gui.c:4713
+msgid "Next"
+msgstr ""
+
+#: src/gui.c:4737
+msgid "No Information"
+msgstr ""
+
+#: src/gui.c:4744
+msgid "Full Screen"
+msgstr "Full Screen"
+
+#: src/gui.c:4782
+msgid "Volume 100%"
+msgstr "Volume 100%"
+
+#: src/support.c:166 src/playlist.c:777
+#, c-format
+msgid "%s items"
+msgstr ""
+
+#: src/support.c:537 src/thread.c:143
+#, c-format
+msgid "Couldn't open DVD device: %s"
+msgstr ""
+
+#: src/support.c:1162 src/support.c:1195
+msgid "Unable to save playlist, cannot open file for writing"
+msgstr ""
+
+#: src/support.c:1446
+#, fuzzy, c-format
+msgid "%2i:%02.0f"
+msgstr "%2i:%02i"
+
+#: src/support.c:1448
+#, fuzzy, c-format
+msgid "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02i"
+
+#: src/thread.c:136
+#, c-format
+msgid "Failed to open %s"
+msgstr ""
+
+#: src/thread.c:149
+#, c-format
+msgid "Cannot load subtitles: %s"
+msgstr ""
+
+#: src/thread.c:159
+#, c-format
+msgid "Compressed SWF format not supported"
+msgstr ""
+
+#: src/thread.c:432
+#, c-format
+msgid ""
+"<small>\n"
+"<b>Title:</b>\t%s\n"
+"<b>Artist:</b>\t%s\n"
+"<b>File:</b>\t%s\n"
+"</small>"
+msgstr ""
+
+#: src/thread.c:451 src/thread.c:461
+msgid "Unknown"
+msgstr ""
+
+#: src/thread.c:466
+#, c-format
+msgid ""
+"<small>\n"
+"<b>Title:</b>\t%s\n"
+"<b>Artist:</b>\t%s\n"
+"<b>Album:</b>\t%s\n"
+"</small>"
+msgstr ""
+
+#: src/thread.c:483 src/thread.c:494
+#, c-format
+msgid ""
+"<small>\n"
+"<b>File:</b>\t%s\n"
+"</small>"
+msgstr ""
+
+#. printf("Percent = %f\n",percent);
+#. printf("Buffer = %s\n",buf);
+#: src/thread.c:506
+#, c-format
+msgid "Cache fill: %2.2f%%"
+msgstr ""
+
+#: src/thread.c:515
+#, c-format
+msgid "Connecting"
+msgstr ""
+
+#: src/thread.c:613
+#, c-format
+msgid "Screenshot saved to '%s'"
+msgstr ""
+
+#: src/thread.c:616
+msgid "GNOME MPlayer Notification"
+msgstr "GNOME MPlayer Notification"
+
+#: src/playlist.c:221
+#, c-format
+msgid ""
+"Filename: %s\n"
+"Subtitle: %s"
+msgstr ""
+
+#: src/playlist.c:244 src/playlist.c:831
+msgid "Save Playlist"
+msgstr ""
+
+#: src/playlist.c:256 src/playlist.c:311
+msgid "Playlist (*.pls)"
+msgstr ""
+
+#: src/playlist.c:261 src/playlist.c:321
+msgid "MP3 Playlist (*.m3u)"
+msgstr ""
+
+#: src/playlist.c:299 src/playlist.c:823
+msgid "Open Playlist"
+msgstr ""
+
+#: src/playlist.c:316
+msgid "Reference Playlist (*.ref)"
+msgstr ""
+
+#: src/playlist.c:459
+msgid "Choose Directory"
+msgstr ""
+
+#: src/playlist.c:493
+#, c-format
+msgid ""
+"\n"
+"\tFound %i file\n"
+msgid_plural ""
+"\n"
+"\tFound %i files\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/playlist.c:774
+msgid "Item to play"
+msgid_plural "Items to Play"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/playlist.c:787
+msgid "Artist"
+msgstr ""
+
+#: src/playlist.c:796
+msgid "Length"
+msgstr ""
+
+#: src/playlist.c:813
+msgid "Close Playlist View"
+msgstr ""
+
+#: src/playlist.c:839
+msgid "Add Item to Playlist"
+msgstr ""
+
+#: src/playlist.c:847
+msgid "Remove Item from Playlist"
+msgstr ""
+
+#: src/playlist.c:856
+msgid "Add Items in Folder to Playlist"
+msgstr ""
+
+#: src/playlist.c:865
+msgid "Clear Playlist"
+msgstr ""
+
+#: src/playlist.c:873
+msgid "Move Item Up"
+msgstr ""
+
+#: src/playlist.c:882
+msgid "Move Item Down"
+msgstr ""
+
+#: src/playlist.c:931
+msgid "_Set Subtitle"
+msgstr ""
