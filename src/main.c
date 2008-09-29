@@ -329,6 +329,7 @@ int main(int argc, char *argv[])
     details_visible = FALSE;
     replace_and_play = FALSE;
     keep_on_top = FALSE;
+    use_pausing_keep_force = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();

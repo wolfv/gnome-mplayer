@@ -32,11 +32,12 @@ void shutdown()
         idledata->percent = 1.0;
         g_idle_add(set_progress_value, idledata);
         g_idle_add(set_stop, idledata);
-        send_command("quit\n");
+        send_command("quit\n", FALSE);
     }
 
 }
 
+/*
 gboolean send_command(gchar * command)
 {
     gint ret;
@@ -45,6 +46,35 @@ gboolean send_command(gchar * command)
         printf("send command = %s\n", command);
     ret = write(std_in, command, strlen(command));
     fsync(std_in);
+    if (ret < 0) {
+        return FALSE;
+    } else {
+        return TRUE;
+    }
+
+}
+*/
+
+gboolean send_command(gchar * command, gboolean retain_pause)
+{
+    gint ret;
+    gchar *cmd;
+
+    if (retain_pause) {
+        if (use_pausing_keep_force) {
+            cmd = g_strdup_printf("pausing_keep_force %s", command);
+        } else {
+            cmd = g_strdup_printf("pausing_keep %s", command);
+        }
+    } else {
+        cmd = g_strdup(command);
+    }
+
+    if (verbose > 1)
+        printf("send command = %s\n", cmd);
+    ret = write(std_in, cmd, strlen(cmd));
+    fsync(std_in);
+    g_free(cmd);
     if (ret < 0) {
         return FALSE;
     } else {
@@ -289,10 +319,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(resize_window, idledata);
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
-        send_command("get_property metadata\n");
+        send_command("get_property metadata\n", TRUE);
         if (idledata->length < 1.0)
-            send_command("get_time_length\n");
-        send_command("get_property chapters\n");
+            send_command("get_time_length\n", TRUE);
+        send_command("get_property chapters\n", TRUE);
+        send_command("pausing_keep_force get_property path\n", FALSE);
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -305,9 +336,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->videopresent = FALSE;
         g_idle_add(resize_window, idledata);
         g_idle_add(set_volume_from_slider, NULL);
-        send_command("get_property metadata\n");
+        send_command("get_property metadata\n", TRUE);
         if (idledata->length < 1.0)
-            send_command("get_time_length\n");
+            send_command("get_time_length\n", TRUE);
+        send_command("pausing_keep_force get_property path\n", FALSE);
     }
 
     if (strstr(mplayer_output->str, "ANS_PERCENT_POSITION") != 0) {
@@ -335,7 +367,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_TIME_POSITION");
         sscanf(buf, "ANS_TIME_POSITION=%lf", &idledata->position);
         if (idledata->position < old_pos) {
-            send_command("get_time_length\n");
+            send_command("get_time_length\n", FALSE);
             state = PLAYING;
         }
         g_idle_add(set_progress_time, idledata);
@@ -343,7 +375,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             idledata->percent = idledata->position / idledata->length;
             g_idle_add(set_progress_value, idledata);
         } else {
-            send_command("get_percent_pos\n");
+            send_command("get_percent_pos\n", FALSE);
         }
     }
 
@@ -395,6 +427,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ANS_saturation") != 0) {
         buf = strstr(mplayer_output->str, "ANS_saturation");
         sscanf(buf, "ANS_saturation=%i", &idledata->saturation);
+    }
+
+    if (strstr(mplayer_output->str, "ANS_path") != 0) {
+        if (verbose > 1)
+            printf("pausing keep force enabled\n");
+        use_pausing_keep_force = TRUE;
     }
 
     if (strstr(mplayer_output->str, "ANS_metadata") != 0) {
@@ -706,9 +744,9 @@ gboolean thread_query(gpointer data)
         } else {
 
             //send_command("get_time_pos\n");
-            send_command("get_property stream_pos\n");
+            send_command("get_property stream_pos\n", TRUE);
             if (threaddata->streaming)
-                send_command("get_property metadata\n");
+                send_command("get_property metadata\n", TRUE);
             g_idle_add(make_panel_and_mouse_invisible, NULL);
             return TRUE;
         }

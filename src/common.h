@@ -244,6 +244,7 @@ gchar *extraopts;
 gboolean single_instance;
 gboolean new_instance;
 gboolean replace_and_play;
+gboolean use_pausing_keep_force;
 
 gboolean remember_loc;
 gint loc_window_x;
