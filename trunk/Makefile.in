@@ -63,14 +63,14 @@ am__vpath_adj = case $$p in \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(desktopdir)" \
-	"$(DESTDIR)$(gnome_mplayerdocdir)" \
-	"$(DESTDIR)$(gnome_mplayeretcdir)" "$(DESTDIR)$(icondir)"
+	"$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(icondir)" \
+	"$(DESTDIR)$(schemadir)"
 desktopDATA_INSTALL = $(INSTALL_DATA)
 gnome_mplayerdocDATA_INSTALL = $(INSTALL_DATA)
-gnome_mplayeretcDATA_INSTALL = $(INSTALL_DATA)
 iconDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(desktop_DATA) $(gnome_mplayerdoc_DATA) \
-	$(gnome_mplayeretc_DATA) $(icon_DATA)
+schemaDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(desktop_DATA) $(gnome_mplayerdoc_DATA) $(icon_DATA) \
+	$(schema_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 ETAGS = etags
@@ -93,7 +93,6 @@ ALSA_CFLAGS = @ALSA_CFLAGS@
 ALSA_DEFINES = @ALSA_DEFINES@
 ALSA_LIBS = @ALSA_LIBS@
 AMTAR = @AMTAR@
-AR = @AR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -106,7 +105,6 @@ CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
-CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
@@ -115,17 +113,16 @@ DBUS_CFLAGS = @DBUS_CFLAGS@
 DBUS_LIBS = @DBUS_LIBS@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
-ECHO = @ECHO@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
-F77 = @F77@
-FFLAGS = @FFLAGS@
 GCONF_CFLAGS = @GCONF_CFLAGS@
 GCONF_DEFINES = @GCONF_DEFINES@
 GCONF_LIBS = @GCONF_LIBS@
+GCONF_SCHEMA_CONFIG_SOURCE = @GCONF_SCHEMA_CONFIG_SOURCE@
+GCONF_SCHEMA_FILE_DIR = @GCONF_SCHEMA_FILE_DIR@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
 GLIB2_14_CFLAGS = @GLIB2_14_CFLAGS@
 GLIB2_14_DEFINES = @GLIB2_14_DEFINES@
@@ -148,8 +145,6 @@ INTLLIBS = @INTLLIBS@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
-LIBTOOL = @LIBTOOL@
-LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
@@ -170,8 +165,6 @@ POFILES = @POFILES@
 POSUB = @POSUB@
 PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
 PO_IN_DATADIR_TRUE = @PO_IN_DATADIR_TRUE@
-RANLIB = @RANLIB@
-SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
@@ -184,7 +177,6 @@ abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
-ac_ct_F77 = @ac_ct_F77@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
@@ -242,13 +234,14 @@ gnome_mplayerdoc_DATA = \
 	DOCS/tech/dbus.txt \
 	DOCS/tech/plugin-interaction.txt
 
-gnome_mplayeretcdir = ${sysconfdir}/gconf/schemas
-gnome_mplayeretc_DATA = gnome-mplayer.schemas
+schemadir = @GCONF_SCHEMA_FILE_DIR@
+schema_DATA = gnome-mplayer.schemas
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
 icondir = ${prefix}/share/pixmaps
 icon_DATA = gnome-mplayer.png
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) $(gnome_mplayeretc_DATA) gnome-mplayer.spec.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) gnome-mplayer.spec.in
+@GCONF_SCHEMAS_INSTALL_TRUE@GCONF_CONFIG_SOURCE = $(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_srcdir)/$(schema_DATA)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -305,15 +298,6 @@ distclean-hdr:
 	-rm -f config.h stamp-h1
 gnome-mplayer.spec: $(top_builddir)/config.status $(srcdir)/gnome-mplayer.spec.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-
-mostlyclean-libtool:
-	-rm -f *.lo
-
-clean-libtool:
-	-rm -rf .libs _libs
-
-distclean-libtool:
-	-rm -f libtool
 install-desktopDATA: $(desktop_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(desktopdir)" || $(MKDIR_P) "$(DESTDIR)$(desktopdir)"
@@ -348,23 +332,6 @@ uninstall-gnome_mplayerdocDATA:
 	  echo " rm -f '$(DESTDIR)$(gnome_mplayerdocdir)/$$f'"; \
 	  rm -f "$(DESTDIR)$(gnome_mplayerdocdir)/$$f"; \
 	done
-install-gnome_mplayeretcDATA: $(gnome_mplayeretc_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(gnome_mplayeretcdir)" || $(MKDIR_P) "$(DESTDIR)$(gnome_mplayeretcdir)"
-	@list='$(gnome_mplayeretc_DATA)'; for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  f=$(am__strip_dir) \
-	  echo " $(gnome_mplayeretcDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(gnome_mplayeretcdir)/$$f'"; \
-	  $(gnome_mplayeretcDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(gnome_mplayeretcdir)/$$f"; \
-	done
-
-uninstall-gnome_mplayeretcDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(gnome_mplayeretc_DATA)'; for p in $$list; do \
-	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(gnome_mplayeretcdir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(gnome_mplayeretcdir)/$$f"; \
-	done
 install-iconDATA: $(icon_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(icondir)" || $(MKDIR_P) "$(DESTDIR)$(icondir)"
@@ -381,6 +348,23 @@ uninstall-iconDATA:
 	  f=$(am__strip_dir) \
 	  echo " rm -f '$(DESTDIR)$(icondir)/$$f'"; \
 	  rm -f "$(DESTDIR)$(icondir)/$$f"; \
+	done
+install-schemaDATA: $(schema_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(schemadir)" || $(MKDIR_P) "$(DESTDIR)$(schemadir)"
+	@list='$(schema_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(schemaDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(schemadir)/$$f'"; \
+	  $(schemaDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(schemadir)/$$f"; \
+	done
+
+uninstall-schemaDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(schema_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(schemadir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(schemadir)/$$f"; \
 	done
 
 # This directory's subdirectories are mostly independent; you can cd
@@ -664,7 +648,7 @@ check: check-recursive
 all-am: Makefile $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(gnome_mplayeretcdir)" "$(DESTDIR)$(icondir)"; do \
+	for dir in "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(icondir)" "$(DESTDIR)$(schemadir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -691,15 +675,15 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+@GCONF_SCHEMAS_INSTALL_FALSE@install-data-hook:
 clean: clean-recursive
 
-clean-am: clean-generic clean-libtool mostlyclean-am
+clean-am: clean-generic mostlyclean-am
 
 distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -f Makefile
-distclean-am: clean-am distclean-generic distclean-hdr \
-	distclean-libtool distclean-tags
+distclean-am: clean-am distclean-generic distclean-hdr distclean-tags
 
 dvi: dvi-recursive
 
@@ -712,7 +696,7 @@ info: info-recursive
 info-am:
 
 install-data-am: install-desktopDATA install-gnome_mplayerdocDATA \
-	install-gnome_mplayeretcDATA install-iconDATA
+	install-iconDATA install-schemaDATA
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 
@@ -740,7 +724,7 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-recursive
 
-mostlyclean-am: mostlyclean-generic mostlyclean-libtool
+mostlyclean-am: mostlyclean-generic
 
 pdf: pdf-recursive
 
@@ -751,30 +735,29 @@ ps: ps-recursive
 ps-am:
 
 uninstall-am: uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
-	uninstall-gnome_mplayeretcDATA uninstall-iconDATA
+	uninstall-iconDATA uninstall-schemaDATA
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
 	install-data-am install-strip
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
 	all all-am am--refresh check check-am clean clean-generic \
-	clean-libtool ctags ctags-recursive dist dist-all dist-bzip2 \
-	dist-gzip dist-hook dist-shar dist-tarZ dist-zip distcheck \
-	distclean distclean-generic distclean-hdr distclean-libtool \
-	distclean-tags distcleancheck distdir distuninstallcheck dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-data-hook \
-	install-desktopDATA install-dvi install-dvi-am install-exec \
-	install-exec-am install-gnome_mplayerdocDATA \
-	install-gnome_mplayeretcDATA install-html install-html-am \
+	ctags ctags-recursive dist dist-all dist-bzip2 dist-gzip \
+	dist-hook dist-shar dist-tarZ dist-zip distcheck distclean \
+	distclean-generic distclean-hdr distclean-tags distcleancheck \
+	distdir distuninstallcheck dvi dvi-am html html-am info \
+	info-am install install-am install-data install-data-am \
+	install-data-hook install-desktopDATA install-dvi \
+	install-dvi-am install-exec install-exec-am \
+	install-gnome_mplayerdocDATA install-html install-html-am \
 	install-iconDATA install-info install-info-am install-man \
 	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
-	ps ps-am tags tags-recursive uninstall uninstall-am \
+	install-schemaDATA install-strip installcheck installcheck-am \
+	installdirs installdirs-am maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
+	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
 	uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
-	uninstall-gnome_mplayeretcDATA uninstall-iconDATA
+	uninstall-iconDATA uninstall-schemaDATA
 
 
 # Copy all the spec files. Of cource, only one is actually used.
@@ -785,8 +768,7 @@ dist-hook:
 		fi \
 	done
 
-install-data-hook:
-	if [ -e ${sysconfdir}/gconf/schemas/gnome-mplayer.schemas ]; then GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule ${sysconfdir}/gconf/schemas/gnome-mplayer.schemas > /dev/null;	fi
+@GCONF_SCHEMAS_INSTALL_TRUE@install-data-hook:
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

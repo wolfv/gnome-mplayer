@@ -15,8 +15,8 @@ gnome_mplayerdoc_DATA = \
 	DOCS/tech/dbus.txt \
 	DOCS/tech/plugin-interaction.txt
 
-gnome_mplayeretcdir = ${sysconfdir}/gconf/schemas
-gnome_mplayeretc_DATA = gnome-mplayer.schemas
+schemadir   = @GCONF_SCHEMA_FILE_DIR@
+schema_DATA = gnome-mplayer.schemas
 
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
@@ -24,7 +24,7 @@ desktop_DATA = gnome-mplayer.desktop
 icondir = ${prefix}/share/pixmaps
 icon_DATA = gnome-mplayer.png
 
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) $(gnome_mplayeretc_DATA) gnome-mplayer.spec.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) gnome-mplayer.spec.in
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:
@@ -34,5 +34,7 @@ dist-hook:
 		fi \
 	done
 
+if GCONF_SCHEMAS_INSTALL
 install-data-hook:
-	if [ -e ${sysconfdir}/gconf/schemas/gnome-mplayer.schemas ]; then GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule ${sysconfdir}/gconf/schemas/gnome-mplayer.schemas > /dev/null;	fi
+        GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_srcdir)/$(schema_DATA)
+endif

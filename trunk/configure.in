@@ -27,16 +27,9 @@ ALL_LINGUAS="de en es fr it ko pl pt_BR ro ru sr sr@latin sv tr zh_CN zh_HK zh_T
 AC_SUBST(ALL_LINGUAS)
 AM_GLIB_GNU_GETTEXT
 
-AM_PROG_LIBTOOL
-
-#PKG_CHECK_MODULES(GNOME, [libgnome-2.0 libgnomeui-2.0 ])
-#AC_SUBST(GNOME_CFLAGS)
-#AC_SUBST(GNOME_LIBS)
-
 PKG_CHECK_MODULES(GTK, [gtk+-2.0 glib-2.0 gthread-2.0])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
-
 
 PKG_CHECK_MODULES(GTK2_12,[gtk+-2.0 >= 2.12.0],[GTK2_12_DEFINES="-DGTK2_12_ENABLED" AC_DEFINE([GTK2_12_ENABLED],[1],[Define to 1 if you have GTK 2.12 or higher])],AC_MSG_NOTICE([Using slider for volume]))
 AC_SUBST(GTK2_12_DEFINES)
@@ -58,6 +51,7 @@ AS_IF([test "x$with_gconf" != xno],
     AC_SUBST(GCONF_DEFINES)
     AC_SUBST(GCONF_CFLAGS)
     AC_SUBST(GCONF_LIBS)
+    AM_GCONF_SOURCE_2
     ])
     
 PKG_CHECK_MODULES(ALSA, [alsa], [ALSA_DEFINES="-DHAVE_ASOUNDLIB" AC_DEFINE([HAVE_ASOUNDLIB],[1],[Define to 1 if you have asoundlib development packages])],AC_MSG_WARN([Compiling without asound support]))
