@@ -15,8 +15,10 @@ gnome_mplayerdoc_DATA = \
 	DOCS/tech/dbus.txt \
 	DOCS/tech/plugin-interaction.txt
 
+if GCONF_SCHEMAS_INSTALL
 schemadir   = @GCONF_SCHEMA_FILE_DIR@
 schema_DATA = gnome-mplayer.schemas
+endif
 
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
@@ -34,7 +36,13 @@ dist-hook:
 		fi \
 	done
 
+
+install-schemas: $(schema_DATA)
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool-2 --makefile-install-rule $(schema_DATA) 2>&1 > /dev/null
+	gconftool-2 --shutdown
+
 if GCONF_SCHEMAS_INSTALL
+install-data-hook: install-schemas
+else
 install-data-hook:
-        GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_srcdir)/$(schema_DATA)
 endif

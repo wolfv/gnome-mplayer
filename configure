@@ -737,13 +737,13 @@ GLIB2_14_LIBS
 GLIB2_14_DEFINES
 DBUS_CFLAGS
 DBUS_LIBS
-GCONF_CFLAGS
-GCONF_LIBS
-GCONF_DEFINES
 GCONF_SCHEMA_CONFIG_SOURCE
 GCONF_SCHEMA_FILE_DIR
 GCONF_SCHEMAS_INSTALL_TRUE
 GCONF_SCHEMAS_INSTALL_FALSE
+GCONF_CFLAGS
+GCONF_LIBS
+GCONF_DEFINES
 ALSA_CFLAGS
 ALSA_LIBS
 ALSA_DEFINES
@@ -1361,9 +1361,9 @@ Optional Features:
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
-  --with-gconf            Use Gconf to store preferences
   --with-gconf-source=sourceaddress      Config database for installing schema files.
   --with-gconf-schema-file-dir=dir        Directory for installing schema files.
+  --with-gconf            Use Gconf to store preferences
 
 Some influential environment variables:
   CC          C compiler command
@@ -8529,6 +8529,58 @@ fi
 
 
 
+  if test "x$GCONF_SCHEMA_INSTALL_SOURCE" = "x"; then
+    GCONF_SCHEMA_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+  else
+    GCONF_SCHEMA_CONFIG_SOURCE=$GCONF_SCHEMA_INSTALL_SOURCE
+  fi
+
+
+# Check whether --with-gconf-source was given.
+if test "${with_gconf_source+set}" = set; then
+  withval=$with_gconf_source; GCONF_SCHEMA_CONFIG_SOURCE="$withval"
+fi
+
+
+
+  { echo "$as_me:$LINENO: result: Using config source $GCONF_SCHEMA_CONFIG_SOURCE for schema installation" >&5
+echo "${ECHO_T}Using config source $GCONF_SCHEMA_CONFIG_SOURCE for schema installation" >&6; }
+
+  if test "x$GCONF_SCHEMA_FILE_DIR" = "x"; then
+    GCONF_SCHEMA_FILE_DIR='$(sysconfdir)/gconf/schemas'
+  fi
+
+
+# Check whether --with-gconf-schema-file-dir was given.
+if test "${with_gconf_schema_file_dir+set}" = set; then
+  withval=$with_gconf_schema_file_dir; GCONF_SCHEMA_FILE_DIR="$withval"
+fi
+
+
+
+  { echo "$as_me:$LINENO: result: Using $GCONF_SCHEMA_FILE_DIR as install directory for schema files" >&5
+echo "${ECHO_T}Using $GCONF_SCHEMA_FILE_DIR as install directory for schema files" >&6; }
+
+  # Check whether --enable-schemas-install was given.
+if test "${enable_schemas_install+set}" = set; then
+  enableval=$enable_schemas_install; case ${enableval} in
+       yes|no) ;;
+       *) { { echo "$as_me:$LINENO: error: bad value ${enableval} for --enable-schemas-install" >&5
+echo "$as_me: error: bad value ${enableval} for --enable-schemas-install" >&2;}
+   { (exit 1); exit 1; }; } ;;
+      esac
+fi
+
+   if test "$enable_schemas_install" != no; then
+  GCONF_SCHEMAS_INSTALL_TRUE=
+  GCONF_SCHEMAS_INSTALL_FALSE='#'
+else
+  GCONF_SCHEMAS_INSTALL_TRUE='#'
+  GCONF_SCHEMAS_INSTALL_FALSE=
+fi
+
+
+
 # Check whether --with-gconf was given.
 if test "${with_gconf+set}" = set; then
   withval=$with_gconf;
@@ -8615,58 +8667,6 @@ _ACEOF
 
 fi
 
-
-
-
-  if test "x$GCONF_SCHEMA_INSTALL_SOURCE" = "x"; then
-    GCONF_SCHEMA_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-  else
-    GCONF_SCHEMA_CONFIG_SOURCE=$GCONF_SCHEMA_INSTALL_SOURCE
-  fi
-
-
-# Check whether --with-gconf-source was given.
-if test "${with_gconf_source+set}" = set; then
-  withval=$with_gconf_source; GCONF_SCHEMA_CONFIG_SOURCE="$withval"
-fi
-
-
-
-  { echo "$as_me:$LINENO: result: Using config source $GCONF_SCHEMA_CONFIG_SOURCE for schema installation" >&5
-echo "${ECHO_T}Using config source $GCONF_SCHEMA_CONFIG_SOURCE for schema installation" >&6; }
-
-  if test "x$GCONF_SCHEMA_FILE_DIR" = "x"; then
-    GCONF_SCHEMA_FILE_DIR='$(sysconfdir)/gconf/schemas'
-  fi
-
-
-# Check whether --with-gconf-schema-file-dir was given.
-if test "${with_gconf_schema_file_dir+set}" = set; then
-  withval=$with_gconf_schema_file_dir; GCONF_SCHEMA_FILE_DIR="$withval"
-fi
-
-
-
-  { echo "$as_me:$LINENO: result: Using $GCONF_SCHEMA_FILE_DIR as install directory for schema files" >&5
-echo "${ECHO_T}Using $GCONF_SCHEMA_FILE_DIR as install directory for schema files" >&6; }
-
-  # Check whether --enable-schemas-install was given.
-if test "${enable_schemas_install+set}" = set; then
-  enableval=$enable_schemas_install; case ${enableval} in
-       yes|no) ;;
-       *) { { echo "$as_me:$LINENO: error: bad value ${enableval} for --enable-schemas-install" >&5
-echo "$as_me: error: bad value ${enableval} for --enable-schemas-install" >&2;}
-   { (exit 1); exit 1; }; } ;;
-      esac
-fi
-
-   if test "$enable_schemas_install" != no; then
-  GCONF_SCHEMAS_INSTALL_TRUE=
-  GCONF_SCHEMAS_INSTALL_FALSE='#'
-else
-  GCONF_SCHEMAS_INSTALL_TRUE='#'
-  GCONF_SCHEMAS_INSTALL_FALSE=
-fi
 
 
 
@@ -9743,13 +9743,13 @@ GLIB2_14_LIBS!$GLIB2_14_LIBS$ac_delim
 GLIB2_14_DEFINES!$GLIB2_14_DEFINES$ac_delim
 DBUS_CFLAGS!$DBUS_CFLAGS$ac_delim
 DBUS_LIBS!$DBUS_LIBS$ac_delim
-GCONF_CFLAGS!$GCONF_CFLAGS$ac_delim
-GCONF_LIBS!$GCONF_LIBS$ac_delim
-GCONF_DEFINES!$GCONF_DEFINES$ac_delim
 GCONF_SCHEMA_CONFIG_SOURCE!$GCONF_SCHEMA_CONFIG_SOURCE$ac_delim
 GCONF_SCHEMA_FILE_DIR!$GCONF_SCHEMA_FILE_DIR$ac_delim
 GCONF_SCHEMAS_INSTALL_TRUE!$GCONF_SCHEMAS_INSTALL_TRUE$ac_delim
 GCONF_SCHEMAS_INSTALL_FALSE!$GCONF_SCHEMAS_INSTALL_FALSE$ac_delim
+GCONF_CFLAGS!$GCONF_CFLAGS$ac_delim
+GCONF_LIBS!$GCONF_LIBS$ac_delim
+GCONF_DEFINES!$GCONF_DEFINES$ac_delim
 ALSA_CFLAGS!$ALSA_CFLAGS$ac_delim
 ALSA_LIBS!$ALSA_LIBS$ac_delim
 ALSA_DEFINES!$ALSA_DEFINES$ac_delim

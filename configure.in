@@ -41,6 +41,7 @@ PKG_CHECK_MODULES(DBUS, [dbus-1 >= 0.95 dbus-glib-1 >= 0.70])
 AC_SUBST(DBUS_CFLAGS)
 AC_SUBST(DBUS_LIBS)
 
+AM_GCONF_SOURCE_2
 AC_ARG_WITH([gconf],
     [AS_HELP_STRING([--with-gconf],
         [Use Gconf to store preferences])],
@@ -51,7 +52,6 @@ AS_IF([test "x$with_gconf" != xno],
     AC_SUBST(GCONF_DEFINES)
     AC_SUBST(GCONF_CFLAGS)
     AC_SUBST(GCONF_LIBS)
-    AM_GCONF_SOURCE_2
     ])
     
 PKG_CHECK_MODULES(ALSA, [alsa], [ALSA_DEFINES="-DHAVE_ASOUNDLIB" AC_DEFINE([HAVE_ASOUNDLIB],[1],[Define to 1 if you have asoundlib development packages])],AC_MSG_WARN([Compiling without asound support]))
