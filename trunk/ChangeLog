@@ -1,4 +1,7 @@
 Development
+    Implement detection and usage of mplayer's new slave interface 'pausing_keep_force' which
+        prevents frame advance when media is paused and a command is given.
+    Change interface of send_command to know if we should keep media paused or not
     Implement phase 3 changes for making GCONF optional (feature should now be complete)
     Implement phase 2 changes for making GCONF optional
     Implement phase 1 changes for making GCONF optional

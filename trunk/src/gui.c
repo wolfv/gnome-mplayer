@@ -345,11 +345,11 @@ gboolean set_volume_from_slider(gpointer data)
     vol = (gint) gtk_range_get_value(GTK_RANGE(vol_slider));
 #endif
     cmd = g_strdup_printf("volume %i 1\n", vol);
-    send_command(cmd);
+    send_command(cmd, FALSE);
     g_free(cmd);
-    send_command("get_property volume\n");
+    send_command("get_property volume\n", FALSE);
     if (state == PAUSED || state == STOPPED) {
-        send_command("pause\n");
+        send_command("pause\n", FALSE);
     }
 
     return FALSE;
@@ -476,7 +476,7 @@ void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer sid)
     gchar *cmd;
 
     cmd = g_strdup_printf("sub_demux %i\n", (gint) sid);
-    send_command(cmd);
+    send_command(cmd, TRUE);
     g_free(cmd);
 }
 
@@ -501,7 +501,7 @@ void menuitem_audio_callback(GtkMenuItem * menuitem, gpointer aid)
     gchar *cmd;
 
     cmd = g_strdup_printf("switch_audio %i\n", (gint) aid);
-    send_command(cmd);
+    send_command(cmd, TRUE);
     g_free(cmd);
 }
 
@@ -744,7 +744,7 @@ gboolean set_position(void *data)
     IdleData *idle = (IdleData *) data;
 
     cmd = g_strdup_printf("seek %5.0f 2\n", idle->position);
-    send_command(cmd);
+    send_command(cmd, FALSE);
     g_free(cmd);
     return FALSE;
 }
@@ -1032,7 +1032,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         switch (event->keyval) {
         case GDK_Right:
             if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
-                send_command("dvdnav 4\n");
+                send_command("dvdnav 4\n", FALSE);
                 return FALSE;
             } else {
                 return ff_callback(NULL, NULL, NULL);
@@ -1040,7 +1040,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             break;
         case GDK_Left:
             if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
-                send_command("dvdnav 3\n");
+                send_command("dvdnav 3\n", FALSE);
                 return FALSE;
             } else {
                 return rew_callback(NULL, NULL, NULL);
@@ -1048,32 +1048,32 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             break;
         case GDK_Page_Up:
             if (state == PLAYING)
-                send_command("pausing_keep seek +600 0\n");
+                send_command("seek +600 0\n", TRUE);
             return FALSE;
         case GDK_Page_Down:
             if (state == PLAYING)
-                send_command("pausing_keep seek -600 0\n");
+                send_command("seek -600 0\n", TRUE);
             return FALSE;
         case GDK_Up:
             if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
-                send_command("dvdnav 1\n");
+                send_command("dvdnav 1\n", FALSE);
             } else {
                 if (state == PLAYING)
-                    send_command("pausing_keep seek +60 0\n");
+                    send_command("seek +60 0\n", TRUE);
             }
 
             return FALSE;
         case GDK_Down:
             if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
-                send_command("dvdnav 2\n");
+                send_command("dvdnav 2\n", FALSE);
             } else {
                 if (state == PLAYING)
-                    send_command("pausing_keep seek -60 0\n");
+                    send_command("seek -60 0\n", TRUE);
             }
             return FALSE;
         case GDK_Return:
             if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
-                send_command("dvdnav 6\n");
+                send_command("dvdnav 6\n", FALSE);
             }
             return FALSE;
         case GDK_space:
@@ -1082,60 +1082,60 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             break;
         case GDK_m:
             if (idledata->mute) {
-                send_command("pausing_keep mute 0\n");
+                send_command("mute 0\n", TRUE);
                 idledata->mute = 0;
             } else {
-                send_command("pausing_keep mute 1\n");
+                send_command("mute 1\n", TRUE);
                 idledata->mute = 1;
             }
             return FALSE;
 
         case GDK_1:
-            send_command("pausing_keep contrast -5\n");
-            send_command("get_property contrast\n");
+            send_command("contrast -5\n", TRUE);
+            send_command("get_property contrast\n", TRUE);
             return FALSE;
         case GDK_2:
-            send_command("pausing_keep contrast 5\n");
-            send_command("get_property contrast\n");
+            send_command("contrast 5\n", TRUE);
+            send_command("get_property contrast\n", TRUE);
             return FALSE;
         case GDK_3:
-            send_command("pausing_keep brightness -5\n");
-            send_command("get_property brightness\n");
+            send_command("brightness -5\n", TRUE);
+            send_command("get_property brightness\n", TRUE);
             return FALSE;
         case GDK_4:
-            send_command("pausing_keep brightness 5\n");
-            send_command("get_property brightness\n");
+            send_command("brightness 5\n", TRUE);
+            send_command("get_property brightness\n", TRUE);
             return FALSE;
         case GDK_5:
-            send_command("pausing_keep hue -5\n");
-            send_command("get_property hue\n");
+            send_command("hue -5\n", TRUE);
+            send_command("get_property hue\n", TRUE);
             return FALSE;
         case GDK_6:
-            send_command("pausing_keep hue 5\n");
-            send_command("get_property hue\n");
+            send_command("hue 5\n", TRUE);
+            send_command("get_property hue\n", TRUE);
             return FALSE;
         case GDK_7:
-            send_command("pausing_keep saturation -5\n");
-            send_command("get_property saturation\n");
+            send_command("saturation -5\n", TRUE);
+            send_command("get_property saturation\n", TRUE);
             return FALSE;
         case GDK_8:
-            send_command("pausing_keep saturation 5\n");
-            send_command("get_property saturation\n");
+            send_command("saturation 5\n", TRUE);
+            send_command("get_property saturation\n", TRUE);
             return FALSE;
         case GDK_bracketleft:
-            send_command("pausing_keep speed_mult 0.90\n");
+            send_command("speed_mult 0.90\n", TRUE);
             return FALSE;
         case GDK_bracketright:
-            send_command("pausing_keep speed_mult 1.10\n");
+            send_command("speed_mult 1.10\n", TRUE);
             return FALSE;
         case GDK_braceleft:
-            send_command("pausing_keep speed_mult 0.50\n");
+            send_command("speed_mult 0.50\n", TRUE);
             return FALSE;
         case GDK_braceright:
-            send_command("pausing_keep speed_mult 2.0\n");
+            send_command("speed_mult 2.0\n", TRUE);
             return FALSE;
         case GDK_BackSpace:
-            send_command("pausing_keep speed_set 1.0\n");
+            send_command("speed_set 1.0\n", TRUE);
             return FALSE;
         case GDK_9:
 #ifdef GTK2_12_ENABLED
@@ -1158,10 +1158,10 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 #endif
             return FALSE;
         case GDK_numbersign:
-            send_command("pausing_keep switch_audio\n");
+            send_command("switch_audio\n", TRUE);
             return FALSE;
         case GDK_j:
-            send_command("pausing_keep sub_select\n");
+            send_command("sub_select\n", TRUE);
             return FALSE;
         case GDK_q:
             delete_callback(NULL, NULL, NULL);
@@ -1171,17 +1171,17 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_plus:
         case GDK_KP_Add:
-            send_command("pausing_keep audio_delay 0.1 0\n");
+            send_command("audio_delay 0.1 0\n", TRUE);
             return FALSE;
         case GDK_minus:
         case GDK_KP_Subtract:
-            send_command("pausing_keep audio_delay -0.1 0\n");
+            send_command("audio_delay -0.1 0\n", TRUE);
             return FALSE;
         case GDK_z:
-            send_command("pausing_keep sub_delay -0.1 0\n");
+            send_command("sub_delay -0.1 0\n", TRUE);
             return FALSE;
         case GDK_x:
-            send_command("pausing_keep sub_delay 0.1 0\n");
+            send_command("sub_delay 0.1 0\n", TRUE);
             return FALSE;
         case GDK_F11:
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
@@ -1191,7 +1191,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         default:
             if (state == PLAYING) {
                 cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
-                send_command(cmd);
+                send_command(cmd, FALSE);
                 g_free(cmd);
             }
             return FALSE;
@@ -1299,7 +1299,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     GtkTreePath *path;
 
     if (state == PAUSED || state == STOPPED) {
-        send_command("seek 0 0\n");
+        send_command("seek 0 0\n", FALSE);
         state = PLAYING;
         js_state = STATE_PLAYING;
         gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
@@ -1309,7 +1309,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         gtk_widget_set_sensitive(ff_event_box, TRUE);
         gtk_widget_set_sensitive(rew_event_box, TRUE);
     } else if (state == PLAYING) {
-        send_command("pause\n");
+        send_command("pause\n", FALSE);
         state = PAUSED;
         js_state = STATE_PAUSED;
         gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
@@ -1367,18 +1367,18 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     IdleData *idle = (IdleData *) data;
 
     if (state == PAUSED) {
-        send_command("pause\n");
+        send_command("pause\n", FALSE);
         if (idle == NULL)
             dbus_send_rpsignal("RP_Play");
         state = PLAYING;
     }
     if (state == PLAYING) {
         if (idledata != NULL && idledata->streaming) {
-            send_command("quit\n");
+            send_command("quit\n", FALSE);
             state = QUIT;
             autopause = FALSE;
         } else {
-            send_command("seek 0 2\npause\n");
+            send_command("seek 0 2\npause\n", FALSE);
             state = STOPPED;
             autopause = FALSE;
         }
@@ -1409,7 +1409,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     if (state == PLAYING) {
-        send_command("seek +10 0\n");
+        send_command("seek +10 0\n", FALSE);
     }
 
     if (rpconsole != NULL && widget != NULL) {
@@ -1422,7 +1422,7 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     if (state == PLAYING) {
-        send_command("seek -10 0\n");
+        send_command("seek -10 0\n", FALSE);
     }
 
     if (rpconsole != NULL && widget != NULL) {
@@ -1448,7 +1448,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
         if (idledata->has_chapters) {
             valid = FALSE;
-            send_command("seek_chapter -2 0\n");
+            send_command("seek_chapter -2 0\n", FALSE);
         } else {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter);
             do {
@@ -1476,7 +1476,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
         if (idledata->has_chapters) {
             valid = FALSE;
-            send_command("seek_chapter -1 0\n");
+            send_command("seek_chapter -1 0\n", FALSE);
         }
     }
 
@@ -1516,7 +1516,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (idledata->has_chapters) {
-            send_command("seek_chapter 1 0\n");
+            send_command("seek_chapter 1 0\n", FALSE);
         } else {
             shutdown();
             if (autopause) {
@@ -1529,7 +1529,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         }
     } else {
         if (idledata->has_chapters) {
-            send_command("seek_chapter 1 0\n");
+            send_command("seek_chapter 1 0\n", FALSE);
         }
     }
 
@@ -1538,7 +1538,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean menu_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    send_command("dvdnav 5\n");
+    send_command("dvdnav 5\n", FALSE);
     return FALSE;
 }
 
@@ -1549,8 +1549,8 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
     gchar *buf;
 
     vol = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("pausing_keep volume %i 1\n", vol);
-    send_command(cmd);
+    cmd = g_strdup_printf("volume %i 1\n", vol);
+    send_command(cmd, TRUE);
     g_free(cmd);
     if (idledata->volume != vol) {
 
@@ -1559,7 +1559,7 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
         g_idle_add(set_volume_tip, idledata);
         g_free(buf);
     }
-    send_command("get_property volume\n");
+    send_command("get_property volume\n", TRUE);
 
     dbus_send_rpsignal_with_double("RP_Volume", gtk_range_get_value(GTK_RANGE(vol_slider)));
 
@@ -1577,8 +1577,8 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
     } else {
         vol = (gint) gtk_scale_button_get_value(GTK_SCALE_BUTTON(volume));
     }
-    cmd = g_strdup_printf("pausing_keep volume %i 1\n", vol);
-    send_command(cmd);
+    cmd = g_strdup_printf("volume %i 1\n", vol);
+    send_command(cmd, TRUE);
     g_free(cmd);
     if (idledata->volume != vol) {
 
@@ -1587,7 +1587,7 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
         g_idle_add(set_volume_tip, idledata);
         g_free(buf);
     }
-    send_command("get_property volume\n");
+    send_command("get_property volume\n", TRUE);
 
     dbus_send_rpsignal_with_double("RP_Volume",
                                    gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)));
@@ -2352,8 +2352,8 @@ void menuitem_view_subtitles_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *cmd;
 //      set_sub_visibility
-    cmd = g_strdup_printf("pausing_keep sub_visibility\n");
-    send_command(cmd);
+    cmd = g_strdup_printf("sub_visibility\n");
+    send_command(cmd, TRUE);
     g_free(cmd);
 }
 
@@ -2361,8 +2361,8 @@ void menuitem_view_subtitles_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_edit_switch_audio_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *cmd;
-    cmd = g_strdup_printf("pausing_keep switch_audio\n");
-    send_command(cmd);
+    cmd = g_strdup_printf("switch_audio\n");
+    send_command(cmd, TRUE);
     g_free(cmd);
 }
 
@@ -2396,14 +2396,14 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
         gtk_widget_destroy(dialog);
 
         if (subtitle != NULL) {
-            cmd = g_strdup_printf("pausing_keep sub_remove\n");
-            send_command(cmd);
+            cmd = g_strdup_printf("sub_remove\n");
+            send_command(cmd, TRUE);
             g_free(cmd);
-            cmd = g_strdup_printf("pausing_keep sub_load \"%s\"\n", subtitle);
-            send_command(cmd);
+            cmd = g_strdup_printf("sub_load \"%s\"\n", subtitle);
+            send_command(cmd, TRUE);
             g_free(cmd);
-            cmd = g_strdup_printf("pausing_keep sub_file 0");
-            send_command(cmd);
+            cmd = g_strdup_printf("sub_file 0");
+            send_command(cmd, TRUE);
             g_free(cmd);
             g_free(subtitle);
         }
@@ -2414,8 +2414,8 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_edit_take_screenshot_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *cmd;
-    cmd = g_strdup_printf("pausing_keep screenshot 0\n");
-    send_command(cmd);
+    cmd = g_strdup_printf("screenshot 0\n");
+    send_command(cmd, TRUE);
     g_free(cmd);
 }
 
@@ -2641,14 +2641,14 @@ void config_apply(GtkWidget * widget, void *data)
                         sub_color.blue >> 8);
 
     if (old_disable_framedrop != disable_framedrop) {
-        cmd = g_strdup_printf("pausing_keep frame_drop %d\n", !disable_framedrop);
-        send_command(cmd);
+        cmd = g_strdup_printf("frame_drop %d\n", !disable_framedrop);
+        send_command(cmd, TRUE);
         g_free(cmd);
     }
 
     if (oldosd != osdlevel) {
-        cmd = g_strdup_printf("pausing_keep osd %i\n", osdlevel);
-        send_command(cmd);
+        cmd = g_strdup_printf("osd %i\n", osdlevel);
+        send_command(cmd, TRUE);
         g_free(cmd);
     }
 
@@ -2729,10 +2729,10 @@ void brightness_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     brightness = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("pausing_keep brightness %i 1\n", brightness);
-    send_command(cmd);
+    cmd = g_strdup_printf("brightness %i 1\n", brightness);
+    send_command(cmd, TRUE);
     g_free(cmd);
-    send_command("get_property brightness\n");
+    send_command("get_property brightness\n", TRUE);
     idle->brightness = brightness;
 }
 
@@ -2743,10 +2743,10 @@ void contrast_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     contrast = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("pausing_keep contrast %i 1\n", contrast);
-    send_command(cmd);
+    cmd = g_strdup_printf("contrast %i 1\n", contrast);
+    send_command(cmd, TRUE);
     g_free(cmd);
-    send_command("get_property contrast\n");
+    send_command("get_property contrast\n", TRUE);
     idle->contrast = contrast;
 }
 
@@ -2757,10 +2757,10 @@ void gamma_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     gamma = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("pausing_keep gamma %i 1\n", gamma);
-    send_command(cmd);
+    cmd = g_strdup_printf("gamma %i 1\n", gamma);
+    send_command(cmd, TRUE);
     g_free(cmd);
-    send_command("get_property gamma\n");
+    send_command("get_property gamma\n", TRUE);
     idle->hue = gamma;
 }
 
@@ -2771,10 +2771,10 @@ void hue_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     hue = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("pausing_keep hue %i 1\n", hue);
-    send_command(cmd);
+    cmd = g_strdup_printf("hue %i 1\n", hue);
+    send_command(cmd, TRUE);
     g_free(cmd);
-    send_command("get_property hue\n");
+    send_command("get_property hue\n", TRUE);
     idle->hue = hue;
 }
 
@@ -2785,10 +2785,10 @@ void saturation_callback(GtkRange * range, gpointer data)
     IdleData *idle = (IdleData *) data;
 
     saturation = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("pausing_keep saturation %i 1\n", saturation);
-    send_command(cmd);
+    cmd = g_strdup_printf("saturation %i 1\n", saturation);
+    send_command(cmd, TRUE);
     g_free(cmd);
-    send_command("get_property saturation\n");
+    send_command("get_property saturation\n", TRUE);
     idle->saturation = saturation;
 }
 
@@ -3107,8 +3107,8 @@ void menuitem_view_angle_callback(GtkMenuItem * menuitem, gpointer data)
 {
     gchar *cmd;
 
-    cmd = g_strdup_printf("pausing_keep switch_angle\n");
-    send_command(cmd);
+    cmd = g_strdup_printf("switch_angle\n");
+    send_command(cmd, TRUE);
     g_free(cmd);
 
     return;
@@ -3223,8 +3223,8 @@ void osdlevel_change_callback(GtkRange * range, gpointer data)
     gint value;
 
     value = gtk_range_get_value(range);
-    cmd = g_strdup_printf("pausing_keep osd %i\n", (gint) value);
-    send_command(cmd);
+    cmd = g_strdup_printf("osd %i\n", (gint) value);
+    send_command(cmd, TRUE);
     g_free(cmd);
 
     return;
@@ -3860,7 +3860,7 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
                 if (!autopause) {
                     if (state == PLAYING) {
                         cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
-                        send_command(cmd);
+                        send_command(cmd, FALSE);
                         g_free(cmd);
                         state = PLAYING;
                     }
@@ -3917,7 +3917,7 @@ gboolean progress_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
                     gtk_tooltips_set_tip(progress_tip, GTK_WIDGET(progress), tip, NULL);
                     g_free(time);
                     g_free(tip);
-                    send_command(cmd);
+                    send_command(cmd, FALSE);
                     g_free(cmd);
                     state = PLAYING;
                     last_percent = percent;

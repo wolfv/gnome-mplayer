@@ -58,7 +58,7 @@ gboolean save_playlist_pls(gchar * filename);
 gboolean save_playlist_m3u(gchar * filename);
 gchar *get_path(gchar * filename);
 gboolean update_mplayer_config();
-gboolean send_command(gchar * command);
+gboolean send_command(gchar * command, gboolean retain_pause);
 gboolean streaming_media(gchar * filename);
 gboolean device_name(gchar * filename);
 GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist);
