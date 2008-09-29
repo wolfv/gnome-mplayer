@@ -17,7 +17,8 @@ AM_CFLAGS =\
 	 -g\
 	 $(GTK2_12_DEFINES)\
 	 $(GLIB2_14_DEFINES)\
-	 $(ALSA_DEFINES)
+	 $(ALSA_DEFINES) \
+     $(GCONF_DEFINES)
 
 bin_PROGRAMS = gnome-mplayer 
 

@@ -1449,3 +1449,177 @@ gchar *seconds_to_string(gfloat seconds)
     }
     return result;
 }
+
+void init_preference_store()
+{
+#ifdef HAVE_GCONF
+    gconf = gconf_client_get_default();
+#else
+    gchar *filename;
+
+    config = g_key_file_new();
+    filename = g_strdup_printf("%s/.mplayer/gnome-mplayer.conf", getenv("HOME"));
+    g_key_file_load_from_file(config,
+                              filename,
+                              G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
+
+#endif
+
+}
+
+gboolean read_preference_bool(gchar * key)
+{
+    gboolean value = FALSE;
+#ifdef HAVE_GCONF
+    gchar *full_key = NULL;
+
+    if (strstr(key, "/")) {
+        full_key = g_strdup_printf("%s", key);
+    } else {
+        full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    }
+    value = gconf_client_get_bool(gconf, full_key, NULL);
+    g_free(full_key);
+#else
+    gchar *short_key;
+
+    if (strstr(key, "/")) {
+        short_key = g_strrstr(key, "/") + sizeof(gchar);
+    } else {
+        short_key = g_strdup_printf("%s", key);
+    }
+
+    value = g_key_file_get_boolean(config, "gnome-mplayer", short_key, NULL);
+#endif
+    return value;
+}
+
+gint read_preference_int(gchar * key)
+{
+    gint value = 0;
+#ifdef HAVE_GCONF
+    gchar *full_key = NULL;
+
+    full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    value = gconf_client_get_int(gconf, full_key, NULL);
+    g_free(full_key);
+#else
+    value = g_key_file_get_integer(config, "gnome-mplayer", key, NULL);
+#endif
+    return value;
+}
+
+gfloat read_preference_float(gchar * key)
+{
+    gfloat value = 0;
+#ifdef HAVE_GCONF
+    gchar *full_key = NULL;
+
+    full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    value = gconf_client_get_float(gconf, full_key, NULL);
+    g_free(full_key);
+#else
+    value = g_key_file_get_double(config, "gnome-mplayer", key, NULL);
+#endif
+    return value;
+}
+
+gchar *read_preference_string(gchar * key)
+{
+    gchar *value = NULL;
+#ifdef HAVE_GCONF
+    gchar *full_key = NULL;
+
+    if (strstr(key, "/")) {
+        full_key = g_strdup_printf("%s", key);
+    } else {
+        full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    }
+    value = gconf_client_get_string(gconf, full_key, NULL);
+    g_free(full_key);
+#else
+    value = g_key_file_get_string(config, "gnome-mplayer", key, NULL);
+#endif
+
+    return value;
+}
+
+void write_preference_bool(gchar * key, gboolean value)
+{
+#ifdef HAVE_GCONF
+    gchar *full_key = NULL;
+
+    full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    gconf_client_set_bool(gconf, full_key, value, NULL);
+    g_free(full_key);
+#else
+    gchar *short_key;
+
+    if (strstr(key, "/")) {
+        short_key = g_strrstr(key, "/") + sizeof(gchar);
+    } else {
+        short_key = g_strdup_printf("%s", key);
+    }
+    g_key_file_set_boolean(config, "gnome-mplayer", short_key, value);
+#endif
+}
+
+void write_preference_int(gchar * key, gint value)
+{
+#ifdef HAVE_GCONF
+    gchar *full_key = NULL;
+
+    full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    gconf_client_set_int(gconf, full_key, value, NULL);
+    g_free(full_key);
+#else
+    g_key_file_set_integer(config, "gnome-mplayer", key, value);
+#endif
+}
+
+void write_preference_float(gchar * key, gfloat value)
+{
+#ifdef HAVE_GCONF
+    gchar *full_key = NULL;
+
+    full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    gconf_client_set_float(gconf, full_key, value, NULL);
+    g_free(full_key);
+#else
+    g_key_file_set_double(config, "gnome-mplayer", key, value);
+#endif
+}
+
+void write_preference_string(gchar * key, gchar * value)
+{
+#ifdef HAVE_GCONF
+    gchar *full_key = NULL;
+
+    full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    gconf_client_set_string(gconf, full_key, value, NULL);
+    g_free(full_key);
+#else
+    g_key_file_set_string(config, "gnome-mplayer", key, value);
+#endif
+}
+
+
+void release_preference_store()
+{
+#ifdef HAVE_GCONF
+    if (G_IS_OBJECT(gconf))
+        g_object_unref(G_OBJECT(gconf));
+#else
+    gchar *filename;
+    gchar *data;
+
+    filename = g_strdup_printf("%s/.mplayer/gnome-mplayer.conf", getenv("HOME"));
+    data = g_key_file_to_data(config, NULL, NULL);
+
+    g_file_set_contents(filename, data, -1, NULL);
+    g_free(data);
+    g_free(filename);
+    g_key_file_free(config);
+
+#endif
+}

@@ -1,4 +1,9 @@
 Development
+    Implement phase 3 changes for making GCONF optional (feature should now be complete)
+    Implement phase 2 changes for making GCONF optional
+    Implement phase 1 changes for making GCONF optional
+    Create workaround for MP3 media length bug
+0.8.0
     Make recent documents menu only show the items gnome-mplayer can open
     Enable Copy URL menu, since we are in string freeze, I will not update this text until next release
     Add missing schema key
