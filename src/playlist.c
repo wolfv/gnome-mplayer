@@ -238,7 +238,6 @@ void save_playlist(GtkWidget * widget, void *data)
     gchar *filename;
     gchar *new_filename;
     GtkFileFilter *filter;
-    GConfClient *gconf;
     gchar *last_dir;
 
     dialog = gtk_file_chooser_dialog_new(_("Save Playlist"),
@@ -246,8 +245,8 @@ void save_playlist(GtkWidget * widget, void *data)
                                          GTK_FILE_CHOOSER_ACTION_SAVE,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
-    gconf = gconf_client_get_default();
-    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    init_preference_store();
+    last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL)
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
 
@@ -266,7 +265,7 @@ void save_playlist(GtkWidget * widget, void *data)
 
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
-        gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
+        write_preference_string(LAST_DIR, last_dir);
         g_free(last_dir);
 
         if (g_strrstr(filename, ".m3u") != NULL) {
@@ -283,7 +282,7 @@ void save_playlist(GtkWidget * widget, void *data)
         }
         g_free(filename);
     }
-
+    release_preference_store();
     gtk_widget_destroy(dialog);
 
 }
@@ -293,7 +292,6 @@ void load_playlist(GtkWidget * widget, void *data)
     GtkWidget *dialog;
     gchar *filename;
     GtkFileFilter *filter;
-    GConfClient *gconf;
     gchar *last_dir;
 
     dialog = gtk_file_chooser_dialog_new(_("Open Playlist"),
@@ -302,8 +300,8 @@ void load_playlist(GtkWidget * widget, void *data)
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 
-    gconf = gconf_client_get_default();
-    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    init_preference_store();
+    last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL)
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
 
@@ -326,7 +324,7 @@ void load_playlist(GtkWidget * widget, void *data)
 
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
-        gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
+        write_preference_string(LAST_DIR, last_dir);
         g_free(last_dir);
 
         gtk_list_store_clear(playliststore);
@@ -337,6 +335,7 @@ void load_playlist(GtkWidget * widget, void *data)
         }
 
     }
+    release_preference_store();
     update_gui();
     gtk_widget_destroy(dialog);
 }
@@ -403,7 +402,6 @@ void add_to_playlist(GtkWidget * widget, void *data)
 
     GtkWidget *dialog;
     GSList *filename;
-    GConfClient *gconf;
     gchar *last_dir;
     GtkTreeViewColumn *column;
     gchar *coltitle;
@@ -418,8 +416,8 @@ void add_to_playlist(GtkWidget * widget, void *data)
     /*allow multiple files to be selected */
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
-    gconf = gconf_client_get_default();
-    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    init_preference_store();
+    last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
@@ -430,14 +428,14 @@ void add_to_playlist(GtkWidget * widget, void *data)
         filename = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
 
         last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
-        gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
+        write_preference_string(LAST_DIR, last_dir);
         g_free(last_dir);
 
         g_slist_foreach(filename, &add_item_to_playlist_callback, NULL);
         g_slist_free(filename);
     }
     update_gui();
-    g_object_unref(G_OBJECT(gconf));
+    release_preference_store();
     column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
     count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
     coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
@@ -452,7 +450,6 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
 
     GtkWidget *dialog;
     GSList *filename;
-    GConfClient *gconf;
     gchar *last_dir;
     gchar *message;
 
@@ -465,8 +462,8 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
     /*allow multiple files to be selected */
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
-    gconf = gconf_client_get_default();
-    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    init_preference_store();
+    last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
@@ -477,7 +474,7 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
         filename = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
 
         last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
-        gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
+        write_preference_string(LAST_DIR, last_dir);
         g_free(last_dir);
 
         filecount = 0;
@@ -487,7 +484,7 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
         g_slist_free(filename);
     }
     update_gui();
-    g_object_unref(G_OBJECT(gconf));
+    release_preference_store();
     gtk_widget_destroy(dialog);
     message =
         g_markup_printf_escaped(ngettext("\n\tFound %i file\n", "\n\tFound %i files\n", filecount),

@@ -902,13 +902,13 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     loop = 0;
     ok_to_play = FALSE;
     dontplaynext = TRUE;
-    GConfClient *gconf;
 
     if (remember_loc) {
-        gconf = gconf_client_get_default();
+        init_preference_store();
         gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
-        gconf_client_set_int(gconf, WINDOW_X, loc_window_x, NULL);
-        gconf_client_set_int(gconf, WINDOW_Y, loc_window_y, NULL);
+        write_preference_int(WINDOW_X, loc_window_x);
+        write_preference_int(WINDOW_Y, loc_window_y);
+        release_preference_store();
     }
 
     shutdown();
@@ -1236,7 +1236,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         error = NULL;
         filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, &error);
         if (error != NULL) {
-			if (verbose)
+            if (verbose)
                 printf("Error when converting uri to filename: %s\n", error->message);
             g_error_free(error);
             error = NULL;
@@ -1686,7 +1686,6 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *dialog;
     GSList *filename;
     gchar *name;
-    GConfClient *gconf;
     gchar *last_dir;
     gint playlist, count;
     GtkTreeViewColumn *column;
@@ -1701,8 +1700,8 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     /*allow multiple files to be selected */
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
-    gconf = gconf_client_get_default();
-    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    init_preference_store();
+    last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
@@ -1713,7 +1712,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
         filename = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
         if (last_dir != NULL) {
-            gconf_client_set_string(gconf, LAST_DIR, last_dir, NULL);
+            write_preference_string(LAST_DIR, last_dir);
             g_free(last_dir);
         }
 
@@ -1737,7 +1736,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
         }
     }
 
-    g_object_unref(G_OBJECT(gconf));
+    release_preference_store();
     if (GTK_IS_WIDGET(list)) {
         column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
         count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
@@ -1864,7 +1863,6 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
     gchar *filename = NULL;
     gint count;
     gint playlist = 0;
-    GConfClient *gconf;
     gchar *last_dir;
 
     dialog = gtk_file_chooser_dialog_new(_("Choose Disk Directory"),
@@ -1872,8 +1870,8 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
-    gconf = gconf_client_get_default();
-    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    init_preference_store();
+    last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
@@ -1897,7 +1895,7 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
             g_free(filename);
         }
     }
-    g_object_unref(G_OBJECT(gconf));
+    release_preference_store();
     gtk_widget_destroy(dialog);
 
 }
@@ -1922,7 +1920,6 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
     gchar *filename = NULL;
     gint count;
     gint playlist = 0;
-    GConfClient *gconf;
     gchar *last_dir;
 
     dialog = gtk_file_chooser_dialog_new(_("Choose Disk Directory"),
@@ -1930,8 +1927,8 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
-    gconf = gconf_client_get_default();
-    last_dir = gconf_client_get_string(gconf, LAST_DIR, NULL);
+    init_preference_store();
+    last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
@@ -1956,7 +1953,7 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
             g_free(filename);
         }
     }
-    g_object_unref(G_OBJECT(gconf));
+    release_preference_store();
     gtk_widget_destroy(dialog);
 
 }
@@ -2556,7 +2553,6 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
 
 void config_apply(GtkWidget * widget, void *data)
 {
-    GConfClient *gconf;
     gchar *cmd;
     gint oldosd;
     gboolean old_disable_framedrop;
@@ -2669,41 +2665,41 @@ void config_apply(GtkWidget * widget, void *data)
     }
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
 
-    gconf = gconf_client_get_default();
-    gconf_client_set_int(gconf, VOLUME, volume, NULL);
-    gconf_client_set_int(gconf, CACHE_SIZE, cache_size, NULL);
-    gconf_client_set_int(gconf, OSDLEVEL, osdlevel, NULL);
-    gconf_client_set_int(gconf, PPLEVEL, pplevel, NULL);
-    gconf_client_set_bool(gconf, SOFTVOL, softvol, NULL);
-    gconf_client_set_bool(gconf, FORCECACHE, forcecache, NULL);
-    gconf_client_set_bool(gconf, DISABLEASS, disable_ass, NULL);
-    gconf_client_set_bool(gconf, DISABLEEMBEDDEDFONTS, disable_embeddedfonts, NULL);
-    gconf_client_set_bool(gconf, DISABLEDEINTERLACE, disable_deinterlace, NULL);
-    gconf_client_set_bool(gconf, DISABLEFRAMEDROP, disable_framedrop, NULL);
-    gconf_client_set_bool(gconf, DISABLEPAUSEONCLICK, disable_pause_on_click, NULL);
-    gconf_client_set_bool(gconf, SHOWPLAYLIST, playlist_visible, NULL);
-    gconf_client_set_bool(gconf, SHOWDETAILS, details_visible, NULL);
-    gconf_client_set_bool(gconf, VERTICAL, vertical_layout, NULL);
-    gconf_client_set_bool(gconf, SINGLE_INSTANCE, single_instance, NULL);
-    gconf_client_set_bool(gconf, REMEMBER_LOC, remember_loc, NULL);
-    gconf_client_set_bool(gconf, KEEP_ON_TOP, keep_on_top, NULL);
-    gconf_client_set_int(gconf, VERBOSE, verbose, NULL);
-    gconf_client_set_string(gconf, METADATACODEPAGE, metadata_codepage, NULL);
-    gconf_client_set_string(gconf, SUBTITLEFONT, subtitlefont, NULL);
-    gconf_client_set_float(gconf, SUBTITLESCALE, subtitle_scale, NULL);
-    gconf_client_set_string(gconf, SUBTITLECODEPAGE, subtitle_codepage, NULL);
-    gconf_client_set_string(gconf, SUBTITLECOLOR, subtitle_color, NULL);
+    init_preference_store();
+    write_preference_int(VOLUME, volume);
+    write_preference_int(CACHE_SIZE, cache_size);
+    write_preference_int(OSDLEVEL, osdlevel);
+    write_preference_int(PPLEVEL, pplevel);
+    write_preference_bool(SOFTVOL, softvol);
+    write_preference_bool(FORCECACHE, forcecache);
+    write_preference_bool(DISABLEASS, disable_ass);
+    write_preference_bool(DISABLEEMBEDDEDFONTS, disable_embeddedfonts);
+    write_preference_bool(DISABLEDEINTERLACE, disable_deinterlace);
+    write_preference_bool(DISABLEFRAMEDROP, disable_framedrop);
+    write_preference_bool(DISABLEPAUSEONCLICK, disable_pause_on_click);
+    write_preference_bool(SHOWPLAYLIST, playlist_visible);
+    write_preference_bool(SHOWDETAILS, details_visible);
+    write_preference_bool(VERTICAL, vertical_layout);
+    write_preference_bool(SINGLE_INSTANCE, single_instance);
+    write_preference_bool(REMEMBER_LOC, remember_loc);
+    write_preference_bool(KEEP_ON_TOP, keep_on_top);
+    write_preference_int(VERBOSE, verbose);
+    write_preference_string(METADATACODEPAGE, metadata_codepage);
+    write_preference_string(SUBTITLEFONT, subtitlefont);
+    write_preference_float(SUBTITLESCALE, subtitle_scale);
+    write_preference_string(SUBTITLECODEPAGE, subtitle_codepage);
+    write_preference_string(SUBTITLECOLOR, subtitle_color);
     if (mplayer_bin != NULL)
-        gconf_client_set_string(gconf, MPLAYER_BIN, mplayer_bin, NULL);
+        write_preference_string(MPLAYER_BIN, mplayer_bin);
     if (extraopts != NULL)
-        gconf_client_set_string(gconf, EXTRAOPTS, extraopts, NULL);
+        write_preference_string(EXTRAOPTS, extraopts);
 
-    gconf_client_set_bool(gconf, DISABLE_QT, qt_disabled, NULL);
-    gconf_client_set_bool(gconf, DISABLE_REAL, real_disabled, NULL);
-    gconf_client_set_bool(gconf, DISABLE_WMP, wmp_disabled, NULL);
-    gconf_client_set_bool(gconf, DISABLE_DVX, dvx_disabled, NULL);
-    gconf_client_set_bool(gconf, DISABLE_EMBEDDING, embedding_disabled, NULL);
-    g_object_unref(G_OBJECT(gconf));
+    write_preference_bool(DISABLE_QT, qt_disabled);
+    write_preference_bool(DISABLE_REAL, real_disabled);
+    write_preference_bool(DISABLE_WMP, wmp_disabled);
+    write_preference_bool(DISABLE_DVX, dvx_disabled);
+    write_preference_bool(DISABLE_EMBEDDING, embedding_disabled);
+    release_preference_store();
 
     filename = g_strdup_printf("%s/.mozilla/pluginreg.dat", g_getenv("HOME"));
     g_remove(filename);
@@ -4147,7 +4143,7 @@ GtkWidget *create_window(gint windowid)
         gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_fullscreen));
         gtk_widget_show(GTK_WIDGET(menuitem_fullscreen));
     }
-    menuitem_copyurl = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Copy URL")));
+    menuitem_copyurl = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Copy Location")));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_copyurl));
     gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
     menuitem_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());

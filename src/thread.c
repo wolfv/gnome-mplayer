@@ -260,7 +260,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("%s", mplayer_output->str);
 
-
     if ((strstr(mplayer_output->str, "(Quit)") != NULL)
         || (strstr(mplayer_output->str, "(End of file)") != NULL)) {
         state = QUIT;
@@ -291,7 +290,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
         send_command("get_property metadata\n");
-        send_command("get_time_length\n");
+        if (idledata->length < 1.0)
+            send_command("get_time_length\n");
         send_command("get_property chapters\n");
     }
 
@@ -306,7 +306,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(resize_window, idledata);
         g_idle_add(set_volume_from_slider, NULL);
         send_command("get_property metadata\n");
-        send_command("get_time_length\n");
+        if (idledata->length < 1.0)
+            send_command("get_time_length\n");
     }
 
     if (strstr(mplayer_output->str, "ANS_PERCENT_POSITION") != 0) {
@@ -320,6 +321,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ANS_LENGTH") != 0) {
         buf = strstr(mplayer_output->str, "ANS_LENGTH");
         sscanf(buf, "ANS_LENGTH=%lf", &idledata->length);
+        g_idle_add(set_progress_time, idledata);
+    }
+
+    if (strstr(mplayer_output->str, "ID_LENGTH") != 0) {
+        buf = strstr(mplayer_output->str, "ID_LENGTH");
+        sscanf(buf, "ID_LENGTH=%lf", &idledata->length);
         g_idle_add(set_progress_time, idledata);
     }
 
@@ -1046,6 +1053,8 @@ gpointer launch_player(gpointer data)
                         g_idle_add(play, p);
                         g_free(filename);
                     }
+                } else {
+                    g_free(p);
                 }
 
                 if (quit_on_complete) {
@@ -1065,11 +1074,10 @@ gpointer launch_player(gpointer data)
         state = QUIT;
         printf("Spawn failed for filename %s\n", threaddata->filename);
         g_mutex_unlock(thread_running);
+        g_free(p);
     }
 
     // printf("Thread done\n");
-
-
 
     thread = NULL;
     return NULL;

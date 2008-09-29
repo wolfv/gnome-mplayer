@@ -36,9 +36,6 @@
 
 //#include <bonobo.h>
 // #include <gnome.h>
-#include <gconf/gconf.h>
-#include <gconf/gconf-client.h>
-#include <gconf/gconf-value.h>
 #include <glib/gstdio.h>
 #include <glib/gi18n.h>
 
@@ -248,7 +245,6 @@ int main(int argc, char *argv[])
     gint fileindex = 1;
     GError *error = NULL;
     GOptionContext *context;
-    GConfClient *gconf;
     gint i, count;
 
 #ifdef ENABLE_NLS
@@ -336,49 +332,50 @@ int main(int argc, char *argv[])
 
     // call g_type_init or otherwise we can crash
     g_type_init();
-    gconf = gconf_client_get_default();
-    osdlevel = gconf_client_get_int(gconf, OSDLEVEL, NULL);
-    pplevel = gconf_client_get_int(gconf, PPLEVEL, NULL);
-    volume = gconf_client_get_int(gconf, VOLUME, NULL);
-    softvol = gconf_client_get_bool(gconf, SOFTVOL, NULL);
-    forcecache = gconf_client_get_bool(gconf, FORCECACHE, NULL);
-    vertical_layout = gconf_client_get_bool(gconf, VERTICAL, NULL);
-    playlist_visible = gconf_client_get_bool(gconf, SHOWPLAYLIST, NULL);
-    details_visible = gconf_client_get_bool(gconf, SHOWDETAILS, NULL);
-    disable_deinterlace = gconf_client_get_bool(gconf, DISABLEDEINTERLACE, NULL);
-    disable_framedrop = gconf_client_get_bool(gconf, DISABLEFRAMEDROP, NULL);
-    disable_fullscreen = gconf_client_get_bool(gconf, DISABLEFULLSCREEN, NULL);
-    disable_context_menu = gconf_client_get_bool(gconf, DISABLECONTEXTMENU, NULL);
-    disable_ass = gconf_client_get_bool(gconf, DISABLEASS, NULL);
-    disable_embeddedfonts = gconf_client_get_bool(gconf, DISABLEEMBEDDEDFONTS, NULL);
-    disable_pause_on_click = gconf_client_get_bool(gconf, DISABLEPAUSEONCLICK, NULL);
-    metadata_codepage = gconf_client_get_string(gconf, METADATACODEPAGE, NULL);
-    subtitlefont = gconf_client_get_string(gconf, SUBTITLEFONT, NULL);
-    subtitle_scale = gconf_client_get_float(gconf, SUBTITLESCALE, NULL);
+
+    init_preference_store();
+    osdlevel = read_preference_int(OSDLEVEL);
+    pplevel = read_preference_int(PPLEVEL);
+    volume = read_preference_int(VOLUME);
+    softvol = read_preference_bool(SOFTVOL);
+    forcecache = read_preference_bool(FORCECACHE);
+    vertical_layout = read_preference_bool(VERTICAL);
+    playlist_visible = read_preference_bool(SHOWPLAYLIST);
+    details_visible = read_preference_bool(SHOWDETAILS);
+    disable_deinterlace = read_preference_bool(DISABLEDEINTERLACE);
+    disable_framedrop = read_preference_bool(DISABLEFRAMEDROP);
+    disable_fullscreen = read_preference_bool(DISABLEFULLSCREEN);
+    disable_context_menu = read_preference_bool(DISABLECONTEXTMENU);
+    disable_ass = read_preference_bool(DISABLEASS);
+    disable_embeddedfonts = read_preference_bool(DISABLEEMBEDDEDFONTS);
+    disable_pause_on_click = read_preference_bool(DISABLEPAUSEONCLICK);
+    metadata_codepage = read_preference_string(METADATACODEPAGE);
+    subtitlefont = read_preference_string(SUBTITLEFONT);
+    subtitle_scale = read_preference_float(SUBTITLESCALE);
     if (subtitle_scale < 0.25) {
         subtitle_scale = 1.0;
     }
-    subtitle_codepage = gconf_client_get_string(gconf, SUBTITLECODEPAGE, NULL);
-    subtitle_color = gconf_client_get_string(gconf, SUBTITLECOLOR, NULL);
+    subtitle_codepage = read_preference_string(SUBTITLECODEPAGE);
+    subtitle_color = read_preference_string(SUBTITLECOLOR);
 
-    qt_disabled = gconf_client_get_bool(gconf, DISABLE_QT, NULL);
-    real_disabled = gconf_client_get_bool(gconf, DISABLE_REAL, NULL);
-    wmp_disabled = gconf_client_get_bool(gconf, DISABLE_WMP, NULL);
-    dvx_disabled = gconf_client_get_bool(gconf, DISABLE_DVX, NULL);
-    embedding_disabled = gconf_client_get_bool(gconf, DISABLE_EMBEDDING, NULL);
-    single_instance = gconf_client_get_bool(gconf, SINGLE_INSTANCE, NULL);
+    qt_disabled = read_preference_bool(DISABLE_QT);
+    real_disabled = read_preference_bool(DISABLE_REAL);
+    wmp_disabled = read_preference_bool(DISABLE_WMP);
+    dvx_disabled = read_preference_bool(DISABLE_DVX);
+    embedding_disabled = read_preference_bool(DISABLE_EMBEDDING);
+    single_instance = read_preference_bool(SINGLE_INSTANCE);
 
-    mplayer_bin = gconf_client_get_string(gconf, MPLAYER_BIN, NULL);
+    mplayer_bin = read_preference_string(MPLAYER_BIN);
     if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);
         mplayer_bin = NULL;
     }
-    extraopts = gconf_client_get_string(gconf, EXTRAOPTS, NULL);
+    extraopts = read_preference_string(EXTRAOPTS);
 
-    remember_loc = gconf_client_get_bool(gconf, REMEMBER_LOC, NULL);
-    loc_window_x = gconf_client_get_int(gconf, WINDOW_X, NULL);
-    loc_window_y = gconf_client_get_int(gconf, WINDOW_Y, NULL);
-    keep_on_top = gconf_client_get_bool(gconf, KEEP_ON_TOP, NULL);
+    remember_loc = read_preference_bool(REMEMBER_LOC);
+    loc_window_x = read_preference_int(WINDOW_X);
+    loc_window_y = read_preference_int(WINDOW_Y);
+    keep_on_top = read_preference_bool(KEEP_ON_TOP);
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
 #ifdef GTK2_12_ENABLED
@@ -393,7 +390,7 @@ int main(int argc, char *argv[])
         single_instance = FALSE;
 
     if (verbose == 0)
-        verbose = gconf_client_get_int(gconf, VERBOSE, NULL);
+        verbose = read_preference_int(VERBOSE);
 
     if (reallyverbose)
         verbose = 2;
@@ -402,10 +399,10 @@ int main(int argc, char *argv[])
         printf(_("GNOME MPlayer v%s\n"), VERSION);
 
     if (cache_size == 0)
-        cache_size = gconf_client_get_int(gconf, CACHE_SIZE, NULL);
+        cache_size = read_preference_int(CACHE_SIZE);
     if (cache_size == 0)
         cache_size = 2000;
-    g_object_unref(G_OBJECT(gconf));
+    release_preference_store();
 
     if (verbose && single_instance) {
         printf("Running in single instance mode\n");
