@@ -240,7 +240,7 @@ desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
 icondir = ${prefix}/share/pixmaps
 icon_DATA = gnome-mplayer.png
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) gnome-mplayer.spec.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) $(schema_DATA) gnome-mplayer.spec.in
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

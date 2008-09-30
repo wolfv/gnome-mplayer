@@ -1,4 +1,5 @@
 Development
+    Fix make dist so that rpmbuild works again
     Use the GCONF AutoMake macros
     Implement detection and usage of mplayer's new slave interface 'pausing_keep_force' which
         prevents frame advance when media is paused and a command is given.
