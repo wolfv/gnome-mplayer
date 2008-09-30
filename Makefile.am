@@ -26,7 +26,7 @@ desktop_DATA = gnome-mplayer.desktop
 icondir = ${prefix}/share/pixmaps
 icon_DATA = gnome-mplayer.png
 
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) gnome-mplayer.spec.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) $(schema_DATA) gnome-mplayer.spec.in
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:
@@ -35,7 +35,6 @@ dist-hook:
 			cp -p $$specfile $(distdir); \
 		fi \
 	done
-
 
 install-schemas: $(schema_DATA)
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool-2 --makefile-install-rule $(schema_DATA) 2>&1 > /dev/null

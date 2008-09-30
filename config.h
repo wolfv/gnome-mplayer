@@ -22,8 +22,8 @@
 /* Define to 1 if you have the `dcgettext' function. */
 #define HAVE_DCGETTEXT 1
 
-/* Define to 1 if you have the <dlfcn.h> header file. */
-/* #undef HAVE_DLFCN_H */
+/* Define to 1 to use GConf to store preferences */
+#define HAVE_GCONF 1
 
 /* Define if the GNU gettext() function is already present or preinstalled. */
 #define HAVE_GETTEXT 1
@@ -86,4 +86,4 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "0.8.0"
+#define VERSION "0.8.1"
