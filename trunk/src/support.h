@@ -44,6 +44,10 @@ GConfClient *gconf;
 GKeyFile *config;
 #endif
 
+#ifdef GIO_ENABLED
+#include <gio/gio.h>
+#endif
+
 gint get_bitrate(gchar * name);
 void strip_unicode(gchar * data, gsize len);
 gint play_file(gchar * filename, gint playlist);
@@ -67,6 +71,7 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest);
 void randomize_playlist(GtkListStore * store);
 gdouble get_alsa_volume();
 gchar *seconds_to_string(gfloat seconds);
+
 void init_preference_store();
 gboolean read_preference_bool(gchar * key);
 gint read_preference_int(gchar * key);
@@ -76,6 +81,7 @@ void write_preference_bool(gchar * key, gboolean value);
 void write_preference_int(gchar * key, gint value);
 void write_preference_float(gchar * key, gfloat value);
 void write_preference_string(gchar * key, gchar * value);
-
 void release_preference_store();
+
+gchar *get_localfile_from_uri(gchar *uri);
 #endif                          // _SUPPORT_H

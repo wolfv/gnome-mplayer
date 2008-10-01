@@ -146,7 +146,9 @@ gint play_file(gchar * uri, gint playlist)
     }
 #endif
 
-    local_file = g_filename_from_uri(uri, NULL, NULL);
+    local_file = get_localfile_from_uri(uri);
+	if (local_file == NULL) return 0;
+	
     g_strlcpy(thread_data->filename, local_file, 1024);
     g_free(local_file);
     thread_data->done = FALSE;

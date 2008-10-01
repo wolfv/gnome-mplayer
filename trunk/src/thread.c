@@ -1061,6 +1061,12 @@ gpointer launch_player(gpointer data)
             channel_err = NULL;
         }
 
+		if (idledata->tmpfile) {
+			if (verbose)
+				printf("removing temp file '%s'\n",threaddata->filename);
+			g_unlink(threaddata->filename);
+		}
+		
         dbus_enable_screensaver();
         g_mutex_unlock(thread_running);
 

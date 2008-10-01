@@ -141,6 +141,7 @@ typedef struct _IdleData {
     gboolean fromdbus;
     gboolean window_resized;
     gboolean has_chapters;
+	gboolean tmpfile;
 } IdleData;
 
 IdleData *idledata;
