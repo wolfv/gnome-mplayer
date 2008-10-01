@@ -15,8 +15,9 @@ INCLUDES = \
 AM_CFLAGS =\
 	 -Wall\
 	 -g\
-	 $(GTK2_12_DEFINES)\
-	 $(GLIB2_14_DEFINES)\
+	 $(GTK2_12_DEFINES) \
+	 $(GLIB2_14_DEFINES) \
+     $(GIO_DEFINES) \
 	 $(ALSA_DEFINES) \
      $(GCONF_DEFINES)
 
