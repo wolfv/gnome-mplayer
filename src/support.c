@@ -723,6 +723,7 @@ gboolean read_mplayer_config()
 gboolean streaming_media(gchar * filename)
 {
     gboolean ret;
+    gchar *local_file = NULL;
 
     ret = TRUE;
 
@@ -739,7 +740,13 @@ gboolean streaming_media(gchar * filename)
 //    } else if (strstr(filename, "file://") != NULL) {
 //        ret = FALSE;
     } else {
-        ret = !g_file_test(filename, G_FILE_TEST_EXISTS);
+        local_file = g_filename_from_uri(filename, NULL, NULL);
+        if (local_file != NULL) {
+            ret = !g_file_test(local_file, G_FILE_TEST_EXISTS);
+            g_free(local_file);
+        } else {
+            ret = !g_file_test(filename, G_FILE_TEST_EXISTS);
+        }
     }
 
     return ret;
@@ -781,9 +788,10 @@ gchar *metadata_to_utf8(gchar * string)
     return g_locale_to_utf8(string, -1, NULL, NULL, NULL);
 }
 
-void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length)
+void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
 {
 
+    gchar *name = NULL;
     GError *error;
     gint exit_status;
     gchar *stdout = NULL;
@@ -807,6 +815,7 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
         av[ac++] = g_strdup_printf("-dvd-device");
         av[ac++] = g_strdup_printf("%s", idledata->device);
     }
+    name = g_filename_from_uri(uri, NULL, NULL);
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
@@ -881,6 +890,7 @@ void get_metadata(gchar * name, gchar ** title, gchar ** artist, gchar ** length
         g_free(stdout);
     if (stderr != NULL)
         g_free(stderr);
+    g_free(name);
 
 }
 
@@ -1034,74 +1044,67 @@ gint get_bitrate(gchar * name)
 }
 
 
-GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
+GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
 {
+    gchar *filename = NULL;
     gchar *desc = NULL;
     GtkTreeIter localiter;
     gchar *artist = NULL;
     gchar *length = NULL;
-    gchar *file = NULL;
 
-    if (!device_name(itemname) && !streaming_media(itemname)) {
-        get_metadata(itemname, &desc, &artist, &length);
+    filename = g_filename_from_uri(uri, NULL, NULL);
+    if (!device_name(uri) && !streaming_media(uri)) {
+        get_metadata(uri, &desc, &artist, &length);
 
         if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
             if (desc != NULL)
                 g_free(desc);
-            if (g_strrstr(itemname, "/") != NULL) {
-                desc = g_strdup_printf("%s", g_strrstr(itemname, "/") + sizeof(gchar));
-            } else {
-                desc = g_strdup(itemname);
-            }
-        }
-    } else {
-
-        if (g_ascii_strncasecmp(itemname, "cdda://", strlen("cdda://")) == 0) {
-            desc = g_strdup_printf("CD Track %s", itemname + strlen("cdda://"));
-        } else if (g_ascii_strncasecmp(itemname, "file://", strlen("file://")) == 0) {
-            file = itemname + sizeof(gchar) * strlen("file://");
-            get_metadata(file, &desc, &artist, &length);
-            if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
-                if (desc != NULL)
-                    g_free(desc);
-                if (g_strrstr(file, "/") != NULL) {
-                    desc = g_strdup_printf("%s", g_strrstr(file, "/") + sizeof(gchar));
-                } else {
-                    desc = g_strdup(file);
-                }
-            }
-        } else if (device_name(itemname)) {
-            if (g_strncasecmp(itemname, "dvdnav://", strlen("dvdnav://") == 0)) {
-                loop = 1;
-            }
-            get_metadata(itemname, &desc, &artist, &length);
-            if (desc == NULL || (desc != NULL && strlen(desc) == 0))
-                if (desc != NULL)
-                    g_free(desc);
-            desc = g_strdup_printf("Device - %s", itemname);
-
         } else {
-            desc = g_strdup_printf("Stream from %s", itemname);
+            desc = g_filename_display_basename(filename);
         }
+
+    } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
+        desc = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
+    } else if (g_ascii_strncasecmp(uri, "file://", strlen("file://")) == 0) {
+        get_metadata(uri, &desc, &artist, &length);
+        if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
+            if (desc != NULL)
+                g_free(desc);
+        } else {
+            desc = g_filename_display_basename(filename);
+        }
+    } else if (device_name(uri)) {
+        if (g_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
+            loop = 1;
+        }
+        get_metadata(uri, &desc, &artist, &length);
+        if (desc == NULL || (desc != NULL && strlen(desc) == 0))
+            if (desc != NULL)
+                g_free(desc);
+        desc = g_strdup_printf("Device - %s", uri);
+
+    } else {
+        desc = g_strdup_printf("Stream from %s", uri);
     }
 
-    if (strlen(itemname) > 0) {
+
+    if (strlen(uri) > 0) {
         gtk_list_store_append(playliststore, &localiter);
-        gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, itemname,
+        gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, uri,
                            DESCRIPTION_COLUMN, desc,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
-                           ARTIST_COLUMN, artist,
-                           SUBTITLE_COLUMN, subtitle, LENGTH_COLUMN, length, -1);
+                           ARTIST_COLUMN, artist, SUBTITLE_COLUMN, subtitle, LENGTH_COLUMN, length,
+                           -1);
 
 
         gtk_list_store_append(nonrandomplayliststore, &localiter);
-        gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, itemname,
+        gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, uri,
                            DESCRIPTION_COLUMN, desc,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
-                           ARTIST_COLUMN, artist,
-                           SUBTITLE_COLUMN, subtitle, LENGTH_COLUMN, length, -1);
+                           ARTIST_COLUMN, artist, SUBTITLE_COLUMN, subtitle, LENGTH_COLUMN, length,
+                           -1);
 
     }
     if (desc != NULL)
@@ -1112,6 +1115,7 @@ GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist)
         g_free(subtitle);
     if (length != NULL)
         g_free(length);
+    g_free(filename);
 
     return localiter;
 
@@ -1549,7 +1553,12 @@ void write_preference_bool(gchar * key, gboolean value)
 #ifdef HAVE_GCONF
     gchar *full_key = NULL;
 
-    full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+
+    if (strstr(key, "/")) {
+        full_key = g_strdup_printf("%s", key);
+    } else {
+        full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    }
     gconf_client_set_bool(gconf, full_key, value, NULL);
     g_free(full_key);
 #else

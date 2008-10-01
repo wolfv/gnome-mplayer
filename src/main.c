@@ -121,7 +121,7 @@ static GOptionEntry entries[] = {
 
 
 
-gint play_file(gchar * filename, gint playlist)
+gint play_file(gchar * uri, gint playlist)
 {
 
     ThreadData *thread_data = (ThreadData *) g_new0(ThreadData, 1);
@@ -129,10 +129,10 @@ gint play_file(gchar * filename, gint playlist)
     gchar *error_msg = NULL;
     gchar *subtitle = NULL;
     GtkTreePath *path;
-    gchar *uri = NULL;
+    gchar *local_file = NULL;
 
     if (verbose)
-        printf("playing - %s\n", filename);
+        printf("playing - %s\n", uri);
 
     shutdown();
     gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
@@ -142,16 +142,13 @@ gint play_file(gchar * filename, gint playlist)
 #ifdef GTK2_12_ENABLED
     // don't put it on the recent list, if it is running in plugin mode
     if (control_id == 0) {
-        uri = g_filename_to_uri(filename, NULL, NULL);
-        if (uri != NULL) {
-            gtk_recent_manager_add_item(recent_manager, uri);
-            g_free(uri);
-        }
+        gtk_recent_manager_add_item(recent_manager, uri);
     }
 #endif
 
-
-    g_strlcpy(thread_data->filename, filename, 1024);
+    local_file = g_filename_from_uri(uri, NULL, NULL);
+    g_strlcpy(thread_data->filename, local_file, 1024);
+    g_free(local_file);
     thread_data->done = FALSE;
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -169,20 +166,16 @@ gint play_file(gchar * filename, gint playlist)
         g_free(subtitle);
     }
 
-    if (g_ascii_strcasecmp(filename, "") != 0) {
-        if (!device_name(filename)) {
-            if (!streaming_media(filename)) {
-                if (!g_file_test(filename, G_FILE_TEST_EXISTS)) {
-                    error_msg = g_strdup_printf("%s not found\n", filename);
-                    dialog =
-                        gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT,
-                                               GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, error_msg);
-                    gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
-                    gtk_dialog_run(GTK_DIALOG(dialog));
-                    gtk_widget_destroy(dialog);
-                    return 1;
-                }
-            }
+    if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
+        if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
+            error_msg = g_strdup_printf("%s not found\n", thread_data->filename);
+            dialog =
+                gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT,
+                                       GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, error_msg);
+            gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
+            gtk_dialog_run(GTK_DIALOG(dialog));
+            gtk_widget_destroy(dialog);
+            return 1;
         }
     }
 
@@ -202,7 +195,7 @@ gint play_file(gchar * filename, gint playlist)
 
     streaming = 0;
 
-    if (filename != NULL && strlen(filename) != 0) {
+    if (thread_data->filename != NULL && strlen(thread_data->filename) != 0) {
         thread_data->player_window = 0;
         thread_data->playlist = playlist;
         thread_data->streaming = streaming_media(thread_data->filename);
@@ -241,7 +234,7 @@ int main(int argc, char *argv[])
     struct stat buf;
     struct mntent *mnt = NULL;
     FILE *fp;
-    gchar *filename;
+    gchar *uri;
     gint fileindex = 1;
     GError *error = NULL;
     GOptionContext *context;
@@ -487,8 +480,8 @@ int main(int argc, char *argv[])
 
             if (mnt) {
                 printf("%s is mounted on %s\n", argv[fileindex], mnt->mnt_dir);
-                filename = g_strdup_printf("%s/VIDEO_TS", mnt->mnt_dir);
-                stat(filename, &buf);
+                uri = g_strdup_printf("%s/VIDEO_TS", mnt->mnt_dir);
+                stat(uri, &buf);
                 if (S_ISDIR(buf.st_mode)) {
                     set_media_info_name(_("Playing DVD"));
                     play_file("dvd://", playlist);
@@ -502,14 +495,14 @@ int main(int argc, char *argv[])
                 }
                 //play_file("cdda://", playlist);
                 if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
                                        COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                    set_media_info_name(filename);
+                    set_media_info_name(uri);
                     if (verbose)
-                        printf("playing - %s is playlist = %i\n", filename, playlist);
-                    play_file(filename, playlist);
+                        printf("playing - %s is playlist = %i\n", uri, playlist);
+                    play_file(uri, playlist);
                     gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-                    g_free(filename);
+                    g_free(uri);
                 }
             }
         } else if (S_ISDIR(buf.st_mode)) {
@@ -521,14 +514,14 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
                                    COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                set_media_info_name(filename);
+                set_media_info_name(uri);
                 if (verbose)
-                    printf("playing - %s is playlist = %i\n", filename, playlist);
-                play_file(filename, playlist);
+                    printf("playing - %s is playlist = %i\n", uri, playlist);
+                play_file(uri, playlist);
                 gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-                g_free(filename);
+                g_free(uri);
             }
 
         } else {
@@ -537,18 +530,20 @@ int main(int argc, char *argv[])
             i = fileindex;
 
             while (argv[i] != NULL) {
+                uri = g_filename_to_uri(argv[i], NULL, NULL);
                 if (playlist == 0)
-                    playlist = detect_playlist(argv[i]);
+                    playlist = detect_playlist(uri);
 
                 if (!playlist) {
-                    add_item_to_playlist(argv[i], playlist);
+                    add_item_to_playlist(uri, playlist);
                 } else {
-                    if (!parse_playlist(argv[i])) {
-                        add_item_to_playlist(argv[i], playlist);
+                    if (!parse_playlist(uri)) {
+                        add_item_to_playlist(uri, playlist);
                     }
 
                 }
                 i++;
+                g_free(uri);
             }
 
             if (random_order) {
@@ -556,14 +551,14 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
                                    COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                set_media_info_name(filename);
+                set_media_info_name(uri);
                 if (verbose)
-                    printf("playing - %s is playlist = %i\n", filename, playlist);
-                play_file(filename, playlist);
+                    printf("playing - %s is playlist = %i\n", uri, playlist);
+                play_file(uri, playlist);
                 gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-                g_free(filename);
+                g_free(uri);
             }
         }
     } else {
