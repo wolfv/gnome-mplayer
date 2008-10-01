@@ -140,18 +140,14 @@ gboolean set_media_info(void *data)
 }
 
 
-gboolean set_media_info_name(gchar * filename)
+gboolean set_media_info_name(gchar * uri)
 {
 
     gchar *buf;
     gchar *name;
 
-    if (filename != NULL) {
-        if (g_strrstr(filename, "/") != NULL) {
-            name = g_strdup_printf("%s", g_strrstr(filename, "/") + 1);
-        } else {
-            name = g_strdup(filename);
-        }
+    if (uri != NULL) {
+        name = g_path_get_basename(uri);
         buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
         gtk_window_set_title(GTK_WINDOW(window), buf);
         g_free(buf);
@@ -1216,6 +1212,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                        gint x, gint y, GtkSelectionData * selection_data,
                        guint info, guint t, gpointer data)
 {
+    gchar *uri;
     gchar *filename;
     GtkTreeIter localiter;
     gchar **list;
@@ -1234,24 +1231,13 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
         error = NULL;
-        filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, &error);
-        if (error != NULL) {
-            if (verbose)
-                printf("Error when converting uri to filename: %s\n", error->message);
-            g_error_free(error);
-            error = NULL;
-        }
-        if (filename == NULL)
-            return FALSE;
-        list = g_strsplit(filename, "\n", 0);
-        //gtk_list_store_clear(playliststore);
-        //gtk_list_store_clear(nonrandomplayliststore);
+        list = g_uri_list_extract_uris((const gchar *) selection_data->data);
         itemcount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
 
         while (list[i] != NULL) {
-            g_strchomp(list[i]);
             if (strlen(list[i]) > 0) {
-                if (g_file_test(list[i], G_FILE_TEST_IS_DIR)) {
+                filename = g_filename_from_uri(list[i], NULL, NULL);
+                if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
                     create_folder_progress_window();
                     add_folder_to_playlist_callback(list[i], NULL);
                     destroy_folder_progress_window();
@@ -1266,18 +1252,19 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                         }
                     }
                 }
+                g_free(filename);
             }
             i++;
         }
 
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > itemcount) {
             gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &iter, NULL, itemcount);
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
                                PLAYLIST_COLUMN, &playlist, -1);
 
             shutdown();
-            play_file(filename, playlist);
-            g_free(filename);
+            play_file(uri, playlist);
+            g_free(uri);
         }
         g_strfreev(list);
         update_gui();
@@ -1699,18 +1686,21 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 
     /*allow multiple files to be selected */
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
+#ifdef GIO_ENABLED
+    // gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog), FALSE);
+#endif
 
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-        filename = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
-        last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
+        filename = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
+        last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
         if (last_dir != NULL) {
             write_preference_string(LAST_DIR, last_dir);
             g_free(last_dir);

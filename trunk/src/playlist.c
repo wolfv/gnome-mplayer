@@ -139,6 +139,7 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 gint x, gint y, GtkSelectionData * selection_data,
                                 guint info, guint t, gpointer data)
 {
+    gchar *uri;
     gchar *filename;
     GtkTreeIter localiter;
     gchar **list;
@@ -154,16 +155,12 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
         return FALSE;
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
-        filename = g_filename_from_uri((const gchar *) selection_data->data, NULL, NULL);
-        if (filename == NULL)
-            return FALSE;
-        list = g_strsplit(filename, "\n", 0);
+        list = g_uri_list_extract_uris((const gchar *) selection_data->data);
 
         while (list[i] != NULL) {
-            g_strchomp(list[i]);
             if (strlen(list[i]) > 0) {
-                printf("filename = '%s'\n", list[i]);
-                if (g_file_test(list[i], G_FILE_TEST_IS_DIR)) {
+                filename = g_filename_from_uri(list[i], NULL, NULL);
+                if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
                     create_folder_progress_window();
                     add_folder_to_playlist_callback(list[i], NULL);
                     destroy_folder_progress_window();
@@ -184,12 +181,12 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
                                PLAYLIST_COLUMN, &playlist, -1);
 
             shutdown();
-            play_file(filename, playlist);
-            g_free(filename);
+            play_file(uri, playlist);
+            g_free(uri);
 
         } else {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
@@ -365,23 +362,28 @@ gint compar(gpointer a, gpointer b)
 
 void add_folder_to_playlist_callback(gpointer data, gpointer user_data)
 {
-    gchar *filename = (gchar *) data;
+    gchar *uri = (gchar *) data;
+    gchar *filename;
     GDir *dir;
     gchar *name;
     gchar *subdir = NULL;
+    gchar *subdir_uri = NULL;
     GSList *list = NULL;
 
+    filename = g_filename_from_uri(uri, NULL, NULL);
     dir = g_dir_open(filename, 0, NULL);
     if (dir != NULL) {
         do {
             name = g_strdup(g_dir_read_name(dir));
             if (name != NULL) {
                 subdir = g_strdup_printf("%s/%s", filename, name);
+                subdir_uri = g_filename_to_uri(subdir, NULL, NULL);
                 if (g_file_test(subdir, G_FILE_TEST_IS_DIR)) {
-                    add_folder_to_playlist_callback((gpointer) subdir, NULL);
+                    add_folder_to_playlist_callback((gpointer) subdir_uri, NULL);
                     g_free(subdir);
+                    g_free(subdir_uri);
                 } else {
-                    list = g_slist_prepend(list, subdir);
+                    list = g_slist_prepend(list, subdir_uri);
                     filecount++;
                 }
                 g_free(name);
@@ -401,7 +403,7 @@ void add_to_playlist(GtkWidget * widget, void *data)
 {
 
     GtkWidget *dialog;
-    GSList *filename;
+    GSList *uris;
     gchar *last_dir;
     GtkTreeViewColumn *column;
     gchar *coltitle;
@@ -419,20 +421,20 @@ void add_to_playlist(GtkWidget * widget, void *data)
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-        filename = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+        uris = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 
-        last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
+        last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
         write_preference_string(LAST_DIR, last_dir);
         g_free(last_dir);
 
-        g_slist_foreach(filename, &add_item_to_playlist_callback, NULL);
-        g_slist_free(filename);
+        g_slist_foreach(uris, &add_item_to_playlist_callback, NULL);
+        g_slist_free(uris);
     }
     update_gui();
     release_preference_store();
@@ -449,7 +451,7 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
 {
 
     GtkWidget *dialog;
-    GSList *filename;
+    GSList *uris;
     gchar *last_dir;
     gchar *message;
 
@@ -465,23 +467,23 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-        filename = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+        uris = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 
-        last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
+        last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
         write_preference_string(LAST_DIR, last_dir);
         g_free(last_dir);
 
         filecount = 0;
         create_folder_progress_window();
-        g_slist_foreach(filename, &add_folder_to_playlist_callback, NULL);
+        g_slist_foreach(uris, &add_folder_to_playlist_callback, NULL);
         destroy_folder_progress_window();
-        g_slist_free(filename);
+        g_slist_free(uris);
     }
     update_gui();
     release_preference_store();
@@ -611,31 +613,34 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
                                   GtkTreeViewColumn * column, gpointer data)
 {
 
+    gchar *uri = NULL;
     gchar *filename = NULL;
     gint count;
     gint playlist;
     gchar *cmd = NULL;
 
     if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
                            COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
 
         if (state == QUIT) {
-            play_file(filename, playlist);
+            play_file(uri, playlist);
         } else {
             gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
             gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
+            filename = g_filename_from_uri(uri, NULL, NULL);
             cmd = g_strdup_printf("loadfile \"%s\"\n", filename);
             send_command(cmd, FALSE);
             g_free(cmd);
+            g_free(filename);
             if (state != PLAYING)
                 play_callback(NULL, NULL, NULL);
         }
-        set_media_info_name(filename);
+        set_media_info_name(uri);
         gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-        g_free(filename);
+        g_free(uri);
 
     }
     return FALSE;
