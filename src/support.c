@@ -1632,3 +1632,39 @@ void release_preference_store()
 
 #endif
 }
+
+gchar *get_localfile_from_uri(gchar *uri)
+{
+	gchar *localfile;
+#ifdef GIO_ENABLED
+	GFile *srcfile;
+	GFile *tmpfile;
+	gchar *tmp;
+#endif 
+	
+	localfile = g_filename_from_uri(uri,NULL,NULL);
+	idledata->tmpfile = FALSE;
+	
+	printf("get_localfile\nuri = '%s'\nlocalfile = '%s'\n",uri,localfile);
+
+#ifdef GIO_ENABLED
+	if (localfile == NULL) {
+		if (verbose)
+			printf("using gio to cache file locally\n");
+		tmp = getenv("TMP");
+		if (tmp == NULL)
+			tmp = g_strdup("/tmp");
+		
+		srcfile = g_file_new_for_uri(uri);
+		localfile = g_strdup_printf("%s/%s", tmp, g_file_get_basename(srcfile));
+		printf("localfile = '%s'\n",localfile);
+		tmpfile = g_file_new_for_path(localfile);
+		printf("get_localfile\nsrc = '%s'\ndest = '%s'\n",g_file_get_uri(srcfile),g_file_get_path(tmpfile));
+		g_file_copy (srcfile,tmpfile,G_FILE_COPY_NONE,NULL,NULL,NULL,NULL);
+		idledata->tmpfile = TRUE;
+	}
+#endif	
+	
+	
+	return localfile;
+}
