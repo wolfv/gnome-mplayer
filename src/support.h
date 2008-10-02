@@ -84,6 +84,6 @@ void write_preference_string(gchar * key, gchar * value);
 void release_preference_store();
 
 gchar *get_localfile_from_uri(gchar * uri);
-gboolean is_uri_dir(gchar *uri);
+gboolean is_uri_dir(gchar * uri);
 
 #endif                          // _SUPPORT_H

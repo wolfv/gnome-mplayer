@@ -1235,7 +1235,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
         while (list[i] != NULL) {
             if (strlen(list[i]) > 0) {
-                if (is_uri_dir (list[i])) {
+                if (is_uri_dir(list[i])) {
                     create_folder_progress_window();
                     add_folder_to_playlist_callback(list[i], NULL);
                     destroy_folder_progress_window();
@@ -1254,13 +1254,12 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
             i++;
         }
 
-        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > itemcount) {
-            gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &iter, NULL, itemcount);
+        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
+            gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
                                PLAYLIST_COLUMN, &playlist, -1);
 
-            shutdown();
-            //play_file(uri, playlist);
+            play_file(uri, playlist);
             g_free(uri);
         }
         g_strfreev(list);

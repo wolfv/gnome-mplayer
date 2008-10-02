@@ -724,26 +724,39 @@ gboolean read_mplayer_config()
     return TRUE;
 }
 
-gboolean streaming_media(gchar * filename)
+gboolean streaming_media(gchar * uri)
 {
     gboolean ret;
+#ifdef GIO_ENABLED
+	GFile *file;
+	GFileInfo *info;
+#else
     gchar *local_file = NULL;
-
+#endif
+	
     ret = TRUE;
 
-    if (filename == NULL)
-        return FALSE;
-    if (strstr(filename, "dvd://") != NULL) {
+    if (uri == NULL)
         ret = FALSE;
-    } else if (strstr(filename, "dvdnav://") != NULL) {
+    if (strstr(uri, "dvd://") != NULL) {
         ret = FALSE;
-    } else if (strstr(filename, "cdda://") != NULL) {
+    } else if (strstr(uri, "dvdnav://") != NULL) {
         ret = FALSE;
-    } else if (strstr(filename, "tv://") != NULL) {
+    } else if (strstr(uri, "cdda://") != NULL) {
         ret = FALSE;
-//    } else if (strstr(filename, "file://") != NULL) {
-//        ret = FALSE;
+    } else if (strstr(uri, "tv://") != NULL) {
+        ret = FALSE;
     } else {
+#ifdef GIO_ENABLED
+		file = g_file_new_for_uri (uri);
+		if (file != NULL) {
+			info = g_file_query_info(file, "access::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
+			if (info != NULL) {
+				ret = !g_file_info_get_attribute_boolean (info,G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+				g_object_unref (info);
+			}
+		}
+#else
         local_file = g_filename_from_uri(filename, NULL, NULL);
         if (local_file != NULL) {
             ret = !g_file_test(local_file, G_FILE_TEST_EXISTS);
@@ -751,8 +764,9 @@ gboolean streaming_media(gchar * filename)
         } else {
             ret = !g_file_test(filename, G_FILE_TEST_EXISTS);
         }
+#endif
     }
-
+	printf("Streaming media = %i\n",ret);
     return ret;
 }
 
@@ -798,6 +812,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
 {
 
     gchar *name = NULL;
+	gchar *basename = NULL;
     GError *error;
     gint exit_status;
     gchar *stdout = NULL;
@@ -807,7 +822,27 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
     gchar **output;
     gfloat seconds;
     gchar *localtitle = NULL;
+#ifdef GIO_ENABLED
+	GFile *file;
+#endif
+    if (device_name(uri)) {
+        name = g_strdup(uri);
+    } else {
+#ifdef GIO_ENABLED
+		file = g_file_new_for_uri (uri);
+		if (file != NULL) {
+			name = g_file_get_path(file);
+			basename = g_file_get_basename (file);
+		}
+#else
+        name = g_filename_from_uri(uri, NULL, NULL);
+		basename = g_filename_display_basename (name);
+#endif
+    }
 
+	if (name == NULL) return;
+	printf("getting file metadata for %s\n",name);
+	
     av[ac++] = g_strdup_printf("mplayer");
     av[ac++] = g_strdup_printf("-vo");
     av[ac++] = g_strdup_printf("null");
@@ -821,12 +856,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
         av[ac++] = g_strdup_printf("-dvd-device");
         av[ac++] = g_strdup_printf("%s", idledata->device);
     }
-    printf("uri = %s\n", uri);
-    if (device_name(uri)) {
-        name = g_strdup(uri);
-    } else {
-        name = g_filename_from_uri(uri, NULL, NULL);
-    }
+	
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
@@ -862,12 +892,17 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
 
         if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
             if (strstr(output[ac], "Title") != NULL || strstr(output[ac], "name") != NULL) {
-                localtitle = strstr(output[ac + 1], "=") + 1;
-                *title = metadata_to_utf8(localtitle);
+				localtitle = strstr(output[ac + 1], "=") + 1;
+                *title = g_strstrip(metadata_to_utf8(localtitle));
                 if (*title == NULL) {
                     *title = g_strdup(localtitle);
                     strip_unicode(*title, strlen(*title));
                 }
+				if (strlen(*title) == 0) {
+					g_free(*title);
+					*title = g_strdup(basename);
+				}
+				
             }
             if (strstr(output[ac], "Artist") != NULL || strstr(output[ac], "author") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
@@ -902,7 +937,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
     if (stderr != NULL)
         g_free(stderr);
     g_free(name);
-
+	g_free(basename);
 }
 
 gint get_bitrate(gchar * name)
@@ -1057,34 +1092,22 @@ gint get_bitrate(gchar * name)
 
 GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
 {
-    gchar *filename = NULL;
     gchar *desc = NULL;
     GtkTreeIter localiter;
     gchar *artist = NULL;
     gchar *length = NULL;
-	gchar *unescaped = NULL;
-	
-    filename = g_filename_from_uri(uri, NULL, NULL);
+    gchar *unescaped = NULL;
+
     if (!device_name(uri) && !streaming_media(uri)) {
         get_metadata(uri, &desc, &artist, &length);
-
         if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
-            if (desc != NULL)
+            if (desc != NULL) {
                 g_free(desc);
-        } else {
-            desc = g_filename_display_basename(filename);
-        }
-
+				desc = NULL;
+			}
+        } 
     } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
         desc = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
-    } else if (g_ascii_strncasecmp(uri, "file://", strlen("file://")) == 0) {
-        get_metadata(uri, &desc, &artist, &length);
-        if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
-            if (desc != NULL)
-                g_free(desc);
-        } else {
-            desc = g_filename_display_basename(filename);
-        }
     } else if (device_name(uri)) {
         if (g_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
             loop = 1;
@@ -1096,9 +1119,9 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
         desc = g_strdup_printf("Device - %s", uri);
 
     } else {
-		unescaped = g_uri_unescape_string(uri, NULL);
+        unescaped = g_uri_unescape_string(uri, NULL);
         desc = g_strdup_printf("Stream from %s", unescaped);
-		g_free(unescaped);
+        g_free(unescaped);
     }
 
 
@@ -1129,7 +1152,6 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
         g_free(subtitle);
     if (length != NULL)
         g_free(length);
-    g_free(filename);
 
     return localiter;
 
@@ -1647,15 +1669,31 @@ void release_preference_store()
 #endif
 }
 
+void cache_callback(goffset current_num_bytes, goffset total_num_bytes, gpointer data)
+{
+    //printf("downloaded %li of %li bytes\n",(glong)current_num_bytes,(glong)total_num_bytes);
+    idledata->cachepercent = (gfloat) current_num_bytes / (gfloat) total_num_bytes;
+    g_idle_add(set_progress_value, idledata);
+    if (current_num_bytes > (cache_size * 1024))
+        g_mutex_unlock(idledata->caching);
+
+}
+
+void ready_callback(GObject * source_object, GAsyncResult * res, gpointer data)
+{
+    g_object_unref(idledata->tmp);
+    g_object_unref(idledata->src);
+    g_mutex_unlock(idledata->caching);
+}
+
+
 
 gchar *get_localfile_from_uri(gchar * uri)
 {
     gchar *localfile;
 #ifdef GIO_ENABLED
-    GFile *srcfile;
-    GFile *tmpfile;
     gchar *tmp;
-	gchar *base;
+    gchar *base;
 #endif
     if (device_name(uri)) {
         return g_strdup(uri);
@@ -1663,64 +1701,75 @@ gchar *get_localfile_from_uri(gchar * uri)
     localfile = g_filename_from_uri(uri, NULL, NULL);
     idledata->tmpfile = FALSE;
 
-    printf("get_localfile\nuri = '%s'\nlocalfile = '%s'\n", uri, localfile);
-
 #ifdef GIO_ENABLED
     if (localfile == NULL) {
         if (verbose)
-            printf("using gio to cache file locally\n");
+            printf("using gio to access file\n");
         tmp = getenv("TMP");
         if (tmp == NULL)
             tmp = g_strdup("/tmp");
 
-        srcfile = g_file_new_for_uri(uri);
-		base = g_file_get_basename(srcfile);
-		if (base != NULL) {
-			localfile = g_strdup_printf("%s/%s", tmp, base);
-			g_free(base);
-			printf("localfile = '%s'\n", localfile);
-			tmpfile = g_file_new_for_path(localfile);
-			printf("get_localfile\nsrc = '%s'\ndest = '%s'\n", g_file_get_uri(srcfile),
-				   g_file_get_path(tmpfile));
-			g_file_copy(srcfile, tmpfile, G_FILE_COPY_NONE, NULL, NULL, NULL, NULL);
-			idledata->tmpfile = TRUE;
-			g_object_unref(tmpfile);
-		}
-		g_object_unref (srcfile);
-		g_free(tmp);
+        idledata->src = g_file_new_for_uri(uri);
+        localfile = g_file_get_path(idledata->src);
+        // if gvfs-fuse is not installed then we don't have a local
+        // name to use so we need to copy it.
+
+        if (localfile == NULL) {
+            base = g_file_get_basename(idledata->src);
+            if (base != NULL) {
+                localfile = g_strdup_printf("%s/%s", tmp, base);
+                g_free(base);
+                idledata->tmp = g_file_new_for_path(localfile);
+                idledata->cancel = g_cancellable_new();
+                g_mutex_lock(idledata->caching);
+				if (verbose)
+					printf("caching uri to localfile via gio asynchronously\n");
+                g_file_copy_async(idledata->src, idledata->tmp, G_FILE_COPY_NONE,
+                                  G_PRIORITY_DEFAULT, idledata->cancel, cache_callback, NULL,
+                                  ready_callback, NULL);
+                while (!g_mutex_trylock(idledata->caching)) {
+                    while (gtk_events_pending())
+                        gtk_main_iteration();
+                }
+                g_mutex_unlock(idledata->caching);
+                idledata->tmpfile = TRUE;
+            }
+        } else {
+            if (verbose)
+                printf("src uri can be accessed via '%s'\n", localfile);
+        }
+        g_free(tmp);
     }
 #endif
-
 
     return localfile;
 }
 
-gboolean is_uri_dir(gchar *uri)
+gboolean is_uri_dir(gchar * uri)
 {
-	gboolean result = FALSE;
-	
-#ifdef GIO_ENABLED
-	GFile *file;
-	GFileInfo *info;
+    gboolean result = FALSE;
 
-	file = g_file_new_for_uri (uri);
-	if (file != NULL) {
-		info = g_file_query_info(file,"standard::*",G_FILE_QUERY_INFO_NONE,NULL,NULL);
-		if (info != NULL) {
-			result = (g_file_info_get_file_type (info) & G_FILE_TYPE_DIRECTORY);
-			g_object_unref(info);
-		}
-		g_object_unref(file);
-	}
-	
+#ifdef GIO_ENABLED
+    GFile *file;
+    GFileInfo *info;
+
+    file = g_file_new_for_uri(uri);
+    if (file != NULL) {
+        info = g_file_query_info(file, "standard::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
+        if (info != NULL) {
+            result = (g_file_info_get_file_type(info) & G_FILE_TYPE_DIRECTORY);
+            g_object_unref(info);
+        }
+        g_object_unref(file);
+    }
 #else
-	gchar *filename;
-	filename = g_filename_from_uri(uri, NULL, NULL);
-	if (filename != NULL) {
-		result = g_file_test(filename, G_FILE_TEST_IS_DIR);
-		g_free(filename);
-	} 
+    gchar *filename;
+    filename = g_filename_from_uri(uri, NULL, NULL);
+    if (filename != NULL) {
+        result = g_file_test(filename, G_FILE_TEST_IS_DIR);
+        g_free(filename);
+    }
 #endif
 
-	return result;
+    return result;
 }

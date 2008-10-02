@@ -24,6 +24,10 @@
 
 #include <gtk/gtk.h>
 
+#ifdef GIO_ENABLED
+#include <gio/gio.h>
+#endif
+
 #ifndef _COMMON_H
 #define _COMMON_H
 
@@ -142,6 +146,12 @@ typedef struct _IdleData {
     gboolean window_resized;
     gboolean has_chapters;
     gboolean tmpfile;
+#ifdef GIO_ENABLED
+    GFile *src;
+    GFile *tmp;
+    GCancellable *cancel;
+    GMutex *caching;
+#endif
 } IdleData;
 
 IdleData *idledata;
