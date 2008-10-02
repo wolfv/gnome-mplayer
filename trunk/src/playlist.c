@@ -158,7 +158,7 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
         while (list[i] != NULL) {
             if (strlen(list[i]) > 0) {
-                if (is_uri_dir (list[i])) {
+                if (is_uri_dir(list[i])) {
                     create_folder_progress_window();
                     add_folder_to_playlist_callback(list[i], NULL);
                     destroy_folder_progress_window();
@@ -362,40 +362,39 @@ void add_folder_to_playlist_callback(gpointer data, gpointer user_data)
 {
 
 #ifdef GIO_ENABLED
-	gchar *uri = (gchar *) data;
-	GFile *file;
-	GFileEnumerator *dir;
-	GFileInfo *info;
-	GError *error;
-	gchar *sub_uri;
-	GSList *list = NULL;
-	
-	error = NULL;
-	file = g_file_new_for_uri (uri);
-	dir = g_file_enumerate_children (file,"standard::*",G_FILE_QUERY_INFO_NONE,NULL,&error);
-	if (error != NULL)
-		printf("error message = %s\n",error->message);
-	
-	if (dir != NULL) {
-		info = g_file_enumerator_next_file (dir,NULL,NULL);
-		while(info != NULL) {
-			if (g_file_info_get_file_type (info) & G_FILE_TYPE_DIRECTORY) {
-				sub_uri = g_strdup_printf ("%s/%s",uri,g_file_info_get_name(info));
-				add_folder_to_playlist_callback((gpointer) sub_uri, NULL);
-				g_free(sub_uri);
-			} else {
-				sub_uri = g_strdup_printf ("%s/%s",uri,g_file_info_get_name(info));
-				list = g_slist_prepend(list, sub_uri);
-				filecount++;
-			}
-			g_object_unref(info);
-			info = g_file_enumerator_next_file (dir,NULL,NULL);
-		}
-		list = g_slist_sort(list, (GCompareFunc) compar);
+    gchar *uri = (gchar *) data;
+    GFile *file;
+    GFileEnumerator *dir;
+    GFileInfo *info;
+    GError *error;
+    gchar *sub_uri;
+    GSList *list = NULL;
+
+    error = NULL;
+    file = g_file_new_for_uri(uri);
+    dir = g_file_enumerate_children(file, "standard::*", G_FILE_QUERY_INFO_NONE, NULL, &error);
+    if (error != NULL)
+        printf("error message = %s\n", error->message);
+
+    if (dir != NULL) {
+        info = g_file_enumerator_next_file(dir, NULL, NULL);
+        while (info != NULL) {
+            if (g_file_info_get_file_type(info) & G_FILE_TYPE_DIRECTORY) {
+                sub_uri = g_strdup_printf("%s/%s", uri, g_file_info_get_name(info));
+                add_folder_to_playlist_callback((gpointer) sub_uri, NULL);
+                g_free(sub_uri);
+            } else {
+                sub_uri = g_strdup_printf("%s/%s", uri, g_file_info_get_name(info));
+                list = g_slist_prepend(list, sub_uri);
+                filecount++;
+            }
+            g_object_unref(info);
+            info = g_file_enumerator_next_file(dir, NULL, NULL);
+        }
+        list = g_slist_sort(list, (GCompareFunc) compar);
         g_slist_foreach(list, &add_item_to_playlist_callback, NULL);
-        g_slist_free(list);		
-	}
-	
+        g_slist_free(list);
+    }
 #else
     gchar *uri = (gchar *) data;
     gchar *filename;
@@ -405,7 +404,7 @@ void add_folder_to_playlist_callback(gpointer data, gpointer user_data)
     gchar *subdir_uri = NULL;
     GSList *list = NULL;
 
-	filename = g_filename_from_uri(uri, NULL, NULL);
+    filename = g_filename_from_uri(uri, NULL, NULL);
     dir = g_dir_open(filename, 0, NULL);
     if (dir != NULL) {
         do {
@@ -671,7 +670,7 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
             gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
-            filename = get_localfile_from_uri (uri);
+            filename = get_localfile_from_uri(uri);
             cmd = g_strdup_printf("loadfile \"%s\"\n", filename);
             send_command(cmd, FALSE);
             g_free(cmd);

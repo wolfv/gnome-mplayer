@@ -1,4 +1,6 @@
 Development
+    Implement / Fix more GIO stuff, if gvfs-fuse is installed we don't have to copy so try to
+        use that first. Most functionality should be working now for GIO
     Folder drag and drop should now be working for remote shares, want to do async loading still
     Some GIO functionality is now working, still problems
     Start working on gio functionality, probably broken for many things

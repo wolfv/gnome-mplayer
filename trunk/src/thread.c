@@ -72,10 +72,10 @@ gboolean send_command(gchar * command, gboolean retain_pause)
 
     if (verbose > 1)
         printf("send command = %s\n", cmd);
-	if (std_in != -1) {
-		ret = write(std_in, cmd, strlen(cmd));
-		fsync(std_in);
-	}
+    if (std_in != -1) {
+        ret = write(std_in, cmd, strlen(cmd));
+        fsync(std_in);
+    }
     g_free(cmd);
     if (ret < 0) {
         return FALSE;
@@ -1062,14 +1062,21 @@ gpointer launch_player(gpointer data)
             g_io_channel_unref(channel_err);
             channel_err = NULL;
         }
-		close(std_in);
-		std_in = -1;
+        close(std_in);
+        std_in = -1;
 
+#ifdef GIO_ENABLED
         if (idledata->tmpfile) {
             if (verbose)
                 printf("removing temp file '%s'\n", threaddata->filename);
+            if (g_mutex_trylock(idledata->caching)) {
+                g_mutex_unlock(idledata->caching);
+            } else {
+                g_cancellable_cancel(idledata->cancel);
+            }
             g_unlink(threaddata->filename);
         }
+#endif
 
         dbus_enable_screensaver();
         g_mutex_unlock(thread_running);

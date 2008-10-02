@@ -135,7 +135,7 @@ gint play_file(gchar * uri, gint playlist)
         printf("playing - %s\n", uri);
 
     shutdown();
-	
+
     gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
     gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
@@ -413,7 +413,7 @@ int main(int argc, char *argv[])
         printf("Running in with GIO support\n");
     }
 #endif
-	
+
     if (volume == 0 || volume == 100) {
         volume = (gint) get_alsa_volume();
     } else {
@@ -462,6 +462,9 @@ int main(int argc, char *argv[])
     read_mplayer_config();
     thread_running = g_mutex_new();
     slide_away = g_mutex_new();
+#ifdef GIO_ENABLED
+    idledata->caching = g_mutex_new();
+#endif
 
     if (argv[fileindex] != NULL) {
         g_stat(argv[fileindex], &buf);
