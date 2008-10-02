@@ -1694,3 +1694,33 @@ gchar *get_localfile_from_uri(gchar * uri)
 
     return localfile;
 }
+
+gboolean is_uri_dir(gchar *uri)
+{
+	gboolean result = FALSE;
+	
+#ifdef GIO_ENABLED
+	GFile *file;
+	GFileInfo *info;
+
+	file = g_file_new_for_uri (uri);
+	if (file != NULL) {
+		info = g_file_query_info(file,"standard::*",G_FILE_QUERY_INFO_NONE,NULL,NULL);
+		if (info != NULL) {
+			result = (g_file_info_get_file_type (info) & G_FILE_TYPE_DIRECTORY);
+			g_object_unref(info);
+		}
+		g_object_unref(file);
+	}
+	
+#else
+	gchar *filename;
+	filename = g_filename_from_uri(uri, NULL, NULL);
+	if (filename != NULL) {
+		result = g_file_test(filename, G_FILE_TEST_IS_DIR);
+		g_free(filename);
+	} 
+#endif
+
+	return result;
+}

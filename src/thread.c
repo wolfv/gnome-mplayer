@@ -57,7 +57,7 @@ gboolean send_command(gchar * command)
 
 gboolean send_command(gchar * command, gboolean retain_pause)
 {
-    gint ret;
+    gint ret = -1;
     gchar *cmd;
 
     if (retain_pause) {
@@ -72,8 +72,10 @@ gboolean send_command(gchar * command, gboolean retain_pause)
 
     if (verbose > 1)
         printf("send command = %s\n", cmd);
-    ret = write(std_in, cmd, strlen(cmd));
-    fsync(std_in);
+	if (std_in != -1) {
+		ret = write(std_in, cmd, strlen(cmd));
+		fsync(std_in);
+	}
     g_free(cmd);
     if (ret < 0) {
         return FALSE;
@@ -1060,6 +1062,8 @@ gpointer launch_player(gpointer data)
             g_io_channel_unref(channel_err);
             channel_err = NULL;
         }
+		close(std_in);
+		std_in = -1;
 
         if (idledata->tmpfile) {
             if (verbose)

@@ -1,4 +1,5 @@
 Development
+    Folder drag and drop should now be working for remote shares, want to do async loading still
     Some GIO functionality is now working, still problems
     Start working on gio functionality, probably broken for many things
     Do much of the filename to uri conversion, gio still not implemented, probably bad bugs lurking
