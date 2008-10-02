@@ -83,5 +83,5 @@ void write_preference_float(gchar * key, gfloat value);
 void write_preference_string(gchar * key, gchar * value);
 void release_preference_store();
 
-gchar *get_localfile_from_uri(gchar *uri);
+gchar *get_localfile_from_uri(gchar * uri);
 #endif                          // _SUPPORT_H

@@ -784,7 +784,7 @@ gpointer launch_player(gpointer data)
 
     g_mutex_lock(thread_running);
 
-    g_strlcpy(idledata->info, threaddata->filename, 1024);
+    g_strlcpy(idledata->info, g_uri_unescape_string(threaddata->uri, NULL), 1024);
     idledata->percent = 0.0;
     g_strlcpy(idledata->progress_text, "", 1024);
     idledata->width = 1;
@@ -1061,12 +1061,12 @@ gpointer launch_player(gpointer data)
             channel_err = NULL;
         }
 
-		if (idledata->tmpfile) {
-			if (verbose)
-				printf("removing temp file '%s'\n",threaddata->filename);
-			g_unlink(threaddata->filename);
-		}
-		
+        if (idledata->tmpfile) {
+            if (verbose)
+                printf("removing temp file '%s'\n", threaddata->filename);
+            g_unlink(threaddata->filename);
+        }
+
         dbus_enable_screensaver();
         g_mutex_unlock(thread_running);
 

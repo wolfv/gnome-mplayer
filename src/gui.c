@@ -1863,7 +1863,7 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
 
@@ -1920,7 +1920,7 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
 
