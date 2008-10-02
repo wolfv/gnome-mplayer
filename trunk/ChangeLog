@@ -1,4 +1,5 @@
 Development
+    Some GIO functionality is now working, still problems
     Start working on gio functionality, probably broken for many things
     Do much of the filename to uri conversion, gio still not implemented, probably bad bugs lurking
     Enabled gio-2.0 detection in configure

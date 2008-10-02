@@ -630,7 +630,7 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
             gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
-            filename = g_filename_from_uri(uri, NULL, NULL);
+            filename = get_localfile_from_uri (uri);
             cmd = g_strdup_printf("loadfile \"%s\"\n", filename);
             send_command(cmd, FALSE);
             g_free(cmd);

@@ -141,13 +141,14 @@ typedef struct _IdleData {
     gboolean fromdbus;
     gboolean window_resized;
     gboolean has_chapters;
-	gboolean tmpfile;
+    gboolean tmpfile;
 } IdleData;
 
 IdleData *idledata;
 
 
 typedef struct _ThreadData {
+    gchar uri[2048];
     gchar filename[1024];
     gchar subtitle[1024];
     gint streaming;
