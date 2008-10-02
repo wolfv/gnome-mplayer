@@ -1213,7 +1213,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                        guint info, guint t, gpointer data)
 {
     gchar *uri;
-    gchar *filename;
     GtkTreeIter localiter;
     gchar **list;
     gint i = 0;
@@ -1236,8 +1235,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
         while (list[i] != NULL) {
             if (strlen(list[i]) > 0) {
-                filename = g_filename_from_uri(list[i], NULL, NULL);
-                if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
+                if (is_uri_dir (list[i])) {
                     create_folder_progress_window();
                     add_folder_to_playlist_callback(list[i], NULL);
                     destroy_folder_progress_window();
@@ -1252,7 +1250,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                         }
                     }
                 }
-                g_free(filename);
             }
             i++;
         }
@@ -1263,13 +1260,13 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                PLAYLIST_COLUMN, &playlist, -1);
 
             shutdown();
-            play_file(uri, playlist);
+            //play_file(uri, playlist);
             g_free(uri);
         }
         g_strfreev(list);
         update_gui();
     }
-    return FALSE;
+    return TRUE;
 
 }
 
@@ -1687,7 +1684,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     /*allow multiple files to be selected */
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 #ifdef GIO_ENABLED
-    // gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog), FALSE);
+    gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog), FALSE);
 #endif
 
     init_preference_store();
