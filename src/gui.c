@@ -2410,6 +2410,13 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
     gint width = 0, height = 0;
     static gint controls_height;
 
+	if (GTK_CHECK_MENU_ITEM(menuitem) == GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen)) {
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen),gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen)));
+		return;
+	} else {
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen)));
+	}
+
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
         gtk_window_unfullscreen(GTK_WINDOW(window));
 
@@ -2515,8 +2522,15 @@ void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
 {
     int width, height;
-
-    if (gtk_check_menu_item_get_active(menuitem)) {
+	
+	if (GTK_CHECK_MENU_ITEM(menuitem) == GTK_CHECK_MENU_ITEM(menuitem_view_controls)) {
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols),gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls)));
+		return;
+	} else {
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls),gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols)));
+	}
+	
+    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols))) {
         if (GTK_IS_WIDGET(button_event_box)) {
             gtk_widget_hide_all(button_event_box);
         }
@@ -4378,7 +4392,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep0));
 
     menuitem_view_fullscreen =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_FULLSCREEN, NULL));
+        GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Full Screen")));
     menuitem_view_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     if (!disable_fullscreen) {
         gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_fullscreen));
@@ -4418,7 +4432,8 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_subtitles =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Show _Subtitles")));
     menuitem_view_angle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Switch An_gle")));
-    menuitem_view_controls = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Controls")));
+    menuitem_view_controls = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Controls")));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menuitem_view_controls),TRUE);
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_subtitles));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_angle));
@@ -4441,8 +4456,8 @@ GtkWidget *create_window(gint windowid)
                                accel_group, 'v', 0, GTK_ACCEL_VISIBLE);
     g_signal_connect(GTK_OBJECT(menuitem_view_info), "activate",
                      G_CALLBACK(menuitem_view_info_callback), NULL);
-    g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "activate",
-                     G_CALLBACK(menuitem_view_fullscreen_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "toggled",
+                     G_CALLBACK(menuitem_fs_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_onetoone), "activate",
                      G_CALLBACK(menuitem_view_onetoone_callback), idledata);
     g_signal_connect(GTK_OBJECT(menuitem_view_twotoone), "activate",
@@ -4461,8 +4476,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_view_subtitles_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_angle), "activate",
                      G_CALLBACK(menuitem_view_angle_callback), NULL);
-    g_signal_connect(GTK_OBJECT(menuitem_view_controls), "activate",
-                     G_CALLBACK(menuitem_view_controls_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_controls), "toggled",
+                     G_CALLBACK(menuitem_showcontrols_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_advanced), "activate",
                      G_CALLBACK(menuitem_advanced_callback), idledata);
 

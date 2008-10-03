@@ -1,4 +1,5 @@
 Development
+    Make Show Controls and Fullscreen menu items to check boxes and keep in sync with right click menu
     Fix commandline parser to work with various arguments
     Fix issue in get_metadata where title was sometimes blank
     Implement / Fix more GIO stuff, if gvfs-fuse is installed we don't have to copy so try to
