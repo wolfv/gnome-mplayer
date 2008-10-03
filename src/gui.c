@@ -4462,7 +4462,7 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep3));
     menuitem_view_advanced =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Advanced _Options...")));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Advanced _Options")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_advanced));
 
     g_signal_connect(GTK_OBJECT(menuitem_view_playlist), "activate",
