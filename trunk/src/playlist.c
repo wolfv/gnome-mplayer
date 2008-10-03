@@ -394,9 +394,9 @@ void add_folder_to_playlist_callback(gpointer data, gpointer user_data)
         list = g_slist_sort(list, (GCompareFunc) compar);
         g_slist_foreach(list, &add_item_to_playlist_callback, NULL);
         g_slist_free(list);
-		g_object_unref(dir);
+        g_object_unref(dir);
     }
-	g_object_unref(file);
+    g_object_unref(file);
 #else
     gchar *uri = (gchar *) data;
     gchar *filename;

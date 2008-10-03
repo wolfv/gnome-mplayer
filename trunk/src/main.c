@@ -179,14 +179,13 @@ gint play_file(gchar * uri, gint playlist)
             }
         }
     }
-	
 #ifdef GTK2_12_ENABLED
     // don't put it on the recent list, if it is running in plugin mode
     if (control_id == 0) {
         gtk_recent_manager_add_item(recent_manager, uri);
     }
 #endif
-	
+
     if (lastfile != NULL) {
         g_free(lastfile);
         lastfile = NULL;

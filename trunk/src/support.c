@@ -754,19 +754,23 @@ gboolean streaming_media(gchar * uri)
             if (info != NULL) {
                 ret = !g_file_info_get_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
                 g_object_unref(info);
+            } else {
+                ret = !g_file_test(uri, G_FILE_TEST_EXISTS);
             }
         }
+        g_object_unref(file);
 #else
-        local_file = g_filename_from_uri(filename, NULL, NULL);
+        local_file = g_filename_from_uri(uri, NULL, NULL);
         if (local_file != NULL) {
             ret = !g_file_test(local_file, G_FILE_TEST_EXISTS);
             g_free(local_file);
         } else {
-            ret = !g_file_test(filename, G_FILE_TEST_EXISTS);
+            ret = !g_file_test(uri, G_FILE_TEST_EXISTS);
         }
 #endif
     }
-    printf("Streaming media = %i\n", ret);
+    if (verbose)
+        printf("Streaming media '%s' = %i\n", uri, ret);
     return ret;
 }
 
