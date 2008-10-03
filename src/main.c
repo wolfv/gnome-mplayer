@@ -246,6 +246,9 @@ int main(int argc, char *argv[])
     GError *error = NULL;
     GOptionContext *context;
     gint i, count;
+#ifdef GIO_ENABLED
+    GFile *file;
+#endif
 
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -522,7 +525,18 @@ int main(int argc, char *argv[])
             }
         } else if (S_ISDIR(buf.st_mode)) {
             create_folder_progress_window();
-            add_folder_to_playlist_callback(argv[fileindex], NULL);
+            uri = NULL;
+#ifdef GIO_ENABLED
+            file = g_file_new_for_commandline_arg(argv[fileindex]);
+            if (file != NULL) {
+                uri = g_file_get_uri(file);
+                g_object_unref(file);
+            }
+#else
+            uri = g_filename_to_uri(argv[fileindex], NULL, NULL);
+#endif
+            add_folder_to_playlist_callback(uri, NULL);
+            g_free(uri);
             destroy_folder_progress_window();
             if (random_order) {
                 gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
@@ -545,7 +559,15 @@ int main(int argc, char *argv[])
             i = fileindex;
 
             while (argv[i] != NULL) {
-                uri = g_filename_to_uri(argv[i], NULL, NULL);
+#ifdef GIO_ENABLED
+                file = g_file_new_for_commandline_arg(argv[fileindex]);
+                if (file != NULL) {
+                    uri = g_file_get_uri(file);
+                    g_object_unref(file);
+                }
+#else
+                uri = g_filename_to_uri(argv[fileindex], NULL, NULL);
+#endif
                 if (uri != NULL) {
                     if (playlist == 0)
                         playlist = detect_playlist(uri);

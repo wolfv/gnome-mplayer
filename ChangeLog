@@ -1,4 +1,6 @@
 Development
+    Fix commandline parser to work with various arguments
+    Fix issue in get_metadata where title was sometimes blank
     Implement / Fix more GIO stuff, if gvfs-fuse is installed we don't have to copy so try to
         use that first. Most functionality should be working now for GIO
     Folder drag and drop should now be working for remote shares, want to do async loading still
