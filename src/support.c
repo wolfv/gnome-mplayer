@@ -43,16 +43,25 @@ void strip_unicode(gchar * data, gsize len)
 gint detect_playlist(gchar * uri)
 {
 
-    FILE *fp;
-    gchar *filename;
     gint playlist = 0;
     gchar buffer[16 * 1024];
-    gint size;
     gchar **output;
-    gchar *file;
     GtkTreeViewColumn *column;
     gchar *coltitle;
     gint count;
+    gchar *path = NULL;
+#ifdef GIO_ENABLED
+    GFile *file;
+    GFileInputStream *input;
+    gchar *newuri;
+#else
+    FILE *fp;
+    gchar *filename;
+    gchar *file;
+    gint size;
+
+#endif
+
 
     if (g_strncasecmp(uri, "cdda://", 7) == 0) {
         playlist = 1;
@@ -62,6 +71,62 @@ gint detect_playlist(gchar * uri)
 //              playlist = 1;
     } else {
 
+#ifdef GIO_ENABLED
+        file = g_file_new_for_uri(uri);
+        path = get_path(uri);
+        input = g_file_read(file, NULL, NULL);
+        if (input != NULL) {
+            memset(buffer, 0, sizeof(buffer));
+            g_input_stream_read((GInputStream *) input, buffer, sizeof(buffer), NULL, NULL);
+            output = g_strsplit(buffer, "\n", 0);
+            if (output[0] != NULL) {
+                g_strchomp(output[0]);
+                g_strchug(output[0]);
+            }
+            // printf("buffer=%s\n",buffer);
+            if (strstr(g_strdown(buffer), "[playlist]") != 0) {
+                playlist = 1;
+            }
+
+            if (strstr(g_strdown(buffer), "[reference]") != 0) {
+                playlist = 1;
+            }
+
+            if (strstr(g_strdown(buffer), "<asx") != 0) {
+                playlist = 1;
+            }
+
+            if (strstr(g_strdown(buffer), "http://") != 0) {
+                playlist = 1;
+            }
+
+            if (strstr(g_strdown(buffer), "rtsp://") != 0) {
+                playlist = 1;
+            }
+
+            if (strstr(g_strdown(buffer), "pnm://") != 0) {
+                playlist = 1;
+            }
+
+            if (output[0] != NULL && uri_exists(output[0])) {
+                playlist = 1;
+            }
+
+            if (output[0] != NULL && strlen(output[0]) > 0) {
+                newuri = g_strdup_printf("%s/%s", path, output[0]);
+                if (uri_exists(newuri)) {
+                    playlist = 1;
+                }
+                g_free(newuri);
+            }
+            g_strfreev(output);
+
+            g_input_stream_close((GInputStream *) input, NULL, NULL);
+        }
+        g_object_unref(file);
+        g_free(path);
+
+#else
         filename = g_filename_from_uri(uri, NULL, NULL);
         if (filename != NULL) {
             fp = fopen(filename, "r");
@@ -117,9 +182,11 @@ gint detect_playlist(gchar * uri)
                     g_strfreev(output);
                 }
                 fclose(fp);
+                g_free(path);
             }
             g_free(filename);
         }
+#endif
     }
     if (verbose)
         printf("playlist detection = %i\n", playlist);
@@ -139,7 +206,7 @@ gint detect_playlist(gchar * uri)
     return playlist;
 }
 
-gint parse_playlist(gchar * filename)
+gint parse_playlist(gchar * uri)
 {
     gint ret = 0;
     GtkTreeViewColumn *column;
@@ -149,19 +216,19 @@ gint parse_playlist(gchar * filename)
     // try and parse a playlist in various forms
     // if a parsing does not work then, return 0
 
-    ret = parse_basic(filename);
+    ret = parse_basic(uri);
     if (ret != 1)
-        ret = parse_ram(filename);
+        ret = parse_ram(uri);
     if (ret != 1)
-        ret = parse_cdda(filename);
+        ret = parse_cdda(uri);
     if (ret != 1)
-        ret = parse_dvd(filename);
+        ret = parse_dvd(uri);
     if (ret == 1) {
         if (playlistname == NULL) {
-            if (g_strrstr(filename, "/") != NULL) {
-                playlistname = g_strdup_printf("%s", g_strrstr(filename, "/") + 1);
+            if (g_strrstr(uri, "/") != NULL) {
+                playlistname = g_strdup_printf("%s", g_strrstr(uri, "/") + 1);
             } else {
-                playlistname = g_strdup(filename);
+                playlistname = g_strdup(uri);
             }
         }
         if (playlistname != NULL) {
@@ -188,14 +255,121 @@ gint parse_playlist(gchar * filename)
 }
 
 // parse_basic covers .pls, .m3u and reference playlist types 
-gint parse_basic(gchar * filename)
+gint parse_basic(gchar * uri)
 {
+
+#ifdef GIO_ENABLED
+    GFile *file;
+    gchar *path;
+    GFileInputStream *input;
+    GDataInputStream *data;
+    gchar *line;
+    gsize length;
+    gchar *newuri = NULL;
+    gchar *line_uri = NULL;
+    gint ret;
+    gchar **parse;
+
+    file = g_file_new_for_uri(uri);
+    path = get_path(uri);
+    input = g_file_read(file, NULL, NULL);
+    data = g_data_input_stream_new((GInputStream *) input);
+    if (data != NULL) {
+        line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+        while (line != NULL) {
+            // printf("line = %s\n", line);
+
+            if (strlen(line) > 0) {
+                newuri = g_strdup_printf("%s/%s", path, line);
+                line_uri = g_filename_to_uri(line, NULL, NULL);
+            }
+            if (g_strcasecmp(line, "[playlist]") == 0) {
+                //printf("playlist\n");
+                ret = 1;
+            } else if (g_strcasecmp(line, "[reference]") == 0) {
+                //printf("ref\n");
+                ret = 1;
+            } else if (g_strncasecmp(line, "NumberOfEntries", strlen("NumberOfEntries")) == 0) {
+                //printf("num\n");
+                ret = 1;
+            } else if (g_strncasecmp(line, "Version", strlen("Version")) == 0) {
+                //printf("ver\n");
+                ret = 1;
+            } else if (g_strncasecmp(line, "http://", strlen("http://")) == 0) {
+                //printf("http\n");
+                ret = 1;
+                add_item_to_playlist(line, 0);
+            } else if (g_strncasecmp(line, "mms://", strlen("mms://")) == 0) {
+                //printf("mms\n");
+                ret = 1;
+                add_item_to_playlist(line, 0);
+            } else if (g_strncasecmp(line, "rtsp://", strlen("rtsp://")) == 0) {
+                //printf("mms\n");
+                ret = 1;
+                add_item_to_playlist(line, 0);
+            } else if (g_strncasecmp(line, "pnm://", strlen("pnm://")) == 0) {
+                //printf("mms\n");
+                ret = 1;
+                add_item_to_playlist(line, 0);
+            } else if (uri_exists(newuri)) {
+                //printf("ft file - %s\n", file);
+                ret = 1;
+                add_item_to_playlist(newuri, 0);
+            } else if (uri_exists(line)) {
+                //printf("ft buffer - %s\n", buffer);
+                ret = 1;
+                add_item_to_playlist(line, 0);
+            } else if (uri_exists(line_uri)) {
+                ret = 1;
+                add_item_to_playlist(line_uri, 0);
+            } else if (ret == 1) {
+                if (g_ascii_strncasecmp(line, "ref", 3) == 0) {
+                    parse = g_strsplit(line, "=", 2);
+                    if (parse != NULL) {
+                        if (parse[1] != NULL) {
+                            g_strchomp(parse[1]);
+                            g_strchug(parse[1]);
+                            add_item_to_playlist(parse[1], 0);
+                        }
+                        g_strfreev(parse);
+                    }
+                } else if (g_ascii_strncasecmp(line, "file", 4) == 0) {
+                    parse = g_strsplit(line, "=", 2);
+                    if (parse != NULL) {
+                        if (parse[1] != NULL) {
+                            g_strchomp(parse[1]);
+                            g_strchug(parse[1]);
+                            add_item_to_playlist(parse[1], 0);
+                        }
+                        g_strfreev(parse);
+                    }
+                } else {
+                    add_item_to_playlist(line, 0);
+                }
+            }
+
+
+            g_free(line);
+            line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+        }
+
+        g_input_stream_close((GInputStream *) data, NULL, NULL);
+        g_input_stream_close((GInputStream *) input, NULL, NULL);
+    }
+    g_free(path);
+    g_object_unref(file);
+    return ret;
+#else
+
     FILE *fp;
     gint ret = 0;
     gchar *buffer;
+	gchar *buffer_uri;
     gchar **parse;
     gchar *file = NULL;
-
+	gchar *filename;
+	
+	filename = g_filename_from_uri (uri,NULL,NULL);
     fp = fopen(filename, "r");
     buffer = g_new0(gchar, 1024);
 
@@ -209,11 +383,12 @@ gint parse_basic(gchar * filename)
                 //printf("buffer=%s\n",buffer);
                 if (path != NULL)
                     g_free(path);
-                path = get_path(filename);
+                path = get_path(uri);
                 //printf("path=%s\n",path);
                 if (strlen(buffer) > 0)
                     file = g_strdup_printf("%s/%s", path, buffer);
-
+				buffer_uri = g_filename_to_uri (buffer,NULL,NULL);
+				
                 if (g_strcasecmp(buffer, "[playlist]") == 0) {
                     //printf("playlist\n");
                     ret = 1;
@@ -234,14 +409,18 @@ gint parse_basic(gchar * filename)
                     //printf("mms\n");
                     ret = 1;
                     add_item_to_playlist(buffer, 0);
-                } else if (g_file_test(file, G_FILE_TEST_EXISTS)) {
+                } else if (uri_exists(file)) {
                     //printf("ft file - %s\n", file);
                     ret = 1;
                     add_item_to_playlist(file, 0);
-                } else if (g_file_test(buffer, G_FILE_TEST_EXISTS)) {
+                } else if (uri_exists(buffer)) {
                     //printf("ft buffer - %s\n", buffer);
                     ret = 1;
                     add_item_to_playlist(buffer, 0);
+                } else if (uri_exists(buffer_uri)) {
+                    //printf("ft buffer - %s\n", buffer);
+                    ret = 1;
+                    add_item_to_playlist(buffer_uri, 0);
                 } else if (ret == 1) {
                     if (g_ascii_strncasecmp(buffer, "ref", 3) == 0) {
                         parse = g_strsplit(buffer, "=", 2);
@@ -269,16 +448,17 @@ gint parse_basic(gchar * filename)
                 }
                 if (strlen(buffer) > 0)
                     g_free(file);
+				g_free(buffer_uri);
             }
             if (ret != 1)
                 break;
         }
     }
-
+	g_free(filename);
     g_free(buffer);
     buffer = NULL;
     return ret;
-
+#endif
 }
 
 gint parse_ram(gchar * filename)
@@ -1130,7 +1310,7 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
     }
 
 
-    if (strlen(uri) > 0) {
+    if (strlen(uri) > 0 && length != NULL && strlen(length) > 0) {
         gtk_list_store_append(playliststore, &localiter);
         gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, uri,
                            DESCRIPTION_COLUMN, desc,
@@ -1246,15 +1426,14 @@ gboolean save_playlist_m3u(gchar * filename)
     }
 }
 
-gchar *get_path(gchar * filename)
+gchar *get_path(gchar * uri)
 {
-
+    gchar *path = NULL;
     gchar cwd[1024];
     gchar *tmp = NULL;
-    gchar *path = NULL;
 
-    if (g_strrstr(filename, "/") != NULL) {
-        path = g_strdup(filename);
+    if (g_strrstr(uri, "/") != NULL) {
+        path = g_strdup(uri);
         tmp = g_strrstr(path, "/");
         tmp[0] = '\0';
     } else {
@@ -1674,6 +1853,7 @@ void release_preference_store()
 #endif
 }
 
+#ifdef GIO_ENABLED
 void cache_callback(goffset current_num_bytes, goffset total_num_bytes, gpointer data)
 {
     //printf("downloaded %li of %li bytes\n",(glong)current_num_bytes,(glong)total_num_bytes);
@@ -1690,7 +1870,7 @@ void ready_callback(GObject * source_object, GAsyncResult * res, gpointer data)
     g_object_unref(idledata->src);
     g_mutex_unlock(idledata->caching);
 }
-
+#endif
 
 
 gchar *get_localfile_from_uri(gchar * uri)
@@ -1704,9 +1884,9 @@ gchar *get_localfile_from_uri(gchar * uri)
         return g_strdup(uri);
     }
     localfile = g_filename_from_uri(uri, NULL, NULL);
-    idledata->tmpfile = FALSE;
 
 #ifdef GIO_ENABLED
+	idledata->tmpfile = FALSE;
     if (localfile == NULL) {
         if (verbose)
             printf("using gio to access file\n");
@@ -1772,6 +1952,35 @@ gboolean is_uri_dir(gchar * uri)
     filename = g_filename_from_uri(uri, NULL, NULL);
     if (filename != NULL) {
         result = g_file_test(filename, G_FILE_TEST_IS_DIR);
+        g_free(filename);
+    }
+#endif
+
+    return result;
+}
+
+gboolean uri_exists(gchar * uri)
+{
+    gboolean result = FALSE;
+
+#ifdef GIO_ENABLED
+    GFile *file;
+    GFileInfo *info;
+
+    file = g_file_new_for_uri(uri);
+    if (file != NULL) {
+        info = g_file_query_info(file, "standard::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
+        if (info != NULL) {
+            result = TRUE;
+            g_object_unref(info);
+        }
+        g_object_unref(file);
+    }
+#else
+    gchar *filename;
+    filename = g_filename_from_uri(uri, NULL, NULL);
+    if (filename != NULL) {
+        result = g_file_test(filename, G_FILE_TEST_EXISTS);
         g_free(filename);
     }
 #endif

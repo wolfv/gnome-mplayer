@@ -53,7 +53,7 @@ void strip_unicode(gchar * data, gsize len);
 gint play_file(gchar * filename, gint playlist);
 gint detect_playlist(gchar * filename);
 gchar *metadata_to_utf8(gchar * string);
-gint parse_playlist(gchar * filename);
+gint parse_playlist(gchar * uri);
 gint parse_basic(gchar * filename);
 gint parse_ram(gchar * filename);
 gint parse_cdda(gchar * filename);
@@ -85,5 +85,5 @@ void release_preference_store();
 
 gchar *get_localfile_from_uri(gchar * uri);
 gboolean is_uri_dir(gchar * uri);
-
+gboolean uri_exists(gchar * uri);
 #endif                          // _SUPPORT_H
