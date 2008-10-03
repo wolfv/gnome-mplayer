@@ -123,7 +123,7 @@ void playlist_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
                                              GTK_FILE_CHOOSER_ACTION_OPEN,
                                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                              GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), path);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), path);
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
             subtitle = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
             gtk_list_store_set(playliststore, &localiter, SUBTITLE_COLUMN, subtitle, -1);

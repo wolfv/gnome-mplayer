@@ -2376,7 +2376,7 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
                                              GTK_FILE_CHOOSER_ACTION_OPEN,
                                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                              GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), path);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), path);
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
             subtitle = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
             gtk_list_store_set(playliststore, &iter, SUBTITLE_COLUMN, subtitle, -1);
@@ -3260,6 +3260,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *conf_page3;
     GtkWidget *conf_page4;
     GtkWidget *conf_page5;
+	GtkWidget *conf_page6;
     GtkWidget *notebook;
     GdkColor sub_color;
     gint i = 0;
@@ -3277,6 +3278,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_page3 = gtk_vbox_new(FALSE, 10);
     conf_page4 = gtk_vbox_new(FALSE, 10);
     conf_page5 = gtk_vbox_new(FALSE, 10);
+    conf_page6 = gtk_vbox_new(FALSE, 10);
     conf_hbutton_box = gtk_hbutton_box_new();
     gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
     conf_table = gtk_table_new(20, 2, FALSE);
@@ -3284,14 +3286,16 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     notebook = gtk_notebook_new();
     conf_label = gtk_label_new(_("Player"));
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page1, conf_label);
-    conf_label = gtk_label_new(_("Plugin"));
-    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page2, conf_label);
     conf_label = gtk_label_new(_("Language Settings"));
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page3, conf_label);
     conf_label = gtk_label_new(_("Subtitles"));
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page4, conf_label);
-    conf_label = gtk_label_new(_("Advanced"));
+    conf_label = gtk_label_new(_("Interface"));
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page5, conf_label);
+    conf_label = gtk_label_new(_("MPlayer"));
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page6, conf_label);
+    conf_label = gtk_label_new(_("Plugin"));
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page2, conf_label);
 
     gtk_container_add(GTK_CONTAINER(conf_vbox), notebook);
     gtk_container_add(GTK_CONTAINER(config_window), conf_vbox);
@@ -3720,7 +3724,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page5), conf_table);
     i = 0;
-    conf_label = gtk_label_new(_("<span weight=\"bold\">Advanced Settings</span>"));
+    conf_label = gtk_label_new(_("<span weight=\"bold\">Application Preferences</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
@@ -3764,6 +3768,27 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
     i++;
 
+    config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_verbose,
+                         _
+                         ("When this option is set, extra debug information is sent to the terminal or into ~/.xsession-errors"),
+                         NULL);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose), verbose);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 2, i, i + 1);
+    i++;
+	
+    // Page 6
+    conf_table = gtk_table_new(20, 2, FALSE);
+    gtk_container_add(GTK_CONTAINER(conf_page6), conf_table);
+    i = 0;
+    conf_label = gtk_label_new(_("<span weight=\"bold\">Advanced Settings for MPlayer</span>"));
+    gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1);
+    i++;
+	
     config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_softvol,
@@ -3794,16 +3819,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_check_button_new_with_label(_("Force the use of cache setting on streaming media"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_forcecache), forcecache);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_forcecache, 0, 2, i, i + 1);
-    i++;
-
-    config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
-    tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_verbose,
-                         _
-                         ("When this option is set, extra debug information is sent to the terminal or into ~/.xsession-errors"),
-                         NULL);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose), verbose);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 2, i, i + 1);
     i++;
 
     conf_label = gtk_label_new(_("MPlayer Executable:"));
