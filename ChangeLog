@@ -1,4 +1,6 @@
 Development
+    Fix bug in recent item selection
+    Fix bug in streaming detection
     Make Show Controls and Fullscreen menu items to check boxes and keep in sync with right click menu
     Fix commandline parser to work with various arguments
     Fix issue in get_metadata where title was sometimes blank

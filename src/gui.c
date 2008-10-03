@@ -1978,12 +1978,12 @@ void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
 {
     gint playlist;
-    gchar *filename;
+    gchar *uri;
 
-    filename = g_filename_from_uri(gtk_recent_chooser_get_current_uri(chooser), NULL, NULL);
-    playlist = detect_playlist(filename);
-    play_file(filename, playlist);
-    g_free(filename);
+    uri = gtk_recent_chooser_get_current_uri(chooser);
+    playlist = detect_playlist(uri);
+    play_file(uri, playlist);
+    g_free(uri);
 }
 
 #ifdef GTK2_12_ENABLED
@@ -2001,6 +2001,8 @@ void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer
     gtk_recent_chooser_set_sort_type(GTK_RECENT_CHOOSER(menuitem_file_recent_items),
                                      GTK_RECENT_SORT_MRU);
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
+    g_signal_connect(GTK_OBJECT(menuitem_file_recent_items), "item-activated",
+                     G_CALLBACK(menuitem_open_recent_callback), NULL);
 
 }
 #endif
@@ -2410,12 +2412,16 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
     gint width = 0, height = 0;
     static gint controls_height;
 
-	if (GTK_CHECK_MENU_ITEM(menuitem) == GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen)) {
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen),gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen)));
-		return;
-	} else {
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen)));
-	}
+    if (GTK_CHECK_MENU_ITEM(menuitem) == GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen)) {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen),
+                                       gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM
+                                                                      (menuitem_view_fullscreen)));
+        return;
+    } else {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),
+                                       gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM
+                                                                      (menuitem_fullscreen)));
+    }
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
         gtk_window_unfullscreen(GTK_WINDOW(window));
@@ -2522,14 +2528,18 @@ void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
 {
     int width, height;
-	
-	if (GTK_CHECK_MENU_ITEM(menuitem) == GTK_CHECK_MENU_ITEM(menuitem_view_controls)) {
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols),gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls)));
-		return;
-	} else {
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls),gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols)));
-	}
-	
+
+    if (GTK_CHECK_MENU_ITEM(menuitem) == GTK_CHECK_MENU_ITEM(menuitem_view_controls)) {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols),
+                                       gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM
+                                                                      (menuitem_view_controls)));
+        return;
+    } else {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls),
+                                       gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM
+                                                                      (menuitem_showcontrols)));
+    }
+
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols))) {
         if (GTK_IS_WIDGET(button_event_box)) {
             gtk_widget_hide_all(button_event_box);
@@ -4300,8 +4310,10 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_open_atv_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_dtv), "activate",
                      G_CALLBACK(menuitem_open_dtv_callback), NULL);
+#ifdef GTK2_12_ENABLED
     g_signal_connect(GTK_OBJECT(menuitem_file_recent_items), "item-activated",
                      G_CALLBACK(menuitem_open_recent_callback), NULL);
+#endif
     g_signal_connect(GTK_OBJECT(menuitem_file_details), "activate",
                      G_CALLBACK(menuitem_details_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_quit), "activate",
@@ -4433,7 +4445,7 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Show _Subtitles")));
     menuitem_view_angle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Switch An_gle")));
     menuitem_view_controls = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Controls")));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menuitem_view_controls),TRUE);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), TRUE);
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_subtitles));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_angle));
