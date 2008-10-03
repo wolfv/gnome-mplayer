@@ -140,12 +140,6 @@ gint play_file(gchar * uri, gint playlist)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
     gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
-#ifdef GTK2_12_ENABLED
-    // don't put it on the recent list, if it is running in plugin mode
-    if (control_id == 0) {
-        gtk_recent_manager_add_item(recent_manager, uri);
-    }
-#endif
 
     local_file = get_localfile_from_uri(uri);
     if (local_file == NULL)
@@ -185,7 +179,14 @@ gint play_file(gchar * uri, gint playlist)
             }
         }
     }
-
+	
+#ifdef GTK2_12_ENABLED
+    // don't put it on the recent list, if it is running in plugin mode
+    if (control_id == 0) {
+        gtk_recent_manager_add_item(recent_manager, uri);
+    }
+#endif
+	
     if (lastfile != NULL) {
         g_free(lastfile);
         lastfile = NULL;
