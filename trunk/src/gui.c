@@ -66,8 +66,8 @@ gboolean hide_buttons(void *data)
             }
         }
     }
-    if (GTK_IS_WIDGET(menuitem_file_details))
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), TRUE);
+    if (GTK_IS_WIDGET(menuitem_view_details))
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), TRUE);
 
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2 && lastfile != NULL
         && idledata->has_chapters == FALSE) {
@@ -187,7 +187,7 @@ gboolean set_media_label(void *data)
            idle->audio_bitrate,idle->audio_samplerate);
          */
 
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), TRUE);
     }
 
     if (idle->fromdbus == FALSE)
@@ -667,7 +667,7 @@ gboolean resize_window(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idle->videopresent);
-        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_file_details))) {
+        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
             //gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_file_details),FALSE);
             menuitem_details_callback(NULL, NULL);
         }
@@ -2484,7 +2484,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
         } else {
             gtk_widget_hide(menubar);
-            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_file_details), FALSE);
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), FALSE);
             while (gtk_events_pending())
                 gtk_main_iteration();
         }
@@ -2813,7 +2813,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     GtkRequisition req;
     gboolean noresize = FALSE;
 
-    if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_file_details))) {
+    if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
         if (GTK_IS_WIDGET(details_table)) {
             gtk_widget_destroy(details_table);
             details_table = NULL;
@@ -4296,10 +4296,6 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
 #endif
 
-    menuitem_file_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep1));
-    menuitem_file_details = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_etails")));
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_details));
     menuitem_file_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep2));
 
@@ -4329,12 +4325,8 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_file_recent_items), "item-activated",
                      G_CALLBACK(menuitem_open_recent_callback), NULL);
 #endif
-    g_signal_connect(GTK_OBJECT(menuitem_file_details), "activate",
-                     G_CALLBACK(menuitem_details_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_quit), "activate",
                      G_CALLBACK(menuitem_quit_callback), NULL);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_file_details), "activate",
-                               accel_group, 'd', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     // Edit Menu
     menuitem_edit = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Edit")));
     menu_edit = GTK_MENU(gtk_menu_new());
@@ -4415,6 +4407,8 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_playlist));
     menuitem_view_info = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Media _Info")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_info));
+    menuitem_view_details = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_etails")));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_details));
     menuitem_view_sep0 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep0));
 
@@ -4481,8 +4475,12 @@ GtkWidget *create_window(gint windowid)
                                accel_group, 'i', 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
                                accel_group, 'v', 0, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_details), "activate",
+                               accel_group, 'd', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     g_signal_connect(GTK_OBJECT(menuitem_view_info), "activate",
                      G_CALLBACK(menuitem_view_info_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_details), "activate",
+                     G_CALLBACK(menuitem_details_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "toggled",
                      G_CALLBACK(menuitem_fs_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_onetoone), "activate",
@@ -4976,7 +4974,7 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(G_OBJECT(fixed), "expose_event", G_CALLBACK(expose_fixed_callback), NULL);
 
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
@@ -4995,7 +4993,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_file_details), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
     gtk_widget_hide(prev_event_box);

@@ -605,7 +605,7 @@ int main(int argc, char *argv[])
             menuitem_view_playlist_callback(NULL, NULL);
     }
 
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_file_details), details_visible);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), details_visible);
 
     dbus_hookup(embed_window, control_id);
 
