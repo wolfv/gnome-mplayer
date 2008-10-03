@@ -1,4 +1,5 @@
 Development
+    Rework the preferences dialog a little
     Make gio optional (useful for debugging)
     Make playlist processing GIO aware
     Fix bug in recent item selection
