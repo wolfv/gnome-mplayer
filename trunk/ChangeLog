@@ -1,4 +1,6 @@
 Development
+    Make gio optional (useful for debugging)
+    Make playlist processing GIO aware
     Fix bug in recent item selection
     Fix bug in streaming detection
     Make Show Controls and Fullscreen menu items to check boxes and keep in sync with right click menu

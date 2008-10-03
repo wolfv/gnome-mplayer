@@ -205,7 +205,7 @@ gint play_file(gchar * uri, gint playlist)
     if (thread_data->filename != NULL && strlen(thread_data->filename) != 0) {
         thread_data->player_window = 0;
         thread_data->playlist = playlist;
-        thread_data->streaming = streaming_media(thread_data->filename);
+        thread_data->streaming = streaming_media(thread_data->uri);
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
         g_strlcpy(idledata->video_format, "", 64);

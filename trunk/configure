@@ -1354,6 +1354,7 @@ Optional Features:
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-gio              Use Gconf to store preferences
   --with-gconf-source=sourceaddress      Config database for installing schema files.
   --with-gconf-schema-file-dir=dir        Directory for installing schema files.
   --with-gconf            Use Gconf to store preferences
@@ -8315,6 +8316,15 @@ fi
 
 
 
+# Check whether --with-gio was given.
+if test "${with_gio+set}" = set; then
+  withval=$with_gio;
+else
+  with_gio=check
+fi
+
+if test "x$with_gio" != xno; then
+
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for GIO" >&5
 echo $ECHO_N "checking for GIO... $ECHO_C" >&6; }
@@ -8427,6 +8437,9 @@ _ACEOF
 fi
 
 
+
+
+fi
 
 
 
