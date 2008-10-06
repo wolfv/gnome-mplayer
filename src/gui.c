@@ -119,7 +119,9 @@ gboolean set_media_info(void *data)
             total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
             if (path != NULL) {
-                current = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
+				buf = gtk_tree_path_to_string(path);
+                current = (gint) g_strtod(buf, NULL);
+				g_free(buf);
                 gtk_tree_path_free(path);
             }
             if (total > 1) {
@@ -4415,7 +4417,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_view, GTK_WIDGET(menu_view));
     menuitem_view_playlist = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Playlist")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_playlist));
-    menuitem_view_info = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Media _Info")));
+    menuitem_view_info = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Media _Info")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_info));
     menuitem_view_details = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_etails")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_details));

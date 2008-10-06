@@ -37,24 +37,6 @@ void shutdown()
 
 }
 
-/*
-gboolean send_command(gchar * command)
-{
-    gint ret;
-
-    if (verbose > 1)
-        printf("send command = %s\n", command);
-    ret = write(std_in, command, strlen(command));
-    fsync(std_in);
-    if (ret < 0) {
-        return FALSE;
-    } else {
-        return TRUE;
-    }
-
-}
-*/
-
 gboolean send_command(gchar * command, gboolean retain_pause)
 {
     gint ret = -1;
@@ -318,7 +300,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->width = actual_x;
         idledata->height = actual_y;
         idledata->videopresent = TRUE;
-        g_idle_add(resize_window, idledata);
+        g_idle_add_full(G_PRIORITY_HIGH_IDLE,resize_window, idledata, NULL);
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
         send_command("get_property metadata\n", TRUE);
@@ -783,6 +765,7 @@ gpointer launch_player(gpointer data)
     PlayData *p = (PlayData *) g_malloc(sizeof(PlayData));
     gchar *fontname;
     gchar *size;
+	gchar *buffer;
 
     ThreadData *threaddata = (ThreadData *) data;
 
@@ -796,7 +779,9 @@ gpointer launch_player(gpointer data)
 
     g_mutex_lock(thread_running);
 
-    g_strlcpy(idledata->info, g_uri_unescape_string(threaddata->uri, NULL), 1024);
+	buffer = g_uri_unescape_string(threaddata->uri, NULL);
+    g_strlcpy(idledata->info, buffer, 1024);
+	g_free(buffer);
     idledata->percent = 0.0;
     g_strlcpy(idledata->progress_text, "", 1024);
     idledata->width = 1;

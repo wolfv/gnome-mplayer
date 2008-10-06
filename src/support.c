@@ -1643,6 +1643,7 @@ gdouble get_alsa_volume()
         }
     }
 
+	snd_mixer_detach(mhandle,device);
     snd_mixer_close(mhandle);
 
 #endif
