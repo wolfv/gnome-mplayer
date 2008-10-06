@@ -383,6 +383,13 @@ gboolean set_update_gui(void *data)
         gtk_widget_show(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
     }
+
+    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles)) !=
+        idledata->sub_visible) {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles),
+                                       idledata->sub_visible);
+    }
+
     return FALSE;
 }
 
@@ -2340,7 +2347,10 @@ void menuitem_view_subtitles_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *cmd;
 //      set_sub_visibility
-    cmd = g_strdup_printf("sub_visibility\n");
+    cmd =
+        g_strdup_printf("set_property sub_visibility %i\n",
+                        gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM
+                                                       (menuitem_view_subtitles)));
     send_command(cmd, TRUE);
     g_free(cmd);
 }
@@ -3260,7 +3270,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *conf_page3;
     GtkWidget *conf_page4;
     GtkWidget *conf_page5;
-	GtkWidget *conf_page6;
+    GtkWidget *conf_page6;
     GtkWidget *notebook;
     GdkColor sub_color;
     gint i = 0;
@@ -3777,7 +3787,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose), verbose);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 2, i, i + 1);
     i++;
-	
+
     // Page 6
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page6), conf_table);
@@ -3788,7 +3798,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1);
     i++;
-	
+
     config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_softvol,
@@ -4403,7 +4413,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(GTK_WIDGET(menuitem_view));
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), GTK_WIDGET(menuitem_view));
     gtk_menu_item_set_submenu(menuitem_view, GTK_WIDGET(menu_view));
-    menuitem_view_playlist = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Playlist")));
+    menuitem_view_playlist = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Playlist")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_playlist));
     menuitem_view_info = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Media _Info")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_info));
@@ -4451,7 +4461,7 @@ GtkWidget *create_window(gint windowid)
 
     menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     menuitem_view_subtitles =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Show _Subtitles")));
+        GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Show _Subtitles")));
     menuitem_view_angle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Switch An_gle")));
     menuitem_view_controls = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), TRUE);
@@ -4465,7 +4475,7 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Advanced _Options")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_advanced));
 
-    g_signal_connect(GTK_OBJECT(menuitem_view_playlist), "activate",
+    g_signal_connect(GTK_OBJECT(menuitem_view_playlist), "toggled",
                      G_CALLBACK(menuitem_view_playlist_callback), NULL);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_playlist), "activate",
                                accel_group, 'l', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
@@ -4497,7 +4507,7 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_view_aspect_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_aspect_sixteen_ten), "activate",
                      G_CALLBACK(menuitem_view_aspect_callback), NULL);
-    g_signal_connect(GTK_OBJECT(menuitem_view_subtitles), "activate",
+    g_signal_connect(GTK_OBJECT(menuitem_view_subtitles), "toggled",
                      G_CALLBACK(menuitem_view_subtitles_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_angle), "activate",
                      G_CALLBACK(menuitem_view_angle_callback), NULL);

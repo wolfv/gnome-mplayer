@@ -146,6 +146,7 @@ typedef struct _IdleData {
     gboolean window_resized;
     gboolean has_chapters;
     gboolean tmpfile;
+    gboolean sub_visible;
 #ifdef GIO_ENABLED
     GFile *src;
     GFile *tmp;

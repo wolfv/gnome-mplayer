@@ -325,6 +325,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (idledata->length < 1.0)
             send_command("get_time_length\n", TRUE);
         send_command("get_property chapters\n", TRUE);
+        send_command("get_property sub_visibility\n", TRUE);
         send_command("pausing_keep_force get_property path\n", FALSE);
     }
 
@@ -403,6 +404,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_chapters=%i", &idledata->chapters);
         if (idledata->chapters > 0)
             idledata->has_chapters = TRUE;
+        g_idle_add(set_update_gui, NULL);
+    }
+
+    if (strstr(mplayer_output->str, "ANS_sub_visibility") != NULL) {
+        if (strstr(mplayer_output->str, "ANS_sub_visibility=yes")) {
+            idledata->sub_visible = TRUE;
+        } else {
+            idledata->sub_visible = FALSE;
+        }
         g_idle_add(set_update_gui, NULL);
     }
 

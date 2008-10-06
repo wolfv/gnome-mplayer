@@ -364,12 +364,12 @@ gint parse_basic(gchar * uri)
     FILE *fp;
     gint ret = 0;
     gchar *buffer;
-	gchar *buffer_uri;
+    gchar *buffer_uri;
     gchar **parse;
     gchar *file = NULL;
-	gchar *filename;
-	
-	filename = g_filename_from_uri (uri,NULL,NULL);
+    gchar *filename;
+
+    filename = g_filename_from_uri(uri, NULL, NULL);
     fp = fopen(filename, "r");
     buffer = g_new0(gchar, 1024);
 
@@ -387,8 +387,8 @@ gint parse_basic(gchar * uri)
                 //printf("path=%s\n",path);
                 if (strlen(buffer) > 0)
                     file = g_strdup_printf("%s/%s", path, buffer);
-				buffer_uri = g_filename_to_uri (buffer,NULL,NULL);
-				
+                buffer_uri = g_filename_to_uri(buffer, NULL, NULL);
+
                 if (g_strcasecmp(buffer, "[playlist]") == 0) {
                     //printf("playlist\n");
                     ret = 1;
@@ -448,13 +448,13 @@ gint parse_basic(gchar * uri)
                 }
                 if (strlen(buffer) > 0)
                     g_free(file);
-				g_free(buffer_uri);
+                g_free(buffer_uri);
             }
             if (ret != 1)
                 break;
         }
     }
-	g_free(filename);
+    g_free(filename);
     g_free(buffer);
     buffer = NULL;
     return ret;
@@ -1886,7 +1886,7 @@ gchar *get_localfile_from_uri(gchar * uri)
     localfile = g_filename_from_uri(uri, NULL, NULL);
 
 #ifdef GIO_ENABLED
-	idledata->tmpfile = FALSE;
+    idledata->tmpfile = FALSE;
     if (localfile == NULL) {
         if (verbose)
             printf("using gio to access file\n");
