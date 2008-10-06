@@ -68,13 +68,16 @@ gboolean button_release_callback(GtkWidget * widget, GdkEvent * event, gpointer 
     // GtkTreeSelection *sel;
     gint pos;
     GdkEventButton *event_button;
+	gchar *buf;
 
     event_button = (GdkEventButton *) event;
 
     gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(list), event_button->x, event_button->y, &path,
                                   NULL, NULL, NULL);
     if (path != NULL) {
-        pos = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
+		buf = gtk_tree_path_to_string(path);
+        pos = (gint) g_strtod(buf, NULL);
+		g_free(buf);
         gtk_tree_path_free(path);
 
         if (pos == 0) {
@@ -585,12 +588,15 @@ void move_item_up(GtkWidget * widget, void *data)
     GtkTreeIter localiter, a, b;
     GtkTreePath *path;
     gint pos = 0;
+	gchar *buf;
 
     sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
     if (gtk_tree_selection_get_selected(sel, NULL, &localiter)) {
         path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &localiter);
         if (path != NULL) {
-            pos = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
+			buf = gtk_tree_path_to_string(path);
+            pos = (gint) g_strtod(buf, NULL);
+			g_free(buf);
             gtk_tree_path_free(path);
 
             if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
@@ -621,12 +627,15 @@ void move_item_down(GtkWidget * widget, void *data)
     GtkTreeIter localiter, a, b;
     GtkTreePath *path;
     gint pos = 0;
-
+	gchar *buf;
+	
     sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
     if (gtk_tree_selection_get_selected(sel, NULL, &localiter)) {
         path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &localiter);
         if (path != NULL) {
-            pos = (gint) g_strtod(gtk_tree_path_to_string(path), NULL);
+			buf = gtk_tree_path_to_string(path);
+            pos = (gint) g_strtod(buf, NULL);
+			g_free(buf);
             gtk_tree_path_free(path);
             if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
                 if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &b, NULL, pos + 1)) {
