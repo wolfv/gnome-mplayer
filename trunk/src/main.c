@@ -561,7 +561,7 @@ int main(int argc, char *argv[])
 
             while (argv[i] != NULL) {
 #ifdef GIO_ENABLED
-                file = g_file_new_for_commandline_arg(argv[fileindex]);
+                file = g_file_new_for_commandline_arg(argv[i]);
                 if (file != NULL) {
                     uri = g_file_get_uri(file);
                     g_object_unref(file);
