@@ -450,20 +450,23 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     i++;
                 }
                 if (name > 0 && artist > 0) {
-                    //message = g_strdup_printf("%s - %s",parse[name],parse[artist]);
-                    //printf("message = %s\n",message);
-                    //g_strlcpy(idledata->info, message, 1024);
-                    //g_free(message);
-                    //g_idle_add(set_media_info, idledata);
-                    utf8name = metadata_to_utf8(parse[name]);
+                    utf8name = g_strstrip(metadata_to_utf8(parse[name]));
                     if (utf8name == NULL) {
                         strip_unicode(parse[name], strlen(parse[name]));
-                        utf8name = g_strdup(parse[name]);
+                        utf8name = g_strstrip(g_strdup(parse[name]));
                     }
-                    utf8artist = metadata_to_utf8(parse[artist]);
+                    utf8artist = g_strstrip(metadata_to_utf8(parse[artist]));
                     if (utf8artist == NULL) {
                         strip_unicode(parse[artist], strlen(parse[artist]));
-                        utf8artist = g_strdup(parse[artist]);
+                        utf8artist = g_strstrip(g_strdup(parse[artist]));
+                    }
+                    if (strlen(utf8name) == 0) {
+                        g_free(utf8name);
+                        utf8name = g_strdup(_("Unknown"));
+                    }
+                    if (strlen(utf8artist) == 0) {
+                        g_free(utf8artist);
+                        utf8name = g_strdup(_("Unknown"));
                     }
 
                     message =
@@ -480,7 +483,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                         && gtk_list_store_iter_is_valid(playliststore, &iter)) {
                         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, DESCRIPTION_COLUMN,
                                            &cdname, ARTIST_COLUMN, &cdartist, -1);
-                        if (cdname != NULL) {
+                        if (cdname != NULL && strlen(cdname) != 0) {
                             utf8name = g_locale_to_utf8(cdname, -1, NULL, NULL, NULL);
                             if (utf8name == NULL) {
                                 strip_unicode(cdname, strlen(cdname));
@@ -490,7 +493,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                             utf8name = g_strdup(_("Unknown"));
                         }
 
-                        if (cdartist != NULL) {
+                        if (cdartist != NULL && strlen(cdname) != 0) {
                             utf8artist = g_locale_to_utf8(cdartist, -1, NULL, NULL, NULL);
                             if (utf8artist == NULL) {
                                 strip_unicode(cdartist, strlen(cdartist));
@@ -519,7 +522,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
                     } else {
                         message =
-                            g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"),
+                            g_markup_printf_escaped(_
+                                                    ("<small>\n<b>Title:</b>\tUnknown\n<b>Artist:</b>\tUnknown\n<b>File:</b>\t%s\n</small>"),
                                                     idledata->info);
                     }
                     g_strlcpy(idledata->media_info, message, 1024);
@@ -528,12 +532,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 }
                 g_strfreev(parse);
             }
-        } else {
-            message =
-                g_markup_printf_escaped(_("<small>\n<b>File:</b>\t%s\n</small>"), idledata->info);
-            g_strlcpy(idledata->media_info, message, 1024);
-            g_free(message);
-            g_idle_add(set_media_label, idledata);
         }
     }
 
@@ -762,7 +760,7 @@ gpointer launch_player(gpointer data)
     gint arg = 0;
     gchar *filename;
     gint count;
-    PlayData *p = (PlayData *) g_malloc(sizeof(PlayData));
+    PlayData *p = NULL;
     gchar *fontname;
     gchar *size;
     gchar *buffer;
@@ -1083,6 +1081,7 @@ gpointer launch_player(gpointer data)
                                        COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
                     g_strlcpy(idledata->info, filename, 4096);
                     g_idle_add(set_media_info, idledata);
+                    p = (PlayData *) g_malloc(sizeof(PlayData));
                     g_strlcpy(p->filename, filename, 4096);
                     p->playlist = playlist;
                     g_idle_add(play, p);
@@ -1098,13 +1097,12 @@ gpointer launch_player(gpointer data)
                                            &playlist, -1);
                         g_strlcpy(idledata->info, filename, 4096);
                         g_idle_add(set_media_info, idledata);
+                        p = (PlayData *) g_malloc(sizeof(PlayData));
                         g_strlcpy(p->filename, filename, 4096);
                         p->playlist = playlist;
                         g_idle_add(play, p);
                         g_free(filename);
                     }
-                } else {
-                    g_free(p);
                 }
 
                 if (quit_on_complete) {
@@ -1113,6 +1111,7 @@ gpointer launch_player(gpointer data)
             }
         } else {
             if (playback_error == ERROR_RETRY_WITH_PLAYLIST) {
+                p = (PlayData *) g_malloc(sizeof(PlayData));
                 g_strlcpy(p->filename, threaddata->filename, 4096);
                 p->playlist = 1;
                 g_idle_add(play, p);
@@ -1124,7 +1123,6 @@ gpointer launch_player(gpointer data)
         state = QUIT;
         printf("Spawn failed for filename %s\n", threaddata->filename);
         g_mutex_unlock(thread_running);
-        g_free(p);
     }
 
     // printf("Thread done\n");
