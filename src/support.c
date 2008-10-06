@@ -1601,7 +1601,7 @@ gdouble get_alsa_volume()
     }
 
 
-    snd_mixer_selem_id_alloca(&sid);
+    snd_mixer_selem_id_malloc(&sid);
     snd_mixer_selem_id_set_index(sid, 0);
     snd_mixer_selem_id_set_name(sid, pcm_mix);
 
@@ -1620,9 +1620,10 @@ gdouble get_alsa_volume()
         }
         found = TRUE;
     }
+    snd_mixer_selem_id_free(sid);
 
     if (!found) {
-        snd_mixer_selem_id_alloca(&sid);
+        snd_mixer_selem_id_malloc(&sid);
         snd_mixer_selem_id_set_index(sid, 0);
         snd_mixer_selem_id_set_name(sid, master_mix);
 
@@ -1641,11 +1642,12 @@ gdouble get_alsa_volume()
             }
             found = TRUE;
         }
+        snd_mixer_selem_id_free(sid);
     }
 
-	snd_mixer_detach(mhandle,device);
+    snd_mixer_free(mhandle);
+    snd_mixer_detach(mhandle, device);
     snd_mixer_close(mhandle);
-
 #endif
 
     if (verbose)

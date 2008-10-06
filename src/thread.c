@@ -300,7 +300,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->width = actual_x;
         idledata->height = actual_y;
         idledata->videopresent = TRUE;
-        g_idle_add_full(G_PRIORITY_HIGH_IDLE,resize_window, idledata, NULL);
+        g_idle_add_full(G_PRIORITY_HIGH_IDLE, resize_window, idledata, NULL);
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
         send_command("get_property metadata\n", TRUE);
@@ -765,7 +765,7 @@ gpointer launch_player(gpointer data)
     PlayData *p = (PlayData *) g_malloc(sizeof(PlayData));
     gchar *fontname;
     gchar *size;
-	gchar *buffer;
+    gchar *buffer;
 
     ThreadData *threaddata = (ThreadData *) data;
 
@@ -779,9 +779,9 @@ gpointer launch_player(gpointer data)
 
     g_mutex_lock(thread_running);
 
-	buffer = g_uri_unescape_string(threaddata->uri, NULL);
+    buffer = g_uri_unescape_string(threaddata->uri, NULL);
     g_strlcpy(idledata->info, buffer, 1024);
-	g_free(buffer);
+    g_free(buffer);
     idledata->percent = 0.0;
     g_strlcpy(idledata->progress_text, "", 1024);
     idledata->width = 1;

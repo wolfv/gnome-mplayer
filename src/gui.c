@@ -119,9 +119,9 @@ gboolean set_media_info(void *data)
             total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
             if (path != NULL) {
-				buf = gtk_tree_path_to_string(path);
+                buf = gtk_tree_path_to_string(path);
                 current = (gint) g_strtod(buf, NULL);
-				g_free(buf);
+                g_free(buf);
                 gtk_tree_path_free(path);
             }
             if (total > 1) {

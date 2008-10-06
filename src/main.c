@@ -389,8 +389,8 @@ int main(int argc, char *argv[])
     g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
-	g_option_context_free(context);
-	
+    g_option_context_free(context);
+
     if (new_instance)
         single_instance = FALSE;
 
