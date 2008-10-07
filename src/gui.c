@@ -39,7 +39,10 @@
 #include "../pixmaps/media-skip-forward.xpm"
 #include "../pixmaps/view-fullscreen.xpm"
 #include "langlist.h"
-
+#ifdef NOTIFY_ENABLED
+#include <libnotify/notify.h>
+#include <libnotify/notification.h>
+#endif
 gint get_player_window()
 {
     if (GTK_IS_WIDGET(drawing_area)) {
@@ -163,7 +166,9 @@ gboolean set_media_label(void *data)
 {
 
     IdleData *idle = (IdleData *) data;
-
+#ifdef NOTIFY_ENABLED
+    NotifyNotification *notification;
+#endif
     if (data != NULL && idle != NULL && GTK_IS_WIDGET(media_label)) {
         gtk_label_set_markup(GTK_LABEL(media_label), idle->media_info);
         gtk_label_set_max_width_chars(GTK_LABEL(media_label), 10);
@@ -192,9 +197,21 @@ gboolean set_media_label(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), TRUE);
     }
 
-    if (idle->fromdbus == FALSE)
+    if (idle->fromdbus == FALSE) {
         dbus_send_rpsignal_with_string("RP_SetMediaLabel", idle->media_info);
 
+#ifdef NOTIFY_ENABLED
+        if (show_notification && control_id == 0) {
+            notify_init("gnome-mplayer");
+            notification =
+                notify_notification_new(_("GNOME MPlayer"), idle->media_info, "gnome-mplayer",
+                                        NULL);
+            notify_notification_show(notification, NULL);
+            notify_uninit();
+        }
+#endif
+
+    }
     return FALSE;
 }
 
@@ -2642,6 +2659,7 @@ void config_apply(GtkWidget * widget, void *data)
     details_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_details_visible));
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     single_instance = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance));
+    show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
     keep_on_top = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_keep_on_top));
@@ -2701,6 +2719,7 @@ void config_apply(GtkWidget * widget, void *data)
     write_preference_bool(DISABLEPAUSEONCLICK, disable_pause_on_click);
     write_preference_bool(SHOWPLAYLIST, playlist_visible);
     write_preference_bool(SHOWDETAILS, details_visible);
+    write_preference_bool(SHOW_NOTIFICATION, show_notification);
     write_preference_bool(VERTICAL, vertical_layout);
     write_preference_bool(SINGLE_INSTANCE, single_instance);
     write_preference_bool(REMEMBER_LOC, remember_loc);
@@ -3751,6 +3770,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_details_visible = gtk_check_button_new_with_label(_("Start with details visible"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_details_visible), details_visible);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_details_visible, 0, 2, i, i + 1);
+    i++;
+
+    config_show_notification = gtk_check_button_new_with_label(_("Show notification popup"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_notification), show_notification);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_notification, 0, 2, i, i + 1);
     i++;
 
     config_vertical_layout =

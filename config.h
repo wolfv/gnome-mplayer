@@ -7,6 +7,9 @@
 /* GETTEXT package name */
 #define GETTEXT_PACKAGE "gnome-mplayer"
 
+/* Define to 1 if you have GIO support */
+#define GIO_ENABLED 1
+
 /* Define to 1 if you have GTK 2.12 or higher */
 #define GLIB2_14_ENABLED 1
 
@@ -63,6 +66,9 @@
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
+
+/* Define to 1 if you have NOTIFY support */
+#define NOTIFY_ENABLED 1
 
 /* Name of package */
 #define PACKAGE "gnome-mplayer"

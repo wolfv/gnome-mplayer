@@ -11,7 +11,8 @@ INCLUDES = \
     $(GIO_CFLAGS) \
 	$(DBUS_CFLAGS) \
 	$(GCONF_CFLAGS) \
-	$(ALSA_CFLAGS)
+	$(ALSA_CFLAGS) \
+    $(NOTIFY_CFLAGS)
 
 AM_CFLAGS =\
 	 -Wall\
@@ -20,7 +21,8 @@ AM_CFLAGS =\
 	 $(GLIB2_14_DEFINES) \
      $(GIO_DEFINES) \
 	 $(ALSA_DEFINES) \
-     $(GCONF_DEFINES)
+     $(GCONF_DEFINES) \
+     $(NOTIFY_DEFINES)
 
 bin_PROGRAMS = gnome-mplayer 
 
@@ -53,7 +55,7 @@ gnome_mplayer_SOURCES = \
 
 gnome_mplayer_LDFLAGS = 
 
-gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS)
+gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS)
 
 EXTRA_DIST = 
 	
