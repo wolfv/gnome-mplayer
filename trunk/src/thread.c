@@ -434,7 +434,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_strchomp(idledata->metadata);
 
         if (buf != NULL) {
-
             if (g_strncasecmp(idledata->info, "cdda", 4) == 0
                 && gtk_list_store_iter_is_valid(playliststore, &iter)) {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, DESCRIPTION_COLUMN,
@@ -461,7 +460,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
                 message =
                     g_markup_printf_escaped(_
-                                            ("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),
+                                            ("<small>\n\t<big><b>%s</b></big>\n\t<i>%s</i>\n\t%s\n</small>"),
                                             utf8name, utf8artist, playlistname);
                 if (cdname != NULL) {
                     g_free(cdname);
@@ -487,21 +486,43 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                             strip_unicode(parse[i + 1], strlen(parse[i + 1]));
                             utf8name = g_strstrip(g_strdup(parse[i + 1]));
                         }
-						if (strlen(utf8name) != 0) {
-							buf = g_strdup_printf("<b>%s:</b>\t%s\n", parse[i], utf8name);
-							g_free(utf8name);
-							message = g_strconcat(message, buf, NULL);
-							g_free(buf);
-						}
+                        if (strlen(g_strstrip(parse[i])) != 0 && strlen(g_strstrip(utf8name)) != 0) {
+                            if (g_strcasecmp(parse[i], "title") == 0
+                                || g_strcasecmp(parse[i], "name") == 0) {
+                                buf = g_strdup_printf("\t<big><b>%s</b></big>\n", utf8name);
+                                g_free(utf8name);
+                                message = g_strconcat(message, buf, NULL);
+                                g_free(buf);
+                            } else if (g_strcasecmp(parse[i], "artist") == 0) {
+                                buf = g_strdup_printf("\t<i>%s</i>\n", utf8name);
+                                g_free(utf8name);
+                                message = g_strconcat(message, buf, NULL);
+                                g_free(buf);
+                            } else if (g_strcasecmp(parse[i], "album") == 0) {
+                                buf = g_strdup_printf("\t%s\n", utf8name);
+                                g_free(utf8name);
+                                message = g_strconcat(message, buf, NULL);
+                                g_free(buf);
+                            } else {
+                                /*
+                                   buf = g_strdup_printf("<b>%s:</b>\t%s\n", parse[i], utf8name);
+                                   g_free(utf8name);
+                                   message = g_strconcat(message, buf, NULL);
+                                   g_free(buf);
+                                 */
+                            }
+
+                        }
                         i += 2;
                     }
-                    buf = g_strdup_printf("<b>File:</b>\t%s\n", idledata->info);
+
+                    buf = g_strdup_printf("\n\t%s\n", idledata->info);
                     message = g_strconcat(message, buf, NULL);
                     g_free(buf);
 
                     message = g_strconcat(message, "</small>", NULL);
 
-					g_strfreev(parse);
+                    g_strfreev(parse);
                 }
             }
             g_strlcpy(idledata->media_info, message, 1024);
