@@ -270,6 +270,9 @@ gint parse_basic(gchar * uri)
     gint ret;
     gchar **parse;
 
+    if (device_name(uri))
+        return 0;
+
     file = g_file_new_for_uri(uri);
     path = get_path(uri);
     input = g_file_read(file, NULL, NULL);

@@ -1,4 +1,5 @@
 Development
+    Rework the metadata parser to provide more info from the media file
     Fix some memory leaks
     Make View Subtitles and View Playlist menu items into checkboxes
     Move Details from File menu to View menu

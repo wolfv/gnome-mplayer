@@ -561,10 +561,14 @@ int main(int argc, char *argv[])
 
             while (argv[i] != NULL) {
 #ifdef GIO_ENABLED
-                file = g_file_new_for_commandline_arg(argv[i]);
-                if (file != NULL) {
-                    uri = g_file_get_uri(file);
-                    g_object_unref(file);
+                if (!device_name(argv[i])) {
+                    file = g_file_new_for_commandline_arg(argv[i]);
+                    if (file != NULL) {
+                        uri = g_file_get_uri(file);
+                        g_object_unref(file);
+                    }
+                } else {
+                    uri = g_strdup(argv[i]);
                 }
 #else
                 uri = g_filename_to_uri(argv[fileindex], NULL, NULL);
