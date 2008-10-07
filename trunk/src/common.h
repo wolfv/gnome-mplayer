@@ -69,6 +69,7 @@
 #define WINDOW_Y		"window_y"
 #define KEEP_ON_TOP		"keep_on_top"
 #define SINGLE_INSTANCE "single_instance"
+#define SHOW_NOTIFICATION "show_notification"
 
 // JavaScript Playstates
 #define STATE_UNDEFINED     0
@@ -258,6 +259,7 @@ gboolean single_instance;
 gboolean new_instance;
 gboolean replace_and_play;
 gboolean use_pausing_keep_force;
+gboolean show_notification;
 
 gboolean remember_loc;
 gint loc_window_x;

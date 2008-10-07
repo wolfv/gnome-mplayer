@@ -197,6 +197,7 @@ GtkWidget *config_pause_on_click;
 GtkWidget *config_softvol;
 GtkWidget *config_forcecache;
 GtkWidget *config_verbose;
+GtkWidget *config_show_notification;
 
 GtkWidget *config_alang;
 GtkWidget *config_slang;

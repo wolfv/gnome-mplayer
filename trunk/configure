@@ -742,6 +742,9 @@ GCONF_DEFINES
 ALSA_CFLAGS
 ALSA_LIBS
 ALSA_DEFINES
+NOTIFY_CFLAGS
+NOTIFY_LIBS
+NOTIFY_DEFINES
 LIBOBJS
 LTLIBOBJS'
 ac_subst_files=''
@@ -771,7 +774,9 @@ DBUS_LIBS
 GCONF_CFLAGS
 GCONF_LIBS
 ALSA_CFLAGS
-ALSA_LIBS'
+ALSA_LIBS
+NOTIFY_CFLAGS
+NOTIFY_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1358,6 +1363,7 @@ Optional Packages:
   --with-gconf-source=sourceaddress      Config database for installing schema files.
   --with-gconf-schema-file-dir=dir        Directory for installing schema files.
   --with-gconf            Use Gconf to store preferences
+  --with-libnotify        Send notifications of new media
 
 Some influential environment variables:
   CC          C compiler command
@@ -1390,6 +1396,9 @@ Some influential environment variables:
   GCONF_LIBS  linker flags for GCONF, overriding pkg-config
   ALSA_CFLAGS C compiler flags for ALSA, overriding pkg-config
   ALSA_LIBS   linker flags for ALSA, overriding pkg-config
+  NOTIFY_CFLAGS
+              C compiler flags for NOTIFY, overriding pkg-config
+  NOTIFY_LIBS linker flags for NOTIFY, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -8771,6 +8780,133 @@ fi
 
 
 
+# Check whether --with-libnotify was given.
+if test "${with_libnotify+set}" = set; then
+  withval=$with_libnotify;
+else
+  with_notify=check
+fi
+
+if test "x$with_notify" != xno; then
+
+pkg_failed=no
+{ echo "$as_me:$LINENO: checking for NOTIFY" >&5
+echo $ECHO_N "checking for NOTIFY... $ECHO_C" >&6; }
+
+if test -n "$NOTIFY_CFLAGS"; then
+    pkg_cv_NOTIFY_CFLAGS="$NOTIFY_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"libnotify\"") >&5
+  ($PKG_CONFIG --exists --print-errors "libnotify") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_NOTIFY_CFLAGS=`$PKG_CONFIG --cflags "libnotify" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$NOTIFY_LIBS"; then
+    pkg_cv_NOTIFY_LIBS="$NOTIFY_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"libnotify\"") >&5
+  ($PKG_CONFIG --exists --print-errors "libnotify") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_NOTIFY_LIBS=`$PKG_CONFIG --libs "libnotify" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        NOTIFY_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "libnotify" 2>&1`
+        else
+	        NOTIFY_PKG_ERRORS=`$PKG_CONFIG --print-errors "libnotify" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$NOTIFY_PKG_ERRORS" >&5
+
+	{ { echo "$as_me:$LINENO: error: Package requirements (libnotify) were not met:
+
+$NOTIFY_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables NOTIFY_CFLAGS
+and NOTIFY_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" >&5
+echo "$as_me: error: Package requirements (libnotify) were not met:
+
+$NOTIFY_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables NOTIFY_CFLAGS
+and NOTIFY_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" >&2;}
+   { (exit 1); exit 1; }; }
+elif test $pkg_failed = untried; then
+	{ { echo "$as_me:$LINENO: error: The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables NOTIFY_CFLAGS
+and NOTIFY_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details." >&5
+echo "$as_me: error: The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables NOTIFY_CFLAGS
+and NOTIFY_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details." >&2;}
+   { (exit 1); exit 1; }; }
+else
+	NOTIFY_CFLAGS=$pkg_cv_NOTIFY_CFLAGS
+	NOTIFY_LIBS=$pkg_cv_NOTIFY_LIBS
+        { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+	NOTIFY_DEFINES="-DNOTIFY_ENABLED"
+cat >>confdefs.h <<\_ACEOF
+#define NOTIFY_ENABLED 1
+_ACEOF
+
+fi
+
+
+
+
+fi
+
+
+
 for ac_header in mntent.h
 do
 as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
@@ -9764,11 +9900,14 @@ GCONF_DEFINES!$GCONF_DEFINES$ac_delim
 ALSA_CFLAGS!$ALSA_CFLAGS$ac_delim
 ALSA_LIBS!$ALSA_LIBS$ac_delim
 ALSA_DEFINES!$ALSA_DEFINES$ac_delim
+NOTIFY_CFLAGS!$NOTIFY_CFLAGS$ac_delim
+NOTIFY_LIBS!$NOTIFY_LIBS$ac_delim
+NOTIFY_DEFINES!$NOTIFY_DEFINES$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 34; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 37; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

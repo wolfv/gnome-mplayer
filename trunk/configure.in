@@ -71,6 +71,18 @@ AC_SUBST(ALSA_DEFINES)
 AC_SUBST(ALSA_CFLAGS)
 AC_SUBST(ALSA_LIBS)
 
+AC_ARG_WITH([libnotify],
+    [AS_HELP_STRING([--with-libnotify],
+        [Send notifications of new media])],
+        [],
+        [with_notify=check])
+AS_IF([test "x$with_notify" != xno], 
+    [PKG_CHECK_MODULES(NOTIFY,[libnotify],[NOTIFY_DEFINES="-DNOTIFY_ENABLED" AC_DEFINE([NOTIFY_ENABLED],[1],[Define to 1 if you have NOTIFY support])],)
+    AC_SUBST(NOTIFY_DEFINES)
+    AC_SUBST(NOTIFY_CFLAGS)
+    AC_SUBST(NOTIFY_LIBS)
+    ])
+
 AC_CHECK_HEADERS([mntent.h])
 AC_OUTPUT([
 Makefile
