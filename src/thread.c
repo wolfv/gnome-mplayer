@@ -203,7 +203,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gchar *error_msg = NULL;
     GtkWidget *dialog;
     gchar **parse;
-    gint name, artist;
     gchar *cdname;
     gchar *cdartist;
     gchar *utf8name;
@@ -434,112 +433,86 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_strlcpy(idledata->metadata, buf + strlen("ANS_metadata="), 1024);
         g_strchomp(idledata->metadata);
 
-        if (idledata->metadata != NULL) {
-            parse = g_strsplit(idledata->metadata, ",", -1);
-            if (parse != NULL) {
-                i = 0;
-                artist = -1;
-                name = -1;
-                while (parse[i] != NULL) {
-                    if (g_strcasecmp(parse[i], "name") == 0 || g_strcasecmp(parse[i], "title") == 0) {
-                        name = i + 1;
-                    }
-                    if (g_strcasecmp(parse[i], "artist") == 0) {
-                        artist = i + 1;
-                    }
-                    i++;
-                }
-                if (name > 0 && artist > 0) {
-                    utf8name = g_strstrip(metadata_to_utf8(parse[name]));
+        if (buf != NULL) {
+
+            if (g_strncasecmp(idledata->info, "cdda", 4) == 0
+                && gtk_list_store_iter_is_valid(playliststore, &iter)) {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, DESCRIPTION_COLUMN,
+                                   &cdname, ARTIST_COLUMN, &cdartist, -1);
+                if (cdname != NULL && strlen(cdname) != 0) {
+                    utf8name = g_locale_to_utf8(cdname, -1, NULL, NULL, NULL);
                     if (utf8name == NULL) {
-                        strip_unicode(parse[name], strlen(parse[name]));
-                        utf8name = g_strstrip(g_strdup(parse[name]));
+                        strip_unicode(cdname, strlen(cdname));
+                        utf8name = g_strdup(cdname);
                     }
-                    utf8artist = g_strstrip(metadata_to_utf8(parse[artist]));
-                    if (utf8artist == NULL) {
-                        strip_unicode(parse[artist], strlen(parse[artist]));
-                        utf8artist = g_strstrip(g_strdup(parse[artist]));
-                    }
-                    if (strlen(utf8name) == 0) {
-                        g_free(utf8name);
-                        utf8name = g_strdup(_("Unknown"));
-                    }
-                    if (strlen(utf8artist) == 0) {
-                        g_free(utf8artist);
-                        utf8name = g_strdup(_("Unknown"));
-                    }
-
-                    message =
-                        g_markup_printf_escaped(_
-                                                ("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>File:</b>\t%s\n</small>"),
-                                                utf8name, utf8artist, idledata->info);
-                    g_strlcpy(idledata->media_info, message, 1024);
-                    g_free(message);
-                    g_free(utf8name);
-                    g_free(utf8artist);
-                    g_idle_add(set_media_label, idledata);
                 } else {
-                    if (g_strncasecmp(idledata->info, "cdda", 4) == 0
-                        && gtk_list_store_iter_is_valid(playliststore, &iter)) {
-                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, DESCRIPTION_COLUMN,
-                                           &cdname, ARTIST_COLUMN, &cdartist, -1);
-                        if (cdname != NULL && strlen(cdname) != 0) {
-                            utf8name = g_locale_to_utf8(cdname, -1, NULL, NULL, NULL);
-                            if (utf8name == NULL) {
-                                strip_unicode(cdname, strlen(cdname));
-                                utf8name = g_strdup(cdname);
-                            }
-                        } else {
-                            utf8name = g_strdup(_("Unknown"));
-                        }
-
-                        if (cdartist != NULL && strlen(cdname) != 0) {
-                            utf8artist = g_locale_to_utf8(cdartist, -1, NULL, NULL, NULL);
-                            if (utf8artist == NULL) {
-                                strip_unicode(cdartist, strlen(cdartist));
-                                utf8artist = g_strdup(cdartist);
-                            }
-                        } else {
-                            utf8artist = g_strdup(_("Unknown"));
-                        }
-
-                        message =
-                            g_markup_printf_escaped(_
-                                                    ("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),
-                                                    utf8name, utf8artist, playlistname);
-                        if (cdname != NULL) {
-                            g_free(cdname);
-                            cdname = NULL;
-                        }
-                        if (cdartist != NULL) {
-                            g_free(cdartist);
-                            cdartist = NULL;
-                        }
-                        g_free(utf8name);
-                        utf8name = NULL;
-                        g_free(utf8artist);
-                        utf8name = NULL;
-
-                    } else {
-                        message =
-                            g_markup_printf_escaped(_
-                                                    ("<small>\n<b>Title:</b>\tUnknown\n<b>Artist:</b>\tUnknown\n<b>File:</b>\t%s\n</small>"),
-                                                    idledata->info);
-                    }
-                    g_strlcpy(idledata->media_info, message, 1024);
-                    g_free(message);
-                    g_idle_add(set_media_label, idledata);
+                    utf8name = g_strdup(_("Unknown"));
                 }
-                g_strfreev(parse);
+
+                if (cdartist != NULL && strlen(cdname) != 0) {
+                    utf8artist = g_locale_to_utf8(cdartist, -1, NULL, NULL, NULL);
+                    if (utf8artist == NULL) {
+                        strip_unicode(cdartist, strlen(cdartist));
+                        utf8artist = g_strdup(cdartist);
+                    }
+                } else {
+                    utf8artist = g_strdup(_("Unknown"));
+                }
+
+                message =
+                    g_markup_printf_escaped(_
+                                            ("<small>\n<b>Title:</b>\t%s\n<b>Artist:</b>\t%s\n<b>Album:</b>\t%s\n</small>"),
+                                            utf8name, utf8artist, playlistname);
+                if (cdname != NULL) {
+                    g_free(cdname);
+                    cdname = NULL;
+                }
+                if (cdartist != NULL) {
+                    g_free(cdartist);
+                    cdartist = NULL;
+                }
+                g_free(utf8name);
+                utf8name = NULL;
+                g_free(utf8artist);
+                utf8name = NULL;
+
+            } else {
+                parse = g_strsplit(idledata->metadata, ",", -1);
+                if (parse != NULL) {
+                    i = 0;
+                    message = g_strdup_printf("<small>\n");
+                    while (parse[i] != NULL && parse[i + 1] != NULL) {
+                        utf8name = metadata_to_utf8(parse[i + 1]);
+                        if (utf8name == NULL) {
+                            strip_unicode(parse[i + 1], strlen(parse[i + 1]));
+                            utf8name = g_strstrip(g_strdup(parse[i + 1]));
+                        }
+						if (strlen(utf8name) != 0) {
+							buf = g_strdup_printf("<b>%s:</b>\t%s\n", parse[i], utf8name);
+							g_free(utf8name);
+							message = g_strconcat(message, buf, NULL);
+							g_free(buf);
+						}
+                        i += 2;
+                    }
+                    buf = g_strdup_printf("<b>File:</b>\t%s\n", idledata->info);
+                    message = g_strconcat(message, buf, NULL);
+                    g_free(buf);
+
+                    message = g_strconcat(message, "</small>", NULL);
+
+					g_strfreev(parse);
+                }
             }
+            g_strlcpy(idledata->media_info, message, 1024);
+            g_free(message);
+            g_idle_add(set_media_label, idledata);
         }
     }
 
     if (strstr(mplayer_output->str, "Cache fill") != 0) {
         buf = strstr(mplayer_output->str, "Cache fill");
         sscanf(buf, "Cache fill: %f%%", &percent);
-        //printf("Percent = %f\n",percent);
-        //printf("Buffer = %s\n",buf);
         buf = g_strdup_printf(_("Cache fill: %2.2f%%"), percent);
         g_strlcpy(idledata->progress_text, buf, 1024);
         g_free(buf);
