@@ -113,7 +113,7 @@ gint detect_playlist(gchar * uri)
             }
             if (output[0] != NULL && playlist == 0) {
                 newuri = g_filename_to_uri(output[0], NULL, NULL);
-                if (uri_exists(newuri))
+                if (newuri != NULL && uri_exists(newuri))
                     playlist = 1;
                 g_free(newuri);
             }
@@ -932,7 +932,7 @@ gboolean streaming_media(gchar * uri)
     ret = TRUE;
 
     if (uri == NULL)
-        ret = FALSE;
+        return FALSE;
     if (strstr(uri, "dvd://") != NULL) {
         ret = FALSE;
     } else if (strstr(uri, "dvdnav://") != NULL) {
@@ -988,7 +988,13 @@ gboolean device_name(gchar * filename)
     } else {
         ret = FALSE;
     }
-
+	if (verbose > 1) {
+		if (ret) {
+			printf("%s is a device name\n",filename);
+		} else {
+			printf("%s is not a device name\n",filename);
+		}
+	}
     return ret;
 }
 
