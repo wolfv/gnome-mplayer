@@ -1717,6 +1717,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog), FALSE);
 #endif
 
+    gtk_widget_show(dialog);
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
@@ -1887,6 +1888,7 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+    gtk_widget_show(dialog);
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
@@ -1944,6 +1946,7 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+    gtk_widget_show(dialog);
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL) {
@@ -2410,6 +2413,7 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
                                              GTK_FILE_CHOOSER_ACTION_OPEN,
                                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                              GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+        gtk_widget_show(dialog);
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), path);
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
             subtitle = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
