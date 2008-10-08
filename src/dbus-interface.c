@@ -70,7 +70,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     GtkTreePath *treepath;
     gint source_id;
     gint bitrate;
-	gchar *buf = NULL;
+    gchar *buf = NULL;
 
     message_type = dbus_message_get_type(message);
     sender = dbus_message_get_sender(message);
@@ -110,11 +110,11 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                 gtk_list_store_clear(playliststore);
                                 gtk_list_store_clear(nonrandomplayliststore);
                                 selection = NULL;
-								if (!uri_exists (s)) {
-									buf = g_filename_to_uri (s,NULL,NULL);
-								} else {
-									buf = g_strdup(s);
-								}
+                                if (!uri_exists(s)) {
+                                    buf = g_filename_to_uri(s, NULL, NULL);
+                                } else {
+                                    buf = g_strdup(s);
+                                }
                                 playlist = detect_playlist(buf);
                                 if (!playlist) {
                                     add_item_to_playlist(buf, playlist);
@@ -123,7 +123,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                         add_item_to_playlist(s, playlist);
                                     }
                                 }
-								g_free(buf);
+                                g_free(buf);
                                 if (gtk_tree_model_get_iter_first
                                     (GTK_TREE_MODEL(playliststore), &iter)) {
                                     gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,
@@ -162,15 +162,15 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         gtk_list_store_clear(playliststore);
                         gtk_list_store_clear(nonrandomplayliststore);
                         selection = NULL;
-								if (!uri_exists (s)) {
-									buf = g_filename_to_uri (s,NULL,NULL);
-								} else {
-									buf = g_strdup(s);
-								}
-                         if (!parse_playlist(buf)) {
+                        if (!uri_exists(s)) {
+                            buf = g_filename_to_uri(s, NULL, NULL);
+                        } else {
+                            buf = g_strdup(s);
+                        }
+                        if (!parse_playlist(buf)) {
                             add_item_to_playlist(buf, 1);
                         }
-						g_free(buf);
+                        g_free(buf);
                         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
                             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
                                                &s, COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist,

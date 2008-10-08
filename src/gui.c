@@ -210,9 +210,11 @@ gboolean set_media_label(void *data)
             notify_uninit();
         }
 #endif
-		if (embed_window == 0 && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) != 1) {
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
-		}
+        if (embed_window == 0
+            && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) != 1) {
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
+                                           playlist_visible);
+        }
 
     }
     return FALSE;
@@ -4443,8 +4445,8 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), GTK_WIDGET(menuitem_view));
     gtk_menu_item_set_submenu(menuitem_view, GTK_WIDGET(menu_view));
     menuitem_view_playlist = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Playlist")));
-	// gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
-	gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_playlist));
+    // gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_playlist));
     menuitem_view_info = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Media _Info")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_info));
     menuitem_view_details = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_etails")));
