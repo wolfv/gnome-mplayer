@@ -493,7 +493,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                                 g_free(utf8name);
                                 message = g_strconcat(message, buf, NULL);
                                 g_free(buf);
-                            } else if (g_strcasecmp(parse[i], "artist") == 0) {
+                            } else if (g_strcasecmp(parse[i], "artist") == 0 || g_strcasecmp(parse[i], "author") == 0) {
                                 buf = g_strdup_printf("\t<i>%s</i>\n", utf8name);
                                 g_free(utf8name);
                                 message = g_strconcat(message, buf, NULL);

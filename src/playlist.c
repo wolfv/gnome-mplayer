@@ -301,7 +301,7 @@ void load_playlist(GtkWidget * widget, void *data)
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL)
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
 
     filter = gtk_file_filter_new();
     gtk_file_filter_set_name(filter, _("Playlist (*.pls)"));
@@ -320,8 +320,8 @@ void load_playlist(GtkWidget * widget, void *data)
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-        last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
+        filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+        last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
         write_preference_string(LAST_DIR, last_dir);
         g_free(last_dir);
 
