@@ -299,7 +299,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->width = actual_x;
         idledata->height = actual_y;
         idledata->videopresent = TRUE;
-        g_idle_add_full(G_PRIORITY_HIGH_IDLE, resize_window, idledata, NULL);
+        g_idle_add(resize_window, idledata);
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
         send_command("get_property metadata\n", TRUE);
@@ -833,13 +833,14 @@ gpointer launch_player(gpointer data)
             }
         }
     }
+    // argv[arg++] = g_strdup_printf("-v");
     argv[arg++] = g_strdup_printf("-wid");
     player_window = get_player_window();
     argv[arg++] = g_strdup_printf("0x%x", player_window);
 
     if (control_id == 0) {
-        if (!idledata->streaming)
-            argv[arg++] = g_strdup_printf("-idx");
+//        if (!idledata->streaming)
+//            argv[arg++] = g_strdup_printf("-idx");
     } else {
         argv[arg++] = g_strdup_printf("-cookies");
     }

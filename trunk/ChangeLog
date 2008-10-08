@@ -1,4 +1,5 @@
 Development
+    Remove the -idx option from mplayer command
     Make playlist visible on load only if playlist is loaded or if nothing loaded
     Fix problems with playlist name in playlist view
     Fix problem with open playlist button
