@@ -126,6 +126,7 @@ void playlist_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
                                              GTK_FILE_CHOOSER_ACTION_OPEN,
                                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                              GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+        gtk_widget_show(dialog);
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), path);
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
             subtitle = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
@@ -247,7 +248,7 @@ void save_playlist(GtkWidget * widget, void *data)
 #ifdef GIO_ENABLED
     gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog), FALSE);
 #endif
-
+    gtk_widget_show(dialog);
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL)
@@ -302,7 +303,7 @@ void load_playlist(GtkWidget * widget, void *data)
                                          GTK_FILE_CHOOSER_ACTION_OPEN,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
-
+    gtk_widget_show(dialog);
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL)
@@ -460,6 +461,7 @@ void add_to_playlist(GtkWidget * widget, void *data)
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 
     /*allow multiple files to be selected */
+    gtk_widget_show(dialog);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 #ifdef GIO_ENABLED
     gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog), FALSE);
@@ -508,6 +510,7 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 
+    gtk_widget_show(dialog);
     /*allow multiple files to be selected */
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 #ifdef GIO_ENABLED

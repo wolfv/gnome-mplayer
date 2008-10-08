@@ -1,4 +1,5 @@
 Development
+    Add in work around for gtk crash, when setting the default folder to a non-local uri
     Better m3u parser, meets specs a little better
     Handle previously unknown M3U file format
     Updated pls and m3u playlist saving to GIO support

@@ -331,9 +331,9 @@ gint parse_basic(gchar * uri)
                 ret = 1;
                 add_item_to_playlist(line, 0);
             } else if (g_strncasecmp(line, "#extinf", strlen("#extinf")) == 0) {
-				// skip this line
+                // skip this line
             } else if (g_strncasecmp(line, "#", strlen("#")) == 0) {
-				// skip this line
+                // skip this line
             } else if (uri_exists(newuri)) {
                 //printf("ft file - %s\n", file);
                 ret = 1;
