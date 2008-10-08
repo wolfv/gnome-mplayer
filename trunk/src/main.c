@@ -585,7 +585,8 @@ int main(int argc, char *argv[])
                         if (!parse_playlist(uri)) {
                             add_item_to_playlist(uri, playlist);
                         }
-
+						if (playlist_visible == TRUE && embed_window == 0)
+							menuitem_view_playlist_callback(NULL, NULL);
                     }
                     g_free(uri);
                 }
