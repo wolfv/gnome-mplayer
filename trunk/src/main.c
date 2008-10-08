@@ -568,14 +568,17 @@ int main(int argc, char *argv[])
                     if (file != NULL) {
                         uri = g_file_get_uri(file);
                         g_object_unref(file);
-                    }
+                    } else {
+						uri = g_strdup(argv[i]);
+					}
                 } else {
                     uri = g_strdup(argv[i]);
                 }
 #else
-                uri = g_filename_to_uri(argv[fileindex], NULL, NULL);
+                uri = g_filename_to_uri(argv[i], NULL, NULL);
 #endif
-                if (uri != NULL) {
+
+				if (uri != NULL) {
                     if (playlist == 0)
                         playlist = detect_playlist(uri);
 
@@ -585,8 +588,6 @@ int main(int argc, char *argv[])
                         if (!parse_playlist(uri)) {
                             add_item_to_playlist(uri, playlist);
                         }
-						if (playlist_visible == TRUE && embed_window == 0)
-							menuitem_view_playlist_callback(NULL, NULL);
                     }
                     g_free(uri);
                 }
@@ -608,11 +609,13 @@ int main(int argc, char *argv[])
                 g_free(uri);
             }
         }
-    } else {
-        if (playlist_visible == TRUE && embed_window == 0)
-            menuitem_view_playlist_callback(NULL, NULL);
-    }
 
+    } else {
+		if (embed_window == 0) {
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
+		}		
+	}
+	
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), details_visible);
 
     dbus_hookup(embed_window, control_id);

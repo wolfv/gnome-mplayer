@@ -731,7 +731,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 
     g_value_init(&value, G_TYPE_BOOLEAN);
 
-    if (GTK_IS_WIDGET(plvbox)) {
+    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)) == FALSE) {
         if (GTK_WIDGET_VISIBLE(plvbox)) {
             if (idledata->videopresent == FALSE) {
                 gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height,
@@ -969,9 +969,10 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                                   stored_window_height + 150);
         } else {
             gtk_widget_set_size_request(plvbox, 300, -1);
-            if (idledata->videopresent)
+            if (idledata->videopresent) {
                 gtk_window_resize(GTK_WINDOW(window), stored_window_width + 300,
                                   stored_window_height);
+			} 
         }
         gtk_widget_show_all(plvbox);
         if (idledata->videopresent == FALSE) {
