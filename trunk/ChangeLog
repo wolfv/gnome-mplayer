@@ -1,4 +1,6 @@
 Development
+    Fix problem with open playlist button
+    Fix problem with gecko-mediaplayer not passing uri, but filename and not adjusting
     Add in support for libnotify popups
     Rework the metadata parser to provide more info from the media file
     Fix some memory leaks
