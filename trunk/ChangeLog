@@ -1,4 +1,5 @@
 Development
+    Fix problems with playlist name in playlist view
     Fix problem with open playlist button
     Fix problem with gecko-mediaplayer not passing uri, but filename and not adjusting
     Add in support for libnotify popups
