@@ -330,6 +330,10 @@ gint parse_basic(gchar * uri)
                 //printf("mms\n");
                 ret = 1;
                 add_item_to_playlist(line, 0);
+            } else if (g_strncasecmp(line, "#extinf", strlen("#extinf")) == 0) {
+				// skip this line
+            } else if (g_strncasecmp(line, "#", strlen("#")) == 0) {
+				// skip this line
             } else if (uri_exists(newuri)) {
                 //printf("ft file - %s\n", file);
                 ret = 1;
@@ -359,18 +363,6 @@ gint parse_basic(gchar * uri)
                             g_strchomp(parse[1]);
                             g_strchug(parse[1]);
                             add_item_to_playlist(parse[1], 0);
-                        }
-                        g_strfreev(parse);
-                    }
-                } else if (g_ascii_strncasecmp(line, "#EXTINF", 4) == 0) {
-                    parse = g_strsplit(line, ",", 2);
-                    if (parse != NULL) {
-                        if (parse[1] != NULL) {
-                            g_strchomp(parse[1]);
-                            g_strchug(parse[1]);
-                            g_free(newuri);
-                            newuri = g_strdup_printf("%s/%s", path, parse[1]);
-                            add_item_to_playlist(newuri, 0);
                         }
                         g_strfreev(parse);
                     }
@@ -1768,7 +1760,6 @@ gdouble get_alsa_volume()
         snd_mixer_selem_id_free(sid);
     }
 
-    snd_mixer_free(mhandle);
     snd_mixer_detach(mhandle, device);
     snd_mixer_close(mhandle);
 #endif
