@@ -180,7 +180,7 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
             i++;
         }
 
-        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2) {
+        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
                                PLAYLIST_COLUMN, &playlist, -1);
