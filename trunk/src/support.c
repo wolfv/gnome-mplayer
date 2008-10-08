@@ -96,6 +96,10 @@ gint detect_playlist(gchar * uri)
                 playlist = 1;
             }
 
+            if (strstr(g_strdown(buffer), "#extm3u") != 0) {
+                playlist = 1;
+            }
+
             if (strstr(g_strdown(buffer), "http://") != 0) {
                 playlist = 1;
             }
@@ -355,6 +359,18 @@ gint parse_basic(gchar * uri)
                             g_strchomp(parse[1]);
                             g_strchug(parse[1]);
                             add_item_to_playlist(parse[1], 0);
+                        }
+                        g_strfreev(parse);
+                    }
+                } else if (g_ascii_strncasecmp(line, "#EXTINF", 4) == 0) {
+                    parse = g_strsplit(line, ",", 2);
+                    if (parse != NULL) {
+                        if (parse[1] != NULL) {
+                            g_strchomp(parse[1]);
+                            g_strchug(parse[1]);
+                            g_free(newuri);
+                            newuri = g_strdup_printf("%s/%s", path, parse[1]);
+                            add_item_to_playlist(newuri, 0);
                         }
                         g_strfreev(parse);
                     }
@@ -1377,13 +1393,57 @@ gboolean next_item_in_playlist(GtkTreeIter * iter)
     }
 }
 
-gboolean save_playlist_pls(gchar * filename)
+gboolean save_playlist_pls(gchar * uri)
 {
-    FILE *contents;
     gchar *itemname;
     GtkTreeIter localiter;
     gint i = 1;
     GtkWidget *dialog;
+
+#ifdef GIO_ENABLED
+    GFile *file;
+    GFileOutputStream *output;
+    GDataOutputStream *data;
+    gchar *buffer;
+
+    file = g_file_new_for_uri(uri);
+    output = g_file_replace(file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL);
+    data = g_data_output_stream_new((GOutputStream *) output);
+    if (data != NULL) {
+        g_data_output_stream_put_string(data, "[playlist]\n", NULL, NULL);
+        buffer =
+            g_strdup_printf("NumberOfEntries=%i\n",
+                            gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL));
+        g_data_output_stream_put_string(data, buffer, NULL, NULL);
+        g_free(buffer);
+        g_data_output_stream_put_string(data, "Version=2\n", NULL, NULL);
+        if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter)) {
+            do {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,
+                                   &itemname, -1);
+                buffer = g_strdup_printf("File%i=%s\n", i++, itemname);
+                g_data_output_stream_put_string(data, buffer, NULL, NULL);
+                g_free(buffer);
+                g_free(itemname);
+            } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
+        }
+
+        g_output_stream_close((GOutputStream *) data, NULL, NULL);
+        return TRUE;
+    } else {
+        dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                        GTK_BUTTONS_CLOSE,
+                                        _("Unable to save playlist, cannot open file for writing"));
+        gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
+        gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_widget_destroy(dialog);
+
+        return FALSE;
+    }
+
+#else
+    gchar *filename;
+    FILE *contents;
 
     contents = fopen(filename, "w");
     if (contents != NULL) {
@@ -1412,16 +1472,56 @@ gboolean save_playlist_pls(gchar * filename)
 
         return FALSE;
     }
+    g_free(filename);
+#endif
 }
 
 
-gboolean save_playlist_m3u(gchar * filename)
+gboolean save_playlist_m3u(gchar * uri)
 {
-    FILE *contents;
     gchar *itemname;
     GtkTreeIter localiter;
     GtkWidget *dialog;
 
+#ifdef GIO_ENABLED
+    GFile *file;
+    GFileOutputStream *output;
+    GDataOutputStream *data;
+    gchar *buffer;
+
+    file = g_file_new_for_uri(uri);
+    output = g_file_replace(file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL);
+    data = g_data_output_stream_new((GOutputStream *) output);
+    if (data != NULL) {
+        if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter)) {
+            do {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,
+                                   &itemname, -1);
+                buffer = g_strdup_printf("%s\n", itemname);
+                g_data_output_stream_put_string(data, buffer, NULL, NULL);
+                g_free(buffer);
+                g_free(itemname);
+            } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
+        }
+
+        g_output_stream_close((GOutputStream *) data, NULL, NULL);
+        return TRUE;
+    } else {
+        dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                        GTK_BUTTONS_CLOSE,
+                                        _("Unable to save playlist, cannot open file for writing"));
+        gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
+        gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_widget_destroy(dialog);
+
+        return FALSE;
+    }
+#else
+    gchar *filename;
+    FILE *contents;
+
+
+    filename = g_filename_from_uri(uri, NULL, NULL);
     contents = fopen(filename, "w");
     if (contents != NULL) {
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter)) {
@@ -1445,6 +1545,8 @@ gboolean save_playlist_m3u(gchar * filename)
 
         return FALSE;
     }
+    g_free(filename);
+#endif
 }
 
 gchar *get_path(gchar * uri)
