@@ -111,6 +111,12 @@ gint detect_playlist(gchar * uri)
             if (output[0] != NULL && uri_exists(output[0])) {
                 playlist = 1;
             }
+            if (output[0] != NULL && playlist == 0) {
+                newuri = g_filename_to_uri(output[0], NULL, NULL);
+                if (uri_exists(newuri))
+                    playlist = 1;
+                g_free(newuri);
+            }
 
             if (output[0] != NULL && strlen(output[0]) > 0) {
                 newuri = g_strdup_printf("%s/%s", path, output[0]);
@@ -280,12 +286,13 @@ gint parse_basic(gchar * uri)
     if (data != NULL) {
         line = g_data_input_stream_read_line(data, &length, NULL, NULL);
         while (line != NULL) {
-            // printf("line = %s\n", line);
 
             if (strlen(line) > 0) {
                 newuri = g_strdup_printf("%s/%s", path, line);
                 line_uri = g_filename_to_uri(line, NULL, NULL);
             }
+            //printf("line = %s\n", line);
+            //printf("line_uri = %s\n", line_uri);
             if (g_strcasecmp(line, "[playlist]") == 0) {
                 //printf("playlist\n");
                 ret = 1;
@@ -1990,6 +1997,5 @@ gboolean uri_exists(gchar * uri)
         g_free(filename);
     }
 #endif
-
     return result;
 }
