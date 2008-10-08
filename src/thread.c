@@ -209,7 +209,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gchar *utf8artist;
     gdouble old_pos;
     LangMenu *menu;
-	gboolean found_title;
+    gboolean found_title;
 
     if (source == NULL) {
         g_source_remove(watch_err_id);
@@ -480,7 +480,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 parse = g_strsplit(idledata->metadata, ",", -1);
                 if (parse != NULL) {
                     i = 0;
-					found_title = FALSE;
+                    found_title = FALSE;
                     message = g_strdup_printf("<small>\n");
                     while (parse[i] != NULL && parse[i + 1] != NULL) {
                         utf8name = metadata_to_utf8(parse[i + 1]);
@@ -495,7 +495,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                                 g_free(utf8name);
                                 message = g_strconcat(message, buf, NULL);
                                 g_free(buf);
-								found_title = TRUE;
+                                found_title = TRUE;
                             } else if (g_strcasecmp(parse[i], "artist") == 0
                                        || g_strcasecmp(parse[i], "author") == 0) {
                                 buf = g_strdup_printf("\t<i>%s</i>\n", utf8name);
@@ -519,14 +519,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                         }
                         i += 2;
                     }
-					
-					if (!found_title) {
-						utf8name = g_path_get_basename (idledata->info);
-						buf = g_strdup_printf("\t<big><b>%s</b></big>\n", utf8name);
-						g_free(utf8name);
+
+                    if (!found_title) {
+                        utf8name = g_path_get_basename(idledata->info);
+                        buf = g_strdup_printf("\t<big><b>%s</b></big>\n", utf8name);
+                        g_free(utf8name);
                         message = g_strconcat(message, buf, NULL);
-                        g_free(buf);						
-					}
+                        g_free(buf);
+                    }
 
                     buf = g_strdup_printf("\n\t%s\n", idledata->info);
                     message = g_strconcat(message, buf, NULL);

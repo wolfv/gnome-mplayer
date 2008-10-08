@@ -1,4 +1,6 @@
 Development
+    Handle previously unknown M3U file format
+    Updated pls and m3u playlist saving to GIO support
     When media doesn't provide a title, fallback to the basename of the uri
     Rework show playlist patch, it didn't work right
     Remove the -idx option from mplayer command

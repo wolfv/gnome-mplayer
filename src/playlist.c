@@ -233,8 +233,8 @@ gboolean playlist_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
 void save_playlist(GtkWidget * widget, void *data)
 {
     GtkWidget *dialog;
-    gchar *filename;
-    gchar *new_filename;
+    gchar *uri;
+    gchar *new_uri;
     GtkFileFilter *filter;
     gchar *last_dir;
 
@@ -243,10 +243,15 @@ void save_playlist(GtkWidget * widget, void *data)
                                          GTK_FILE_CHOOSER_ACTION_SAVE,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
+
+#ifdef GIO_ENABLED
+    gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog), FALSE);
+#endif
+
     init_preference_store();
     last_dir = read_preference_string(LAST_DIR);
     if (last_dir != NULL)
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
 
     gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog), TRUE);
     filter = gtk_file_filter_new();
@@ -261,24 +266,24 @@ void save_playlist(GtkWidget * widget, void *data)
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
-        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-        last_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
+        uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+        last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
         write_preference_string(LAST_DIR, last_dir);
         g_free(last_dir);
 
-        if (g_strrstr(filename, ".m3u") != NULL) {
-            save_playlist_m3u(filename);
+        if (g_strrstr(uri, ".m3u") != NULL) {
+            save_playlist_m3u(uri);
         }
-        if (g_strrstr(filename, ".pls") != NULL) {
-            save_playlist_pls(filename);
+        if (g_strrstr(uri, ".pls") != NULL) {
+            save_playlist_pls(uri);
         }
 
-        if (g_strrstr(filename, ".") == NULL) {
-            new_filename = g_strdup_printf("%s.pls", filename);
-            save_playlist_pls(new_filename);
-            g_free(new_filename);
+        if (g_strrstr(uri, ".") == NULL) {
+            new_uri = g_strdup_printf("%s.pls", uri);
+            save_playlist_pls(new_uri);
+            g_free(new_uri);
         }
-        g_free(filename);
+        g_free(uri);
     }
     release_preference_store();
     gtk_widget_destroy(dialog);
