@@ -758,6 +758,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
             stored_window_height = -1;
             plvbox = NULL;
             selection = NULL;
+			playlist_visible = FALSE;
         }
 
     } else {
@@ -992,7 +993,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                                  "button_press_event",
                                  G_CALLBACK(playlist_popup_handler), G_OBJECT(playlist_popup_menu));
         gtk_widget_show_all(GTK_WIDGET(playlist_popup_menu));
-
+		playlist_visible = TRUE;
 
         gtk_widget_grab_default(close);
     }
