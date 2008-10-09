@@ -4208,8 +4208,6 @@ GtkWidget *create_window(gint windowid)
         g_signal_connect(GTK_OBJECT(window), "delete_event", G_CALLBACK(delete_callback), NULL);
     g_signal_connect(GTK_OBJECT(window), "motion_notify_event", G_CALLBACK(motion_notify_callback),
                      NULL);
-//    g_signal_connect(GTK_OBJECT(window), "window_state_event", G_CALLBACK(window_state_callback),
-//                     NULL);
 
     accel_group = gtk_accel_group_new();
 
@@ -4762,6 +4760,8 @@ GtkWidget *create_window(gint windowid)
 
 #ifdef GTK2_12_ENABLED
     status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
+	if (control_id != 0)
+		gtk_status_icon_set_visible (status_icon,FALSE);
     g_signal_connect(status_icon, "activate", G_CALLBACK(status_icon_callback), NULL);
 #endif
 
