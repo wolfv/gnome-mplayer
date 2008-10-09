@@ -397,6 +397,10 @@ gboolean set_window_visible(void *data)
 
 gboolean set_update_gui(void *data)
 {
+    GtkTreeViewColumn *column;
+    gchar *coltitle;
+    gint count;
+
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2
         && idledata->has_chapters == FALSE) {
         gtk_widget_hide(prev_event_box);
@@ -414,6 +418,17 @@ gboolean set_update_gui(void *data)
                                        idledata->sub_visible);
     }
 
+	if (GTK_WIDGET(list)) {
+		column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
+		count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+		if (playlistname != NULL && strlen(playlistname) > 0) {
+			coltitle = g_strdup_printf(_("%s items"), playlistname);
+		} else {	
+			coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
+		}
+		gtk_tree_view_column_set_title(column, coltitle);
+		g_free(coltitle);
+	}	
     return FALSE;
 }
 

@@ -246,7 +246,7 @@ gint parse_playlist(gchar * uri)
             playlistname = g_strdup(uri);
         }
 
-        if (playlistname != NULL) {
+        if (playlistname != NULL && strlen(playlistname) > 0 ) {
             if (GTK_WIDGET(list)) {
                 column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
                 coltitle = g_strdup_printf(_("%s items"), playlistname);
@@ -266,7 +266,14 @@ gint parse_playlist(gchar * uri)
         }
     }
 
-    return ret;
+#ifdef GTK2_12_ENABLED
+    // don't put it on the recent list, if it is running in plugin mode
+    if (control_id == 0 && ret == 1) {
+        gtk_recent_manager_add_item(recent_manager, uri);
+    }
+#endif
+
+	return ret;
 }
 
 // parse_basic covers .pls, .m3u and reference playlist types 
