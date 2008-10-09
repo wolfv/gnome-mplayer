@@ -474,6 +474,7 @@ void add_to_playlist(GtkWidget * widget, void *data)
         g_free(last_dir);
     }
 
+	count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         uris = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
@@ -488,8 +489,11 @@ void add_to_playlist(GtkWidget * widget, void *data)
     update_gui();
     release_preference_store();
     column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
-    count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-    coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
+	if (playlistname != NULL && strlen(playlistname) > 0 && count == 0) {
+		coltitle = g_strdup_printf(_("%s items"), playlistname);
+	} else {	
+		coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
+	}
     gtk_tree_view_column_set_title(column, coltitle);
     g_free(coltitle);
 
