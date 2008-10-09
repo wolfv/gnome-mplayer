@@ -970,9 +970,11 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 #ifdef GTK2_12_ENABLED
 gboolean status_icon_callback(GtkStatusIcon * icon, gpointer data)
 {
-    gtk_window_deiconify(GTK_WINDOW(window));
-    gtk_widget_show(GTK_WIDGET(window));
-
+    if (GTK_WIDGET_VISIBLE(window)) {
+        gtk_widget_hide(GTK_WIDGET(window));
+    } else {
+        gtk_widget_show(GTK_WIDGET(window));
+    }
     return FALSE;
 }
 #endif
@@ -986,19 +988,6 @@ gboolean motion_notify_callback(GtkWidget * widget, GdkEventMotion * event, gpoi
 
     g_idle_add(make_panel_and_mouse_visible, NULL);
     return FALSE;
-}
-
-gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, gpointer data)
-{
-#ifdef GTK2_12_ENABLED
-    if (event->new_window_state & GDK_WINDOW_STATE_ICONIFIED) {
-        gtk_status_icon_set_visible(status_icon, TRUE);
-        gtk_widget_hide(GTK_WIDGET(window));
-    } else {
-        gtk_status_icon_set_visible(status_icon, FALSE);
-    }
-    return FALSE;
-#endif
 }
 
 gboolean move_window(void *data)
@@ -3819,10 +3808,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_details_visible, 0, 2, i, i + 1);
     i++;
 
+#ifdef NOTIFY_ENABLED
     config_show_notification = gtk_check_button_new_with_label(_("Show notification popup"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_notification), show_notification);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_notification, 0, 2, i, i + 1);
     i++;
+#endif
 
     config_vertical_layout =
         gtk_check_button_new_with_label(_("Start with playlist below media window"));
@@ -4217,8 +4208,8 @@ GtkWidget *create_window(gint windowid)
         g_signal_connect(GTK_OBJECT(window), "delete_event", G_CALLBACK(delete_callback), NULL);
     g_signal_connect(GTK_OBJECT(window), "motion_notify_event", G_CALLBACK(motion_notify_callback),
                      NULL);
-    g_signal_connect(GTK_OBJECT(window), "window_state_event", G_CALLBACK(window_state_callback),
-                     NULL);
+//    g_signal_connect(GTK_OBJECT(window), "window_state_event", G_CALLBACK(window_state_callback),
+//                     NULL);
 
     accel_group = gtk_accel_group_new();
 
@@ -4771,7 +4762,6 @@ GtkWidget *create_window(gint windowid)
 
 #ifdef GTK2_12_ENABLED
     status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
-    gtk_status_icon_set_visible(status_icon, FALSE);
     g_signal_connect(status_icon, "activate", G_CALLBACK(status_icon_callback), NULL);
 #endif
 

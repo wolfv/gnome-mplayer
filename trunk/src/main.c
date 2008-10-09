@@ -166,7 +166,7 @@ gint play_file(gchar * uri, gint playlist)
     }
 
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
-        if (!device_name(thread_data->filename)) {
+        if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
             if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
                 error_msg = g_strdup_printf("%s not found\n", thread_data->filename);
                 dialog =

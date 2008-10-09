@@ -1,5 +1,7 @@
 Development
-    On window minimise, put icon in tray, window returns on icon click
+    Fix problems with streaming media on command line
+    Change icon in tray to work like rhythmbox, always visible and it toggles the visibility of player
+    On window minimise, put icon in tray, window returns on icon click (GTK 2.12 and higher)
     Update playlist name when items are added
     Set the playlist name on the master instance when running in replace and play mode
     Add in work around for gtk crash, when setting the default folder to a non-local uri
