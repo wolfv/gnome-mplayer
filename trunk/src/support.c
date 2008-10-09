@@ -246,7 +246,7 @@ gint parse_playlist(gchar * uri)
             playlistname = g_strdup(uri);
         }
 
-        if (playlistname != NULL && strlen(playlistname) > 0 ) {
+        if (playlistname != NULL && strlen(playlistname) > 0) {
             if (GTK_WIDGET(list)) {
                 column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
                 coltitle = g_strdup_printf(_("%s items"), playlistname);
@@ -273,7 +273,7 @@ gint parse_playlist(gchar * uri)
     }
 #endif
 
-	return ret;
+    return ret;
 }
 
 // parse_basic covers .pls, .m3u and reference playlist types 

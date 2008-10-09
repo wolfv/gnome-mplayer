@@ -418,17 +418,17 @@ gboolean set_update_gui(void *data)
                                        idledata->sub_visible);
     }
 
-	if (GTK_WIDGET(list)) {
-		column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
-		count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-		if (playlistname != NULL && strlen(playlistname) > 0) {
-			coltitle = g_strdup_printf(_("%s items"), playlistname);
-		} else {	
-			coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
-		}
-		gtk_tree_view_column_set_title(column, coltitle);
-		g_free(coltitle);
-	}	
+    if (GTK_WIDGET(list)) {
+        column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
+        count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+        if (playlistname != NULL && strlen(playlistname) > 0) {
+            coltitle = g_strdup_printf(_("%s items"), playlistname);
+        } else {
+            coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
+        }
+        gtk_tree_view_column_set_title(column, coltitle);
+        g_free(coltitle);
+    }
     return FALSE;
 }
 
@@ -967,6 +967,16 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     return FALSE;
 }
 
+#ifdef GTK2_12_ENABLED
+gboolean status_icon_callback(GtkStatusIcon * icon, gpointer data)
+{
+    gtk_window_deiconify(GTK_WINDOW(window));
+    gtk_widget_show(GTK_WIDGET(window));
+
+    return FALSE;
+}
+#endif
+
 gboolean motion_notify_callback(GtkWidget * widget, GdkEventMotion * event, gpointer data)
 {
     GTimeVal currenttime;
@@ -976,6 +986,19 @@ gboolean motion_notify_callback(GtkWidget * widget, GdkEventMotion * event, gpoi
 
     g_idle_add(make_panel_and_mouse_visible, NULL);
     return FALSE;
+}
+
+gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, gpointer data)
+{
+#ifdef GTK2_12_ENABLED
+    if (event->new_window_state & GDK_WINDOW_STATE_ICONIFIED) {
+        gtk_status_icon_set_visible(status_icon, TRUE);
+        gtk_widget_hide(GTK_WIDGET(window));
+    } else {
+        gtk_status_icon_set_visible(status_icon, FALSE);
+    }
+    return FALSE;
+#endif
 }
 
 gboolean move_window(void *data)
@@ -4194,6 +4217,8 @@ GtkWidget *create_window(gint windowid)
         g_signal_connect(GTK_OBJECT(window), "delete_event", G_CALLBACK(delete_callback), NULL);
     g_signal_connect(GTK_OBJECT(window), "motion_notify_event", G_CALLBACK(motion_notify_callback),
                      NULL);
+    g_signal_connect(GTK_OBJECT(window), "window_state_event", G_CALLBACK(window_state_callback),
+                     NULL);
 
     accel_group = gtk_accel_group_new();
 
@@ -4743,6 +4768,12 @@ GtkWidget *create_window(gint windowid)
         pb_logo = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
     }
     gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
+
+#ifdef GTK2_12_ENABLED
+    status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
+    gtk_status_icon_set_visible(status_icon, FALSE);
+    g_signal_connect(status_icon, "activate", G_CALLBACK(status_icon_callback), NULL);
+#endif
 
     menu_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(menu_event_box), image_menu);

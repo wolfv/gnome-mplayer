@@ -180,6 +180,10 @@ GtkTooltips *tooltip;
 GtkTooltips *volume_tip;
 GtkTooltips *progress_tip;
 
+#ifdef GTK2_12_ENABLED
+GtkStatusIcon *status_icon;
+#endif
+
 GtkWidget *config_vo;
 GtkWidget *config_ao;
 GtkWidget *config_volume;
