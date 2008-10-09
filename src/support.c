@@ -1346,7 +1346,7 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
     }
 
 
-    if (strlen(uri) > 0 && length != NULL && strlen(length) > 0) {
+    if (strlen(uri) > 0) {
         gtk_list_store_append(playliststore, &localiter);
         gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, uri,
                            DESCRIPTION_COLUMN, desc,
@@ -2004,7 +2004,7 @@ gchar *get_localfile_from_uri(gchar * uri)
     gchar *tmp;
     gchar *base;
 #endif
-    if (device_name(uri)) {
+    if (device_name(uri) || streaming_media(uri)) {
         return g_strdup(uri);
     }
     localfile = g_filename_from_uri(uri, NULL, NULL);
