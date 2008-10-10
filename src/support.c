@@ -567,6 +567,7 @@ gint parse_cdda(gchar * filename)
         av[ac++] = g_strdup_printf("0");
         av[ac++] = g_strdup_printf("-identify");
         av[ac++] = g_strdup_printf("cddb://");
+        av[ac++] = g_strdup_printf("cdda://");
         av[ac] = NULL;
 
         error = NULL;
@@ -661,7 +662,6 @@ gint parse_cdda(gchar * filename)
             ac++;
         }
 
-        // printf("add count = %i \n",addcount);
         if (addcount == 0) {
             ac = 0;
             while (output[ac] != NULL) {

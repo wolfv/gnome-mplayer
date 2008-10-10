@@ -462,7 +462,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 message =
                     g_markup_printf_escaped(_
                                             ("<small>\n\t<big><b>%s</b></big>\n\t<i>%s</i>\n\t%s\n</small>"),
-                                            utf8name, utf8artist, playlistname);
+                                            utf8name, utf8artist, idledata->info);
                 if (cdname != NULL) {
                     g_free(cdname);
                     cdname = NULL;

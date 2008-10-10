@@ -1,4 +1,5 @@
 Development
+    Allow cddb support to be optional in track loading
     Add tooltip to status icon
     Remember window location on hide
     Fix problems with playback when window is hidden
