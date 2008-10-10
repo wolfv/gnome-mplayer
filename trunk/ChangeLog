@@ -1,4 +1,5 @@
 Development
+    Add #EXTM3U to m3u saved playlists
     Allow cddb support to be optional in track loading
     Add tooltip to status icon
     Remember window location on hide
