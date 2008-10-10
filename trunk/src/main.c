@@ -334,6 +334,7 @@ int main(int argc, char *argv[])
     keep_on_top = FALSE;
     use_pausing_keep_force = FALSE;
     show_notification = TRUE;
+	show_status_icon = TRUE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -348,6 +349,7 @@ int main(int argc, char *argv[])
     playlist_visible = read_preference_bool(SHOWPLAYLIST);
     details_visible = read_preference_bool(SHOWDETAILS);
     show_notification = read_preference_bool(SHOW_NOTIFICATION);
+	show_status_icon = read_preference_bool(SHOW_STATUS_ICON);
     disable_deinterlace = read_preference_bool(DISABLEDEINTERLACE);
     disable_framedrop = read_preference_bool(DISABLEFRAMEDROP);
     disable_fullscreen = read_preference_bool(DISABLEFULLSCREEN);

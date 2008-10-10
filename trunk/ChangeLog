@@ -1,4 +1,7 @@
 Development
+    Add tooltip to status icon
+    Remember window location on hide
+    Fix problems with playback when window is hidden
     Fix problems with streaming media on command line
     Change icon in tray to work like rhythmbox, always visible and it toggles the visibility of player
     On window minimise, put icon in tray, window returns on icon click (GTK 2.12 and higher)

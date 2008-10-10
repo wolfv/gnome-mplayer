@@ -222,7 +222,8 @@ gint parse_playlist(gchar * uri)
     GtkTreeViewColumn *column;
     gchar *coltitle;
     gint count;
-
+	gchar *basename;
+	
     // try and parse a playlist in various forms
     // if a parsing does not work then, return 0
     count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
@@ -240,11 +241,9 @@ gint parse_playlist(gchar * uri)
             playlistname = NULL;
         }
 
-        if (g_strrstr(uri, "/") != NULL) {
-            playlistname = g_strdup_printf("%s", g_strrstr(uri, "/") + 1);
-        } else {
-            playlistname = g_strdup(uri);
-        }
+		basename = g_path_get_basename (uri);
+		playlistname = g_uri_unescape_string (basename,NULL);
+		g_free(basename);
 
         if (playlistname != NULL && strlen(playlistname) > 0) {
             if (GTK_WIDGET(list)) {

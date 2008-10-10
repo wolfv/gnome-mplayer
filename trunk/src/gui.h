@@ -182,6 +182,7 @@ GtkTooltips *progress_tip;
 
 #ifdef GTK2_12_ENABLED
 GtkStatusIcon *status_icon;
+GtkWidget *config_show_status_icon;
 #endif
 
 GtkWidget *config_vo;
@@ -271,3 +272,4 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
 void create_folder_progress_window();
 void destroy_folder_progress_window();
+void update_status_icon();
