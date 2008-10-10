@@ -222,8 +222,8 @@ gint parse_playlist(gchar * uri)
     GtkTreeViewColumn *column;
     gchar *coltitle;
     gint count;
-	gchar *basename;
-	
+    gchar *basename;
+
     // try and parse a playlist in various forms
     // if a parsing does not work then, return 0
     count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
@@ -241,9 +241,9 @@ gint parse_playlist(gchar * uri)
             playlistname = NULL;
         }
 
-		basename = g_path_get_basename (uri);
-		playlistname = g_uri_unescape_string (basename,NULL);
-		g_free(basename);
+        basename = g_path_get_basename(uri);
+        playlistname = g_uri_unescape_string(basename, NULL);
+        g_free(basename);
 
         if (playlistname != NULL && strlen(playlistname) > 0) {
             if (GTK_WIDGET(list)) {
@@ -1491,7 +1491,7 @@ gboolean save_playlist_m3u(gchar * uri)
     output = g_file_replace(file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL);
     data = g_data_output_stream_new((GOutputStream *) output);
     if (data != NULL) {
-		g_data_output_stream_put_string(data, "#EXTM3U\n", NULL, NULL);
+        g_data_output_stream_put_string(data, "#EXTM3U\n", NULL, NULL);
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter)) {
             do {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,
@@ -1523,7 +1523,7 @@ gboolean save_playlist_m3u(gchar * uri)
     filename = g_filename_from_uri(uri, NULL, NULL);
     contents = fopen(filename, "w");
     if (contents != NULL) {
-		fprintf(contents, "#EXTM3U\n");
+        fprintf(contents, "#EXTM3U\n");
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter)) {
             do {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,

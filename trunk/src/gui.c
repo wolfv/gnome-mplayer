@@ -286,9 +286,9 @@ gboolean set_progress_value(void *data)
     if (state == QUIT) {
         gtk_widget_set_sensitive(play_event_box, TRUE);
     }
-	
-	update_status_icon();
-	
+
+    update_status_icon();
+
     if (idle->fromdbus == FALSE) {
         dbus_send_rpsignal_with_double("RP_SetPercent", idle->percent);
         dbus_send_rpsignal_with_int("RP_SetGUIState", state);
@@ -308,7 +308,7 @@ gboolean set_progress_text(void *data)
     }
     if (idle->fromdbus == FALSE)
         dbus_send_rpsignal_with_string("RP_SetProgressText", idle->progress_text);
-	update_status_icon();
+    update_status_icon();
     return FALSE;
 }
 
@@ -353,8 +353,8 @@ gboolean set_progress_time(void *data)
 
     if (idle->fromdbus == FALSE && state != PAUSED)
         dbus_send_rpsignal_with_string("RP_SetProgressText", idle->progress_text);
-	update_status_icon();
-	
+    update_status_icon();
+
     return FALSE;
 }
 
@@ -520,19 +520,19 @@ void remove_langs(GtkWidget * item, gpointer data)
 void update_status_icon()
 {
 #ifdef GTK2_12_ENABLED
-	gchar *text;
-		
-	if (state == PLAYING) {
-		text = g_strdup_printf(_("Playing"));
-	} else if (state == PAUSED) {
-		text = g_strdup_printf(_("Paused"));
-	} else {
-		text = g_strdup_printf(_("Idle"));
-	}
-	
-	gtk_status_icon_set_tooltip(status_icon, text);
-	
-	g_free(text);
+    gchar *text;
+
+    if (state == PLAYING) {
+        text = g_strdup_printf(_("Playing"));
+    } else if (state == PAUSED) {
+        text = g_strdup_printf(_("Paused"));
+    } else {
+        text = g_strdup_printf(_("Idle"));
+    }
+
+    gtk_status_icon_set_tooltip(status_icon, text);
+
+    g_free(text);
 #endif
 }
 
@@ -994,14 +994,23 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 gboolean status_icon_callback(GtkStatusIcon * icon, gpointer data)
 {
     if (GTK_WIDGET_VISIBLE(window)) {
-		gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
+        gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
         gtk_widget_hide(GTK_WIDGET(window));
     } else {
         gtk_widget_show(GTK_WIDGET(window));
-		gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
+        gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
     }
     return FALSE;
 }
+
+
+void status_icon_context_callback(GtkStatusIcon * status_icon, guint button, guint activate_time,
+                                  gpointer data)
+{
+    gtk_menu_popup(GTK_MENU(status_menu), NULL, NULL, gtk_status_icon_position_menu, status_icon,
+                   button, activate_time);
+}
+
 #endif
 
 gboolean motion_notify_callback(GtkWidget * widget, GdkEventMotion * event, gpointer data)
@@ -2218,6 +2227,16 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_quit_callback(GtkMenuItem * menuitem, void *data)
 {
     delete_callback(NULL, NULL, NULL);
+}
+
+void menuitem_prev_callback(GtkMenuItem * menuitem, void *data)
+{
+    prev_callback(NULL, NULL, NULL);
+}
+
+void menuitem_next_callback(GtkMenuItem * menuitem, void *data)
+{
+    next_callback(NULL, NULL, NULL);
 }
 
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
@@ -3848,7 +3867,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_status_icon, 0, 2, i, i + 1);
     i++;
 #endif
-	
+
     config_vertical_layout =
         gtk_check_button_new_with_label(_("Start with playlist below media window"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_vertical_layout), vertical_layout);
@@ -4794,12 +4813,43 @@ GtkWidget *create_window(gint windowid)
 
 #ifdef GTK2_12_ENABLED
     status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
-	if (control_id != 0) {
-		gtk_status_icon_set_visible (status_icon,FALSE);
-	} else {
-		gtk_status_icon_set_visible (status_icon,show_status_icon);
-	}
+    if (control_id != 0) {
+        gtk_status_icon_set_visible(status_icon, FALSE);
+    } else {
+        gtk_status_icon_set_visible(status_icon, show_status_icon);
+    }
     g_signal_connect(status_icon, "activate", G_CALLBACK(status_icon_callback), NULL);
+    g_signal_connect(status_icon, "popup_menu", G_CALLBACK(status_icon_context_callback), NULL);
+    status_menu = gtk_menu_new();
+    status_menu_play = gtk_menu_item_new_with_label(_("Play/Pause"));
+    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_play));
+    gtk_widget_show(status_menu_play);
+    status_menu_stop = gtk_menu_item_new_with_label(_("Stop"));
+    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_stop));
+    gtk_widget_show(status_menu_stop);
+    status_menu_prev = gtk_menu_item_new_with_label(_("Previous"));
+    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_prev));
+    gtk_widget_show(status_menu_prev);
+    status_menu_next = gtk_menu_item_new_with_label(_("Next"));
+    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_next));
+    gtk_widget_show(status_menu_next);
+    status_menu_sep0 = gtk_separator_menu_item_new();
+    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_sep0));
+    gtk_widget_show(status_menu_sep0);
+    status_menu_quit = gtk_menu_item_new_with_label(_("Quit"));
+    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_quit));
+    gtk_widget_show(status_menu_quit);
+
+    g_signal_connect(GTK_OBJECT(status_menu_play), "activate",
+                     G_CALLBACK(menuitem_pause_callback), NULL);
+    g_signal_connect(GTK_OBJECT(status_menu_stop), "activate",
+                     G_CALLBACK(menuitem_stop_callback), NULL);
+    g_signal_connect(GTK_OBJECT(status_menu_prev), "activate",
+                     G_CALLBACK(menuitem_prev_callback), NULL);
+    g_signal_connect(GTK_OBJECT(status_menu_next), "activate",
+                     G_CALLBACK(menuitem_next_callback), NULL);
+    g_signal_connect(GTK_OBJECT(status_menu_quit), "activate",
+                     G_CALLBACK(menuitem_quit_callback), NULL);
 #endif
 
     menu_event_box = gtk_button_new();
@@ -5119,7 +5169,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_hide(next_event_box);
     gtk_widget_hide(media_label);
     gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
-	update_status_icon();
+    update_status_icon();
     //while (gtk_events_pending())
     //    gtk_main_iteration();
 

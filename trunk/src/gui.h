@@ -183,6 +183,13 @@ GtkTooltips *progress_tip;
 #ifdef GTK2_12_ENABLED
 GtkStatusIcon *status_icon;
 GtkWidget *config_show_status_icon;
+GtkWidget *status_menu;
+GtkWidget *status_menu_play;
+GtkWidget *status_menu_stop;
+GtkWidget *status_menu_prev;
+GtkWidget *status_menu_next;
+GtkWidget *status_menu_sep0;
+GtkWidget *status_menu_quit;
 #endif
 
 GtkWidget *config_vo;
