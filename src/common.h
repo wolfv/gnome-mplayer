@@ -70,6 +70,7 @@
 #define KEEP_ON_TOP		"keep_on_top"
 #define SINGLE_INSTANCE "single_instance"
 #define SHOW_NOTIFICATION "show_notification"
+#define SHOW_STATUS_ICON "show_status_icon"
 
 // JavaScript Playstates
 #define STATE_UNDEFINED     0
@@ -260,6 +261,7 @@ gboolean new_instance;
 gboolean replace_and_play;
 gboolean use_pausing_keep_force;
 gboolean show_notification;
+gboolean show_status_icon;
 
 gboolean remember_loc;
 gint loc_window_x;
