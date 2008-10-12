@@ -4282,6 +4282,12 @@ GtkWidget *create_window(gint windowid)
     menuitem_stop = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_STOP, NULL));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_stop));
     gtk_widget_show(GTK_WIDGET(menuitem_stop));
+    menuitem_prev = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PREVIOUS, NULL));
+    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_prev));
+    gtk_widget_show(GTK_WIDGET(menuitem_prev));
+    menuitem_next = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_NEXT, NULL));
+    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_next));
+    gtk_widget_show(GTK_WIDGET(menuitem_next));
     menuitem_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep1));
     gtk_widget_show(GTK_WIDGET(menuitem_sep1));
