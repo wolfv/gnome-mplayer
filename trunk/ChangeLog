@@ -1,4 +1,5 @@
 Development
+    Why reinvent status icon menu, when normal popup menu has everything we need
     Implement simple status icon menu
     Add #EXTM3U to m3u saved playlists
     Allow cddb support to be optional in track loading
