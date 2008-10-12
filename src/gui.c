@@ -1007,7 +1007,7 @@ gboolean status_icon_callback(GtkStatusIcon * icon, gpointer data)
 void status_icon_context_callback(GtkStatusIcon * status_icon, guint button, guint activate_time,
                                   gpointer data)
 {
-    gtk_menu_popup(GTK_MENU(status_menu), NULL, NULL, gtk_status_icon_position_menu, status_icon,
+    gtk_menu_popup(GTK_MENU(popup_menu), NULL, NULL, gtk_status_icon_position_menu, status_icon,
                    button, activate_time);
 }
 
