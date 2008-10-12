@@ -4820,36 +4820,6 @@ GtkWidget *create_window(gint windowid)
     }
     g_signal_connect(status_icon, "activate", G_CALLBACK(status_icon_callback), NULL);
     g_signal_connect(status_icon, "popup_menu", G_CALLBACK(status_icon_context_callback), NULL);
-    status_menu = gtk_menu_new();
-    status_menu_play = gtk_menu_item_new_with_label(_("Play/Pause"));
-    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_play));
-    gtk_widget_show(status_menu_play);
-    status_menu_stop = gtk_menu_item_new_with_label(_("Stop"));
-    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_stop));
-    gtk_widget_show(status_menu_stop);
-    status_menu_prev = gtk_menu_item_new_with_label(_("Previous"));
-    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_prev));
-    gtk_widget_show(status_menu_prev);
-    status_menu_next = gtk_menu_item_new_with_label(_("Next"));
-    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_next));
-    gtk_widget_show(status_menu_next);
-    status_menu_sep0 = gtk_separator_menu_item_new();
-    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_sep0));
-    gtk_widget_show(status_menu_sep0);
-    status_menu_quit = gtk_menu_item_new_with_label(_("Quit"));
-    gtk_menu_append(GTK_MENU(status_menu), GTK_WIDGET(status_menu_quit));
-    gtk_widget_show(status_menu_quit);
-
-    g_signal_connect(GTK_OBJECT(status_menu_play), "activate",
-                     G_CALLBACK(menuitem_pause_callback), NULL);
-    g_signal_connect(GTK_OBJECT(status_menu_stop), "activate",
-                     G_CALLBACK(menuitem_stop_callback), NULL);
-    g_signal_connect(GTK_OBJECT(status_menu_prev), "activate",
-                     G_CALLBACK(menuitem_prev_callback), NULL);
-    g_signal_connect(GTK_OBJECT(status_menu_next), "activate",
-                     G_CALLBACK(menuitem_next_callback), NULL);
-    g_signal_connect(GTK_OBJECT(status_menu_quit), "activate",
-                     G_CALLBACK(menuitem_quit_callback), NULL);
 #endif
 
     menu_event_box = gtk_button_new();
