@@ -77,10 +77,14 @@ gboolean hide_buttons(void *data)
         gtk_widget_hide(prev_event_box);
         gtk_widget_hide(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
+        gtk_widget_hide(GTK_WIDGET(menuitem_prev));
+        gtk_widget_hide(GTK_WIDGET(menuitem_next));
     } else {
         gtk_widget_show_all(prev_event_box);
         gtk_widget_show_all(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
+        gtk_widget_show(GTK_WIDGET(menuitem_prev));
+        gtk_widget_show(GTK_WIDGET(menuitem_next));
     }
 
     return FALSE;
@@ -5197,6 +5201,8 @@ GtkWidget *create_window(gint windowid)
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
     gtk_widget_hide(prev_event_box);
     gtk_widget_hide(next_event_box);
+    gtk_widget_hide(GTK_WIDGET(menuitem_prev));
+    gtk_widget_hide(GTK_WIDGET(menuitem_next));
     gtk_widget_hide(media_label);
     gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
     update_status_icon();
