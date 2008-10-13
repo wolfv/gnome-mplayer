@@ -288,7 +288,7 @@ gint parse_basic(gchar * uri)
     gsize length;
     gchar *newuri = NULL;
     gchar *line_uri = NULL;
-    gint ret;
+    gint ret = 0;
     gchar **parse;
 
     if (device_name(uri))
@@ -314,6 +314,11 @@ gint parse_basic(gchar * uri)
             } else if (g_strcasecmp(line, "[reference]") == 0) {
                 //printf("ref\n");
                 ret = 1;
+            } else if (g_strcasecmp(line, "<asx") == 0) {
+                //printf("ref\n");
+                idledata->streaming = TRUE;
+                ret = 0;
+                break;
             } else if (g_strncasecmp(line, "NumberOfEntries", strlen("NumberOfEntries")) == 0) {
                 //printf("num\n");
                 ret = 1;
@@ -424,6 +429,11 @@ gint parse_basic(gchar * uri)
                 } else if (g_strcasecmp(buffer, "[reference]") == 0) {
                     //printf("ref\n");
                     ret = 1;
+                } else if (g_strcasecmp(line, "<asx") == 0) {
+                    //printf("ref\n");
+                    idledata->streaming = TRUE;
+                    ret = 0;
+                    break;
                 } else if (g_strncasecmp(buffer, "NumberOfEntries", strlen("NumberOfEntries")) == 0) {
                     //printf("num\n");
                     ret = 1;
@@ -2087,6 +2097,9 @@ gboolean is_uri_dir(gchar * uri)
 gboolean uri_exists(gchar * uri)
 {
     gboolean result = FALSE;
+
+    if (uri == NULL)
+        return FALSE;
 
 #ifdef GIO_ENABLED
     GFile *file;
