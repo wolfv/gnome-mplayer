@@ -410,10 +410,14 @@ gboolean set_update_gui(void *data)
         gtk_widget_hide(prev_event_box);
         gtk_widget_hide(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
+        gtk_widget_hide(GTK_WIDGET(menuitem_prev));
+        gtk_widget_hide(GTK_WIDGET(menuitem_next));
     } else {
         gtk_widget_show(prev_event_box);
         gtk_widget_show(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
+        gtk_widget_show(GTK_WIDGET(menuitem_prev));
+        gtk_widget_show(GTK_WIDGET(menuitem_next));
     }
 
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles)) !=
@@ -444,6 +448,12 @@ gboolean set_gui_state(void *data)
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
             gtk_widget_set_sensitive(ff_event_box, TRUE);
             gtk_widget_set_sensitive(rew_event_box, TRUE);
+            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+            menuitem_play =
+                GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
+            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
+            gtk_widget_show(GTK_WIDGET(menuitem_play));
+
         }
 
         if (guistate == PAUSED) {
@@ -451,6 +461,11 @@ gboolean set_gui_state(void *data)
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
             gtk_widget_set_sensitive(ff_event_box, FALSE);
             gtk_widget_set_sensitive(rew_event_box, FALSE);
+            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+            menuitem_play =
+                GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
+            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
+            gtk_widget_show(GTK_WIDGET(menuitem_play));
         }
 
         if (guistate == STOPPED) {
@@ -458,6 +473,11 @@ gboolean set_gui_state(void *data)
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
             gtk_widget_set_sensitive(ff_event_box, FALSE);
             gtk_widget_set_sensitive(rew_event_box, FALSE);
+            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+            menuitem_play =
+                GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
+            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
+            gtk_widget_show(GTK_WIDGET(menuitem_play));
         }
         lastguistate = guistate;
     }
@@ -1383,6 +1403,14 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         g_idle_add(set_progress_text, idledata);
         gtk_widget_set_sensitive(ff_event_box, TRUE);
         gtk_widget_set_sensitive(rew_event_box, TRUE);
+        gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+        menuitem_play =
+            GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
+        gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
+        gtk_widget_show(GTK_WIDGET(menuitem_play));
+        g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
+                         G_CALLBACK(menuitem_pause_callback), NULL);
+
     } else if (state == PLAYING) {
         send_command("pause\n", FALSE);
         state = PAUSED;
@@ -1393,6 +1421,14 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         g_idle_add(set_progress_text, idledata);
         gtk_widget_set_sensitive(ff_event_box, FALSE);
         gtk_widget_set_sensitive(rew_event_box, FALSE);
+        gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+        menuitem_play =
+            GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
+        gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
+        gtk_widget_show(GTK_WIDGET(menuitem_play));
+        g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
+                         G_CALLBACK(menuitem_pause_callback), NULL);
+
     }
 
     if (state == QUIT) {
@@ -4276,18 +4312,14 @@ GtkWidget *create_window(gint windowid)
     menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_play));
     gtk_widget_show(GTK_WIDGET(menuitem_play));
-    menuitem_pause = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_pause));
-    gtk_widget_show(GTK_WIDGET(menuitem_pause));
     menuitem_stop = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_STOP, NULL));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_stop));
     gtk_widget_show(GTK_WIDGET(menuitem_stop));
-    menuitem_prev = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PREVIOUS, NULL));
+    menuitem_prev =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PREVIOUS, NULL));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_prev));
-    gtk_widget_show(GTK_WIDGET(menuitem_prev));
     menuitem_next = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_NEXT, NULL));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_next));
-    gtk_widget_show(GTK_WIDGET(menuitem_next));
     menuitem_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep1));
     gtk_widget_show(GTK_WIDGET(menuitem_sep1));
@@ -4333,8 +4365,6 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(GTK_OBJECT(menuitem_open), "activate",
                      G_CALLBACK(menuitem_open_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
-                     G_CALLBACK(menuitem_play_callback), NULL);
-    g_signal_connect(GTK_OBJECT(menuitem_pause), "activate",
                      G_CALLBACK(menuitem_pause_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_stop), "activate",
                      G_CALLBACK(menuitem_stop_callback), NULL);

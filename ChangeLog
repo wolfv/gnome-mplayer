@@ -1,4 +1,5 @@
 Development
+    Cleanup the popup menu and have it work more like the normal control panel
     Why reinvent status icon menu, when normal popup menu has everything we need
     Implement simple status icon menu
     Add #EXTM3U to m3u saved playlists

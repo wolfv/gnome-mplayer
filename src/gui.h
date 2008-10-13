@@ -105,7 +105,6 @@ GtkMenu *popup_menu;
 GtkMenuItem *menuitem_open;
 GtkMenuItem *menuitem_sep3;
 GtkMenuItem *menuitem_play;
-GtkMenuItem *menuitem_pause;
 GtkMenuItem *menuitem_stop;
 GtkMenuItem *menuitem_prev;
 GtkMenuItem *menuitem_next;
