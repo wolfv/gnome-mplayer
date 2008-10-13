@@ -1,4 +1,5 @@
 Development
+    Make replace and play mode a config option, but only when single instance mode available
     Cleanup the popup menu and have it work more like the normal control panel
     Why reinvent status icon menu, when normal popup menu has everything we need
     Implement simple status icon menu
