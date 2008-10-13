@@ -110,7 +110,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                 gtk_list_store_clear(playliststore);
                                 gtk_list_store_clear(nonrandomplayliststore);
                                 selection = NULL;
-                                if (!uri_exists(s)) {
+                                if (!uri_exists(s) && !streaming_media(s)) {
                                     buf = g_filename_to_uri(s, NULL, NULL);
                                 } else {
                                     buf = g_strdup(s);
@@ -162,7 +162,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         gtk_list_store_clear(playliststore);
                         gtk_list_store_clear(nonrandomplayliststore);
                         selection = NULL;
-                        if (!uri_exists(s)) {
+                        if (!uri_exists(s) && !streaming_media(s)) {
                             buf = g_filename_to_uri(s, NULL, NULL);
                         } else {
                             buf = g_strdup(s);
@@ -214,14 +214,20 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0) {
-                            playlist = detect_playlist(s);
-                            if (!playlist) {
-                                add_item_to_playlist(s, playlist);
+                            if (!uri_exists(s) && !streaming_media(s)) {
+                                buf = g_filename_to_uri(s, NULL, NULL);
                             } else {
-                                if (!parse_playlist(s)) {
-                                    add_item_to_playlist(s, playlist);
+                                buf = g_strdup(s);
+                            }
+                            playlist = detect_playlist(buf);
+                            if (!playlist) {
+                                add_item_to_playlist(buf, playlist);
+                            } else {
+                                if (!parse_playlist(buf)) {
+                                    add_item_to_playlist(buf, playlist);
                                 }
                             }
+                            g_free(buf);
                             g_idle_add(set_update_gui, NULL);
                             // if play on add is set, play the last item on the playlist
                         }

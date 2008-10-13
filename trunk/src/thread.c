@@ -146,9 +146,10 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
             strstr(mplayer_output->str, "registry file") == NULL) {
             // error_msg = g_strdup(mplayer_output->str);
-            error_msg =
-                g_strdup_printf(_("Failed to open %s"),
-                                mplayer_output->str + strlen("Failed to open "));
+            if (strstr(mplayer_output->str,"<") == NULL && strstr(mplayer_output->str,">") == NULL && idledata->streaming == FALSE)
+                error_msg =
+                    g_strdup_printf(_("Failed to open %s"),
+                                    mplayer_output->str + strlen("Failed to open "));
         }
     }
 
