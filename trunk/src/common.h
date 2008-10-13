@@ -69,6 +69,7 @@
 #define WINDOW_Y		"window_y"
 #define KEEP_ON_TOP		"keep_on_top"
 #define SINGLE_INSTANCE "single_instance"
+#define REPLACE_AND_PLAY "replace_and_play"
 #define SHOW_NOTIFICATION "show_notification"
 #define SHOW_STATUS_ICON "show_status_icon"
 

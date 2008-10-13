@@ -2775,6 +2775,7 @@ void config_apply(GtkWidget * widget, void *data)
     details_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_details_visible));
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     single_instance = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance));
+    replace_and_play = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_replace_and_play));
     show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
     show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
@@ -2840,6 +2841,7 @@ void config_apply(GtkWidget * widget, void *data)
     write_preference_bool(SHOW_STATUS_ICON, show_status_icon);
     write_preference_bool(VERTICAL, vertical_layout);
     write_preference_bool(SINGLE_INSTANCE, single_instance);
+    write_preference_bool(REPLACE_AND_PLAY, replace_and_play);
     write_preference_bool(REMEMBER_LOC, remember_loc);
     write_preference_bool(KEEP_ON_TOP, keep_on_top);
     write_preference_int(VERBOSE, verbose);
@@ -3389,6 +3391,13 @@ void osdlevel_change_callback(GtkRange * range, gpointer data)
     return;
 }
 
+void config_single_instance_callback(GtkWidget * button, gpointer data)
+{
+    gtk_widget_set_sensitive(config_replace_and_play,
+                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+                                                          (config_single_instance)));
+}
+
 void ass_toggle_callback(GtkToggleButton * source, gpointer user_data)
 {
     gtk_widget_set_sensitive(config_subtitle_color, gtk_toggle_button_get_active(source));
@@ -3914,6 +3923,21 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_check_button_new_with_label(_("Only allow one instance of Gnome MPlayer"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_single_instance), single_instance);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_single_instance, 0, 2, i, i + 1);
+    g_signal_connect(G_OBJECT(config_single_instance), "toggled",
+                     G_CALLBACK(config_single_instance_callback), NULL);
+    i++;
+
+    conf_label = gtk_label_new("");
+    gtk_label_set_width_chars(GTK_LABEL(conf_label), 3);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    config_replace_and_play =
+        gtk_check_button_new_with_label(_
+                                        ("When opening in single instance mode, replace existing file"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_replace_and_play), replace_and_play);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_replace_and_play, 1, 2, i, i + 1);
+    gtk_widget_set_sensitive(config_replace_and_play,
+                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+                                                          (config_single_instance)));
     i++;
 
     config_remember_loc = gtk_check_button_new_with_label(_("Remember Window Location"));

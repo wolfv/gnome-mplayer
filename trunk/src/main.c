@@ -372,6 +372,8 @@ int main(int argc, char *argv[])
     dvx_disabled = read_preference_bool(DISABLE_DVX);
     embedding_disabled = read_preference_bool(DISABLE_EMBEDDING);
     single_instance = read_preference_bool(SINGLE_INSTANCE);
+    if (single_instance)
+        replace_and_play = read_preference_bool(REPLACE_AND_PLAY);
 
     mplayer_bin = read_preference_string(MPLAYER_BIN);
     if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
