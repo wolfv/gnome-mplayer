@@ -34,10 +34,14 @@ void update_gui()
         gtk_widget_hide(prev_event_box);
         gtk_widget_hide(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
+        gtk_widget_hide(GTK_WIDGET(menuitem_prev));
+        gtk_widget_hide(GTK_WIDGET(menuitem_next));
     } else {
         gtk_widget_show(prev_event_box);
         gtk_widget_show(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
+        gtk_widget_show(GTK_WIDGET(menuitem_prev));
+        gtk_widget_show(GTK_WIDGET(menuitem_next));
     }
 }
 
