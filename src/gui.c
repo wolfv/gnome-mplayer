@@ -214,10 +214,6 @@ gboolean set_media_label(void *data)
             notify_uninit();
         }
 #endif
-		
-#ifdef GTK2_12_ENABLED
-		gtk_tooltip_set_markup
-#endif
         if (embed_window == 0
             && gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) != 1) {
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
