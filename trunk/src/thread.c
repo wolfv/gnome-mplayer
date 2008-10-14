@@ -493,19 +493,19 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                         if (strlen(g_strstrip(parse[i])) != 0 && strlen(g_strstrip(utf8name)) != 0) {
                             if (g_strcasecmp(parse[i], "title") == 0
                                 || g_strcasecmp(parse[i], "name") == 0) {
-                                buf = g_strdup_printf("\t<big><b>%s</b></big>\n", utf8name);
+                                buf = g_markup_printf_escaped("\t<big><b>%s</b></big>\n", utf8name);
                                 g_free(utf8name);
                                 message = g_strconcat(message, buf, NULL);
                                 g_free(buf);
                                 found_title = TRUE;
                             } else if (g_strcasecmp(parse[i], "artist") == 0
                                        || g_strcasecmp(parse[i], "author") == 0) {
-                                buf = g_strdup_printf("\t<i>%s</i>\n", utf8name);
+                                buf = g_markup_printf_escaped("\t<i>%s</i>\n", utf8name);
                                 g_free(utf8name);
                                 message = g_strconcat(message, buf, NULL);
                                 g_free(buf);
                             } else if (g_strcasecmp(parse[i], "album") == 0) {
-                                buf = g_strdup_printf("\t%s\n", utf8name);
+                                buf = g_markup_printf_escaped("\t%s\n", utf8name);
                                 g_free(utf8name);
                                 message = g_strconcat(message, buf, NULL);
                                 g_free(buf);
@@ -523,14 +523,18 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     }
 
                     if (!found_title) {
-                        utf8name = g_path_get_basename(idledata->info);
-                        buf = g_strdup_printf("\t<big><b>%s</b></big>\n", utf8name);
-                        g_free(utf8name);
+                        if (g_strrstr(idledata->info, "/") != NULL) {
+                            utf8name = g_strrstr(idledata->info, "/") + sizeof(gchar);
+                        } else {
+                            utf8name = idledata->info;
+                        }
+                        buf = g_markup_printf_escaped("\t<big><b>%s</b></big>\n", utf8name);
                         message = g_strconcat(message, buf, NULL);
                         g_free(buf);
+
                     }
 
-                    buf = g_strdup_printf("\n\t%s\n", idledata->info);
+                    buf = g_markup_printf_escaped("\n\t%s\n", idledata->info);
                     message = g_strconcat(message, buf, NULL);
                     g_free(buf);
 
