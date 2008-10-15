@@ -1,4 +1,5 @@
 Development
+    Make sure proper item is selected in playlist when list is un/shuffled
     Fixup metadata parsing
     Fix problems with gecko-mediaplayer integration and gio mode
     Make replace and play mode a config option, but only when single instance mode available
