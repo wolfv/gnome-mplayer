@@ -4396,6 +4396,10 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_pause_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_stop), "activate",
                      G_CALLBACK(menuitem_stop_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_prev), "activate",
+                     G_CALLBACK(menuitem_prev_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_next), "activate",
+                     G_CALLBACK(menuitem_next_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_showcontrols), "toggled",
                      G_CALLBACK(menuitem_showcontrols_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_fullscreen), "toggled",
