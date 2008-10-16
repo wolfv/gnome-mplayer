@@ -733,7 +733,7 @@ gboolean thread_query(gpointer data)
 
     if (threaddata->done == TRUE) {
         if (verbose)
-            printf("shutting down threadquery since threaddata->done is TRUE\n");
+            printf("shutting down threadquery for %s since threaddata->done is TRUE\n", threaddata->filename);
         g_free(threaddata);
         threaddata = NULL;
         return FALSE;
