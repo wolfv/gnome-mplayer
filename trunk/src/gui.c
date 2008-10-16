@@ -1143,7 +1143,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         g_idle_add(make_panel_and_mouse_visible, NULL);
         switch (event->keyval) {
         case GDK_Right:
-            if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
                 send_command("dvdnav 4\n", FALSE);
                 return FALSE;
             } else {
@@ -1151,7 +1151,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             break;
         case GDK_Left:
-            if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
                 send_command("dvdnav 3\n", FALSE);
                 return FALSE;
             } else {
@@ -1167,7 +1167,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 send_command("seek -600 0\n", TRUE);
             return FALSE;
         case GDK_Up:
-            if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
                 send_command("dvdnav 1\n", FALSE);
             } else {
                 if (state == PLAYING)
@@ -1176,7 +1176,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 
             return FALSE;
         case GDK_Down:
-            if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
                 send_command("dvdnav 2\n", FALSE);
             } else {
                 if (state == PLAYING)
@@ -1184,7 +1184,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             return FALSE;
         case GDK_Return:
-            if (g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
                 send_command("dvdnav 6\n", FALSE);
             }
             return FALSE;

@@ -1,4 +1,5 @@
 Development
+    Fix crash on arrow key press when lastfile == NULL
     Make sure proper item is selected in playlist when list is un/shuffled
     Fixup metadata parsing
     Fix problems with gecko-mediaplayer integration and gio mode
