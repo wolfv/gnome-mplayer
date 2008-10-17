@@ -68,7 +68,7 @@
 #define HAVE_UNISTD_H 1
 
 /* Define to 1 if you have NOTIFY support */
-/* #undef NOTIFY_ENABLED */
+#define NOTIFY_ENABLED 1
 
 /* Name of package */
 #define PACKAGE "gnome-mplayer"
