@@ -2799,7 +2799,10 @@ void config_apply(GtkWidget * widget, void *data)
     single_instance = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance));
     replace_and_play = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_replace_and_play));
     show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
-    show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
+#ifdef GTK2_12_ENABLED
+	show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
+	gtk_status_icon_set_visible (status_icon,show_status_icon);
+#endif
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
     keep_on_top = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_keep_on_top));
@@ -3928,7 +3931,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
 #endif
 
-#ifdef NOTIFY_ENABLED
+#ifdef GTK2_12_ENABLED
     config_show_status_icon = gtk_check_button_new_with_label(_("Show status icon"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_status_icon), show_status_icon);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_status_icon, 0, 2, i, i + 1);
