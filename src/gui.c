@@ -564,7 +564,7 @@ void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer sid)
 {
     gchar *cmd;
 
-    cmd = g_strdup_printf("sub_demux %i\n", (gint) sid);
+    cmd = g_strdup_printf("sub_demux %i\n", GPOINTER_TO_INT(sid));
     send_command(cmd, TRUE);
     g_free(cmd);
 }
@@ -577,7 +577,7 @@ gboolean set_new_lang_menu(gpointer data)
     menuitem_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_label(menu->label));
     gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
     g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-                     G_CALLBACK(menuitem_lang_callback), (gpointer) menu->value);
+                     G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
     gtk_widget_show(GTK_WIDGET(menuitem_lang));
     g_free(menu->label);
     g_free(menu);
@@ -589,7 +589,7 @@ void menuitem_audio_callback(GtkMenuItem * menuitem, gpointer aid)
 {
     gchar *cmd;
 
-    cmd = g_strdup_printf("switch_audio %i\n", (gint) aid);
+    cmd = g_strdup_printf("switch_audio %i\n", GPOINTER_TO_INT(aid));
     send_command(cmd, TRUE);
     g_free(cmd);
 }
@@ -602,7 +602,7 @@ gboolean set_new_audio_menu(gpointer data)
     menuitem_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_label(menu->label));
     gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
     g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-                     G_CALLBACK(menuitem_audio_callback), (gpointer) menu->value);
+                     G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
     gtk_widget_show(GTK_WIDGET(menuitem_lang));
     g_free(menu->label);
     g_free(menu);
