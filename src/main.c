@@ -420,7 +420,7 @@ int main(int argc, char *argv[])
     }
 #ifdef GIO_ENABLED
     if (verbose) {
-        printf("Running in with GIO support\n");
+        printf("Running with GIO support\n");
     }
 #endif
 
