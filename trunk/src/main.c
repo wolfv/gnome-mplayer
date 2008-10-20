@@ -428,7 +428,7 @@ int main(int argc, char *argv[])
         volume = (gint) get_alsa_volume();
     } else {
         if (verbose)
-            printf("Using volume of %i\n", volume);
+            printf("Using volume of %i from gnome-mplayer preference\n", volume);
     }
 
     if (volume > 0 && volume <= 100) {
