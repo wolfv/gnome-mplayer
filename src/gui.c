@@ -1497,6 +1497,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             state = STOPPED;
             autopause = FALSE;
         }
+		gtk_progress_bar_update(progress, 0.0);
         gtk_widget_set_sensitive(play_event_box, TRUE);
         gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
         gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
