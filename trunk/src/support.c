@@ -1736,7 +1736,7 @@ gdouble get_alsa_volume()
         return vol;
     }
 
-
+/*
     snd_mixer_selem_id_malloc(&sid);
     snd_mixer_selem_id_set_index(sid, 0);
     snd_mixer_selem_id_set_name(sid, pcm_mix);
@@ -1758,7 +1758,7 @@ gdouble get_alsa_volume()
         found = TRUE;
     }
     snd_mixer_selem_id_free(sid);
-
+*/
     if (!found) {
         snd_mixer_selem_id_malloc(&sid);
         snd_mixer_selem_id_set_index(sid, 0);
