@@ -1752,7 +1752,8 @@ gdouble get_alsa_volume()
         vol = (gdouble) ((get_vol - pmin) * f_multi);
         if (verbose) {
             printf("PCM Range is %li to %li \n", pmin, pmax);
-            printf("PCM Volume is %lf\n", vol);
+			printf("PCM Current Volume %li, multiplier = %f\n",get_vol,f_multi);
+            printf("Scaled Volume is %lf\n", vol);
         }
         found = TRUE;
     }
@@ -1774,7 +1775,8 @@ gdouble get_alsa_volume()
             vol = (gdouble) ((get_vol - pmin) * f_multi);
             if (verbose) {
                 printf("Master Range is %li to %li \n", pmin, pmax);
-                printf("Master Volume is %lf\n", vol);
+				printf("Master Current Volume %li, multiplier = %f\n",get_vol,f_multi);
+                printf("Scaled Volume is %lf\n", vol);
             }
             found = TRUE;
         }
