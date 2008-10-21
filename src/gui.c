@@ -1497,7 +1497,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             state = STOPPED;
             autopause = FALSE;
         }
-		gtk_progress_bar_update(progress, 0.0);
+        gtk_progress_bar_update(progress, 0.0);
         gtk_widget_set_sensitive(play_event_box, TRUE);
         gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
         gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
@@ -2331,13 +2331,13 @@ void menuitem_stop_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
 {
     GtkTreePath *path;
-	gchar *iterfilename = NULL;
-	gchar *localfilename = NULL;	
-	
+    gchar *iterfilename = NULL;
+    gchar *localfilename = NULL;
+
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
-	}
-	
+    }
+
     random_order = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random));
     if (random_order) {
         randomize_playlist(playliststore);
@@ -2354,9 +2354,9 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
                 // printf("iter = %s   local = %s \n",iterfilename,localfilename);
                 if (g_ascii_strcasecmp(iterfilename, localfilename) == 0) {
                     // we found the current iter
-	                g_free(localfilename);
+                    g_free(localfilename);
                     break;
-                } 
+                }
                 g_free(localfilename);
             } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &iter));
             g_free(iterfilename);
@@ -2801,8 +2801,8 @@ void config_apply(GtkWidget * widget, void *data)
     replace_and_play = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_replace_and_play));
     show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
 #ifdef GTK2_12_ENABLED
-	show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
-	gtk_status_icon_set_visible (status_icon,show_status_icon);
+    show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
+    gtk_status_icon_set_visible(status_icon, show_status_icon);
 #endif
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));

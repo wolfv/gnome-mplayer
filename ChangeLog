@@ -1,4 +1,5 @@
 Development
+    Fix up some issues with get_metadata
     Update status icon visibility on preference close, fix status icon issue when libnotify missing
     Fix crash on arrow key press when lastfile == NULL
     Make sure proper item is selected in playlist when list is un/shuffled
