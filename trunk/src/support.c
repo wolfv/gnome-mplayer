@@ -1049,6 +1049,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
     gchar *av[255];
     gint ac = 0, i;
     gchar **output;
+    gchar *lower;
     gfloat seconds;
     gchar *localtitle = NULL;
 #ifdef GIO_ENABLED
@@ -1112,6 +1113,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
     output = g_strsplit(stdout, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
+        lower = g_ascii_strdown(output[ac], -1);
         if (strstr(output[ac], "_LENGTH") != NULL
             && (g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0
                 || g_strncasecmp(name, "dvd://", strlen("dvd://")) != 0)) {
@@ -1121,7 +1123,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
         }
 
         if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
-            if (strstr(output[ac], "Title") != NULL || strstr(output[ac], "name") != NULL) {
+            if (strstr(lower, "=title") != NULL || strstr(lower, "=name") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
                 *title = g_strstrip(metadata_to_utf8(localtitle));
                 if (*title == NULL) {
@@ -1129,7 +1131,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
                     strip_unicode(*title, strlen(*title));
                 }
             }
-            if (strstr(output[ac], "Artist") != NULL || strstr(output[ac], "author") != NULL) {
+            if (strstr(lower, "=artist") != NULL || strstr(lower, "=author") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
                 *artist = metadata_to_utf8(localtitle);
                 if (*artist == NULL) {
@@ -1148,6 +1150,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
                 strip_unicode(*title, strlen(*title));
             }
         }
+        g_free(lower);
         ac++;
     }
 

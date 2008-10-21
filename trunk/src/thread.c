@@ -462,8 +462,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 }
 
                 message =
-                    g_markup_printf_escaped("<small>\n\t<big><b>%s</b></big>\n\t<i>%s</i>\n\t%s\n</small>",
-                                            utf8name, utf8artist, idledata->info);
+                    g_markup_printf_escaped
+                    ("<small>\n\t<big><b>%s</b></big>\n\t<i>%s</i>\n\t%s\n</small>", utf8name,
+                     utf8artist, idledata->info);
                 if (cdname != NULL) {
                     g_free(cdname);
                     cdname = NULL;
@@ -732,7 +733,8 @@ gboolean thread_query(gpointer data)
 
     if (threaddata->done == TRUE) {
         if (verbose)
-            printf("shutting down threadquery for %s since threaddata->done is TRUE\n", threaddata->filename);
+            printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
+                   threaddata->filename);
         g_free(threaddata);
         threaddata = NULL;
         return FALSE;
