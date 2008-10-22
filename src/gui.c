@@ -408,6 +408,8 @@ gboolean set_update_gui(void *data)
     GtkTreeViewColumn *column;
     gchar *coltitle;
     gint count;
+    GList *langs;
+    GList *item;
 
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2
         && idledata->has_chapters == FALSE) {
@@ -428,6 +430,22 @@ gboolean set_update_gui(void *data)
         idledata->sub_visible) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles),
                                        idledata->sub_visible);
+    }
+
+    if (GTK_IS_WIDGET(menu_edit_sub_langs)) {
+        langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_sub_langs));
+        item = g_list_nth(langs, idledata->sub_demux);
+        if (item)
+            gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_sub_langs),
+                                         (GtkWidget *) item->data, FALSE);
+    }
+
+    if (GTK_IS_WIDGET(menu_edit_audio_langs)) {
+        langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
+        item = g_list_nth(langs, idledata->switch_audio);
+        if (item)
+            gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_audio_langs),
+                                         (GtkWidget *) item->data, FALSE);
     }
 
     if (GTK_WIDGET(list)) {
@@ -574,7 +592,9 @@ gboolean set_new_lang_menu(gpointer data)
     LangMenu *menu = (LangMenu *) data;
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), TRUE);
 
-    menuitem_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_label(menu->label));
+    menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(lang_group, menu->label));
+    lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
+
     gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
     g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
                      G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
@@ -599,7 +619,8 @@ gboolean set_new_audio_menu(gpointer data)
     LangMenu *menu = (LangMenu *) data;
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
 
-    menuitem_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_label(menu->label));
+    menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(audio_group, menu->label));
+    audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
     gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
     g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
                      G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
