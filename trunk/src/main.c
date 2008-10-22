@@ -223,7 +223,11 @@ gint play_file(gchar * uri, gint playlist)
         // for some vo's (like xv) if the window is not visible and big enough the vo setup fails
         gtk_widget_set_size_request(drawing_area, 16, 16);
         gtk_widget_show_all(fixed);
-        gtk_widget_hide(menu_event_box);
+		if (g_ascii_strcasecmp (uri,"dvdnav://") == 0) {
+			gtk_widget_show(menu_event_box);
+		} else {
+			gtk_widget_hide(menu_event_box);
+		}
         while (gtk_events_pending())
             gtk_main_iteration();
 
