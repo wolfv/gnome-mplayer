@@ -140,7 +140,9 @@ gint play_file(gchar * uri, gint playlist)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
     gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
-
+	lang_group = NULL;
+	audio_group = NULL;
+	
     local_file = get_localfile_from_uri(uri);
     if (local_file == NULL)
         return 0;
