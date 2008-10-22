@@ -435,7 +435,7 @@ gboolean set_update_gui(void *data)
     if (GTK_IS_WIDGET(menu_edit_sub_langs)) {
         langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_sub_langs));
         item = g_list_nth(langs, idledata->sub_demux);
-        if (item)
+        if (item && GTK_IS_WIDGET(item->data))
             gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_sub_langs),
                                          (GtkWidget *) item->data, FALSE);
     }
@@ -443,7 +443,7 @@ gboolean set_update_gui(void *data)
     if (GTK_IS_WIDGET(menu_edit_audio_langs)) {
         langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
         item = g_list_nth(langs, idledata->switch_audio);
-        if (item)
+        if (item && GTK_IS_WIDGET(item->data))
             gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_audio_langs),
                                          (GtkWidget *) item->data, FALSE);
     }
@@ -556,7 +556,8 @@ gboolean set_item_add_info(void *data)
 
 void remove_langs(GtkWidget * item, gpointer data)
 {
-    gtk_widget_destroy(item);
+	if (GTK_IS_WIDGET(item))
+		gtk_widget_destroy(item);
 }
 
 void update_status_icon()
