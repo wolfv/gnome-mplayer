@@ -335,6 +335,8 @@ int main(int argc, char *argv[])
     use_pausing_keep_force = FALSE;
     show_notification = TRUE;
     show_status_icon = TRUE;
+    lang_group = NULL;
+    audio_group = NULL;
 
     // call g_type_init or otherwise we can crash
     g_type_init();

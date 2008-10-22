@@ -212,8 +212,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gdouble old_pos;
     LangMenu *menu;
     gboolean found_title;
-	gchar *info;
-	
+    gchar *info;
+
     if (source == NULL) {
         g_source_remove(watch_err_id);
         g_source_remove(watch_in_hup_id);
@@ -311,6 +311,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             send_command("get_time_length\n", TRUE);
         send_command("get_property chapters\n", TRUE);
         send_command("get_property sub_visibility\n", TRUE);
+        send_command("get_property sub_demux\n", TRUE);
+        send_command("get_property switch_audio\n", TRUE);
         send_command("pausing_keep_force get_property path\n", FALSE);
     }
 
@@ -325,6 +327,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(resize_window, idledata);
         g_idle_add(set_volume_from_slider, NULL);
         send_command("get_property metadata\n", TRUE);
+        send_command("get_property switch_audio\n", TRUE);
         if (idledata->length < 1.0)
             send_command("get_time_length\n", TRUE);
         send_command("pausing_keep_force get_property path\n", FALSE);
@@ -398,6 +401,18 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         } else {
             idledata->sub_visible = FALSE;
         }
+        g_idle_add(set_update_gui, NULL);
+    }
+
+    if (strstr(mplayer_output->str, "ANS_sub_demux") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_sub_demux");
+        sscanf(buf, "ANS_sub_demux=%i", &idledata->sub_demux);
+        g_idle_add(set_update_gui, NULL);
+    }
+
+    if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_switch_audio");
+        sscanf(buf, "ANS_switch_audio=%i", &idledata->switch_audio);
         g_idle_add(set_update_gui, NULL);
     }
 
@@ -522,10 +537,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                         }
                         i += 2;
                     }
-					info = g_strdup(idledata->info);
-					strip_unicode(info, strlen(info));
+                    info = g_strdup(idledata->info);
+                    strip_unicode(info, strlen(info));
                     if (!found_title) {
-						utf8name = g_strrstr(info, "/");
+                        utf8name = g_strrstr(info, "/");
                         if (utf8name) {
                             utf8name += sizeof(gchar);
                         } else {
@@ -539,17 +554,17 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     buf = g_markup_printf_escaped("\n\t%s\n", info);
                     message = g_strconcat(message, buf, NULL);
                     g_free(buf);
-					g_free(info);
+                    g_free(info);
 
                     message = g_strconcat(message, "</small>", NULL);
 
                     g_strfreev(parse);
                 }
             }
-			if (g_strcasecmp ( idledata->media_info,message) != 0) {
-				g_strlcpy(idledata->media_info, message, 1024);
-				g_idle_add(set_media_label, idledata);
-			}
+            if (g_strcasecmp(idledata->media_info, message) != 0) {
+                g_strlcpy(idledata->media_info, message, 1024);
+                g_idle_add(set_media_label, idledata);
+            }
             g_free(message);
 
         }

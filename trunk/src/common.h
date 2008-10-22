@@ -150,6 +150,8 @@ typedef struct _IdleData {
     gboolean has_chapters;
     gboolean tmpfile;
     gboolean sub_visible;
+    gint sub_demux;
+    gint switch_audio;
 #ifdef GIO_ENABLED
     GFile *src;
     GFile *tmp;

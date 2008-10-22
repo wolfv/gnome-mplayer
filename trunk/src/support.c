@@ -24,7 +24,7 @@
 
 #include "support.h"
 static char *device = "default";
-static char *pcm_mix = "PCM";
+// static char *pcm_mix = "PCM";
 static char *master_mix = "Master";
 
 void strip_unicode(gchar * data, gsize len)
@@ -1775,7 +1775,7 @@ gdouble get_alsa_volume()
             vol = (gdouble) ((get_vol - pmin) * f_multi);
             if (verbose) {
                 printf("Master Range is %li to %li \n", pmin, pmax);
-				printf("Master Current Volume %li, multiplier = %f\n",get_vol,f_multi);
+                printf("Master Current Volume %li, multiplier = %f\n", get_vol, f_multi);
                 printf("Scaled Volume is %lf\n", vol);
             }
             found = TRUE;

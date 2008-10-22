@@ -236,6 +236,8 @@ GtkWidget *folder_progress_bar;
 
 // Playlist container
 GtkWidget *plvbox;
+GSList *lang_group;
+GSList *audio_group;
 
 
 GtkAccelGroup *accel_group;
