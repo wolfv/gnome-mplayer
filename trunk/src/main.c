@@ -140,9 +140,9 @@ gint play_file(gchar * uri, gint playlist)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
     gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
-	lang_group = NULL;
-	audio_group = NULL;
-	
+    lang_group = NULL;
+    audio_group = NULL;
+
     local_file = get_localfile_from_uri(uri);
     if (local_file == NULL)
         return 0;
@@ -223,11 +223,11 @@ gint play_file(gchar * uri, gint playlist)
         // for some vo's (like xv) if the window is not visible and big enough the vo setup fails
         gtk_widget_set_size_request(drawing_area, 16, 16);
         gtk_widget_show_all(fixed);
-		if (g_ascii_strcasecmp (uri,"dvdnav://") == 0) {
-			gtk_widget_show(menu_event_box);
-		} else {
-			gtk_widget_hide(menu_event_box);
-		}
+        if (g_ascii_strcasecmp(uri, "dvdnav://") == 0) {
+            gtk_widget_show(menu_event_box);
+        } else {
+            gtk_widget_hide(menu_event_box);
+        }
         while (gtk_events_pending())
             gtk_main_iteration();
 
@@ -515,9 +515,30 @@ int main(int argc, char *argv[])
                 printf("%s is mounted on %s\n", argv[fileindex], mnt->mnt_dir);
                 uri = g_strdup_printf("%s/VIDEO_TS", mnt->mnt_dir);
                 stat(uri, &buf);
+                g_free(uri);
                 if (S_ISDIR(buf.st_mode)) {
                     set_media_info_name(_("Playing DVD"));
                     play_file("dvd://", playlist);
+                } else {
+                    uri = g_strdup_printf("file://%s", mnt->mnt_dir);
+                    create_folder_progress_window();
+                    add_folder_to_playlist_callback(uri, NULL);
+                    g_free(uri);
+                    destroy_folder_progress_window();
+                    if (random_order) {
+                        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+                        randomize_playlist(playliststore);
+                    }
+                    if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
+                                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+                        set_media_info_name(uri);
+                        if (verbose)
+                            printf("playing - %s is playlist = %i\n", uri, playlist);
+                        play_file(uri, playlist);
+                        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+                        g_free(uri);
+                    }
                 }
             } else {
                 set_media_info_name(_("Playing Audio CD"));
