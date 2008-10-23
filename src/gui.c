@@ -556,8 +556,8 @@ gboolean set_item_add_info(void *data)
 
 void remove_langs(GtkWidget * item, gpointer data)
 {
-	if (GTK_IS_WIDGET(item))
-		gtk_widget_destroy(item);
+    if (GTK_IS_WIDGET(item))
+        gtk_widget_destroy(item);
 }
 
 void update_status_icon()

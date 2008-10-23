@@ -1,4 +1,6 @@
 Development
+    Better handling of device and folder names on the command line
+    Add code to detect media so that only playable media is added to the playlist
     Make subtitle and audio lists to be radio menus and update them so they show correctly on media load
     Fix crash on streaming ICY site, should fix Ubuntu bug https://bugs.launchpad.net/ubuntu/+bug/285988
     Fix up some issues with get_metadata

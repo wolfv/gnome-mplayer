@@ -1037,7 +1037,7 @@ gchar *metadata_to_utf8(gchar * string)
     return g_locale_to_utf8(string, -1, NULL, NULL, NULL);
 }
 
-void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
+gboolean get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
 {
 
     gchar *name = NULL;
@@ -1052,6 +1052,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
     gchar *lower;
     gfloat seconds;
     gchar *localtitle = NULL;
+    gboolean ret = FALSE;
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
@@ -1071,7 +1072,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
     }
 
     if (name == NULL)
-        return;
+        return FALSE;
     printf("getting file metadata for %s\n", name);
 
     av[ac++] = g_strdup_printf("mplayer");
@@ -1108,7 +1109,7 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
             g_free(stdout);
         if (stderr != NULL)
             g_free(stderr);
-        return;
+        return FALSE;
     }
     output = g_strsplit(stdout, "\n", 0);
     ac = 0;
@@ -1150,6 +1151,10 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
                 strip_unicode(*title, strlen(*title));
             }
         }
+
+        if (strstr(output[ac], "ID_DEMUXER") != NULL) {
+            ret = TRUE;
+        }
         g_free(lower);
         ac++;
     }
@@ -1171,6 +1176,8 @@ void get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
         g_free(stderr);
     g_free(name);
     g_free(basename);
+
+    return ret;
 }
 
 gint get_bitrate(gchar * name)
@@ -1330,9 +1337,10 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
     gchar *artist = NULL;
     gchar *length = NULL;
     gchar *unescaped = NULL;
+    gboolean add_item = FALSE;
 
     if (!device_name(uri) && !streaming_media(uri)) {
-        get_metadata(uri, &desc, &artist, &length);
+        add_item = get_metadata(uri, &desc, &artist, &length);
         if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
             if (desc != NULL) {
                 g_free(desc);
@@ -1341,24 +1349,27 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
         }
     } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
         desc = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
+        add_item = TRUE;
     } else if (device_name(uri)) {
         if (g_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
             loop = 1;
         }
-        get_metadata(uri, &desc, &artist, &length);
-        if (desc == NULL || (desc != NULL && strlen(desc) == 0))
+        add_item = get_metadata(uri, &desc, &artist, &length);
+        if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
             if (desc != NULL)
                 g_free(desc);
-        desc = g_strdup_printf("Device - %s", uri);
+            desc = g_strdup_printf("Device - %s", uri);
+        }
 
     } else {
         unescaped = g_uri_unescape_string(uri, NULL);
         desc = g_strdup_printf("Stream from %s", unescaped);
         g_free(unescaped);
+        add_item = TRUE;
     }
 
 
-    if (strlen(uri) > 0) {
+    if (add_item) {
         gtk_list_store_append(playliststore, &localiter);
         gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, uri,
                            DESCRIPTION_COLUMN, desc,
