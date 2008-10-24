@@ -43,6 +43,13 @@ void update_gui()
         gtk_widget_show(GTK_WIDGET(menuitem_prev));
         gtk_widget_show(GTK_WIDGET(menuitem_next));
     }
+
+    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 0) {
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), TRUE);
+    } else {
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
+    }
+
 }
 
 gboolean playlist_popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
@@ -197,6 +204,13 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
         } else {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
         }
+
+        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 0) {
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), TRUE);
+        } else {
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
+        }
+
         g_strfreev(list);
     }
     update_gui();
@@ -596,6 +610,8 @@ void clear_playlist(GtkWidget * widget, void *data)
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
 }
 
 void move_item_up(GtkWidget * widget, void *data)
@@ -715,7 +731,7 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
 
 void playlist_close(GtkWidget * widget, void *data)
 {
-    menuitem_view_playlist_callback(NULL, NULL);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), FALSE);
 }
 
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)

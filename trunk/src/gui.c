@@ -87,6 +87,12 @@ gboolean hide_buttons(void *data)
         gtk_widget_show(GTK_WIDGET(menuitem_next));
     }
 
+    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 0) {
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), TRUE);
+    } else {
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
+    }
+
     return FALSE;
 }
 
@@ -205,7 +211,7 @@ gboolean set_media_label(void *data)
         dbus_send_rpsignal_with_string("RP_SetMediaLabel", idle->media_info);
 
 #ifdef NOTIFY_ENABLED
-        if (show_notification && control_id == 0) {
+        if (show_notification && control_id == 0 && !gtk_window_is_active((GtkWindow *) window)) {
             notify_init("gnome-mplayer");
             notification =
                 notify_notification_new(_("GNOME MPlayer"), idle->media_info, "gnome-mplayer",
@@ -426,6 +432,12 @@ gboolean set_update_gui(void *data)
         gtk_widget_show(GTK_WIDGET(menuitem_next));
     }
 
+    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 0) {
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), TRUE);
+    } else {
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
+    }
+
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles)) !=
         idledata->sub_visible) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles),
@@ -442,6 +454,11 @@ gboolean set_update_gui(void *data)
 
     if (GTK_IS_WIDGET(menu_edit_audio_langs)) {
         langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
+        if (g_list_length(langs) > 1) {
+            gtk_widget_show(GTK_WIDGET(menuitem_edit_switch_audio));
+        } else {
+            gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
+        }
         item = g_list_nth(langs, idledata->switch_audio);
         if (item && GTK_IS_WIDGET(item->data))
             gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_audio_langs),
@@ -2898,10 +2915,8 @@ void config_apply(GtkWidget * widget, void *data)
     write_preference_float(SUBTITLESCALE, subtitle_scale);
     write_preference_string(SUBTITLECODEPAGE, subtitle_codepage);
     write_preference_string(SUBTITLECOLOR, subtitle_color);
-    if (mplayer_bin != NULL)
-        write_preference_string(MPLAYER_BIN, mplayer_bin);
-    if (extraopts != NULL)
-        write_preference_string(EXTRAOPTS, extraopts);
+    write_preference_string(MPLAYER_BIN, mplayer_bin);
+    write_preference_string(EXTRAOPTS, extraopts);
 
     write_preference_bool(DISABLE_QT, qt_disabled);
     write_preference_bool(DISABLE_REAL, real_disabled);
@@ -5227,6 +5242,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
@@ -5252,6 +5268,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_hide(GTK_WIDGET(menuitem_prev));
     gtk_widget_hide(GTK_WIDGET(menuitem_next));
     gtk_widget_hide(media_label);
+    gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
     gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
     update_status_icon();
     //while (gtk_events_pending())
