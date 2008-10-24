@@ -1976,10 +1976,14 @@ void write_preference_string(gchar * key, gchar * value)
     gchar *full_key = NULL;
 
     full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
-    gconf_client_set_string(gconf, full_key, value, NULL);
+    gconf_client_unset(gconf, full_key, NULL);
+    if (value != NULL && strlen(g_strstrip(value)) > 0)
+        gconf_client_set_string(gconf, full_key, value, NULL);
     g_free(full_key);
 #else
-    g_key_file_set_string(config, "gnome-mplayer", key, value);
+    g_key_file_remove_key(conifg, "gnome-mplayer", key, NULL)
+        if (value != NULL && strlen(g_strstrip(value)) > 0)
+        g_key_file_set_string(config, "gnome-mplayer", key, value);
 #endif
 }
 

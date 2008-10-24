@@ -1,4 +1,9 @@
 Development
+    Make Switch Audio Menu only appear where there are multiple audio tracks
+    Make Shuffle and Loop menu items become sensitive at the right times
+    Fix bug in write_preference_string when value was null
+    Fix close playlist button
+    Only send notification when window is not active
     Better handling of device and folder names on the command line
     Add code to detect media so that only playable media is added to the playlist
     Make subtitle and audio lists to be radio menus and update them so they show correctly on media load
