@@ -2816,7 +2816,6 @@ void config_apply(GtkWidget * widget, void *data)
 
     update_mplayer_config();
 
-    volume = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     old_disable_framedrop = disable_framedrop;
     disable_deinterlace =
@@ -2889,7 +2888,7 @@ void config_apply(GtkWidget * widget, void *data)
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
 
     init_preference_store();
-    write_preference_int(VOLUME, volume);
+    write_preference_int(VOLUME, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));
     write_preference_int(CACHE_SIZE, cache_size);
     write_preference_int(OSDLEVEL, osdlevel);
     write_preference_int(PPLEVEL, pplevel);
@@ -3696,16 +3695,16 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
-    config_volume = gtk_spin_button_new_with_range(0, 100, 1);
+    config_volume = gtk_spin_button_new_with_range(-1, 100, 1);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_volume,
                          _
-                         ("Default volume for playback, values of 0 or 100 cause the setting from ALSA to be used"),
+                         ("Default volume for playback, a value of -1 causes the setting from ALSA to be used"),
                          NULL);
     gtk_widget_set_size_request(config_volume, 100, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume), volume);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume), read_preference_int(VOLUME));
     gtk_entry_set_width_chars(GTK_ENTRY(config_volume), 6);
     gtk_entry_set_editable(GTK_ENTRY(config_volume), FALSE);
     gtk_entry_set_alignment(GTK_ENTRY(config_volume), 1);

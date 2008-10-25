@@ -1,4 +1,5 @@
 Development
+    Rework, volume setting preference
     Make Switch Audio Menu only appear where there are multiple audio tracks
     Make Shuffle and Loop menu items become sensitive at the right times
     Fix bug in write_preference_string when value was null
