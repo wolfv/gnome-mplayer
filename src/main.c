@@ -432,7 +432,7 @@ int main(int argc, char *argv[])
     }
 #endif
 
-    if (volume == 0 || volume == 100) {
+    if (volume == -1) {
         volume = (gint) get_alsa_volume();
     } else {
         if (verbose)
