@@ -2037,6 +2037,7 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
+    release_preference_store();
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
@@ -2056,7 +2057,6 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
             g_free(filename);
         }
     }
-    release_preference_store();
     gtk_widget_destroy(dialog);
 
 }
@@ -2095,7 +2095,8 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
-
+    release_preference_store();
+	
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         gtk_list_store_clear(playliststore);
@@ -2115,7 +2116,6 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
             g_free(filename);
         }
     }
-    release_preference_store();
     gtk_widget_destroy(dialog);
 
 }
