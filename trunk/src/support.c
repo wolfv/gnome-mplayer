@@ -1981,8 +1981,8 @@ void write_preference_string(gchar * key, gchar * value)
         gconf_client_set_string(gconf, full_key, value, NULL);
     g_free(full_key);
 #else
-    g_key_file_remove_key(conifg, "gnome-mplayer", key, NULL)
-        if (value != NULL && strlen(g_strstrip(value)) > 0)
+    g_key_file_remove_key(config, "gnome-mplayer", key, NULL);
+    if (value != NULL && strlen(g_strstrip(value)) > 0)
         g_key_file_set_string(config, "gnome-mplayer", key, value);
 #endif
 }
