@@ -26,7 +26,7 @@
 #define HAVE_DCGETTEXT 1
 
 /* Define to 1 to use GConf to store preferences */
-/* #undef HAVE_GCONF */
+#define HAVE_GCONF 1
 
 /* Define if the GNU gettext() function is already present or preinstalled. */
 #define HAVE_GETTEXT 1
