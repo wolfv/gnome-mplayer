@@ -1,4 +1,5 @@
 Development
+    Fix up a couple of crashes when gconf is not enabled
     Read ALSA volume and use it, only when alsa is the vo, on pulse this patch makes audio very quiet.
     Rework, volume setting preference
     Make Switch Audio Menu only appear where there are multiple audio tracks

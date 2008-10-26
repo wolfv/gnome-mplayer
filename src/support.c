@@ -1981,9 +1981,11 @@ void write_preference_string(gchar * key, gchar * value)
         gconf_client_set_string(gconf, full_key, value, NULL);
     g_free(full_key);
 #else
-    g_key_file_remove_key(config, "gnome-mplayer", key, NULL);
-    if (value != NULL && strlen(g_strstrip(value)) > 0)
+    if (value != NULL && strlen(g_strstrip(value)) > 0) {
         g_key_file_set_string(config, "gnome-mplayer", key, value);
+    } else {
+        g_key_file_remove_key(config, "gnome-mplayer", key, NULL);
+    }
 #endif
 }
 
@@ -1997,14 +1999,16 @@ void release_preference_store()
     gchar *filename;
     gchar *data;
 
-    filename = g_strdup_printf("%s/.mplayer/gnome-mplayer.conf", getenv("HOME"));
-    data = g_key_file_to_data(config, NULL, NULL);
+    if (config != NULL) {
+        filename = g_strdup_printf("%s/.mplayer/gnome-mplayer.conf", getenv("HOME"));
+        data = g_key_file_to_data(config, NULL, NULL);
 
-    g_file_set_contents(filename, data, -1, NULL);
-    g_free(data);
-    g_free(filename);
-    g_key_file_free(config);
-
+        g_file_set_contents(filename, data, -1, NULL);
+        g_free(data);
+        g_free(filename);
+        g_key_file_free(config);
+        config = NULL;
+    }
 #endif
 }
 
