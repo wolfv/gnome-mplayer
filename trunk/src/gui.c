@@ -1865,13 +1865,15 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
-
+    release_preference_store();
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         filename = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
         if (last_dir != NULL) {
+            init_preference_store();
             write_preference_string(LAST_DIR, last_dir);
+            release_preference_store();
             g_free(last_dir);
         }
 
@@ -1895,7 +1897,6 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
         }
     }
 
-    release_preference_store();
     if (GTK_IS_WIDGET(list)) {
         column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
         count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
@@ -3704,7 +3705,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_set_size_request(config_volume, 100, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
+    init_preference_store();
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume), read_preference_int(VOLUME));
+    release_preference_store();
     gtk_entry_set_width_chars(GTK_ENTRY(config_volume), 6);
     gtk_entry_set_editable(GTK_ENTRY(config_volume), FALSE);
     gtk_entry_set_alignment(GTK_ENTRY(config_volume), 1);
