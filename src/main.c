@@ -167,6 +167,16 @@ gint play_file(gchar * uri, gint playlist)
         g_free(subtitle);
     }
 
+	if (read_preference_int(VOLUME) == -1 && g_ascii_strcasecmp (ao,"alsa") == 0) {
+        volume = (gint) get_alsa_volume();	
+		idledata->volume = volume;
+#if GTK2_12_ENABLED
+		gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),volume);
+#else
+		gtk_range_set_value(GTK_RANGE(vol_slider),volume);
+#endif		
+	}
+	
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
         if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
             if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
@@ -317,7 +327,7 @@ int main(int argc, char *argv[])
     stored_window_height = -1;
     cache_size = 0;
     forcecache = FALSE;
-    volume = 0;
+    volume = -1;
     vertical_layout = FALSE;
     playlist_visible = FALSE;
     disable_fullscreen = FALSE;
@@ -394,7 +404,8 @@ int main(int argc, char *argv[])
     loc_window_x = read_preference_int(WINDOW_X);
     loc_window_y = read_preference_int(WINDOW_Y);
     keep_on_top = read_preference_bool(KEEP_ON_TOP);
-
+	read_mplayer_config();
+	
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
 #ifdef GTK2_12_ENABLED
     g_option_context_set_translation_domain(context, "UTF-8");
