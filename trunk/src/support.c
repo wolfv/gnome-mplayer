@@ -279,21 +279,21 @@ gint parse_playlist(gchar * uri)
 gint parse_basic(gchar * uri)
 {
 
-#ifdef GIO_ENABLED
-    GFile *file;
-    gchar *path;
-    GFileInputStream *input;
-    GDataInputStream *data;
-    gchar *line;
-    gsize length;
-    gchar *newuri = NULL;
+    gchar *path = NULL;
+    gchar *line = NULL;
     gchar *line_uri = NULL;
-    gint ret = 0;
+    gchar *newuri = NULL;
     gchar **parse;
 
     if (device_name(uri))
         return 0;
 
+#ifdef GIO_ENABLED
+    GFile *file;
+    GFileInputStream *input;
+    GDataInputStream *data;
+
+    gsize length;
     file = g_file_new_for_uri(uri);
     path = get_path(uri);
     input = g_file_read(file, NULL, NULL);
@@ -301,7 +301,28 @@ gint parse_basic(gchar * uri)
     if (data != NULL) {
         line = g_data_input_stream_read_line(data, &length, NULL, NULL);
         while (line != NULL) {
+#else
+    FILE *fp;
+    gchar *file = NULL;
 
+    file = g_uri_parse_scheme(uri);
+    if (strcmp(file, "file") != 0)
+        return 1; // FIXME: remote playlists unsuppored
+    parse = g_strsplit(uri, "/", 3);
+    path = get_path(parse[2]);
+    fp = fopen(parse[2], "r");
+    line = g_new0(gchar, 1024);
+
+    if (fp != NULL) {
+        while (!feof(fp)) {
+            memset(line, 0, sizeof(line));
+            line = fgets(line, 1024, fp);
+            if (line == NULL)
+                continue;
+            g_strchomp(line);
+            g_strchug(line);
+            //printf("line=%s\n",line);
+#endif
             if (strlen(line) > 0) {
                 newuri = g_strdup_printf("%s/%s", path, line);
                 line_uri = g_filename_to_uri(line, NULL, NULL);
@@ -310,194 +331,83 @@ gint parse_basic(gchar * uri)
             //printf("line_uri = %s\n", line_uri);
             if (g_strcasecmp(line, "[playlist]") == 0) {
                 //printf("playlist\n");
-                ret = 1;
             } else if (g_strcasecmp(line, "[reference]") == 0) {
                 //printf("ref\n");
-                ret = 1;
-            } else if (g_strcasecmp(line, "<asx") == 0) {
-                //printf("ref\n");
+            } else if (g_strncasecmp(line, "<asx", strlen("<asx")) == 0) {
+                //printf("asx\n");
                 idledata->streaming = TRUE;
-                ret = 0;
-                break;
-            } else if (g_strncasecmp(line, "NumberOfEntries", strlen("NumberOfEntries")) == 0) {
+                return 1;
+            } else if (g_strncasecmp(line, "numberofentries", strlen("numberofentries")) == 0) {
                 //printf("num\n");
-                ret = 1;
-            } else if (g_strncasecmp(line, "Version", strlen("Version")) == 0) {
+            } else if (g_strncasecmp(line, "version", strlen("version")) == 0) {
                 //printf("ver\n");
-                ret = 1;
+            } else if (g_strncasecmp(line, "title", strlen("title")) == 0) {
+                //printf("tit\n");
+            } else if (g_strncasecmp(line, "length", strlen("length")) == 0) {
+                //printf("len\n");
             } else if (g_strncasecmp(line, "http://", strlen("http://")) == 0) {
                 //printf("http\n");
-                ret = 1;
                 add_item_to_playlist(line, 0);
             } else if (g_strncasecmp(line, "mms://", strlen("mms://")) == 0) {
                 //printf("mms\n");
-                ret = 1;
                 add_item_to_playlist(line, 0);
             } else if (g_strncasecmp(line, "rtsp://", strlen("rtsp://")) == 0) {
                 //printf("mms\n");
-                ret = 1;
                 add_item_to_playlist(line, 0);
             } else if (g_strncasecmp(line, "pnm://", strlen("pnm://")) == 0) {
                 //printf("mms\n");
-                ret = 1;
                 add_item_to_playlist(line, 0);
             } else if (g_strncasecmp(line, "#extinf", strlen("#extinf")) == 0) {
                 // skip this line
             } else if (g_strncasecmp(line, "#", strlen("#")) == 0) {
                 // skip this line
+            } else if (strcmp(line, "") == 0) {
+                // skip this line
             } else if (uri_exists(newuri)) {
                 //printf("ft file - %s\n", file);
-                ret = 1;
                 add_item_to_playlist(newuri, 0);
             } else if (uri_exists(line)) {
                 //printf("ft buffer - %s\n", buffer);
-                ret = 1;
                 add_item_to_playlist(line, 0);
             } else if (uri_exists(line_uri)) {
-                ret = 1;
                 add_item_to_playlist(line_uri, 0);
-            } else if (ret == 1) {
-                if (g_ascii_strncasecmp(line, "ref", 3) == 0) {
+            } else {
+                if ((g_ascii_strncasecmp(line, "ref", 3) == 0) ||
+                    (g_ascii_strncasecmp(line, "file", 4)) == 0) {
                     parse = g_strsplit(line, "=", 2);
                     if (parse != NULL) {
                         if (parse[1] != NULL) {
                             g_strchomp(parse[1]);
                             g_strchug(parse[1]);
-                            add_item_to_playlist(parse[1], 0);
+                            line = g_strdup(parse[1]);
                         }
                         g_strfreev(parse);
                     }
-                } else if (g_ascii_strncasecmp(line, "file", 4) == 0) {
-                    parse = g_strsplit(line, "=", 2);
-                    if (parse != NULL) {
-                        if (parse[1] != NULL) {
-                            g_strchomp(parse[1]);
-                            g_strchug(parse[1]);
-                            add_item_to_playlist(parse[1], 0);
-                        }
-                        g_strfreev(parse);
-                    }
-                } else {
-                    add_item_to_playlist(line, 0);
                 }
+                if (line[0] != '/' &&
+                    strstr(g_ascii_strdown(line, strlen(line)), "://") == NULL) {
+#ifdef GIO_ENABLED
+                    line = g_strdup_printf("%s/%s", path, line);
+#else
+                    line = g_strdup_printf("file://%s/%s", path, line);
+#endif
+                }
+                add_item_to_playlist(line, 0);
             }
-
-
-            g_free(line);
+#ifdef GIO_ENABLED
             line = g_data_input_stream_read_line(data, &length, NULL, NULL);
         }
-
         g_input_stream_close((GInputStream *) data, NULL, NULL);
         g_input_stream_close((GInputStream *) input, NULL, NULL);
     }
-    g_free(path);
     g_object_unref(file);
-    return ret;
 #else
-
-    FILE *fp;
-    gint ret = 0;
-    gchar *buffer;
-    gchar *buffer_uri;
-    gchar **parse;
-    gchar *file = NULL;
-    gchar *filename;
-
-    filename = g_filename_from_uri(uri, NULL, NULL);
-    fp = fopen(filename, "r");
-    buffer = g_new0(gchar, 1024);
-
-    if (fp != NULL) {
-        while (!feof(fp)) {
-            memset(buffer, 0, sizeof(buffer));
-            buffer = fgets(buffer, 1024, fp);
-            if (buffer != NULL) {
-                g_strchomp(buffer);
-                g_strchug(buffer);
-                //printf("buffer=%s\n",buffer);
-                if (path != NULL)
-                    g_free(path);
-                path = get_path(uri);
-                //printf("path=%s\n",path);
-                if (strlen(buffer) > 0)
-                    file = g_strdup_printf("%s/%s", path, buffer);
-                buffer_uri = g_filename_to_uri(buffer, NULL, NULL);
-
-                if (g_strcasecmp(buffer, "[playlist]") == 0) {
-                    //printf("playlist\n");
-                    ret = 1;
-                } else if (g_strcasecmp(buffer, "[reference]") == 0) {
-                    //printf("ref\n");
-                    ret = 1;
-                } else if (g_strcasecmp(line, "<asx") == 0) {
-                    //printf("ref\n");
-                    idledata->streaming = TRUE;
-                    ret = 0;
-                    break;
-                } else if (g_strncasecmp(buffer, "NumberOfEntries", strlen("NumberOfEntries")) == 0) {
-                    //printf("num\n");
-                    ret = 1;
-                } else if (g_strncasecmp(buffer, "Version", strlen("Version")) == 0) {
-                    //printf("ver\n");
-                    ret = 1;
-                } else if (g_strncasecmp(buffer, "http://", strlen("http://")) == 0) {
-                    //printf("http\n");
-                    ret = 1;
-                    add_item_to_playlist(buffer, 0);
-                } else if (g_strncasecmp(buffer, "mms://", strlen("mms://")) == 0) {
-                    //printf("mms\n");
-                    ret = 1;
-                    add_item_to_playlist(buffer, 0);
-                } else if (uri_exists(file)) {
-                    //printf("ft file - %s\n", file);
-                    ret = 1;
-                    add_item_to_playlist(file, 0);
-                } else if (uri_exists(buffer)) {
-                    //printf("ft buffer - %s\n", buffer);
-                    ret = 1;
-                    add_item_to_playlist(buffer, 0);
-                } else if (uri_exists(buffer_uri)) {
-                    //printf("ft buffer - %s\n", buffer);
-                    ret = 1;
-                    add_item_to_playlist(buffer_uri, 0);
-                } else if (ret == 1) {
-                    if (g_ascii_strncasecmp(buffer, "ref", 3) == 0) {
-                        parse = g_strsplit(buffer, "=", 2);
-                        if (parse != NULL) {
-                            if (parse[1] != NULL) {
-                                g_strchomp(parse[1]);
-                                g_strchug(parse[1]);
-                                add_item_to_playlist(parse[1], 0);
-                            }
-                            g_strfreev(parse);
-                        }
-                    } else if (g_ascii_strncasecmp(buffer, "file", 4) == 0) {
-                        parse = g_strsplit(buffer, "=", 2);
-                        if (parse != NULL) {
-                            if (parse[1] != NULL) {
-                                g_strchomp(parse[1]);
-                                g_strchug(parse[1]);
-                                add_item_to_playlist(parse[1], 0);
-                            }
-                            g_strfreev(parse);
-                        }
-                    } else {
-                        add_item_to_playlist(buffer, 0);
-                    }
-                }
-                if (strlen(buffer) > 0)
-                    g_free(file);
-                g_free(buffer_uri);
-            }
-            if (ret != 1)
-                break;
         }
     }
-    g_free(filename);
-    g_free(buffer);
-    buffer = NULL;
-    return ret;
+    g_free(file);
+    fclose(fp);
 #endif
+    return 1;
 }
 
 gint parse_ram(gchar * filename)

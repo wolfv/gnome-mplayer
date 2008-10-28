@@ -1,4 +1,5 @@
 Development
+    Apply support-relative-paths patch from MonkeySage
     Fix up a couple of crashes when gconf is not enabled
     Read ALSA volume and use it, only when alsa is the vo, on pulse this patch makes audio very quiet.
     Rework, volume setting preference
