@@ -138,7 +138,7 @@ gint detect_playlist(gchar * uri)
 
 #else
         filename = g_filename_from_uri(uri, NULL, NULL);
-		printf("filename %s\n",filename);
+		// printf("filename %s\n",filename);
         if (filename != NULL) {
             fp = fopen(filename, "r");
             if (path != NULL)
