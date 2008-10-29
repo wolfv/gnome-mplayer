@@ -221,7 +221,7 @@ gint parse_playlist(gchar * uri)
     gint ret = 0;
     GtkTreeViewColumn *column;
     gchar *coltitle;
-    gint count;
+    gint count = 0;
     gchar *basename;
 
     // try and parse a playlist in various forms
@@ -279,14 +279,14 @@ gint parse_playlist(gchar * uri)
 gint parse_basic(gchar * uri)
 {
 
+    if (device_name(uri))
+        return 0;
+
     gchar *path = NULL;
     gchar *line = NULL;
     gchar *line_uri = NULL;
     gchar *newuri = NULL;
     gchar **parse;
-
-    if (device_name(uri))
-        return 0;
 
 #ifdef GIO_ENABLED
     GFile *file;
@@ -307,7 +307,7 @@ gint parse_basic(gchar * uri)
 
     file = g_uri_parse_scheme(uri);
     if (strcmp(file, "file") != 0)
-        return 1; // FIXME: remote playlists unsuppored
+        return 0; // FIXME: remote playlists unsuppored
     parse = g_strsplit(uri, "/", 3);
     path = get_path(parse[2]);
     fp = fopen(parse[2], "r");
@@ -336,7 +336,7 @@ gint parse_basic(gchar * uri)
             } else if (g_strncasecmp(line, "<asx", strlen("<asx")) == 0) {
                 //printf("asx\n");
                 idledata->streaming = TRUE;
-                return 1;
+                return 0;
             } else if (g_strncasecmp(line, "numberofentries", strlen("numberofentries")) == 0) {
                 //printf("num\n");
             } else if (g_strncasecmp(line, "version", strlen("version")) == 0) {
@@ -361,7 +361,7 @@ gint parse_basic(gchar * uri)
                 // skip this line
             } else if (g_strncasecmp(line, "#", strlen("#")) == 0) {
                 // skip this line
-            } else if (strcmp(line, "") == 0) {
+            } else if (strlen(line) == 0) {
                 // skip this line
             } else if (uri_exists(newuri)) {
                 //printf("ft file - %s\n", file);
@@ -384,12 +384,11 @@ gint parse_basic(gchar * uri)
                         g_strfreev(parse);
                     }
                 }
-                if (line[0] != '/' &&
-                    strstr(g_ascii_strdown(line, strlen(line)), "://") == NULL) {
-#ifdef GIO_ENABLED
-                    line = g_strdup_printf("%s/%s", path, line);
-#else
-                    line = g_strdup_printf("file://%s/%s", path, line);
+                if (strstr(line, "://") == NULL) {
+                    if (line[0] != '/')
+                        line = g_strdup_printf("%s/%s", path, line);
+#ifndef GIO_ENABLED
+                    line = g_strdup_printf("file://%s", line);
 #endif
                 }
                 add_item_to_playlist(line, 0);
@@ -407,6 +406,8 @@ gint parse_basic(gchar * uri)
     g_free(file);
     fclose(fp);
 #endif
+    g_free(path);
+    g_free(line);
     return 1;
 }
 
