@@ -1,4 +1,5 @@
 Development
+    Fix problems with patches from MonkeySage
     Updated patch from MonkeySage
     Apply support-relative-paths patch from MonkeySage
     Fix up a couple of crashes when gconf is not enabled
