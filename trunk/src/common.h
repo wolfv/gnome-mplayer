@@ -54,6 +54,8 @@
 #define SUBTITLECODEPAGE	"subtitlecodepage"
 #define SUBTITLECOLOR	"subtitlecolor"
 #define VOLUME	"volume"
+#define USE_MEDIAKEYS		"use_mediakeys"
+
 
 #define MPLAYER_BIN		"mplayer_bin"
 #define EXTRAOPTS		"extraopts"
@@ -281,6 +283,8 @@ gint tv_fps;
 
 GThread *thread;
 GMutex *slide_away;
+
+gboolean use_mediakeys;
 
 gboolean qt_disabled;
 gboolean real_disabled;
