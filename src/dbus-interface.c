@@ -1127,13 +1127,14 @@ gboolean dbus_hookup(gint windowid, gint controlid)
         printf("Using match: %s\n", match);
     g_free(match);
     dbus_error_free(&error);
-
-    match = g_strdup_printf("type='signal',interface='org.gnome.SettingsDaemon.MediaKeys'");
-    dbus_bus_add_match(connection, match, &error);
-    if (verbose)
-        printf("Using match: %s\n", match);
-    g_free(match);
-    dbus_error_free(&error);
+    if (use_mediakeys) {
+        match = g_strdup_printf("type='signal',interface='org.gnome.SettingsDaemon.MediaKeys'");
+        dbus_bus_add_match(connection, match, &error);
+        if (verbose)
+            printf("Using match: %s\n", match);
+        g_free(match);
+        dbus_error_free(&error);
+    }
 
     dbus_connection_add_filter(connection, filter_func, NULL, NULL);
 

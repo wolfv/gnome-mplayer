@@ -1,4 +1,5 @@
 Development
+    Add preference key (no gui) to disable the processing of the media keys
     Fix problem with absolute playlist items
     Fix problem with playlist detection and parsing in non-gio mode
     Fix problems with patches from MonkeySage

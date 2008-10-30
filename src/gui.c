@@ -2096,7 +2096,7 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
         g_free(last_dir);
     }
     release_preference_store();
-	
+
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         gtk_list_store_clear(playliststore);
