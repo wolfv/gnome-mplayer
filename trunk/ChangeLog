@@ -1,4 +1,5 @@
 Development
+    Fix problem with absolute playlist items
     Fix problem with playlist detection and parsing in non-gio mode
     Fix problems with patches from MonkeySage
     Updated patch from MonkeySage
