@@ -381,6 +381,9 @@ gint parse_basic(gchar * uri)
 #else
 						line_uri = g_strdup_printf("file://%s/%s", path, newline);
 #endif
+					} else {
+						g_free(line_uri);
+						line_uri = g_strdup_printf("file://%s", newline);
 					}
 				} else {
 					if (g_strncasecmp(newline, "http://", strlen("http://")) == 0 ||
