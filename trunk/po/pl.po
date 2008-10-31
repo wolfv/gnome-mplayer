@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-17 08:32-0600\n"
-"PO-Revision-Date: 2008-09-24 11:42+0200\n"
+"PO-Revision-Date: 2008-10-31 16:50+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -264,7 +264,7 @@ msgstr "Zapauzowany"
 #: src/gui.c:554
 #, c-format
 msgid "Idle"
-msgstr ""
+msgstr "Bezczynny"
 
 #: src/gui.c:851 src/gui.c:861 src/gui.c:1672 src/gui.c:1700 src/thread.c:380
 #, c-format
@@ -475,12 +475,11 @@ msgstr "Napisy"
 
 #: src/gui.c:3476
 msgid "Interface"
-msgstr ""
+msgstr "Interfejs"
 
 #: src/gui.c:3478
-#, fuzzy
 msgid "MPlayer"
-msgstr "Odtwarzacz"
+msgstr "MPlayer"
 
 #: src/gui.c:3480
 msgid "Plugin"
@@ -633,9 +632,8 @@ msgid "Subtitle File Encoding:"
 msgstr "Kodowanie czcionki napisów:"
 
 #: src/gui.c:3910
-#, fuzzy
 msgid "<span weight=\"bold\">Application Preferences</span>"
-msgstr "<span weight=\"bold\">Szczegóły dźwięku</span>"
+msgstr "<span weight=\"bold\">Preferencje aplikacji</span>"
 
 #: src/gui.c:3917
 msgid "Start with playlist visible"
@@ -643,11 +641,11 @@ msgstr "Uruchom z widoczną listą odtwarzania"
 
 #: src/gui.c:3928
 msgid "Show notification popup"
-msgstr ""
+msgstr "Pokaż wyskakujące powiadomienia"
 
 #: src/gui.c:3935
 msgid "Show status icon"
-msgstr ""
+msgstr "Pokaż ikonę stanu"
 
 #: src/gui.c:3942
 msgid "Start with playlist below media window"
@@ -658,9 +656,8 @@ msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Pozwól na tylko jedną instancję Gnome MPlayera"
 
 #: src/gui.c:3960
-#, fuzzy
 msgid "When opening in single instance mode, replace existing file"
-msgstr "Ustaw tryb jednej instancji w trybie zastąp i odtwarzaj"
+msgstr "Podczas otwierania w trybie jednej instancji zastąp istniejący plik"
 
 #: src/gui.c:3968
 msgid "Remember Window Location"
@@ -687,9 +684,8 @@ msgstr ""
 "do terminala lub do ~/.xsession-errors"
 
 #: src/gui.c:3997
-#, fuzzy
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
-msgstr "<span weight=\"bold\">Ustawienia zaawansowane</span>"
+msgstr "<span weight=\"bold\">Zaawansowane ustawienia MPlayera</span>"
 
 #: src/gui.c:4004
 msgid "Mplayer Software Volume Control Enabled"
@@ -758,9 +754,8 @@ msgid "_Full Screen"
 msgstr "Pełny e_kran"
 
 #: src/gui.c:4385
-#, fuzzy
 msgid "_Copy Location"
-msgstr "Otwórz lokalizację"
+msgstr "S_kopiuj lokalizację"
 
 #. File Menu
 #: src/gui.c:4455
@@ -910,9 +905,8 @@ msgid "_Controls"
 msgstr "Elementy _sterujące"
 
 #: src/gui.c:4682
-#, fuzzy
 msgid "Advanced _Options"
-msgstr "Opcje _zaawansowane..."
+msgstr "Opcje _zaawansowane"
 
 #. Help Menu
 #: src/gui.c:4727
@@ -1152,3 +1146,4 @@ msgstr "Ustaw _napisy"
 
 #~ msgid "_Copy URL"
 #~ msgstr "S_kopiuj URL"
+
