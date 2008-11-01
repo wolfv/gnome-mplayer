@@ -8388,51 +8388,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$GIO_PKG_ERRORS" >&5
 
-	{ { echo "$as_me:$LINENO: error: Package requirements (gio-2.0) were not met:
-
-$GIO_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables GIO_CFLAGS
-and GIO_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-" >&5
-echo "$as_me: error: Package requirements (gio-2.0) were not met:
-
-$GIO_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables GIO_CFLAGS
-and GIO_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-" >&2;}
-   { (exit 1); exit 1; }; }
+	{ echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+                { echo "$as_me:$LINENO: WARNING: Compiling without gio support" >&5
+echo "$as_me: WARNING: Compiling without gio support" >&2;}
 elif test $pkg_failed = untried; then
-	{ { echo "$as_me:$LINENO: error: The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables GIO_CFLAGS
-and GIO_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
-See \`config.log' for more details." >&5
-echo "$as_me: error: The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables GIO_CFLAGS
-and GIO_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
-See \`config.log' for more details." >&2;}
-   { (exit 1); exit 1; }; }
+	{ echo "$as_me:$LINENO: WARNING: Compiling without gio support" >&5
+echo "$as_me: WARNING: Compiling without gio support" >&2;}
 else
 	GIO_CFLAGS=$pkg_cv_GIO_CFLAGS
 	GIO_LIBS=$pkg_cv_GIO_LIBS
