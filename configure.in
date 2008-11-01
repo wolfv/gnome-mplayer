@@ -43,7 +43,7 @@ AC_ARG_WITH([gio],
         [],
         [with_gio=check])
 AS_IF([test "x$with_gio" != xno], 
-    [PKG_CHECK_MODULES(GIO,[gio-2.0],[GIO_DEFINES="-DGIO_ENABLED" AC_DEFINE([GIO_ENABLED],[1],[Define to 1 if you have GIO support])],)
+    [PKG_CHECK_MODULES(GIO,[gio-2.0],[GIO_DEFINES="-DGIO_ENABLED" AC_DEFINE([GIO_ENABLED],[1],[Define to 1 if you have GIO support])],AC_MSG_WARN([Compiling without gio support]))
     AC_SUBST(GIO_DEFINES)
     AC_SUBST(GIO_CFLAGS)
     AC_SUBST(GIO_LIBS)
