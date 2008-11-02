@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-30 12:55-0600\n"
+"POT-Creation-Date: 2008-11-02 06:17-0700\n"
 "PO-Revision-Date: 2008-10-30 01:11+0100\n"
 "Last-Translator: <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -225,12 +225,12 @@ msgstr "GNOME MPlayer"
 msgid "Paused | %2i%% ▼"
 msgstr "En pause | %2i%% ▼"
 
-#: src/gui.c:472 src/support.c:256 src/playlist.c:511 src/playlist.c:863
+#: src/gui.c:472 src/support.c:260 src/playlist.c:511 src/playlist.c:863
 #, c-format
 msgid "%s items"
 msgstr "Éléments de %s"
 
-#: src/gui.c:474 src/gui.c:1903 src/support.c:215 src/support.c:267
+#: src/gui.c:474 src/gui.c:1903 src/support.c:215 src/support.c:271
 #: src/playlist.c:513
 #, c-format
 msgid "Item to Play"
@@ -302,7 +302,7 @@ msgstr "Enregister sous..."
 msgid "Unable to save '%s'"
 msgstr "« %s » ne peut pas être sauvegardé(e)."
 
-#: src/gui.c:2293 src/support.c:700 src/thread.c:185
+#: src/gui.c:2293 src/support.c:704 src/thread.c:185
 msgid "GNOME MPlayer Error"
 msgstr "Erreur de GNOME MPlayer"
 
@@ -957,25 +957,25 @@ msgstr "Plein écran"
 msgid "Volume 100%"
 msgstr "Volume 100%"
 
-#: src/support.c:680 src/thread.c:159
+#: src/support.c:684 src/thread.c:159
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Impossible d'ouvrir le périphérique : %s"
 
-#: src/support.c:1378 src/support.c:1411 src/support.c:1456 src/support.c:1486
+#: src/support.c:1386 src/support.c:1419 src/support.c:1464 src/support.c:1494
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Impossible d'ouvrir le fichier en écriture ; la liste de lecture ne peut pas "
 "être sauvegardée."
 
 # c-format
-#: src/support.c:1742
+#: src/support.c:1750
 #, c-format
 msgid "%2i:%02.0f"
 msgstr "%2i:%02.0f"
 
 # c-format
-#: src/support.c:1744
+#: src/support.c:1752
 #, c-format
 msgid "%i:%02i:%02.0f"
 msgstr "%i:%02i:%02.0f"
