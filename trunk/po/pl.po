@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-30 12:55-0600\n"
+"POT-Creation-Date: 2008-11-02 06:17-0700\n"
 "PO-Revision-Date: 2008-10-31 16:50+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@lists.kde.org>\n"
@@ -223,12 +223,12 @@ msgstr "GNOME MPlayer"
 msgid "Paused | %2i%% ▼"
 msgstr "Zapauzowany | %2i%% ▼"
 
-#: src/gui.c:472 src/support.c:256 src/playlist.c:511 src/playlist.c:863
+#: src/gui.c:472 src/support.c:260 src/playlist.c:511 src/playlist.c:863
 #, c-format
 msgid "%s items"
 msgstr "%s elementów"
 
-#: src/gui.c:474 src/gui.c:1903 src/support.c:215 src/support.c:267
+#: src/gui.c:474 src/gui.c:1903 src/support.c:215 src/support.c:271
 #: src/playlist.c:513
 #, c-format
 msgid "Item to Play"
@@ -300,7 +300,7 @@ msgstr "Zapisz jako..."
 msgid "Unable to save '%s'"
 msgstr "Nie udało się zapisać %s"
 
-#: src/gui.c:2293 src/support.c:700 src/thread.c:185
+#: src/gui.c:2293 src/support.c:704 src/thread.c:185
 msgid "GNOME MPlayer Error"
 msgstr "Błąd GNOME MPlayer"
 
@@ -950,22 +950,22 @@ msgstr "Pełny ekran"
 msgid "Volume 100%"
 msgstr "Głośność 100%"
 
-#: src/support.c:680 src/thread.c:159
+#: src/support.c:684 src/thread.c:159
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Nie udało się otworzyć urządzenia DVD: %s"
 
-#: src/support.c:1378 src/support.c:1411 src/support.c:1456 src/support.c:1486
+#: src/support.c:1386 src/support.c:1419 src/support.c:1464 src/support.c:1494
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
 
-#: src/support.c:1742
+#: src/support.c:1750
 #, c-format
 msgid "%2i:%02.0f"
 msgstr "%2i:%02.0f"
 
-#: src/support.c:1744
+#: src/support.c:1752
 #, c-format
 msgid "%i:%02i:%02.0f"
 msgstr "%i:%02i:%02.0f"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-30 12:55-0600\n"
+"POT-Creation-Date: 2008-11-02 06:17-0700\n"
 "PO-Revision-Date: 2008-07-01 18:50-0300\n"
 "Last-Translator: \n"
 "Language-Team: Portugese <LL@li.org>\n"
@@ -221,12 +221,12 @@ msgstr "GNOME MPlayer"
 msgid "Paused | %2i%% ▼"
 msgstr "Pausado | %2i%% ▼"
 
-#: src/gui.c:472 src/support.c:256 src/playlist.c:511 src/playlist.c:863
+#: src/gui.c:472 src/support.c:260 src/playlist.c:511 src/playlist.c:863
 #, c-format
 msgid "%s items"
 msgstr "%s arquivos"
 
-#: src/gui.c:474 src/gui.c:1903 src/support.c:215 src/support.c:267
+#: src/gui.c:474 src/gui.c:1903 src/support.c:215 src/support.c:271
 #: src/playlist.c:513
 #, c-format
 msgid "Item to Play"
@@ -298,7 +298,7 @@ msgstr "Salvar Como..."
 msgid "Unable to save '%s'"
 msgstr "Não foi possível salvar '%s'"
 
-#: src/gui.c:2293 src/support.c:700 src/thread.c:185
+#: src/gui.c:2293 src/support.c:704 src/thread.c:185
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer Erro"
 
@@ -942,22 +942,22 @@ msgstr "Tela Cheia"
 msgid "Volume 100%"
 msgstr "Volume 100%"
 
-#: src/support.c:680 src/thread.c:159
+#: src/support.c:684 src/thread.c:159
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Erro ao conectar com o dispositivo de DVD: %s"
 
-#: src/support.c:1378 src/support.c:1411 src/support.c:1456 src/support.c:1486
+#: src/support.c:1386 src/support.c:1419 src/support.c:1464 src/support.c:1494
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Erro ao salvar lista de reprodução, impossível abrir arquivo para escrita"
 
-#: src/support.c:1742
+#: src/support.c:1750
 #, fuzzy, c-format
 msgid "%2i:%02.0f"
 msgstr "%2i:%02i"
 
-#: src/support.c:1744
+#: src/support.c:1752
 #, fuzzy, c-format
 msgid "%i:%02i:%02.0f"
 msgstr "%i:%02i:%02i"

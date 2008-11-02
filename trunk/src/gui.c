@@ -2706,11 +2706,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
         gtk_window_fullscreen(GTK_WINDOW(window));
         fullscreen = 1;
-        if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
-            restore_playlist = TRUE;
-            menuitem_view_playlist_callback(NULL, NULL);
-        }
-        motion_notify_callback(NULL, NULL, NULL);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), FALSE);
+		motion_notify_callback(NULL, NULL, NULL);
     }
 
 }
