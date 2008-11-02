@@ -247,7 +247,11 @@ gint parse_playlist(gchar * uri)
         }
 
         basename = g_path_get_basename(uri);
+#ifdef GIO_ENABLED		
         playlistname = g_uri_unescape_string(basename, NULL);
+#else
+		playlistname = g_strdup(basename);
+#endif
         g_free(basename);
 
         if (playlistname != NULL && strlen(playlistname) > 0) {
@@ -310,7 +314,7 @@ gint parse_basic(gchar * uri)
     FILE *fp;
     gchar *file = NULL;
 
-    file = g_uri_parse_scheme(uri);
+    file = g_strndup(uri,4);
     if (strcmp(file, "file") != 0)
         return 0;               // FIXME: remote playlists unsuppored
     parse = g_strsplit(uri, "/", 3);
@@ -1282,7 +1286,11 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
         }
 
     } else {
+#ifdef GIO_ENABLED		
         unescaped = g_uri_unescape_string(uri, NULL);
+#else
+		unescaped = g_strdup(uri);
+#endif
         desc = g_strdup_printf("Stream from %s", unescaped);
         g_free(unescaped);
         add_item = TRUE;

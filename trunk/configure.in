@@ -34,7 +34,7 @@ AC_SUBST(GTK_LIBS)
 PKG_CHECK_MODULES(GTK2_12,[gtk+-2.0 >= 2.12.0],[GTK2_12_DEFINES="-DGTK2_12_ENABLED" AC_DEFINE([GTK2_12_ENABLED],[1],[Define to 1 if you have GTK 2.12 or higher])],AC_MSG_NOTICE([Using slider for volume]))
 AC_SUBST(GTK2_12_DEFINES)
 
-PKG_CHECK_MODULES(GLIB2_14,[glib-2.0 >= 2.14.0],[GLIB2_14_DEFINES="-DGLIB2_14_ENABLED" AC_DEFINE([GLIB2_14_ENABLED],[1],[Define to 1 if you have GTK 2.12 or higher])],AC_MSG_NOTICE([Using slider for volume]))
+PKG_CHECK_MODULES(GLIB2_14,[glib-2.0 >= 2.14.0],[GLIB2_14_DEFINES="-DGLIB2_14_ENABLED" AC_DEFINE([GLIB2_14_ENABLED],[1],[Define to 1 if you have GLIB 2.14 or higher])],AC_MSG_NOTICE([Using slider for volume]))
 AC_SUBST(GLIB2_14_DEFINES)
 
 AC_ARG_WITH([gio],
