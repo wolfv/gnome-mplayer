@@ -1,4 +1,5 @@
 Development
+    Updated fr translation
     Fix compile issues on glib < 2.16
     Fix autoconf for gio
     Updated po translation
