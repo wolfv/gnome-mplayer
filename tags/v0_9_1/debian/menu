@@ -1,0 +1,4 @@
+?package(gnome-mplayer):needs="X11" section="Apps/Sound"\
+  title="gnome-mplayer" command="/usr/bin/gnome-mplayer"\
+  icon="/usr/share/pixmaps/gnome_mplayer.xpm"
+
