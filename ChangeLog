@@ -1,5 +1,7 @@
 Development
+    Fix compile issues on glib < 2.16
     Fix autoconf for gio
+    Updated po translation
 0.9.0
     Add preference key (no gui) to disable the processing of the media keys
     Fix problem with absolute playlist items
