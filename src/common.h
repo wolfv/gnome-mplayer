@@ -69,6 +69,9 @@
 #define REMEMBER_LOC		"remember_loc"
 #define WINDOW_X		"window_x"
 #define WINDOW_Y		"window_y"
+#define WINDOW_HEIGHT	"window_height"
+#define WINDOW_WIDTH	"window_width"
+
 #define KEEP_ON_TOP		"keep_on_top"
 #define SINGLE_INSTANCE "single_instance"
 #define REPLACE_AND_PLAY "replace_and_play"
@@ -273,6 +276,8 @@ gchar *gpod_mount_point;
 gboolean remember_loc;
 gint loc_window_x;
 gint loc_window_y;
+gint loc_window_height;
+gint loc_window_width;
 gboolean keep_on_top;
 
 // tv stuff

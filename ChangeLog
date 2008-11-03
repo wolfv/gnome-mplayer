@@ -1,4 +1,5 @@
 Development
+    Remember window size, in addition to location when preference set
     Change column definitions in playlist so that it works a little better
     Add new command line option --load_tracks_from_gpod, makes loading a track list from ipod super fast
     Add in support for libgpod-1.0 into autoconf scripts
