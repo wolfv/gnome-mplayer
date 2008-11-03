@@ -810,10 +810,10 @@ gpointer launch_player(gpointer data)
     //}
 
     g_mutex_lock(thread_running);
-#ifdef GIO_ENABLED		
+#ifdef GIO_ENABLED
     buffer = g_uri_unescape_string(threaddata->uri, NULL);
 #else
-	buffer = g_strdup(threaddata->uri);
+    buffer = g_strdup(threaddata->uri);
 #endif
 
     g_strlcpy(idledata->info, buffer, 1024);

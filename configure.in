@@ -89,7 +89,7 @@ AC_ARG_WITH([libgpod],
         [],
         [with_gpod=check])
 AS_IF([test "x$with_gpod" != xno], 
-    [PKG_CHECK_MODULES(GPOD,[libgpod-1.0],[GPOD_DEFINES="-DGPOD_ENABLED" AC_DEFINE([GPOD_ENABLED],[1],[Define to 1 if you have gpod support])],AC_MSG_WARN([Compiling without libgpod support]))
+    [PKG_CHECK_MODULES(GPOD,[libgpod-1.0],[GPOD_DEFINES="-DHAVE_GPOD" AC_DEFINE([GPOD_ENABLED],[1],[Define to 1 if you have gpod support])],AC_MSG_WARN([Compiling without libgpod support]))
     AC_SUBST(GPOD_DEFINES)
     AC_SUBST(GPOD_CFLAGS)
     AC_SUBST(GPOD_LIBS)

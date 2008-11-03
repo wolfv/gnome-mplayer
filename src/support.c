@@ -247,10 +247,10 @@ gint parse_playlist(gchar * uri)
         }
 
         basename = g_path_get_basename(uri);
-#ifdef GIO_ENABLED		
+#ifdef GIO_ENABLED
         playlistname = g_uri_unescape_string(basename, NULL);
 #else
-		playlistname = g_strdup(basename);
+        playlistname = g_strdup(basename);
 #endif
         g_free(basename);
 
@@ -314,7 +314,7 @@ gint parse_basic(gchar * uri)
     FILE *fp;
     gchar *file = NULL;
 
-    file = g_strndup(uri,4);
+    file = g_strndup(uri, 4);
     if (strcmp(file, "file") != 0)
         return 0;               // FIXME: remote playlists unsuppored
     parse = g_strsplit(uri, "/", 3);
@@ -333,12 +333,12 @@ gint parse_basic(gchar * uri)
             g_strstrip(line);
             if (strlen(line) == 0) {
 #ifdef GIO_ENABLED
-				g_free(line);
-				line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+                g_free(line);
+                line = g_data_input_stream_read_line(data, &length, NULL, NULL);
 #endif
-				continue;
-			}
-			printf("line = %s\n", line);
+                continue;
+            }
+            printf("line = %s\n", line);
             newline = g_strdup(line);
             if ((g_ascii_strncasecmp(line, "ref", 3) == 0) ||
                 (g_ascii_strncasecmp(line, "file", 4)) == 0) {
@@ -1291,10 +1291,10 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
         }
 
     } else {
-#ifdef GIO_ENABLED		
+#ifdef GIO_ENABLED
         unescaped = g_uri_unescape_string(uri, NULL);
 #else
-		unescaped = g_strdup(uri);
+        unescaped = g_strdup(uri);
 #endif
         desc = g_strdup_printf("Stream from %s", unescaped);
         g_free(unescaped);
@@ -2082,3 +2082,82 @@ gboolean uri_exists(gchar * uri)
 #endif
     return result;
 }
+
+#ifdef HAVE_GPOD
+
+gchar *find_gpod_mount_point()
+{
+    struct mntent *mnt = NULL;
+    FILE *fp;
+    char *ret = NULL;
+    char *pathname = NULL;
+
+    fp = setmntent("/etc/mtab", "r");
+    do {
+        mnt = getmntent(fp);
+        if (mnt) {
+            // printf("%s is at %s\n",mnt->mnt_fsname,mnt->mnt_dir);
+            pathname = g_strdup_printf("%s/iPod_Control", mnt->mnt_dir);
+            if (g_file_test(pathname, G_FILE_TEST_IS_DIR))
+                ret = g_strdup(mnt->mnt_dir);
+            g_free(pathname);
+        }
+    }
+    while (mnt);
+    endmntent(fp);
+
+    return ret;
+}
+
+gboolean gpod_load_tracks(gchar * mount_point)
+{
+    Itdb_iTunesDB *db;
+    GList *tracks;
+    gint i = 0;
+    gchar *duration;
+    gchar *ipod_path;
+    gchar *full_path;
+    GtkTreeIter localiter;
+
+    db = itdb_parse(mount_point, NULL);
+    if (db != NULL) {
+        tracks = db->tracks;
+        while (tracks) {
+            duration = seconds_to_string(((Itdb_Track *) (tracks->data))->tracklen / 1000);
+            ipod_path = g_strdup(((Itdb_Track *) (tracks->data))->ipod_path);
+            while (g_strrstr(ipod_path, ":")) {
+                ipod_path[g_strrstr(ipod_path, ":") - ipod_path] = '/';
+            }
+            full_path = g_strdup_printf("file:///%s%s", mount_point, ipod_path);
+
+			gtk_list_store_append(playliststore, &localiter);
+            gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, full_path,
+                               DESCRIPTION_COLUMN, ((Itdb_Track *) (tracks->data))->title,
+                               COUNT_COLUMN, 0,
+                               PLAYLIST_COLUMN, 0,
+                               ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
+                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, -1);
+
+            gtk_list_store_append(nonrandomplayliststore, &localiter);
+            gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, full_path,
+                               DESCRIPTION_COLUMN, ((Itdb_Track *) (tracks->data))->title,
+                               COUNT_COLUMN, 0,
+                               PLAYLIST_COLUMN, 0,
+                               ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
+                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, -1);
+
+            g_free(duration);
+            g_free(full_path);
+            g_free(ipod_path);
+            tracks = g_list_next(tracks);
+            i++;
+        }
+        printf("found %i tracks\n", i);
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+
+
+}
+#endif
