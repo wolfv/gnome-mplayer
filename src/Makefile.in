@@ -51,7 +51,7 @@ am__DEPENDENCIES_1 =
 gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 gnome_mplayer_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(gnome_mplayer_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -111,6 +111,9 @@ GLIB2_14_DEFINES = @GLIB2_14_DEFINES@
 GLIB2_14_LIBS = @GLIB2_14_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+GPOD_CFLAGS = @GPOD_CFLAGS@
+GPOD_DEFINES = @GPOD_DEFINES@
+GPOD_LIBS = @GPOD_LIBS@
 GREP = @GREP@
 GTK2_12_CFLAGS = @GTK2_12_CFLAGS@
 GTK2_12_DEFINES = @GTK2_12_DEFINES@
@@ -208,7 +211,8 @@ INCLUDES = \
 	$(DBUS_CFLAGS) \
 	$(GCONF_CFLAGS) \
 	$(ALSA_CFLAGS) \
-    $(NOTIFY_CFLAGS)
+    $(NOTIFY_CFLAGS) \
+    $(GPOD_CFLAGS)
 
 AM_CFLAGS = \
 	 -Wall\
@@ -218,7 +222,8 @@ AM_CFLAGS = \
      $(GIO_DEFINES) \
 	 $(ALSA_DEFINES) \
      $(GCONF_DEFINES) \
-     $(NOTIFY_DEFINES)
+     $(NOTIFY_DEFINES) \
+     $(GPOD_DEFINES)
 
 gnome_mplayer_SOURCES = \
 	../config.h \
@@ -248,7 +253,7 @@ gnome_mplayer_SOURCES = \
 	langlist.h 
 
 gnome_mplayer_LDFLAGS = 
-gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS)
+gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS) $(GPOD_LIBS)
 EXTRA_DIST = 
 all: all-am
 

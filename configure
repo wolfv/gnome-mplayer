@@ -745,6 +745,9 @@ ALSA_DEFINES
 NOTIFY_CFLAGS
 NOTIFY_LIBS
 NOTIFY_DEFINES
+GPOD_CFLAGS
+GPOD_LIBS
+GPOD_DEFINES
 LIBOBJS
 LTLIBOBJS'
 ac_subst_files=''
@@ -776,7 +779,9 @@ GCONF_LIBS
 ALSA_CFLAGS
 ALSA_LIBS
 NOTIFY_CFLAGS
-NOTIFY_LIBS'
+NOTIFY_LIBS
+GPOD_CFLAGS
+GPOD_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1364,6 +1369,7 @@ Optional Packages:
   --with-gconf-schema-file-dir=dir        Directory for installing schema files.
   --with-gconf            Use Gconf to store preferences
   --with-libnotify        Send notifications of new media
+  --with-libgpod          Add support for libgpod
 
 Some influential environment variables:
   CC          C compiler command
@@ -1399,6 +1405,8 @@ Some influential environment variables:
   NOTIFY_CFLAGS
               C compiler flags for NOTIFY, overriding pkg-config
   NOTIFY_LIBS linker flags for NOTIFY, overriding pkg-config
+  GPOD_CFLAGS C compiler flags for GPOD, overriding pkg-config
+  GPOD_LIBS   linker flags for GPOD, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -8831,6 +8839,95 @@ fi
 
 
 
+# Check whether --with-libgpod was given.
+if test "${with_libgpod+set}" = set; then
+  withval=$with_libgpod;
+else
+  with_gpod=check
+fi
+
+if test "x$with_gpod" != xno; then
+
+pkg_failed=no
+{ echo "$as_me:$LINENO: checking for GPOD" >&5
+echo $ECHO_N "checking for GPOD... $ECHO_C" >&6; }
+
+if test -n "$GPOD_CFLAGS"; then
+    pkg_cv_GPOD_CFLAGS="$GPOD_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"libgpod-1.0\"") >&5
+  ($PKG_CONFIG --exists --print-errors "libgpod-1.0") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_GPOD_CFLAGS=`$PKG_CONFIG --cflags "libgpod-1.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$GPOD_LIBS"; then
+    pkg_cv_GPOD_LIBS="$GPOD_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"libgpod-1.0\"") >&5
+  ($PKG_CONFIG --exists --print-errors "libgpod-1.0") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_GPOD_LIBS=`$PKG_CONFIG --libs "libgpod-1.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        GPOD_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "libgpod-1.0" 2>&1`
+        else
+	        GPOD_PKG_ERRORS=`$PKG_CONFIG --print-errors "libgpod-1.0" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$GPOD_PKG_ERRORS" >&5
+
+	{ echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+                { echo "$as_me:$LINENO: WARNING: Compiling without libgpod support" >&5
+echo "$as_me: WARNING: Compiling without libgpod support" >&2;}
+elif test $pkg_failed = untried; then
+	{ echo "$as_me:$LINENO: WARNING: Compiling without libgpod support" >&5
+echo "$as_me: WARNING: Compiling without libgpod support" >&2;}
+else
+	GPOD_CFLAGS=$pkg_cv_GPOD_CFLAGS
+	GPOD_LIBS=$pkg_cv_GPOD_LIBS
+        { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+	GPOD_DEFINES="-DGPOD_ENABLED"
+cat >>confdefs.h <<\_ACEOF
+#define GPOD_ENABLED 1
+_ACEOF
+
+fi
+
+
+
+
+fi
+
+
+
 for ac_header in mntent.h
 do
 as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
@@ -9827,11 +9924,14 @@ ALSA_DEFINES!$ALSA_DEFINES$ac_delim
 NOTIFY_CFLAGS!$NOTIFY_CFLAGS$ac_delim
 NOTIFY_LIBS!$NOTIFY_LIBS$ac_delim
 NOTIFY_DEFINES!$NOTIFY_DEFINES$ac_delim
+GPOD_CFLAGS!$GPOD_CFLAGS$ac_delim
+GPOD_LIBS!$GPOD_LIBS$ac_delim
+GPOD_DEFINES!$GPOD_DEFINES$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 37; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 40; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

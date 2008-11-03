@@ -10,8 +10,11 @@
 /* Define to 1 if you have GIO support */
 #define GIO_ENABLED 1
 
-/* Define to 1 if you have GTK 2.12 or higher */
+/* Define to 1 if you have GLIB 2.14 or higher */
 #define GLIB2_14_ENABLED 1
+
+/* Define to 1 if you have gpod support */
+#define GPOD_ENABLED 1
 
 /* Define to 1 if you have GTK 2.12 or higher */
 #define GTK2_12_ENABLED 1
