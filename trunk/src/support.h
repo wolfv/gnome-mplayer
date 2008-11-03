@@ -48,6 +48,14 @@ GKeyFile *config;
 #include <gio/gio.h>
 #endif
 
+#ifdef HAVE_GPOD
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+#include <mntent_compat.h>
+#include <gpod/itdb.h>
+#endif
+
 gint get_bitrate(gchar * name);
 void strip_unicode(gchar * data, gsize len);
 gint play_file(gchar * filename, gint playlist);
@@ -86,4 +94,11 @@ void release_preference_store();
 gchar *get_localfile_from_uri(gchar * uri);
 gboolean is_uri_dir(gchar * uri);
 gboolean uri_exists(gchar * uri);
+
+#ifdef HAVE_GPOD
+gchar *find_gpod_mount_point();
+gboolean gpod_load_tracks(gchar * mount_point);
+#endif
+
+
 #endif                          // _SUPPORT_H

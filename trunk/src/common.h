@@ -267,6 +267,8 @@ gboolean replace_and_play;
 gboolean use_pausing_keep_force;
 gboolean show_notification;
 gboolean show_status_icon;
+gboolean load_tracks_from_gpod;
+gchar *gpod_mount_point;
 
 gboolean remember_loc;
 gint loc_window_x;

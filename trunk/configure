@@ -8914,7 +8914,7 @@ else
 	GPOD_LIBS=$pkg_cv_GPOD_LIBS
         { echo "$as_me:$LINENO: result: yes" >&5
 echo "${ECHO_T}yes" >&6; }
-	GPOD_DEFINES="-DGPOD_ENABLED"
+	GPOD_DEFINES="-DHAVE_GPOD"
 cat >>confdefs.h <<\_ACEOF
 #define GPOD_ENABLED 1
 _ACEOF
