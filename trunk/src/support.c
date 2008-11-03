@@ -2130,7 +2130,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
             }
             full_path = g_strdup_printf("file:///%s%s", mount_point, ipod_path);
 
-			gtk_list_store_append(playliststore, &localiter);
+            gtk_list_store_append(playliststore, &localiter);
             gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, full_path,
                                DESCRIPTION_COLUMN, ((Itdb_Track *) (tracks->data))->title,
                                COUNT_COLUMN, 0,

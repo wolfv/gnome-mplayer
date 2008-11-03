@@ -1,4 +1,5 @@
 Development
+    When playlist is active, wire arrow and page keys to the list and not to mplayer
     Remember window size, in addition to location when preference set
     Change column definitions in playlist so that it works a little better
     Add new command line option --load_tracks_from_gpod, makes loading a track list from ipod super fast

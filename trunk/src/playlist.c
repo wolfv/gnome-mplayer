@@ -866,7 +866,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         }
         gtk_tree_view_column_set_expand(column, TRUE);
         //gtk_tree_view_column_set_max_width(column, 40);
-		g_object_set (renderer, "width-chars", 40, NULL);
+        g_object_set(renderer, "width-chars", 40, NULL);
         gtk_tree_view_column_set_resizable(column, TRUE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
@@ -875,7 +875,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                                                           renderer, "text", ARTIST_COLUMN, NULL);
         gtk_tree_view_column_set_expand(column, TRUE);
         //gtk_tree_view_column_set_max_width(column, 20);
-		g_object_set (renderer, "width-chars", 20, NULL);
+        g_object_set(renderer, "width-chars", 20, NULL);
         gtk_tree_view_column_set_alignment(column, 0.0);
         gtk_tree_view_column_set_resizable(column, TRUE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
@@ -886,7 +886,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                                                           renderer, "text", LENGTH_COLUMN, NULL);
         //gtk_tree_view_column_set_expand(column, FALSE);
         gtk_tree_view_column_set_alignment(column, 1.0);
-		g_object_set (renderer, "xalign", 1.0, NULL);
+        g_object_set(renderer, "xalign", 1.0, NULL);
         gtk_tree_view_column_set_resizable(column, FALSE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
@@ -894,7 +894,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         renderer = gtk_cell_renderer_text_new();
         column = gtk_tree_view_column_new_with_attributes("", renderer, "text", COUNT_COLUMN, NULL);
         //gtk_tree_view_column_set_expand(column, FALSE);
-		g_object_set (renderer, "xalign", 1.0, NULL);
+        g_object_set(renderer, "xalign", 1.0, NULL);
         gtk_tree_view_column_set_resizable(column, FALSE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
