@@ -331,9 +331,14 @@ gint parse_basic(gchar * uri)
                 continue;
 #endif
             g_strstrip(line);
-            if (strlen(line) == 0)
-                continue;
-            //printf("line = %s\n", line);
+            if (strlen(line) == 0) {
+#ifdef GIO_ENABLED
+				g_free(line);
+				line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+#endif
+				continue;
+			}
+			printf("line = %s\n", line);
             newline = g_strdup(line);
             if ((g_ascii_strncasecmp(line, "ref", 3) == 0) ||
                 (g_ascii_strncasecmp(line, "file", 4)) == 0) {

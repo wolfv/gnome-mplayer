@@ -1887,13 +1887,15 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
             g_slist_free(filename);
 
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &name,
-                               COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-            set_media_info_name(name);
-            play_file(name, playlist);
-            gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-            g_free(name);
-            dontplaynext = FALSE;
+			if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &name,
+								   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+				set_media_info_name(name);
+				play_file(name, playlist);
+				gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+				g_free(name);
+				dontplaynext = FALSE;
+			}
         }
     }
 

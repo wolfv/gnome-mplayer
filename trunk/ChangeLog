@@ -1,3 +1,6 @@
+Development
+    Fix infinite loop when opening garbage file
+    Fix crash when opening a file that is not playable
 0.9.1
     Fix playlist hide on fullscreen
     Updated fr translation
