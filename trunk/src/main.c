@@ -414,6 +414,8 @@ int main(int argc, char *argv[])
     remember_loc = read_preference_bool(REMEMBER_LOC);
     loc_window_x = read_preference_int(WINDOW_X);
     loc_window_y = read_preference_int(WINDOW_Y);
+    loc_window_height = read_preference_int(WINDOW_HEIGHT);
+    loc_window_width = read_preference_int(WINDOW_WIDTH);
     keep_on_top = read_preference_bool(KEEP_ON_TOP);
     read_mplayer_config();
 

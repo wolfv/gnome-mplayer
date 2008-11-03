@@ -1034,8 +1034,11 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     if (remember_loc) {
         init_preference_store();
         gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
+		gtk_window_get_size (GTK_WINDOW(window),&loc_window_width,&loc_window_height);
         write_preference_int(WINDOW_X, loc_window_x);
         write_preference_int(WINDOW_Y, loc_window_y);
+        write_preference_int(WINDOW_HEIGHT, loc_window_height);
+        write_preference_int(WINDOW_WIDTH, loc_window_width);
         release_preference_store();
     }
 
@@ -5116,6 +5119,7 @@ GtkWidget *create_window(gint windowid)
     } else {
         if (remember_loc) {
             gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
+			gtk_window_resize(GTK_WINDOW(window), loc_window_width,loc_window_height);
         }
     }
 
