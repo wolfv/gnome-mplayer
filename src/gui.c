@@ -1034,7 +1034,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     if (remember_loc) {
         init_preference_store();
         gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
-		gtk_window_get_size (GTK_WINDOW(window),&loc_window_width,&loc_window_height);
+        gtk_window_get_size(GTK_WINDOW(window), &loc_window_width, &loc_window_height);
         write_preference_int(WINDOW_X, loc_window_x);
         write_preference_int(WINDOW_Y, loc_window_y);
         write_preference_int(WINDOW_HEIGHT, loc_window_height);
@@ -1189,7 +1189,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 send_command("dvdnav 4\n", FALSE);
                 return FALSE;
             } else {
-                return ff_callback(NULL, NULL, NULL);
+                if (state == PLAYING
+                    && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
+                    return ff_callback(NULL, NULL, NULL);
             }
             break;
         case GDK_Left:
@@ -1197,22 +1199,27 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 send_command("dvdnav 3\n", FALSE);
                 return FALSE;
             } else {
-                return rew_callback(NULL, NULL, NULL);
+                if (state == PLAYING
+                    && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
+                    return rew_callback(NULL, NULL, NULL);
             }
             break;
         case GDK_Page_Up:
-            if (state == PLAYING)
+            if (state == PLAYING
+                && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 send_command("seek +600 0\n", TRUE);
             return FALSE;
         case GDK_Page_Down:
-            if (state == PLAYING)
+            if (state == PLAYING
+                && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 send_command("seek -600 0\n", TRUE);
             return FALSE;
         case GDK_Up:
             if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
                 send_command("dvdnav 1\n", FALSE);
             } else {
-                if (state == PLAYING)
+                if (state == PLAYING
+                    && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     send_command("seek +60 0\n", TRUE);
             }
 
@@ -1221,7 +1228,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
                 send_command("dvdnav 2\n", FALSE);
             } else {
-                if (state == PLAYING)
+                if (state == PLAYING
+                    && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     send_command("seek -60 0\n", TRUE);
             }
             return FALSE;
@@ -5119,7 +5127,7 @@ GtkWidget *create_window(gint windowid)
     } else {
         if (remember_loc) {
             gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
-			gtk_window_resize(GTK_WINDOW(window), loc_window_width,loc_window_height);
+            gtk_window_resize(GTK_WINDOW(window), loc_window_width, loc_window_height);
         }
     }
 
