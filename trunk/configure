@@ -8341,7 +8341,7 @@ else
   with_gio=check
 fi
 
-if test "x$with_gio" == xcheck; then
+if test "x$with_gio" != xno; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for GIO" >&5
@@ -8592,7 +8592,7 @@ else
   with_gconf=check
 fi
 
-if test "x$with_gconf" == xcheck; then
+if test "x$with_gconf" != xno; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for GCONF" >&5
@@ -8681,7 +8681,7 @@ else
   with_alsa=check
 fi
 
-if test "x$with_alsa" == xcheck; then
+if test "x$with_alsa" != xno; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for ALSA" >&5
@@ -8767,10 +8767,10 @@ fi
 if test "${with_libnotify+set}" = set; then
   withval=$with_libnotify;
 else
-  with_notify=check
+  with_libnotify=check
 fi
 
-if test "x$with_notify" == xcheck; then
+if test "x$with_libnotify" != xno; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for NOTIFY" >&5
@@ -8856,10 +8856,10 @@ fi
 if test "${with_libgpod+set}" = set; then
   withval=$with_libgpod;
 else
-  with_gpod=check
+  with_libgpod=check
 fi
 
-if test "x$with_gpod" == xcheck; then
+if test "x$with_libgpod" != xno; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for GPOD" >&5

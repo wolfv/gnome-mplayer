@@ -23,9 +23,11 @@
  */
 
 #include "support.h"
+#ifdef HAVE_ASOUNDLIB
 static char *device = "default";
 // static char *pcm_mix = "PCM";
 static char *master_mix = "Master";
+#endif
 
 void strip_unicode(gchar * data, gsize len)
 {
