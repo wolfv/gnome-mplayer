@@ -1059,6 +1059,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 #ifdef GTK2_12_ENABLED
 gboolean status_icon_callback(GtkStatusIcon * icon, gpointer data)
 {
+	
     if (GTK_WIDGET_VISIBLE(window)) {
         gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
         gtk_widget_hide(GTK_WIDGET(window));
@@ -3626,9 +3627,14 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             if (alang != NULL && g_strncasecmp(alang, langlist[i], strlen(alang)) == 0)
                 j = i;
             gtk_combo_box_append_text(GTK_COMBO_BOX(config_alang), langlist[i++]);
-            if (j != -1)
+            if (j != -1) {
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_alang), j);
+			} 
         }
+		if (alang != NULL && j == -1) {
+			gtk_combo_box_append_text(GTK_COMBO_BOX(config_alang), alang);
+			gtk_combo_box_set_active(GTK_COMBO_BOX(config_alang), i);
+		}			
     }
     config_slang = gtk_combo_box_entry_new_text();
     if (config_slang != NULL) {
@@ -3641,6 +3647,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             if (j != -1)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_slang), j);
         }
+		if (slang != NULL && j == -1) {
+			gtk_combo_box_append_text(GTK_COMBO_BOX(config_slang), slang);
+			gtk_combo_box_set_active(GTK_COMBO_BOX(config_slang), i);
+		}			
     }
     config_metadata_codepage = gtk_combo_box_entry_new_text();
     if (config_metadata_codepage != NULL) {
