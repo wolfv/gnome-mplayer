@@ -48,6 +48,7 @@
 #define DISABLEFULLSCREEN	"disablefullscreen"
 #define DISABLECONTEXTMENU	"disablecontextmenu"
 #define DISABLEPAUSEONCLICK	"disable_pause_on_click"
+#define DISABLEANIMATION	"disable_animation"
 #define METADATACODEPAGE	"metadatacodepage"
 #define SUBTITLEFONT	"subtitlefont"
 #define SUBTITLESCALE	"subtitlescale"
@@ -257,6 +258,7 @@ gboolean details_visible;
 gboolean restore_playlist;
 gboolean disable_ass;
 gboolean disable_embeddedfonts;
+gboolean disable_animation;
 gchar *subtitlefont;
 gdouble subtitle_scale;
 gchar *subtitle_codepage;

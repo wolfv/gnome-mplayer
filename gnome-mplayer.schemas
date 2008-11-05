@@ -182,6 +182,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable_animation</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable_animation</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Animation</short>
+        <long>Disable animation of fullscreen control bar sliding away</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/forcecache</key>
       <applyto>/apps/gnome-mplayer/preferences/forcecache</applyto>
       <owner>gnome-mplayer</owner>
