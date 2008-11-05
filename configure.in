@@ -42,7 +42,7 @@ AC_ARG_WITH([gio],
         [Use Gconf to store preferences])],
         [],
         [with_gio=check])
-AS_IF([test "x$with_gio" == xcheck], 
+AS_IF([test "x$with_gio" != xno], 
     [PKG_CHECK_MODULES(GIO,[gio-2.0],[GIO_DEFINES="-DGIO_ENABLED" AC_DEFINE([GIO_ENABLED],[1],[Define to 1 if you have GIO support])],AC_MSG_WARN([Compiling without gio support]))
     AC_SUBST(GIO_DEFINES)
     AC_SUBST(GIO_CFLAGS)
@@ -59,7 +59,7 @@ AC_ARG_WITH([gconf],
         [Use Gconf to store preferences])],
         [],
         [with_gconf=check])
-AS_IF([test "x$with_gconf" == xcheck],        
+AS_IF([test "x$with_gconf" != xno],        
     [PKG_CHECK_MODULES(GCONF, [gconf-2.0],[GCONF_DEFINES="-DHAVE_GCONF" AC_DEFINE([HAVE_GCONF],[1],[Define to 1 to use GConf to store preferences])],AC_MSG_NOTICE([Using keystore for preferences]))
     AC_SUBST(GCONF_DEFINES)
     AC_SUBST(GCONF_CFLAGS)
@@ -71,7 +71,7 @@ AC_ARG_WITH([alsa],
         [Read volume from alsa devices])],
         [],
         [with_alsa=check])
-AS_IF([test "x$with_alsa" == xcheck], 
+AS_IF([test "x$with_alsa" != xno], 
     [PKG_CHECK_MODULES(ALSA, [alsa], [ALSA_DEFINES="-DHAVE_ASOUNDLIB" AC_DEFINE([HAVE_ASOUNDLIB],[1],[Define to 1 if you have asoundlib development packages])],AC_MSG_WARN([Compiling without asound support]))
     AC_SUBST(ALSA_DEFINES)
     AC_SUBST(ALSA_CFLAGS)
@@ -82,8 +82,8 @@ AC_ARG_WITH([libnotify],
     [AS_HELP_STRING([--with-libnotify],
         [Send notifications of new media])],
         [],
-        [with_notify=check])
-AS_IF([test "x$with_notify" == xcheck], 
+        [with_libnotify=check])
+AS_IF([test "x$with_libnotify" != xno], 
     [PKG_CHECK_MODULES(NOTIFY,[libnotify],[NOTIFY_DEFINES="-DNOTIFY_ENABLED" AC_DEFINE([NOTIFY_ENABLED],[1],[Define to 1 if you have NOTIFY support])],AC_MSG_WARN([Compiling without libnotify support]))
     AC_SUBST(NOTIFY_DEFINES)
     AC_SUBST(NOTIFY_CFLAGS)
@@ -94,8 +94,8 @@ AC_ARG_WITH([libgpod],
     [AS_HELP_STRING([--with-libgpod],
         [Add support for libgpod])],
         [],
-        [with_gpod=check])
-AS_IF([test "x$with_gpod" == xcheck], 
+        [with_libgpod=check])
+AS_IF([test "x$with_libgpod" != xno], 
     [PKG_CHECK_MODULES(GPOD,[libgpod-1.0],[GPOD_DEFINES="-DHAVE_GPOD" AC_DEFINE([GPOD_ENABLED],[1],[Define to 1 if you have gpod support])],AC_MSG_WARN([Compiling without libgpod support]))
     AC_SUBST(GPOD_DEFINES)
     AC_SUBST(GPOD_CFLAGS)
