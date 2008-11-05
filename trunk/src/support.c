@@ -345,13 +345,14 @@ gint parse_basic(gchar * uri)
                 //printf("ref/file\n");
                 parse = g_strsplit(line, "=", 2);
                 if (parse != NULL && parse[1] != NULL) {
-                    g_strchomp(parse[1]);
-                    g_strchug(parse[1]);
+                    g_strstrip(parse[1]);
                     g_free(newline);
                     newline = g_strdup(parse[1]);
                 }
                 g_strfreev(parse);
-            } else if (g_ascii_strncasecmp(newline, "[playlist]", strlen("[playlist]")) == 0) {
+            }
+
+			if (g_ascii_strncasecmp(newline, "[playlist]", strlen("[playlist]")) == 0) {
                 //printf("playlist\n");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "[reference]", strlen("[reference]")) == 0) {
@@ -1319,7 +1320,7 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
                            PLAYLIST_COLUMN, playlist,
                            ARTIST_COLUMN, artist, SUBTITLE_COLUMN, subtitle, LENGTH_COLUMN, length,
                            -1);
-
+		set_item_add_info(uri);
     }
     if (desc != NULL)
         g_free(desc);

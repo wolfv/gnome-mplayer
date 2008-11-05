@@ -351,11 +351,12 @@ void load_playlist(GtkWidget * widget, void *data)
 
         gtk_list_store_clear(playliststore);
         gtk_list_store_clear(nonrandomplayliststore);
-
+		
+		create_folder_progress_window();
         if (!parse_playlist(filename)) {
             add_item_to_playlist(filename, 1);
         }
-
+		destroy_folder_progress_window();
     }
     release_preference_store();
     update_gui();

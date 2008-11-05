@@ -1,4 +1,6 @@
 Development
+    Fix playlist load after saving
+    Add Open iPod to file menu when we have libgpod support
     When playlist is active, wire arrow and page keys to the list and not to mplayer
     Remember window size, in addition to location when preference set
     Change column definitions in playlist so that it works a little better
