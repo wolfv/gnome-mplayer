@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-05 09:38-0700\n"
-"PO-Revision-Date: 2008-10-30 01:11+0100\n"
+"PO-Revision-Date: 2008-11-05 19:31+0100\n"
 "Last-Translator: <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -180,7 +180,7 @@ msgstr "Garder la fenêtre au premier plan"
 
 #: src/main.c:121
 msgid "Load all tracks from media player using gpod"
-msgstr ""
+msgstr "Utilise gpod pour charger toutes les pistes d'un lecteur multimédia"
 
 #: src/main.c:422
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -814,7 +814,7 @@ msgstr "TV _Numérique"
 
 #: src/gui.c:4551
 msgid "Open _iPod™"
-msgstr ""
+msgstr "Lire sur un _iPod™"
 
 #: src/gui.c:4555
 msgid "Open _Recent"

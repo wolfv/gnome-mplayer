@@ -1,4 +1,5 @@
 Development
+    Updated french translation
     Don't save the window location and size if window is fullscreen when app quits
     Add preference key of 'disable_animation' that disables the fullscreen animation
     Updated serbian translation
