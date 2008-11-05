@@ -1,4 +1,5 @@
 Development
+    Updated serbian translation
     Rework configure.in to make it work better with optional features
     Fix playlist load after saving
     Add Open iPod to file menu when we have libgpod support
