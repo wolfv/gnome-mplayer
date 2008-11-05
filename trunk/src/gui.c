@@ -1031,7 +1031,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     ok_to_play = FALSE;
     dontplaynext = TRUE;
 
-    if (remember_loc) {
+    if (remember_loc && !fullscreen) {
         init_preference_store();
         gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
         gtk_window_get_size(GTK_WINDOW(window), &loc_window_width, &loc_window_height);
@@ -1772,7 +1772,11 @@ gboolean slide_panel_away(gpointer data)
             g_mutex_unlock(slide_away);
             return FALSE;
         } else {
-            gtk_widget_set_size_request(controls_box, req.width, req.height - 1);
+			if (disable_animation) {
+				gtk_widget_set_size_request(controls_box, req.width, 0);
+			} else {
+				gtk_widget_set_size_request(controls_box, req.width, req.height - 1);
+			}
             return TRUE;
         }
     }

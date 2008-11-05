@@ -349,6 +349,7 @@ int main(int argc, char *argv[])
     reallyverbose = 0;
     embedding_disabled = FALSE;
     disable_pause_on_click = FALSE;
+	disable_animation = FALSE;
     use_mediakeys = TRUE;
     mplayer_bin = NULL;
     single_instance = FALSE;
@@ -385,6 +386,7 @@ int main(int argc, char *argv[])
     disable_ass = read_preference_bool(DISABLEASS);
     disable_embeddedfonts = read_preference_bool(DISABLEEMBEDDEDFONTS);
     disable_pause_on_click = read_preference_bool(DISABLEPAUSEONCLICK);
+	disable_animation = read_preference_bool (DISABLEANIMATION);
     use_mediakeys = read_preference_bool(USE_MEDIAKEYS);
     metadata_codepage = read_preference_string(METADATACODEPAGE);
     subtitlefont = read_preference_string(SUBTITLEFONT);

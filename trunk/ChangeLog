@@ -1,4 +1,6 @@
 Development
+    Don't save the window location and size if window is fullscreen when app quits
+    Add preference key of 'disable_animation' that disables the fullscreen animation
     Updated serbian translation
     Rework configure.in to make it work better with optional features
     Fix playlist load after saving
