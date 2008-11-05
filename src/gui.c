@@ -2252,6 +2252,19 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
     play_file("dvb://", 0);
 }
 
+#ifdef HAVE_GPOD
+void menuitem_open_ipod_callback(GtkMenuItem * menuitem, void *data)
+{
+	gpod_mount_point = find_gpod_mount_point();
+	printf("mount point is %s\n", gpod_mount_point);
+	if (gpod_mount_point != NULL) {
+		gpod_load_tracks(gpod_mount_point);
+	} else {
+		printf("Unable to find gpod mount point\n");
+	}
+}
+#endif
+
 void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
 {
     // save dialog
@@ -4547,6 +4560,11 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_dtv =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Digital TV")));
     gtk_menu_append(menu_file_tv, GTK_WIDGET(menuitem_file_open_dtv));
+#ifdef HAVE_GPOD	
+    menuitem_file_open_ipod =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _iPod™")));
+    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_ipod));	
+#endif
 #ifdef GTK2_12_ENABLED
     recent_manager = gtk_recent_manager_get_default();
     menuitem_file_recent = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Open _Recent")));
@@ -4587,6 +4605,10 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_open_atv_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_dtv), "activate",
                      G_CALLBACK(menuitem_open_dtv_callback), NULL);
+#ifdef HAVE_GPOD	
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_ipod), "activate",
+                     G_CALLBACK(menuitem_open_ipod_callback), NULL);
+#endif
 #ifdef GTK2_12_ENABLED
     g_signal_connect(GTK_OBJECT(menuitem_file_recent_items), "item-activated",
                      G_CALLBACK(menuitem_open_recent_callback), NULL);
@@ -4843,7 +4865,7 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(vbox), media_label, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), details_vbox, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
-
+	
     gtk_widget_add_events(drawing_area, GDK_POINTER_MOTION_MASK);
 
     g_signal_connect(GTK_OBJECT(drawing_area), "motion_notify_event",

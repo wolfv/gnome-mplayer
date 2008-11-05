@@ -51,7 +51,7 @@ GtkMenuItem *menuitem_file_tv;
 GtkMenu *menu_file_tv;
 GtkMenuItem *menuitem_file_open_atv;
 GtkMenuItem *menuitem_file_open_dtv;
-GtkMenuItem *menuitem_file_open_playlist;
+GtkMenuItem *menuitem_file_open_ipod;
 GtkMenuItem *menuitem_file_recent;
 GtkWidget *menuitem_file_recent_items;
 GtkMenuItem *menuitem_file_sep2;
