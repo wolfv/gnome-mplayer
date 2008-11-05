@@ -1368,6 +1368,7 @@ Optional Packages:
   --with-gconf-source=sourceaddress      Config database for installing schema files.
   --with-gconf-schema-file-dir=dir        Directory for installing schema files.
   --with-gconf            Use Gconf to store preferences
+  --with-alsa             Read volume from alsa devices
   --with-libnotify        Send notifications of new media
   --with-libgpod          Add support for libgpod
 
@@ -8340,7 +8341,7 @@ else
   with_gio=check
 fi
 
-if test "x$with_gio" != xno; then
+if test "x$with_gio" == xcheck; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for GIO" >&5
@@ -8591,7 +8592,7 @@ else
   with_gconf=check
 fi
 
-if test "x$with_gconf" != xno; then
+if test "x$with_gconf" == xcheck; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for GCONF" >&5
@@ -8673,6 +8674,15 @@ fi
 
 
 
+# Check whether --with-alsa was given.
+if test "${with_alsa+set}" = set; then
+  withval=$with_alsa;
+else
+  with_alsa=check
+fi
+
+if test "x$with_alsa" == xcheck; then
+
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for ALSA" >&5
 echo $ECHO_N "checking for ALSA... $ECHO_C" >&6; }
@@ -8749,6 +8759,9 @@ fi
 
 
 
+fi
+
+
 
 # Check whether --with-libnotify was given.
 if test "${with_libnotify+set}" = set; then
@@ -8757,7 +8770,7 @@ else
   with_notify=check
 fi
 
-if test "x$with_notify" != xno; then
+if test "x$with_notify" == xcheck; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for NOTIFY" >&5
@@ -8846,7 +8859,7 @@ else
   with_gpod=check
 fi
 
-if test "x$with_gpod" != xno; then
+if test "x$with_gpod" == xcheck; then
 
 pkg_failed=no
 { echo "$as_me:$LINENO: checking for GPOD" >&5
