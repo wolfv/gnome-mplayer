@@ -56,6 +56,10 @@ GKeyFile *config;
 #include <gpod/itdb.h>
 #endif
 
+#ifdef HAVE_MUSICBRAINZ
+#include <musicbrainz3/mb_c.h>
+#endif
+
 gint get_bitrate(gchar * name);
 void strip_unicode(gchar * data, gsize len);
 gint play_file(gchar * filename, gint playlist);
@@ -98,6 +102,10 @@ gboolean uri_exists(gchar * uri);
 #ifdef HAVE_GPOD
 gchar *find_gpod_mount_point();
 gboolean gpod_load_tracks(gchar * mount_point);
+#endif
+
+#ifdef HAVE_MUSICBRAINZ
+gchar *get_coverart_url(gchar *artist, gchar* title, gchar *album);
 #endif
 
 

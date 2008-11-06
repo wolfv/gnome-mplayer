@@ -1,4 +1,5 @@
 Development
+    Add in the code to try and fetch the cover art url from musicbrainz
     Put some fixes in for the thumbnail support
     Add in support for compiling with libmusicbrainz, is not used yet
     Add in support for reading in iPod artwork, still not displayed

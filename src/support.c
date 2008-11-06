@@ -2178,3 +2178,63 @@ gboolean gpod_load_tracks(gchar * mount_point)
 
 }
 #endif
+
+#ifdef HAVE_MUSICBRAINZ
+gchar *get_coverart_url(gchar *artist, gchar* title, gchar *album)
+{
+	int i;
+	MbWebService mb;
+	MbQuery query;
+	MbTrackFilter track_filter;
+	MbResultList results;
+	MbRelease release;
+	MbReleaseIncludes includes;
+
+	char id[1024];
+	char asin[1024];
+	gchar *ret = NULL;
+
+	printf("music brainz testing\n");
+
+	mb = mb_webservice_new();
+	
+	query = mb_query_new(mb,"gnome-mplayer");
+	
+	track_filter = mb_track_filter_new();
+	if (title != NULL)
+		track_filter = mb_track_filter_title(track_filter,title);
+	if (artist != NULL)
+		track_filter = mb_track_filter_artist_name(track_filter,artist);
+	if (album != NULL)
+		track_filter = mb_track_filter_release_title(track_filter,album);
+
+	results = mb_query_get_releases(query,track_filter);
+	mb_artist_filter_free(track_filter);
+	
+	printf("items found:  %i\n",mb_result_list_get_size(results));
+	
+	for (i = 0; i < mb_result_list_get_size(results); i++) {
+		release = mb_result_list_get_release(results,i);
+		mb_release_get_id(release,id,1024);
+		includes = mb_release_includes_new ();
+		includes = mb_artist_includes_release_events (includes);
+		includes = mb_track_includes_url_relations (includes); 		
+		
+		release = mb_query_get_release_by_id(query,id,includes);
+		mb_release_includes_free(includes);
+
+		mb_release_get_asin(release,asin,1024);
+		mb_release_free(release);
+		if (strlen(asin) > 0) {
+			ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.LZZZZZZZ.jpg\n",asin);
+			break;
+		}
+	}
+
+	mb_result_list_free(results);
+	mb_query_free(query);
+	mb_webservice_free(mb);	
+	return ret;
+}
+
+#endif
