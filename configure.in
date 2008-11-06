@@ -102,6 +102,18 @@ AS_IF([test "x$with_libgpod" != xno],
     AC_SUBST(GPOD_LIBS)
     ])
     
+AC_ARG_WITH([libmusicbrainz3],
+    [AS_HELP_STRING([--with-libmusicbrainz3],
+        [Add support for libmusicbrainz3])],
+        [],
+        [with_libmusicbrainz3=check])
+AS_IF([test "x$with_libmusicbrainz3" != xno], 
+    [PKG_CHECK_MODULES(MUSICBRAINZ,[libmusicbrainz3],[MUSICBRAINZ_DEFINES="-DHAVE_MUSICBRAINZ" AC_DEFINE([MUSICBRAINZ_ENABLED],[1],[Define to 1 if you have musicbrainz3 support])],AC_MSG_WARN([Compiling without libmusicbrainz3 support]))
+    AC_SUBST(MUSICBRAINZ_DEFINES)
+    AC_SUBST(MUSICBRAINZ_CFLAGS)
+    AC_SUBST(MUSICBRAINZ_LIBS)
+    ])    
+    
 AC_CHECK_HEADERS([mntent.h])
 AC_OUTPUT([
 Makefile

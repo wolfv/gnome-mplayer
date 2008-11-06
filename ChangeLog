@@ -1,4 +1,6 @@
 Development
+    Add in support for compiling with libmusicbrainz, is not used yet
+    Add in support for reading in iPod artwork, still not displayed
     Fix operation of Open Recent Menu
     Allow user to edit the Audio and Subtitle preferred languages and keep the setting in the gui
     Updated french translation

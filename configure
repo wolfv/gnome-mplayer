@@ -748,6 +748,9 @@ NOTIFY_DEFINES
 GPOD_CFLAGS
 GPOD_LIBS
 GPOD_DEFINES
+MUSICBRAINZ_CFLAGS
+MUSICBRAINZ_LIBS
+MUSICBRAINZ_DEFINES
 LIBOBJS
 LTLIBOBJS'
 ac_subst_files=''
@@ -781,7 +784,9 @@ ALSA_LIBS
 NOTIFY_CFLAGS
 NOTIFY_LIBS
 GPOD_CFLAGS
-GPOD_LIBS'
+GPOD_LIBS
+MUSICBRAINZ_CFLAGS
+MUSICBRAINZ_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1371,6 +1376,7 @@ Optional Packages:
   --with-alsa             Read volume from alsa devices
   --with-libnotify        Send notifications of new media
   --with-libgpod          Add support for libgpod
+  --with-libmusicbrainz3  Add support for libmusicbrainz3
 
 Some influential environment variables:
   CC          C compiler command
@@ -1408,6 +1414,10 @@ Some influential environment variables:
   NOTIFY_LIBS linker flags for NOTIFY, overriding pkg-config
   GPOD_CFLAGS C compiler flags for GPOD, overriding pkg-config
   GPOD_LIBS   linker flags for GPOD, overriding pkg-config
+  MUSICBRAINZ_CFLAGS
+              C compiler flags for MUSICBRAINZ, overriding pkg-config
+  MUSICBRAINZ_LIBS
+              linker flags for MUSICBRAINZ, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -8941,6 +8951,95 @@ fi
 
 
 
+# Check whether --with-libmusicbrainz3 was given.
+if test "${with_libmusicbrainz3+set}" = set; then
+  withval=$with_libmusicbrainz3;
+else
+  with_libmusicbrainz3=check
+fi
+
+if test "x$with_libmusicbrainz3" != xno; then
+
+pkg_failed=no
+{ echo "$as_me:$LINENO: checking for MUSICBRAINZ" >&5
+echo $ECHO_N "checking for MUSICBRAINZ... $ECHO_C" >&6; }
+
+if test -n "$MUSICBRAINZ_CFLAGS"; then
+    pkg_cv_MUSICBRAINZ_CFLAGS="$MUSICBRAINZ_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"libmusicbrainz3\"") >&5
+  ($PKG_CONFIG --exists --print-errors "libmusicbrainz3") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_MUSICBRAINZ_CFLAGS=`$PKG_CONFIG --cflags "libmusicbrainz3" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$MUSICBRAINZ_LIBS"; then
+    pkg_cv_MUSICBRAINZ_LIBS="$MUSICBRAINZ_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"libmusicbrainz3\"") >&5
+  ($PKG_CONFIG --exists --print-errors "libmusicbrainz3") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_MUSICBRAINZ_LIBS=`$PKG_CONFIG --libs "libmusicbrainz3" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        MUSICBRAINZ_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "libmusicbrainz3" 2>&1`
+        else
+	        MUSICBRAINZ_PKG_ERRORS=`$PKG_CONFIG --print-errors "libmusicbrainz3" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$MUSICBRAINZ_PKG_ERRORS" >&5
+
+	{ echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+                { echo "$as_me:$LINENO: WARNING: Compiling without libmusicbrainz3 support" >&5
+echo "$as_me: WARNING: Compiling without libmusicbrainz3 support" >&2;}
+elif test $pkg_failed = untried; then
+	{ echo "$as_me:$LINENO: WARNING: Compiling without libmusicbrainz3 support" >&5
+echo "$as_me: WARNING: Compiling without libmusicbrainz3 support" >&2;}
+else
+	MUSICBRAINZ_CFLAGS=$pkg_cv_MUSICBRAINZ_CFLAGS
+	MUSICBRAINZ_LIBS=$pkg_cv_MUSICBRAINZ_LIBS
+        { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+	MUSICBRAINZ_DEFINES="-DHAVE_MUSICBRAINZ"
+cat >>confdefs.h <<\_ACEOF
+#define MUSICBRAINZ_ENABLED 1
+_ACEOF
+
+fi
+
+
+
+
+fi
+
+
+
 for ac_header in mntent.h
 do
 as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
@@ -9940,11 +10039,14 @@ NOTIFY_DEFINES!$NOTIFY_DEFINES$ac_delim
 GPOD_CFLAGS!$GPOD_CFLAGS$ac_delim
 GPOD_LIBS!$GPOD_LIBS$ac_delim
 GPOD_DEFINES!$GPOD_DEFINES$ac_delim
+MUSICBRAINZ_CFLAGS!$MUSICBRAINZ_CFLAGS$ac_delim
+MUSICBRAINZ_LIBS!$MUSICBRAINZ_LIBS$ac_delim
+MUSICBRAINZ_DEFINES!$MUSICBRAINZ_DEFINES$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 40; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 43; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
