@@ -195,9 +195,10 @@ gboolean set_media_label(void *data)
 		}
     }
 
-    if (idle->videopresent == FALSE && show_media_label) {
-        gtk_widget_show(media_label);
+    if (show_media_label) {
+        gtk_widget_show_all(media_hbox);
     }
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menuitem_view_info),show_media_label);
 
     if (strlen(idle->video_format) > 0
         || strlen(idle->video_codec) > 0
@@ -673,7 +674,7 @@ gboolean resize_window(void *data)
         if (idle->videopresent) {
             gtk_widget_show(vbox);
             show_media_label = FALSE;
-            gtk_widget_hide(media_label);
+            gtk_widget_hide(media_hbox);
             g_get_current_time(&currenttime);
             last_movement_time = currenttime.tv_sec;
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), TRUE);
@@ -681,7 +682,7 @@ gboolean resize_window(void *data)
             dbus_disable_screensaver();
             if (embed_window == -1) {
                 gtk_widget_show_all(window);
-                gtk_widget_hide(media_label);
+                gtk_widget_hide(media_hbox);
                 hide_buttons(idle);
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols),
                                                showcontrols);
@@ -705,8 +706,8 @@ gboolean resize_window(void *data)
                             gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                             total_height += req.height;
                         }
-                        if (GTK_WIDGET_VISIBLE(media_label)) {
-                            gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+                        if (GTK_WIDGET_VISIBLE(media_hbox)) {
+                            gtk_widget_size_request(GTK_WIDGET(media_hbox), &req);
                             total_height += req.height;
                         }
                         if (GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table)) {
@@ -757,13 +758,13 @@ gboolean resize_window(void *data)
                     total_height -= req.height;
                 }
                 if (window_x > 0 && total_height > 0) {
-                    gtk_widget_set_size_request(media_label, window_x, total_height);
+                    gtk_widget_set_size_request(media_hbox, window_x, total_height);
                 }
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             } else {
                 if (embed_window != -1) {
                     show_media_label = TRUE;
-                    gtk_widget_show(media_label);
+                    gtk_widget_show_all(media_hbox);
                     if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
                         // gtk_widget_hide(drawing_area);
                         gtk_widget_hide(vbox);
@@ -772,7 +773,7 @@ gboolean resize_window(void *data)
                         if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
                             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
                             gtk_widget_show(GTK_WIDGET(fixed));
-                            gtk_widget_show(GTK_WIDGET(media_label));
+                            gtk_widget_show_all(GTK_WIDGET(media_hbox));
                         } else {
                             gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
                         }
@@ -784,8 +785,8 @@ gboolean resize_window(void *data)
                             gtk_widget_size_request(GTK_WIDGET(controls_box), &req);
                             total_height += req.height;
                         }
-                        if (GTK_WIDGET_VISIBLE(media_label)) {
-                            gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+                        if (GTK_WIDGET_VISIBLE(media_hbox)) {
+                            gtk_widget_size_request(GTK_WIDGET(media_hbox), &req);
                             total_height += req.height;
                         }
                         if (req.width > 0 && total_height > 0)
@@ -2500,12 +2501,12 @@ void menuitem_edit_loop_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_view_info_callback(GtkMenuItem * menuitem, void *data)
 {
-    if (GTK_IS_WIDGET(media_label)) {
-        if (GTK_WIDGET_VISIBLE(media_label)) {
-            gtk_widget_hide(media_label);
+    if (GTK_IS_WIDGET(media_hbox)) {
+        if (GTK_WIDGET_VISIBLE(media_hbox)) {
+            gtk_widget_hide_all(media_hbox);
             show_media_label = FALSE;
         } else {
-            gtk_widget_show(media_label);
+            gtk_widget_show_all(media_hbox);
             show_media_label = TRUE;
         }
     }
@@ -2530,8 +2531,8 @@ void menuitem_view_onetoone_callback(GtkMenuItem * menuitem, void *data)
         total_height = idle->height;
         gtk_widget_size_request(GTK_WIDGET(menubar), &req);
         total_height += req.height;
-        if (GTK_WIDGET_VISIBLE(media_label)) {
-            gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+        if (GTK_WIDGET_VISIBLE(media_hbox)) {
+            gtk_widget_size_request(GTK_WIDGET(media_hbox), &req);
             total_height += req.height;
         }
 
@@ -2564,8 +2565,8 @@ void menuitem_view_twotoone_callback(GtkMenuItem * menuitem, void *data)
         total_height = idle->height * 2;
         gtk_widget_size_request(GTK_WIDGET(menubar), &req);
         total_height += req.height;
-        if (GTK_WIDGET_VISIBLE(media_label)) {
-            gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+        if (GTK_WIDGET_VISIBLE(media_hbox)) {
+            gtk_widget_size_request(GTK_WIDGET(media_hbox), &req);
             total_height += req.height;
         }
 
@@ -2598,8 +2599,8 @@ void menuitem_view_onetotwo_callback(GtkMenuItem * menuitem, void *data)
         total_height = idle->height / 2;
         gtk_widget_size_request(GTK_WIDGET(menubar), &req);
         total_height += req.height;
-        if (GTK_WIDGET_VISIBLE(media_label)) {
-            gtk_widget_size_request(GTK_WIDGET(media_label), &req);
+        if (GTK_WIDGET_VISIBLE(media_hbox)) {
+            gtk_widget_size_request(GTK_WIDGET(media_hbox), &req);
             total_height += req.height;
         }
         if (GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table)) {
@@ -5228,7 +5229,7 @@ GtkWidget *create_window(gint windowid)
     if (rpcontrols == NULL || (rpcontrols != NULL && g_strcasecmp(rpcontrols, "all") == 0)) {
         if (windowid != -1)
             gtk_widget_show_all(window);
-        gtk_widget_hide(media_label);
+        gtk_widget_hide(media_hbox);
         gtk_widget_hide(menu_event_box);
         show_media_label = TRUE;
         if (disable_fullscreen)
@@ -5261,7 +5262,7 @@ GtkWidget *create_window(gint windowid)
 
         gtk_widget_hide(fixed);
         gtk_widget_hide(menubar);
-        gtk_widget_hide(media_label);
+        gtk_widget_hide(media_hbox);
         gtk_widget_hide(menu_event_box);
         show_media_label = FALSE;
 
@@ -5284,13 +5285,13 @@ GtkWidget *create_window(gint windowid)
                 gtk_widget_show(GTK_WIDGET(vol_slider));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
-                gtk_widget_show(GTK_WIDGET(media_label));
+                gtk_widget_show_all(GTK_WIDGET(media_hbox));
                 show_media_label = TRUE;
 
                 control_instance = FALSE;
             }
             if (g_strcasecmp(visuals[i], "infopanel") == 0) {
-                gtk_widget_show(GTK_WIDGET(media_label));
+                gtk_widget_show_all(GTK_WIDGET(media_hbox));
                 show_media_label = TRUE;
 
                 control_instance = FALSE;
@@ -5374,7 +5375,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_hide(next_event_box);
     gtk_widget_hide(GTK_WIDGET(menuitem_prev));
     gtk_widget_hide(GTK_WIDGET(menuitem_next));
-    gtk_widget_hide(media_label);
+    gtk_widget_hide(media_hbox);
     gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
     gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
     update_status_icon();
