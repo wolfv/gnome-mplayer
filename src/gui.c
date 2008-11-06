@@ -2171,13 +2171,55 @@ void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
 {
-    gint playlist;
+    gint playlist = 0;
     gchar *uri;
+    gchar *name;
+    gint count;
+    GtkTreeViewColumn *column;
+    gchar *coltitle;
+	GtkTreePath *path;
+	
+	shutdown();
+    gtk_list_store_clear(playliststore);
+    gtk_list_store_clear(nonrandomplayliststore);
 
     uri = gtk_recent_chooser_get_current_uri(chooser);
-    playlist = detect_playlist(uri);
-    play_file(uri, playlist);
-    g_free(uri);
+	if (uri != NULL) {
+		if (playlist == 0)
+			playlist = detect_playlist(uri);
+
+		if (!playlist) {
+			add_item_to_playlist(uri, playlist);
+		} else {
+			if (!parse_playlist(uri)) {
+				add_item_to_playlist(uri, playlist);
+			}
+		}
+	}
+
+	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+	
+    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &name,
+						   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+		set_media_info_name(name);
+		play_file(name, playlist);
+		gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+		g_free(name);
+		dontplaynext = FALSE;
+	}
+
+	if (GTK_IS_WIDGET(list)) {
+        column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
+        count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+        coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
+        gtk_tree_view_column_set_title(column, coltitle);
+        g_free(coltitle);
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+        gtk_tree_selection_select_path(selection, path);
+        gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
+        gtk_tree_path_free(path);		
+    }	
 }
 
 #ifdef GTK2_12_ENABLED
