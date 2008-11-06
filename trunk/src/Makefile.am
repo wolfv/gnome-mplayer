@@ -13,7 +13,8 @@ INCLUDES = \
 	$(GCONF_CFLAGS) \
 	$(ALSA_CFLAGS) \
     $(NOTIFY_CFLAGS) \
-    $(GPOD_CFLAGS)
+    $(GPOD_CFLAGS) \
+    $(MUSICBRAINZ_CFLAGS)
 
 AM_CFLAGS =\
 	 -Wall\
@@ -24,7 +25,8 @@ AM_CFLAGS =\
 	 $(ALSA_DEFINES) \
      $(GCONF_DEFINES) \
      $(NOTIFY_DEFINES) \
-     $(GPOD_DEFINES)
+     $(GPOD_DEFINES) \
+     $(MUSICBRAINZ_DEFINES)
 
 bin_PROGRAMS = gnome-mplayer 
 
@@ -57,7 +59,7 @@ gnome_mplayer_SOURCES = \
 
 gnome_mplayer_LDFLAGS = 
 
-gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS) $(GPOD_LIBS)
+gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS) $(GPOD_LIBS) $(MUSICBRAINZ_LIBS)
 
 EXTRA_DIST = 
 	

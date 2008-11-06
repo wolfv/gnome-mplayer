@@ -2115,31 +2115,44 @@ gchar *find_gpod_mount_point()
 gboolean gpod_load_tracks(gchar * mount_point)
 {
     Itdb_iTunesDB *db;
+	Itdb_Artwork *artwork;
+	Itdb_Thumb *thumb;
     GList *tracks;
     gint i = 0;
     gchar *duration;
     gchar *ipod_path;
     gchar *full_path;
+	gpointer pixbuf;
     GtkTreeIter localiter;
 
     db = itdb_parse(mount_point, NULL);
     if (db != NULL) {
         tracks = db->tracks;
         while (tracks) {
+			pixbuf = NULL;
             duration = seconds_to_string(((Itdb_Track *) (tracks->data))->tracklen / 1000);
             ipod_path = g_strdup(((Itdb_Track *) (tracks->data))->ipod_path);
             while (g_strrstr(ipod_path, ":")) {
                 ipod_path[g_strrstr(ipod_path, ":") - ipod_path] = '/';
             }
             full_path = g_strdup_printf("file:///%s%s", mount_point, ipod_path);
-
+			g_free(ipod_path);
+			
+			artwork = (Itdb_Artwork*)((Itdb_Track *)(tracks->data))->artwork;
+			if (artwork->thumbnails != NULL) {
+				thumb = (Itdb_Thumb*)(artwork->thumbnails->data);	
+				if (thumb != NULL) {								
+					pixbuf = itdb_thumb_get_gdk_pixbuf(db->device,thumb);
+				}
+			}
+										
             gtk_list_store_append(playliststore, &localiter);
             gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, full_path,
                                DESCRIPTION_COLUMN, ((Itdb_Track *) (tracks->data))->title,
                                COUNT_COLUMN, 0,
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
-                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, -1);
+                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,pixbuf -1);
 
             gtk_list_store_append(nonrandomplayliststore, &localiter);
             gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, full_path,
@@ -2147,11 +2160,11 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                COUNT_COLUMN, 0,
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
-                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, -1);
+                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,pixbuf -1);
 
             g_free(duration);
             g_free(full_path);
-            g_free(ipod_path);
+            
             tracks = g_list_next(tracks);
             i++;
         }

@@ -69,6 +69,9 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
+/* Define to 1 if you have musicbrainz3 support */
+#undef MUSICBRAINZ_ENABLED
+
 /* Define to 1 if you have NOTIFY support */
 #undef NOTIFY_ENABLED
 
