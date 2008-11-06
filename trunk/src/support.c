@@ -2143,6 +2143,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
 				thumb = (Itdb_Thumb*)(artwork->thumbnails->data);	
 				if (thumb != NULL) {								
 					pixbuf = itdb_thumb_get_gdk_pixbuf(db->device,thumb);
+					printf("%s has a thumbnail\n",((Itdb_Track *) (tracks->data))->title);
 				}
 			}
 										
@@ -2152,7 +2153,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                COUNT_COLUMN, 0,
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
-                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,pixbuf -1);
+                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,pixbuf, -1);
 
             gtk_list_store_append(nonrandomplayliststore, &localiter);
             gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, full_path,
@@ -2160,7 +2161,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                COUNT_COLUMN, 0,
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
-                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,pixbuf -1);
+                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,pixbuf, -1);
 
             g_free(duration);
             g_free(full_path);

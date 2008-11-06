@@ -176,12 +176,23 @@ gboolean set_media_label(void *data)
 {
 
     IdleData *idle = (IdleData *) data;
+	gpointer pixbuf;
 #ifdef NOTIFY_ENABLED
     NotifyNotification *notification;
 #endif
     if (data != NULL && idle != NULL && GTK_IS_WIDGET(media_label)) {
         gtk_label_set_markup(GTK_LABEL(media_label), idle->media_info);
         gtk_label_set_max_width_chars(GTK_LABEL(media_label), 10);
+		
+		pixbuf = NULL;
+		gtk_image_clear(GTK_IMAGE(cover_art));
+		if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COVERART_COLUMN,&pixbuf, -1);
+		}
+		if (pixbuf != NULL) {
+			printf("pixbuf = %p\n",pixbuf);
+			gtk_image_set_from_pixbuf (GTK_IMAGE(cover_art),GDK_PIXBUF(pixbuf));
+		}
     }
 
     if (idle->videopresent == FALSE && show_media_label) {
@@ -4912,13 +4923,18 @@ GtkWidget *create_window(gint windowid)
     controls_box = gtk_vbox_new(FALSE, 0);
     fixed = gtk_fixed_new();
     drawing_area = gtk_socket_new();
+	
+	cover_art = gtk_image_new();
     media_label = gtk_label_new("");
+	media_hbox = gtk_hbox_new(FALSE,10);
     details_vbox = gtk_vbox_new(FALSE, 10);
     gtk_misc_set_alignment(GTK_MISC(media_label), 0, 0);
 
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox), media_label, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(media_hbox),cover_art, FALSE, FALSE,0);
+	gtk_box_pack_start(GTK_BOX(media_hbox),media_label, TRUE,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(vbox), media_hbox, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), details_vbox, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
 	

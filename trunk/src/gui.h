@@ -126,7 +126,9 @@ GtkWidget *hbox;
 GtkWidget *controls_box;
 
 GtkWidget *fixed;
+GtkWidget *media_hbox;
 GtkWidget *media_label;
+GtkWidget *cover_art;
 GtkWidget *details_vbox;
 GtkWidget *details_table;
 
