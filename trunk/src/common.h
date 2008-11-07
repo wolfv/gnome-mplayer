@@ -370,7 +370,7 @@ void dbus_unhook();
 void dbus_enable_screensaver();
 void dbus_disable_screensaver();
 
-void shutdown();
+void mplayer_shutdown();
 gpointer launch_player(gpointer data);
 
 gboolean update_mplayer_config();

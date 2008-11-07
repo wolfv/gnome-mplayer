@@ -1337,6 +1337,8 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
                            ARTIST_COLUMN, data->artist, SUBTITLE_COLUMN, data->subtitle,
+						   AUDIO_CODEC_COLUMN, data->audio_codec,
+						   VIDEO_CODEC_COLUMN, data->video_codec,
                            LENGTH_COLUMN, data->length, -1);
 
 
@@ -1346,7 +1348,9 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
                            ARTIST_COLUMN, data->artist, SUBTITLE_COLUMN, data->subtitle,
-                           LENGTH_COLUMN, data->length, -1);
+						   AUDIO_CODEC_COLUMN, data->audio_codec,
+						   VIDEO_CODEC_COLUMN, data->video_codec,
+						   LENGTH_COLUMN, data->length, -1);
         set_item_add_info(uri);
         g_free(data->title);
         g_free(data->artist);
@@ -2219,7 +2223,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
 #endif
 
 #ifdef HAVE_MUSICBRAINZ
-gchar *get_coverart_url(gchar * artist, gchar * title, gchar * album)
+gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *asin_filename)
 {
     int i;
     MbWebService mb;
@@ -2232,55 +2236,171 @@ gchar *get_coverart_url(gchar * artist, gchar * title, gchar * album)
     char id[1024];
     char asin[1024];
     gchar *ret = NULL;
+	FILE *fp;
 
     printf("music brainz testing\n");
 
-    mb = mb_webservice_new();
+	
+	
+	if (!g_file_test(asin_filename,G_FILE_TEST_EXISTS)) {
+		mb = mb_webservice_new();
 
-    query = mb_query_new(mb, "gnome-mplayer");
+		query = mb_query_new(mb, "gnome-mplayer");
 
-    track_filter = mb_track_filter_new();
-    if (title != NULL)
-        track_filter = mb_track_filter_title(track_filter, title);
-    if (artist != NULL)
-        track_filter = mb_track_filter_artist_name(track_filter, artist);
-    if (album != NULL)
-        track_filter = mb_track_filter_release_title(track_filter, album);
+		track_filter = mb_track_filter_new();
+		if (title != NULL)
+			track_filter = mb_track_filter_title(track_filter, title);
+		if (artist != NULL)
+			track_filter = mb_track_filter_artist_name(track_filter, artist);
+		if (album != NULL)
+			track_filter = mb_track_filter_release_title(track_filter, album);
 
-    results = mb_query_get_releases(query, track_filter);
-    mb_artist_filter_free(track_filter);
+		results = mb_query_get_releases(query, track_filter);
+		mb_artist_filter_free(track_filter);
 
-    printf("items found:  %i\n", mb_result_list_get_size(results));
+		printf("items found:  %i\n", mb_result_list_get_size(results));
 
-    for (i = 0; i < mb_result_list_get_size(results); i++) {
-        release = mb_result_list_get_release(results, i);
-        mb_release_get_id(release, id, 1024);
-        includes = mb_release_includes_new();
-        includes = mb_artist_includes_release_events(includes);
-        includes = mb_track_includes_url_relations(includes);
+		for (i = 0; i < mb_result_list_get_size(results); i++) {
+			release = mb_result_list_get_release(results, i);
+			mb_release_get_id(release, id, 1024);
+			includes = mb_release_includes_new();
+			includes = mb_artist_includes_release_events(includes);
+			includes = mb_track_includes_url_relations(includes);
 
-        release = mb_query_get_release_by_id(query, id, includes);
-        mb_release_includes_free(includes);
+			release = mb_query_get_release_by_id(query, id, includes);
+			mb_release_includes_free(includes);
 
-        mb_release_get_asin(release, asin, 1024);
-        mb_release_free(release);
-        if (strlen(asin) > 0) {
-            ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
-            break;
-        }
-    }
-
-    mb_result_list_free(results);
-    mb_query_free(query);
-    mb_webservice_free(mb);
+			mb_release_get_asin(release, asin, 1024);
+			mb_release_free(release);
+			if (strlen(asin) > 0) {
+				fp = fopen(asin_filename,"w");
+				fputs(asin,fp);
+				fclose(fp);
+				ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
+				break;
+			}
+		}
+		mb_result_list_free(results);
+		mb_query_free(query);
+		mb_webservice_free(mb);
+	}
+		
     return ret;
 }
 
 #else
-gchar *get_coverart_url(gchar * artist, gchar * title, gchar * album)
+gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *asin_filename)
 {
     if (verbose > 1)
         printf("Running without musicbrainz support, unable to fetch url\n");
     return NULL;
 }
 #endif
+
+#ifdef GIO_ENABLED
+/*
+void cache_cover_art_callback(goffset current_num_bytes, goffset total_num_bytes, gpointer data)
+{
+    printf("downloaded %li of %li bytes\n",(glong)current_num_bytes,(glong)total_num_bytes);
+
+}
+
+void cover_art_ready_callback(GObject * source_object, GAsyncResult * res, gpointer data)
+{
+	gboolean success;
+	GError *error = NULL;
+	
+	printf("cover art downloaded\n");
+	success = g_file_copy_finish ((GFile*)source_object,res,&error);
+	if (error != NULL) {
+		printf("copy error %s\n",error->message);
+		g_error_free(error);
+	}
+}
+*/
+void get_cover_art(gchar * artist, gchar * title, gchar * album)
+{
+	gchar *url;
+	gchar *path;
+	gchar *cache_file;
+	gchar *asin_filename;
+	gboolean local_artist = FALSE;
+	gboolean local_album = FALSE;
+	//GFile *src;
+	//GFile *art;
+	CURL *curl;
+	FILE *art;
+	gpointer pixbuf;
+	
+	
+	if (artist == NULL) {
+		artist = g_strdup("Unknown");
+		local_artist = TRUE;
+	}
+	if (album == NULL) {
+		album = g_strdup("Unknown");
+		local_album = TRUE;
+	}
+	
+	path = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s", getenv("HOME"),artist);
+	if (!g_file_test(path,G_FILE_TEST_IS_DIR)) {
+        g_mkdir_with_parents(path, 0775);
+	}
+	
+	cache_file = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.jpeg", getenv("HOME"),artist,album);
+	asin_filename = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.asin", getenv("HOME"),artist,album);
+	if (local_artist) {
+		g_free(artist);
+		artist = NULL;
+	}
+	if (local_album) {
+		g_free(album);
+		album = NULL;
+	}
+	
+	if (!g_file_test(cache_file,G_FILE_TEST_EXISTS)) {
+		/*
+		src = g_file_new_for_uri (url);
+		art = g_file_new_for_uri (cache_uri);
+		g_file_copy_async(src, art, G_FILE_COPY_NONE,
+					  G_PRIORITY_DEFAULT, NULL, cache_cover_art_callback, NULL,
+					  cover_art_ready_callback, NULL);
+		*/
+		url = get_cover_art_url(artist,title,album,asin_filename);
+		if (url != NULL) {
+			art = fopen(cache_file,"wb");
+			curl = curl_easy_init();
+			if(curl) {
+				curl_easy_setopt(curl, CURLOPT_URL, url);
+				curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
+				curl_easy_perform(curl);
+				curl_easy_cleanup(curl);
+			}
+			fclose(art);
+			printf("cover art url is %s\n",url);
+			g_free(url);
+
+		}
+	}
+
+	if (g_file_test(cache_file,G_FILE_TEST_EXISTS)) {
+		pixbuf = gdk_pixbuf_new_from_file(cache_file,NULL);
+		gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
+	} else {
+		gtk_image_clear (GTK_IMAGE(cover_art));
+	}
+	g_free(asin_filename);
+	g_free(cache_file);
+	g_free(path);
+
+	return;
+}
+#else 
+void get_cover_art(gchar * artist, gchar * title, gchar * album)
+{
+	if (verbose)
+		printf("GIO required for cover art retrieval\n"); 
+	return;
+}
+#endif
+

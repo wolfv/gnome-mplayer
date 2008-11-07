@@ -58,6 +58,7 @@ GKeyFile *config;
 
 #ifdef HAVE_MUSICBRAINZ
 #include <musicbrainz3/mb_c.h>
+#include <curl/curl.h>
 #endif
 
 gint get_bitrate(gchar * name);
@@ -104,7 +105,7 @@ gchar *find_gpod_mount_point();
 gboolean gpod_load_tracks(gchar * mount_point);
 #endif
 
-gchar *get_coverart_url(gchar * artist, gchar * title, gchar * album);
-
+gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *asin_filename);
+void get_cover_art(gchar * artist, gchar * title, gchar * album);
 
 #endif                          // _SUPPORT_H

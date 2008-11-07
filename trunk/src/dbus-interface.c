@@ -100,7 +100,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
             // printf("Path matched %s\n", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Open") == 0) {
-                    shutdown();
+                    mplayer_shutdown();
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
@@ -148,7 +148,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "OpenPlaylist") == 0) {
-                    shutdown();
+                    mplayer_shutdown();
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
@@ -186,7 +186,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "OpenButton") == 0) {
-                    shutdown();
+                    mplayer_shutdown();
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s,
                                               DBUS_TYPE_STRING, &hrefid, DBUS_TYPE_INVALID)) {
@@ -240,12 +240,12 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Close") == 0) {
-                    shutdown();
+                    mplayer_shutdown();
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Quit") == 0) {
-                    shutdown();
+                    mplayer_shutdown();
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 

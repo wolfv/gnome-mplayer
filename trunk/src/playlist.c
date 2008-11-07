@@ -601,7 +601,7 @@ void clear_playlist(GtkWidget * widget, void *data)
 {
 
     dontplaynext = TRUE;
-    shutdown();
+    mplayer_shutdown();
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), FALSE);
@@ -691,33 +691,10 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
                                   GtkTreeViewColumn * column, gpointer data)
 {
 
-    gchar *uri = NULL;
-    gchar *filename = NULL;
-    gint count;
-    gchar *cmd = NULL;
-
     if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
-        if (state == QUIT) {
+			dontplaynext = TRUE;
             play_iter(&iter);
-        } else {
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
-                               COUNT_COLUMN, &count, -1);
-            gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
-            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
-            gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
-            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
-            filename = get_localfile_from_uri(uri);
-            cmd = g_strdup_printf("loadfile \"%s\"\n", filename);
-            send_command(cmd, FALSE);
-            g_free(cmd);
-            g_free(filename);
-            if (state != PLAYING)
-                play_callback(NULL, NULL, NULL);
-            set_media_info_name(uri);
-            gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-            g_free(uri);
-        }
-
+			dontplaynext = FALSE;
     }
     return FALSE;
 }
