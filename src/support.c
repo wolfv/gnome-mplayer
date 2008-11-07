@@ -340,7 +340,7 @@ gint parse_basic(gchar * uri)
 #endif
                 continue;
             }
-            printf("line = %s\n", line);
+            // printf("line = %s\n", line);
             newline = g_strdup(line);
             if ((g_ascii_strncasecmp(line, "ref", 3) == 0) ||
                 (g_ascii_strncasecmp(line, "file", 4)) == 0) {
@@ -354,7 +354,7 @@ gint parse_basic(gchar * uri)
                 g_strfreev(parse);
             }
 
-			if (g_ascii_strncasecmp(newline, "[playlist]", strlen("[playlist]")) == 0) {
+            if (g_ascii_strncasecmp(newline, "[playlist]", strlen("[playlist]")) == 0) {
                 //printf("playlist\n");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "[reference]", strlen("[reference]")) == 0) {
@@ -969,11 +969,16 @@ gchar *metadata_to_utf8(gchar * string)
     return g_locale_to_utf8(string, -1, NULL, NULL, NULL);
 }
 
-gboolean get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** length)
+MetaData *get_metadata(gchar * uri)
 {
-
+    gchar *title = NULL;
+    gchar *artist = NULL;
+    gchar *album = NULL;
+    gchar *length = NULL;
     gchar *name = NULL;
     gchar *basename = NULL;
+    gchar *audio_codec = NULL;
+    gchar *video_codec = NULL;
     GError *error;
     gint exit_status;
     gchar *stdout = NULL;
@@ -984,7 +989,7 @@ gboolean get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** len
     gchar *lower;
     gfloat seconds;
     gchar *localtitle = NULL;
-    gboolean ret = FALSE;
+    MetaData *ret = NULL;
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
@@ -1004,7 +1009,7 @@ gboolean get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** len
     }
 
     if (name == NULL)
-        return FALSE;
+        return NULL;
     printf("getting file metadata for %s\n", name);
 
     av[ac++] = g_strdup_printf("mplayer");
@@ -1041,7 +1046,7 @@ gboolean get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** len
             g_free(stdout);
         if (stderr != NULL)
             g_free(stderr);
-        return FALSE;
+        return NULL;
     }
     output = g_strsplit(stdout, "\n", 0);
     ac = 0;
@@ -1052,24 +1057,32 @@ gboolean get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** len
                 || g_strncasecmp(name, "dvd://", strlen("dvd://")) != 0)) {
             localtitle = strstr(output[ac], "=") + 1;
             sscanf(localtitle, "%f", &seconds);
-            *length = seconds_to_string(seconds);
+            length = seconds_to_string(seconds);
         }
 
         if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
             if (strstr(lower, "=title") != NULL || strstr(lower, "=name") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
-                *title = g_strstrip(metadata_to_utf8(localtitle));
-                if (*title == NULL) {
-                    *title = g_strdup(localtitle);
-                    strip_unicode(*title, strlen(*title));
+                title = g_strstrip(metadata_to_utf8(localtitle));
+                if (title == NULL) {
+                    title = g_strdup(localtitle);
+                    strip_unicode(title, strlen(title));
                 }
             }
             if (strstr(lower, "=artist") != NULL || strstr(lower, "=author") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
-                *artist = metadata_to_utf8(localtitle);
-                if (*artist == NULL) {
-                    *artist = g_strdup(localtitle);
-                    strip_unicode(*artist, strlen(*artist));
+                artist = metadata_to_utf8(localtitle);
+                if (artist == NULL) {
+                    artist = g_strdup(localtitle);
+                    strip_unicode(artist, strlen(artist));
+                }
+            }
+            if (strstr(lower, "=album") != NULL) {
+                localtitle = strstr(output[ac + 1], "=") + 1;
+                album = metadata_to_utf8(localtitle);
+                if (album == NULL) {
+                    album = g_strdup(localtitle);
+                    strip_unicode(album, strlen(album));
                 }
             }
         }
@@ -1077,30 +1090,57 @@ gboolean get_metadata(gchar * uri, gchar ** title, gchar ** artist, gchar ** len
         if (strstr(output[ac], "DVD Title:") != NULL
             && g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) == 0) {
             localtitle = g_strrstr(output[ac], ":") + 1;
-            *title = metadata_to_utf8(localtitle);
-            if (*title == NULL) {
-                *title = g_strdup(localtitle);
-                strip_unicode(*title, strlen(*title));
+            title = metadata_to_utf8(localtitle);
+            if (title == NULL) {
+                title = g_strdup(localtitle);
+                strip_unicode(title, strlen(title));
             }
         }
 
+        if (strstr(output[ac], "ID_AUDIO_CODEC") != NULL) {
+            localtitle = strstr(output[ac], "=") + 1;
+            audio_codec = g_strdup(localtitle);
+        }
+
+        if (strstr(output[ac], "ID_VIDEO_CODEC") != NULL) {
+            localtitle = strstr(output[ac], "=") + 1;
+            video_codec = g_strdup(localtitle);
+        }
+
         if (strstr(output[ac], "ID_DEMUXER") != NULL) {
-            ret = TRUE;
+            if (ret == NULL)
+                ret = (MetaData *) g_new0(MetaData, 1);
+
         }
         g_free(lower);
         ac++;
     }
 
-    if (*title == NULL || strlen(*title) == 0) {
-        g_free(*title);
-        *title = g_strdup(basename);
+    if (title == NULL || strlen(title) == 0) {
+        g_free(title);
+        title = g_strdup(basename);
     }
 
-    if (*title == NULL && g_strncasecmp(name, "dvd://", strlen("dvd://")) == 0) {
+    if (title == NULL && g_strncasecmp(name, "dvd://", strlen("dvd://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
-        *title = g_strdup_printf("DVD Track %s", localtitle);
+        title = g_strdup_printf("DVD Track %s", localtitle);
     }
 
+    if (ret != NULL) {
+        ret->title = g_strdup(title);
+        ret->artist = g_strdup(artist);
+        ret->album = g_strdup(album);
+        ret->length = g_strdup(length);
+        ret->audio_codec = g_strdup(audio_codec);
+        ret->video_codec = g_strdup(video_codec);
+    }
+
+    g_free(title);
+    g_free(artist);
+    g_free(album);
+    g_free(length);
+    g_free(audio_codec);
+    g_free(video_codec);
     g_strfreev(output);
     if (stdout != NULL)
         g_free(stdout);
@@ -1264,34 +1304,20 @@ gint get_bitrate(gchar * name)
 
 GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
 {
-    gchar *desc = NULL;
     GtkTreeIter localiter;
-    gchar *artist = NULL;
-    gchar *length = NULL;
     gchar *unescaped = NULL;
-    gboolean add_item = FALSE;
+    MetaData *data = NULL;
 
     if (!device_name(uri) && !streaming_media(uri)) {
-        add_item = get_metadata(uri, &desc, &artist, &length);
-        if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
-            if (desc != NULL) {
-                g_free(desc);
-                desc = NULL;
-            }
-        }
+        data = get_metadata(uri);
     } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
-        desc = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
-        add_item = TRUE;
+        data = (MetaData *) g_new0(MetaData, 1);
+        data->title = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
     } else if (device_name(uri)) {
         if (g_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
             loop = 1;
         }
-        add_item = get_metadata(uri, &desc, &artist, &length);
-        if (desc == NULL || (desc != NULL && strlen(desc) == 0)) {
-            if (desc != NULL)
-                g_free(desc);
-            desc = g_strdup_printf("Device - %s", uri);
-        }
+        data = get_metadata(uri);
 
     } else {
 #ifdef GIO_ENABLED
@@ -1299,39 +1325,38 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
 #else
         unescaped = g_strdup(uri);
 #endif
-        desc = g_strdup_printf("Stream from %s", unescaped);
+        data = (MetaData *) g_new0(MetaData, 1);
+        data->title = g_strdup_printf("Stream from %s", unescaped);
         g_free(unescaped);
-        add_item = TRUE;
     }
 
-
-    if (add_item) {
+    if (data) {
         gtk_list_store_append(playliststore, &localiter);
         gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, uri,
-                           DESCRIPTION_COLUMN, desc,
+                           DESCRIPTION_COLUMN, data->title,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
-                           ARTIST_COLUMN, artist, SUBTITLE_COLUMN, subtitle, LENGTH_COLUMN, length,
-                           -1);
+                           ARTIST_COLUMN, data->artist, SUBTITLE_COLUMN, data->subtitle,
+                           LENGTH_COLUMN, data->length, -1);
 
 
         gtk_list_store_append(nonrandomplayliststore, &localiter);
         gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, uri,
-                           DESCRIPTION_COLUMN, desc,
+                           DESCRIPTION_COLUMN, data->title,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
-                           ARTIST_COLUMN, artist, SUBTITLE_COLUMN, subtitle, LENGTH_COLUMN, length,
-                           -1);
-		set_item_add_info(uri);
+                           ARTIST_COLUMN, data->artist, SUBTITLE_COLUMN, data->subtitle,
+                           LENGTH_COLUMN, data->length, -1);
+        set_item_add_info(uri);
+        g_free(data->title);
+        g_free(data->artist);
+        g_free(data->album);
+        g_free(data->length);
+        g_free(data->subtitle);
+        g_free(data->audio_codec);
+        g_free(data->video_codec);
+        g_free(data);
     }
-    if (desc != NULL)
-        g_free(desc);
-    if (artist != NULL)
-        g_free(artist);
-    if (subtitle != NULL)
-        g_free(subtitle);
-    if (length != NULL)
-        g_free(length);
 
     return localiter;
 
@@ -1765,18 +1790,18 @@ gchar *seconds_to_string(gfloat seconds)
 void init_preference_store()
 {
     gchar *filename;
-	
+
     filename = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art", getenv("HOME"));
-	if (!g_file_test(filename,G_FILE_TEST_IS_DIR)) {
-		g_mkdir_with_parents (filename,0775);
-	}
-	g_free(filename);
+    if (!g_file_test(filename, G_FILE_TEST_IS_DIR)) {
+        g_mkdir_with_parents(filename, 0775);
+    }
+    g_free(filename);
     filename = g_strdup_printf("%s/.gnome-mplayer/cache/plugin", getenv("HOME"));
-	if (!g_file_test(filename,G_FILE_TEST_IS_DIR)) {
-		g_mkdir_with_parents (filename, 0775);
-	}
-	g_free(filename);
-	
+    if (!g_file_test(filename, G_FILE_TEST_IS_DIR)) {
+        g_mkdir_with_parents(filename, 0775);
+    }
+    g_free(filename);
+
 #ifdef HAVE_GCONF
     gconf = gconf_client_get_default();
 #else
@@ -2127,45 +2152,46 @@ gchar *find_gpod_mount_point()
 gboolean gpod_load_tracks(gchar * mount_point)
 {
     Itdb_iTunesDB *db;
-	Itdb_Artwork *artwork;
-	Itdb_Thumb *thumb;
+    Itdb_Artwork *artwork;
+    Itdb_Thumb *thumb;
     GList *tracks;
     gint i = 0;
     gchar *duration;
     gchar *ipod_path;
     gchar *full_path;
-	gpointer pixbuf;
+    gpointer pixbuf;
     GtkTreeIter localiter;
 
     db = itdb_parse(mount_point, NULL);
     if (db != NULL) {
         tracks = db->tracks;
         while (tracks) {
-			pixbuf = NULL;
+            pixbuf = NULL;
             duration = seconds_to_string(((Itdb_Track *) (tracks->data))->tracklen / 1000);
             ipod_path = g_strdup(((Itdb_Track *) (tracks->data))->ipod_path);
             while (g_strrstr(ipod_path, ":")) {
                 ipod_path[g_strrstr(ipod_path, ":") - ipod_path] = '/';
             }
             full_path = g_strdup_printf("file:///%s%s", mount_point, ipod_path);
-			g_free(ipod_path);
-			
-			artwork = (Itdb_Artwork*)((Itdb_Track *)(tracks->data))->artwork;
-			if (artwork->thumbnails != NULL) {
-				thumb = (Itdb_Thumb*)(artwork->thumbnails->data);	
-				if (thumb != NULL) {								
-					pixbuf = itdb_thumb_get_gdk_pixbuf(db->device,thumb);
-					printf("%s has a thumbnail\n",((Itdb_Track *) (tracks->data))->title);
-				}
-			}
-										
+            g_free(ipod_path);
+
+            artwork = (Itdb_Artwork *) ((Itdb_Track *) (tracks->data))->artwork;
+            if (artwork->thumbnails != NULL) {
+                thumb = (Itdb_Thumb *) (artwork->thumbnails->data);
+                if (thumb != NULL) {
+                    pixbuf = itdb_thumb_get_gdk_pixbuf(db->device, thumb);
+                    printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
+                }
+            }
+
             gtk_list_store_append(playliststore, &localiter);
             gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, full_path,
                                DESCRIPTION_COLUMN, ((Itdb_Track *) (tracks->data))->title,
                                COUNT_COLUMN, 0,
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
-                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,pixbuf, -1);
+                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,
+                               pixbuf, -1);
 
             gtk_list_store_append(nonrandomplayliststore, &localiter);
             gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, full_path,
@@ -2173,11 +2199,12 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                COUNT_COLUMN, 0,
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
-                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,pixbuf, -1);
+                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,
+                               pixbuf, -1);
 
             g_free(duration);
             g_free(full_path);
-            
+
             tracks = g_list_next(tracks);
             i++;
         }
@@ -2192,68 +2219,68 @@ gboolean gpod_load_tracks(gchar * mount_point)
 #endif
 
 #ifdef HAVE_MUSICBRAINZ
-gchar *get_coverart_url(gchar *artist, gchar* title, gchar *album)
+gchar *get_coverart_url(gchar * artist, gchar * title, gchar * album)
 {
-	int i;
-	MbWebService mb;
-	MbQuery query;
-	MbTrackFilter track_filter;
-	MbResultList results;
-	MbRelease release;
-	MbReleaseIncludes includes;
+    int i;
+    MbWebService mb;
+    MbQuery query;
+    MbTrackFilter track_filter;
+    MbResultList results;
+    MbRelease release;
+    MbReleaseIncludes includes;
 
-	char id[1024];
-	char asin[1024];
-	gchar *ret = NULL;
+    char id[1024];
+    char asin[1024];
+    gchar *ret = NULL;
 
-	printf("music brainz testing\n");
+    printf("music brainz testing\n");
 
-	mb = mb_webservice_new();
-	
-	query = mb_query_new(mb,"gnome-mplayer");
-	
-	track_filter = mb_track_filter_new();
-	if (title != NULL)
-		track_filter = mb_track_filter_title(track_filter,title);
-	if (artist != NULL)
-		track_filter = mb_track_filter_artist_name(track_filter,artist);
-	if (album != NULL)
-		track_filter = mb_track_filter_release_title(track_filter,album);
+    mb = mb_webservice_new();
 
-	results = mb_query_get_releases(query,track_filter);
-	mb_artist_filter_free(track_filter);
-	
-	printf("items found:  %i\n",mb_result_list_get_size(results));
-	
-	for (i = 0; i < mb_result_list_get_size(results); i++) {
-		release = mb_result_list_get_release(results,i);
-		mb_release_get_id(release,id,1024);
-		includes = mb_release_includes_new ();
-		includes = mb_artist_includes_release_events (includes);
-		includes = mb_track_includes_url_relations (includes); 		
-		
-		release = mb_query_get_release_by_id(query,id,includes);
-		mb_release_includes_free(includes);
+    query = mb_query_new(mb, "gnome-mplayer");
 
-		mb_release_get_asin(release,asin,1024);
-		mb_release_free(release);
-		if (strlen(asin) > 0) {
-			ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n",asin);
-			break;
-		}
-	}
+    track_filter = mb_track_filter_new();
+    if (title != NULL)
+        track_filter = mb_track_filter_title(track_filter, title);
+    if (artist != NULL)
+        track_filter = mb_track_filter_artist_name(track_filter, artist);
+    if (album != NULL)
+        track_filter = mb_track_filter_release_title(track_filter, album);
 
-	mb_result_list_free(results);
-	mb_query_free(query);
-	mb_webservice_free(mb);	
-	return ret;
+    results = mb_query_get_releases(query, track_filter);
+    mb_artist_filter_free(track_filter);
+
+    printf("items found:  %i\n", mb_result_list_get_size(results));
+
+    for (i = 0; i < mb_result_list_get_size(results); i++) {
+        release = mb_result_list_get_release(results, i);
+        mb_release_get_id(release, id, 1024);
+        includes = mb_release_includes_new();
+        includes = mb_artist_includes_release_events(includes);
+        includes = mb_track_includes_url_relations(includes);
+
+        release = mb_query_get_release_by_id(query, id, includes);
+        mb_release_includes_free(includes);
+
+        mb_release_get_asin(release, asin, 1024);
+        mb_release_free(release);
+        if (strlen(asin) > 0) {
+            ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
+            break;
+        }
+    }
+
+    mb_result_list_free(results);
+    mb_query_free(query);
+    mb_webservice_free(mb);
+    return ret;
 }
 
 #else
-gchar *get_coverart_url(gchar *artist, gchar* title, gchar *album)
+gchar *get_coverart_url(gchar * artist, gchar * title, gchar * album)
 {
-	if (verbose > 1)
-		printf("Running without musicbrainz support, unable to fetch url\n");
-	return NULL;
+    if (verbose > 1)
+        printf("Running without musicbrainz support, unable to fetch url\n");
+    return NULL;
 }
 #endif

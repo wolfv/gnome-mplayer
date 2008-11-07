@@ -185,14 +185,24 @@ enum {
     COUNT_COLUMN,
     PLAYLIST_COLUMN,
     ARTIST_COLUMN,
-	ALBUM_COLUMN,
+    ALBUM_COLUMN,
     LENGTH_COLUMN,
     SUBTITLE_COLUMN,
-	COVERART_COLUMN,
-	AUDIO_CODEC_COLUMN,
-	VIDEO_CODEC_COLUMN,
+    COVERART_COLUMN,
+    AUDIO_CODEC_COLUMN,
+    VIDEO_CODEC_COLUMN,
     N_COLUMNS
 };
+
+typedef struct _MetaData {
+    gchar *title;
+    gchar *artist;
+    gchar *album;
+    gchar *length;
+    gchar *subtitle;
+    gchar *audio_codec;
+    gchar *video_codec;
+} MetaData;
 
 typedef struct _LangMenu {
     gchar *label;

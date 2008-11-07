@@ -124,9 +124,7 @@ static GOptionEntry entries[] = {
     {NULL}
 };
 
-
-
-gint play_file(gchar * uri, gint playlist)
+gint play_iter(GtkTreeIter * playiter)
 {
 
     ThreadData *thread_data = (ThreadData *) g_new0(ThreadData, 1);
@@ -135,11 +133,70 @@ gint play_file(gchar * uri, gint playlist)
     gchar *subtitle = NULL;
     GtkTreePath *path;
     gchar *local_file = NULL;
+    gchar *uri = NULL;
+    gint count;
+    gint playlist;
+    gchar *title = NULL;
+    gchar *artist = NULL;
+    gchar *album = NULL;
+    gchar *buffer = NULL;
+    gchar *message = NULL;
 
-    if (verbose)
+    if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, ITEM_COLUMN, &uri,
+                           DESCRIPTION_COLUMN, &title,
+                           ARTIST_COLUMN, &artist,
+                           ALBUM_COLUMN, &album,
+                           SUBTITLE_COLUMN, &subtitle, COUNT_COLUMN, &count, PLAYLIST_COLUMN,
+                           &playlist, -1);
+        if (GTK_IS_TREE_SELECTION(selection)) {
+            path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), playiter);
+            gtk_tree_selection_select_path(selection, path);
+            if (GTK_IS_WIDGET(list))
+                gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
+            gtk_tree_path_free(path);
+        }
+        gtk_list_store_set(playliststore, playiter, COUNT_COLUMN, count + 1, -1);
+    } else {
+        printf("iter is invalid, nothing to play\n");
+        return 0;
+    }
+
+    if (verbose) {
         printf("playing - %s\n", uri);
+        printf("is playlist %i\n", playlist);
+    }
 
     shutdown();
+
+    message = g_strdup_printf("<small>\n");
+    if (title != NULL) {
+        buffer = g_markup_printf_escaped("\t<big><b>%s</b></big>\n", title);
+    } else {
+        buffer = g_markup_printf_escaped("\t<big><b>%s</b></big>\n", uri);
+    }
+    message = g_strconcat(message, buffer, NULL);
+    g_free(buffer);
+
+    if (artist != NULL) {
+        buffer = g_markup_printf_escaped("\t<i>%s</i>\n", artist);
+        message = g_strconcat(message, buffer, NULL);
+        g_free(buffer);
+    }
+    if (album != NULL) {
+        buffer = g_markup_printf_escaped("\t%s\n", album);
+        message = g_strconcat(message, buffer, NULL);
+        g_free(buffer);
+    }
+    buffer = g_markup_printf_escaped("\n\t%s\n", uri);
+    message = g_strconcat(message, buffer, NULL);
+    g_free(buffer);
+
+    message = g_strconcat(message, "</small>", NULL);
+    g_strlcpy(idledata->media_info, message, 1024);
+    g_free(message);
+    gtk_label_set_markup(GTK_LABEL(media_label), idledata->media_info);
+    gtk_label_set_max_width_chars(GTK_LABEL(media_label), 10);
 
     gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
@@ -157,16 +214,6 @@ gint play_file(gchar * uri, gint playlist)
     g_free(local_file);
     thread_data->done = FALSE;
 
-    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, SUBTITLE_COLUMN, &subtitle, -1);
-        if (GTK_IS_TREE_SELECTION(selection)) {
-            path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-            gtk_tree_selection_select_path(selection, path);
-            if (GTK_IS_WIDGET(list))
-                gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
-            gtk_tree_path_free(path);
-        }
-    }
     if (subtitle != NULL) {
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
         g_free(subtitle);
@@ -268,7 +315,7 @@ int main(int argc, char *argv[])
     gint fileindex = 1;
     GError *error = NULL;
     GOptionContext *context;
-    gint i, count;
+    gint i;
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
@@ -349,7 +396,7 @@ int main(int argc, char *argv[])
     reallyverbose = 0;
     embedding_disabled = FALSE;
     disable_pause_on_click = FALSE;
-	disable_animation = FALSE;
+    disable_animation = FALSE;
     use_mediakeys = TRUE;
     mplayer_bin = NULL;
     single_instance = FALSE;
@@ -386,7 +433,7 @@ int main(int argc, char *argv[])
     disable_ass = read_preference_bool(DISABLEASS);
     disable_embeddedfonts = read_preference_bool(DISABLEEMBEDDEDFONTS);
     disable_pause_on_click = read_preference_bool(DISABLEPAUSEONCLICK);
-	disable_animation = read_preference_bool (DISABLEANIMATION);
+    disable_animation = read_preference_bool(DISABLEANIMATION);
     use_mediakeys = read_preference_bool(USE_MEDIAKEYS);
     metadata_codepage = read_preference_string(METADATACODEPAGE);
     subtitlefont = read_preference_string(SUBTITLEFONT);
@@ -488,10 +535,12 @@ int main(int argc, char *argv[])
     // setup playliststore
     playliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
-                           G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
+                           G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
     nonrandomplayliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
-                           G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
+                           G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
 
     create_window(embed_window);
 
@@ -543,8 +592,10 @@ int main(int argc, char *argv[])
                 stat(uri, &buf);
                 g_free(uri);
                 if (S_ISDIR(buf.st_mode)) {
+                    add_item_to_playlist("dvd://", 0);
                     set_media_info_name(_("Playing DVD"));
-                    play_file("dvd://", playlist);
+                    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+                    play_iter(&iter);
                 } else {
                     uri = g_strdup_printf("file://%s", mnt->mnt_dir);
                     create_folder_progress_window();
@@ -556,14 +607,7 @@ int main(int argc, char *argv[])
                         randomize_playlist(playliststore);
                     }
                     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
-                                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                        set_media_info_name(uri);
-                        if (verbose)
-                            printf("playing - %s is playlist = %i\n", uri, playlist);
-                        play_file(uri, playlist);
-                        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-                        g_free(uri);
+                        play_iter(&iter);
                     }
                 }
             } else {
@@ -575,14 +619,7 @@ int main(int argc, char *argv[])
                 }
                 //play_file("cdda://", playlist);
                 if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
-                                       COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                    set_media_info_name(uri);
-                    if (verbose)
-                        printf("playing - %s is playlist = %i\n", uri, playlist);
-                    play_file(uri, playlist);
-                    gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-                    g_free(uri);
+                    play_iter(&iter);
                 }
             }
         } else if (S_ISDIR(buf.st_mode)) {
@@ -605,14 +642,7 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
-                                   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                set_media_info_name(uri);
-                if (verbose)
-                    printf("playing - %s is playlist = %i\n", uri, playlist);
-                play_file(uri, playlist);
-                gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-                g_free(uri);
+                play_iter(&iter);
             }
 
         } else {
@@ -658,14 +688,7 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
-                                   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                set_media_info_name(uri);
-                if (verbose)
-                    printf("playing - %s is playlist = %i\n", uri, playlist);
-                play_file(uri, playlist);
-                gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-                g_free(uri);
+                play_iter(&iter);
             }
         }
 
