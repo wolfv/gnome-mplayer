@@ -1,4 +1,7 @@
 Development
+    Move gnome-mplayer.conf (when running in non-gconf mode) to .gnome-mplayer from .mplayer
+    Create $HOME/.gnome-mplayer directory for preferences and cache
+    Add some more metadata items to the list store
     Add in the code to try and fetch the cover art url from musicbrainz
     Put some fixes in for the thumbnail support
     Add in support for compiling with libmusicbrainz, is not used yet

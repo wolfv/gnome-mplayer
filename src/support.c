@@ -1764,13 +1764,25 @@ gchar *seconds_to_string(gfloat seconds)
 
 void init_preference_store()
 {
+    gchar *filename;
+	
+    filename = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art", getenv("HOME"));
+	if (!g_file_test(filename,G_FILE_TEST_IS_DIR)) {
+		g_mkdir_with_parents (filename,0775);
+	}
+	g_free(filename);
+    filename = g_strdup_printf("%s/.gnome-mplayer/cache/plugin", getenv("HOME"));
+	if (!g_file_test(filename,G_FILE_TEST_IS_DIR)) {
+		g_mkdir_with_parents (filename, 0775);
+	}
+	g_free(filename);
+	
 #ifdef HAVE_GCONF
     gconf = gconf_client_get_default();
 #else
-    gchar *filename;
 
     config = g_key_file_new();
-    filename = g_strdup_printf("%s/.mplayer/gnome-mplayer.conf", getenv("HOME"));
+    filename = g_strdup_printf("%s/.gnome-mplayer/gnome-mplayer.conf", getenv("HOME"));
     g_key_file_load_from_file(config,
                               filename,
                               G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
@@ -2226,7 +2238,7 @@ gchar *get_coverart_url(gchar *artist, gchar* title, gchar *album)
 		mb_release_get_asin(release,asin,1024);
 		mb_release_free(release);
 		if (strlen(asin) > 0) {
-			ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.LZZZZZZZ.jpg\n",asin);
+			ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n",asin);
 			break;
 		}
 	}
@@ -2237,4 +2249,11 @@ gchar *get_coverart_url(gchar *artist, gchar* title, gchar *album)
 	return ret;
 }
 
+#else
+gchar *get_coverart_url(gchar *artist, gchar* title, gchar *album)
+{
+	if (verbose > 1)
+		printf("Running without musicbrainz support, unable to fetch url\n");
+	return NULL;
+}
 #endif
