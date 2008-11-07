@@ -139,6 +139,8 @@ gint play_iter(GtkTreeIter * playiter)
     gchar *title = NULL;
     gchar *artist = NULL;
     gchar *album = NULL;
+	gchar *audio_codec;
+	gchar *video_codec = NULL;
     gchar *buffer = NULL;
     gchar *message = NULL;
 
@@ -147,6 +149,8 @@ gint play_iter(GtkTreeIter * playiter)
                            DESCRIPTION_COLUMN, &title,
                            ARTIST_COLUMN, &artist,
                            ALBUM_COLUMN, &album,
+						   AUDIO_CODEC_COLUMN, &audio_codec,
+						   VIDEO_CODEC_COLUMN, &video_codec,
                            SUBTITLE_COLUMN, &subtitle, COUNT_COLUMN, &count, PLAYLIST_COLUMN,
                            &playlist, -1);
         if (GTK_IS_TREE_SELECTION(selection)) {
@@ -167,14 +171,13 @@ gint play_iter(GtkTreeIter * playiter)
         printf("is playlist %i\n", playlist);
     }
 
-    shutdown();
+    mplayer_shutdown();
 
     message = g_strdup_printf("<small>\n");
-    if (title != NULL) {
-        buffer = g_markup_printf_escaped("\t<big><b>%s</b></big>\n", title);
-    } else {
-        buffer = g_markup_printf_escaped("\t<big><b>%s</b></big>\n", uri);
+    if (title == NULL) {
+		title = g_filename_display_basename(uri);
     }
+	buffer = g_markup_printf_escaped("\t<big><b>%s</b></big>\n", title);
     message = g_strconcat(message, buffer, NULL);
     g_free(buffer);
 
@@ -193,6 +196,17 @@ gint play_iter(GtkTreeIter * playiter)
     g_free(buffer);
 
     message = g_strconcat(message, "</small>", NULL);
+
+	// probably not much cover art for random video files
+	if (video_codec == NULL)
+		get_cover_art(artist,title,album);
+	
+	g_free(title);
+	g_free(artist);
+	g_free(album);
+	g_free(audio_codec);
+	g_free(video_codec);
+	
     g_strlcpy(idledata->media_info, message, 1024);
     g_free(message);
     gtk_label_set_markup(GTK_LABEL(media_label), idledata->media_info);
@@ -265,6 +279,8 @@ gint play_iter(GtkTreeIter * playiter)
     idledata->height = 0;
     idledata->x = 0;
     idledata->y = 0;
+	g_strlcpy(idledata->info, uri, 1024);
+	set_media_info(idledata);
 
     streaming = 0;
 

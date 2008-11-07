@@ -108,7 +108,7 @@ AC_ARG_WITH([libmusicbrainz3],
         [],
         [with_libmusicbrainz3=check])
 AS_IF([test "x$with_libmusicbrainz3" != xno], 
-    [PKG_CHECK_MODULES(MUSICBRAINZ,[libmusicbrainz3],[MUSICBRAINZ_DEFINES="-DHAVE_MUSICBRAINZ" AC_DEFINE([MUSICBRAINZ_ENABLED],[1],[Define to 1 if you have musicbrainz3 support])],AC_MSG_WARN([Compiling without libmusicbrainz3 support]))
+    [PKG_CHECK_MODULES(MUSICBRAINZ,[libmusicbrainz3 libcurl],[MUSICBRAINZ_DEFINES="-DHAVE_MUSICBRAINZ" AC_DEFINE([MUSICBRAINZ_ENABLED],[1],[Define to 1 if you have musicbrainz3 support])],AC_MSG_WARN([Compiling without libmusicbrainz3 support]))
     AC_SUBST(MUSICBRAINZ_DEFINES)
     AC_SUBST(MUSICBRAINZ_CFLAGS)
     AC_SUBST(MUSICBRAINZ_LIBS)

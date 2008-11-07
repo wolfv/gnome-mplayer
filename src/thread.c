@@ -25,7 +25,7 @@
 #include "thread.h"
 #include "common.h"
 
-void shutdown()
+void mplayer_shutdown()
 {
     // printf("state = %i quit = %i\n",state,QUIT);
     if (state != QUIT) {
@@ -619,7 +619,7 @@ gboolean thread_query(gpointer data)
         // size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
         size = write(std_in, "get_time_pos\n", strlen("get_time_pos\n"));
         if (size == -1) {
-            shutdown();
+            mplayer_shutdown();
             return FALSE;
         } else {
 

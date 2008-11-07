@@ -190,7 +190,6 @@ gboolean set_media_label(void *data)
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COVERART_COLUMN, &pixbuf, -1);
         }
         if (pixbuf != NULL) {
-            printf("pixbuf = %p\n", pixbuf);
             gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
         }
     }
@@ -477,7 +476,7 @@ gboolean set_update_gui(void *data)
                                          (GtkWidget *) item->data, FALSE);
     }
 
-    if (GTK_WIDGET(list)) {
+    if (GTK_IS_WIDGET(list)) {
         column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
         count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
         if (playlistname != NULL && strlen(playlistname) > 0) {
@@ -1054,7 +1053,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
         release_preference_store();
     }
 
-    shutdown();
+    mplayer_shutdown();
     while (gtk_events_pending() || thread != NULL) {
         gtk_main_iteration();
     }
@@ -1656,7 +1655,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (idledata->has_chapters) {
             send_command("seek_chapter 1 0\n", FALSE);
         } else {
-            shutdown();
+            mplayer_shutdown();
             if (autopause) {
                 autopause = FALSE;
                 gtk_widget_set_sensitive(play_event_box, TRUE);
@@ -1864,7 +1863,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
         }
 
         dontplaynext = TRUE;
-        shutdown();
+        mplayer_shutdown();
         gtk_list_store_clear(playliststore);
         gtk_list_store_clear(nonrandomplayliststore);
 
@@ -1898,7 +1897,7 @@ void open_location_callback(GtkWidget * widget, void *data)
 
     if (filename != NULL && strlen(filename) > 0) {
         dontplaynext = TRUE;
-        shutdown();
+        mplayer_shutdown();
         gtk_list_store_clear(playliststore);
         gtk_list_store_clear(nonrandomplayliststore);
 
@@ -2096,7 +2095,7 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
     GtkTreeViewColumn *column;
     gchar *coltitle;
 
-    shutdown();
+    mplayer_shutdown();
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
 
