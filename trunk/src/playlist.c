@@ -154,7 +154,6 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 gint x, gint y, GtkSelectionData * selection_data,
                                 guint info, guint t, gpointer data)
 {
-    gchar *uri;
     GtkTreeIter localiter;
     gchar **list;
     gint i = 0;
@@ -194,12 +193,7 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
-                               PLAYLIST_COLUMN, &playlist, -1);
-
-            shutdown();
-            play_file(uri, playlist);
-            g_free(uri);
+            play_iter(&iter);
 
         } else {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
@@ -351,12 +345,12 @@ void load_playlist(GtkWidget * widget, void *data)
 
         gtk_list_store_clear(playliststore);
         gtk_list_store_clear(nonrandomplayliststore);
-		
-		create_folder_progress_window();
+
+        create_folder_progress_window();
         if (!parse_playlist(filename)) {
             add_item_to_playlist(filename, 1);
         }
-		destroy_folder_progress_window();
+        destroy_folder_progress_window();
     }
     release_preference_store();
     update_gui();
@@ -700,16 +694,14 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
     gchar *uri = NULL;
     gchar *filename = NULL;
     gint count;
-    gint playlist;
     gchar *cmd = NULL;
 
     if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
-                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-
         if (state == QUIT) {
-            play_file(uri, playlist);
+            play_iter(&iter);
         } else {
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &uri,
+                               COUNT_COLUMN, &count, -1);
             gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
             gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
@@ -721,10 +713,10 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
             g_free(filename);
             if (state != PLAYING)
                 play_callback(NULL, NULL, NULL);
+            set_media_info_name(uri);
+            gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+            g_free(uri);
         }
-        set_media_info_name(uri);
-        gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
-        g_free(uri);
 
     }
     return FALSE;
@@ -773,7 +765,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 stored_window_height = -1;
                 gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
                 gtk_widget_hide(GTK_WIDGET(fixed));
-                gtk_widget_show_all(media_label);
+                gtk_widget_show_all(media_hbox);
                 gtk_widget_show(vbox);
                 gtk_widget_set_size_request(window, -1, -1);
             } else {

@@ -62,7 +62,7 @@ GKeyFile *config;
 
 gint get_bitrate(gchar * name);
 void strip_unicode(gchar * data, gsize len);
-gint play_file(gchar * filename, gint playlist);
+gint play_iter(GtkTreeIter * playiter);
 gint detect_playlist(gchar * filename);
 gchar *metadata_to_utf8(gchar * string);
 gint parse_playlist(gchar * uri);
@@ -104,7 +104,7 @@ gchar *find_gpod_mount_point();
 gboolean gpod_load_tracks(gchar * mount_point);
 #endif
 
-gchar *get_coverart_url(gchar *artist, gchar* title, gchar *album);
+gchar *get_coverart_url(gchar * artist, gchar * title, gchar * album);
 
 
 #endif                          // _SUPPORT_H

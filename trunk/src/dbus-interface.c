@@ -66,7 +66,6 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     gchar *path4;
     GString *xml;
     gchar *xml_string;
-    gint count;
     GtkTreePath *treepath;
     gint source_id;
     gint bitrate;
@@ -126,13 +125,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                 g_free(buf);
                                 if (gtk_tree_model_get_iter_first
                                     (GTK_TREE_MODEL(playliststore), &iter)) {
-                                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter,
-                                                       ITEM_COLUMN, &s, COUNT_COLUMN, &count,
-                                                       PLAYLIST_COLUMN, &playlist, -1);
-                                    set_media_info_name(s);
-                                    play_file(s, playlist);
-                                    gtk_list_store_set(playliststore, &iter, COUNT_COLUMN,
-                                                       count + 1, -1);
+                                    play_iter(&iter);
                                 }
 
                                 if (GTK_IS_TREE_SELECTION(selection)) {
@@ -172,12 +165,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         }
                         g_free(buf);
                         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
-                                               &s, COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist,
-                                               -1);
-                            set_media_info_name(s);
-                            play_file(s, playlist);
-                            gtk_list_store_set(playliststore, &iter, COUNT_COLUMN, count + 1, -1);
+                            play_iter(&iter);
                         }
 
                         if (GTK_IS_TREE_SELECTION(selection)) {
