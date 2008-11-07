@@ -104,9 +104,7 @@ gchar *find_gpod_mount_point();
 gboolean gpod_load_tracks(gchar * mount_point);
 #endif
 
-#ifdef HAVE_MUSICBRAINZ
 gchar *get_coverart_url(gchar *artist, gchar* title, gchar *album);
-#endif
 
 
 #endif                          // _SUPPORT_H
