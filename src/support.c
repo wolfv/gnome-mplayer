@@ -2260,7 +2260,7 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *as
 			track_filter = mb_track_filter_title(track_filter, title);
 
 		results = mb_query_get_releases(query, track_filter);
-		mb_artist_filter_free(track_filter);
+		mb_track_filter_free(track_filter);
 
 		printf("items found:  %i\n", mb_result_list_get_size(results));
 
