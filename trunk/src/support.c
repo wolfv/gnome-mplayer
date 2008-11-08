@@ -1336,7 +1336,9 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
                            DESCRIPTION_COLUMN, data->title,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
-                           ARTIST_COLUMN, data->artist, SUBTITLE_COLUMN, data->subtitle,
+                           ARTIST_COLUMN, data->artist, 
+						   ALBUM_COLUMN, data->album,
+						   SUBTITLE_COLUMN, data->subtitle,
 						   AUDIO_CODEC_COLUMN, data->audio_codec,
 						   VIDEO_CODEC_COLUMN, data->video_codec,
                            LENGTH_COLUMN, data->length, -1);
@@ -1347,7 +1349,9 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
                            DESCRIPTION_COLUMN, data->title,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
-                           ARTIST_COLUMN, data->artist, SUBTITLE_COLUMN, data->subtitle,
+                           ARTIST_COLUMN, data->artist, 
+						   ALBUM_COLUMN, data->album,
+						   SUBTITLE_COLUMN, data->subtitle,
 						   AUDIO_CODEC_COLUMN, data->audio_codec,
 						   VIDEO_CODEC_COLUMN, data->video_codec,
 						   LENGTH_COLUMN, data->length, -1);
@@ -2248,11 +2252,11 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *as
 		query = mb_query_new(mb, "gnome-mplayer");
 
 		track_filter = mb_track_filter_new();
-		if (title != NULL)
+		if (title != NULL && strlen(title) >0)
 			track_filter = mb_track_filter_title(track_filter, title);
-		if (artist != NULL)
+		if (artist != NULL && strlen(artist) >0)
 			track_filter = mb_track_filter_artist_name(track_filter, artist);
-		if (album != NULL)
+		if (album != NULL && strlen(album) >0 )
 			track_filter = mb_track_filter_release_title(track_filter, album);
 
 		results = mb_query_get_releases(query, track_filter);
