@@ -2252,12 +2252,12 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *as
 		query = mb_query_new(mb, "gnome-mplayer");
 
 		track_filter = mb_track_filter_new();
-		if (title != NULL && strlen(title) >0)
-			track_filter = mb_track_filter_title(track_filter, title);
 		if (artist != NULL && strlen(artist) >0)
 			track_filter = mb_track_filter_artist_name(track_filter, artist);
 		if (album != NULL && strlen(album) >0 )
 			track_filter = mb_track_filter_release_title(track_filter, album);
+		if (title != NULL && strlen(title) >0 && ((album == NULL || strlen(album) == 0) || (artist == NULL || strlen(artist) == 0))) 
+			track_filter = mb_track_filter_title(track_filter, title);
 
 		results = mb_query_get_releases(query, track_filter);
 		mb_artist_filter_free(track_filter);
