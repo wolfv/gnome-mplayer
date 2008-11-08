@@ -329,6 +329,7 @@ gboolean show_copyurl(void *data);
 gboolean set_media_info(void *data);
 gboolean set_media_info_name(gchar * filename);
 gboolean set_media_label(void *data);
+gboolean set_cover_art(gpointer pixbuf);
 gboolean set_progress_value(void *data);
 gboolean set_progress_text(void *data);
 gboolean set_progress_time(void *data);

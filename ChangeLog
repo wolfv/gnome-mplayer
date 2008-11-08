@@ -1,4 +1,5 @@
 Development
+    Make album cover loading multithreaded, now it doesn't lag
     Implement Album Cover downloading using libcurl (new library requirement)
         Non-threaded so might be slow.
     Remove metadata parser from thread_reader, we already know all of the info from loading file

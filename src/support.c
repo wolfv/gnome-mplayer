@@ -2288,37 +2288,7 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *as
     return ret;
 }
 
-#else
-gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *asin_filename)
-{
-    if (verbose > 1)
-        printf("Running without musicbrainz support, unable to fetch url\n");
-    return NULL;
-}
-#endif
-
-#ifdef GIO_ENABLED
-/*
-void cache_cover_art_callback(goffset current_num_bytes, goffset total_num_bytes, gpointer data)
-{
-    printf("downloaded %li of %li bytes\n",(glong)current_num_bytes,(glong)total_num_bytes);
-
-}
-
-void cover_art_ready_callback(GObject * source_object, GAsyncResult * res, gpointer data)
-{
-	gboolean success;
-	GError *error = NULL;
-	
-	printf("cover art downloaded\n");
-	success = g_file_copy_finish ((GFile*)source_object,res,&error);
-	if (error != NULL) {
-		printf("copy error %s\n",error->message);
-		g_error_free(error);
-	}
-}
-*/
-void get_cover_art(gchar * artist, gchar * title, gchar * album)
+gpointer get_cover_art(gpointer data)
 {
 	gchar *url;
 	gchar *path;
@@ -2331,31 +2301,31 @@ void get_cover_art(gchar * artist, gchar * title, gchar * album)
 	CURL *curl;
 	FILE *art;
 	gpointer pixbuf;
+	MetaData *metadata = (MetaData*)data;
 	
-	
-	if (artist == NULL) {
-		artist = g_strdup("Unknown");
+	if (metadata->artist == NULL) {
+		metadata->artist = g_strdup("Unknown");
 		local_artist = TRUE;
 	}
-	if (album == NULL) {
-		album = g_strdup("Unknown");
+	if (metadata->album == NULL) {
+		metadata->album = g_strdup("Unknown");
 		local_album = TRUE;
 	}
 	
-	path = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s", getenv("HOME"),artist);
+	path = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s", getenv("HOME"),metadata->artist);
 	if (!g_file_test(path,G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(path, 0775);
 	}
 	
-	cache_file = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.jpeg", getenv("HOME"),artist,album);
-	asin_filename = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.asin", getenv("HOME"),artist,album);
+	cache_file = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.jpeg", getenv("HOME"),metadata->artist,metadata->album);
+	asin_filename = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.asin", getenv("HOME"),metadata->artist,metadata->album);
 	if (local_artist) {
-		g_free(artist);
-		artist = NULL;
+		g_free(metadata->artist);
+		metadata->artist = NULL;
 	}
 	if (local_album) {
-		g_free(album);
-		album = NULL;
+		g_free(metadata->album);
+		metadata->album = NULL;
 	}
 	
 	if (!g_file_test(cache_file,G_FILE_TEST_EXISTS)) {
@@ -2366,7 +2336,7 @@ void get_cover_art(gchar * artist, gchar * title, gchar * album)
 					  G_PRIORITY_DEFAULT, NULL, cache_cover_art_callback, NULL,
 					  cover_art_ready_callback, NULL);
 		*/
-		url = get_cover_art_url(artist,title,album,asin_filename);
+		url = get_cover_art_url(metadata->artist,metadata->title,metadata->album,asin_filename);
 		if (url != NULL) {
 			art = fopen(cache_file,"wb");
 			curl = curl_easy_init();
@@ -2385,22 +2355,39 @@ void get_cover_art(gchar * artist, gchar * title, gchar * album)
 
 	if (g_file_test(cache_file,G_FILE_TEST_EXISTS)) {
 		pixbuf = gdk_pixbuf_new_from_file(cache_file,NULL);
-		gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
+		g_idle_add(set_cover_art,pixbuf);
 	} else {
-		gtk_image_clear (GTK_IMAGE(cover_art));
+		pixbuf = NULL;
+		g_idle_add(set_cover_art,pixbuf);
 	}
 	g_free(asin_filename);
 	g_free(cache_file);
 	g_free(path);
 
-	return;
+	g_free(metadata->title);
+	g_free(metadata->artist);
+	g_free(metadata->album);
+	g_free(metadata);
+	return NULL;
 }
 #else 
-void get_cover_art(gchar * artist, gchar * title, gchar * album)
+gpointer get_cover_art(gpointer data)
 {
 	if (verbose)
-		printf("GIO required for cover art retrieval\n"); 
-	return;
+		printf("libcurl required for cover art retrieval\n"); 
+	g_free(metadata->title);
+	g_free(metadata->artist);
+	g_free(metadata->album);
+	g_free(metadata);
+	return NULL;
+}
+
+gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *asin_filename)
+{
+    if (verbose > 1)
+        printf("Running without musicbrainz support, unable to fetch url\n");
+    return NULL;
 }
 #endif
+
 
