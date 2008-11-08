@@ -1,4 +1,6 @@
 Development
+    In cover art url retrival only add a value to the filter if it is more than 0 characters
+    Added album title to the list store
     Make album cover loading multithreaded, now it doesn't lag
     Implement Album Cover downloading using libcurl (new library requirement)
         Non-threaded so might be slow.
