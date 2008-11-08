@@ -1,4 +1,5 @@
 Development
+    Change filtering rules to only use song title when necessary, gives better results
     In cover art url retrival only add a value to the filter if it is more than 0 characters
     Added album title to the list store
     Make album cover loading multithreaded, now it doesn't lag
