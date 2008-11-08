@@ -241,6 +241,16 @@ gboolean set_media_label(void *data)
     return FALSE;
 }
 
+gboolean set_cover_art(gpointer pixbuf)
+{
+	if (pixbuf == NULL) {
+		gtk_image_clear (GTK_IMAGE(cover_art));
+	} else {
+		gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
+	}
+	return FALSE;
+}
+	
 gboolean set_progress_value(void *data)
 {
 

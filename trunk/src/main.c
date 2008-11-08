@@ -143,6 +143,7 @@ gint play_iter(GtkTreeIter * playiter)
 	gchar *video_codec = NULL;
     gchar *buffer = NULL;
     gchar *message = NULL;
+	MetaData *metadata;
 
     if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, ITEM_COLUMN, &uri,
@@ -198,9 +199,13 @@ gint play_iter(GtkTreeIter * playiter)
     message = g_strconcat(message, "</small>", NULL);
 
 	// probably not much cover art for random video files
-	if (video_codec == NULL)
-		get_cover_art(artist,title,album);
-	
+	if (video_codec == NULL) {
+		metadata = (MetaData*)g_new0(MetaData,1);
+		metadata->title = g_strdup(title);
+		metadata->artist = g_strdup(artist);
+		metadata->album = g_strdup(album);
+		g_thread_create(get_cover_art,metadata,FALSE,NULL);
+	}
 	g_free(title);
 	g_free(artist);
 	g_free(album);
