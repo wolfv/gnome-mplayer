@@ -71,7 +71,7 @@
 #define HAVE_UNISTD_H 1
 
 /* Define to 1 if you have musicbrainz3 support */
-#define MUSICBRAINZ_ENABLED 1
+/* #undef MUSICBRAINZ_ENABLED */
 
 /* Define to 1 if you have NOTIFY support */
 #define NOTIFY_ENABLED 1
