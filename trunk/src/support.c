@@ -2377,6 +2377,8 @@ gpointer get_cover_art(gpointer data)
 #else 
 gpointer get_cover_art(gpointer data)
 {
+	MetaData *metadata = (MetaData*)data;
+	
 	if (verbose)
 		printf("libcurl required for cover art retrieval\n"); 
 	g_free(metadata->title);
