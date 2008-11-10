@@ -1,4 +1,5 @@
 Development
+    Don't lookup coverart if we got it from the ipod
     Convert tempnam to gmp_tempname
     Fix memory leak in parse_basic
     Fix problem with opening a ASF reference playlist
