@@ -298,6 +298,7 @@ gint parse_basic(gchar * uri)
     gchar *newline = NULL;
     gchar *line_uri = NULL;
     gchar **parse;
+	gint playlist = 0;
 
 #ifdef GIO_ENABLED
     GFile *file;
@@ -360,6 +361,7 @@ gint parse_basic(gchar * uri)
             } else if (g_ascii_strncasecmp(newline, "[reference]", strlen("[reference]")) == 0) {
                 //printf("ref\n");
                 //continue;
+				playlist = 1;
             } else if (g_strncasecmp(newline, "<asx", strlen("<asx")) == 0) {
                 //printf("asx\n");
                 idledata->streaming = TRUE;
@@ -402,9 +404,8 @@ gint parse_basic(gchar * uri)
                         g_strncasecmp(newline, "mms://", strlen("mms://")) == 0 ||
                         g_strncasecmp(newline, "rtsp://", strlen("rtsp://")) == 0 ||
                         g_strncasecmp(newline, "pnm://", strlen("pnm://")) == 0) {
-                        //printf("URL\n");
-                        add_item_to_playlist(newline, 0);
-                        continue;
+                        //printf("URL %s\n",newline);
+                        add_item_to_playlist(newline, playlist);
                     }
                 }
                 //printf("line_uri = %s\n", line_uri);
