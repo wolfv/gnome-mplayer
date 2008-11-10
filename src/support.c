@@ -2345,20 +2345,22 @@ gpointer get_cover_art(gpointer data)
 					  G_PRIORITY_DEFAULT, NULL, cache_cover_art_callback, NULL,
 					  cover_art_ready_callback, NULL);
 		*/
-		url = get_cover_art_url(metadata->artist,metadata->title,metadata->album,asin_filename);
-		if (url != NULL) {
-			art = fopen(cache_file,"wb");
-			curl = curl_easy_init();
-			if(curl) {
-				curl_easy_setopt(curl, CURLOPT_URL, url);
-				curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
-				curl_easy_perform(curl);
-				curl_easy_cleanup(curl);
-			}
-			fclose(art);
-			printf("cover art url is %s\n",url);
-			g_free(url);
+		if (!disable_cover_art_fetch) {
+			url = get_cover_art_url(metadata->artist,metadata->title,metadata->album,asin_filename);
+			if (url != NULL) {
+				art = fopen(cache_file,"wb");
+				curl = curl_easy_init();
+				if(curl) {
+					curl_easy_setopt(curl, CURLOPT_URL, url);
+					curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
+					curl_easy_perform(curl);
+					curl_easy_cleanup(curl);
+				}
+				fclose(art);
+				// printf("cover art url is %s\n",url);
+				g_free(url);
 
+			}
 		}
 	}
 

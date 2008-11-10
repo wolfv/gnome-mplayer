@@ -194,6 +194,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable_cover_art_fetch</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable_cover_art_fetch</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Fetch of Cover Art</short>
+        <long>When set to TRUE cached covers are loaded, but new ones are not retrieved</long>
+      </locale>
+    </schema>
+    
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/forcecache</key>
       <applyto>/apps/gnome-mplayer/preferences/forcecache</applyto>
       <owner>gnome-mplayer</owner>

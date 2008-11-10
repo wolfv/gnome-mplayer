@@ -123,11 +123,7 @@ gboolean set_media_info(void *data)
 
     if (data != NULL && idle != NULL) {
         if (idle->streaming == FALSE) {
-            if (g_strrstr(idle->info, "/") != NULL) {
-                name = g_strdup_printf("%s", g_strrstr(idle->info, "/") + 1);
-            } else {
-                name = g_strdup(idle->info);
-            }
+			name = g_strdup(idle->display_name);
 
             total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
