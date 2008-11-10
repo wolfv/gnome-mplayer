@@ -4245,6 +4245,7 @@ void make_button(gchar * src, gchar * hrefid)
     GError *error;
     gchar *dirname = NULL;
     gchar *filename = NULL;
+	gchar *basepath = NULL;
     gint exit_status;
     gchar *stdout = NULL;
     gchar *stderr = NULL;
@@ -4266,7 +4267,8 @@ void make_button(gchar * src, gchar * hrefid)
         g_error_free(error);
         error = NULL;
 
-        dirname = g_strdup_printf("%s", tempnam("/tmp", "gnome-mplayerXXXXXX"));
+        basepath = g_strdup_printf("%s/.gnome-mplayer/cache/plugin", getenv("HOME"));
+        dirname = gmp_tempname(path, "gnome-mplayerXXXXXX");
         filename = g_strdup_printf("%s/00000001.jpg", dirname);
 
         // run mplayer and try to get the first frame and convert it to a jpeg
