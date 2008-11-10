@@ -141,6 +141,7 @@ gint play_iter(GtkTreeIter * playiter)
     gchar *album = NULL;
 	gchar *audio_codec;
 	gchar *video_codec = NULL;
+	gpointer pixbuf;
     gchar *buffer = NULL;
     gchar *message = NULL;
 	MetaData *metadata;
@@ -152,8 +153,10 @@ gint play_iter(GtkTreeIter * playiter)
                            ALBUM_COLUMN, &album,
 						   AUDIO_CODEC_COLUMN, &audio_codec,
 						   VIDEO_CODEC_COLUMN, &video_codec,
-                           SUBTITLE_COLUMN, &subtitle, COUNT_COLUMN, &count, PLAYLIST_COLUMN,
-                           &playlist, -1);
+						   COVERART_COLUMN, &pixbuf,
+                           SUBTITLE_COLUMN, &subtitle, 
+						   COUNT_COLUMN, &count, 
+						   PLAYLIST_COLUMN, &playlist, -1);
         if (GTK_IS_TREE_SELECTION(selection)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), playiter);
             gtk_tree_selection_select_path(selection, path);
@@ -199,7 +202,7 @@ gint play_iter(GtkTreeIter * playiter)
     message = g_strconcat(message, "</small>", NULL);
 
 	// probably not much cover art for random video files
-	if (video_codec == NULL) {
+	if (pixbuf == NULL && video_codec == NULL) {
 		metadata = (MetaData*)g_new0(MetaData,1);
 		metadata->title = g_strdup(title);
 		metadata->artist = g_strdup(artist);
@@ -475,7 +478,7 @@ int main(int argc, char *argv[])
         replace_and_play = read_preference_bool(REPLACE_AND_PLAY);
 
     mplayer_bin = read_preference_string(MPLAYER_BIN);
-    if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+    if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);
         mplayer_bin = NULL;
     }
