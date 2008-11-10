@@ -56,7 +56,7 @@
 #define SUBTITLECOLOR	"subtitlecolor"
 #define VOLUME	"volume"
 #define USE_MEDIAKEYS		"use_mediakeys"
-
+#define DISABLE_COVER_ART_FETCH "disable_cover_art_fetch"
 
 #define MPLAYER_BIN		"mplayer_bin"
 #define EXTRAOPTS		"extraopts"
@@ -113,6 +113,7 @@ PLAYBACK_ERROR playback_error;
 
 typedef struct _IdleData {
     gchar info[1024];
+	gchar display_name[1024];
     gchar media_info[2048];
     gchar url[1024];
     gchar *device;
@@ -288,6 +289,7 @@ gboolean show_notification;
 gboolean show_status_icon;
 gboolean load_tracks_from_gpod;
 gchar *gpod_mount_point;
+gboolean disable_cover_art_fetch;
 
 gboolean remember_loc;
 gint loc_window_x;
