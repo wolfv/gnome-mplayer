@@ -600,9 +600,9 @@ void update_status_icon()
     gchar *text;
 
     if (state == PLAYING) {
-        text = g_strdup_printf(_("Playing"));
+        text = g_strdup_printf(_("Playing %s"), idledata->display_name);
     } else if (state == PAUSED) {
-        text = g_strdup_printf(_("Paused"));
+        text = g_strdup_printf(_("Paused %s"),idledata->display_name);
     } else {
         text = g_strdup_printf(_("Idle"));
     }
