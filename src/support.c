@@ -1136,6 +1136,7 @@ MetaData *get_metadata(gchar * uri)
         ret->artist = g_strdup(artist);
         ret->album = g_strdup(album);
         ret->length = g_strdup(length);
+		ret->length_value = seconds;
         ret->audio_codec = g_strdup(audio_codec);
         ret->video_codec = g_strdup(video_codec);
     }
@@ -1345,7 +1346,10 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
                            ALBUM_COLUMN, data->album,
                            SUBTITLE_COLUMN, data->subtitle,
                            AUDIO_CODEC_COLUMN, data->audio_codec,
-                           VIDEO_CODEC_COLUMN, data->video_codec, LENGTH_COLUMN, data->length, -1);
+                           VIDEO_CODEC_COLUMN, data->video_codec, 
+						   LENGTH_COLUMN, data->length, 
+						   LENGTH_VALUE_COLUMN, data->length_value,
+						   -1);
 
 
         gtk_list_store_append(nonrandomplayliststore, &localiter);
@@ -1357,7 +1361,10 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
                            ALBUM_COLUMN, data->album,
                            SUBTITLE_COLUMN, data->subtitle,
                            AUDIO_CODEC_COLUMN, data->audio_codec,
-                           VIDEO_CODEC_COLUMN, data->video_codec, LENGTH_COLUMN, data->length, -1);
+                           VIDEO_CODEC_COLUMN, data->video_codec, 
+						   LENGTH_COLUMN, data->length, 
+						   LENGTH_VALUE_COLUMN, data->length_value,
+						   -1);
         set_item_add_info(uri);
         g_free(data->title);
         g_free(data->artist);
@@ -1573,12 +1580,16 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
     gchar *iterfilename = NULL;
     gchar *localfilename;
     gchar *itemname;
-    gchar *desc;
+    gchar *desc = NULL;
     gint count;
     gint playlist;
-    gchar *artist;
-    gchar *subtitle;
-    gchar *length;
+    gchar *artist = NULL;
+	gchar *album = NULL;
+    gchar *subtitle = NULL;
+	gchar *audio_codec = NULL;
+	gchar *video_codec = NULL;
+    gchar *length = NULL;
+	gfloat length_value;
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(dest), &iter, ITEM_COLUMN, &iterfilename, -1);
@@ -1587,12 +1598,19 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
     gtk_list_store_clear(dest);
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(source), &sourceiter)) {
         do {
-            gtk_tree_model_get(GTK_TREE_MODEL(source), &sourceiter, ITEM_COLUMN, &itemname,
+
+			gtk_tree_model_get(GTK_TREE_MODEL(source), &sourceiter, ITEM_COLUMN, &itemname,
                                DESCRIPTION_COLUMN, &desc,
                                COUNT_COLUMN, &count,
                                PLAYLIST_COLUMN, &playlist,
                                ARTIST_COLUMN, &artist,
-                               SUBTITLE_COLUMN, &subtitle, LENGTH_COLUMN, &length, -1);
+							   ALBUM_COLUMN, &album,
+                               SUBTITLE_COLUMN, &subtitle, 
+							   AUDIO_CODEC_COLUMN, &audio_codec,
+							   VIDEO_CODEC_COLUMN, &video_codec,
+							   LENGTH_COLUMN, &length, 
+							   LENGTH_VALUE_COLUMN, &length_value,
+							   -1);
 
             gtk_list_store_append(dest, &destiter);
             gtk_list_store_set(dest, &destiter, ITEM_COLUMN, itemname,
@@ -1600,14 +1618,26 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
                                COUNT_COLUMN, count,
                                PLAYLIST_COLUMN, playlist,
                                ARTIST_COLUMN, artist,
-                               SUBTITLE_COLUMN, subtitle, LENGTH_COLUMN, length, -1);
+							   ALBUM_COLUMN, album,
+                               SUBTITLE_COLUMN, subtitle, 
+							   AUDIO_CODEC_COLUMN, audio_codec,
+							   VIDEO_CODEC_COLUMN, video_codec,
+							   LENGTH_COLUMN, length, 
+							   LENGTH_VALUE_COLUMN, length_value,
+							   -1);
 
             g_free(desc);
             desc = NULL;
             g_free(artist);
             artist = NULL;
+			g_free(album);
+			album = NULL;
             g_free(subtitle);
             subtitle = NULL;
+			g_free(audio_codec);
+			audio_codec = NULL;
+			g_free(video_codec);
+			video_codec = NULL;
             g_free(length);
             length = NULL;
 

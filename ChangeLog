@@ -1,4 +1,5 @@
 Development
+    Fix missing data in copy_playlist
     Put media display name on status icon tooltip when playing or paused
     Add in loop to play_iter to flush all events prior to next file being played
     When running in verical layout mode, allow the media data to remain visible
