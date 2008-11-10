@@ -108,4 +108,6 @@ gboolean gpod_load_tracks(gchar * mount_point);
 gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *asin_filename);
 gpointer get_cover_art(gpointer data);
 
+gchar *gmp_tempname(gchar *path,const gchar *name_template);
+
 #endif                          // _SUPPORT_H
