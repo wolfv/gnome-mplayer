@@ -772,7 +772,12 @@ gboolean resize_window(void *data)
                     gtk_widget_show_all(media_hbox);
                     if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
                         // gtk_widget_hide(drawing_area);
-                        gtk_widget_hide(vbox);
+                        // gtk_widget_hide(vbox);
+						if (vertical_layout) {
+							gtk_widget_hide (GTK_WIDGET(fixed));
+						} else {
+							gtk_widget_hide(vbox);
+						}
                     } else {
                         gtk_widget_hide_all(GTK_WIDGET(fixed));
                         if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {

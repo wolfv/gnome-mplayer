@@ -693,6 +693,7 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
 
     if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
 			dontplaynext = TRUE;
+			mplayer_shutdown ();
             play_iter(&iter);
 			dontplaynext = FALSE;
     }
@@ -768,7 +769,11 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         if (idledata->videopresent == FALSE) {
             if (window_width != -1)
                 gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
-            gtk_widget_hide(vbox);
+			if (vertical_layout) {
+				gtk_widget_hide(fixed);
+			} else {
+				gtk_widget_hide(vbox);
+			}
         } else {
             if (!restore_playlist) {
                 gdk_window_get_geometry(window->window, &x, &y, &stored_window_width,

@@ -184,6 +184,10 @@ gint play_iter(GtkTreeIter * playiter)
 
     mplayer_shutdown();
 
+	while(state != QUIT) {
+		gtk_main_iteration();
+	}
+	
     message = g_strdup_printf("<small>\n");
     if (title == NULL) {
 		title = g_filename_display_basename(uri);

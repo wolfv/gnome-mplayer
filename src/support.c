@@ -2223,7 +2223,12 @@ gboolean gpod_load_tracks(gchar * mount_point)
             tracks = g_list_next(tracks);
             i++;
         }
-        printf("found %i tracks\n", i);
+		if (verbose)
+			printf("found %i tracks\n", i);
+		if (i > 1) {
+			gtk_widget_set_sensitive (GTK_WIDGET(menuitem_edit_random),TRUE);
+			gtk_widget_set_sensitive (GTK_WIDGET(menuitem_edit_loop),TRUE);
+		}
         return TRUE;
     } else {
         return FALSE;
