@@ -123,7 +123,7 @@ static GOptionEntry entries[] = {
 #endif
     {"disable_cover_art_fetch", 0, 0, G_OPTION_ARG_NONE, &disable_cover_art_fetch,
      N_("Don't fetch new cover art images"),
-     NULL},	
+     NULL},
     {NULL}
 };
 
@@ -142,15 +142,15 @@ gint play_iter(GtkTreeIter * playiter)
     gchar *title = NULL;
     gchar *artist = NULL;
     gchar *album = NULL;
-	gchar *audio_codec;
-	gchar *video_codec = NULL;
-	gpointer pixbuf;
+    gchar *audio_codec;
+    gchar *video_codec = NULL;
+    gpointer pixbuf;
     gchar *buffer = NULL;
     gchar *message = NULL;
-	MetaData *metadata;
+    MetaData *metadata;
 #ifdef GTK2_12_ENABLED
-	GtkRecentData *recent_data;
-	GtkRecentInfo *recent_info;
+    GtkRecentData *recent_data;
+    GtkRecentInfo *recent_info;
 #endif
 
     if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
@@ -158,12 +158,11 @@ gint play_iter(GtkTreeIter * playiter)
                            DESCRIPTION_COLUMN, &title,
                            ARTIST_COLUMN, &artist,
                            ALBUM_COLUMN, &album,
-						   AUDIO_CODEC_COLUMN, &audio_codec,
-						   VIDEO_CODEC_COLUMN, &video_codec,
-						   COVERART_COLUMN, &pixbuf,
-                           SUBTITLE_COLUMN, &subtitle, 
-						   COUNT_COLUMN, &count, 
-						   PLAYLIST_COLUMN, &playlist, -1);
+                           AUDIO_CODEC_COLUMN, &audio_codec,
+                           VIDEO_CODEC_COLUMN, &video_codec,
+                           COVERART_COLUMN, &pixbuf,
+                           SUBTITLE_COLUMN, &subtitle,
+                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
         if (GTK_IS_TREE_SELECTION(selection)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), playiter);
             gtk_tree_selection_select_path(selection, path);
@@ -184,15 +183,15 @@ gint play_iter(GtkTreeIter * playiter)
 
     mplayer_shutdown();
 
-	while(state != QUIT) {
-		gtk_main_iteration();
-	}
-	
+    while (state != QUIT) {
+        gtk_main_iteration();
+    }
+
     message = g_strdup_printf("<small>\n");
     if (title == NULL) {
-		title = g_filename_display_basename(uri);
+        title = g_filename_display_basename(uri);
     }
-	buffer = g_markup_printf_escaped("\t<big><b>%s</b></big>\n", title);
+    buffer = g_markup_printf_escaped("\t<big><b>%s</b></big>\n", title);
     message = g_strconcat(message, buffer, NULL);
     g_free(buffer);
 
@@ -212,15 +211,15 @@ gint play_iter(GtkTreeIter * playiter)
 
     message = g_strconcat(message, "</small>", NULL);
 
-	// probably not much cover art for random video files
-	if (pixbuf == NULL && video_codec == NULL) {
-		metadata = (MetaData*)g_new0(MetaData,1);
-		metadata->title = g_strdup(title);
-		metadata->artist = g_strdup(artist);
-		metadata->album = g_strdup(album);
-		g_thread_create(get_cover_art,metadata,FALSE,NULL);
-	}
-	
+    // probably not much cover art for random video files
+    if (pixbuf == NULL && video_codec == NULL) {
+        metadata = (MetaData *) g_new0(MetaData, 1);
+        metadata->title = g_strdup(title);
+        metadata->artist = g_strdup(artist);
+        metadata->album = g_strdup(album);
+        g_thread_create(get_cover_art, metadata, FALSE, NULL);
+    }
+
     g_strlcpy(idledata->media_info, message, 1024);
     g_free(message);
     gtk_label_set_markup(GTK_LABEL(media_label), idledata->media_info);
@@ -277,35 +276,35 @@ gint play_iter(GtkTreeIter * playiter)
     // don't put it on the recent list, if it is running in plugin mode
     if (control_id == 0) {
         gtk_recent_manager_add_item(recent_manager, uri);
-		
-		recent_info = gtk_recent_manager_lookup_item (recent_manager,uri,NULL);
-		
-		if (recent_info != NULL) {
-			recent_data = (GtkRecentData *)g_new0(GtkRecentData,1);
-			if (artist != NULL && strlen(artist) > 0) {
-				recent_data->display_name = g_strdup_printf("%s - %s",artist,title);
-			} else {
-				recent_data->display_name = g_strdup(title);
-			}
-			g_strlcpy (idledata->display_name,recent_data->display_name,1024);
-			recent_data->mime_type = g_strdup(gtk_recent_info_get_mime_type (recent_info));
-			recent_data->app_name = g_strdup("gnome-mplayer");
-			recent_data->app_exec = g_strdup("gnome-mplayer %u");
-			gtk_recent_info_unref(recent_info); 
-			gtk_recent_manager_remove_item(recent_manager, uri, NULL);
-			gtk_recent_manager_add_full(recent_manager, uri,recent_data);
-			g_free(recent_data->mime_type);
-			g_free(recent_data->app_name);
-			g_free(recent_data->app_exec);
-			g_free(recent_data);
-		}
+
+        recent_info = gtk_recent_manager_lookup_item(recent_manager, uri, NULL);
+
+        if (recent_info != NULL) {
+            recent_data = (GtkRecentData *) g_new0(GtkRecentData, 1);
+            if (artist != NULL && strlen(artist) > 0) {
+                recent_data->display_name = g_strdup_printf("%s - %s", artist, title);
+            } else {
+                recent_data->display_name = g_strdup(title);
+            }
+            g_strlcpy(idledata->display_name, recent_data->display_name, 1024);
+            recent_data->mime_type = g_strdup(gtk_recent_info_get_mime_type(recent_info));
+            recent_data->app_name = g_strdup("gnome-mplayer");
+            recent_data->app_exec = g_strdup("gnome-mplayer %u");
+            gtk_recent_info_unref(recent_info);
+            gtk_recent_manager_remove_item(recent_manager, uri, NULL);
+            gtk_recent_manager_add_full(recent_manager, uri, recent_data);
+            g_free(recent_data->mime_type);
+            g_free(recent_data->app_name);
+            g_free(recent_data->app_exec);
+            g_free(recent_data);
+        }
     }
 #endif
-	g_free(title);
-	g_free(artist);
-	g_free(album);
-	g_free(audio_codec);
-	g_free(video_codec);
+    g_free(title);
+    g_free(artist);
+    g_free(album);
+    g_free(audio_codec);
+    g_free(video_codec);
 
     if (lastfile != NULL) {
         g_free(lastfile);
@@ -320,8 +319,8 @@ gint play_iter(GtkTreeIter * playiter)
     idledata->height = 0;
     idledata->x = 0;
     idledata->y = 0;
-	g_strlcpy(idledata->info, uri, 1024);
-	set_media_info(idledata);
+    g_strlcpy(idledata->info, uri, 1024);
+    set_media_info(idledata);
 
     streaming = 0;
 
@@ -468,7 +467,7 @@ int main(int argc, char *argv[])
     audio_group = NULL;
     gpod_mount_point = NULL;
     load_tracks_from_gpod = FALSE;
-	disable_cover_art_fetch = FALSE; 
+    disable_cover_art_fetch = FALSE;
 
     // call g_type_init or otherwise we can crash
     g_type_init();
@@ -492,7 +491,7 @@ int main(int argc, char *argv[])
     disable_embeddedfonts = read_preference_bool(DISABLEEMBEDDEDFONTS);
     disable_pause_on_click = read_preference_bool(DISABLEPAUSEONCLICK);
     disable_animation = read_preference_bool(DISABLEANIMATION);
-	disable_cover_art_fetch = read_preference_bool (DISABLE_COVER_ART_FETCH);
+    disable_cover_art_fetch = read_preference_bool(DISABLE_COVER_ART_FETCH);
     use_mediakeys = read_preference_bool(USE_MEDIAKEYS);
     metadata_codepage = read_preference_string(METADATACODEPAGE);
     subtitlefont = read_preference_string(SUBTITLEFONT);
