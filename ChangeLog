@@ -1,4 +1,6 @@
 Development
+    Read album off the ipod
+    Add album to the playlust
     Disable cover art fetch command line option
     Update recent menu and title bar to show artist and title when available
     Don't lookup coverart if we got it from the ipod

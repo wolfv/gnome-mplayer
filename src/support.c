@@ -2203,6 +2203,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                COUNT_COLUMN, 0,
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
+                               ALBUM_COLUMN, ((Itdb_Track *) (tracks->data))->album,
                                SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,
                                pixbuf, -1);
 
@@ -2212,6 +2213,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                COUNT_COLUMN, 0,
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
+                               ALBUM_COLUMN, ((Itdb_Track *) (tracks->data))->album,
                                SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,
                                pixbuf, -1);
 
