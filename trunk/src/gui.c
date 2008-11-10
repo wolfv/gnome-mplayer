@@ -123,7 +123,7 @@ gboolean set_media_info(void *data)
 
     if (data != NULL && idle != NULL) {
         if (idle->streaming == FALSE) {
-			name = g_strdup(idle->display_name);
+            name = g_strdup(idle->display_name);
 
             total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
@@ -239,14 +239,14 @@ gboolean set_media_label(void *data)
 
 gboolean set_cover_art(gpointer pixbuf)
 {
-	if (pixbuf == NULL) {
-		gtk_image_clear (GTK_IMAGE(cover_art));
-	} else {
-		gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
-	}
-	return FALSE;
+    if (pixbuf == NULL) {
+        gtk_image_clear(GTK_IMAGE(cover_art));
+    } else {
+        gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
+    }
+    return FALSE;
 }
-	
+
 gboolean set_progress_value(void *data)
 {
 
@@ -602,7 +602,7 @@ void update_status_icon()
     if (state == PLAYING) {
         text = g_strdup_printf(_("Playing %s"), idledata->display_name);
     } else if (state == PAUSED) {
-        text = g_strdup_printf(_("Paused %s"),idledata->display_name);
+        text = g_strdup_printf(_("Paused %s"), idledata->display_name);
     } else {
         text = g_strdup_printf(_("Idle"));
     }
@@ -773,11 +773,11 @@ gboolean resize_window(void *data)
                     if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
                         // gtk_widget_hide(drawing_area);
                         // gtk_widget_hide(vbox);
-						if (vertical_layout) {
-							gtk_widget_hide (GTK_WIDGET(fixed));
-						} else {
-							gtk_widget_hide(vbox);
-						}
+                        if (vertical_layout) {
+                            gtk_widget_hide(GTK_WIDGET(fixed));
+                        } else {
+                            gtk_widget_hide(vbox);
+                        }
                     } else {
                         gtk_widget_hide_all(GTK_WIDGET(fixed));
                         if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
@@ -4246,7 +4246,7 @@ void make_button(gchar * src, gchar * hrefid)
     GError *error;
     gchar *dirname = NULL;
     gchar *filename = NULL;
-	gchar *basepath = NULL;
+    gchar *basepath = NULL;
     gint exit_status;
     gchar *stdout = NULL;
     gchar *stderr = NULL;

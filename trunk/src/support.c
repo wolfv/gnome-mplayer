@@ -298,8 +298,8 @@ gint parse_basic(gchar * uri)
     gchar *newline = NULL;
     gchar *line_uri = NULL;
     gchar **parse;
-	gint playlist = 0;
-	gint ret = 0;
+    gint playlist = 0;
+    gint ret = 0;
 
 #ifdef GIO_ENABLED
     GFile *file;
@@ -362,11 +362,11 @@ gint parse_basic(gchar * uri)
             } else if (g_ascii_strncasecmp(newline, "[reference]", strlen("[reference]")) == 0) {
                 //printf("ref\n");
                 //continue;
-				playlist = 1;
+                playlist = 1;
             } else if (g_strncasecmp(newline, "<asx", strlen("<asx")) == 0) {
                 //printf("asx\n");
                 idledata->streaming = TRUE;
-				g_free(newline);
+                g_free(newline);
                 break;
             } else if (g_strncasecmp(newline, "numberofentries", strlen("numberofentries")) == 0) {
                 //printf("num\n");
@@ -408,14 +408,14 @@ gint parse_basic(gchar * uri)
                         g_strncasecmp(newline, "pnm://", strlen("pnm://")) == 0) {
                         //printf("URL %s\n",newline);
                         add_item_to_playlist(newline, playlist);
-						ret = 1;
+                        ret = 1;
                     }
                 }
                 //printf("line_uri = %s\n", line_uri);
                 if (uri_exists(line_uri)) {
                     add_item_to_playlist(line_uri, 0);
-					ret = 1;
-				}
+                    ret = 1;
+                }
                 g_free(line_uri);
             }
             g_free(newline);
@@ -1341,12 +1341,11 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
                            DESCRIPTION_COLUMN, data->title,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
-                           ARTIST_COLUMN, data->artist, 
-						   ALBUM_COLUMN, data->album,
-						   SUBTITLE_COLUMN, data->subtitle,
-						   AUDIO_CODEC_COLUMN, data->audio_codec,
-						   VIDEO_CODEC_COLUMN, data->video_codec,
-                           LENGTH_COLUMN, data->length, -1);
+                           ARTIST_COLUMN, data->artist,
+                           ALBUM_COLUMN, data->album,
+                           SUBTITLE_COLUMN, data->subtitle,
+                           AUDIO_CODEC_COLUMN, data->audio_codec,
+                           VIDEO_CODEC_COLUMN, data->video_codec, LENGTH_COLUMN, data->length, -1);
 
 
         gtk_list_store_append(nonrandomplayliststore, &localiter);
@@ -1354,12 +1353,11 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
                            DESCRIPTION_COLUMN, data->title,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
-                           ARTIST_COLUMN, data->artist, 
-						   ALBUM_COLUMN, data->album,
-						   SUBTITLE_COLUMN, data->subtitle,
-						   AUDIO_CODEC_COLUMN, data->audio_codec,
-						   VIDEO_CODEC_COLUMN, data->video_codec,
-						   LENGTH_COLUMN, data->length, -1);
+                           ARTIST_COLUMN, data->artist,
+                           ALBUM_COLUMN, data->album,
+                           SUBTITLE_COLUMN, data->subtitle,
+                           AUDIO_CODEC_COLUMN, data->audio_codec,
+                           VIDEO_CODEC_COLUMN, data->video_codec, LENGTH_COLUMN, data->length, -1);
         set_item_add_info(uri);
         g_free(data->title);
         g_free(data->artist);
@@ -2223,12 +2221,12 @@ gboolean gpod_load_tracks(gchar * mount_point)
             tracks = g_list_next(tracks);
             i++;
         }
-		if (verbose)
-			printf("found %i tracks\n", i);
-		if (i > 1) {
-			gtk_widget_set_sensitive (GTK_WIDGET(menuitem_edit_random),TRUE);
-			gtk_widget_set_sensitive (GTK_WIDGET(menuitem_edit_loop),TRUE);
-		}
+        if (verbose)
+            printf("found %i tracks\n", i);
+        if (i > 1) {
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), TRUE);
+        }
         return TRUE;
     } else {
         return FALSE;
@@ -2239,7 +2237,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
 #endif
 
 #ifdef HAVE_MUSICBRAINZ
-gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *asin_filename)
+gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * asin_filename)
 {
     int i;
     MbWebService mb;
@@ -2252,157 +2250,166 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *as
     char id[1024];
     char asin[1024];
     gchar *ret = NULL;
-	FILE *fp;
+    FILE *fp;
 
     printf("music brainz testing\n");
 
-	
-	
-	if (!g_file_test(asin_filename,G_FILE_TEST_EXISTS)) {
-		mb = mb_webservice_new();
 
-		query = mb_query_new(mb, "gnome-mplayer");
 
-		track_filter = mb_track_filter_new();
-		if (artist != NULL && strlen(artist) >0)
-			track_filter = mb_track_filter_artist_name(track_filter, artist);
-		if (album != NULL && strlen(album) >0 )
-			track_filter = mb_track_filter_release_title(track_filter, album);
-		if (title != NULL && strlen(title) >0 && ((album == NULL || strlen(album) == 0) || (artist == NULL || strlen(artist) == 0))) 
-			track_filter = mb_track_filter_title(track_filter, title);
+    if (!g_file_test(asin_filename, G_FILE_TEST_EXISTS)) {
+        mb = mb_webservice_new();
 
-		results = mb_query_get_releases(query, track_filter);
-		mb_track_filter_free(track_filter);
+        query = mb_query_new(mb, "gnome-mplayer");
 
-		printf("items found:  %i\n", mb_result_list_get_size(results));
+        track_filter = mb_track_filter_new();
+        if (artist != NULL && strlen(artist) > 0)
+            track_filter = mb_track_filter_artist_name(track_filter, artist);
+        if (album != NULL && strlen(album) > 0)
+            track_filter = mb_track_filter_release_title(track_filter, album);
+        if (title != NULL && strlen(title) > 0
+            && ((album == NULL || strlen(album) == 0) || (artist == NULL || strlen(artist) == 0)))
+            track_filter = mb_track_filter_title(track_filter, title);
 
-		for (i = 0; i < mb_result_list_get_size(results); i++) {
-			release = mb_result_list_get_release(results, i);
-			mb_release_get_id(release, id, 1024);
-			includes = mb_release_includes_new();
-			includes = mb_artist_includes_release_events(includes);
-			includes = mb_track_includes_url_relations(includes);
+        results = mb_query_get_releases(query, track_filter);
+        mb_track_filter_free(track_filter);
 
-			release = mb_query_get_release_by_id(query, id, includes);
-			mb_release_includes_free(includes);
+        printf("items found:  %i\n", mb_result_list_get_size(results));
 
-			mb_release_get_asin(release, asin, 1024);
-			mb_release_free(release);
-			if (strlen(asin) > 0) {
-				fp = fopen(asin_filename,"w");
-				fputs(asin,fp);
-				fclose(fp);
-				ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
-				break;
-			}
-		}
-		mb_result_list_free(results);
-		mb_query_free(query);
-		mb_webservice_free(mb);
-	}
-		
+        for (i = 0; i < mb_result_list_get_size(results); i++) {
+            release = mb_result_list_get_release(results, i);
+            mb_release_get_id(release, id, 1024);
+            includes = mb_release_includes_new();
+            includes = mb_artist_includes_release_events(includes);
+            includes = mb_track_includes_url_relations(includes);
+
+            release = mb_query_get_release_by_id(query, id, includes);
+            mb_release_includes_free(includes);
+
+            mb_release_get_asin(release, asin, 1024);
+            mb_release_free(release);
+            if (strlen(asin) > 0) {
+                fp = fopen(asin_filename, "w");
+                fputs(asin, fp);
+                fclose(fp);
+                ret =
+                    g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
+                break;
+            }
+        }
+        mb_result_list_free(results);
+        mb_query_free(query);
+        mb_webservice_free(mb);
+    }
+
     return ret;
 }
 
 gpointer get_cover_art(gpointer data)
 {
-	gchar *url;
-	gchar *path;
-	gchar *cache_file;
-	gchar *asin_filename;
-	gboolean local_artist = FALSE;
-	gboolean local_album = FALSE;
-	//GFile *src;
-	//GFile *art;
-	CURL *curl;
-	FILE *art;
-	gpointer pixbuf;
-	MetaData *metadata = (MetaData*)data;
-	
-	if (metadata->artist == NULL) {
-		metadata->artist = g_strdup("Unknown");
-		local_artist = TRUE;
-	}
-	if (metadata->album == NULL) {
-		metadata->album = g_strdup("Unknown");
-		local_album = TRUE;
-	}
-	
-	path = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s", getenv("HOME"),metadata->artist);
-	if (!g_file_test(path,G_FILE_TEST_IS_DIR)) {
+    gchar *url;
+    gchar *path;
+    gchar *cache_file;
+    gchar *asin_filename;
+    gboolean local_artist = FALSE;
+    gboolean local_album = FALSE;
+    //GFile *src;
+    //GFile *art;
+    CURL *curl;
+    FILE *art;
+    gpointer pixbuf;
+    MetaData *metadata = (MetaData *) data;
+
+    if (metadata->artist == NULL) {
+        metadata->artist = g_strdup("Unknown");
+        local_artist = TRUE;
+    }
+    if (metadata->album == NULL) {
+        metadata->album = g_strdup("Unknown");
+        local_album = TRUE;
+    }
+
+    path =
+        g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s", getenv("HOME"), metadata->artist);
+    if (!g_file_test(path, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(path, 0775);
-	}
-	
-	cache_file = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.jpeg", getenv("HOME"),metadata->artist,metadata->album);
-	asin_filename = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.asin", getenv("HOME"),metadata->artist,metadata->album);
-	if (local_artist) {
-		g_free(metadata->artist);
-		metadata->artist = NULL;
-	}
-	if (local_album) {
-		g_free(metadata->album);
-		metadata->album = NULL;
-	}
-	
-	if (!g_file_test(cache_file,G_FILE_TEST_EXISTS)) {
-		/*
-		src = g_file_new_for_uri (url);
-		art = g_file_new_for_uri (cache_uri);
-		g_file_copy_async(src, art, G_FILE_COPY_NONE,
-					  G_PRIORITY_DEFAULT, NULL, cache_cover_art_callback, NULL,
-					  cover_art_ready_callback, NULL);
-		*/
-		if (!disable_cover_art_fetch) {
-			url = get_cover_art_url(metadata->artist,metadata->title,metadata->album,asin_filename);
-			if (url != NULL) {
-				art = fopen(cache_file,"wb");
-				curl = curl_easy_init();
-				if(curl) {
-					curl_easy_setopt(curl, CURLOPT_URL, url);
-					curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
-					curl_easy_perform(curl);
-					curl_easy_cleanup(curl);
-				}
-				fclose(art);
-				// printf("cover art url is %s\n",url);
-				g_free(url);
+    }
 
-			}
-		}
-	}
+    cache_file =
+        g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.jpeg", getenv("HOME"),
+                        metadata->artist, metadata->album);
+    asin_filename =
+        g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.asin", getenv("HOME"),
+                        metadata->artist, metadata->album);
+    if (local_artist) {
+        g_free(metadata->artist);
+        metadata->artist = NULL;
+    }
+    if (local_album) {
+        g_free(metadata->album);
+        metadata->album = NULL;
+    }
 
-	if (g_file_test(cache_file,G_FILE_TEST_EXISTS)) {
-		pixbuf = gdk_pixbuf_new_from_file(cache_file,NULL);
-		g_idle_add(set_cover_art,pixbuf);
-	} else {
-		pixbuf = NULL;
-		g_idle_add(set_cover_art,pixbuf);
-	}
-	g_free(asin_filename);
-	g_free(cache_file);
-	g_free(path);
+    if (!g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+        /*
+           src = g_file_new_for_uri (url);
+           art = g_file_new_for_uri (cache_uri);
+           g_file_copy_async(src, art, G_FILE_COPY_NONE,
+           G_PRIORITY_DEFAULT, NULL, cache_cover_art_callback, NULL,
+           cover_art_ready_callback, NULL);
+         */
+        if (!disable_cover_art_fetch) {
+            url =
+                get_cover_art_url(metadata->artist, metadata->title, metadata->album,
+                                  asin_filename);
+            if (url != NULL) {
+                art = fopen(cache_file, "wb");
+                curl = curl_easy_init();
+                if (curl) {
+                    curl_easy_setopt(curl, CURLOPT_URL, url);
+                    curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
+                    curl_easy_perform(curl);
+                    curl_easy_cleanup(curl);
+                }
+                fclose(art);
+                // printf("cover art url is %s\n",url);
+                g_free(url);
 
-	g_free(metadata->title);
-	g_free(metadata->artist);
-	g_free(metadata->album);
-	g_free(metadata);
-	return NULL;
+            }
+        }
+    }
+
+    if (g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+        pixbuf = gdk_pixbuf_new_from_file(cache_file, NULL);
+        g_idle_add(set_cover_art, pixbuf);
+    } else {
+        pixbuf = NULL;
+        g_idle_add(set_cover_art, pixbuf);
+    }
+    g_free(asin_filename);
+    g_free(cache_file);
+    g_free(path);
+
+    g_free(metadata->title);
+    g_free(metadata->artist);
+    g_free(metadata->album);
+    g_free(metadata);
+    return NULL;
 }
-#else 
+#else
 gpointer get_cover_art(gpointer data)
 {
-	MetaData *metadata = (MetaData*)data;
-	
-	if (verbose)
-		printf("libcurl required for cover art retrieval\n"); 
-	g_free(metadata->title);
-	g_free(metadata->artist);
-	g_free(metadata->album);
-	g_free(metadata);
-	return NULL;
+    MetaData *metadata = (MetaData *) data;
+
+    if (verbose)
+        printf("libcurl required for cover art retrieval\n");
+    g_free(metadata->title);
+    g_free(metadata->artist);
+    g_free(metadata->album);
+    g_free(metadata);
+    return NULL;
 }
 
-gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *asin_filename)
+gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * asin_filename)
 {
     if (verbose > 1)
         printf("Running without musicbrainz support, unable to fetch url\n");
@@ -2410,30 +2417,30 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar *as
 }
 #endif
 
-gchar *gmp_tempname(gchar *path,const gchar *name_template)
+gchar *gmp_tempname(gchar * path, const gchar * name_template)
 {
-	gchar *result;
-	gchar *replace;
-	gchar *basename;
-	gchar *localpath;
+    gchar *result;
+    gchar *replace;
+    gchar *basename;
+    gchar *localpath;
 
-	basename = g_strdup(name_template);
+    basename = g_strdup(name_template);
 
-	if (path == NULL && getenv("TMPDIR") == NULL) {
-		localpath = g_strdup("/tmp");
-	} else if(path == NULL && getenv("TMPDIR") != NULL) {
-		localpath = g_strdup(getenv("TMPDIR"));
-	} else {
-		localpath = g_strdup(path);
-	}
+    if (path == NULL && getenv("TMPDIR") == NULL) {
+        localpath = g_strdup("/tmp");
+    } else if (path == NULL && getenv("TMPDIR") != NULL) {
+        localpath = g_strdup(getenv("TMPDIR"));
+    } else {
+        localpath = g_strdup(path);
+    }
 
-	while((replace = g_strrstr(basename,"X"))) {
-		replace[0] = (gchar)g_random_int_range((gint)'a',(gint)'z');
-	}
+    while ((replace = g_strrstr(basename, "X"))) {
+        replace[0] = (gchar) g_random_int_range((gint) 'a', (gint) 'z');
+    }
 
-	result = g_strdup_printf("%s/%s",localpath,basename);
-	g_free(basename);
-	g_free(localpath);
+    result = g_strdup_printf("%s/%s", localpath, basename);
+    g_free(basename);
+    g_free(localpath);
 
-	return result;
+    return result;
 }
