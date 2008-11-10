@@ -1,4 +1,6 @@
 Development
+    Add in loop to play_iter to flush all events prior to next file being played
+    When running in verical layout mode, allow the media data to remain visible
     Read album off the ipod
     Add album to the playlust
     Disable cover art fetch command line option
