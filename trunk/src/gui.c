@@ -2138,13 +2138,27 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 
 }
 
+void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
+{
+    gtk_list_store_clear(playliststore);
+    gtk_list_store_clear(nonrandomplayliststore);
+    add_item_to_playlist("vcd://", 0);
+
+    if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+        play_iter(&iter);
+    }
+
+}
+
 void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
     add_item_to_playlist("tv://", 0);
-    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-    play_iter(&iter);
+						 
+    if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+		play_iter(&iter);
+	}
 }
 
 void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
@@ -4555,27 +4569,34 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_location =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Location")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_location));
+
+    menuitem_file_disc = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Disc")));
+    menu_file_disc = GTK_MENU(gtk_menu_new());
+    gtk_widget_show(GTK_WIDGET(menuitem_file_disc));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_disc));
+    gtk_menu_item_set_submenu(menuitem_file_disc, GTK_WIDGET(menu_file_disc));
+
     menuitem_file_open_acd =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Audio CD")));
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_acd));
-
-    menuitem_file_dvd = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_DVD")));
-    menu_file_dvd = GTK_MENU(gtk_menu_new());
-    gtk_widget_show(GTK_WIDGET(menuitem_file_dvd));
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_dvd));
-    gtk_menu_item_set_submenu(menuitem_file_dvd, GTK_WIDGET(menu_file_dvd));
-
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_acd));
+    menuitem_file_open_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_sep1));
+	
     menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
-    gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvd));
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvd));
     menuitem_file_open_dvdnav =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD with _Menus")));
-    gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvdnav));
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvdnav));
     menuitem_file_open_dvd_folder =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from _Folder")));
-    gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvd_folder));
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvd_folder));
     menuitem_file_open_dvdnav_folder =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from Folder with M_enus")));
-    gtk_menu_append(menu_file_dvd, GTK_WIDGET(menuitem_file_open_dvdnav_folder));
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvdnav_folder));
+    menuitem_file_open_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_sep2));
+    menuitem_file_open_vcd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _VCD")));
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_vcd));
 
     menuitem_file_tv = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_TV")));
     menu_file_tv = GTK_MENU(gtk_menu_new());
@@ -4630,6 +4651,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_open_dvdnav_folder_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_acd), "activate",
                      G_CALLBACK(menuitem_open_acd_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_vcd), "activate",
+                     G_CALLBACK(menuitem_open_vcd_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_atv), "activate",
                      G_CALLBACK(menuitem_open_atv_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_dtv), "activate",

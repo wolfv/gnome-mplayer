@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnomov mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-02 06:28-0700\n"
+"POT-Creation-Date: 2008-11-11 10:36-0700\n"
 "PO-Revision-Date: 2008-04-23 14:55+0000\n"
 "Last-Translator: Miloš Popović <gpopac@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
@@ -115,7 +115,7 @@ msgstr "Koristi virtuelni raspored"
 msgid "Start with playlist open"
 msgstr "Pokreni sa prikazanom listom za puštanje"
 
-#: src/main.c:94 src/gui.c:3959
+#: src/main.c:94 src/gui.c:4026
 msgid "Start with details visible"
 msgstr "Pokreni sa vidljivim podacima o datoteci"
 
@@ -175,16 +175,24 @@ msgstr "Samo sada zanemari podešavanja za jedan program u isto vreme"
 msgid "Keep window on top"
 msgstr "Drži prozor iznad ostalih"
 
-#: src/main.c:413
+#: src/main.c:121
+msgid "Load all tracks from media player using gpod"
+msgstr ""
+
+#: src/main.c:125
+msgid "Don't fetch new cover art images"
+msgstr ""
+
+#: src/main.c:529
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[DATOTEKE...] - Gnomov bioskop i muzička kutija zasnovan na Mplejeru"
 
-#: src/main.c:433
+#: src/main.c:549
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "Gnomov Mplejer v%s\n"
 
-#: src/main.c:467
+#: src/main.c:583
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -193,41 +201,41 @@ msgstr ""
 "Pokrenite „gnome-mplayer --help“ za kompletan spisak dostupnih opcija u "
 "komandnoj liniji.\n"
 
-#: src/main.c:535
+#: src/main.c:654
 msgid "Playing DVD"
 msgstr "Puštam DVD"
 
-#: src/main.c:559
+#: src/main.c:672
 msgid "Playing Audio CD"
 msgstr "Puštam zvučni CD"
 
-#: src/gui.c:105 src/gui.c:146 src/gui.c:166
+#: src/gui.c:105 src/gui.c:142 src/gui.c:162
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - Gnomov Mplejer"
 
-#: src/gui.c:141
+#: src/gui.c:137
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - Gnomov Mplejer"
 
-#: src/gui.c:144 src/gui.c:217 src/gui.c:2326 src/gui.c:4362
+#: src/gui.c:140 src/gui.c:224 src/gui.c:2384 src/gui.c:4431
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "Gnomov Mplejer"
 
-#: src/gui.c:255
+#: src/gui.c:272
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Pauzirano | %2i%% ▼"
 
-#: src/gui.c:472 src/support.c:260 src/playlist.c:511 src/playlist.c:863
+#: src/gui.c:489 src/support.c:262 src/playlist.c:506 src/playlist.c:838
 #, c-format
 msgid "%s items"
 msgstr "%s stavki"
 
-#: src/gui.c:474 src/gui.c:1903 src/support.c:215 src/support.c:271
-#: src/playlist.c:513
+#: src/gui.c:491 src/gui.c:1943 src/gui.c:2200 src/support.c:217
+#: src/support.c:273 src/playlist.c:508
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
@@ -235,78 +243,86 @@ msgstr[0] "Stavka za puštanje"
 msgstr[1] "Stavke za puštanje"
 msgstr[2] "Stavki za puštanje"
 
-#: src/gui.c:487 src/gui.c:1444
+#: src/gui.c:504 src/gui.c:1519
 msgid "Pause"
 msgstr "Pauziraj"
 
-#: src/gui.c:500 src/gui.c:512 src/gui.c:1462 src/gui.c:1542 src/gui.c:1546
-#: src/gui.c:4992
+#: src/gui.c:517 src/gui.c:529 src/gui.c:1537 src/gui.c:1593 src/gui.c:1597
+#: src/gui.c:5084
 msgid "Play"
 msgstr "Pusti"
 
-#: src/gui.c:563
+#: src/gui.c:580
 #, c-format
 msgid "Adding %s to playlist"
 msgstr "Dodajem %s stavku u listu"
 
-#: src/gui.c:586 src/gui.c:1445
-#, c-format
-msgid "Playing"
+#: src/gui.c:603
+#, fuzzy, c-format
+msgid "Playing %s"
 msgstr "Puštam"
 
-#: src/gui.c:588 src/gui.c:1463
-#, c-format
-msgid "Paused"
+#: src/gui.c:605
+#, fuzzy, c-format
+msgid "Paused %s"
 msgstr "Pauzirano"
 
-#: src/gui.c:590
+#: src/gui.c:607
 #, c-format
 msgid "Idle"
 msgstr "Besposlen"
 
-#: src/gui.c:890 src/gui.c:900 src/gui.c:1712 src/gui.c:1740 src/thread.c:384
+#: src/gui.c:961 src/gui.c:971 src/gui.c:1754 src/gui.c:1782 src/thread.c:362
 #, c-format
 msgid "Volume %i%%"
 msgstr "Zvuk %i%%"
 
-#: src/gui.c:1552
+#: src/gui.c:1520
+msgid "Playing"
+msgstr "Puštam"
+
+#: src/gui.c:1538
+msgid "Paused"
+msgstr "Pauzirano"
+
+#: src/gui.c:1603
 msgid "Stopped"
 msgstr "Zaustavljeno"
 
-#: src/gui.c:1849 src/playlist.c:475
+#: src/gui.c:1894 src/playlist.c:470
 msgid "Open File"
 msgstr "Otvori datoteku"
 
-#: src/gui.c:1966
+#: src/gui.c:2000
 msgid "Open Location"
 msgstr "Otvori putanju"
 
-#: src/gui.c:1968
+#: src/gui.c:2002
 msgid "Location:"
 msgstr "Putanja:"
 
-#: src/gui.c:2028 src/gui.c:2086
+#: src/gui.c:2049 src/gui.c:2098
 msgid "Choose Disk Directory"
 msgstr "Izaberite direktorijum za disk"
 
-#: src/gui.c:2255
+#: src/gui.c:2313
 msgid "Save As..."
 msgstr "Sačuvaj kao..."
 
-#: src/gui.c:2290
+#: src/gui.c:2348
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "Ne mogu da sačuvam ‘%s’"
 
-#: src/gui.c:2293 src/support.c:704 src/thread.c:185
+#: src/gui.c:2351 src/support.c:717 src/thread.c:172
 msgid "GNOME MPlayer Error"
 msgstr "Greška u Gnomovom Mplejeru"
 
-#: src/gui.c:2330
+#: src/gui.c:2388
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "Bioskop i muzička kutija za Gnom koja koristi Mplejer"
 
-#: src/gui.c:2334
+#: src/gui.c:2392
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -345,147 +361,147 @@ msgstr ""
 "51 Franklin Street, Fifth Floor\n"
 "Boston,MA 02110-1302, USA"
 
-#: src/gui.c:2581 src/playlist.c:135
+#: src/gui.c:2639 src/playlist.c:135
 msgid "Set Subtitle"
 msgstr "Postavi titl"
 
-#: src/gui.c:3046
+#: src/gui.c:3104
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">Podaci o videu</span>"
 
-#: src/gui.c:3053
+#: src/gui.c:3111
 msgid "Video Size:"
 msgstr "Veličina videa:"
 
-#: src/gui.c:3066
+#: src/gui.c:3124
 msgid "Video Format:"
 msgstr "Format videa:"
 
-#: src/gui.c:3077
+#: src/gui.c:3135
 msgid "Video Codec:"
 msgstr "Video kodek:"
 
-#: src/gui.c:3088
+#: src/gui.c:3146
 msgid "Video FPS:"
 msgstr "Br. kadr. u sek:"
 
-#: src/gui.c:3097
+#: src/gui.c:3155
 msgid "Video Bitrate:"
 msgstr "Bitski protok:"
 
-#: src/gui.c:3109
+#: src/gui.c:3167
 msgid "Video Chapters:"
 msgstr "Poglavlja filma:"
 
-#: src/gui.c:3128
+#: src/gui.c:3186
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Podaci o zvuku</span>"
 
-#: src/gui.c:3135
+#: src/gui.c:3193
 msgid "Audio Codec:"
 msgstr "Zvučni kodek:"
 
-#: src/gui.c:3152
+#: src/gui.c:3210
 msgid "Audio Channels:"
 msgstr "Zvučni kanali:"
 
-#: src/gui.c:3166
+#: src/gui.c:3224
 msgid "Audio Bitrate:"
 msgstr "Bitski protok:"
 
-#: src/gui.c:3180
+#: src/gui.c:3238
 msgid "Audio Sample Rate:"
 msgstr "Učestanost zvuka:"
 
-#: src/gui.c:3240
+#: src/gui.c:3298
 msgid "Advanced Video Controls"
 msgstr "Dodatne video kontrole"
 
-#: src/gui.c:3253
+#: src/gui.c:3311
 msgid "<span weight=\"bold\">Adjust Video Settings</span>"
 msgstr "<span weight=\"bold\">Podešavanja videa</span>"
 
-#: src/gui.c:3260
+#: src/gui.c:3318
 msgid "Brightness"
 msgstr "Osvetljenje"
 
-#: src/gui.c:3270
+#: src/gui.c:3328
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: src/gui.c:3280
+#: src/gui.c:3338
 msgid "Gamma"
 msgstr "Gama"
 
-#: src/gui.c:3290
+#: src/gui.c:3348
 msgid "Hue"
 msgstr "Nijansa"
 
-#: src/gui.c:3300
+#: src/gui.c:3358
 msgid "Saturation"
 msgstr "Zasićensot"
 
-#: src/gui.c:3395
+#: src/gui.c:3453
 msgid "No Display"
 msgstr "Isključen"
 
-#: src/gui.c:3398
+#: src/gui.c:3456
 msgid "Minimal"
 msgstr "Minimalni"
 
-#: src/gui.c:3401
+#: src/gui.c:3459
 msgid "Timer"
 msgstr "Proteklo vreme"
 
-#: src/gui.c:3404
+#: src/gui.c:3462
 msgid "Timer/Total"
 msgstr "Proteklo/ukupno vreme"
 
-#: src/gui.c:3420
+#: src/gui.c:3478
 msgid "No Postprocessing"
 msgstr "Isključeno"
 
-#: src/gui.c:3424
+#: src/gui.c:3482
 msgid "Minimal Postprocessing"
 msgstr "Minimalno"
 
-#: src/gui.c:3428
+#: src/gui.c:3486
 msgid "More Postprocessing"
 msgstr "Srednje"
 
-#: src/gui.c:3432
+#: src/gui.c:3490
 msgid "Maximum Postprocessing"
 msgstr "Maksimalno"
 
-#: src/gui.c:3505
+#: src/gui.c:3563
 msgid "Player"
 msgstr "Plejer"
 
-#: src/gui.c:3507
+#: src/gui.c:3565
 msgid "Language Settings"
 msgstr "Postavke jezika"
 
-#: src/gui.c:3509
+#: src/gui.c:3567
 msgid "Subtitles"
 msgstr "Titlovi"
 
-#: src/gui.c:3511
+#: src/gui.c:3569
 msgid "Interface"
 msgstr "Sučelje"
 
-#: src/gui.c:3513
+#: src/gui.c:3571
 msgid "MPlayer"
 msgstr "MPlejer"
 
-#: src/gui.c:3515
+#: src/gui.c:3573
 msgid "Plugin"
 msgstr "Dodatak"
 
-#: src/gui.c:3521
+#: src/gui.c:3579
 msgid "GNOME MPlayer Configuration"
 msgstr "Postavke Gnomovog Mplejera"
 
-#: src/gui.c:3536
+#: src/gui.c:3594
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
@@ -493,7 +509,7 @@ msgstr ""
 "mplejerov izlazni video uređaj\n"
 "x11 obično uvek radi, probajte xv ili gl za bolje performanse"
 
-#: src/gui.c:3561
+#: src/gui.c:3619
 msgid ""
 "mplayer audio output device\n"
 "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
@@ -503,28 +519,28 @@ msgstr ""
 "alsa ili oss obično uvek rade, probajte esd ukoliko koristite Gnom, arts "
 "ukoliko koristite KDE, ili pulse na novijim Linuks izdanjima"
 
-#: src/gui.c:3644
+#: src/gui.c:3711
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Postavke izlaza</span>"
 
-#: src/gui.c:3651
+#: src/gui.c:3718
 msgid "Video Output:"
 msgstr "Video izlaz:"
 
-#: src/gui.c:3661
+#: src/gui.c:3728
 msgid "Audio Output:"
 msgstr "Zvučni izlaz:"
 
 # kako bi drugačije :(
-#: src/gui.c:3684
+#: src/gui.c:3751
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">Ostale postavke</span>"
 
-#: src/gui.c:3691
+#: src/gui.c:3758
 msgid "Default Volume Level:"
 msgstr "Podrazumevana jačina zvuka:"
 
-#: src/gui.c:3700
+#: src/gui.c:3767
 msgid ""
 "Default volume for playback, a value of -1 causes the setting from ALSA to "
 "be used"
@@ -532,11 +548,11 @@ msgstr ""
 "Podrazumevana jačina zvuka. Vrednost -1 će zahtevati korišćenje ALSA "
 "podešavanja"
 
-#: src/gui.c:3714
+#: src/gui.c:3781
 msgid "Minimum Cache Size (KB):"
 msgstr "Najmanja veličina ostave (KB):"
 
-#: src/gui.c:3723
+#: src/gui.c:3790
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -544,135 +560,135 @@ msgstr ""
 "Količina podataka za čuvanje u ostavi pri puštanju datoteka sa mreže, "
 "koristite veće vrednosti za sporije mreže."
 
-#: src/gui.c:3736
+#: src/gui.c:3803
 msgid "On Screen Display Level:"
 msgstr "Ekranski prikaz:"
 
-#: src/gui.c:3750
+#: src/gui.c:3817
 msgid "Post-processing level:"
 msgstr "Naknadno procesiranje:"
 
-#: src/gui.c:3765
+#: src/gui.c:3832
 msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 msgstr "<span weight=\"bold\">Postavke dodatka za emulaciju</span>"
 
-#: src/gui.c:3772
+#: src/gui.c:3839
 msgid "QuickTime Emulation"
 msgstr "Kvik Tajm emulacija"
 
-#: src/gui.c:3777
+#: src/gui.c:3844
 msgid "RealPlayer Emulation"
 msgstr "Rial plejer emulacija"
 
-#: src/gui.c:3782
+#: src/gui.c:3849
 msgid "Windows Media Player Emulation"
 msgstr "Vindouz medija plejer emulacija"
 
-#: src/gui.c:3787
+#: src/gui.c:3854
 msgid "DiVX Player Emulation"
 msgstr "DivX plejer emulacija"
 
-#: src/gui.c:3792
+#: src/gui.c:3859
 msgid "Disable Player Embedding"
 msgstr "Onemogući umetanje programa"
 
-#: src/gui.c:3800
+#: src/gui.c:3867
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">Postavke jezika</span>"
 
-#: src/gui.c:3807
+#: src/gui.c:3874
 msgid "Default Audio Language"
 msgstr "Podrazumevani jezik za zvuk:"
 
-#: src/gui.c:3817
+#: src/gui.c:3884
 msgid "Default Subtitle Language:"
 msgstr "Podrazumevani jezik titlova:"
 
-#: src/gui.c:3828
+#: src/gui.c:3895
 msgid "File Metadata Encoding:"
 msgstr "Kodiranje metapodataka datoteke:"
 
-#: src/gui.c:3844
+#: src/gui.c:3911
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">Podešavanja titla</span>"
 
-#: src/gui.c:3853
+#: src/gui.c:3920
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Omogući naprednu „_Alfa podršku za titlove“ (ASS)"
 
-#: src/gui.c:3860
+#: src/gui.c:3927
 msgid "Use _Embedded Fonts"
 msgstr "Koristi _umetnute fontove"
 
-#: src/gui.c:3867
+#: src/gui.c:3934
 msgid "Subtitle Font:"
 msgstr "Font:"
 
-#: src/gui.c:3880
+#: src/gui.c:3947
 msgid "Subtitle Font Selection"
 msgstr "Izbor fonta za titl"
 
-#: src/gui.c:3885
+#: src/gui.c:3952
 msgid "Subtitle Color:"
 msgstr "Boja:"
 
-#: src/gui.c:3910
+#: src/gui.c:3977
 msgid "Subtitle Color Selection"
 msgstr "Izbor boje za titl"
 
-#: src/gui.c:3917
+#: src/gui.c:3984
 msgid "Subtitle Font Scaling:"
 msgstr "Veličina:"
 
-#: src/gui.c:3930
+#: src/gui.c:3997
 msgid "Subtitle File Encoding:"
 msgstr "Kodiranje:"
 
-#: src/gui.c:3947
+#: src/gui.c:4014
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Postavke programa</span>"
 
-#: src/gui.c:3954
+#: src/gui.c:4021
 msgid "Start with playlist visible"
 msgstr "Pokreni sa vidljivom listom za puštanje"
 
-#: src/gui.c:3965
+#: src/gui.c:4032
 msgid "Show notification popup"
 msgstr "Prikaži oblačak sa obaveštenjima"
 
-#: src/gui.c:3972
+#: src/gui.c:4039
 msgid "Show status icon"
 msgstr "Prikaži ikonicu u panelu"
 
-#: src/gui.c:3979
+#: src/gui.c:4046
 msgid "Start with playlist below media window"
 msgstr "Pokreni sa listom za puštanje pored glavnog prozora"
 
-#: src/gui.c:3985
+#: src/gui.c:4052
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Dozvoli samo po jedan Gnomov mplejer u isto vreme"
 
-#: src/gui.c:3997
+#: src/gui.c:4064
 msgid "When opening in single instance mode, replace existing file"
 msgstr "Zameni datoteku po otvaranju nove u režimu sa samo jednom programom"
 
-#: src/gui.c:4005
+#: src/gui.c:4072
 msgid "Remember Window Location"
 msgstr "Zapamti mesto prozora"
 
-#: src/gui.c:4010
+#: src/gui.c:4077
 msgid "Keep window above other windows"
 msgstr "Drži uvek iznad ostalih"
 
-#: src/gui.c:4015
+#: src/gui.c:4082
 msgid "Pause playback on mouse click"
 msgstr "Zaustavi reprodukciju na klik mišem"
 
-#: src/gui.c:4020
+#: src/gui.c:4087
 msgid "Verbose Debug Enabled"
 msgstr "Omogući prijavljivanje grešaka"
 
-#: src/gui.c:4024
+#: src/gui.c:4091
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
@@ -680,330 +696,335 @@ msgstr ""
 "Šalje dodatni ispis za traženje grešaka u terminalu ili u ~/.xsession-errors "
 "datoteci"
 
-#: src/gui.c:4034
+#: src/gui.c:4101
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Dodatne postavke za MPlejer</span>"
 
-#: src/gui.c:4041
+#: src/gui.c:4108
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Omogući Mplejerovu programsku kontrolu zvuka"
 
-#: src/gui.c:4045
+#: src/gui.c:4112
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
-"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu zvuka "
-"na glavnom kanalu miksera"
+"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu "
+"zvuka na glavnom kanalu miksera"
 
-#: src/gui.c:4051
+#: src/gui.c:4118
 msgid "De_interlace Video"
 msgstr "_Raspleti video"
 
-#: src/gui.c:4053
+#: src/gui.c:4120
 msgid "Set this option if video looks striped"
 msgstr "Uključite ukoliko primetite uzdužne trake na filmu"
 
-#: src/gui.c:4059
+#: src/gui.c:4126
 msgid "_Drop frames"
 msgstr "_Odbaci kadrove"
 
-#: src/gui.c:4062
+#: src/gui.c:4129
 msgid "Set this option if video is well behind the audio"
 msgstr "Uključite ukoliko slika kasni za zvukom"
 
-#: src/gui.c:4068
+#: src/gui.c:4135
 msgid "Force the use of cache setting on streaming media"
 msgstr "Primoraj korišćenje ostave na tokovima"
 
-#: src/gui.c:4073
+#: src/gui.c:4140
 msgid "MPlayer Executable:"
 msgstr "Izvršna datoteka Mplejera:"
 
-#: src/gui.c:4078
+#: src/gui.c:4145
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Određuje izvršnu putanju Mplejera ukoliko se on ne nalazi na podrazumevanom "
 "mestu"
 
-#: src/gui.c:4089
+#: src/gui.c:4156
 msgid "Extra Options to MPlayer:"
 msgstr "Dodatne Mplejer mogućnosti:"
 
-#: src/gui.c:4093
+#: src/gui.c:4160
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "Možete uneti bilo koju mogućnost Mplejera (npr. filtere)"
 
-#: src/gui.c:4190
+#: src/gui.c:4257
 #, c-format
 msgid "Seeking to %s"
 msgstr "Premotavam na %s"
 
-#: src/gui.c:4413
+#: src/gui.c:4482
 msgid "S_how Controls"
 msgstr "Prikaži _kontrole"
 
-#: src/gui.c:4417 src/gui.c:4670
+#: src/gui.c:4486 src/gui.c:4757
 msgid "_Full Screen"
 msgstr "_Ceo ekran"
 
-#: src/gui.c:4422
+#: src/gui.c:4491
 msgid "_Copy Location"
 msgstr "Umno_ži putanju"
 
 #. File Menu
-#: src/gui.c:4492
+#: src/gui.c:4561
 msgid "_File"
 msgstr "_Datoteka"
 
-#: src/gui.c:4501
+#: src/gui.c:4570
 msgid "Open _Location"
 msgstr "Otvori _adresu"
 
-#: src/gui.c:4504
+#: src/gui.c:4573
+msgid "_Disc"
+msgstr ""
+
+#: src/gui.c:4580
 msgid "Open _Audio CD"
 msgstr "Otvori _zvučni disk"
 
-#: src/gui.c:4507
-msgid "_DVD"
-msgstr "_DVD"
-
-#: src/gui.c:4513
+#: src/gui.c:4585
 msgid "Open _DVD"
 msgstr "_Otvori DVD"
 
-#: src/gui.c:4516
+#: src/gui.c:4588
 msgid "Open DVD with _Menus"
 msgstr "Otvori DVD sa _menijima"
 
-#: src/gui.c:4519
+#: src/gui.c:4591
 msgid "Open DVD from _Folder"
 msgstr "Otvori DVD iz _fascikle"
 
-#: src/gui.c:4522
+#: src/gui.c:4594
 msgid "Open DVD from Folder with M_enus"
 msgstr "Otvori DVD sa menijima iz f_ascikle"
 
-#: src/gui.c:4525
+#: src/gui.c:4598
+#, fuzzy
+msgid "Open _VCD"
+msgstr "_Otvori DVD"
+
+#: src/gui.c:4601
 msgid "_TV"
 msgstr "_TV"
 
-#: src/gui.c:4532
+#: src/gui.c:4608
 msgid "Open _Analog TV"
 msgstr "Otvori _analogni TV"
 
-#: src/gui.c:4535
+#: src/gui.c:4611
 msgid "Open _Digital TV"
 msgstr "Otvori _digitalni TV"
 
-#: src/gui.c:4539
+#: src/gui.c:4615
+msgid "Open _iPod™"
+msgstr ""
+
+#: src/gui.c:4620
 msgid "Open _Recent"
 msgstr "Otvori _skorašnje"
 
 #. Edit Menu
-#: src/gui.c:4584
+#: src/gui.c:4671
 msgid "_Edit"
 msgstr "_Uređivanje"
 
-#: src/gui.c:4591
+#: src/gui.c:4678
 msgid "_Shuffle Playlist"
 msgstr "Ispre_tumbani režim"
 
-#: src/gui.c:4595
+#: src/gui.c:4682
 msgid "_Loop Playlist"
 msgstr "_Režim ponavljanja"
 
-#: src/gui.c:4600
+#: src/gui.c:4687
 msgid "S_witch Audio Track"
 msgstr "Zameni zvučnu stazu"
 
-#: src/gui.c:4604
+#: src/gui.c:4691
 msgid "Select _Audio Language"
 msgstr "Podrazumevani jezik za _zvuk:"
 
-#: src/gui.c:4610
+#: src/gui.c:4697
 msgid "Set Sub_title"
 msgstr "Postavi _titl"
 
-#: src/gui.c:4614
+#: src/gui.c:4701
 msgid "S_elect Subtitle Language"
 msgstr "Podrazumevani jezik za _titlove:"
 
-#: src/gui.c:4621
+#: src/gui.c:4708
 msgid "_Take Screenshot"
 msgstr "_Uhvati snimak ekrana"
 
-#: src/gui.c:4625
+#: src/gui.c:4712
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr ""
 "Datoteke pod nazivom „shotNNNN.png“ će biti sačuvane u tekućem direktorijumu"
 
 #. View Menu
-#: src/gui.c:4654
+#: src/gui.c:4741
 msgid "_View"
 msgstr "P_regled"
 
-#: src/gui.c:4659
+#: src/gui.c:4746
 msgid "_Playlist"
 msgstr "_Lista za puštanje"
 
-#: src/gui.c:4662
+#: src/gui.c:4749
 msgid "Media _Info"
 msgstr "Podaci _o mediju"
 
-#: src/gui.c:4664
+#: src/gui.c:4751
 msgid "D_etails"
 msgstr "Oso_bine"
 
-#: src/gui.c:4677
+#: src/gui.c:4764
 msgid "_Normal (1:1)"
 msgstr "_Normalno (1:1)"
 
-#: src/gui.c:4680
+#: src/gui.c:4767
 msgid "_Double Size (2:1)"
 msgstr "_Udvostručeno (2:1)"
 
-#: src/gui.c:4683
+#: src/gui.c:4770
 msgid "_Half Size (1:2)"
 msgstr "_Polovično (1:2)"
 
-#: src/gui.c:4686
+#: src/gui.c:4773
 msgid "_Aspect"
 msgstr "_Razmera"
 
-#: src/gui.c:4693
+#: src/gui.c:4780
 msgid "D_efault Aspect"
 msgstr "_Podrazumevana razmera"
 
-#: src/gui.c:4696
+#: src/gui.c:4783
 msgid "_4:3 Aspect"
 msgstr "Razmera _4:3"
 
-#: src/gui.c:4699
+#: src/gui.c:4786
 msgid "_16:9 Aspect"
 msgstr "Razmera _16:9"
 
-#: src/gui.c:4702
+#: src/gui.c:4789
 msgid "1_6:10 Aspect"
 msgstr "Razmera 1_6:10"
 
-#: src/gui.c:4708
+#: src/gui.c:4795
 msgid "Show _Subtitles"
 msgstr "Prikaži _titl"
 
-#: src/gui.c:4709
+#: src/gui.c:4796
 msgid "Switch An_gle"
 msgstr "Promeni u_gao"
 
-#: src/gui.c:4710
+#: src/gui.c:4797
 msgid "_Controls"
 msgstr "_Kontrole"
 
-#: src/gui.c:4719
+#: src/gui.c:4806
 msgid "Advanced _Options"
 msgstr "Dodatne _mogućnosti"
 
 #. Help Menu
-#: src/gui.c:4764
+#: src/gui.c:4851
 msgid "_Help"
 msgstr "_Pomoć"
 
-#: src/gui.c:4955
+#: src/gui.c:5047
 msgid "Menu"
 msgstr "Meni"
 
-#: src/gui.c:4968
+#: src/gui.c:5060
 msgid "Previous"
 msgstr "Prethodno"
 
-#: src/gui.c:4981
+#: src/gui.c:5073
 msgid "Rewind"
 msgstr "Premotaj nazad"
 
-#: src/gui.c:5004
+#: src/gui.c:5096
 msgid "Stop"
 msgstr "Zaustavi"
 
-#: src/gui.c:5016
+#: src/gui.c:5108
 msgid "Fast Forward"
 msgstr "Premotaj napred"
 
-#: src/gui.c:5027
+#: src/gui.c:5119
 msgid "Next"
 msgstr "Sledeće"
 
-#: src/gui.c:5051
+#: src/gui.c:5143
 msgid "No Information"
 msgstr "Nema podataka"
 
-#: src/gui.c:5058
+#: src/gui.c:5150
 msgid "Full Screen"
 msgstr "Ceo ekran"
 
-#: src/gui.c:5096
+#: src/gui.c:5188
 msgid "Volume 100%"
 msgstr "Jačina zvuka 100%"
 
-#: src/support.c:684 src/thread.c:159
+#: src/support.c:697 src/thread.c:146
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Ne mogu da otvorim DVD uređaj: %s"
 
-#: src/support.c:1386 src/support.c:1419 src/support.c:1464 src/support.c:1494
+#: src/support.c:1433 src/support.c:1466 src/support.c:1511 src/support.c:1541
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Ne mogu da sačuvam listu za puštanje, ne mogu da otvorim datoteku za upis"
 
-#: src/support.c:1750
+#: src/support.c:1820
 #, c-format
 msgid "%2i:%02.0f"
 msgstr "%2i:%02.0f"
 
-#: src/support.c:1752
+#: src/support.c:1822
 #, c-format
 msgid "%i:%02i:%02.0f"
 msgstr "%i:%02i:%02.0f"
 
-#: src/thread.c:152
+#: src/thread.c:139
 #, c-format
 msgid "Failed to open %s"
 msgstr "Ne mogu da otvorim %s"
 
-#: src/thread.c:165
+#: src/thread.c:152
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "Ne mogu da učitam titl: %s"
 
-#: src/thread.c:175
+#: src/thread.c:162
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Upakovani SWF zapis nije podržan"
 
-#: src/thread.c:467 src/thread.c:477
-msgid "Unknown"
-msgstr "Nepoznato"
-
-#: src/thread.c:576
+#: src/thread.c:431
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Popunjenost ostave: %2.2f%%"
 
-#: src/thread.c:585
+#: src/thread.c:440
 #, c-format
 msgid "Connecting"
 msgstr "Povezujem se"
 
-#: src/thread.c:682
+#: src/thread.c:550
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Snimak ekrana je sačuvan u „%s“"
 
-#: src/thread.c:685
+#: src/thread.c:553
 msgid "GNOME MPlayer Notification"
 msgstr "Obaveštenja Gnomovog Mplejera"
 
-#: src/playlist.c:238
+#: src/playlist.c:232
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -1012,31 +1033,31 @@ msgstr ""
 "Ime datoteke: %s\n"
 "Titl: %s"
 
-#: src/playlist.c:260 src/playlist.c:918
+#: src/playlist.c:254 src/playlist.c:907
 msgid "Save Playlist"
 msgstr "Sačuvaj listu za puštanje"
 
-#: src/playlist.c:277 src/playlist.c:331
+#: src/playlist.c:271 src/playlist.c:325
 msgid "Playlist (*.pls)"
 msgstr "Lista za puštanje (*.pls)"
 
-#: src/playlist.c:282 src/playlist.c:341
+#: src/playlist.c:276 src/playlist.c:335
 msgid "MP3 Playlist (*.m3u)"
 msgstr "Lista za puštanje (*.m3u)"
 
-#: src/playlist.c:319 src/playlist.c:910
+#: src/playlist.c:313 src/playlist.c:899
 msgid "Open Playlist"
 msgstr "Otvori listu za puštanje"
 
-#: src/playlist.c:336
+#: src/playlist.c:330
 msgid "Reference Playlist (*.ref)"
 msgstr "Vezana lista za puštanje (*.ref)"
 
-#: src/playlist.c:529
+#: src/playlist.c:524
 msgid "Choose Directory"
 msgstr "Izaberite direktorijum"
 
-#: src/playlist.c:567
+#: src/playlist.c:562
 #, c-format
 msgid ""
 "\n"
@@ -1054,52 +1075,62 @@ msgstr[2] ""
 "\n"
 "\tNađeno %i datoteka\n"
 
-#: src/playlist.c:860
+#: src/playlist.c:835
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Stavka za puštanje"
 msgstr[1] "Stavke za puštanje"
 msgstr[2] "Stavki za puštanje"
 
-#: src/playlist.c:873
+#: src/playlist.c:849
 msgid "Artist"
 msgstr "Izvođač"
 
-#: src/playlist.c:883
+#: src/playlist.c:859
+msgid "Album"
+msgstr ""
+
+#: src/playlist.c:870
 msgid "Length"
 msgstr "Dužina"
 
-#: src/playlist.c:900
+#: src/playlist.c:889
 msgid "Close Playlist View"
 msgstr "Zatvori listu za puštanje"
 
-#: src/playlist.c:926
+#: src/playlist.c:915
 msgid "Add Item to Playlist"
 msgstr "Dodaj stavke u listu"
 
-#: src/playlist.c:934
+#: src/playlist.c:923
 msgid "Remove Item from Playlist"
 msgstr "Ukloni stavke iz liste"
 
-#: src/playlist.c:943
+#: src/playlist.c:932
 msgid "Add Items in Folder to Playlist"
 msgstr "Dodaj stavke iz fascikle u listu"
 
-#: src/playlist.c:952
+#: src/playlist.c:941
 msgid "Clear Playlist"
 msgstr "Očisti listu"
 
-#: src/playlist.c:960
+#: src/playlist.c:949
 msgid "Move Item Up"
 msgstr "Pomeri stavku naviše"
 
-#: src/playlist.c:969
+#: src/playlist.c:958
 msgid "Move Item Down"
 msgstr "Pomeri stavku naniže"
 
-#: src/playlist.c:1019
+#: src/playlist.c:1008
 msgid "_Set Subtitle"
 msgstr "Postavi _titl"
+
+#~ msgid "_DVD"
+#~ msgstr "_DVD"
+
+#~ msgid "Unknown"
+#~ msgstr "Nepoznato"
 
 #~ msgid "Advanced"
 #~ msgstr "Dodatno"
