@@ -629,29 +629,35 @@ gboolean set_new_lang_menu(gpointer data)
 	GList *sub_children;
 	GList *item;
 	GList *sub_item;
-	gboolean updated = FALSE;
+	gboolean found = FALSE;
 	const gchar *text;
+	gint value;
 	
 	children = gtk_container_get_children (GTK_CONTAINER(menu_edit_sub_langs));
 	item = g_list_first(children);
-	while (item && !updated) {
+	while (item && !found) {
+		value = GPOINTER_TO_INT(g_object_get_data(item->data,"id"));
 		sub_children = gtk_container_get_children (GTK_CONTAINER(item->data));
 		sub_item = g_list_first(sub_children);
-		while(sub_item && !updated) {
+		while(sub_item && !found) {
 			text = gtk_label_get_text(GTK_LABEL(sub_item->data));
-			if (g_ascii_isdigit(text[0]) && menu->value == (gint)g_ascii_strtod(text,NULL)) {
-				gtk_label_set_text(GTK_LABEL(sub_item->data),menu->label);
-				updated = TRUE;
+			if (menu->value == value) {
+				if (g_ascii_isdigit(text[0])) {
+					gtk_label_set_text(GTK_LABEL(sub_item->data),menu->label);
+				}
+				found = TRUE;
 			}
 			sub_item = g_list_next(sub_item);
 		}
 		item = g_list_next(item);
 	}
 	
-	if (!updated) {
+	if (!found) {
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), TRUE);
 
 		menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(lang_group, menu->label));
+		g_object_set_data(G_OBJECT(menuitem_lang),"id",GINT_TO_POINTER(menu->value));
+		
 		lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
 
 		gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
@@ -680,29 +686,34 @@ gboolean set_new_audio_menu(gpointer data)
 	GList *sub_children;
 	GList *item;
 	GList *sub_item;
-	gboolean updated = FALSE;
+	gboolean found = FALSE;
 	const gchar *text;
-
+	gint value;
+	
 	children = gtk_container_get_children (GTK_CONTAINER(menu_edit_audio_langs));
 	item = g_list_first(children);
-	while (item && !updated) {
+	while (item && !found) {
+		value = GPOINTER_TO_INT(g_object_get_data(item->data,"id"));
 		sub_children = gtk_container_get_children (GTK_CONTAINER(item->data));
 		sub_item = g_list_first(sub_children);
-		while(sub_item && !updated) {
+		while(sub_item && !found) {
 			text = gtk_label_get_text(GTK_LABEL(sub_item->data));
-			if (g_ascii_isdigit(text[0]) && menu->value == (gint)g_ascii_strtod(text,NULL)) {
-				gtk_label_set_text(GTK_LABEL(sub_item->data),menu->label);
-				updated = TRUE;
+			if (menu->value == value) {
+				if (g_ascii_isdigit(text[0])) {
+					gtk_label_set_text(GTK_LABEL(sub_item->data),menu->label);
+				}
+				found = TRUE;
 			}
 			sub_item = g_list_next(sub_item);
 		}
 		item = g_list_next(item);
 	}
 	
-	if (!updated) {
+	if (!found) {
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
 
 		menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(audio_group, menu->label));
+		g_object_set_data(G_OBJECT(menuitem_lang),"id",GINT_TO_POINTER(menu->value));
 		audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
 		gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
 		g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
