@@ -218,6 +218,8 @@ gint play_iter(GtkTreeIter * playiter)
         metadata->artist = g_strdup(artist);
         metadata->album = g_strdup(album);
         g_thread_create(get_cover_art, metadata, FALSE, NULL);
+    } else {
+        gtk_image_clear(GTK_IMAGE(cover_art));
     }
 
     g_strlcpy(idledata->media_info, message, 1024);

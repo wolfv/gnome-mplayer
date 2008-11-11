@@ -625,48 +625,48 @@ void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer sid)
 gboolean set_new_lang_menu(gpointer data)
 {
     LangMenu *menu = (LangMenu *) data;
-	GList *children;
-	GList *sub_children;
-	GList *item;
-	GList *sub_item;
-	gboolean found = FALSE;
-	const gchar *text;
-	gint value;
-	
-	children = gtk_container_get_children (GTK_CONTAINER(menu_edit_sub_langs));
-	item = g_list_first(children);
-	while (item && !found) {
-		value = GPOINTER_TO_INT(g_object_get_data(item->data,"id"));
-		sub_children = gtk_container_get_children (GTK_CONTAINER(item->data));
-		sub_item = g_list_first(sub_children);
-		while(sub_item && !found) {
-			text = gtk_label_get_text(GTK_LABEL(sub_item->data));
-			if (menu->value == value) {
-				if (g_ascii_isdigit(text[0])) {
-					gtk_label_set_text(GTK_LABEL(sub_item->data),menu->label);
-				}
-				found = TRUE;
-			}
-			sub_item = g_list_next(sub_item);
-		}
-		item = g_list_next(item);
-	}
-	
-	if (!found) {
-		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), TRUE);
+    GList *children;
+    GList *sub_children;
+    GList *item;
+    GList *sub_item;
+    gboolean found = FALSE;
+    const gchar *text;
+    gint value;
 
-		menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(lang_group, menu->label));
-		g_object_set_data(G_OBJECT(menuitem_lang),"id",GINT_TO_POINTER(menu->value));
-		
-		lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
+    children = gtk_container_get_children(GTK_CONTAINER(menu_edit_sub_langs));
+    item = g_list_first(children);
+    while (item && !found) {
+        value = GPOINTER_TO_INT(g_object_get_data(item->data, "id"));
+        sub_children = gtk_container_get_children(GTK_CONTAINER(item->data));
+        sub_item = g_list_first(sub_children);
+        while (sub_item && !found) {
+            text = gtk_label_get_text(GTK_LABEL(sub_item->data));
+            if (menu->value == value) {
+                if (g_ascii_isdigit(text[0])) {
+                    gtk_label_set_text(GTK_LABEL(sub_item->data), menu->label);
+                }
+                found = TRUE;
+            }
+            sub_item = g_list_next(sub_item);
+        }
+        item = g_list_next(item);
+    }
 
-		gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
-		g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-						 G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
-	}
-	gtk_widget_show(GTK_WIDGET(menuitem_lang));
-	g_free(menu->label);
-	g_free(menu);
+    if (!found) {
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), TRUE);
+
+        menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(lang_group, menu->label));
+        g_object_set_data(G_OBJECT(menuitem_lang), "id", GINT_TO_POINTER(menu->value));
+
+        lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
+
+        gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
+        g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+                         G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
+    }
+    gtk_widget_show(GTK_WIDGET(menuitem_lang));
+    g_free(menu->label);
+    g_free(menu);
     return FALSE;
 }
 
@@ -682,44 +682,44 @@ void menuitem_audio_callback(GtkMenuItem * menuitem, gpointer aid)
 gboolean set_new_audio_menu(gpointer data)
 {
     LangMenu *menu = (LangMenu *) data;
-	GList *children;
-	GList *sub_children;
-	GList *item;
-	GList *sub_item;
-	gboolean found = FALSE;
-	const gchar *text;
-	gint value;
-	
-	children = gtk_container_get_children (GTK_CONTAINER(menu_edit_audio_langs));
-	item = g_list_first(children);
-	while (item && !found) {
-		value = GPOINTER_TO_INT(g_object_get_data(item->data,"id"));
-		sub_children = gtk_container_get_children (GTK_CONTAINER(item->data));
-		sub_item = g_list_first(sub_children);
-		while(sub_item && !found) {
-			text = gtk_label_get_text(GTK_LABEL(sub_item->data));
-			if (menu->value == value) {
-				if (g_ascii_isdigit(text[0])) {
-					gtk_label_set_text(GTK_LABEL(sub_item->data),menu->label);
-				}
-				found = TRUE;
-			}
-			sub_item = g_list_next(sub_item);
-		}
-		item = g_list_next(item);
-	}
-	
-	if (!found) {
-		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
+    GList *children;
+    GList *sub_children;
+    GList *item;
+    GList *sub_item;
+    gboolean found = FALSE;
+    const gchar *text;
+    gint value;
 
-		menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(audio_group, menu->label));
-		g_object_set_data(G_OBJECT(menuitem_lang),"id",GINT_TO_POINTER(menu->value));
-		audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
-		gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
-		g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-						 G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
-	}
-	gtk_widget_show(GTK_WIDGET(menuitem_lang));
+    children = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
+    item = g_list_first(children);
+    while (item && !found) {
+        value = GPOINTER_TO_INT(g_object_get_data(item->data, "id"));
+        sub_children = gtk_container_get_children(GTK_CONTAINER(item->data));
+        sub_item = g_list_first(sub_children);
+        while (sub_item && !found) {
+            text = gtk_label_get_text(GTK_LABEL(sub_item->data));
+            if (menu->value == value) {
+                if (g_ascii_isdigit(text[0])) {
+                    gtk_label_set_text(GTK_LABEL(sub_item->data), menu->label);
+                }
+                found = TRUE;
+            }
+            sub_item = g_list_next(sub_item);
+        }
+        item = g_list_next(item);
+    }
+
+    if (!found) {
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
+
+        menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(audio_group, menu->label));
+        g_object_set_data(G_OBJECT(menuitem_lang), "id", GINT_TO_POINTER(menu->value));
+        audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
+        gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
+        g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+                         G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
+    }
+    gtk_widget_show(GTK_WIDGET(menuitem_lang));
     g_free(menu->label);
     g_free(menu);
 
@@ -841,7 +841,8 @@ gboolean resize_window(void *data)
                         if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
                             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
                             gtk_widget_show(GTK_WIDGET(fixed));
-                            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
+                            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),
+                                                           TRUE);
                         } else {
                             gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
                         }
@@ -2164,10 +2165,10 @@ void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
     add_item_to_playlist("tv://", 0);
-						 
+
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-		play_iter(&iter);
-	}
+        play_iter(&iter);
+    }
 }
 
 void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
@@ -2759,8 +2760,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_widget_hide(menubar);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), FALSE);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
-			restore_playlist = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist));
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), FALSE);
+            restore_playlist =
+                gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist));
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), FALSE);
             while (gtk_events_pending())
                 gtk_main_iteration();
         }
@@ -4590,7 +4592,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_acd));
     menuitem_file_open_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_sep1));
-	
+
     menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
     gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvd));
     menuitem_file_open_dvdnav =
@@ -4920,6 +4922,7 @@ GtkWidget *create_window(gint windowid)
 
     cover_art = gtk_image_new();
     media_label = gtk_label_new("");
+    gtk_widget_set_size_request(media_label, 300, -1);
     media_hbox = gtk_hbox_new(FALSE, 10);
     details_vbox = gtk_vbox_new(FALSE, 10);
     gtk_misc_set_alignment(GTK_MISC(media_label), 0, 0);
@@ -5254,7 +5257,7 @@ GtkWidget *create_window(gint windowid)
 
         gtk_widget_hide(fixed);
         gtk_widget_hide(menubar);
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),FALSE);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
         gtk_widget_hide(menu_event_box);
 
         gtk_widget_hide_all(controls_box);
@@ -5276,12 +5279,12 @@ GtkWidget *create_window(gint windowid)
                 gtk_widget_show(GTK_WIDGET(vol_slider));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),TRUE);
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
                 control_instance = FALSE;
             }
             if (g_strcasecmp(visuals[i], "infopanel") == 0) {
-				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),TRUE);
-				control_instance = FALSE;
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
+                control_instance = FALSE;
             }
 
             if (g_strcasecmp(visuals[i], "volumeslider") == 0) {

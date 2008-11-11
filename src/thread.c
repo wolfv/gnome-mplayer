@@ -508,10 +508,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ID_SUBTITLE_ID=") != 0) {
         menu = g_new0(LangMenu, 1);
         sscanf(mplayer_output->str, "ID_SUBTITLE_ID=%i", &menu->value);
-		menu->label = g_strdup_printf("%i",menu->value);
-		g_idle_add(set_new_lang_menu, menu);
+        menu->label = g_strdup_printf("%i", menu->value);
+        g_idle_add(set_new_lang_menu, menu);
     }
-	
+
     if (strstr(mplayer_output->str, "ID_AID_") != 0) {
         menu = g_new0(LangMenu, 1);
         sscanf(mplayer_output->str, "ID_AID_%i_", &menu->value);
@@ -527,10 +527,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ID_AUDIO_ID=") != 0) {
         menu = g_new0(LangMenu, 1);
         sscanf(mplayer_output->str, "ID_AUDIO_ID=%i", &menu->value);
-		menu->label = g_strdup_printf("%i",menu->value);
-		g_idle_add(set_new_audio_menu, menu);
+        menu->label = g_strdup_printf("%i", menu->value);
+        g_idle_add(set_new_audio_menu, menu);
     }
-	
+
     if (strstr(mplayer_output->str, "File not found") != 0) {
     }
 
@@ -564,7 +564,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             message = NULL;
         }
         if (buf != NULL) {
-            for (i = 0; i < (int) strlen(buf) - 1; i++) {
+            for (i = 1; i < (int) strlen(buf) - 1; i++) {
                 if (buf[i] == '\'') {
                     buf[i] = '\0';
                     break;
