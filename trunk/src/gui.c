@@ -625,18 +625,42 @@ void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer sid)
 gboolean set_new_lang_menu(gpointer data)
 {
     LangMenu *menu = (LangMenu *) data;
-    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), TRUE);
+	GList *children;
+	GList *sub_children;
+	GList *item;
+	GList *sub_item;
+	gboolean updated = FALSE;
+	const gchar *text;
+	
+	children = gtk_container_get_children (GTK_CONTAINER(menu_edit_sub_langs));
+	item = g_list_first(children);
+	while (item && !updated) {
+		sub_children = gtk_container_get_children (GTK_CONTAINER(item->data));
+		sub_item = g_list_first(sub_children);
+		while(sub_item && !updated) {
+			text = gtk_label_get_text(GTK_LABEL(sub_item->data));
+			if (g_ascii_isdigit(text[0]) && menu->value == (gint)g_ascii_strtod(text,NULL)) {
+				gtk_label_set_text(GTK_LABEL(sub_item->data),menu->label);
+				updated = TRUE;
+			}
+			sub_item = g_list_next(sub_item);
+		}
+		item = g_list_next(item);
+	}
+	
+	if (!updated) {
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), TRUE);
 
-    menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(lang_group, menu->label));
-    lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
+		menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(lang_group, menu->label));
+		lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
 
-    gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
-    g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-                     G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
-    gtk_widget_show(GTK_WIDGET(menuitem_lang));
-    g_free(menu->label);
-    g_free(menu);
-
+		gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
+		g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+						 G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
+	}
+	gtk_widget_show(GTK_WIDGET(menuitem_lang));
+	g_free(menu->label);
+	g_free(menu);
     return FALSE;
 }
 
@@ -652,14 +676,39 @@ void menuitem_audio_callback(GtkMenuItem * menuitem, gpointer aid)
 gboolean set_new_audio_menu(gpointer data)
 {
     LangMenu *menu = (LangMenu *) data;
-    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
+	GList *children;
+	GList *sub_children;
+	GList *item;
+	GList *sub_item;
+	gboolean updated = FALSE;
+	const gchar *text;
 
-    menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(audio_group, menu->label));
-    audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
-    gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
-    g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-                     G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
-    gtk_widget_show(GTK_WIDGET(menuitem_lang));
+	children = gtk_container_get_children (GTK_CONTAINER(menu_edit_audio_langs));
+	item = g_list_first(children);
+	while (item && !updated) {
+		sub_children = gtk_container_get_children (GTK_CONTAINER(item->data));
+		sub_item = g_list_first(sub_children);
+		while(sub_item && !updated) {
+			text = gtk_label_get_text(GTK_LABEL(sub_item->data));
+			if (g_ascii_isdigit(text[0]) && menu->value == (gint)g_ascii_strtod(text,NULL)) {
+				gtk_label_set_text(GTK_LABEL(sub_item->data),menu->label);
+				updated = TRUE;
+			}
+			sub_item = g_list_next(sub_item);
+		}
+		item = g_list_next(item);
+	}
+	
+	if (!updated) {
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
+
+		menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(audio_group, menu->label));
+		audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
+		gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
+		g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+						 G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
+	}
+	gtk_widget_show(GTK_WIDGET(menuitem_lang));
     g_free(menu->label);
     g_free(menu);
 
