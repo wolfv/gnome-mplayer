@@ -1,4 +1,5 @@
 Development
+    Remove show_media_label
     Track media info visibility correctly
     Fix playlist and media info visibility when going fullscreen
     Fix Audio and Subtitle selection so that if we have a label the id isn't shown as well
