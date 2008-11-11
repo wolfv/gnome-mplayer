@@ -1,4 +1,6 @@
 Development
+    Track media info visibility correctly
+    Fix playlist and media info visibility when going fullscreen
     Fix Audio and Subtitle selection so that if we have a label the id isn't shown as well
     Changed File->DVD to File->Disc and moved Audio CD and added Video CD to the submenu
     Improved audio and subtitle selection, will put id in the menu if no label exists
