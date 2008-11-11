@@ -738,7 +738,6 @@ gboolean resize_window(void *data)
     if (GTK_IS_WIDGET(window)) {
         if (idle->videopresent) {
             gtk_widget_show(vbox);
-            show_media_label = FALSE;
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
             g_get_current_time(&currenttime);
             last_movement_time = currenttime.tv_sec;
@@ -828,7 +827,6 @@ gboolean resize_window(void *data)
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             } else {
                 if (embed_window != -1) {
-                    show_media_label = TRUE;
                     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
                     if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
                         // gtk_widget_hide(drawing_area);
@@ -2488,10 +2486,8 @@ void menuitem_view_info_callback(GtkMenuItem * menuitem, void *data)
     if (GTK_IS_WIDGET(media_hbox)) {
         if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
             gtk_widget_hide_all(media_hbox);
-            show_media_label = FALSE;
         } else {
             gtk_widget_show_all(media_hbox);
-            show_media_label = TRUE;
         }
     }
 }
@@ -5228,7 +5224,6 @@ GtkWidget *create_window(gint windowid)
             gtk_widget_show_all(window);
         gtk_widget_hide(media_hbox);
         gtk_widget_hide(menu_event_box);
-        show_media_label = TRUE;
         if (disable_fullscreen)
             gtk_widget_hide(fs_event_box);
 
@@ -5259,9 +5254,8 @@ GtkWidget *create_window(gint windowid)
 
         gtk_widget_hide(fixed);
         gtk_widget_hide(menubar);
-        gtk_widget_hide(media_hbox);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),FALSE);
         gtk_widget_hide(menu_event_box);
-        show_media_label = FALSE;
 
         gtk_widget_hide_all(controls_box);
 
@@ -5282,16 +5276,12 @@ GtkWidget *create_window(gint windowid)
                 gtk_widget_show(GTK_WIDGET(vol_slider));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
-                gtk_widget_show_all(GTK_WIDGET(media_hbox));
-                show_media_label = TRUE;
-
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),TRUE);
                 control_instance = FALSE;
             }
             if (g_strcasecmp(visuals[i], "infopanel") == 0) {
-                gtk_widget_show_all(GTK_WIDGET(media_hbox));
-                show_media_label = TRUE;
-
-                control_instance = FALSE;
+				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),TRUE);
+				control_instance = FALSE;
             }
 
             if (g_strcasecmp(visuals[i], "volumeslider") == 0) {
