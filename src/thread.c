@@ -564,20 +564,20 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             message = NULL;
         }
         if (buf != NULL) {
-            message = g_strdup_printf("%s", buf + 1);
-            for (i = 0; i < (int) strlen(message) - 1; i++) {
-                if (message[i] == '\'') {
-                    message[i] = '\0';
+            for (i = 0; i < (int) strlen(buf) - 1; i++) {
+                if (buf[i] == '\'') {
+                    buf[i] = '\0';
                     break;
                 }
             }
+            message = g_strdup_printf("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
         }
         if (message) {
-            g_strlcpy(idledata->info, message, 1024);
+            g_strlcpy(idledata->media_info, message, 1024);
             g_free(message);
             message = NULL;
         }
-        g_idle_add(set_media_info, idledata);
+        g_idle_add(set_media_label, idledata);
     }
 
     if (verbose > 1) {

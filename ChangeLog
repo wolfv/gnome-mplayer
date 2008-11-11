@@ -1,4 +1,5 @@
 Development
+    Fix problems in ICY info display, due to rework of media_label
     Remove show_media_label
     Track media info visibility correctly
     Fix playlist and media info visibility when going fullscreen
