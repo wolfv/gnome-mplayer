@@ -894,14 +894,8 @@ gboolean streaming_media(gchar * uri)
 
     if (uri == NULL)
         return FALSE;
-    if (strstr(uri, "dvd://") != NULL) {
-        ret = FALSE;
-    } else if (strstr(uri, "dvdnav://") != NULL) {
-        ret = FALSE;
-    } else if (strstr(uri, "cdda://") != NULL) {
-        ret = FALSE;
-    } else if (strstr(uri, "tv://") != NULL) {
-        ret = FALSE;
+    if (device_name(uri)) {
+		return FALSE;
     } else {
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
@@ -945,6 +939,8 @@ gboolean device_name(gchar * filename)
     } else if (g_ascii_strncasecmp(filename, "cddb://", strlen("cddb://")) == 0) {
         ret = TRUE;
     } else if (g_ascii_strncasecmp(filename, "tv://", strlen("tv://")) == 0) {
+        ret = TRUE;
+    } else if (g_ascii_strncasecmp(filename, "vcd://", strlen("vcd://")) == 0) {
         ret = TRUE;
     } else {
         ret = FALSE;

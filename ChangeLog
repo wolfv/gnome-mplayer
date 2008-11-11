@@ -1,4 +1,5 @@
 Development
+    Changed File->DVD to File->Disc and moved Audio CD and added Video CD to the submenu
     Improved audio and subtitle selection, will put id in the menu if no label exists
     Fix missing data in copy_playlist
     Put media display name on status icon tooltip when playing or paused
