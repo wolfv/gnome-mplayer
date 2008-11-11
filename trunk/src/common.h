@@ -188,7 +188,7 @@ enum {
     ARTIST_COLUMN,
     ALBUM_COLUMN,
     LENGTH_COLUMN,
-	LENGTH_VALUE_COLUMN,
+    LENGTH_VALUE_COLUMN,
     SUBTITLE_COLUMN,
     COVERART_COLUMN,
     AUDIO_CODEC_COLUMN,
@@ -201,7 +201,7 @@ typedef struct _MetaData {
     gchar *artist;
     gchar *album;
     gchar *length;
-	gfloat length_value;
+    gfloat length_value;
     gchar *subtitle;
     gchar *audio_codec;
     gchar *video_codec;
