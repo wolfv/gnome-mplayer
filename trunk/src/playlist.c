@@ -743,7 +743,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 stored_window_height = -1;
                 gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
                 gtk_widget_hide(GTK_WIDGET(fixed));
-                gtk_widget_show_all(media_hbox);
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
                 gtk_widget_show(vbox);
                 gtk_widget_set_size_request(window, -1, -1);
             } else {
