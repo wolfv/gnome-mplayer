@@ -137,7 +137,7 @@ gint play_iter(GtkTreeIter * playiter)
     GtkTreePath *path;
     gchar *local_file = NULL;
     gchar *uri = NULL;
-    gint count;
+    gint count, pos;
     gint playlist;
     gchar *title = NULL;
     gchar *artist = NULL;
@@ -168,7 +168,14 @@ gint play_iter(GtkTreeIter * playiter)
             gtk_tree_selection_select_path(selection, path);
             if (GTK_IS_WIDGET(list))
                 gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
+			buffer = gtk_tree_path_to_string(path);
+			pos = (gint) g_strtod(buffer, NULL);
+			g_free(buffer);
             gtk_tree_path_free(path);
+            gtk_widget_set_sensitive(down, (pos - 1 <= 0));
+            gtk_widget_set_sensitive(next_event_box, (pos - 1 <= 0));
+            gtk_widget_set_sensitive(up, (pos + 2 >= gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)));
+            gtk_widget_set_sensitive(prev_event_box, (pos + 2 >= gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)));
         }
         gtk_list_store_set(playliststore, playiter, COUNT_COLUMN, count + 1, -1);
     } else {

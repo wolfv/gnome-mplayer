@@ -2054,9 +2054,7 @@ gchar *get_localfile_from_uri(gchar * uri)
     if (localfile == NULL) {
         if (verbose)
             printf("using gio to access file\n");
-        tmp = getenv("TMP");
-        if (tmp == NULL)
-            tmp = g_strdup("/tmp");
+        tmp = g_strdup_printf("%s/.gnome-mplayer/cache", getenv("HOME"));
 
         idledata->src = g_file_new_for_uri(uri);
         localfile = g_file_get_path(idledata->src);
