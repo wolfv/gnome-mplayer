@@ -1,4 +1,5 @@
 Development
+    Copy gio temp file to $HOME/.gnome-mplayer/cache instead of /tmp
     Fix problems in ICY info display, due to rework of media_label
     Remove show_media_label
     Track media info visibility correctly
