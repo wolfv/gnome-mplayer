@@ -173,23 +173,23 @@ msgstr ""
 
 #: src/main.c:114
 msgid "Ignore single instance preference for this instance"
-msgstr ""
+msgstr "Ignoriere die Option 'Erlaube nur eine Instanz' für diese Instanz"
 
 #: src/main.c:117
 msgid "Keep window on top"
-msgstr ""
+msgstr "Fenster immer sichtbar"
 
 #: src/main.c:121
 msgid "Load all tracks from media player using gpod"
-msgstr ""
+msgstr "Lade alle Titel vom Media Player mit gpod"
 
 #: src/main.c:125
 msgid "Don't fetch new cover art images"
-msgstr ""
+msgstr "Hole keine neuen Cover"
 
 #: src/main.c:529
 msgid "[FILES...] - GNOME Media player based on MPlayer"
-msgstr "[FILES...] - GNOME Media player based on MPlayer"
+msgstr "[Dateien...] - GNOME Media player based on MPlayer"
 
 #: src/main.c:549
 #, c-format
@@ -221,7 +221,7 @@ msgstr "%s - GNOME MPlayer"
 #: src/gui.c:137
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
-msgstr ""
+msgstr "%s - (%i/%i) - GNOME MPlayer"
 
 #: src/gui.c:140 src/gui.c:224 src/gui.c:2384 src/gui.c:4431
 #, c-format
@@ -273,7 +273,7 @@ msgstr "Pause"
 #: src/gui.c:607
 #, c-format
 msgid "Idle"
-msgstr ""
+msgstr "Untätig"
 
 #: src/gui.c:961 src/gui.c:971 src/gui.c:1754 src/gui.c:1782 src/thread.c:362
 #, c-format
@@ -476,7 +476,7 @@ msgstr "Untertitel"
 
 #: src/gui.c:3569
 msgid "Interface"
-msgstr ""
+msgstr "Benutzeroberfläche"
 
 #: src/gui.c:3571
 #, fuzzy
@@ -526,13 +526,15 @@ msgstr "<span weight=\"bold\">Passe Konfigurationen an</span>"
 
 #: src/gui.c:3758
 msgid "Default Volume Level:"
-msgstr ""
+msgstr "Standard Lautstärke"
 
 #: src/gui.c:3767
 msgid ""
 "Default volume for playback, a value of -1 causes the setting from ALSA to "
 "be used"
 msgstr ""
+"Standard Lautstärke für die Wiedergabe. Der Wert -1 erzwingt die Übernahme "
+"des ALSA Wertes"
 
 #: src/gui.c:3781
 msgid "Minimum Cache Size (KB):"
@@ -642,11 +644,11 @@ msgstr "Starte mit sichtbarer Wiedergabeliste"
 
 #: src/gui.c:4032
 msgid "Show notification popup"
-msgstr ""
+msgstr "Zeige Notification Popup"
 
 #: src/gui.c:4039
 msgid "Show status icon"
-msgstr ""
+msgstr "Zeige Status Icon"
 
 #: src/gui.c:4046
 msgid "Start with playlist below media window"
@@ -659,7 +661,7 @@ msgstr "Erlaube nur eine Instanz"
 
 #: src/gui.c:4064
 msgid "When opening in single instance mode, replace existing file"
-msgstr ""
+msgstr "Wenn der Modus 'Erlaube nur eine Instanz' aktiviert ist ersetze die aktuelle Datei"
 
 #: src/gui.c:4072
 msgid "Remember Window Location"
@@ -667,7 +669,7 @@ msgstr "Speichere Fenster Position"
 
 #: src/gui.c:4077
 msgid "Keep window above other windows"
-msgstr ""
+msgstr "Fenster immer im Vordergrund"
 
 #: src/gui.c:4082
 msgid "Pause playback on mouse click"
@@ -770,7 +772,7 @@ msgstr "Öffne _Ort"
 
 #: src/gui.c:4573
 msgid "_Disc"
-msgstr ""
+msgstr "_Disc"
 
 #: src/gui.c:4580
 msgid "Open _Audio CD"
@@ -816,7 +818,7 @@ msgstr "Öffne _Digital TV"
 
 #: src/gui.c:4615
 msgid "Open _iPod™"
-msgstr ""
+msgstr "Öffne _iPod™"
 
 #: src/gui.c:4620
 #, fuzzy
@@ -1083,7 +1085,7 @@ msgstr "Künstler"
 
 #: src/playlist.c:859
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: src/playlist.c:870
 msgid "Length"
@@ -1121,79 +1123,3 @@ msgstr "Titel nach unten bewegen"
 msgid "_Set Subtitle"
 msgstr "_Setzte Untertitel"
 
-#~ msgid "_DVD"
-#~ msgstr "_DVD"
-
-#~ msgid "Unknown"
-#~ msgstr "Unbekannt"
-
-#, fuzzy
-#~ msgid ""
-#~ "<small>\n"
-#~ "\t<big><b>%s</b></big>\n"
-#~ "\t<i>%s</i>\n"
-#~ "\t%s\n"
-#~ "</small>"
-#~ msgstr ""
-#~ "<small>\n"
-#~ "<b>Title:</b>\t%s\n"
-#~ "<b>Künstler:</b>\t%s\n"
-#~ "<b>Datei:</b>\t%s\n"
-#~ "</small>"
-
-#~ msgid "Advanced"
-#~ msgstr "Erweitert"
-
-#~ msgid ""
-#~ "<small>\n"
-#~ "<b>Title:</b>\t%s\n"
-#~ "<b>Artist:</b>\t%s\n"
-#~ "<b>Album:</b>\t%s\n"
-#~ "</small>"
-#~ msgstr ""
-#~ "<small>\n"
-#~ "<b>Title:</b>\t%s\n"
-#~ "<b>Künstler:</b>\t%s\n"
-#~ "<b>Album:</b>\t%s\n"
-#~ "</small>"
-
-#~ msgid ""
-#~ "<small>\n"
-#~ "<b>File:</b>\t%s\n"
-#~ "</small>"
-#~ msgstr ""
-#~ "<small>\n"
-#~ "<b>Datei:</b>\t%s\n"
-#~ "</small>"
-
-#~ msgid "_Copy URL"
-#~ msgstr "_Kopiere URL"
-
-#~ msgid "%s"
-#~ msgstr "%s"
-
-#~ msgid "%2i:%02i | %2i%% ▼"
-#~ msgstr "%2i:%02i | %2i%% ▼"
-
-#~ msgid "%2i:%02i / %2i:%02i | %2i%% ▼"
-#~ msgstr "%2i:%02i / %2i:%02i | %2i%% ▼"
-
-#~ msgid "%2i:%02i / %2i:%02i"
-#~ msgstr "%2i:%02i / %2i:%02i"
-
-#~ msgid "%i:%02i:%02i | %2i%% ▼"
-#~ msgstr "%i:%02i:%02i | %2i%% ▼"
-
-#~ msgid "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
-#~ msgstr "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
-
-#~ msgid "%i:%02i:%02i / %i:%02i:%02i"
-#~ msgstr "%i:%02i:%02i / %i:%02i:%02i"
-
-#~ msgid "Datei zum Abspielen"
-#~ msgid_plural "Dateien zum Abspielen"
-#~ msgstr[0] "Datei zum Abspielen"
-#~ msgstr[1] "Dateien zum Abspielen"
-
-#~ msgid "File Details"
-#~ msgstr "File Details"
