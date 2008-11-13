@@ -52,6 +52,37 @@ gint get_player_window()
     }
 }
 
+void adjust_paned_rules()
+{
+    if (!idledata->videopresent) {
+
+        g_object_ref(vbox);
+        gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child1);
+        gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, FALSE);
+        g_object_unref(vbox);
+        if (GTK_IS_WIDGET(plvbox)) {
+            g_object_ref(plvbox);
+            gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child2);
+            gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
+            g_object_unref(plvbox);
+        }
+    }
+}
+
+void reset_paned_rules()
+{
+    g_object_ref(vbox);
+    gtk_container_remove(GTK_CONTAINER(pane), vbox);
+    gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
+    g_object_unref(vbox);
+    if (GTK_IS_WIDGET(plvbox)) {
+        g_object_ref(plvbox);
+        gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child2);
+        gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
+        g_object_unref(plvbox);
+    }
+}
+
 gboolean hide_buttons(void *data)
 {
     IdleData *idle = (IdleData *) data;
@@ -812,6 +843,7 @@ gboolean resize_window(void *data)
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
+            adjust_paned_rules();
             if (window_x > 0 && window_y > 0) {
                 total_height = window_y;
                 gtk_widget_set_size_request(fixed, -1, -1);
@@ -884,6 +916,7 @@ gboolean resize_window(void *data)
             //gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_file_details),FALSE);
             menuitem_details_callback(NULL, NULL);
         }
+
     }
     if (idle != NULL)
         idle->window_resized = TRUE;

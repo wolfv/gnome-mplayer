@@ -327,6 +327,8 @@ GtkWidget *list;
 
 GtkWidget *create_window(gint windowid);
 gint get_player_window();
+void adjust_paned_rules();
+void reset_paned_rules();
 gboolean hide_buttons(void *data);
 gboolean show_copyurl(void *data);
 gboolean set_media_info(void *data);
