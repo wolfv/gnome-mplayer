@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-11 10:36-0700\n"
-"PO-Revision-Date: 2008-11-13 18:53+0100\n"
+"PO-Revision-Date: 2008-11-13 21:21+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -824,7 +824,7 @@ msgstr "Otwórz TV _cyfrową"
 
 #: src/gui.c:4615
 msgid "Open _iPod™"
-msgstr " twórz"
+msgstr "Otwórz _iPod™"
 
 #: src/gui.c:4620
 msgid "Open _Recent"
@@ -922,11 +922,11 @@ msgstr "Pokaż n_apisy"
 
 #: src/gui.c:4796
 msgid "Switch An_gle"
-msgstr "Zmień _kąt"
+msgstr "Zmień ką_t"
 
 #: src/gui.c:4797
 msgid "_Controls"
-msgstr "Elementy _sterujące"
+msgstr "_Elementy sterujące"
 
 #: src/gui.c:4806
 msgid "Advanced _Options"
