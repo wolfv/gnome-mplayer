@@ -1,4 +1,5 @@
 Development
+    Don't get album art when streaming or device
     Updated the paned resize and shrinking rules to work better
     Updated German Translation
     Copy gio temp file to $HOME/.gnome-mplayer/cache instead of /tmp

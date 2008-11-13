@@ -172,6 +172,7 @@ gint play_iter(GtkTreeIter * playiter)
             pos = (gint) g_strtod(buffer, NULL);
             g_free(buffer);
             gtk_tree_path_free(path);
+			/*
             gtk_widget_set_sensitive(down, (pos - 1 <= 0));
             gtk_widget_set_sensitive(next_event_box, (pos - 1 <= 0));
             gtk_widget_set_sensitive(up,
@@ -182,6 +183,7 @@ gint play_iter(GtkTreeIter * playiter)
                                      (pos + 2 >=
                                       gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),
                                                                      NULL)));
+			*/
         }
         gtk_list_store_set(playliststore, playiter, COUNT_COLUMN, count + 1, -1);
     } else {
@@ -226,7 +228,7 @@ gint play_iter(GtkTreeIter * playiter)
     message = g_strconcat(message, "</small>", NULL);
 
     // probably not much cover art for random video files
-    if (pixbuf == NULL && video_codec == NULL) {
+    if (pixbuf == NULL && video_codec == NULL && !streaming_media (uri) && !device_name(uri)) {
         metadata = (MetaData *) g_new0(MetaData, 1);
         metadata->title = g_strdup(title);
         metadata->artist = g_strdup(artist);
