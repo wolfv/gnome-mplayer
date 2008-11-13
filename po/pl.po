@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-11 10:36-0700\n"
-"PO-Revision-Date: 2008-10-31 16:50+0100\n"
+"PO-Revision-Date: 2008-11-13 18:53+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -179,11 +179,11 @@ msgstr "Trzymaj okno na wierzchu"
 
 #: src/main.c:121
 msgid "Load all tracks from media player using gpod"
-msgstr ""
+msgstr "Załaduj wszystkie ścieżki z odtwarzacza multimediów za pomocą gpoda"
 
 #: src/main.c:125
 msgid "Don't fetch new cover art images"
-msgstr ""
+msgstr "Nie pobieraj nowych obrazów okładek"
 
 #: src/main.c:529
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -260,14 +260,14 @@ msgid "Adding %s to playlist"
 msgstr "Dodawanie %s do listy odtwarzania"
 
 #: src/gui.c:603
-#, fuzzy, c-format
+#, c-format
 msgid "Playing %s"
-msgstr "Odtwarzanie"
+msgstr "Odtwarzanie %s"
 
 #: src/gui.c:605
-#, fuzzy, c-format
+#, c-format
 msgid "Paused %s"
-msgstr "Zapauzowany"
+msgstr "Zapauzowano %s"
 
 #: src/gui.c:607
 #, c-format
@@ -544,12 +544,11 @@ msgid "Default Volume Level:"
 msgstr "Domyślna siła głosu:"
 
 #: src/gui.c:3767
-#, fuzzy
 msgid ""
 "Default volume for playback, a value of -1 causes the setting from ALSA to "
 "be used"
 msgstr ""
-"Domyślna głośność dla odtwarzania, wartości 0 lub 100 powodują użycie "
+"Domyślna głośność dla odtwarzania, wartość -1 powoduje użycie "
 "ustawień Alsy"
 
 #: src/gui.c:3781
@@ -785,7 +784,7 @@ msgstr "Otwórz _lokalizację"
 
 #: src/gui.c:4573
 msgid "_Disc"
-msgstr ""
+msgstr "_Dysk"
 
 #: src/gui.c:4580
 msgid "Open _Audio CD"
@@ -808,9 +807,8 @@ msgid "Open DVD from Folder with M_enus"
 msgstr "Otwórz DVD z katalogu z m_enu"
 
 #: src/gui.c:4598
-#, fuzzy
 msgid "Open _VCD"
-msgstr "Otwórz _DVD"
+msgstr "Otwórz _VCD"
 
 #: src/gui.c:4601
 msgid "_TV"
@@ -826,7 +824,7 @@ msgstr "Otwórz TV _cyfrową"
 
 #: src/gui.c:4615
 msgid "Open _iPod™"
-msgstr ""
+msgstr " twórz"
 
 #: src/gui.c:4620
 msgid "Open _Recent"
@@ -855,7 +853,7 @@ msgstr "Wybierz język _dźwięku"
 
 #: src/gui.c:4697
 msgid "Set Sub_title"
-msgstr "Ustaw _napisy"
+msgstr "_Ustaw napisy"
 
 #: src/gui.c:4701
 msgid "S_elect Subtitle Language"
@@ -1178,3 +1176,4 @@ msgstr "Ustaw _napisy"
 
 #~ msgid "_Copy URL"
 #~ msgstr "S_kopiuj URL"
+
