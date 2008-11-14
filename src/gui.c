@@ -858,9 +858,9 @@ gboolean resize_window(void *data)
                 }
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             } else {
-                if (embed_window != -1) {
+                if (embed_window != -1 && GTK_WIDGET_VISIBLE(window)) {
                     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
-                    if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+                    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
                         // gtk_widget_hide(drawing_area);
                         // gtk_widget_hide(vbox);
                         if (vertical_layout) {
@@ -870,7 +870,7 @@ gboolean resize_window(void *data)
                         }
                     } else {
                         gtk_widget_hide_all(GTK_WIDGET(fixed));
-                        if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+                        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
                             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
                             gtk_widget_show(GTK_WIDGET(fixed));
                             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),

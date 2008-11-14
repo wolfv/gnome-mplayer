@@ -1,4 +1,6 @@
 Development
+    Try and fix resize issue on new song
+    Updated French translation
     Updated Polish translation
     Don't get album art when streaming or device
     Updated the paned resize and shrinking rules to work better
