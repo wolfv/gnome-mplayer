@@ -1,4 +1,5 @@
 Development
+    Convert to XDG .config and .cache file locations
     Fix details resize issue
     Load cover art for CDs and also load the album name into the playlist
     Try to fix the TV issue
