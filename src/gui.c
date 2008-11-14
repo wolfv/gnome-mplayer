@@ -3121,9 +3121,9 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     gchar *buf;
     gint i = 0;
     IdleData *idle = idledata;
-    gint width = 0, height = 0;
-    static gint normal_width = -1, normal_height = -1;
-    GtkRequisition req;
+//    gint width = 0, height = 0;
+//    static gint normal_width = -1, normal_height = -1;
+//    GtkRequisition req;
     gboolean noresize = FALSE;
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
