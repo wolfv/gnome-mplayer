@@ -402,10 +402,7 @@ gint parse_basic(gchar * uri)
                         line_uri = g_strdup_printf("file://%s", newline);
                     }
                 } else {
-                    if (g_strncasecmp(newline, "http://", strlen("http://")) == 0 ||
-                        g_strncasecmp(newline, "mms://", strlen("mms://")) == 0 ||
-                        g_strncasecmp(newline, "rtsp://", strlen("rtsp://")) == 0 ||
-                        g_strncasecmp(newline, "pnm://", strlen("pnm://")) == 0) {
+                    if (streaming_media(newline) || device_name(newline)) {
                         //printf("URL %s\n",newline);
                         add_item_to_playlist(newline, playlist);
                         ret = 1;
