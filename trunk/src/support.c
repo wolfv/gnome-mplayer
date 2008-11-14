@@ -1124,6 +1124,11 @@ MetaData *get_metadata(gchar * uri)
         title = g_strdup_printf("DVD Track %s", localtitle);
     }
 
+	if (title == NULL && g_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
+        localtitle = g_strrstr(name, "/") + 1;
+        title = g_strdup_printf("%s", localtitle);
+    }
+
     if (ret != NULL) {
         ret->title = g_strdup(title);
         ret->artist = g_strdup(artist);
