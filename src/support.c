@@ -571,13 +571,14 @@ gint parse_cdda(gchar * filename)
                 }
 
                 if (ok) {
-                    // printf("track = %s, artist = %s, title = %s, length = %s\n",track,artist,title,length);
+                    //printf("track = %s, artist = %s, album = %s, title = %s, length = %s\n",track,artist,playlistname,title,length);
                     gtk_list_store_append(playliststore, &localiter);
                     gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, track,
                                        DESCRIPTION_COLUMN, title,
                                        COUNT_COLUMN, 0,
                                        PLAYLIST_COLUMN, 0,
                                        ARTIST_COLUMN, artist,
+									   ALBUM_COLUMN, playlistname,
                                        SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, length, -1);
 
 
@@ -587,6 +588,7 @@ gint parse_cdda(gchar * filename)
                                        COUNT_COLUMN, 0,
                                        PLAYLIST_COLUMN, 0,
                                        ARTIST_COLUMN, artist,
+									   ALBUM_COLUMN, playlistname,
                                        SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, length, -1);
                     addcount++;
                 }
