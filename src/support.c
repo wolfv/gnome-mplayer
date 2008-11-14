@@ -1826,12 +1826,12 @@ void init_preference_store()
 {
     gchar *filename;
 
-    filename = g_strdup_printf("%s/.gnome-mplayer/cache/cover_art", getenv("HOME"));
+    filename = g_strdup_printf("%s/.cache/gnome-mplayer/cover_art", getenv("HOME"));
     if (!g_file_test(filename, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(filename, 0775);
     }
     g_free(filename);
-    filename = g_strdup_printf("%s/.gnome-mplayer/cache/plugin", getenv("HOME"));
+    filename = g_strdup_printf("%s/.cache/gnome-mplayer/plugin", getenv("HOME"));
     if (!g_file_test(filename, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(filename, 0775);
     }
@@ -1842,7 +1842,7 @@ void init_preference_store()
 #else
 
     config = g_key_file_new();
-    filename = g_strdup_printf("%s/.gnome-mplayer/gnome-mplayer.conf", getenv("HOME"));
+    filename = g_strdup_printf("%s/.config/gnome-mplayer/gnome-mplayer.conf", getenv("HOME"));
     g_key_file_load_from_file(config,
                               filename,
                               G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
@@ -2058,7 +2058,7 @@ gchar *get_localfile_from_uri(gchar * uri)
     if (localfile == NULL) {
         if (verbose)
             printf("using gio to access file\n");
-        tmp = g_strdup_printf("%s/.gnome-mplayer/cache", getenv("HOME"));
+        tmp = g_strdup_printf("%s/.cache/gnome-mplayer", getenv("HOME"));
 
         idledata->src = g_file_new_for_uri(uri);
         localfile = g_file_get_path(idledata->src);
@@ -2351,16 +2351,16 @@ gpointer get_cover_art(gpointer data)
     }
 
     path =
-        g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s", getenv("HOME"), metadata->artist);
+        g_strdup_printf("%s/.cache/gnome-mplayer/cover_art/%s", getenv("HOME"), metadata->artist);
     if (!g_file_test(path, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(path, 0775);
     }
 
     cache_file =
-        g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.jpeg", getenv("HOME"),
+        g_strdup_printf("%s/.cache/gnome-mplayer/cover_art/%s/%s.jpeg", getenv("HOME"),
                         metadata->artist, metadata->album);
     asin_filename =
-        g_strdup_printf("%s/.gnome-mplayer/cache/cover_art/%s/%s.asin", getenv("HOME"),
+        g_strdup_printf("%s/.cache/gnome-mplayer/cover_art/%s/%s.asin", getenv("HOME"),
                         metadata->artist, metadata->album);
     if (local_artist) {
         g_free(metadata->artist);

@@ -4379,7 +4379,7 @@ void make_button(gchar * src, gchar * hrefid)
         g_error_free(error);
         error = NULL;
 
-        basepath = g_strdup_printf("%s/.gnome-mplayer/cache/plugin", getenv("HOME"));
+        basepath = g_strdup_printf("%s/.cache/gnome-mplayer/plugin", getenv("HOME"));
         dirname = gmp_tempname(path, "gnome-mplayerXXXXXX");
         filename = g_strdup_printf("%s/00000001.jpg", dirname);
 
