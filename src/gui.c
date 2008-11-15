@@ -860,7 +860,7 @@ gboolean resize_window(void *data)
             } else {
                 if (embed_window != -1 && GTK_WIDGET_VISIBLE(window)) {
                     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
-                    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+                    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
                         // gtk_widget_hide(drawing_area);
                         // gtk_widget_hide(vbox);
                         if (vertical_layout) {
@@ -870,7 +870,8 @@ gboolean resize_window(void *data)
                         }
                     } else {
                         gtk_widget_hide_all(GTK_WIDGET(fixed));
-                        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+                        if (gtk_check_menu_item_get_active
+                            (GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
                             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
                             gtk_widget_show(GTK_WIDGET(fixed));
                             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),
@@ -3305,7 +3306,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
 					normal_height = req.height;
 				}
 */
-				gtk_widget_show_all(details_table);
+                gtk_widget_show_all(details_table);
 /*
                 if (noresize == FALSE) {
                     gtk_widget_size_request(GTK_WIDGET(details_table), &req);
@@ -3313,7 +3314,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
                     gtk_window_resize(GTK_WINDOW(window), width, height);
                 }
 */
-			}
+            }
         }
     }
 
@@ -4379,7 +4380,7 @@ void make_button(gchar * src, gchar * hrefid)
         g_error_free(error);
         error = NULL;
 
-        basepath = g_strdup_printf("%s/.cache/gnome-mplayer/plugin", getenv("HOME"));
+        basepath = g_strdup_printf("%s/gnome-mplayer/plugin", g_get_user_cache_dir());
         dirname = gmp_tempname(path, "gnome-mplayerXXXXXX");
         filename = g_strdup_printf("%s/00000001.jpg", dirname);
 
