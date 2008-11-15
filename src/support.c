@@ -2062,7 +2062,7 @@ gchar *get_localfile_from_uri(gchar * uri)
     if (localfile == NULL) {
         if (verbose)
             printf("using gio to access file\n");
-        tmp = g_strdup_printf("%s/.cache/gnome-mplayer", getenv("HOME"));
+        tmp = g_strdup_printf("%s/gnome-mplayer", g_get_user_cache_dir());
 
         idledata->src = g_file_new_for_uri(uri);
         localfile = g_file_get_path(idledata->src);
@@ -2355,16 +2355,16 @@ gpointer get_cover_art(gpointer data)
     }
 
     path =
-        g_strdup_printf("%s/.cache/gnome-mplayer/cover_art/%s", getenv("HOME"), metadata->artist);
+        g_strdup_printf("%s/gnome-mplayer/cover_art/%s", g_get_user_cache_dir(), metadata->artist);
     if (!g_file_test(path, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(path, 0775);
     }
 
     cache_file =
-        g_strdup_printf("%s/.cache/gnome-mplayer/cover_art/%s/%s.jpeg", getenv("HOME"),
+        g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(),
                         metadata->artist, metadata->album);
     asin_filename =
-        g_strdup_printf("%s/.cache/gnome-mplayer/cover_art/%s/%s.asin", getenv("HOME"),
+        g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.asin", g_get_user_cache_dir(),
                         metadata->artist, metadata->album);
     if (local_artist) {
         g_free(metadata->artist);
