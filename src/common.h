@@ -332,7 +332,6 @@ void reset_paned_rules();
 gboolean hide_buttons(void *data);
 gboolean show_copyurl(void *data);
 gboolean set_media_info(void *data);
-gboolean set_media_info_name(gchar * filename);
 gboolean set_media_label(void *data);
 gboolean set_cover_art(gpointer pixbuf);
 gboolean set_progress_value(void *data);

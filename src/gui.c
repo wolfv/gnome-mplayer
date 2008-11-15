@@ -181,24 +181,6 @@ gboolean set_media_info(void *data)
     return FALSE;
 }
 
-
-gboolean set_media_info_name(gchar * uri)
-{
-
-    gchar *buf;
-    gchar *name;
-
-    if (uri != NULL) {
-        name = g_path_get_basename(uri);
-        buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
-        gtk_window_set_title(GTK_WINDOW(window), buf);
-        g_free(buf);
-        g_free(name);
-    }
-    return FALSE;
-}
-
-
 gboolean set_media_label(void *data)
 {
 
