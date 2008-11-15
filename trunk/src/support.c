@@ -578,7 +578,7 @@ gint parse_cdda(gchar * filename)
                                        COUNT_COLUMN, 0,
                                        PLAYLIST_COLUMN, 0,
                                        ARTIST_COLUMN, artist,
-									   ALBUM_COLUMN, playlistname,
+                                       ALBUM_COLUMN, playlistname,
                                        SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, length, -1);
 
 
@@ -588,7 +588,7 @@ gint parse_cdda(gchar * filename)
                                        COUNT_COLUMN, 0,
                                        PLAYLIST_COLUMN, 0,
                                        ARTIST_COLUMN, artist,
-									   ALBUM_COLUMN, playlistname,
+                                       ALBUM_COLUMN, playlistname,
                                        SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, length, -1);
                     addcount++;
                 }
@@ -1126,7 +1126,7 @@ MetaData *get_metadata(gchar * uri)
         title = g_strdup_printf("DVD Track %s", localtitle);
     }
 
-	if (title == NULL && g_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
+    if (title == NULL && g_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
         title = g_strdup_printf("%s", localtitle);
     }
@@ -1826,12 +1826,12 @@ void init_preference_store()
 {
     gchar *filename;
 
-    filename = g_strdup_printf("%s/.cache/gnome-mplayer/cover_art", getenv("HOME"));
+    filename = g_strdup_printf("%s/gnome-mplayer/cover_art", g_get_user_cache_dir());
     if (!g_file_test(filename, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(filename, 0775);
     }
     g_free(filename);
-    filename = g_strdup_printf("%s/.cache/gnome-mplayer/plugin", getenv("HOME"));
+    filename = g_strdup_printf("%s/gnome-mplayer/plugin", g_get_user_cache_dir());
     if (!g_file_test(filename, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(filename, 0775);
     }
@@ -1842,7 +1842,7 @@ void init_preference_store()
 #else
 
     config = g_key_file_new();
-    filename = g_strdup_printf("%s/.config/gnome-mplayer/gnome-mplayer.conf", getenv("HOME"));
+    filename = g_strdup_printf("%s/gnome-mplayer/gnome-mplayer.conf", g_get_user_config_dir());
     g_key_file_load_from_file(config,
                               filename,
                               G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
@@ -2009,7 +2009,7 @@ void release_preference_store()
     gchar *data;
 
     if (config != NULL) {
-        filename = g_strdup_printf("%s/.mplayer/gnome-mplayer.conf", getenv("HOME"));
+        filename = g_strdup_printf("%s/gnome-mplayer/gnome-mplayer.conf", g_get_user_config_dir());
         data = g_key_file_to_data(config, NULL, NULL);
 
         g_file_set_contents(filename, data, -1, NULL);
