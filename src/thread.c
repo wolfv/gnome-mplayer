@@ -81,10 +81,14 @@ gboolean play(void *data)
 
 gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
 {
+	if (verbose > 1)
+		printf("thread complete\n");
     g_idle_add(set_stop, idledata);
     state = QUIT;
     g_source_remove(watch_in_id);
     g_source_remove(watch_err_id);
+	if (verbose > 1)
+		printf("thread_complete, unlocking thread running\n");
     g_mutex_unlock(thread_running);
     return FALSE;
 }
@@ -117,9 +121,13 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     mplayer_output = g_string_new("");
 
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
-    if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
+    if (verbose == 1 && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("ERROR: %s", mplayer_output->str);
 
+	// print out everything in really verbose mode
+	if (verbose > 1)
+		printf("thread reader error: %s", mplayer_output->str);
+	
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
@@ -254,9 +262,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         return TRUE;
     }
     //printf("thread_reader state = %i : status = %i\n",state,status);
-    if (verbose && strstr(mplayer_output->str, "ANS_") == NULL)
-        printf("%s", mplayer_output->str);
+    if (verbose == 1 && strstr(mplayer_output->str, "ANS_") == NULL)
+		printf("%s", mplayer_output->str);
 
+	// print out everything in really verbose mode
+	if (verbose > 1)
+		printf("thread reader: %s", mplayer_output->str);
+	
     if ((strstr(mplayer_output->str, "(Quit)") != NULL)
         || (strstr(mplayer_output->str, "(End of file)") != NULL)) {
         state = QUIT;
@@ -580,9 +592,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_media_label, idledata);
     }
 
-    if (verbose > 1) {
-        printf("MPLAYER OUTPUT: %s\n", mplayer_output->str);
-    }
+	//if (verbose > 1) {
+    //    printf("MPLAYER OUTPUT: %s\n", mplayer_output->str);
+    //}
 
     if (error_msg != NULL) {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
@@ -927,10 +939,13 @@ gpointer launch_player(gpointer data)
 #else
         g_timeout_add(1000, thread_query, threaddata);
 #endif
-
+		if (verbose > 1)
+			printf("About to lock second time, next message about thread running, should be unlocking\n");
         g_mutex_lock(thread_running);
         if (verbose)
             printf("Thread completing\n");
+		if (verbose > 1)
+			printf("thread running, in second lock\n");
         threaddata->done = TRUE;
         g_source_remove(watch_in_id);
         g_source_remove(watch_err_id);
@@ -979,7 +994,12 @@ gpointer launch_player(gpointer data)
 #endif
 
         dbus_enable_screensaver();
+
+		if (verbose > 1)
+			printf("thread running, before unlocking second time\n");
         g_mutex_unlock(thread_running);
+		if (verbose > 1)
+			printf("thread running, unlocked second time\n");
 
         if (dontplaynext == FALSE) {
             if (next_item_in_playlist(&iter)) {
