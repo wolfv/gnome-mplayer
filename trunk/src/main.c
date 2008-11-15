@@ -669,7 +669,6 @@ int main(int argc, char *argv[])
                 g_free(uri);
                 if (S_ISDIR(buf.st_mode)) {
                     add_item_to_playlist("dvd://", 0);
-                    set_media_info_name(_("Playing DVD"));
                     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
                     play_iter(&iter);
                 } else {
@@ -687,7 +686,6 @@ int main(int argc, char *argv[])
                     }
                 }
             } else {
-                set_media_info_name(_("Playing Audio CD"));
                 parse_cdda("cdda://");
                 if (random_order) {
                     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);

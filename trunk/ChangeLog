@@ -1,4 +1,6 @@
 Development
+    Set title to DVD when DVD title is not found
+    Get rid of set_media_info_name
     Convert to XDG .config and .cache file locations
     Fix details resize issue
     Load cover art for CDs and also load the album name into the playlist
