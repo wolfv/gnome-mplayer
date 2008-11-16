@@ -1,4 +1,6 @@
 Development
+    Fix playlist parsing for shoutcast files, and speed it up
+    Fix streaming_media detection a little more
     Updated Turkish translation
     Rework streaming_media detection, seems to cause problems when using GIO and large http files
     Fix GTK Assertion in config_apply

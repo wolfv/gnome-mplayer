@@ -114,7 +114,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                 } else {
                                     buf = g_strdup(s);
                                 }
-                                playlist = detect_playlist(buf);
+
+								playlist = detect_playlist(buf);
                                 if (!playlist) {
                                     add_item_to_playlist(buf, playlist);
                                 } else {
@@ -128,16 +129,6 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                     play_iter(&iter);
                                 }
 
-                                if (GTK_IS_TREE_SELECTION(selection)) {
-                                    treepath =
-                                        gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore),
-                                                                &iter);
-                                    gtk_tree_selection_select_path(selection, treepath);
-                                    if (GTK_IS_WIDGET(list))
-                                        gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), treepath,
-                                                                     NULL, FALSE, 0, 0);
-                                    gtk_tree_path_free(treepath);
-                                }
                             }
                         }
 

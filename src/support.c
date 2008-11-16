@@ -303,6 +303,9 @@ gint parse_basic(gchar * uri)
     gint playlist = 0;
     gint ret = 0;
 
+	if (streaming_media (uri))
+		return 0;
+	
 #ifdef GIO_ENABLED
     GFile *file;
     GFileInputStream *input;
@@ -344,7 +347,7 @@ gint parse_basic(gchar * uri)
 #endif
                 continue;
             }
-            // printf("line = %s\n", line);
+            //printf("line = %s\n", line);
             newline = g_strdup(line);
             if ((g_ascii_strncasecmp(line, "ref", 3) == 0) ||
                 (g_ascii_strncasecmp(line, "file", 4)) == 0) {
@@ -403,19 +406,26 @@ gint parse_basic(gchar * uri)
                         g_free(line_uri);
                         line_uri = g_strdup_printf("file://%s", newline);
                     }
+
+					if (uri_exists(line_uri)) {
+						add_item_to_playlist(line_uri, 0);
+						ret = 1;
+					}
+							   
                 } else {
                     if (streaming_media(newline) || device_name(newline)) {
                         //printf("URL %s\n",newline);
                         add_item_to_playlist(newline, playlist);
                         ret = 1;
-                    }
+                    } else {
+						if (uri_exists(line_uri)) {
+							add_item_to_playlist(line_uri, 0);
+							ret = 1;
+						}						
+					}
                 }
                 //printf("line_uri = %s\n", line_uri);
-                if (uri_exists(line_uri)) {
-                    add_item_to_playlist(line_uri, 0);
-                    ret = 1;
-                }
-                g_free(line_uri);
+               g_free(line_uri);
             }
             g_free(newline);
 #ifdef GIO_ENABLED
@@ -884,7 +894,7 @@ gboolean read_mplayer_config()
 gboolean streaming_media(gchar * uri)
 {
     gboolean ret;
-#ifdef XGIO_ENABLED
+#ifdef GIO_ENABLED
     GFile *file;
     GFileInfo *info;
 #else
@@ -892,13 +902,15 @@ gboolean streaming_media(gchar * uri)
 #endif
 
     ret = TRUE;
-
     if (uri == NULL)
         return FALSE;
     if (device_name(uri)) {
-        return FALSE;
+        ret = FALSE;
+	} else if (g_ascii_strncasecmp(uri,"http://",strlen("http://")) == 0) {
+		ret = TRUE;
     } else {
-#ifdef XGIO_ENABLED
+		printf("doing file test\n");
+#ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
         if (file != NULL) {
             info = g_file_query_info(file, "access::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
