@@ -1,4 +1,5 @@
 Development
+    Rework streaming_media detection, seems to cause problems when using GIO and large http files
     Fix GTK Assertion in config_apply
     Set title to DVD when DVD title is not found
     Get rid of set_media_info_name
