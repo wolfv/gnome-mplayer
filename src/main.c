@@ -744,7 +744,6 @@ int main(int argc, char *argv[])
                 if (uri != NULL) {
                     if (playlist == 0)
                         playlist = detect_playlist(uri);
-
                     if (!playlist) {
                         add_item_to_playlist(uri, playlist);
                     } else {

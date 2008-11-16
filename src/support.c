@@ -74,70 +74,72 @@ gint detect_playlist(gchar * uri)
     } else {
 
 #ifdef GIO_ENABLED
-        file = g_file_new_for_uri(uri);
-        path = get_path(uri);
-        input = g_file_read(file, NULL, NULL);
-        if (input != NULL) {
-            memset(buffer, 0, sizeof(buffer));
-            g_input_stream_read((GInputStream *) input, buffer, sizeof(buffer), NULL, NULL);
-            output = g_strsplit(buffer, "\n", 0);
-            if (output[0] != NULL) {
-                g_strchomp(output[0]);
-                g_strchug(output[0]);
-            }
-            // printf("buffer=%s\n",buffer);
-            if (strstr(g_strdown(buffer), "[playlist]") != 0) {
-                playlist = 1;
-            }
+		if (!streaming_media(uri)) {
+			printf("opening playlist\n");
+			file = g_file_new_for_uri(uri);
+			path = get_path(uri);
+			input = g_file_read(file, NULL, NULL);
+			if (input != NULL) {
+				memset(buffer, 0, sizeof(buffer));
+				g_input_stream_read((GInputStream *) input, buffer, sizeof(buffer), NULL, NULL);
+				output = g_strsplit(buffer, "\n", 0);
+				if (output[0] != NULL) {
+					g_strchomp(output[0]);
+					g_strchug(output[0]);
+				}
+				// printf("buffer=%s\n",buffer);
+				if (strstr(g_strdown(buffer), "[playlist]") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "[reference]") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "[reference]") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "<asx") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "<asx") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "#extm3u") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "#extm3u") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "http://") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "http://") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "rtsp://") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "rtsp://") != 0) {
+					playlist = 1;
+				}
 
-            if (strstr(g_strdown(buffer), "pnm://") != 0) {
-                playlist = 1;
-            }
+				if (strstr(g_strdown(buffer), "pnm://") != 0) {
+					playlist = 1;
+				}
 
-            if (output[0] != NULL && uri_exists(output[0])) {
-                playlist = 1;
-            }
-            if (output[0] != NULL && playlist == 0) {
-                newuri = g_filename_to_uri(output[0], NULL, NULL);
-                if (newuri != NULL && uri_exists(newuri))
-                    playlist = 1;
-                g_free(newuri);
-            }
+				if (output[0] != NULL && uri_exists(output[0])) {
+					playlist = 1;
+				}
+				if (output[0] != NULL && playlist == 0) {
+					newuri = g_filename_to_uri(output[0], NULL, NULL);
+					if (newuri != NULL && uri_exists(newuri))
+						playlist = 1;
+					g_free(newuri);
+				}
 
-            if (output[0] != NULL && strlen(output[0]) > 0) {
-                newuri = g_strdup_printf("%s/%s", path, output[0]);
-                if (uri_exists(newuri)) {
-                    playlist = 1;
-                }
-                g_free(newuri);
-            }
-            g_strfreev(output);
+				if (output[0] != NULL && strlen(output[0]) > 0) {
+					newuri = g_strdup_printf("%s/%s", path, output[0]);
+					if (uri_exists(newuri)) {
+						playlist = 1;
+					}
+					g_free(newuri);
+				}
+				g_strfreev(output);
 
-            g_input_stream_close((GInputStream *) input, NULL, NULL);
-        }
-        g_object_unref(file);
-        g_free(path);
-
+				g_input_stream_close((GInputStream *) input, NULL, NULL);
+			}
+			g_object_unref(file);
+			g_free(path);
+		}
 #else
         filename = g_filename_from_uri(uri, NULL, NULL);
         // printf("filename %s\n",filename);
@@ -882,7 +884,7 @@ gboolean read_mplayer_config()
 gboolean streaming_media(gchar * uri)
 {
     gboolean ret;
-#ifdef GIO_ENABLED
+#ifdef XGIO_ENABLED
     GFile *file;
     GFileInfo *info;
 #else
@@ -896,7 +898,7 @@ gboolean streaming_media(gchar * uri)
     if (device_name(uri)) {
         return FALSE;
     } else {
-#ifdef GIO_ENABLED
+#ifdef XGIO_ENABLED
         file = g_file_new_for_uri(uri);
         if (file != NULL) {
             info = g_file_query_info(file, "access::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
