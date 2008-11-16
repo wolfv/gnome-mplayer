@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-11 10:36-0700\n"
-"PO-Revision-Date: 2008-10-26 03:35+0200\n"
+"PO-Revision-Date: 2008-11-16 12:26+0200\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -178,11 +178,11 @@ msgstr "Pencereyi en üstte tut"
 
 #: src/main.c:121
 msgid "Load all tracks from media player using gpod"
-msgstr ""
+msgstr "Tüm izleri gpod kullanarak medya oynatıcıdan yükle"
 
 #: src/main.c:125
 msgid "Don't fetch new cover art images"
-msgstr ""
+msgstr "Yeni kapak resimlerini indirme"
 
 #: src/main.c:529
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -258,14 +258,14 @@ msgid "Adding %s to playlist"
 msgstr "%s oynatma listesine ekleniyor"
 
 #: src/gui.c:603
-#, fuzzy, c-format
+#, c-format
 msgid "Playing %s"
-msgstr "Oynatılıyor"
+msgstr "Oynatılıyor %s"
 
 #: src/gui.c:605
-#, fuzzy, c-format
+#, c-format
 msgid "Paused %s"
-msgstr "Duraklatıldı"
+msgstr "Duraklatıldı %s"
 
 #: src/gui.c:607
 #, c-format
@@ -721,8 +721,7 @@ msgid "MPlayer Executable:"
 msgstr "MPlayer Çalıştırılabilir Dosyası:"
 
 #: src/gui.c:4145
-msgid ""
-"Use this option to specify a mplayer application that is not in the path"
+msgid "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Hızlı erişim yolunda (PATH) olmayan bir mplayer uygulamasını çalıştırmak "
 "için bu seçeneği kullanın"
@@ -763,7 +762,7 @@ msgstr "A_dresi Aç"
 
 #: src/gui.c:4573
 msgid "_Disc"
-msgstr ""
+msgstr "Dis_k"
 
 #: src/gui.c:4580
 msgid "Open _Audio CD"
@@ -786,9 +785,8 @@ msgid "Open DVD from Folder with M_enus"
 msgstr "Dizinden DVD'yi M_enü ile Aç"
 
 #: src/gui.c:4598
-#, fuzzy
 msgid "Open _VCD"
-msgstr "DVD _Aç"
+msgstr "VCD _Aç"
 
 #: src/gui.c:4601
 msgid "_TV"
@@ -804,7 +802,7 @@ msgstr "_Dijital TV Aç"
 
 #: src/gui.c:4615
 msgid "Open _iPod™"
-msgstr ""
+msgstr "_İpod Aç"
 
 #: src/gui.c:4620
 msgid "Open _Recent"
@@ -845,8 +843,7 @@ msgstr "_Ekran Görüntüsü Yakala"
 
 #: src/gui.c:4712
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
-msgstr ""
-"Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
+msgstr "Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
 
 #. View Menu
 #: src/gui.c:4741
@@ -1067,7 +1064,7 @@ msgstr "Sanatçı"
 
 #: src/playlist.c:859
 msgid "Album"
-msgstr ""
+msgstr "Albüm"
 
 #: src/playlist.c:870
 msgid "Length"
@@ -1105,8 +1102,3 @@ msgstr "Öğeyi Aşağı İndir"
 msgid "_Set Subtitle"
 msgstr "_Altyazı Ayarla"
 
-#~ msgid "_DVD"
-#~ msgstr "_DVD"
-
-#~ msgid "Unknown"
-#~ msgstr "Bilinmeyen"
