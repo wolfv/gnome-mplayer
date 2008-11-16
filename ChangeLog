@@ -1,4 +1,5 @@
 Development
+    Fix GTK Assertion in config_apply
     Set title to DVD when DVD title is not found
     Get rid of set_media_info_name
     Convert to XDG .config and .cache file locations

@@ -2920,7 +2920,9 @@ void config_apply(GtkWidget * widget, void *data)
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     single_instance = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance));
     replace_and_play = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_replace_and_play));
+#ifdef NOTIFY_ENABLED
     show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
+#endif
 #ifdef GTK2_12_ENABLED
     show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
     gtk_status_icon_set_visible(status_icon, show_status_icon);
