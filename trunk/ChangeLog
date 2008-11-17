@@ -1,4 +1,5 @@
 Development
+    Rework autopause detection
     Update Korean Translation
     When switching subtitles via the J key, update the subtitle menu with the active language
     When video is displayed, make sure info and detail panels don't shrink the video

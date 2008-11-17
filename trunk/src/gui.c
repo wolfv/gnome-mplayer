@@ -271,10 +271,11 @@ gboolean set_progress_value(void *data)
     if (GTK_IS_WIDGET(progress)) {
         if (state == QUIT && rpcontrols == NULL) {
             js_state = STATE_BUFFERING;
-            gtk_progress_bar_update(progress, idle->cachepercent);
+			if (idle->cachepercent >= 0.0 && idle->cachepercent <= 1.0)
+				gtk_progress_bar_update(progress, idle->cachepercent);
             gtk_widget_set_sensitive(play_event_box, FALSE);
         } else {
-            if (idle->percent > 0.0 && idle->percent < 1.0) {
+            if (idle->percent >= 0.0 && idle->percent <= 1.0) {
                 gtk_progress_bar_update(progress, idle->percent);
                 if (autopause == FALSE)
                     gtk_widget_set_sensitive(play_event_box, TRUE);
@@ -298,8 +299,9 @@ gboolean set_progress_value(void *data)
             if (iterfilename != NULL) {
                 g_stat(iterfilename, &buf);
                 //printf("filename = %s, disk size = %i, byte pos = %i\n",iterfilename,buf.st_size,idle->byte_pos);
-                if (((idle->percent + 0.05) > idle->cachepercent)
-                    || ((idle->byte_pos + (512 * 1024)) > buf.st_size)) {
+                //if ((idle->percent + 0.10) > idle->cachepercent) {
+                    // && ((idle->byte_pos + (cache_size * 512)) > buf.st_size)) {
+                if ((buf.st_size > 0) && (idle->byte_pos + (cache_size * 512)) > buf.st_size) {
                     pause_callback(NULL, NULL, NULL);
                     gtk_widget_set_sensitive(play_event_box, FALSE);
                     autopause = TRUE;
