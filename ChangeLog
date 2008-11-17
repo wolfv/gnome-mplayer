@@ -1,4 +1,5 @@
 Development
+    Fix case in autopause code where g_stat was being passed a URI instead of a filename
     Only show the media_label if there is something to show
     Switch to playlist view after Loading iPod tracks
     Rework autopause detection
