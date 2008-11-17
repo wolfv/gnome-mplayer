@@ -115,7 +115,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                     buf = g_strdup(s);
                                 }
 
-								playlist = detect_playlist(buf);
+                                playlist = detect_playlist(buf);
                                 if (!playlist) {
                                     add_item_to_playlist(buf, playlist);
                                 } else {
