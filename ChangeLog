@@ -1,4 +1,6 @@
 Development
+    Only show the media_label if there is something to show
+    Switch to playlist view after Loading iPod tracks
     Rework autopause detection
     Update Korean Translation
     When switching subtitles via the J key, update the subtitle menu with the active language

@@ -356,8 +356,8 @@ gint play_iter(GtkTreeIter * playiter)
         g_strlcpy(idledata->audio_bitrate, "", 16);
         g_strlcpy(idledata->audio_samplerate, "", 16);
         g_strlcpy(idledata->audio_channels, "", 16);
-		idledata->has_chapters = FALSE;
-		
+        idledata->has_chapters = FALSE;
+
         // these next 3 lines are here to make sure the window is available for mplayer to draw to
         // for some vo's (like xv) if the window is not visible and big enough the vo setup fails
         gtk_widget_set_size_request(drawing_area, 16, 16);
