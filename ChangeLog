@@ -1,4 +1,10 @@
 Development
+    Update Korean Translation
+    When switching subtitles via the J key, update the subtitle menu with the active language
+    When video is displayed, make sure info and detail panels don't shrink the video
+    When switching from audio only to video file, allow screen resize due to video size
+    Save visibility of detail and info panels on go/return from fullscreen
+    Reset chapter flag when switching media
     Fix playlist parsing for shoutcast files, and speed it up
     Fix streaming_media detection a little more
     Updated Turkish translation

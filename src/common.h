@@ -272,6 +272,8 @@ gboolean vertical_layout;
 gboolean playlist_visible;
 gboolean details_visible;
 gboolean restore_playlist;
+gboolean restore_details;
+gboolean restore_info;
 gboolean disable_ass;
 gboolean disable_embeddedfonts;
 gboolean disable_animation;
