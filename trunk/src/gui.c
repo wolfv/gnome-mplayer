@@ -326,7 +326,7 @@ gboolean set_progress_value(void *data)
 				g_free(iteruri);
             }
         } else if (autopause == TRUE && state == PAUSED) {
-            if (idle->cachepercent > (idle->percent + 0.10)) {
+            if (idle->cachepercent > (idle->percent + 0.20)) {
                 play_callback(NULL, NULL, NULL);
                 gtk_widget_set_sensitive(play_event_box, TRUE);
                 autopause = FALSE;
