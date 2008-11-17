@@ -751,8 +751,12 @@ gpointer launch_player(gpointer data)
                 //argv[arg++] = g_strdup_printf("-user-agent");
                 //argv[arg++] = g_strdup_printf("NSPlayer");
             } else {
-                argv[arg++] = g_strdup_printf("-cache");
-                argv[arg++] = g_strdup_printf("%i", cache_size);
+				if (control_id == 0) {
+					argv[arg++] = g_strdup_printf("-cache");
+					argv[arg++] = g_strdup_printf("%i", cache_size);
+				} else {
+					argv[arg++] = g_strdup_printf("-nocache");
+				}
             }
         }
     }
