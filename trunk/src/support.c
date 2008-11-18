@@ -1737,7 +1737,8 @@ gdouble get_alsa_volume()
     glong get_vol, pmin, pmax;
     gfloat f_multi;
     gboolean found = FALSE;
-
+	gchar **local_mixer;
+	
     if ((err = snd_mixer_open(&mhandle, 0)) < 0) {
         if (verbose)
             printf("Mixer open error %s\n", snd_strerror(err));
@@ -1764,9 +1765,18 @@ gdouble get_alsa_volume()
 
     if (mixer != NULL) {
         snd_mixer_selem_id_malloc(&sid);
-        snd_mixer_selem_id_set_index(sid, 0);
-        snd_mixer_selem_id_set_name(sid, mixer);
-
+		local_mixer = g_strsplit (mixer,",",2);
+		if (local_mixer[1] == NULL) {
+			snd_mixer_selem_id_set_index(sid, 0);
+		} else {
+        	snd_mixer_selem_id_set_index(sid, (gint)g_strtod(local_mixer[1],NULL));
+		}
+		if (local_mixer[0] == NULL) {
+        	snd_mixer_selem_id_set_name(sid, mixer);
+		} else {					
+        	snd_mixer_selem_id_set_name(sid, local_mixer[0]);
+		}
+		
         elem = snd_mixer_find_selem(mhandle, sid);
         if (!elem) {
             if (verbose)
