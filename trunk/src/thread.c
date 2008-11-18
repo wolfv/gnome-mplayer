@@ -728,6 +728,11 @@ gpointer launch_player(gpointer data)
     if (softvol)
         argv[arg++] = g_strdup_printf("-softvol");
 
+    if (mixer != NULL) {
+        argv[arg++] = g_strdup_printf("-mixer-channel");
+        argv[arg++] = g_strdup_printf("%s",mixer);
+	}
+	
     if (!disable_framedrop)
         argv[arg++] = g_strdup_printf("-framedrop");
 

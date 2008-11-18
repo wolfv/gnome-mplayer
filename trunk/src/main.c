@@ -57,6 +57,7 @@ static GOptionEntry entries[] = {
     {"reallyverbose", '\0', 0, G_OPTION_ARG_NONE, &reallyverbose,
      N_("Show even more output on the console"), NULL},
     {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
+    {"mixer", 0, 0, G_OPTION_ARG_STRING, &mixer, N_("Mixer to use"), NULL},
     {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
      "[0|1]"},
@@ -487,11 +488,12 @@ int main(int argc, char *argv[])
     gpod_mount_point = NULL;
     load_tracks_from_gpod = FALSE;
     disable_cover_art_fetch = FALSE;
-
+	mixer = NULL;
     // call g_type_init or otherwise we can crash
     g_type_init();
 
     init_preference_store();
+	mixer = read_preference_string(MIXER);
     osdlevel = read_preference_int(OSDLEVEL);
     pplevel = read_preference_int(PPLEVEL);
     volume = read_preference_int(VOLUME);

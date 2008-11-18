@@ -31,6 +31,7 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
+#define MIXER			"mixer"
 #define CACHE_SIZE		"cache_size"
 #define OSDLEVEL		"osdlevel"
 #define PPLEVEL		"pplevel"
@@ -246,6 +247,7 @@ gint stored_window_width, stored_window_height;
 gchar vm[10];
 gchar *vo;
 gchar *ao;
+gchar *mixer;
 gboolean disable_deinterlace;
 gboolean disable_framedrop;
 gboolean disable_context_menu;
