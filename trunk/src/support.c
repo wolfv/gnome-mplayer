@@ -1787,6 +1787,10 @@ gdouble get_alsa_volume()
 	}
 
     if (!found) {
+		if (mixer != NULL) {
+			g_free(mixer);
+			mixer = NULL;
+		}
         snd_mixer_selem_id_malloc(&sid);
         snd_mixer_selem_id_set_index(sid, 0);
         snd_mixer_selem_id_set_name(sid, master_mix);
