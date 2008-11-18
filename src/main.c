@@ -496,7 +496,9 @@ int main(int argc, char *argv[])
     mixer = read_preference_string(MIXER);
     osdlevel = read_preference_int(OSDLEVEL);
     pplevel = read_preference_int(PPLEVEL);
+#ifndef HAVE_ASOUNDLIB	
     volume = read_preference_int(VOLUME);
+#endif
     softvol = read_preference_bool(SOFTVOL);
     forcecache = read_preference_bool(FORCECACHE);
     vertical_layout = read_preference_bool(VERTICAL);
