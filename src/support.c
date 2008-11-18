@@ -1762,35 +1762,35 @@ gdouble get_alsa_volume()
         return vol;
     }
 
-	if (mixer != NULL) {
-		snd_mixer_selem_id_malloc(&sid);
-		snd_mixer_selem_id_set_index(sid, 0);
-		snd_mixer_selem_id_set_name(sid, mixer);
+    if (mixer != NULL) {
+        snd_mixer_selem_id_malloc(&sid);
+        snd_mixer_selem_id_set_index(sid, 0);
+        snd_mixer_selem_id_set_name(sid, mixer);
 
-		elem = snd_mixer_find_selem(mhandle, sid);
-		if (!elem) {
-			if (verbose)
-				printf("Unable to find %s Mixer control, trying Master\n",mixer);
-		} else {
-			snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
-			f_multi = (100 / (float) (pmax - pmin));
-			snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
-			vol = (gdouble) ((get_vol - pmin) * f_multi);
-			if (verbose) {
-				printf("%s Range is %li to %li \n", mixer,pmin, pmax);
-				printf("%s Current Volume %li, multiplier = %f\n",mixer,get_vol,f_multi);
-				printf("Scaled Volume is %lf\n", vol);
-			}
-			found = TRUE;
-		}
-		snd_mixer_selem_id_free(sid);
-	}
+        elem = snd_mixer_find_selem(mhandle, sid);
+        if (!elem) {
+            if (verbose)
+                printf("Unable to find %s Mixer control, trying Master\n", mixer);
+        } else {
+            snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
+            f_multi = (100 / (float) (pmax - pmin));
+            snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
+            vol = (gdouble) ((get_vol - pmin) * f_multi);
+            if (verbose) {
+                printf("%s Range is %li to %li \n", mixer, pmin, pmax);
+                printf("%s Current Volume %li, multiplier = %f\n", mixer, get_vol, f_multi);
+                printf("Scaled Volume is %lf\n", vol);
+            }
+            found = TRUE;
+        }
+        snd_mixer_selem_id_free(sid);
+    }
 
     if (!found) {
-		if (mixer != NULL) {
-			g_free(mixer);
-			mixer = NULL;
-		}
+        if (mixer != NULL) {
+            g_free(mixer);
+            mixer = NULL;
+        }
         snd_mixer_selem_id_malloc(&sid);
         snd_mixer_selem_id_set_index(sid, 0);
         snd_mixer_selem_id_set_name(sid, master_mix);
