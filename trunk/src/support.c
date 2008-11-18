@@ -1776,6 +1776,8 @@ gdouble get_alsa_volume()
 		} else {					
         	snd_mixer_selem_id_set_name(sid, local_mixer[0]);
 		}
+		if (local_mixer != NULL)
+			g_strfreev(local_mixer);
 		
         elem = snd_mixer_find_selem(mhandle, sid);
         if (!elem) {
