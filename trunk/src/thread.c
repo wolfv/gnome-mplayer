@@ -730,9 +730,9 @@ gpointer launch_player(gpointer data)
 
     if (mixer != NULL) {
         argv[arg++] = g_strdup_printf("-mixer-channel");
-        argv[arg++] = g_strdup_printf("%s",mixer);
-	}
-	
+        argv[arg++] = g_strdup_printf("%s", mixer);
+    }
+
     if (!disable_framedrop)
         argv[arg++] = g_strdup_printf("-framedrop");
 
@@ -756,12 +756,12 @@ gpointer launch_player(gpointer data)
                 //argv[arg++] = g_strdup_printf("-user-agent");
                 //argv[arg++] = g_strdup_printf("NSPlayer");
             } else {
-				if (control_id == 0) {
-					argv[arg++] = g_strdup_printf("-cache");
-					argv[arg++] = g_strdup_printf("%i", cache_size);
-				} else {
-					argv[arg++] = g_strdup_printf("-nocache");
-				}
+                if (control_id == 0) {
+                    argv[arg++] = g_strdup_printf("-cache");
+                    argv[arg++] = g_strdup_printf("%i", cache_size);
+                } else {
+                    argv[arg++] = g_strdup_printf("-nocache");
+                }
             }
         }
     }

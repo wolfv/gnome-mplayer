@@ -30,6 +30,10 @@
 #include <glib/gstdio.h>
 #include <glib/gi18n.h>
 #include <math.h>
+#ifdef HAVE_ASOUNDLIB
+#include <asoundlib.h>
+#endif
+
 #include "playlist.h"
 
 GtkWidget *window;
@@ -194,6 +198,7 @@ GtkWidget *config_show_status_icon;
 
 GtkWidget *config_vo;
 GtkWidget *config_ao;
+GtkWidget *config_mixer;
 GtkWidget *config_volume;
 GtkWidget *config_cachesize;
 GtkWidget *config_osdlevel;

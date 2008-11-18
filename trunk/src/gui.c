@@ -43,6 +43,10 @@
 #include <libnotify/notify.h>
 #include <libnotify/notification.h>
 #endif
+#ifdef HAVE_ASOUNDLIB
+static char *device = "default";
+#endif
+
 gint get_player_window()
 {
     if (GTK_IS_WIDGET(drawing_area)) {
@@ -257,16 +261,16 @@ gboolean set_cover_art(gpointer pixbuf)
 {
     if (pixbuf == NULL) {
         gtk_image_clear(GTK_IMAGE(cover_art));
-		if (strlen(idledata->media_info) > 0) {
-			gtk_widget_show_all(media_hbox);
-		} else {
-			gtk_widget_hide_all(media_hbox);
-		}
+        if (strlen(idledata->media_info) > 0) {
+            gtk_widget_show_all(media_hbox);
+        } else {
+            gtk_widget_hide_all(media_hbox);
+        }
     } else {
         gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
-		gtk_widget_show_all(media_hbox);
+        gtk_widget_show_all(media_hbox);
     }
-    
+
     return FALSE;
 }
 
@@ -277,7 +281,7 @@ gboolean set_progress_value(void *data)
     gchar *text;
     struct stat buf;
     gchar *iterfilename;
-	gchar *iteruri;
+    gchar *iteruri;
 
     if (GTK_IS_WIDGET(progress)) {
         if (state == QUIT && rpcontrols == NULL) {
@@ -305,25 +309,26 @@ gboolean set_progress_value(void *data)
 
     if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9) {
         if (autopause == FALSE && state == PLAYING) {
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iteruri,
-                               -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iteruri, -1);
             if (iteruri != NULL) {
-				iterfilename = g_filename_from_uri(iteruri,NULL,NULL);
+                iterfilename = g_filename_from_uri(iteruri, NULL, NULL);
                 g_stat(iterfilename, &buf);
-				if (verbose) {
-					printf("filename = %s\ndisk size = %li, byte pos = %li\n",iterfilename,(glong)buf.st_size,idle->byte_pos);
-					printf("cachesize = %f, percent = %f\n",idle->cachepercent,idle->percent);
-					printf("will pause = %i\n",((idle->byte_pos + (cache_size * 512)) > buf.st_size));
-				}
+                if (verbose) {
+                    printf("filename = %s\ndisk size = %li, byte pos = %li\n", iterfilename,
+                           (glong) buf.st_size, idle->byte_pos);
+                    printf("cachesize = %f, percent = %f\n", idle->cachepercent, idle->percent);
+                    printf("will pause = %i\n",
+                           ((idle->byte_pos + (cache_size * 512)) > buf.st_size));
+                }
                 // if ((idle->percent + 0.10) > idle->cachepercent && ((idle->byte_pos + (512 * 1024)) > buf.st_size)) {
                 // if ((buf.st_size > 0) && (idle->byte_pos + (cache_size * 512)) > buf.st_size) {
-				if ((idle->byte_pos + (cache_size * 512)) > buf.st_size) {
+                if ((idle->byte_pos + (cache_size * 512)) > buf.st_size) {
                     pause_callback(NULL, NULL, NULL);
                     gtk_widget_set_sensitive(play_event_box, FALSE);
                     autopause = TRUE;
                 }
                 g_free(iterfilename);
-				g_free(iteruri);
+                g_free(iteruri);
             }
         } else if (autopause == TRUE && state == PAUSED) {
             if (idle->cachepercent > (idle->percent + 0.20)) {
@@ -2931,6 +2936,14 @@ void config_apply(GtkWidget * widget, void *data)
     }
     ao = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_ao)->child)));
 
+#ifdef HAVE_ASOUNDLIB	
+    if (mixer != NULL) {
+        g_free(mixer);
+        mixer = NULL;
+    }
+    mixer = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_mixer)->child)));
+#endif
+	
     if (alang != NULL) {
         g_free(alang);
         alang = NULL;
@@ -3035,6 +3048,7 @@ void config_apply(GtkWidget * widget, void *data)
     init_preference_store();
     write_preference_int(VOLUME, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));
     write_preference_int(CACHE_SIZE, cache_size);
+    write_preference_string(MIXER, mixer);
     write_preference_int(OSDLEVEL, osdlevel);
     write_preference_int(PPLEVEL, pplevel);
     write_preference_bool(SOFTVOL, softvol);
@@ -3635,6 +3649,14 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gint i = 0;
     gint j = -1;
 
+#ifdef HAVE_ASOUNDLIB
+    snd_mixer_t *mhandle;
+    snd_mixer_elem_t *elem;
+    snd_mixer_selem_id_t *sid;
+    gint err;
+    gchar *mix;
+#endif
+
     read_mplayer_config();
 
     config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -3800,6 +3822,54 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_subtitle_codepage), j);
         }
     }
+#ifdef HAVE_ASOUNDLIB
+    config_mixer = gtk_combo_box_entry_new_text();
+    if (config_mixer != NULL) {
+        if ((err = snd_mixer_open(&mhandle, 0)) < 0) {
+            if (verbose)
+                printf("Mixer open error %s\n", snd_strerror(err));
+        }
+
+        if ((err = snd_mixer_attach(mhandle, device)) < 0) {
+            if (verbose)
+                printf("Mixer attach error %s\n", snd_strerror(err));
+        }
+
+        if ((err = snd_mixer_selem_register(mhandle, NULL, NULL)) < 0) {
+            if (verbose)
+                printf("Mixer register error %s\n", snd_strerror(err));
+        }
+
+        if ((err = snd_mixer_load(mhandle)) < 0) {
+            if (verbose)
+                printf("Mixer load error %s\n", snd_strerror(err));
+        }
+        i = 0;
+        j = -1;
+        snd_mixer_selem_id_alloca(&sid);
+        for (elem = snd_mixer_first_elem(mhandle); elem; elem = snd_mixer_elem_next(elem)) {
+            snd_mixer_selem_get_id(elem, sid);
+            if (!snd_mixer_selem_is_active(elem))
+                continue;
+            if (snd_mixer_selem_has_capture_volume(elem)
+                || snd_mixer_selem_has_capture_switch(elem))
+                continue;
+            //mix = g_strdup_printf("%s,%i", snd_mixer_selem_id_get_name(sid), snd_mixer_selem_id_get_index(sid));
+            mix = g_strdup_printf("%s", snd_mixer_selem_id_get_name(sid));
+            gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), mix);
+            if (g_ascii_strcasecmp(mix, mixer) == 0)
+                j = i;
+            i++;
+        }
+        if (j != -1)
+            gtk_combo_box_set_active(GTK_COMBO_BOX(config_mixer), j);
+
+        snd_mixer_close(mhandle);
+
+    }
+
+#endif
+
 
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Output Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
@@ -3829,6 +3899,18 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      0);
     i++;
 
+#ifdef HAVE_ASOUNDLIB	
+    conf_label = gtk_label_new(_("Default Mixer:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_widget_set_size_request(GTK_WIDGET(config_mixer), 200, -1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_mixer, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+                     0);
+    i++;
+#endif
     conf_label = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);

@@ -488,12 +488,12 @@ int main(int argc, char *argv[])
     gpod_mount_point = NULL;
     load_tracks_from_gpod = FALSE;
     disable_cover_art_fetch = FALSE;
-	mixer = NULL;
+    mixer = NULL;
     // call g_type_init or otherwise we can crash
     g_type_init();
 
     init_preference_store();
-	mixer = read_preference_string(MIXER);
+    mixer = read_preference_string(MIXER);
     osdlevel = read_preference_int(OSDLEVEL);
     pplevel = read_preference_int(PPLEVEL);
     volume = read_preference_int(VOLUME);
