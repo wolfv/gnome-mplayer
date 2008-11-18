@@ -2293,10 +2293,6 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * a
     gchar *ret = NULL;
     FILE *fp;
 
-    printf("music brainz testing\n");
-
-
-
     if (!g_file_test(asin_filename, G_FILE_TEST_EXISTS)) {
         mb = mb_webservice_new();
 
@@ -2371,7 +2367,7 @@ gpointer get_cover_art(gpointer data)
 
     path =
         g_strdup_printf("%s/gnome-mplayer/cover_art/%s", g_get_user_cache_dir(), metadata->artist);
-    if (!g_file_test(path, G_FILE_TEST_IS_DIR)) {
+    if (!g_file_test(path, G_FILE_TEST_IS_DIR) && !disable_cover_art_fetch) {
         g_mkdir_with_parents(path, 0775);
     }
 
