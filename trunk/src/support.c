@@ -1858,6 +1858,11 @@ void init_preference_store()
 #ifdef HAVE_GCONF
     gconf = gconf_client_get_default();
 #else
+    filename = g_strdup_printf("%s/gnome-mplayer", g_get_user_config_dir());
+    if (!g_file_test(filename, G_FILE_TEST_IS_DIR)) {
+        g_mkdir_with_parents(filename, 0775);
+    }
+    g_free(filename);
 
     config = g_key_file_new();
     filename = g_strdup_printf("%s/gnome-mplayer/gnome-mplayer.conf", g_get_user_config_dir());
