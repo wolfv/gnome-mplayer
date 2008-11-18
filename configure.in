@@ -39,7 +39,7 @@ AC_SUBST(GLIB2_14_DEFINES)
 
 AC_ARG_WITH([gio],
     [AS_HELP_STRING([--with-gio],
-        [Use Gconf to store preferences])],
+        [Use GIO for file I/O])],
         [],
         [with_gio=check])
 AS_IF([test "x$with_gio" != xno], 
