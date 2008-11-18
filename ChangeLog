@@ -1,4 +1,5 @@
 Development
+    Unset mixer internally if it can't be found.
     Add command line option --mixer and use that for volume control
     Fix problem with preferences not being saved due to missing config directory
     Don't create cover art cache directory when disable fetch is enabled
