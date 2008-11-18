@@ -3859,7 +3859,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             mix = g_strdup_printf("%s,%i", snd_mixer_selem_id_get_name(sid), snd_mixer_selem_id_get_index(sid));
             //mix = g_strdup_printf("%s", snd_mixer_selem_id_get_name(sid));
             gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), mix);
-            if (g_ascii_strcasecmp(mix, mixer) == 0)
+            if (mixer != NULL && g_ascii_strcasecmp(mix, mixer) == 0)
                 j = i;
             i++;
         }
