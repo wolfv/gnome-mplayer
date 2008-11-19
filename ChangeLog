@@ -1,4 +1,5 @@
 Development
+    Add the requirement of playback volume to a possible mixer
     Add a 'blank' option to the mixer channel, to select no mixer and leave it to the defaults 
     If we compile with alsa support then exclude default volume code
     Add support for mixers with and without indexes
