@@ -728,7 +728,7 @@ gpointer launch_player(gpointer data)
     if (softvol)
         argv[arg++] = g_strdup_printf("-softvol");
 
-    if (mixer != NULL) {
+    if (mixer != NULL && strlen(mixer) > 0) {
         argv[arg++] = g_strdup_printf("-mixer-channel");
         argv[arg++] = g_strdup_printf("%s", mixer);
     }

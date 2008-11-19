@@ -3824,6 +3824,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_subtitle_codepage), j);
         }
     }
+	
 #ifdef HAVE_ASOUNDLIB
     config_mixer = gtk_combo_box_entry_new_text();
     if (config_mixer != NULL) {
@@ -3846,9 +3847,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             if (verbose)
                 printf("Mixer load error %s\n", snd_strerror(err));
         }
-        i = 0;
+        i = 1;
         j = -1;
         snd_mixer_selem_id_alloca(&sid);
+		gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), "");
         for (elem = snd_mixer_first_elem(mhandle); elem; elem = snd_mixer_elem_next(elem)) {
             snd_mixer_selem_get_id(elem, sid);
             if (!snd_mixer_selem_is_active(elem))
@@ -3869,9 +3871,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         snd_mixer_close(mhandle);
 
     }
-
 #endif
-
 
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Output Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
