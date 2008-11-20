@@ -1763,7 +1763,7 @@ gdouble get_alsa_volume()
         return vol;
     }
 
-    if (mixer != NULL) {
+    if (mixer != NULL && strlen(mixer) > 0) {
         snd_mixer_selem_id_malloc(&sid);
 		local_mixer = g_strsplit (mixer,",",2);
 		if (local_mixer[1] == NULL) {
