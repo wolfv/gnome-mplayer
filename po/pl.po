@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-21 16:58+0100\n"
+"POT-Creation-Date: 2008-11-21 09:18-0700\n"
 "PO-Revision-Date: 2008-11-21 16:59+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@lists.kde.org>\n"
@@ -1186,4 +1186,3 @@ msgstr "Ustaw _napisy"
 
 #~ msgid "_Copy URL"
 #~ msgstr "S_kopiuj URL"
-
