@@ -2531,7 +2531,7 @@ void menuitem_view_info_callback(GtkMenuItem * menuitem, void *data)
     static gint normal_width = -1, normal_height = -1;
     GtkRequisition req;
 
-    printf("media info = '%s'\n", idledata->media_info);
+    //printf("media info = '%s'\n", idledata->media_info);
     if (GTK_IS_WIDGET(media_hbox)) {
         if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
             gtk_widget_hide_all(media_hbox);

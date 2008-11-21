@@ -241,8 +241,7 @@ gint play_iter(GtkTreeIter * playiter)
 
     g_strlcpy(idledata->media_info, message, 1024);
     g_free(message);
-    gtk_label_set_markup(GTK_LABEL(media_label), idledata->media_info);
-    gtk_label_set_max_width_chars(GTK_LABEL(media_label), 10);
+	set_media_label(idledata);
 
     gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
