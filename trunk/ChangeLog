@@ -1,4 +1,6 @@
 Development
+    If mixer not found, fall back to Master
+    Add the passed in --mixer option to the drop down in preferences and set it to default
     Add the requirement of playback volume to a possible mixer
     Add a 'blank' option to the mixer channel, to select no mixer and leave it to the defaults 
     If we compile with alsa support then exclude default volume code
