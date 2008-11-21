@@ -3869,7 +3869,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         }
         if (j != -1)
             gtk_combo_box_set_active(GTK_COMBO_BOX(config_mixer), j);
-
+        if (mixer != NULL && strlen(mixer) > 0 && j == -1) {
+            gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), mixer);
+            gtk_combo_box_set_active(GTK_COMBO_BOX(config_mixer), i);
+        }
         snd_mixer_close(mhandle);
 
     }

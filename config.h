@@ -14,7 +14,7 @@
 #define GLIB2_14_ENABLED 1
 
 /* Define to 1 if you have gpod support */
-/* #undef GPOD_ENABLED */
+#define GPOD_ENABLED 1
 
 /* Define to 1 if you have GTK 2.12 or higher */
 #define GTK2_12_ENABLED 1
@@ -71,7 +71,7 @@
 #define HAVE_UNISTD_H 1
 
 /* Define to 1 if you have musicbrainz3 support */
-/* #undef MUSICBRAINZ_ENABLED */
+#define MUSICBRAINZ_ENABLED 1
 
 /* Define to 1 if you have NOTIFY support */
 #define NOTIFY_ENABLED 1
