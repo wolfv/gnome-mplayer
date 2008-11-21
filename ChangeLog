@@ -1,4 +1,5 @@
 Development
+    Updated French Translation
     If mixer not found, fall back to Master
     Add the passed in --mixer option to the drop down in preferences and set it to default
     Add the requirement of playback volume to a possible mixer
