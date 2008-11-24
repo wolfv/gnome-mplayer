@@ -105,7 +105,7 @@ gchar *find_gpod_mount_point();
 gboolean gpod_load_tracks(gchar * mount_point);
 #endif
 
-gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * asin_filename);
+gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album);
 gpointer get_cover_art(gpointer data);
 
 gchar *gmp_tempname(gchar * path, const gchar * name_template);

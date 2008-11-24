@@ -2300,7 +2300,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
 #endif
 
 #ifdef HAVE_MUSICBRAINZ
-gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * asin_filename)
+gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
 {
     int i;
     MbWebService mb;
@@ -2314,11 +2314,9 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * a
     char id[1024];
     char asin[1024];
     gchar *ret = NULL;
-    FILE *fp;
     gint score, highest_score;
-    gint highest_index;
 
-    if (!g_file_test(asin_filename, G_FILE_TEST_EXISTS)) {
+
         mb = mb_webservice_new();
 
         query = mb_query_new(mb, "gnome-mplayer");
@@ -2347,24 +2345,15 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * a
 
         }
 
-
         if (results != NULL) {
             printf("items found:  %i\n", mb_result_list_get_size(results));
 
             highest_score = -1;
-            highest_index = -1;
             for (i = 0; i < mb_result_list_get_size(results); i++) {
                 score = mb_result_list_get_score(results, i);
-                if (score > highest_score) {
-                    highest_score = score;
-                    highest_index = i;
-                }
-            }
-            if (highest_index != -1) {
-                release = mb_result_list_get_release(results, highest_index);
+                release = mb_result_list_get_release(results, i);
                 mb_release_get_id(release, id, 1024);
                 includes = mb_release_includes_new();
-                includes = mb_artist_includes_release_events(includes);
                 includes = mb_track_includes_url_relations(includes);
 
                 release = mb_query_get_release_by_id(query, id, includes);
@@ -2373,19 +2362,19 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * a
                 mb_release_get_asin(release, asin, 1024);
                 mb_release_free(release);
                 if (strlen(asin) > 0) {
-                    fp = fopen(asin_filename, "w");
-                    fputs(asin, fp);
-                    fclose(fp);
-                    ret =
-                        g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n",
-                                        asin);
+					if (score > highest_score) {
+						if (ret != NULL)
+							g_free(ret);
+						highest_score = score;
+						ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
+					}
                 }
             }
             mb_result_list_free(results);
         }
         mb_query_free(query);
         mb_webservice_free(mb);
-    }
+    
 
     return ret;
 }
@@ -2395,7 +2384,6 @@ gpointer get_cover_art(gpointer data)
     gchar *url;
     gchar *path;
     gchar *cache_file;
-    gchar *asin_filename;
     gboolean local_artist = FALSE;
     gboolean local_album = FALSE;
     //GFile *src;
@@ -2423,9 +2411,6 @@ gpointer get_cover_art(gpointer data)
     cache_file =
         g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(),
                         metadata->artist, metadata->album);
-    asin_filename =
-        g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.asin", g_get_user_cache_dir(),
-                        metadata->artist, metadata->album);
     if (local_artist) {
         g_free(metadata->artist);
         metadata->artist = NULL;
@@ -2445,8 +2430,7 @@ gpointer get_cover_art(gpointer data)
          */
         if (!disable_cover_art_fetch) {
             url =
-                get_cover_art_url(metadata->artist, metadata->title, metadata->album,
-                                  asin_filename);
+                get_cover_art_url(metadata->artist, metadata->title, metadata->album);
             if (url != NULL) {
                 art = fopen(cache_file, "wb");
                 curl = curl_easy_init();
@@ -2471,7 +2455,6 @@ gpointer get_cover_art(gpointer data)
         pixbuf = NULL;
         g_idle_add(set_cover_art, pixbuf);
     }
-    g_free(asin_filename);
     g_free(cache_file);
     g_free(path);
 
@@ -2495,7 +2478,7 @@ gpointer get_cover_art(gpointer data)
     return NULL;
 }
 
-gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * asin_filename)
+gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
 {
     if (verbose > 1)
         printf("Running without musicbrainz support, unable to fetch url\n");
