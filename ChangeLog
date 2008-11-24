@@ -1,4 +1,6 @@
 Development
+    When fetching cover art try artist + album, if not found try artist + track title
+    Fetch cover art based on score rather than first found
     Update volume on new media when ao is alsa and not using softvol
     When softvol is set, set volume to max
     Change 'Advanced Options' to 'Video Picture Adjustments', disable when no video

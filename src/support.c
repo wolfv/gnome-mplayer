@@ -2305,6 +2305,7 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * a
     int i;
     MbWebService mb;
     MbQuery query;
+    MbReleaseFilter release_filter;
     MbTrackFilter track_filter;
     MbResultList results;
     MbRelease release;
@@ -2314,48 +2315,74 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album, gchar * a
     char asin[1024];
     gchar *ret = NULL;
     FILE *fp;
+    gint score, highest_score;
+    gint highest_index;
 
     if (!g_file_test(asin_filename, G_FILE_TEST_EXISTS)) {
         mb = mb_webservice_new();
 
         query = mb_query_new(mb, "gnome-mplayer");
 
-        track_filter = mb_track_filter_new();
+        release_filter = mb_release_filter_new();
         if (artist != NULL && strlen(artist) > 0)
-            track_filter = mb_track_filter_artist_name(track_filter, artist);
+            release_filter = mb_release_filter_artist_name(release_filter, artist);
         if (album != NULL && strlen(album) > 0)
-            track_filter = mb_track_filter_release_title(track_filter, album);
-        if (title != NULL && strlen(title) > 0
-            && ((album == NULL || strlen(album) == 0) || (artist == NULL || strlen(artist) == 0)))
-            track_filter = mb_track_filter_title(track_filter, title);
+            release_filter = mb_release_filter_title(release_filter, album);
 
-        results = mb_query_get_releases(query, track_filter);
-        mb_track_filter_free(track_filter);
+        results = mb_query_get_releases(query, release_filter);
+        mb_release_filter_free(release_filter);
 
-        printf("items found:  %i\n", mb_result_list_get_size(results));
+        if (results == NULL || mb_result_list_get_size(results) == 0) {
+            printf("Release not found, trying track\n");
+            mb_query_free(query);
+            query = mb_query_new(mb, "gnome-mplayer");
 
-        for (i = 0; i < mb_result_list_get_size(results); i++) {
-            release = mb_result_list_get_release(results, i);
-            mb_release_get_id(release, id, 1024);
-            includes = mb_release_includes_new();
-            includes = mb_artist_includes_release_events(includes);
-            includes = mb_track_includes_url_relations(includes);
+            track_filter = mb_track_filter_new();
+            if (artist != NULL && strlen(artist) > 0)
+                track_filter = mb_track_filter_artist_name(track_filter, artist);
+            if (title != NULL && strlen(title) > 0)
+                track_filter = mb_track_filter_title(track_filter, title);
+            results = mb_query_get_releases(query, track_filter);
+            mb_track_filter_free(track_filter);
 
-            release = mb_query_get_release_by_id(query, id, includes);
-            mb_release_includes_free(includes);
-
-            mb_release_get_asin(release, asin, 1024);
-            mb_release_free(release);
-            if (strlen(asin) > 0) {
-                fp = fopen(asin_filename, "w");
-                fputs(asin, fp);
-                fclose(fp);
-                ret =
-                    g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
-                break;
-            }
         }
-        mb_result_list_free(results);
+
+
+        if (results != NULL) {
+            printf("items found:  %i\n", mb_result_list_get_size(results));
+
+            highest_score = -1;
+            highest_index = -1;
+            for (i = 0; i < mb_result_list_get_size(results); i++) {
+                score = mb_result_list_get_score(results, i);
+                if (score > highest_score) {
+                    highest_score = score;
+                    highest_index = i;
+                }
+            }
+            if (highest_index != -1) {
+                release = mb_result_list_get_release(results, highest_index);
+                mb_release_get_id(release, id, 1024);
+                includes = mb_release_includes_new();
+                includes = mb_artist_includes_release_events(includes);
+                includes = mb_track_includes_url_relations(includes);
+
+                release = mb_query_get_release_by_id(query, id, includes);
+                mb_release_includes_free(includes);
+
+                mb_release_get_asin(release, asin, 1024);
+                mb_release_free(release);
+                if (strlen(asin) > 0) {
+                    fp = fopen(asin_filename, "w");
+                    fputs(asin, fp);
+                    fclose(fp);
+                    ret =
+                        g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n",
+                                        asin);
+                }
+            }
+            mb_result_list_free(results);
+        }
         mb_query_free(query);
         mb_webservice_free(mb);
     }

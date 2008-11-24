@@ -263,8 +263,7 @@ gint play_iter(GtkTreeIter * playiter)
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
         g_free(subtitle);
     }
-
-#ifdef HAVE_ASOUNDLIB	
+#ifdef HAVE_ASOUNDLIB
     if (!softvol && g_ascii_strcasecmp(ao, "alsa") == 0) {
         volume = (gint) get_alsa_volume();
         idledata->volume = volume;
@@ -275,7 +274,7 @@ gint play_iter(GtkTreeIter * playiter)
 #endif
     }
 #endif
-	
+
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
         if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
             if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
@@ -592,12 +591,14 @@ int main(int argc, char *argv[])
             printf("Using volume of %i from gnome-mplayer preference\n", volume);
     }
 
-	if (softvol) {
-		if (verbose)
-			printf("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n",volume);
-		volume = 100;
-	}
-	
+    if (softvol) {
+        if (verbose)
+            printf
+                ("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
+                 volume);
+        volume = 100;
+    }
+
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
     }
