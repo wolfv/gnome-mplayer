@@ -264,8 +264,8 @@ gint play_iter(GtkTreeIter * playiter)
         g_free(subtitle);
     }
 
-    init_preference_store();
-    if (read_preference_int(VOLUME) == -1 && g_ascii_strcasecmp(ao, "alsa") == 0) {
+#ifdef HAVE_ASOUNDLIB	
+    if (!softvol && g_ascii_strcasecmp(ao, "alsa") == 0) {
         volume = (gint) get_alsa_volume();
         idledata->volume = volume;
 #if GTK2_12_ENABLED
@@ -274,8 +274,8 @@ gint play_iter(GtkTreeIter * playiter)
         gtk_range_set_value(GTK_RANGE(vol_slider), volume);
 #endif
     }
-    release_preference_store();
-
+#endif
+	
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
         if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
             if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
