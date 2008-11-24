@@ -241,7 +241,7 @@ gint play_iter(GtkTreeIter * playiter)
 
     g_strlcpy(idledata->media_info, message, 1024);
     g_free(message);
-	set_media_label(idledata);
+    set_media_label(idledata);
 
     gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
@@ -495,7 +495,7 @@ int main(int argc, char *argv[])
     mixer = read_preference_string(MIXER);
     osdlevel = read_preference_int(OSDLEVEL);
     pplevel = read_preference_int(PPLEVEL);
-#ifndef HAVE_ASOUNDLIB	
+#ifndef HAVE_ASOUNDLIB
     volume = read_preference_int(VOLUME);
 #endif
     softvol = read_preference_bool(SOFTVOL);

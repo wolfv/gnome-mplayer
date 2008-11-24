@@ -885,7 +885,8 @@ gboolean resize_window(void *data)
                             total_height += media_hbox->allocation.height;
                         }
                         if (menubar->allocation.width > 0 && total_height > 0)
-                            gtk_window_resize(GTK_WINDOW(window), menubar->allocation.width, total_height);
+                            gtk_window_resize(GTK_WINDOW(window), menubar->allocation.width,
+                                              total_height);
                     }
                     last_window_height = 0;
                     last_window_width = 0;
@@ -2518,9 +2519,9 @@ void menuitem_view_info_callback(GtkMenuItem * menuitem, void *data)
     //printf("media info = '%s'\n", idledata->media_info);
     if (GTK_IS_WIDGET(media_hbox)) {
         if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
-			gtk_window_get_size (GTK_WINDOW(window),&width,&height);
+            gtk_window_get_size(GTK_WINDOW(window), &width, &height);
             gtk_widget_hide_all(media_hbox);
-            gtk_window_resize(GTK_WINDOW(window), width, height-media_hbox->allocation.height);
+            gtk_window_resize(GTK_WINDOW(window), width, height - media_hbox->allocation.height);
             while (gtk_events_pending())
                 gtk_main_iteration();
 
@@ -2530,13 +2531,13 @@ void menuitem_view_info_callback(GtkMenuItem * menuitem, void *data)
                     gtk_main_iteration();
 
                 if (idledata->videopresent) {
-					gtk_window_get_size (GTK_WINDOW(window),&width,&height);
+                    gtk_window_get_size(GTK_WINDOW(window), &width, &height);
                 }
 
                 if (strlen(idledata->media_info) > 0)
                     gtk_widget_show_all(media_hbox);
 
-				while (gtk_events_pending())
+                while (gtk_events_pending())
                     gtk_main_iteration();
 
                 if (idledata->videopresent) {
@@ -2919,14 +2920,14 @@ void config_apply(GtkWidget * widget, void *data)
     }
     ao = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_ao)->child)));
 
-#ifdef HAVE_ASOUNDLIB	
+#ifdef HAVE_ASOUNDLIB
     if (mixer != NULL) {
         g_free(mixer);
         mixer = NULL;
     }
     mixer = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_mixer)->child)));
 #endif
-	
+
     if (alang != NULL) {
         g_free(alang);
         alang = NULL;
@@ -3029,7 +3030,7 @@ void config_apply(GtkWidget * widget, void *data)
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
 
     init_preference_store();
-#ifndef HAVE_ASOUNDLIB	
+#ifndef HAVE_ASOUNDLIB
     write_preference_int(VOLUME, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));
 #endif
     write_preference_int(CACHE_SIZE, cache_size);
@@ -3166,15 +3167,14 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     gint i = 0;
     IdleData *idle = idledata;
     gint width = 0, height = 0;
-    static gint normal_width = -1, normal_height = -1;
-    GtkRequisition req;
-    gboolean noresize = FALSE;
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
         if (GTK_IS_WIDGET(details_table)) {
+            gtk_window_get_size(GTK_WINDOW(window), &width, &height);
+            gtk_widget_hide_all(details_vbox);
+            gtk_window_resize(GTK_WINDOW(window), width, height - details_vbox->allocation.height);
             gtk_widget_destroy(details_table);
             details_table = NULL;
-            gtk_window_resize(GTK_WINDOW(window), normal_width, normal_height);
             while (gtk_events_pending())
                 gtk_main_iteration();
         }
@@ -3182,8 +3182,6 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
         if (GTK_IS_WIDGET(details_table)) {
             gtk_widget_destroy(details_table);
             details_table = NULL;
-            if (idle->window_resized == FALSE)
-                noresize = TRUE;
         }
         details_table = gtk_table_new(20, 2, FALSE);
         gtk_container_add(GTK_CONTAINER(details_vbox), details_table);
@@ -3337,27 +3335,30 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
                 gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
             }
             i++;
-            if (!GTK_WIDGET_VISIBLE(details_table) && idle->window_resized) {
-                while (gtk_events_pending())
-                    gtk_main_iteration();
 
-                if (idledata->videopresent && noresize == FALSE) {
-                    gtk_widget_size_request(GTK_WIDGET(window), &req);
-                    width = req.width;
-                    height = req.height;
-                    normal_width = req.width;
-                    normal_height = req.height;
-                }
+        }
+        if (idledata->window_resized) {
+            while (gtk_events_pending())
+                gtk_main_iteration();
 
-                gtk_widget_show_all(details_table);
-
-                if (idledata->videopresent && noresize == FALSE) {
-                    gtk_widget_size_request(GTK_WIDGET(details_table), &req);
-                    height += req.height;
-                    gtk_window_resize(GTK_WINDOW(window), width, height);
-                }
-
+            if (idledata->videopresent) {
+                gtk_window_get_size(GTK_WINDOW(window), &width, &height);
             }
+
+            if (i > 0)
+                gtk_widget_show_all(details_vbox);
+
+            while (gtk_events_pending())
+                gtk_main_iteration();
+
+            if (idledata->videopresent) {
+                height += details_vbox->allocation.height;
+                gtk_window_resize(GTK_WINDOW(window), width, height);
+            }
+
+        } else {
+            if (i > 0)
+                gtk_widget_show_all(details_vbox);
         }
     }
 
@@ -3807,7 +3808,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_subtitle_codepage), j);
         }
     }
-	
 #ifdef HAVE_ASOUNDLIB
     config_mixer = gtk_combo_box_entry_new_text();
     if (config_mixer != NULL) {
@@ -3833,7 +3833,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         i = 1;
         j = -1;
         snd_mixer_selem_id_alloca(&sid);
-		gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), "");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), "");
         for (elem = snd_mixer_first_elem(mhandle); elem; elem = snd_mixer_elem_next(elem)) {
             snd_mixer_selem_get_id(elem, sid);
             if (!snd_mixer_selem_is_active(elem))
@@ -3841,9 +3841,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             if (snd_mixer_selem_has_capture_volume(elem)
                 || snd_mixer_selem_has_capture_switch(elem))
                 continue;
-			if (!snd_mixer_selem_has_playback_volume(elem))
-				continue;
-            mix = g_strdup_printf("%s,%i", snd_mixer_selem_id_get_name(sid), snd_mixer_selem_id_get_index(sid));
+            if (!snd_mixer_selem_has_playback_volume(elem))
+                continue;
+            mix =
+                g_strdup_printf("%s,%i", snd_mixer_selem_id_get_name(sid),
+                                snd_mixer_selem_id_get_index(sid));
             //mix = g_strdup_printf("%s", snd_mixer_selem_id_get_name(sid));
             gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), mix);
             if (mixer != NULL && g_ascii_strcasecmp(mix, mixer) == 0)
@@ -3889,7 +3891,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      0);
     i++;
 
-#ifdef HAVE_ASOUNDLIB	
+#ifdef HAVE_ASOUNDLIB
     conf_label = gtk_label_new(_("Default Mixer:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -3920,7 +3922,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     i++;
 
-#ifndef HAVE_ASOUNDLIB	
+#ifndef HAVE_ASOUNDLIB
     conf_label = gtk_label_new(_("Default Volume Level:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -3928,10 +3930,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(conf_label);
     config_volume = gtk_spin_button_new_with_range(0, 100, 1);
     tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_volume,
-                         _
-                         ("Default volume for playback"),
-                         NULL);
+    gtk_tooltips_set_tip(tooltip, config_volume, _("Default volume for playback"), NULL);
     gtk_widget_set_size_request(config_volume, 100, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
@@ -3944,7 +3943,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(config_volume);
     i++;
 #endif
-	
+
     conf_label = gtk_label_new(_("Minimum Cache Size (KB):"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);

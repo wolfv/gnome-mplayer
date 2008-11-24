@@ -1,4 +1,5 @@
 Development
+    Fix window resize issues when details is hidden/shown
     Start switching from requistion size to allocation size for some widgets
     Make window resize correctly when playlist is hidden
     Make notification work again

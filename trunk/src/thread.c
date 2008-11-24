@@ -756,7 +756,7 @@ gpointer launch_player(gpointer data)
                 //argv[arg++] = g_strdup_printf("-user-agent");
                 //argv[arg++] = g_strdup_printf("NSPlayer");
             } else {
-                if (control_id == 0) {
+                if (control_id == 0 || threaddata->streaming) {
                     argv[arg++] = g_strdup_printf("-cache");
                     argv[arg++] = g_strdup_printf("%i", cache_size);
                 } else {
