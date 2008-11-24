@@ -909,7 +909,7 @@ gboolean resize_window(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idle->videopresent);
-		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
             menuitem_details_callback(NULL, NULL);
         }
@@ -3087,11 +3087,11 @@ void config_apply(GtkWidget * widget, void *data)
 
 void adv_reset_values(GtkWidget * widget, void *data)
 {
-	gtk_range_set_value(GTK_RANGE(adv_brightness),0);
-	gtk_range_set_value(GTK_RANGE(adv_contrast),0);
-	gtk_range_set_value(GTK_RANGE(adv_hue),0);
-	gtk_range_set_value(GTK_RANGE(adv_gamma),0);
-	gtk_range_set_value(GTK_RANGE(adv_saturation),0);
+    gtk_range_set_value(GTK_RANGE(adv_brightness), 0);
+    gtk_range_set_value(GTK_RANGE(adv_contrast), 0);
+    gtk_range_set_value(GTK_RANGE(adv_hue), 0);
+    gtk_range_set_value(GTK_RANGE(adv_gamma), 0);
+    gtk_range_set_value(GTK_RANGE(adv_saturation), 0);
 }
 
 
@@ -3387,7 +3387,7 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *adv_vbox;
     GtkWidget *adv_hbutton_box;
     GtkWidget *adv_table;
-	GtkWidget *adv_reset;
+    GtkWidget *adv_reset;
     GtkWidget *adv_close;
     GtkWidget *label;
     gint i = 0;
@@ -3467,18 +3467,18 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 
     g_signal_connect(G_OBJECT(adv_brightness), "value_changed", G_CALLBACK(brightness_callback),
                      idledata);
-    g_signal_connect(G_OBJECT(adv_contrast), "value_changed", G_CALLBACK(contrast_callback), idledata);
+    g_signal_connect(G_OBJECT(adv_contrast), "value_changed", G_CALLBACK(contrast_callback),
+                     idledata);
     g_signal_connect(G_OBJECT(adv_gamma), "value_changed", G_CALLBACK(gamma_callback), idledata);
     g_signal_connect(G_OBJECT(adv_hue), "value_changed", G_CALLBACK(hue_callback), idledata);
     g_signal_connect(G_OBJECT(adv_saturation), "value_changed", G_CALLBACK(saturation_callback),
                      idledata);
 
     adv_reset = gtk_button_new_with_mnemonic(_("_Reset"));
-    g_signal_connect(GTK_OBJECT(adv_reset), "clicked",
-                             GTK_SIGNAL_FUNC(adv_reset_values), NULL);
-	gtk_container_add(GTK_CONTAINER(adv_hbutton_box), adv_reset);
-	
-	adv_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    g_signal_connect(GTK_OBJECT(adv_reset), "clicked", GTK_SIGNAL_FUNC(adv_reset_values), NULL);
+    gtk_container_add(GTK_CONTAINER(adv_hbutton_box), adv_reset);
+
+    adv_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     g_signal_connect_swapped(GTK_OBJECT(adv_close), "clicked",
                              GTK_SIGNAL_FUNC(config_close), adv_window);
 
@@ -4221,7 +4221,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #endif
 
     config_vertical_layout =
-        gtk_check_button_new_with_label(_("Place playlist below media (requires application restart)"));
+        gtk_check_button_new_with_label(_
+                                        ("Place playlist below media (requires application restart)"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_vertical_layout), vertical_layout);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vertical_layout, 0, 2, i, i + 1);
     i++;
@@ -5527,7 +5528,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), FALSE);
-	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
     gtk_widget_hide(prev_event_box);
