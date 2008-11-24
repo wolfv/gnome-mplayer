@@ -592,6 +592,12 @@ int main(int argc, char *argv[])
             printf("Using volume of %i from gnome-mplayer preference\n", volume);
     }
 
+	if (softvol) {
+		if (verbose)
+			printf("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n",volume);
+		volume = 100;
+	}
+	
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
     }

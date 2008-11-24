@@ -1,4 +1,5 @@
 Development
+    When softvol is set, set volume to max
     Change 'Advanced Options' to 'Video Picture Adjustments', disable when no video
     Reword a couple of labels 
     Fix window resize issues when details is hidden/shown
