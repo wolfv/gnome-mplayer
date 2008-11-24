@@ -1,4 +1,6 @@
 Development
+    Change 'Advanced Options' to 'Video Picture Adjustments', disable when no video
+    Reword a couple of labels 
     Fix window resize issues when details is hidden/shown
     Start switching from requistion size to allocation size for some widgets
     Make window resize correctly when playlist is hidden
