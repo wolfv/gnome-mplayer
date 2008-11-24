@@ -909,6 +909,7 @@ gboolean resize_window(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
             menuitem_details_callback(NULL, NULL);
         }
@@ -3084,6 +3085,16 @@ void config_apply(GtkWidget * widget, void *data)
     gtk_widget_destroy(widget);
 }
 
+void adv_reset_values(GtkWidget * widget, void *data)
+{
+	gtk_range_set_value(GTK_RANGE(adv_brightness),0);
+	gtk_range_set_value(GTK_RANGE(adv_contrast),0);
+	gtk_range_set_value(GTK_RANGE(adv_hue),0);
+	gtk_range_set_value(GTK_RANGE(adv_gamma),0);
+	gtk_range_set_value(GTK_RANGE(adv_saturation),0);
+}
+
+
 void config_close(GtkWidget * widget, void *data)
 {
     selection = NULL;
@@ -3376,19 +3387,15 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *adv_vbox;
     GtkWidget *adv_hbutton_box;
     GtkWidget *adv_table;
+	GtkWidget *adv_reset;
     GtkWidget *adv_close;
     GtkWidget *label;
-    GtkWidget *brightness;
-    GtkWidget *contrast;
-    GtkWidget *gamma;
-    GtkWidget *hue;
-    GtkWidget *saturation;
     gint i = 0;
 
     adv_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_type_hint(GTK_WINDOW(adv_window), GDK_WINDOW_TYPE_HINT_UTILITY);
     gtk_window_set_resizable(GTK_WINDOW(adv_window), FALSE);
-    gtk_window_set_title(GTK_WINDOW(adv_window), _("Advanced Video Controls"));
+    gtk_window_set_title(GTK_WINDOW(adv_window), _("Video Picture Adjustments"));
 
     adv_vbox = gtk_vbox_new(FALSE, 10);
     adv_hbutton_box = gtk_hbutton_box_new();
@@ -3401,7 +3408,7 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_container_set_border_width(GTK_CONTAINER(adv_window), 5);
 
-    label = gtk_label_new(_("<span weight=\"bold\">Adjust Video Settings</span>"));
+    label = gtk_label_new(_("<span weight=\"bold\">Video Picture Adjustments</span>"));
     gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 0, 6);
@@ -3409,64 +3416,69 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     i++;
 
     label = gtk_label_new(_("Brightness"));
-    brightness = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
-    gtk_widget_set_size_request(brightness, 200, -1);
-    gtk_range_set_value(GTK_RANGE(brightness), idledata->brightness);
+    adv_brightness = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+    gtk_widget_set_size_request(adv_brightness, 200, -1);
+    gtk_range_set_value(GTK_RANGE(adv_brightness), idledata->brightness);
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(adv_table), brightness, 1, 2, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), adv_brightness, 1, 2, i, i + 1);
     i++;
 
     label = gtk_label_new(_("Contrast"));
-    contrast = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
-    gtk_widget_set_size_request(contrast, 200, -1);
-    gtk_range_set_value(GTK_RANGE(contrast), idledata->contrast);
+    adv_contrast = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+    gtk_widget_set_size_request(adv_contrast, 200, -1);
+    gtk_range_set_value(GTK_RANGE(adv_contrast), idledata->contrast);
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(adv_table), contrast, 1, 2, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), adv_contrast, 1, 2, i, i + 1);
     i++;
 
     label = gtk_label_new(_("Gamma"));
-    gamma = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
-    gtk_widget_set_size_request(gamma, 200, -1);
-    gtk_range_set_value(GTK_RANGE(gamma), idledata->gamma);
+    adv_gamma = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+    gtk_widget_set_size_request(adv_gamma, 200, -1);
+    gtk_range_set_value(GTK_RANGE(adv_gamma), idledata->gamma);
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(adv_table), gamma, 1, 2, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), adv_gamma, 1, 2, i, i + 1);
     i++;
 
     label = gtk_label_new(_("Hue"));
-    hue = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
-    gtk_widget_set_size_request(hue, 200, -1);
-    gtk_range_set_value(GTK_RANGE(hue), idledata->hue);
+    adv_hue = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+    gtk_widget_set_size_request(adv_hue, 200, -1);
+    gtk_range_set_value(GTK_RANGE(adv_hue), idledata->hue);
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(adv_table), hue, 1, 2, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), adv_hue, 1, 2, i, i + 1);
     i++;
 
     label = gtk_label_new(_("Saturation"));
-    saturation = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
-    gtk_widget_set_size_request(saturation, 200, -1);
-    gtk_range_set_value(GTK_RANGE(saturation), idledata->saturation);
+    adv_saturation = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
+    gtk_widget_set_size_request(adv_saturation, 200, -1);
+    gtk_range_set_value(GTK_RANGE(adv_saturation), idledata->saturation);
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(adv_table), saturation, 1, 2, i, i + 1);
+    gtk_table_attach_defaults(GTK_TABLE(adv_table), adv_saturation, 1, 2, i, i + 1);
     i++;
 
-    g_signal_connect(G_OBJECT(brightness), "value_changed", G_CALLBACK(brightness_callback),
+    g_signal_connect(G_OBJECT(adv_brightness), "value_changed", G_CALLBACK(brightness_callback),
                      idledata);
-    g_signal_connect(G_OBJECT(contrast), "value_changed", G_CALLBACK(contrast_callback), idledata);
-    g_signal_connect(G_OBJECT(gamma), "value_changed", G_CALLBACK(gamma_callback), idledata);
-    g_signal_connect(G_OBJECT(hue), "value_changed", G_CALLBACK(hue_callback), idledata);
-    g_signal_connect(G_OBJECT(saturation), "value_changed", G_CALLBACK(saturation_callback),
+    g_signal_connect(G_OBJECT(adv_contrast), "value_changed", G_CALLBACK(contrast_callback), idledata);
+    g_signal_connect(G_OBJECT(adv_gamma), "value_changed", G_CALLBACK(gamma_callback), idledata);
+    g_signal_connect(G_OBJECT(adv_hue), "value_changed", G_CALLBACK(hue_callback), idledata);
+    g_signal_connect(G_OBJECT(adv_saturation), "value_changed", G_CALLBACK(saturation_callback),
                      idledata);
 
-    adv_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    adv_reset = gtk_button_new_with_mnemonic(_("_Reset"));
+    g_signal_connect(GTK_OBJECT(adv_reset), "clicked",
+                             GTK_SIGNAL_FUNC(adv_reset_values), NULL);
+	gtk_container_add(GTK_CONTAINER(adv_hbutton_box), adv_reset);
+	
+	adv_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     g_signal_connect_swapped(GTK_OBJECT(adv_close), "clicked",
                              GTK_SIGNAL_FUNC(config_close), adv_window);
 
@@ -4209,7 +4221,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #endif
 
     config_vertical_layout =
-        gtk_check_button_new_with_label(_("Start with playlist below media window"));
+        gtk_check_button_new_with_label(_("Place playlist below media (requires application restart)"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_vertical_layout), vertical_layout);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vertical_layout, 0, 2, i, i + 1);
     i++;
@@ -4235,7 +4247,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                                                           (config_single_instance)));
     i++;
 
-    config_remember_loc = gtk_check_button_new_with_label(_("Remember Window Location"));
+    config_remember_loc = gtk_check_button_new_with_label(_("Remember Window Location and Size"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_remember_loc), remember_loc);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_remember_loc, 0, 2, i, i + 1);
     i++;
@@ -4970,7 +4982,7 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep3));
     menuitem_view_advanced =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Advanced _Options")));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Video Picture Adjustments")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_advanced));
 
     g_signal_connect(GTK_OBJECT(menuitem_view_playlist), "toggled",
@@ -5515,6 +5527,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), FALSE);
+	gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
     gtk_widget_hide(prev_event_box);

@@ -250,6 +250,12 @@ GtkWidget *plvbox;
 GSList *lang_group;
 GSList *audio_group;
 
+// Video Settings
+GtkWidget *adv_brightness;
+GtkWidget *adv_contrast;
+GtkWidget *adv_gamma;
+GtkWidget *adv_hue;
+GtkWidget *adv_saturation;
 
 GtkAccelGroup *accel_group;
 
