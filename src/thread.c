@@ -178,7 +178,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
                                         GTK_BUTTONS_CLOSE, error_msg);
         gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
-        gtk_dialog_run(GTK_DIALOG(dialog));
+		if (control_id == 0)
+			gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
         g_free(error_msg);
     }
