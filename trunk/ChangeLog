@@ -1,4 +1,5 @@
 Development
+    Remove artist + track search as it didn't work right
     Cover art with highest score does not always have art, so pick the highest with art
     When fetching cover art try artist + album, if not found try artist + track title
     Fetch cover art based on score rather than first found
