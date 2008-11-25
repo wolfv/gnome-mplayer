@@ -1,4 +1,6 @@
 Development
+    On fixed allocation, set it to be the new preferred size, fixed playlist popup resize issues
+    Purge usage of GtkRequisition and use GtkAllocation
     Get the handle size from the style, rather than hardcoded
     Account for handle size when making playlist visible/hidden
     If artist + album does not find a match, just search on artist, inaccurate cover in some cases
