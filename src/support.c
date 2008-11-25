@@ -2337,23 +2337,27 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
 			score = mb_result_list_get_score(results, i);
 			release = mb_result_list_get_release(results, i);
 			mb_release_get_id(release, id, 1024);
+			mb_release_free(release);
 			includes = mb_release_includes_new();
 			includes = mb_track_includes_url_relations(includes);
 
 			release = mb_query_get_release_by_id(query, id, includes);
-			mb_release_includes_free(includes);
-
-			mb_release_get_asin(release, asin, 1024);
-			mb_release_free(release);
-			if (strlen(asin) > 0) {
-				//printf("asin = %s score = %i\n",asin,score);
-				if (score > highest_score) {
-					if (ret != NULL)
-						g_free(ret);
-					highest_score = score;
-					ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
+			if (release != NULL) {
+				mb_release_get_asin(release, asin, 1024);
+				mb_release_free(release);
+				if (strlen(asin) > 0) {
+					//printf("asin = %s score = %i\n",asin,score);
+					if (score > highest_score) {
+						if (ret != NULL)
+							g_free(ret);
+						highest_score = score;
+						ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
+					}
 				}
 			}
+			mb_release_includes_free(includes);
+			if (score == 100 && ret != NULL)
+				break;
 		}
 		mb_result_list_free(results);
 	}
@@ -2416,6 +2420,9 @@ gpointer get_cover_art(gpointer data)
         if (!disable_cover_art_fetch) {
             url =
                 get_cover_art_url(metadata->artist, metadata->title, metadata->album);
+            if (url == NULL)
+				url =
+					get_cover_art_url(metadata->artist, NULL, NULL);
             if (url != NULL) {
                 art = fopen(cache_file, "wb");
                 curl = curl_easy_init();
