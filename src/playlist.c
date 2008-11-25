@@ -748,7 +748,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 gtk_widget_show(vbox);
                 gtk_widget_set_size_request(window, -1, -1);
             } else {
-				handle_size = 5;
+				gtk_widget_style_get(pane,"handle-size",&handle_size,NULL);
 				gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
                 gtk_widget_set_size_request(window, -1, -1);
                 gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
@@ -994,8 +994,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         adjust_paned_rules();
 
 		// Style doesn't seem to have this property
-		//g_object_get(pane->style,"handle-size",&handle_size,NULL);
-		handle_size = 5;
+		gtk_widget_style_get(pane,"handle-size",&handle_size,NULL);
         if (vertical_layout) {
             gtk_widget_set_size_request(plvbox, -1, 150);
             if (idledata->videopresent)
