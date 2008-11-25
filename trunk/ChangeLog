@@ -1,4 +1,5 @@
 Development
+    Get the handle size from the style, rather than hardcoded
     Account for handle size when making playlist visible/hidden
     If artist + album does not find a match, just search on artist, inaccurate cover in some cases
     Fix a possible crash in cover art fetch
