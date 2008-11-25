@@ -731,6 +731,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
     gint count;
     GtkTargetEntry target_entry[3];
     gint i = 0;
+	gint handle_size;
 
     g_value_init(&value, G_TYPE_BOOLEAN);
 
@@ -747,7 +748,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 gtk_widget_show(vbox);
                 gtk_widget_set_size_request(window, -1, -1);
             } else {
-                gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+				handle_size = 5;
+				gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
                 gtk_widget_set_size_request(window, -1, -1);
                 gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
                 window_width = -1;
@@ -756,9 +758,9 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 gtk_widget_hide(plvbox);
                 if (vertical_layout) {
                     gtk_window_resize(GTK_WINDOW(window), window_width,
-                                      window_height - plvbox->allocation.height);
+                                      window_height - plvbox->allocation.height - handle_size);
                 } else {
-                    gtk_window_resize(GTK_WINDOW(window), window_width - plvbox->allocation.width,
+                    gtk_window_resize(GTK_WINDOW(window), window_width - plvbox->allocation.width - handle_size,
                                       window_height);
                 }
             }
@@ -991,15 +993,18 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
         adjust_paned_rules();
 
+		// Style doesn't seem to have this property
+		//g_object_get(pane->style,"handle-size",&handle_size,NULL);
+		handle_size = 5;
         if (vertical_layout) {
             gtk_widget_set_size_request(plvbox, -1, 150);
             if (idledata->videopresent)
                 gtk_window_resize(GTK_WINDOW(window), stored_window_width,
-                                  stored_window_height + 150);
+                                  stored_window_height + 150 + handle_size);
         } else {
             gtk_widget_set_size_request(plvbox, 300, -1);
             if (idledata->videopresent) {
-                gtk_window_resize(GTK_WINDOW(window), stored_window_width + 300,
+                gtk_window_resize(GTK_WINDOW(window), stored_window_width + 300 + handle_size,
                                   stored_window_height);
             }
         }
