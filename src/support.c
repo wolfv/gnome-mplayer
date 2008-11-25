@@ -2306,7 +2306,6 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
     MbWebService mb;
     MbQuery query;
     MbReleaseFilter release_filter;
-    MbTrackFilter track_filter;
     MbResultList results;
     MbRelease release;
     MbReleaseIncludes includes;
@@ -2317,64 +2316,50 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
     gint score, highest_score;
 
 
-        mb = mb_webservice_new();
+	mb = mb_webservice_new();
 
-        query = mb_query_new(mb, "gnome-mplayer");
+	query = mb_query_new(mb, "gnome-mplayer");
 
-        release_filter = mb_release_filter_new();
-        if (artist != NULL && strlen(artist) > 0)
-            release_filter = mb_release_filter_artist_name(release_filter, artist);
-        if (album != NULL && strlen(album) > 0)
-            release_filter = mb_release_filter_title(release_filter, album);
+	release_filter = mb_release_filter_new();
+	if (artist != NULL && strlen(artist) > 0)
+		release_filter = mb_release_filter_artist_name(release_filter, artist);
+	if (album != NULL && strlen(album) > 0)
+		release_filter = mb_release_filter_title(release_filter, album);
 
-        results = mb_query_get_releases(query, release_filter);
-        mb_release_filter_free(release_filter);
+	results = mb_query_get_releases(query, release_filter);
+	mb_release_filter_free(release_filter);
 
-        if (results == NULL || mb_result_list_get_size(results) == 0) {
-            printf("Release not found, trying track\n");
-            mb_query_free(query);
-            query = mb_query_new(mb, "gnome-mplayer");
+	if (results != NULL) {
+		//printf("items found:  %i\n", mb_result_list_get_size(results));
 
-            track_filter = mb_track_filter_new();
-            if (artist != NULL && strlen(artist) > 0)
-                track_filter = mb_track_filter_artist_name(track_filter, artist);
-            if (title != NULL && strlen(title) > 0)
-                track_filter = mb_track_filter_title(track_filter, title);
-            results = mb_query_get_releases(query, track_filter);
-            mb_track_filter_free(track_filter);
+		highest_score = -1;
+		for (i = 0; i < mb_result_list_get_size(results); i++) {
+			score = mb_result_list_get_score(results, i);
+			release = mb_result_list_get_release(results, i);
+			mb_release_get_id(release, id, 1024);
+			includes = mb_release_includes_new();
+			includes = mb_track_includes_url_relations(includes);
 
-        }
+			release = mb_query_get_release_by_id(query, id, includes);
+			mb_release_includes_free(includes);
 
-        if (results != NULL) {
-            printf("items found:  %i\n", mb_result_list_get_size(results));
+			mb_release_get_asin(release, asin, 1024);
+			mb_release_free(release);
+			if (strlen(asin) > 0) {
+				//printf("asin = %s score = %i\n",asin,score);
+				if (score > highest_score) {
+					if (ret != NULL)
+						g_free(ret);
+					highest_score = score;
+					ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
+				}
+			}
+		}
+		mb_result_list_free(results);
+	}
 
-            highest_score = -1;
-            for (i = 0; i < mb_result_list_get_size(results); i++) {
-                score = mb_result_list_get_score(results, i);
-                release = mb_result_list_get_release(results, i);
-                mb_release_get_id(release, id, 1024);
-                includes = mb_release_includes_new();
-                includes = mb_track_includes_url_relations(includes);
-
-                release = mb_query_get_release_by_id(query, id, includes);
-                mb_release_includes_free(includes);
-
-                mb_release_get_asin(release, asin, 1024);
-                mb_release_free(release);
-                if (strlen(asin) > 0) {
-					if (score > highest_score) {
-						if (ret != NULL)
-							g_free(ret);
-						highest_score = score;
-						ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
-					}
-                }
-            }
-            mb_result_list_free(results);
-        }
-        mb_query_free(query);
-        mb_webservice_free(mb);
-    
+	mb_query_free(query);
+	mb_webservice_free(mb);
 
     return ret;
 }
