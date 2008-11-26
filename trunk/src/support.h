@@ -78,7 +78,7 @@ gboolean update_mplayer_config();
 gboolean send_command(gchar * command, gboolean retain_pause);
 gboolean streaming_media(gchar * filename);
 gboolean device_name(gchar * filename);
-GtkTreeIter add_item_to_playlist(gchar * itemname, gint playlist);
+gboolean add_item_to_playlist(gchar * itemname, gint playlist);
 gboolean next_item_in_playlist(GtkTreeIter * iter);
 void copy_playlist(GtkListStore * source, GtkListStore * dest);
 void randomize_playlist(GtkListStore * store);
