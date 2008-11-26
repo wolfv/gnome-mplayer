@@ -367,7 +367,7 @@ gint parse_basic(gchar * uri)
             } else if (g_ascii_strncasecmp(newline, "[reference]", strlen("[reference]")) == 0) {
                 //printf("ref\n");
                 //continue;
-                playlist = 1;
+                //playlist = 1;
             } else if (g_strncasecmp(newline, "<asx", strlen("<asx")) == 0) {
                 //printf("asx\n");
                 idledata->streaming = TRUE;
@@ -2375,8 +2375,6 @@ gpointer get_cover_art(gpointer data)
     gchar *cache_file;
     gboolean local_artist = FALSE;
     gboolean local_album = FALSE;
-    //GFile *src;
-    //GFile *art;
     CURL *curl;
     FILE *art;
     gpointer pixbuf;
@@ -2396,7 +2394,8 @@ gpointer get_cover_art(gpointer data)
     if (!g_file_test(path, G_FILE_TEST_IS_DIR) && !disable_cover_art_fetch) {
         g_mkdir_with_parents(path, 0775);
     }
-
+	g_free(path);
+	
     cache_file =
         g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(),
                         metadata->artist, metadata->album);
@@ -2410,19 +2409,17 @@ gpointer get_cover_art(gpointer data)
     }
 
     if (!g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
-        /*
-           src = g_file_new_for_uri (url);
-           art = g_file_new_for_uri (cache_uri);
-           g_file_copy_async(src, art, G_FILE_COPY_NONE,
-           G_PRIORITY_DEFAULT, NULL, cache_cover_art_callback, NULL,
-           cover_art_ready_callback, NULL);
-         */
         if (!disable_cover_art_fetch) {
             url =
                 get_cover_art_url(metadata->artist, metadata->title, metadata->album);
-            if (url == NULL)
-				url =
-					get_cover_art_url(metadata->artist, NULL, NULL);
+            if (url == NULL) {
+				if ((path = strstr(metadata->title," - ")) != NULL) {
+					path[0] = '\0';
+					url = get_cover_art_url(metadata->title, NULL, NULL);
+				} else {
+					url = get_cover_art_url(metadata->artist, NULL, NULL);
+				}
+			}
             if (url != NULL) {
                 art = fopen(cache_file, "wb");
                 curl = curl_easy_init();
@@ -2448,7 +2445,6 @@ gpointer get_cover_art(gpointer data)
         g_idle_add(set_cover_art, pixbuf);
     }
     g_free(cache_file);
-    g_free(path);
 
     g_free(metadata->title);
     g_free(metadata->artist);
