@@ -70,7 +70,9 @@ void adjust_paned_rules()
             gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
             g_object_unref(plvbox);
         }
-    }
+    } else {
+		g_object_set(pane,"position-set",FALSE,NULL);
+	}
 }
 
 void reset_paned_rules()
