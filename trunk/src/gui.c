@@ -1526,9 +1526,17 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                     playlist = detect_playlist(list[i]);
 
                     if (!playlist) {
+				        dontplaynext = TRUE;
+						mplayer_shutdown();
+						gtk_list_store_clear(playliststore);
+						gtk_list_store_clear(nonrandomplayliststore);
                         added_single = add_item_to_playlist(list[i], playlist);
                     } else {
                         if (!parse_playlist(list[i])) {
+							dontplaynext = TRUE;
+							mplayer_shutdown();
+							gtk_list_store_clear(playliststore);
+							gtk_list_store_clear(nonrandomplayliststore);
                             added_single = add_item_to_playlist(list[i], playlist);
                         }
                     }
@@ -1537,7 +1545,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
             i++;
         }
 
-        if (itemcount == 0) {
+        if (itemcount == 0 || added_single) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             play_iter(&iter);
         } 
