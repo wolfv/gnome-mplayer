@@ -858,6 +858,8 @@ gboolean resize_window(void *data)
             } else {
                 if (embed_window != -1 && GTK_WIDGET_VISIBLE(window)) {
                     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
+					gtk_widget_set_size_request(fixed, -1, -1);
+					gtk_widget_set_size_request(drawing_area, -1, -1);
                     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
                         if (vertical_layout) {
                             gtk_widget_hide(GTK_WIDGET(fixed));
@@ -875,8 +877,6 @@ gboolean resize_window(void *data)
                         } else {
                             gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
                         }
-                        gtk_widget_set_size_request(fixed, -1, -1);
-                        gtk_widget_set_size_request(drawing_area, -1, -1);
                         total_height = menubar->allocation.height;
                         if (showcontrols && rpcontrols == NULL) {
                             total_height += controls_box->allocation.height;

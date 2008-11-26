@@ -1,4 +1,5 @@
 Development
+    Fix bug 149 at rpmfusion
     On fixed allocation, set it to be the new preferred size, fixed playlist popup resize issues
     Purge usage of GtkRequisition and use GtkAllocation
     Get the handle size from the style, rather than hardcoded

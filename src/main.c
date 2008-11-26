@@ -203,7 +203,7 @@ gint play_iter(GtkTreeIter * playiter)
         gtk_main_iteration();
     }
     reset_paned_rules();
-
+	
     message = g_strdup_printf("<small>\n");
     if (title == NULL) {
         title = g_filename_display_basename(uri);
