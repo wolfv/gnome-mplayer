@@ -154,7 +154,6 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 gint x, gint y, GtkSelectionData * selection_data,
                                 guint info, guint t, gpointer data)
 {
-    GtkTreeIter localiter;
     gchar **list;
     gint i = 0;
     gint playlist;
@@ -183,7 +182,7 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
                         add_item_to_playlist(list[i], playlist);
                     } else {
                         if (!parse_playlist(list[i])) {
-                            localiter = add_item_to_playlist(list[i], playlist);
+                            add_item_to_playlist(list[i], playlist);
                         }
                     }
                 }

@@ -1326,7 +1326,7 @@ gint get_bitrate(gchar * name)
 }
 
 
-GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
+gboolean add_item_to_playlist(gchar * uri, gint playlist)
 {
     GtkTreeIter localiter;
     gchar *unescaped = NULL;
@@ -1390,9 +1390,10 @@ GtkTreeIter add_item_to_playlist(gchar * uri, gint playlist)
         g_free(data->audio_codec);
         g_free(data->video_codec);
         g_free(data);
-    }
-
-    return localiter;
+		return TRUE;
+    } else {
+		return FALSE;
+	}
 
 }
 

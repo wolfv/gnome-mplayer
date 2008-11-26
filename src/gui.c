@@ -1496,13 +1496,13 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                        gint x, gint y, GtkSelectionData * selection_data,
                        guint info, guint t, gpointer data)
 {
-    GtkTreeIter localiter;
     gchar **list;
     gint i = 0;
     gint playlist;
     gint itemcount;
     GError *error;
-
+	gboolean added_single = FALSE;
+	
     /* Important, check if we actually got data.  Sometimes errors
      * occure and selection_data will be NULL.
      */
@@ -1526,10 +1526,10 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                     playlist = detect_playlist(list[i]);
 
                     if (!playlist) {
-                        add_item_to_playlist(list[i], playlist);
+                        added_single = add_item_to_playlist(list[i], playlist);
                     } else {
                         if (!parse_playlist(list[i])) {
-                            localiter = add_item_to_playlist(list[i], playlist);
+                            added_single = add_item_to_playlist(list[i], playlist);
                         }
                     }
                 }
@@ -1540,8 +1540,9 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         if (itemcount == 0) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             play_iter(&iter);
-        }
-        g_strfreev(list);
+        } 
+
+		g_strfreev(list);
         update_gui();
     }
     return TRUE;
@@ -1995,7 +1996,6 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 void open_location_callback(GtkWidget * widget, void *data)
 {
     gchar *filename;
-    GtkTreeIter localiter;
 
     filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(open_location)));
 
@@ -2010,10 +2010,10 @@ void open_location_callback(GtkWidget * widget, void *data)
             playlist = detect_playlist(filename);
 
             if (!playlist) {
-                localiter = add_item_to_playlist(filename, playlist);
+                add_item_to_playlist(filename, playlist);
             } else {
                 if (!parse_playlist(filename)) {
-                    localiter = add_item_to_playlist(filename, playlist);
+                    add_item_to_playlist(filename, playlist);
                 }
 
             }
