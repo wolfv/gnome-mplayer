@@ -75,7 +75,10 @@ void adjust_paned_rules()
 
 void reset_paned_rules()
 {
-    g_object_ref(vbox);
+	gint position;
+	
+	g_object_get(pane,"position",&position,NULL);
+	g_object_ref(vbox);
     gtk_container_remove(GTK_CONTAINER(pane), vbox);
     gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
     g_object_unref(vbox);
@@ -85,6 +88,7 @@ void reset_paned_rules()
         gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
         g_object_unref(plvbox);
     }
+	g_object_set(pane,"position",position,"position-set",TRUE,NULL);
 }
 
 gboolean hide_buttons(void *data)
