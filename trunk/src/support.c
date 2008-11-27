@@ -100,6 +100,10 @@ gint detect_playlist(gchar * uri)
                     playlist = 1;
                 }
 
+				if (strstr(g_strdown(buffer), "<smil>") != 0) {
+                    playlist = 1;
+                }
+
                 if (strstr(g_strdown(buffer), "#extm3u") != 0) {
                     playlist = 1;
                 }
@@ -284,7 +288,7 @@ gint parse_playlist(gchar * uri)
         gtk_recent_manager_add_item(recent_manager, uri);
     }
 #endif
-
+	printf("parse playlist = %i\n",ret);
     return ret;
 }
 
@@ -371,6 +375,10 @@ gint parse_basic(gchar * uri)
             } else if (g_strncasecmp(newline, "<asx", strlen("<asx")) == 0) {
                 //printf("asx\n");
                 idledata->streaming = TRUE;
+                g_free(newline);
+                break;
+            } else if (g_strncasecmp(newline, "<smil", strlen("<smil")) == 0) {
+                //printf("asx\n");
                 g_free(newline);
                 break;
             } else if (g_strncasecmp(newline, "numberofentries", strlen("numberofentries")) == 0) {
@@ -909,7 +917,6 @@ gboolean streaming_media(gchar * uri)
     } else if (g_ascii_strncasecmp(uri, "http://", strlen("http://")) == 0) {
         ret = TRUE;
     } else {
-        printf("doing file test\n");
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
         if (file != NULL) {
@@ -932,7 +939,7 @@ gboolean streaming_media(gchar * uri)
         }
 #endif
     }
-    if (verbose)
+    if (verbose > 1)
         printf("Streaming media '%s' = %i\n", uri, ret);
     return ret;
 }
@@ -1332,8 +1339,14 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
     gchar *unescaped = NULL;
     MetaData *data = NULL;
 
+	printf("adding %s to playlist\n",uri);
     if (!device_name(uri) && !streaming_media(uri)) {
-        data = get_metadata(uri);
+		if (playlist) {
+			data = (MetaData *) g_new0(MetaData, 1);
+			data->title = g_strdup_printf("%s", uri);
+		} else {
+			data = get_metadata(uri);
+		}
     } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
         data = (MetaData *) g_new0(MetaData, 1);
         data->title = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));

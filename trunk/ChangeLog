@@ -1,4 +1,6 @@
 Development
+    Fix bug in dbus open method
+    Detect <smil> files are playlists, but don't parse them
     Fix drag and drop, so that when playlist is not visible items dropped on start playing
     Change return type of add_item_to_playlist
     When running in vertical mode and playing songs, keep pane from bouncing around
