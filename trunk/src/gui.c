@@ -213,7 +213,7 @@ gboolean set_media_label(void *data)
         }
     }
 
-    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))
+    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info)) && control_id == 0
         && strlen(idle->media_info) > 0) {
         gtk_widget_show_all(media_hbox);
     } else {

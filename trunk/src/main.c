@@ -229,7 +229,7 @@ gint play_iter(GtkTreeIter * playiter)
     message = g_strconcat(message, "</small>", NULL);
 
     // probably not much cover art for random video files
-    if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri)) {
+    if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0) {
         metadata = (MetaData *) g_new0(MetaData, 1);
         metadata->title = g_strdup(title);
         metadata->artist = g_strdup(artist);
@@ -241,7 +241,11 @@ gint play_iter(GtkTreeIter * playiter)
 
     g_strlcpy(idledata->media_info, message, 1024);
     g_free(message);
-    set_media_label(idledata);
+	if (control_id == 0) {
+		set_media_label(idledata);
+	} else {
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menuitem_view_info),FALSE);
+	}
 
     gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
