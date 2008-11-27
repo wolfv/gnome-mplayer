@@ -114,13 +114,12 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                 } else {
                                     buf = g_strdup(s);
                                 }
-
                                 playlist = detect_playlist(buf);
                                 if (!playlist) {
                                     add_item_to_playlist(buf, playlist);
                                 } else {
                                     if (!parse_playlist(buf)) {
-                                        add_item_to_playlist(s, playlist);
+                                        add_item_to_playlist(buf, playlist);
                                     }
                                 }
                                 g_free(buf);
