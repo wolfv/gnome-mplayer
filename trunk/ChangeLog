@@ -1,4 +1,5 @@
 Development
+    Disable the mplayer cache, unless media is streaming
     Hide media lable when running as plugin
     Fix bug in dbus open method
     Detect <smil> files are playlists, but don't parse them
