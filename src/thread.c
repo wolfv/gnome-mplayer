@@ -221,7 +221,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_mutex_unlock(thread_running);
         return FALSE;
     }
-
     mplayer_output = g_string_new("");
 
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, &error);
@@ -625,7 +624,6 @@ gboolean thread_query(gpointer data)
     //              autopause
     // else
     // 
-
     if (data == NULL) {
         if (verbose)
             printf("shutting down threadquery since threaddata is NULL\n");
@@ -757,7 +755,7 @@ gpointer launch_player(gpointer data)
                 //argv[arg++] = g_strdup_printf("-user-agent");
                 //argv[arg++] = g_strdup_printf("NSPlayer");
             } else {
-                if (control_id == 0 || threaddata->streaming) {
+                if (threaddata->streaming) {
                     argv[arg++] = g_strdup_printf("-cache");
                     argv[arg++] = g_strdup_printf("%i", cache_size);
                 } else {
