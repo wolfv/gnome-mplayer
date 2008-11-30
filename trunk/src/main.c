@@ -229,7 +229,7 @@ gint play_iter(GtkTreeIter * playiter)
     message = g_strconcat(message, "</small>", NULL);
 
     // probably not much cover art for random video files
-    if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0) {
+    if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0 && !playlist) {
         metadata = (MetaData *) g_new0(MetaData, 1);
         metadata->title = g_strdup(title);
         metadata->artist = g_strdup(artist);
