@@ -1,4 +1,5 @@
 Development
+    Allow window decorations when running as a plugin but embedding is disabled
     Use the cache when streaming, a playlist or when forced, otherwise don't
     Cleanup media info display and usage of cache
     Disable the mplayer cache, unless media is streaming

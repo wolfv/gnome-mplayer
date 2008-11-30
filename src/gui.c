@@ -4623,7 +4623,7 @@ GtkWidget *create_window(gint windowid)
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
 
-    if (windowid > 0) {
+    if (windowid > 0 && embedding_disabled == FALSE) {
         gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
         GTK_WIDGET_SET_FLAGS(window, GTK_CAN_FOCUS);
     }
