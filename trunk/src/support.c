@@ -2427,6 +2427,13 @@ gpointer get_cover_art(gpointer data)
     if (!g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
         if (!disable_cover_art_fetch) {
             url = get_cover_art_url(metadata->artist, metadata->title, metadata->album);
+            if (url == NULL && metadata->album != NULL && strlen(metadata->album) > 0 ) {
+				url = get_cover_art_url(NULL, NULL, metadata->album);
+				g_free(cache_file);
+				cache_file =
+					g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg",
+									g_get_user_cache_dir(), metadata->album);
+			}
             if (url == NULL) {
                 if ((path = strstr(metadata->title, " - ")) != NULL) {
                     path[0] = '\0';
