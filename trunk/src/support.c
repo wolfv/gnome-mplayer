@@ -2430,8 +2430,12 @@ gpointer get_cover_art(gpointer data)
 				if ((path = strstr(metadata->title," - ")) != NULL) {
 					path[0] = '\0';
 					url = get_cover_art_url(metadata->title, NULL, NULL);
+					g_free(cache_file);
+					cache_file = g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg", g_get_user_cache_dir(), metadata->title);
 				} else {
 					url = get_cover_art_url(metadata->artist, NULL, NULL);
+					g_free(cache_file);
+					cache_file = g_strdup_printf("%s/gnome-mplayer/cover_art/%s/Unknown.jpeg", g_get_user_cache_dir(), metadata->artist);
 				}
 			}
             if (url != NULL) {
