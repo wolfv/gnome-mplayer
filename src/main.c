@@ -387,9 +387,9 @@ gint play_iter(GtkTreeIter * playiter)
 
 static void hup_handler(int signum)
 {
+	// printf("handling signal %i\n",signum);
 	delete_callback(NULL,NULL,NULL);
 }
-
 
 int main(int argc, char *argv[])
 {
@@ -505,11 +505,13 @@ int main(int argc, char *argv[])
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART; /* Restart functions if
                                  interrupted by handler */
+    if (sigaction(SIGINT, &sa, NULL) == -1)
+		printf("SIGINT signal handler not installed\n");
     if (sigaction(SIGHUP, &sa, NULL) == -1)
 		printf("SIGHUP signal handler not installed\n");
     if (sigaction(SIGTERM, &sa, NULL) == -1)
 		printf("SIGTERM signal handler not installed\n");
-
+	
     // call g_type_init or otherwise we can crash
     g_type_init();
 
