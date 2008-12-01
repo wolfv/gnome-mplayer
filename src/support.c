@@ -100,7 +100,7 @@ gint detect_playlist(gchar * uri)
                     playlist = 1;
                 }
 
-				if (strstr(g_strdown(buffer), "<smil>") != 0) {
+                if (strstr(g_strdown(buffer), "<smil>") != 0) {
                     playlist = 1;
                 }
 
@@ -288,7 +288,7 @@ gint parse_playlist(gchar * uri)
         gtk_recent_manager_add_item(recent_manager, uri);
     }
 #endif
-	printf("parse playlist = %i\n",ret);
+    printf("parse playlist = %i\n", ret);
     return ret;
 }
 
@@ -1339,14 +1339,14 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
     gchar *unescaped = NULL;
     MetaData *data = NULL;
 
-	printf("adding %s to playlist\n",uri);
+    printf("adding %s to playlist\n", uri);
     if (!device_name(uri) && !streaming_media(uri)) {
-		if (playlist) {
-			data = (MetaData *) g_new0(MetaData, 1);
-			data->title = g_strdup_printf("%s", uri);
-		} else {
-			data = get_metadata(uri);
-		}
+        if (playlist) {
+            data = (MetaData *) g_new0(MetaData, 1);
+            data->title = g_strdup_printf("%s", uri);
+        } else {
+            data = get_metadata(uri);
+        }
     } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
         data = (MetaData *) g_new0(MetaData, 1);
         data->title = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
@@ -1403,10 +1403,10 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
         g_free(data->audio_codec);
         g_free(data->video_codec);
         g_free(data);
-		return TRUE;
+        return TRUE;
     } else {
-		return FALSE;
-	}
+        return FALSE;
+    }
 
 }
 
@@ -2330,54 +2330,56 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
     gint score, highest_score;
 
 
-	mb = mb_webservice_new();
+    mb = mb_webservice_new();
 
-	query = mb_query_new(mb, "gnome-mplayer");
+    query = mb_query_new(mb, "gnome-mplayer");
 
-	release_filter = mb_release_filter_new();
-	if (artist != NULL && strlen(artist) > 0)
-		release_filter = mb_release_filter_artist_name(release_filter, artist);
-	if (album != NULL && strlen(album) > 0)
-		release_filter = mb_release_filter_title(release_filter, album);
+    release_filter = mb_release_filter_new();
+    if (artist != NULL && strlen(artist) > 0)
+        release_filter = mb_release_filter_artist_name(release_filter, artist);
+    if (album != NULL && strlen(album) > 0)
+        release_filter = mb_release_filter_title(release_filter, album);
 
-	results = mb_query_get_releases(query, release_filter);
-	mb_release_filter_free(release_filter);
+    results = mb_query_get_releases(query, release_filter);
+    mb_release_filter_free(release_filter);
 
-	if (results != NULL) {
-		//printf("items found:  %i\n", mb_result_list_get_size(results));
+    if (results != NULL) {
+        //printf("items found:  %i\n", mb_result_list_get_size(results));
 
-		highest_score = -1;
-		for (i = 0; i < mb_result_list_get_size(results); i++) {
-			score = mb_result_list_get_score(results, i);
-			release = mb_result_list_get_release(results, i);
-			mb_release_get_id(release, id, 1024);
-			mb_release_free(release);
-			includes = mb_release_includes_new();
-			includes = mb_track_includes_url_relations(includes);
+        highest_score = -1;
+        for (i = 0; i < mb_result_list_get_size(results); i++) {
+            score = mb_result_list_get_score(results, i);
+            release = mb_result_list_get_release(results, i);
+            mb_release_get_id(release, id, 1024);
+            mb_release_free(release);
+            includes = mb_release_includes_new();
+            includes = mb_track_includes_url_relations(includes);
 
-			release = mb_query_get_release_by_id(query, id, includes);
-			if (release != NULL) {
-				mb_release_get_asin(release, asin, 1024);
-				mb_release_free(release);
-				if (strlen(asin) > 0) {
-					//printf("asin = %s score = %i\n",asin,score);
-					if (score > highest_score) {
-						if (ret != NULL)
-							g_free(ret);
-						highest_score = score;
-						ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
-					}
-				}
-			}
-			mb_release_includes_free(includes);
-			if (score == 100 && ret != NULL)
-				break;
-		}
-		mb_result_list_free(results);
-	}
+            release = mb_query_get_release_by_id(query, id, includes);
+            if (release != NULL) {
+                mb_release_get_asin(release, asin, 1024);
+                mb_release_free(release);
+                if (strlen(asin) > 0) {
+                    //printf("asin = %s score = %i\n",asin,score);
+                    if (score > highest_score) {
+                        if (ret != NULL)
+                            g_free(ret);
+                        highest_score = score;
+                        ret =
+                            g_strdup_printf
+                            ("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
+                    }
+                }
+            }
+            mb_release_includes_free(includes);
+            if (score == 100 && ret != NULL)
+                break;
+        }
+        mb_result_list_free(results);
+    }
 
-	mb_query_free(query);
-	mb_webservice_free(mb);
+    mb_query_free(query);
+    mb_webservice_free(mb);
 
     return ret;
 }
@@ -2408,8 +2410,8 @@ gpointer get_cover_art(gpointer data)
     if (!g_file_test(path, G_FILE_TEST_IS_DIR) && !disable_cover_art_fetch) {
         g_mkdir_with_parents(path, 0775);
     }
-	g_free(path);
-	
+    g_free(path);
+
     cache_file =
         g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(),
                         metadata->artist, metadata->album);
@@ -2424,20 +2426,25 @@ gpointer get_cover_art(gpointer data)
 
     if (!g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
         if (!disable_cover_art_fetch) {
-            url =
-                get_cover_art_url(metadata->artist, metadata->title, metadata->album);
+            url = get_cover_art_url(metadata->artist, metadata->title, metadata->album);
             if (url == NULL) {
-				if ((path = strstr(metadata->title," - ")) != NULL) {
-					path[0] = '\0';
-					url = get_cover_art_url(metadata->title, NULL, NULL);
-					g_free(cache_file);
-					cache_file = g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg", g_get_user_cache_dir(), metadata->title);
-				} else {
-					url = get_cover_art_url(metadata->artist, NULL, NULL);
-					g_free(cache_file);
-					cache_file = g_strdup_printf("%s/gnome-mplayer/cover_art/%s/Unknown.jpeg", g_get_user_cache_dir(), metadata->artist);
-				}
-			}
+                if ((path = strstr(metadata->title, " - ")) != NULL) {
+                    path[0] = '\0';
+                    url = get_cover_art_url(metadata->title, NULL, NULL);
+                    g_free(cache_file);
+                    cache_file =
+                        g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg",
+                                        g_get_user_cache_dir(), metadata->title);
+                } else {
+                    if (metadata->artist != NULL && strlen(metadata->artist) != 0) {
+                        url = get_cover_art_url(metadata->artist, NULL, NULL);
+                        g_free(cache_file);
+                        cache_file =
+                            g_strdup_printf("%s/gnome-mplayer/cover_art/%s/Unknown.jpeg",
+                                            g_get_user_cache_dir(), metadata->artist);
+                    }
+                }
+            }
             if (url != NULL) {
                 art = fopen(cache_file, "wb");
                 curl = curl_easy_init();
