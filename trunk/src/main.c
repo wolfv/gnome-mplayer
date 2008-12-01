@@ -33,6 +33,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <libintl.h>
+#include <signal.h>
 
 //#include <bonobo.h>
 // #include <gnome.h>
@@ -384,6 +385,12 @@ gint play_iter(GtkTreeIter * playiter)
     return 0;
 }
 
+static void hup_handler(int signum)
+{
+	delete_callback(NULL,NULL,NULL);
+}
+
+
 int main(int argc, char *argv[])
 {
     struct stat buf;
@@ -394,6 +401,8 @@ int main(int argc, char *argv[])
     GError *error = NULL;
     GOptionContext *context;
     gint i;
+	struct sigaction sa;
+
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
@@ -492,6 +501,17 @@ int main(int argc, char *argv[])
     disable_cover_art_fetch = FALSE;
     mixer = NULL;
     // call g_type_init or otherwise we can crash
+	
+
+
+    sa.sa_handler = hup_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_RESTART; /* Restart functions if
+                                 interrupted by handler */
+    if (sigaction(SIGHUP, &sa, NULL) == -1)
+		printf("SIGHUP signal handler not installed\n");
+
+	
     g_type_init();
 
     init_preference_store();
@@ -803,7 +823,7 @@ int main(int argc, char *argv[])
 
     dbus_hookup(embed_window, control_id);
 
-    gtk_main();
+	gtk_main();
 
     return 0;
 }
