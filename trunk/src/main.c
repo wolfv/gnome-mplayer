@@ -500,9 +500,6 @@ int main(int argc, char *argv[])
     load_tracks_from_gpod = FALSE;
     disable_cover_art_fetch = FALSE;
     mixer = NULL;
-    // call g_type_init or otherwise we can crash
-	
-
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -510,8 +507,10 @@ int main(int argc, char *argv[])
                                  interrupted by handler */
     if (sigaction(SIGHUP, &sa, NULL) == -1)
 		printf("SIGHUP signal handler not installed\n");
+    if (sigaction(SIGTERM, &sa, NULL) == -1)
+		printf("SIGTERM signal handler not installed\n");
 
-	
+    // call g_type_init or otherwise we can crash
     g_type_init();
 
     init_preference_store();

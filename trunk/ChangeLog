@@ -1,4 +1,5 @@
 Development
+    Capture SIGTERM as well
     Shutdown mplayer when we get a SIGHUP (example is when X is forced to quit)
     Allow window decorations when running as a plugin but embedding is disabled
     Use the cache when streaming, a playlist or when forced, otherwise don't
