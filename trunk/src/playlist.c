@@ -730,7 +730,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
     gint count;
     GtkTargetEntry target_entry[3];
     gint i = 0;
-	gint handle_size;
+    gint handle_size;
 
     g_value_init(&value, G_TYPE_BOOLEAN);
 
@@ -747,8 +747,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 gtk_widget_show(vbox);
                 gtk_widget_set_size_request(window, -1, -1);
             } else {
-				gtk_widget_style_get(pane,"handle-size",&handle_size,NULL);
-				gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+                gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
+                gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
                 gtk_widget_set_size_request(window, -1, -1);
                 gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
                 window_width = -1;
@@ -759,7 +759,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                     gtk_window_resize(GTK_WINDOW(window), window_width,
                                       window_height - plvbox->allocation.height - handle_size);
                 } else {
-                    gtk_window_resize(GTK_WINDOW(window), window_width - plvbox->allocation.width - handle_size,
+                    gtk_window_resize(GTK_WINDOW(window),
+                                      window_width - plvbox->allocation.width - handle_size,
                                       window_height);
                 }
             }
@@ -992,8 +993,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
         adjust_paned_rules();
 
-		// Style doesn't seem to have this property
-		gtk_widget_style_get(pane,"handle-size",&handle_size,NULL);
+        // Style doesn't seem to have this property
+        gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
         if (vertical_layout) {
             gtk_widget_set_size_request(plvbox, -1, 150);
             if (idledata->videopresent)

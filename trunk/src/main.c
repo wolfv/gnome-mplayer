@@ -204,7 +204,7 @@ gint play_iter(GtkTreeIter * playiter)
         gtk_main_iteration();
     }
     reset_paned_rules();
-	
+
     message = g_strdup_printf("<small>\n");
     if (title == NULL) {
         title = g_filename_display_basename(uri);
@@ -230,7 +230,8 @@ gint play_iter(GtkTreeIter * playiter)
     message = g_strconcat(message, "</small>", NULL);
 
     // probably not much cover art for random video files
-    if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0 && !playlist) {
+    if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0
+        && !playlist) {
         metadata = (MetaData *) g_new0(MetaData, 1);
         metadata->title = g_strdup(title);
         metadata->artist = g_strdup(artist);
@@ -242,11 +243,11 @@ gint play_iter(GtkTreeIter * playiter)
 
     g_strlcpy(idledata->media_info, message, 1024);
     g_free(message);
-	if (control_id == 0) {
-		set_media_label(idledata);
-	} else {
-		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menuitem_view_info),FALSE);
-	}
+    if (control_id == 0) {
+        set_media_label(idledata);
+    } else {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
+    }
 
     gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
@@ -387,8 +388,8 @@ gint play_iter(GtkTreeIter * playiter)
 
 static void hup_handler(int signum)
 {
-	// printf("handling signal %i\n",signum);
-	delete_callback(NULL,NULL,NULL);
+    // printf("handling signal %i\n",signum);
+    delete_callback(NULL, NULL, NULL);
 }
 
 int main(int argc, char *argv[])
@@ -401,7 +402,7 @@ int main(int argc, char *argv[])
     GError *error = NULL;
     GOptionContext *context;
     gint i;
-	struct sigaction sa;
+    struct sigaction sa;
 
 #ifdef GIO_ENABLED
     GFile *file;
@@ -503,15 +504,15 @@ int main(int argc, char *argv[])
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART; /* Restart functions if
-                                 interrupted by handler */
+    sa.sa_flags = SA_RESTART;   /* Restart functions if
+                                   interrupted by handler */
     if (sigaction(SIGINT, &sa, NULL) == -1)
-		printf("SIGINT signal handler not installed\n");
+        printf("SIGINT signal handler not installed\n");
     if (sigaction(SIGHUP, &sa, NULL) == -1)
-		printf("SIGHUP signal handler not installed\n");
+        printf("SIGHUP signal handler not installed\n");
     if (sigaction(SIGTERM, &sa, NULL) == -1)
-		printf("SIGTERM signal handler not installed\n");
-	
+        printf("SIGTERM signal handler not installed\n");
+
     // call g_type_init or otherwise we can crash
     g_type_init();
 
@@ -824,7 +825,7 @@ int main(int argc, char *argv[])
 
     dbus_hookup(embed_window, control_id);
 
-	gtk_main();
+    gtk_main();
 
     return 0;
 }
