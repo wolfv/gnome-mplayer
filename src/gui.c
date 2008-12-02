@@ -2129,6 +2129,46 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
 
 }
 
+void menuitem_open_dvd_iso_callback(GtkMenuItem * menuitem, void *data)
+{
+    GtkWidget *dialog;
+    gchar *last_dir;
+	GtkFileFilter *filter;
+	
+    dialog = gtk_file_chooser_dialog_new(_("Choose Disk Image"),
+                                         GTK_WINDOW(window),
+                                         GTK_FILE_CHOOSER_ACTION_OPEN,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+    gtk_widget_show(dialog);
+    init_preference_store();
+    last_dir = read_preference_string(LAST_DIR);
+    if (last_dir != NULL) {
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
+        g_free(last_dir);
+    }
+    release_preference_store();
+    filter = gtk_file_filter_new();
+    gtk_file_filter_set_name(filter, _("Disk Image (*.iso)"));
+    gtk_file_filter_add_pattern(filter, "*.iso");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
+
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+
+        gtk_list_store_clear(playliststore);
+        gtk_list_store_clear(nonrandomplayliststore);
+        idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+
+        parse_dvd("dvd://");
+
+        if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+            play_iter(&iter);
+        }
+    }
+    gtk_widget_destroy(dialog);
+
+}
+
 void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
@@ -2161,6 +2201,47 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
         g_free(last_dir);
     }
     release_preference_store();
+
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+
+        gtk_list_store_clear(playliststore);
+        gtk_list_store_clear(nonrandomplayliststore);
+        idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+
+        add_item_to_playlist("dvdnav://", 0);
+        gtk_widget_show(menu_event_box);
+
+        if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+            play_iter(&iter);
+        }
+    }
+    gtk_widget_destroy(dialog);
+
+}
+
+void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
+{
+    GtkWidget *dialog;
+    gchar *last_dir;
+	GtkFileFilter *filter;
+	
+    dialog = gtk_file_chooser_dialog_new(_("Choose Disk Image"),
+                                         GTK_WINDOW(window),
+                                         GTK_FILE_CHOOSER_ACTION_OPEN,
+                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                         GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+    gtk_widget_show(dialog);
+    init_preference_store();
+    last_dir = read_preference_string(LAST_DIR);
+    if (last_dir != NULL) {
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
+        g_free(last_dir);
+    }
+    release_preference_store();
+    filter = gtk_file_filter_new();
+    gtk_file_filter_set_name(filter, _("Disk Image (*.iso)"));
+    gtk_file_filter_add_pattern(filter, "*.iso");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
@@ -4787,7 +4868,14 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_dvdnav_folder =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from Folder with M_enus")));
     gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvdnav_folder));
-    menuitem_file_open_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    menuitem_file_open_dvd_iso =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from _ISO")));
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvd_iso));
+    menuitem_file_open_dvdnav_iso =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from ISO with Me_nus")));
+    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvdnav_iso));
+
+	menuitem_file_open_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_sep2));
     menuitem_file_open_vcd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _VCD")));
     gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_vcd));
@@ -4843,6 +4931,10 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_open_dvd_folder_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_dvdnav_folder), "activate",
                      G_CALLBACK(menuitem_open_dvdnav_folder_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_dvd_iso), "activate",
+                     G_CALLBACK(menuitem_open_dvd_iso_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_dvdnav_iso), "activate",
+                     G_CALLBACK(menuitem_open_dvdnav_iso_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_acd), "activate",
                      G_CALLBACK(menuitem_open_acd_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_vcd), "activate",
