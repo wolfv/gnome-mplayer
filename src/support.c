@@ -2335,6 +2335,8 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
     query = mb_query_new(mb, "gnome-mplayer");
 
     release_filter = mb_release_filter_new();
+	if (release_filter == NULL)
+		return ret;
     if (artist != NULL && strlen(artist) > 0)
         release_filter = mb_release_filter_artist_name(release_filter, artist);
     if (album != NULL && strlen(album) > 0)
@@ -2350,13 +2352,17 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
         for (i = 0; i < mb_result_list_get_size(results); i++) {
             score = mb_result_list_get_score(results, i);
             release = mb_result_list_get_release(results, i);
-            mb_release_get_id(release, id, 1024);
-            mb_release_free(release);
-            includes = mb_release_includes_new();
-            includes = mb_track_includes_url_relations(includes);
-
-            release = mb_query_get_release_by_id(query, id, includes);
-            if (release != NULL) {
+			if (release != NULL) {
+				mb_release_get_id(release, id, 1024);
+				mb_release_free(release);
+				includes = mb_release_includes_new();
+				if (includes != NULL) {
+					includes = mb_track_includes_url_relations(includes);
+					release = mb_query_get_release_by_id(query, id, includes);
+					mb_release_includes_free(includes);
+				}
+			}
+			if (release != NULL) {
                 mb_release_get_asin(release, asin, 1024);
                 mb_release_free(release);
                 if (strlen(asin) > 0) {
@@ -2371,7 +2377,6 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
                     }
                 }
             }
-            mb_release_includes_free(includes);
             if (score == 100 && ret != NULL)
                 break;
         }
