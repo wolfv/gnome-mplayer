@@ -1,4 +1,5 @@
 Development
+    Safety checks for musicbrains3
     Change cover art cache file when using 'guess' at what we are looking for
     Capture SIGTERM as well
     Shutdown mplayer when we get a SIGHUP (example is when X is forced to quit)
