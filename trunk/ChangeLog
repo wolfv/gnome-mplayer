@@ -1,4 +1,6 @@
 Development
+    Force refresh of GUI at end of refresh_window
+    Fix bug #108, when in shuffle mode, deleted items come back when unshuffled
     Show remote files on recent list when GIO enabled
     Rework cover art loading to minimize calls to musicbrainz
     Updated French translation
