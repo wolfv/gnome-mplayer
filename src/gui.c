@@ -923,6 +923,10 @@ gboolean resize_window(void *data)
     }
     if (idle != NULL)
         idle->window_resized = TRUE;
+	
+	while(gtk_events_pending()) 
+		gtk_main_iteration();
+	
     menuitem_details_callback(NULL, NULL);
     return FALSE;
 }
@@ -1046,13 +1050,17 @@ gboolean set_show_controls(void *data)
 
     showcontrols = (gint) idle->showcontrols;
 
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
+	if (GTK_WIDGET_VISIBLE(menuitem_view_controls)) {
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), showcontrols);
+	} else {
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
+	}
     return FALSE;
 }
 
 gboolean get_show_controls()
 {
-    return gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols));
+    return gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls));
 }
 
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
