@@ -1,4 +1,6 @@
 Development
+    Show remote files on recent list when GIO enabled
+    Rework cover art loading to minimize calls to musicbrainz
     Updated French translation
     Added the ability to play a DVD from an ISO image
     Safety checks for musicbrains3
