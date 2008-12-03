@@ -2354,6 +2354,9 @@ void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
     g_signal_connect(GTK_OBJECT(menuitem_file_recent_items), "item-activated",
                      G_CALLBACK(menuitem_open_recent_callback), NULL);
+#ifdef GIO_ENABLED	
+    gtk_recent_chooser_set_local_only(GTK_RECENT_CHOOSER(menuitem_file_recent_items), FALSE);
+#endif
 
 }
 #endif
@@ -4910,6 +4913,9 @@ GtkWidget *create_window(gint windowid)
     gtk_recent_chooser_set_sort_type(GTK_RECENT_CHOOSER(menuitem_file_recent_items),
                                      GTK_RECENT_SORT_MRU);
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
+#ifdef GIO_ENABLED	
+    gtk_recent_chooser_set_local_only(GTK_RECENT_CHOOSER(menuitem_file_recent_items), FALSE);
+#endif
 #endif
 
     menuitem_file_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());

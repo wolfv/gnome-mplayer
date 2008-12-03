@@ -2329,6 +2329,8 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
     gchar *ret = NULL;
     gint score, highest_score;
 
+	if (album == NULL && artist == NULL);
+		return ret;
 
     mb = mb_webservice_new();
 
@@ -2400,12 +2402,17 @@ gpointer get_cover_art(gpointer data)
     FILE *art;
     gpointer pixbuf;
     MetaData *metadata = (MetaData *) data;
+	gboolean art_found = TRUE;
 
-    if (metadata->artist == NULL) {
+    if (metadata->artist == NULL || strlen(metadata->artist) == 0) {
+		if (metadata->artist)
+			g_free(metadata->artist);
         metadata->artist = g_strdup("Unknown");
         local_artist = TRUE;
     }
-    if (metadata->album == NULL) {
+    if (metadata->album == NULL || strlen(metadata->album) == 0) {
+		if (metadata->album) 
+			g_free(metadata->album);
         metadata->album = g_strdup("Unknown");
         local_album = TRUE;
     }
@@ -2430,51 +2437,59 @@ gpointer get_cover_art(gpointer data)
     }
 
     if (!g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+		art_found = FALSE;
         if (!disable_cover_art_fetch) {
             url = get_cover_art_url(metadata->artist, metadata->title, metadata->album);
             if (url == NULL && metadata->album != NULL && strlen(metadata->album) > 0 ) {
-				url = get_cover_art_url(NULL, NULL, metadata->album);
 				g_free(cache_file);
 				cache_file =
 					g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg",
 									g_get_user_cache_dir(), metadata->album);
+				if (!g_file_test(cache_file, G_FILE_TEST_EXISTS))
+					url = get_cover_art_url(NULL, NULL, metadata->album);
 			}
             if (url == NULL) {
                 if ((path = strstr(metadata->title, " - ")) != NULL) {
                     path[0] = '\0';
-                    url = get_cover_art_url(metadata->title, NULL, NULL);
                     g_free(cache_file);
                     cache_file =
                         g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg",
                                         g_get_user_cache_dir(), metadata->title);
+					if (!g_file_test(cache_file, G_FILE_TEST_EXISTS))
+						url = get_cover_art_url(metadata->title, NULL, NULL);
                 } else {
                     if (metadata->artist != NULL && strlen(metadata->artist) != 0) {
-                        url = get_cover_art_url(metadata->artist, NULL, NULL);
                         g_free(cache_file);
                         cache_file =
                             g_strdup_printf("%s/gnome-mplayer/cover_art/%s/Unknown.jpeg",
                                             g_get_user_cache_dir(), metadata->artist);
+						if (!g_file_test(cache_file, G_FILE_TEST_EXISTS))
+							url = get_cover_art_url(metadata->artist, NULL, NULL);
                     }
                 }
             }
-            if (url != NULL) {
-                art = fopen(cache_file, "wb");
-                curl = curl_easy_init();
-                if (curl) {
-                    curl_easy_setopt(curl, CURLOPT_URL, url);
-                    curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
-                    curl_easy_perform(curl);
-                    curl_easy_cleanup(curl);
-                }
-                fclose(art);
-                // printf("cover art url is %s\n",url);
-                g_free(url);
-
-            }
+            if (!g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+				if (url != NULL) {
+					art = fopen(cache_file, "wb");
+					curl = curl_easy_init();
+					if (curl) {
+						curl_easy_setopt(curl, CURLOPT_URL, url);
+						curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
+						curl_easy_perform(curl);
+						curl_easy_cleanup(curl);
+					}
+					fclose(art);
+					// printf("cover art url is %s\n",url);
+					g_free(url);
+					art_found = TRUE;
+				}
+            } else {
+				art_found = TRUE;
+			}
         }
     }
 
-    if (g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+    if (g_file_test(cache_file, G_FILE_TEST_EXISTS) && art_found) {
         pixbuf = gdk_pixbuf_new_from_file(cache_file, NULL);
         g_idle_add(set_cover_art, pixbuf);
     } else {
