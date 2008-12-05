@@ -2329,6 +2329,9 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
     gchar *ret = NULL;
     gint score, highest_score;
 
+	if (disable_cover_art_fetch)
+		return ret;
+	
 	if (album == NULL && artist == NULL);
 		return ret;
 
@@ -2419,10 +2422,6 @@ gpointer get_cover_art(gpointer data)
 
     path =
         g_strdup_printf("%s/gnome-mplayer/cover_art/%s", g_get_user_cache_dir(), metadata->artist);
-    if (!g_file_test(path, G_FILE_TEST_IS_DIR) && !disable_cover_art_fetch) {
-        g_mkdir_with_parents(path, 0775);
-    }
-    g_free(path);
 
     cache_file =
         g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(),
@@ -2441,6 +2440,10 @@ gpointer get_cover_art(gpointer data)
         if (!disable_cover_art_fetch) {
             url = get_cover_art_url(metadata->artist, metadata->title, metadata->album);
             if (url == NULL && metadata->album != NULL && strlen(metadata->album) > 0 ) {
+				g_free(path);
+				path =
+					g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown",
+									g_get_user_cache_dir());
 				g_free(cache_file);
 				cache_file =
 					g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg",
@@ -2451,6 +2454,10 @@ gpointer get_cover_art(gpointer data)
             if (url == NULL) {
                 if ((path = strstr(metadata->title, " - ")) != NULL) {
                     path[0] = '\0';
+					g_free(path);
+					path =
+						g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown",
+										g_get_user_cache_dir());
                     g_free(cache_file);
                     cache_file =
                         g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg",
@@ -2459,6 +2466,10 @@ gpointer get_cover_art(gpointer data)
 						url = get_cover_art_url(metadata->title, NULL, NULL);
                 } else {
                     if (metadata->artist != NULL && strlen(metadata->artist) != 0) {
+						g_free(path);
+						path =
+							g_strdup_printf("%s/gnome-mplayer/cover_art/%s",
+											g_get_user_cache_dir(),metadata->artist);
                         g_free(cache_file);
                         cache_file =
                             g_strdup_printf("%s/gnome-mplayer/cover_art/%s/Unknown.jpeg",
@@ -2468,8 +2479,12 @@ gpointer get_cover_art(gpointer data)
                     }
                 }
             }
-            if (!g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+            if (!g_file_test(cache_file, G_FILE_TEST_EXISTS) && !disable_cover_art_fetch) {
 				if (url != NULL) {
+				    if (!g_file_test(path, G_FILE_TEST_IS_DIR)) {
+						g_mkdir_with_parents(path, 0775);
+					}
+
 					art = fopen(cache_file, "wb");
 					curl = curl_easy_init();
 					if (curl) {
@@ -2497,6 +2512,7 @@ gpointer get_cover_art(gpointer data)
         g_idle_add(set_cover_art, pixbuf);
     }
     g_free(cache_file);
+	g_free(path);
 
     g_free(metadata->title);
     g_free(metadata->artist);
