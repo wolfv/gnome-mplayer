@@ -2332,7 +2332,7 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
 	if (disable_cover_art_fetch)
 		return ret;
 	
-	if (album == NULL && artist == NULL);
+	if (album == NULL && artist == NULL)
 		return ret;
 
     mb = mb_webservice_new();
@@ -2479,7 +2479,14 @@ gpointer get_cover_art(gpointer data)
                     }
                 }
             }
-            if (!g_file_test(cache_file, G_FILE_TEST_EXISTS) && !disable_cover_art_fetch) {
+			
+			if (verbose > 2) {
+				printf("getting cover art from %s\n",url);
+				printf("storing cover art to %s\n",cache_file);
+				printf("cache file exists = %i\n",g_file_test(cache_file, G_FILE_TEST_EXISTS));
+			}
+			
+            if (!g_file_test(cache_file, G_FILE_TEST_EXISTS) && disable_cover_art_fetch == FALSE) {
 				if (url != NULL) {
 				    if (!g_file_test(path, G_FILE_TEST_IS_DIR)) {
 						g_mkdir_with_parents(path, 0775);
