@@ -1,4 +1,5 @@
 Development
+    Fix misplaced ;, was block all art fetches
     Only create cover art cache path, if we are going to download something
     Force refresh of GUI at end of refresh_window
     Fix bug #108, when in shuffle mode, deleted items come back when unshuffled
