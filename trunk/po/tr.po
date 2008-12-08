@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-21 09:18-0700\n"
-"PO-Revision-Date: 2008-11-16 12:26+0200\n"
+"PO-Revision-Date: 2008-12-08 01:32+0200\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "MPlayer yazılımsal ses seviyesi ayarı kullan"
 
 #: src/main.c:60
 msgid "Mixer to use"
-msgstr ""
+msgstr "Ses seviyesi aracı"
 
 #: src/main.c:61
 msgid "Set initial volume percentage"
@@ -514,9 +514,8 @@ msgid "Audio Output:"
 msgstr "Ses Çıktısı:"
 
 #: src/gui.c:3910
-#, fuzzy
 msgid "Default Mixer:"
-msgstr "_Öntanımlı Yatay Dikey Oranı"
+msgstr "Öntanımlı Ses Seviyesi Aracı:"
 
 #: src/gui.c:3933
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
@@ -527,9 +526,8 @@ msgid "Default Volume Level:"
 msgstr "Öntanımlı Ses Seviyesi:"
 
 #: src/gui.c:3950
-#, fuzzy
 msgid "Default volume for playback"
-msgstr "Öntanımlı Ses Seviyesi:"
+msgstr "Öntanımlı ses seviyesi"
 
 #: src/gui.c:3965
 msgid "Minimum Cache Size (KB):"
@@ -720,8 +718,7 @@ msgid "MPlayer Executable:"
 msgstr "MPlayer Çalıştırılabilir Dosyası:"
 
 #: src/gui.c:4329
-msgid ""
-"Use this option to specify a mplayer application that is not in the path"
+msgid "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Hızlı erişim yolunda (PATH) olmayan bir mplayer uygulamasını çalıştırmak "
 "için bu seçeneği kullanın"
@@ -843,8 +840,7 @@ msgstr "_Ekran Görüntüsü Yakala"
 
 #: src/gui.c:4897
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
-msgstr ""
-"Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
+msgstr "Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
 
 #. View Menu
 #: src/gui.c:4926
@@ -1103,15 +1099,3 @@ msgstr "Öğeyi Aşağı İndir"
 msgid "_Set Subtitle"
 msgstr "_Altyazı Ayarla"
 
-#~ msgid "Playing DVD"
-#~ msgstr "DVD oynatılıyor"
-
-#~ msgid "Playing Audio CD"
-#~ msgstr "Ses CD'si oynatılıyor"
-
-#~ msgid ""
-#~ "Default volume for playback, a value of -1 causes the setting from ALSA "
-#~ "to be used"
-#~ msgstr ""
-#~ "Öntanımlı ses seviyesi. Değeri -1 olarak ayarlanırsa ALSA ses seviyesi "
-#~ "ayarları kullanılır"
