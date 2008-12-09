@@ -1,4 +1,5 @@
 Development
+    Added vo of xvmc to the list, the codec is forced to ffmpeg12mc when this option is selected
     Reference cleanups
     Updated Turkish translation
     Fix misplaced ;, was block all art fetches
