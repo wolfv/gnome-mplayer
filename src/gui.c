@@ -3818,6 +3818,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "gl");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "x11");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xv");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xvmc");
         if (vo != NULL) {
             if (strcmp(vo, "gl") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 0);
@@ -3825,10 +3826,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 1);
             if (strcmp(vo, "xv") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 2);
+            if (strcmp(vo, "xvmc") == 0)
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 3);
             if (gtk_combo_box_get_active(GTK_COMBO_BOX(config_vo))
                 == -1) {
                 gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), vo);
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 3);
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 4);
             }
         }
     }
