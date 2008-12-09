@@ -1,4 +1,5 @@
 Development
+    Reference cleanups
     Updated Turkish translation
     Fix misplaced ;, was block all art fetches
     Only create cover art cache path, if we are going to download something
