@@ -210,6 +210,7 @@ gboolean set_media_label(void *data)
         }
         if (pixbuf != NULL) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
+			g_object_unref(pixbuf);
         }
     }
 
@@ -274,6 +275,7 @@ gboolean set_cover_art(gpointer pixbuf)
         }
     } else {
         gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
+		g_object_unref(pixbuf);
         gtk_widget_show_all(media_hbox);
     }
 
