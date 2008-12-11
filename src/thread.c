@@ -740,11 +740,13 @@ gpointer launch_player(gpointer data)
     if (!disable_framedrop)
         argv[arg++] = g_strdup_printf("-framedrop");
 
-    if (!disable_deinterlace) {
-        argv[arg++] = g_strdup_printf("-vf-pre");
-        argv[arg++] = g_strdup_printf("yadif,softskip,scale");
-    }
-
+	if (g_ascii_strcasecmp(vo,"xvmc") != 0) {
+		if (!disable_deinterlace) {
+			argv[arg++] = g_strdup_printf("-vf-pre");
+			argv[arg++] = g_strdup_printf("yadif,softskip,scale");
+		}
+	}
+	
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-osdlevel");
     argv[arg++] = g_strdup_printf("%i", osdlevel);
