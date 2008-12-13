@@ -803,7 +803,7 @@ gboolean update_mplayer_config()
             g_key_file_set_string(config, "gnome-mplayer", "vf", "eq2");
         }
 
-        if (g_ascii_strcasecmp(vo, "gl") == 0 || g_ascii_strcasecmp(vo, "gl2") == 0) {
+        if (g_ascii_strcasecmp(vo, "gl") == 0 || g_ascii_strcasecmp(vo, "gl2") == 0 || g_ascii_strcasecmp(vo, "xvmc") == 0) {
             // if vf=eq2 is set and we use gl, then mplayer crashes
             g_key_file_remove_key(config, "gnome-mplayer", "zoom", NULL);
             g_key_file_remove_key(config, "gnome-mplayer", "vf", NULL);
