@@ -718,11 +718,11 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
-	if (vo != NULL && g_ascii_strcasecmp(vo,"xvmc") == 0) {
+    if (vo != NULL && g_ascii_strcasecmp(vo, "xvmc") == 0) {
         argv[arg++] = g_strdup_printf("-vc");
         argv[arg++] = g_strdup_printf("ffmpeg12mc");
-	}
-	
+    }
+
     if (verbose < 2)
         argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
@@ -740,13 +740,13 @@ gpointer launch_player(gpointer data)
     if (!disable_framedrop)
         argv[arg++] = g_strdup_printf("-framedrop");
 
-	if (g_ascii_strcasecmp(vo,"xvmc") != 0) {
-		if (!disable_deinterlace) {
-			argv[arg++] = g_strdup_printf("-vf-pre");
-			argv[arg++] = g_strdup_printf("yadif,softskip,scale");
-		}
-	}
-	
+    if (g_ascii_strcasecmp(vo, "xvmc") != 0) {
+        if (!disable_deinterlace) {
+            argv[arg++] = g_strdup_printf("-vf-pre");
+            argv[arg++] = g_strdup_printf("yadif,softskip,scale");
+        }
+    }
+
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-osdlevel");
     argv[arg++] = g_strdup_printf("%i", osdlevel);

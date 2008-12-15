@@ -1,4 +1,6 @@
 Development
+    Rework how accelerators are called, and remap them on keymap change
+    make indent
     Remove eq filter when using xvmc vo
     Disable deinterlace filters when xvmc is enabled
     Added vo of xvmc to the list, the codec is forced to ffmpeg12mc when this option is selected
