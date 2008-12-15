@@ -210,7 +210,7 @@ gboolean set_media_label(void *data)
         }
         if (pixbuf != NULL) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
-			g_object_unref(pixbuf);
+            g_object_unref(pixbuf);
         }
     }
 
@@ -275,7 +275,7 @@ gboolean set_cover_art(gpointer pixbuf)
         }
     } else {
         gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
-		g_object_unref(pixbuf);
+        g_object_unref(pixbuf);
         gtk_widget_show_all(media_hbox);
     }
 
@@ -925,10 +925,10 @@ gboolean resize_window(void *data)
     }
     if (idle != NULL)
         idle->window_resized = TRUE;
-	
-	while(gtk_events_pending()) 
-		gtk_main_iteration();
-	
+
+    while (gtk_events_pending())
+        gtk_main_iteration();
+
     menuitem_details_callback(NULL, NULL);
     return FALSE;
 }
@@ -1052,11 +1052,11 @@ gboolean set_show_controls(void *data)
 
     showcontrols = (gint) idle->showcontrols;
 
-	if (GTK_WIDGET_VISIBLE(menuitem_view_controls)) {
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), showcontrols);
-	} else {
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
-	}
+    if (GTK_WIDGET_VISIBLE(menuitem_view_controls)) {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), showcontrols);
+    } else {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
+    }
     return FALSE;
 }
 
@@ -1302,6 +1302,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     // printf("state = %i\n",event->state);
     // printf("other = %i\n", event->state & ~GDK_CONTROL_MASK);
 
+    printf("key name=%s\n", gdk_keyval_name(event->keyval));
     // We don't want to handle CTRL accelerators here
     // if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
     if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
@@ -1311,6 +1312,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 
         g_idle_add(make_panel_and_mouse_visible, NULL);
         switch (event->keyval) {
+        case GDK_ISO_Next_Group:
+            setup_accelerators();
+            return FALSE;
         case GDK_Right:
             if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
                 send_command("dvdnav 4\n", FALSE);
@@ -2143,8 +2147,8 @@ void menuitem_open_dvd_iso_callback(GtkMenuItem * menuitem, void *data)
 {
     GtkWidget *dialog;
     gchar *last_dir;
-	GtkFileFilter *filter;
-	
+    GtkFileFilter *filter;
+
     dialog = gtk_file_chooser_dialog_new(_("Choose Disk Image"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -2233,8 +2237,8 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
 {
     GtkWidget *dialog;
     gchar *last_dir;
-	GtkFileFilter *filter;
-	
+    GtkFileFilter *filter;
+
     dialog = gtk_file_chooser_dialog_new(_("Choose Disk Image"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -2364,7 +2368,7 @@ void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
     g_signal_connect(GTK_OBJECT(menuitem_file_recent_items), "item-activated",
                      G_CALLBACK(menuitem_open_recent_callback), NULL);
-#ifdef GIO_ENABLED	
+#ifdef GIO_ENABLED
     gtk_recent_chooser_set_local_only(GTK_RECENT_CHOOSER(menuitem_file_recent_items), FALSE);
 #endif
 
@@ -4702,6 +4706,82 @@ void make_button(gchar * src, gchar * hrefid)
 
 }
 
+void setup_accelerators()
+{
+    if (gtk_accel_group_query(accel_group, GDK_c, 0, NULL) != NULL) {
+        // printf("flushing accelerators\n");
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_edit_config),
+                                      accel_group, GDK_p, GDK_CONTROL_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_edit_take_screenshot),
+                                      accel_group, GDK_t, GDK_CONTROL_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_playlist),
+                                      accel_group, GDK_l, GDK_CONTROL_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_file_open_location),
+                                      accel_group, GDK_u, GDK_CONTROL_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_info), accel_group, GDK_i, 0);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_subtitles), accel_group, GDK_v, 0);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_details),
+                                      accel_group, GDK_d, GDK_CONTROL_MASK);
+
+        if (!disable_fullscreen) {
+            gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_fullscreen), accel_group, GDK_f, 0);
+
+            gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_fullscreen),
+                                          accel_group, GDK_f, GDK_CONTROL_MASK);
+
+        }
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_onetoone),
+                                      accel_group, GDK_1, GDK_CONTROL_MASK);
+
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_twotoone),
+                                      accel_group, GDK_2, GDK_CONTROL_MASK);
+
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_showcontrols), accel_group, GDK_c, 0);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_controls), accel_group, GDK_c, 0);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_angle), accel_group, GDK_a, 0);
+
+    }
+
+
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_config), "activate",
+                               accel_group, GDK_p, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_take_screenshot), "activate",
+                               accel_group, GDK_t, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_playlist), "activate",
+                               accel_group, GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_file_open_location), "activate",
+                               accel_group, GDK_u, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_info), "activate",
+                               accel_group, GDK_i, 0, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
+                               accel_group, GDK_v, 0, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_details), "activate",
+                               accel_group, GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+    if (!disable_fullscreen) {
+        gtk_widget_add_accelerator(GTK_WIDGET(menuitem_fullscreen), "activate",
+                                   accel_group, GDK_f, 0, GTK_ACCEL_VISIBLE);
+
+        gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_fullscreen), "activate",
+                                   accel_group, GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+    }
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
+                               accel_group, GDK_1, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_twotoone), "activate",
+                               accel_group, GDK_2, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_showcontrols), "activate",
+                               accel_group, GDK_c, 0, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls), "activate",
+                               accel_group, GDK_c, 0, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_angle), "activate",
+                               accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
+
+}
+
+
 GtkWidget *create_window(gint windowid)
 {
     GError *error = NULL;
@@ -4891,7 +4971,7 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from ISO with Me_nus")));
     gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvdnav_iso));
 
-	menuitem_file_open_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    menuitem_file_open_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_sep2));
     menuitem_file_open_vcd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _VCD")));
     gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_vcd));
@@ -4926,7 +5006,7 @@ GtkWidget *create_window(gint windowid)
     gtk_recent_chooser_set_sort_type(GTK_RECENT_CHOOSER(menuitem_file_recent_items),
                                      GTK_RECENT_SORT_MRU);
     gtk_menu_item_set_submenu(menuitem_file_recent, menuitem_file_recent_items);
-#ifdef GIO_ENABLED	
+#ifdef GIO_ENABLED
     gtk_recent_chooser_set_local_only(GTK_RECENT_CHOOSER(menuitem_file_recent_items), FALSE);
 #endif
 #endif
@@ -5035,10 +5115,6 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_edit_take_screenshot_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_config), "activate",
                      G_CALLBACK(menuitem_config_callback), NULL);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_config), "activate",
-                               accel_group, 'p', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_take_screenshot), "activate",
-                               accel_group, 't', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 
 
@@ -5113,16 +5189,6 @@ GtkWidget *create_window(gint windowid)
 
     g_signal_connect(GTK_OBJECT(menuitem_view_playlist), "toggled",
                      G_CALLBACK(menuitem_view_playlist_callback), NULL);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_playlist), "activate",
-                               accel_group, 'l', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_file_open_location), "activate",
-                               accel_group, 'u', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_info), "activate",
-                               accel_group, 'i', 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
-                               accel_group, 'v', 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_details), "activate",
-                               accel_group, 'd', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     g_signal_connect(GTK_OBJECT(menuitem_view_info), "activate",
                      G_CALLBACK(menuitem_view_info_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_details), "activate",
@@ -5164,27 +5230,7 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_about_callback), NULL);
 
     gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
-    if (!disable_fullscreen) {
-        gtk_widget_add_accelerator(GTK_WIDGET(menuitem_fullscreen), "activate",
-                                   accel_group, 'f', 0, GTK_ACCEL_VISIBLE);
-
-        gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_fullscreen), "activate",
-                                   accel_group, 'f', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
-    }
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
-                               accel_group, '1', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_twotoone), "activate",
-                               accel_group, '2', GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_showcontrols), "activate",
-                               accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls), "activate",
-                               accel_group, 'c', 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_angle), "activate",
-                               accel_group, 'a', 0, GTK_ACCEL_VISIBLE);
-
+    setup_accelerators();
     g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
 
     // Give the window the property to accept DnD

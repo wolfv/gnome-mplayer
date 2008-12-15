@@ -296,3 +296,4 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 void create_folder_progress_window();
 void destroy_folder_progress_window();
 void update_status_icon();
+void setup_accelerators();
