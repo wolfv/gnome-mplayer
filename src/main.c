@@ -57,7 +57,8 @@ static GOptionEntry entries[] = {
     {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more output on the console"), NULL},
     {"reallyverbose", '\0', 0, G_OPTION_ARG_NONE, &reallyverbose,
      N_("Show even more output on the console"), NULL},
-    {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
+	{"fullscreen", 0, 0, G_OPTION_ARG_NONE, &fullscreen, N_("Start in fullscreen mode"), NULL},
+	{"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
     {"mixer", 0, 0, G_OPTION_ARG_STRING, &mixer, N_("Mixer to use"), NULL},
     {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
@@ -501,6 +502,7 @@ int main(int argc, char *argv[])
     load_tracks_from_gpod = FALSE;
     disable_cover_art_fetch = FALSE;
     mixer = NULL;
+    fullscreen = 0;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -657,7 +659,6 @@ int main(int argc, char *argv[])
 
     create_window(embed_window);
 
-    fullscreen = 0;
     autopause = FALSE;
     state = QUIT;
     channel_in = NULL;
