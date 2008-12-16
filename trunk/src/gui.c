@@ -3068,8 +3068,6 @@ void config_apply(GtkWidget * widget, void *data)
     subtitle_codepage =
         g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_subtitle_codepage)->child)));
 
-    update_mplayer_config();
-
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     old_disable_framedrop = disable_framedrop;
     disable_deinterlace =
@@ -3142,6 +3140,8 @@ void config_apply(GtkWidget * widget, void *data)
         mplayer_bin = NULL;
     }
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
+
+	update_mplayer_config();
 
     init_preference_store();
 #ifndef HAVE_ASOUNDLIB
