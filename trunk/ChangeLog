@@ -1,4 +1,5 @@
 Development
+    Add new commandline option --fullscreen that opens the video in fullscreen mode
     Rework how accelerators are called, and remap them on keymap change
     make indent
     Remove eq filter when using xvmc vo

@@ -830,6 +830,7 @@ gboolean resize_window(void *data)
                         last_window_height = idle->height;
                     }
                 }
+			    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen), fullscreen);
             } else {
                 if (window_x > 0 && window_y > 0) {
                     total_height = window_y;
