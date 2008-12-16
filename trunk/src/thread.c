@@ -714,13 +714,24 @@ gpointer launch_player(gpointer data)
     } else {
         argv[arg++] = g_strdup_printf("%s", mplayer_bin);
     }
+	
     if (vo != NULL && strlen(vo) > 0) {
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
+	
     if (vo != NULL && g_ascii_strcasecmp(vo, "xvmc") == 0) {
-        argv[arg++] = g_strdup_printf("-vc");
-        argv[arg++] = g_strdup_printf("ffmpeg12mc");
+		if (g_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0 || g_strncasecmp(threaddata->filename, "dvdnav://", strlen("dvdnav://")) == 0) {
+			argv[arg++] = g_strdup_printf("-vc");
+			argv[arg++] = g_strdup_printf("ffmpeg12mc");
+		} else {
+			argv[arg++] = g_strdup_printf("-vo");
+			argv[arg++] = g_strdup_printf("xv");
+			if (!disable_deinterlace) {
+				argv[arg++] = g_strdup_printf("-vf-pre");
+				argv[arg++] = g_strdup_printf("yadif,softskip,scale");
+			}			
+		}
     }
 
     if (verbose < 2)
