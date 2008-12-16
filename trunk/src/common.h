@@ -58,6 +58,7 @@
 #define VOLUME	"volume"
 #define USE_MEDIAKEYS		"use_mediakeys"
 #define DISABLE_COVER_ART_FETCH "disable_cover_art_fetch"
+#define FULLSCREEN	"fullscreen"
 
 #define MPLAYER_BIN		"mplayer_bin"
 #define EXTRAOPTS		"extraopts"

@@ -50,6 +50,18 @@
     </schema>
     
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/fullscreen</key>
+      <applyto>/apps/gnome-mplayer/preferences/fullscreen</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>start in fullscreen as soon as possible</short>
+        <long>switch to fullscreen mode on video load</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/verbose</key>
       <applyto>/apps/gnome-mplayer/preferences/verbose</applyto>
       <owner>gnome-mplayer</owner>

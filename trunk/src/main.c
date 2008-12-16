@@ -525,6 +525,7 @@ int main(int argc, char *argv[])
 #ifndef HAVE_ASOUNDLIB
     volume = read_preference_int(VOLUME);
 #endif
+	fullscreen = read_preference_bool(FULLSCREEN);
     softvol = read_preference_bool(SOFTVOL);
     forcecache = read_preference_bool(FORCECACHE);
     vertical_layout = read_preference_bool(VERTICAL);
