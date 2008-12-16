@@ -802,7 +802,11 @@ gboolean update_mplayer_config()
             g_key_file_remove_key(config, "gnome-mplayer", "zoom", NULL);
             g_key_file_set_string(config, "gnome-mplayer", "vf", "eq2");
         }
-
+        
+		if (g_ascii_strcasecmp(vo, "xvmc") == 0 && !disable_deinterlace) {
+			g_key_file_set_string(config, "gnome-mplayer", "vo", "xvmc:bobdeint:queue");
+		}
+		
         if (g_ascii_strcasecmp(vo, "gl") == 0 || g_ascii_strcasecmp(vo, "gl2") == 0
             || g_ascii_strcasecmp(vo, "xvmc") == 0) {
             // if vf=eq2 is set and we use gl, then mplayer crashes
@@ -890,6 +894,10 @@ gboolean read_mplayer_config()
     alang = g_key_file_get_string(config, "gnome-mplayer", "alang", NULL);
     slang = g_key_file_get_string(config, "gnome-mplayer", "slang", NULL);
 
+	if (g_ascii_strcasecmp(vo,"xvmc:bobdeint:queue") == 0) {
+		g_free(vo);
+		vo = g_strdup("xvmc");
+	}
 
     g_free(filename);
     g_key_file_free(config);
