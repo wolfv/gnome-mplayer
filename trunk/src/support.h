@@ -28,7 +28,6 @@
 #include "gui.h"
 #include "common.h"
 #include <string.h>
-#include <stdlib.h>
 #include <unistd.h>
 
 #ifdef HAVE_ASOUNDLIB

@@ -1,4 +1,5 @@
 Development
+    Cleanup gmp_tempname a little
     Only use xvmc vo for dvd and dvdnav cases, use xv as a fallback when xvmc should not be used
     Updated Polish translation
     Add hidden preference 'fullscreen' which does the same as the --fullscreen command line option
