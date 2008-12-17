@@ -2566,10 +2566,10 @@ gchar *gmp_tempname(gchar * path, const gchar * name_template)
 
     basename = g_strdup(name_template);
 
-    if (path == NULL && getenv("TMPDIR") == NULL) {
+    if (path == NULL && g_getenv("TMPDIR") == NULL) {
         localpath = g_strdup("/tmp");
-    } else if (path == NULL && getenv("TMPDIR") != NULL) {
-        localpath = g_strdup(getenv("TMPDIR"));
+    } else if (path == NULL && g_getenv("TMPDIR") != NULL) {
+        localpath = g_strdup(g_getenv("TMPDIR"));
     } else {
         localpath = g_strdup(path);
     }
