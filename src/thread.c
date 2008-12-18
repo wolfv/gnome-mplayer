@@ -745,8 +745,6 @@ gpointer launch_player(gpointer data)
 		} else if (g_ascii_strcasecmp(idledata->video_codec, "ffh264") == 0) {
             argv[arg++] = g_strdup_printf("-vc");
             argv[arg++] = g_strdup_printf("ffh264vdpau");
-            argv[arg++] = g_strdup_printf("-vf-pre");
-            argv[arg++] = g_strdup_printf("spp,scale");
         } else if (g_ascii_strcasecmp(idledata->video_codec, "ffwmv3") == 0) {
             argv[arg++] = g_strdup_printf("-vc");
             argv[arg++] = g_strdup_printf("ffwmv3vdpau");
@@ -907,9 +905,11 @@ gpointer launch_player(gpointer data)
         g_strfreev(opts);
     }
 
-    argv[arg++] = g_strdup_printf("-vf-add");
-    argv[arg++] = g_strdup_printf("screenshot");
-
+	if (!(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
+		argv[arg++] = g_strdup_printf("-vf-add");
+		argv[arg++] = g_strdup_printf("screenshot");
+	}
+	
     if (idledata->device != NULL) {
         argv[arg++] = g_strdup_printf("-dvd-device");
         argv[arg++] = g_strdup_printf("%s", idledata->device);
