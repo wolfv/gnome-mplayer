@@ -802,13 +802,13 @@ gboolean update_mplayer_config()
             g_key_file_remove_key(config, "gnome-mplayer", "zoom", NULL);
             g_key_file_set_string(config, "gnome-mplayer", "vf", "eq2");
         }
-        
-		if (g_ascii_strcasecmp(vo, "xvmc") == 0 && !disable_deinterlace) {
-			g_key_file_set_string(config, "gnome-mplayer", "vo", "xvmc:bobdeint:queue");
-		}
-		
+
+        if (g_ascii_strcasecmp(vo, "xvmc") == 0 && !disable_deinterlace) {
+            g_key_file_set_string(config, "gnome-mplayer", "vo", "xvmc:bobdeint:queue");
+        }
+
         if (g_ascii_strcasecmp(vo, "gl") == 0 || g_ascii_strcasecmp(vo, "gl2") == 0
-            || g_ascii_strcasecmp(vo, "xvmc") == 0) {
+            || g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0) {
             // if vf=eq2 is set and we use gl, then mplayer crashes
             g_key_file_remove_key(config, "gnome-mplayer", "zoom", NULL);
             g_key_file_remove_key(config, "gnome-mplayer", "vf", NULL);
@@ -894,10 +894,10 @@ gboolean read_mplayer_config()
     alang = g_key_file_get_string(config, "gnome-mplayer", "alang", NULL);
     slang = g_key_file_get_string(config, "gnome-mplayer", "slang", NULL);
 
-	if (g_ascii_strcasecmp(vo,"xvmc:bobdeint:queue") == 0) {
-		g_free(vo);
-		vo = g_strdup("xvmc");
-	}
+    if (g_ascii_strcasecmp(vo, "xvmc:bobdeint:queue") == 0) {
+        g_free(vo);
+        vo = g_strdup("xvmc");
+    }
 
     g_free(filename);
     g_key_file_free(config);
@@ -1140,7 +1140,8 @@ MetaData *get_metadata(gchar * uri)
         if (strstr(output[ac], "ID_DEMUXER") != NULL) {
             if (ret == NULL)
                 ret = (MetaData *) g_new0(MetaData, 1);
-
+            localtitle = strstr(output[ac], "=") + 1;
+            ret->demuxer = g_strdup(localtitle);
         }
         g_free(lower);
         ac++;
@@ -1388,6 +1389,7 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
                            AUDIO_CODEC_COLUMN, data->audio_codec,
                            VIDEO_CODEC_COLUMN, data->video_codec,
                            LENGTH_COLUMN, data->length,
+                           DEMUXER_COLUMN, data->demuxer,
                            LENGTH_VALUE_COLUMN, data->length_value, -1);
 
 
@@ -1402,8 +1404,10 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
                            AUDIO_CODEC_COLUMN, data->audio_codec,
                            VIDEO_CODEC_COLUMN, data->video_codec,
                            LENGTH_COLUMN, data->length,
+                           DEMUXER_COLUMN, data->demuxer,
                            LENGTH_VALUE_COLUMN, data->length_value, -1);
         set_item_add_info(uri);
+        g_free(data->demuxer);
         g_free(data->title);
         g_free(data->artist);
         g_free(data->album);
@@ -1627,6 +1631,7 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
     gchar *subtitle = NULL;
     gchar *audio_codec = NULL;
     gchar *video_codec = NULL;
+    gchar *demuxer = NULL;
     gchar *length = NULL;
     gfloat length_value;
 
@@ -1647,6 +1652,7 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
                                SUBTITLE_COLUMN, &subtitle,
                                AUDIO_CODEC_COLUMN, &audio_codec,
                                VIDEO_CODEC_COLUMN, &video_codec,
+                               DEMUXER_COLUMN, &demuxer,
                                LENGTH_COLUMN, &length, LENGTH_VALUE_COLUMN, &length_value, -1);
 
             gtk_list_store_append(dest, &destiter);
@@ -1659,6 +1665,7 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
                                SUBTITLE_COLUMN, subtitle,
                                AUDIO_CODEC_COLUMN, audio_codec,
                                VIDEO_CODEC_COLUMN, video_codec,
+                               DEMUXER_COLUMN, demuxer,
                                LENGTH_COLUMN, length, LENGTH_VALUE_COLUMN, length_value, -1);
 
             g_free(desc);

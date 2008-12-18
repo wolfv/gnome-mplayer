@@ -714,24 +714,44 @@ gpointer launch_player(gpointer data)
     } else {
         argv[arg++] = g_strdup_printf("%s", mplayer_bin);
     }
-	
+
     if (vo != NULL && strlen(vo) > 0) {
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
-	
+
     if (vo != NULL && g_ascii_strcasecmp(vo, "xvmc") == 0) {
-		if (g_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0 || g_strncasecmp(threaddata->filename, "dvdnav://", strlen("dvdnav://")) == 0) {
-			argv[arg++] = g_strdup_printf("-vc");
-			argv[arg++] = g_strdup_printf("ffmpeg12mc");
-		} else {
-			argv[arg++] = g_strdup_printf("-vo");
-			argv[arg++] = g_strdup_printf("xv");
-			if (!disable_deinterlace) {
-				argv[arg++] = g_strdup_printf("-vf-pre");
-				argv[arg++] = g_strdup_printf("yadif,softskip,scale");
-			}			
-		}
+        if (g_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0
+            || g_strncasecmp(threaddata->filename, "dvdnav://", strlen("dvdnav://")) == 0) {
+            argv[arg++] = g_strdup_printf("-vc");
+            argv[arg++] = g_strdup_printf("ffmpeg12mc");
+        } else {
+            argv[arg++] = g_strdup_printf("-vo");
+            argv[arg++] = g_strdup_printf("xv");
+            if (!disable_deinterlace) {
+                argv[arg++] = g_strdup_printf("-vf-pre");
+                argv[arg++] = g_strdup_printf("yadif,softskip,scale");
+            }
+        }
+    }
+
+    if (vo != NULL && g_ascii_strcasecmp(vo, "vdpau") == 0) {
+        // a video codec of 'ffmpeg2' could also be used here
+        if (g_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0
+            || g_strncasecmp(threaddata->filename, "dvdnav://", strlen("dvdnav://")) == 0) {
+            argv[arg++] = g_strdup_printf("-vc");
+            argv[arg++] = g_strdup_printf("ffmpeg12vdpau");
+        } else if (g_ascii_strcasecmp(idledata->video_codec, "ffh264") == 0) {
+            argv[arg++] = g_strdup_printf("-vc");
+            argv[arg++] = g_strdup_printf("ffh264vdpau");
+        } else {
+            argv[arg++] = g_strdup_printf("-vo");
+            argv[arg++] = g_strdup_printf("xv");
+            if (!disable_deinterlace) {
+                argv[arg++] = g_strdup_printf("-vf-pre");
+                argv[arg++] = g_strdup_printf("yadif,softskip,scale");
+            }
+        }
     }
 
     if (verbose < 2)
@@ -751,7 +771,7 @@ gpointer launch_player(gpointer data)
     if (!disable_framedrop)
         argv[arg++] = g_strdup_printf("-framedrop");
 
-    if (g_ascii_strcasecmp(vo, "xvmc") != 0) {
+    if (!(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
         if (!disable_deinterlace) {
             argv[arg++] = g_strdup_printf("-vf-pre");
             argv[arg++] = g_strdup_printf("yadif,softskip,scale");
