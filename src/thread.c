@@ -745,6 +745,8 @@ gpointer launch_player(gpointer data)
 		} else if (g_ascii_strcasecmp(idledata->video_codec, "ffh264") == 0) {
             argv[arg++] = g_strdup_printf("-vc");
             argv[arg++] = g_strdup_printf("ffh264vdpau");
+            argv[arg++] = g_strdup_printf("-vf-pre");
+            argv[arg++] = g_strdup_printf("spp,scale");
         } else if (g_ascii_strcasecmp(idledata->video_codec, "ffwmv3") == 0) {
             argv[arg++] = g_strdup_printf("-vc");
             argv[arg++] = g_strdup_printf("ffwmv3vdpau");
