@@ -145,6 +145,7 @@ typedef struct _IdleData {
     gint gamma;
     gint hue;
     gint saturation;
+    gchar demuxer[64];
     gchar video_format[64];
     gchar video_codec[16];
     gchar video_fps[16];
@@ -195,6 +196,7 @@ enum {
     COVERART_COLUMN,
     AUDIO_CODEC_COLUMN,
     VIDEO_CODEC_COLUMN,
+    DEMUXER_COLUMN,
     N_COLUMNS
 };
 
@@ -207,6 +209,7 @@ typedef struct _MetaData {
     gchar *subtitle;
     gchar *audio_codec;
     gchar *video_codec;
+    gchar *demuxer;
 } MetaData;
 
 typedef struct _LangMenu {

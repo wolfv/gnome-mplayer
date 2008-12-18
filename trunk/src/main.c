@@ -57,8 +57,8 @@ static GOptionEntry entries[] = {
     {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more output on the console"), NULL},
     {"reallyverbose", '\0', 0, G_OPTION_ARG_NONE, &reallyverbose,
      N_("Show even more output on the console"), NULL},
-	{"fullscreen", 0, 0, G_OPTION_ARG_NONE, &fullscreen, N_("Start in fullscreen mode"), NULL},
-	{"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
+    {"fullscreen", 0, 0, G_OPTION_ARG_NONE, &fullscreen, N_("Start in fullscreen mode"), NULL},
+    {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
     {"mixer", 0, 0, G_OPTION_ARG_STRING, &mixer, N_("Mixer to use"), NULL},
     {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
@@ -147,6 +147,7 @@ gint play_iter(GtkTreeIter * playiter)
     gchar *album = NULL;
     gchar *audio_codec;
     gchar *video_codec = NULL;
+    gchar *demuxer = NULL;
     gpointer pixbuf;
     gchar *buffer = NULL;
     gchar *message = NULL;
@@ -163,6 +164,7 @@ gint play_iter(GtkTreeIter * playiter)
                            ALBUM_COLUMN, &album,
                            AUDIO_CODEC_COLUMN, &audio_codec,
                            VIDEO_CODEC_COLUMN, &video_codec,
+                           DEMUXER_COLUMN, &demuxer,
                            COVERART_COLUMN, &pixbuf,
                            SUBTITLE_COLUMN, &subtitle,
                            COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
@@ -327,8 +329,24 @@ gint play_iter(GtkTreeIter * playiter)
     g_free(title);
     g_free(artist);
     g_free(album);
-    g_free(audio_codec);
-    g_free(video_codec);
+	if (demuxer != NULL) {
+		g_strlcpy(idledata->demuxer, demuxer, 64);
+		g_free(demuxer);
+	} else {
+		g_strlcpy(idledata->demuxer, "", 64);
+	}
+	if (audio_codec != NULL) {
+		g_strlcpy(idledata->audio_codec, audio_codec, 64);
+		g_free(audio_codec);
+	} else {
+		g_strlcpy(idledata->audio_codec, "", 64);
+	}
+	if (video_codec != NULL) {
+		g_strlcpy(idledata->video_codec, video_codec, 64);
+		g_free(video_codec);
+	} else {
+		g_strlcpy(idledata->video_codec, "", 64);
+	}
 
     if (lastfile != NULL) {
         g_free(lastfile);
@@ -355,10 +373,8 @@ gint play_iter(GtkTreeIter * playiter)
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
         g_strlcpy(idledata->video_format, "", 64);
-        g_strlcpy(idledata->video_codec, "", 16);
         g_strlcpy(idledata->video_fps, "", 16);
         g_strlcpy(idledata->video_bitrate, "", 16);
-        g_strlcpy(idledata->audio_codec, "", 16);
         g_strlcpy(idledata->audio_bitrate, "", 16);
         g_strlcpy(idledata->audio_samplerate, "", 16);
         g_strlcpy(idledata->audio_channels, "", 16);
@@ -525,7 +541,7 @@ int main(int argc, char *argv[])
 #ifndef HAVE_ASOUNDLIB
     volume = read_preference_int(VOLUME);
 #endif
-	fullscreen = read_preference_bool(FULLSCREEN);
+    fullscreen = read_preference_bool(FULLSCREEN);
     softvol = read_preference_bool(SOFTVOL);
     forcecache = read_preference_bool(FORCECACHE);
     vertical_layout = read_preference_bool(VERTICAL);
@@ -652,11 +668,11 @@ int main(int argc, char *argv[])
     playliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
-                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
+                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
     nonrandomplayliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
-                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
+                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
 
     create_window(embed_window);
 

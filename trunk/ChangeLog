@@ -1,4 +1,9 @@
 Development
+    Usage of demuxer is incorrect since that specifies the container and not the codec type
+        Rework to use video codec to determine how to accelerate
+    Use demuxer to determine codec to use for vdpau vo
+    Add demuxer to list of stored information on the playlist
+    Add in support vdpau vo when playing dvd 
     Cleanup gmp_tempname a little
     Only use xvmc vo for dvd and dvdnav cases, use xv as a fallback when xvmc should not be used
     Updated Polish translation

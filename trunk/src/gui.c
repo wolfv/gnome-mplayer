@@ -830,7 +830,8 @@ gboolean resize_window(void *data)
                         last_window_height = idle->height;
                     }
                 }
-			    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen), fullscreen);
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),
+                                               fullscreen);
             } else {
                 if (window_x > 0 && window_y > 0) {
                     total_height = window_y;
@@ -3141,7 +3142,7 @@ void config_apply(GtkWidget * widget, void *data)
     }
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
 
-	update_mplayer_config();
+    update_mplayer_config();
 
     init_preference_store();
 #ifndef HAVE_ASOUNDLIB
@@ -3824,6 +3825,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "x11");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xv");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xvmc");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vdpau");
         if (vo != NULL) {
             if (strcmp(vo, "gl") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 0);
@@ -3833,10 +3835,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 2);
             if (strcmp(vo, "xvmc") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 3);
+            if (strcmp(vo, "vdpau") == 0)
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 4);
             if (gtk_combo_box_get_active(GTK_COMBO_BOX(config_vo))
                 == -1) {
                 gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), vo);
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 4);
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 5);
             }
         }
     }
