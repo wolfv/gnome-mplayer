@@ -736,14 +736,21 @@ gpointer launch_player(gpointer data)
     }
 
     if (vo != NULL && g_ascii_strcasecmp(vo, "vdpau") == 0) {
-        // a video codec of 'ffmpeg2' could also be used here
-        if (g_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0
-            || g_strncasecmp(threaddata->filename, "dvdnav://", strlen("dvdnav://")) == 0) {
+		//printf("video_codec = '%s'\n",idledata->video_codec);
+		if (g_ascii_strcasecmp(idledata->video_codec, "ffmpeg1") == 0 
+			|| g_ascii_strcasecmp(idledata->video_codec, "ffmpeg2") == 0
+			|| g_ascii_strcasecmp(idledata->video_codec, "mpegpes") == 0) {
             argv[arg++] = g_strdup_printf("-vc");
             argv[arg++] = g_strdup_printf("ffmpeg12vdpau");
-        } else if (g_ascii_strcasecmp(idledata->video_codec, "ffh264") == 0) {
+		} else if (g_ascii_strcasecmp(idledata->video_codec, "ffh264") == 0) {
             argv[arg++] = g_strdup_printf("-vc");
             argv[arg++] = g_strdup_printf("ffh264vdpau");
+        } else if (g_ascii_strcasecmp(idledata->video_codec, "ffwmv3") == 0) {
+            argv[arg++] = g_strdup_printf("-vc");
+            argv[arg++] = g_strdup_printf("ffwmv3vdpau");
+        } else if (g_ascii_strcasecmp(idledata->video_codec, "ffvc1") == 0) {
+            argv[arg++] = g_strdup_printf("-vc");
+            argv[arg++] = g_strdup_printf("ffvc1vdpau");
         } else {
             argv[arg++] = g_strdup_printf("-vo");
             argv[arg++] = g_strdup_printf("xv");
