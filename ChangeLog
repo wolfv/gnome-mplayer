@@ -1,4 +1,5 @@
 Development
+    Fix Bug #110 - Ugly markup in notification string
     Updated French Translation
     Usage of demuxer is incorrect since that specifies the container and not the codec type
         Rework to use video codec to determine how to accelerate
