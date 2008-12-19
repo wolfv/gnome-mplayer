@@ -248,7 +248,7 @@ gboolean set_media_label(void *data)
         if (show_notification && control_id == 0 && !gtk_window_is_active((GtkWindow *) window)) {
             notify_init("gnome-mplayer");
             notification =
-                notify_notification_new(_("GNOME MPlayer"), idle->media_info, "gnome-mplayer",
+                notify_notification_new(_("Media Change"), idle->media_notification, "gnome-mplayer",
                                         NULL);
             notify_notification_show(notification, NULL);
             notify_uninit();

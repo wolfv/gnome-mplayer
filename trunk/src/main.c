@@ -246,6 +246,28 @@ gint play_iter(GtkTreeIter * playiter)
 
     g_strlcpy(idledata->media_info, message, 1024);
     g_free(message);
+	
+	message = g_strdup("");
+	if (title == NULL) {
+        title = g_filename_display_basename(uri);
+    }
+    buffer = g_markup_printf_escaped("\t<b>%s</b>\n", title);
+    message = g_strconcat(message, buffer, NULL);
+    g_free(buffer);
+
+    if (artist != NULL) {
+        buffer = g_markup_printf_escaped("\t<i>%s</i>\n", artist);
+        message = g_strconcat(message, buffer, NULL);
+        g_free(buffer);
+    }
+    if (album != NULL) {
+        buffer = g_markup_printf_escaped("\t%s\n", album);
+        message = g_strconcat(message, buffer, NULL);
+        g_free(buffer);
+    }	
+    g_strlcpy(idledata->media_notification, message, 1024);
+    g_free(message);
+	
     if (control_id == 0) {
         set_media_label(idledata);
     } else {
