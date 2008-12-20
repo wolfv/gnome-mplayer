@@ -221,9 +221,8 @@ msgid "GNOME MPlayer"
 msgstr "그놈 엠플레이어"
 
 #: src/gui.c:251
-#, fuzzy
 msgid "Media Change"
-msgstr "미디어 정보(_I)"
+msgstr "미디어 바꾸기"
 
 #: src/gui.c:309
 #, c-format
