@@ -586,9 +586,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         }
         if (message) {
             g_strlcpy(idledata->media_info, message, 1024);
+			g_free(message);
+            message = g_strdup_printf("\n\t<b>%s</b>\n", buf + 1);
+            g_strlcpy(idledata->media_notification, message, 1024);
             g_free(message);
             message = NULL;
         }
+		
+		
         g_idle_add(set_media_label, idledata);
     }
     //if (verbose > 1) {
