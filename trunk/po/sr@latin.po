@@ -49,7 +49,7 @@ msgstr "Prikaži najduži ispis u konzoli"
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
-msgstr ""
+msgstr "Pokreni preko celog ekrana"
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
@@ -57,7 +57,7 @@ msgstr "Koristi Mplejerovu programsku kontrolu zvuka"
 
 #: src/main.c:62
 msgid "Mixer to use"
-msgstr ""
+msgstr "Mikser za upotrebu"
 
 #: src/main.c:63
 msgid "Set initial volume percentage"
@@ -185,11 +185,11 @@ msgstr "Drži prozor iznad ostalih"
 
 #: src/main.c:124
 msgid "Load all tracks from media player using gpod"
-msgstr ""
+msgstr "Učitaj sve numere sa džepne muzičke sprave pomoću gpoda"
 
 #: src/main.c:128
 msgid "Don't fetch new cover art images"
-msgstr ""
+msgstr "Ne preuzimaj nove omote za album"
 
 #: src/main.c:617
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -225,9 +225,8 @@ msgid "GNOME MPlayer"
 msgstr "Gnomov Mplejer"
 
 #: src/gui.c:251
-#, fuzzy
 msgid "Media Change"
-msgstr "Podaci _o mediju"
+msgstr "Promena medijuma"
 
 #: src/gui.c:309
 #, c-format
@@ -263,14 +262,14 @@ msgid "Adding %s to playlist"
 msgstr "Dodajem %s stavku u listu"
 
 #: src/gui.c:648
-#, fuzzy, c-format
+#, c-format
 msgid "Playing %s"
-msgstr "Puštam"
+msgstr "Pušteno: %s"
 
 #: src/gui.c:650
-#, fuzzy, c-format
+#, c-format
 msgid "Paused %s"
-msgstr "Pauzirano"
+msgstr "Pauzirano: %s"
 
 #: src/gui.c:652
 #, c-format
@@ -312,13 +311,12 @@ msgid "Choose Disk Directory"
 msgstr "Izaberite direktorijum za disk"
 
 #: src/gui.c:2154 src/gui.c:2244
-#, fuzzy
 msgid "Choose Disk Image"
-msgstr "Izaberite direktorijum za disk"
+msgstr "Izaberite odraz diska"
 
 #: src/gui.c:2168 src/gui.c:2258
 msgid "Disk Image (*.iso)"
-msgstr ""
+msgstr "Odraz diska (*.iso)"
 
 #: src/gui.c:2466
 msgid "Save As..."
@@ -430,12 +428,11 @@ msgstr "Učestanost zvuka:"
 
 #: src/gui.c:3512
 msgid "Video Picture Adjustments"
-msgstr ""
+msgstr "Podešavanja slike za video"
 
 #: src/gui.c:3525
-#, fuzzy
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
-msgstr "<span weight=\"bold\">Podaci o videu</span>"
+msgstr "<span weight=\"bold\">Podešavanja slike za video</span>"
 
 #: src/gui.c:3532
 msgid "Brightness"
@@ -458,9 +455,8 @@ msgid "Saturation"
 msgstr "Zasićensot"
 
 #: src/gui.c:3591
-#, fuzzy
 msgid "_Reset"
-msgstr "_Razmera"
+msgstr "_Vrati"
 
 #: src/gui.c:3672
 msgid "No Display"
@@ -553,9 +549,8 @@ msgid "Audio Output:"
 msgstr "Zvučni izlaz:"
 
 #: src/gui.c:4027
-#, fuzzy
 msgid "Default Mixer:"
-msgstr "_Podrazumevana razmera"
+msgstr "Podrazumevani mikser:"
 
 # kako bi drugačije :(
 #: src/gui.c:4050
@@ -567,9 +562,8 @@ msgid "Default Volume Level:"
 msgstr "Podrazumevana jačina zvuka:"
 
 #: src/gui.c:4065
-#, fuzzy
 msgid "Default volume for playback"
-msgstr "Podrazumevana jačina zvuka:"
+msgstr "Podrazumevana jačina zvuka"
 
 #: src/gui.c:4079
 msgid "Minimum Cache Size (KB):"
@@ -685,7 +679,7 @@ msgstr "Prikaži ikonicu u panelu"
 
 #: src/gui.c:4345
 msgid "Place playlist below media (requires application restart)"
-msgstr ""
+msgstr "Postavi listu ispod medijuma (zahteva ponovno pokretanje)"
 
 #: src/gui.c:4351
 msgid "Only allow one instance of Gnome MPlayer"
@@ -696,9 +690,8 @@ msgid "When opening in single instance mode, replace existing file"
 msgstr "Zameni datoteku po otvaranju nove u režimu sa samo jednom programom"
 
 #: src/gui.c:4371
-#, fuzzy
 msgid "Remember Window Location and Size"
-msgstr "Zapamti mesto prozora"
+msgstr "Zapamti mesto prozora i veličinu"
 
 #: src/gui.c:4376
 msgid "Keep window above other windows"
@@ -733,8 +726,8 @@ msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
-"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu "
-"zvuka na glavnom kanalu miksera"
+"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu zvuka "
+"na glavnom kanalu miksera"
 
 #: src/gui.c:4417
 msgid "De_interlace Video"
@@ -803,7 +796,7 @@ msgstr "Otvori _adresu"
 
 #: src/gui.c:4949
 msgid "_Disc"
-msgstr ""
+msgstr "Di_sk"
 
 #: src/gui.c:4956
 msgid "Open _Audio CD"
@@ -826,19 +819,16 @@ msgid "Open DVD from Folder with M_enus"
 msgstr "Otvori DVD sa menijima iz f_ascikle"
 
 #: src/gui.c:4973
-#, fuzzy
 msgid "Open DVD from _ISO"
-msgstr "Otvori DVD iz _fascikle"
+msgstr "O_tvori DVD iz ISO odraza"
 
 #: src/gui.c:4976
-#, fuzzy
 msgid "Open DVD from ISO with Me_nus"
-msgstr "Otvori DVD sa menijima iz f_ascikle"
+msgstr "Otvo_ri DVD sa menijima iz ISO odraza"
 
 #: src/gui.c:4981
-#, fuzzy
 msgid "Open _VCD"
-msgstr "_Otvori DVD"
+msgstr "Otvori _VCD"
 
 #: src/gui.c:4984
 msgid "_TV"
@@ -854,7 +844,7 @@ msgstr "Otvori _digitalni TV"
 
 #: src/gui.c:4998
 msgid "Open _iPod™"
-msgstr ""
+msgstr "Otvori _iPod™"
 
 #: src/gui.c:5003
 msgid "Open _Recent"
@@ -961,7 +951,7 @@ msgstr "_Kontrole"
 
 #: src/gui.c:5192
 msgid "_Video Picture Adjustments"
-msgstr ""
+msgstr "Podešavanje slike za _video"
 
 #. Help Menu
 #: src/gui.c:5227
@@ -1122,7 +1112,7 @@ msgstr "Izvođač"
 
 #: src/playlist.c:883
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: src/playlist.c:894
 msgid "Length"
