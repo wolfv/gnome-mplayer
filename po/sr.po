@@ -49,7 +49,7 @@ msgstr "Прикажи најдужи испис у конзоли"
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
-msgstr ""
+msgstr "Покрени преко целог екрана"
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
@@ -57,7 +57,7 @@ msgstr "Користи Мплејерову програмску контрол�
 
 #: src/main.c:62
 msgid "Mixer to use"
-msgstr ""
+msgstr "Миксер за употребу"
 
 #: src/main.c:63
 msgid "Set initial volume percentage"
@@ -185,11 +185,11 @@ msgstr "Држи прозор изнад осталих"
 
 #: src/main.c:124
 msgid "Load all tracks from media player using gpod"
-msgstr ""
+msgstr "Учитај све нумере са џепне музичке справе помоћу гпода"
 
 #: src/main.c:128
 msgid "Don't fetch new cover art images"
-msgstr ""
+msgstr "Не преузимај нове омоте за албум"
 
 #: src/main.c:617
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -225,9 +225,8 @@ msgid "GNOME MPlayer"
 msgstr "Гномов Мплејер"
 
 #: src/gui.c:251
-#, fuzzy
 msgid "Media Change"
-msgstr "Подаци _о медију"
+msgstr "Промена медијума"
 
 #: src/gui.c:309
 #, c-format
@@ -263,14 +262,14 @@ msgid "Adding %s to playlist"
 msgstr "Додајем %s ставку у листу"
 
 #: src/gui.c:648
-#, fuzzy, c-format
+#, c-format
 msgid "Playing %s"
-msgstr "Пуштам"
+msgstr "Пуштено: %s"
 
 #: src/gui.c:650
-#, fuzzy, c-format
+#, c-format
 msgid "Paused %s"
-msgstr "Паузирано"
+msgstr "Паузирано: %s"
 
 #: src/gui.c:652
 #, c-format
@@ -312,13 +311,12 @@ msgid "Choose Disk Directory"
 msgstr "Изаберите директоријум за диск"
 
 #: src/gui.c:2154 src/gui.c:2244
-#, fuzzy
 msgid "Choose Disk Image"
-msgstr "Изаберите директоријум за диск"
+msgstr "Изаберите одраз диска"
 
 #: src/gui.c:2168 src/gui.c:2258
 msgid "Disk Image (*.iso)"
-msgstr ""
+msgstr "Одраз диска (*.iso)"
 
 #: src/gui.c:2466
 msgid "Save As..."
@@ -430,12 +428,11 @@ msgstr "Учестаност звука:"
 
 #: src/gui.c:3512
 msgid "Video Picture Adjustments"
-msgstr ""
+msgstr "Подешавања слике за видео"
 
 #: src/gui.c:3525
-#, fuzzy
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
-msgstr "<span weight=\"bold\">Подаци о видеу</span>"
+msgstr "<span weight=\"bold\">Подешавања слике за видео</span>"
 
 #: src/gui.c:3532
 msgid "Brightness"
@@ -458,9 +455,8 @@ msgid "Saturation"
 msgstr "Засићенсот"
 
 #: src/gui.c:3591
-#, fuzzy
 msgid "_Reset"
-msgstr "_Размера"
+msgstr "_Врати"
 
 #: src/gui.c:3672
 msgid "No Display"
@@ -553,9 +549,8 @@ msgid "Audio Output:"
 msgstr "Звучни излаз:"
 
 #: src/gui.c:4027
-#, fuzzy
 msgid "Default Mixer:"
-msgstr "_Подразумевана размера"
+msgstr "Подразумевани миксер:"
 
 # како би другачије :(
 #: src/gui.c:4050
@@ -567,9 +562,8 @@ msgid "Default Volume Level:"
 msgstr "Подразумевана јачина звука:"
 
 #: src/gui.c:4065
-#, fuzzy
 msgid "Default volume for playback"
-msgstr "Подразумевана јачина звука:"
+msgstr "Подразумевана јачина звука"
 
 #: src/gui.c:4079
 msgid "Minimum Cache Size (KB):"
@@ -685,7 +679,7 @@ msgstr "Прикажи иконицу у панелу"
 
 #: src/gui.c:4345
 msgid "Place playlist below media (requires application restart)"
-msgstr ""
+msgstr "Постави листу испод медијума (захтева поновно покретање)"
 
 #: src/gui.c:4351
 msgid "Only allow one instance of Gnome MPlayer"
@@ -696,9 +690,8 @@ msgid "When opening in single instance mode, replace existing file"
 msgstr "Замени датотеку по отварању нове у режиму са само једном програмом"
 
 #: src/gui.c:4371
-#, fuzzy
 msgid "Remember Window Location and Size"
-msgstr "Запамти место прозора"
+msgstr "Запамти место прозора и величину"
 
 #: src/gui.c:4376
 msgid "Keep window above other windows"
@@ -803,7 +796,7 @@ msgstr "Отвори _адресу"
 
 #: src/gui.c:4949
 msgid "_Disc"
-msgstr ""
+msgstr "Ди_ск"
 
 #: src/gui.c:4956
 msgid "Open _Audio CD"
@@ -826,19 +819,16 @@ msgid "Open DVD from Folder with M_enus"
 msgstr "Отвори ДВД са менијима из ф_асцикле"
 
 #: src/gui.c:4973
-#, fuzzy
 msgid "Open DVD from _ISO"
-msgstr "Отвори ДВД из _фасцикле"
+msgstr "О_твори ДВД из ISO одраза"
 
 #: src/gui.c:4976
-#, fuzzy
 msgid "Open DVD from ISO with Me_nus"
-msgstr "Отвори ДВД са менијима из ф_асцикле"
+msgstr "Отво_ри ДВД са менијима из ISO одраза"
 
 #: src/gui.c:4981
-#, fuzzy
 msgid "Open _VCD"
-msgstr "_Отвори ДВД"
+msgstr "Отвори _ВЦД"
 
 #: src/gui.c:4984
 msgid "_TV"
@@ -854,7 +844,7 @@ msgstr "Отвори _дигитални ТВ"
 
 #: src/gui.c:4998
 msgid "Open _iPod™"
-msgstr ""
+msgstr "Отвори _иПод™"
 
 #: src/gui.c:5003
 msgid "Open _Recent"
@@ -961,7 +951,7 @@ msgstr "_Контроле"
 
 #: src/gui.c:5192
 msgid "_Video Picture Adjustments"
-msgstr ""
+msgstr "Подешавање слике за _видео"
 
 #. Help Menu
 #: src/gui.c:5227
@@ -1122,7 +1112,7 @@ msgstr "Извођач"
 
 #: src/playlist.c:883
 msgid "Album"
-msgstr ""
+msgstr "Албум"
 
 #: src/playlist.c:894
 msgid "Length"
