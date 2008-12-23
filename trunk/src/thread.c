@@ -406,7 +406,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_update_gui, NULL);
     }
 
-	if (strstr(mplayer_output->str, "ID_AUDIO_ID") != 0) {
+    if (strstr(mplayer_output->str, "ID_AUDIO_ID") != 0) {
         buf = strstr(mplayer_output->str, "ID_AUDIO_ID");
         sscanf(buf, "ID_AUDIO_ID=%i", &idledata->switch_audio);
         g_idle_add(set_update_gui, NULL);
@@ -513,7 +513,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (strstr(mplayer_output->str, "ID_SID_") != 0) {
         menu = g_new0(LangMenu, 1);
-        sscanf(mplayer_output->str, "ID_SID_%i_", &menu->value);
+        buf = strstr(mplayer_output->str, "ID_SID_");
+        sscanf(buf, "ID_SID_%i_", &menu->value);
         g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "_LANG=");
         if (buf != NULL) {
@@ -525,14 +526,16 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (strstr(mplayer_output->str, "ID_SUBTITLE_ID=") != 0) {
         menu = g_new0(LangMenu, 1);
-        sscanf(mplayer_output->str, "ID_SUBTITLE_ID=%i", &menu->value);
+        buf = strstr(mplayer_output->str, "ID_SUBTITLE_ID");
+        sscanf(buf, "ID_SUBTITLE_ID=%i", &menu->value);
         menu->label = g_strdup_printf("%i", menu->value);
         g_idle_add(set_new_lang_menu, menu);
     }
 
     if (strstr(mplayer_output->str, "ID_AID_") != 0) {
         menu = g_new0(LangMenu, 1);
-        sscanf(mplayer_output->str, "ID_AID_%i_", &menu->value);
+        buf = strstr(mplayer_output->str, "ID_AID_");
+        sscanf(buf, "ID_AID_%i_", &menu->value);
         g_string_truncate(mplayer_output, mplayer_output->len - 1);
         buf = strstr(mplayer_output->str, "_LANG=");
         if (buf != NULL) {
@@ -544,7 +547,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (strstr(mplayer_output->str, "ID_AUDIO_ID=") != 0) {
         menu = g_new0(LangMenu, 1);
-        sscanf(mplayer_output->str, "ID_AUDIO_ID=%i", &menu->value);
+        buf = strstr(mplayer_output->str, "ID_AUDIO_ID");
+        sscanf(buf, "ID_AUDIO_ID=%i", &menu->value);
         menu->label = g_strdup_printf("%i", menu->value);
         g_idle_add(set_new_audio_menu, menu);
     }
@@ -592,14 +596,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         }
         if (message) {
             g_strlcpy(idledata->media_info, message, 1024);
-			g_free(message);
+            g_free(message);
             message = g_strdup_printf("\n\t<b>%s</b>\n", buf + 1);
             g_strlcpy(idledata->media_notification, message, 1024);
             g_free(message);
             message = NULL;
         }
-		
-		
+
+
         g_idle_add(set_media_label, idledata);
     }
     //if (verbose > 1) {
@@ -747,13 +751,13 @@ gpointer launch_player(gpointer data)
     }
 
     if (vo != NULL && g_ascii_strcasecmp(vo, "vdpau") == 0) {
-		//printf("video_codec = '%s'\n",idledata->video_codec);
-		if (g_ascii_strcasecmp(idledata->video_codec, "ffmpeg1") == 0 
-			|| g_ascii_strcasecmp(idledata->video_codec, "ffmpeg2") == 0
-			|| g_ascii_strcasecmp(idledata->video_codec, "mpegpes") == 0) {
+        //printf("video_codec = '%s'\n",idledata->video_codec);
+        if (g_ascii_strcasecmp(idledata->video_codec, "ffmpeg1") == 0
+            || g_ascii_strcasecmp(idledata->video_codec, "ffmpeg2") == 0
+            || g_ascii_strcasecmp(idledata->video_codec, "mpegpes") == 0) {
             argv[arg++] = g_strdup_printf("-vc");
             argv[arg++] = g_strdup_printf("ffmpeg12vdpau");
-		} else if (g_ascii_strcasecmp(idledata->video_codec, "ffh264") == 0) {
+        } else if (g_ascii_strcasecmp(idledata->video_codec, "ffh264") == 0) {
             argv[arg++] = g_strdup_printf("-vc");
             argv[arg++] = g_strdup_printf("ffh264vdpau");
         } else if (g_ascii_strcasecmp(idledata->video_codec, "ffwmv3") == 0) {
@@ -916,11 +920,11 @@ gpointer launch_player(gpointer data)
         g_strfreev(opts);
     }
 
-	if (!(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
-		argv[arg++] = g_strdup_printf("-vf-add");
-		argv[arg++] = g_strdup_printf("screenshot");
-	}
-	
+    if (!(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
+        argv[arg++] = g_strdup_printf("-vf-add");
+        argv[arg++] = g_strdup_printf("screenshot");
+    }
+
     if (idledata->device != NULL) {
         argv[arg++] = g_strdup_printf("-dvd-device");
         argv[arg++] = g_strdup_printf("%s", idledata->device);
