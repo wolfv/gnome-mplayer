@@ -1,4 +1,5 @@
 Development
+    Allow SID and AID options to work if mgsmodule is enabled
     Rework active audio id, selection
     Protect switch audio from selecting a negative track
     Protect audio and sub ids from being set to negative values

@@ -50,8 +50,8 @@ static char *device = "default";
 gint get_player_window()
 {
     if (GTK_IS_WIDGET(drawing_area)) {
-		while(gtk_events_pending()) 
-			gtk_main_iteration();
+        while (gtk_events_pending())
+            gtk_main_iteration();
         return gtk_socket_get_id(GTK_SOCKET(drawing_area));
     } else {
         return 0;
@@ -250,8 +250,8 @@ gboolean set_media_label(void *data)
         if (show_notification && control_id == 0 && !gtk_window_is_active((GtkWindow *) window)) {
             notify_init("gnome-mplayer");
             notification =
-                notify_notification_new(_("Media Change"), idle->media_notification, "gnome-mplayer",
-                                        NULL);
+                notify_notification_new(_("Media Change"), idle->media_notification,
+                                        "gnome-mplayer", NULL);
             notify_notification_show(notification, NULL);
             notify_uninit();
         }
@@ -516,24 +516,24 @@ gboolean set_update_gui(void *data)
                                          (GtkWidget *) item->data, FALSE);
     }
 
-	if (idledata->switch_audio >= 0) {
-		if (GTK_IS_WIDGET(menu_edit_audio_langs)) {
-			langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
-			if (g_list_length(langs) > 1) {
-				gtk_widget_show(GTK_WIDGET(menuitem_edit_switch_audio));
-			} else {
-				gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
-			}
-			item = g_list_nth(langs, idledata->switch_audio);
-			if (item && GTK_IS_WIDGET(item->data))
-				gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_audio_langs),
-											 (GtkWidget *) item->data, FALSE);
-		}
-	} else {
-		if (verbose)
-			printf("ANS_switch_audio is invalid %i\n",idledata->switch_audio);
-	}
-	
+    if (idledata->switch_audio >= 0) {
+        if (GTK_IS_WIDGET(menu_edit_audio_langs)) {
+            langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
+            if (g_list_length(langs) > 1) {
+                gtk_widget_show(GTK_WIDGET(menuitem_edit_switch_audio));
+            } else {
+                gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
+            }
+            item = g_list_nth(langs, idledata->switch_audio);
+            if (item && GTK_IS_WIDGET(item->data))
+                gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_audio_langs),
+                                             (GtkWidget *) item->data, FALSE);
+        }
+    } else {
+        if (verbose)
+            printf("ANS_switch_audio is invalid %i\n", idledata->switch_audio);
+    }
+
     if (GTK_IS_WIDGET(list)) {
         column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
         count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
@@ -669,11 +669,11 @@ void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer sid)
 {
     gchar *cmd;
 
-	if (GPOINTER_TO_INT(sid) >= 0) {
-		cmd = g_strdup_printf("sub_demux %i\n", GPOINTER_TO_INT(sid));
-		send_command(cmd, TRUE);
-		g_free(cmd);
-	}
+    if (GPOINTER_TO_INT(sid) >= 0) {
+        cmd = g_strdup_printf("sub_demux %i\n", GPOINTER_TO_INT(sid));
+        send_command(cmd, TRUE);
+        g_free(cmd);
+    }
 }
 
 gboolean set_new_lang_menu(gpointer data)
@@ -687,40 +687,41 @@ gboolean set_new_lang_menu(gpointer data)
     const gchar *text;
     gint value;
 
-	if (menu->value >= 0) {
-		children = gtk_container_get_children(GTK_CONTAINER(menu_edit_sub_langs));
-		item = g_list_first(children);
-		while (item && !found) {
-			value = GPOINTER_TO_INT(g_object_get_data(item->data, "id"));
-			sub_children = gtk_container_get_children(GTK_CONTAINER(item->data));
-			sub_item = g_list_first(sub_children);
-			while (sub_item && !found) {
-				text = gtk_label_get_text(GTK_LABEL(sub_item->data));
-				if (menu->value == value) {
-					if (g_ascii_isdigit(text[0])) {
-						gtk_label_set_text(GTK_LABEL(sub_item->data), menu->label);
-					}
-					found = TRUE;
-				}
-				sub_item = g_list_next(sub_item);
-			}
-			item = g_list_next(item);
-		}
+    if (menu->value >= 0) {
+        children = gtk_container_get_children(GTK_CONTAINER(menu_edit_sub_langs));
+        item = g_list_first(children);
+        while (item && !found) {
+            value = GPOINTER_TO_INT(g_object_get_data(item->data, "id"));
+            sub_children = gtk_container_get_children(GTK_CONTAINER(item->data));
+            sub_item = g_list_first(sub_children);
+            while (sub_item && !found) {
+                text = gtk_label_get_text(GTK_LABEL(sub_item->data));
+                if (menu->value == value) {
+                    if (g_ascii_isdigit(text[0])) {
+                        gtk_label_set_text(GTK_LABEL(sub_item->data), menu->label);
+                    }
+                    found = TRUE;
+                }
+                sub_item = g_list_next(sub_item);
+            }
+            item = g_list_next(item);
+        }
 
-		if (!found) {
-			gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), TRUE);
+        if (!found) {
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), TRUE);
 
-			menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(lang_group, menu->label));
-			g_object_set_data(G_OBJECT(menuitem_lang), "id", GINT_TO_POINTER(menu->value));
+            menuitem_lang =
+                GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(lang_group, menu->label));
+            g_object_set_data(G_OBJECT(menuitem_lang), "id", GINT_TO_POINTER(menu->value));
 
-			lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
+            lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
 
-			gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
-			g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-							 G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
-		}
-	}
-	gtk_widget_show(GTK_WIDGET(menuitem_lang));
+            gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
+            g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+                             G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
+        }
+    }
+    gtk_widget_show(GTK_WIDGET(menuitem_lang));
     g_free(menu->label);
     g_free(menu);
     return FALSE;
@@ -730,11 +731,11 @@ void menuitem_audio_callback(GtkMenuItem * menuitem, gpointer aid)
 {
     gchar *cmd;
 
-	if (GPOINTER_TO_INT(aid) >= 0 ) {
-		cmd = g_strdup_printf("switch_audio %i\n", GPOINTER_TO_INT(aid));
-		send_command(cmd, TRUE);
-		g_free(cmd);
-	}
+    if (GPOINTER_TO_INT(aid) >= 0) {
+        cmd = g_strdup_printf("switch_audio %i\n", GPOINTER_TO_INT(aid));
+        send_command(cmd, TRUE);
+        g_free(cmd);
+    }
 }
 
 gboolean set_new_audio_menu(gpointer data)
@@ -748,37 +749,38 @@ gboolean set_new_audio_menu(gpointer data)
     const gchar *text;
     gint value;
 
-	if (menu->value >= 0) {
-		children = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
-		item = g_list_first(children);
-		while (item && !found) {
-			value = GPOINTER_TO_INT(g_object_get_data(item->data, "id"));
-			sub_children = gtk_container_get_children(GTK_CONTAINER(item->data));
-			sub_item = g_list_first(sub_children);
-			while (sub_item && !found) {
-				text = gtk_label_get_text(GTK_LABEL(sub_item->data));
-				if (menu->value == value) {
-					if (g_ascii_isdigit(text[0])) {
-						gtk_label_set_text(GTK_LABEL(sub_item->data), menu->label);
-					}
-					found = TRUE;
-				}
-				sub_item = g_list_next(sub_item);
-			}
-			item = g_list_next(item);
-		}
+    if (menu->value >= 0) {
+        children = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
+        item = g_list_first(children);
+        while (item && !found) {
+            value = GPOINTER_TO_INT(g_object_get_data(item->data, "id"));
+            sub_children = gtk_container_get_children(GTK_CONTAINER(item->data));
+            sub_item = g_list_first(sub_children);
+            while (sub_item && !found) {
+                text = gtk_label_get_text(GTK_LABEL(sub_item->data));
+                if (menu->value == value) {
+                    if (g_ascii_isdigit(text[0])) {
+                        gtk_label_set_text(GTK_LABEL(sub_item->data), menu->label);
+                    }
+                    found = TRUE;
+                }
+                sub_item = g_list_next(sub_item);
+            }
+            item = g_list_next(item);
+        }
 
-		if (!found) {
-			gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
+        if (!found) {
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
 
-			menuitem_lang = GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(audio_group, menu->label));
-			g_object_set_data(G_OBJECT(menuitem_lang), "id", GINT_TO_POINTER(menu->value));
-			audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
-			gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
-			g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
-							 G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
-		}
-	}
+            menuitem_lang =
+                GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(audio_group, menu->label));
+            g_object_set_data(G_OBJECT(menuitem_lang), "id", GINT_TO_POINTER(menu->value));
+            audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
+            gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
+            g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+                             G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
+        }
+    }
     gtk_widget_show(GTK_WIDGET(menuitem_lang));
     g_free(menu->label);
     g_free(menu);

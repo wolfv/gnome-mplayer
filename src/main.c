@@ -246,9 +246,9 @@ gint play_iter(GtkTreeIter * playiter)
 
     g_strlcpy(idledata->media_info, message, 1024);
     g_free(message);
-	
-	message = g_strdup("");
-	if (title == NULL) {
+
+    message = g_strdup("");
+    if (title == NULL) {
         title = g_filename_display_basename(uri);
     }
     buffer = g_markup_printf_escaped("\t<b>%s</b>\n", title);
@@ -264,10 +264,10 @@ gint play_iter(GtkTreeIter * playiter)
         buffer = g_markup_printf_escaped("\t%s\n", album);
         message = g_strconcat(message, buffer, NULL);
         g_free(buffer);
-    }	
+    }
     g_strlcpy(idledata->media_notification, message, 1024);
     g_free(message);
-	
+
     if (control_id == 0) {
         set_media_label(idledata);
     } else {
@@ -351,24 +351,24 @@ gint play_iter(GtkTreeIter * playiter)
     g_free(title);
     g_free(artist);
     g_free(album);
-	if (demuxer != NULL) {
-		g_strlcpy(idledata->demuxer, demuxer, 64);
-		g_free(demuxer);
-	} else {
-		g_strlcpy(idledata->demuxer, "", 64);
-	}
-	if (audio_codec != NULL) {
-		g_strlcpy(idledata->audio_codec, audio_codec, 64);
-		g_free(audio_codec);
-	} else {
-		g_strlcpy(idledata->audio_codec, "", 64);
-	}
-	if (video_codec != NULL) {
-		g_strlcpy(idledata->video_codec, video_codec, 64);
-		g_free(video_codec);
-	} else {
-		g_strlcpy(idledata->video_codec, "", 64);
-	}
+    if (demuxer != NULL) {
+        g_strlcpy(idledata->demuxer, demuxer, 64);
+        g_free(demuxer);
+    } else {
+        g_strlcpy(idledata->demuxer, "", 64);
+    }
+    if (audio_codec != NULL) {
+        g_strlcpy(idledata->audio_codec, audio_codec, 64);
+        g_free(audio_codec);
+    } else {
+        g_strlcpy(idledata->audio_codec, "", 64);
+    }
+    if (video_codec != NULL) {
+        g_strlcpy(idledata->video_codec, video_codec, 64);
+        g_free(video_codec);
+    } else {
+        g_strlcpy(idledata->video_codec, "", 64);
+    }
 
     if (lastfile != NULL) {
         g_free(lastfile);
@@ -401,7 +401,7 @@ gint play_iter(GtkTreeIter * playiter)
         g_strlcpy(idledata->audio_samplerate, "", 16);
         g_strlcpy(idledata->audio_channels, "", 16);
         idledata->has_chapters = FALSE;
-		idledata->windowid = get_player_window();
+        idledata->windowid = get_player_window();
         // these next 3 lines are here to make sure the window is available for mplayer to draw to
         // for some vo's (like xv) if the window is not visible and big enough the vo setup fails
         gtk_widget_set_size_request(drawing_area, 16, 16);
