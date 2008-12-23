@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-19 07:43-0700\n"
-"PO-Revision-Date: 2008-12-08 01:32+0200\n"
+"PO-Revision-Date: 2008-12-20 17:49+0200\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "Konsola en fazla detayla bilgi yaz"
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
-msgstr ""
+msgstr "Tam ekran kipinde başla"
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
@@ -226,9 +226,8 @@ msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
 #: src/gui.c:251
-#, fuzzy
 msgid "Media Change"
-msgstr "Medya _Bilgisi"
+msgstr "Medya Değişikliği"
 
 #: src/gui.c:309
 #, c-format
@@ -312,13 +311,12 @@ msgid "Choose Disk Directory"
 msgstr "Disk Klasörü Seç"
 
 #: src/gui.c:2154 src/gui.c:2244
-#, fuzzy
 msgid "Choose Disk Image"
-msgstr "Disk Klasörü Seç"
+msgstr "Disk Kalıbı Seç"
 
 #: src/gui.c:2168 src/gui.c:2258
 msgid "Disk Image (*.iso)"
-msgstr ""
+msgstr "Disk Kalıbı (*.iso)"
 
 #: src/gui.c:2466
 msgid "Save As..."
@@ -414,12 +412,11 @@ msgstr "Ses Örnekleme Oranı:"
 
 #: src/gui.c:3512
 msgid "Video Picture Adjustments"
-msgstr ""
+msgstr "Video İnce Ayarları"
 
 #: src/gui.c:3525
-#, fuzzy
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
-msgstr "<span weight=\"bold\">Video Ayrıntıları</span>"
+msgstr "<span weight=\"bold\">Video İnce Ayarları</span>"
 
 #: src/gui.c:3532
 msgid "Brightness"
@@ -442,9 +439,8 @@ msgid "Saturation"
 msgstr "Doygunluk"
 
 #: src/gui.c:3591
-#, fuzzy
 msgid "_Reset"
-msgstr "Ya_tay Dikey Oranı"
+msgstr "Sı_fırla"
 
 #: src/gui.c:3672
 msgid "No Display"
@@ -667,7 +663,7 @@ msgstr "Durum simgesi göster"
 
 #: src/gui.c:4345
 msgid "Place playlist below media (requires application restart)"
-msgstr ""
+msgstr "Oynatma listesini aşağı yerleştir (program tekrar başlatılmalı)"
 
 #: src/gui.c:4351
 msgid "Only allow one instance of Gnome MPlayer"
@@ -678,9 +674,8 @@ msgid "When opening in single instance mode, replace existing file"
 msgstr "Tek oturum modunda açılırken mevcut dosyayı değiştir"
 
 #: src/gui.c:4371
-#, fuzzy
 msgid "Remember Window Location and Size"
-msgstr "Pencere Konumunu Hatırla"
+msgstr "Pencere Konumunu ve Boyutunu Hatırla"
 
 #: src/gui.c:4376
 msgid "Keep window above other windows"
@@ -743,8 +738,7 @@ msgid "MPlayer Executable:"
 msgstr "MPlayer Çalıştırılabilir Dosyası:"
 
 #: src/gui.c:4444
-msgid ""
-"Use this option to specify a mplayer application that is not in the path"
+msgid "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Hızlı erişim yolunda (PATH) olmayan bir mplayer uygulamasını çalıştırmak "
 "için bu seçeneği kullanın"
@@ -808,14 +802,12 @@ msgid "Open DVD from Folder with M_enus"
 msgstr "Dizinden DVD'yi M_enü ile Aç"
 
 #: src/gui.c:4973
-#, fuzzy
 msgid "Open DVD from _ISO"
-msgstr "Di_zinden DVD Aç"
+msgstr "Kalı_ptan DVD Aç"
 
 #: src/gui.c:4976
-#, fuzzy
 msgid "Open DVD from ISO with Me_nus"
-msgstr "Dizinden DVD'yi M_enü ile Aç"
+msgstr "_Kalıptan DVD'yi Menü ile Aç"
 
 #: src/gui.c:4981
 msgid "Open _VCD"
@@ -876,8 +868,7 @@ msgstr "_Ekran Görüntüsü Yakala"
 
 #: src/gui.c:5102
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
-msgstr ""
-"Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
+msgstr "Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
 
 #. View Menu
 #: src/gui.c:5127
@@ -942,7 +933,7 @@ msgstr "_Kontroller"
 
 #: src/gui.c:5192
 msgid "_Video Picture Adjustments"
-msgstr ""
+msgstr "_Video İnce Ayarları"
 
 #. Help Menu
 #: src/gui.c:5227
@@ -1136,14 +1127,3 @@ msgstr "Öğeyi Aşağı İndir"
 msgid "_Set Subtitle"
 msgstr "_Altyazı Ayarla"
 
-#~ msgid "Advanced Video Controls"
-#~ msgstr "Gelişmiş Video Ayarları"
-
-#~ msgid "<span weight=\"bold\">Adjust Video Settings</span>"
-#~ msgstr "<span weight=\"bold\">Video Ayarlarını Değiştir</span>"
-
-#~ msgid "Start with playlist below media window"
-#~ msgstr "Açılışta oynatma listesini ana pencerenin altında aç"
-
-#~ msgid "Advanced _Options"
-#~ msgstr "Gelişmiş _Seçenekler"
