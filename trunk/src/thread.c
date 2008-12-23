@@ -303,7 +303,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         send_command("get_property chapters\n", TRUE);
         send_command("get_property sub_visibility\n", TRUE);
         send_command("get_property sub_demux\n", TRUE);
-        send_command("get_property switch_audio\n", TRUE);
+        //send_command("get_property switch_audio\n", TRUE);
         send_command("pausing_keep_force get_property path\n", FALSE);
     }
 
@@ -317,7 +317,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->videopresent = FALSE;
         g_idle_add(resize_window, idledata);
         g_idle_add(set_volume_from_slider, NULL);
-        send_command("get_property switch_audio\n", TRUE);
+        //send_command("get_property switch_audio\n", TRUE);
         if (idledata->length < 1.0)
             send_command("get_time_length\n", TRUE);
         send_command("pausing_keep_force get_property path\n", FALSE);
@@ -403,6 +403,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
         buf = strstr(mplayer_output->str, "ANS_switch_audio");
         sscanf(buf, "ANS_switch_audio=%i", &idledata->switch_audio);
+        g_idle_add(set_update_gui, NULL);
+    }
+
+	if (strstr(mplayer_output->str, "ID_AUDIO_ID") != 0) {
+        buf = strstr(mplayer_output->str, "ID_AUDIO_ID");
+        sscanf(buf, "ID_AUDIO_ID=%i", &idledata->switch_audio);
         g_idle_add(set_update_gui, NULL);
     }
 
