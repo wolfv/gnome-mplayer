@@ -516,19 +516,24 @@ gboolean set_update_gui(void *data)
                                          (GtkWidget *) item->data, FALSE);
     }
 
-    if (GTK_IS_WIDGET(menu_edit_audio_langs)) {
-        langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
-        if (g_list_length(langs) > 1) {
-            gtk_widget_show(GTK_WIDGET(menuitem_edit_switch_audio));
-        } else {
-            gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
-        }
-        item = g_list_nth(langs, idledata->switch_audio);
-        if (item && GTK_IS_WIDGET(item->data))
-            gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_audio_langs),
-                                         (GtkWidget *) item->data, FALSE);
-    }
-
+	if (idledata->switch_audio >= 0) {
+		if (GTK_IS_WIDGET(menu_edit_audio_langs)) {
+			langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_audio_langs));
+			if (g_list_length(langs) > 1) {
+				gtk_widget_show(GTK_WIDGET(menuitem_edit_switch_audio));
+			} else {
+				gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
+			}
+			item = g_list_nth(langs, idledata->switch_audio);
+			if (item && GTK_IS_WIDGET(item->data))
+				gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_audio_langs),
+											 (GtkWidget *) item->data, FALSE);
+		}
+	} else {
+		if (verbose)
+			printf("ANS_switch_audio is invalid %i\n",idledata->switch_audio);
+	}
+	
     if (GTK_IS_WIDGET(list)) {
         column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
         count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
