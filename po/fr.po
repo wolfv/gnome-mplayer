@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-19 07:43-0700\n"
-"PO-Revision-Date: 2008-12-18 15:47+0100\n"
+"POT-Creation-Date: 2008-12-23 00:45+0100\n"
+"PO-Revision-Date: 2008-12-20 07:20+0100\n"
 "Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -228,9 +228,8 @@ msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
 #: src/gui.c:251
-#, fuzzy
 msgid "Media Change"
-msgstr "_Informations sur le média"
+msgstr "Changement de média"
 
 # c-format
 #: src/gui.c:309
