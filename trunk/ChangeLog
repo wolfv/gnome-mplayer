@@ -1,4 +1,5 @@
 Development
+    Protect switch audio from selecting a negative track
     Protect audio and sub ids from being set to negative values
     Updated Turkish transation
     Move window id request out of thread
