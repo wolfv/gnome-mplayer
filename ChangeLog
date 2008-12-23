@@ -1,4 +1,5 @@
 Development
+    Move window id request out of thread
     Updated Serbian translations
     Updated Polish translation
     Fix Bug #110 - Ugly markup in notification string

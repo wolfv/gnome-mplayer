@@ -811,7 +811,7 @@ gpointer launch_player(gpointer data)
     }
     // argv[arg++] = g_strdup_printf("-v");
     argv[arg++] = g_strdup_printf("-wid");
-    player_window = get_player_window();
+    player_window = idledata->windowid;
     argv[arg++] = g_strdup_printf("0x%x", player_window);
 
     if (control_id == 0) {

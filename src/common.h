@@ -119,6 +119,7 @@ typedef struct _IdleData {
     gchar media_info[2048];
 	gchar media_notification[2048];
     gchar url[1024];
+	gint windowid;
     gchar *device;
     gdouble percent;
     gdouble cachepercent;
