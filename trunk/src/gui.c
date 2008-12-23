@@ -50,6 +50,8 @@ static char *device = "default";
 gint get_player_window()
 {
     if (GTK_IS_WIDGET(drawing_area)) {
+		while(gtk_events_pending()) 
+			gtk_main_iteration();
         return gtk_socket_get_id(GTK_SOCKET(drawing_area));
     } else {
         return 0;
