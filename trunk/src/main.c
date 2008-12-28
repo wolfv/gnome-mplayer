@@ -295,7 +295,7 @@ gint play_iter(GtkTreeIter * playiter)
         g_free(subtitle);
     }
 #ifdef HAVE_ASOUNDLIB
-    if (!softvol && g_ascii_strcasecmp(ao, "alsa") == 0) {
+    if (!softvol && ao != NULL && g_ascii_strcasecmp(ao, "alsa") == 0) {
         volume = (gint) get_alsa_volume();
         idledata->volume = volume;
 #if GTK2_12_ENABLED

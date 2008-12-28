@@ -894,7 +894,7 @@ gboolean read_mplayer_config()
     alang = g_key_file_get_string(config, "gnome-mplayer", "alang", NULL);
     slang = g_key_file_get_string(config, "gnome-mplayer", "slang", NULL);
 
-    if (g_ascii_strcasecmp(vo, "xvmc:bobdeint:queue") == 0) {
+    if (vo != NULL && g_ascii_strcasecmp(vo, "xvmc:bobdeint:queue") == 0) {
         g_free(vo);
         vo = g_strdup("xvmc");
     }
