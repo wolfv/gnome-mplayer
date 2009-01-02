@@ -1049,6 +1049,7 @@ MetaData *get_metadata(gchar * uri)
     av[ac++] = g_strdup_printf("null");
     av[ac++] = g_strdup_printf("-frames");
     av[ac++] = g_strdup_printf("0");
+    av[ac++] = g_strdup_printf("-noidx");
     av[ac++] = g_strdup_printf("-identify");
     av[ac++] = g_strdup_printf("-nocache");
     if (idledata->device != NULL) {
