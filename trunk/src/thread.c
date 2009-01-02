@@ -730,7 +730,7 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%s", mplayer_bin);
     }
 
-    if (vo != NULL && strlen(vo) > 0) {
+    if ((vo != NULL && strlen(vo) > 0) || (ao != NULL && strlen(ao) > 0)) {
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
