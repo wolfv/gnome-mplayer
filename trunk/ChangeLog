@@ -1,4 +1,4 @@
-Development
+0.9.3
     Allow either vo or ao to be NULL but still use the profile
     Allow SID and AID options to work if mgsmodule is enabled
     Rework active audio id, selection
