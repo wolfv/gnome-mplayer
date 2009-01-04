@@ -1,4 +1,5 @@
 Development
+    Updated Italian translation
     Use -noidx flag when grabbing metadata
 0.9.3
     Allow either vo or ao to be NULL but still use the profile
