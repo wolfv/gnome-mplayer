@@ -722,7 +722,7 @@ gpointer launch_player(gpointer data)
     g_idle_add(set_progress_value, idledata);
     g_idle_add(set_progress_text, idledata);
     g_idle_add(set_media_info, idledata);
-    //g_idle_add(set_window_visible, idledata);
+    g_idle_add(set_window_visible, idledata);
 
     if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         argv[arg++] = g_strdup_printf("mplayer");
