@@ -1,4 +1,5 @@
 Development
+    Remove gconftool --shutdown from makefile
     Updated Italian translation
     Use -noidx flag when grabbing metadata
 0.9.3

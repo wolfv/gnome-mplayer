@@ -38,7 +38,6 @@ dist-hook:
 
 install-schemas: $(schema_DATA)
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool-2 --makefile-install-rule $(schema_DATA) 2>&1 > /dev/null
-	gconftool-2 --shutdown
 
 if GCONF_SCHEMAS_INSTALL
 install-data-hook: install-schemas
