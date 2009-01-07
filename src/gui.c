@@ -5663,6 +5663,8 @@ GtkWidget *create_window(gint windowid)
                 gtk_widget_show(GTK_WIDGET(progress));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
+				gtk_widget_hide(menu_event_box);
+				gtk_widget_hide(fixed);					
                 control_instance = FALSE;
             }
             if (g_strcasecmp(visuals[i], "infovolumepanel") == 0) {
@@ -5717,6 +5719,8 @@ GtkWidget *create_window(gint windowid)
                 gtk_widget_show(controls_box);
                 gtk_widget_show_all(hbox);
                 gtk_widget_hide(GTK_WIDGET(progress));
+				gtk_widget_hide(menu_event_box);
+				gtk_widget_hide(fixed);
             }
 
             i++;
