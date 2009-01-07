@@ -60,39 +60,42 @@ gint get_player_window()
 
 void adjust_paned_rules()
 {
-	return;
-    if (!idledata->videopresent) {
-        g_object_ref(vbox);
-        gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child1);
-        gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, FALSE);
-        g_object_unref(vbox);
-        if (GTK_IS_WIDGET(plvbox)) {
-            g_object_ref(plvbox);
-            gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child2);
-            gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
-            g_object_unref(plvbox);
-        }
-    } else {
-        g_object_set(pane, "position-set", FALSE, NULL);
-    }
+	if (GTK_IS_WIDGET(pane)) {
+		if (!idledata->videopresent) {
+			g_object_ref(vbox);
+			gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child1);
+			gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, FALSE);
+			g_object_unref(vbox);
+			if (GTK_IS_WIDGET(plvbox)) {
+				g_object_ref(plvbox);
+				gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child2);
+				gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
+				g_object_unref(plvbox);
+			}
+		} else {
+			g_object_set(pane, "position-set", FALSE, NULL);
+		}
+	}
 }
 
 void reset_paned_rules()
 {
     gint position;
 
-	g_object_get(pane, "position", &position, NULL);
-    g_object_ref(vbox);
-    gtk_container_remove(GTK_CONTAINER(pane), vbox);
-    gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
-    g_object_unref(vbox);
-    if (GTK_IS_WIDGET(plvbox)) {
-        g_object_ref(plvbox);
-        gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child2);
-        gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
-        g_object_unref(plvbox);
-    }
-    g_object_set(pane, "position", position, "position-set", TRUE, NULL);
+	if (GTK_IS_WIDGET(pane)) {
+		g_object_get(pane, "position", &position, NULL);
+		g_object_ref(vbox);
+		gtk_container_remove(GTK_CONTAINER(pane), vbox);
+		gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
+		g_object_unref(vbox);
+		if (GTK_IS_WIDGET(plvbox)) {
+			g_object_ref(plvbox);
+			gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child2);
+			gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
+			g_object_unref(plvbox);
+		}
+		g_object_set(pane, "position", position, "position-set", TRUE, NULL);
+	}
 }
 
 gboolean hide_buttons(void *data)
@@ -1313,6 +1316,9 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 				new_width = allocation->height * movie_ratio;
             }
         }
+		
+		new_width = new_width - new_width % 8;
+		new_height = new_height - new_height % 8;
 		
 		//printf("new_width %i new_height %i\n",new_width, new_height);
 		if (move_pane_position) {
