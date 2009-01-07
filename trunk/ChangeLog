@@ -1,4 +1,5 @@
 Development
+    Fix pane divider position when video is started from playlist screen
     Remove gconftool --shutdown from makefile
     Updated Italian translation
     Use -noidx flag when grabbing metadata
