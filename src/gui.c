@@ -1317,10 +1317,13 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             }
         }
 		
-		new_width = new_width - new_width % 8;
-		new_height = new_height - new_height % 8;
+		// printf("new_width %i new_height %i\n",new_width, new_height);
+		if (new_height < idledata->height || new_width < idledata->width) {
+			new_width = new_width - new_width % 16;
+			new_height = new_height - new_height % 16;
+		}
 		
-		//printf("new_width %i new_height %i\n",new_width, new_height);
+		// printf("new_width %i new_height %i\n",new_width, new_height);
 		if (move_pane_position) {
 			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
 				gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
