@@ -1267,9 +1267,14 @@ gint get_bitrate(gchar * name)
         g_free(stderr);
         stderr = NULL;
     }
-    if (verbose)
-        printf("ss=%i, ep = %i\n", startsec, endpos);
+    //if (verbose)
+    //    printf("ss=%i, ep = %i\n", startsec, endpos);
 
+	if (endpos == 0) {
+		startsec = 0;
+		endpos = 1;
+	}
+	
     ac = 0;
     av[ac++] = g_strdup_printf("mencoder");
     av[ac++] = g_strdup_printf("-ovc");

@@ -166,6 +166,12 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         playback_error = ERROR_RETRY_WITH_PLAYLIST;
     }
 
+	if (strstr(mplayer_output->str, "MOV: missing header (moov/cmov) chunk") != NULL) {
+		idledata->retry_on_full_cache = TRUE;
+		g_strlcpy(idledata->progress_text,_("Delaying start until cache is full"),1024);
+		g_idle_add(set_progress_text, idledata);
+	}
+	
     if (strstr(mplayer_output->str, "Compressed SWF format not supported") != NULL) {
         error_msg = g_strdup_printf(_("Compressed SWF format not supported"));
     }
