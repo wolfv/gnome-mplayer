@@ -1,4 +1,5 @@
 Development
+    All fallback when under plugin control to restart playback when cache is filled, if we get a QT file with header at end of file
     Cleanup some widgets in realplayer mode
     Fix pane divider position when video is started from playlist screen
     Remove gconftool --shutdown from makefile

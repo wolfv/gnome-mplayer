@@ -1326,7 +1326,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 			}
 			move_pane_position = FALSE;
 		}
-		printf("new_width %i new_height %i\n",new_width, new_height);
+		//printf("new_width %i new_height %i\n",new_width, new_height);
 		
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
         gtk_widget_set_size_request(fixed, allocation->width, allocation->height);
