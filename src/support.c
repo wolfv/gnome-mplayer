@@ -760,6 +760,9 @@ gboolean update_mplayer_config()
 
     error = NULL;
 
+	if (getenv("HOME") == NULL) 
+		return FALSE;
+	
     filename = g_strdup_printf("%s/.mplayer/config", getenv("HOME"));
     g_key_file_load_from_file(config,
                               filename,
@@ -862,6 +865,9 @@ gboolean read_mplayer_config()
 
     error = NULL;
 
+	if (getenv("HOME") == NULL)
+		return FALSE;
+	
     filename = g_strdup_printf("%s/.mplayer/config", getenv("HOME"));
     g_key_file_load_from_file(config, filename, G_KEY_FILE_KEEP_TRANSLATIONS, &error);
 
