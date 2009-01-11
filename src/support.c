@@ -760,10 +760,10 @@ gboolean update_mplayer_config()
 
     error = NULL;
 
-	if (getenv("HOME") == NULL) 
+	if (g_getenv("HOME") == NULL) 
 		return FALSE;
 	
-    filename = g_strdup_printf("%s/.mplayer/config", getenv("HOME"));
+    filename = g_strdup_printf("%s/.mplayer/config", g_getenv("HOME"));
     g_key_file_load_from_file(config,
                               filename,
                               G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, &error);
@@ -865,10 +865,12 @@ gboolean read_mplayer_config()
 
     error = NULL;
 
-	if (getenv("HOME") == NULL)
+	if (g_getenv("HOME") == NULL)
 		return FALSE;
 	
-    filename = g_strdup_printf("%s/.mplayer/config", getenv("HOME"));
+	printf("home is set to %s",g_getenv("HOME"));
+	
+    filename = g_strdup_printf("%s/.mplayer/config", g_getenv("HOME"));
     g_key_file_load_from_file(config, filename, G_KEY_FILE_KEEP_TRANSLATIONS, &error);
 
     if (error != NULL) {
