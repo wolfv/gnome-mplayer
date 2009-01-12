@@ -467,11 +467,11 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         (message, &error, DBUS_TYPE_DOUBLE, &(idledata->cachepercent),
                          DBUS_TYPE_INVALID)) {
                         g_idle_add(set_progress_value, idledata);
-						if (idledata->cachepercent > 0.99 && idledata->retry_on_full_cache) {
-							if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+                        if (idledata->cachepercent > 0.99 && idledata->retry_on_full_cache) {
+                            if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
                                 play_iter(&iter);
-                            }							
-						}
+                            }
+                        }
                     } else {
                         dbus_error_free(&error);
                     }
@@ -484,8 +484,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->progress_text, s, 1024);
-						if (state != PLAYING)
-							g_idle_add(set_progress_text, idledata);
+                        if (state != PLAYING)
+                            g_idle_add(set_progress_text, idledata);
                     } else {
                         dbus_error_free(&error);
                     }

@@ -1008,8 +1008,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 
         gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
         adjust_paned_rules();
-		
-		move_pane_position = TRUE;
+
+        move_pane_position = TRUE;
         gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
         if (vertical_layout) {
             gtk_widget_set_size_request(plvbox, -1, 150);
