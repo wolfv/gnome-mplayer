@@ -1,4 +1,5 @@
 Development
+    Added Bulgarian translation
     Updated Russian translation
     Work around $HOME not being set
     Change alignment to multiples of 16, but only when window size is smaller than video size
