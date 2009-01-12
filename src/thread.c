@@ -697,7 +697,8 @@ gpointer launch_player(gpointer data)
     gchar *fontname;
     gchar *size;
     gchar *buffer;
-
+	GIOFlags flags;
+	
     ThreadData *threaddata = (ThreadData *) data;
 
     videopresent = 0;
@@ -988,6 +989,13 @@ gpointer launch_player(gpointer data)
 
         channel_in = g_io_channel_unix_new(std_out);
         channel_err = g_io_channel_unix_new(std_err);
+		flags = g_io_channel_get_flags(channel_in);
+		flags |= G_IO_FLAG_NONBLOCK;
+		g_io_channel_set_flags(channel_in,flags,NULL);
+		flags = g_io_channel_get_flags(channel_err);
+		flags |= G_IO_FLAG_NONBLOCK;
+		g_io_channel_set_flags(channel_err,flags,NULL);
+		
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
         watch_in_id =
