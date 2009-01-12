@@ -156,7 +156,7 @@ gint play_iter(GtkTreeIter * playiter)
     GtkRecentData *recent_data;
     GtkRecentInfo *recent_info;
 #endif
-	
+
     if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, ITEM_COLUMN, &uri,
                            DESCRIPTION_COLUMN, &title,
@@ -541,7 +541,7 @@ int main(int argc, char *argv[])
     disable_cover_art_fetch = FALSE;
     mixer = NULL;
     fullscreen = 0;
-	move_pane_position = FALSE;
+    move_pane_position = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);

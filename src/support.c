@@ -760,9 +760,9 @@ gboolean update_mplayer_config()
 
     error = NULL;
 
-	if (g_getenv("HOME") == NULL) 
-		return FALSE;
-	
+    if (g_getenv("HOME") == NULL)
+        return FALSE;
+
     filename = g_strdup_printf("%s/.mplayer/config", g_getenv("HOME"));
     g_key_file_load_from_file(config,
                               filename,
@@ -865,11 +865,11 @@ gboolean read_mplayer_config()
 
     error = NULL;
 
-	if (g_getenv("HOME") == NULL)
-		return FALSE;
-	
-	// printf("home is set to %s",g_getenv("HOME"));
-	
+    if (g_getenv("HOME") == NULL)
+        return FALSE;
+
+    // printf("home is set to %s",g_getenv("HOME"));
+
     filename = g_strdup_printf("%s/.mplayer/config", g_getenv("HOME"));
     g_key_file_load_from_file(config, filename, G_KEY_FILE_KEEP_TRANSLATIONS, &error);
 
@@ -1278,11 +1278,11 @@ gint get_bitrate(gchar * name)
     //if (verbose)
     //    printf("ss=%i, ep = %i\n", startsec, endpos);
 
-	if (endpos == 0) {
-		startsec = 0;
-		endpos = 1;
-	}
-	
+    if (endpos == 0) {
+        startsec = 0;
+        endpos = 1;
+    }
+
     ac = 0;
     av[ac++] = g_strdup_printf("mencoder");
     av[ac++] = g_strdup_printf("-ovc");

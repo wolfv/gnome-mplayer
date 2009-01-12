@@ -166,12 +166,12 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         playback_error = ERROR_RETRY_WITH_PLAYLIST;
     }
 
-	if (strstr(mplayer_output->str, "MOV: missing header (moov/cmov) chunk") != NULL) {
-		idledata->retry_on_full_cache = TRUE;
-		g_strlcpy(idledata->progress_text,_("Delaying start until cache is full"),1024);
-		g_idle_add(set_progress_text, idledata);
-	}
-	
+    if (strstr(mplayer_output->str, "MOV: missing header (moov/cmov) chunk") != NULL) {
+        idledata->retry_on_full_cache = TRUE;
+        g_strlcpy(idledata->progress_text, _("Delaying start until cache is full"), 1024);
+        g_idle_add(set_progress_text, idledata);
+    }
+
     if (strstr(mplayer_output->str, "Compressed SWF format not supported") != NULL) {
         error_msg = g_strdup_printf(_("Compressed SWF format not supported"));
     }
@@ -697,8 +697,8 @@ gpointer launch_player(gpointer data)
     gchar *fontname;
     gchar *size;
     gchar *buffer;
-	GIOFlags flags;
-	
+    GIOFlags flags;
+
     ThreadData *threaddata = (ThreadData *) data;
 
     videopresent = 0;
@@ -800,7 +800,8 @@ gpointer launch_player(gpointer data)
     if (!disable_framedrop)
         argv[arg++] = g_strdup_printf("-framedrop");
 
-    if (vo == NULL || !(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
+    if (vo == NULL
+        || !(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
         if (!disable_deinterlace) {
             argv[arg++] = g_strdup_printf("-vf-pre");
             argv[arg++] = g_strdup_printf("yadif,softskip,scale");
@@ -927,7 +928,8 @@ gpointer launch_player(gpointer data)
         g_strfreev(opts);
     }
 
-    if (vo == NULL || !(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
+    if (vo == NULL
+        || !(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
         argv[arg++] = g_strdup_printf("-vf-add");
         argv[arg++] = g_strdup_printf("screenshot");
     }
@@ -989,13 +991,13 @@ gpointer launch_player(gpointer data)
 
         channel_in = g_io_channel_unix_new(std_out);
         channel_err = g_io_channel_unix_new(std_err);
-		flags = g_io_channel_get_flags(channel_in);
-		flags |= G_IO_FLAG_NONBLOCK;
-		g_io_channel_set_flags(channel_in,flags,NULL);
-		flags = g_io_channel_get_flags(channel_err);
-		flags |= G_IO_FLAG_NONBLOCK;
-		g_io_channel_set_flags(channel_err,flags,NULL);
-		
+        flags = g_io_channel_get_flags(channel_in);
+        flags |= G_IO_FLAG_NONBLOCK;
+        g_io_channel_set_flags(channel_in, flags, NULL);
+        flags = g_io_channel_get_flags(channel_err);
+        flags |= G_IO_FLAG_NONBLOCK;
+        g_io_channel_set_flags(channel_err, flags, NULL);
+
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
         watch_in_id =
