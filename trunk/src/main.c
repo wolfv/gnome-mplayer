@@ -684,6 +684,9 @@ int main(int argc, char *argv[])
     if (!g_thread_supported())
         g_thread_init(NULL);
 
+	// if (verbose)
+	//	printf("Threading support enabled = %i\n",g_thread_supported());
+	
     if (rpconsole == NULL)
         rpconsole = g_strdup("NONE");
 
