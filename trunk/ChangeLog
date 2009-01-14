@@ -1,4 +1,5 @@
 Development
+    More debugging information
     Fix problem with resizing when second video is played when first is started with playlist hidden
     Add non-blocking flag to channel io, may help *BSDs
     Added Bulgarian translation
