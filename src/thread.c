@@ -106,10 +106,15 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         return FALSE;
     }
 
+    mplayer_output = g_string_new("");
+    status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
 
     if (state == QUIT) {
-        if (verbose > 1)
+        if (verbose > 1) {
             printf("Thread Error: state = QUIT, shutting down\n");
+			printf("ERROR: %s", mplayer_output->str);
+		}
+		g_string_free(mplayer_output, TRUE);
         g_idle_add(set_stop, idledata);
         state = QUIT;
         g_source_remove(watch_in_id);
@@ -118,16 +123,13 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         return FALSE;
     }
 
-    mplayer_output = g_string_new("");
-
-    status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
     if (verbose == 1 && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("ERROR: %s", mplayer_output->str);
 
-    // print out everything in really verbose mode
+	// print out everything in really verbose mode
     if (verbose > 1)
         printf("thread reader error: %s", mplayer_output->str);
-
+	
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
@@ -697,6 +699,7 @@ gpointer launch_player(gpointer data)
     gchar *fontname;
     gchar *size;
     gchar *buffer;
+	GError *error;
     // GIOFlags flags;
 
     ThreadData *threaddata = (ThreadData *) data;
@@ -963,9 +966,16 @@ gpointer launch_player(gpointer data)
     }
 
     state = PAUSED;
+	error = NULL;
     ok = g_spawn_async_with_pipes(NULL, argv, NULL,
                                   G_SPAWN_SEARCH_PATH,
-                                  NULL, NULL, NULL, &std_in, &std_out, &std_err, NULL);
+                                  NULL, NULL, NULL, &std_in, &std_out, &std_err, &error);
+	
+	if (error != NULL) {
+		printf("error code = %i - %s\n",error->code,error->message);
+		g_error_free(error);
+		error = NULL;
+	}
 
     arg = 0;
     while (argv[arg] != NULL) {
