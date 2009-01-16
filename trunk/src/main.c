@@ -236,9 +236,12 @@ gint play_iter(GtkTreeIter * playiter)
     if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0
         && !playlist) {
         metadata = (MetaData *) g_new0(MetaData, 1);
-        metadata->title = g_strstrip(g_strdup(title));
-        metadata->artist = g_strstrip(g_strdup(artist));
-        metadata->album = g_strstrip(g_strdup(album));
+		if(title != NULL)
+			metadata->title = g_strstrip(g_strdup(title));
+		if (artist != NULL)
+			metadata->artist = g_strstrip(g_strdup(artist));
+		if (album != NULL)
+			metadata->album = g_strstrip(g_strdup(album));
         g_thread_create(get_cover_art, metadata, FALSE, NULL);
     } else {
         gtk_image_clear(GTK_IMAGE(cover_art));
