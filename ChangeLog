@@ -1,4 +1,5 @@
 Development
+    Usage of NULL protection
     Fix title display in window border
     More debugging information
     Fix problem with resizing when second video is played when first is started with playlist hidden

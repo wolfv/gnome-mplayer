@@ -343,7 +343,8 @@ gint parse_basic(gchar * uri)
             if (line == NULL)
                 continue;
 #endif
-            g_strstrip(line);
+			if (line != NULL)
+				g_strstrip(line);
             if (strlen(line) == 0) {
 #ifdef GIO_ENABLED
                 g_free(line);
@@ -1102,7 +1103,11 @@ MetaData *get_metadata(gchar * uri)
         if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
             if (strstr(lower, "=title") != NULL || strstr(lower, "=name") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
-                title = g_strstrip(metadata_to_utf8(localtitle));
+				if (localtitle)
+					title = g_strstrip(metadata_to_utf8(localtitle));
+				else
+					title = NULL;
+				
                 if (title == NULL) {
                     title = g_strdup(localtitle);
                     strip_unicode(title, strlen(title));
