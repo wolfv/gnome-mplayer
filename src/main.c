@@ -245,6 +245,7 @@ gint play_iter(GtkTreeIter * playiter)
     }
 
     g_strlcpy(idledata->media_info, message, 1024);
+	g_strlcpy(idledata->display_name, title, 1024);
     g_free(message);
 
     message = g_strdup("");
