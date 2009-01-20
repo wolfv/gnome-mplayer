@@ -148,6 +148,8 @@ gint play_iter(GtkTreeIter * playiter)
     gchar *audio_codec;
     gchar *video_codec = NULL;
     gchar *demuxer = NULL;
+	gint width;
+	gint height;
     gpointer pixbuf;
     gchar *buffer = NULL;
     gchar *message = NULL;
@@ -164,6 +166,8 @@ gint play_iter(GtkTreeIter * playiter)
                            ALBUM_COLUMN, &album,
                            AUDIO_CODEC_COLUMN, &audio_codec,
                            VIDEO_CODEC_COLUMN, &video_codec,
+						   VIDEO_WIDTH_COLUMN, &width,
+						   VIDEO_HEIGHT_COLUMN, &height,
                            DEMUXER_COLUMN, &demuxer,
                            COVERART_COLUMN, &pixbuf,
                            SUBTITLE_COLUMN, &subtitle,
@@ -383,8 +387,13 @@ gint play_iter(GtkTreeIter * playiter)
 
     last_x = 0;
     last_y = 0;
-    idledata->width = 0;
-    idledata->height = 0;
+    idledata->width = width;
+    idledata->height = height;
+	if (width > 0 && height > 0) {
+		idledata->videopresent = 1;
+	} else { 
+		idledata->videopresent = 0;
+	}
     idledata->x = 0;
     idledata->y = 0;
     g_strlcpy(idledata->info, uri, 1024);
@@ -698,11 +707,11 @@ int main(int argc, char *argv[])
     playliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
-                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);
     nonrandomplayliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
-                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT);
 
     create_window(embed_window);
 

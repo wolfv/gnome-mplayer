@@ -1,4 +1,5 @@
 Development
+    Try and setup the video window eariler, makes for smoother redraw
     Usage of NULL protection
     Fix title display in window border
     More debugging information

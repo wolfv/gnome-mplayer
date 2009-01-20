@@ -1018,6 +1018,8 @@ MetaData *get_metadata(gchar * uri)
     gchar *basename = NULL;
     gchar *audio_codec = NULL;
     gchar *video_codec = NULL;
+	gint width = 0;
+	gint height = 0;
     GError *error;
     gint exit_status;
     gchar *stdout = NULL;
@@ -1151,6 +1153,16 @@ MetaData *get_metadata(gchar * uri)
             video_codec = g_strdup(localtitle);
         }
 
+        if (strstr(output[ac], "ID_VIDEO_WIDTH") != NULL) {
+            localtitle = strstr(output[ac], "=") + 1;
+            width = (gint)g_strtod(localtitle,NULL);
+        }
+
+		if (strstr(output[ac], "ID_VIDEO_HEIGHT") != NULL) {
+            localtitle = strstr(output[ac], "=") + 1;
+            height = (gint)g_strtod(localtitle, NULL);
+        }
+		
         if (strstr(output[ac], "ID_DEMUXER") != NULL) {
             if (ret == NULL)
                 ret = (MetaData *) g_new0(MetaData, 1);
@@ -1188,6 +1200,8 @@ MetaData *get_metadata(gchar * uri)
         ret->length_value = seconds;
         ret->audio_codec = g_strdup(audio_codec);
         ret->video_codec = g_strdup(video_codec);
+		ret->width = width;
+		ret->height = height;
     }
 
     g_free(title);
@@ -1409,7 +1423,9 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
                            VIDEO_CODEC_COLUMN, data->video_codec,
                            LENGTH_COLUMN, data->length,
                            DEMUXER_COLUMN, data->demuxer,
-                           LENGTH_VALUE_COLUMN, data->length_value, -1);
+                           LENGTH_VALUE_COLUMN, data->length_value, 
+						   VIDEO_WIDTH_COLUMN, data->width,
+						   VIDEO_HEIGHT_COLUMN, data->height,-1);
 
 
         gtk_list_store_append(nonrandomplayliststore, &localiter);
@@ -1424,7 +1440,10 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
                            VIDEO_CODEC_COLUMN, data->video_codec,
                            LENGTH_COLUMN, data->length,
                            DEMUXER_COLUMN, data->demuxer,
-                           LENGTH_VALUE_COLUMN, data->length_value, -1);
+                           LENGTH_VALUE_COLUMN, data->length_value,
+						   VIDEO_WIDTH_COLUMN, data->width,
+						   VIDEO_HEIGHT_COLUMN, data->height,-1);
+		
         set_item_add_info(uri);
         g_free(data->demuxer);
         g_free(data->title);
@@ -1652,6 +1671,8 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
     gchar *video_codec = NULL;
     gchar *demuxer = NULL;
     gchar *length = NULL;
+	gint width;
+	gint height;
     gfloat length_value;
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -1672,7 +1693,8 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
                                AUDIO_CODEC_COLUMN, &audio_codec,
                                VIDEO_CODEC_COLUMN, &video_codec,
                                DEMUXER_COLUMN, &demuxer,
-                               LENGTH_COLUMN, &length, LENGTH_VALUE_COLUMN, &length_value, -1);
+                               LENGTH_COLUMN, &length, LENGTH_VALUE_COLUMN, &length_value,
+							   VIDEO_HEIGHT_COLUMN, &height, VIDEO_WIDTH_COLUMN, &width, -1);
 
             gtk_list_store_append(dest, &destiter);
             gtk_list_store_set(dest, &destiter, ITEM_COLUMN, itemname,
@@ -1685,7 +1707,8 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
                                AUDIO_CODEC_COLUMN, audio_codec,
                                VIDEO_CODEC_COLUMN, video_codec,
                                DEMUXER_COLUMN, demuxer,
-                               LENGTH_COLUMN, length, LENGTH_VALUE_COLUMN, length_value, -1);
+                               LENGTH_COLUMN, length, LENGTH_VALUE_COLUMN, length_value,
+							   VIDEO_HEIGHT_COLUMN,height, VIDEO_WIDTH_COLUMN,width,-1);
 
             g_free(desc);
             desc = NULL;
