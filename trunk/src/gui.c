@@ -627,7 +627,8 @@ void destroy_folder_progress_window()
 {
     while (gtk_events_pending())
         gtk_main_iteration();
-    gtk_widget_destroy(folder_progress_window);
+	if (GTK_IS_WIDGET(folder_progress_window))
+		gtk_widget_destroy(folder_progress_window);
     folder_progress_window = NULL;
 }
 
@@ -1366,7 +1367,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     // printf("state = %i\n",event->state);
     // printf("other = %i\n", event->state & ~GDK_CONTROL_MASK);
 
-    printf("key name=%s\n", gdk_keyval_name(event->keyval));
+    // printf("key name=%s\n", gdk_keyval_name(event->keyval));
     // We don't want to handle CTRL accelerators here
     // if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
     if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
@@ -2111,7 +2112,8 @@ void open_location_callback(GtkWidget * widget, void *data)
             dontplaynext = FALSE;
         }
     }
-    gtk_widget_destroy(widget);
+	if (GTK_IS_WIDGET(widget))
+		gtk_widget_destroy(widget);
 }
 
 void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
@@ -2203,7 +2205,8 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
             play_iter(&iter);
         }
     }
-    gtk_widget_destroy(dialog);
+	if (GTK_IS_WIDGET(dialog))
+		gtk_widget_destroy(dialog);
 
 }
 
@@ -2243,7 +2246,8 @@ void menuitem_open_dvd_iso_callback(GtkMenuItem * menuitem, void *data)
             play_iter(&iter);
         }
     }
-    gtk_widget_destroy(dialog);
+	if (GTK_IS_WIDGET(dialog))
+		gtk_widget_destroy(dialog);
 
 }
 
@@ -2293,7 +2297,8 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
             play_iter(&iter);
         }
     }
-    gtk_widget_destroy(dialog);
+	if (GTK_IS_WIDGET(dialog))
+		gtk_widget_destroy(dialog);
 
 }
 
@@ -2334,7 +2339,8 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
             play_iter(&iter);
         }
     }
-    gtk_widget_destroy(dialog);
+	if (GTK_IS_WIDGET(dialog))
+		gtk_widget_destroy(dialog);
 
 }
 
@@ -3274,7 +3280,8 @@ void adv_reset_values(GtkWidget * widget, void *data)
 void config_close(GtkWidget * widget, void *data)
 {
     selection = NULL;
-    gtk_widget_destroy(widget);
+	if (GTK_IS_WIDGET(widget))
+		gtk_widget_destroy(widget);
 }
 
 void brightness_callback(GtkRange * range, gpointer data)

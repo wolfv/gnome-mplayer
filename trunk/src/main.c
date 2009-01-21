@@ -174,25 +174,15 @@ gint play_iter(GtkTreeIter * playiter)
                            COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
         if (GTK_IS_TREE_SELECTION(selection)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), playiter);
-            gtk_tree_selection_select_path(selection, path);
-            if (GTK_IS_WIDGET(list))
-                gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
-            buffer = gtk_tree_path_to_string(path);
-            pos = (gint) g_strtod(buffer, NULL);
-            g_free(buffer);
-            gtk_tree_path_free(path);
-            /*
-               gtk_widget_set_sensitive(down, (pos - 1 <= 0));
-               gtk_widget_set_sensitive(next_event_box, (pos - 1 <= 0));
-               gtk_widget_set_sensitive(up,
-               (pos + 2 >=
-               gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),
-               NULL)));
-               gtk_widget_set_sensitive(prev_event_box,
-               (pos + 2 >=
-               gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),
-               NULL)));
-             */
+			if (path) {
+				gtk_tree_selection_select_path(selection, path);
+				if (GTK_IS_WIDGET(list))
+					gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
+				buffer = gtk_tree_path_to_string(path);
+				pos = (gint) g_strtod(buffer, NULL);
+				g_free(buffer);
+				gtk_tree_path_free(path);
+			}
         }
         gtk_list_store_set(playliststore, playiter, COUNT_COLUMN, count + 1, -1);
     } else {
@@ -655,6 +645,7 @@ int main(int argc, char *argv[])
     if (cache_size == 0)
         cache_size = 2000;
     release_preference_store();
+    read_mplayer_config();
 
     if (verbose && single_instance) {
         printf("Running in single instance mode\n");
@@ -679,6 +670,14 @@ int main(int argc, char *argv[])
                  volume);
         volume = 100;
     }
+	
+	if (ao != NULL && g_ascii_strncasecmp(ao,"pulse",strlen("pulse")) == 0) {
+        if (verbose)
+            printf
+                ("Using pulse audio, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
+                 volume);
+        volume = 100;
+	}
 
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
@@ -722,7 +721,6 @@ int main(int argc, char *argv[])
     ao = NULL;
     vo = NULL;
 
-    read_mplayer_config();
     thread_running = g_mutex_new();
     slide_away = g_mutex_new();
 #ifdef GIO_ENABLED
