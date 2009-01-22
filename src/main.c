@@ -718,7 +718,8 @@ int main(int argc, char *argv[])
 
     autopause = FALSE;
     state = QUIT;
-    channel_in = NULL;
+	channel_in = NULL;
+    channel_out = NULL;
     channel_err = NULL;
 
     thread_running = g_mutex_new();

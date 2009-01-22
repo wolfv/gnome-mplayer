@@ -1,4 +1,6 @@
 Development
+    Remove write and replace with g_io_channels_write_chars (should be safer)
+    Add spawn pid cleanup
     Correct another glib assertion
     Fixed GTK assertion using 'export G_DEBUG=fatal_warnings' and ran gdb
     Remove need to set playback window to 16x16 since we now know the size of the video and window is properly sized
