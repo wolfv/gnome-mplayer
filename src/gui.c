@@ -2683,18 +2683,20 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (GTK_IS_TREE_SELECTION(selection)) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            do {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
-                                   &localfilename, -1);
-                // printf("iter = %s   local = %s \n",iterfilename,localfilename);
-                if (g_ascii_strcasecmp(iterfilename, localfilename) == 0) {
-                    // we found the current iter
-                    g_free(localfilename);
-                    break;
-                }
-                g_free(localfilename);
-            } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &iter));
-            g_free(iterfilename);
+			if (iterfilename != NULL) {
+				do {
+					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
+									   &localfilename, -1);
+					// printf("iter = %s   local = %s \n",iterfilename,localfilename);
+					if (g_ascii_strcasecmp(iterfilename, localfilename) == 0) {
+						// we found the current iter
+						g_free(localfilename);
+						break;
+					}
+					g_free(localfilename);
+				} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &iter));
+				g_free(iterfilename);
+			}
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
             gtk_tree_selection_select_path(selection, path);
             if (GTK_IS_WIDGET(list))
