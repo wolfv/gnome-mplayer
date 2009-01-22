@@ -3573,7 +3573,8 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     }
 
     if (idle != NULL && !idle->videopresent && !idle->audiopresent) {
-        gtk_widget_destroy(details_table);
+		if (GTK_IS_WIDGET(details_table))
+			gtk_widget_destroy(details_table);
         details_table = NULL;
     }
 
