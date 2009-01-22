@@ -2298,7 +2298,9 @@ gboolean gpod_load_tracks(gchar * mount_point)
 {
     Itdb_iTunesDB *db;
     Itdb_Artwork *artwork;
+#ifdef GPOD_06	
     Itdb_Thumb *thumb;
+#endif
     GList *tracks;
     gint i = 0;
     gchar *duration;
