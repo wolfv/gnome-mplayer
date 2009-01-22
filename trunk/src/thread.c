@@ -39,8 +39,8 @@ void mplayer_shutdown()
 
 gboolean send_command(gchar * command, gboolean retain_pause)
 {
-    gint ret = -1;
     gchar *cmd;
+	GIOStatus result;
 
     if (retain_pause) {
         if (use_pausing_keep_force) {
@@ -54,16 +54,12 @@ gboolean send_command(gchar * command, gboolean retain_pause)
 
     if (verbose > 1)
         printf("send command = %s\n", cmd);
-    if (std_in != -1) {
-        ret = write(std_in, cmd, strlen(cmd));
-        fsync(std_in);
-    }
+	
+	result = g_io_channel_write_chars(channel_in,cmd,-1,NULL,NULL);
+	result = g_io_channel_flush(channel_in,NULL);
+	
     g_free(cmd);
-    if (ret < 0) {
-        return FALSE;
-    } else {
-        return TRUE;
-    }
+    return TRUE;
 
 }
 
@@ -701,7 +697,8 @@ gpointer launch_player(gpointer data)
     gchar *buffer;
 	GError *error;
     // GIOFlags flags;
-
+	GPid pid;
+	
     ThreadData *threaddata = (ThreadData *) data;
 
     videopresent = 0;
@@ -969,7 +966,7 @@ gpointer launch_player(gpointer data)
 	error = NULL;
     ok = g_spawn_async_with_pipes(NULL, argv, NULL,
                                   G_SPAWN_SEARCH_PATH,
-                                  NULL, NULL, NULL, &std_in, &std_out, &std_err, &error);
+                                  NULL, NULL, &pid, &std_in, &std_out, &std_err, &error);
 	
 	if (error != NULL) {
 		printf("error code = %i - %s\n",error->code,error->message);
@@ -994,12 +991,18 @@ gpointer launch_player(gpointer data)
             channel_in = NULL;
         }
 
+		if (channel_out != NULL) {
+            g_io_channel_unref(channel_out);
+            channel_out = NULL;
+        }
+
         if (channel_err != NULL) {
             g_io_channel_unref(channel_err);
             channel_err = NULL;
         }
 
-        channel_in = g_io_channel_unix_new(std_out);
+        channel_in = g_io_channel_unix_new(std_in);
+        channel_out = g_io_channel_unix_new(std_out);
         channel_err = g_io_channel_unix_new(std_err);
 /*        
 		flags = g_io_channel_get_flags(channel_in);
@@ -1010,15 +1013,16 @@ gpointer launch_player(gpointer data)
         g_io_channel_set_flags(channel_err, flags, NULL);
 */
         g_io_channel_set_close_on_unref(channel_in, TRUE);
+        g_io_channel_set_close_on_unref(channel_out, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
         watch_in_id =
-            g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader, NULL,
+            g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader, NULL,
                                 NULL);
         watch_err_id =
             g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP,
                                 thread_reader_error, NULL, NULL);
         watch_in_hup_id =
-            g_io_add_watch_full(channel_in, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete,
+            g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete,
                                 NULL, NULL);
 //        watch_in_id = g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
 //        watch_err_id = g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
@@ -1071,7 +1075,8 @@ gpointer launch_player(gpointer data)
         }
         close(std_in);
         std_in = -1;
-
+		g_spawn_close_pid(pid);
+		
 #ifdef GIO_ENABLED
         if (idledata->tmpfile) {
             if (verbose)
