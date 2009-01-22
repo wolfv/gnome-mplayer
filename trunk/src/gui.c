@@ -296,6 +296,9 @@ gboolean set_progress_value(void *data)
     gchar *iterfilename;
     gchar *iteruri;
 
+	if (idle == NULL)
+		return FALSE;
+	
     if (GTK_IS_WIDGET(progress)) {
         if (state == QUIT && rpcontrols == NULL) {
             js_state = STATE_BUFFERING;
@@ -383,7 +386,7 @@ gboolean set_progress_text(void *data)
     if (GTK_IS_WIDGET(progress)) {
         gtk_progress_bar_set_text(progress, idle->progress_text);
     }
-    if (idle->fromdbus == FALSE)
+    if (idle != NULL && idle->fromdbus == FALSE)
         dbus_send_rpsignal_with_string("RP_SetProgressText", idle->progress_text);
     update_status_icon();
     return FALSE;
@@ -397,6 +400,9 @@ gboolean set_progress_time(void *data)
 
     IdleData *idle = (IdleData *) data;
 
+	if (idle == NULL)
+		return FALSE;
+	
     seconds = idle->position;
     length_seconds = idle->length;
 
@@ -636,6 +642,10 @@ void destroy_folder_progress_window()
 gboolean set_item_add_info(void *data)
 {
     gchar *message;
+	
+	if (data == NULL)
+		return FALSE;
+	
     if (GTK_IS_WIDGET(folder_progress_window)) {
         message = g_strdup_printf(_("Adding %s to playlist"), (gchar *) data);
         gtk_label_set_text(GTK_LABEL(folder_progress_label), message);
@@ -1038,9 +1048,11 @@ gboolean set_position(void *data)
     gchar *cmd;
     IdleData *idle = (IdleData *) data;
 
-    cmd = g_strdup_printf("seek %5.0f 2\n", idle->position);
-    send_command(cmd, FALSE);
-    g_free(cmd);
+	if (idle != NULL) {
+		cmd = g_strdup_printf("seek %5.0f 2\n", idle->position);
+		send_command(cmd, FALSE);
+		g_free(cmd);
+	}
     return FALSE;
 }
 
@@ -1084,7 +1096,7 @@ gboolean set_fullscreen(void *data)
     // fullscreen = ! (gint) idle->fullscreen;
     // printf("calling fs_callback with %i\n",fullscreen);
     // fs_callback(NULL, NULL, NULL); // ok is just not NULL which is what we want
-    if (idle->videopresent)
+    if (idle != NULL && idle->videopresent)
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), idle->fullscreen);
     return FALSE;
 }
@@ -1094,6 +1106,9 @@ gboolean set_show_controls(void *data)
 
     IdleData *idle = (IdleData *) data;
 
+	if (idle == NULL)
+		return FALSE;
+	
     showcontrols = (gint) idle->showcontrols;
 
     if (GTK_WIDGET_VISIBLE(menuitem_view_controls)) {
@@ -1543,7 +1558,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             send_command("sub_delay 0.1 0\n", TRUE);
             return FALSE;
         case GDK_F11:
-            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+			if (idledata->videopresent)
+				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
             return FALSE;
         case GDK_Escape:
             return delete_callback(NULL, NULL, NULL);
