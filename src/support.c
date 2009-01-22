@@ -2321,14 +2321,22 @@ gboolean gpod_load_tracks(gchar * mount_point)
             g_free(ipod_path);
 
             artwork = (Itdb_Artwork *) ((Itdb_Track *) (tracks->data))->artwork;
-            if (artwork->thumbnails != NULL) {
+
+#ifdef GPOD_06										
+			if (artwork->thumbnails != NULL) {
                 thumb = (Itdb_Thumb *) (artwork->thumbnails->data);
                 if (thumb != NULL) {
                     pixbuf = itdb_thumb_get_gdk_pixbuf(db->device, thumb);
-                    printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
+                    //printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
                 }
             }
-
+#endif
+#ifdef GPOD_07										
+            if (artwork->thumbnail != NULL) {
+				pixbuf = itdb_artwork_get_pixbuf(db->device, artwork,-1,-1);
+				//printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
+            }
+#endif
             gtk_list_store_append(playliststore, &localiter);
             gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, full_path,
                                DESCRIPTION_COLUMN, ((Itdb_Track *) (tracks->data))->title,
