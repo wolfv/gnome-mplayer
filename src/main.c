@@ -545,6 +545,8 @@ int main(int argc, char *argv[])
     mixer = NULL;
     fullscreen = 0;
     move_pane_position = FALSE;
+	ao = NULL;
+	vo = NULL;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -718,8 +720,6 @@ int main(int argc, char *argv[])
     state = QUIT;
     channel_in = NULL;
     channel_err = NULL;
-    ao = NULL;
-    vo = NULL;
 
     thread_running = g_mutex_new();
     slide_away = g_mutex_new();

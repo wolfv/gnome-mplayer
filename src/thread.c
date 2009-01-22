@@ -794,8 +794,10 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-softvol");
 
     if (mixer != NULL && strlen(mixer) > 0) {
-        argv[arg++] = g_strdup_printf("-mixer-channel");
-        argv[arg++] = g_strdup_printf("%s", mixer);
+		if (ao == NULL || (ao != NULL && g_ascii_strncasecmp(ao,"alsa",4) == 0)) {
+			argv[arg++] = g_strdup_printf("-mixer-channel");
+			argv[arg++] = g_strdup_printf("%s", mixer);
+		}
     }
 
     if (!disable_framedrop)

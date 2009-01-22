@@ -1,4 +1,7 @@
 Development
+    Add some NULL value traps
+    Only set the mixer on mplayer when using alsa as the ao, causes problems in pulse
+    Prevent ao and vo from being improperly cleared
     Work around API change in libgpod
     Minor cleanups, when using pulse audio, set volume to max (limited by Master)
     Try and setup the video window eariler, makes for smoother redraw
