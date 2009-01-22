@@ -1,4 +1,5 @@
 Development
+    Fixed GTK assertion using 'export G_DEBUG=fatal_warnings' and ran gdb
     Remove need to set playback window to 16x16 since we now know the size of the video and window is properly sized
     Add some NULL value traps
     Only set the mixer on mplayer when using alsa as the ao, causes problems in pulse
