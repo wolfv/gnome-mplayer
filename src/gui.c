@@ -486,6 +486,19 @@ gboolean set_window_visible(void *data)
     return FALSE;
 }
 
+gboolean set_subtitle_visibility(void *data)
+{
+    if (GTK_IS_WIDGET(menuitem_view_subtitles)) {
+		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles))) {
+			send_command("set_property sub_visibility 1\n",TRUE);
+			idledata->sub_visible = TRUE;
+		} else {
+			send_command("set_property sub_visibility 0\n",TRUE);
+			idledata->sub_visible = FALSE;
+		}
+	}
+    return FALSE;
+}
 gboolean set_update_gui(void *data)
 {
     GtkTreeViewColumn *column;
@@ -515,12 +528,14 @@ gboolean set_update_gui(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
     }
 
-    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles)) !=
+/*
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles)) !=
         idledata->sub_visible) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles),
                                        idledata->sub_visible);
     }
-
+*/
+	
     if (GTK_IS_WIDGET(menu_edit_sub_langs)) {
         langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_sub_langs));
         item = g_list_nth(langs, idledata->sub_demux);
@@ -5267,6 +5282,7 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     menuitem_view_subtitles =
         GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Show _Subtitles")));
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles),TRUE);
     menuitem_view_angle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Switch An_gle")));
     menuitem_view_controls = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), TRUE);

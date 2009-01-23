@@ -478,6 +478,7 @@ int main(int argc, char *argv[])
     idledata->hue = 0;
     idledata->saturation = 0;
     idledata->device = NULL;
+	idledata->cachepercent = -1.0;
     g_strlcpy(idledata->video_format, "", 64);
     g_strlcpy(idledata->video_codec, "", 64);
     g_strlcpy(idledata->video_fps, "", 64);
