@@ -1374,6 +1374,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             }
             move_pane_position = FALSE;
         }
+	
         //printf("new_width %i new_height %i\n",new_width, new_height);
 
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
@@ -3002,10 +3003,6 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_widget_show(menubar);
         }
 
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
-                                       restore_playlist);
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), restore_details);
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), restore_info);
 
         make_panel_and_mouse_visible(NULL);
         if (GDK_IS_DRAWABLE(window_container))
@@ -3015,9 +3012,15 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         if (stored_window_width != -1 && stored_window_width > 0) {
             if (GTK_WIDGET_FLAGS(controls_box) & GTK_VISIBLE)
                 stored_window_height += controls_height;
-            gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
+			gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
         }
         fullscreen = 0;
+		while (gtk_events_pending())
+                gtk_main_iteration();
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), restore_info);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), restore_details);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
+                                       restore_playlist);
     } else {
         if (embed_window != 0) {
 
@@ -3035,15 +3038,16 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             }
 
         } else {
-            gtk_widget_hide(menubar);
             restore_playlist =
                 gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist));
             restore_details =
                 gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details));
             restore_info = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info));
+			g_object_get(pane, "position", &restore_pane, NULL);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), FALSE);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), FALSE);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
+            gtk_widget_hide(menubar);
             while (gtk_events_pending())
                 gtk_main_iteration();
         }

@@ -1,4 +1,5 @@
 Development
+    Make the playlist show up everytime when first visible, go fullscreen and then come out
     Retain View Subtitle menu selection across files in the playlist
     Remove write and replace with g_io_channels_write_chars (should be safer)
     Add spawn pid cleanup
