@@ -300,14 +300,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->height = actual_y;
         idledata->videopresent = TRUE;
         g_idle_add(resize_window, idledata);
+		g_idle_add(set_subtitle_visibility,idledata);
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
         if (idledata->length < 1.0)
             send_command("get_time_length\n", TRUE);
         send_command("get_property chapters\n", TRUE);
-        send_command("get_property sub_visibility\n", TRUE);
         send_command("get_property sub_demux\n", TRUE);
-        //send_command("get_property switch_audio\n", TRUE);
+        // send_command("get_property switch_audio\n", TRUE);
         send_command("pausing_keep_force get_property path\n", FALSE);
     }
 

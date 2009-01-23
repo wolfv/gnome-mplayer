@@ -1,4 +1,5 @@
 Development
+    Retain View Subtitle menu selection across files in the playlist
     Remove write and replace with g_io_channels_write_chars (should be safer)
     Add spawn pid cleanup
     Correct another glib assertion
