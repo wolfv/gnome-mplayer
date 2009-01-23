@@ -239,6 +239,7 @@ gint osdlevel;
 gint pplevel;
 gint streaming;
 gint showcontrols;
+gboolean showsubtitles;
 gint fullscreen;
 gint videopresent;
 gint playlist;
