@@ -1127,7 +1127,10 @@ gpointer launch_player(gpointer data)
                         g_idle_add(play, p);
                         g_free(filename);
                     }
-                }
+                } else {
+					idledata->fullscreen = 0;
+					g_idle_add(set_fullscreen,idledata);
+				}
 
                 if (quit_on_complete) {
                     g_idle_add(set_quit, idledata);

@@ -1,4 +1,5 @@
 Development
+    Unfullscreen on last file
     Add command line option "--showsubtitles", defaults to '1' or 'on'
     Make the playlist show up everytime when first visible, go fullscreen and then come out
     Retain View Subtitle menu selection across files in the playlist
