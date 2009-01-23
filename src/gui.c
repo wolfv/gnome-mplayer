@@ -1988,7 +1988,7 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 
     if (fullscreen) {
         g_get_current_time(&currenttime);
-        g_time_val_add(&currenttime, -5 * G_USEC_PER_SEC);
+        g_time_val_add(&currenttime, -3 * G_USEC_PER_SEC);
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
             if (g_mutex_trylock(slide_away)) {
                 g_timeout_add(40, slide_panel_away, NULL);
