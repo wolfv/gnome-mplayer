@@ -63,6 +63,8 @@ static GOptionEntry entries[] = {
     {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
      "[0|1]"},
+    {"showsubtitles", 0, 0, G_OPTION_ARG_INT, &showsubtitles, N_("Show the subtitles if available"),
+     "[0|1]"},
     {"autostart", 0, 0, G_OPTION_ARG_INT, &autostart,
      N_("Autostart the media default to 1, set to 0 to load but don't play"), "[0|1]"},
     {"disablecontextmenu", 0, 0, G_OPTION_ARG_NONE, &disable_context_menu,
@@ -464,6 +466,7 @@ int main(int argc, char *argv[])
     last_window_width = 0;
     last_window_height = 0;
     showcontrols = 1;
+	showsubtitles = TRUE;
     autostart = 1;
     videopresent = 0;
     disable_context_menu = FALSE;
