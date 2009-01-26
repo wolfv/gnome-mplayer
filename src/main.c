@@ -409,8 +409,10 @@ gint play_iter(GtkTreeIter * playiter)
         idledata->windowid = get_player_window();
         // these next 3 lines are here to make sure the window is available for mplayer to draw to
         // for some vo's (like xv) if the window is not visible and big enough the vo setup fails
-        // gtk_widget_set_size_request(drawing_area, 16, 16);
-        // gtk_widget_show_all(fixed);
+		if (thread_data->streaming) {
+			gtk_widget_set_size_request(drawing_area, 16, 16);
+			gtk_widget_show_all(fixed);
+		}
         if (g_ascii_strcasecmp(uri, "dvdnav://") == 0) {
             gtk_widget_show(menu_event_box);
         } else {
