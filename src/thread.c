@@ -409,13 +409,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_switch_audio=%i", &idledata->switch_audio);
         g_idle_add(set_update_gui, NULL);
     }
-
+/*
     if (strstr(mplayer_output->str, "ID_AUDIO_ID") != 0) {
         buf = strstr(mplayer_output->str, "ID_AUDIO_ID");
         sscanf(buf, "ID_AUDIO_ID=%i", &idledata->switch_audio);
         g_idle_add(set_update_gui, NULL);
     }
-
+*/
     if (strstr(mplayer_output->str, "ANS_brightness") != 0) {
         buf = strstr(mplayer_output->str, "ANS_brightness");
         sscanf(buf, "ANS_brightness=%i", &idledata->brightness);
