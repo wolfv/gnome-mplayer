@@ -4717,8 +4717,8 @@ void make_button(gchar * src, gchar * hrefid)
     gchar *filename = NULL;
     gchar *basepath = NULL;
     gint exit_status;
-    gchar *stdout = NULL;
-    gchar *stderr = NULL;
+    gchar *out = NULL;
+    gchar *err = NULL;
     gchar *av[255];
     gint ac = 0;
 
@@ -4757,7 +4757,7 @@ void make_button(gchar * src, gchar * hrefid)
         av[ac++] = g_strdup_printf("%s", src);
         av[ac] = NULL;
 
-        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
                      &exit_status, &error);
         if (error != NULL) {
             printf("Error when running: %s\n", error->message);
@@ -4784,11 +4784,11 @@ void make_button(gchar * src, gchar * hrefid)
             g_free(dirname);
         }
 
-        if (stderr != NULL)
-            g_free(stderr);
+        if (err != NULL)
+            g_free(err);
 
-        if (stdout != NULL)
-            g_free(stdout);
+        if (out != NULL)
+            g_free(out);
     }
 
     if (pb_button != NULL && GDK_IS_PIXBUF(pb_button)) {
