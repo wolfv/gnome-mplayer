@@ -503,8 +503,8 @@ gint parse_cdda(gchar * filename)
 
     GError *error;
     gint exit_status;
-    gchar *stdout = NULL;
-    gchar *stderr = NULL;
+    gchar *out = NULL;
+    gchar *err = NULL;
     gchar *av[255];
     gint ac = 0, i;
     gint ret = 0;
@@ -537,7 +537,7 @@ gint parse_cdda(gchar * filename)
 
         error = NULL;
 
-        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
                      &exit_status, &error);
         for (i = 0; i < ac; i++) {
             g_free(av[i]);
@@ -545,13 +545,13 @@ gint parse_cdda(gchar * filename)
         if (error != NULL) {
             printf("Error when running: %s\n", error->message);
             g_error_free(error);
-            if (stdout != NULL)
-                g_free(stdout);
-            if (stderr != NULL)
-                g_free(stderr);
+            if (out != NULL)
+                g_free(out);
+            if (err != NULL)
+                g_free(err);
             error = NULL;
         }
-        output = g_strsplit(stdout, "\n", 0);
+        output = g_strsplit(out, "\n", 0);
         ac = 0;
         while (output[ac] != NULL) {
 
@@ -643,10 +643,10 @@ gint parse_cdda(gchar * filename)
         }
 
         g_strfreev(output);
-        if (stdout != NULL)
-            g_free(stdout);
-        if (stderr != NULL)
-            g_free(stderr);
+        if (out != NULL)
+            g_free(out);
+        if (err != NULL)
+            g_free(err);
 
         if (artist != NULL) {
             g_free(artist);
@@ -666,8 +666,8 @@ gint parse_dvd(gchar * filename)
 
     GError *error;
     gint exit_status;
-    gchar *stdout;
-    gchar *stderr;
+    gchar *out;
+    gchar *err;
     gchar *av[255];
     gint ac = 0, i;
     gint ret = 0;
@@ -697,7 +697,7 @@ gint parse_dvd(gchar * filename)
 
         error = NULL;
 
-        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
                      &exit_status, &error);
         for (i = 0; i < ac; i++) {
             g_free(av[i]);
@@ -705,17 +705,17 @@ gint parse_dvd(gchar * filename)
         if (error != NULL) {
             printf("Error when running: %s\n", error->message);
             g_error_free(error);
-            if (stdout != NULL)
-                g_free(stdout);
-            if (stderr != NULL)
-                g_free(stderr);
+            if (out != NULL)
+                g_free(out);
+            if (err != NULL)
+                g_free(err);
             error = NULL;
         }
-        output = g_strsplit(stdout, "\n", 0);
-        if (strstr(stderr, "Couldn't open DVD device:") != NULL) {
+        output = g_strsplit(out, "\n", 0);
+        if (strstr(err, "Couldn't open DVD device:") != NULL) {
             error_msg =
                 g_strdup_printf(_("Couldn't open DVD device: %s"),
-                                stderr + strlen("Couldn't open DVD device: "));
+                                err + strlen("Couldn't open DVD device: "));
         }
         ac = 0;
         while (output[ac] != NULL) {
@@ -1022,8 +1022,8 @@ MetaData *get_metadata(gchar * uri)
 	gint height = 0;
     GError *error;
     gint exit_status;
-    gchar *stdout = NULL;
-    gchar *stderr = NULL;
+    gchar *out = NULL;
+    gchar *err = NULL;
     gchar *av[255];
     gint ac = 0, i;
     gchar **output;
@@ -1073,7 +1073,7 @@ MetaData *get_metadata(gchar * uri)
 
     error = NULL;
 
-    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
                  &exit_status, &error);
 
     for (i = 0; i < ac; i++) {
@@ -1084,13 +1084,13 @@ MetaData *get_metadata(gchar * uri)
         printf("Error when running: %s\n", error->message);
         g_error_free(error);
         error = NULL;
-        if (stdout != NULL)
-            g_free(stdout);
-        if (stderr != NULL)
-            g_free(stderr);
+        if (out != NULL)
+            g_free(out);
+        if (err != NULL)
+            g_free(err);
         return NULL;
     }
-    output = g_strsplit(stdout, "\n", 0);
+    output = g_strsplit(out, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
         lower = g_ascii_strdown(output[ac], -1);
@@ -1211,10 +1211,10 @@ MetaData *get_metadata(gchar * uri)
     g_free(audio_codec);
     g_free(video_codec);
     g_strfreev(output);
-    if (stdout != NULL)
-        g_free(stdout);
-    if (stderr != NULL)
-        g_free(stderr);
+    if (out != NULL)
+        g_free(out);
+    if (err != NULL)
+        g_free(err);
     g_free(name);
     g_free(basename);
 
@@ -1226,8 +1226,8 @@ gint get_bitrate(gchar * name)
 
     GError *error;
     gint exit_status;
-    gchar *stdout = NULL;
-    gchar *stderr = NULL;
+    gchar *out = NULL;
+    gchar *err = NULL;
     gchar *av[255];
     gint ac = 0, i;
     gchar **output;
@@ -1257,7 +1257,7 @@ gint get_bitrate(gchar * name)
 
     error = NULL;
 
-    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
                  &exit_status, &error);
     for (i = 0; i < ac; i++) {
         g_free(av[i]);
@@ -1265,14 +1265,14 @@ gint get_bitrate(gchar * name)
     if (error != NULL) {
         printf("Error when running: %s\n", error->message);
         g_error_free(error);
-        if (stdout != NULL)
-            g_free(stdout);
-        if (stderr != NULL)
-            g_free(stderr);
+        if (out != NULL)
+            g_free(out);
+        if (err != NULL)
+            g_free(err);
         error = NULL;
         return 0;
     }
-    output = g_strsplit(stdout, "\n", 0);
+    output = g_strsplit(out, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
         // find the length      
@@ -1285,14 +1285,14 @@ gint get_bitrate(gchar * name)
 
     }
     g_strfreev(output);
-    if (stdout != NULL) {
-        g_free(stdout);
-        stdout = NULL;
+    if (out != NULL) {
+        g_free(out);
+        out = NULL;
     }
 
-    if (stderr != NULL) {
-        g_free(stderr);
-        stderr = NULL;
+    if (err != NULL) {
+        g_free(err);
+        err = NULL;
     }
     //if (verbose)
     //    printf("ss=%i, ep = %i\n", startsec, endpos);
@@ -1320,7 +1320,7 @@ gint get_bitrate(gchar * name)
 
     error = NULL;
 
-    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &stdout, &stderr,
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
                  &exit_status, &error);
     for (i = 0; i < ac; i++) {
         g_free(av[i]);
@@ -1328,14 +1328,14 @@ gint get_bitrate(gchar * name)
     if (error != NULL) {
         printf("Error when running: %s\n", error->message);
         g_error_free(error);
-        if (stdout != NULL)
-            g_free(stdout);
-        if (stderr != NULL)
-            g_free(stderr);
+        if (out != NULL)
+            g_free(out);
+        if (err != NULL)
+            g_free(err);
         error = NULL;
         return 0;
     }
-    output = g_strsplit(stdout, "\n", 0);
+    output = g_strsplit(out, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
         if (strstr(output[ac], "Video stream") != 0) {
@@ -1355,10 +1355,10 @@ gint get_bitrate(gchar * name)
     }
 
     g_strfreev(output);
-    if (stdout != NULL)
-        g_free(stdout);
-    if (stderr != NULL)
-        g_free(stderr);
+    if (out != NULL)
+        g_free(out);
+    if (err != NULL)
+        g_free(err);
 
     if (vbitrate <= 0 && abitrate <= 0) {
         bitrate = 0;
