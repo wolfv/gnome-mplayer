@@ -1,10 +1,10 @@
 # Serbian translation of brasero
 # Courtesy of Prevod.org team (http://prevod.org/) -- 2006, 2007.
-#
+# 
 # This file is distributed under the same license as the gnome-power-manager package.
-#
+# 
 # Maintainer: Miloš Popović <gpopac@gmail.com>
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Gnomov mplayer\n"
@@ -69,7 +69,7 @@ msgstr "Prikaži kontrole u prozoru"
 
 #: src/main.c:66
 msgid "Show the subtitles if available"
-msgstr ""
+msgstr "Prikaži titlove ukoliko si dostupni"
 
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -730,8 +730,8 @@ msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
-"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu "
-"zvuka na glavnom kanalu miksera"
+"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu zvuka "
+"na glavnom kanalu miksera"
 
 #: src/gui.c:4524
 msgid "De_interlace Video"
@@ -1030,7 +1030,7 @@ msgstr "Ne mogu da učitam titl: %s"
 
 #: src/thread.c:171
 msgid "Delaying start until cache is full"
-msgstr ""
+msgstr "Odloži početak dok se ne napuni ostava"
 
 #: src/thread.c:176
 #, c-format
