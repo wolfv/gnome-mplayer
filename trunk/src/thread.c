@@ -40,7 +40,7 @@ void mplayer_shutdown()
 gboolean send_command(gchar * command, gboolean retain_pause)
 {
     gchar *cmd;
-	GIOStatus result;
+    GIOStatus result;
 
     if (retain_pause) {
         if (use_pausing_keep_force) {
@@ -54,12 +54,12 @@ gboolean send_command(gchar * command, gboolean retain_pause)
 
     if (verbose > 1)
         printf("send command = %s\n", cmd);
-	
-	if (channel_in) {
-		result = g_io_channel_write_chars(channel_in,cmd,-1,NULL,NULL);
-		result = g_io_channel_flush(channel_in,NULL);
-	}
-	
+
+    if (channel_in) {
+        result = g_io_channel_write_chars(channel_in, cmd, -1, NULL, NULL);
+        result = g_io_channel_flush(channel_in, NULL);
+    }
+
     g_free(cmd);
     return TRUE;
 
@@ -110,9 +110,9 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (state == QUIT) {
         if (verbose > 1) {
             printf("Thread Error: state = QUIT, shutting down\n");
-			printf("ERROR: %s", mplayer_output->str);
-		}
-		g_string_free(mplayer_output, TRUE);
+            printf("ERROR: %s", mplayer_output->str);
+        }
+        g_string_free(mplayer_output, TRUE);
         g_idle_add(set_stop, idledata);
         state = QUIT;
         g_source_remove(watch_in_id);
@@ -124,10 +124,10 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (verbose == 1 && strstr(mplayer_output->str, "ANS_") == NULL)
         printf("ERROR: %s", mplayer_output->str);
 
-	// print out everything in really verbose mode
+    // print out everything in really verbose mode
     if (verbose > 1)
         printf("thread reader error: %s", mplayer_output->str);
-	
+
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }
@@ -302,7 +302,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         idledata->height = actual_y;
         idledata->videopresent = TRUE;
         g_idle_add(resize_window, idledata);
-		g_idle_add(set_subtitle_visibility,idledata);
+        g_idle_add(set_subtitle_visibility, idledata);
         videopresent = 1;
         g_idle_add(set_volume_from_slider, NULL);
         if (idledata->length < 1.0)
@@ -697,10 +697,10 @@ gpointer launch_player(gpointer data)
     gchar *fontname;
     gchar *size;
     gchar *buffer;
-	GError *error;
+    GError *error;
     // GIOFlags flags;
-	GPid pid;
-	
+    GPid pid;
+
     ThreadData *threaddata = (ThreadData *) data;
 
     videopresent = 0;
@@ -729,7 +729,7 @@ gpointer launch_player(gpointer data)
     g_idle_add(set_progress_text, idledata);
     g_idle_add(set_media_info, idledata);
     g_idle_add(set_window_visible, idledata);
-	g_idle_add(resize_window,idledata);
+    g_idle_add(resize_window, idledata);
 
     if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         argv[arg++] = g_strdup_printf("mplayer");
@@ -793,10 +793,10 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-softvol");
 
     if (mixer != NULL && strlen(mixer) > 0) {
-		if (ao == NULL || (ao != NULL && g_ascii_strncasecmp(ao,"alsa",4) == 0)) {
-			argv[arg++] = g_strdup_printf("-mixer-channel");
-			argv[arg++] = g_strdup_printf("%s", mixer);
-		}
+        if (ao == NULL || (ao != NULL && g_ascii_strncasecmp(ao, "alsa", 4) == 0)) {
+            argv[arg++] = g_strdup_printf("-mixer-channel");
+            argv[arg++] = g_strdup_printf("%s", mixer);
+        }
     }
 
     if (!disable_framedrop)
@@ -965,16 +965,16 @@ gpointer launch_player(gpointer data)
     }
 
     state = PAUSED;
-	error = NULL;
+    error = NULL;
     ok = g_spawn_async_with_pipes(NULL, argv, NULL,
                                   G_SPAWN_SEARCH_PATH,
                                   NULL, NULL, &pid, &std_in, &std_out, &std_err, &error);
-	
-	if (error != NULL) {
-		printf("error code = %i - %s\n",error->code,error->message);
-		g_error_free(error);
-		error = NULL;
-	}
+
+    if (error != NULL) {
+        printf("error code = %i - %s\n", error->code, error->message);
+        g_error_free(error);
+        error = NULL;
+    }
 
     arg = 0;
     while (argv[arg] != NULL) {
@@ -993,7 +993,7 @@ gpointer launch_player(gpointer data)
             channel_in = NULL;
         }
 
-		if (channel_out != NULL) {
+        if (channel_out != NULL) {
             g_io_channel_unref(channel_out);
             channel_out = NULL;
         }
@@ -1018,8 +1018,8 @@ gpointer launch_player(gpointer data)
         g_io_channel_set_close_on_unref(channel_out, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
         watch_in_id =
-            g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader, NULL,
-                                NULL);
+            g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader,
+                                NULL, NULL);
         watch_err_id =
             g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP,
                                 thread_reader_error, NULL, NULL);
@@ -1077,8 +1077,8 @@ gpointer launch_player(gpointer data)
         }
         close(std_in);
         std_in = -1;
-		g_spawn_close_pid(pid);
-		
+        g_spawn_close_pid(pid);
+
 #ifdef GIO_ENABLED
         if (idledata->tmpfile) {
             if (verbose)
@@ -1130,9 +1130,9 @@ gpointer launch_player(gpointer data)
                         g_free(filename);
                     }
                 } else {
-					idledata->fullscreen = 0;
-					g_idle_add(set_fullscreen,idledata);
-				}
+                    idledata->fullscreen = 0;
+                    g_idle_add(set_fullscreen, idledata);
+                }
 
                 if (quit_on_complete) {
                     g_idle_add(set_quit, idledata);

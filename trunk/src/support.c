@@ -343,8 +343,8 @@ gint parse_basic(gchar * uri)
             if (line == NULL)
                 continue;
 #endif
-			if (line != NULL)
-				g_strstrip(line);
+            if (line != NULL)
+                g_strstrip(line);
             if (strlen(line) == 0) {
 #ifdef GIO_ENABLED
                 g_free(line);
@@ -1018,8 +1018,8 @@ MetaData *get_metadata(gchar * uri)
     gchar *basename = NULL;
     gchar *audio_codec = NULL;
     gchar *video_codec = NULL;
-	gint width = 0;
-	gint height = 0;
+    gint width = 0;
+    gint height = 0;
     GError *error;
     gint exit_status;
     gchar *out = NULL;
@@ -1073,8 +1073,7 @@ MetaData *get_metadata(gchar * uri)
 
     error = NULL;
 
-    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
-                 &exit_status, &error);
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
 
     for (i = 0; i < ac; i++) {
         g_free(av[i]);
@@ -1105,11 +1104,11 @@ MetaData *get_metadata(gchar * uri)
         if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
             if (strstr(lower, "=title") != NULL || strstr(lower, "=name") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
-				if (localtitle)
-					title = g_strstrip(metadata_to_utf8(localtitle));
-				else
-					title = NULL;
-				
+                if (localtitle)
+                    title = g_strstrip(metadata_to_utf8(localtitle));
+                else
+                    title = NULL;
+
                 if (title == NULL) {
                     title = g_strdup(localtitle);
                     strip_unicode(title, strlen(title));
@@ -1155,14 +1154,14 @@ MetaData *get_metadata(gchar * uri)
 
         if (strstr(output[ac], "ID_VIDEO_WIDTH") != NULL) {
             localtitle = strstr(output[ac], "=") + 1;
-            width = (gint)g_strtod(localtitle,NULL);
+            width = (gint) g_strtod(localtitle, NULL);
         }
 
-		if (strstr(output[ac], "ID_VIDEO_HEIGHT") != NULL) {
+        if (strstr(output[ac], "ID_VIDEO_HEIGHT") != NULL) {
             localtitle = strstr(output[ac], "=") + 1;
-            height = (gint)g_strtod(localtitle, NULL);
+            height = (gint) g_strtod(localtitle, NULL);
         }
-		
+
         if (strstr(output[ac], "ID_DEMUXER") != NULL) {
             if (ret == NULL)
                 ret = (MetaData *) g_new0(MetaData, 1);
@@ -1200,8 +1199,8 @@ MetaData *get_metadata(gchar * uri)
         ret->length_value = seconds;
         ret->audio_codec = g_strdup(audio_codec);
         ret->video_codec = g_strdup(video_codec);
-		ret->width = width;
-		ret->height = height;
+        ret->width = width;
+        ret->height = height;
     }
 
     g_free(title);
@@ -1257,8 +1256,7 @@ gint get_bitrate(gchar * name)
 
     error = NULL;
 
-    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
-                 &exit_status, &error);
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
     for (i = 0; i < ac; i++) {
         g_free(av[i]);
     }
@@ -1320,8 +1318,7 @@ gint get_bitrate(gchar * name)
 
     error = NULL;
 
-    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
-                 &exit_status, &error);
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
     for (i = 0; i < ac; i++) {
         g_free(av[i]);
     }
@@ -1423,9 +1420,8 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
                            VIDEO_CODEC_COLUMN, data->video_codec,
                            LENGTH_COLUMN, data->length,
                            DEMUXER_COLUMN, data->demuxer,
-                           LENGTH_VALUE_COLUMN, data->length_value, 
-						   VIDEO_WIDTH_COLUMN, data->width,
-						   VIDEO_HEIGHT_COLUMN, data->height,-1);
+                           LENGTH_VALUE_COLUMN, data->length_value,
+                           VIDEO_WIDTH_COLUMN, data->width, VIDEO_HEIGHT_COLUMN, data->height, -1);
 
 
         gtk_list_store_append(nonrandomplayliststore, &localiter);
@@ -1441,9 +1437,8 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
                            LENGTH_COLUMN, data->length,
                            DEMUXER_COLUMN, data->demuxer,
                            LENGTH_VALUE_COLUMN, data->length_value,
-						   VIDEO_WIDTH_COLUMN, data->width,
-						   VIDEO_HEIGHT_COLUMN, data->height,-1);
-		
+                           VIDEO_WIDTH_COLUMN, data->width, VIDEO_HEIGHT_COLUMN, data->height, -1);
+
         set_item_add_info(uri);
         g_free(data->demuxer);
         g_free(data->title);
@@ -1671,8 +1666,8 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
     gchar *video_codec = NULL;
     gchar *demuxer = NULL;
     gchar *length = NULL;
-	gint width;
-	gint height;
+    gint width;
+    gint height;
     gfloat length_value;
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -1694,7 +1689,7 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
                                VIDEO_CODEC_COLUMN, &video_codec,
                                DEMUXER_COLUMN, &demuxer,
                                LENGTH_COLUMN, &length, LENGTH_VALUE_COLUMN, &length_value,
-							   VIDEO_HEIGHT_COLUMN, &height, VIDEO_WIDTH_COLUMN, &width, -1);
+                               VIDEO_HEIGHT_COLUMN, &height, VIDEO_WIDTH_COLUMN, &width, -1);
 
             gtk_list_store_append(dest, &destiter);
             gtk_list_store_set(dest, &destiter, ITEM_COLUMN, itemname,
@@ -1708,7 +1703,7 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest)
                                VIDEO_CODEC_COLUMN, video_codec,
                                DEMUXER_COLUMN, demuxer,
                                LENGTH_COLUMN, length, LENGTH_VALUE_COLUMN, length_value,
-							   VIDEO_HEIGHT_COLUMN,height, VIDEO_WIDTH_COLUMN,width,-1);
+                               VIDEO_HEIGHT_COLUMN, height, VIDEO_WIDTH_COLUMN, width, -1);
 
             g_free(desc);
             desc = NULL;
@@ -2298,7 +2293,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
 {
     Itdb_iTunesDB *db;
     Itdb_Artwork *artwork;
-#ifdef GPOD_06	
+#ifdef GPOD_06
     Itdb_Thumb *thumb;
 #endif
     GList *tracks;
@@ -2324,8 +2319,8 @@ gboolean gpod_load_tracks(gchar * mount_point)
 
             artwork = (Itdb_Artwork *) ((Itdb_Track *) (tracks->data))->artwork;
 
-#ifdef GPOD_06										
-			if (artwork->thumbnails != NULL) {
+#ifdef GPOD_06
+            if (artwork->thumbnails != NULL) {
                 thumb = (Itdb_Thumb *) (artwork->thumbnails->data);
                 if (thumb != NULL) {
                     pixbuf = itdb_thumb_get_gdk_pixbuf(db->device, thumb);
@@ -2333,10 +2328,10 @@ gboolean gpod_load_tracks(gchar * mount_point)
                 }
             }
 #endif
-#ifdef GPOD_07										
+#ifdef GPOD_07
             if (artwork->thumbnail != NULL) {
-				pixbuf = itdb_artwork_get_pixbuf(db->device, artwork,-1,-1);
-				//printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
+                pixbuf = itdb_artwork_get_pixbuf(db->device, artwork, -1, -1);
+                //printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
             }
 #endif
             gtk_list_store_append(playliststore, &localiter);
