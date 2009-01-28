@@ -55,8 +55,10 @@ gboolean send_command(gchar * command, gboolean retain_pause)
     if (verbose > 1)
         printf("send command = %s\n", cmd);
 	
-	result = g_io_channel_write_chars(channel_in,cmd,-1,NULL,NULL);
-	result = g_io_channel_flush(channel_in,NULL);
+	if (channel_in) {
+		result = g_io_channel_write_chars(channel_in,cmd,-1,NULL,NULL);
+		result = g_io_channel_flush(channel_in,NULL);
+	}
 	
     g_free(cmd);
     return TRUE;
