@@ -205,7 +205,8 @@ gboolean set_media_label(void *data)
     NotifyNotification *notification;
 #endif
     if (data != NULL && idle != NULL && GTK_IS_WIDGET(media_label)) {
-        gtk_label_set_markup(GTK_LABEL(media_label), idle->media_info);
+		if (idle->media_info != NULL && strlen(idle->media_info) > 0)
+			gtk_label_set_markup(GTK_LABEL(media_label), idle->media_info);
         gtk_label_set_max_width_chars(GTK_LABEL(media_label), 10);
 
         pixbuf = NULL;
@@ -272,7 +273,8 @@ gboolean set_media_label(void *data)
 gboolean set_cover_art(gpointer pixbuf)
 {
     if (pixbuf == NULL) {
-        gtk_image_clear(GTK_IMAGE(cover_art));
+		if(GTK_IS_IMAGE(cover_art))
+			gtk_image_clear(GTK_IMAGE(cover_art));
         if (strlen(idledata->media_info) > 0) {
             gtk_widget_show_all(media_hbox);
         } else {
