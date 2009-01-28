@@ -1,7 +1,7 @@
 # Italian translation of gnome-mplayer.
-# Copyright (C) 2007 Kevin DeKorte <kdekorte@gmail.com>
+# Copyright (C) 2007-2009 Kevin DeKorte <kdekorte@gmail.com>
 # This file is distributed under the same license as the gnome-mplayer package.
-# Cesare Tirabassi <cesare.tirabassi@gmail.com>, 2007.
+# Cesare Tirabassi <cesare.tirabassi@gmail.com>, 2007-2009.
 #
 #
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-28 11:34-0700\n"
-"PO-Revision-Date: 2009-01-03 17:44+0100\n"
+"PO-Revision-Date: 2009-01-28 20:36+0100\n"
 "Last-Translator: Cesare Tirabassi <cesare.tirabassi@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "Mostra i controlli nella finestra"
 
 #: src/main.c:66
 msgid "Show the subtitles if available"
-msgstr ""
+msgstr "Mostra i sottotitoli se disponibili"
 
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -1029,7 +1029,7 @@ msgstr "Impossibile caricare sottotitoli %s"
 
 #: src/thread.c:171
 msgid "Delaying start until cache is full"
-msgstr ""
+msgstr "Ritarda l'avvio fino a che la memoria tampone non sia piena"
 
 #: src/thread.c:176
 #, c-format
