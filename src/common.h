@@ -200,8 +200,8 @@ enum {
     AUDIO_CODEC_COLUMN,
     VIDEO_CODEC_COLUMN,
     DEMUXER_COLUMN,
-	VIDEO_WIDTH_COLUMN,
-	VIDEO_HEIGHT_COLUMN,
+    VIDEO_WIDTH_COLUMN,
+    VIDEO_HEIGHT_COLUMN,
     N_COLUMNS
 };
 
@@ -215,8 +215,8 @@ typedef struct _MetaData {
     gchar *audio_codec;
     gchar *video_codec;
     gchar *demuxer;
-	gint width;
-	gint height;
+    gint width;
+    gint height;
 } MetaData;
 
 typedef struct _LangMenu {

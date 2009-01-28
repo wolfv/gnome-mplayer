@@ -799,14 +799,14 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 gtk_widget_hide(vbox);
             }
         } else {
-			// set the window size properly when coming out of fullscreen mode.
-			if (restore_playlist) {
-				if (vertical_layout) {
-					stored_window_height = restore_pane;
-				} else {
-					stored_window_width = restore_pane;
-				}
-			} else {
+            // set the window size properly when coming out of fullscreen mode.
+            if (restore_playlist) {
+                if (vertical_layout) {
+                    stored_window_height = restore_pane;
+                } else {
+                    stored_window_width = restore_pane;
+                }
+            } else {
                 gdk_window_get_geometry(window->window, &x, &y, &stored_window_width,
                                         &stored_window_height, &depth);
             }

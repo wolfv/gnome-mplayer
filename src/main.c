@@ -150,8 +150,8 @@ gint play_iter(GtkTreeIter * playiter)
     gchar *audio_codec;
     gchar *video_codec = NULL;
     gchar *demuxer = NULL;
-	gint width;
-	gint height;
+    gint width;
+    gint height;
     gpointer pixbuf;
     gchar *buffer = NULL;
     gchar *message = NULL;
@@ -168,23 +168,23 @@ gint play_iter(GtkTreeIter * playiter)
                            ALBUM_COLUMN, &album,
                            AUDIO_CODEC_COLUMN, &audio_codec,
                            VIDEO_CODEC_COLUMN, &video_codec,
-						   VIDEO_WIDTH_COLUMN, &width,
-						   VIDEO_HEIGHT_COLUMN, &height,
+                           VIDEO_WIDTH_COLUMN, &width,
+                           VIDEO_HEIGHT_COLUMN, &height,
                            DEMUXER_COLUMN, &demuxer,
                            COVERART_COLUMN, &pixbuf,
                            SUBTITLE_COLUMN, &subtitle,
                            COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
         if (GTK_IS_TREE_SELECTION(selection)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), playiter);
-			if (path) {
-				gtk_tree_selection_select_path(selection, path);
-				if (GTK_IS_WIDGET(list))
-					gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
-				buffer = gtk_tree_path_to_string(path);
-				pos = (gint) g_strtod(buffer, NULL);
-				g_free(buffer);
-				gtk_tree_path_free(path);
-			}
+            if (path) {
+                gtk_tree_selection_select_path(selection, path);
+                if (GTK_IS_WIDGET(list))
+                    gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
+                buffer = gtk_tree_path_to_string(path);
+                pos = (gint) g_strtod(buffer, NULL);
+                g_free(buffer);
+                gtk_tree_path_free(path);
+            }
         }
         gtk_list_store_set(playliststore, playiter, COUNT_COLUMN, count + 1, -1);
     } else {
@@ -232,19 +232,19 @@ gint play_iter(GtkTreeIter * playiter)
     if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0
         && !playlist) {
         metadata = (MetaData *) g_new0(MetaData, 1);
-		if(title != NULL)
-			metadata->title = g_strstrip(g_strdup(title));
-		if (artist != NULL)
-			metadata->artist = g_strstrip(g_strdup(artist));
-		if (album != NULL)
-			metadata->album = g_strstrip(g_strdup(album));
+        if (title != NULL)
+            metadata->title = g_strstrip(g_strdup(title));
+        if (artist != NULL)
+            metadata->artist = g_strstrip(g_strdup(artist));
+        if (album != NULL)
+            metadata->album = g_strstrip(g_strdup(album));
         g_thread_create(get_cover_art, metadata, FALSE, NULL);
     } else {
         gtk_image_clear(GTK_IMAGE(cover_art));
     }
 
     g_strlcpy(idledata->media_info, message, 1024);
-	g_strlcpy(idledata->display_name, title, 1024);
+    g_strlcpy(idledata->display_name, title, 1024);
     g_free(message);
 
     message = g_strdup("");
@@ -381,11 +381,11 @@ gint play_iter(GtkTreeIter * playiter)
     last_y = 0;
     idledata->width = width;
     idledata->height = height;
-	if (width > 0 && height > 0) {
-		idledata->videopresent = 1;
-	} else { 
-		idledata->videopresent = 0;
-	}
+    if (width > 0 && height > 0) {
+        idledata->videopresent = 1;
+    } else {
+        idledata->videopresent = 0;
+    }
     idledata->x = 0;
     idledata->y = 0;
     g_strlcpy(idledata->info, uri, 1024);
@@ -409,11 +409,11 @@ gint play_iter(GtkTreeIter * playiter)
         idledata->windowid = get_player_window();
         // these next 3 lines are here to make sure the window is available for mplayer to draw to
         // for some vo's (like xv) if the window is not visible and big enough the vo setup fails
-		if (thread_data->streaming) {
-			idledata->videopresent = 1;
-			gtk_widget_set_size_request(drawing_area, 16, 16);
-			gtk_widget_show_all(fixed);
-		}
+        if (thread_data->streaming) {
+            idledata->videopresent = 1;
+            gtk_widget_set_size_request(drawing_area, 16, 16);
+            gtk_widget_show_all(fixed);
+        }
         if (g_ascii_strcasecmp(uri, "dvdnav://") == 0) {
             gtk_widget_show(menu_event_box);
         } else {
@@ -469,7 +469,7 @@ int main(int argc, char *argv[])
     last_window_width = 0;
     last_window_height = 0;
     showcontrols = 1;
-	showsubtitles = TRUE;
+    showsubtitles = TRUE;
     autostart = 1;
     videopresent = 0;
     disable_context_menu = FALSE;
@@ -484,7 +484,7 @@ int main(int argc, char *argv[])
     idledata->hue = 0;
     idledata->saturation = 0;
     idledata->device = NULL;
-	idledata->cachepercent = -1.0;
+    idledata->cachepercent = -1.0;
     g_strlcpy(idledata->video_format, "", 64);
     g_strlcpy(idledata->video_codec, "", 64);
     g_strlcpy(idledata->video_fps, "", 64);
@@ -552,8 +552,8 @@ int main(int argc, char *argv[])
     mixer = NULL;
     fullscreen = 0;
     move_pane_position = FALSE;
-	ao = NULL;
-	vo = NULL;
+    ao = NULL;
+    vo = NULL;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -679,14 +679,14 @@ int main(int argc, char *argv[])
                  volume);
         volume = 100;
     }
-	
-	if (ao != NULL && g_ascii_strncasecmp(ao,"pulse",strlen("pulse")) == 0) {
+
+    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
         if (verbose)
             printf
                 ("Using pulse audio, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
                  volume);
         volume = 100;
-	}
+    }
 
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
@@ -705,9 +705,9 @@ int main(int argc, char *argv[])
     if (!g_thread_supported())
         g_thread_init(NULL);
 
-	// if (verbose)
-	//	printf("Threading support enabled = %i\n",g_thread_supported());
-	
+    // if (verbose)
+    //      printf("Threading support enabled = %i\n",g_thread_supported());
+
     if (rpconsole == NULL)
         rpconsole = g_strdup("NONE");
 
@@ -715,17 +715,19 @@ int main(int argc, char *argv[])
     playliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
-                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,G_TYPE_INT,G_TYPE_INT);
+                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
+                           G_TYPE_INT);
     nonrandomplayliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
-                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT);
+                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
+                           G_TYPE_INT);
 
     create_window(embed_window);
 
     autopause = FALSE;
     state = QUIT;
-	channel_in = NULL;
+    channel_in = NULL;
     channel_out = NULL;
     channel_err = NULL;
 
