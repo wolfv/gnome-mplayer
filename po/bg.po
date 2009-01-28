@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-02 11:19-0700\n"
+"POT-Creation-Date: 2009-01-28 11:34-0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Adrian Dimitrov <Enzo_01@abv.bg>\n"
 "Language-Team: \n"
@@ -58,305 +58,294 @@ msgstr "Ниво на звука, в процентност"
 msgid "Show the controls in window"
 msgstr "Покажи контролите в прозреца"
 
-#: src/main.c:67
+#: src/main.c:66
+msgid "Show the subtitles if available"
+msgstr ""
+
+#: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
 msgstr "Автоматично пускане на файла - 1, или  - 0  за неавтоматично"
 
-#: src/main.c:69
+#: src/main.c:71
 msgid "Disable popup menu on right click"
 msgstr "Забрани менюто при десен бутон"
 
-#: src/main.c:71
+#: src/main.c:73
 msgid "Disable fullscreen options in browser mode"
 msgstr "Забрани опцията за пълен екран, в режим на прелистване"
 
-#: src/main.c:72
+#: src/main.c:74
 msgid "Play all files on the playlist forever"
 msgstr "Повтарящо изпълнение на файловете от списъка"
 
-#: src/main.c:74
+#: src/main.c:76
 msgid "Quit application when last file on playlist is played"
-msgstr "Изход от приложението, след като и последния файл е приключил изпълнението си"
+msgstr ""
+"Изход от приложението, след като и последния файл е приключил изпълнението си"
 
-#: src/main.c:75
+#: src/main.c:77
 msgid "Play items on playlist in random order"
 msgstr "Разбъркано изпълнение на файловете"
 
-#: src/main.c:77
+#: src/main.c:79
 msgid "Set cache size"
 msgstr "Големина на кеша"
 
-#: src/main.c:79
+#: src/main.c:81
 msgid "Force cache usage on streaming sites"
 msgstr "Използвай кеша за излъчващите сайтове"
 
-#: src/main.c:82
+#: src/main.c:84
 msgid "Disable the deinterlace filter"
 msgstr "Изключи разплитащия филтър"
 
-#: src/main.c:85
+#: src/main.c:87
 msgid "Don't skip drawing frames to better keep sync"
 msgstr ""
 
-#: src/main.c:88
+#: src/main.c:90
 msgid "Use the old subtitle rendering system"
 msgstr "Използвай стария метод за показване на субтитрите"
 
-#: src/main.c:91
+#: src/main.c:93
 msgid "Don't use fonts embedded on matroska files"
 msgstr "Не използвай вградените шрифтове при 'matroska' файловете"
 
-#: src/main.c:93
+#: src/main.c:95
 msgid "Use Vertical Layout"
 msgstr "Използвай вертикален изглед"
 
-#: src/main.c:95
+#: src/main.c:97
 msgid "Start with playlist open"
 msgstr "Покажи списъка за изпълнение при стартиране"
 
-#: src/main.c:97
-#: src/gui.c:4341
+#: src/main.c:99 src/gui.c:4431
 msgid "Start with details visible"
 msgstr "Покажи детайлите при стартиране"
 
-#: src/main.c:99
+#: src/main.c:101
 msgid "Real Player Name"
 msgstr ""
 
-#: src/main.c:100
+#: src/main.c:102
 msgid "Real Player Console ID"
 msgstr ""
 
-#: src/main.c:101
+#: src/main.c:103
 msgid "Real Player Console Controls"
 msgstr ""
 
-#: src/main.c:103
+#: src/main.c:105
 msgid "Subtitle file for first media file"
 msgstr ""
 
-#: src/main.c:105
+#: src/main.c:107
 msgid "TV device name"
 msgstr ""
 
-#: src/main.c:106
+#: src/main.c:108
 msgid "TV driver name (v4l|v4l2)"
 msgstr ""
 
-#: src/main.c:107
+#: src/main.c:109
 msgid "TV input name"
 msgstr ""
 
-#: src/main.c:108
+#: src/main.c:110
 msgid "Width of TV input"
 msgstr ""
 
-#: src/main.c:109
+#: src/main.c:111
 msgid "Height of TV input"
 msgstr ""
 
-#: src/main.c:110
+#: src/main.c:112
 msgid "Frames per second from TV input"
 msgstr ""
 
-#: src/main.c:111
+#: src/main.c:113
 msgid "Only allow one instance"
 msgstr "Използвай само едно отворено приложение"
 
-#: src/main.c:114
+#: src/main.c:116
 msgid "Put single instance mode into replace and play mode"
 msgstr "Постави режима на едно отворено приложение в заместване и изпълнание"
 
-#: src/main.c:117
+#: src/main.c:119
 msgid "Ignore single instance preference for this instance"
 msgstr "Игнорирай настройките на единствено отворено приложение за тази сесия"
 
-#: src/main.c:120
+#: src/main.c:122
 msgid "Keep window on top"
 msgstr "Придържай прозореца най-отгоре"
 
-#: src/main.c:124
+#: src/main.c:126
 msgid "Load all tracks from media player using gpod"
 msgstr "Зареди всички пътеки от плейъра използвайки gpod"
 
-#: src/main.c:128
+#: src/main.c:130
 msgid "Don't fetch new cover art images"
 msgstr "Не вземай нови обложки"
 
-#: src/main.c:617
+#: src/main.c:630
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "(Файлове...) - GNOME Media player базиран на MPlayer"
 
-#: src/main.c:637
+#: src/main.c:650
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr ""
 
-#: src/main.c:679
+#: src/main.c:701
 #, c-format
-msgid "Run 'gnome-mplayer --help' to see a full list of available command line options.\n"
-msgstr "Стартирай 'gnome-mplayer --help'  за да видиш пълния списък от налични команди.\n"
+msgid ""
+"Run 'gnome-mplayer --help' to see a full list of available command line "
+"options.\n"
+msgstr ""
+"Стартирай 'gnome-mplayer --help'  за да видиш пълния списък от налични "
+"команди.\n"
 
-#: src/gui.c:148
-#: src/gui.c:185
+#: src/gui.c:151 src/gui.c:188
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr ""
 
-#: src/gui.c:180
+#: src/gui.c:183
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr ""
 
-#: src/gui.c:183
-#: src/gui.c:2554
-#: src/gui.c:4824
+#: src/gui.c:186 src/gui.c:2637 src/gui.c:4914
 #, c-format
 msgid "GNOME MPlayer"
 msgstr ""
 
-#: src/gui.c:253
+#: src/gui.c:256
 msgid "Media Change"
 msgstr "Смяна на медия"
 
-#: src/gui.c:311
+#: src/gui.c:317
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Пауза | %2i%% ▼"
 
-#: src/gui.c:541
-#: src/support.c:268
-#: src/playlist.c:505
-#: src/playlist.c:862
+#: src/gui.c:569 src/support.c:268 src/playlist.c:505 src/playlist.c:869
 #, c-format
 msgid "%s items"
 msgstr "%s обекта"
 
-#: src/gui.c:543
-#: src/gui.c:2030
-#: src/gui.c:2367
-#: src/support.c:223
-#: src/support.c:279
-#: src/playlist.c:507
-#, c-format
+#: src/gui.c:571 src/gui.c:2108 src/gui.c:2450 src/support.c:223
+#: src/support.c:279 src/playlist.c:507
+#, fuzzy, c-format
 msgid "Item to Play"
-msgstr "Обект за изпълнение"
+msgid_plural "Items to Play"
+msgstr[0] "Обект за изпълнение"
+msgstr[1] "Обект за изпълнение"
 
-#: src/gui.c:556
-#: src/gui.c:1607
+#: src/gui.c:584 src/gui.c:1685
 msgid "Pause"
 msgstr "Пауза"
 
-#: src/gui.c:569
-#: src/gui.c:581
-#: src/gui.c:1625
-#: src/gui.c:1681
-#: src/gui.c:1685
-#: src/gui.c:5458
+#: src/gui.c:597 src/gui.c:609 src/gui.c:1703 src/gui.c:1759 src/gui.c:1763
+#: src/gui.c:5549
 msgid "Play"
 msgstr "Изпълнение"
 
-#: src/gui.c:632
+#: src/gui.c:665
 #, c-format
 msgid "Adding %s to playlist"
 msgstr "Добавяне на %s към списъка за пизлънение"
 
-#: src/gui.c:655
+#: src/gui.c:688
 #, c-format
 msgid "Playing %s"
 msgstr "Изпълнение на %s"
 
-#: src/gui.c:657
+#: src/gui.c:690
 #, c-format
 msgid "Paused %s"
 msgstr "Пауза на %s"
 
-#: src/gui.c:659
+#: src/gui.c:692
 #, c-format
 msgid "Idle"
 msgstr "Бездействане"
 
-#: src/gui.c:1032
-#: src/gui.c:1042
-#: src/gui.c:1842
-#: src/gui.c:1870
-#: src/thread.c:374
+#: src/gui.c:1084 src/gui.c:1094 src/gui.c:1920 src/gui.c:1948
+#: src/thread.c:380
 #, c-format
 msgid "Volume %i%%"
 msgstr "Ниво на звука %i%%"
 
-#: src/gui.c:1608
+#: src/gui.c:1686
 msgid "Playing"
 msgstr "Изпълнение"
 
-#: src/gui.c:1626
+#: src/gui.c:1704
 msgid "Paused"
 msgstr "Пауза"
 
-#: src/gui.c:1691
+#: src/gui.c:1769
 msgid "Stopped"
 msgstr "Спрян"
 
-#: src/gui.c:1981
-#: src/playlist.c:469
+#: src/gui.c:2059 src/playlist.c:469
 msgid "Open File"
 msgstr "Отвори файл"
 
-#: src/gui.c:2086
+#: src/gui.c:2165
 msgid "Open Location"
 msgstr "Отвори местоположение"
 
-#: src/gui.c:2088
+#: src/gui.c:2167
 msgid "Location:"
 msgstr "Местоположение:"
 
-#: src/gui.c:2135
-#: src/gui.c:2224
+#: src/gui.c:2214 src/gui.c:2305
 msgid "Choose Disk Directory"
 msgstr "Избери директория от диска"
 
-#: src/gui.c:2171
-#: src/gui.c:2261
+#: src/gui.c:2251 src/gui.c:2343
 msgid "Choose Disk Image"
 msgstr "Избери дисково изображение"
 
-#: src/gui.c:2185
-#: src/gui.c:2275
+#: src/gui.c:2265 src/gui.c:2357
 msgid "Disk Image (*.iso)"
 msgstr "Дисково изображение (*.iso)"
 
-#: src/gui.c:2483
+#: src/gui.c:2566
 msgid "Save As..."
 msgstr "Запиши като..."
 
-#: src/gui.c:2518
+#: src/gui.c:2601
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "Невъзможност на запис '%s'"
 
-#: src/gui.c:2521
-#: src/support.c:736
-#: src/thread.c:180
+#: src/gui.c:2604 src/support.c:737 src/thread.c:186
 msgid "GNOME MPlayer Error"
 msgstr ""
 
-#: src/gui.c:2558
+#: src/gui.c:2641
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "Мултимедиен плейър за GNOME, който използва MPlayer"
 
-#: src/gui.c:2562
+#: src/gui.c:2645
 msgid ""
-"Gnome MPlayer is free software; you can redistribute it and/or modify it under\n"
+"Gnome MPlayer is free software; you can redistribute it and/or modify it "
+"under\n"
 "the terms of the GNU General Public License as published by the Free\n"
 "Software Foundation; either version 2 of the License, or (at your option)\n"
 "any later version.\n"
 "\n"
-"Gnome MPlayer is distributed in the hope that it will be useful, but WITHOUT\n"
+"Gnome MPlayer is distributed in the hope that it will be useful, but "
+"WITHOUT\n"
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\n"
 "FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\n"
 "more details.\n"
 "\n"
-"You should have received a copy of the GNU General Public License along with\n"
+"You should have received a copy of the GNU General Public License along "
+"with\n"
 "Gnome MPlayer if not, write to the\n"
 "\n"
 "Free Software Foundation, Inc.,\n"
@@ -364,152 +353,151 @@ msgid ""
 "Boston, MA 02110-1301 USA"
 msgstr ""
 
-#: src/gui.c:2840
-#: src/playlist.c:135
+#: src/gui.c:2925 src/playlist.c:135
 msgid "Set Subtitle"
 msgstr "Постави субтитри"
 
-#: src/gui.c:3332
+#: src/gui.c:3421
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">Видео детайли</span>"
 
-#: src/gui.c:3339
+#: src/gui.c:3428
 msgid "Video Size:"
 msgstr "Видео размер:"
 
-#: src/gui.c:3352
+#: src/gui.c:3441
 msgid "Video Format:"
 msgstr "Видео формат:"
 
-#: src/gui.c:3363
+#: src/gui.c:3452
 msgid "Video Codec:"
 msgstr "Видео кодек:"
 
-#: src/gui.c:3374
+#: src/gui.c:3463
 msgid "Video FPS:"
 msgstr "Видео FPS:"
 
-#: src/gui.c:3383
+#: src/gui.c:3472
 msgid "Video Bitrate:"
 msgstr "Видео битрейт"
 
-#: src/gui.c:3395
+#: src/gui.c:3484
 msgid "Video Chapters:"
 msgstr "Видео заглавия:"
 
-#: src/gui.c:3414
+#: src/gui.c:3503
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Аудио детайли</span>"
 
-#: src/gui.c:3421
+#: src/gui.c:3510
 msgid "Audio Codec:"
 msgstr "Аудио кодек:"
 
-#: src/gui.c:3438
+#: src/gui.c:3527
 msgid "Audio Channels:"
 msgstr "Аудио канали:"
 
-#: src/gui.c:3452
+#: src/gui.c:3541
 msgid "Audio Bitrate:"
 msgstr "Аудио битрейт"
 
-#: src/gui.c:3466
+#: src/gui.c:3555
 msgid "Audio Sample Rate:"
 msgstr "Честота на дискретизация"
 
-#: src/gui.c:3529
+#: src/gui.c:3619
 msgid "Video Picture Adjustments"
 msgstr "Настройки на картината"
 
-#: src/gui.c:3542
+#: src/gui.c:3632
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">Настройки на картината</span>"
 
-#: src/gui.c:3549
+#: src/gui.c:3639
 msgid "Brightness"
 msgstr "Яркост"
 
-#: src/gui.c:3559
+#: src/gui.c:3649
 msgid "Contrast"
 msgstr "Контраст"
 
-#: src/gui.c:3569
+#: src/gui.c:3659
 msgid "Gamma"
 msgstr "Гама"
 
-#: src/gui.c:3579
+#: src/gui.c:3669
 msgid "Hue"
 msgstr "Нюанс"
 
-#: src/gui.c:3589
+#: src/gui.c:3679
 msgid "Saturation"
 msgstr "Наситеност"
 
-#: src/gui.c:3608
+#: src/gui.c:3698
 msgid "_Reset"
 msgstr "_Върни"
 
-#: src/gui.c:3689
+#: src/gui.c:3779
 msgid "No Display"
 msgstr "Не показвай"
 
-#: src/gui.c:3692
+#: src/gui.c:3782
 msgid "Minimal"
 msgstr "Минимален"
 
-#: src/gui.c:3695
+#: src/gui.c:3785
 msgid "Timer"
 msgstr "Таймер"
 
-#: src/gui.c:3698
+#: src/gui.c:3788
 msgid "Timer/Total"
 msgstr "Таймер/Общо изпълнено"
 
-#: src/gui.c:3714
+#: src/gui.c:3804
 msgid "No Postprocessing"
 msgstr "Без допълнителна обработка"
 
-#: src/gui.c:3718
+#: src/gui.c:3808
 msgid "Minimal Postprocessing"
 msgstr "Минимална допълнителна обработка"
 
-#: src/gui.c:3722
+#: src/gui.c:3812
 msgid "More Postprocessing"
 msgstr "Повече допълнителна обработка"
 
-#: src/gui.c:3726
+#: src/gui.c:3816
 msgid "Maximum Postprocessing"
 msgstr "Максимална допълнителна обработка"
 
-#: src/gui.c:3807
+#: src/gui.c:3897
 msgid "Player"
 msgstr "Плейър"
 
-#: src/gui.c:3809
+#: src/gui.c:3899
 msgid "Language Settings"
 msgstr "Езикови настройки"
 
-#: src/gui.c:3811
+#: src/gui.c:3901
 msgid "Subtitles"
 msgstr "Субтитри"
 
-#: src/gui.c:3813
+#: src/gui.c:3903
 msgid "Interface"
 msgstr "Интерфейс"
 
-#: src/gui.c:3815
+#: src/gui.c:3905
 msgid "MPlayer"
 msgstr ""
 
-#: src/gui.c:3817
+#: src/gui.c:3907
 msgid "Plugin"
 msgstr "Добавки"
 
-#: src/gui.c:3823
+#: src/gui.c:3913
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME MPlayer настройки"
 
-#: src/gui.c:3838
+#: src/gui.c:3928
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
@@ -517,475 +505,495 @@ msgstr ""
 "mplayer видео изходно устройсто\n"
 "X11 трябва да работи винаги, опитайте XV или GL за по-добро изпълнение"
 
-#: src/gui.c:3869
+#: src/gui.c:3959
 msgid ""
 "mplayer audio output device\n"
-"alsa or oss should always work, try esd in gnome, arts in kde, or pulse on newer distributions"
+"alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+"newer distributions"
 msgstr ""
 "mplayer аудио изходно устройство\n"
-"alsa или OSS трябва да работи винаги, опитайте ESD в GNOME, arts в KDE, или impulse в по-новите дистрибуции"
+"alsa или OSS трябва да работи винаги, опитайте ESD в GNOME, arts в KDE, или "
+"impulse в по-новите дистрибуции"
 
-#: src/gui.c:4015
+#: src/gui.c:4105
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Коригирай настройките на изхода</span>"
 
-#: src/gui.c:4022
+#: src/gui.c:4112
 msgid "Video Output:"
 msgstr "Видео изход:"
 
-#: src/gui.c:4032
+#: src/gui.c:4122
 msgid "Audio Output:"
 msgstr "Аудио изход:"
 
-#: src/gui.c:4044
+#: src/gui.c:4134
 msgid "Default Mixer:"
 msgstr "Миксер по подразбиране"
 
-#: src/gui.c:4067
+#: src/gui.c:4157
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
-msgstr "<span weight=\"bold\">Корекция на главните конфигурационни настройки</span>"
+msgstr ""
+"<span weight=\"bold\">Корекция на главните конфигурационни настройки</span>"
 
-#: src/gui.c:4075
+#: src/gui.c:4165
 msgid "Default Volume Level:"
 msgstr "Подразбираща стойност за нивото на звука:"
 
-#: src/gui.c:4082
+#: src/gui.c:4172
 msgid "Default volume for playback"
 msgstr "Подразбираща се стойност на нивото на звука при възпроизвеждане"
 
-#: src/gui.c:4096
+#: src/gui.c:4186
 msgid "Minimum Cache Size (KB):"
 msgstr "Минимална големи на на кеша (KB):"
 
-#: src/gui.c:4105
-msgid "Amount of data to cache when playing media from network, use higher values for slow networks."
-msgstr "Размер на данни на кеш паметта, при изпълнение от мрежата. Използвайте високи стойности за бавни мрежи. "
+#: src/gui.c:4195
+msgid ""
+"Amount of data to cache when playing media from network, use higher values "
+"for slow networks."
+msgstr ""
+"Размер на данни на кеш паметта, при изпълнение от мрежата. Използвайте "
+"високи стойности за бавни мрежи. "
 
-#: src/gui.c:4118
+#: src/gui.c:4208
 msgid "On Screen Display Level:"
 msgstr "Ниво на показване върху екрана"
 
-#: src/gui.c:4132
+#: src/gui.c:4222
 msgid "Post-processing level:"
 msgstr "Ниво на допълнителната обработката"
 
-#: src/gui.c:4147
+#: src/gui.c:4237
 msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
-msgstr "<span weight=\"bold\">Корекция настройките на емулиращите приставки</span>"
+msgstr ""
+"<span weight=\"bold\">Корекция настройките на емулиращите приставки</span>"
 
-#: src/gui.c:4154
+#: src/gui.c:4244
 msgid "QuickTime Emulation"
 msgstr "Емулирай QuickTime"
 
-#: src/gui.c:4159
+#: src/gui.c:4249
 msgid "RealPlayer Emulation"
 msgstr "Емулираи RealPlayer"
 
-#: src/gui.c:4164
+#: src/gui.c:4254
 msgid "Windows Media Player Emulation"
 msgstr "Емулирай Windows Media Player"
 
-#: src/gui.c:4169
+#: src/gui.c:4259
 msgid "DiVX Player Emulation"
 msgstr "Емулирай DiVX Player"
 
-#: src/gui.c:4174
+#: src/gui.c:4264
 msgid "Disable Player Embedding"
 msgstr "Забрани вграждането на плейъра"
 
-#: src/gui.c:4182
+#: src/gui.c:4272
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">Коригирай езиковите настройки</span>"
 
-#: src/gui.c:4189
+#: src/gui.c:4279
 msgid "Default Audio Language"
 msgstr "Език по подразбиране за звука"
 
-#: src/gui.c:4199
+#: src/gui.c:4289
 msgid "Default Subtitle Language:"
 msgstr "Език по подразбиране за субтитрите"
 
-#: src/gui.c:4210
+#: src/gui.c:4300
 msgid "File Metadata Encoding:"
 msgstr "Кодировка на Meta информацията"
 
-#: src/gui.c:4226
+#: src/gui.c:4316
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">Настройки на субтитрите</span>"
 
-#: src/gui.c:4235
+#: src/gui.c:4325
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Включи поддръжката на '_Advanced Substation Alpha (ASS)'"
 
-#: src/gui.c:4242
+#: src/gui.c:4332
 msgid "Use _Embedded Fonts"
 msgstr "Използвай вгра_дените шрифтове"
 
-#: src/gui.c:4249
+#: src/gui.c:4339
 msgid "Subtitle Font:"
 msgstr "Шрифт на субтитрите"
 
-#: src/gui.c:4262
+#: src/gui.c:4352
 msgid "Subtitle Font Selection"
 msgstr "Избери шрифт на субтитрите"
 
-#: src/gui.c:4267
+#: src/gui.c:4357
 msgid "Subtitle Color:"
 msgstr "Цвят на субтитрите"
 
-#: src/gui.c:4292
+#: src/gui.c:4382
 msgid "Subtitle Color Selection"
 msgstr "Избери цвят на субтитрите"
 
-#: src/gui.c:4299
+#: src/gui.c:4389
 msgid "Subtitle Font Scaling:"
 msgstr "Мащабиране на шрифта на субтитрите"
 
-#: src/gui.c:4312
+#: src/gui.c:4402
 msgid "Subtitle File Encoding:"
 msgstr "Кодировка на субтитрите"
 
-#: src/gui.c:4329
+#: src/gui.c:4419
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Настройки на приложението</span>"
 
-#: src/gui.c:4336
+#: src/gui.c:4426
 msgid "Start with playlist visible"
 msgstr "Покажи списъкът за изпълнение при стартиране"
 
-#: src/gui.c:4347
+#: src/gui.c:4437
 msgid "Show notification popup"
 msgstr "Показвай прозорците за известяване"
 
-#: src/gui.c:4354
+#: src/gui.c:4444
 msgid "Show status icon"
 msgstr "Показвай иконата в лентата за състояние"
 
-#: src/gui.c:4362
+#: src/gui.c:4452
 msgid "Place playlist below media (requires application restart)"
-msgstr "Постави списъкът за изпълнение под медията (изисква рестартиране на приложението)"
+msgstr ""
+"Постави списъкът за изпълнение под медията (изисква рестартиране на "
+"приложението)"
 
-#: src/gui.c:4368
+#: src/gui.c:4458
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Разреши само едно отворено приложение на Gnome MPlayer"
 
-#: src/gui.c:4380
+#: src/gui.c:4470
 msgid "When opening in single instance mode, replace existing file"
-msgstr "При отварянето в режим на едно отворено приложение, да замени съществуващ файл"
+msgstr ""
+"При отварянето в режим на едно отворено приложение, да замени съществуващ "
+"файл"
 
-#: src/gui.c:4388
+#: src/gui.c:4478
 msgid "Remember Window Location and Size"
 msgstr "Запомни позицията и големината на прозореца"
 
-#: src/gui.c:4393
+#: src/gui.c:4483
 msgid "Keep window above other windows"
 msgstr "Придържай прозореца над останалите прозорци"
 
-#: src/gui.c:4398
+#: src/gui.c:4488
 msgid "Pause playback on mouse click"
 msgstr "Паузирай при кликване с мишката"
 
-#: src/gui.c:4403
+#: src/gui.c:4493
 msgid "Verbose Debug Enabled"
 msgstr "Пълен дебъг режим"
 
-#: src/gui.c:4407
-msgid "When this option is set, extra debug information is sent to the terminal or into ~/.xsession-errors"
-msgstr "Когато тази опция е включена, допълнителни дебъг съобщения ще бъдат изпращани в конзолата или в ~ /.xsession-errors"
+#: src/gui.c:4497
+msgid ""
+"When this option is set, extra debug information is sent to the terminal or "
+"into ~/.xsession-errors"
+msgstr ""
+"Когато тази опция е включена, допълнителни дебъг съобщения ще бъдат "
+"изпращани в конзолата или в ~ /.xsession-errors"
 
-#: src/gui.c:4417
+#: src/gui.c:4507
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Разширени настройки на MPlayer</span>"
 
-#: src/gui.c:4424
+#: src/gui.c:4514
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Разреши софтуерен контрол на звука от mplayer"
 
-#: src/gui.c:4428
-msgid "Set this option if changing the volume in Gnome MPlayer changes the master volume"
-msgstr "Задайте тази опция, ако промяната силата на звука в Gnome MPlayer влияе на глобалната сила на звука"
+#: src/gui.c:4518
+msgid ""
+"Set this option if changing the volume in Gnome MPlayer changes the master "
+"volume"
+msgstr ""
+"Задайте тази опция, ако промяната силата на звука в Gnome MPlayer влияе на "
+"глобалната сила на звука"
 
-#: src/gui.c:4434
+#: src/gui.c:4524
 msgid "De_interlace Video"
 msgstr "Видео разплитане"
 
-#: src/gui.c:4436
+#: src/gui.c:4526
 msgid "Set this option if video looks striped"
 msgstr "Задайте тази опция, ако видео изглежда насечено"
 
-#: src/gui.c:4442
+#: src/gui.c:4532
 msgid "_Drop frames"
 msgstr "_Пропускай кадри"
 
-#: src/gui.c:4445
+#: src/gui.c:4535
 msgid "Set this option if video is well behind the audio"
 msgstr "Задайте тази опция, ако видеото изостава от аудиото"
 
-#: src/gui.c:4451
+#: src/gui.c:4541
 msgid "Force the use of cache setting on streaming media"
 msgstr "Засили използването на кеша за излъчващите медии"
 
-#: src/gui.c:4456
+#: src/gui.c:4546
 msgid "MPlayer Executable:"
 msgstr "Изпълним файл на MPlayer"
 
-#: src/gui.c:4461
-msgid "Use this option to specify a mplayer application that is not in the path"
-msgstr "Използвайте тази опция за да посочите mplayer приложение което не се намира в пътя"
+#: src/gui.c:4551
+msgid ""
+"Use this option to specify a mplayer application that is not in the path"
+msgstr ""
+"Използвайте тази опция за да посочите mplayer приложение което не се намира "
+"в пътя"
 
-#: src/gui.c:4472
+#: src/gui.c:4562
 msgid "Extra Options to MPlayer:"
 msgstr "Допълнителни опции към MPlayer"
 
-#: src/gui.c:4476
+#: src/gui.c:4566
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "Добави други допълнителни опеции (филтри и други)"
 
-#: src/gui.c:4573
+#: src/gui.c:4663
 #, c-format
 msgid "Seeking to %s"
 msgstr "Превъртане към %s"
 
-#: src/gui.c:4875
+#: src/gui.c:4965
 msgid "S_how Controls"
 msgstr "Покажи контролите"
 
-#: src/gui.c:4879
-#: src/gui.c:5160
+#: src/gui.c:4969 src/gui.c:5250
 msgid "_Full Screen"
 msgstr "Пълен _екран"
 
-#: src/gui.c:4884
+#: src/gui.c:4974
 msgid "_Copy Location"
 msgstr "_Копирай местоположение"
 
 #. File Menu
-#: src/gui.c:4954
+#: src/gui.c:5044
 msgid "_File"
 msgstr "_Файл"
 
-#: src/gui.c:4963
+#: src/gui.c:5053
 msgid "Open _Location"
 msgstr "Отвори местоположение"
 
-#: src/gui.c:4966
+#: src/gui.c:5056
 msgid "_Disc"
 msgstr "_Диск"
 
-#: src/gui.c:4973
+#: src/gui.c:5063
 msgid "Open _Audio CD"
 msgstr "Отвори _Аудио диск"
 
-#: src/gui.c:4978
+#: src/gui.c:5068
 msgid "Open _DVD"
 msgstr "Отвори _DVD _диск"
 
-#: src/gui.c:4981
+#: src/gui.c:5071
 msgid "Open DVD with _Menus"
 msgstr "Отвори DVD с _менюта"
 
-#: src/gui.c:4984
+#: src/gui.c:5074
 msgid "Open DVD from _Folder"
 msgstr "Отвори DVD от д_иректория"
 
-#: src/gui.c:4987
+#: src/gui.c:5077
 msgid "Open DVD from Folder with M_enus"
 msgstr "Отвори DVD с менюта от ди_ректория"
 
-#: src/gui.c:4990
+#: src/gui.c:5080
 msgid "Open DVD from _ISO"
 msgstr "Отвори DVD от _ISO"
 
-#: src/gui.c:4993
+#: src/gui.c:5083
 msgid "Open DVD from ISO with Me_nus"
 msgstr "Отвори DVD с мен_юта от ISO"
 
-#: src/gui.c:4998
+#: src/gui.c:5088
 msgid "Open _VCD"
 msgstr "Отвори _VCD"
 
-#: src/gui.c:5001
+#: src/gui.c:5091
 msgid "_TV"
 msgstr ""
 
-#: src/gui.c:5008
+#: src/gui.c:5098
 msgid "Open _Analog TV"
 msgstr "Oтвори _аналогов TV"
 
-#: src/gui.c:5011
+#: src/gui.c:5101
 msgid "Open _Digital TV"
 msgstr "Отвори _цифрово TV"
 
-#: src/gui.c:5015
+#: src/gui.c:5105
 msgid "Open _iPod™"
 msgstr "Отвори _iPod™"
 
-#: src/gui.c:5020
+#: src/gui.c:5110
 msgid "Open _Recent"
 msgstr "Отвори последно за_реждани"
 
 #. Edit Menu
-#: src/gui.c:5078
+#: src/gui.c:5168
 msgid "_Edit"
 msgstr "_Редактирай"
 
-#: src/gui.c:5085
+#: src/gui.c:5175
 msgid "_Shuffle Playlist"
 msgstr "Ра_збъркан списък за изпълнение"
 
-#: src/gui.c:5089
+#: src/gui.c:5179
 msgid "_Loop Playlist"
 msgstr "_Повторение на списъка за изпълнение"
 
-#: src/gui.c:5094
+#: src/gui.c:5184
 msgid "S_witch Audio Track"
 msgstr "Избор аудио пътека"
 
-#: src/gui.c:5098
+#: src/gui.c:5188
 msgid "Select _Audio Language"
 msgstr "Избери език на _аудиото"
 
-#: src/gui.c:5104
+#: src/gui.c:5194
 msgid "Set Sub_title"
 msgstr "Постави _субтитри"
 
-#: src/gui.c:5108
+#: src/gui.c:5198
 msgid "S_elect Subtitle Language"
 msgstr "Изб_ери език за субтитрите"
 
-#: src/gui.c:5115
+#: src/gui.c:5205
 msgid "_Take Screenshot"
 msgstr "Направи снимка на екрана"
 
-#: src/gui.c:5119
+#: src/gui.c:5209
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "Именувай файловете 'shotNNNN.png' при запис в работната директория"
 
 #. View Menu
-#: src/gui.c:5144
+#: src/gui.c:5234
 msgid "_View"
 msgstr "_Изглед"
 
-#: src/gui.c:5149
+#: src/gui.c:5239
 msgid "_Playlist"
 msgstr "_Списък за изпълнение"
 
-#: src/gui.c:5152
+#: src/gui.c:5242
 msgid "Media _Info"
 msgstr "_Информация за медията"
 
-#: src/gui.c:5154
+#: src/gui.c:5244
 msgid "D_etails"
 msgstr "Д_етайли"
 
-#: src/gui.c:5167
+#: src/gui.c:5257
 msgid "_Normal (1:1)"
 msgstr "_Нормален размер (1:1)"
 
-#: src/gui.c:5170
+#: src/gui.c:5260
 msgid "_Double Size (2:1)"
 msgstr "_Двоен размер (2:1)"
 
-#: src/gui.c:5173
+#: src/gui.c:5263
 msgid "_Half Size (1:2)"
 msgstr "_Половин размер (1:2)"
 
-#: src/gui.c:5176
+#: src/gui.c:5266
 msgid "_Aspect"
 msgstr "П_ропорции"
 
-#: src/gui.c:5183
+#: src/gui.c:5273
 msgid "D_efault Aspect"
 msgstr "Пропорция по по_дразбиране"
 
-#: src/gui.c:5186
+#: src/gui.c:5276
 msgid "_4:3 Aspect"
 msgstr "_4:3 Пропорця"
 
-#: src/gui.c:5189
+#: src/gui.c:5279
 msgid "_16:9 Aspect"
 msgstr "_16:9 Пропорция"
 
-#: src/gui.c:5192
+#: src/gui.c:5282
 msgid "1_6:10 Aspect"
 msgstr "1_6:10 Пропорция"
 
-#: src/gui.c:5198
+#: src/gui.c:5288
 msgid "Show _Subtitles"
 msgstr "Покажи _субтитрите"
 
-#: src/gui.c:5199
+#: src/gui.c:5290
 msgid "Switch An_gle"
 msgstr "Завърти ъгъла"
 
-#: src/gui.c:5200
+#: src/gui.c:5291
 msgid "_Controls"
 msgstr "_Контроли"
 
-#: src/gui.c:5209
+#: src/gui.c:5300
 msgid "_Video Picture Adjustments"
 msgstr "Коригирай _настройките на картината"
 
 #. Help Menu
-#: src/gui.c:5244
+#: src/gui.c:5335
 msgid "_Help"
 msgstr "_Помощ"
 
-#: src/gui.c:5421
+#: src/gui.c:5512
 msgid "Menu"
 msgstr "Меню"
 
-#: src/gui.c:5434
+#: src/gui.c:5525
 msgid "Previous"
 msgstr "Предишен"
 
-#: src/gui.c:5447
+#: src/gui.c:5538
 msgid "Rewind"
 msgstr "Бързо превъртане назад"
 
-#: src/gui.c:5470
+#: src/gui.c:5561
 msgid "Stop"
 msgstr "Стоп"
 
-#: src/gui.c:5482
+#: src/gui.c:5573
 msgid "Fast Forward"
 msgstr "Бързо превъртане напред"
 
-#: src/gui.c:5493
+#: src/gui.c:5584
 msgid "Next"
 msgstr "Следващ"
 
-#: src/gui.c:5517
+#: src/gui.c:5608
 msgid "No Information"
 msgstr "Липсва информация"
 
-#: src/gui.c:5524
+#: src/gui.c:5615
 msgid "Full Screen"
 msgstr "Пълен екран"
 
-#: src/gui.c:5562
+#: src/gui.c:5653
 msgid "Volume 100%"
 msgstr "Сила на звука - 100%"
 
-#: src/support.c:716
-#: src/thread.c:154
+#: src/support.c:717 src/thread.c:154
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Немога да отворя DVD устройсто: %s"
 
-#: src/support.c:1480
-#: src/support.c:1513
-#: src/support.c:1558
-#: src/support.c:1588
+#: src/support.c:1518 src/support.c:1551 src/support.c:1596 src/support.c:1626
 msgid "Unable to save playlist, cannot open file for writing"
-msgstr "Записването на списъка за изпълнение е невъзможно, файлът неможе да бъде отворен за запис"
+msgstr ""
+"Записването на списъка за изпълнение е невъзможно, файлът неможе да бъде "
+"отворен за запис"
 
-#: src/support.c:1883
+#: src/support.c:1925
 #, c-format
 msgid "%2i:%02.0f"
 msgstr ""
 
-#: src/support.c:1885
+#: src/support.c:1927
 #, c-format
 msgid "%i:%02i:%02.0f"
 msgstr ""
@@ -1000,27 +1008,31 @@ msgstr "Грешка при отварянето на %s"
 msgid "Cannot load subtitles: %s"
 msgstr "Немога да заредя субтитрите: %s"
 
-#: src/thread.c:170
+#: src/thread.c:171
+msgid "Delaying start until cache is full"
+msgstr ""
+
+#: src/thread.c:176
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Компресираните SFW формати за неподдържани"
 
-#: src/thread.c:449
+#: src/thread.c:455
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Запълване на кеша: %2.2f%%"
 
-#: src/thread.c:458
+#: src/thread.c:464
 #, c-format
 msgid "Connecting"
 msgstr "Свързване"
 
-#: src/thread.c:572
+#: src/thread.c:578
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Снимката е записана в '%s'"
 
-#: src/thread.c:575
+#: src/thread.c:581
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer известяване"
 
@@ -1033,23 +1045,19 @@ msgstr ""
 "Файл: %s\n"
 "Субтитри: %s"
 
-#: src/playlist.c:253
-#: src/playlist.c:931
+#: src/playlist.c:253 src/playlist.c:938
 msgid "Save Playlist"
 msgstr "Запиши списъка за изпълнение"
 
-#: src/playlist.c:270
-#: src/playlist.c:324
+#: src/playlist.c:270 src/playlist.c:324
 msgid "Playlist (*.pls)"
 msgstr "Списък за изпълнение (*.pls)"
 
-#: src/playlist.c:275
-#: src/playlist.c:334
+#: src/playlist.c:275 src/playlist.c:334
 msgid "MP3 Playlist (*.m3u)"
 msgstr "MP3 списък за изпълнение (*.m3u)"
 
-#: src/playlist.c:312
-#: src/playlist.c:923
+#: src/playlist.c:312 src/playlist.c:930
 msgid "Open Playlist"
 msgstr "Отвори списък за изпълнение"
 
@@ -1072,51 +1080,53 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/playlist.c:859
+#: src/playlist.c:866
+#, fuzzy
 msgid "Item to play"
-msgstr "Обекти за изпълнение"
+msgid_plural "Items to Play"
+msgstr[0] "Обекти за изпълнение"
+msgstr[1] "Обекти за изпълнение"
 
-#: src/playlist.c:873
+#: src/playlist.c:880
 msgid "Artist"
 msgstr "Изпълнител"
 
-#: src/playlist.c:883
+#: src/playlist.c:890
 msgid "Album"
 msgstr "Албум"
 
-#: src/playlist.c:894
+#: src/playlist.c:901
 msgid "Length"
 msgstr "Продължителност"
 
-#: src/playlist.c:913
+#: src/playlist.c:920
 msgid "Close Playlist View"
 msgstr "Скрий списъка за изпълнение"
 
-#: src/playlist.c:939
+#: src/playlist.c:946
 msgid "Add Item to Playlist"
 msgstr "Добави обект към списъка за изпълнение"
 
-#: src/playlist.c:947
+#: src/playlist.c:954
 msgid "Remove Item from Playlist"
 msgstr "Премахни обекта от списъка за изпълнение"
 
-#: src/playlist.c:956
+#: src/playlist.c:963
 msgid "Add Items in Folder to Playlist"
 msgstr "Добави обектите от директория към списъка за изпълнение"
 
-#: src/playlist.c:965
+#: src/playlist.c:972
 msgid "Clear Playlist"
 msgstr "Изчисти списъка за изпълнение"
 
-#: src/playlist.c:973
+#: src/playlist.c:980
 msgid "Move Item Up"
 msgstr "Премести обекта нагоре"
 
-#: src/playlist.c:982
+#: src/playlist.c:989
 msgid "Move Item Down"
 msgstr "Премести обекта надолу"
 
-#: src/playlist.c:1035
+#: src/playlist.c:1042
 msgid "_Set Subtitle"
 msgstr "Постави субтитри"
-
