@@ -2523,7 +2523,7 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
     gtk_list_store_clear(nonrandomplayliststore);
     FILE *fi;                   // FILE pointer to use to open the conf file
     gchar *mpconf;
-    mpconf = g_strdup_printf("%s/.mplayer/channels.conf", getenv("HOME"));
+    mpconf = g_strdup_printf("%s/.mplayer/channels.conf", g_getenv("HOME"));
     fi = fopen(mpconf, "r");    // Make sure this is pointing to
     // the appropriate file
     if (fi != NULL) {
