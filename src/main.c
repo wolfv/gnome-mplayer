@@ -733,6 +733,7 @@ int main(int argc, char *argv[])
 
     thread_running = g_mutex_new();
     slide_away = g_mutex_new();
+	mplayer_complete_cond = g_cond_new();
 #ifdef GIO_ENABLED
     idledata->caching = g_mutex_new();
 #endif
