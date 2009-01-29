@@ -1140,6 +1140,7 @@ gpointer launch_player(gpointer data)
                 } else {
                     idledata->fullscreen = 0;
                     g_idle_add(set_fullscreen, idledata);
+					g_idle_add(set_stop, idledata);
                 }
 
                 if (quit_on_complete) {

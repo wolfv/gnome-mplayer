@@ -75,7 +75,8 @@ gint detect_playlist(gchar * uri)
 
 #ifdef GIO_ENABLED
         if (!streaming_media(uri)) {
-            printf("opening playlist\n");
+			if (verbose)
+				printf("opening playlist\n");
             file = g_file_new_for_uri(uri);
             path = get_path(uri);
             input = g_file_read(file, NULL, NULL);
@@ -1051,7 +1052,9 @@ MetaData *get_metadata(gchar * uri)
 
     if (name == NULL)
         return NULL;
-    printf("getting file metadata for %s\n", name);
+	
+	if (verbose)
+		printf("getting file metadata for %s\n", name);
 
     av[ac++] = g_strdup_printf("mplayer");
     av[ac++] = g_strdup_printf("-vo");
@@ -1379,7 +1382,8 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
     gchar *unescaped = NULL;
     MetaData *data = NULL;
 
-    printf("adding %s to playlist\n", uri);
+	if (verbose)
+		printf("adding %s to playlist\n", uri);
     if (!device_name(uri) && !streaming_media(uri)) {
         if (playlist) {
             data = (MetaData *) g_new0(MetaData, 1);
