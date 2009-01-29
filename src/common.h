@@ -170,6 +170,7 @@ typedef struct _IdleData {
     GFile *tmp;
     GCancellable *cancel;
     GMutex *caching;
+	GCond *caching_complete;
 #endif
 } IdleData;
 
