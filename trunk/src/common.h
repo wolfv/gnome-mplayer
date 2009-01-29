@@ -327,6 +327,7 @@ gint tv_fps;
 
 GThread *thread;
 GMutex *slide_away;
+GCond *mplayer_complete_cond;
 
 gboolean use_mediakeys;
 

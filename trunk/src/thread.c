@@ -87,7 +87,8 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
     g_source_remove(watch_err_id);
     if (verbose > 1)
         printf("thread_complete, unlocking thread running\n");
-    g_mutex_unlock(thread_running);
+    // g_mutex_unlock(thread_running);
+	g_cond_signal(mplayer_complete_cond);
     return FALSE;
 }
 
@@ -117,7 +118,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         state = QUIT;
         g_source_remove(watch_in_id);
         g_source_remove(watch_in_hup_id);
-        g_mutex_unlock(thread_running);
+        //g_mutex_unlock(thread_running);
+		g_cond_signal(mplayer_complete_cond);
         return FALSE;
     }
 
@@ -224,7 +226,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         state = QUIT;
         g_source_remove(watch_err_id);
         g_source_remove(watch_in_hup_id);
-        g_mutex_unlock(thread_running);
+        //g_mutex_unlock(thread_running);
+		g_cond_signal(mplayer_complete_cond);
         return FALSE;
     }
     mplayer_output = g_string_new("");
@@ -241,7 +244,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_string_free(mplayer_output, TRUE);
                 g_idle_add(set_stop, idledata);
                 state = QUIT;
-                g_mutex_unlock(thread_running);
+                //g_mutex_unlock(thread_running);
+				g_cond_signal(mplayer_complete_cond);
                 g_error_free(error);
                 error = NULL;
                 return FALSE;
@@ -250,14 +254,16 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             g_string_free(mplayer_output, TRUE);
             g_idle_add(set_stop, idledata);
             state = QUIT;
-            g_mutex_unlock(thread_running);
+            //g_mutex_unlock(thread_running);
+			g_cond_signal(mplayer_complete_cond);
             error = NULL;
             return FALSE;
         }
     }
 
     if (strstr(mplayer_output->str, "ID_SIGNAL") != NULL) {
-        g_mutex_unlock(thread_running);
+        //g_mutex_unlock(thread_running);
+		g_cond_signal(mplayer_complete_cond);
         g_string_free(mplayer_output, TRUE);
         state = QUIT;
         return FALSE;
@@ -280,7 +286,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         state = QUIT;
         g_idle_add(set_stop, idledata);
         g_string_free(mplayer_output, TRUE);
-        g_mutex_unlock(thread_running);
+        //g_mutex_unlock(thread_running);
+		g_cond_signal(mplayer_complete_cond);	
         return FALSE;
     }
 
@@ -1039,7 +1046,8 @@ gpointer launch_player(gpointer data)
         if (verbose > 1)
             printf
                 ("About to lock second time, next message about thread running, should be unlocking\n");
-        g_mutex_lock(thread_running);
+        // g_mutex_lock(thread_running);
+		g_cond_wait(mplayer_complete_cond,thread_running);
         if (verbose)
             printf("Thread completing\n");
         if (verbose > 1)
