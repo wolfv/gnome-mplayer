@@ -289,7 +289,8 @@ gint parse_playlist(gchar * uri)
         gtk_recent_manager_add_item(recent_manager, uri);
     }
 #endif
-    printf("parse playlist = %i\n", ret);
+	if (verbose)
+		printf("parse playlist = %i\n", ret);
     return ret;
 }
 
