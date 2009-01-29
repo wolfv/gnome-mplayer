@@ -1,14 +1,14 @@
 # Korean translation of gnome-mplayer.
-# Copyright (C) 2007-2008 Kevin DeKorte <kdekorte@gmail.com>
+# Copyright (C) 2007-2009 Kevin DeKorte <kdekorte@gmail.com>
 # This file is distributed under the same license as the gnome-mplayer package.
-# ByeongSik Jeon <bsjeon@hanmail.net>, 2007-2008.
+# ByeongSik Jeon <bsjeon@hanmail.net>, 2007-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-28 11:34-0700\n"
-"PO-Revision-Date: 2008-11-17 20:25+0900\n"
+"PO-Revision-Date: 2009-01-29 12:30+0900\n"
 "Last-Translator: ByeongSik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgstr "창 안에 컨트롤 보여주기"
 
 #: src/main.c:66
 msgid "Show the subtitles if available"
-msgstr ""
+msgstr "가능하다면 자막 보여주기"
 
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -1005,7 +1005,7 @@ msgstr "자막 %s을(를) 불러올 수 없습니다."
 
 #: src/thread.c:171
 msgid "Delaying start until cache is full"
-msgstr ""
+msgstr "캐쉬가 가득 찰 때까지 시작 지연"
 
 #: src/thread.c:176
 #, c-format
@@ -1015,7 +1015,7 @@ msgstr "압축된 SWF 포맷 지원하지 않음"
 #: src/thread.c:455
 #, c-format
 msgid "Cache fill: %2.2f%%"
-msgstr "미리 읽기: %2.2f%%"
+msgstr "캐쉬 채우기: %2.2f%%"
 
 #: src/thread.c:464
 #, c-format

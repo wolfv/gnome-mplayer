@@ -1,15 +1,16 @@
 # French translation of GNOME MPlayer.
-# Alexandre Bedot <alexandre.bedot@free.fr>, 2007,2008.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-mplayer package.
-# Copyright (C) Kevin DeKorte 2006-2008 <kdekorte@gmail.com>
 #
+# Kevin DeKorte <kdekorte@gmail.com>, 2006-2009
+# Alexandre Bedot <alexandre.bedot@free.fr>, 2007-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-28 11:34-0700\n"
-"PO-Revision-Date: 2008-12-20 07:20+0100\n"
+"PO-Revision-Date: 2009-01-29 12:30+0100\n"
 "Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +68,7 @@ msgstr "Afficher les contrôles dans la fenêtre"
 
 #: src/main.c:66
 msgid "Show the subtitles if available"
-msgstr ""
+msgstr "Afficher les sous-titres s'ils sont disponibles"
 
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -1046,7 +1047,7 @@ msgstr "Impossible de charger les sous-titres : %s"
 
 #: src/thread.c:171
 msgid "Delaying start until cache is full"
-msgstr ""
+msgstr "Retarder le lancement jusqu'à ce que la mémoire tampon soit remplie"
 
 #: src/thread.c:176
 #, c-format
