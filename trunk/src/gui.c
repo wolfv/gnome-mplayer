@@ -1762,6 +1762,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
     }
     if (state == QUIT) {
+        gtk_progress_bar_update(progress, 0.0);
         gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
         gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
         gtk_widget_hide(drawing_area);
