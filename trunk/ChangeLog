@@ -1,4 +1,5 @@
 Development
+    Updated Polish translation
     Replace usage of stdout/stderr with out/err
     Unfullscreen on last file
     Add command line option "--showsubtitles", defaults to '1' or 'on'
