@@ -1,4 +1,5 @@
 Development
+    Switch GIO async caching to use conditionals instead of locks
     Change code to use GCond to signal when mplayer is complete rather than depending on locks to block
     Updated Polish translation
     Replace usage of stdout/stderr with out/err

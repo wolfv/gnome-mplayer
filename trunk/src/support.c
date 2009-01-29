@@ -2135,7 +2135,7 @@ void cache_callback(goffset current_num_bytes, goffset total_num_bytes, gpointer
     idledata->cachepercent = (gfloat) current_num_bytes / (gfloat) total_num_bytes;
     g_idle_add(set_progress_value, idledata);
     if (current_num_bytes > (cache_size * 1024))
-        g_mutex_unlock(idledata->caching);
+		g_cond_signal(idledata->caching_complete);
 
 }
 
@@ -2143,7 +2143,7 @@ void ready_callback(GObject * source_object, GAsyncResult * res, gpointer data)
 {
     g_object_unref(idledata->tmp);
     g_object_unref(idledata->src);
-    g_mutex_unlock(idledata->caching);
+	g_cond_signal(idledata->caching_complete);
 }
 #endif
 
@@ -2185,11 +2185,8 @@ gchar *get_localfile_from_uri(gchar * uri)
                 g_file_copy_async(idledata->src, idledata->tmp, G_FILE_COPY_NONE,
                                   G_PRIORITY_DEFAULT, idledata->cancel, cache_callback, NULL,
                                   ready_callback, NULL);
-                while (!g_mutex_trylock(idledata->caching)) {
-                    while (gtk_events_pending())
-                        gtk_main_iteration();
-                }
-                g_mutex_unlock(idledata->caching);
+				g_cond_wait(idledata->caching_complete,idledata->caching);
+				g_mutex_unlock(idledata->caching);
                 idledata->tmpfile = TRUE;
             }
         } else {
