@@ -76,21 +76,30 @@ struct mntent *getmntent(FILE * filep)
     if (getmntent_mntbufp[getmntent_mntpos].f_flags & MNT_NODEV)
         getmntent_addopt(&c, "nodev");
 #endif
+#ifdef MNT_UNION
     if (getmntent_mntbufp[getmntent_mntpos].f_flags & MNT_UNION)
         getmntent_addopt(&c, "union");
+#endif
     if (getmntent_mntbufp[getmntent_mntpos].f_flags & MNT_ASYNC)
         getmntent_addopt(&c, "async");
     if (getmntent_mntbufp[getmntent_mntpos].f_flags & MNT_NOATIME)
         getmntent_addopt(&c, "noatime");
+#ifdef MNT_NOCLUSTERR
     if (getmntent_mntbufp[getmntent_mntpos].f_flags & MNT_NOCLUSTERR)
         getmntent_addopt(&c, "noclusterr");
+#endif
+#ifdef MNT_NOCLUSTERW
     if (getmntent_mntbufp[getmntent_mntpos].f_flags & MNT_NOCLUSTERW)
         getmntent_addopt(&c, "noclusterw");
+#endif
+#ifdef MNT_NOSYMFOLLOW
     if (getmntent_mntbufp[getmntent_mntpos].f_flags & MNT_NOSYMFOLLOW)
         getmntent_addopt(&c, "nosymfollow");
+#endif
+#ifdef MNT_SUIDDIR
     if (getmntent_mntbufp[getmntent_mntpos].f_flags & MNT_SUIDDIR)
         getmntent_addopt(&c, "suiddir");
-
+#endif
     mntent_global_mntent.mnt_fsname = getmntent_mntbufp[getmntent_mntpos].f_mntfromname;
     mntent_global_mntent.mnt_dir = getmntent_mntbufp[getmntent_mntpos].f_mntonname;
     mntent_global_mntent.mnt_type = getmntent_mntbufp[getmntent_mntpos].f_fstypename;
