@@ -551,7 +551,6 @@ int main(int argc, char *argv[])
     disable_cover_art_fetch = FALSE;
     mixer = NULL;
     fullscreen = 0;
-    move_pane_position = FALSE;
     ao = NULL;
     vo = NULL;
 

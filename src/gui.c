@@ -883,7 +883,6 @@ gboolean resize_window(void *data)
                                 total_width += plvbox->allocation.width + handle_size;
                                 gtk_paned_set_position(GTK_PANED(pane), idle->width);
                             }
-                            move_pane_position = TRUE;
                         }
 
                         gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
@@ -901,7 +900,6 @@ gboolean resize_window(void *data)
                             total_width += plvbox->allocation.width + handle_size;
                             gtk_paned_set_position(GTK_PANED(pane), idle->width);
                         }
-                        move_pane_position = TRUE;
                     }
                 }
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),
@@ -953,7 +951,6 @@ gboolean resize_window(void *data)
                             gtk_widget_hide(vbox);
                             gtk_paned_set_position(GTK_PANED(pane), 0);
                         }
-                        move_pane_position = TRUE;
                     } else {
                         gtk_widget_hide_all(GTK_WIDGET(fixed));
                         gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
@@ -1330,8 +1327,6 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
     gdouble movie_ratio, window_ratio;
     gint new_width, new_height;
-    gint handle_size;
-
 
     if (actual_x > 0 && actual_y > 0) {
 
@@ -1366,17 +1361,13 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             new_height = new_height - new_height % 16;
         }
         // printf("new_width %i new_height %i\n",new_width, new_height);
-        if (move_pane_position) {
-            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-                gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
-                if (vertical_layout) {
-                    gtk_paned_set_position(GTK_PANED(pane), idledata->height);
-                } else {
-                    gtk_paned_set_position(GTK_PANED(pane), idledata->width);
-                }
-            }
-            move_pane_position = FALSE;
-        }
+		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+			if (vertical_layout) {
+				gtk_paned_set_position(GTK_PANED(pane), idledata->height);
+			} else {
+				gtk_paned_set_position(GTK_PANED(pane), idledata->width);
+			}
+		}
         //printf("new_width %i new_height %i\n",new_width, new_height);
 
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
