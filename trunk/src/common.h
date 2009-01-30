@@ -309,7 +309,6 @@ gboolean show_status_icon;
 gboolean load_tracks_from_gpod;
 gchar *gpod_mount_point;
 gboolean disable_cover_art_fetch;
-gboolean move_pane_position;
 
 gboolean remember_loc;
 gint loc_window_x;
