@@ -1955,7 +1955,11 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
 
 gboolean slide_panel_away(gpointer data)
 {
-
+	if (!fullscreen) {
+		gtk_widget_set_size_request(controls_box, -1, -1);
+		return FALSE;
+	}
+	
     if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box)) {
         if (controls_box->allocation.height <= 1) {
             gtk_widget_hide(controls_box);
