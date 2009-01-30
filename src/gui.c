@@ -1363,9 +1363,9 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         // printf("new_width %i new_height %i\n",new_width, new_height);
 		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
 			if (vertical_layout) {
-				gtk_paned_set_position(GTK_PANED(pane), idledata->height);
+				//gtk_paned_set_position(GTK_PANED(pane), idledata->height);
 			} else {
-				gtk_paned_set_position(GTK_PANED(pane), idledata->width);
+				//gtk_paned_set_position(GTK_PANED(pane), idledata->width);
 			}
 		}
         //printf("new_width %i new_height %i\n",new_width, new_height);
