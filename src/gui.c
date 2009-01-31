@@ -2961,7 +2961,6 @@ void menuitem_edit_take_screenshot_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 {
     gint width = 0, height = 0;
-    static gint controls_height;
 
     if (GTK_CHECK_MENU_ITEM(menuitem) == GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen)) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen),
@@ -3007,11 +3006,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         if (GDK_IS_DRAWABLE(window_container))
             gdk_drawable_get_size(GDK_DRAWABLE(window_container), &width, &height);
         if (width > 0 && height > 0)
-            //gtk_window_resize(GTK_WINDOW(window), width, height);
+            gtk_window_resize(GTK_WINDOW(window), width, height);
         if (stored_window_width != -1 && stored_window_width > 0) {
-            //if (GTK_WIDGET_FLAGS(controls_box) & GTK_VISIBLE)
-            //    stored_window_height += controls_height;
-            //gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
+            gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
         }
         fullscreen = 0;
         while (gtk_events_pending())
@@ -3052,11 +3049,6 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         }
 
         gtk_window_get_size(GTK_WINDOW(window), &stored_window_width, &stored_window_height);
-
-        controls_height = controls_box->allocation.height;
-
-        //if (GTK_WIDGET_FLAGS(controls_box) & GTK_VISIBLE)
-        //    stored_window_height -= controls_height;
 
         gtk_window_fullscreen(GTK_WINDOW(window));
         fullscreen = 1;
