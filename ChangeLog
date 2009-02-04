@@ -1,4 +1,4 @@
-Development
+0.9.4
     Fix controls box visibility if exiting fullscreen mode while panel is sliding away
     Switch GIO async caching to use conditionals instead of locks
     Change code to use GCond to signal when mplayer is complete rather than depending on locks to block
