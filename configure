@@ -2306,7 +2306,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gnome-mplayer
- VERSION=0.9.4
+ VERSION=0.9.5
 
 
 cat >>confdefs.h <<_ACEOF
@@ -6527,7 +6527,7 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 
-ALL_LINGUAS="bg de en es fr it ko pl pt_BR ro ru sr sr@latin sv tr zh_CN zh_HK zh_TW"
+ALL_LINGUAS="bg de en es fr it ja ko pl pt_BR ro ru sr sr@latin sv tr zh_CN zh_HK zh_TW"
 
 # On IRIX 5.3, sys/types and inttypes.h are conflicting.
 
