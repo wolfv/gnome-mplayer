@@ -2648,14 +2648,19 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 
                           ,
                           "website", "http://code.google.com/p/gnome-mplayer/",
-                          "translator-credits", "Chinese (simplified) - Wenzheng Hu\n"
+                          "translator-credits", 
+						  "Bulgarian - Adrian Dimitrov\n"
+						  "Chinese (simplified) - Wenzheng Hu\n"
                           "Chinese (Hong Kong) - Hialan Liu\n"
                           "Chinese (Taiwan) - Hailan Liu\n"
+						  "German - tim__b\n"
                           "French - Alexandre Bedot\n"
                           "German - Tim Buening\n"
                           "Italian - Cesare Tirabassi\n"
+						  "Japanese - Munehiro Yamamoto\n"
                           "Korean - ByeongSik Jeon\n"
                           "Polish - Julian Sikorski\n"
+						  "Portugese - LL\n"
                           "Russian - Dmitry Stropaloff\n"
                           "Serbian - Милош Поповић\n"
                           "Spanish - Festor Wailon Dacoba\n"
