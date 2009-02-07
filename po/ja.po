@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-02 11:19-0700\n"
-"PO-Revision-Date: 2009-02-02 02:45+0900\n"
+"PO-Revision-Date: 2009-02-07 17:43+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -625,7 +625,7 @@ msgstr "埋め込まれたフォントを使う"
 
 #: src/gui.c:4330
 msgid "Subtitle Font:"
-msgstr "サブタイトルのフォント:"
+msgstr "フォント:"
 
 #: src/gui.c:4343
 msgid "Subtitle Font Selection"
@@ -633,7 +633,7 @@ msgstr "サブタイトルのフォントの選択"
 
 #: src/gui.c:4348
 msgid "Subtitle Color:"
-msgstr "サブタイトルのカラー:"
+msgstr "カラー:"
 
 #: src/gui.c:4373
 msgid "Subtitle Color Selection"
@@ -641,11 +641,11 @@ msgstr "サブタイトルのカラーの選択"
 
 #: src/gui.c:4380
 msgid "Subtitle Font Scaling:"
-msgstr "サブタイトルのフォントのスケーリング:"
+msgstr "フォントのスケーリング:"
 
 #: src/gui.c:4393
 msgid "Subtitle File Encoding:"
-msgstr "サブタイトルのファイルのエンコード:"
+msgstr "ファイルのエンコード:"
 
 #: src/gui.c:4410
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -1004,7 +1004,7 @@ msgstr "サブタイトル %s を読み込めません"
 
 #: src/thread.c:173
 msgid "Delaying start until cache is full"
-msgstr ""
+msgstr "キャッシュが満たされるまで開始が遅れています"
 
 #: src/thread.c:178
 #, c-format
@@ -1014,7 +1014,7 @@ msgstr "圧縮 SWF フォーマットに対応していません"
 #: src/thread.c:462
 #, c-format
 msgid "Cache fill: %2.2f%%"
-msgstr ""
+msgstr "キャッシュ中: %2.2f%%"
 
 #: src/thread.c:471
 #, c-format
