@@ -85,9 +85,6 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
     state = QUIT;
     g_source_remove(watch_in_id);
     g_source_remove(watch_err_id);
-    if (verbose > 1)
-        printf("thread_complete, unlocking thread running\n");
-    // g_mutex_unlock(thread_running);
 	g_cond_signal(mplayer_complete_cond);
     return FALSE;
 }
@@ -1013,14 +1010,7 @@ gpointer launch_player(gpointer data)
         channel_in = g_io_channel_unix_new(std_in);
         channel_out = g_io_channel_unix_new(std_out);
         channel_err = g_io_channel_unix_new(std_err);
-/*        
-		flags = g_io_channel_get_flags(channel_in);
-        flags |= G_IO_FLAG_NONBLOCK;
-        g_io_channel_set_flags(channel_in, flags, NULL);
-        flags = g_io_channel_get_flags(channel_err);
-        flags |= G_IO_FLAG_NONBLOCK;
-        g_io_channel_set_flags(channel_err, flags, NULL);
-*/
+
         g_io_channel_set_close_on_unref(channel_in, TRUE);
         g_io_channel_set_close_on_unref(channel_out, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
@@ -1043,15 +1033,9 @@ gpointer launch_player(gpointer data)
 #else
         g_timeout_add(1000, thread_query, threaddata);
 #endif
-        if (verbose > 1)
-            printf
-                ("About to lock second time, next message about thread running, should be unlocking\n");
-        // g_mutex_lock(thread_running);
 		g_cond_wait(mplayer_complete_cond,thread_running);
         if (verbose)
             printf("Thread completing\n");
-        if (verbose > 1)
-            printf("thread running, in second lock\n");
         threaddata->done = TRUE;
         g_source_remove(watch_in_id);
         g_source_remove(watch_err_id);
@@ -1101,12 +1085,7 @@ gpointer launch_player(gpointer data)
 #endif
 
         dbus_enable_screensaver();
-
-        if (verbose > 1)
-            printf("thread running, before unlocking second time\n");
         g_mutex_unlock(thread_running);
-        if (verbose > 1)
-            printf("thread running, unlocked second time\n");
 
         if (dontplaynext == FALSE) {
             if (next_item_in_playlist(&iter)) {
