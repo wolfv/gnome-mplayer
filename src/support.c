@@ -980,6 +980,8 @@ gboolean device_name(gchar * filename)
         ret = TRUE;
     } else if (g_ascii_strncasecmp(filename, "tv://", strlen("tv://")) == 0) {
         ret = TRUE;
+    } else if (g_ascii_strncasecmp(filename, "dvb://", strlen("dvb://")) == 0) {
+        ret = TRUE;
     } else if (g_ascii_strncasecmp(filename, "vcd://", strlen("vcd://")) == 0) {
         ret = TRUE;
     } else {
@@ -1038,6 +1040,9 @@ MetaData *get_metadata(gchar * uri)
 #endif
     if (device_name(uri)) {
         name = g_strdup(uri);
+		if (ret == NULL)
+			ret = (MetaData *) g_new0(MetaData, 1);
+	
     } else {
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
@@ -1187,6 +1192,11 @@ MetaData *get_metadata(gchar * uri)
     }
 
     if (title == NULL && g_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
+        localtitle = g_strrstr(name, "/") + 1;
+        title = g_strdup_printf("%s", localtitle);
+    }
+
+	if (title == NULL && g_strncasecmp(name, "dvb://", strlen("dvb://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
         title = g_strdup_printf("%s", localtitle);
     }
