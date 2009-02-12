@@ -2478,8 +2478,9 @@ void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer
 
 void parseChannels(FILE * f)
 {
-    int parsing = 0, i = 0, firstW = 0, firstP = 0;
-    char ch, s[20], strout[50];
+    gint parsing = 0, i = 0, firstW = 0, firstP = 0;
+    gchar ch, s[20]; 
+	gchar *strout;
 
     while (parsing == 0) {
         ch = (char) fgetc(f);   // Read in the next character
@@ -2495,10 +2496,9 @@ void parseChannels(FILE * f)
             } else {
                 if ((ch == ':') && (firstP == 0)) {
                     s[i] = '\0';
-                    strout[49] = '\0';
-                    strcpy(strout, "dvb://");
-                    strcat(strout, s);
+                    strout = g_strdup_printf("dvb://%s",s);
                     add_item_to_playlist(strout, 0);    //add to playlist
+					g_free(strout);
                     i = 0;
                     firstW++;
                     firstP++;
