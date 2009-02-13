@@ -225,7 +225,7 @@
       <default>3</default>
       <locale name="C">
         <short>Time in seconds before controls are hidden</short>
-        <long>Time in seconds before controls are hidden when in fullscreen mode values <= 0 disable auto hide</long>
+        <long>Time in seconds before controls are hidden when in fullscreen mode values less than 1 disable auto hide</long>
       </locale>
     </schema>
     
