@@ -1986,7 +1986,7 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     GdkCursor *cursor;
     GTimeVal currenttime;
 
-    if (fullscreen) {
+    if (fullscreen && !disable_auto_hide) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -3 * G_USEC_PER_SEC);
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
@@ -2008,7 +2008,7 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 
 gboolean make_panel_and_mouse_visible(gpointer data)
 {
-    if (fullscreen) {
+    if (fullscreen && !disable_auto_hide) {
 
         if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
             gtk_widget_set_size_request(controls_box, -1, -1);
