@@ -218,6 +218,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable_auto_hide</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable_auto_hide</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable auto hide of controls</short>
+        <long>Disable auto hide of controls when in fullscreen mode</long>
+      </locale>
+    </schema>
+    
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/disable_cover_art_fetch</key>
       <applyto>/apps/gnome-mplayer/preferences/disable_cover_art_fetch</applyto>
       <owner>gnome-mplayer</owner>
