@@ -1573,6 +1573,18 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_Escape:
             return delete_callback(NULL, NULL, NULL);
+		case GDK_a:
+			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten))) {
+				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default), TRUE);
+				return FALSE;
+			}
+			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine)))	
+				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten), TRUE);
+			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))	
+				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine), TRUE);
+			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default)))	
+				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three), TRUE);
+			return FALSE;
         default:
             if (state == PLAYING) {
                 cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
@@ -4874,6 +4886,10 @@ void setup_accelerators()
                                    accel_group, GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
     }
+	
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_aspect), "activate",
+                               accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
+
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
                                accel_group, GDK_1, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
