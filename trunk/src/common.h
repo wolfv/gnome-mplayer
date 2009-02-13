@@ -50,7 +50,7 @@
 #define DISABLECONTEXTMENU	"disablecontextmenu"
 #define DISABLEPAUSEONCLICK	"disable_pause_on_click"
 #define DISABLEANIMATION	"disable_animation"
-#define DISABLEAUTOHIDE	"disable_auto_hide"
+#define AUTOHIDETIMEOUT	"auto_hide_timeout"
 #define METADATACODEPAGE	"metadatacodepage"
 #define SUBTITLEFONT	"subtitlefont"
 #define SUBTITLESCALE	"subtitlescale"
@@ -294,7 +294,7 @@ gint restore_pane;
 gboolean disable_ass;
 gboolean disable_embeddedfonts;
 gboolean disable_animation;
-gboolean disable_auto_hide;
+gint auto_hide_timeout;
 gchar *subtitlefont;
 gdouble subtitle_scale;
 gchar *subtitle_codepage;

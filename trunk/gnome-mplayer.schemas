@@ -218,14 +218,14 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disable_auto_hide</key>
-      <applyto>/apps/gnome-mplayer/preferences/disable_auto_hide</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/auto_hide_timeout</key>
+      <applyto>/apps/gnome-mplayer/preferences/auto_hide_timeout</applyto>
       <owner>gnome-mplayer</owner>
-      <type>bool</type>
-      <default>FALSE</default>
+      <type>int</type>
+      <default>3</default>
       <locale name="C">
-        <short>Disable auto hide of controls</short>
-        <long>Disable auto hide of controls when in fullscreen mode</long>
+        <short>Time in seconds before controls are hidden</short>
+        <long>Time in seconds before controls are hidden when in fullscreen mode values <= 0 disable auto hide</long>
       </locale>
     </schema>
     

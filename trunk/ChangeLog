@@ -1,4 +1,5 @@
 Development
+    Remove disable_auto_hide and change to auto_hide_timeout, set <= 0 to disable, defaults to 3
     Add new hidden config option 'disable_auto_hide' when set true the controls don't slide away
     Rework the digital tv loader
     Updated Chinese (simplified) translation
