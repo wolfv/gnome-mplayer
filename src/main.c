@@ -534,7 +534,7 @@ int main(int argc, char *argv[])
     embedding_disabled = FALSE;
     disable_pause_on_click = FALSE;
     disable_animation = FALSE;
-	disable_auto_hide = FALSE;
+	auto_hide_timeout = 3;
     use_mediakeys = TRUE;
     mplayer_bin = NULL;
     single_instance = FALSE;
@@ -592,7 +592,7 @@ int main(int argc, char *argv[])
     disable_embeddedfonts = read_preference_bool(DISABLEEMBEDDEDFONTS);
     disable_pause_on_click = read_preference_bool(DISABLEPAUSEONCLICK);
     disable_animation = read_preference_bool(DISABLEANIMATION);
-	disable_auto_hide = read_preference_bool(DISABLEAUTOHIDE);
+	auto_hide_timeout = read_preference_int(AUTOHIDETIMEOUT);
     disable_cover_art_fetch = read_preference_bool(DISABLE_COVER_ART_FETCH);
     use_mediakeys = read_preference_bool(USE_MEDIAKEYS);
     metadata_codepage = read_preference_string(METADATACODEPAGE);
