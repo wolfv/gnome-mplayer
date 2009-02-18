@@ -3713,7 +3713,9 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_container_add(GTK_CONTAINER(adv_hbutton_box), adv_close);
     gtk_widget_show_all(adv_window);
-
+	gtk_window_set_transient_for(GTK_WINDOW(adv_window),GTK_WINDOW(window));
+	gtk_window_set_keep_above(GTK_WINDOW(adv_window), keep_on_top);
+	gtk_window_present(GTK_WINDOW(adv_window));
 }
 
 void menuitem_view_angle_callback(GtkMenuItem * menuitem, gpointer data)

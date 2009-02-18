@@ -1,4 +1,5 @@
 Development
+    Make advanced video window transient like preferences window
     Make preferences window transient to the main window and keep it above if the main window is
     Hook 'a' key to cycle thru the aspect ratios
     Remove disable_auto_hide and change to auto_hide_timeout, set <= 0 to disable, defaults to 3
