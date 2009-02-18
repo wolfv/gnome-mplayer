@@ -1,4 +1,7 @@
 Development
+    Set Ctrl-L to be new hot key for open location (Gnome std)
+    Set F9 to be new hot key for open playlist (Gnome std)
+    Make open location window transient like preferences window
     Make advanced video window transient like preferences window
     Make preferences window transient to the main window and keep it above if the main window is
     Hook 'a' key to cycle thru the aspect ratios

@@ -2198,7 +2198,11 @@ void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
     gtk_container_add(GTK_CONTAINER(vbox), button_box);
     gtk_container_add(GTK_CONTAINER(open_window), vbox);
     gtk_widget_show_all(open_window);
-    gtk_widget_grab_default(open_button);
+	gtk_window_set_transient_for(GTK_WINDOW(open_window),GTK_WINDOW(window));
+	gtk_window_set_keep_above(GTK_WINDOW(open_window), keep_on_top);
+	gtk_window_present(GTK_WINDOW(open_window));    
+	gtk_widget_grab_default(open_button);
+	
 }
 
 
@@ -4840,9 +4844,9 @@ void setup_accelerators()
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_edit_take_screenshot),
                                       accel_group, GDK_t, GDK_CONTROL_MASK);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_playlist),
-                                      accel_group, GDK_l, GDK_CONTROL_MASK);
+                                      accel_group, GDK_F9, 0);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_file_open_location),
-                                      accel_group, GDK_u, GDK_CONTROL_MASK);
+                                      accel_group, GDK_l, GDK_CONTROL_MASK);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_info), accel_group, GDK_i, 0);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_subtitles), accel_group, GDK_v, 0);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_details),
@@ -4873,9 +4877,9 @@ void setup_accelerators()
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_take_screenshot), "activate",
                                accel_group, GDK_t, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_playlist), "activate",
-                               accel_group, GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+                               accel_group, GDK_F9, 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_file_open_location), "activate",
-                               accel_group, GDK_u, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+                               accel_group, GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_info), "activate",
                                accel_group, GDK_i, 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
