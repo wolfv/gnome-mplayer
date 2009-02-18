@@ -3888,7 +3888,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_icon(GTK_WINDOW(config_window), pb_icon);
-
+	
     gtk_window_set_resizable(GTK_WINDOW(config_window), FALSE);
     conf_vbox = gtk_vbox_new(FALSE, 10);
     conf_page1 = gtk_vbox_new(FALSE, 10);
@@ -4585,6 +4585,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
 
     gtk_widget_show_all(config_window);
+	gtk_window_set_transient_for(GTK_WINDOW(config_window),GTK_WINDOW(window));
+	gtk_window_set_keep_above(GTK_WINDOW(config_window), keep_on_top);
+	gtk_window_present(GTK_WINDOW(config_window));
 
 }
 
