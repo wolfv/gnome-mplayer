@@ -127,7 +127,7 @@ typedef struct _IdleData {
     gint streaming;
     gchar progress_text[1024];
     gdouble volume;
-    gint mute;
+    gboolean mute;
     gchar vol_tooltip[128];
     gint x;
     gint y;

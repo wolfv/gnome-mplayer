@@ -379,12 +379,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ANS_volume") != 0) {
         buf = strstr(mplayer_output->str, "ANS_volume");
         sscanf(buf, "ANS_volume=%i", &volume);
-        idledata->volume = volume;
-        idledata->mute = 0;
-        buf = g_strdup_printf(_("Volume %i%%"), volume);
-        g_strlcpy(idledata->vol_tooltip, buf, 128);
-        g_idle_add(set_volume_tip, idledata);
-        g_free(buf);
+		if (!idledata->mute) {
+			idledata->volume = volume;
+			idledata->mute = 0;
+			buf = g_strdup_printf(_("Volume %i%%"), volume);
+			g_strlcpy(idledata->vol_tooltip, buf, 128);
+			g_idle_add(set_volume_tip, idledata);
+			g_free(buf);
+		}
     }
 
     if (strstr(mplayer_output->str, "ANS_chapters") != 0) {
@@ -796,6 +798,11 @@ gpointer launch_player(gpointer data)
     if (softvol)
         argv[arg++] = g_strdup_printf("-softvol");
 
+	// this will cause problems for older mplayer binaries
+    argv[arg++] = g_strdup_printf("-volume");
+    argv[arg++] = g_strdup_printf("%3.0f",idledata->volume);
+	
+	
     if (mixer != NULL && strlen(mixer) > 0) {
         if (ao == NULL || (ao != NULL && g_ascii_strncasecmp(ao, "alsa", 4) == 0)) {
             argv[arg++] = g_strdup_printf("-mixer-channel");
