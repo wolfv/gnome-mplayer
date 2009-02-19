@@ -305,7 +305,12 @@ gint play_iter(GtkTreeIter * playiter)
 #endif
     }
 #endif
-
+#if GTK2_12_ENABLED
+	volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
+#else
+	volume = gtk_range_get_value(GTK_RANGE(vol_slider));
+#endif
+	
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
         if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
             if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
@@ -477,6 +482,7 @@ int main(int argc, char *argv[])
     idledata = (IdleData *) g_new0(IdleData, 1);
     idledata->videopresent = FALSE;
     idledata->volume = 100.0;
+	idledata->mute = FALSE;
     idledata->length = 0.0;
     idledata->brightness = 0;
     idledata->contrast = 0;

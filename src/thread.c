@@ -800,7 +800,7 @@ gpointer launch_player(gpointer data)
 
 	// this will cause problems for older mplayer binaries
     argv[arg++] = g_strdup_printf("-volume");
-    argv[arg++] = g_strdup_printf("%3.0f",idledata->volume);
+    argv[arg++] = g_strdup_printf("%i",(gint)idledata->volume);
 	
 	
     if (mixer != NULL && strlen(mixer) > 0) {
