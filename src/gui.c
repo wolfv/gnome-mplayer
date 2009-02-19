@@ -1463,13 +1463,19 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return play_callback(NULL, NULL, NULL);
             break;
         case GDK_m:
+#ifdef GTK2_12_ENABLED
             if (idledata->mute) {
-                send_command("mute 0\n", TRUE);
-                idledata->mute = 0;
-            } else {
-                send_command("mute 1\n", TRUE);
-                idledata->mute = 1;
-            }
+				gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), idledata->volume);
+			} else {
+				gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), 0);
+			}
+#else
+            if (idledata->mute) {
+				gtk_range_set_value(GTK_RANGE(vol_slider), idledata->volume);
+			} else {
+		        gtk_range_set_value(GTK_RANGE(vol_slider), 0);
+			}
+#endif				
             return FALSE;
 
         case GDK_1:
@@ -1919,9 +1925,22 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
     gchar *buf;
 
     vol = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("volume %i 1\n", vol);
-    send_command(cmd, TRUE);
-    g_free(cmd);
+	if (idledata->mute && vol > 0) {
+		cmd = g_strdup_printf("mute 0\n");
+		send_command(cmd, TRUE);
+		g_free(cmd);
+		idledata->mute = FALSE;
+	}
+	if (vol == 0) {
+		cmd = g_strdup_printf("mute 1\n");
+		send_command(cmd, TRUE);
+		g_free(cmd);
+		idledata->mute = TRUE;
+	} else {
+		cmd = g_strdup_printf("volume %i 1\n", vol);
+		send_command(cmd, TRUE);
+		g_free(cmd);
+	}
     if (idledata->volume != vol) {
 
         buf = g_strdup_printf(_("Volume %i%%"), vol);
@@ -1947,9 +1966,22 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
     } else {
         vol = (gint) gtk_scale_button_get_value(GTK_SCALE_BUTTON(volume));
     }
-    cmd = g_strdup_printf("volume %i 1\n", vol);
-    send_command(cmd, TRUE);
-    g_free(cmd);
+	if (idledata->mute && vol > 0) {
+		cmd = g_strdup_printf("mute 0\n");
+		send_command(cmd, TRUE);
+		g_free(cmd);
+		idledata->mute = FALSE;
+	}
+	if (!idledata->mute && vol == 0) {
+		cmd = g_strdup_printf("mute 1\n");
+		send_command(cmd, TRUE);
+		g_free(cmd);
+		idledata->mute = TRUE;
+	} else {
+		cmd = g_strdup_printf("volume %i 1\n", vol);
+		send_command(cmd, TRUE);
+		g_free(cmd);
+	}
     if (idledata->volume != vol) {
 
         buf = g_strdup_printf(_("Volume %i%%"), vol);
@@ -3862,6 +3894,19 @@ void ass_toggle_callback(GtkToggleButton * source, gpointer user_data)
     gtk_widget_set_sensitive(config_embeddedfonts, gtk_toggle_button_get_active(source));
 }
 
+void ao_change_callback(GtkComboBox widget, gpointer data) {
+
+#ifdef HAVE_ASOUNDLIB
+	if (g_strncasecmp(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_ao)->child)),"alsa",4) == 0) {
+		gtk_widget_set_sensitive(config_mixer,TRUE);
+	} else {
+		gtk_widget_set_sensitive(config_mixer,FALSE);
+	}
+#endif
+	
+}
+
+
 void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 {
     GtkWidget *config_window;
@@ -3966,7 +4011,63 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         }
     }
 
+#ifdef HAVE_ASOUNDLIB
+    config_mixer = gtk_combo_box_entry_new_text();
+    if (config_mixer != NULL) {
+        if ((err = snd_mixer_open(&mhandle, 0)) < 0) {
+            if (verbose)
+                printf("Mixer open error %s\n", snd_strerror(err));
+        }
+
+        if ((err = snd_mixer_attach(mhandle, device)) < 0) {
+            if (verbose)
+                printf("Mixer attach error %s\n", snd_strerror(err));
+        }
+
+        if ((err = snd_mixer_selem_register(mhandle, NULL, NULL)) < 0) {
+            if (verbose)
+                printf("Mixer register error %s\n", snd_strerror(err));
+        }
+
+        if ((err = snd_mixer_load(mhandle)) < 0) {
+            if (verbose)
+                printf("Mixer load error %s\n", snd_strerror(err));
+        }
+        i = 1;
+        j = -1;
+        snd_mixer_selem_id_alloca(&sid);
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), "");
+        for (elem = snd_mixer_first_elem(mhandle); elem; elem = snd_mixer_elem_next(elem)) {
+            snd_mixer_selem_get_id(elem, sid);
+            if (!snd_mixer_selem_is_active(elem))
+                continue;
+            if (snd_mixer_selem_has_capture_volume(elem)
+                || snd_mixer_selem_has_capture_switch(elem))
+                continue;
+            if (!snd_mixer_selem_has_playback_volume(elem))
+                continue;
+            mix =
+                g_strdup_printf("%s,%i", snd_mixer_selem_id_get_name(sid),
+                                snd_mixer_selem_id_get_index(sid));
+            //mix = g_strdup_printf("%s", snd_mixer_selem_id_get_name(sid));
+            gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), mix);
+            if (mixer != NULL && g_ascii_strcasecmp(mix, mixer) == 0)
+                j = i;
+            i++;
+        }
+        if (j != -1)
+            gtk_combo_box_set_active(GTK_COMBO_BOX(config_mixer), j);
+        if (mixer != NULL && strlen(mixer) > 0 && j == -1) {
+            gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), mixer);
+            gtk_combo_box_set_active(GTK_COMBO_BOX(config_mixer), i);
+        }
+        snd_mixer_close(mhandle);
+
+    }
+#endif
+	
     config_ao = gtk_combo_box_entry_new_text();
+	g_signal_connect(GTK_WIDGET(config_ao),"changed",GTK_SIGNAL_FUNC(ao_change_callback),NULL);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_ao,
                          _
@@ -4061,60 +4162,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_subtitle_codepage), j);
         }
     }
-#ifdef HAVE_ASOUNDLIB
-    config_mixer = gtk_combo_box_entry_new_text();
-    if (config_mixer != NULL) {
-        if ((err = snd_mixer_open(&mhandle, 0)) < 0) {
-            if (verbose)
-                printf("Mixer open error %s\n", snd_strerror(err));
-        }
-
-        if ((err = snd_mixer_attach(mhandle, device)) < 0) {
-            if (verbose)
-                printf("Mixer attach error %s\n", snd_strerror(err));
-        }
-
-        if ((err = snd_mixer_selem_register(mhandle, NULL, NULL)) < 0) {
-            if (verbose)
-                printf("Mixer register error %s\n", snd_strerror(err));
-        }
-
-        if ((err = snd_mixer_load(mhandle)) < 0) {
-            if (verbose)
-                printf("Mixer load error %s\n", snd_strerror(err));
-        }
-        i = 1;
-        j = -1;
-        snd_mixer_selem_id_alloca(&sid);
-        gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), "");
-        for (elem = snd_mixer_first_elem(mhandle); elem; elem = snd_mixer_elem_next(elem)) {
-            snd_mixer_selem_get_id(elem, sid);
-            if (!snd_mixer_selem_is_active(elem))
-                continue;
-            if (snd_mixer_selem_has_capture_volume(elem)
-                || snd_mixer_selem_has_capture_switch(elem))
-                continue;
-            if (!snd_mixer_selem_has_playback_volume(elem))
-                continue;
-            mix =
-                g_strdup_printf("%s,%i", snd_mixer_selem_id_get_name(sid),
-                                snd_mixer_selem_id_get_index(sid));
-            //mix = g_strdup_printf("%s", snd_mixer_selem_id_get_name(sid));
-            gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), mix);
-            if (mixer != NULL && g_ascii_strcasecmp(mix, mixer) == 0)
-                j = i;
-            i++;
-        }
-        if (j != -1)
-            gtk_combo_box_set_active(GTK_COMBO_BOX(config_mixer), j);
-        if (mixer != NULL && strlen(mixer) > 0 && j == -1) {
-            gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), mixer);
-            gtk_combo_box_set_active(GTK_COMBO_BOX(config_mixer), i);
-        }
-        snd_mixer_close(mhandle);
-
-    }
-#endif
 
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Output Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
@@ -4248,7 +4295,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page2), conf_table);
     i = 0;
-    conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"));
+    conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n\n"
+								 "These options affect the gecko-mediaplayer plugin when it is installed.\n"
+								 "Gecko-mediplayer is a Firefox plugin that will emulate various\n"
+								 "media players and allow playback of various web content within\n"
+								 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
+								 ));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
