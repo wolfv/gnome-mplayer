@@ -1,4 +1,5 @@
 Development
+    Fix volume setting
     Require mplayer to have the -volume command line option
     Update some labels on the config screen
     When selecting an ao other than alsa, disable the mixer selection dialog
