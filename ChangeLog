@@ -1,4 +1,5 @@
 Development
+    When video has an ogm extension, set the demuxer to lavf, fixes audio switching issues
     Set Ctrl-L to be new hot key for open location (Gnome std)
     Set F9 to be new hot key for open playlist (Gnome std)
     Make open location window transient like preferences window

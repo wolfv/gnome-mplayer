@@ -945,6 +945,19 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%s", idledata->device);
     }
 
+    /* 
+	   This is here in order to be able to switch the
+	   audio track in OGM files while playing, see
+	   http://lists.mplayerhq.hu/pipermail/mplayer-users/2007-February/065316.html 
+	*/
+	filename = g_utf8_strdown(threaddata->filename,-1);
+	if (strstr(filename,".ogm")) {
+        argv[arg++] = g_strdup_printf("-demuxer");
+        argv[arg++] = g_strdup_printf("lavf");
+	}		
+	g_free(filename);
+
+
 /*	This is needed when lavc is the default decoder, but mkv is the default as of 9/9/08
 	filename = g_utf8_strdown(threaddata->filename,-1);
 	if (strstr(filename,".mkv")) {
