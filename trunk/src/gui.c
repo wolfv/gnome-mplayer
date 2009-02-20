@@ -4297,7 +4297,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i = 0;
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n\n"
 								 "These options affect the gecko-mediaplayer plugin when it is installed.\n"
-								 "Gecko-mediplayer is a Firefox plugin that will emulate various\n"
+								 "Gecko-mediaplayer is a Firefox plugin that will emulate various\n"
 								 "media players and allow playback of various web content within\n"
 								 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 								 ));
