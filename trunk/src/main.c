@@ -306,11 +306,11 @@ gint play_iter(GtkTreeIter * playiter)
     }
 #endif
 #if GTK2_12_ENABLED
-	volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
+    volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
 #else
-	volume = gtk_range_get_value(GTK_RANGE(vol_slider));
+    volume = gtk_range_get_value(GTK_RANGE(vol_slider));
 #endif
-	
+
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
         if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
             if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
@@ -482,7 +482,7 @@ int main(int argc, char *argv[])
     idledata = (IdleData *) g_new0(IdleData, 1);
     idledata->videopresent = FALSE;
     idledata->volume = 100.0;
-	idledata->mute = FALSE;
+    idledata->mute = FALSE;
     idledata->length = 0.0;
     idledata->brightness = 0;
     idledata->contrast = 0;
@@ -525,7 +525,7 @@ int main(int argc, char *argv[])
     cache_size = 0;
     forcecache = FALSE;
     volume = -1;
-	use_volume_option = FALSE;
+    use_volume_option = FALSE;
     vertical_layout = FALSE;
     playlist_visible = FALSE;
     disable_fullscreen = FALSE;
@@ -541,7 +541,7 @@ int main(int argc, char *argv[])
     embedding_disabled = FALSE;
     disable_pause_on_click = FALSE;
     disable_animation = FALSE;
-	auto_hide_timeout = 3;
+    auto_hide_timeout = 3;
     use_mediakeys = TRUE;
     mplayer_bin = NULL;
     single_instance = FALSE;
@@ -599,7 +599,7 @@ int main(int argc, char *argv[])
     disable_embeddedfonts = read_preference_bool(DISABLEEMBEDDEDFONTS);
     disable_pause_on_click = read_preference_bool(DISABLEPAUSEONCLICK);
     disable_animation = read_preference_bool(DISABLEANIMATION);
-	auto_hide_timeout = read_preference_int(AUTOHIDETIMEOUT);
+    auto_hide_timeout = read_preference_int(AUTOHIDETIMEOUT);
     disable_cover_art_fetch = read_preference_bool(DISABLE_COVER_ART_FETCH);
     use_mediakeys = read_preference_bool(USE_MEDIAKEYS);
     metadata_codepage = read_preference_string(METADATACODEPAGE);
@@ -699,8 +699,8 @@ int main(int argc, char *argv[])
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
     }
-	
-	use_volume_option = detect_volume_option();
+
+    use_volume_option = detect_volume_option();
 
     if (playlist_visible && control_id != 0)
         playlist_visible = FALSE;
@@ -743,10 +743,10 @@ int main(int argc, char *argv[])
 
     thread_running = g_mutex_new();
     slide_away = g_mutex_new();
-	mplayer_complete_cond = g_cond_new();
+    mplayer_complete_cond = g_cond_new();
 #ifdef GIO_ENABLED
     idledata->caching = g_mutex_new();
-	idledata->caching_complete = g_cond_new();
+    idledata->caching_complete = g_cond_new();
 #endif
 
     if (argv[fileindex] != NULL) {

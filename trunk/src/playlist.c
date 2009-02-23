@@ -806,12 +806,12 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 } else {
                     stored_window_width = restore_pane;
                 }
-				restore_playlist = FALSE;
+                restore_playlist = FALSE;
             } else {
                 gdk_window_get_geometry(window->window, &x, &y, &stored_window_width,
                                         &stored_window_height, &depth);
             }
-		}
+        }
         plvbox = gtk_vbox_new(FALSE, 12);
         hbox = gtk_hbox_new(FALSE, 12);
         gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
