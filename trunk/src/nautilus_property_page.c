@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * nautilus_property_page.c
- * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
+ * Copyright (C) Kevin DeKorte 2009 <kdekorte@gmail.com>
  * 
  * nautilus_property_page.c is free software.
  * 
@@ -43,6 +43,8 @@ typedef struct _MetaData {
     gchar *subtitle;
     gchar *audio_codec;
     gchar *video_codec;
+    gchar *audio_bitrate;
+    gchar *video_bitrate;
     gchar *demuxer;
     gint width;
     gint height;
@@ -198,6 +200,16 @@ static MetaData *get_metadata(gchar *filename)
             ret->height = (gint) g_strtod(ptr, NULL);
         }
 
+		if (strstr(output[ac], "ID_AUDIO_BITRATE") != NULL) {
+            ptr = strstr(output[ac], "=") + 1;
+            ret->audio_bitrate = g_strdup(ptr);
+        }
+
+		if (strstr(output[ac], "ID_VIDEO_BITRATE") != NULL) {
+            ptr = strstr(output[ac], "=") + 1;
+            ret->video_bitrate = g_strdup(ptr);
+        }
+
         if (strstr(output[ac], "ID_DEMUXER") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             ret->demuxer = g_strdup(ptr);
@@ -337,6 +349,18 @@ static void get_properties(GtkWidget *page, gchar *uri)
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
             i++;	
+
+			label = gtk_label_new(_("Video Bitrate:"));
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(data->video_bitrate, NULL) / 1024));
+            label = gtk_label_new(buf);
+            g_free(buf);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+            i++;	
+
 		}
 		
 		if (data->audio_present) {
@@ -357,6 +381,17 @@ static void get_properties(GtkWidget *page, gchar *uri)
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
             i++;	
+
+			label = gtk_label_new(_("Audio Bitrate:"));
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(data->audio_bitrate, NULL) / 1024));
+            label = gtk_label_new(buf);
+            g_free(buf);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+            i++;	
 		}
 		
 		g_free(data->title);
@@ -366,6 +401,8 @@ static void get_properties(GtkWidget *page, gchar *uri)
 		g_free(data->subtitle);
 		g_free(data->audio_codec);
 		g_free(data->video_codec);
+		g_free(data->audio_bitrate);
+		g_free(data->video_bitrate);
 		g_free(data->demuxer);		
 		
 	}
