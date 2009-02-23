@@ -2584,14 +2584,16 @@ gpointer get_cover_art(gpointer data)
                     }
 
                     art = fopen(cache_file, "wb");
-                    curl = curl_easy_init();
-                    if (curl) {
-                        curl_easy_setopt(curl, CURLOPT_URL, url);
-                        curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
-                        curl_easy_perform(curl);
-                        curl_easy_cleanup(curl);
-                    }
-                    fclose(art);
+					if (art) {
+						curl = curl_easy_init();
+						if (curl) {
+							curl_easy_setopt(curl, CURLOPT_URL, url);
+							curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
+							curl_easy_perform(curl);
+							curl_easy_cleanup(curl);
+						}
+						fclose(art);
+					}
                     // printf("cover art url is %s\n",url);
                     g_free(url);
                     art_found = TRUE;
