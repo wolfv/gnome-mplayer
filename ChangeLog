@@ -1,4 +1,7 @@
 Development
+    In all cases where mplayer is launched, use specified location if available, otherwise
+        search path (which is the default)
+    Try to detect if we can use the -volume option with mplayer
     Set right click menu preferences option to insensitve when fullscreen
     Fix volume setting
     Require mplayer to have the -volume command line option

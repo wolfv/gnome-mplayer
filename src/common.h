@@ -284,6 +284,7 @@ gchar *alang;
 gchar *slang;
 gchar *metadata_codepage;
 gint volume;
+gboolean use_volume_option;
 gboolean vertical_layout;
 gboolean playlist_visible;
 gboolean details_visible;

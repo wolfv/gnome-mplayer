@@ -525,6 +525,7 @@ int main(int argc, char *argv[])
     cache_size = 0;
     forcecache = FALSE;
     volume = -1;
+	use_volume_option = FALSE;
     vertical_layout = FALSE;
     playlist_visible = FALSE;
     disable_fullscreen = FALSE;
@@ -698,6 +699,8 @@ int main(int argc, char *argv[])
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
     }
+	
+	use_volume_option = detect_volume_option();
 
     if (playlist_visible && control_id != 0)
         playlist_visible = FALSE;

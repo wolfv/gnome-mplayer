@@ -798,10 +798,10 @@ gpointer launch_player(gpointer data)
     if (softvol)
         argv[arg++] = g_strdup_printf("-softvol");
 
-	// this will cause problems for older mplayer binaries
-    argv[arg++] = g_strdup_printf("-volume");
-    argv[arg++] = g_strdup_printf("%i",(gint)idledata->volume);
-	
+	if (use_volume_option) {
+		argv[arg++] = g_strdup_printf("-volume");
+		argv[arg++] = g_strdup_printf("%i",(gint)idledata->volume);
+	}
 	
     if (mixer != NULL && strlen(mixer) > 0) {
         if (ao == NULL || (ao != NULL && g_ascii_strncasecmp(ao, "alsa", 4) == 0)) {
