@@ -3028,6 +3028,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
         gtk_window_unfullscreen(GTK_WINDOW(window));
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_config),TRUE);
 
         if (embed_window != 0) {
             while (gtk_events_pending())
@@ -3102,7 +3103,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         }
 
         gtk_window_get_size(GTK_WINDOW(window), &stored_window_width, &stored_window_height);
-
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_config),FALSE);
         gtk_window_fullscreen(GTK_WINDOW(window));
         fullscreen = 1;
         motion_notify_callback(NULL, NULL, NULL);
