@@ -45,13 +45,13 @@ typedef struct _MetaData {
     gchar *video_codec;
     gchar *audio_bitrate;
     gchar *video_bitrate;
-	gchar *video_fps;
-	gchar *audio_nch;
+    gchar *video_fps;
+    gchar *audio_nch;
     gchar *demuxer;
     gint width;
     gint height;
-	gboolean video_present;
-	gboolean audio_present;
+    gboolean video_present;
+    gboolean audio_present;
 } MetaData;
 
 void strip_unicode(gchar * data, gsize len)
@@ -89,23 +89,23 @@ gchar *seconds_to_string(gfloat seconds)
     return g_strstrip(result);
 }
 
-static MetaData *get_metadata(gchar *filename)
+static MetaData *get_metadata(gchar * filename)
 {
-	GError *error;
+    GError *error;
     gint exit_status;
     gchar *out = NULL;
     gchar *err = NULL;
     gchar *av[255];
     gint ac = 0, i;
     gchar **output;
-	gchar *ptr;
-	gchar *lower;
-	gfloat f;
-	
-		MetaData *ret;
-		ret = g_new0(MetaData,1);
-	
-        av[ac++] = g_strdup_printf("mplayer");
+    gchar *ptr;
+    gchar *lower;
+    gfloat f;
+
+    MetaData *ret;
+    ret = g_new0(MetaData, 1);
+
+    av[ac++] = g_strdup_printf("mplayer");
     av[ac++] = g_strdup_printf("-vo");
     av[ac++] = g_strdup_printf("null");
     av[ac++] = g_strdup_printf("-ao");
@@ -115,7 +115,7 @@ static MetaData *get_metadata(gchar *filename)
     av[ac++] = g_strdup_printf("-noidx");
     av[ac++] = g_strdup_printf("-identify");
     av[ac++] = g_strdup_printf("-nocache");
-	
+
     av[ac++] = g_strdup_printf("%s", filename);
     av[ac] = NULL;
 
@@ -140,15 +140,15 @@ static MetaData *get_metadata(gchar *filename)
     output = g_strsplit(out, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
-		
-		lower = g_ascii_strdown(output[ac], -1);
-		if (strstr(output[ac], "ID_LENGTH") != NULL) {
+
+        lower = g_ascii_strdown(output[ac], -1);
+        if (strstr(output[ac], "ID_LENGTH") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             sscanf(ptr, "%f", &f);
             ret->length = seconds_to_string(f);
-			ret->length_value = f;
+            ret->length_value = f;
         }
-		
+
         if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
             if (strstr(lower, "=title") != NULL || strstr(lower, "=name") != NULL) {
                 ptr = strstr(output[ac + 1], "=") + 1;
@@ -180,16 +180,16 @@ static MetaData *get_metadata(gchar *filename)
             }
         }
 
-		if (strstr(output[ac], "ID_AUDIO_CODEC") != NULL) {
+        if (strstr(output[ac], "ID_AUDIO_CODEC") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             ret->audio_codec = g_strdup(ptr);
-			ret->audio_present = TRUE;
+            ret->audio_present = TRUE;
         }
 
         if (strstr(output[ac], "ID_VIDEO_CODEC") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             ret->video_codec = g_strdup(ptr);
-			ret->video_present = TRUE;
+            ret->video_present = TRUE;
         }
 
         if (strstr(output[ac], "ID_VIDEO_WIDTH") != NULL) {
@@ -202,145 +202,143 @@ static MetaData *get_metadata(gchar *filename)
             ret->height = (gint) g_strtod(ptr, NULL);
         }
 
-		if (strstr(output[ac], "ID_AUDIO_BITRATE") != NULL) {
+        if (strstr(output[ac], "ID_AUDIO_BITRATE") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             ret->audio_bitrate = g_strdup(ptr);
         }
 
-		if (strstr(output[ac], "ID_VIDEO_BITRATE") != NULL) {
+        if (strstr(output[ac], "ID_VIDEO_BITRATE") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             ret->video_bitrate = g_strdup(ptr);
         }
 
-		if (strstr(output[ac], "ID_VIDEO_FPS") != NULL) {
+        if (strstr(output[ac], "ID_VIDEO_FPS") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             ret->video_fps = g_strdup(ptr);
         }
 
-		if (strstr(output[ac], "ID_AUDIO_NCH") != NULL) {
+        if (strstr(output[ac], "ID_AUDIO_NCH") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             ret->audio_nch = g_strdup(ptr);
         }
-		
+
         if (strstr(output[ac], "ID_DEMUXER") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             ret->demuxer = g_strdup(ptr);
         }
-        g_free(lower);		
-		
-		
-		ac++;
-	}
+        g_free(lower);
+        ac++;
+    }
 
-	g_strfreev(output);
-	if (out)
-		g_free(out);
-	if (err)
-		g_free(err);
-	
-	return ret;
-	
+    g_strfreev(output);
+    if (out)
+        g_free(out);
+    if (err)
+        g_free(err);
+
+    return ret;
+
 }
 
 
-static void get_properties(GtkWidget *page, gchar *uri)
+static gboolean get_properties(GtkWidget * page, gchar * uri)
 {
-	GtkWidget *label;	
-	gint i = 0;
-	MetaData *data;
-	gchar *filename;
-	gchar *buf;
-	
+    GtkWidget *label;
+    gint i = 0;
+    MetaData *data;
+    gchar *filename;
+    gchar *buf;
+
 #ifdef GIO_ENABLED
-	GFile *file;
-	
-	file = g_file_new_for_uri(uri);
-	filename = g_file_get_path(file);
-	g_object_unref(file);
+    GFile *file;
+
+    file = g_file_new_for_uri(uri);
+    filename = g_file_get_path(file);
+    g_object_unref(file);
 #else
-	filename = g_filename_from_uri(uri, NULL, NULL);
+    filename = g_filename_from_uri(uri, NULL, NULL);
 #endif
-	
+
     if (filename != NULL) {
-		
-		data = get_metadata(filename);
 
-		label = gtk_label_new(_("<span weight=\"bold\">Media Details</span>"));
-		gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
-		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-		gtk_misc_set_padding(GTK_MISC(label), 0, 6);
-		gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
-		i++;
+        data = get_metadata(filename);
 
-		if (data->title && strlen(data->title) > 0) {
-			label = gtk_label_new(_("Title"));
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
-			label = gtk_label_new(data->title);
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-			i++;
-		}
+        label = gtk_label_new(_("<span weight=\"bold\">Media Details</span>"));
+        gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
+        gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+        gtk_misc_set_padding(GTK_MISC(label), 0, 6);
+        gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+        i++;
 
-		if (data->artist && strlen(data->artist) > 0) {
-			label = gtk_label_new(_("Artist"));
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
-			label = gtk_label_new(data->artist);
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-			i++;
-		}
+        if (data->title && strlen(data->title) > 0) {
+            label = gtk_label_new(_("Title"));
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            label = gtk_label_new(data->title);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 0, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+            i++;
+        }
 
-		if (data->album && strlen(data->album) > 0) {
-			label = gtk_label_new(_("Album"));
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
-			label = gtk_label_new(data->album);
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-			i++;
-		}
-		
-		if (data->length) {
-			label = gtk_label_new(_("Length"));
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
-			label = gtk_label_new(data->length);
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-			i++;
-		}
+        if (data->artist && strlen(data->artist) > 0) {
+            label = gtk_label_new(_("Artist"));
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            label = gtk_label_new(data->artist);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 0, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+            i++;
+        }
 
-		if (data->demuxer && strlen(data->demuxer) > 0) {
-			label = gtk_label_new(_("Demuxer"));
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
-			label = gtk_label_new(data->demuxer);
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-			i++;
-		}
-		
-		if (data->video_present) {
-			label = gtk_label_new(_("<span weight=\"bold\">Video Details</span>"));
-			gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 0, 6);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
-			i++;
-			
-			label = gtk_label_new(_("Video Size:"));
+        if (data->album && strlen(data->album) > 0) {
+            label = gtk_label_new(_("Album"));
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            label = gtk_label_new(data->album);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 0, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+            i++;
+        }
+
+        if (data->length) {
+            label = gtk_label_new(_("Length"));
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            label = gtk_label_new(data->length);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 0, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+            i++;
+        }
+
+        if (data->demuxer && strlen(data->demuxer) > 0) {
+            label = gtk_label_new(_("Demuxer"));
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            label = gtk_label_new(data->demuxer);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 0, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+            i++;
+        }
+
+        if (data->video_present) {
+            label = gtk_label_new(_("<span weight=\"bold\">Video Details</span>"));
+            gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 0, 6);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            i++;
+
+            label = gtk_label_new(_("Video Size:"));
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_misc_set_padding(GTK_MISC(label), 12, 0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
@@ -349,9 +347,9 @@ static void get_properties(GtkWidget *page, gchar *uri)
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
             g_free(buf);
-            i++;			
+            i++;
 
-			label = gtk_label_new(_("Video Codec:"));
+            label = gtk_label_new(_("Video Codec:"));
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_misc_set_padding(GTK_MISC(label), 12, 0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
@@ -360,9 +358,9 @@ static void get_properties(GtkWidget *page, gchar *uri)
             g_free(buf);
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-            i++;	
+            i++;
 
-			label = gtk_label_new(_("Video Bitrate:"));
+            label = gtk_label_new(_("Video Bitrate:"));
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_misc_set_padding(GTK_MISC(label), 12, 0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
@@ -371,9 +369,9 @@ static void get_properties(GtkWidget *page, gchar *uri)
             g_free(buf);
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-            i++;	
+            i++;
 
-			label = gtk_label_new(_("Video Frame Rate:"));
+            label = gtk_label_new(_("Video Frame Rate:"));
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_misc_set_padding(GTK_MISC(label), 12, 0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
@@ -382,19 +380,19 @@ static void get_properties(GtkWidget *page, gchar *uri)
             g_free(buf);
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-            i++;	
+            i++;
 
-		}
-		
-		if (data->audio_present) {
-			label = gtk_label_new(_("<span weight=\"bold\">Audio Details</span>"));
-			gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-			gtk_misc_set_padding(GTK_MISC(label), 0, 6);
-			gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
-			i++;
+        }
 
-			label = gtk_label_new(_("Audio Codec:"));
+        if (data->audio_present) {
+            label = gtk_label_new(_("<span weight=\"bold\">Audio Details</span>"));
+            gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 0, 6);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            i++;
+
+            label = gtk_label_new(_("Audio Codec:"));
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_misc_set_padding(GTK_MISC(label), 12, 0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
@@ -403,9 +401,9 @@ static void get_properties(GtkWidget *page, gchar *uri)
             g_free(buf);
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-            i++;	
+            i++;
 
-			label = gtk_label_new(_("Audio Bitrate:"));
+            label = gtk_label_new(_("Audio Bitrate:"));
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_misc_set_padding(GTK_MISC(label), 12, 0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
@@ -414,36 +412,37 @@ static void get_properties(GtkWidget *page, gchar *uri)
             g_free(buf);
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-            i++;	
+            i++;
 
-			if (g_strtod(data->audio_nch, NULL) > 0) {
-				label = gtk_label_new(_("Audio Channels:"));
-				gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-				gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-				gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
-				buf = g_strdup_printf("%i",(gint)g_strtod(data->audio_nch, NULL));
-				label = gtk_label_new(buf);
-				g_free(buf);
-				gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-				gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
-				i++;	
-			}
-		}
-		
-		g_free(data->title);
-		g_free(data->artist);
-		g_free(data->album);
-		g_free(data->length);
-		g_free(data->subtitle);
-		g_free(data->audio_codec);
-		g_free(data->video_codec);
-		g_free(data->audio_bitrate);
-		g_free(data->video_bitrate);
-		g_free(data->audio_nch);
-		g_free(data->video_fps);
-		g_free(data->demuxer);		
-		
-	}
+            if (g_strtod(data->audio_nch, NULL) > 0) {
+                label = gtk_label_new(_("Audio Channels:"));
+                gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+                gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                buf = g_strdup_printf("%i", (gint) g_strtod(data->audio_nch, NULL));
+                label = gtk_label_new(buf);
+                g_free(buf);
+                gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                i++;
+            }
+        }
+
+        g_free(data->title);
+        g_free(data->artist);
+        g_free(data->album);
+        g_free(data->length);
+        g_free(data->subtitle);
+        g_free(data->audio_codec);
+        g_free(data->video_codec);
+        g_free(data->audio_bitrate);
+        g_free(data->video_bitrate);
+        g_free(data->audio_nch);
+        g_free(data->video_fps);
+        g_free(data->demuxer);
+		return TRUE;
+    }
+	return FALSE;
 }
 
 static GList *gnome_mplayer_properties_get_pages(NautilusPropertyPageProvider * provider,
@@ -455,34 +454,33 @@ static GList *gnome_mplayer_properties_get_pages(NautilusPropertyPageProvider * 
     NautilusPropertyPage *property_page;
     guint i;
     gboolean found = FALSE;
-	gchar *uri;
+    gchar *uri;
 
     /* only add properties page if a single file is selected */
     if (files == NULL || files->next != NULL)
         return pages;
-	
+
     file = files->data;
 
     /* only add the properties page to these mime types */
-	for (i = 0; i < G_N_ELEMENTS(mime_types); i++) {
+    for (i = 0; i < G_N_ELEMENTS(mime_types); i++) {
         if (nautilus_file_info_is_mime_type(file, mime_types[i])) {
             found = TRUE;
             break;
         }
     }
-	
-    if (found) {
-		uri = nautilus_file_info_get_uri (file);
-        label = gtk_label_new(_("Audio/Video"));
-        page = gtk_table_new(20,2,FALSE);
-        gtk_container_set_border_width(GTK_CONTAINER(page), 6);
-		get_properties(page,uri);
-		gtk_widget_show_all(page);
-		
-		property_page = nautilus_property_page_new("video-properties", label, page);
 
-        pages = g_list_prepend(pages, property_page);
-		g_free(uri);
+    if (found) {
+        uri = nautilus_file_info_get_uri(file);
+        label = gtk_label_new(_("Audio/Video"));
+        page = gtk_table_new(20, 2, FALSE);
+        gtk_container_set_border_width(GTK_CONTAINER(page), 6);
+        if (get_properties(page, uri)) {
+			gtk_widget_show_all(page);
+			property_page = nautilus_property_page_new("video-properties", label, page);
+			pages = g_list_prepend(pages, property_page);
+		}
+        g_free(uri);
     }
     return pages;
 }
@@ -512,7 +510,7 @@ static void gnome_mplayer_properties_plugin_register_type(GTypeModule * module)
     };
 
     pp_type = g_type_module_register_type(module, G_TYPE_OBJECT,
-                                           "GnomeMPlayerPropertiesPlugin", &info, 0);
+                                          "GnomeMPlayerPropertiesPlugin", &info, 0);
     g_type_module_add_interface(module,
                                 pp_type,
                                 NAUTILUS_TYPE_PROPERTY_PAGE_PROVIDER,

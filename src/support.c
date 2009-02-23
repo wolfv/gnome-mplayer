@@ -75,8 +75,8 @@ gint detect_playlist(gchar * uri)
 
 #ifdef GIO_ENABLED
         if (!streaming_media(uri)) {
-			if (verbose)
-				printf("opening playlist\n");
+            if (verbose)
+                printf("opening playlist\n");
             file = g_file_new_for_uri(uri);
             path = get_path(uri);
             input = g_file_read(file, NULL, NULL);
@@ -289,8 +289,8 @@ gint parse_playlist(gchar * uri)
         gtk_recent_manager_add_item(recent_manager, uri);
     }
 #endif
-	if (verbose)
-		printf("parse playlist = %i\n", ret);
+    if (verbose)
+        printf("parse playlist = %i\n", ret);
     return ret;
 }
 
@@ -525,11 +525,11 @@ gint parse_cdda(gchar * filename)
         return 0;
     } else {
         playlist = 0;
-		if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
-			av[ac++] = g_strdup_printf("mplayer");
-		} else {
-			av[ac++] = g_strdup_printf("%s", mplayer_bin);
-		}
+        if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+            av[ac++] = g_strdup_printf("mplayer");
+        } else {
+            av[ac++] = g_strdup_printf("%s", mplayer_bin);
+        }
         av[ac++] = g_strdup_printf("-vo");
         av[ac++] = g_strdup_printf("null");
         av[ac++] = g_strdup_printf("-ao");
@@ -686,11 +686,11 @@ gint parse_dvd(gchar * filename)
     if (g_strncasecmp(filename, "dvd://", strlen("dvd://")) == 0) {     // || g_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
         playlist = 0;
         // run mplayer and try to get the first frame and convert it to a jpeg
-		if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
-			av[ac++] = g_strdup_printf("mplayer");
-		} else {
-			av[ac++] = g_strdup_printf("%s", mplayer_bin);
-		}
+        if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+            av[ac++] = g_strdup_printf("mplayer");
+        } else {
+            av[ac++] = g_strdup_printf("%s", mplayer_bin);
+        }
         av[ac++] = g_strdup_printf("-vo");
         av[ac++] = g_strdup_printf("null");
         av[ac++] = g_strdup_printf("-ao");
@@ -1048,9 +1048,9 @@ MetaData *get_metadata(gchar * uri)
 #endif
     if (device_name(uri)) {
         name = g_strdup(uri);
-		if (ret == NULL)
-			ret = (MetaData *) g_new0(MetaData, 1);
-	
+        if (ret == NULL)
+            ret = (MetaData *) g_new0(MetaData, 1);
+
     } else {
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
@@ -1066,9 +1066,9 @@ MetaData *get_metadata(gchar * uri)
 
     if (name == NULL)
         return NULL;
-	
-	if (verbose)
-		printf("getting file metadata for %s\n", name);
+
+    if (verbose)
+        printf("getting file metadata for %s\n", name);
 
     if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         av[ac++] = g_strdup_printf("mplayer");
@@ -1208,7 +1208,7 @@ MetaData *get_metadata(gchar * uri)
         title = g_strdup_printf("%s", localtitle);
     }
 
-	if (title == NULL && g_strncasecmp(name, "dvb://", strlen("dvb://")) == 0) {
+    if (title == NULL && g_strncasecmp(name, "dvb://", strlen("dvb://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
         title = g_strdup_printf("%s", localtitle);
     }
@@ -1409,8 +1409,8 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
     gchar *unescaped = NULL;
     MetaData *data = NULL;
 
-	if (verbose)
-		printf("adding %s to playlist\n", uri);
+    if (verbose)
+        printf("adding %s to playlist\n", uri);
     if (!device_name(uri) && !streaming_media(uri)) {
         if (playlist) {
             data = (MetaData *) g_new0(MetaData, 1);
@@ -2166,7 +2166,7 @@ void cache_callback(goffset current_num_bytes, goffset total_num_bytes, gpointer
     idledata->cachepercent = (gfloat) current_num_bytes / (gfloat) total_num_bytes;
     g_idle_add(set_progress_value, idledata);
     if (current_num_bytes > (cache_size * 1024))
-		g_cond_signal(idledata->caching_complete);
+        g_cond_signal(idledata->caching_complete);
 
 }
 
@@ -2174,7 +2174,7 @@ void ready_callback(GObject * source_object, GAsyncResult * res, gpointer data)
 {
     g_object_unref(idledata->tmp);
     g_object_unref(idledata->src);
-	g_cond_signal(idledata->caching_complete);
+    g_cond_signal(idledata->caching_complete);
 }
 #endif
 
@@ -2216,8 +2216,8 @@ gchar *get_localfile_from_uri(gchar * uri)
                 g_file_copy_async(idledata->src, idledata->tmp, G_FILE_COPY_NONE,
                                   G_PRIORITY_DEFAULT, idledata->cancel, cache_callback, NULL,
                                   ready_callback, NULL);
-				g_cond_wait(idledata->caching_complete,idledata->caching);
-				g_mutex_unlock(idledata->caching);
+                g_cond_wait(idledata->caching_complete, idledata->caching);
+                g_mutex_unlock(idledata->caching);
                 idledata->tmpfile = TRUE;
             }
         } else {
@@ -2489,7 +2489,7 @@ gpointer get_cover_art(gpointer data)
 {
     gchar *url;
     gchar *path;
-	gchar *p;
+    gchar *p;
     gchar *cache_file;
     gboolean local_artist = FALSE;
     gboolean local_album = FALSE;
@@ -2544,7 +2544,7 @@ gpointer get_cover_art(gpointer data)
             }
             if (url == NULL) {
                 if ((p = strstr(metadata->title, " - ")) != NULL) {
-					p[0] = '\0';
+                    p[0] = '\0';
                     g_free(path);
                     path =
                         g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown",
@@ -2584,16 +2584,16 @@ gpointer get_cover_art(gpointer data)
                     }
 
                     art = fopen(cache_file, "wb");
-					if (art) {
-						curl = curl_easy_init();
-						if (curl) {
-							curl_easy_setopt(curl, CURLOPT_URL, url);
-							curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
-							curl_easy_perform(curl);
-							curl_easy_cleanup(curl);
-						}
-						fclose(art);
-					}
+                    if (art) {
+                        curl = curl_easy_init();
+                        if (curl) {
+                            curl_easy_setopt(curl, CURLOPT_URL, url);
+                            curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
+                            curl_easy_perform(curl);
+                            curl_easy_cleanup(curl);
+                        }
+                        fclose(art);
+                    }
                     // printf("cover art url is %s\n",url);
                     g_free(url);
                     art_found = TRUE;
@@ -2686,8 +2686,8 @@ gboolean detect_volume_option()
     gint exit_status;
     gchar *out = NULL;
     gchar *err = NULL;
-	gboolean ret = TRUE;
-	
+    gboolean ret = TRUE;
+
     if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         av[ac++] = g_strdup_printf("mplayer");
     } else {
@@ -2718,16 +2718,17 @@ gboolean detect_volume_option()
     output = g_strsplit(err, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
-		if (g_strncasecmp(output[ac],"Unknown option",strlen("Unknown option")) == 0) {
-			ret = FALSE;
-		}
-		ac++;
-	}
-	g_strfreev(output);
-	g_free(out);
-	g_free(err);
-	
-	if (!ret)
-		printf(_("You might want to consider upgrading mplayer to a newer version, -volume option not supported\n"));
-	return ret;
+        if (g_strncasecmp(output[ac], "Unknown option", strlen("Unknown option")) == 0) {
+            ret = FALSE;
+        }
+        ac++;
+    }
+    g_strfreev(output);
+    g_free(out);
+    g_free(err);
+
+    if (!ret)
+        printf(_
+               ("You might want to consider upgrading mplayer to a newer version, -volume option not supported\n"));
+    return ret;
 }

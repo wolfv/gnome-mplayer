@@ -85,7 +85,7 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
     state = QUIT;
     g_source_remove(watch_in_id);
     g_source_remove(watch_err_id);
-	g_cond_signal(mplayer_complete_cond);
+    g_cond_signal(mplayer_complete_cond);
     return FALSE;
 }
 
@@ -116,7 +116,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         g_source_remove(watch_in_id);
         g_source_remove(watch_in_hup_id);
         //g_mutex_unlock(thread_running);
-		g_cond_signal(mplayer_complete_cond);
+        g_cond_signal(mplayer_complete_cond);
         return FALSE;
     }
 
@@ -224,7 +224,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_source_remove(watch_err_id);
         g_source_remove(watch_in_hup_id);
         //g_mutex_unlock(thread_running);
-		g_cond_signal(mplayer_complete_cond);
+        g_cond_signal(mplayer_complete_cond);
         return FALSE;
     }
     mplayer_output = g_string_new("");
@@ -242,7 +242,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_idle_add(set_stop, idledata);
                 state = QUIT;
                 //g_mutex_unlock(thread_running);
-				g_cond_signal(mplayer_complete_cond);
+                g_cond_signal(mplayer_complete_cond);
                 g_error_free(error);
                 error = NULL;
                 return FALSE;
@@ -252,7 +252,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             g_idle_add(set_stop, idledata);
             state = QUIT;
             //g_mutex_unlock(thread_running);
-			g_cond_signal(mplayer_complete_cond);
+            g_cond_signal(mplayer_complete_cond);
             error = NULL;
             return FALSE;
         }
@@ -260,7 +260,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (strstr(mplayer_output->str, "ID_SIGNAL") != NULL) {
         //g_mutex_unlock(thread_running);
-		g_cond_signal(mplayer_complete_cond);
+        g_cond_signal(mplayer_complete_cond);
         g_string_free(mplayer_output, TRUE);
         state = QUIT;
         return FALSE;
@@ -284,7 +284,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_stop, idledata);
         g_string_free(mplayer_output, TRUE);
         //g_mutex_unlock(thread_running);
-		g_cond_signal(mplayer_complete_cond);	
+        g_cond_signal(mplayer_complete_cond);
         return FALSE;
     }
 
@@ -379,14 +379,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ANS_volume") != 0) {
         buf = strstr(mplayer_output->str, "ANS_volume");
         sscanf(buf, "ANS_volume=%i", &volume);
-		if (!idledata->mute) {
-			idledata->volume = volume;
-			idledata->mute = 0;
-			buf = g_strdup_printf(_("Volume %i%%"), volume);
-			g_strlcpy(idledata->vol_tooltip, buf, 128);
-			g_idle_add(set_volume_tip, idledata);
-			g_free(buf);
-		}
+        if (!idledata->mute) {
+            idledata->volume = volume;
+            idledata->mute = 0;
+            buf = g_strdup_printf(_("Volume %i%%"), volume);
+            g_strlcpy(idledata->vol_tooltip, buf, 128);
+            g_idle_add(set_volume_tip, idledata);
+            g_free(buf);
+        }
     }
 
     if (strstr(mplayer_output->str, "ANS_chapters") != 0) {
@@ -798,11 +798,11 @@ gpointer launch_player(gpointer data)
     if (softvol)
         argv[arg++] = g_strdup_printf("-softvol");
 
-	if (use_volume_option) {
-		argv[arg++] = g_strdup_printf("-volume");
-		argv[arg++] = g_strdup_printf("%i",(gint)idledata->volume);
-	}
-	
+    if (use_volume_option) {
+        argv[arg++] = g_strdup_printf("-volume");
+        argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
+    }
+
     if (mixer != NULL && strlen(mixer) > 0) {
         if (ao == NULL || (ao != NULL && g_ascii_strncasecmp(ao, "alsa", 4) == 0)) {
             argv[arg++] = g_strdup_printf("-mixer-channel");
@@ -953,16 +953,16 @@ gpointer launch_player(gpointer data)
     }
 
     /* 
-	   This is here in order to be able to switch the
-	   audio track in OGM files while playing, see
-	   http://lists.mplayerhq.hu/pipermail/mplayer-users/2007-February/065316.html 
-	*/
-	filename = g_utf8_strdown(threaddata->filename,-1);
-	if (strstr(filename,".ogm")) {
+       This is here in order to be able to switch the
+       audio track in OGM files while playing, see
+       http://lists.mplayerhq.hu/pipermail/mplayer-users/2007-February/065316.html 
+     */
+    filename = g_utf8_strdown(threaddata->filename, -1);
+    if (strstr(filename, ".ogm")) {
         argv[arg++] = g_strdup_printf("-demuxer");
         argv[arg++] = g_strdup_printf("lavf");
-	}		
-	g_free(filename);
+    }
+    g_free(filename);
 
 
 /*	This is needed when lavc is the default decoder, but mkv is the default as of 9/9/08
@@ -1053,7 +1053,7 @@ gpointer launch_player(gpointer data)
 #else
         g_timeout_add(1000, thread_query, threaddata);
 #endif
-		g_cond_wait(mplayer_complete_cond,thread_running);
+        g_cond_wait(mplayer_complete_cond, thread_running);
         if (verbose)
             printf("Thread completing\n");
         threaddata->done = TRUE;
@@ -1139,7 +1139,7 @@ gpointer launch_player(gpointer data)
                 } else {
                     idledata->fullscreen = 0;
                     g_idle_add(set_fullscreen, idledata);
-					g_idle_add(set_stop, idledata);
+                    g_idle_add(set_stop, idledata);
                 }
 
                 if (quit_on_complete) {
