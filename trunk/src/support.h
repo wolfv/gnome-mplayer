@@ -108,5 +108,6 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album);
 gpointer get_cover_art(gpointer data);
 
 gchar *gmp_tempname(gchar * path, const gchar * name_template);
+gboolean detect_volume_option();
 
 #endif                          // _SUPPORT_H

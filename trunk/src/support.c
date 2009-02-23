@@ -525,7 +525,11 @@ gint parse_cdda(gchar * filename)
         return 0;
     } else {
         playlist = 0;
-        av[ac++] = g_strdup_printf("mplayer");
+		if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+			av[ac++] = g_strdup_printf("mplayer");
+		} else {
+			av[ac++] = g_strdup_printf("%s", mplayer_bin);
+		}
         av[ac++] = g_strdup_printf("-vo");
         av[ac++] = g_strdup_printf("null");
         av[ac++] = g_strdup_printf("-ao");
@@ -682,7 +686,11 @@ gint parse_dvd(gchar * filename)
     if (g_strncasecmp(filename, "dvd://", strlen("dvd://")) == 0) {     // || g_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
         playlist = 0;
         // run mplayer and try to get the first frame and convert it to a jpeg
-        av[ac++] = g_strdup_printf("mplayer");
+		if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+			av[ac++] = g_strdup_printf("mplayer");
+		} else {
+			av[ac++] = g_strdup_printf("%s", mplayer_bin);
+		}
         av[ac++] = g_strdup_printf("-vo");
         av[ac++] = g_strdup_printf("null");
         av[ac++] = g_strdup_printf("-ao");
@@ -1062,7 +1070,11 @@ MetaData *get_metadata(gchar * uri)
 	if (verbose)
 		printf("getting file metadata for %s\n", name);
 
-    av[ac++] = g_strdup_printf("mplayer");
+    if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+        av[ac++] = g_strdup_printf("mplayer");
+    } else {
+        av[ac++] = g_strdup_printf("%s", mplayer_bin);
+    }
     av[ac++] = g_strdup_printf("-vo");
     av[ac++] = g_strdup_printf("null");
     av[ac++] = g_strdup_printf("-ao");
@@ -1256,7 +1268,11 @@ gint get_bitrate(gchar * name)
     if (!g_file_test(name, G_FILE_TEST_EXISTS))
         return 0;
 
-    av[ac++] = g_strdup_printf("mplayer");
+    if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+        av[ac++] = g_strdup_printf("mplayer");
+    } else {
+        av[ac++] = g_strdup_printf("%s", mplayer_bin);
+    }
     av[ac++] = g_strdup_printf("-vo");
     av[ac++] = g_strdup_printf("null");
     av[ac++] = g_strdup_printf("-ao");
@@ -2650,4 +2666,66 @@ gchar *gmp_tempname(gchar * path, const gchar * name_template)
     g_free(localpath);
 
     return result;
+}
+
+
+/* 
+	older mplayer binaries do not have the -volume option
+	So rather than handleing several hundred bug reports since
+	Ubuntu has some older mplayer binaries.
+	we'll try and detect if we can use it or not.
+*/
+gboolean detect_volume_option()
+{
+    gchar *av[255];
+    gint ac = 0, i;
+    gchar **output;
+    GError *error;
+    gint exit_status;
+    gchar *out = NULL;
+    gchar *err = NULL;
+	gboolean ret = TRUE;
+	
+    if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+        av[ac++] = g_strdup_printf("mplayer");
+    } else {
+        av[ac++] = g_strdup_printf("%s", mplayer_bin);
+    }
+    av[ac++] = g_strdup_printf("-volume");
+    av[ac++] = g_strdup_printf("100");
+    av[ac] = NULL;
+
+    error = NULL;
+
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
+
+    for (i = 0; i < ac; i++) {
+        g_free(av[i]);
+    }
+
+    if (error != NULL) {
+        printf("Error when running: %s\n", error->message);
+        g_error_free(error);
+        error = NULL;
+        if (out != NULL)
+            g_free(out);
+        if (err != NULL)
+            g_free(err);
+        return FALSE;
+    }
+    output = g_strsplit(err, "\n", 0);
+    ac = 0;
+    while (output[ac] != NULL) {
+		if (g_strncasecmp(output[ac],"Unknown option",strlen("Unknown option")) == 0) {
+			ret = FALSE;
+		}
+		ac++;
+	}
+	g_strfreev(output);
+	g_free(out);
+	g_free(err);
+	
+	if (!ret)
+		printf(_("You might want to consider upgrading mplayer to a newer version, -volume option not supported\n"));
+	return ret;
 }
