@@ -45,6 +45,8 @@ typedef struct _MetaData {
     gchar *video_codec;
     gchar *audio_bitrate;
     gchar *video_bitrate;
+	gchar *video_fps;
+	gchar *audio_nch;
     gchar *demuxer;
     gint width;
     gint height;
@@ -210,6 +212,16 @@ static MetaData *get_metadata(gchar *filename)
             ret->video_bitrate = g_strdup(ptr);
         }
 
+		if (strstr(output[ac], "ID_VIDEO_FPS") != NULL) {
+            ptr = strstr(output[ac], "=") + 1;
+            ret->video_fps = g_strdup(ptr);
+        }
+
+		if (strstr(output[ac], "ID_AUDIO_NCH") != NULL) {
+            ptr = strstr(output[ac], "=") + 1;
+            ret->audio_nch = g_strdup(ptr);
+        }
+		
         if (strstr(output[ac], "ID_DEMUXER") != NULL) {
             ptr = strstr(output[ac], "=") + 1;
             ret->demuxer = g_strdup(ptr);
@@ -361,6 +373,17 @@ static void get_properties(GtkWidget *page, gchar *uri)
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
             i++;	
 
+			label = gtk_label_new(_("Video Frame Rate:"));
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+            buf = g_strdup_printf("%i fps", (gint) (g_strtod(data->video_fps, NULL)));
+            label = gtk_label_new(buf);
+            g_free(buf);
+            gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+            gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+            i++;	
+
 		}
 		
 		if (data->audio_present) {
@@ -392,6 +415,19 @@ static void get_properties(GtkWidget *page, gchar *uri)
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
             i++;	
+
+			if (g_strtod(data->audio_nch, NULL) > 0) {
+				label = gtk_label_new(_("Audio Channels:"));
+				gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+				gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+				gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+				buf = g_strdup_printf("%i",(gint)g_strtod(data->audio_nch, NULL));
+				label = gtk_label_new(buf);
+				g_free(buf);
+				gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+				gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+				i++;	
+			}
 		}
 		
 		g_free(data->title);
@@ -403,6 +439,8 @@ static void get_properties(GtkWidget *page, gchar *uri)
 		g_free(data->video_codec);
 		g_free(data->audio_bitrate);
 		g_free(data->video_bitrate);
+		g_free(data->audio_nch);
+		g_free(data->video_fps);
 		g_free(data->demuxer);		
 		
 	}
