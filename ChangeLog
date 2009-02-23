@@ -1,4 +1,5 @@
 Development
+    Set right click menu preferences option to insensitve when fullscreen
     Fix volume setting
     Require mplayer to have the -volume command line option
     Update some labels on the config screen
