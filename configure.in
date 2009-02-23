@@ -14,7 +14,7 @@ AC_HEADER_STDC
 
 AC_PROG_CPP
 AC_PROG_CXX
-
+AC_PROG_LIBTOOL
 
 
 dnl Set gettext package name
@@ -125,6 +125,30 @@ AS_IF([test "x$with_libmusicbrainz3" != xno],
     AC_SUBST(MUSICBRAINZ_CFLAGS)
     AC_SUBST(MUSICBRAINZ_LIBS)
     ])    
+
+AC_ARG_ENABLE(nautilus,
+        AC_HELP_STRING([--enable-nautilus],[compile the nautilus plugin]),
+        [case "${enableval}" in
+        yes) ENABLE_NAUTILUS=yes ;;
+        no) ENABLE_NAUTILUS=no ;;
+        *) AC_MSG_ERROR(bad value ${enableval} for --enable-nautilus) ;;
+        esac],
+        [ENABLE_NAUTILUS=yes]) dnl Default value
+
+if test x$ENABLE_NAUTILUS = "xyes" ; then
+        PKG_CHECK_MODULES(NAUTILUS, libnautilus-extension,
+                        [HAVE_NAUTILUS=yes], [HAVE_NAUTILUS=no])
+fi
+
+AC_SUBST(NAUTILUS_CFLAGS)
+AC_SUBST(NAUTILUS_LIBS)
+if test x$HAVE_NAUTILUS = "xyes"; then
+        AC_DEFINE(HAVE_NAUTILUS, 1, [defined if you build the nautilus plugin])
+        NAUTILUSDIR=`pkg-config --variable=extensiondir libnautilus-extension`
+        AC_SUBST(NAUTILUSDIR)
+fi
+AM_CONDITIONAL(HAVE_NAUTILUS, test x$HAVE_NAUTILUS = "xyes")
+
     
 AC_CHECK_HEADERS([mntent.h])
 AC_OUTPUT([

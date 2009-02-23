@@ -61,6 +61,23 @@ gnome_mplayer_LDFLAGS =
 
 gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS) $(GPOD_LIBS) $(MUSICBRAINZ_LIBS)
 
+if HAVE_NAUTILUS
+
+nautilusdir = $(NAUTILUSDIR)
+nautilus_LTLIBRARIES = libgnome-mplayer-properties-page.la
+
+libgnome_mplayer_properties_page_la_SOURCES = \
+    config.h \
+    mime_types.h \
+    nautilus_property_page.c
+
+libgnome_mplayer_properties_page_la_CFLAGS = \
+    $(NAUTILUS_CFLAGS) \
+    $(AM_CFLAGS)
+    
+
+endif #HAVE_NAUTILUS
+
 EXTRA_DIST = 
 	
 indent:

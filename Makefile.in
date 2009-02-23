@@ -30,6 +30,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = @build@
+host_triplet = @host@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
@@ -91,6 +93,7 @@ ALSA_CFLAGS = @ALSA_CFLAGS@
 ALSA_DEFINES = @ALSA_DEFINES@
 ALSA_LIBS = @ALSA_LIBS@
 AMTAR = @AMTAR@
+AR = @AR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -103,6 +106,7 @@ CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
+CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
@@ -111,11 +115,15 @@ DBUS_CFLAGS = @DBUS_CFLAGS@
 DBUS_LIBS = @DBUS_LIBS@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DSYMUTIL = @DSYMUTIL@
+ECHO = @ECHO@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+F77 = @F77@
+FFLAGS = @FFLAGS@
 GCONF_CFLAGS = @GCONF_CFLAGS@
 GCONF_DEFINES = @GCONF_DEFINES@
 GCONF_LIBS = @GCONF_LIBS@
@@ -130,6 +138,10 @@ GLIB2_14_DEFINES = @GLIB2_14_DEFINES@
 GLIB2_14_LIBS = @GLIB2_14_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+GPOD06_CFLAGS = @GPOD06_CFLAGS@
+GPOD06_LIBS = @GPOD06_LIBS@
+GPOD07_CFLAGS = @GPOD07_CFLAGS@
+GPOD07_LIBS = @GPOD07_LIBS@
 GPOD_CFLAGS = @GPOD_CFLAGS@
 GPOD_DEFINES = @GPOD_DEFINES@
 GPOD_LIBS = @GPOD_LIBS@
@@ -149,6 +161,8 @@ INTLLIBS = @INTLLIBS@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBTOOL = @LIBTOOL@
+LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
@@ -159,6 +173,10 @@ MSGFMT_OPTS = @MSGFMT_OPTS@
 MUSICBRAINZ_CFLAGS = @MUSICBRAINZ_CFLAGS@
 MUSICBRAINZ_DEFINES = @MUSICBRAINZ_DEFINES@
 MUSICBRAINZ_LIBS = @MUSICBRAINZ_LIBS@
+NAUTILUSDIR = @NAUTILUSDIR@
+NAUTILUS_CFLAGS = @NAUTILUS_CFLAGS@
+NAUTILUS_LIBS = @NAUTILUS_LIBS@
+NMEDIT = @NMEDIT@
 NOTIFY_CFLAGS = @NOTIFY_CFLAGS@
 NOTIFY_DEFINES = @NOTIFY_DEFINES@
 NOTIFY_LIBS = @NOTIFY_LIBS@
@@ -175,6 +193,8 @@ POFILES = @POFILES@
 POSUB = @POSUB@
 PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
 PO_IN_DATADIR_TRUE = @PO_IN_DATADIR_TRUE@
+RANLIB = @RANLIB@
+SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
@@ -187,20 +207,29 @@ abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
+ac_ct_F77 = @ac_ct_F77@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
 bindir = @bindir@
+build = @build@
 build_alias = @build_alias@
+build_cpu = @build_cpu@
+build_os = @build_os@
+build_vendor = @build_vendor@
 builddir = @builddir@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+host = @host@
 host_alias = @host_alias@
+host_cpu = @host_cpu@
+host_os = @host_os@
+host_vendor = @host_vendor@
 htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
@@ -300,6 +329,15 @@ distclean-hdr:
 	-rm -f config.h stamp-h1
 gnome-mplayer.spec: $(top_builddir)/config.status $(srcdir)/gnome-mplayer.spec.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+	-rm -f libtool
 install-desktopDATA: $(desktop_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(desktopdir)" || $(MKDIR_P) "$(DESTDIR)$(desktopdir)"
@@ -684,12 +722,13 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic mostlyclean-am
+clean-am: clean-generic clean-libtool mostlyclean-am
 
 distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -f Makefile
-distclean-am: clean-am distclean-generic distclean-hdr distclean-tags
+distclean-am: clean-am distclean-generic distclean-hdr \
+	distclean-libtool distclean-tags
 
 dvi: dvi-recursive
 
@@ -730,7 +769,7 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-recursive
 
-mostlyclean-am: mostlyclean-generic
+mostlyclean-am: mostlyclean-generic mostlyclean-libtool
 
 pdf: pdf-recursive
 
@@ -748,22 +787,24 @@ uninstall-am: uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
 	all all-am am--refresh check check-am clean clean-generic \
-	ctags ctags-recursive dist dist-all dist-bzip2 dist-gzip \
-	dist-hook dist-lzma dist-shar dist-tarZ dist-zip distcheck \
-	distclean distclean-generic distclean-hdr distclean-tags \
-	distcleancheck distdir distuninstallcheck dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-data-hook install-desktopDATA \
-	install-dvi install-dvi-am install-exec install-exec-am \
+	clean-libtool ctags ctags-recursive dist dist-all dist-bzip2 \
+	dist-gzip dist-hook dist-lzma dist-shar dist-tarZ dist-zip \
+	distcheck distclean distclean-generic distclean-hdr \
+	distclean-libtool distclean-tags distcleancheck distdir \
+	distuninstallcheck dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am \
+	install-data-hook install-desktopDATA install-dvi \
+	install-dvi-am install-exec install-exec-am \
 	install-gnome_mplayerdocDATA install-html install-html-am \
 	install-iconDATA install-info install-info-am install-man \
 	install-pdf install-pdf-am install-ps install-ps-am \
 	install-schemaDATA install-strip installcheck installcheck-am \
 	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
-	uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
-	uninstall-iconDATA uninstall-schemaDATA
+	maintainer-clean-generic mostlyclean mostlyclean-generic \
+	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-recursive \
+	uninstall uninstall-am uninstall-desktopDATA \
+	uninstall-gnome_mplayerdocDATA uninstall-iconDATA \
+	uninstall-schemaDATA
 
 
 # Copy all the spec files. Of cource, only one is actually used.
