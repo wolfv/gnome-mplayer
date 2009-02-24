@@ -440,6 +440,7 @@ static gboolean get_properties(GtkWidget * page, gchar * uri)
         g_free(data->audio_nch);
         g_free(data->video_fps);
         g_free(data->demuxer);
+		g_free(data);
 		return TRUE;
     }
 	return FALSE;
