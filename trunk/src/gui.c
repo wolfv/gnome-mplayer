@@ -1287,7 +1287,12 @@ gboolean motion_notify_callback(GtkWidget * widget, GdkEventMotion * event, gpoi
 
     g_get_current_time(&currenttime);
     last_movement_time = currenttime.tv_sec;
-
+/*
+	if (verbose > 1) {
+		g_get_current_time(&currenttime);
+		printf("motion noticed at %li\n",currenttime.tv_sec);
+	}
+*/
     g_idle_add(make_panel_and_mouse_visible, NULL);
     return FALSE;
 }
@@ -2037,7 +2042,7 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     GdkCursor *cursor;
     GTimeVal currenttime;
 
-    if (fullscreen && auto_hide_timeout > 0) {
+    if (fullscreen && auto_hide_timeout > 0 && GTK_WIDGET_VISIBLE(controls_box)) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -auto_hide_timeout * G_USEC_PER_SEC);
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
@@ -2051,6 +2056,12 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
             gdk_pixmap_unref(cursor_source);
             gdk_window_set_cursor(window->window, cursor);
             gdk_cursor_unref(cursor);
+/*
+			if (verbose > 1) {
+				g_get_current_time(&currenttime);
+				printf("panel and mouse set invisible at %li\n",currenttime.tv_sec);
+			}
+*/
         }
 
     }
@@ -2059,13 +2070,21 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 
 gboolean make_panel_and_mouse_visible(gpointer data)
 {
-    if (fullscreen) {
+//	GTimeVal currenttime;
+	
+    if (fullscreen && !GTK_WIDGET_VISIBLE(controls_box)) {
 
         if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
             gtk_widget_set_size_request(controls_box, -1, -1);
             gtk_widget_show(controls_box);
         }
         gdk_window_set_cursor(window->window, NULL);
+/*
+		if (verbose > 1) {
+			g_get_current_time(&currenttime);
+			printf("panel and mouse set visible at %li\n",currenttime.tv_sec);
+		}
+*/
     }
 
     return FALSE;

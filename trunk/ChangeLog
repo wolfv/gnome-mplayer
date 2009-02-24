@@ -1,4 +1,5 @@
 Development
+    Optimize the menu slide away calls
     Updated Spanish translation by Surfaz Gemon Meme
     Add number of audio channels and video fps to property plugin
     Fix crasher if we can't open cover art file for writing
