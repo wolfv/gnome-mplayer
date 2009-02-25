@@ -1094,8 +1094,13 @@ MetaData *get_metadata(gchar * uri)
 
     error = NULL;
 
-    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
-
+	if (g_strncasecmp(name, "dvb://", strlen("dvb://")) == 0 || g_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
+		if (verbose)
+			printf("Skipping gathering metadata for TV channels\n");
+	} else {
+		g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
+	}
+	
     for (i = 0; i < ac; i++) {
         g_free(av[i]);
     }
@@ -1110,9 +1115,13 @@ MetaData *get_metadata(gchar * uri)
             g_free(err);
         return NULL;
     }
-    output = g_strsplit(out, "\n", 0);
+	if (out != NULL) {
+		output = g_strsplit(out, "\n", 0);
+	} else {
+		output = NULL;
+	}
     ac = 0;
-    while (output[ac] != NULL) {
+    while (output != NULL && output[ac] != NULL) {
         lower = g_ascii_strdown(output[ac], -1);
         if (strstr(output[ac], "_LENGTH") != NULL
             && (g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0
