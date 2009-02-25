@@ -4944,7 +4944,8 @@ void setup_accelerators()
 
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_showcontrols), accel_group, GDK_c, 0);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_controls), accel_group, GDK_c, 0);
-        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_angle), accel_group, GDK_a, 0);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_angle), accel_group, GDK_a, GDK_CONTROL_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_aspect), accel_group, GDK_a, 0);
 
     }
 
@@ -4987,7 +4988,7 @@ void setup_accelerators()
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls), "activate",
                                accel_group, GDK_c, 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_angle), "activate",
-                               accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
+                               accel_group, GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 }
 

@@ -1,4 +1,6 @@
 Development
+    Updated French translation from Starcrasher
+    Change hotkey for Angle from A to Ctrl-A, as conflicts with Aspect
     Optimize the menu slide away calls
     Updated Spanish translation by Surfaz Gemon Meme
     Add number of audio channels and video fps to property plugin
