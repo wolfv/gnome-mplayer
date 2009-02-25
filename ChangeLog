@@ -1,4 +1,5 @@
 Development
+    Speed up channel loading
     Updated French translation from Starcrasher
     Change hotkey for Angle from A to Ctrl-A, as conflicts with Aspect
     Optimize the menu slide away calls
