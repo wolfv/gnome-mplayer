@@ -440,10 +440,10 @@ static gboolean get_properties(GtkWidget * page, gchar * uri)
         g_free(data->audio_nch);
         g_free(data->video_fps);
         g_free(data->demuxer);
-		g_free(data);
-		return TRUE;
+        g_free(data);
+        return TRUE;
     }
-	return FALSE;
+    return FALSE;
 }
 
 static GList *gnome_mplayer_properties_get_pages(NautilusPropertyPageProvider * provider,
@@ -477,10 +477,10 @@ static GList *gnome_mplayer_properties_get_pages(NautilusPropertyPageProvider * 
         page = gtk_table_new(20, 2, FALSE);
         gtk_container_set_border_width(GTK_CONTAINER(page), 6);
         if (get_properties(page, uri)) {
-			gtk_widget_show_all(page);
-			property_page = nautilus_property_page_new("video-properties", label, page);
-			pages = g_list_prepend(pages, property_page);
-		}
+            gtk_widget_show_all(page);
+            property_page = nautilus_property_page_new("video-properties", label, page);
+            pages = g_list_prepend(pages, property_page);
+        }
         g_free(uri);
     }
     return pages;
