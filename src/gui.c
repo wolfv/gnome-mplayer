@@ -2070,8 +2070,8 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 
 gboolean make_panel_and_mouse_visible(gpointer data)
 {
-//	GTimeVal currenttime;
-	
+//      GTimeVal currenttime;
+
     if (fullscreen && !GTK_WIDGET_VISIBLE(controls_box)) {
 
         if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
@@ -4944,7 +4944,8 @@ void setup_accelerators()
 
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_showcontrols), accel_group, GDK_c, 0);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_controls), accel_group, GDK_c, 0);
-        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_angle), accel_group, GDK_a, GDK_CONTROL_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_angle), accel_group, GDK_a,
+                                      GDK_CONTROL_MASK);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_aspect), accel_group, GDK_a, 0);
 
     }
