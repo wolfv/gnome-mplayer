@@ -1,4 +1,5 @@
 Development
+    Removed Roberto's translation due to personality conflicts, reverting
     New Spanish translation from Roberto DMD
     Added Polish translation to the .desktop file
     Speed up channel loading
