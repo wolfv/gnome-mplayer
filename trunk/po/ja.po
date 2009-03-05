@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-23 13:22-0700\n"
-"PO-Revision-Date: 2009-02-07 17:43+0900\n"
+"PO-Revision-Date: 2009-03-06 04:20+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgstr "ミキサーを使う"
 
 #: src/main.c:63
 msgid "Set initial volume percentage"
-msgstr "初期のボリュームパーセントをセットする"
+msgstr "初期のボリュームパーセントを設定する"
 
 #: src/main.c:64
 msgid "Show the controls in window"
@@ -87,8 +87,7 @@ msgstr "常にプレイリストのファイルを再生する"
 
 #: src/main.c:76
 msgid "Quit application when last file on playlist is played"
-msgstr ""
-"プレイリストの最後のファイルが再生し終わったときにアプリケーションを終了する"
+msgstr "プレイリストの最後のファイルが再生し終わったときにアプリケーションを終了する"
 
 #: src/main.c:77
 msgid "Play items on playlist in random order"
@@ -96,7 +95,7 @@ msgstr "ランダムにプレイリストの項目を再生する"
 
 #: src/main.c:79
 msgid "Set cache size"
-msgstr "キャッシュサイズをセットする"
+msgstr "キャッシュサイズを設定する"
 
 #: src/main.c:81
 msgid "Force cache usage on streaming sites"
@@ -112,7 +111,7 @@ msgstr "良い同期を保つためにフレーム描画をスキップしない
 
 #: src/main.c:90
 msgid "Use the old subtitle rendering system"
-msgstr ""
+msgstr "古いサブタイトルレンダリングシステムを使う"
 
 #: src/main.c:93
 msgid "Don't use fonts embedded on matroska files"
@@ -132,47 +131,47 @@ msgstr "詳細を表示して開始する"
 
 #: src/main.c:101
 msgid "Real Player Name"
-msgstr ""
+msgstr "Real Player 名"
 
 #: src/main.c:102
 msgid "Real Player Console ID"
-msgstr ""
+msgstr "Real Player コンソールID"
 
 #: src/main.c:103
 msgid "Real Player Console Controls"
-msgstr ""
+msgstr "Real Player コンソール操作"
 
 #: src/main.c:105
 msgid "Subtitle file for first media file"
-msgstr ""
+msgstr "初めのメディアファイルに対するサブタイトルファイル"
 
 #: src/main.c:107
 msgid "TV device name"
-msgstr ""
+msgstr "TVデバイス名"
 
 #: src/main.c:108
 msgid "TV driver name (v4l|v4l2)"
-msgstr ""
+msgstr "TVドライバ名 (v4l|v4l2)"
 
 #: src/main.c:109
 msgid "TV input name"
-msgstr ""
+msgstr "TV入力名"
 
 #: src/main.c:110
 msgid "Width of TV input"
-msgstr ""
+msgstr "TV入力の幅"
 
 #: src/main.c:111
 msgid "Height of TV input"
-msgstr ""
+msgstr "TV入力の高さ"
 
 #: src/main.c:112
 msgid "Frames per second from TV input"
-msgstr ""
+msgstr "TV入力からの秒単位フレーム"
 
 #: src/main.c:113
 msgid "Only allow one instance"
-msgstr ""
+msgstr "1つのインスタンスのみを許可する"
 
 #: src/main.c:116
 msgid "Put single instance mode into replace and play mode"
@@ -180,11 +179,11 @@ msgstr ""
 
 #: src/main.c:119
 msgid "Ignore single instance preference for this instance"
-msgstr ""
+msgstr "このインスタンスに対して単一インスタンスの選択を無視する"
 
 #: src/main.c:122
 msgid "Keep window on top"
-msgstr ""
+msgstr "ウィンドウを最前面に保つ"
 
 #: src/main.c:126
 msgid "Load all tracks from media player using gpod"
@@ -196,7 +195,7 @@ msgstr "新しいカラーアートイメージを取ってこない"
 
 #: src/main.c:638
 msgid "[FILES...] - GNOME Media player based on MPlayer"
-msgstr "[FILES...] - GNOME Media player based on MPlayer"
+msgstr ""
 
 #: src/main.c:658
 #, c-format
@@ -229,7 +228,7 @@ msgstr "GNOME MPlayer"
 
 #: src/gui.c:257
 msgid "Media Change"
-msgstr ""
+msgstr "メディア変更"
 
 #: src/gui.c:319
 #, c-format
@@ -264,12 +263,12 @@ msgid "Adding %s to playlist"
 msgstr "%s をプレイリストに追加しています"
 
 #: src/gui.c:691
-#, fuzzy, c-format
+#, c-format
 msgid "Playing %s"
 msgstr "%s を再生しています"
 
 #: src/gui.c:693
-#, fuzzy, c-format
+#, c-format
 msgid "Paused %s"
 msgstr "%s を一時停止しています"
 
@@ -362,7 +361,7 @@ msgstr ""
 
 #: src/gui.c:2977 src/playlist.c:135
 msgid "Set Subtitle"
-msgstr "サブタイトルをセット"
+msgstr "サブタイトルを設定する"
 
 #: src/gui.c:3466 src/nautilus_property_page.c:312
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -417,7 +416,6 @@ msgid "Video Picture Adjustments"
 msgstr "ビデオ画像の調整"
 
 #: src/gui.c:3677
-#, fuzzy
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">ビデオ画像の調整</span>"
 
@@ -494,7 +492,6 @@ msgid "Interface"
 msgstr "インターフェース"
 
 #: src/gui.c:3965
-#, fuzzy
 msgid "MPlayer"
 msgstr "MPlayer"
 
@@ -524,7 +521,7 @@ msgstr ""
 "MPlayer オーディオの出力デバイス\n"
 "alsa または oss は大抵動作するはずです。\n"
 "GNOME では esd，KDE では arts，\n"
-"最近のディストリビューションでは puse を試して下さい。"
+"最近のディストリビューションでは pulse を試して下さい。"
 
 #: src/gui.c:4167
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -583,6 +580,14 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
+"<span weight=\"bold\">プラグインエミュレーション設定の調整</span>\n"
+"\n"
+"これらのオプションは、gecko-mediaplayer プラグインをインストールしていたら、\n"
+"それに影響を及ぼします。\n"
+"gecko-mediaplayer は Firefox プラグインのうちの 1 つで、\n"
+"いろいろなメディアプレイヤーをエミュレートするでしょうし、\n"
+"NPRuntime 互換ブラウザ（Firefox, Konqueror など）の中で\n"
+"いろいろなウェブコンテンツの再生を許可するでしょう。"
 
 #: src/gui.c:4311
 msgid "QuickTime Emulation"
@@ -704,7 +709,7 @@ msgstr "詳細なデバッグを有効にする"
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
-msgstr ""
+msgstr "このオプションを設定すると、追加のデバッグ情報が端末あるいは ~/.xsession-errors へ送られます。"
 
 #: src/gui.c:4574
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
@@ -718,7 +723,7 @@ msgstr "MPlayer のソフトウェアボリュームコントロールを有効�
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
-msgstr ""
+msgstr "Gnome MPlayer でのボリュームを調整することによって，マスターボリュームを変更したいのならば、このオプションを設定して下さい。"
 
 #: src/gui.c:4591
 msgid "De_interlace Video"
@@ -726,7 +731,7 @@ msgstr "非インタレースビデオ(_i)"
 
 #: src/gui.c:4593
 msgid "Set this option if video looks striped"
-msgstr ""
+msgstr "ビデオが縞模様に見えるならば、このオプションを設定して下さい。"
 
 #: src/gui.c:4599
 msgid "_Drop frames"
@@ -734,7 +739,7 @@ msgstr "フレームを落す(_D)"
 
 #: src/gui.c:4602
 msgid "Set this option if video is well behind the audio"
-msgstr ""
+msgstr "ビデオがオーディオよりも遅れているのであれば、このオプションを設定して下さい。"
 
 #: src/gui.c:4608
 msgid "Force the use of cache setting on streaming media"
@@ -747,9 +752,7 @@ msgstr "MPlayer の実行:"
 #: src/gui.c:4618
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
-msgstr ""
-"パスを含まない MPlayer アプリケーションに指定するためにこのオプションを使いま"
-"す。"
+msgstr "パスを含まない MPlayer アプリケーションに指定するためにこのオプションを使います。"
 
 #: src/gui.c:4629
 msgid "Extra Options to MPlayer:"
@@ -864,7 +867,7 @@ msgstr "オーディオ言語を選択する(_A)"
 
 #: src/gui.c:5268
 msgid "Set Sub_title"
-msgstr "サブタイトルをセットする(_t)"
+msgstr "サブタイトルを設定する(_t)"
 
 #: src/gui.c:5272
 msgid "S_elect Subtitle Language"
@@ -994,21 +997,21 @@ msgid "Unable to save playlist, cannot open file for writing"
 msgstr "プレイリストを保存できず，書き込みファイルを開けません"
 
 #: src/support.c:1951 src/nautilus_property_page.c:81
-#, fuzzy, c-format
+#, c-format
 msgid "%2i:%02.0f"
-msgstr "%2i:%02i"
+msgstr "%2i:%02.0f"
 
 #: src/support.c:1953 src/nautilus_property_page.c:83
-#, fuzzy, c-format
+#, c-format
 msgid "%i:%02i:%02.0f"
-msgstr "%i:%02i:%02i"
+msgstr "%i:%02i:%02.0f"
 
 #: src/support.c:2729
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
-msgstr ""
+msgstr "MPlayer をアップグレードするのを検討された方が良いかもしれません。-volume オプションがサポートされていません。\n"
 
 #: src/thread.c:146
 #, c-format
@@ -1144,26 +1147,23 @@ msgstr "項目を下に移動する"
 
 #: src/playlist.c:1042
 msgid "_Set Subtitle"
-msgstr "サブタイトルをセットする(_S)"
+msgstr "サブタイトルを設定する(_S)"
 
 #: src/nautilus_property_page.c:244
-#, fuzzy
 msgid "<span weight=\"bold\">Media Details</span>"
-msgstr "<span weight=\"bold\">オーディオ声の詳細</span>"
+msgstr "<span weight=\"bold\">メディアの詳細</span>"
 
 #: src/nautilus_property_page.c:252
-#, fuzzy
 msgid "Title"
-msgstr "時間"
+msgstr "タイトル"
 
 #: src/nautilus_property_page.c:300
 msgid "Demuxer"
-msgstr ""
+msgstr "デマルチプレクサ"
 
 #: src/nautilus_property_page.c:401
-#, fuzzy
 msgid "Audio/Video"
-msgstr "コーデック:"
+msgstr "オーディオ/ビデオ"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">プラグインエミュレーション設定の調整</span>"
@@ -1174,7 +1174,6 @@ msgstr "コーデック:"
 #~ msgid "<span weight=\"bold\">Adjust Video Settings</span>"
 #~ msgstr "<span weight=\"bold\">Adjust Video Settings</span>"
 
-#, fuzzy
 #~ msgid "Advanced _Options"
 #~ msgstr "Advanced Video Controls"
 
