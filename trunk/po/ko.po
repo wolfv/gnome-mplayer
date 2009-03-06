@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-23 13:22-0700\n"
-"PO-Revision-Date: 2009-01-29 12:30+0900\n"
+"PO-Revision-Date: 2009-03-06 10:10+0900\n"
 "Last-Translator: ByeongSik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -307,7 +307,7 @@ msgstr "주소:"
 
 #: src/gui.c:2261 src/gui.c:2352
 msgid "Choose Disk Directory"
-msgstr "디스크 디렉토리 선택"
+msgstr "디스크 디렉터리 선택"
 
 #: src/gui.c:2298 src/gui.c:2390
 msgid "Choose Disk Image"
@@ -363,7 +363,7 @@ msgstr "자막 지정"
 
 #: src/gui.c:3466 src/nautilus_property_page.c:312
 msgid "<span weight=\"bold\">Video Details</span>"
-msgstr "<span weight=\"bold\">비디오 재생 정보</span>"
+msgstr "<span weight=\"bold\">비디오 상세 정보</span>"
 
 #: src/gui.c:3473 src/nautilus_property_page.c:319
 msgid "Video Size:"
@@ -391,7 +391,7 @@ msgstr "비디오 챕터:"
 
 #: src/gui.c:3548 src/nautilus_property_page.c:343
 msgid "<span weight=\"bold\">Audio Details</span>"
-msgstr "<span weight=\"bold\">오디오 재생 정보</span>"
+msgstr "<span weight=\"bold\">오디오 상세 정보</span>"
 
 #: src/gui.c:3555 src/nautilus_property_page.c:350
 msgid "Audio Codec:"
@@ -577,6 +577,12 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
+"<span weight=\"bold\">플러그인 에뮬레이션 설정</span>\n"
+"\n"
+"이 옵션은 gecko-mediaplayer 플러그인이 설치되어 있을 때 효과가 있습니다.\n"
+"Getko-mediaplayer는 NPRuntime 호환 브라우저(파이어폭스, 컨커러 등)에서\n"
+"다양한 웹 컨텐츠를 재생하는 파이어폭스 플러그인입니다. 이 플러그인은\n"
+"또한 여러 미디어 플레이어 플러그인을 에뮬레이션할 수 있습니다."
 
 #: src/gui.c:4311
 msgid "QuickTime Emulation"
@@ -872,7 +878,7 @@ msgstr "스크린샷 찍기(_T)"
 
 #: src/gui.c:5283
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
-msgstr "작업 디렉토리 안에 'shotNNNN.png' 형태의 파일로 저장합니다."
+msgstr "작업 디렉터리 안에 'shotNNNN.png' 형태의 파일로 저장합니다."
 
 #. View Menu
 #: src/gui.c:5308
@@ -1005,6 +1011,8 @@ msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
 msgstr ""
+"설치된 mplayer가 -volume옵션을 지원하지 않습니다. 새로운 버전으로 업그레이드"
+"를 고려해 보시기 바랍니다.\n"
 
 #: src/thread.c:146
 #, c-format
@@ -1075,7 +1083,7 @@ msgstr "참조 재생 목록 파일 (*.ref)"
 
 #: src/playlist.c:523
 msgid "Choose Directory"
-msgstr "디렉토리 선택"
+msgstr "디렉터리 선택"
 
 #: src/playlist.c:561
 #, c-format
@@ -1120,7 +1128,7 @@ msgstr "재생 목록에 항목 추가"
 
 #: src/playlist.c:955
 msgid "Remove Item from Playlist"
-msgstr "재생 목록에서 항목 지우기"
+msgstr "재생 목록에서 항목 제거"
 
 #: src/playlist.c:964
 msgid "Add Items in Folder to Playlist"
@@ -1143,23 +1151,17 @@ msgid "_Set Subtitle"
 msgstr "자막 지정(_S)"
 
 #: src/nautilus_property_page.c:244
-#, fuzzy
 msgid "<span weight=\"bold\">Media Details</span>"
-msgstr "<span weight=\"bold\">오디오 재생 정보</span>"
+msgstr "<span weight=\"bold\">미디어 상세 정보</span>"
 
 #: src/nautilus_property_page.c:252
-#, fuzzy
 msgid "Title"
-msgstr "현재시간"
+msgstr "제목"
 
 #: src/nautilus_property_page.c:300
 msgid "Demuxer"
-msgstr ""
+msgstr "Demuxer"
 
 #: src/nautilus_property_page.c:401
-#, fuzzy
 msgid "Audio/Video"
-msgstr "오디오 코덱:"
-
-#~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
-#~ msgstr "<span weight=\"bold\">플러그인 흉내내기 설정 조정</span>"
+msgstr "오디오/비디오"
