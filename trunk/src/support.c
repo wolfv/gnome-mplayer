@@ -946,6 +946,12 @@ gboolean streaming_media(gchar * uri)
         ret = FALSE;
     } else if (g_ascii_strncasecmp(uri, "http://", strlen("http://")) == 0) {
         ret = TRUE;
+    } else if (g_ascii_strncasecmp(uri, "mmst://", strlen("mmst://")) == 0) {
+        ret = TRUE;
+    } else if (g_ascii_strncasecmp(uri, "mms://", strlen("mms://")) == 0) {
+        ret = TRUE;
+    } else if (g_ascii_strncasecmp(uri, "mmshttp://", strlen("mmshttp://")) == 0) {
+        ret = TRUE;
     } else {
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
