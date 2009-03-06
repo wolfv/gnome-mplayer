@@ -1,6 +1,6 @@
 # translation of tr.po to Turkish
 # İnanç Yıldırgan <inancyildirgan@gmail.com>, 2008.
-# Onur Küçük <onur@pardus.org.tr>, 2008.
+# Onur Küçük <onur@pardus.org.tr>, 2008, 2009.
 # Turkish translation of GNOME MPlayer.
 # This file is distributed under the same license as the gnome-mplayer package.
 # Copyright (C) Kevin DeKorte 2006-2008 <kdekorte@gmail.com>
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-23 13:22-0700\n"
-"PO-Revision-Date: 2008-12-20 17:49+0200\n"
+"PO-Revision-Date: 2009-03-06 15:14+0200\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgstr "Pencerede ayarları göster"
 
 #: src/main.c:66
 msgid "Show the subtitles if available"
-msgstr ""
+msgstr "Varsa altyazıları göster"
 
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -571,7 +571,7 @@ msgstr "OSD Seviyesi:"
 
 #: src/gui.c:4284
 msgid "Post-processing level:"
-msgstr "Ön-işleme seviyesi:"
+msgstr "Önişleme seviyesi:"
 
 #: src/gui.c:4299
 msgid ""
@@ -582,6 +582,12 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
+"<span weight=\"bold\">Eklenti Taklidi Ayarlarını Değiştir</span>\n"
+"\n"
+"Bu ayarlar yüklü olduğunda gecko-mediaplayer için kullanılır.\n"
+"Gecko-mediaplayer, NPRuntime uyumlu tarayıcılarda (Firefox,\n"
+"Konqueror vs.) çeşitli medya oynatıcıları taklit ederek çeşitli web\n"
+"içeriğini oynatabilen bir Firefox eklentisidir."
 
 #: src/gui.c:4311
 msgid "QuickTime Emulation"
@@ -748,8 +754,7 @@ msgid "MPlayer Executable:"
 msgstr "MPlayer Çalıştırılabilir Dosyası:"
 
 #: src/gui.c:4618
-msgid ""
-"Use this option to specify a mplayer application that is not in the path"
+msgid "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Hızlı erişim yolunda (PATH) olmayan bir mplayer uygulamasını çalıştırmak "
 "için bu seçeneği kullanın"
@@ -879,8 +884,7 @@ msgstr "_Ekran Görüntüsü Yakala"
 
 #: src/gui.c:5283
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
-msgstr ""
-"Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
+msgstr "Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
 
 #. View Menu
 #: src/gui.c:5308
@@ -1013,6 +1017,8 @@ msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
 msgstr ""
+"MPlayer sürümünüzde \"-volume\" parametresi desteklenmiyor, daha güncel "
+"bir sürüme geçmenizi tavsiye ederiz\n"
 
 #: src/thread.c:146
 #, c-format
@@ -1026,7 +1032,7 @@ msgstr "Altyazı yüklenemedi: %s"
 
 #: src/thread.c:170
 msgid "Delaying start until cache is full"
-msgstr ""
+msgstr "Önbellek dolana kadar başlatma bekletiliyor"
 
 #: src/thread.c:175
 #, c-format
@@ -1151,23 +1157,18 @@ msgid "_Set Subtitle"
 msgstr "_Altyazı Ayarla"
 
 #: src/nautilus_property_page.c:244
-#, fuzzy
 msgid "<span weight=\"bold\">Media Details</span>"
-msgstr "<span weight=\"bold\">Ses Detayları</span>"
+msgstr "<span weight=\"bold\">Medya Detayları</span>"
 
 #: src/nautilus_property_page.c:252
-#, fuzzy
 msgid "Title"
-msgstr "Zamanlayıcı"
+msgstr "Başlık"
 
 #: src/nautilus_property_page.c:300
 msgid "Demuxer"
-msgstr ""
+msgstr "Biçim çözücü"
 
 #: src/nautilus_property_page.c:401
-#, fuzzy
 msgid "Audio/Video"
-msgstr "Ses:"
+msgstr "Ses/Görüntü:"
 
-#~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
-#~ msgstr "<span weight=\"bold\">Eklenti Taklidi Ayarlarını Değiştir</span>"

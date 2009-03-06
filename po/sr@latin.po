@@ -1,9 +1,9 @@
 # Serbian translation of GNOME Mplayer.
 # Copyright (C) Prevod.org team (http://prevod.org)
 # This file is distributed under the same license as the gnome-mplayer package.
-#
+# 
 # Miloš Popović <gpopac@gmail.com>, 2008-2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
@@ -68,7 +68,7 @@ msgstr "Prikaži kontrole u prozoru"
 
 #: src/main.c:66
 msgid "Show the subtitles if available"
-msgstr "Prikaži titlove ukoliko si dostupni"
+msgstr "Prikaži titlove ukoliko su dostupni"
 
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -80,7 +80,7 @@ msgstr "Onemogućava meni desnog tastera"
 
 #: src/main.c:73
 msgid "Disable fullscreen options in browser mode"
-msgstr "Onemofući prikaz preko celog ekrana u Internet pregledniku"
+msgstr "Onemogućava prikaz preko celog ekrana u Internet pregledniku"
 
 #: src/main.c:74
 msgid "Play all files on the playlist forever"
@@ -597,6 +597,12 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
+"<span weight=\"bold\">Podešavanje emulacije dodataka</span>\n"
+"\n"
+"Ove opcije utiču na dodatak gekov-modijaplejer ukoliko je instaliran.\n"
+"Gekov-medijaplejer je dodatak za Fajerfoks koji emulira razne multi-\n"
+"medijalne programe i dozvoljava puštanje raznih sadržaja na vebu preko \n"
+"veb preglednika sa NPRuntime mogućnostima (Fajerfoks, Konkveror,...)."
 
 #: src/gui.c:4311
 msgid "QuickTime Emulation"
@@ -735,8 +741,8 @@ msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
-"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu "
-"zvuka na glavnom kanalu miksera"
+"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu zvuka "
+"na glavnom kanalu miksera"
 
 #: src/gui.c:4591
 msgid "De_interlace Video"
@@ -1029,6 +1035,7 @@ msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
 msgstr ""
+"Možda želite da ažurirate MPlejer, jer opcija „-volume“ nije podržana\n"
 
 #: src/thread.c:146
 #, c-format
@@ -1171,23 +1178,20 @@ msgid "_Set Subtitle"
 msgstr "Postavi _titl"
 
 #: src/nautilus_property_page.c:244
-#, fuzzy
 msgid "<span weight=\"bold\">Media Details</span>"
-msgstr "<span weight=\"bold\">Podaci o zvuku</span>"
+msgstr "<span weight=\"bold\">Multimedijalni podaci</span>"
 
 #: src/nautilus_property_page.c:252
-#, fuzzy
 msgid "Title"
-msgstr "Proteklo vreme"
+msgstr "Naslov"
 
 #: src/nautilus_property_page.c:300
 msgid "Demuxer"
-msgstr ""
+msgstr "Demukser"
 
 #: src/nautilus_property_page.c:401
-#, fuzzy
 msgid "Audio/Video"
-msgstr "Zvučni kodek:"
+msgstr "Zvuk/Video"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">Postavke dodatka za emulaciju</span>"

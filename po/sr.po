@@ -1,9 +1,9 @@
 # Serbian translation of GNOME Mplayer.
 # Copyright (C) Prevod.org team (http://prevod.org)
 # This file is distributed under the same license as the gnome-mplayer package.
-#
+# 
 # Милош Поповић <gpopac@gmail.com>, 2008-2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
@@ -68,7 +68,7 @@ msgstr "Прикажи контроле у прозору"
 
 #: src/main.c:66
 msgid "Show the subtitles if available"
-msgstr "Прикажи титлове уколико си доступни"
+msgstr "Прикажи титлове уколико су доступни"
 
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -80,7 +80,7 @@ msgstr "Онемогућава мени десног тастера"
 
 #: src/main.c:73
 msgid "Disable fullscreen options in browser mode"
-msgstr "Онемофући приказ преко целог екрана у Интернет прегледнику"
+msgstr "Онемогућава приказ преко целог екрана у Интернет прегледнику"
 
 #: src/main.c:74
 msgid "Play all files on the playlist forever"
@@ -597,6 +597,12 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
+"<span weight=\"bold\">Подешавање емулације додатака</span>\n"
+"\n"
+"Ове опције утичу на додатак геков-модијаплејер уколико је инсталиран.\n"
+"Геков-медијаплејер је додатак за Фајерфокс који емулира разне мулти-\n"
+"медијалне програме и дозвољава пуштање разних садржаја на вебу преко \n"
+"веб прегледника са NPRuntime могућностима (Фајерфокс, Конкверор,...)."
 
 #: src/gui.c:4311
 msgid "QuickTime Emulation"
@@ -1029,6 +1035,7 @@ msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
 msgstr ""
+"Можда желите да ажурирате МПлејер, јер опција „-volume“ није подржана\n"
 
 #: src/thread.c:146
 #, c-format
@@ -1171,23 +1178,20 @@ msgid "_Set Subtitle"
 msgstr "Постави _титл"
 
 #: src/nautilus_property_page.c:244
-#, fuzzy
 msgid "<span weight=\"bold\">Media Details</span>"
-msgstr "<span weight=\"bold\">Подаци о звуку</span>"
+msgstr "<span weight=\"bold\">Мултимедијални подаци</span>"
 
 #: src/nautilus_property_page.c:252
-#, fuzzy
 msgid "Title"
-msgstr "Протекло време"
+msgstr "Наслов"
 
 #: src/nautilus_property_page.c:300
 msgid "Demuxer"
-msgstr ""
+msgstr "Демуксер"
 
 #: src/nautilus_property_page.c:401
-#, fuzzy
 msgid "Audio/Video"
-msgstr "Звучни кодек:"
+msgstr "Звук/Видео"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">Поставке додатка за емулацију</span>"
