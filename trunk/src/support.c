@@ -1422,36 +1422,38 @@ gint get_bitrate(gchar * name)
 }
 
 
-gboolean add_item_to_playlist(gchar * uri, gint playlist)
+gboolean add_item_to_playlist(const gchar * uri, gint playlist)
 {
     GtkTreeIter localiter;
+	gchar *local_uri;
     gchar *unescaped = NULL;
     MetaData *data = NULL;
 
     if (verbose)
         printf("adding %s to playlist\n", uri);
-    if (!device_name(uri) && !streaming_media(uri)) {
+	local_uri = strdup(uri);
+    if (!device_name(local_uri) && !streaming_media(local_uri)) {
         if (playlist) {
             data = (MetaData *) g_new0(MetaData, 1);
             data->title = g_strdup_printf("%s", uri);
         } else {
-            data = get_metadata(uri);
+            data = get_metadata(local_uri);
         }
     } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
         data = (MetaData *) g_new0(MetaData, 1);
         data->title = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
-    } else if (device_name(uri)) {
+    } else if (device_name(local_uri)) {
         if (g_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
             loop = 1;
         }
-        data = get_metadata(uri);
+        data = get_metadata(local_uri);
 
     } else {
 
         if (g_str_has_prefix(uri, "http://")) {
-            unescaped = g_strdup_printf("mms%s", uri);
-            //g_free(uri);
-            uri = g_strdup(unescaped);
+            unescaped = g_strdup_printf("mms%s", local_uri);
+            g_free(local_uri);
+            local_uri = g_strdup(unescaped);
             g_free(unescaped);
         }
 #ifdef GIO_ENABLED
@@ -1466,7 +1468,7 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
 
     if (data) {
         gtk_list_store_append(playliststore, &localiter);
-        gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, uri,
+        gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, local_uri,
                            DESCRIPTION_COLUMN, data->title,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
@@ -1482,7 +1484,7 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
 
 
         gtk_list_store_append(nonrandomplayliststore, &localiter);
-        gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, uri,
+        gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, local_uri,
                            DESCRIPTION_COLUMN, data->title,
                            COUNT_COLUMN, 0,
                            PLAYLIST_COLUMN, playlist,
@@ -1496,7 +1498,7 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
                            LENGTH_VALUE_COLUMN, data->length_value,
                            VIDEO_WIDTH_COLUMN, data->width, VIDEO_HEIGHT_COLUMN, data->height, -1);
 
-        set_item_add_info(uri);
+        set_item_add_info(local_uri);
         g_free(data->demuxer);
         g_free(data->title);
         g_free(data->artist);
@@ -1506,8 +1508,10 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
         g_free(data->audio_codec);
         g_free(data->video_codec);
         g_free(data);
+		g_free(local_uri);
         return TRUE;
     } else {
+		g_free(local_uri);
         return FALSE;
     }
 
