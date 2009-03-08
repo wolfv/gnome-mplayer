@@ -1447,12 +1447,14 @@ gboolean add_item_to_playlist(gchar * uri, gint playlist)
         data = get_metadata(uri);
 
     } else {
-		if (g_str_has_prefix(uri,"http://")) {
+/*
+		 if (g_str_has_prefix(uri,"http://")) {
 			unescaped = g_strdup_printf("mms%s",uri);
 			//g_free(uri);
 			uri = g_strdup(unescaped);
 			g_free(unescaped);
 		}
+*/
 #ifdef GIO_ENABLED
         unescaped = g_uri_unescape_string(uri, NULL);
 #else
