@@ -1463,13 +1463,13 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 send_command("dvdnav 6\n", FALSE);
             }
             return FALSE;
-		case GDK_less:
-			prev_callback(NULL,NULL,NULL);
-			return FALSE;
-		case GDK_greater:
-			next_callback(NULL,NULL,NULL);
-			return FALSE;
-		case GDK_space:
+        case GDK_less:
+            prev_callback(NULL, NULL, NULL);
+            return FALSE;
+        case GDK_greater:
+            next_callback(NULL, NULL, NULL);
+            return FALSE;
+        case GDK_space:
         case GDK_p:
             return play_callback(NULL, NULL, NULL);
             break;
