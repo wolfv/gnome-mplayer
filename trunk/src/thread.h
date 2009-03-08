@@ -28,7 +28,7 @@
 #include <unistd.h>
 
 typedef struct _PlayData {
-    gchar filename[4096];
+    gchar uri[4096];
     gint playlist;
 } PlayData;
 

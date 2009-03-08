@@ -71,7 +71,7 @@ gboolean play(void *data)
 
     if (ok_to_play && p != NULL) {
         gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN,
-                           p->filename);
+                           p->uri);
         play_iter(&iter);
     }
     g_free(p);
@@ -1110,7 +1110,6 @@ gpointer launch_player(gpointer data)
         g_mutex_unlock(thread_running);
         if (idledata->cachepercent < 0 && g_str_has_prefix(threaddata->filename, "mmshttp")) {
             dontplaynext = TRUE;
-            printf("try again with http\n");
             playback_error = ERROR_RETRY_WITH_HTTP;
         }
 
@@ -1122,7 +1121,7 @@ gpointer launch_player(gpointer data)
                     g_strlcpy(idledata->info, filename, 4096);
                     g_idle_add(set_media_info, idledata);
                     p = (PlayData *) g_malloc(sizeof(PlayData));
-                    g_strlcpy(p->filename, filename, 4096);
+                    g_strlcpy(p->uri, filename, 4096);
                     p->playlist = playlist;
                     g_idle_add(play, p);
                     g_free(filename);
@@ -1138,7 +1137,7 @@ gpointer launch_player(gpointer data)
                         g_strlcpy(idledata->info, filename, 4096);
                         g_idle_add(set_media_info, idledata);
                         p = (PlayData *) g_malloc(sizeof(PlayData));
-                        g_strlcpy(p->filename, filename, 4096);
+                        g_strlcpy(p->uri, filename, 4096);
                         p->playlist = playlist;
                         g_idle_add(play, p);
                         g_free(filename);
@@ -1156,14 +1155,14 @@ gpointer launch_player(gpointer data)
         } else {
             if (playback_error == ERROR_RETRY_WITH_PLAYLIST) {
                 p = (PlayData *) g_malloc(sizeof(PlayData));
-                g_strlcpy(p->filename, threaddata->filename, 4096);
+                g_strlcpy(p->uri, threaddata->filename, 4096);
                 p->playlist = 1;
                 g_idle_add(play, p);
             }
 
             if (playback_error == ERROR_RETRY_WITH_HTTP) {
                 p = (PlayData *) g_malloc(sizeof(PlayData));
-                g_strlcpy(p->filename, (threaddata->filename) + 3, 4096);
+                g_strlcpy(p->uri, (threaddata->filename) + 3, 4096);
                 p->playlist = threaddata->playlist;
                 g_idle_add(play, p);
             }
