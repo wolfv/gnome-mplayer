@@ -98,6 +98,7 @@ void release_preference_store();
 gchar *get_localfile_from_uri(gchar * uri);
 gboolean is_uri_dir(gchar * uri);
 gboolean uri_exists(gchar * uri);
+gchar *switch_protocol(const gchar *uri, gchar *new_protocol);
 
 #ifdef HAVE_GPOD
 gchar *find_gpod_mount_point();
