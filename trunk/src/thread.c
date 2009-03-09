@@ -763,7 +763,7 @@ gpointer launch_player(gpointer data)
             argv[arg++] = g_strdup_printf("ffmpeg12mc");
         } else {
             argv[arg++] = g_strdup_printf("-vo");
-            argv[arg++] = g_strdup_printf("xv");
+            argv[arg++] = g_strdup_printf("xv,x11");
             if (!disable_deinterlace) {
                 argv[arg++] = g_strdup_printf("-vf-pre");
                 argv[arg++] = g_strdup_printf("yadif,softskip,scale");
@@ -789,7 +789,7 @@ gpointer launch_player(gpointer data)
             argv[arg++] = g_strdup_printf("ffvc1vdpau");
         } else {
             argv[arg++] = g_strdup_printf("-vo");
-            argv[arg++] = g_strdup_printf("xv");
+            argv[arg++] = g_strdup_printf("vdpau,xv,x11");
             if (!disable_deinterlace) {
                 argv[arg++] = g_strdup_printf("-vf-pre");
                 argv[arg++] = g_strdup_printf("yadif,softskip,scale");

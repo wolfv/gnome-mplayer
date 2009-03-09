@@ -1,4 +1,6 @@
 Development
+    For vdpau, fall back to vdpau, xv or x11 if we can't find the right codec
+    For xvmc, fall back to xv or x11 if we can't find the right codec
     If we are given an mms:// url and it doesn't work try as mmshttp:// url
     Try http urls are mmshttp urls and fall back if nothing opens to http urls
 	Patch to fix a site, but code still commented out.
