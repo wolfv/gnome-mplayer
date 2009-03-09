@@ -143,10 +143,16 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
             strstr(mplayer_output->str, "registry file") == NULL) {
             // error_msg = g_strdup(mplayer_output->str);
             if (strstr(mplayer_output->str, "<") == NULL && strstr(mplayer_output->str, ">") == NULL
-                && idledata->streaming == FALSE)
+                && idledata->streaming == FALSE) {
                 error_msg =
                     g_strdup_printf(_("Failed to open %s"),
                                     mplayer_output->str + strlen("Failed to open "));
+			}
+		
+			if (strstr(mplayer_output->str, "mms://") != NULL && idledata->streaming) {
+				dontplaynext = TRUE;
+				playback_error = ERROR_RETRY_WITH_MMSHTTP;
+			}
         }
     }
 
@@ -1108,7 +1114,13 @@ gpointer launch_player(gpointer data)
 
         dbus_enable_screensaver();
         g_mutex_unlock(thread_running);
-        if (idledata->cachepercent < 0 && g_str_has_prefix(threaddata->filename, "mmshttp")) {
+        
+		if (idledata->cachepercent < 0 && g_str_has_prefix(threaddata->filename, "mms")) {
+            dontplaynext = TRUE;
+            playback_error = ERROR_RETRY_WITH_MMSHTTP;
+        }
+
+		if (idledata->cachepercent < 0 && g_str_has_prefix(threaddata->filename, "mmshttp")) {
             dontplaynext = TRUE;
             playback_error = ERROR_RETRY_WITH_HTTP;
         }
@@ -1159,10 +1171,21 @@ gpointer launch_player(gpointer data)
                 p->playlist = 1;
                 g_idle_add(play, p);
             }
-
+			
             if (playback_error == ERROR_RETRY_WITH_HTTP) {
                 p = (PlayData *) g_malloc(sizeof(PlayData));
-                g_strlcpy(p->uri, (threaddata->filename) + 3, 4096);
+				filename = switch_protocol(threaddata->filename,"http");
+                g_strlcpy(p->uri, filename, 4096);
+				g_free(filename);
+                p->playlist = threaddata->playlist;
+                g_idle_add(play, p);
+            }
+
+			if (playback_error == ERROR_RETRY_WITH_MMSHTTP) {
+                p = (PlayData *) g_malloc(sizeof(PlayData));
+				filename = switch_protocol(threaddata->filename,"mmshttp");
+                g_strlcpy(p->uri, filename, 4096);
+				g_free(filename);
                 p->playlist = threaddata->playlist;
                 g_idle_add(play, p);
             }

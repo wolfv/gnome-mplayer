@@ -1,4 +1,5 @@
 Development
+    If we are given an mms:// url and it doesn't work try as mmshttp:// url
     Try http urls are mmshttp urls and fall back if nothing opens to http urls
 	Patch to fix a site, but code still commented out.
 	Updated Korean, Japanese, Serbian and Turkish translations

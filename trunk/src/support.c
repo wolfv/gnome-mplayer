@@ -1451,7 +1451,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
     } else {
 
         if (g_str_has_prefix(uri, "http://")) {
-            unescaped = g_strdup_printf("mms%s", local_uri);
+            unescaped = switch_protocol(uri,"mmshttp");
             g_free(local_uri);
             local_uri = g_strdup(unescaped);
             g_free(unescaped);
@@ -2768,4 +2768,15 @@ gboolean detect_volume_option()
         printf(_
                ("You might want to consider upgrading mplayer to a newer version, -volume option not supported\n"));
     return ret;
+}
+
+gchar *switch_protocol(const gchar *uri, gchar *new_protocol) {
+	gchar *p;
+	
+	p = g_strrstr(uri,"://");
+	
+	if (p != NULL)
+		return g_strdup_printf("%s%s",new_protocol,p);
+	else
+		return NULL;
 }
