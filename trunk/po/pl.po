@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-05 19:54+0100\n"
+"POT-Creation-Date: 2009-03-13 09:24-0600\n"
 "PO-Revision-Date: 2009-03-05 20:06+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@lists.kde.org>\n"
@@ -283,7 +283,7 @@ msgid "Idle"
 msgstr "Bezczynny"
 
 #: src/gui.c:1084 src/gui.c:1094 src/gui.c:1964 src/gui.c:2005
-#: src/thread.c:385
+#: src/thread.c:393
 #, c-format
 msgid "Volume %i%%"
 msgstr "Głośność %i%%"
@@ -333,7 +333,7 @@ msgstr "Zapisz jako..."
 msgid "Unable to save '%s'"
 msgstr "Nie udało się zapisać %s"
 
-#: src/gui.c:2683 src/support.c:749 src/thread.c:185
+#: src/gui.c:2683 src/support.c:749 src/thread.c:193
 msgid "GNOME MPlayer Error"
 msgstr "Błąd GNOME MPlayer"
 
@@ -603,8 +603,8 @@ msgid ""
 msgstr ""
 "<span weight=\"bold\">Dostosuj ustawienia emulacji wtyczki</span>\n"
 "\n"
-"Te opcje mają wpływ na wtyczkę gecko-mediaplayer, gdy jest ona zainstalowana."
-"\n"
+"Te opcje mają wpływ na wtyczkę gecko-mediaplayer, gdy jest ona "
+"zainstalowana.\n"
 "Gecko-mediaplayer jest wtyczką do Firefoksa emulującą różne odtwarzacze\n"
 "multimediów i pozwalającą na odtwarzanie różnej zawartości sieci wewnątrz\n"
 "przeglądarek kompatybilnych z NPRuntime (Firefox, Konqueror, itd)."
@@ -1015,70 +1015,70 @@ msgstr "Pełny ekran"
 msgid "Volume 100%"
 msgstr "Głośność 100%"
 
-#: src/support.c:729 src/thread.c:153
+#: src/support.c:729 src/thread.c:161
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Nie udało się otworzyć urządzenia DVD: %s"
 
-#: src/support.c:1557 src/support.c:1590 src/support.c:1635 src/support.c:1665
+#: src/support.c:1574 src/support.c:1607 src/support.c:1652 src/support.c:1682
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
 
-#: src/support.c:1964 src/nautilus_property_page.c:85
+#: src/support.c:1981 src/nautilus_property_page.c:85
 #, c-format
 msgid "%2i:%02.0f"
 msgstr "%2i:%02.0f"
 
-#: src/support.c:1966 src/nautilus_property_page.c:87
+#: src/support.c:1983 src/nautilus_property_page.c:87
 #, c-format
 msgid "%i:%02i:%02.0f"
 msgstr "%i:%02i:%02.0f"
 
-#: src/support.c:2752
+#: src/support.c:2769
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
 msgstr ""
-"Proszę rozważyć aktualizację do nowszej wersji mplayera, opcja "
-"-volume jest niewspierana\n"
+"Proszę rozważyć aktualizację do nowszej wersji mplayera, opcja -volume jest "
+"niewspierana\n"
 
-#: src/thread.c:146
+#: src/thread.c:148
 #, c-format
 msgid "Failed to open %s"
 msgstr "Nie udało się otworzyć %s"
 
-#: src/thread.c:159
+#: src/thread.c:167
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "Nie można załadować napisów: %s"
 
-#: src/thread.c:170
+#: src/thread.c:178
 msgid "Delaying start until cache is full"
 msgstr "Opóźnianie startu do czasu zapełnienia bufora"
 
-#: src/thread.c:175
+#: src/thread.c:183
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Skompresowany format SWF niewspierany"
 
-#: src/thread.c:461
+#: src/thread.c:469
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Zapełnienie bufora: %2.2f%%"
 
-#: src/thread.c:470
+#: src/thread.c:478
 #, c-format
 msgid "Connecting"
 msgstr "Łączenie"
 
-#: src/thread.c:584
+#: src/thread.c:592
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Zrzut ekranu zapisano do '%s'"
 
-#: src/thread.c:587
+#: src/thread.c:595
 msgid "GNOME MPlayer Notification"
 msgstr "Powiadamianie GNOME MPlayer"
 
