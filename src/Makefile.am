@@ -67,7 +67,7 @@ nautilusdir = $(NAUTILUSDIR)
 nautilus_LTLIBRARIES = libgnome-mplayer-properties-page.la
 
 libgnome_mplayer_properties_page_la_SOURCES = \
-    config.h \
+    ../config.h \
     mime_types.h \
     nautilus_property_page.c
 

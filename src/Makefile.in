@@ -53,7 +53,7 @@ am__installdirs = "$(DESTDIR)$(nautilusdir)" "$(DESTDIR)$(bindir)"
 nautilusLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(nautilus_LTLIBRARIES)
 libgnome_mplayer_properties_page_la_LIBADD =
-am__libgnome_mplayer_properties_page_la_SOURCES_DIST = config.h \
+am__libgnome_mplayer_properties_page_la_SOURCES_DIST = ../config.h \
 	mime_types.h nautilus_property_page.c
 @HAVE_NAUTILUS_TRUE@am_libgnome_mplayer_properties_page_la_OBJECTS = libgnome_mplayer_properties_page_la-nautilus_property_page.lo
 libgnome_mplayer_properties_page_la_OBJECTS =  \
@@ -323,7 +323,7 @@ gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_
 @HAVE_NAUTILUS_TRUE@nautilusdir = $(NAUTILUSDIR)
 @HAVE_NAUTILUS_TRUE@nautilus_LTLIBRARIES = libgnome-mplayer-properties-page.la
 @HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_la_SOURCES = \
-@HAVE_NAUTILUS_TRUE@    config.h \
+@HAVE_NAUTILUS_TRUE@    ../config.h \
 @HAVE_NAUTILUS_TRUE@    mime_types.h \
 @HAVE_NAUTILUS_TRUE@    nautilus_property_page.c
 

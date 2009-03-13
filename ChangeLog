@@ -1,4 +1,4 @@
-Development
+0.9.5
     For vdpau, fall back to vdpau, xv or x11 if we can't find the right codec
     For xvmc, fall back to xv or x11 if we can't find the right codec
     If we are given an mms:// url and it doesn't work try as mmshttp:// url
