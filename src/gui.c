@@ -873,6 +873,9 @@ gboolean resize_window(void *data)
                         if (GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table)) {
                             total_height += details_vbox->allocation.height;
                         }
+                        if (GTK_IS_WIDGET(audio_meter) && GTK_WIDGET_VISIBLE(audio_meter)) {
+                            total_height += audio_meter->allocation.height;
+                        }
 
                         if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
                             gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
@@ -2877,6 +2880,10 @@ void menuitem_view_onetoone_callback(GtkMenuItem * menuitem, void *data)
         if (GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table)) {
             total_height += details_vbox->allocation.height;
         }
+		if (GTK_IS_WIDGET(audio_meter) && GTK_WIDGET_VISIBLE(audio_meter)) {
+			total_height += audio_meter->allocation.height;
+		}
+		
         total_width = idle->width;
         if (vertical_layout) {
             if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
@@ -2911,6 +2918,9 @@ void menuitem_view_twotoone_callback(GtkMenuItem * menuitem, void *data)
         if (GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table)) {
             total_height += details_vbox->allocation.height;
         }
+		if (GTK_IS_WIDGET(audio_meter) && GTK_WIDGET_VISIBLE(audio_meter)) {
+			total_height += audio_meter->allocation.height;
+		}
 
         total_width = idle->width * 2;
         if (vertical_layout) {
@@ -2946,6 +2956,10 @@ void menuitem_view_onetotwo_callback(GtkMenuItem * menuitem, void *data)
         if (GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table)) {
             total_height += details_vbox->allocation.height;
         }
+		if (GTK_IS_WIDGET(audio_meter) && GTK_WIDGET_VISIBLE(audio_meter)) {
+			total_height += audio_meter->allocation.height;
+		}
+		
         total_width = idle->width / 2;
         if (vertical_layout) {
             if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
@@ -3466,6 +3480,21 @@ void saturation_callback(GtkRange * range, gpointer data)
     g_free(cmd);
     send_command("get_property saturation\n", TRUE);
     idle->saturation = saturation;
+}
+
+void menuitem_meter_callback(GtkMenuItem * menuitem, void *data)
+{
+    gint width = 0, height = 0;
+
+	if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter))) {	
+		gtk_window_get_size(GTK_WINDOW(window), &width, &height);
+		gtk_widget_hide(audio_meter);
+		gtk_window_resize(GTK_WINDOW(window), width, height - audio_meter->allocation.height);
+	} else {
+		gtk_window_get_size(GTK_WINDOW(window), &width, &height);
+		gtk_widget_show(audio_meter);
+		gtk_window_resize(GTK_WINDOW(window), width, height + audio_meter->allocation.height);
+	}
 }
 
 void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
@@ -4934,6 +4963,8 @@ void setup_accelerators()
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_subtitles), accel_group, GDK_v, 0);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_details),
                                       accel_group, GDK_d, GDK_CONTROL_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_meter),
+                                      accel_group, GDK_m, GDK_CONTROL_MASK);
 
         if (!disable_fullscreen) {
             gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_fullscreen), accel_group, GDK_f, 0);
@@ -4971,6 +5002,8 @@ void setup_accelerators()
                                accel_group, GDK_v, 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_details), "activate",
                                accel_group, GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_meter), "activate",
+                               accel_group, GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
     if (!disable_fullscreen) {
         gtk_widget_add_accelerator(GTK_WIDGET(menuitem_fullscreen), "activate",
@@ -5349,6 +5382,8 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_info));
     menuitem_view_details = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_etails")));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_details));
+    menuitem_view_meter = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Audio _Meter")));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_meter));
     menuitem_view_sep0 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep0));
 
@@ -5412,6 +5447,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_view_info_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_details), "activate",
                      G_CALLBACK(menuitem_details_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_meter), "activate",
+                     G_CALLBACK(menuitem_meter_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_fullscreen), "toggled",
                      G_CALLBACK(menuitem_fs_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_onetoone), "activate",
@@ -5485,6 +5522,9 @@ GtkWidget *create_window(gint windowid)
     media_hbox = gtk_hbox_new(FALSE, 10);
     details_vbox = gtk_vbox_new(FALSE, 10);
     gtk_misc_set_alignment(GTK_MISC(media_label), 0, 0);
+	audio_meter = gmtk_audio_meter_new(25);
+	gtk_widget_set_size_request(audio_meter,-1,100);
+	g_timeout_add(40,update_audio_meter,NULL);
 
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
@@ -5492,6 +5532,7 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(media_hbox), media_label, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), media_hbox, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), details_vbox, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), audio_meter, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls_box), hbox, FALSE, FALSE, 1);
 
     gtk_widget_add_events(drawing_area, GDK_POINTER_MOTION_MASK);
@@ -5786,6 +5827,7 @@ GtkWidget *create_window(gint windowid)
             gtk_widget_show_all(window);
         gtk_widget_hide(media_hbox);
         gtk_widget_hide(menu_event_box);
+		gtk_widget_hide(audio_meter);
         if (disable_fullscreen)
             gtk_widget_hide(fs_event_box);
 
@@ -5818,6 +5860,7 @@ GtkWidget *create_window(gint windowid)
         gtk_widget_hide(menubar);
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
         gtk_widget_hide(menu_event_box);
+		gtk_widget_hide(audio_meter);
 
         gtk_widget_hide_all(controls_box);
 
@@ -5930,6 +5973,8 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_hide(GTK_WIDGET(menuitem_prev));
     gtk_widget_hide(GTK_WIDGET(menuitem_next));
     gtk_widget_hide(media_hbox);
+	gtk_widget_hide(audio_meter);
+
     gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
     gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
     update_status_icon();
@@ -5937,4 +5982,59 @@ GtkWidget *create_window(gint windowid)
     //    gtk_main_iteration();
 
     return window;
+}
+
+gboolean update_audio_meter(gpointer data) {
+    gint i,j;
+    gfloat f;
+	gint max_val = 0;
+	gint sum = 0;
+	
+		if (idledata->mapped_af_export == NULL)
+			return TRUE;
+	
+		if (audio_meter != NULL && GTK_WIDGET_VISIBLE(audio_meter)) {
+			
+
+    data = g_array_new(FALSE, TRUE, sizeof(gfloat));
+    max_data = g_array_new(FALSE, TRUE, sizeof(gfloat));
+
+	for (i = 0; i < 25; i++) {
+        buckets[i] = 0;
+    }
+
+			
+	for (i = 0; i < (af_export->size / af_export->nch); i++) {
+        for (j = 0; j < af_export->nch; j++) {
+            if (abs(af_export->payload[j][i]) > 20) {
+                buckets[abs((af_export->payload[j][i])) / (32768/25)]++;
+            }
+        }
+    }
+			
+	sum = 0;
+    for (i = 0; i < 25; i++) {
+        if (buckets[i] > max_buckets[i])
+            max_buckets[i] = buckets[i];
+		sum += max_buckets[i];
+        //if (max_buckets[i] > max_val)
+        //    max_val = max_buckets[i];
+    }	
+	max_val = sum / 25;
+		
+    for (i = 0; i < 25; i++) {
+		f = (gfloat)buckets[i] / (gfloat)max_val;
+        g_array_append_val(data, f);
+		f = (gfloat)max_buckets[i] / (gfloat)max_val;
+        g_array_append_val(max_data, f);
+    }
+			
+	//gmtk_audio_meter_set_data(GMTK_AUDIO_METER(audio_meter), data);
+    gmtk_audio_meter_set_data_full(GMTK_AUDIO_METER(audio_meter), data, max_data);
+    g_array_free(data, TRUE);
+    g_array_free(max_data, TRUE);			
+			
+		}
+		return TRUE;
+	
 }

@@ -123,6 +123,8 @@ typedef struct _IdleData {
     gchar media_info[2048];
     gchar media_notification[2048];
     gchar url[1024];
+	gchar af_export[1024];
+	GMappedFile *mapped_af_export;
     gint windowid;
     gchar *device;
     gdouble percent;
@@ -228,6 +230,17 @@ typedef struct _LangMenu {
     gchar *label;
     int value;
 } LangMenu;
+
+typedef struct _Export {
+    int nch;
+    int size;
+    unsigned long long counter;
+    gint16 payload[7][512];
+} Export;
+
+Export *af_export;
+gint buckets[25];
+gint max_buckets[25];
 
 //Define MIME for DnD
 #define DRAG_NAME_0		"text/plain"
@@ -343,6 +356,9 @@ gboolean wmp_disabled;
 gboolean dvx_disabled;
 gboolean embedding_disabled;
 
+GArray *data;
+GArray *max_data;
+
 // playlist stuff
 GtkListStore *playliststore;
 GtkListStore *nonrandomplayliststore;
@@ -400,6 +416,8 @@ void dbus_send_event(gchar * event, gint button);
 void dbus_unhook();
 void dbus_enable_screensaver();
 void dbus_disable_screensaver();
+
+gboolean update_audio_meter(gpointer data);
 
 void mplayer_shutdown();
 gpointer launch_player(gpointer data);

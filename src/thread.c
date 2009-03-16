@@ -674,6 +674,13 @@ gboolean thread_query(gpointer data)
         return FALSE;
     }
 
+	if (idledata->mapped_af_export == NULL && g_file_test(idledata->af_export,G_FILE_TEST_EXISTS)) {
+			// start audio export monitor
+			// but don't start polling until meter is visible
+			map_af_export_file(idledata->af_export);
+	}
+	
+	
     if (state == PLAYING) {
         // size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
         size = write(std_in, "get_time_pos\n", strlen("get_time_pos\n"));
@@ -981,6 +988,10 @@ gpointer launch_player(gpointer data)
 	}		
 	g_free(filename);
 */
+	
+	argv[arg++] = g_strdup_printf("-af");
+	argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
+	
     if (threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
 
@@ -1061,6 +1072,7 @@ gpointer launch_player(gpointer data)
 #else
         g_timeout_add(1000, thread_query, threaddata);
 #endif
+		
         g_cond_wait(mplayer_complete_cond, thread_running);
         if (verbose)
             printf("Thread completing\n");
@@ -1111,6 +1123,12 @@ gpointer launch_player(gpointer data)
             g_unlink(threaddata->filename);
         }
 #endif
+		
+		if (g_file_test(idledata->af_export,G_FILE_TEST_EXISTS)) {
+				// stop audio export monitor
+				// as part of the stopping, remove file when memmapped file is closed
+				unmap_ad_export_file(idledata->af_export);
+		}
 
         dbus_enable_screensaver();
         g_mutex_unlock(thread_running);

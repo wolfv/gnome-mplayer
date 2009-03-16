@@ -109,5 +109,7 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album);
 gpointer get_cover_art(gpointer data);
 
 gboolean detect_volume_option();
+void map_af_export_file(gchar *filename);
+void unmap_ad_export_file(gchar *filename);
 
 #endif                          // _SUPPORT_H
