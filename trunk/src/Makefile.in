@@ -68,7 +68,8 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
 	support.$(OBJEXT) mntent_compat.$(OBJEXT) main.$(OBJEXT) \
-	dbus-interface.$(OBJEXT) thread.$(OBJEXT) gm_file.$(OBJEXT)
+	dbus-interface.$(OBJEXT) thread.$(OBJEXT) gm_file.$(OBJEXT) \
+	gmtk_audio_meter.$(OBJEXT)
 gnome_mplayer_OBJECTS = $(am_gnome_mplayer_OBJECTS)
 am__DEPENDENCIES_1 =
 gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
@@ -319,7 +320,10 @@ gnome_mplayer_SOURCES = \
 	langlist.h \
     libgmlib/gmlib.h \
     libgmlib/gm_file.h \
-    libgmlib/gm_file.c
+    libgmlib/gm_file.c \
+    libgmtk/gmtk.h \
+    libgmtk/gmtk_audio_meter.h \
+    libgmtk/gmtk_audio_meter.c
 
 gnome_mplayer_LDFLAGS = 
 gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS) $(GPOD_LIBS) $(MUSICBRAINZ_LIBS)
@@ -437,6 +441,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus-interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gm_file.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gmtk_audio_meter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnome_mplayer_properties_page_la-nautilus_property_page.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
@@ -486,6 +491,20 @@ gm_file.obj: libgmlib/gm_file.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libgmlib/gm_file.c' object='gm_file.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gm_file.obj `if test -f 'libgmlib/gm_file.c'; then $(CYGPATH_W) 'libgmlib/gm_file.c'; else $(CYGPATH_W) '$(srcdir)/libgmlib/gm_file.c'; fi`
+
+gmtk_audio_meter.o: libgmtk/gmtk_audio_meter.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gmtk_audio_meter.o -MD -MP -MF $(DEPDIR)/gmtk_audio_meter.Tpo -c -o gmtk_audio_meter.o `test -f 'libgmtk/gmtk_audio_meter.c' || echo '$(srcdir)/'`libgmtk/gmtk_audio_meter.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/gmtk_audio_meter.Tpo $(DEPDIR)/gmtk_audio_meter.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libgmtk/gmtk_audio_meter.c' object='gmtk_audio_meter.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gmtk_audio_meter.o `test -f 'libgmtk/gmtk_audio_meter.c' || echo '$(srcdir)/'`libgmtk/gmtk_audio_meter.c
+
+gmtk_audio_meter.obj: libgmtk/gmtk_audio_meter.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gmtk_audio_meter.obj -MD -MP -MF $(DEPDIR)/gmtk_audio_meter.Tpo -c -o gmtk_audio_meter.obj `if test -f 'libgmtk/gmtk_audio_meter.c'; then $(CYGPATH_W) 'libgmtk/gmtk_audio_meter.c'; else $(CYGPATH_W) '$(srcdir)/libgmtk/gmtk_audio_meter.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/gmtk_audio_meter.Tpo $(DEPDIR)/gmtk_audio_meter.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libgmtk/gmtk_audio_meter.c' object='gmtk_audio_meter.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gmtk_audio_meter.obj `if test -f 'libgmtk/gmtk_audio_meter.c'; then $(CYGPATH_W) 'libgmtk/gmtk_audio_meter.c'; else $(CYGPATH_W) '$(srcdir)/libgmtk/gmtk_audio_meter.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

@@ -1,3 +1,5 @@
+Development
+    Addition of the Audio Meter Widget
 0.9.5
     For vdpau, fall back to vdpau, xv or x11 if we can't find the right codec
     For xvmc, fall back to xv or x11 if we can't find the right codec

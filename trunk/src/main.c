@@ -152,6 +152,7 @@ gint play_iter(GtkTreeIter * playiter)
     gchar *demuxer = NULL;
     gint width;
     gint height;
+	gint i;
     gpointer pixbuf;
     gchar *buffer = NULL;
     gchar *message = NULL;
@@ -203,6 +204,12 @@ gint play_iter(GtkTreeIter * playiter)
         gtk_main_iteration();
     }
     reset_paned_rules();
+	
+	// reset audio meter
+	for (i = 0; i < 25; i++) {
+        buckets[i] = 0;
+		max_buckets[i] = 0;
+    }
 
     message = g_strdup_printf("<small>\n");
     if (title == NULL) {
@@ -247,6 +254,10 @@ gint play_iter(GtkTreeIter * playiter)
     g_strlcpy(idledata->display_name, title, 1024);
     g_free(message);
 
+	message = gm_tempname(NULL,"mplayer-af_exportXXXXXX");
+	g_strlcpy(idledata->af_export,message,1024);
+	g_free(message);
+	
     message = g_strdup("");
     if (title == NULL) {
         title = g_filename_display_basename(uri);

@@ -2752,3 +2752,30 @@ gchar *switch_protocol(const gchar *uri, gchar *new_protocol) {
 	else
 		return NULL;
 }
+
+void map_af_export_file(gchar *filename) {
+	
+	printf("mapping %s\n",filename);
+	idledata->mapped_af_export = g_mapped_file_new(filename,FALSE,NULL);
+	af_export = (Export *)g_mapped_file_get_contents(idledata->mapped_af_export);
+}
+
+void unmap_ad_export_file(gchar *filename) {
+	gint i;
+	gfloat f;
+	
+	printf("unmapping %s\n",filename);
+	if (idledata->mapped_af_export) {
+		g_mapped_file_free(idledata->mapped_af_export);
+		idledata->mapped_af_export = NULL;
+	}
+	g_unlink(filename);
+	
+	data = g_array_new(FALSE, TRUE, sizeof(gfloat));
+	for (i = 0; i < 25; i++) {
+		f = 0.0;
+        g_array_append_val(data, f);	
+	}
+	gmtk_audio_meter_set_data(GMTK_AUDIO_METER(audio_meter), data);
+	g_array_free(data, TRUE);
+}

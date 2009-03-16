@@ -25,7 +25,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include "libgmlib/gmlib.h"
-//#include <gdk/gdkx.h>
+#include "libgmtk/gmtk.h"
 #include <gdk/gdkkeysyms.h>
 #include <glib.h>
 #include <glib/gstdio.h>
@@ -89,6 +89,7 @@ GtkMenu *menu_view;
 GtkMenuItem *menuitem_view_playlist;
 GtkMenuItem *menuitem_view_info;
 GtkMenuItem *menuitem_view_details;
+GtkMenuItem *menuitem_view_meter;
 GtkMenuItem *menuitem_view_sep0;
 GtkMenuItem *menuitem_view_fullscreen;
 GtkMenuItem *menuitem_view_sep1;
@@ -142,6 +143,8 @@ GtkWidget *media_label;
 GtkWidget *cover_art;
 GtkWidget *details_vbox;
 GtkWidget *details_table;
+GtkWidget *audio_meter;
+
 
 GtkWidget *drawing_area;
 GdkPixbuf *pb_play;
