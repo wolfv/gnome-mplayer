@@ -68,7 +68,7 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
 	support.$(OBJEXT) mntent_compat.$(OBJEXT) main.$(OBJEXT) \
-	dbus-interface.$(OBJEXT) thread.$(OBJEXT)
+	dbus-interface.$(OBJEXT) thread.$(OBJEXT) gm_file.$(OBJEXT)
 gnome_mplayer_OBJECTS = $(am_gnome_mplayer_OBJECTS)
 am__DEPENDENCIES_1 =
 gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
@@ -316,7 +316,10 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/media-skip-backward.xpm \
 	../pixmaps/media-skip-forward.xpm \
 	../pixmaps/view-fullscreen.xpm \
-	langlist.h 
+	langlist.h \
+    libgmlib/gmlib.h \
+    libgmlib/gm_file.h \
+    libgmlib/gm_file.c
 
 gnome_mplayer_LDFLAGS = 
 gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS) $(GPOD_LIBS) $(MUSICBRAINZ_LIBS)
@@ -433,6 +436,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus-interface.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gm_file.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnome_mplayer_properties_page_la-nautilus_property_page.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
@@ -468,6 +472,20 @@ libgnome_mplayer_properties_page_la-nautilus_property_page.lo: nautilus_property
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='nautilus_property_page.c' object='libgnome_mplayer_properties_page_la-nautilus_property_page.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_la_CFLAGS) $(CFLAGS) -c -o libgnome_mplayer_properties_page_la-nautilus_property_page.lo `test -f 'nautilus_property_page.c' || echo '$(srcdir)/'`nautilus_property_page.c
+
+gm_file.o: libgmlib/gm_file.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gm_file.o -MD -MP -MF $(DEPDIR)/gm_file.Tpo -c -o gm_file.o `test -f 'libgmlib/gm_file.c' || echo '$(srcdir)/'`libgmlib/gm_file.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/gm_file.Tpo $(DEPDIR)/gm_file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libgmlib/gm_file.c' object='gm_file.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gm_file.o `test -f 'libgmlib/gm_file.c' || echo '$(srcdir)/'`libgmlib/gm_file.c
+
+gm_file.obj: libgmlib/gm_file.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gm_file.obj -MD -MP -MF $(DEPDIR)/gm_file.Tpo -c -o gm_file.obj `if test -f 'libgmlib/gm_file.c'; then $(CYGPATH_W) 'libgmlib/gm_file.c'; else $(CYGPATH_W) '$(srcdir)/libgmlib/gm_file.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/gm_file.Tpo $(DEPDIR)/gm_file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libgmlib/gm_file.c' object='gm_file.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gm_file.obj `if test -f 'libgmlib/gm_file.c'; then $(CYGPATH_W) 'libgmlib/gm_file.c'; else $(CYGPATH_W) '$(srcdir)/libgmlib/gm_file.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

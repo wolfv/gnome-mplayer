@@ -55,7 +55,11 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/media-skip-backward.xpm \
 	../pixmaps/media-skip-forward.xpm \
 	../pixmaps/view-fullscreen.xpm \
-	langlist.h 
+	langlist.h \
+    libgmlib/gmlib.h \
+    libgmlib/gm_file.h \
+    libgmlib/gm_file.c
+    
 
 gnome_mplayer_LDFLAGS = 
 
