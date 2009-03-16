@@ -24,6 +24,7 @@
 //#include <X11/Xlib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+#include "libgmlib/gmlib.h"
 //#include <gdk/gdkx.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib.h>
