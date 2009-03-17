@@ -74,6 +74,8 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
     tracker->thumb_lower = gdk_pixbuf_rotate_simple(temp, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
     tracker->thumb_upper = gdk_pixbuf_flip(tracker->thumb_lower, FALSE);
     gdk_pixbuf_unref(temp);
+
+	tracker->position = THUMB_ON_BOTTOM;
 }
 
 static void gmtk_media_tracker_dispose(GObject * object) {
@@ -153,17 +155,24 @@ void draw(GtkWidget * tracker)
     if (cache_width > 0)
         if ((handle_left) > cache_width)
             handle_left = cache_width;
-/*
-    gdk_draw_pixbuf(tracker->window, NULL,
-                    GMTK_MEDIA_TRACKER(tracker)->thumb_upper, 0, 0, handle_left,
-                    0, -1, -1, GDK_RGB_DITHER_NONE, 0, 0);
-*/
-    gdk_draw_pixbuf(tracker->window, NULL,
-                    GMTK_MEDIA_TRACKER(tracker)->thumb_lower, 0, 0, handle_left,
-                    tracker->allocation.height -
-                    gdk_pixbuf_get_height(GMTK_MEDIA_TRACKER(tracker)->thumb_lower) + 1, -1, -1,
-                    GDK_RGB_DITHER_NONE, 0, 0);
 
+	if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_ON_TOP || 
+		GMTK_MEDIA_TRACKER(tracker)->position == THUMB_ON_TOP_AND_BOTTOM) {
+
+		gdk_draw_pixbuf(tracker->window, NULL,
+		                GMTK_MEDIA_TRACKER(tracker)->thumb_upper, 0, 0, handle_left,
+		                0, -1, -1, GDK_RGB_DITHER_NONE, 0, 0);
+	}
+
+	if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_ON_BOTTOM || 
+		GMTK_MEDIA_TRACKER(tracker)->position == THUMB_ON_TOP_AND_BOTTOM) {
+
+		gdk_draw_pixbuf(tracker->window, NULL,
+		                GMTK_MEDIA_TRACKER(tracker)->thumb_lower, 0, 0, handle_left,
+		                tracker->allocation.height -
+		                gdk_pixbuf_get_height(GMTK_MEDIA_TRACKER(tracker)->thumb_lower) + 1, -1, -1,
+		                GDK_RGB_DITHER_NONE, 0, 0);
+	}
 }
 
 
@@ -283,4 +292,9 @@ void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble
 gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker)
 {
     return tracker->cache_percent;
+}
+
+void gmtk_media_tracker_set_thumb_position(GmtkMediaTracker * tracker, GmtkThumbPosition position)
+{
+	tracker->position = position;
 }

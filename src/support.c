@@ -2754,21 +2754,29 @@ gchar *switch_protocol(const gchar * uri, gchar * new_protocol)
         return NULL;
 }
 
-void map_af_export_file(gchar * filename)
+gboolean map_af_export_file(gpointer data)
 {
-
-    idledata->mapped_af_export = g_mapped_file_new(filename, FALSE, NULL);
-    af_export = (Export *) g_mapped_file_get_contents(idledata->mapped_af_export);
+	IdleData *idle = (IdleData *) data;
+	
+	if (data != NULL) {
+		idle->mapped_af_export = g_mapped_file_new((gchar *)idle->af_export, FALSE, NULL);
+		af_export = (Export *) g_mapped_file_get_contents(idle->mapped_af_export);
+	}
+	return FALSE;
 }
 
-void unmap_af_export_file(gchar * filename)
+gboolean unmap_af_export_file(gpointer data)
 {
-
-    if (idledata->mapped_af_export) {
-        g_mapped_file_free(idledata->mapped_af_export);
-        idledata->mapped_af_export = NULL;
+	IdleData *idle = (IdleData *) data;
+	
+    if (idle->mapped_af_export) {
+		af_export = NULL;
+        g_mapped_file_free(idle->mapped_af_export);
+        idle->mapped_af_export = NULL;
+		g_unlink((gchar *)idle->af_export);
     }
-    g_unlink(filename);
 
     gmtk_audio_meter_set_data(GMTK_AUDIO_METER(audio_meter), NULL);
+	
+	return FALSE;
 }

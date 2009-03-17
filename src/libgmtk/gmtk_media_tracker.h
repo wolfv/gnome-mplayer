@@ -36,6 +36,13 @@ G_BEGIN_DECLS
 #define GMTK_IS_MEDIA_TRACKER(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GMTK_TYPE_MEDIA_TRACKER))
 #define GMTK_IS_MEDIA_TRACKER_CLASS(obj)	(G_TYPE_CHECK_CLASS_TYPE ((obj), GMTK_TYPE_MEDIA_TRACKER))
 #define GMTK_MEDIA_TRACKER_GET_CLASS	(G_TYPE_INSTANCE_GET_CLASS ((obj), GMTK_TYPE_MEDIA_TRACKER, GmtkMediaTrackerClass))
+
+typedef enum {
+	THUMB_ON_BOTTOM,
+	THUMB_ON_TOP,
+	THUMB_ON_TOP_AND_BOTTOM
+} GmtkThumbPosition;
+
 typedef struct _GmtkMediaTracker GmtkMediaTracker;
 typedef struct _GmtkMediaTrackerClass GmtkMediaTrackerClass;
 
@@ -49,7 +56,7 @@ struct _GmtkMediaTracker {
     gboolean mouse_down;
     GdkPixbuf *thumb_upper;
     GdkPixbuf *thumb_lower;
-
+	GmtkThumbPosition position;
 };
 
 struct _GmtkMediaTrackerClass {
@@ -67,5 +74,6 @@ void gmtk_media_tracker_set_text(GmtkMediaTracker * tracker, const gchar * text)
 void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble percentage);
 gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker);
 
+void gmtk_media_tracker_set_thumb_position(GmtkMediaTracker * tracker, GmtkThumbPosition position);
 G_END_DECLS
 #endif

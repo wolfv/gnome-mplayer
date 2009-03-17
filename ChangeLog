@@ -1,4 +1,6 @@
 Development
+    Move map/unmap code back to the main thread
+    Add thumb position option to widget
     Use more bars in meter, fix some drawing issues in the meter
     Fix some problems with the media tracker drawing code
     Change audio meter calcs
