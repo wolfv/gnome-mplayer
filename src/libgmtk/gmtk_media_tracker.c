@@ -49,6 +49,8 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
 {
     GdkPixbuf *temp;
     GtkIconTheme *icon_theme;
+    PangoLayout *p;
+    gint pwidth, pheight;
 
     gtk_widget_add_events(GTK_WIDGET(tracker),
                           GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
@@ -58,8 +60,14 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
     tracker->text = NULL;
     tracker->media_percent = 0.0;
     tracker->cache_percent = 0.0;
-    GTK_WIDGET(tracker)->requisition.height = 32;
-    GTK_WIDGET(tracker)->requisition.width = 120;
+
+	p = gtk_widget_create_pango_layout(GTK_WIDGET(tracker), "/^q");
+    pango_layout_get_size(p, &pwidth, &pheight);
+    pwidth = pwidth / PANGO_SCALE;
+    pheight = pheight / PANGO_SCALE;
+	GTK_WIDGET(tracker)->requisition.height = pheight + 16;
+    GTK_WIDGET(tracker)->requisition.width = 128;
+	g_object_unref(p);
 
     icon_theme = gtk_icon_theme_get_default();
     temp = gtk_icon_theme_load_icon(icon_theme, "media-playback-start", 16, 0, NULL);
