@@ -1,4 +1,5 @@
 Development
+    Fix some problems with the media tracker drawing code
     Change audio meter calcs
     Addition of the new Media Tracker to replace the old progress bar
     Addition of the Audio Meter Widget
