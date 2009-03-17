@@ -167,7 +167,9 @@ void gmtk_audio_meter_set_data(GmtkAudioMeter * meter, GArray * data)
         }
         meter->data_valid = TRUE;
     }
-    gdk_window_invalidate_rect(GTK_WIDGET(meter)->window, NULL, FALSE);
+	
+	if (GTK_WIDGET(meter)->window)
+	    gdk_window_invalidate_rect(GTK_WIDGET(meter)->window, NULL, FALSE);
 }
 
 void gmtk_audio_meter_set_data_full(GmtkAudioMeter * meter, GArray * data, GArray * max_data)
@@ -195,5 +197,7 @@ void gmtk_audio_meter_set_data_full(GmtkAudioMeter * meter, GArray * data, GArra
         }
         meter->data_valid = TRUE;
     }
-    gdk_window_invalidate_rect(GTK_WIDGET(meter)->window, NULL, FALSE);
+
+	if (GTK_WIDGET(meter)->window)
+	    gdk_window_invalidate_rect(GTK_WIDGET(meter)->window, NULL, FALSE);
 }
