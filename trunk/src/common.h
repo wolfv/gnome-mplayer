@@ -109,7 +109,7 @@ typedef enum {
     NO_ERROR,
     ERROR_RETRY_WITH_PLAYLIST,
     ERROR_RETRY_WITH_HTTP,
-	ERROR_RETRY_WITH_MMSHTTP
+    ERROR_RETRY_WITH_MMSHTTP
 } PLAYBACK_ERROR;
 
 PLAYSTATE state;
@@ -123,8 +123,8 @@ typedef struct _IdleData {
     gchar media_info[2048];
     gchar media_notification[2048];
     gchar url[1024];
-	gchar af_export[1024];
-	GMappedFile *mapped_af_export;
+    gchar af_export[1024];
+    GMappedFile *mapped_af_export;
     gint windowid;
     gchar *device;
     gdouble percent;
