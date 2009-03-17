@@ -5990,7 +5990,7 @@ gboolean update_audio_meter(gpointer data)
 	gint non_zero = 0;
     gfloat freq;
 
-    if (idledata->mapped_af_export == NULL)
+    if (idledata->mapped_af_export == NULL || af_export == NULL)
         return TRUE;
 	
 	if (state != PLAYING)
@@ -6005,7 +6005,7 @@ gboolean update_audio_meter(gpointer data)
             buckets[i] = 0;
         }
 
-
+		
         for (i = 0; i < (af_export->size / af_export->nch); i++) {
             for (j = 0; j < af_export->nch; j++) {
                 // scale SB16 data to 0 - 22000 range, believe this is Hz now
