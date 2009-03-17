@@ -5522,7 +5522,7 @@ GtkWidget *create_window(gint windowid)
     media_hbox = gtk_hbox_new(FALSE, 10);
     details_vbox = gtk_vbox_new(FALSE, 10);
     gtk_misc_set_alignment(GTK_MISC(media_label), 0, 0);
-    audio_meter = gmtk_audio_meter_new(25);
+    audio_meter = gmtk_audio_meter_new(METER_BARS);
     gtk_widget_set_size_request(audio_meter, -1, 100);
     g_timeout_add(40, update_audio_meter, NULL);
 
@@ -5997,7 +5997,7 @@ gboolean update_audio_meter(gpointer data)
         data = g_array_new(FALSE, TRUE, sizeof(gfloat));
         max_data = g_array_new(FALSE, TRUE, sizeof(gfloat));
 
-        for (i = 0; i < 25; i++) {
+        for (i = 0; i < METER_BARS; i++) {
             buckets[i] = 0;
         }
 
@@ -6008,14 +6008,14 @@ gboolean update_audio_meter(gpointer data)
                 freq = abs((af_export->payload[j][i])) * 22000 / 32768;
                 // ignore values below 20, as this is unhearable and may skew data
                 if (freq > 20) {
-                    buckets[(gint) (freq / (22000 / 25))]++;
+                    buckets[(gint) (freq / (22000 / METER_BARS))]++;
                 }
             }
         }
 
         sum = 0;
 		non_zero = 0;
-        for (i = 0; i < 25; i++) {
+        for (i = 0; i < METER_BARS; i++) {
             if (buckets[i] > max_buckets[i])
                 max_buckets[i] = buckets[i];
 			if (max_buckets[i] >0)
@@ -6025,7 +6025,7 @@ gboolean update_audio_meter(gpointer data)
         // using avg, keeps one data item from skewing the whole table
         max_avg = sum / non_zero;
 
-        for (i = 0; i < 25; i++) {
+        for (i = 0; i < METER_BARS; i++) {
             f = (gfloat) buckets[i] / (gfloat) max_avg;
             g_array_append_val(data, f);
             f = (gfloat) max_buckets[i] / (gfloat) max_avg;

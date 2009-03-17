@@ -1,4 +1,5 @@
 Development
+    Use more bars in meter, fix some drawing issues in the meter
     Fix some problems with the media tracker drawing code
     Change audio meter calcs
     Addition of the new Media Tracker to replace the old progress bar
