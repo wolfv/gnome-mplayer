@@ -5985,12 +5985,16 @@ gboolean update_audio_meter(gpointer data)
     gint i, j;
     gfloat f;
     gint max_avg = 0;
+	gint max;
     gint sum = 0;
 	gint non_zero = 0;
     gfloat freq;
 
     if (idledata->mapped_af_export == NULL)
         return TRUE;
+	
+	if (state != PLAYING)
+		return TRUE;
 
     if (audio_meter != NULL && GTK_WIDGET_VISIBLE(audio_meter)) {
 
@@ -6015,20 +6019,25 @@ gboolean update_audio_meter(gpointer data)
 
         sum = 0;
 		non_zero = 0;
+		max = 0;
         for (i = 0; i < METER_BARS; i++) {
             if (buckets[i] > max_buckets[i])
                 max_buckets[i] = buckets[i];
 			if (max_buckets[i] >0)
 				non_zero++;
             sum += max_buckets[i];
+			if (max_buckets[i] > max)
+				max = max_buckets[i];
+			if (max > (af_export->size / (af_export->nch * 4)))
+				max = (af_export->size / (af_export->nch * 4));
         }
         // using avg, keeps one data item from skewing the whole table
         max_avg = sum / non_zero;
 
         for (i = 0; i < METER_BARS; i++) {
-            f = (gfloat) buckets[i] / (gfloat) max_avg;
+            f = (gfloat) buckets[i] / (gfloat) max;
             g_array_append_val(data, f);
-            f = (gfloat) max_buckets[i] / (gfloat) max_avg;
+            f = (gfloat) max_buckets[i] / (gfloat) max;
             g_array_append_val(max_data, f);
         }
 
