@@ -30,39 +30,32 @@
 #define __GMTK_AUDIO_METER_H__
 
 G_BEGIN_DECLS
-
 #define GMTK_TYPE_AUDIO_METER		(gmtk_audio_meter_get_type ())
 #define GMTK_AUDIO_METER(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GMTK_TYPE_AUDIO_METER, GmtkAudioMeter))
 #define GMTK_AUDIO_METER_CLASS(obj)	(G_TYPE_CHECK_CLASS_CAST ((obj), GMTK_AUDIO_METER, GmtkAudioMeterClass))
 #define GMTK_IS_AUDIO_METER(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GMTK_TYPE_AUDIO_METER))
 #define GMTK_IS_AUDIO_METER_CLASS(obj)	(G_TYPE_CHECK_CLASS_TYPE ((obj), GMTK_TYPE_AUDIO_METER))
 #define GMTK_AUDIO_METER_GET_CLASS	(G_TYPE_INSTANCE_GET_CLASS ((obj), GMTK_TYPE_AUDIO_METER, GmtkAudioMeterClass))
+typedef struct _GmtkAudioMeter GmtkAudioMeter;
+typedef struct _GmtkAudioMeterClass GmtkAudioMeterClass;
 
-typedef struct _GmtkAudioMeter		GmtkAudioMeter;
-typedef struct _GmtkAudioMeterClass	GmtkAudioMeterClass;
+struct _GmtkAudioMeter {
+    GtkDrawingArea parent;
 
-struct _GmtkAudioMeter
-{
-	GtkDrawingArea parent;
-
-	/* < private > */
-	gint divisions;
-	GArray *data;
-	GArray *max_data;
-	gboolean data_valid;
+    /* < private > */
+    gint divisions;
+    GArray *data;
+    GArray *max_data;
+    gboolean data_valid;
 };
 
-struct _GmtkAudioMeterClass
-{
-	GtkDrawingAreaClass parent_class;
+struct _GmtkAudioMeterClass {
+    GtkDrawingAreaClass parent_class;
 };
 GType gmtk_audio_meter_get_type(void);
 GtkWidget *gmtk_audio_meter_new(const gint divisions);
-void gmtk_audio_meter_set_data(GmtkAudioMeter *meter, GArray *data);
-void gmtk_audio_meter_set_data_full(GmtkAudioMeter *meter, GArray *data,GArray *max_data);
+void gmtk_audio_meter_set_data(GmtkAudioMeter * meter, GArray * data);
+void gmtk_audio_meter_set_data_full(GmtkAudioMeter * meter, GArray * data, GArray * max_data);
 
 G_END_DECLS
-
 #endif
-
-

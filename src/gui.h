@@ -178,7 +178,8 @@ GtkWidget *next_event_box;
 GtkWidget *menu_event_box;
 
 GtkWidget *fs_event_box;
-GtkProgressBar *progress;
+//GtkProgressBar *progress;
+GmtkMediaTracker *tracker;
 GtkWidget *vol_slider;
 
 gboolean in_button;

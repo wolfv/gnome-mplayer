@@ -27,6 +27,7 @@
 G_DEFINE_TYPE(GmtkAudioMeter, gmtk_audio_meter, GTK_TYPE_DRAWING_AREA);
 
 static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * event);
+static void gmtk_audio_meter_dispose(GObject * object);
 
 static void gmtk_audio_meter_class_init(GmtkAudioMeterClass * class)
 {
@@ -35,6 +36,7 @@ static void gmtk_audio_meter_class_init(GmtkAudioMeterClass * class)
     widget_class = GTK_WIDGET_CLASS(class);
 
     widget_class->expose_event = gmtk_audio_meter_expose;
+	G_OBJECT_CLASS(class)->dispose = gmtk_audio_meter_dispose;
 }
 
 static void gmtk_audio_meter_init(GmtkAudioMeter * meter)
@@ -42,38 +44,57 @@ static void gmtk_audio_meter_init(GmtkAudioMeter * meter)
     meter->divisions = 0;
     meter->data = NULL;
     meter->max_data = NULL;
-	meter->data_valid = FALSE;
+    meter->data_valid = FALSE;
 }
+
+static void gmtk_audio_meter_dispose(GObject * object) {
+
+	GmtkAudioMeter *meter;
+
+	meter = GMTK_AUDIO_METER(object);
+
+    meter->data_valid = FALSE;
+    if (meter->data) {
+        g_array_free(meter->data, TRUE);
+        meter->data = NULL;
+    }
+
+    if (meter->max_data) {
+        g_array_free(meter->max_data, TRUE);
+        meter->max_data = NULL;
+    }
+}
+
 
 static void draw(GtkWidget * meter)
 {
     gint i;
     gfloat v;
 
-	if (GMTK_AUDIO_METER(meter)->data == NULL)
-		return;
+    if (GMTK_AUDIO_METER(meter)->data == NULL)
+        return;
 
     for (i = 0; i < GMTK_AUDIO_METER(meter)->divisions; i++) {
-		if (GMTK_AUDIO_METER(meter)->max_data) {
-		    v = g_array_index(GMTK_AUDIO_METER(meter)->max_data, gfloat, i);
+        if (GMTK_AUDIO_METER(meter)->max_data) {
+            v = g_array_index(GMTK_AUDIO_METER(meter)->max_data, gfloat, i);
 
-		    gdk_draw_rectangle(meter->window,
-		                       meter->style->dark_gc[0],
-		                       TRUE,
-		                       i * (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
-		                       meter->allocation.height * (1.0 - v),
-		                       (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
-		                       meter->allocation.height * v);
+            gdk_draw_rectangle(meter->window,
+                               meter->style->dark_gc[0],
+                               TRUE,
+                               i * (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
+                               meter->allocation.height * (1.0 - v),
+                               (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
+                               meter->allocation.height * v);
 
-		    gdk_draw_rectangle(meter->window,
-		                       meter->style->mid_gc[3],
-		                       FALSE,
-		                       i * (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
-		                       meter->allocation.height * (1.0 - v),
-		                       (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
-		                       meter->allocation.height * v);
+            gdk_draw_rectangle(meter->window,
+                               meter->style->mid_gc[3],
+                               FALSE,
+                               i * (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
+                               meter->allocation.height * (1.0 - v),
+                               (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
+                               meter->allocation.height * v);
 
-		}
+        }
 
         v = g_array_index(GMTK_AUDIO_METER(meter)->data, gfloat, i);
         gdk_draw_rectangle(meter->window,
@@ -92,28 +113,24 @@ static void draw(GtkWidget * meter)
                            (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
                            meter->allocation.height * v);
 
-		gdk_draw_rectangle(meter->window,
+        gdk_draw_rectangle(meter->window,
                            meter->style->text_aa_gc[0],
-                           FALSE,
-                           0,
-                           0,
-                           meter->allocation.width -1 ,
-                           meter->allocation.height -1);
+                           FALSE, 0, 0, meter->allocation.width - 1, meter->allocation.height - 1);
     }
 
 }
 
 static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * event)
 {
-	PangoLayout *p;
+    PangoLayout *p;
 
     if (GMTK_AUDIO_METER(meter)->data_valid) {
         draw(meter);
-	} else {
-		p = gtk_widget_create_pango_layout(meter,"No Data");  	
-		gdk_draw_layout(meter->window,meter->style->black_gc,0,0,p);
-		g_object_unref(p);
-	}
+    } else {
+        p = gtk_widget_create_pango_layout(meter, "No Data");
+        gdk_draw_layout(meter->window, meter->style->black_gc, 0, 0, p);
+        g_object_unref(p);
+    }
     return FALSE;
 }
 
@@ -131,7 +148,7 @@ void gmtk_audio_meter_set_data(GmtkAudioMeter * meter, GArray * data)
 {
     gint i;
 
-	meter->data_valid = FALSE;
+    meter->data_valid = FALSE;
     if (meter->data) {
         g_array_free(meter->data, TRUE);
         meter->data = NULL;
@@ -142,22 +159,22 @@ void gmtk_audio_meter_set_data(GmtkAudioMeter * meter, GArray * data)
         meter->max_data = NULL;
     }
 
-	if (data != NULL) {
-		meter->data = g_array_new(FALSE, TRUE, sizeof(gfloat));
+    if (data != NULL) {
+        meter->data = g_array_new(FALSE, TRUE, sizeof(gfloat));
 
-		for (i = 0; i < meter->divisions; i++) {
-		    g_array_append_val(meter->data, g_array_index(data, gfloat, i));
-		}
-		meter->data_valid = TRUE;
-	}
-	gdk_window_invalidate_rect(GTK_WIDGET(meter)->window, NULL, FALSE);
+        for (i = 0; i < meter->divisions; i++) {
+            g_array_append_val(meter->data, g_array_index(data, gfloat, i));
+        }
+        meter->data_valid = TRUE;
+    }
+    gdk_window_invalidate_rect(GTK_WIDGET(meter)->window, NULL, FALSE);
 }
 
 void gmtk_audio_meter_set_data_full(GmtkAudioMeter * meter, GArray * data, GArray * max_data)
 {
     gint i;
 
-	meter->data_valid = FALSE;
+    meter->data_valid = FALSE;
     if (meter->data) {
         g_array_free(meter->data, TRUE);
         meter->data = NULL;
@@ -168,15 +185,15 @@ void gmtk_audio_meter_set_data_full(GmtkAudioMeter * meter, GArray * data, GArra
         meter->max_data = NULL;
     }
 
-	if (data != NULL && max_data != NULL) {
-		meter->data = g_array_new(FALSE, TRUE, sizeof(gfloat));
-		meter->max_data = g_array_new(FALSE, TRUE, sizeof(gfloat));
+    if (data != NULL && max_data != NULL) {
+        meter->data = g_array_new(FALSE, TRUE, sizeof(gfloat));
+        meter->max_data = g_array_new(FALSE, TRUE, sizeof(gfloat));
 
-		for (i = 0; i < meter->divisions; i++) {
-		    g_array_append_val(meter->data, g_array_index(data, gfloat, i));
-		    g_array_append_val(meter->max_data, g_array_index(max_data, gfloat, i));
-		}
-		meter->data_valid = TRUE;
-	}
-	gdk_window_invalidate_rect(GTK_WIDGET(meter)->window, NULL, FALSE);
+        for (i = 0; i < meter->divisions; i++) {
+            g_array_append_val(meter->data, g_array_index(data, gfloat, i));
+            g_array_append_val(meter->max_data, g_array_index(max_data, gfloat, i));
+        }
+        meter->data_valid = TRUE;
+    }
+    gdk_window_invalidate_rect(GTK_WIDGET(meter)->window, NULL, FALSE);
 }

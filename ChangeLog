@@ -1,4 +1,5 @@
 Development
+    Addition of the new Media Tracker to replace the old progress bar
     Addition of the Audio Meter Widget
 0.9.5
     For vdpau, fall back to vdpau, xv or x11 if we can't find the right codec

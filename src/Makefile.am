@@ -61,7 +61,9 @@ gnome_mplayer_SOURCES = \
     libgmlib/gm_file.c \
     libgmtk/gmtk.h \
     libgmtk/gmtk_audio_meter.h \
-    libgmtk/gmtk_audio_meter.c
+    libgmtk/gmtk_audio_meter.c \
+    libgmtk/gmtk_media_tracker.h \
+    libgmtk/gmtk_media_tracker.c
     
 
 gnome_mplayer_LDFLAGS = 

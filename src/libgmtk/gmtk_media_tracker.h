@@ -24,3 +24,48 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+
+#ifndef __GMTK_MEDIA_TRACKER_H__
+#define __GMTK_MEDIA_TRACKER_H__
+
+G_BEGIN_DECLS
+#define GMTK_TYPE_MEDIA_TRACKER		(gmtk_media_tracker_get_type ())
+#define GMTK_MEDIA_TRACKER(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GMTK_TYPE_MEDIA_TRACKER, GmtkMediaTracker))
+#define GMTK_MEDIA_TRACKER_CLASS(obj)	(G_TYPE_CHECK_CLASS_CAST ((obj), GMTK_MEDIA_TRACKER, GmtkMediaTrackerClass))
+#define GMTK_IS_MEDIA_TRACKER(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GMTK_TYPE_MEDIA_TRACKER))
+#define GMTK_IS_MEDIA_TRACKER_CLASS(obj)	(G_TYPE_CHECK_CLASS_TYPE ((obj), GMTK_TYPE_MEDIA_TRACKER))
+#define GMTK_MEDIA_TRACKER_GET_CLASS	(G_TYPE_INSTANCE_GET_CLASS ((obj), GMTK_TYPE_MEDIA_TRACKER, GmtkMediaTrackerClass))
+typedef struct _GmtkMediaTracker GmtkMediaTracker;
+typedef struct _GmtkMediaTrackerClass GmtkMediaTrackerClass;
+
+struct _GmtkMediaTracker {
+    GtkDrawingArea parent;
+
+    /* < private > */
+    gdouble media_percent;
+    gdouble cache_percent;
+    gchar *text;
+    gboolean mouse_down;
+    GdkPixbuf *thumb_upper;
+    GdkPixbuf *thumb_lower;
+
+};
+
+struct _GmtkMediaTrackerClass {
+    GtkDrawingAreaClass parent_class;
+};
+
+GType gmtk_media_tracker_get_type(void);
+GtkWidget *gmtk_media_tracker_new();
+
+void gmtk_media_tracker_set_percentage(GmtkMediaTracker * tracker, gdouble percentage);
+gdouble gmtk_media_tracker_get_percentage(GmtkMediaTracker * tracker);
+
+void gmtk_media_tracker_set_text(GmtkMediaTracker * tracker, const gchar * text);
+
+void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble percentage);
+gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker);
+
+G_END_DECLS
+#endif

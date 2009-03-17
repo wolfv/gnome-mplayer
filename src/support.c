@@ -1425,13 +1425,13 @@ gint get_bitrate(gchar * name)
 gboolean add_item_to_playlist(const gchar * uri, gint playlist)
 {
     GtkTreeIter localiter;
-	gchar *local_uri;
+    gchar *local_uri;
     gchar *unescaped = NULL;
     MetaData *data = NULL;
 
     if (verbose)
         printf("adding %s to playlist\n", uri);
-	local_uri = strdup(uri);
+    local_uri = strdup(uri);
     if (!device_name(local_uri) && !streaming_media(local_uri)) {
         if (playlist) {
             data = (MetaData *) g_new0(MetaData, 1);
@@ -1451,7 +1451,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
     } else {
 
         if (g_str_has_prefix(uri, "http://")) {
-            unescaped = switch_protocol(uri,"mmshttp");
+            unescaped = switch_protocol(uri, "mmshttp");
             g_free(local_uri);
             local_uri = g_strdup(unescaped);
             g_free(unescaped);
@@ -1508,10 +1508,10 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         g_free(data->audio_codec);
         g_free(data->video_codec);
         g_free(data);
-		g_free(local_uri);
+        g_free(local_uri);
         return TRUE;
     } else {
-		g_free(local_uri);
+        g_free(local_uri);
         return FALSE;
     }
 
@@ -2742,30 +2742,33 @@ gboolean detect_volume_option()
     return ret;
 }
 
-gchar *switch_protocol(const gchar *uri, gchar *new_protocol) {
-	gchar *p;
-	
-	p = g_strrstr(uri,"://");
-	
-	if (p != NULL)
-		return g_strdup_printf("%s%s",new_protocol,p);
-	else
-		return NULL;
+gchar *switch_protocol(const gchar * uri, gchar * new_protocol)
+{
+    gchar *p;
+
+    p = g_strrstr(uri, "://");
+
+    if (p != NULL)
+        return g_strdup_printf("%s%s", new_protocol, p);
+    else
+        return NULL;
 }
 
-void map_af_export_file(gchar *filename) {
-	
-	idledata->mapped_af_export = g_mapped_file_new(filename,FALSE,NULL);
-	af_export = (Export *)g_mapped_file_get_contents(idledata->mapped_af_export);
+void map_af_export_file(gchar * filename)
+{
+
+    idledata->mapped_af_export = g_mapped_file_new(filename, FALSE, NULL);
+    af_export = (Export *) g_mapped_file_get_contents(idledata->mapped_af_export);
 }
 
-void unmap_ad_export_file(gchar *filename) {
+void unmap_af_export_file(gchar * filename)
+{
 
-	if (idledata->mapped_af_export) {
-		g_mapped_file_free(idledata->mapped_af_export);
-		idledata->mapped_af_export = NULL;
-	}
-	g_unlink(filename);
-	
-	gmtk_audio_meter_set_data(GMTK_AUDIO_METER(audio_meter), NULL);
+    if (idledata->mapped_af_export) {
+        g_mapped_file_free(idledata->mapped_af_export);
+        idledata->mapped_af_export = NULL;
+    }
+    g_unlink(filename);
+
+    gmtk_audio_meter_set_data(GMTK_AUDIO_METER(audio_meter), NULL);
 }

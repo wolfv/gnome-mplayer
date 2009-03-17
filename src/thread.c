@@ -70,8 +70,7 @@ gboolean play(void *data)
     PlayData *p = (PlayData *) data;
 
     if (ok_to_play && p != NULL) {
-        gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN,
-                           p->uri);
+        gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri);
         play_iter(&iter);
     }
     g_free(p);
@@ -147,12 +146,12 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
                 error_msg =
                     g_strdup_printf(_("Failed to open %s"),
                                     mplayer_output->str + strlen("Failed to open "));
-			}
-		
-			if (strstr(mplayer_output->str, "mms://") != NULL && idledata->streaming) {
-				dontplaynext = TRUE;
-				playback_error = ERROR_RETRY_WITH_MMSHTTP;
-			}
+            }
+
+            if (strstr(mplayer_output->str, "mms://") != NULL && idledata->streaming) {
+                dontplaynext = TRUE;
+                playback_error = ERROR_RETRY_WITH_MMSHTTP;
+            }
         }
     }
 
@@ -674,13 +673,13 @@ gboolean thread_query(gpointer data)
         return FALSE;
     }
 
-	if (idledata->mapped_af_export == NULL && g_file_test(idledata->af_export,G_FILE_TEST_EXISTS)) {
-			// start audio export monitor
-			// but don't start polling until meter is visible
-			map_af_export_file(idledata->af_export);
-	}
-	
-	
+    if (idledata->mapped_af_export == NULL && g_file_test(idledata->af_export, G_FILE_TEST_EXISTS)) {
+        // start audio export monitor
+        // but don't start polling until meter is visible
+        map_af_export_file(idledata->af_export);
+    }
+
+
     if (state == PLAYING) {
         // size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
         size = write(std_in, "get_time_pos\n", strlen("get_time_pos\n"));
@@ -988,10 +987,10 @@ gpointer launch_player(gpointer data)
 	}		
 	g_free(filename);
 */
-	
-	argv[arg++] = g_strdup_printf("-af");
-	argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
-	
+
+    argv[arg++] = g_strdup_printf("-af");
+    argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
+
     if (threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
 
@@ -1072,7 +1071,7 @@ gpointer launch_player(gpointer data)
 #else
         g_timeout_add(1000, thread_query, threaddata);
 #endif
-		
+
         g_cond_wait(mplayer_complete_cond, thread_running);
         if (verbose)
             printf("Thread completing\n");
@@ -1123,22 +1122,22 @@ gpointer launch_player(gpointer data)
             g_unlink(threaddata->filename);
         }
 #endif
-		
-		if (g_file_test(idledata->af_export,G_FILE_TEST_EXISTS)) {
-				// stop audio export monitor
-				// as part of the stopping, remove file when memmapped file is closed
-				unmap_ad_export_file(idledata->af_export);
-		}
+
+        if (g_file_test(idledata->af_export, G_FILE_TEST_EXISTS)) {
+            // stop audio export monitor
+            // as part of the stopping, remove file when memmapped file is closed
+            unmap_af_export_file(idledata->af_export);
+        }
 
         dbus_enable_screensaver();
         g_mutex_unlock(thread_running);
-        
-		if (idledata->cachepercent < 0 && g_str_has_prefix(threaddata->filename, "mms")) {
+
+        if (idledata->cachepercent < 0 && g_str_has_prefix(threaddata->filename, "mms")) {
             dontplaynext = TRUE;
             playback_error = ERROR_RETRY_WITH_MMSHTTP;
         }
 
-		if (idledata->cachepercent < 0 && g_str_has_prefix(threaddata->filename, "mmshttp")) {
+        if (idledata->cachepercent < 0 && g_str_has_prefix(threaddata->filename, "mmshttp")) {
             dontplaynext = TRUE;
             playback_error = ERROR_RETRY_WITH_HTTP;
         }
@@ -1189,21 +1188,21 @@ gpointer launch_player(gpointer data)
                 p->playlist = 1;
                 g_idle_add(play, p);
             }
-			
+
             if (playback_error == ERROR_RETRY_WITH_HTTP) {
                 p = (PlayData *) g_malloc(sizeof(PlayData));
-				filename = switch_protocol(threaddata->filename,"http");
+                filename = switch_protocol(threaddata->filename, "http");
                 g_strlcpy(p->uri, filename, 4096);
-				g_free(filename);
+                g_free(filename);
                 p->playlist = threaddata->playlist;
                 g_idle_add(play, p);
             }
 
-			if (playback_error == ERROR_RETRY_WITH_MMSHTTP) {
+            if (playback_error == ERROR_RETRY_WITH_MMSHTTP) {
                 p = (PlayData *) g_malloc(sizeof(PlayData));
-				filename = switch_protocol(threaddata->filename,"mmshttp");
+                filename = switch_protocol(threaddata->filename, "mmshttp");
                 g_strlcpy(p->uri, filename, 4096);
-				g_free(filename);
+                g_free(filename);
                 p->playlist = threaddata->playlist;
                 g_idle_add(play, p);
             }

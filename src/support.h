@@ -98,7 +98,7 @@ void release_preference_store();
 gchar *get_localfile_from_uri(gchar * uri);
 gboolean is_uri_dir(gchar * uri);
 gboolean uri_exists(gchar * uri);
-gchar *switch_protocol(const gchar *uri, gchar *new_protocol);
+gchar *switch_protocol(const gchar * uri, gchar * new_protocol);
 
 #ifdef HAVE_GPOD
 gchar *find_gpod_mount_point();
@@ -109,7 +109,7 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album);
 gpointer get_cover_art(gpointer data);
 
 gboolean detect_volume_option();
-void map_af_export_file(gchar *filename);
-void unmap_ad_export_file(gchar *filename);
+void map_af_export_file(gchar * filename);
+void unmap_af_export_file(gchar * filename);
 
 #endif                          // _SUPPORT_H
