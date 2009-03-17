@@ -145,7 +145,11 @@ void draw(GtkWidget * tracker)
     if (cache_width > 0)
         if ((handle_left) > cache_width)
             handle_left = cache_width;
-
+/*
+    gdk_draw_pixbuf(tracker->window, NULL,
+                    GMTK_MEDIA_TRACKER(tracker)->thumb_upper, 0, 0, handle_left,
+                    0, -1, -1, GDK_RGB_DITHER_NONE, 0, 0);
+*/
     gdk_draw_pixbuf(tracker->window, NULL,
                     GMTK_MEDIA_TRACKER(tracker)->thumb_lower, 0, 0, handle_left,
                     tracker->allocation.height -

@@ -206,7 +206,7 @@ gint play_iter(GtkTreeIter * playiter)
     reset_paned_rules();
 
     // reset audio meter
-    for (i = 0; i < 25; i++) {
+    for (i = 0; i < METER_BARS; i++) {
         buckets[i] = 0;
         max_buckets[i] = 0;
     }

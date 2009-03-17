@@ -239,8 +239,10 @@ typedef struct _Export {
 } Export;
 
 Export *af_export;
-gint buckets[25];
-gint max_buckets[25];
+
+#define METER_BARS 		44
+gint buckets[METER_BARS];
+gint max_buckets[METER_BARS];
 
 //Define MIME for DnD
 #define DRAG_NAME_0		"text/plain"
