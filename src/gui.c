@@ -5986,6 +5986,7 @@ gboolean update_audio_meter(gpointer data)
     gfloat f;
     gint max_avg = 0;
     gint sum = 0;
+	gint non_zero = 0;
     gfloat freq;
 
     if (idledata->mapped_af_export == NULL)
@@ -6013,13 +6014,16 @@ gboolean update_audio_meter(gpointer data)
         }
 
         sum = 0;
+		non_zero = 0;
         for (i = 0; i < 25; i++) {
             if (buckets[i] > max_buckets[i])
                 max_buckets[i] = buckets[i];
+			if (max_buckets[i] >0)
+				non_zero++;
             sum += max_buckets[i];
         }
         // using avg, keeps one data item from skewing the whole table
-        max_avg = sum / 25;
+        max_avg = sum / non_zero;
 
         for (i = 0; i < 25; i++) {
             f = (gfloat) buckets[i] / (gfloat) max_avg;
