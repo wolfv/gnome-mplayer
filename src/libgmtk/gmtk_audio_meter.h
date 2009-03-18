@@ -47,6 +47,7 @@ struct _GmtkAudioMeter {
     GArray *data;
     GArray *max_data;
     gboolean data_valid;
+	gint max_division_width;
 };
 
 struct _GmtkAudioMeterClass {
@@ -56,6 +57,7 @@ GType gmtk_audio_meter_get_type(void);
 GtkWidget *gmtk_audio_meter_new(const gint divisions);
 void gmtk_audio_meter_set_data(GmtkAudioMeter * meter, GArray * data);
 void gmtk_audio_meter_set_data_full(GmtkAudioMeter * meter, GArray * data, GArray * max_data);
+void gmtk_audio_meter_set_max_division_width(GmtkAudioMeter * meter, gint max_division_width);
 
 G_END_DECLS
 #endif

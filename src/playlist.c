@@ -796,7 +796,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
             if (vertical_layout) {
                 gtk_widget_hide(fixed);
             } else {
-                gtk_widget_hide(vbox);
+				if (!(GTK_WIDGET_VISIBLE(audio_meter) || (GTK_IS_WIDGET(details_table))))
+					gtk_widget_hide(vbox);
             }
         } else {
             // set the window size properly when coming out of fullscreen mode.

@@ -45,6 +45,7 @@ static void gmtk_audio_meter_init(GmtkAudioMeter * meter)
     meter->data = NULL;
     meter->max_data = NULL;
     meter->data_valid = FALSE;
+	meter->max_division_width = -1;
 }
 
 static void gmtk_audio_meter_dispose(GObject * object) {
@@ -70,28 +71,39 @@ static void draw(GtkWidget * meter)
 {
     gint i;
     gfloat v;
+	gint division_width;
 
     if (GMTK_AUDIO_METER(meter)->data == NULL)
         return;
 
+	division_width = meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions;
+	if (division_width < 2)
+		division_width = 2;
+	if (GMTK_AUDIO_METER(meter)->max_division_width > 0 && division_width > GMTK_AUDIO_METER(meter)->max_division_width)
+		division_width = GMTK_AUDIO_METER(meter)->max_division_width;
+	
     for (i = 0; i < GMTK_AUDIO_METER(meter)->divisions; i++) {
         if (GMTK_AUDIO_METER(meter)->max_data) {
             v = g_array_index(GMTK_AUDIO_METER(meter)->max_data, gfloat, i);
-
+			if (v >= 1.0)
+				v = 1.0;
+			if (v <= 0.0)
+				v = 0.0;
+			
             gdk_draw_rectangle(meter->window,
                                meter->style->dark_gc[0],
                                TRUE,
-                               i * (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
-                               meter->allocation.height * (1.0 - v),
-                               (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
+                               i * division_width,
+                               meter->allocation.height * (1.0 - v) + 3,
+                               division_width,
                                meter->allocation.height * v);
 
             gdk_draw_rectangle(meter->window,
                                meter->style->mid_gc[3],
                                FALSE,
-                               i * (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
-                               meter->allocation.height * (1.0 - v),
-                               (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
+                               i * division_width,
+                               meter->allocation.height * (1.0 - v) + 3,
+                               division_width,
                                meter->allocation.height * v);
 
         }
@@ -100,20 +112,25 @@ static void draw(GtkWidget * meter)
     for (i = 0; i < GMTK_AUDIO_METER(meter)->divisions; i++) {
 
         v = g_array_index(GMTK_AUDIO_METER(meter)->data, gfloat, i);
+		if (v >= 1.0)
+			v = 1.0;
+		if (v <= 0.0)
+			v = 0.00;
+		
         gdk_draw_rectangle(meter->window,
                            meter->style->mid_gc[3],
                            TRUE,
-                           i * (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
-                           meter->allocation.height * (1.0 - v),
-                           (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
+                           i * division_width,
+                           meter->allocation.height * (1.0 - v) + 3,
+                           division_width,
                            meter->allocation.height * v);
 
         gdk_draw_rectangle(meter->window,
                            meter->style->fg_gc[0],
                            FALSE,
-                           i * (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
-                           meter->allocation.height * (1.0 - v),
-                           (meter->allocation.width / GMTK_AUDIO_METER(meter)->divisions),
+                           i * division_width,
+                           meter->allocation.height * (1.0 - v) + 3,
+                           division_width,
                            meter->allocation.height * v);
 
     }
@@ -207,4 +224,9 @@ void gmtk_audio_meter_set_data_full(GmtkAudioMeter * meter, GArray * data, GArra
 
 	if (GTK_WIDGET(meter)->window)
 	    gdk_window_invalidate_rect(GTK_WIDGET(meter)->window, NULL, FALSE);
+}
+
+void gmtk_audio_meter_set_max_division_width(GmtkAudioMeter * meter, gint max_division_width)
+{
+	meter->max_division_width = max_division_width;
 }

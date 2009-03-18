@@ -3497,10 +3497,21 @@ void menuitem_meter_callback(GtkMenuItem * menuitem, void *data)
         gtk_window_get_size(GTK_WINDOW(window), &width, &height);
         gtk_widget_hide(audio_meter);
         gtk_window_resize(GTK_WINDOW(window), width, height - audio_meter->allocation.height);
+		if(!vertical_layout && GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+			if (!(GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table))) {
+				gtk_widget_hide(vbox);
+			}
+		}
+		
     } else {
         gtk_window_get_size(GTK_WINDOW(window), &width, &height);
         gtk_widget_show(audio_meter);
         gtk_window_resize(GTK_WINDOW(window), width, height + audio_meter->allocation.height);
+		if(!vertical_layout && GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+			gtk_widget_show(vbox);
+			if(!idledata->videopresent)
+				gtk_widget_hide(fixed);
+		}
     }
 }
 
@@ -3519,9 +3530,12 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_resize(GTK_WINDOW(window), width, height - details_vbox->allocation.height);
             gtk_widget_destroy(details_table);
             details_table = NULL;
-            while (gtk_events_pending())
-                gtk_main_iteration();
         }
+		if(!vertical_layout && GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+			if (!GTK_WIDGET_VISIBLE(audio_meter)) {
+				gtk_widget_hide(vbox);
+			}
+		}
     } else {
         if (GTK_IS_WIDGET(details_table)) {
             gtk_widget_destroy(details_table);
@@ -3704,13 +3718,20 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
             if (i > 0)
                 gtk_widget_show_all(details_vbox);
         }
+
+		if(!vertical_layout && GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+			gtk_widget_show(vbox);
+			if(!idledata->videopresent)
+				gtk_widget_hide(fixed);
+
+		}
     }
 
     if (idle != NULL && !idle->videopresent && !idle->audiopresent) {
         if (GTK_IS_WIDGET(details_table))
             gtk_widget_destroy(details_table);
         details_table = NULL;
-    }
+    } 
 
 }
 
@@ -5530,13 +5551,14 @@ GtkWidget *create_window(gint windowid)
     details_vbox = gtk_vbox_new(FALSE, 10);
     gtk_misc_set_alignment(GTK_MISC(media_label), 0, 0);
     audio_meter = gmtk_audio_meter_new(METER_BARS);
+	gmtk_audio_meter_set_max_division_width(GMTK_AUDIO_METER(audio_meter),10);
     gtk_widget_set_size_request(audio_meter, -1, 100);
     g_timeout_add(40, update_audio_meter, NULL);
 
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(media_hbox), cover_art, FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(media_hbox), media_label, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(media_hbox), media_label, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), media_hbox, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), details_vbox, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), audio_meter, FALSE, FALSE, 0);
