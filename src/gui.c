@@ -5770,6 +5770,7 @@ GtkWidget *create_window(gint windowid)
 
     // progress bar
     tracker = GMTK_MEDIA_TRACKER(gmtk_media_tracker_new());
+	gmtk_media_tracker_set_thumb_position(tracker,THUMB_ON_TOP_AND_BOTTOM);
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(tracker), TRUE, TRUE, 2);
     g_signal_connect(G_OBJECT(tracker), "button_press_event", G_CALLBACK(progress_callback), NULL);
     g_signal_connect(G_OBJECT(tracker), "button_release_event", G_CALLBACK(progress_callback),
