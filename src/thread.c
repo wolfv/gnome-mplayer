@@ -676,7 +676,7 @@ gboolean thread_query(gpointer data)
     if (idledata->mapped_af_export == NULL && g_file_test(idledata->af_export, G_FILE_TEST_EXISTS)) {
         // start audio export monitor
         // but don't start polling until meter is visible
-        g_idle_add(map_af_export_file,idledata);
+        g_idle_add(map_af_export_file, idledata);
     }
 
 
@@ -1126,7 +1126,7 @@ gpointer launch_player(gpointer data)
         if (g_file_test(idledata->af_export, G_FILE_TEST_EXISTS)) {
             // stop audio export monitor
             // as part of the stopping, remove file when memmapped file is closed
-            g_idle_add(unmap_af_export_file,idledata);
+            g_idle_add(unmap_af_export_file, idledata);
         }
 
         dbus_enable_screensaver();

@@ -330,6 +330,7 @@ gboolean show_status_icon;
 gboolean load_tracks_from_gpod;
 gchar *gpod_mount_point;
 gboolean disable_cover_art_fetch;
+gboolean updating_recent;
 
 gboolean remember_loc;
 gint loc_window_x;
@@ -360,6 +361,7 @@ gboolean embedding_disabled;
 
 GArray *data;
 GArray *max_data;
+gboolean reading_af_export;
 
 // playlist stuff
 GtkListStore *playliststore;
@@ -429,6 +431,7 @@ gboolean read_mplayer_config();
 
 #ifdef GTK2_12_ENABLED
 GtkRecentManager *recent_manager;
+void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer data);
 #endif
 
 #endif                          /* _COMMON_H */

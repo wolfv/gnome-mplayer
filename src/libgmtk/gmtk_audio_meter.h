@@ -47,7 +47,7 @@ struct _GmtkAudioMeter {
     GArray *data;
     GArray *max_data;
     gboolean data_valid;
-	gint max_division_width;
+    gint max_division_width;
 };
 
 struct _GmtkAudioMeterClass {

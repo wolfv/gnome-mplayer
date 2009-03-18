@@ -2379,7 +2379,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
             while (g_strrstr(ipod_path, ":")) {
                 ipod_path[g_strrstr(ipod_path, ":") - ipod_path] = '/';
             }
-            full_path = g_strdup_printf("file:///%s%s", mount_point, ipod_path);
+            full_path = g_strdup_printf("file://%s%s", mount_point, ipod_path);
             g_free(ipod_path);
 
             artwork = (Itdb_Artwork *) ((Itdb_Track *) (tracks->data))->artwork;
@@ -2756,27 +2756,30 @@ gchar *switch_protocol(const gchar * uri, gchar * new_protocol)
 
 gboolean map_af_export_file(gpointer data)
 {
-	IdleData *idle = (IdleData *) data;
-	
-	if (data != NULL) {
-		idle->mapped_af_export = g_mapped_file_new((gchar *)idle->af_export, FALSE, NULL);
-		af_export = (Export *) g_mapped_file_get_contents(idle->mapped_af_export);
-	}
-	return FALSE;
+    IdleData *idle = (IdleData *) data;
+
+    if (data != NULL) {
+        idle->mapped_af_export = g_mapped_file_new((gchar *) idle->af_export, FALSE, NULL);
+        af_export = (Export *) g_mapped_file_get_contents(idle->mapped_af_export);
+    }
+    return FALSE;
 }
 
 gboolean unmap_af_export_file(gpointer data)
 {
-	IdleData *idle = (IdleData *) data;
-	
+    IdleData *idle = (IdleData *) data;
+
+    if (reading_af_export)
+        return TRUE;
+
     if (idle->mapped_af_export) {
-		af_export = NULL;
+        af_export = NULL;
         g_mapped_file_free(idle->mapped_af_export);
         idle->mapped_af_export = NULL;
-		g_unlink((gchar *)idle->af_export);
+        g_unlink((gchar *) idle->af_export);
     }
 
     gmtk_audio_meter_set_data(GMTK_AUDIO_METER(audio_meter), NULL);
-	
-	return FALSE;
+
+    return FALSE;
 }

@@ -38,9 +38,9 @@ G_BEGIN_DECLS
 #define GMTK_MEDIA_TRACKER_GET_CLASS	(G_TYPE_INSTANCE_GET_CLASS ((obj), GMTK_TYPE_MEDIA_TRACKER, GmtkMediaTrackerClass))
 
 typedef enum {
-	THUMB_ON_BOTTOM,
-	THUMB_ON_TOP,
-	THUMB_ON_TOP_AND_BOTTOM
+    THUMB_ON_BOTTOM,
+    THUMB_ON_TOP,
+    THUMB_ON_TOP_AND_BOTTOM
 } GmtkThumbPosition;
 
 typedef struct _GmtkMediaTracker GmtkMediaTracker;
@@ -56,7 +56,7 @@ struct _GmtkMediaTracker {
     gboolean mouse_down;
     GdkPixbuf *thumb_upper;
     GdkPixbuf *thumb_lower;
-	GmtkThumbPosition position;
+    GmtkThumbPosition position;
 };
 
 struct _GmtkMediaTrackerClass {
