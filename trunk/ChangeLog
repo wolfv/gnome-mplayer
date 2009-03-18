@@ -1,4 +1,5 @@
 Development
+    Fixed meter and details display when combined with playlist
     Hook I key to show display_name when in fullscreen mode
     Prevent invalid memory accesses
     Move map/unmap code back to the main thread
