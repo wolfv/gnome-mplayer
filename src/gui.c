@@ -1612,6 +1612,13 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three),
                                                TRUE);
             return FALSE;
+		case GDK_i:
+			if (fullscreen) {
+				cmd = g_strdup_printf("osd_show_text '%s' 1500 0",idledata->display_name);
+				send_command(cmd,TRUE);
+				g_free(cmd);
+			}
+			return FALSE;
         default:
             if (state == PLAYING) {
                 cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
