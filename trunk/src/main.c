@@ -159,7 +159,10 @@ gint play_iter(GtkTreeIter * playiter)
     MetaData *metadata;
 #ifdef GTK2_12_ENABLED
     GtkRecentData *recent_data;
-    GtkRecentInfo *recent_info;
+#ifdef GIO_ENABLED
+    GFile *file;
+    GFileInfo *file_info;
+#endif
 #endif
 
     if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
@@ -337,32 +340,40 @@ gint play_iter(GtkTreeIter * playiter)
         }
     }
 #ifdef GTK2_12_ENABLED
+#ifdef GIO_ENABLED
     // don't put it on the recent list, if it is running in plugin mode
     if (control_id == 0) {
-        gtk_recent_manager_add_item(recent_manager, uri);
-
-        recent_info = gtk_recent_manager_lookup_item(recent_manager, uri, NULL);
-
-        if (recent_info != NULL) {
-            recent_data = (GtkRecentData *) g_new0(GtkRecentData, 1);
-            if (artist != NULL && strlen(artist) > 0) {
-                recent_data->display_name = g_strdup_printf("%s - %s", artist, title);
-            } else {
-                recent_data->display_name = g_strdup(title);
-            }
-            g_strlcpy(idledata->display_name, recent_data->display_name, 1024);
-            recent_data->mime_type = g_strdup(gtk_recent_info_get_mime_type(recent_info));
-            recent_data->app_name = g_strdup("gnome-mplayer");
-            recent_data->app_exec = g_strdup("gnome-mplayer %u");
-            gtk_recent_info_unref(recent_info);
-            gtk_recent_manager_remove_item(recent_manager, uri, NULL);
-            gtk_recent_manager_add_full(recent_manager, uri, recent_data);
-            g_free(recent_data->mime_type);
-            g_free(recent_data->app_name);
-            g_free(recent_data->app_exec);
-            g_free(recent_data);
+        recent_data = (GtkRecentData *) g_new0(GtkRecentData, 1);
+        if (artist != NULL && strlen(artist) > 0) {
+            recent_data->display_name = g_strdup_printf("%s - %s", artist, title);
+        } else {
+            recent_data->display_name = g_strdup(title);
         }
+        g_strlcpy(idledata->display_name, recent_data->display_name, 1024);
+
+
+        file = g_file_new_for_uri(uri);
+        file_info = g_file_query_info(file,
+                                      G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+                                      G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+                                      G_FILE_QUERY_INFO_NONE, NULL, NULL);
+
+
+        if (file_info) {
+            recent_data->mime_type = g_strdup(g_file_info_get_content_type(file_info));
+            g_object_unref(file_info);
+        }
+        g_object_unref(file);
+        recent_data->app_name = g_strdup("gnome-mplayer");
+        recent_data->app_exec = g_strdup("gnome-mplayer %u");
+        gtk_recent_manager_add_full(recent_manager, uri, recent_data);
+        g_free(recent_data->mime_type);
+        g_free(recent_data->app_name);
+        g_free(recent_data->app_exec);
+        g_free(recent_data);
+
     }
+#endif
 #endif
     g_free(title);
     g_free(artist);
