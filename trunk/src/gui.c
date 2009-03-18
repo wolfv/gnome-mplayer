@@ -319,7 +319,8 @@ gboolean set_progress_value(void *data)
                 g_strdup_printf(_("Paused | %2i%% \342\226\274"),
                                 (gint) (idle->cachepercent * 100));
             gmtk_media_tracker_set_text(tracker, text);
-            g_free(text);
+			gmtk_media_tracker_set_cache_percentage(tracker,idle->cachepercent);
+			g_free(text);
         } else {
             gmtk_media_tracker_set_text(tracker, idle->progress_text);
         }
@@ -350,6 +351,7 @@ gboolean set_progress_value(void *data)
             }
         } else if (autopause == TRUE && state == PAUSED) {
             if (idle->cachepercent > (idle->percent + 0.20)) {
+				gmtk_media_tracker_set_cache_percentage(tracker,idle->cachepercent);
                 play_callback(NULL, NULL, NULL);
                 gtk_widget_set_sensitive(play_event_box, TRUE);
                 autopause = FALSE;
@@ -357,8 +359,13 @@ gboolean set_progress_value(void *data)
         }
     }
 
+	if (idle->cachepercent > 0.0) {
+		gmtk_media_tracker_set_cache_percentage(tracker,idle->cachepercent);
+    }
+	
     if (idle->cachepercent > 0.9) {
         if (autopause == TRUE && state == PAUSED) {
+			gmtk_media_tracker_set_cache_percentage(tracker,idle->cachepercent);
             play_callback(NULL, NULL, NULL);
             gtk_widget_set_sensitive(play_event_box, TRUE);
             autopause = FALSE;
@@ -3603,7 +3610,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_misc_set_padding(GTK_MISC(label), 12, 0);
             gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-            buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->video_bitrate, NULL) / 1024));
+            buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->video_bitrate, NULL) / 1000));
             label = gtk_label_new(buf);
             g_free(buf);
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
@@ -3674,7 +3681,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
             gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
             if (idle != NULL) {
                 buf =
-                    g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->audio_bitrate, NULL) / 1024));
+                    g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->audio_bitrate, NULL) / 1000));
                 label = gtk_label_new(buf);
                 g_free(buf);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
@@ -3689,7 +3696,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
             if (idle != NULL) {
                 buf =
                     g_strdup_printf("%i Kb/s",
-                                    (gint) (g_strtod(idle->audio_samplerate, NULL) / 1024));
+                                    (gint) (g_strtod(idle->audio_samplerate, NULL) / 1000));
                 label = gtk_label_new(buf);
                 g_free(buf);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
