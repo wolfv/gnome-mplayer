@@ -6064,9 +6064,9 @@ gboolean update_audio_meter(gpointer data)
         max_avg = sum / non_zero;
 
         for (i = 0; i < METER_BARS; i++) {
-            f = (gfloat) buckets[i] / (gfloat) max;
+            f = logf((gfloat) buckets[i]) / logf((gfloat) max);
             g_array_append_val(data, f);
-            f = (gfloat) max_buckets[i] / (gfloat) max;
+            f = logf((gfloat) max_buckets[i]) / logf((gfloat) max);
             g_array_append_val(max_data, f);
         }
 
