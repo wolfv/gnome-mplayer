@@ -614,7 +614,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             message = g_strdup_printf("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
         }
         if (message) {
-            g_strlcpy(idledata->media_info, message, 1024);
+			// reset max values in audio meter
+			for (i = 0; i < METER_BARS; i++) {
+				max_buckets[i] = 0;
+			}			
+			g_strlcpy(idledata->media_info, message, 1024);
             g_free(message);
             message = g_strdup_printf("\n\t<b>%s</b>\n", buf + 1);
             g_strlcpy(idledata->media_notification, message, 1024);
