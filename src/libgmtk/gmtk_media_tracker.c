@@ -127,7 +127,9 @@ void draw(GtkWidget * tracker)
                        FALSE, half_thumb_size, 5, bar_width, tracker->allocation.height - 10);
 
 	// if the thumb is hidden we can't seek so tickmarks are useless
-	if (GMTK_MEDIA_TRACKER(tracker)->position != THUMB_HIDDEN) {
+	if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_HIDDEN && GMTK_MEDIA_TRACKER(tracker)->cache_percent == 0.0) {
+		// don't draw it
+	} else {
 		for (x = half_thumb_size; x < bar_width; x = x + (bar_width / 10)) {
 			gdk_draw_line(tracker->window, tracker->style->dark_gc[0], x, 5, x, 8);
 			gdk_draw_line(tracker->window,
