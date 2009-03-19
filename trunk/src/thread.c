@@ -469,7 +469,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_strlcpy(idledata->progress_text, buf, 1024);
         g_free(buf);
         g_idle_add(set_progress_text, idledata);
-        idledata->percent = percent / 100.0;
+        idledata->cachepercent = percent / 100.0;
         g_idle_add(set_progress_value, idledata);
     }
 

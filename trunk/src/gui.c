@@ -312,7 +312,9 @@ gboolean set_progress_value(void *data)
                 gmtk_media_tracker_set_percentage(tracker, idle->percent);
                 if (autopause == FALSE)
                     gtk_widget_set_sensitive(play_event_box, TRUE);
-            }
+            } else {
+				gmtk_media_tracker_set_thumb_position(tracker,THUMB_HIDDEN);
+			}
         }
         if (idle->cachepercent < 1.0 && state == PAUSED) {
             text =
@@ -332,7 +334,7 @@ gboolean set_progress_value(void *data)
             if (iteruri != NULL) {
                 iterfilename = g_filename_from_uri(iteruri, NULL, NULL);
                 g_stat(iterfilename, &buf);
-                if (verbose) {
+                if (verbose > 1) {
                     printf("filename = %s\ndisk size = %li, byte pos = %li\n", iterfilename,
                            (glong) buf.st_size, idle->byte_pos);
                     printf("cachesize = %f, percent = %f\n", idle->cachepercent, idle->percent);
@@ -359,7 +361,7 @@ gboolean set_progress_value(void *data)
         }
     }
 
-	if (idle->cachepercent > 0.0) {
+	if (idle->cachepercent > 0.0 && idle->position == 0) {
 		gmtk_media_tracker_set_cache_percentage(tracker,idle->cachepercent);
     }
 	
@@ -420,20 +422,26 @@ gboolean set_progress_time(void *data)
 
 
     if ((int) idle->length == 0 || idle->position > idle->length) {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !idle->streaming) {
             g_snprintf(idle->progress_text, 128,
                        "%s | %2i%% \342\226\274", time_position, (int) (idle->cachepercent * 100));
+			gmtk_media_tracker_set_cache_percentage(tracker,idle->cachepercent);
         } else {
             g_snprintf(idle->progress_text, 128, "%s", time_position);
+			gmtk_media_tracker_set_cache_percentage(tracker,0.0);
         }
+		gmtk_media_tracker_set_thumb_position(tracker,THUMB_HIDDEN);
     } else {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0) {
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !idle->streaming) {
             g_snprintf(idle->progress_text, 128,
                        "%s / %s | %2i%% \342\226\274",
                        time_position, time_length, (int) (idle->cachepercent * 100));
+			gmtk_media_tracker_set_cache_percentage(tracker,idle->cachepercent);
         } else {
             g_snprintf(idle->progress_text, 128, "%s / %s", time_position, time_length);
+			gmtk_media_tracker_set_cache_percentage(tracker,0.0);
         }
+		gmtk_media_tracker_set_thumb_position(tracker,THUMB_ON_TOP_AND_BOTTOM);
     }
 
     g_free(time_position);
@@ -5777,7 +5785,7 @@ GtkWidget *create_window(gint windowid)
 
     // progress bar
     tracker = GMTK_MEDIA_TRACKER(gmtk_media_tracker_new());
-	gmtk_media_tracker_set_thumb_position(tracker,THUMB_ON_TOP_AND_BOTTOM);
+	gmtk_media_tracker_set_thumb_position(tracker,THUMB_HIDDEN);
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(tracker), TRUE, TRUE, 2);
     g_signal_connect(G_OBJECT(tracker), "button_press_event", G_CALLBACK(progress_callback), NULL);
     g_signal_connect(G_OBJECT(tracker), "button_release_event", G_CALLBACK(progress_callback),
