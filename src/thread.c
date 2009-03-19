@@ -910,13 +910,22 @@ gpointer launch_player(gpointer data)
             argv[arg++] = g_strdup_printf("-embeddedfonts");
 
         argv[arg++] = g_strdup_printf("-ass-font-scale");
-        argv[arg++] = g_strdup_printf("%1.1f", subtitle_scale);
+        argv[arg++] = g_strdup_printf("%1.2f", subtitle_scale);
         if (subtitlefont != NULL && strlen(subtitlefont) > 0) {
             fontname = g_strdup(subtitlefont);
             size = g_strrstr(fontname, " ");
             size[0] = '\0';
+            size = g_strrstr(fontname, " Bold");
+			if (size)
+				size[0] = '\0';
+            size = g_strrstr(fontname, " Italic");
+			if (size)
+				size[0] = '\0';
             argv[arg++] = g_strdup_printf("-ass-force-style");
-            argv[arg++] = g_strdup_printf("FontName=%s", fontname);
+			argv[arg++] = g_strconcat("FontName=",fontname,
+									  ((g_strrstr(subtitlefont,"Italic") != NULL)? ",Italic=1" : ",Italic=0"),
+									  ((g_strrstr(subtitlefont,"Bold") != NULL)? ",Bold=1" : ",Bold=0"),
+									  NULL);
             g_free(fontname);
         }
 
