@@ -126,13 +126,15 @@ void draw(GtkWidget * tracker)
                        tracker->style->dark_gc[0],
                        FALSE, half_thumb_size, 5, bar_width, tracker->allocation.height - 10);
 
-    for (x = half_thumb_size; x < bar_width; x = x + (bar_width / 10)) {
-        gdk_draw_line(tracker->window, tracker->style->dark_gc[0], x, 5, x, 8);
-        gdk_draw_line(tracker->window,
-                      tracker->style->dark_gc[0], x, tracker->allocation.height - 5, x,
-                      tracker->allocation.height - 8);
-    }
-
+	// if the thumb is hidden we can't seek so tickmarks are useless
+	if (GMTK_MEDIA_TRACKER(tracker)->position != THUMB_HIDDEN) {
+		for (x = half_thumb_size; x < bar_width; x = x + (bar_width / 10)) {
+			gdk_draw_line(tracker->window, tracker->style->dark_gc[0], x, 5, x, 8);
+			gdk_draw_line(tracker->window,
+						  tracker->style->dark_gc[0], x, tracker->allocation.height - 5, x,
+						  tracker->allocation.height - 8);
+		}
+	}
 
     // text over the background
     if (GMTK_MEDIA_TRACKER(tracker)->text) {
@@ -200,6 +202,9 @@ static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventB
     bar_width =
         tracker->allocation.width - gdk_pixbuf_get_width(GMTK_MEDIA_TRACKER(tracker)->thumb_lower);
 
+	if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_HIDDEN)
+		return FALSE;
+	
     GMTK_MEDIA_TRACKER(tracker)->media_percent = (event->x - half_thumb_size) / bar_width;
 
     if (GMTK_MEDIA_TRACKER(tracker)->media_percent > 1.0)
@@ -225,6 +230,10 @@ static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMo
     bar_width =
         tracker->allocation.width - gdk_pixbuf_get_width(GMTK_MEDIA_TRACKER(tracker)->thumb_lower);
 
+	if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_HIDDEN)
+		return FALSE;
+
+	
     if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
         GMTK_MEDIA_TRACKER(tracker)->media_percent = (event->x - half_thumb_size) / bar_width;
 
