@@ -1,4 +1,6 @@
 Development
+    Patch from Onur to fix segfault when theme is missing icons
+    Make Bold and Italic work better in Subtitle font
     Fix problem with default auto_hide value when not using gconf
     Update the Makefiles to work with the libraries
     Only load key from key file if it exists already

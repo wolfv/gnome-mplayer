@@ -4515,14 +4515,18 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+	
     config_subtitle_font = gtk_font_button_new();
     if (subtitlefont != NULL) {
         gtk_font_button_set_font_name(GTK_FONT_BUTTON(config_subtitle_font), subtitlefont);
     }
     gtk_font_button_set_show_size(GTK_FONT_BUTTON(config_subtitle_font), FALSE);
+    gtk_font_button_set_show_style(GTK_FONT_BUTTON(config_subtitle_font), FALSE);
+	
     gtk_font_button_set_use_size(GTK_FONT_BUTTON(config_subtitle_font), FALSE);
     gtk_font_button_set_use_font(GTK_FONT_BUTTON(config_subtitle_font), TRUE);
-    gtk_font_button_set_title(GTK_FONT_BUTTON(config_subtitle_font), _("Subtitle Font Selection"));
+
+	gtk_font_button_set_title(GTK_FONT_BUTTON(config_subtitle_font), _("Subtitle Font Selection"));
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_font, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     i++;
@@ -4565,8 +4569,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    config_subtitle_scale = gtk_spin_button_new_with_range(0.25, 10, 0.25);
-    gtk_widget_set_size_request(config_subtitle_scale, 50, -1);
+    config_subtitle_scale = gtk_spin_button_new_with_range(0.25, 10, 0.05);
+    gtk_widget_set_size_request(config_subtitle_scale, -1, -1);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_subtitle_scale), subtitle_scale);
     gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_scale, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);

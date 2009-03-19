@@ -23,6 +23,7 @@
  */
 
 #include "gmtk_media_tracker.h"
+#include "../../pixmaps/media-playback-start.xpm"
 
 G_DEFINE_TYPE(GmtkMediaTracker, gmtk_media_tracker, GTK_TYPE_DRAWING_AREA);
 
@@ -70,7 +71,13 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
     g_object_unref(p);
 
     icon_theme = gtk_icon_theme_get_default();
-    temp = gtk_icon_theme_load_icon(icon_theme, "media-playback-start", 16, 0, NULL);
+    if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start")) {
+        temp = gtk_icon_theme_load_icon(icon_theme, "media-playback-start", 16, 0, NULL);
+    } else if (gtk_icon_theme_has_icon(icon_theme, "stock_media-play")) {
+        temp = gtk_icon_theme_load_icon(icon_theme, "stock_media-play", 16, 0, NULL);
+    } else {
+        temp = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_start_xpm);
+    }	
     tracker->thumb_lower = gdk_pixbuf_rotate_simple(temp, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
     tracker->thumb_upper = gdk_pixbuf_flip(tracker->thumb_lower, FALSE);
     gdk_pixbuf_unref(temp);
