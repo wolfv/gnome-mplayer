@@ -2063,6 +2063,24 @@ gint read_preference_int(gchar * key)
     return value;
 }
 
+gint read_preference_int_with_default(gchar * key, gint default_value)
+{
+    gint value = 0;
+#ifdef HAVE_GCONF
+    gchar *full_key = NULL;
+
+    full_key = g_strdup_printf("/apps/gnome-mplayer/preferences/%s", key);
+    value = gconf_client_get_int(gconf, full_key, NULL);
+    g_free(full_key);
+#else
+	if (g_key_file_has_key(config,"gnome-mplayer",key,NULL))
+		value = g_key_file_get_integer(config, "gnome-mplayer", key, NULL);
+	else
+		value = default_value;
+#endif
+    return value;
+}
+
 gfloat read_preference_float(gchar * key)
 {
     gfloat value = 0;

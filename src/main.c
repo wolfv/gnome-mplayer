@@ -621,7 +621,7 @@ int main(int argc, char *argv[])
     disable_embeddedfonts = read_preference_bool(DISABLEEMBEDDEDFONTS);
     disable_pause_on_click = read_preference_bool(DISABLEPAUSEONCLICK);
     disable_animation = read_preference_bool(DISABLEANIMATION);
-    auto_hide_timeout = read_preference_int(AUTOHIDETIMEOUT);
+    auto_hide_timeout = read_preference_int_with_default(AUTOHIDETIMEOUT,auto_hide_timeout);
     disable_cover_art_fetch = read_preference_bool(DISABLE_COVER_ART_FETCH);
     use_mediakeys = read_preference_bool(USE_MEDIAKEYS);
     metadata_codepage = read_preference_string(METADATACODEPAGE);

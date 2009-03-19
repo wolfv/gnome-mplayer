@@ -1,5 +1,6 @@
 Development
-    Update the Makefiles to work with the libaries
+    Fix problem with default auto_hide value when not using gconf
+    Update the Makefiles to work with the libraries
     Only load key from key file if it exists already
     Cleanup display when media is not seekable
     Have tracker expand when wide text is displayed
