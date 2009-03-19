@@ -140,6 +140,9 @@ void draw(GtkWidget * tracker)
         pango_layout_get_size(p, &pwidth, &pheight);
         pwidth = pwidth / PANGO_SCALE;
         pheight = pheight / PANGO_SCALE;
+		if (pwidth > bar_width) {
+				gtk_widget_set_size_request(tracker,(pwidth + 2 * half_thumb_size),-1);
+		}
 
         ptop = (tracker->allocation.height - pheight) / 2;
         pleft = (tracker->allocation.width - pwidth) / 2;

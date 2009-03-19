@@ -1,4 +1,5 @@
 Development
+    Have tracker expand when wide text is displayed
     Corrected crasher in recent menu, however this now requires GIO to work correctly
     Fixed meter and details display when combined with playlist
     Hook I key to show display_name when in fullscreen mode
