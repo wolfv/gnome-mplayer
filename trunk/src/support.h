@@ -87,6 +87,7 @@ gchar *seconds_to_string(gfloat seconds);
 void init_preference_store();
 gboolean read_preference_bool(gchar * key);
 gint read_preference_int(gchar * key);
+gint read_preference_int_with_default(gchar * key, gint default_value);
 gfloat read_preference_float(gchar * key);
 gchar *read_preference_string(gchar * key);
 void write_preference_bool(gchar * key, gboolean value);
