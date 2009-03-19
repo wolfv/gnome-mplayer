@@ -154,6 +154,8 @@ AC_CHECK_HEADERS([mntent.h])
 AC_OUTPUT([
 Makefile
 src/Makefile
+src/libgmtk/Makefile
+src/libgmlib/Makefile
 po/Makefile.in
 gnome-mplayer.spec
 ])

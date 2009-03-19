@@ -24966,7 +24966,7 @@ fi
 
 done
 
-ac_config_files="$ac_config_files Makefile src/Makefile po/Makefile.in gnome-mplayer.spec"
+ac_config_files="$ac_config_files Makefile src/Makefile src/libgmtk/Makefile src/libgmlib/Makefile po/Makefile.in gnome-mplayer.spec"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -25635,6 +25635,8 @@ do
     "default-1") CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "src/libgmtk/Makefile") CONFIG_FILES="$CONFIG_FILES src/libgmtk/Makefile" ;;
+    "src/libgmlib/Makefile") CONFIG_FILES="$CONFIG_FILES src/libgmlib/Makefile" ;;
     "po/Makefile.in") CONFIG_FILES="$CONFIG_FILES po/Makefile.in" ;;
     "gnome-mplayer.spec") CONFIG_FILES="$CONFIG_FILES gnome-mplayer.spec" ;;
 

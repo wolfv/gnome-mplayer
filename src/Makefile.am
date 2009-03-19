@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 ## Created by Anjuta
+SUBDIRS = libgmtk libgmlib
 
 INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
@@ -55,20 +56,14 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/media-skip-backward.xpm \
 	../pixmaps/media-skip-forward.xpm \
 	../pixmaps/view-fullscreen.xpm \
-	langlist.h \
-    libgmlib/gmlib.h \
-    libgmlib/gm_file.h \
-    libgmlib/gm_file.c \
-    libgmtk/gmtk.h \
-    libgmtk/gmtk_audio_meter.h \
-    libgmtk/gmtk_audio_meter.c \
-    libgmtk/gmtk_media_tracker.h \
-    libgmtk/gmtk_media_tracker.c
-    
+	langlist.h
+
 
 gnome_mplayer_LDFLAGS = 
 
-gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS) $(GPOD_LIBS) $(MUSICBRAINZ_LIBS)
+gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS) $(GPOD_LIBS) $(MUSICBRAINZ_LIBS) \
+    libgmtk/libgmtk.la \
+    libgmlib/libgmlib.la
 
 if HAVE_NAUTILUS
 
