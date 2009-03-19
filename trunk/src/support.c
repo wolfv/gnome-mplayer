@@ -2040,8 +2040,9 @@ gboolean read_preference_bool(gchar * key)
     } else {
         short_key = g_strdup_printf("%s", key);
     }
-
-    value = g_key_file_get_boolean(config, "gnome-mplayer", short_key, NULL);
+	
+	if (g_key_file_has_key(config,"gnome-mplayer",key,NULL))
+		value = g_key_file_get_boolean(config, "gnome-mplayer", short_key, NULL);
 #endif
     return value;
 }
@@ -2056,7 +2057,8 @@ gint read_preference_int(gchar * key)
     value = gconf_client_get_int(gconf, full_key, NULL);
     g_free(full_key);
 #else
-    value = g_key_file_get_integer(config, "gnome-mplayer", key, NULL);
+	if (g_key_file_has_key(config,"gnome-mplayer",key,NULL))
+		value = g_key_file_get_integer(config, "gnome-mplayer", key, NULL);
 #endif
     return value;
 }
@@ -2071,7 +2073,8 @@ gfloat read_preference_float(gchar * key)
     value = gconf_client_get_float(gconf, full_key, NULL);
     g_free(full_key);
 #else
-    value = g_key_file_get_double(config, "gnome-mplayer", key, NULL);
+	if (g_key_file_has_key(config,"gnome-mplayer",key,NULL))
+		value = g_key_file_get_double(config, "gnome-mplayer", key, NULL);
 #endif
     return value;
 }
@@ -2090,7 +2093,8 @@ gchar *read_preference_string(gchar * key)
     value = gconf_client_get_string(gconf, full_key, NULL);
     g_free(full_key);
 #else
-    value = g_key_file_get_string(config, "gnome-mplayer", key, NULL);
+   	if (g_key_file_has_key(config,"gnome-mplayer",key,NULL))
+		value = g_key_file_get_string(config, "gnome-mplayer", key, NULL);
 #endif
 
     return value;
