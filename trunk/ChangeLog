@@ -1,4 +1,6 @@
 Development
+    Fix problem with window size being wrong when video started with playlist open
+    Fix VCD loading, parse them as a playlist
     If cover.jpg or Folder.jpg exist in same folder and song file, load it as cover art
     Patch from Onur to fix segfault when theme is missing icons
     Make Bold and Italic work better in Subtitle font

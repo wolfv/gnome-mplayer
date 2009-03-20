@@ -70,6 +70,7 @@ gint parse_basic(gchar * filename);
 gint parse_ram(gchar * filename);
 gint parse_cdda(gchar * filename);
 gint parse_dvd(gchar * filename);
+gint parse_vcd(gchar * filename);
 gboolean save_playlist_pls(gchar * filename);
 gboolean save_playlist_m3u(gchar * filename);
 gchar *get_path(gchar * filename);
