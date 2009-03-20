@@ -64,7 +64,16 @@ void adjust_paned_rules()
         if (!idledata->videopresent) {
             g_object_ref(vbox);
             gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child1);
-            gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, FALSE);
+			if (GTK_WIDGET_VISIBLE(audio_meter) || (GTK_IS_WIDGET(details_table))) {
+	            gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
+				if(vertical_layout) {
+					g_object_set(pane, "position", window->allocation.height - plvbox->allocation.height,NULL);
+				} else {
+					g_object_set(pane, "position", window->allocation.width - plvbox->allocation.width,NULL);
+				}
+			} else {
+	            gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, FALSE);
+			}
             g_object_unref(vbox);
             if (GTK_IS_WIDGET(plvbox)) {
                 g_object_ref(plvbox);
