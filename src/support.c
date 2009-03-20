@@ -69,6 +69,8 @@ gint detect_playlist(gchar * uri)
         playlist = 1;
     } else if (g_strncasecmp(uri, "dvd://", 6) == 0) {
         playlist = 1;
+    } else if (g_strncasecmp(uri, "vcd://", 6) == 0) {
+        playlist = 1;
 //      } else if (g_strncasecmp(filename,"dvdnav://",9) == 0) {
 //              playlist = 1;
     } else if (device_name(uri)) {
@@ -251,6 +253,8 @@ gint parse_playlist(gchar * uri)
         ret = parse_cdda(uri);
     if (ret != 1)
         ret = parse_dvd(uri);
+    if (ret != 1)
+        ret = parse_vcd(uri);
     if (ret == 1 && count == 0) {
         if (playlistname != NULL) {
             g_free(playlistname);
@@ -761,6 +765,97 @@ gint parse_dvd(gchar * filename)
     return ret;
 }
 
+// This function pulls the playlist for dvd and dvdnav
+gint parse_vcd(gchar * filename)
+{
+
+    GError *error;
+    gint exit_status;
+    gchar *out;
+    gchar *err;
+    gchar *av[255];
+    gint ac = 0, i;
+    gint ret = 0;
+    gchar **output;
+    gchar *track;
+    gint num;
+    gchar *error_msg = NULL;
+    GtkWidget *dialog;
+
+    if (g_strncasecmp(filename, "vcd://", strlen("vcd://")) == 0) {
+        playlist = 0;
+
+		if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+            av[ac++] = g_strdup_printf("mplayer");
+        } else {
+            av[ac++] = g_strdup_printf("%s", mplayer_bin);
+        }
+        av[ac++] = g_strdup_printf("-vo");
+        av[ac++] = g_strdup_printf("null");
+        av[ac++] = g_strdup_printf("-ao");
+        av[ac++] = g_strdup_printf("null");
+        av[ac++] = g_strdup_printf("-frames");
+        av[ac++] = g_strdup_printf("0");
+        av[ac++] = g_strdup_printf("-identify");
+        if (idledata->device != NULL) {
+            av[ac++] = g_strdup_printf("-dvd-device");
+            av[ac++] = g_strdup_printf("%s", idledata->device);
+        }
+        av[ac++] = g_strdup_printf("vcd://");
+        av[ac] = NULL;
+
+        error = NULL;
+
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
+                     &exit_status, &error);
+        for (i = 0; i < ac; i++) {
+            g_free(av[i]);
+        }
+        if (error != NULL) {
+            printf("Error when running: %s\n", error->message);
+            g_error_free(error);
+            if (out != NULL)
+                g_free(out);
+            if (err != NULL)
+                g_free(err);
+            error = NULL;
+        }
+        output = g_strsplit(out, "\n", 0);
+        if (strstr(err, "Couldn't open VCD device:") != NULL) {
+            error_msg =
+                g_strdup_printf(_("Couldn't open VCD device: %s"),
+                                err + strlen("Couldn't open VCD device: "));
+        }
+        ac = 0;
+        while (output[ac] != NULL) {
+            if (g_strncasecmp(output[ac], "ID_VCD_TRACK_", strlen("ID_VCD_TRACK_")) == 0) {
+                sscanf(output[ac], "ID_VCD_TRACK_%i", &num);
+                track = g_strdup_printf("vcd://%i", num);
+				printf("adding track %s\n",track);
+                add_item_to_playlist(track, 0);
+                g_free(track);
+            }
+            ac++;
+        }
+        g_strfreev(output);
+								   
+		if (error_msg != NULL) {
+            dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                            GTK_BUTTONS_CLOSE, error_msg);
+            gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
+            gtk_dialog_run(GTK_DIALOG(dialog));
+            gtk_widget_destroy(dialog);
+            g_free(error_msg);
+            ret = 0;
+        } else {
+            ret = 1;
+        }
+    } else {
+        return 0;
+    }
+
+    return ret;
+}
 
 gboolean update_mplayer_config()
 {
@@ -1228,6 +1323,11 @@ MetaData *get_metadata(gchar * uri)
     }
 
     if (title == NULL && g_strncasecmp(name, "dvb://", strlen("dvb://")) == 0) {
+        localtitle = g_strrstr(name, "/") + 1;
+        title = g_strdup_printf("%s", localtitle);
+    }
+
+	if (title == NULL && g_strncasecmp(name, "vcd://", strlen("vcd://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
         title = g_strdup_printf("%s", localtitle);
     }

@@ -871,7 +871,7 @@ gboolean resize_window(void *data)
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
                 if (verbose)
-                    printf("Changing window size to %i x %i \n", idle->width, idle->height);
+                    printf("Changing window size to %i x %i visible = %i\n", idle->width, idle->height,GTK_WIDGET_VISIBLE(vbox));
                 if (last_window_width == 0 && last_window_height == 0) {
                     if (idle->width > 0 && idle->height > 0) {
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
@@ -2500,7 +2500,7 @@ void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
     gtk_list_store_clear(nonrandomplayliststore);
-    add_item_to_playlist("vcd://", 0);
+    parse_playlist("vcd://");
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
         play_iter(&iter);
@@ -3549,11 +3549,13 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
             gtk_widget_destroy(details_table);
             details_table = NULL;
         }
-        if (!vertical_layout && GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
-            if (!GTK_WIDGET_VISIBLE(audio_meter)) {
-                gtk_widget_hide(vbox);
-            }
-        }
+		if(!idledata->videopresent) {
+		    if (!vertical_layout && GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
+		        if (!GTK_WIDGET_VISIBLE(audio_meter)) {
+		            gtk_widget_hide(vbox);
+		        }
+		    }
+		}
     } else {
         if (GTK_IS_WIDGET(details_table)) {
             gtk_widget_destroy(details_table);
