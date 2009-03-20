@@ -1,4 +1,5 @@
 Development
+    If cover.jpg or Folder.jpg exist in same folder and song file, load it as cover art
     Patch from Onur to fix segfault when theme is missing icons
     Make Bold and Italic work better in Subtitle font
     Fix problem with default auto_hide value when not using gconf

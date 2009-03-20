@@ -213,6 +213,7 @@ enum {
 };
 
 typedef struct _MetaData {
+    gchar *uri;
     gchar *title;
     gchar *artist;
     gchar *album;
