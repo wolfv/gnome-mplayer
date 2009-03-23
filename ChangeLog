@@ -1,4 +1,5 @@
 Development
+    Change display so that media info is always visible when playing audio only files
     Fix problem with window size being wrong when video started with playlist open
     Fix VCD loading, parse them as a playlist
     If cover.jpg or Folder.jpg exist in same folder and song file, load it as cover art

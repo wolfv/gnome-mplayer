@@ -760,7 +760,6 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                 gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
                 gtk_widget_hide(GTK_WIDGET(fixed));
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
-                gtk_widget_show(vbox);
                 gtk_widget_set_size_request(window, -1, -1);
             } else {
                 gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
@@ -791,17 +790,9 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
     } else {
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
         if (idledata->videopresent == FALSE) {
+            gtk_widget_hide(fixed);
             if (window_width != -1)
                 gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
-            if (vertical_layout) {
-                gtk_widget_hide(fixed);
-            } else {
-                if (GTK_WIDGET_VISIBLE(audio_meter) || (GTK_IS_WIDGET(details_table))) {
-                    gtk_widget_hide(fixed);
-				} else {
-	                gtk_widget_hide(vbox);
-				}		
-            }
         } else {
             // set the window size properly when coming out of fullscreen mode.
             if (restore_playlist) {
@@ -1035,9 +1026,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
             }
         }
         gtk_widget_show_all(plvbox);
-        if (idledata->videopresent == FALSE) {
-            gtk_widget_show(GTK_WIDGET(fixed));
-        } else {
+        if (idledata->videopresent) {
             gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
         }
 
