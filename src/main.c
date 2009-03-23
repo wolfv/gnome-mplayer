@@ -638,6 +638,7 @@ int main(int argc, char *argv[])
     real_disabled = read_preference_bool(DISABLE_REAL);
     wmp_disabled = read_preference_bool(DISABLE_WMP);
     dvx_disabled = read_preference_bool(DISABLE_DVX);
+    midi_disabled = read_preference_bool(DISABLE_MIDI);
     embedding_disabled = read_preference_bool(DISABLE_EMBEDDING);
     single_instance = read_preference_bool(SINGLE_INSTANCE);
     if (single_instance)

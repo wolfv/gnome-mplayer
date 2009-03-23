@@ -69,6 +69,7 @@
 #define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"
 #define DISABLE_WMP		"/apps/gecko-mediaplayer/preferences/disable_wmp"
 #define DISABLE_DVX		"/apps/gecko-mediaplayer/preferences/disable_dvx"
+#define DISABLE_MIDI    "/apps/gecko-mediaplayer/preferecnes/disable_midi"
 #define DISABLE_EMBEDDING		"/apps/gecko-mediaplayer/preferences/disable_embedding"
 
 #define REMEMBER_LOC		"remember_loc"
@@ -358,6 +359,7 @@ gboolean qt_disabled;
 gboolean real_disabled;
 gboolean wmp_disabled;
 gboolean dvx_disabled;
+gboolean midi_disabled;
 gboolean embedding_disabled;
 
 GArray *data;

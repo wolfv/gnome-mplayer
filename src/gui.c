@@ -3378,6 +3378,7 @@ void config_apply(GtkWidget * widget, void *data)
     real_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_real));
     wmp_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_wmp));
     dvx_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_dvx));
+    midi_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_midi));
     embedding_disabled = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_noembed));
 
     mplayer_bin = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_mplayer_bin)));
@@ -3426,6 +3427,7 @@ void config_apply(GtkWidget * widget, void *data)
     write_preference_bool(DISABLE_REAL, real_disabled);
     write_preference_bool(DISABLE_WMP, wmp_disabled);
     write_preference_bool(DISABLE_DVX, dvx_disabled);
+    write_preference_bool(DISABLE_MIDI, midi_disabled);
     write_preference_bool(DISABLE_EMBEDDING, embedding_disabled);
     release_preference_store();
 
@@ -4437,6 +4439,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_dvx, 0, 1, i, i + 1);
     i++;
 
+    config_midi = gtk_check_button_new_with_label(_("MIDI Support (requires MPlayer support)"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_midi), !midi_disabled);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_midi, 0, 1, i, i + 1);
+    i++;
+	
     config_noembed = gtk_check_button_new_with_label(_("Disable Player Embedding"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_noembed), embedding_disabled);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_noembed, 0, 1, i, i + 1);
