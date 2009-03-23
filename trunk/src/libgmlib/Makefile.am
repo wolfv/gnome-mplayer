@@ -10,10 +10,10 @@ libgmlib_la_SOURCES = \
     	gm_file.c
 
 libgmlib_la_CFLAGS = \
-	$(GTK_CFLAGS)
+	$(GLIB_CFLAGS)
 
 libgmlib_la_LDFLAGS = \
-	$(GTK_LDFLAGS)
+	$(GLIB_LDFLAGS)
 
 
  
