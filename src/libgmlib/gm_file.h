@@ -24,4 +24,13 @@
 
 #include <glib.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 gchar *gm_tempname(gchar * path, const gchar * name_template);
+
+#ifdef __cplusplus
+}
+#endif
+
