@@ -119,6 +119,10 @@ void draw(GtkWidget * tracker)
     bar_width =
         tracker->allocation.width - gdk_pixbuf_get_width(GMTK_MEDIA_TRACKER(tracker)->thumb_lower);
 
+	// don't bother if there is nothing to draw
+	if (bar_width < half_thumb_size * 2)
+		return;
+	
     // draw the cache bar first, everything is over it
     if (GMTK_MEDIA_TRACKER(tracker)->cache_percent > 0.0) {
         cache_width = bar_width * GMTK_MEDIA_TRACKER(tracker)->cache_percent;
