@@ -599,6 +599,19 @@ int main(int argc, char *argv[])
     // call g_type_init or otherwise we can crash
     g_type_init();
 
+	uri = g_strdup_printf("%s/gnome-mplayer/cover_art", g_get_user_config_dir());
+    if (!g_file_test(uri, G_FILE_TEST_IS_DIR)) {
+        g_mkdir_with_parents(uri, 0775);
+    }
+    g_free(uri);	
+
+	uri = g_strdup_printf("%s/gnome-mplayer/plugin", g_get_user_config_dir());
+    if (!g_file_test(uri, G_FILE_TEST_IS_DIR)) {
+        g_mkdir_with_parents(uri, 0775);
+    }
+    g_free(uri);	
+	uri = NULL;
+	
 	gm_store = gm_pref_store_new("gnome-mplayer");
 	gmp_store = gm_pref_store_new("gecko-mediaplayer");
     mixer = gm_pref_store_get_string(gm_store,MIXER);
