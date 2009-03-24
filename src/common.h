@@ -65,12 +65,12 @@
 #define MPLAYER_BIN		"mplayer_bin"
 #define EXTRAOPTS		"extraopts"
 
-#define DISABLE_QT		"/apps/gecko-mediaplayer/preferences/disable_qt"
-#define DISABLE_REAL	"/apps/gecko-mediaplayer/preferences/disable_real"
-#define DISABLE_WMP		"/apps/gecko-mediaplayer/preferences/disable_wmp"
-#define DISABLE_DVX		"/apps/gecko-mediaplayer/preferences/disable_dvx"
-#define DISABLE_MIDI    "/apps/gecko-mediaplayer/preferecnes/disable_midi"
-#define DISABLE_EMBEDDING		"/apps/gecko-mediaplayer/preferences/disable_embedding"
+#define DISABLE_QT		"disable_qt"
+#define DISABLE_REAL	"disable_real"
+#define DISABLE_WMP		"disable_wmp"
+#define DISABLE_DVX		"disable_dvx"
+#define DISABLE_MIDI    "disable_midi"
+#define DISABLE_EMBEDDING		"disable_embedding"
 
 #define REMEMBER_LOC		"remember_loc"
 #define WINDOW_X		"window_x"
@@ -372,6 +372,10 @@ GtkListStore *nonrandomplayliststore;
 GtkTreeIter iter;
 GtkTreeSelection *selection;
 GtkWidget *list;
+
+// preference store
+GmPrefStore *gm_store;
+GmPrefStore *gmp_store;
 
 GtkWidget *create_window(gint windowid);
 gint get_player_window();

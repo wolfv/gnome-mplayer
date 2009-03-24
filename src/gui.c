@@ -1279,14 +1279,14 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     dontplaynext = TRUE;
 
     if (remember_loc && !fullscreen) {
-        init_preference_store();
+        gm_store = gm_pref_store_new("gnome-mplayer");
         gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
         gtk_window_get_size(GTK_WINDOW(window), &loc_window_width, &loc_window_height);
-        write_preference_int(WINDOW_X, loc_window_x);
-        write_preference_int(WINDOW_Y, loc_window_y);
-        write_preference_int(WINDOW_HEIGHT, loc_window_height);
-        write_preference_int(WINDOW_WIDTH, loc_window_width);
-        release_preference_store();
+        gm_pref_store_set_int(gm_store,WINDOW_X, loc_window_x);
+        gm_pref_store_set_int(gm_store,WINDOW_Y, loc_window_y);
+        gm_pref_store_set_int(gm_store,WINDOW_HEIGHT, loc_window_height);
+        gm_pref_store_set_int(gm_store,WINDOW_WIDTH, loc_window_width);
+        gm_pref_store_free(gm_store);
     }
 
     mplayer_shutdown();
@@ -2197,21 +2197,21 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 #endif
 
     gtk_widget_show(dialog);
-    init_preference_store();
-    last_dir = read_preference_string(LAST_DIR);
+    gm_store = gm_pref_store_new("gnome-mplayer");
+    last_dir = gm_pref_store_get_string(gm_store,LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
-    release_preference_store();
+    gm_pref_store_free(gm_store);
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         filename = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
         if (last_dir != NULL) {
-            init_preference_store();
-            write_preference_string(LAST_DIR, last_dir);
-            release_preference_store();
+            gm_store = gm_pref_store_new("gnome-mplayer");
+            gm_pref_store_set_string(gm_store,LAST_DIR, last_dir);
+            gm_pref_store_free(gm_store);
             g_free(last_dir);
         }
 
@@ -2349,13 +2349,13 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
     gtk_widget_show(dialog);
-    init_preference_store();
-    last_dir = read_preference_string(LAST_DIR);
+    gm_store = gm_pref_store_new("gnome-mplayer");
+    last_dir = gm_pref_store_get_string(gm_store,LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
-    release_preference_store();
+    gm_pref_store_free(gm_store);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
@@ -2386,13 +2386,13 @@ void menuitem_open_dvd_iso_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
     gtk_widget_show(dialog);
-    init_preference_store();
-    last_dir = read_preference_string(LAST_DIR);
+    gm_store = gm_pref_store_new("gnome-mplayer");
+    last_dir = gm_pref_store_get_string(gm_store,LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
-    release_preference_store();
+    gm_pref_store_free(gm_store);
     filter = gtk_file_filter_new();
     gtk_file_filter_set_name(filter, _("Disk Image (*.iso)"));
     gtk_file_filter_add_pattern(filter, "*.iso");
@@ -2440,13 +2440,13 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
     gtk_widget_show(dialog);
-    init_preference_store();
-    last_dir = read_preference_string(LAST_DIR);
+    gm_store = gm_pref_store_new("gnome-mplayer");
+    last_dir = gm_pref_store_get_string(gm_store,LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
-    release_preference_store();
+    gm_pref_store_free(gm_store);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
@@ -2478,13 +2478,13 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
     gtk_widget_show(dialog);
-    init_preference_store();
-    last_dir = read_preference_string(LAST_DIR);
+    gm_store = gm_pref_store_new("gnome-mplayer");
+    last_dir = gm_pref_store_get_string(gm_store,LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
-    release_preference_store();
+    gm_pref_store_free(gm_store);
     filter = gtk_file_filter_new();
     gtk_file_filter_set_name(filter, _("Disk Image (*.iso)"));
     gtk_file_filter_add_pattern(filter, "*.iso");
@@ -3390,47 +3390,49 @@ void config_apply(GtkWidget * widget, void *data)
 
     update_mplayer_config();
 
-    init_preference_store();
+    gm_store = gm_pref_store_new("gnome-mplayer");
 #ifndef HAVE_ASOUNDLIB
-    write_preference_int(VOLUME, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));
+    gm_pref_store_set_int(gm_store,VOLUME, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));
 #endif
-    write_preference_int(CACHE_SIZE, cache_size);
-    write_preference_string(MIXER, mixer);
-    write_preference_int(OSDLEVEL, osdlevel);
-    write_preference_int(PPLEVEL, pplevel);
-    write_preference_bool(SOFTVOL, softvol);
-    write_preference_bool(FORCECACHE, forcecache);
-    write_preference_bool(DISABLEASS, disable_ass);
-    write_preference_bool(DISABLEEMBEDDEDFONTS, disable_embeddedfonts);
-    write_preference_bool(DISABLEDEINTERLACE, disable_deinterlace);
-    write_preference_bool(DISABLEFRAMEDROP, disable_framedrop);
-    write_preference_bool(DISABLEPAUSEONCLICK, disable_pause_on_click);
-    write_preference_bool(SHOWPLAYLIST, playlist_visible);
-    write_preference_bool(SHOWDETAILS, details_visible);
-    write_preference_bool(SHOW_NOTIFICATION, show_notification);
-    write_preference_bool(SHOW_STATUS_ICON, show_status_icon);
-    write_preference_bool(VERTICAL, vertical_layout);
-    write_preference_bool(SINGLE_INSTANCE, single_instance);
-    write_preference_bool(REPLACE_AND_PLAY, replace_and_play);
-    write_preference_bool(REMEMBER_LOC, remember_loc);
-    write_preference_bool(KEEP_ON_TOP, keep_on_top);
-    write_preference_int(VERBOSE, verbose);
-    write_preference_string(METADATACODEPAGE, metadata_codepage);
-    write_preference_string(SUBTITLEFONT, subtitlefont);
-    write_preference_float(SUBTITLESCALE, subtitle_scale);
-    write_preference_string(SUBTITLECODEPAGE, subtitle_codepage);
-    write_preference_string(SUBTITLECOLOR, subtitle_color);
-    write_preference_string(MPLAYER_BIN, mplayer_bin);
-    write_preference_string(EXTRAOPTS, extraopts);
+    gm_pref_store_set_int(gm_store,CACHE_SIZE, cache_size);
+    gm_pref_store_set_string(gm_store,MIXER, mixer);
+    gm_pref_store_set_int(gm_store,OSDLEVEL, osdlevel);
+    gm_pref_store_set_int(gm_store,PPLEVEL, pplevel);
+    gm_pref_store_set_boolean(gm_store,SOFTVOL, softvol);
+    gm_pref_store_set_boolean(gm_store,FORCECACHE, forcecache);
+    gm_pref_store_set_boolean(gm_store,DISABLEASS, disable_ass);
+    gm_pref_store_set_boolean(gm_store,DISABLEEMBEDDEDFONTS, disable_embeddedfonts);
+    gm_pref_store_set_boolean(gm_store,DISABLEDEINTERLACE, disable_deinterlace);
+    gm_pref_store_set_boolean(gm_store,DISABLEFRAMEDROP, disable_framedrop);
+    gm_pref_store_set_boolean(gm_store,DISABLEPAUSEONCLICK, disable_pause_on_click);
+    gm_pref_store_set_boolean(gm_store,SHOWPLAYLIST, playlist_visible);
+    gm_pref_store_set_boolean(gm_store,SHOWDETAILS, details_visible);
+    gm_pref_store_set_boolean(gm_store,SHOW_NOTIFICATION, show_notification);
+    gm_pref_store_set_boolean(gm_store,SHOW_STATUS_ICON, show_status_icon);
+    gm_pref_store_set_boolean(gm_store,VERTICAL, vertical_layout);
+    gm_pref_store_set_boolean(gm_store,SINGLE_INSTANCE, single_instance);
+    gm_pref_store_set_boolean(gm_store,REPLACE_AND_PLAY, replace_and_play);
+    gm_pref_store_set_boolean(gm_store,REMEMBER_LOC, remember_loc);
+    gm_pref_store_set_boolean(gm_store,KEEP_ON_TOP, keep_on_top);
+    gm_pref_store_set_int(gm_store,VERBOSE, verbose);
+    gm_pref_store_set_string(gm_store,METADATACODEPAGE, metadata_codepage);
+    gm_pref_store_set_string(gm_store,SUBTITLEFONT, subtitlefont);
+    gm_pref_store_set_float(gm_store,SUBTITLESCALE, subtitle_scale);
+    gm_pref_store_set_string(gm_store,SUBTITLECODEPAGE, subtitle_codepage);
+    gm_pref_store_set_string(gm_store,SUBTITLECOLOR, subtitle_color);
+    gm_pref_store_set_string(gm_store,MPLAYER_BIN, mplayer_bin);
+    gm_pref_store_set_string(gm_store,EXTRAOPTS, extraopts);
+    gm_pref_store_free(gm_store);
 
-    write_preference_bool(DISABLE_QT, qt_disabled);
-    write_preference_bool(DISABLE_REAL, real_disabled);
-    write_preference_bool(DISABLE_WMP, wmp_disabled);
-    write_preference_bool(DISABLE_DVX, dvx_disabled);
-    write_preference_bool(DISABLE_MIDI, midi_disabled);
-    write_preference_bool(DISABLE_EMBEDDING, embedding_disabled);
-    release_preference_store();
-
+	gmp_store = gm_pref_store_new("gecko-mediaplayer");
+    gm_pref_store_set_boolean(gmp_store,DISABLE_QT, qt_disabled);
+    gm_pref_store_set_boolean(gmp_store,DISABLE_REAL, real_disabled);
+    gm_pref_store_set_boolean(gmp_store,DISABLE_WMP, wmp_disabled);
+    gm_pref_store_set_boolean(gmp_store,DISABLE_DVX, dvx_disabled);
+    gm_pref_store_set_boolean(gmp_store,DISABLE_MIDI, midi_disabled);
+    gm_pref_store_set_boolean(gmp_store,DISABLE_EMBEDDING, embedding_disabled);
+	gm_pref_store_free(gmp_store);
+	
     filename = g_strdup_printf("%s/.mozilla/pluginreg.dat", g_getenv("HOME"));
     g_remove(filename);
     g_free(filename);
@@ -4347,9 +4349,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_set_size_request(config_volume, 100, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
-    init_preference_store();
+    gm_store = gm_pref_store_new("gnome-mplayer");
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume), read_preference_int(VOLUME));
-    release_preference_store();
+    gm_pref_store_free(gm_store);
     gtk_entry_set_width_chars(GTK_ENTRY(config_volume), 6);
     gtk_entry_set_editable(GTK_ENTRY(config_volume), FALSE);
     gtk_entry_set_alignment(GTK_ENTRY(config_volume), 1);

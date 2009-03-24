@@ -34,17 +34,18 @@ extern "C" {
 GmPrefStore *gm_pref_store_new(const gchar * context);
 void gm_pref_store_free(GmPrefStore *store);
 
-gboolean gm_pref_store_get_boolean(GmPrefStore *store, gchar *key);
-void gm_pref_store_set_boolean(GmPrefStore *store, gchar *key, gboolean value);
+gboolean gm_pref_store_get_boolean(GmPrefStore *store, const gchar *key);
+void gm_pref_store_set_boolean(GmPrefStore *store,const  gchar *key, gboolean value);
 
-gint gm_pref_store_get_int(GmPrefStore *store, gchar *key);
-void gm_pref_store_set_int(GmPrefStore *store, gchar *key, gint value);
+gint gm_pref_store_get_int(GmPrefStore *store,const  gchar *key);
+gint gm_pref_store_get_int_with_default(GmPrefStore *store,const  gchar *key, gint default_value);
+void gm_pref_store_set_int(GmPrefStore *store,const  gchar *key, gint value);
 
-gfloat gm_pref_store_get_float(GmPrefStore *store, gchar *key);
-void gm_pref_store_set_float(GmPrefStore *store, gchar *key, gfloat value);
+gfloat gm_pref_store_get_float(GmPrefStore *store,const  gchar *key);
+void gm_pref_store_set_float(GmPrefStore *store,const  gchar *key, gfloat value);
 
-gchar *gm_pref_store_get_string(GmPrefStore *store, gchar *key);
-void gm_pref_store_set_string(GmPrefStore *store, gchar *key, gchar * value);
+gchar *gm_pref_store_get_string(GmPrefStore *store,const gchar *key);
+void gm_pref_store_set_string(GmPrefStore *store,const gchar *key, gchar * value);
 
 #ifdef __cplusplus
 }
