@@ -43,7 +43,8 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libgmlib_la_LIBADD =
-am_libgmlib_la_OBJECTS = libgmlib_la-gm_file.lo
+am_libgmlib_la_OBJECTS = libgmlib_la-gm_file.lo \
+	libgmlib_la-gm_pref_store.lo
 libgmlib_la_OBJECTS = $(am_libgmlib_la_OBJECTS)
 libgmlib_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libgmlib_la_CFLAGS) \
@@ -66,6 +67,10 @@ ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
+ALL_LINGUAS = @ALL_LINGUAS@
+ALSA_CFLAGS = @ALSA_CFLAGS@
+ALSA_DEFINES = @ALSA_DEFINES@
+ALSA_LIBS = @ALSA_LIBS@
 AMTAR = @AMTAR@
 AR = @AR@
 AUTOCONF = @AUTOCONF@
@@ -103,14 +108,30 @@ GCONF_DEFINES = @GCONF_DEFINES@
 GCONF_LIBS = @GCONF_LIBS@
 GCONF_SCHEMA_CONFIG_SOURCE = @GCONF_SCHEMA_CONFIG_SOURCE@
 GCONF_SCHEMA_FILE_DIR = @GCONF_SCHEMA_FILE_DIR@
-GECKO_CFLAGS = @GECKO_CFLAGS@
-GECKO_LIBS = @GECKO_LIBS@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+GIO_CFLAGS = @GIO_CFLAGS@
+GIO_DEFINES = @GIO_DEFINES@
+GIO_LIBS = @GIO_LIBS@
+GLIB2_14_CFLAGS = @GLIB2_14_CFLAGS@
+GLIB2_14_DEFINES = @GLIB2_14_DEFINES@
+GLIB2_14_LIBS = @GLIB2_14_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+GPOD06_CFLAGS = @GPOD06_CFLAGS@
+GPOD06_LIBS = @GPOD06_LIBS@
+GPOD07_CFLAGS = @GPOD07_CFLAGS@
+GPOD07_LIBS = @GPOD07_LIBS@
+GPOD_CFLAGS = @GPOD_CFLAGS@
+GPOD_DEFINES = @GPOD_DEFINES@
+GPOD_LIBS = @GPOD_LIBS@
 GREP = @GREP@
+GTK2_12_CFLAGS = @GTK2_12_CFLAGS@
+GTK2_12_DEFINES = @GTK2_12_DEFINES@
+GTK2_12_LIBS = @GTK2_12_LIBS@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_LIBS = @GTK_LIBS@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -130,9 +151,16 @@ MKDIR_P = @MKDIR_P@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 MSGFMT_OPTS = @MSGFMT_OPTS@
+MUSICBRAINZ_CFLAGS = @MUSICBRAINZ_CFLAGS@
+MUSICBRAINZ_DEFINES = @MUSICBRAINZ_DEFINES@
+MUSICBRAINZ_LIBS = @MUSICBRAINZ_LIBS@
+NAUTILUSDIR = @NAUTILUSDIR@
+NAUTILUS_CFLAGS = @NAUTILUS_CFLAGS@
+NAUTILUS_LIBS = @NAUTILUS_LIBS@
 NMEDIT = @NMEDIT@
-NSPR_CFLAGS = @NSPR_CFLAGS@
-NSPR_LIBS = @NSPR_LIBS@
+NOTIFY_CFLAGS = @NOTIFY_CFLAGS@
+NOTIFY_DEFINES = @NOTIFY_DEFINES@
+NOTIFY_LIBS = @NOTIFY_LIBS@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
@@ -212,13 +240,18 @@ noinst_LTLIBRARIES = \
 libgmlib_la_SOURCES = \
    	gmlib.h \
     	gm_file.h \
-    	gm_file.c
+    	gm_file.c \
+	gm_pref_store.h \
+	gm_pref_store.c
 
 libgmlib_la_CFLAGS = \
-	$(GLIB_CFLAGS)
+	$(GLIB_CFLAGS) \
+	$(GCONF_CFLAGS) \
+	$(GCONF_DEFINES)
 
 libgmlib_la_LDFLAGS = \
-	$(GLIB_LDFLAGS)
+	$(GLIB_LDFLAGS) \
+	$(GCONF_LDFLAGS)
 
 all: all-am
 
@@ -272,6 +305,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_la-gm_file.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_la-gm_pref_store.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -300,6 +334,13 @@ libgmlib_la-gm_file.lo: gm_file.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gm_file.c' object='libgmlib_la-gm_file.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_la_CFLAGS) $(CFLAGS) -c -o libgmlib_la-gm_file.lo `test -f 'gm_file.c' || echo '$(srcdir)/'`gm_file.c
+
+libgmlib_la-gm_pref_store.lo: gm_pref_store.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_la_CFLAGS) $(CFLAGS) -MT libgmlib_la-gm_pref_store.lo -MD -MP -MF $(DEPDIR)/libgmlib_la-gm_pref_store.Tpo -c -o libgmlib_la-gm_pref_store.lo `test -f 'gm_pref_store.c' || echo '$(srcdir)/'`gm_pref_store.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmlib_la-gm_pref_store.Tpo $(DEPDIR)/libgmlib_la-gm_pref_store.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gm_pref_store.c' object='libgmlib_la-gm_pref_store.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_la_CFLAGS) $(CFLAGS) -c -o libgmlib_la-gm_pref_store.lo `test -f 'gm_pref_store.c' || echo '$(srcdir)/'`gm_pref_store.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
