@@ -599,64 +599,65 @@ int main(int argc, char *argv[])
     // call g_type_init or otherwise we can crash
     g_type_init();
 
-    init_preference_store();
-    mixer = read_preference_string(MIXER);
-    osdlevel = read_preference_int(OSDLEVEL);
-    pplevel = read_preference_int(PPLEVEL);
+	gm_store = gm_pref_store_new("gnome-mplayer");
+	gmp_store = gm_pref_store_new("gecko-mediaplayer");
+    mixer = gm_pref_store_get_string(gm_store,MIXER);
+    osdlevel = gm_pref_store_get_int(gm_store,OSDLEVEL);
+    pplevel = gm_pref_store_get_int(gm_store,PPLEVEL);
 #ifndef HAVE_ASOUNDLIB
-    volume = read_preference_int(VOLUME);
+    volume = gm_pref_store_get_int(gm_store,VOLUME);
 #endif
-    fullscreen = read_preference_bool(FULLSCREEN);
-    softvol = read_preference_bool(SOFTVOL);
-    forcecache = read_preference_bool(FORCECACHE);
-    vertical_layout = read_preference_bool(VERTICAL);
-    playlist_visible = read_preference_bool(SHOWPLAYLIST);
-    details_visible = read_preference_bool(SHOWDETAILS);
-    show_notification = read_preference_bool(SHOW_NOTIFICATION);
-    show_status_icon = read_preference_bool(SHOW_STATUS_ICON);
-    disable_deinterlace = read_preference_bool(DISABLEDEINTERLACE);
-    disable_framedrop = read_preference_bool(DISABLEFRAMEDROP);
-    disable_fullscreen = read_preference_bool(DISABLEFULLSCREEN);
-    disable_context_menu = read_preference_bool(DISABLECONTEXTMENU);
-    disable_ass = read_preference_bool(DISABLEASS);
-    disable_embeddedfonts = read_preference_bool(DISABLEEMBEDDEDFONTS);
-    disable_pause_on_click = read_preference_bool(DISABLEPAUSEONCLICK);
-    disable_animation = read_preference_bool(DISABLEANIMATION);
-    auto_hide_timeout = read_preference_int_with_default(AUTOHIDETIMEOUT,auto_hide_timeout);
-    disable_cover_art_fetch = read_preference_bool(DISABLE_COVER_ART_FETCH);
-    use_mediakeys = read_preference_bool(USE_MEDIAKEYS);
-    metadata_codepage = read_preference_string(METADATACODEPAGE);
-    subtitlefont = read_preference_string(SUBTITLEFONT);
-    subtitle_scale = read_preference_float(SUBTITLESCALE);
+    fullscreen = gm_pref_store_get_boolean(gm_store,FULLSCREEN);
+    softvol = gm_pref_store_get_boolean(gm_store,SOFTVOL);
+    forcecache = gm_pref_store_get_boolean(gm_store,FORCECACHE);
+    vertical_layout = gm_pref_store_get_boolean(gm_store,VERTICAL);
+    playlist_visible = gm_pref_store_get_boolean(gm_store,SHOWPLAYLIST);
+    details_visible = gm_pref_store_get_boolean(gm_store,SHOWDETAILS);
+    show_notification = gm_pref_store_get_boolean(gm_store,SHOW_NOTIFICATION);
+    show_status_icon = gm_pref_store_get_boolean(gm_store,SHOW_STATUS_ICON);
+    disable_deinterlace = gm_pref_store_get_boolean(gm_store,DISABLEDEINTERLACE);
+    disable_framedrop = gm_pref_store_get_boolean(gm_store,DISABLEFRAMEDROP);
+    disable_fullscreen = gm_pref_store_get_boolean(gm_store,DISABLEFULLSCREEN);
+    disable_context_menu = gm_pref_store_get_boolean(gm_store,DISABLECONTEXTMENU);
+    disable_ass = gm_pref_store_get_boolean(gm_store,DISABLEASS);
+    disable_embeddedfonts = gm_pref_store_get_boolean(gm_store,DISABLEEMBEDDEDFONTS);
+    disable_pause_on_click = gm_pref_store_get_boolean(gm_store,DISABLEPAUSEONCLICK);
+    disable_animation = gm_pref_store_get_boolean(gm_store,DISABLEANIMATION);
+    auto_hide_timeout = gm_pref_store_get_int_with_default(gm_store,AUTOHIDETIMEOUT,auto_hide_timeout);
+    disable_cover_art_fetch = gm_pref_store_get_boolean(gm_store,DISABLE_COVER_ART_FETCH);
+    use_mediakeys = gm_pref_store_get_boolean(gm_store,USE_MEDIAKEYS);
+    metadata_codepage = gm_pref_store_get_string(gm_store,METADATACODEPAGE);
+    subtitlefont = gm_pref_store_get_string(gm_store,SUBTITLEFONT);
+    subtitle_scale = gm_pref_store_get_float(gm_store,SUBTITLESCALE);
     if (subtitle_scale < 0.25) {
         subtitle_scale = 1.0;
     }
-    subtitle_codepage = read_preference_string(SUBTITLECODEPAGE);
-    subtitle_color = read_preference_string(SUBTITLECOLOR);
+    subtitle_codepage = gm_pref_store_get_string(gm_store,SUBTITLECODEPAGE);
+    subtitle_color = gm_pref_store_get_string(gm_store,SUBTITLECOLOR);
 
-    qt_disabled = read_preference_bool(DISABLE_QT);
-    real_disabled = read_preference_bool(DISABLE_REAL);
-    wmp_disabled = read_preference_bool(DISABLE_WMP);
-    dvx_disabled = read_preference_bool(DISABLE_DVX);
-    midi_disabled = read_preference_bool(DISABLE_MIDI);
-    embedding_disabled = read_preference_bool(DISABLE_EMBEDDING);
-    single_instance = read_preference_bool(SINGLE_INSTANCE);
+    qt_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_QT);
+    real_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_REAL);
+    wmp_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_WMP);
+    dvx_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_DVX);
+    midi_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_MIDI);
+    embedding_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_EMBEDDING);
+    single_instance = gm_pref_store_get_boolean(gm_store,SINGLE_INSTANCE);
     if (single_instance)
-        replace_and_play = read_preference_bool(REPLACE_AND_PLAY);
+        replace_and_play = gm_pref_store_get_boolean(gm_store,REPLACE_AND_PLAY);
 
-    mplayer_bin = read_preference_string(MPLAYER_BIN);
+    mplayer_bin = gm_pref_store_get_string(gm_store,MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);
         mplayer_bin = NULL;
     }
-    extraopts = read_preference_string(EXTRAOPTS);
+    extraopts = gm_pref_store_get_string(gm_store,EXTRAOPTS);
 
-    remember_loc = read_preference_bool(REMEMBER_LOC);
-    loc_window_x = read_preference_int(WINDOW_X);
-    loc_window_y = read_preference_int(WINDOW_Y);
-    loc_window_height = read_preference_int(WINDOW_HEIGHT);
-    loc_window_width = read_preference_int(WINDOW_WIDTH);
-    keep_on_top = read_preference_bool(KEEP_ON_TOP);
+    remember_loc = gm_pref_store_get_boolean(gm_store,REMEMBER_LOC);
+    loc_window_x = gm_pref_store_get_int(gm_store,WINDOW_X);
+    loc_window_y = gm_pref_store_get_int(gm_store,WINDOW_Y);
+    loc_window_height = gm_pref_store_get_int(gm_store,WINDOW_HEIGHT);
+    loc_window_width = gm_pref_store_get_int(gm_store,WINDOW_WIDTH);
+    keep_on_top = gm_pref_store_get_boolean(gm_store,KEEP_ON_TOP);
     read_mplayer_config();
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
@@ -673,7 +674,7 @@ int main(int argc, char *argv[])
         single_instance = FALSE;
 
     if (verbose == 0)
-        verbose = read_preference_int(VERBOSE);
+        verbose = gm_pref_store_get_int(gm_store,VERBOSE);
 
     if (reallyverbose)
         verbose = 2;
@@ -682,10 +683,12 @@ int main(int argc, char *argv[])
         printf(_("GNOME MPlayer v%s\n"), VERSION);
 
     if (cache_size == 0)
-        cache_size = read_preference_int(CACHE_SIZE);
+        cache_size = gm_pref_store_get_int(gm_store,CACHE_SIZE);
     if (cache_size == 0)
         cache_size = 2000;
-    release_preference_store();
+    gm_pref_store_free(gm_store);
+    gm_pref_store_free(gmp_store);
+	
     read_mplayer_config();
 
     if (verbose && single_instance) {

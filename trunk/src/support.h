@@ -34,15 +34,6 @@
 #include <asoundlib.h>
 #endif
 
-#ifdef HAVE_GCONF
-#include <gconf/gconf.h>
-#include <gconf/gconf-client.h>
-#include <gconf/gconf-value.h>
-GConfClient *gconf;
-#else
-GKeyFile *config;
-#endif
-
 #ifdef GIO_ENABLED
 #include <gio/gio.h>
 #endif
@@ -84,18 +75,6 @@ void copy_playlist(GtkListStore * source, GtkListStore * dest);
 void randomize_playlist(GtkListStore * store);
 gdouble get_alsa_volume();
 gchar *seconds_to_string(gfloat seconds);
-
-void init_preference_store();
-gboolean read_preference_bool(gchar * key);
-gint read_preference_int(gchar * key);
-gint read_preference_int_with_default(gchar * key, gint default_value);
-gfloat read_preference_float(gchar * key);
-gchar *read_preference_string(gchar * key);
-void write_preference_bool(gchar * key, gboolean value);
-void write_preference_int(gchar * key, gint value);
-void write_preference_float(gchar * key, gfloat value);
-void write_preference_string(gchar * key, gchar * value);
-void release_preference_store();
 
 gchar *get_localfile_from_uri(gchar * uri);
 gboolean is_uri_dir(gchar * uri);
