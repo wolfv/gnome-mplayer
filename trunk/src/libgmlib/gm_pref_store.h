@@ -22,6 +22,7 @@
  * 	Boston, MA  02110-1301, USA.
  */
 #include <glib.h>
+#include <string.h>
 #ifndef __GM_PREF_STORE_H__
 #define __GM_PREF_STORE_H__
 
