@@ -4350,7 +4350,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     gm_store = gm_pref_store_new("gnome-mplayer");
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume), read_preference_int(VOLUME));
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume), gm_pref_store_get_int(gm_store,VOLUME));
     gm_pref_store_free(gm_store);
     gtk_entry_set_width_chars(GTK_ENTRY(config_volume), 6);
     gtk_entry_set_editable(GTK_ENTRY(config_volume), FALSE);
