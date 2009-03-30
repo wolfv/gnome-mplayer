@@ -251,3 +251,17 @@ void gm_pref_store_set_string(GmPrefStore *store, const gchar *key, gchar * valu
 #endif	
 }
 
+void gm_pref_store_unset(GmPrefStore *store, const gchar *key) {
+
+#ifdef HAVE_GCONF
+	gchar *full_key;
+	
+	full_key = g_strdup_printf("/apps/%s/preferences/%s",store->context,key);
+	gconf_client_unset(store->gconf, full_key, NULL);
+    g_free(full_key);
+#else
+    g_key_file_remove_key(store->keyfile, store->context, key, NULL);
+#endif	
+
+}
+
