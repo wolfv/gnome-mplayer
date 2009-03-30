@@ -48,6 +48,7 @@ void gm_pref_store_set_float(GmPrefStore *store,const  gchar *key, gfloat value)
 gchar *gm_pref_store_get_string(GmPrefStore *store,const gchar *key);
 void gm_pref_store_set_string(GmPrefStore *store,const gchar *key, gchar * value);
 
+void gm_pref_store_unset(GmPrefStore *store, const gchar *key);
 #ifdef __cplusplus
 }
 #endif
