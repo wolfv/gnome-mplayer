@@ -310,7 +310,7 @@ gint play_iter(GtkTreeIter * playiter)
         g_free(subtitle);
     }
 #ifdef HAVE_ASOUNDLIB
-    if (!softvol && ao != NULL && g_ascii_strcasecmp(ao, "alsa") == 0) {
+    if (!softvol && ao != NULL && ( g_ascii_strcasecmp(ao, "alsa") == 0 || g_ascii_strcasecmp(ao, "pulse") == 0)) {
         volume = (gint) get_alsa_volume();
         idledata->volume = volume;
 #if GTK2_12_ENABLED
@@ -728,6 +728,7 @@ int main(int argc, char *argv[])
         volume = 100;
     }
 
+	/*
     if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
         if (verbose)
             printf
@@ -735,7 +736,8 @@ int main(int argc, char *argv[])
                  volume);
         volume = 100;
     }
-
+	*/
+	
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
     }

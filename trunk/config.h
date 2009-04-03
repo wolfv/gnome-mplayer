@@ -74,7 +74,7 @@
 #define MUSICBRAINZ_ENABLED 1
 
 /* Define to 1 if you have NOTIFY support */
-#define NOTIFY_ENABLED 1
+/* #undef NOTIFY_ENABLED */
 
 /* Name of package */
 #define PACKAGE "gnome-mplayer"

@@ -1,4 +1,5 @@
 Development
+    Pulse Audio works differently in Fedora 11 (flat volume), so change it to behave like ALSA
     Convert from internal store to using gm_pref_store
     Add option to enable/disable midi support in plugin
     Change display so that media info is always visible when playing audio only files
