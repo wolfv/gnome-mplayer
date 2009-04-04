@@ -310,7 +310,7 @@ gint play_iter(GtkTreeIter * playiter)
         g_free(subtitle);
     }
 #ifdef HAVE_ASOUNDLIB
-    if (!softvol && ao != NULL && ( g_ascii_strcasecmp(ao, "alsa") == 0 || g_ascii_strcasecmp(ao, "pulse") == 0)) {
+    if (!softvol && ao != NULL && ( g_ascii_strcasecmp(ao, "alsa") == 0 || (use_pulse_flat_volume && g_ascii_strcasecmp(ao, "pulse") == 0))) {
         volume = (gint) get_alsa_volume();
         idledata->volume = volume;
 #if GTK2_12_ENABLED
@@ -584,6 +584,7 @@ int main(int argc, char *argv[])
     fullscreen = 0;
     ao = NULL;
     vo = NULL;
+	use_pulse_flat_volume = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -664,6 +665,7 @@ int main(int argc, char *argv[])
         mplayer_bin = NULL;
     }
     extraopts = gm_pref_store_get_string(gm_store,EXTRAOPTS);
+	use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store,USE_PULSE_FLAT_VOLUME);
 
     remember_loc = gm_pref_store_get_boolean(gm_store,REMEMBER_LOC);
     loc_window_x = gm_pref_store_get_int(gm_store,WINDOW_X);
@@ -728,15 +730,15 @@ int main(int argc, char *argv[])
         volume = 100;
     }
 
-	/*
-    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
-        if (verbose)
-            printf
-                ("Using pulse audio, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
-                 volume);
-        volume = 100;
-    }
-	*/
+	if (!use_pulse_flat_volume) {
+		if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
+		    if (verbose)
+		        printf
+		            ("Using pulse audio, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
+		             volume);
+		    volume = 100;
+		}
+	}
 	
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;

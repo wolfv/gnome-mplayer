@@ -64,6 +64,7 @@
 
 #define MPLAYER_BIN		"mplayer_bin"
 #define EXTRAOPTS		"extraopts"
+#define USE_PULSE_FLAT_VOLUME "use_pulse_flat_volume"
 
 #define DISABLE_QT		"disable_qt"
 #define DISABLE_REAL	"disable_real"
@@ -323,6 +324,7 @@ gchar *subtitle_color;
 gboolean quit_on_complete;
 gchar *mplayer_bin;
 gchar *extraopts;
+gboolean use_pulse_flat_volume;
 gboolean single_instance;
 gboolean new_instance;
 gboolean replace_and_play;
