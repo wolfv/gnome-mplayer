@@ -242,7 +242,7 @@ gint play_iter(GtkTreeIter * playiter)
     if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0
         && !playlist) {
         metadata = (MetaData *) g_new0(MetaData, 1);
-		metadata->uri = g_strdup(uri);
+        metadata->uri = g_strdup(uri);
         if (title != NULL)
             metadata->title = g_strstrip(g_strdup(title));
         if (artist != NULL)
@@ -310,7 +310,9 @@ gint play_iter(GtkTreeIter * playiter)
         g_free(subtitle);
     }
 #ifdef HAVE_ASOUNDLIB
-    if (!softvol && ao != NULL && ( g_ascii_strcasecmp(ao, "alsa") == 0 || (use_pulse_flat_volume && g_ascii_strcasecmp(ao, "pulse") == 0))) {
+    if (!softvol && ao != NULL
+        && (g_ascii_strcasecmp(ao, "alsa") == 0
+            || (use_pulse_flat_volume && g_ascii_strcasecmp(ao, "pulse") == 0))) {
         volume = (gint) get_alsa_volume();
         idledata->volume = volume;
 #if GTK2_12_ENABLED
@@ -584,7 +586,7 @@ int main(int argc, char *argv[])
     fullscreen = 0;
     ao = NULL;
     vo = NULL;
-	use_pulse_flat_volume = FALSE;
+    use_pulse_flat_volume = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -600,79 +602,80 @@ int main(int argc, char *argv[])
     // call g_type_init or otherwise we can crash
     g_type_init();
 
-	uri = g_strdup_printf("%s/gnome-mplayer/cover_art", g_get_user_config_dir());
+    uri = g_strdup_printf("%s/gnome-mplayer/cover_art", g_get_user_config_dir());
     if (!g_file_test(uri, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(uri, 0775);
     }
-    g_free(uri);	
+    g_free(uri);
 
-	uri = g_strdup_printf("%s/gnome-mplayer/plugin", g_get_user_config_dir());
+    uri = g_strdup_printf("%s/gnome-mplayer/plugin", g_get_user_config_dir());
     if (!g_file_test(uri, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(uri, 0775);
     }
-    g_free(uri);	
-	uri = NULL;
-	
-	gm_store = gm_pref_store_new("gnome-mplayer");
-	gmp_store = gm_pref_store_new("gecko-mediaplayer");
-    mixer = gm_pref_store_get_string(gm_store,MIXER);
-    osdlevel = gm_pref_store_get_int(gm_store,OSDLEVEL);
-    pplevel = gm_pref_store_get_int(gm_store,PPLEVEL);
+    g_free(uri);
+    uri = NULL;
+
+    gm_store = gm_pref_store_new("gnome-mplayer");
+    gmp_store = gm_pref_store_new("gecko-mediaplayer");
+    mixer = gm_pref_store_get_string(gm_store, MIXER);
+    osdlevel = gm_pref_store_get_int(gm_store, OSDLEVEL);
+    pplevel = gm_pref_store_get_int(gm_store, PPLEVEL);
 #ifndef HAVE_ASOUNDLIB
-    volume = gm_pref_store_get_int(gm_store,VOLUME);
+    volume = gm_pref_store_get_int(gm_store, VOLUME);
 #endif
-    fullscreen = gm_pref_store_get_boolean(gm_store,FULLSCREEN);
-    softvol = gm_pref_store_get_boolean(gm_store,SOFTVOL);
-    forcecache = gm_pref_store_get_boolean(gm_store,FORCECACHE);
-    vertical_layout = gm_pref_store_get_boolean(gm_store,VERTICAL);
-    playlist_visible = gm_pref_store_get_boolean(gm_store,SHOWPLAYLIST);
-    details_visible = gm_pref_store_get_boolean(gm_store,SHOWDETAILS);
-    show_notification = gm_pref_store_get_boolean(gm_store,SHOW_NOTIFICATION);
-    show_status_icon = gm_pref_store_get_boolean(gm_store,SHOW_STATUS_ICON);
-    disable_deinterlace = gm_pref_store_get_boolean(gm_store,DISABLEDEINTERLACE);
-    disable_framedrop = gm_pref_store_get_boolean(gm_store,DISABLEFRAMEDROP);
-    disable_fullscreen = gm_pref_store_get_boolean(gm_store,DISABLEFULLSCREEN);
-    disable_context_menu = gm_pref_store_get_boolean(gm_store,DISABLECONTEXTMENU);
-    disable_ass = gm_pref_store_get_boolean(gm_store,DISABLEASS);
-    disable_embeddedfonts = gm_pref_store_get_boolean(gm_store,DISABLEEMBEDDEDFONTS);
-    disable_pause_on_click = gm_pref_store_get_boolean(gm_store,DISABLEPAUSEONCLICK);
-    disable_animation = gm_pref_store_get_boolean(gm_store,DISABLEANIMATION);
-    auto_hide_timeout = gm_pref_store_get_int_with_default(gm_store,AUTOHIDETIMEOUT,auto_hide_timeout);
-    disable_cover_art_fetch = gm_pref_store_get_boolean(gm_store,DISABLE_COVER_ART_FETCH);
-    use_mediakeys = gm_pref_store_get_boolean(gm_store,USE_MEDIAKEYS);
-    metadata_codepage = gm_pref_store_get_string(gm_store,METADATACODEPAGE);
-    subtitlefont = gm_pref_store_get_string(gm_store,SUBTITLEFONT);
-    subtitle_scale = gm_pref_store_get_float(gm_store,SUBTITLESCALE);
+    fullscreen = gm_pref_store_get_boolean(gm_store, FULLSCREEN);
+    softvol = gm_pref_store_get_boolean(gm_store, SOFTVOL);
+    forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
+    vertical_layout = gm_pref_store_get_boolean(gm_store, VERTICAL);
+    playlist_visible = gm_pref_store_get_boolean(gm_store, SHOWPLAYLIST);
+    details_visible = gm_pref_store_get_boolean(gm_store, SHOWDETAILS);
+    show_notification = gm_pref_store_get_boolean(gm_store, SHOW_NOTIFICATION);
+    show_status_icon = gm_pref_store_get_boolean(gm_store, SHOW_STATUS_ICON);
+    disable_deinterlace = gm_pref_store_get_boolean(gm_store, DISABLEDEINTERLACE);
+    disable_framedrop = gm_pref_store_get_boolean(gm_store, DISABLEFRAMEDROP);
+    disable_fullscreen = gm_pref_store_get_boolean(gm_store, DISABLEFULLSCREEN);
+    disable_context_menu = gm_pref_store_get_boolean(gm_store, DISABLECONTEXTMENU);
+    disable_ass = gm_pref_store_get_boolean(gm_store, DISABLEASS);
+    disable_embeddedfonts = gm_pref_store_get_boolean(gm_store, DISABLEEMBEDDEDFONTS);
+    disable_pause_on_click = gm_pref_store_get_boolean(gm_store, DISABLEPAUSEONCLICK);
+    disable_animation = gm_pref_store_get_boolean(gm_store, DISABLEANIMATION);
+    auto_hide_timeout =
+        gm_pref_store_get_int_with_default(gm_store, AUTOHIDETIMEOUT, auto_hide_timeout);
+    disable_cover_art_fetch = gm_pref_store_get_boolean(gm_store, DISABLE_COVER_ART_FETCH);
+    use_mediakeys = gm_pref_store_get_boolean(gm_store, USE_MEDIAKEYS);
+    metadata_codepage = gm_pref_store_get_string(gm_store, METADATACODEPAGE);
+    subtitlefont = gm_pref_store_get_string(gm_store, SUBTITLEFONT);
+    subtitle_scale = gm_pref_store_get_float(gm_store, SUBTITLESCALE);
     if (subtitle_scale < 0.25) {
         subtitle_scale = 1.0;
     }
-    subtitle_codepage = gm_pref_store_get_string(gm_store,SUBTITLECODEPAGE);
-    subtitle_color = gm_pref_store_get_string(gm_store,SUBTITLECOLOR);
+    subtitle_codepage = gm_pref_store_get_string(gm_store, SUBTITLECODEPAGE);
+    subtitle_color = gm_pref_store_get_string(gm_store, SUBTITLECOLOR);
 
-    qt_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_QT);
-    real_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_REAL);
-    wmp_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_WMP);
-    dvx_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_DVX);
-    midi_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_MIDI);
-    embedding_disabled = gm_pref_store_get_boolean(gmp_store,DISABLE_EMBEDDING);
-    single_instance = gm_pref_store_get_boolean(gm_store,SINGLE_INSTANCE);
+    qt_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_QT);
+    real_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_REAL);
+    wmp_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_WMP);
+    dvx_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_DVX);
+    midi_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_MIDI);
+    embedding_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_EMBEDDING);
+    single_instance = gm_pref_store_get_boolean(gm_store, SINGLE_INSTANCE);
     if (single_instance)
-        replace_and_play = gm_pref_store_get_boolean(gm_store,REPLACE_AND_PLAY);
+        replace_and_play = gm_pref_store_get_boolean(gm_store, REPLACE_AND_PLAY);
 
-    mplayer_bin = gm_pref_store_get_string(gm_store,MPLAYER_BIN);
+    mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);
         mplayer_bin = NULL;
     }
-    extraopts = gm_pref_store_get_string(gm_store,EXTRAOPTS);
-	use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store,USE_PULSE_FLAT_VOLUME);
+    extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
+    use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store, USE_PULSE_FLAT_VOLUME);
 
-    remember_loc = gm_pref_store_get_boolean(gm_store,REMEMBER_LOC);
-    loc_window_x = gm_pref_store_get_int(gm_store,WINDOW_X);
-    loc_window_y = gm_pref_store_get_int(gm_store,WINDOW_Y);
-    loc_window_height = gm_pref_store_get_int(gm_store,WINDOW_HEIGHT);
-    loc_window_width = gm_pref_store_get_int(gm_store,WINDOW_WIDTH);
-    keep_on_top = gm_pref_store_get_boolean(gm_store,KEEP_ON_TOP);
+    remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
+    loc_window_x = gm_pref_store_get_int(gm_store, WINDOW_X);
+    loc_window_y = gm_pref_store_get_int(gm_store, WINDOW_Y);
+    loc_window_height = gm_pref_store_get_int(gm_store, WINDOW_HEIGHT);
+    loc_window_width = gm_pref_store_get_int(gm_store, WINDOW_WIDTH);
+    keep_on_top = gm_pref_store_get_boolean(gm_store, KEEP_ON_TOP);
     read_mplayer_config();
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
@@ -689,7 +692,7 @@ int main(int argc, char *argv[])
         single_instance = FALSE;
 
     if (verbose == 0)
-        verbose = gm_pref_store_get_int(gm_store,VERBOSE);
+        verbose = gm_pref_store_get_int(gm_store, VERBOSE);
 
     if (reallyverbose)
         verbose = 2;
@@ -698,12 +701,12 @@ int main(int argc, char *argv[])
         printf(_("GNOME MPlayer v%s\n"), VERSION);
 
     if (cache_size == 0)
-        cache_size = gm_pref_store_get_int(gm_store,CACHE_SIZE);
+        cache_size = gm_pref_store_get_int(gm_store, CACHE_SIZE);
     if (cache_size == 0)
         cache_size = 2000;
     gm_pref_store_free(gm_store);
     gm_pref_store_free(gmp_store);
-	
+
     read_mplayer_config();
 
     if (verbose && single_instance) {
@@ -730,16 +733,16 @@ int main(int argc, char *argv[])
         volume = 100;
     }
 
-	if (!use_pulse_flat_volume) {
-		if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
-		    if (verbose)
-		        printf
-		            ("Using pulse audio, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
-		             volume);
-		    volume = 100;
-		}
-	}
-	
+    if (!use_pulse_flat_volume) {
+        if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
+            if (verbose)
+                printf
+                    ("Using pulse audio, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
+                     volume);
+            volume = 100;
+        }
+    }
+
     if (volume > 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
     }

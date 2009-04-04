@@ -785,7 +785,7 @@ gint parse_vcd(gchar * filename)
     if (g_strncasecmp(filename, "vcd://", strlen("vcd://")) == 0) {
         playlist = 0;
 
-		if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
+        if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
             av[ac++] = g_strdup_printf("mplayer");
         } else {
             av[ac++] = g_strdup_printf("%s", mplayer_bin);
@@ -831,15 +831,15 @@ gint parse_vcd(gchar * filename)
             if (g_strncasecmp(output[ac], "ID_VCD_TRACK_", strlen("ID_VCD_TRACK_")) == 0) {
                 sscanf(output[ac], "ID_VCD_TRACK_%i", &num);
                 track = g_strdup_printf("vcd://%i", num);
-				printf("adding track %s\n",track);
+                printf("adding track %s\n", track);
                 add_item_to_playlist(track, 0);
                 g_free(track);
             }
             ac++;
         }
         g_strfreev(output);
-								   
-		if (error_msg != NULL) {
+
+        if (error_msg != NULL) {
             dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
                                             GTK_BUTTONS_CLOSE, error_msg);
             gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
@@ -1327,7 +1327,7 @@ MetaData *get_metadata(gchar * uri)
         title = g_strdup_printf("%s", localtitle);
     }
 
-	if (title == NULL && g_strncasecmp(name, "vcd://", strlen("vcd://")) == 0) {
+    if (title == NULL && g_strncasecmp(name, "vcd://", strlen("vcd://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
         title = g_strdup_printf("%s", localtitle);
     }
@@ -2432,9 +2432,9 @@ gpointer get_cover_art(gpointer data)
     MetaData *metadata = (MetaData *) data;
     gboolean art_found = TRUE;
 #ifdef GIO_ENABLED
-	GFile *file;
+    GFile *file;
 #endif
-	
+
     if (metadata->artist == NULL || strlen(metadata->artist) == 0) {
         if (metadata->artist)
             g_free(metadata->artist);
@@ -2447,58 +2447,59 @@ gpointer get_cover_art(gpointer data)
         metadata->album = g_strdup("Unknown");
         local_album = TRUE;
     }
-	
-	path = g_strdup(metadata->uri);
-	p = g_strrstr(path,"/");
-	if (p != NULL) {
-		p[0] = '\0';
-		p = g_strconcat(path,"/cover.jpg",NULL);
+
+    path = g_strdup(metadata->uri);
+    p = g_strrstr(path, "/");
+    if (p != NULL) {
+        p[0] = '\0';
+        p = g_strconcat(path, "/cover.jpg", NULL);
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(p);
         cache_file = g_file_get_path(file);
-		g_object_unref(file);
+        g_object_unref(file);
 #else
-		cache_file = g_filename_from_uri(p,NULL,NULL);
+        cache_file = g_filename_from_uri(p, NULL, NULL);
 #endif
-		g_free(p);
-		printf("Looking for cover art at %s\n",cache_file);
-		
-	}
-	g_free(path);
-	path = NULL;
-	p = NULL;
-	
-	if (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
-		path = g_strdup(metadata->uri);
-		p = g_strrstr(path,"/");
-		if (p != NULL) {
-			p[0] = '\0';
-			p = g_strconcat(path,"/Folder.jpg",NULL);
-#ifdef GIO_ENABLED
-		    file = g_file_new_for_uri(p);
-		    cache_file = g_file_get_path(file);
-			g_object_unref(file);
-#else
-			cache_file = g_filename_from_uri(p,NULL,NULL);
-#endif
-			g_free(p);
-			printf("Looking for cover art at %s\n",cache_file);
-		}
-		g_free(path);
-		path = NULL;
-		p = NULL;
-	}
-	
-	if (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
-		path =
-		    g_strdup_printf("%s/gnome-mplayer/cover_art/%s", g_get_user_cache_dir(), metadata->artist);
+        g_free(p);
+        printf("Looking for cover art at %s\n", cache_file);
 
-		cache_file =
-		    g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(),
-		                    metadata->artist, metadata->album);
-	}
-	
-	if (local_artist) {
+    }
+    g_free(path);
+    path = NULL;
+    p = NULL;
+
+    if (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+        path = g_strdup(metadata->uri);
+        p = g_strrstr(path, "/");
+        if (p != NULL) {
+            p[0] = '\0';
+            p = g_strconcat(path, "/Folder.jpg", NULL);
+#ifdef GIO_ENABLED
+            file = g_file_new_for_uri(p);
+            cache_file = g_file_get_path(file);
+            g_object_unref(file);
+#else
+            cache_file = g_filename_from_uri(p, NULL, NULL);
+#endif
+            g_free(p);
+            printf("Looking for cover art at %s\n", cache_file);
+        }
+        g_free(path);
+        path = NULL;
+        p = NULL;
+    }
+
+    if (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+        path =
+            g_strdup_printf("%s/gnome-mplayer/cover_art/%s", g_get_user_cache_dir(),
+                            metadata->artist);
+
+        cache_file =
+            g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(),
+                            metadata->artist, metadata->album);
+    }
+
+    if (local_artist) {
         g_free(metadata->artist);
         metadata->artist = NULL;
     }
@@ -2594,7 +2595,7 @@ gpointer get_cover_art(gpointer data)
     g_free(cache_file);
     g_free(path);
 
-	g_free(metadata->uri);
+    g_free(metadata->uri);
     g_free(metadata->title);
     g_free(metadata->artist);
     g_free(metadata->album);
@@ -2608,7 +2609,7 @@ gpointer get_cover_art(gpointer data)
 
     if (verbose)
         printf("libcurl required for cover art retrieval\n");
-	g_free(metadata->uri);
+    g_free(metadata->uri);
     g_free(metadata->title);
     g_free(metadata->artist);
     g_free(metadata->album);
