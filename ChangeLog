@@ -1,4 +1,6 @@
 Development
+    New preference key "use_pulse_flat_volume", set to true if running with pulseaudio 0.9.15
+        Unless you have set "flat-volumes = no" in /etc/pulse/daemon.conf 
     Pulse Audio works differently in Fedora 11 (flat volume), so change it to behave like ALSA
     Convert from internal store to using gm_pref_store
     Add option to enable/disable midi support in plugin
