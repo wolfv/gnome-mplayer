@@ -614,11 +614,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             message = g_strdup_printf("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
         }
         if (message) {
-			// reset max values in audio meter
-			for (i = 0; i < METER_BARS; i++) {
-				max_buckets[i] = 0;
-			}			
-			g_strlcpy(idledata->media_info, message, 1024);
+            // reset max values in audio meter
+            for (i = 0; i < METER_BARS; i++) {
+                max_buckets[i] = 0;
+            }
+            g_strlcpy(idledata->media_info, message, 1024);
             g_free(message);
             message = g_strdup_printf("\n\t<b>%s</b>\n", buf + 1);
             g_strlcpy(idledata->media_notification, message, 1024);
@@ -916,16 +916,17 @@ gpointer launch_player(gpointer data)
             size = g_strrstr(fontname, " ");
             size[0] = '\0';
             size = g_strrstr(fontname, " Bold");
-			if (size)
-				size[0] = '\0';
+            if (size)
+                size[0] = '\0';
             size = g_strrstr(fontname, " Italic");
-			if (size)
-				size[0] = '\0';
+            if (size)
+                size[0] = '\0';
             argv[arg++] = g_strdup_printf("-ass-force-style");
-			argv[arg++] = g_strconcat("FontName=",fontname,
-									  ((g_strrstr(subtitlefont,"Italic") != NULL)? ",Italic=1" : ",Italic=0"),
-									  ((g_strrstr(subtitlefont,"Bold") != NULL)? ",Bold=1" : ",Bold=0"),
-									  NULL);
+            argv[arg++] = g_strconcat("FontName=", fontname,
+                                      ((g_strrstr(subtitlefont, "Italic") !=
+                                        NULL) ? ",Italic=1" : ",Italic=0"),
+                                      ((g_strrstr(subtitlefont, "Bold") !=
+                                        NULL) ? ",Bold=1" : ",Bold=0"), NULL);
             g_free(fontname);
         }
 

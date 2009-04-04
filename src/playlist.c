@@ -261,7 +261,7 @@ void save_playlist(GtkWidget * widget, void *data)
 #endif
     gtk_widget_show(dialog);
     gm_store = gm_pref_store_new("gnome-mplayer");
-    last_dir = gm_pref_store_get_string(gm_store,LAST_DIR);
+    last_dir = gm_pref_store_get_string(gm_store, LAST_DIR);
     if (last_dir != NULL)
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
 
@@ -280,7 +280,7 @@ void save_playlist(GtkWidget * widget, void *data)
 
         uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
-        gm_pref_store_set_string(gm_store,LAST_DIR, last_dir);
+        gm_pref_store_set_string(gm_store, LAST_DIR, last_dir);
         g_free(last_dir);
 
         if (g_strrstr(uri, ".m3u") != NULL) {
@@ -316,7 +316,7 @@ void load_playlist(GtkWidget * widget, void *data)
                                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
     gtk_widget_show(dialog);
     gm_store = gm_pref_store_new("gnome-mplayer");
-    last_dir = gm_pref_store_get_string(gm_store,LAST_DIR);
+    last_dir = gm_pref_store_get_string(gm_store, LAST_DIR);
     if (last_dir != NULL)
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
 
@@ -339,7 +339,7 @@ void load_playlist(GtkWidget * widget, void *data)
 
         filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
-        gm_pref_store_set_string(gm_store,LAST_DIR, last_dir);
+        gm_pref_store_set_string(gm_store, LAST_DIR, last_dir);
         g_free(last_dir);
 
         gtk_list_store_clear(playliststore);
@@ -480,7 +480,7 @@ void add_to_playlist(GtkWidget * widget, void *data)
 #endif
 
     gm_store = gm_pref_store_new("gnome-mplayer");
-    last_dir = gm_pref_store_get_string(gm_store,LAST_DIR);
+    last_dir = gm_pref_store_get_string(gm_store, LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
@@ -492,7 +492,7 @@ void add_to_playlist(GtkWidget * widget, void *data)
         uris = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 
         last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
-        gm_pref_store_set_string(gm_store,LAST_DIR, last_dir);
+        gm_pref_store_set_string(gm_store, LAST_DIR, last_dir);
         g_free(last_dir);
 
         g_slist_foreach(uris, &add_item_to_playlist_callback, NULL);
@@ -534,7 +534,7 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
 #endif
 
     gm_store = gm_pref_store_new("gnome-mplayer");
-    last_dir = gm_pref_store_get_string(gm_store,LAST_DIR);
+    last_dir = gm_pref_store_get_string(gm_store, LAST_DIR);
     if (last_dir != NULL) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
@@ -545,7 +545,7 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
         uris = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 
         last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
-        gm_pref_store_set_string(gm_store,LAST_DIR, last_dir);
+        gm_pref_store_set_string(gm_store, LAST_DIR, last_dir);
         g_free(last_dir);
 
         filecount = 0;
