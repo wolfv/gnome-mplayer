@@ -1,4 +1,5 @@
 Development
+    Add *.ISO to the *.iso pattern match
     New preference key "use_pulse_flat_volume", set to true if running with pulseaudio 0.9.15
         Unless you have set "flat-volumes = no" in /etc/pulse/daemon.conf 
     Pulse Audio works differently in Fedora 11 (flat volume), so change it to behave like ALSA
