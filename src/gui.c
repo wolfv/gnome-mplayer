@@ -2407,6 +2407,7 @@ void menuitem_open_dvd_iso_callback(GtkMenuItem * menuitem, void *data)
     filter = gtk_file_filter_new();
     gtk_file_filter_set_name(filter, _("Disk Image (*.iso)"));
     gtk_file_filter_add_pattern(filter, "*.iso");
+    gtk_file_filter_add_pattern(filter, "*.ISO");
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
@@ -2499,7 +2500,8 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
     filter = gtk_file_filter_new();
     gtk_file_filter_set_name(filter, _("Disk Image (*.iso)"));
     gtk_file_filter_add_pattern(filter, "*.iso");
-    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
+	gtk_file_filter_add_pattern(filter, "*.ISO");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
