@@ -356,6 +356,7 @@ GMutex *slide_away;
 GCond *mplayer_complete_cond;
 
 gboolean use_mediakeys;
+gboolean dvdnav_title_is_menu;
 
 gboolean qt_disabled;
 gboolean real_disabled;

@@ -444,6 +444,7 @@ gint play_iter(GtkTreeIter * playiter)
             gtk_widget_set_size_request(drawing_area, 16, 16);
             gtk_widget_show_all(fixed);
         }
+
         if (g_ascii_strcasecmp(uri, "dvdnav://") == 0) {
             gtk_widget_show(menu_event_box);
         } else {
@@ -587,6 +588,7 @@ int main(int argc, char *argv[])
     ao = NULL;
     vo = NULL;
     use_pulse_flat_volume = FALSE;
+    dvdnav_title_is_menu = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);

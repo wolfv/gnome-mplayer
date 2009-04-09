@@ -581,6 +581,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_update_gui, NULL);
     }
 
+    if (strstr(mplayer_output->str, "DVDNAV_TITLE_IS_MENU") != 0) {
+        dvdnav_title_is_menu = TRUE;
+    }
+
+    if (strstr(mplayer_output->str, "DVDNAV_TITLE_IS_MOVIE") != 0) {
+        dvdnav_title_is_menu = FALSE;
+    }
+
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
     }

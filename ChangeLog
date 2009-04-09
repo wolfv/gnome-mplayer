@@ -1,4 +1,7 @@
 Development
+    Arrow keys work menu in dvdnav mode, but once movie is playing they revert to normal behavior
+        requires mplayer SVN r29156 to work
+    When we have a video from an iPod, assume size is 640x480, since libgpod doesn't tell us the size
     Add *.ISO to the *.iso pattern match
     New preference key "use_pulse_flat_volume", set to true if running with pulseaudio 0.9.15
         Unless you have set "flat-volumes = no" in /etc/pulse/daemon.conf 
