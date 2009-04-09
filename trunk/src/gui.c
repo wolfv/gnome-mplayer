@@ -1467,7 +1467,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             setup_accelerators();
             return FALSE;
         case GDK_Right:
-            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && dvdnav_title_is_menu) {
                 send_command("dvdnav 4\n", FALSE);
                 return FALSE;
             } else {
@@ -1477,7 +1477,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             break;
         case GDK_Left:
-            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && dvdnav_title_is_menu) {
                 send_command("dvdnav 3\n", FALSE);
                 return FALSE;
             } else {
@@ -1497,7 +1497,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 send_command("seek -600 0\n", TRUE);
             return FALSE;
         case GDK_Up:
-            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && dvdnav_title_is_menu) {
                 send_command("dvdnav 1\n", FALSE);
             } else {
                 if (state == PLAYING
@@ -1507,7 +1507,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 
             return FALSE;
         case GDK_Down:
-            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && dvdnav_title_is_menu) {
                 send_command("dvdnav 2\n", FALSE);
             } else {
                 if (state == PLAYING
@@ -1516,7 +1516,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             return FALSE;
         case GDK_Return:
-            if (lastfile != NULL && g_strncasecmp(lastfile, "dvdnav", strlen("dvdnav")) == 0) {
+            if (lastfile != NULL && dvdnav_title_is_menu) {
                 send_command("dvdnav 6\n", FALSE);
             }
             return FALSE;
@@ -2435,6 +2435,7 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
         g_free(idledata->device);
         idledata->device = NULL;
     }
+    dvdnav_title_is_menu = TRUE;
     add_item_to_playlist("dvdnav://", 0);
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     play_iter(&iter);
@@ -2466,6 +2467,7 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
         gtk_list_store_clear(nonrandomplayliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
+        dvdnav_title_is_menu = TRUE;
         add_item_to_playlist("dvdnav://", 0);
         gtk_widget_show(menu_event_box);
 
@@ -2500,8 +2502,8 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
     filter = gtk_file_filter_new();
     gtk_file_filter_set_name(filter, _("Disk Image (*.iso)"));
     gtk_file_filter_add_pattern(filter, "*.iso");
-	gtk_file_filter_add_pattern(filter, "*.ISO");
-	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
+    gtk_file_filter_add_pattern(filter, "*.ISO");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
@@ -2509,6 +2511,7 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
         gtk_list_store_clear(nonrandomplayliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
+        dvdnav_title_is_menu = TRUE;
         add_item_to_playlist("dvdnav://", 0);
         gtk_widget_show(menu_event_box);
 
@@ -2685,7 +2688,7 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_open_ipod_callback(GtkMenuItem * menuitem, void *data)
 {
     gpod_mount_point = find_gpod_mount_point();
-    printf("mount point is %s\n", gpod_mount_point);
+    // printf("mount point is %s\n", gpod_mount_point);
     if (gpod_mount_point != NULL) {
         gpod_load_tracks(gpod_mount_point);
     } else {

@@ -2258,7 +2258,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
     Itdb_Thumb *thumb;
 #endif
     GList *tracks;
-    gint i = 0;
+    gint i = 0, width, height;
     gchar *duration;
     gchar *ipod_path;
     gchar *full_path;
@@ -2295,6 +2295,16 @@ gboolean gpod_load_tracks(gchar * mount_point)
                 //printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
             }
 #endif
+            // printf("%s is movie = %i\n",((Itdb_Track *) (tracks->data))->title,((Itdb_Track *) (tracks->data))->movie_flag);
+
+            if (((Itdb_Track *) (tracks->data))->movie_flag) {
+                width = 640;
+                height = 480;
+            } else {
+                width = 0;
+                height = 0;
+            }
+
             gtk_list_store_append(playliststore, &localiter);
             gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, full_path,
                                DESCRIPTION_COLUMN, ((Itdb_Track *) (tracks->data))->title,
@@ -2302,6 +2312,8 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
                                ALBUM_COLUMN, ((Itdb_Track *) (tracks->data))->album,
+                               VIDEO_WIDTH_COLUMN, width,
+                               VIDEO_HEIGHT_COLUMN, height,
                                SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,
                                pixbuf, -1);
 
@@ -2312,6 +2324,8 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                PLAYLIST_COLUMN, 0,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
                                ALBUM_COLUMN, ((Itdb_Track *) (tracks->data))->album,
+                               VIDEO_WIDTH_COLUMN, width,
+                               VIDEO_HEIGHT_COLUMN, height,
                                SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,
                                pixbuf, -1);
 
@@ -2326,7 +2340,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
         if (i > 1) {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), TRUE);
-            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), TRUE);
+            // gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), TRUE);
         }
         return TRUE;
     } else {
