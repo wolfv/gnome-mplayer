@@ -1,4 +1,5 @@
 Development
+    Fix the textdomain issue in the nautilus plugin
     Arrow keys work menu in dvdnav mode, but once movie is playing they revert to normal behavior
         requires mplayer SVN r29156 to work
     When we have a video from an iPod, assume size is 640x480, since libgpod doesn't tell us the size
