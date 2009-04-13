@@ -790,22 +790,20 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
     } else {
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
         if (idledata->videopresent == FALSE) {
-            gtk_widget_hide(fixed);
-            if (window_width != -1)
-                gtk_window_resize(GTK_WINDOW(window), window_width, window_height);
-        } else {
-            // set the window size properly when coming out of fullscreen mode.
-            if (restore_playlist) {
-                if (vertical_layout) {
-                    stored_window_height = restore_pane;
-                } else {
-                    stored_window_width = restore_pane;
-                }
-                restore_playlist = FALSE;
+            if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
+				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),TRUE);
+    		}
+		}
+        if (restore_playlist) {
+            if (vertical_layout) {
+                stored_window_height = restore_pane;
             } else {
-                gdk_window_get_geometry(window->window, &x, &y, &stored_window_width,
-                                        &stored_window_height, &depth);
+                stored_window_width = restore_pane;
             }
+            restore_playlist = FALSE;
+        } else {
+            gdk_window_get_geometry(window->window, &x, &y, &stored_window_width,
+                                    &stored_window_height, &depth);
         }
         plvbox = gtk_vbox_new(FALSE, 12);
         hbox = gtk_hbox_new(FALSE, 12);

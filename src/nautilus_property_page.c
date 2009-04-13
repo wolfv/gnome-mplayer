@@ -22,7 +22,9 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
 #include "mime_types.h"
 #include <libnautilus-extension/nautilus-extension-types.h>
 #include <libnautilus-extension/nautilus-property-page-provider.h>
@@ -528,7 +530,6 @@ void nautilus_module_initialize(GTypeModule * module)
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-    textdomain(GETTEXT_PACKAGE);
 #endif
 
     gnome_mplayer_properties_plugin_register_type(module);
