@@ -528,11 +528,11 @@ void nautilus_module_initialize(GTypeModule * module)
 {
 
 #ifdef ENABLE_NLS
-	//printf("%s\n",GETTEXT_PACKAGE);
-	//printf("%s\n",PACKAGE_LOCALE_DIR);
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-	//textdomain(GETTEXT_PACKAGE);
+	// specify the domain in the translation calls so
+	// we don't mess up the translation of the other tabs
+	// textdomain(GETTEXT_PACKAGE);
 #endif
 
     gnome_mplayer_properties_plugin_register_type(module);
