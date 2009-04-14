@@ -753,10 +753,9 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)) == FALSE) {
         if (GTK_WIDGET_VISIBLE(plvbox)) {
             if (idledata->videopresent == FALSE) {
-                gdk_window_get_geometry(window->window, &x, &y, &window_width, &window_height,
-                                        &depth);
-                stored_window_width = -1;
-                stored_window_height = -1;
+                window_width = -1;
+                window_height = -1;
+                gtk_window_get_size(GTK_WINDOW(window), &window_width, &window_height);
                 gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
                 gtk_widget_hide(GTK_WIDGET(fixed));
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
@@ -1013,15 +1012,12 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
         if (vertical_layout) {
             gtk_widget_set_size_request(plvbox, -1, 150);
-            if (idledata->videopresent)
-                gtk_window_resize(GTK_WINDOW(window), stored_window_width,
-                                  stored_window_height + 150 + handle_size);
+            gtk_window_resize(GTK_WINDOW(window), stored_window_width,
+                              stored_window_height + 150 + handle_size);
         } else {
             gtk_widget_set_size_request(plvbox, 300, -1);
-            if (idledata->videopresent) {
-                gtk_window_resize(GTK_WINDOW(window), stored_window_width + 300 + handle_size,
-                                  stored_window_height);
-            }
+            gtk_window_resize(GTK_WINDOW(window), stored_window_width + 300 + handle_size,
+                              stored_window_height);
         }
         gtk_widget_show_all(plvbox);
         if (idledata->videopresent) {
