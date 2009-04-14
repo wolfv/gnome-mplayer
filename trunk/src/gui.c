@@ -1675,9 +1675,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         default:
             if (state == PLAYING) {
-                cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
-                send_command(cmd, FALSE);
-                g_free(cmd);
+				if (!(event->keyval == 0xffe3 || event->keyval == 0xffc6)) {
+		            cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
+		            send_command(cmd, FALSE);
+		            g_free(cmd);
+				}
             }
             return FALSE;
         }

@@ -46,6 +46,8 @@ static void gmtk_audio_meter_init(GmtkAudioMeter * meter)
     meter->max_data = NULL;
     meter->data_valid = FALSE;
     meter->max_division_width = -1;
+	GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET(meter), GTK_DOUBLE_BUFFERED);
+
 }
 
 static void gmtk_audio_meter_dispose(GObject * object)
@@ -147,6 +149,7 @@ static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * even
 {
     PangoLayout *p;
 
+	gdk_window_begin_paint_region(meter->window,event->region);
     if (GMTK_AUDIO_METER(meter)->data_valid) {
         draw(meter);
     } else {
@@ -154,6 +157,7 @@ static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * even
         gdk_draw_layout(meter->window, meter->style->black_gc, 0, 0, p);
         g_object_unref(p);
     }
+	gdk_window_end_paint(meter->window);
     return FALSE;
 }
 
