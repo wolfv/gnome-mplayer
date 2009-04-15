@@ -57,6 +57,9 @@
 #define SUBTITLESCALE	"subtitlescale"
 #define SUBTITLECODEPAGE	"subtitlecodepage"
 #define SUBTITLECOLOR	"subtitlecolor"
+#define SUBTITLEOUTLINE "subtitleoutline"
+#define SUBTITLESHADOW "subtitleshadow"
+
 #define VOLUME	"volume"
 #define USE_MEDIAKEYS		"use_mediakeys"
 #define DISABLE_COVER_ART_FETCH "disable_cover_art_fetch"
@@ -321,6 +324,8 @@ gchar *subtitlefont;
 gdouble subtitle_scale;
 gchar *subtitle_codepage;
 gchar *subtitle_color;
+gboolean subtitle_outline;
+gboolean subtitle_shadow;
 gboolean quit_on_complete;
 gchar *mplayer_bin;
 gchar *extraopts;

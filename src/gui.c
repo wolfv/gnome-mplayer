@@ -3379,6 +3379,8 @@ void config_apply(GtkWidget * widget, void *data)
     subtitle_color =
         g_strdup_printf("%02x%02x%02x00", sub_color.red >> 8, sub_color.green >> 8,
                         sub_color.blue >> 8);
+	subtitle_outline = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_outline));
+	subtitle_shadow = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow));
 
     if (old_disable_framedrop != disable_framedrop) {
         cmd = g_strdup_printf("frame_drop %d\n", !disable_framedrop);
@@ -3439,6 +3441,8 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_float(gm_store, SUBTITLESCALE, subtitle_scale);
     gm_pref_store_set_string(gm_store, SUBTITLECODEPAGE, subtitle_codepage);
     gm_pref_store_set_string(gm_store, SUBTITLECOLOR, subtitle_color);
+	gm_pref_store_set_boolean(gm_store, SUBTITLEOUTLINE, subtitle_outline);
+	gm_pref_store_set_boolean(gm_store, SUBTITLESHADOW, subtitle_shadow);
     gm_pref_store_set_string(gm_store, MPLAYER_BIN, mplayer_bin);
     gm_pref_store_set_string(gm_store, EXTRAOPTS, extraopts);
     gm_pref_store_free(gm_store);
@@ -4594,7 +4598,17 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_SHRINK, 0, 0);
     i++;
 
-    conf_label = gtk_label_new(_("Subtitle Font Scaling:"));
+	config_subtitle_outline = gtk_check_button_new_with_label(_("Outline Subtitle Font"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_subtitle_outline), subtitle_outline);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_subtitle_outline, 0, 2, i, i + 1);
+    i++;
+	
+	config_subtitle_shadow = gtk_check_button_new_with_label(_("Shadow Subtitle Font"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow), subtitle_shadow);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_subtitle_shadow, 0, 2, i, i + 1);
+    i++;
+
+	conf_label = gtk_label_new(_("Subtitle Font Scaling:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);

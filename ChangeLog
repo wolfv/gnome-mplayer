@@ -1,4 +1,6 @@
 Development
+    Add options to enable subtitle outlineing and shadowing
+    Add enca to the list of subtitle language codepages
     Switch audio meter to be non-double buffering to help speed it up
     Fix the textdomain issue in the nautilus plugin
     Arrow keys work menu in dvdnav mode, but once movie is playing they revert to normal behavior
