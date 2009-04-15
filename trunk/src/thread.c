@@ -934,7 +934,10 @@ gpointer launch_player(gpointer data)
                                       ((g_strrstr(subtitlefont, "Italic") !=
                                         NULL) ? ",Italic=1" : ",Italic=0"),
                                       ((g_strrstr(subtitlefont, "Bold") !=
-                                        NULL) ? ",Bold=1" : ",Bold=0"), NULL);
+                                        NULL) ? ",Bold=1" : ",Bold=0"), 
+                                      (subtitle_outline ? ",Outline=1" : ",Outline=0"),
+                                      (subtitle_shadow ? ",Shadow=2" : ",Shadow=0"),
+                                      NULL);
             g_free(fontname);
         }
 
@@ -959,7 +962,7 @@ gpointer launch_player(gpointer data)
 
     if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
         argv[arg++] = g_strdup_printf("-subcp");
-        argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
+        argv[arg++] = g_strdup_printf("enca:%s", subtitle_codepage);
     }
 
     if (pplevel > 0) {
