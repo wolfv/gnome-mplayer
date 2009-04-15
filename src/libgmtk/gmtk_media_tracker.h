@@ -58,6 +58,7 @@ struct _GmtkMediaTracker {
     GdkPixbuf *thumb_upper;
     GdkPixbuf *thumb_lower;
     GmtkThumbPosition position;
+	gboolean allow_expand;
 };
 
 struct _GmtkMediaTrackerClass {
@@ -76,5 +77,6 @@ void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble
 gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker);
 
 void gmtk_media_tracker_set_thumb_position(GmtkMediaTracker * tracker, GmtkThumbPosition position);
+void gmtk_media_tracker_set_allow_expand(GmtkMediaTracker * tracker, gboolean allow_expand);
 G_END_DECLS
 #endif

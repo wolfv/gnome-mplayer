@@ -1,4 +1,5 @@
 Development
+    Add allow_expand option to tracker, should help text display when run as plugin
     Add options to enable subtitle outlineing and shadowing
     Add enca to the list of subtitle language codepages
     Switch audio meter to be non-double buffering to help speed it up

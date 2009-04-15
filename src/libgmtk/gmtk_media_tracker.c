@@ -83,6 +83,7 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
     gdk_pixbuf_unref(temp);
 
     tracker->position = THUMB_ON_BOTTOM;
+	tracker->allow_expand = TRUE;
 }
 
 static void gmtk_media_tracker_dispose(GObject * object)
@@ -155,10 +156,16 @@ void draw(GtkWidget * tracker)
         pango_layout_get_size(p, &pwidth, &pheight);
         pwidth = pwidth / PANGO_SCALE;
         pheight = pheight / PANGO_SCALE;
-		if (pwidth > bar_width) {
+		if (pwidth > bar_width)  {
+			if (GMTK_MEDIA_TRACKER(tracker)->allow_expand) {
 				gtk_widget_set_size_request(tracker,(pwidth + 2 * half_thumb_size),-1);
+			} else {
+				pango_layout_set_width(p, bar_width);
+				pango_layout_set_ellipsize(p, PANGO_ELLIPSIZE_START);
+				pwidth = bar_width;
+			}
 		}
-
+		
         ptop = (tracker->allocation.height - pheight) / 2;
         pleft = (tracker->allocation.width - pwidth) / 2;
         gdk_draw_layout(tracker->window, tracker->style->text_gc[0], pleft, ptop + 1, p);
@@ -323,4 +330,9 @@ gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker)
 void gmtk_media_tracker_set_thumb_position(GmtkMediaTracker * tracker, GmtkThumbPosition position)
 {
     tracker->position = position;
+}
+
+void gmtk_media_tracker_set_allow_expand(GmtkMediaTracker * tracker, gboolean allow_expand)
+{
+	tracker->allow_expand = allow_expand;
 }
