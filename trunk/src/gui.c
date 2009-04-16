@@ -1042,6 +1042,8 @@ gboolean resize_window(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_smaller_subtitle), idle->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_larger_subtitle), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
@@ -3903,6 +3905,37 @@ void menuitem_view_angle_callback(GtkMenuItem * menuitem, gpointer data)
     return;
 }
 
+void menuitem_view_smaller_subtitle_callback(GtkMenuItem * menuitem, void *data)
+{
+    gchar *cmd;
+
+	if (subtitle_scale > 0.2) {
+		subtitle_scale -= 0.2;
+	} else {
+		subtitle_scale = 0.2;
+	}
+
+	cmd = g_strdup_printf("sub_scale %f 1\n",subtitle_scale);
+    send_command(cmd, TRUE);
+    g_free(cmd);
+
+    return;
+	
+}
+
+void menuitem_view_larger_subtitle_callback(GtkMenuItem * menuitem, void *data)
+{
+    gchar *cmd;
+
+	subtitle_scale += 0.2;
+
+	cmd = g_strdup_printf("sub_scale %f 1\n",subtitle_scale);
+    send_command(cmd, TRUE);
+    g_free(cmd);
+
+    return;
+
+}
 void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
 {
     static gint i = 0;
@@ -5079,6 +5112,8 @@ void setup_accelerators()
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_angle), accel_group, GDK_a,
                                       GDK_CONTROL_MASK);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_aspect), accel_group, GDK_a, 0);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), accel_group, GDK_r, GDK_SHIFT_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), accel_group, GDK_t, GDK_SHIFT_MASK);
 
     }
 
@@ -5111,6 +5146,12 @@ void setup_accelerators()
 
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_aspect), "activate",
                                accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
+
+	gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), "activate",
+                               accel_group, GDK_r, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
+
+	gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), "activate",
+                               accel_group, GDK_t, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
 
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
                                accel_group, GDK_1, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
@@ -5520,14 +5561,20 @@ GtkWidget *create_window(gint windowid)
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default), TRUE);
 
     menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    menuitem_view_sep5 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     menuitem_view_subtitles =
         GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Show _Subtitles")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles), showsubtitles);
+    menuitem_view_smaller_subtitle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Decrease Subtitle Size")));
+    menuitem_view_larger_subtitle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Increase Subtitle Size")));
     menuitem_view_angle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Switch An_gle")));
     menuitem_view_controls = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), TRUE);
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_subtitles));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_smaller_subtitle));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_larger_subtitle));
+    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep5));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_angle));
     gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_controls));
     menuitem_view_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
@@ -5562,6 +5609,10 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_view_aspect_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_subtitles), "toggled",
                      G_CALLBACK(menuitem_view_subtitles_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_smaller_subtitle), "activate",
+                     G_CALLBACK(menuitem_view_smaller_subtitle_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_view_larger_subtitle), "activate",
+                     G_CALLBACK(menuitem_view_larger_subtitle_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_angle), "activate",
                      G_CALLBACK(menuitem_view_angle_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_controls), "toggled",
@@ -6056,6 +6107,8 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_smaller_subtitle), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_larger_subtitle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
