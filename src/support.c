@@ -1529,6 +1529,9 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
     gchar *unescaped = NULL;
     MetaData *data = NULL;
 
+	if (strlen(uri) < 1)
+		return FALSE;
+	
     if (verbose)
         printf("adding %s to playlist\n", uri);
     local_uri = strdup(uri);
