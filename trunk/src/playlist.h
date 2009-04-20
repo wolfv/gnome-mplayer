@@ -38,3 +38,7 @@ void update_gui();
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data);
 void add_item_to_playlist_callback(gpointer data, gpointer user_data);
 void add_folder_to_playlist_callback(gpointer data, gpointer user_data);
+
+// these are in gui.c
+gint get_height();
+gint get_width();

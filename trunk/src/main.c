@@ -560,8 +560,8 @@ int main(int argc, char *argv[])
     subtitlefont = NULL;
     subtitle_codepage = NULL;
     subtitle_color = NULL;
-	subtitle_outline = FALSE;
-	subtitle_shadow = FALSE;
+    subtitle_outline = FALSE;
+    subtitle_shadow = FALSE;
     quit_on_complete = FALSE;
     slide_away = NULL;
     verbose = 0;
@@ -655,8 +655,8 @@ int main(int argc, char *argv[])
     }
     subtitle_codepage = gm_pref_store_get_string(gm_store, SUBTITLECODEPAGE);
     subtitle_color = gm_pref_store_get_string(gm_store, SUBTITLECOLOR);
-	subtitle_outline = gm_pref_store_get_boolean(gm_store, SUBTITLEOUTLINE);
-	subtitle_shadow = gm_pref_store_get_boolean(gm_store, SUBTITLESHADOW);
+    subtitle_outline = gm_pref_store_get_boolean(gm_store, SUBTITLEOUTLINE);
+    subtitle_shadow = gm_pref_store_get_boolean(gm_store, SUBTITLESHADOW);
 
     qt_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_QT);
     real_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_REAL);

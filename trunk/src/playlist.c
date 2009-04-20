@@ -790,9 +790,9 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
         if (idledata->videopresent == FALSE) {
             if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
-				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info),TRUE);
-    		}
-		}
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
+            }
+        }
         if (restore_playlist) {
             if (vertical_layout) {
                 stored_window_height = restore_pane;

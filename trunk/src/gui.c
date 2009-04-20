@@ -1433,7 +1433,6 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             }
         }
         //printf("new_width %i new_height %i\n",new_width, new_height);
-
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
         gtk_widget_set_size_request(fixed, allocation->width, allocation->height);
         idledata->x = (allocation->width - new_width) / 2;
@@ -1677,11 +1676,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         default:
             if (state == PLAYING) {
-				if (!(event->keyval == 0xffe3 || event->keyval == 0xffc6)) {
-		            cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
-		            send_command(cmd, FALSE);
-		            g_free(cmd);
-				}
+                if (!(event->keyval == 0xffe3 || event->keyval == 0xffc6)) {
+                    cmd = g_strdup_printf("key_down_event %d\n", event->keyval);
+                    send_command(cmd, FALSE);
+                    g_free(cmd);
+                }
             }
             return FALSE;
         }
@@ -3381,8 +3380,8 @@ void config_apply(GtkWidget * widget, void *data)
     subtitle_color =
         g_strdup_printf("%02x%02x%02x00", sub_color.red >> 8, sub_color.green >> 8,
                         sub_color.blue >> 8);
-	subtitle_outline = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_outline));
-	subtitle_shadow = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow));
+    subtitle_outline = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_outline));
+    subtitle_shadow = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow));
 
     if (old_disable_framedrop != disable_framedrop) {
         cmd = g_strdup_printf("frame_drop %d\n", !disable_framedrop);
@@ -3443,8 +3442,8 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_float(gm_store, SUBTITLESCALE, subtitle_scale);
     gm_pref_store_set_string(gm_store, SUBTITLECODEPAGE, subtitle_codepage);
     gm_pref_store_set_string(gm_store, SUBTITLECOLOR, subtitle_color);
-	gm_pref_store_set_boolean(gm_store, SUBTITLEOUTLINE, subtitle_outline);
-	gm_pref_store_set_boolean(gm_store, SUBTITLESHADOW, subtitle_shadow);
+    gm_pref_store_set_boolean(gm_store, SUBTITLEOUTLINE, subtitle_outline);
+    gm_pref_store_set_boolean(gm_store, SUBTITLESHADOW, subtitle_shadow);
     gm_pref_store_set_string(gm_store, MPLAYER_BIN, mplayer_bin);
     gm_pref_store_set_string(gm_store, EXTRAOPTS, extraopts);
     gm_pref_store_free(gm_store);
@@ -3909,33 +3908,34 @@ void menuitem_view_smaller_subtitle_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *cmd;
 
-	if (subtitle_scale > 0.2) {
-		subtitle_scale -= 0.2;
-	} else {
-		subtitle_scale = 0.2;
-	}
+    if (subtitle_scale > 0.2) {
+        subtitle_scale -= 0.2;
+    } else {
+        subtitle_scale = 0.2;
+    }
 
-	cmd = g_strdup_printf("sub_scale %f 1\n",subtitle_scale);
+    cmd = g_strdup_printf("sub_scale %f 1\n", subtitle_scale);
     send_command(cmd, TRUE);
     g_free(cmd);
 
     return;
-	
+
 }
 
 void menuitem_view_larger_subtitle_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *cmd;
 
-	subtitle_scale += 0.2;
+    subtitle_scale += 0.2;
 
-	cmd = g_strdup_printf("sub_scale %f 1\n",subtitle_scale);
+    cmd = g_strdup_printf("sub_scale %f 1\n", subtitle_scale);
     send_command(cmd, TRUE);
     g_free(cmd);
 
     return;
 
 }
+
 void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
 {
     static gint i = 0;
@@ -4631,17 +4631,17 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_SHRINK, 0, 0);
     i++;
 
-	config_subtitle_outline = gtk_check_button_new_with_label(_("Outline Subtitle Font"));
+    config_subtitle_outline = gtk_check_button_new_with_label(_("Outline Subtitle Font"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_subtitle_outline), subtitle_outline);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_subtitle_outline, 0, 2, i, i + 1);
     i++;
-	
-	config_subtitle_shadow = gtk_check_button_new_with_label(_("Shadow Subtitle Font"));
+
+    config_subtitle_shadow = gtk_check_button_new_with_label(_("Shadow Subtitle Font"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow), subtitle_shadow);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_subtitle_shadow, 0, 2, i, i + 1);
     i++;
 
-	conf_label = gtk_label_new(_("Subtitle Font Scaling:"));
+    conf_label = gtk_label_new(_("Subtitle Font Scaling:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
@@ -5112,8 +5112,10 @@ void setup_accelerators()
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_angle), accel_group, GDK_a,
                                       GDK_CONTROL_MASK);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_aspect), accel_group, GDK_a, 0);
-        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), accel_group, GDK_r, GDK_SHIFT_MASK);
-        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), accel_group, GDK_t, GDK_SHIFT_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), accel_group,
+                                      GDK_r, GDK_SHIFT_MASK);
+        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), accel_group, GDK_t,
+                                      GDK_SHIFT_MASK);
 
     }
 
@@ -5147,10 +5149,10 @@ void setup_accelerators()
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_aspect), "activate",
                                accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
 
-	gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), "activate",
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), "activate",
                                accel_group, GDK_r, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
 
-	gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), "activate",
+    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), "activate",
                                accel_group, GDK_t, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
 
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
@@ -5565,8 +5567,10 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_subtitles =
         GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Show _Subtitles")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles), showsubtitles);
-    menuitem_view_smaller_subtitle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Decrease Subtitle Size")));
-    menuitem_view_larger_subtitle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Increase Subtitle Size")));
+    menuitem_view_smaller_subtitle =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Decrease Subtitle Size")));
+    menuitem_view_larger_subtitle =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Increase Subtitle Size")));
     menuitem_view_angle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Switch An_gle")));
     menuitem_view_controls = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), TRUE);
@@ -5946,7 +5950,6 @@ GtkWidget *create_window(gint windowid)
     GTK_WIDGET_UNSET_FLAGS(vol_slider, GTK_CAN_FOCUS);
     gtk_widget_show(vol_slider);
 
-
     gtk_widget_realize(window);
 
     if (windowid != 0 && embedding_disabled == FALSE) {
@@ -5958,7 +5961,7 @@ GtkWidget *create_window(gint windowid)
             gtk_widget_unmap(window);
 
         gdk_window_reparent(window->window, window_container, 0, 0);
-		gmtk_media_tracker_set_allow_expand(tracker, FALSE);
+        gmtk_media_tracker_set_allow_expand(tracker, FALSE);
     } else {
         if (remember_loc) {
             gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
@@ -6191,4 +6194,34 @@ gboolean update_audio_meter(gpointer data)
     }
     return TRUE;
 
+}
+
+gint get_height()
+{
+    gint total_height;
+
+    total_height = idledata->height;
+    total_height += menubar->allocation.height;
+    if (showcontrols) {
+        total_height += controls_box->allocation.height;
+    }
+    if (GTK_IS_WIDGET(media_hbox) && GTK_WIDGET_VISIBLE(media_hbox)) {
+        total_height += media_hbox->allocation.height;
+    }
+    if (GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table)) {
+        total_height += details_vbox->allocation.height;
+    }
+    if (GTK_IS_WIDGET(audio_meter) && GTK_WIDGET_VISIBLE(audio_meter)) {
+        total_height += audio_meter->allocation.height;
+    }
+
+    return total_height;
+}
+
+gint get_width()
+{
+    gint total_width;
+
+    total_width = media_hbox->allocation.width;
+    return total_width;
 }
