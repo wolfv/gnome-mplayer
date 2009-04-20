@@ -76,7 +76,7 @@ void gm_pref_store_free(GmPrefStore *store) {
     gchar *data;
 
     if (store->keyfile != NULL) {
-        filename = g_strdup_printf("%s/%s/%s.conf", g_get_user_config_dir(),context,context);
+        filename = g_strdup_printf("%s/%s/%s.conf", g_get_user_config_dir(),store->context,store->context);
         data = g_key_file_to_data(store->keyfile, NULL, NULL);
 
         g_file_set_contents(filename, data, -1, NULL);
@@ -139,7 +139,7 @@ gint gm_pref_store_get_int(GmPrefStore *store, const gchar *key) {
 #else
 	
 	if (g_key_file_has_key(store->keyfile,store->context,key,NULL))
-		value = g_key_file_get_int(store->keyfile,store->context,key,NULL);
+		value = g_key_file_get_integer(store->keyfile,store->context,key,NULL);
 
 #endif	
 	return value;
@@ -157,7 +157,7 @@ gint gm_pref_store_get_int_with_default(GmPrefStore *store, const gchar *key, gi
 #else
 	
 	if (g_key_file_has_key(store->keyfile,store->context,key,NULL)) {
-		value = g_key_file_get_int(store->keyfile,store->context,key,NULL);
+		value = g_key_file_get_integer(store->keyfile,store->context,key,NULL);
 	} else {
 		value = default_value;
 	}
@@ -176,7 +176,7 @@ void gm_pref_store_set_int(GmPrefStore *store, const gchar *key, gint value) {
     g_free(full_key);
 #else
 	
-	g_key_file_set_int(store->keyfile,store->context,key,value);
+	g_key_file_set_integer(store->keyfile,store->context,key,value);
 
 #endif	
 }
@@ -193,7 +193,7 @@ gfloat gm_pref_store_get_float(GmPrefStore *store, const gchar *key) {
 #else
 	
 	if (g_key_file_has_key(store->keyfile,store->context,key,NULL))
-		value = g_key_file_get_float(store->keyfile,store->context,key,NULL);
+		value = g_key_file_get_double(store->keyfile,store->context,key,NULL);
 
 #endif	
 	return value;

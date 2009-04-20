@@ -6,8 +6,8 @@ noinst_LTLIBRARIES = \
 
 libgmlib_la_SOURCES = \
    	gmlib.h \
-    	gm_file.h \
-    	gm_file.c \
+   	gm_file.h \
+   	gm_file.c \
 	gm_pref_store.h \
 	gm_pref_store.c
 
