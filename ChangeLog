@@ -1,4 +1,5 @@
 Development
+    When looking for xvmc or vdpau vo's make sure options passed are ignored
     Fix compliation issues with --without-gconf bug #170
     Revert the usage of enca in subtitle detection
     Prevent adding a "empty" filename to the playlist
