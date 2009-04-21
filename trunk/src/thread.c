@@ -774,7 +774,7 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
 
-    if (vo != NULL && g_ascii_strcasecmp(vo, "xvmc") == 0) {
+    if (vo != NULL && g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0) {
         if (g_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0
             || g_strncasecmp(threaddata->filename, "dvdnav://", strlen("dvdnav://")) == 0) {
             argv[arg++] = g_strdup_printf("-vc");
@@ -789,7 +789,7 @@ gpointer launch_player(gpointer data)
         }
     }
 
-    if (vo != NULL && g_ascii_strcasecmp(vo, "vdpau") == 0) {
+    if (vo != NULL && g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0) {
         //printf("video_codec = '%s'\n",idledata->video_codec);
         if (g_ascii_strcasecmp(idledata->video_codec, "ffmpeg1") == 0
             || g_ascii_strcasecmp(idledata->video_codec, "ffmpeg2") == 0
@@ -840,7 +840,7 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-framedrop");
 
     if (vo == NULL
-        || !(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
+        || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0 || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
         if (!disable_deinterlace) {
             argv[arg++] = g_strdup_printf("-vf-pre");
             argv[arg++] = g_strdup_printf("yadif,softskip,scale");
@@ -980,7 +980,7 @@ gpointer launch_player(gpointer data)
     }
 
     if (vo == NULL
-        || !(g_ascii_strcasecmp(vo, "xvmc") == 0 || g_ascii_strcasecmp(vo, "vdpau") == 0)) {
+        || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0 || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
         argv[arg++] = g_strdup_printf("-vf-add");
         argv[arg++] = g_strdup_printf("screenshot");
     }
