@@ -657,7 +657,8 @@ int main(int argc, char *argv[])
     subtitle_color = gm_pref_store_get_string(gm_store, SUBTITLECOLOR);
     subtitle_outline = gm_pref_store_get_boolean(gm_store, SUBTITLEOUTLINE);
     subtitle_shadow = gm_pref_store_get_boolean(gm_store, SUBTITLESHADOW);
-
+	showsubtitles = gm_pref_store_get_boolean_with_default(gm_store, SHOW_SUBTITLES, TRUE);
+	
     qt_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_QT);
     real_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_REAL);
     wmp_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_WMP);

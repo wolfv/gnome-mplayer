@@ -29,6 +29,7 @@
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-value.h>
 #endif
+#include <stdio.h>
 
 struct _GmPrefStore {
 #ifdef HAVE_GCONF
@@ -112,6 +113,36 @@ gboolean gm_pref_store_get_boolean(GmPrefStore *store, const gchar *key) {
 	return value;
 }
 
+gboolean gm_pref_store_get_boolean_with_default(GmPrefStore *store, const gchar *key, gboolean default_value) {
+
+	gboolean value = FALSE;
+#ifdef HAVE_GCONF
+	
+	gchar *full_key;
+	GConfValue *gcvalue;
+
+	full_key = g_strdup_printf("/apps/%s/preferences/%s",store->context,key);
+
+	gcvalue = gconf_client_get_without_default(store->gconf,full_key,NULL);
+	if (gcvalue) {
+		value = gconf_client_get_bool(store->gconf, full_key, NULL);
+		gconf_value_free(gcvalue);
+	} else {
+		value = default_value;
+	}
+    g_free(full_key);
+	
+#else
+	
+	if (g_key_file_has_key(store->keyfile,store->context,key,NULL)) {
+		value = g_key_file_get_boolean(store->keyfile,store->context,key,NULL);
+	} else {
+		value = default_value;
+	}
+#endif	
+	return value;
+}
+
 void gm_pref_store_set_boolean(GmPrefStore *store, const gchar *key, gboolean value) {
 
 #ifdef HAVE_GCONF
@@ -149,11 +180,21 @@ gint gm_pref_store_get_int_with_default(GmPrefStore *store, const gchar *key, gi
 
 	gint value = 0;
 #ifdef HAVE_GCONF
+
 	gchar *full_key;
-	
+	GConfValue *gcvalue;
+
 	full_key = g_strdup_printf("/apps/%s/preferences/%s",store->context,key);
-	value = gconf_client_get_int(store->gconf, full_key, NULL);
+
+	gcvalue = gconf_client_get_without_default(store->gconf,full_key,NULL);
+	if (gcvalue) {
+		value = gconf_client_get_int(store->gconf, full_key, NULL);
+		gconf_value_free(gcvalue);
+	} else {
+		value = default_value;
+	}
     g_free(full_key);
+
 #else
 	
 	if (g_key_file_has_key(store->keyfile,store->context,key,NULL)) {
@@ -161,6 +202,7 @@ gint gm_pref_store_get_int_with_default(GmPrefStore *store, const gchar *key, gi
 	} else {
 		value = default_value;
 	}
+
 #endif	
 	return value;
 }

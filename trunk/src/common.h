@@ -87,6 +87,7 @@
 #define REPLACE_AND_PLAY "replace_and_play"
 #define SHOW_NOTIFICATION "show_notification"
 #define SHOW_STATUS_ICON "show_status_icon"
+#define SHOW_SUBTITLES "show_subtitles"
 
 // JavaScript Playstates
 #define STATE_UNDEFINED     0

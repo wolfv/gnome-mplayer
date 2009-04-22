@@ -36,6 +36,7 @@ GmPrefStore *gm_pref_store_new(const gchar * context);
 void gm_pref_store_free(GmPrefStore *store);
 
 gboolean gm_pref_store_get_boolean(GmPrefStore *store, const gchar *key);
+gboolean gm_pref_store_get_boolean_with_default(GmPrefStore *store, const gchar *key, gboolean default_value);
 void gm_pref_store_set_boolean(GmPrefStore *store,const  gchar *key, gboolean value);
 
 gint gm_pref_store_get_int(GmPrefStore *store,const  gchar *key);
