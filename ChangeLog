@@ -1,4 +1,6 @@
 Development
+    Fix gm_pref_store_get_*_with_defaults to work correctly with gconf
+    Add option, to allow for hiding subtitles by default thru the gui
     When looking for xvmc or vdpau vo's make sure options passed are ignored
     Fix compliation issues with --without-gconf bug #170
     Revert the usage of enca in subtitle detection

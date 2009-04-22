@@ -3382,7 +3382,8 @@ void config_apply(GtkWidget * widget, void *data)
                         sub_color.blue >> 8);
     subtitle_outline = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_outline));
     subtitle_shadow = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow));
-
+	showsubtitles = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_subtitles));
+	
     if (old_disable_framedrop != disable_framedrop) {
         cmd = g_strdup_printf("frame_drop %d\n", !disable_framedrop);
         send_command(cmd, TRUE);
@@ -3444,6 +3445,8 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_string(gm_store, SUBTITLECOLOR, subtitle_color);
     gm_pref_store_set_boolean(gm_store, SUBTITLEOUTLINE, subtitle_outline);
     gm_pref_store_set_boolean(gm_store, SUBTITLESHADOW, subtitle_shadow);
+	gm_pref_store_set_boolean(gm_store, SHOW_SUBTITLES, showsubtitles);
+	
     gm_pref_store_set_string(gm_store, MPLAYER_BIN, mplayer_bin);
     gm_pref_store_set_string(gm_store, EXTRAOPTS, extraopts);
     gm_pref_store_free(gm_store);
@@ -4666,7 +4669,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_SHRINK, 0, 0);
     i++;
 
-
+	config_show_subtitles = gtk_check_button_new_with_label(_("Show Subtitles by Default"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_subtitles), showsubtitles);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_subtitles, 0, 2, i, i + 1);
+    i++;
+	
     // Page 5
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page5), conf_table);
