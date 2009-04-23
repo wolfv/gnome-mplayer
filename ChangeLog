@@ -1,4 +1,6 @@
 Development
+    Changed subtitle setup so that when Use Embedded Fonts is chosen, the
+        Options to select a font, outline and shadow is disabled
     Fix gm_pref_store_get_*_with_defaults to work correctly with gconf
     Add option, to allow for hiding subtitles by default thru the gui
     When looking for xvmc or vdpau vo's make sure options passed are ignored
