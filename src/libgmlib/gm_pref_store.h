@@ -40,7 +40,7 @@ gboolean gm_pref_store_get_boolean_with_default(GmPrefStore *store, const gchar 
 void gm_pref_store_set_boolean(GmPrefStore *store,const  gchar *key, gboolean value);
 
 gint gm_pref_store_get_int(GmPrefStore *store,const  gchar *key);
-gint gm_pref_store_get_int_with_default(GmPrefStore *store,const  gchar *key, gint default_value);
+gint gm_pref_store_get_int_with_default(GmPrefStore *store, const gchar *key, gint default_value);
 void gm_pref_store_set_int(GmPrefStore *store,const  gchar *key, gint value);
 
 gfloat gm_pref_store_get_float(GmPrefStore *store,const  gchar *key);

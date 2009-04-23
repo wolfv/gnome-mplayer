@@ -133,7 +133,18 @@ void draw(GtkWidget * tracker)
                            TRUE, half_thumb_size, 6, cache_width, tracker->allocation.height - 11);
 
     }
-    // draw the box and tick marks
+
+    // draw the progress bar next
+    if (GMTK_MEDIA_TRACKER(tracker)->media_percent > 0.0) {
+        cache_width = bar_width * GMTK_MEDIA_TRACKER(tracker)->media_percent;
+
+        gdk_draw_rectangle(tracker->window,
+                           tracker->style->light_gc[3],
+                           TRUE, half_thumb_size, 6, cache_width, tracker->allocation.height - 11);
+
+    }
+
+	// draw the box and tick marks
     gdk_draw_rectangle(tracker->window,
                        tracker->style->dark_gc[0],
                        FALSE, half_thumb_size, 5, bar_width, tracker->allocation.height - 10);

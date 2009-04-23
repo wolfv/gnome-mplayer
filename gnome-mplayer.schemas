@@ -396,7 +396,19 @@
         <long>Window top corner (y)</long>
       </locale>
     </schema>
-    
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/tracker_position</key>
+      <applyto>/apps/gnome-mplayer/preferences/tracker_position</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>3</default>
+      <locale name="C">
+        <short>Tracker thumb position</short>
+        <long>Setting for tracker thumb position</long>
+      </locale>
+    </schema>    
+
     <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/keep_on_top</key>
       <applyto>/apps/gnome-mplayer/preferences/keep_on_top</applyto>

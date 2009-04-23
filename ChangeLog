@@ -1,4 +1,6 @@
 Development
+    Add colorization to tracker for progress
+    Add option to adjust tracker thumb visibility and position
     Fix file open error when last_dir is not set
     Changed subtitle setup so that when Use Embedded Fonts is chosen, the
         Options to select a font, outline and shadow is disabled
