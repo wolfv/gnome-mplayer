@@ -4068,6 +4068,14 @@ void ass_toggle_callback(GtkToggleButton * source, gpointer user_data)
     gtk_widget_set_sensitive(config_embeddedfonts, gtk_toggle_button_get_active(source));
 }
 
+void embedded_fonts_toggle_callback(GtkToggleButton * source, gpointer user_data)
+{
+    gtk_widget_set_sensitive(config_subtitle_font, !gtk_toggle_button_get_active(source));
+    gtk_widget_set_sensitive(config_subtitle_shadow, !gtk_toggle_button_get_active(source));
+    gtk_widget_set_sensitive(config_subtitle_outline, !gtk_toggle_button_get_active(source));
+}
+
+
 void ao_change_callback(GtkComboBox widget, gpointer data)
 {
 
@@ -4577,6 +4585,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_embeddedfonts = gtk_check_button_new_with_mnemonic(_("Use _Embedded Fonts"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_embeddedfonts), !disable_embeddedfonts);
     gtk_widget_set_sensitive(config_embeddedfonts, !disable_ass);
+	g_signal_connect(GTK_OBJECT(config_embeddedfonts), "toggled", GTK_SIGNAL_FUNC(embedded_fonts_toggle_callback), NULL);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_embeddedfonts, 0, 2, i, i + 1);
     gtk_widget_show(config_embeddedfonts);
     i++;
@@ -4592,6 +4601,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (subtitlefont != NULL) {
         gtk_font_button_set_font_name(GTK_FONT_BUTTON(config_subtitle_font), subtitlefont);
     }
+    gtk_widget_set_sensitive(config_subtitle_font, disable_embeddedfonts);
     gtk_font_button_set_show_size(GTK_FONT_BUTTON(config_subtitle_font), FALSE);
     gtk_font_button_set_show_style(GTK_FONT_BUTTON(config_subtitle_font), FALSE);
 
@@ -4635,11 +4645,13 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
 
     config_subtitle_outline = gtk_check_button_new_with_label(_("Outline Subtitle Font"));
+    gtk_widget_set_sensitive(config_subtitle_outline, disable_embeddedfonts);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_subtitle_outline), subtitle_outline);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_subtitle_outline, 0, 2, i, i + 1);
     i++;
 
     config_subtitle_shadow = gtk_check_button_new_with_label(_("Shadow Subtitle Font"));
+    gtk_widget_set_sensitive(config_subtitle_shadow, disable_embeddedfonts);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow), subtitle_shadow);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_subtitle_shadow, 0, 2, i, i + 1);
     i++;

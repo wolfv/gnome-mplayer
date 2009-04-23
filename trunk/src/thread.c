@@ -919,7 +919,7 @@ gpointer launch_player(gpointer data)
 
         argv[arg++] = g_strdup_printf("-ass-font-scale");
         argv[arg++] = g_strdup_printf("%1.2f", subtitle_scale);
-        if (subtitlefont != NULL && strlen(subtitlefont) > 0) {
+        if (disable_embeddedfonts && subtitlefont != NULL && strlen(subtitlefont) > 0) {
             fontname = g_strdup(subtitlefont);
             size = g_strrstr(fontname, " ");
             size[0] = '\0';
