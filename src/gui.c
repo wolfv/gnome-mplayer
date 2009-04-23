@@ -2213,7 +2213,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(dialog);
     gm_store = gm_pref_store_new("gnome-mplayer");
     last_dir = gm_pref_store_get_string(gm_store, LAST_DIR);
-    if (last_dir != NULL) {
+    if (last_dir != NULL && is_uri_dir(last_dir)) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
@@ -2222,7 +2222,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 
         filename = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
         last_dir = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
-        if (last_dir != NULL) {
+        if (last_dir != NULL && is_uri_dir(last_dir)) {
             gm_store = gm_pref_store_new("gnome-mplayer");
             gm_pref_store_set_string(gm_store, LAST_DIR, last_dir);
             gm_pref_store_free(gm_store);
@@ -2365,7 +2365,7 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(dialog);
     gm_store = gm_pref_store_new("gnome-mplayer");
     last_dir = gm_pref_store_get_string(gm_store, LAST_DIR);
-    if (last_dir != NULL) {
+    if (last_dir != NULL && is_uri_dir(last_dir)) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
@@ -2402,7 +2402,7 @@ void menuitem_open_dvd_iso_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(dialog);
     gm_store = gm_pref_store_new("gnome-mplayer");
     last_dir = gm_pref_store_get_string(gm_store, LAST_DIR);
-    if (last_dir != NULL) {
+    if (last_dir != NULL && is_uri_dir(last_dir)) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
@@ -2458,7 +2458,7 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(dialog);
     gm_store = gm_pref_store_new("gnome-mplayer");
     last_dir = gm_pref_store_get_string(gm_store, LAST_DIR);
-    if (last_dir != NULL) {
+    if (last_dir != NULL && is_uri_dir(last_dir)) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
@@ -2497,7 +2497,7 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(dialog);
     gm_store = gm_pref_store_new("gnome-mplayer");
     last_dir = gm_pref_store_get_string(gm_store, LAST_DIR);
-    if (last_dir != NULL) {
+    if (last_dir != NULL && is_uri_dir(last_dir)) {
         gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), last_dir);
         g_free(last_dir);
     }
