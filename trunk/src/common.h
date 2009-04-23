@@ -59,6 +59,7 @@
 #define SUBTITLECOLOR	"subtitlecolor"
 #define SUBTITLEOUTLINE "subtitleoutline"
 #define SUBTITLESHADOW "subtitleshadow"
+#define TRACKER_POSITION "tracker_position"
 
 #define VOLUME	"volume"
 #define USE_MEDIAKEYS		"use_mediakeys"
@@ -341,6 +342,7 @@ gboolean load_tracks_from_gpod;
 gchar *gpod_mount_point;
 gboolean disable_cover_art_fetch;
 gboolean updating_recent;
+gint thumb_position;
 
 gboolean remember_loc;
 gint loc_window_x;

@@ -453,7 +453,7 @@ gboolean set_progress_time(void *data)
             g_snprintf(idle->progress_text, 128, "%s / %s", time_position, time_length);
             gmtk_media_tracker_set_cache_percentage(tracker, 0.0);
         }
-        gmtk_media_tracker_set_thumb_position(tracker, THUMB_ON_TOP_AND_BOTTOM);
+        gmtk_media_tracker_set_thumb_position(tracker, thumb_position);
     }
 
     g_free(time_position);
@@ -3357,6 +3357,7 @@ void config_apply(GtkWidget * widget, void *data)
 #ifdef NOTIFY_ENABLED
     show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
 #endif
+	thumb_position = gtk_combo_box_get_active(GTK_COMBO_BOX(config_thumb_position));
 #ifdef GTK2_12_ENABLED
     show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
     gtk_status_icon_set_visible(status_icon, show_status_icon);
@@ -3437,6 +3438,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, REPLACE_AND_PLAY, replace_and_play);
     gm_pref_store_set_boolean(gm_store, REMEMBER_LOC, remember_loc);
     gm_pref_store_set_boolean(gm_store, KEEP_ON_TOP, keep_on_top);
+	gm_pref_store_set_int(gm_store, TRACKER_POSITION, thumb_position);
     gm_pref_store_set_int(gm_store, VERBOSE, verbose);
     gm_pref_store_set_string(gm_store, METADATACODEPAGE, metadata_codepage);
     gm_pref_store_set_string(gm_store, SUBTITLEFONT, subtitlefont);
@@ -4764,6 +4766,25 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
     i++;
 
+	conf_label = gtk_label_new(_("Tracker Thumb Position:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+	config_thumb_position = gtk_combo_box_new_text();
+	gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position),_("Hidden"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position),_("Bottom"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position),_("Top"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position),_("Top and Bottom"));
+	gtk_combo_box_set_active(GTK_COMBO_BOX(config_thumb_position),thumb_position);
+	
+    gtk_widget_set_size_request(GTK_WIDGET(config_thumb_position), 200, -1);
+
+    gtk_table_attach(GTK_TABLE(conf_table), config_thumb_position, 1, 2, i, i + 1, GTK_SHRINK,
+                     GTK_SHRINK, 0, 0);
+    i++;
+	
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_verbose,
