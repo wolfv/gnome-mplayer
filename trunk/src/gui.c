@@ -6177,6 +6177,7 @@ gboolean update_audio_meter(gpointer data)
     gfloat f;
     gint max;
     gfloat freq;
+	Export *export;
 
     if (idledata->mapped_af_export == NULL || af_export == NULL)
         return TRUE;
@@ -6194,16 +6195,18 @@ gboolean update_audio_meter(gpointer data)
         }
 
         reading_af_export = TRUE;
-        for (i = 0; af_export != NULL && i < (af_export->size / af_export->nch); i++) {
-            for (j = 0; af_export != NULL && j < af_export->nch; j++) {
+		export = g_memdup(af_export,sizeof(Export));
+        for (i = 0; export != NULL && i < (export->size / export->nch); i++) {
+            for (j = 0; export != NULL && j < export->nch; j++) {
                 // scale SB16 data to 0 - 22000 range, believe this is Hz now
-                freq = abs((af_export->payload[j][i])) * 22000 / 32768;
+                freq = abs((export->payload[j][i])) * 22000 / 32768;
                 // ignore values below 20, as this is unhearable and may skew data
                 if (freq > 20) {
                     buckets[(gint) (freq / (22000 / METER_BARS))]++;
                 }
             }
         }
+		g_free(export);
         reading_af_export = FALSE;
 
         max = 0;
