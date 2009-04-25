@@ -1,4 +1,5 @@
 Development
+    Make a local copy of the data coming from the audio filter so it can't change while processing
     Add colorization to tracker for progress
     Add option to adjust tracker thumb visibility and position
     Fix file open error when last_dir is not set
