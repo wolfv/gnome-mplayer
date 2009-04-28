@@ -840,7 +840,8 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-framedrop");
 
     if (vo == NULL
-        || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0 || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
+        || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
+             || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
         if (!disable_deinterlace) {
             argv[arg++] = g_strdup_printf("-vf-pre");
             argv[arg++] = g_strdup_printf("yadif,softskip,scale");
@@ -980,7 +981,8 @@ gpointer launch_player(gpointer data)
     }
 
     if (vo == NULL
-        || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0 || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
+        || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
+             || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
         argv[arg++] = g_strdup_printf("-vf-add");
         argv[arg++] = g_strdup_printf("screenshot");
     }
