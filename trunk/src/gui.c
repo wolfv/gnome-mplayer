@@ -1472,7 +1472,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 send_command("dvdnav 4\n", FALSE);
                 return FALSE;
             } else {
-                if (state == PLAYING
+                if (state != STOPPED
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     return ff_callback(NULL, NULL, NULL);
             }
@@ -1482,28 +1482,55 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 send_command("dvdnav 3\n", FALSE);
                 return FALSE;
             } else {
-                if (state == PLAYING
+                if (state != STOPPED
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     return rew_callback(NULL, NULL, NULL);
             }
             break;
         case GDK_Page_Up:
-            if (state == PLAYING
+            if (state != STOPPED
                 && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 send_command("seek +600 0\n", TRUE);
+                if(state == PAUSED)
+                {
+					send_command("mute 1\nseek 0 0\npause\n", FALSE);
+					send_command("mute 0\n", TRUE);
+					idledata->position += 600;
+					if(idledata->position > idledata->length)
+						idledata->position = 0;
+					gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+				}
             return FALSE;
         case GDK_Page_Down:
-            if (state == PLAYING
+            if (state != STOPPED
                 && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 send_command("seek -600 0\n", TRUE);
+                if(state == PAUSED)
+				{
+					send_command("mute 1\nseek 0 0\npause\n", FALSE);
+					send_command("mute 0\n", TRUE);
+					idledata->position -= 600;
+					if(idledata->position < 0)
+						idledata->position = 0;
+					gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+				}
             return FALSE;
         case GDK_Up:
             if (lastfile != NULL && dvdnav_title_is_menu) {
                 send_command("dvdnav 1\n", FALSE);
             } else {
-                if (state == PLAYING
-                    && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
+                if (state != STOPPED
+					&& !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     send_command("seek +60 0\n", TRUE);
+					if(state == PAUSED)
+					{
+						send_command("mute 1\nseek 0 0\npause\n", FALSE);
+						send_command("mute 0\n", TRUE);
+						idledata->position += 60;
+						if(idledata->position > idledata->length)
+							idledata->position = 0;
+						gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+					}
             }
 
             return FALSE;
@@ -1511,9 +1538,18 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             if (lastfile != NULL && dvdnav_title_is_menu) {
                 send_command("dvdnav 2\n", FALSE);
             } else {
-                if (state == PLAYING
-                    && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
+                if (state != STOPPED
+					&& !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     send_command("seek -60 0\n", TRUE);
+					if(state == PAUSED)
+					{
+						send_command("mute 1\nseek 0 0\npause\n", FALSE);
+						send_command("mute 0\n", TRUE);
+						idledata->position -= 60;
+						if(idledata->position < 0)
+							idledata->position = 0;
+						gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+					}
             }
             return FALSE;
         case GDK_Return:
@@ -1878,8 +1914,17 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    if (state == PLAYING) {
-        send_command("seek +10 0\n", FALSE);
+    if (state != STOPPED) {
+        send_command("seek +10 0\n", TRUE);
+        if(state == PAUSED)
+        {
+			send_command("mute 1\nseek 0 0\npause\n", FALSE);
+			send_command("mute 0\n", TRUE);
+        	idledata->position += 10;
+        	if(idledata->position > idledata->length)
+                idledata->position = 0;
+        	gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+        }
     }
 
     if (rpconsole != NULL && widget != NULL) {
@@ -1891,8 +1936,17 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    if (state == PLAYING) {
-        send_command("seek -10 0\n", FALSE);
+    if (state != STOPPED) {
+        send_command("seek -10 0\n", TRUE);
+        if(state == PAUSED)
+        {
+			send_command("mute 1\nseek 0 0\npause\n", FALSE);
+			send_command("mute 0\n", TRUE);
+			idledata->position -= 10;
+			if(idledata->position < 0)
+				idledata->position = 0;
+			gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+        }
     }
 
     if (rpconsole != NULL && widget != NULL) {
@@ -4903,11 +4957,18 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
 
             if (!idledata->streaming) {
                 if (!autopause) {
-                    if (state == PLAYING) {
+                    if (state != STOPPED) {
                         cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
-                        send_command(cmd, FALSE);
+                        send_command(cmd, TRUE);
+                        if(state == PAUSED)
+						{
+							send_command("mute 1\nseek 0 0\npause\n", FALSE);
+							send_command("mute 0\n", TRUE);
+							idledata->position = idledata->length * percent;
+							gmtk_media_tracker_set_percentage(tracker, percent);
+						}
                         g_free(cmd);
-                        state = PLAYING;
+                        //state = PLAYING;
                     }
                 }
             }
@@ -4950,7 +5011,7 @@ gboolean progress_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
 
         if (!idledata->streaming) {
             if (!autopause) {
-                if (state == PLAYING && (fabs(last_percent - percent) > 0.05)) {
+                if (state != STOPPED && (fabs(last_percent - percent) > 0.05)) {
                     if (idledata->mute == 0) {
                         cmd =
                             g_strdup_printf("mute 1\nseek %i 1\nmute 0\n", (gint) (percent * 100));
@@ -4962,9 +5023,16 @@ gboolean progress_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
                     gtk_tooltips_set_tip(progress_tip, GTK_WIDGET(tracker), tip, NULL);
                     g_free(time);
                     g_free(tip);
-                    send_command(cmd, FALSE);
+                    send_command(cmd, TRUE);
                     g_free(cmd);
-                    state = PLAYING;
+                    if(state == PAUSED)
+					{
+						send_command("mute 1\nseek 0 0\npause\n", FALSE);
+						send_command("mute 0\n", TRUE);
+						idledata->position = idledata->length * percent;
+						gmtk_media_tracker_set_percentage(tracker, percent);
+					}
+                    //state = PLAYING;
                     last_percent = percent;
                 }
             }
