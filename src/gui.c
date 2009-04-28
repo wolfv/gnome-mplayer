@@ -1491,46 +1491,44 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             if (state != STOPPED
                 && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 send_command("seek +600 0\n", TRUE);
-                if(state == PAUSED)
-                {
-					send_command("mute 1\nseek 0 0\npause\n", FALSE);
-					send_command("mute 0\n", TRUE);
-					idledata->position += 600;
-					if(idledata->position > idledata->length)
-						idledata->position = 0;
-					gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
-				}
+            if (state == PAUSED) {
+                send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                send_command("mute 0\n", TRUE);
+                idledata->position += 600;
+                if (idledata->position > idledata->length)
+                    idledata->position = 0;
+                gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+            }
             return FALSE;
         case GDK_Page_Down:
             if (state != STOPPED
                 && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 send_command("seek -600 0\n", TRUE);
-                if(state == PAUSED)
-				{
-					send_command("mute 1\nseek 0 0\npause\n", FALSE);
-					send_command("mute 0\n", TRUE);
-					idledata->position -= 600;
-					if(idledata->position < 0)
-						idledata->position = 0;
-					gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
-				}
+            if (state == PAUSED) {
+                send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                send_command("mute 0\n", TRUE);
+                idledata->position -= 600;
+                if (idledata->position < 0)
+                    idledata->position = 0;
+                gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+            }
             return FALSE;
         case GDK_Up:
             if (lastfile != NULL && dvdnav_title_is_menu) {
                 send_command("dvdnav 1\n", FALSE);
             } else {
                 if (state != STOPPED
-					&& !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
+                    && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     send_command("seek +60 0\n", TRUE);
-					if(state == PAUSED)
-					{
-						send_command("mute 1\nseek 0 0\npause\n", FALSE);
-						send_command("mute 0\n", TRUE);
-						idledata->position += 60;
-						if(idledata->position > idledata->length)
-							idledata->position = 0;
-						gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
-					}
+                if (state == PAUSED) {
+                    send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                    send_command("mute 0\n", TRUE);
+                    idledata->position += 60;
+                    if (idledata->position > idledata->length)
+                        idledata->position = 0;
+                    gmtk_media_tracker_set_percentage(tracker,
+                                                      idledata->position / idledata->length);
+                }
             }
 
             return FALSE;
@@ -1539,17 +1537,17 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 send_command("dvdnav 2\n", FALSE);
             } else {
                 if (state != STOPPED
-					&& !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
+                    && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     send_command("seek -60 0\n", TRUE);
-					if(state == PAUSED)
-					{
-						send_command("mute 1\nseek 0 0\npause\n", FALSE);
-						send_command("mute 0\n", TRUE);
-						idledata->position -= 60;
-						if(idledata->position < 0)
-							idledata->position = 0;
-						gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
-					}
+                if (state == PAUSED) {
+                    send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                    send_command("mute 0\n", TRUE);
+                    idledata->position -= 60;
+                    if (idledata->position < 0)
+                        idledata->position = 0;
+                    gmtk_media_tracker_set_percentage(tracker,
+                                                      idledata->position / idledata->length);
+                }
             }
             return FALSE;
         case GDK_Return:
@@ -1916,14 +1914,13 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     if (state != STOPPED) {
         send_command("seek +10 0\n", TRUE);
-        if(state == PAUSED)
-        {
-			send_command("mute 1\nseek 0 0\npause\n", FALSE);
-			send_command("mute 0\n", TRUE);
-        	idledata->position += 10;
-        	if(idledata->position > idledata->length)
+        if (state == PAUSED) {
+            send_command("mute 1\nseek 0 0\npause\n", FALSE);
+            send_command("mute 0\n", TRUE);
+            idledata->position += 10;
+            if (idledata->position > idledata->length)
                 idledata->position = 0;
-        	gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+            gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
         }
     }
 
@@ -1938,14 +1935,13 @@ gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     if (state != STOPPED) {
         send_command("seek -10 0\n", TRUE);
-        if(state == PAUSED)
-        {
-			send_command("mute 1\nseek 0 0\npause\n", FALSE);
-			send_command("mute 0\n", TRUE);
-			idledata->position -= 10;
-			if(idledata->position < 0)
-				idledata->position = 0;
-			gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
+        if (state == PAUSED) {
+            send_command("mute 1\nseek 0 0\npause\n", FALSE);
+            send_command("mute 0\n", TRUE);
+            idledata->position -= 10;
+            if (idledata->position < 0)
+                idledata->position = 0;
+            gmtk_media_tracker_set_percentage(tracker, idledata->position / idledata->length);
         }
     }
 
@@ -3411,7 +3407,7 @@ void config_apply(GtkWidget * widget, void *data)
 #ifdef NOTIFY_ENABLED
     show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
 #endif
-	thumb_position = gtk_combo_box_get_active(GTK_COMBO_BOX(config_thumb_position));
+    thumb_position = gtk_combo_box_get_active(GTK_COMBO_BOX(config_thumb_position));
 #ifdef GTK2_12_ENABLED
     show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
     gtk_status_icon_set_visible(status_icon, show_status_icon);
@@ -3437,8 +3433,8 @@ void config_apply(GtkWidget * widget, void *data)
                         sub_color.blue >> 8);
     subtitle_outline = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_outline));
     subtitle_shadow = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow));
-	showsubtitles = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_subtitles));
-	
+    showsubtitles = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_subtitles));
+
     if (old_disable_framedrop != disable_framedrop) {
         cmd = g_strdup_printf("frame_drop %d\n", !disable_framedrop);
         send_command(cmd, TRUE);
@@ -3492,7 +3488,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, REPLACE_AND_PLAY, replace_and_play);
     gm_pref_store_set_boolean(gm_store, REMEMBER_LOC, remember_loc);
     gm_pref_store_set_boolean(gm_store, KEEP_ON_TOP, keep_on_top);
-	gm_pref_store_set_int(gm_store, TRACKER_POSITION, thumb_position);
+    gm_pref_store_set_int(gm_store, TRACKER_POSITION, thumb_position);
     gm_pref_store_set_int(gm_store, VERBOSE, verbose);
     gm_pref_store_set_string(gm_store, METADATACODEPAGE, metadata_codepage);
     gm_pref_store_set_string(gm_store, SUBTITLEFONT, subtitlefont);
@@ -3501,8 +3497,8 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_string(gm_store, SUBTITLECOLOR, subtitle_color);
     gm_pref_store_set_boolean(gm_store, SUBTITLEOUTLINE, subtitle_outline);
     gm_pref_store_set_boolean(gm_store, SUBTITLESHADOW, subtitle_shadow);
-	gm_pref_store_set_boolean(gm_store, SHOW_SUBTITLES, showsubtitles);
-	
+    gm_pref_store_set_boolean(gm_store, SHOW_SUBTITLES, showsubtitles);
+
     gm_pref_store_set_string(gm_store, MPLAYER_BIN, mplayer_bin);
     gm_pref_store_set_string(gm_store, EXTRAOPTS, extraopts);
     gm_pref_store_free(gm_store);
@@ -4641,7 +4637,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_embeddedfonts = gtk_check_button_new_with_mnemonic(_("Use _Embedded Fonts"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_embeddedfonts), !disable_embeddedfonts);
     gtk_widget_set_sensitive(config_embeddedfonts, !disable_ass);
-	g_signal_connect(GTK_OBJECT(config_embeddedfonts), "toggled", GTK_SIGNAL_FUNC(embedded_fonts_toggle_callback), NULL);
+    g_signal_connect(GTK_OBJECT(config_embeddedfonts), "toggled",
+                     GTK_SIGNAL_FUNC(embedded_fonts_toggle_callback), NULL);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_embeddedfonts, 0, 2, i, i + 1);
     gtk_widget_show(config_embeddedfonts);
     i++;
@@ -4737,11 +4734,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_SHRINK, 0, 0);
     i++;
 
-	config_show_subtitles = gtk_check_button_new_with_label(_("Show Subtitles by Default"));
+    config_show_subtitles = gtk_check_button_new_with_label(_("Show Subtitles by Default"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_subtitles), showsubtitles);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_subtitles, 0, 2, i, i + 1);
     i++;
-	
+
     // Page 5
     conf_table = gtk_table_new(20, 2, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page5), conf_table);
@@ -4820,25 +4817,25 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
     i++;
 
-	conf_label = gtk_label_new(_("Tracker Thumb Position:"));
+    conf_label = gtk_label_new(_("Tracker Thumb Position:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-	config_thumb_position = gtk_combo_box_new_text();
-	gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position),_("Hidden"));
-	gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position),_("Bottom"));
-	gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position),_("Top"));
-	gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position),_("Top and Bottom"));
-	gtk_combo_box_set_active(GTK_COMBO_BOX(config_thumb_position),thumb_position);
-	
+    config_thumb_position = gtk_combo_box_new_text();
+    gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position), _("Hidden"));
+    gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position), _("Bottom"));
+    gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position), _("Top"));
+    gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position), _("Top and Bottom"));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(config_thumb_position), thumb_position);
+
     gtk_widget_set_size_request(GTK_WIDGET(config_thumb_position), 200, -1);
 
     gtk_table_attach(GTK_TABLE(conf_table), config_thumb_position, 1, 2, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     i++;
-	
+
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_verbose,
@@ -4960,13 +4957,12 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
                     if (state != STOPPED) {
                         cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
                         send_command(cmd, TRUE);
-                        if(state == PAUSED)
-						{
-							send_command("mute 1\nseek 0 0\npause\n", FALSE);
-							send_command("mute 0\n", TRUE);
-							idledata->position = idledata->length * percent;
-							gmtk_media_tracker_set_percentage(tracker, percent);
-						}
+                        if (state == PAUSED) {
+                            send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                            send_command("mute 0\n", TRUE);
+                            idledata->position = idledata->length * percent;
+                            gmtk_media_tracker_set_percentage(tracker, percent);
+                        }
                         g_free(cmd);
                         //state = PLAYING;
                     }
@@ -5025,13 +5021,12 @@ gboolean progress_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
                     g_free(tip);
                     send_command(cmd, TRUE);
                     g_free(cmd);
-                    if(state == PAUSED)
-					{
-						send_command("mute 1\nseek 0 0\npause\n", FALSE);
-						send_command("mute 0\n", TRUE);
-						idledata->position = idledata->length * percent;
-						gmtk_media_tracker_set_percentage(tracker, percent);
-					}
+                    if (state == PAUSED) {
+                        send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                        send_command("mute 0\n", TRUE);
+                        idledata->position = idledata->length * percent;
+                        gmtk_media_tracker_set_percentage(tracker, percent);
+                    }
                     //state = PLAYING;
                     last_percent = percent;
                 }
@@ -6245,7 +6240,7 @@ gboolean update_audio_meter(gpointer data)
     gfloat f;
     gint max;
     gfloat freq;
-	Export *export;
+    Export *export;
 
     if (idledata->mapped_af_export == NULL || af_export == NULL)
         return TRUE;
@@ -6263,7 +6258,7 @@ gboolean update_audio_meter(gpointer data)
         }
 
         reading_af_export = TRUE;
-		export = g_memdup(af_export,sizeof(Export));
+        export = g_memdup(af_export, sizeof(Export));
         for (i = 0; export != NULL && i < (export->size / export->nch); i++) {
             for (j = 0; export != NULL && j < export->nch; j++) {
                 // scale SB16 data to 0 - 22000 range, believe this is Hz now
@@ -6274,7 +6269,7 @@ gboolean update_audio_meter(gpointer data)
                 }
             }
         }
-		g_free(export);
+        g_free(export);
         reading_af_export = FALSE;
 
         max = 0;
