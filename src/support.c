@@ -1053,7 +1053,12 @@ gboolean streaming_media(gchar * uri)
         if (file != NULL) {
             info = g_file_query_info(file, "access::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
             if (info != NULL) {
-                ret = !g_file_info_get_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+				// SMB filesystems seem to give incorrect access answers over GIO
+				if (g_ascii_strncasecmp(uri, "smb://", strlen("smb://")) == 0) {
+					ret = FALSE;
+				} else {
+					ret = !g_file_info_get_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+				}
                 g_object_unref(info);
             } else {
                 ret = !g_file_test(uri, G_FILE_TEST_EXISTS);
@@ -2119,7 +2124,6 @@ gchar *get_localfile_from_uri(gchar * uri)
         return g_strdup(uri);
     }
     localfile = g_filename_from_uri(uri, NULL, NULL);
-
 #ifdef GIO_ENABLED
     idledata->tmpfile = FALSE;
     if (localfile == NULL) {

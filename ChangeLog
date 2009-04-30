@@ -1,4 +1,5 @@
 Development
+    Workaround for opening files on smb shares
     Apply seek on pause patch from Bug # 171
     Make a local copy of the data coming from the audio filter so it can't change while processing
     Add colorization to tracker for progress
