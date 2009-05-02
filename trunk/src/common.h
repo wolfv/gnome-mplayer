@@ -389,6 +389,7 @@ GmPrefStore *gm_store;
 GmPrefStore *gmp_store;
 
 GtkWidget *create_window(gint windowid);
+void show_window(gint windowid);
 gint get_player_window();
 void adjust_paned_rules();
 void reset_paned_rules();
