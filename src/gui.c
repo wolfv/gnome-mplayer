@@ -5307,7 +5307,6 @@ GtkWidget *create_window(gint windowid)
     GtkIconTheme *icon_theme;
     GtkTargetEntry target_entry[3];
     gint i = 0;
-    gchar **visuals;
 
 #ifdef GTK2_12_ENABLED
     GtkRecentFilter *recent_filter;
@@ -6087,6 +6086,14 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_realize(window);
 
+	return window;
+}
+
+void show_window(gint windowid) {
+
+	gint i;
+    gchar **visuals;
+
     if (windowid != 0 && embedding_disabled == FALSE) {
         while (gtk_events_pending())
             gtk_main_iteration();
@@ -6264,7 +6271,6 @@ GtkWidget *create_window(gint windowid)
     gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
     update_status_icon();
 
-    return window;
 }
 
 gboolean update_audio_meter(gpointer data)

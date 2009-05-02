@@ -957,7 +957,7 @@ int main(int argc, char *argv[])
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), details_visible);
 
     dbus_hookup(embed_window, control_id);
-
+	show_window(embed_window);
     gtk_main();
 
     return 0;

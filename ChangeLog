@@ -1,4 +1,5 @@
 Development
+    Fix single instance flicker
     Add new aspect option "Follow Window" allows viewer to tweak the aspect of the video
     Workaround for opening files on smb shares
     Apply seek on pause patch from Bug # 171
