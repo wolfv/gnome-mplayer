@@ -6323,8 +6323,10 @@ gboolean update_audio_meter(gpointer data)
                 // ignore values below 20, as this is unhearable and may skew data
                 if (freq > 20) {
                     bucketid = (gint) (freq / (gfloat) (22000.0 / (gfloat) METER_BARS));
-                    if (bucketid > 50)
+                    if (bucketid > METER_BARS) {
                         printf("bucketid = %i freq = %f\n", bucketid, freq);
+						bucketid = METER_BARS - 1;
+					}
                     buckets[bucketid]++;
                 }
             }
