@@ -6318,7 +6318,7 @@ gboolean update_audio_meter(gpointer data)
                 freq = 0;
                 for (j = 0; j < export->nch; j++) {
                     // scale SB16 data to 0 - 22000 range, believe this is Hz now
-                    freq += (export->payload[j][i]) * 22000 / 65535;
+                    freq += (export->payload[j][i]) * 22000 / (32768*export->nch);
                 }
                 // ignore values below 20, as this is unhearable and may skew data
                 if (freq > 20) {
