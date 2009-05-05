@@ -246,8 +246,6 @@ typedef struct _Export {
     gint16 payload[7][512];
 } Export;
 
-Export *af_export;
-
 #define METER_BARS 		44
 gint buckets[METER_BARS];
 gint max_buckets[METER_BARS];

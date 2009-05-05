@@ -6284,6 +6284,10 @@ gboolean update_audio_meter(gpointer data)
     gint max;
     gfloat freq;
     Export *export;
+    gint bucketid;
+
+    if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter)))
+        return TRUE;
 
     if (idledata->mapped_af_export == NULL)
         return TRUE;
@@ -6291,8 +6295,13 @@ gboolean update_audio_meter(gpointer data)
     if (state != PLAYING)
         return TRUE;
 
+
     if (audio_meter != NULL && GTK_WIDGET_VISIBLE(audio_meter)) {
 
+        if (data)
+            g_array_free(data, TRUE);
+        if (max_data)
+            g_array_free(max_data, TRUE);
         data = g_array_new(FALSE, TRUE, sizeof(gfloat));
         max_data = g_array_new(FALSE, TRUE, sizeof(gfloat));
 
@@ -6301,17 +6310,22 @@ gboolean update_audio_meter(gpointer data)
         }
 
         reading_af_export = TRUE;
-        export = (Export *) g_mapped_file_get_contents(idledata->mapped_af_export);
+        export = NULL;
+        if (idledata->mapped_af_export != NULL)
+            export = (Export *) g_mapped_file_get_contents(idledata->mapped_af_export);
         if (export != NULL) {
-            for (i = 0; export != NULL && i < (export->size / export->nch); i++) {
+            for (i = 0; export != NULL && i < 512; i++) {
                 freq = 0;
-                for (j = 0; export != NULL && j < export->nch; j++) {
+                for (j = 0; j < export->nch; j++) {
                     // scale SB16 data to 0 - 22000 range, believe this is Hz now
-                    freq += (export->payload[j][i]) * 22000 / 32768;
+                    freq += (export->payload[j][i]) * 22000 / 65535;
                 }
                 // ignore values below 20, as this is unhearable and may skew data
                 if (freq > 20) {
-                    buckets[(gint) (freq / (gfloat) (22000.0 / (gfloat) METER_BARS))]++;
+                    bucketid = (gint) (freq / (gfloat) (22000.0 / (gfloat) METER_BARS));
+                    if (bucketid > 50)
+                        printf("bucketid = %i freq = %f\n", bucketid, freq);
+                    buckets[bucketid]++;
                 }
             }
             // g_free(export);
@@ -6333,15 +6347,15 @@ gboolean update_audio_meter(gpointer data)
                 g_array_append_val(max_data, f);
             } else {
                 f = logf((gfloat) buckets[i]) / logf((gfloat) max);
+                // f = ((gfloat) buckets[i]) / ((gfloat) max);
                 g_array_append_val(data, f);
                 f = logf((gfloat) max_buckets[i]) / logf((gfloat) max);
+                // f = ((gfloat) max_buckets[i]) / ((gfloat) max);
                 g_array_append_val(max_data, f);
             }
         }
 
         gmtk_audio_meter_set_data_full(GMTK_AUDIO_METER(audio_meter), data, max_data);
-        g_array_free(data, TRUE);
-        g_array_free(max_data, TRUE);
 
     }
     return TRUE;

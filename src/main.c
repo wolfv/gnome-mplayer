@@ -592,6 +592,9 @@ int main(int argc, char *argv[])
     use_pulse_flat_volume = FALSE;
     dvdnav_title_is_menu = FALSE;
     thumb_position = 3;
+    data = NULL;
+    max_data = NULL;
+    details_table = NULL;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
