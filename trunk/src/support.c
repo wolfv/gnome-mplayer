@@ -2729,7 +2729,7 @@ gboolean map_af_export_file(gpointer data)
 
     if (data != NULL) {
         idle->mapped_af_export = g_mapped_file_new((gchar *) idle->af_export, FALSE, NULL);
-        af_export = (Export *) g_mapped_file_get_contents(idle->mapped_af_export);
+        af_export = NULL;
     }
     return FALSE;
 }

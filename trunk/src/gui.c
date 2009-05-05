@@ -1041,7 +1041,8 @@ gboolean resize_window(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_four_three), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_follow_window), idle->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_follow_window),
+                                 idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_smaller_subtitle), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_larger_subtitle), idle->videopresent);
@@ -1323,10 +1324,10 @@ gboolean status_icon_callback(GtkStatusIcon * icon, gpointer data)
 
     if (GTK_WIDGET_VISIBLE(window)) {
         gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
-		gtk_window_iconify(GTK_WINDOW(window));
+        gtk_window_iconify(GTK_WINDOW(window));
         gtk_widget_hide(GTK_WIDGET(window));
     } else {
-		gtk_window_deiconify(GTK_WINDOW(window));
+        gtk_window_deiconify(GTK_WINDOW(window));
         gtk_window_present(GTK_WINDOW(window));
         gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
     }
@@ -4060,8 +4061,8 @@ void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
                                        FALSE);
         i--;
     }
-	
-	
+
+
     if (i == 0) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
         allocate_fixed_callback(fixed, &fixed->allocation, NULL);
@@ -6088,12 +6089,13 @@ GtkWidget *create_window(gint windowid)
 
     gtk_widget_realize(window);
 
-	return window;
+    return window;
 }
 
-void show_window(gint windowid) {
+void show_window(gint windowid)
+{
 
-	gint i;
+    gint i;
     gchar **visuals;
 
     if (windowid != 0 && embedding_disabled == FALSE) {
@@ -6283,7 +6285,7 @@ gboolean update_audio_meter(gpointer data)
     gfloat freq;
     Export *export;
 
-    if (idledata->mapped_af_export == NULL || af_export == NULL)
+    if (idledata->mapped_af_export == NULL)
         return TRUE;
 
     if (state != PLAYING)
@@ -6299,20 +6301,21 @@ gboolean update_audio_meter(gpointer data)
         }
 
         reading_af_export = TRUE;
-		if (af_export != NULL) {
-		    export = g_memdup(af_export, sizeof(Export));
-		    for (i = 0; export != NULL && i < (export->size / export->nch); i++) {
-		        for (j = 0; export != NULL && j < export->nch; j++) {
-		            // scale SB16 data to 0 - 22000 range, believe this is Hz now
-		            freq = abs((export->payload[j][i])) * 22000 / 32768;
-		            // ignore values below 20, as this is unhearable and may skew data
-		            if (freq > 20) {
-		                buckets[(gint) roundf((freq / (gfloat)(22000.0 / (gfloat) METER_BARS)))]++;
-		            }
-		        }
-		    }
-		    g_free(export);
-		}
+        export = (Export *) g_mapped_file_get_contents(idledata->mapped_af_export);
+        if (export != NULL) {
+            for (i = 0; export != NULL && i < (export->size / export->nch); i++) {
+                freq = 0;
+                for (j = 0; export != NULL && j < export->nch; j++) {
+                    // scale SB16 data to 0 - 22000 range, believe this is Hz now
+                    freq += (export->payload[j][i]) * 22000 / 32768;
+                }
+                // ignore values below 20, as this is unhearable and may skew data
+                if (freq > 20) {
+                    buckets[(gint) (freq / (gfloat) (22000.0 / (gfloat) METER_BARS))]++;
+                }
+            }
+            // g_free(export);
+        }
         reading_af_export = FALSE;
 
         max = 0;

@@ -32,6 +32,11 @@ void mplayer_shutdown()
         idledata->percent = 1.0;
         g_idle_add(set_progress_value, idledata);
         g_idle_add(set_stop, idledata);
+        if (g_file_test(idledata->af_export, G_FILE_TEST_EXISTS)) {
+            // stop audio export monitor
+            // as part of the stopping, remove file when memmapped file is closed
+            g_idle_add(unmap_af_export_file, idledata);
+        }
         send_command("quit\n", FALSE);
     }
 
@@ -41,7 +46,7 @@ gboolean send_command(gchar * command, gboolean retain_pause)
 {
     gchar *cmd;
     GIOStatus result;
-	gsize bytes_written;
+    gsize bytes_written;
 
     if (retain_pause) {
         if (use_pausing_keep_force) {
@@ -58,8 +63,9 @@ gboolean send_command(gchar * command, gboolean retain_pause)
 
     if (channel_in) {
         result = g_io_channel_write_chars(channel_in, cmd, -1, &bytes_written, NULL);
-		if (result == G_IO_STATUS_NORMAL && bytes_written > 0)
-	        result = g_io_channel_flush(channel_in, NULL);
+        if (result == G_IO_STATUS_NORMAL && bytes_written > 0
+            && g_ascii_strcasecmp(cmd, "quit\n") != 0)
+            result = g_io_channel_flush(channel_in, NULL);
     }
 
     g_free(cmd);
