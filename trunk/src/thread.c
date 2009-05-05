@@ -41,6 +41,7 @@ gboolean send_command(gchar * command, gboolean retain_pause)
 {
     gchar *cmd;
     GIOStatus result;
+	gsize bytes_written;
 
     if (retain_pause) {
         if (use_pausing_keep_force) {
@@ -56,8 +57,9 @@ gboolean send_command(gchar * command, gboolean retain_pause)
         printf("send command = %s\n", cmd);
 
     if (channel_in) {
-        result = g_io_channel_write_chars(channel_in, cmd, -1, NULL, NULL);
-        result = g_io_channel_flush(channel_in, NULL);
+        result = g_io_channel_write_chars(channel_in, cmd, -1, &bytes_written, NULL);
+		if (result == G_IO_STATUS_NORMAL && bytes_written > 0)
+	        result = g_io_channel_flush(channel_in, NULL);
     }
 
     g_free(cmd);
