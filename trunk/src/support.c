@@ -2484,7 +2484,8 @@ gpointer get_cover_art(gpointer data)
         cache_file = g_filename_from_uri(p, NULL, NULL);
 #endif
         g_free(p);
-        printf("Looking for cover art at %s\n", cache_file);
+        if (verbose)
+            printf("Looking for cover art at %s\n", cache_file);
 
     }
     g_free(path);
@@ -2505,7 +2506,8 @@ gpointer get_cover_art(gpointer data)
             cache_file = g_filename_from_uri(p, NULL, NULL);
 #endif
             g_free(p);
-            printf("Looking for cover art at %s\n", cache_file);
+            if (verbose)
+                printf("Looking for cover art at %s\n", cache_file);
         }
         g_free(path);
         path = NULL;
@@ -2727,9 +2729,11 @@ gboolean map_af_export_file(gpointer data)
 {
     IdleData *idle = (IdleData *) data;
 
+    if (reading_af_export)
+        return TRUE;
+
     if (data != NULL) {
         idle->mapped_af_export = g_mapped_file_new((gchar *) idle->af_export, FALSE, NULL);
-        af_export = NULL;
     }
     return FALSE;
 }
@@ -2742,7 +2746,6 @@ gboolean unmap_af_export_file(gpointer data)
         return TRUE;
 
     if (idle->mapped_af_export) {
-        af_export = NULL;
         g_mapped_file_free(idle->mapped_af_export);
         idle->mapped_af_export = NULL;
         g_unlink((gchar *) idle->af_export);

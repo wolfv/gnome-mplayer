@@ -78,7 +78,8 @@ gboolean play(void *data)
     PlayData *p = (PlayData *) data;
 
     if (ok_to_play && p != NULL) {
-        gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri);
+        gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri,
+                           -1);
         play_iter(&iter);
     }
     g_free(p);
