@@ -1,4 +1,6 @@
 Development
+    Fix status icon double click code
+    Add some safety checkes
     Fix single instance flicker
     Add new aspect option "Follow Window" allows viewer to tweak the aspect of the video
     Workaround for opening files on smb shares
