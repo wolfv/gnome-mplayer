@@ -1376,15 +1376,11 @@ gboolean move_window(void *data)
 
 gboolean expose_fixed_callback(GtkWidget * widget, GdkEventExpose * event, gpointer data)
 {
-    GdkGC *gc;
-
     if (GDK_IS_DRAWABLE(fixed->window)) {
         if (videopresent || embed_window != 0) {
-            gc = gdk_gc_new(fixed->window);
             // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
-            gdk_draw_rectangle(fixed->window, gc, TRUE, event->area.x, event->area.y,
+            gdk_draw_rectangle(fixed->window, window->style->black_gc, TRUE, event->area.x, event->area.y,
                                event->area.width, event->area.height);
-            gdk_gc_unref(gc);
         }
     }
     return FALSE;
@@ -1426,28 +1422,22 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         }
 
         // printf("new_width %i new_height %i\n",new_width, new_height);
+		// adjust video to be aligned when playing on video on a smaller screen
         if (new_height < idledata->height || new_width < idledata->width) {
             new_width = new_width - new_width % 16;
             new_height = new_height - new_height % 16;
         }
-        // printf("new_width %i new_height %i\n",new_width, new_height);
-        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-            if (vertical_layout) {
-                //gtk_paned_set_position(GTK_PANED(pane), idledata->height);
-            } else {
-                //gtk_paned_set_position(GTK_PANED(pane), idledata->width);
-            }
-        }
+ 
         //printf("new_width %i new_height %i\n",new_width, new_height);
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
         gtk_widget_set_size_request(fixed, allocation->width, allocation->height);
         idledata->x = (allocation->width - new_width) / 2;
         idledata->y = (allocation->height - new_height) / 2;
         move_window(idledata);
-        return FALSE;
-    } else {
-        return TRUE;
+    
     }
+
+	return TRUE;
 
 }
 
@@ -5812,7 +5802,7 @@ GtkWidget *create_window(gint windowid)
     audio_meter = gmtk_audio_meter_new(METER_BARS);
     gmtk_audio_meter_set_max_division_width(GMTK_AUDIO_METER(audio_meter), 10);
     gtk_widget_set_size_request(audio_meter, -1, 100);
-    g_timeout_add(40, update_audio_meter, NULL);
+    g_timeout_add_full(G_PRIORITY_HIGH, 40, update_audio_meter, NULL, NULL);
 
     gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
