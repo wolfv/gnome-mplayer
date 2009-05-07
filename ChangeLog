@@ -1,4 +1,5 @@
 Development
+    Some window resize optimizations
 	Rework how the audio meter data is read from mplayer
 	Fix a couple of setting bugs and initialization bugs
     Fix status icon double click code
