@@ -2075,7 +2075,7 @@ gdouble get_alsa_volume()
 
 gchar *seconds_to_string(gfloat seconds)
 {
-    int hour = 0, min = 0;
+    int hour = 0, min = 0, sec = 0;
     gchar *result = NULL;
 
     if (seconds >= 3600) {
@@ -2085,12 +2085,13 @@ gchar *seconds_to_string(gfloat seconds)
     if (seconds >= 60) {
         min = seconds / 60;
         seconds = seconds - (min * 60);
+		sec = seconds;
     }
 
     if (hour == 0) {
-        result = g_strdup_printf(_("%2i:%02.0f"), min, seconds);
+        result = g_strdup_printf(_("%2i:%02i"), min, sec);
     } else {
-        result = g_strdup_printf(_("%i:%02i:%02.0f"), hour, min, seconds);
+        result = g_strdup_printf(_("%i:%02i:%02i"), hour, min, sec);
     }
     return result;
 }
