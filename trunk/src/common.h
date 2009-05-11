@@ -320,6 +320,7 @@ gboolean disable_ass;
 gboolean disable_embeddedfonts;
 gboolean disable_animation;
 gint auto_hide_timeout;
+gboolean always_hide_after_timeout;
 gchar *subtitlefont;
 gdouble subtitle_scale;
 gchar *subtitle_codepage;
@@ -341,6 +342,8 @@ gchar *gpod_mount_point;
 gboolean disable_cover_art_fetch;
 gboolean updating_recent;
 gint thumb_position;
+gboolean large_buttons;
+gint button_size;
 
 gboolean remember_loc;
 gint loc_window_x;

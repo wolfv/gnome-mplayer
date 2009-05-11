@@ -2134,7 +2134,7 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
 
 gboolean slide_panel_away(gpointer data)
 {
-    if (!fullscreen) {
+    if (!(fullscreen || always_hide_after_timeout)) {
         gtk_widget_set_size_request(controls_box, -1, -1);
         return FALSE;
     }
@@ -2165,7 +2165,7 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     GdkCursor *cursor;
     GTimeVal currenttime;
 
-    if (fullscreen && auto_hide_timeout > 0 && GTK_WIDGET_VISIBLE(controls_box)) {
+    if ((fullscreen || always_hide_after_timeout) && auto_hide_timeout > 0 && GTK_WIDGET_VISIBLE(controls_box)) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -auto_hide_timeout * G_USEC_PER_SEC);
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
@@ -2195,7 +2195,7 @@ gboolean make_panel_and_mouse_visible(gpointer data)
 {
 //      GTimeVal currenttime;
 
-    if (fullscreen && !GTK_WIDGET_VISIBLE(controls_box)) {
+    if ((fullscreen || always_hide_after_timeout) && !GTK_WIDGET_VISIBLE(controls_box)) {
 
         if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
             gtk_widget_set_size_request(controls_box, -1, -1);
@@ -5853,15 +5853,15 @@ GtkWidget *create_window(gint windowid)
         && gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_INDEX)
         && gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
 
-        pb_play = gtk_icon_theme_load_icon(icon_theme, "media-playback-start", 16, 0, &error);
-        pb_pause = gtk_icon_theme_load_icon(icon_theme, "media-playback-pause", 16, 0, &error);
-        pb_stop = gtk_icon_theme_load_icon(icon_theme, "media-playback-stop", 16, 0, &error);
-        pb_ff = gtk_icon_theme_load_icon(icon_theme, "media-seek-forward", 16, 0, &error);
-        pb_rew = gtk_icon_theme_load_icon(icon_theme, "media-seek-backward", 16, 0, &error);
-        pb_next = gtk_icon_theme_load_icon(icon_theme, "media-skip-forward", 16, 0, &error);
-        pb_prev = gtk_icon_theme_load_icon(icon_theme, "media-skip-backward", 16, 0, &error);
-        pb_menu = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_INDEX, 16, 0, &error);
-        pb_fs = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", 16, 0, &error);
+        pb_play = gtk_icon_theme_load_icon(icon_theme, "media-playback-start", button_size, 0, &error);
+        pb_pause = gtk_icon_theme_load_icon(icon_theme, "media-playback-pause", button_size, 0, &error);
+        pb_stop = gtk_icon_theme_load_icon(icon_theme, "media-playback-stop", button_size, 0, &error);
+        pb_ff = gtk_icon_theme_load_icon(icon_theme, "media-seek-forward", button_size, 0, &error);
+        pb_rew = gtk_icon_theme_load_icon(icon_theme, "media-seek-backward", button_size, 0, &error);
+        pb_next = gtk_icon_theme_load_icon(icon_theme, "media-skip-forward", button_size, 0, &error);
+        pb_prev = gtk_icon_theme_load_icon(icon_theme, "media-skip-backward", button_size, 0, &error);
+        pb_menu = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_INDEX, button_size, 0, &error);
+        pb_fs = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", button_size, 0, &error);
 
     } else if (gtk_icon_theme_has_icon(icon_theme, "stock_media-play")
                && gtk_icon_theme_has_icon(icon_theme, "stock_media-pause")
@@ -5873,15 +5873,15 @@ GtkWidget *create_window(gint windowid)
                && gtk_icon_theme_has_icon(icon_theme, GTK_STOCK_INDEX)
                && gtk_icon_theme_has_icon(icon_theme, "view-fullscreen")) {
 
-        pb_play = gtk_icon_theme_load_icon(icon_theme, "stock_media-play", 16, 0, &error);
-        pb_pause = gtk_icon_theme_load_icon(icon_theme, "stock_media-pause", 16, 0, &error);
-        pb_stop = gtk_icon_theme_load_icon(icon_theme, "stock_media-stop", 16, 0, &error);
-        pb_ff = gtk_icon_theme_load_icon(icon_theme, "stock_media-fwd", 16, 0, &error);
-        pb_rew = gtk_icon_theme_load_icon(icon_theme, "stock_media-rew", 16, 0, &error);
-        pb_next = gtk_icon_theme_load_icon(icon_theme, "stock_media-next", 16, 0, &error);
-        pb_prev = gtk_icon_theme_load_icon(icon_theme, "stock_media-prev", 16, 0, &error);
-        pb_menu = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_INDEX, 16, 0, &error);
-        pb_fs = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", 16, 0, &error);
+        pb_play = gtk_icon_theme_load_icon(icon_theme, "stock_media-play", button_size, 0, &error);
+        pb_pause = gtk_icon_theme_load_icon(icon_theme, "stock_media-pause", button_size, 0, &error);
+        pb_stop = gtk_icon_theme_load_icon(icon_theme, "stock_media-stop", button_size, 0, &error);
+        pb_ff = gtk_icon_theme_load_icon(icon_theme, "stock_media-fwd", button_size, 0, &error);
+        pb_rew = gtk_icon_theme_load_icon(icon_theme, "stock_media-rew", button_size, 0, &error);
+        pb_next = gtk_icon_theme_load_icon(icon_theme, "stock_media-next", button_size, 0, &error);
+        pb_prev = gtk_icon_theme_load_icon(icon_theme, "stock_media-prev", button_size, 0, &error);
+        pb_menu = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_INDEX, button_size, 0, &error);
+        pb_fs = gtk_icon_theme_load_icon(icon_theme, "view-fullscreen", button_size, 0, &error);
 
     } else {
 
@@ -5892,7 +5892,7 @@ GtkWidget *create_window(gint windowid)
         pb_rew = gdk_pixbuf_new_from_xpm_data((const char **) media_seek_backward_xpm);
         pb_next = gdk_pixbuf_new_from_xpm_data((const char **) media_skip_forward_xpm);
         pb_prev = gdk_pixbuf_new_from_xpm_data((const char **) media_skip_backward_xpm);
-        pb_menu = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_INDEX, 16, 0, &error);
+        pb_menu = gtk_icon_theme_load_icon(icon_theme, GTK_STOCK_INDEX, button_size, 0, &error);
         pb_fs = gdk_pixbuf_new_from_xpm_data((const char **) view_fullscreen_xpm);
 
     }
@@ -6058,13 +6058,17 @@ GtkWidget *create_window(gint windowid)
         adj->step_increment = 1.0;
         gtk_scale_button_set_adjustment(GTK_SCALE_BUTTON(vol_slider), adj);
         gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), idledata->volume);
-        gtk_object_set(GTK_OBJECT(vol_slider), "size", GTK_ICON_SIZE_MENU, NULL);
+		if (large_buttons)
+	        gtk_object_set(GTK_OBJECT(vol_slider), "size", GTK_ICON_SIZE_BUTTON, NULL);
+		else
+	        gtk_object_set(GTK_OBJECT(vol_slider), "size", GTK_ICON_SIZE_MENU, NULL);
+			
         g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_button_callback),
                          NULL);
         gtk_button_set_relief(GTK_BUTTON(vol_slider), GTK_RELIEF_NONE);
 #else
         vol_slider = gtk_hscale_new_with_range(0.0, 100.0, 1.0);
-        gtk_widget_set_size_request(vol_slider, 44, 16);
+        gtk_widget_set_size_request(vol_slider, 44, button_size);
         gtk_scale_set_draw_value(GTK_SCALE(vol_slider), FALSE);
         gtk_range_set_value(GTK_RANGE(vol_slider), idledata->volume);
         g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_slider_callback),

@@ -1,4 +1,8 @@
 Development
+    Add new commandline options --large_buttons and --always_hide_after_timeout
+        --large_buttons - show interface with icons 2.5x biffer, useful for touchscreens
+        --always_hide_after_timeout - control bar will slide away even when
+                    not in fullscreen mode, useful for small screens
     Some window resize optimizations
 	Rework how the audio meter data is read from mplayer
 	Fix a couple of setting bugs and initialization bugs
