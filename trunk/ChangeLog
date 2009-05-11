@@ -1,4 +1,5 @@
 Development
+    Fix rounding error in seconds calculation, when displaying
     Add new commandline options --large_buttons and --always_hide_after_timeout
         --large_buttons - show interface with icons 2.5x biffer, useful for touchscreens
         --always_hide_after_timeout - control bar will slide away even when
