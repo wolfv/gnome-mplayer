@@ -1677,7 +1677,14 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                                                !fullscreen);
             return FALSE;
         case GDK_Escape:
-            return delete_callback(NULL, NULL, NULL);
+			if (fullscreen) {
+		        if (idledata->videopresent)
+		            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen),
+		                                           !fullscreen);
+			} else {
+				delete_callback(NULL, NULL, NULL);	
+			}
+            return FALSE; 
         case GDK_a:
             if (gtk_check_menu_item_get_active
                 (GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window))) {
