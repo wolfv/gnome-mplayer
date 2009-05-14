@@ -22,8 +22,10 @@
  * 	Boston, MA  02110-1301, USA.
  */
 //#include <X11/Xlib.h>
+
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+#include <gdk/gdkx.h>
 #include "libgmlib/gmlib.h"
 #include "libgmtk/gmtk.h"
 #include <gdk/gdkkeysyms.h>
@@ -36,9 +38,9 @@
 #endif
 
 #include "playlist.h"
-
 GtkWidget *window;
 GdkWindow *window_container;
+GtkWidget *fs_window;
 
 GtkWidget *menubar;
 GtkMenuItem *menuitem_file;

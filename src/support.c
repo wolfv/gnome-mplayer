@@ -2086,7 +2086,7 @@ gchar *seconds_to_string(gfloat seconds)
         min = seconds / 60;
         seconds = seconds - (min * 60);
     }
-	sec = seconds;
+    sec = seconds;
 
     if (hour == 0) {
         result = g_strdup_printf(_("%2i:%02i"), min, sec);
