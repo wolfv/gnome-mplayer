@@ -115,10 +115,10 @@ static GOptionEntry entries[] = {
     {"replace_and_play", 0, 0, G_OPTION_ARG_NONE, &replace_and_play,
      N_("Put single instance mode into replace and play mode"),
      NULL},
-	{"large_buttons", 0, 0, G_OPTION_ARG_NONE, &large_buttons,
+    {"large_buttons", 0, 0, G_OPTION_ARG_NONE, &large_buttons,
      N_("Use large control buttons"),
      NULL},
-	{"always_hide_after_timeout", 0, 0, G_OPTION_ARG_NONE, &always_hide_after_timeout,
+    {"always_hide_after_timeout", 0, 0, G_OPTION_ARG_NONE, &always_hide_after_timeout,
      N_("Hide control panel when mouse is not moving"),
      NULL},
     {"new_instance", 0, 0, G_OPTION_ARG_NONE, &new_instance,
@@ -601,8 +601,8 @@ int main(int argc, char *argv[])
     data = NULL;
     max_data = NULL;
     details_table = NULL;
-	large_buttons = FALSE;
-	button_size = 16;
+    large_buttons = FALSE;
+    button_size = 16;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -769,9 +769,9 @@ int main(int argc, char *argv[])
 
     use_volume_option = detect_volume_option();
 
-	if (large_buttons)
-		button_size = 48;
-	
+    if (large_buttons)
+        button_size = 48;
+
     if (playlist_visible && control_id != 0)
         playlist_visible = FALSE;
 
@@ -828,7 +828,7 @@ int main(int argc, char *argv[])
             printf("is reg %i\n", S_ISREG(buf.st_mode));
             printf("is dir %i\n", S_ISDIR(buf.st_mode));
             printf("playlist %i\n", playlist);
-            printf("embedded in window id %i\n", embed_window);
+            printf("embedded in window id 0x%x\n", embed_window);
         }
         if (S_ISBLK(buf.st_mode)) {
             // might have a block device, so could be a DVD
