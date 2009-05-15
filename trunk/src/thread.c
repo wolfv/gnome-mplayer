@@ -315,6 +315,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (play_x >= actual_x && play_y >= actual_y) {
             actual_x = play_x;
             actual_y = play_y;
+			last_window_width = 0;
+			last_window_height = 0;
         }
         if (verbose)
             printf("Resizing to %i x %i \n", actual_x, actual_y);
@@ -974,7 +976,7 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
     }
 
-	 if (vo == NULL || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
+	if (vo == NULL || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
          || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
 				 
 		if (pplevel > 0) {
