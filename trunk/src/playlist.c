@@ -812,7 +812,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         closebox = gtk_hbox_new(FALSE, 0);
 
         list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
-        gtk_tree_view_set_reorderable(GTK_TREE_VIEW(list), TRUE);
+        gtk_tree_view_set_reorderable(GTK_TREE_VIEW(list), FALSE);
         gtk_widget_add_events(list, GDK_BUTTON_PRESS_MASK);
         gtk_widget_set_size_request(GTK_WIDGET(list), -1, -1);
 
