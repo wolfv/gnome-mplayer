@@ -313,10 +313,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &actual_x, &actual_y, &play_x, &play_y);
 
         if (play_x >= actual_x && play_y >= actual_y) {
+			if (actual_x == last_window_width && actual_y == last_window_height) {
+				last_window_width = 0;
+				last_window_height = 0;
+			}
             actual_x = play_x;
             actual_y = play_y;
-			last_window_width = 0;
-			last_window_height = 0;
         }
         if (verbose)
             printf("Resizing to %i x %i \n", actual_x, actual_y);
