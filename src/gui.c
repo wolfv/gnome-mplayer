@@ -882,9 +882,11 @@ gboolean resize_window(void *data)
                 gtk_widget_show_all(GTK_WIDGET(fixed));
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
-                if (verbose)
+                if (verbose) {
                     printf("Changing window size to %i x %i visible = %i\n", idle->width,
                            idle->height, GTK_WIDGET_VISIBLE(vbox));
+					//printf("last = %i x %i\n",last_window_width,last_window_height);
+				}
                 if (last_window_width == 0 && last_window_height == 0) {
                     if (idle->width > 0 && idle->height > 0) {
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
@@ -915,7 +917,7 @@ gboolean resize_window(void *data)
                                 gtk_paned_set_position(GTK_PANED(pane), idle->width);
                             }
                         }
-
+						// printf("totals = %i x %i\n",total_width,total_height);
                         gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
                         last_window_width = idle->width;
                         last_window_height = idle->height;
@@ -1395,6 +1397,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     if (actual_x > 0 && actual_y > 0) {
 
         movie_ratio = (gdouble) actual_x / (gdouble) actual_y;
+        // printf("movie new_width %i new_height %i\n", actual_x, actual_y);
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))
             movie_ratio = 4.0 / 3.0;
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine)))
@@ -1405,23 +1408,25 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             movie_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
 
         window_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
+        // printf("window new_width %i new_height %i\n", allocation->width,allocation->height);
 
         if (allocation->width == idledata->width && allocation->height == idledata->width) {
             new_width = allocation->width;
             new_height = allocation->height;
         } else {
+			// printf("last %i x %i\n",last_window_width,last_window_height);
             if (movie_ratio > window_ratio) {
-                //printf("movie %lf > window %lf\n",movie_ratio,window_ratio);
+                // printf("movie %lf > window %lf\n",movie_ratio,window_ratio);
                 new_width = allocation->width;
                 new_height = allocation->width / movie_ratio;
             } else {
-                //printf("movie %lf < window %lf\n",movie_ratio,window_ratio);
+                // printf("movie %lf < window %lf\n",movie_ratio,window_ratio);
                 new_height = allocation->height;
                 new_width = allocation->height * movie_ratio;
             }
         }
 
-        // printf("new_width %i new_height %i\n",new_width, new_height);
+        // printf("pre align new_width %i new_height %i\n",new_width, new_height);
         // adjust video to be aligned when playing on video on a smaller screen
         if (new_height < idledata->height || new_width < idledata->width) {
             new_width = new_width - new_width % 16;

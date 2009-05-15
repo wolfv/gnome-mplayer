@@ -1,4 +1,5 @@
 Development
+    Fix image rescale issue, when mplayer display sizes are different than info values
     Prevent PostProcessing filters from activating with vdpau or xvmc vo's
     Fix popout to fullscreen mode when embedded to work under KWin
     Make ESC take you out of fullscreen mode, but quit when in normal player mode
