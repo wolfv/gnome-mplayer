@@ -603,6 +603,7 @@ int main(int argc, char *argv[])
     details_table = NULL;
     large_buttons = FALSE;
     button_size = 16;
+	lastguistate = -1;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
