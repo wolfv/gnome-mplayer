@@ -1,4 +1,5 @@
 Development
+    Prevent PostProcessing filters from activating with vdpau or xvmc vo's
     Fix popout to fullscreen mode when embedded to work under KWin
     Make ESC take you out of fullscreen mode, but quit when in normal player mode
     Fix rounding error in seconds calculation, when displaying
