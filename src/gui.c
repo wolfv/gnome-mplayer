@@ -268,6 +268,8 @@ gboolean set_media_label(void *data)
             notification =
                 notify_notification_new(_("Media Change"), idle->media_notification,
                                         "gnome-mplayer", NULL);
+			if (show_status_icon)
+				notify_notification_attach_to_status_icon(notification,status_icon);
             notify_notification_show(notification, NULL);
             notify_uninit();
         }
