@@ -180,30 +180,28 @@ gboolean set_media_info(void *data)
 
 
     if (data != NULL && idle != NULL) {
-        if (idle->streaming == FALSE) {
-            name = g_strdup(idle->display_name);
+        name = g_strdup(idle->display_name);
 
-            total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-            path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-            if (path != NULL) {
-                buf = gtk_tree_path_to_string(path);
-                current = (gint) g_strtod(buf, NULL);
-                g_free(buf);
-                gtk_tree_path_free(path);
-            }
-            if (total > 1) {
-                buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
-            } else {
-                if (name == NULL || strlen(name) < 1) {
-                    buf = g_strdup_printf(_("GNOME MPlayer"));
-                } else {
-                    buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
-                }
-            }
-            gtk_window_set_title(GTK_WINDOW(window), buf);
+        total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+        path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+        if (path != NULL) {
+            buf = gtk_tree_path_to_string(path);
+            current = (gint) g_strtod(buf, NULL);
             g_free(buf);
-            g_free(name);
+            gtk_tree_path_free(path);
         }
+        if (total > 1) {
+            buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
+        } else {
+            if (name == NULL || strlen(name) < 1) {
+                buf = g_strdup_printf(_("GNOME MPlayer"));
+            } else {
+                buf = g_strdup_printf(_("%s - GNOME MPlayer"), name);
+            }
+        }
+        gtk_window_set_title(GTK_WINDOW(window), buf);
+        g_free(buf);
+        g_free(name);
     }
     return FALSE;
 }

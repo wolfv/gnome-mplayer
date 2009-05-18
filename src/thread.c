@@ -58,14 +58,12 @@ gboolean send_command(gchar * command, gboolean retain_pause)
         cmd = g_strdup(command);
     }
 
-    if (verbose > 1)
+    if (verbose)
         printf("send command = %s\n", cmd);
 
     if (channel_in) {
         result = g_io_channel_write_chars(channel_in, cmd, -1, &bytes_written, NULL);
-        if (result == G_IO_STATUS_NORMAL && bytes_written > 0
-            && g_ascii_strcasecmp(cmd, "quit\n") != 0)
-            result = g_io_channel_flush(channel_in, NULL);
+        result = g_io_channel_flush(channel_in, NULL);
     }
 
     g_free(cmd);
@@ -162,6 +160,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
                 playback_error = ERROR_RETRY_WITH_MMSHTTP;
             }
         }
+    }
+
+	if (strstr(mplayer_output->str, "No stream found to handle url mmshttp://") != NULL) {
+        dontplaynext = TRUE;
+        playback_error = ERROR_RETRY_WITH_HTTP;
     }
 
     if (strstr(mplayer_output->str, "Couldn't open DVD device:") != NULL) {
