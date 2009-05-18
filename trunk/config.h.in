@@ -27,6 +27,9 @@
 /* Define to 1 if you have the `dcgettext' function. */
 #undef HAVE_DCGETTEXT
 
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
 /* Define to 1 to use GConf to store preferences */
 #undef HAVE_GCONF
 
@@ -48,6 +51,9 @@
 /* Define to 1 if you have the <mntent.h> header file. */
 #undef HAVE_MNTENT_H
 
+/* defined if you build the nautilus plugin */
+#undef HAVE_NAUTILUS
+
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
 
@@ -68,6 +74,10 @@
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
+
+/* Define to the sub-directory in which libtool stores uninstalled libraries.
+   */
+#undef LT_OBJDIR
 
 /* Define to 1 if you have musicbrainz3 support */
 #undef MUSICBRAINZ_ENABLED

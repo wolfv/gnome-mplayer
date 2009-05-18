@@ -16,14 +16,13 @@ AC_PROG_CPP
 AC_PROG_CXX
 AC_PROG_LIBTOOL
 
-
 dnl Set gettext package name
 GETTEXT_PACKAGE=gnome-mplayer
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 
 dnl Add the languages which your application supports here.
-ALL_LINGUAS="bg de en es fr it ja ko pl pt_BR ro ru sr sr@latin sv tr zh_CN zh_HK zh_TW"
+ALL_LINGUAS="bg de el en es fr it ja ko pl pt_BR ro ru sr sr@latin sv tr zh_CN zh_HK zh_TW"
 AC_SUBST(ALL_LINGUAS)
 AM_GLIB_GNU_GETTEXT
 
