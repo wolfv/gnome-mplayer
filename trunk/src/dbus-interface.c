@@ -1083,7 +1083,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
     gboolean local_rnp;
 
     dbus_error_init(&error);
-    connection = dbus_bus_get_private(type, &error);
+    connection = dbus_bus_get(type, &error);
     if (connection == NULL) {
         printf("Failed to open connection to %s message bus: %s\n",
                (type == DBUS_BUS_SYSTEM) ? "system" : "session", error.message);
@@ -1173,7 +1173,7 @@ void dbus_unhook()
         dbus_message_append_args(message, DBUS_TYPE_INT32, &cookie, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
-        dbus_connection_close(connection);
+        // dbus_connection_close(connection);
         dbus_connection_unref(connection);
         connection = NULL;
     }

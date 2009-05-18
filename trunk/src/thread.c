@@ -58,7 +58,7 @@ gboolean send_command(gchar * command, gboolean retain_pause)
         cmd = g_strdup(command);
     }
 
-    if (verbose)
+    if (verbose > 1)
         printf("send command = %s\n", cmd);
 
     if (channel_in) {
