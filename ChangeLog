@@ -1,4 +1,5 @@
 Development
+    Switch to shared dbus connection, rather that private for faster startup
     Fix some problems with streaming media
     Prevent Drag n Drop reordering in playlist view
     Fix image rescale issue, when mplayer display sizes are different than info values
