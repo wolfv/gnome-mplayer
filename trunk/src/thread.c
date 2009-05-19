@@ -785,7 +785,9 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%s", mplayer_bin);
     }
 
-    if ((vo != NULL && strlen(vo) > 0) || (ao != NULL && strlen(ao) > 0)) {
+	// argv[arg++] = g_strdup_printf("-v");
+
+	if ((vo != NULL && strlen(vo) > 0) || (ao != NULL && strlen(ao) > 0)) {
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
@@ -1034,7 +1036,7 @@ gpointer launch_player(gpointer data)
 	g_free(filename);
 */
 
-    argv[arg++] = g_strdup_printf("-af");
+    argv[arg++] = g_strdup_printf("-af-add");
     argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
 
     if (threaddata->playlist)

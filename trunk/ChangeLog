@@ -1,4 +1,5 @@
 Development
+    Change -af to -af-add when adding in the export audio filter
     Switch to shared dbus connection, rather that private for faster startup
     Fix some problems with streaming media
     Prevent Drag n Drop reordering in playlist view
