@@ -266,8 +266,8 @@ gboolean set_media_label(void *data)
             notification =
                 notify_notification_new(_("Media Change"), idle->media_notification,
                                         "gnome-mplayer", NULL);
-			if (show_status_icon)
-				notify_notification_attach_to_status_icon(notification,status_icon);
+            if (show_status_icon)
+                notify_notification_attach_to_status_icon(notification, status_icon);
             notify_notification_show(notification, NULL);
             notify_uninit();
         }
@@ -650,9 +650,19 @@ gboolean set_gui_state(void *data)
     return FALSE;
 }
 
+void cancel_clicked(GtkButton * button, gpointer user_data)
+{
+    cancel_folder_load = TRUE;
+}
+
 void create_folder_progress_window()
 {
     GtkWidget *vbox;
+    GtkWidget *cancel;
+    GtkWidget *hbox;
+
+    cancel_folder_load = FALSE;
+
     folder_progress_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_modal(GTK_WINDOW(folder_progress_window), TRUE);
     gtk_window_set_icon(GTK_WINDOW(folder_progress_window), pb_icon);
@@ -665,8 +675,15 @@ void create_folder_progress_window()
     folder_progress_label = gtk_label_new("");
     gtk_label_set_ellipsize(GTK_LABEL(folder_progress_label), PANGO_ELLIPSIZE_MIDDLE);
 
+    cancel = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+    g_signal_connect(G_OBJECT(cancel), "clicked", G_CALLBACK(cancel_clicked), NULL);
+    hbox = gtk_hbutton_box_new();
+    gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+    gtk_container_add(GTK_CONTAINER(hbox), cancel);
+
     gtk_container_add(GTK_CONTAINER(vbox), folder_progress_bar);
     gtk_container_add(GTK_CONTAINER(vbox), folder_progress_label);
+    gtk_container_add(GTK_CONTAINER(vbox), hbox);
     gtk_container_add(GTK_CONTAINER(folder_progress_window), vbox);
 
     gtk_widget_show_all(folder_progress_window);
@@ -681,6 +698,9 @@ void destroy_folder_progress_window()
     if (GTK_IS_WIDGET(folder_progress_window))
         gtk_widget_destroy(folder_progress_window);
     folder_progress_window = NULL;
+    if (cancel_folder_load)
+        clear_playlist(NULL, NULL);
+    cancel_folder_load = FALSE;
 }
 
 
@@ -885,8 +905,8 @@ gboolean resize_window(void *data)
                 if (verbose) {
                     printf("Changing window size to %i x %i visible = %i\n", idle->width,
                            idle->height, GTK_WIDGET_VISIBLE(vbox));
-					//printf("last = %i x %i\n",last_window_width,last_window_height);
-				}
+                    //printf("last = %i x %i\n",last_window_width,last_window_height);
+                }
                 if (last_window_width == 0 && last_window_height == 0) {
                     if (idle->width > 0 && idle->height > 0) {
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
@@ -917,7 +937,7 @@ gboolean resize_window(void *data)
                                 gtk_paned_set_position(GTK_PANED(pane), idle->width);
                             }
                         }
-						// printf("totals = %i x %i\n",total_width,total_height);
+                        // printf("totals = %i x %i\n",total_width,total_height);
                         gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
                         last_window_width = idle->width;
                         last_window_height = idle->height;
@@ -1414,7 +1434,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             new_width = allocation->width;
             new_height = allocation->height;
         } else {
-			// printf("last %i x %i\n",last_window_width,last_window_height);
+            // printf("last %i x %i\n",last_window_width,last_window_height);
             if (movie_ratio > window_ratio) {
                 // printf("movie %lf > window %lf\n",movie_ratio,window_ratio);
                 new_width = allocation->width;
@@ -1432,7 +1452,6 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             new_width = new_width - new_width % 16;
             new_height = new_height - new_height % 16;
         }
-
         // printf("new_width %i new_height %i\n", new_width, new_height);
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
         gtk_widget_set_size_request(fixed, allocation->width, allocation->height);

@@ -1540,7 +1540,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         return FALSE;
 
     if (verbose)
-        printf("adding %s to playlist\n", uri);
+        printf("adding %s to playlist (cancel = %i)\n", uri, cancel_folder_load);
     local_uri = strdup(uri);
     if (!device_name(local_uri) && !streaming_media(local_uri)) {
         if (playlist) {

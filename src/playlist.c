@@ -410,10 +410,14 @@ void add_folder_to_playlist_callback(gpointer data, gpointer user_data)
                 filecount++;
             }
             g_object_unref(info);
-            info = g_file_enumerator_next_file(dir, NULL, NULL);
+            info = NULL;
+            if (!cancel_folder_load)
+                info = g_file_enumerator_next_file(dir, NULL, NULL);
+
         }
         list = g_slist_sort(list, (GCompareFunc) compar);
-        g_slist_foreach(list, &add_item_to_playlist_callback, NULL);
+        if (!cancel_folder_load)
+            g_slist_foreach(list, &add_item_to_playlist_callback, NULL);
         g_slist_free(list);
         g_object_unref(dir);
     }
@@ -447,9 +451,12 @@ void add_folder_to_playlist_callback(gpointer data, gpointer user_data)
             } else {
                 break;
             }
+            if (cancel_folder_load)
+                break;
         } while (TRUE);
         list = g_slist_sort(list, (GCompareFunc) compar);
-        g_slist_foreach(list, &add_item_to_playlist_callback, NULL);
+        if (!cancel_folder_load)
+            g_slist_foreach(list, &add_item_to_playlist_callback, NULL);
         g_slist_free(list);
         g_dir_close(dir);
     }

@@ -1,4 +1,6 @@
 Development
+    Add cancel button to folder load progress bar, clicking cancel clears the playlist
+        and cancels the load
     Change -af to -af-add when adding in the export audio filter
     Switch to shared dbus connection, rather that private for faster startup
     Fix some problems with streaming media

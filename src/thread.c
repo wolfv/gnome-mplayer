@@ -162,7 +162,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         }
     }
 
-	if (strstr(mplayer_output->str, "No stream found to handle url mmshttp://") != NULL) {
+    if (strstr(mplayer_output->str, "No stream found to handle url mmshttp://") != NULL) {
         dontplaynext = TRUE;
         playback_error = ERROR_RETRY_WITH_HTTP;
     }
@@ -316,10 +316,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &actual_x, &actual_y, &play_x, &play_y);
 
         if (play_x >= actual_x && play_y >= actual_y) {
-			if (actual_x == last_window_width && actual_y == last_window_height) {
-				last_window_width = 0;
-				last_window_height = 0;
-			}
+            if (actual_x == last_window_width && actual_y == last_window_height) {
+                last_window_width = 0;
+                last_window_height = 0;
+            }
             actual_x = play_x;
             actual_y = play_y;
         }
@@ -785,9 +785,9 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%s", mplayer_bin);
     }
 
-	// argv[arg++] = g_strdup_printf("-v");
+    // argv[arg++] = g_strdup_printf("-v");
 
-	if ((vo != NULL && strlen(vo) > 0) || (ao != NULL && strlen(ao) > 0)) {
+    if ((vo != NULL && strlen(vo) > 0) || (ao != NULL && strlen(ao) > 0)) {
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
@@ -983,17 +983,17 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
     }
 
-	if (vo == NULL || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
-         || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
-				 
-		if (pplevel > 0) {
-		    argv[arg++] = g_strdup_printf("-vf-add");
-		    argv[arg++] = g_strdup_printf("pp=ac/tn:a");
-		    argv[arg++] = g_strdup_printf("-autoq");
-		    argv[arg++] = g_strdup_printf("%d", pplevel);
-		}
-	}
-	
+    if (vo == NULL || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
+                        || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
+
+        if (pplevel > 0) {
+            argv[arg++] = g_strdup_printf("-vf-add");
+            argv[arg++] = g_strdup_printf("pp=ac/tn:a");
+            argv[arg++] = g_strdup_printf("-autoq");
+            argv[arg++] = g_strdup_printf("%d", pplevel);
+        }
+    }
+
     if (extraopts != NULL) {
         char **opts = g_strsplit(extraopts, " ", -1);
         int i;
