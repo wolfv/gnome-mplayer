@@ -352,6 +352,7 @@ gint loc_window_height;
 gint loc_window_width;
 gboolean keep_on_top;
 
+gboolean cancel_folder_load;
 // tv stuff
 gchar *tv_device;
 gchar *tv_driver;
