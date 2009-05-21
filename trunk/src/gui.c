@@ -3714,6 +3714,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     gint i = 0;
     IdleData *idle = idledata;
     gint width = 0, height = 0;
+	gboolean dontresize = FALSE;
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
         if (GTK_IS_WIDGET(details_table)) {
@@ -3727,6 +3728,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
         if (GTK_IS_WIDGET(details_table)) {
             gtk_widget_destroy(details_table);
             details_table = NULL;
+			dontresize = TRUE;
         }
         details_table = gtk_table_new(20, 2, FALSE);
         gtk_container_add(GTK_CONTAINER(details_vbox), details_table);
@@ -3898,7 +3900,8 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
 
             if (idledata->videopresent) {
                 height += details_vbox->allocation.height;
-                gtk_window_resize(GTK_WINDOW(window), width, height);
+				if (!dontresize)
+	                gtk_window_resize(GTK_WINDOW(window), width, height);
             }
 
         } else {
