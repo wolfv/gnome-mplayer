@@ -3203,8 +3203,13 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_edit_take_screenshot_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *cmd;
+	PLAYSTATE s;
+	
     cmd = g_strdup_printf("screenshot 0\n");
-    send_command(cmd, TRUE);
+	s = state;
+    send_command(cmd, FALSE);
+	if (s != PLAYING)
+		send_command("pause\n", FALSE);
     g_free(cmd);
 }
 

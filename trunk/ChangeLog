@@ -1,4 +1,5 @@
 Development
+    Allow screenshot to work correctly when paused, although frame is still advanced 1 frame
     Fix playlist visibility on load when view playlist on load option is set
     Fix window resize issue when details are shown and second video is loaded
     Add cancel button to folder load progress bar, clicking cancel clears the playlist
