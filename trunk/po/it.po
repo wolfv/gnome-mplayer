@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-26 10:35-0600\n"
-"PO-Revision-Date: 2009-01-28 20:36+0100\n"
+"PO-Revision-Date: 2009-05-26 23:42+0200\n"
 "Last-Translator: Cesare Tirabassi <cesare.tirabassi@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgstr "Lascia l'applicazione alla fine dell'ultimo file della scaletta"
 
 #: src/main.c:77
 msgid "Play items on playlist in random order"
-msgstr ""
+msgstr "Mostra elementi della scaletta a caso"
 
 #: src/main.c:79
 msgid "Set cache size"
@@ -180,11 +180,11 @@ msgstr "Cambia dal modo istanza singola al modo replace-and-play"
 
 #: src/main.c:119
 msgid "Use large control buttons"
-msgstr ""
+msgstr "Usa tasti di controllo grandi"
 
 #: src/main.c:122
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "Nascondi il pannello di controllo quando il mouse è fermo"
 
 #: src/main.c:125
 msgid "Ignore single instance preference for this instance"
@@ -276,7 +276,7 @@ msgid "Playing %s"
 msgstr "Leggendo %s"
 
 #: src/gui.c:740
-#, fuzzy, c-format
+#, c-format
 msgid "Paused %s"
 msgstr "In Pausa %s"
 
@@ -329,7 +329,7 @@ msgstr "Immagine del Disco (*.iso)"
 
 #: src/gui.c:2798
 msgid "Save As..."
-msgstr "Salva Come ..."
+msgstr "Salva Come..."
 
 #: src/gui.c:2833
 #, c-format
@@ -391,7 +391,7 @@ msgstr "Imposta Sottotitolo"
 
 #: src/gui.c:3302
 msgid "Gnome MPlayer Fullscreen"
-msgstr ""
+msgstr "Gnome MPlayer a Schermo Intero"
 
 #: src/gui.c:3742 src/nautilus_property_page.c:339
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -403,23 +403,23 @@ msgstr "Dimensioni Video:"
 
 #: src/gui.c:3762
 msgid "Video Format:"
-msgstr "Formato Video"
+msgstr "Formato Video:"
 
 #: src/gui.c:3773 src/nautilus_property_page.c:357
 msgid "Video Codec:"
-msgstr "Codec Video"
+msgstr "Codec Video:"
 
 #: src/gui.c:3784
 msgid "Video FPS:"
-msgstr "Immagini al secondo"
+msgstr "Immagini al secondo:"
 
 #: src/gui.c:3793 src/nautilus_property_page.c:368
 msgid "Video Bitrate:"
-msgstr "Cadenza Video"
+msgstr "Cadenza Video:"
 
 #: src/gui.c:3805
 msgid "Video Chapters:"
-msgstr "Capitoli Video"
+msgstr "Capitoli Video:"
 
 #: src/gui.c:3824 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
@@ -427,19 +427,19 @@ msgstr "<span weight=\"bold\">Dettagli Audio</span>"
 
 #: src/gui.c:3831 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
-msgstr "Codec Audio"
+msgstr "Codec Audio:"
 
 #: src/gui.c:3848 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
-msgstr "Canali Audio"
+msgstr "Canali Audio:"
 
 #: src/gui.c:3862 src/nautilus_property_page.c:413
 msgid "Audio Bitrate:"
-msgstr "Cadenza Audio"
+msgstr "Cadenza Audio:"
 
 #: src/gui.c:3876
 msgid "Audio Sample Rate:"
-msgstr "Velocità di campionamento Audio"
+msgstr "Velocità di Campionamento Audio:"
 
 #: src/gui.c:3942
 msgid "Video Picture Adjustments"
@@ -566,7 +566,7 @@ msgstr "Uscita Audio:"
 
 #: src/gui.c:4534
 msgid "Default Mixer:"
-msgstr "Default Tavola Mixaggio"
+msgstr "Default Tavola Mixaggio:"
 
 #: src/gui.c:4557
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
@@ -575,7 +575,7 @@ msgstr ""
 
 #: src/gui.c:4565
 msgid "Default Volume Level:"
-msgstr "Livello Volume di Default"
+msgstr "Livello Volume di Default:"
 
 #: src/gui.c:4572
 msgid "Default volume for playback"
@@ -583,7 +583,7 @@ msgstr "Livello Volume per ascolto"
 
 #: src/gui.c:4587
 msgid "Minimum Cache Size (KB):"
-msgstr "Capacità Minima della Memoria Tampone (KB)"
+msgstr "Capacità Minima della Memoria Tampone (KB):"
 
 #: src/gui.c:4596
 msgid ""
@@ -599,7 +599,7 @@ msgstr "Livello On Screen Display:"
 
 #: src/gui.c:4623
 msgid "Post-processing level:"
-msgstr "Livello Post-processing"
+msgstr "Livello Post-processing:"
 
 #: src/gui.c:4638
 msgid ""
@@ -610,6 +610,12 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
+"<span weight=\"bold\">Regola il Plugin di Emulazione</span>\n"
+"\n"
+"Queste opzioni influenzano il plugin gecko-mediaplayer, se installato.\n"
+"Gecko-mediaplayer è un plugin Firefox che emula vari lettori\n"
+"multi-mediali e consente la visualizzazione di diversi contenuti web\n"
+"attraverso un browser compatible con NPRuntime (Firefox, Konqueror, etc)."
 
 #: src/gui.c:4649
 msgid "QuickTime Emulation"
@@ -629,7 +635,7 @@ msgstr "Emulazione Lettore DiVX"
 
 #: src/gui.c:4669
 msgid "MIDI Support (requires MPlayer support)"
-msgstr ""
+msgstr "Supporto MIDI (richiede il supporto MPlayer)"
 
 #: src/gui.c:4674
 msgid "Disable Player Embedding"
@@ -649,7 +655,7 @@ msgstr "Lingua di Default per i Sottotitoli:"
 
 #: src/gui.c:4710
 msgid "File Metadata Encoding:"
-msgstr ""
+msgstr "Archivio di Codifica Metadata:"
 
 #: src/gui.c:4726
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
@@ -680,27 +686,24 @@ msgid "Subtitle Color Selection"
 msgstr "Selezione Colore Sottotitoli"
 
 #: src/gui.c:4805
-#, fuzzy
 msgid "Outline Subtitle Font"
-msgstr "Caratteri Sottotitoli:"
+msgstr "Contorno Caratteri Sottotitoli"
 
 #: src/gui.c:4811
-#, fuzzy
 msgid "Shadow Subtitle Font"
-msgstr "Caratteri Sottotitoli:"
+msgstr "Ombra Caratteri Sottotitoli"
 
 #: src/gui.c:4817
 msgid "Subtitle Font Scaling:"
-msgstr ""
+msgstr "Regola Grandezza Sottotitoli:"
 
 #: src/gui.c:4830
 msgid "Subtitle File Encoding:"
-msgstr ""
+msgstr "Codifica Archivio Sottotitoli:"
 
 #: src/gui.c:4842
-#, fuzzy
 msgid "Show Subtitles by Default"
-msgstr "Mostra _Sottotitoli"
+msgstr "Mostra Sottotitoli di Default"
 
 #: src/gui.c:4851
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -744,23 +747,23 @@ msgstr "Interrompi la riproduzione su click del mouse"
 
 #: src/gui.c:4925
 msgid "Tracker Thumb Position:"
-msgstr ""
+msgstr "Posizione Tracker Thumb:"
 
 #: src/gui.c:4932
 msgid "Hidden"
-msgstr ""
+msgstr "Nascosto"
 
 #: src/gui.c:4933
 msgid "Bottom"
-msgstr ""
+msgstr "Fondo"
 
 #: src/gui.c:4934
 msgid "Top"
-msgstr ""
+msgstr "Cima"
 
 #: src/gui.c:4935
 msgid "Top and Bottom"
-msgstr ""
+msgstr "Cima e Fondo"
 
 #: src/gui.c:4944
 msgid "Verbose Debug Enabled"
@@ -966,9 +969,8 @@ msgid "D_etails"
 msgstr "D_ettagli"
 
 #: src/gui.c:5728
-#, fuzzy
 msgid "Audio _Meter"
-msgstr "Cadenza Audio"
+msgstr "_Misuratore Audio"
 
 #: src/gui.c:5741
 msgid "_Normal (1:1)"
@@ -1004,7 +1006,7 @@ msgstr "Aspetto 1_6:10"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr ""
+msgstr "Segui la Finestra"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
@@ -1012,11 +1014,11 @@ msgstr "Mostra _Sottotitoli"
 
 #: src/gui.c:5779
 msgid "Decrease Subtitle Size"
-msgstr ""
+msgstr "Decrementa la Grandezza dei Sottotitoli"
 
 #: src/gui.c:5781
 msgid "Increase Subtitle Size"
-msgstr ""
+msgstr "Incrementa la Grandezza dei Sottotitoli"
 
 #: src/gui.c:5782
 msgid "Switch An_gle"
@@ -1077,23 +1079,23 @@ msgid "Couldn't open DVD device: %s"
 msgstr "Non può aprire il dispositivo DVD: %s"
 
 #: src/support.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open VCD device: %s"
-msgstr "Non può aprire il dispositivo DVD: %s"
+msgstr "Non può aprire il dispositivo VCD: %s"
 
 #: src/support.c:1684 src/support.c:1717 src/support.c:1762 src/support.c:1792
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "Impossibile salvare scaletta, non si può scrivere sul supporto"
 
 #: src/support.c:2092
-#, fuzzy, c-format
+#, c-format
 msgid "%2i:%02i"
-msgstr "%2i:%02.0f"
+msgstr "%2i:%02i"
 
 #: src/support.c:2094
-#, fuzzy, c-format
+#, c-format
 msgid "%i:%02i:%02i"
-msgstr "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02i"
 
 #: src/support.c:2713
 #, c-format
@@ -1101,6 +1103,8 @@ msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
 msgstr ""
+"Dovresti aggiornare mplayer ad una versione più recente, l'opzione"
+"-volume non è valida per la versione che stai usando\n"
 
 #: src/thread.c:154
 #, c-format
@@ -1249,28 +1253,24 @@ msgid "%i:%02i:%02.0f"
 msgstr "%i:%02i:%02.0f"
 
 #: src/nautilus_property_page.c:269
-#, fuzzy
 msgid "<span weight=\"bold\">Media Details</span>"
-msgstr "<span weight=\"bold\">Dettagli Audio</span>"
+msgstr "<span weight=\"bold\">Dettagli Media</span>"
 
 #: src/nautilus_property_page.c:277
-#, fuzzy
 msgid "Title"
-msgstr "Timer"
+msgstr "Temporizzatore"
 
 #: src/nautilus_property_page.c:325
 msgid "Demuxer"
-msgstr ""
+msgstr "Demuxer"
 
 #: src/nautilus_property_page.c:379
-#, fuzzy
 msgid "Video Frame Rate:"
-msgstr "Formato Video"
+msgstr "Cadenza Fotogrammi Video:"
 
 #: src/nautilus_property_page.c:483
-#, fuzzy
 msgid "Audio/Video"
-msgstr "Codec Audio"
+msgstr "Audio/Video"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr ""
