@@ -1,22 +1,21 @@
 # translation of tr.po to Turkish
-# İnanç Yıldırgan <inancyildirgan@gmail.com>, 2008.
-# Onur Küçük <onur@pardus.org.tr>, 2008, 2009.
 # Turkish translation of GNOME MPlayer.
 # This file is distributed under the same license as the gnome-mplayer package.
 # Copyright (C) Kevin DeKorte 2006-2008 <kdekorte@gmail.com>
+# Onur Küçük <onur@pardus.org.tr>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-14 07:51-0600\n"
-"PO-Revision-Date: 2009-03-06 15:14+0200\n"
+"PO-Revision-Date: 2009-05-26 14:12+0300\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=1;\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -182,11 +181,11 @@ msgstr "Tek oturum modunu değiştir ve oynat moduna yerleştir"
 
 #: src/main.c:119
 msgid "Use large control buttons"
-msgstr ""
+msgstr "Büyük kontrol düğmeleri kullan"
 
 #: src/main.c:122
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "Fare sabitken kontrol panelini gizle"
 
 #: src/main.c:125
 msgid "Ignore single instance preference for this instance"
@@ -615,7 +614,7 @@ msgstr "DIVX Oynatıcı Taklidi"
 
 #: src/gui.c:4591
 msgid "MIDI Support (requires MPlayer support)"
-msgstr ""
+msgstr "MIDI Desteği (MPlayer destekliyor ise)"
 
 #: src/gui.c:4596
 msgid "Disable Player Embedding"
@@ -666,14 +665,12 @@ msgid "Subtitle Color Selection"
 msgstr "Altyazı Rengi Seçimi"
 
 #: src/gui.c:4727
-#, fuzzy
 msgid "Outline Subtitle Font"
-msgstr "Altyazıyı Yazıtipi:"
+msgstr "Altyazıyı Kalınlaştır"
 
 #: src/gui.c:4733
-#, fuzzy
 msgid "Shadow Subtitle Font"
-msgstr "Altyazıyı Yazıtipi:"
+msgstr "Altyazıyı Gölgelendir"
 
 #: src/gui.c:4739
 msgid "Subtitle Font Scaling:"
@@ -684,9 +681,8 @@ msgid "Subtitle File Encoding:"
 msgstr "Altyazı Dosyası Biçimi:"
 
 #: src/gui.c:4764
-#, fuzzy
 msgid "Show Subtitles by Default"
-msgstr "_Altyazıları Göster"
+msgstr "Öntanımlı Altyazılar Açık"
 
 #: src/gui.c:4773
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -730,23 +726,23 @@ msgstr "Fare tıklamasıyla oynatmayı duraklat"
 
 #: src/gui.c:4847
 msgid "Tracker Thumb Position:"
-msgstr ""
+msgstr "İşaretçi Parmak Konumu:"
 
 #: src/gui.c:4854
 msgid "Hidden"
-msgstr ""
+msgstr "Gizli"
 
 #: src/gui.c:4855
 msgid "Bottom"
-msgstr ""
+msgstr "Alt"
 
 #: src/gui.c:4856
 msgid "Top"
-msgstr ""
+msgstr "Üst"
 
 #: src/gui.c:4857
 msgid "Top and Bottom"
-msgstr ""
+msgstr "Üst ve Alt"
 
 #: src/gui.c:4866
 msgid "Verbose Debug Enabled"
@@ -953,9 +949,8 @@ msgid "D_etails"
 msgstr "D_etaylar"
 
 #: src/gui.c:5652
-#, fuzzy
 msgid "Audio _Meter"
-msgstr "Ses Bitoranı:"
+msgstr "Ses Se_viyesi Gösterici"
 
 #: src/gui.c:5665
 msgid "_Normal (1:1)"
@@ -991,7 +986,7 @@ msgstr "1_6:10 Yatay Dikey Oranı"
 
 #: src/gui.c:5693
 msgid "_Follow Window"
-msgstr ""
+msgstr "_Pencereyi Takip Et"
 
 #: src/gui.c:5700
 msgid "Show _Subtitles"
@@ -999,11 +994,11 @@ msgstr "_Altyazıları Göster"
 
 #: src/gui.c:5703
 msgid "Decrease Subtitle Size"
-msgstr ""
+msgstr "Altyazı Boyutunu Azalt"
 
 #: src/gui.c:5705
 msgid "Increase Subtitle Size"
-msgstr ""
+msgstr "Altyazı Boyutunu Arttır"
 
 #: src/gui.c:5706
 msgid "Switch An_gle"
@@ -1063,24 +1058,21 @@ msgstr "Ses 100%"
 msgid "Couldn't open DVD device: %s"
 msgstr "DVD aygıtı açılamıyor: %s"
 
-#: src/support.c:826
-#, fuzzy, c-format
+#: src/support.c:826, c-format
 msgid "Couldn't open VCD device: %s"
-msgstr "DVD aygıtı açılamıyor: %s"
+msgstr "VCD aygıtı açılamıyor: %s"
 
 #: src/support.c:1684 src/support.c:1717 src/support.c:1762 src/support.c:1792
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "Oynatma listesi kaydedilemiyor, dosya yazılmak için açılamıyor"
 
-#: src/support.c:2092
-#, fuzzy, c-format
+#: src/support.c:2092, c-format
 msgid "%2i:%02i"
-msgstr "%2i:%02.0f"
+msgstr "%2i:%02i"
 
-#: src/support.c:2094
-#, fuzzy, c-format
+#: src/support.c:2094, c-format
 msgid "%i:%02i:%02i"
-msgstr "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02i"
 
 #: src/support.c:2713
 #, c-format
@@ -1250,10 +1242,10 @@ msgid "Demuxer"
 msgstr "Biçim çözücü"
 
 #: src/nautilus_property_page.c:379
-#, fuzzy
 msgid "Video Frame Rate:"
-msgstr "Video Formatı:"
+msgstr "Video Çerçeve Hızı:"
 
 #: src/nautilus_property_page.c:483
 msgid "Audio/Video"
 msgstr "Ses/Görüntü:"
+
