@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-26 10:35-0600\n"
-"PO-Revision-Date: 2009-03-05 20:06+0100\n"
+"PO-Revision-Date: 2009-05-26 22:24+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
-"Language-Team: Polish <kde-i18n-doc@lists.kde.org>\n"
+"Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -183,11 +183,11 @@ msgstr "Ustaw tryb jednej instancji w trybie zastąp i odtwarzaj"
 
 #: src/main.c:119
 msgid "Use large control buttons"
-msgstr ""
+msgstr "Używaj dużych przycisków kontrolnych"
 
 #: src/main.c:122
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "Ukrywaj panel kontrolny gdy mysz jest nieruchoma"
 
 #: src/main.c:125
 msgid "Ignore single instance preference for this instance"
@@ -396,7 +396,7 @@ msgstr "Ustaw napisy"
 
 #: src/gui.c:3302
 msgid "Gnome MPlayer Fullscreen"
-msgstr ""
+msgstr "Tryb pełnoekranowy Gnome MPlayera"
 
 #: src/gui.c:3742 src/nautilus_property_page.c:339
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -639,7 +639,7 @@ msgstr "Emulacja DiVX Player"
 
 #: src/gui.c:4669
 msgid "MIDI Support (requires MPlayer support)"
-msgstr ""
+msgstr "Obsługa MIDI (wymaga obsługi przez MPlayera)"
 
 #: src/gui.c:4674
 msgid "Disable Player Embedding"
@@ -690,14 +690,12 @@ msgid "Subtitle Color Selection"
 msgstr "Wybór koloru napisów"
 
 #: src/gui.c:4805
-#, fuzzy
 msgid "Outline Subtitle Font"
-msgstr "Czcionka napisów:"
+msgstr "Kontur czcionki napisów"
 
 #: src/gui.c:4811
-#, fuzzy
 msgid "Shadow Subtitle Font"
-msgstr "Czcionka napisów:"
+msgstr "Cień czcionki napisów"
 
 #: src/gui.c:4817
 msgid "Subtitle Font Scaling:"
@@ -708,9 +706,8 @@ msgid "Subtitle File Encoding:"
 msgstr "Kodowanie czcionki napisów:"
 
 #: src/gui.c:4842
-#, fuzzy
 msgid "Show Subtitles by Default"
-msgstr "Pokaż n_apisy"
+msgstr "Domyślnie wyświetlaj napisy"
 
 #: src/gui.c:4851
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -754,23 +751,23 @@ msgstr "Zatrzymaj odtwarzanie po pojedynczym kliknięciu"
 
 #: src/gui.c:4925
 msgid "Tracker Thumb Position:"
-msgstr ""
+msgstr "Położenie kursora śledzącego"
 
 #: src/gui.c:4932
 msgid "Hidden"
-msgstr ""
+msgstr "Ukryty"
 
 #: src/gui.c:4933
 msgid "Bottom"
-msgstr ""
+msgstr "Na dole"
 
 #: src/gui.c:4934
 msgid "Top"
-msgstr ""
+msgstr "Na górze"
 
 #: src/gui.c:4935
 msgid "Top and Bottom"
-msgstr ""
+msgstr "Na górze i na dole"
 
 #: src/gui.c:4944
 msgid "Verbose Debug Enabled"
@@ -978,9 +975,8 @@ msgid "D_etails"
 msgstr "_Szczegóły"
 
 #: src/gui.c:5728
-#, fuzzy
 msgid "Audio _Meter"
-msgstr "Gęstość bitowa dźwięku:"
+msgstr "_Wskaźnik wysterowania"
 
 #: src/gui.c:5741
 msgid "_Normal (1:1)"
@@ -1016,7 +1012,7 @@ msgstr "Proporcje obrazu 1_6:10"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr ""
+msgstr "_Takie jak okna"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
@@ -1024,11 +1020,11 @@ msgstr "Pokaż n_apisy"
 
 #: src/gui.c:5779
 msgid "Decrease Subtitle Size"
-msgstr ""
+msgstr "Zmniejsz rozmiar napisów"
 
 #: src/gui.c:5781
 msgid "Increase Subtitle Size"
-msgstr ""
+msgstr "Zwiększ rozmiar napisów"
 
 #: src/gui.c:5782
 msgid "Switch An_gle"
@@ -1088,25 +1084,22 @@ msgstr "Głośność 100%"
 msgid "Couldn't open DVD device: %s"
 msgstr "Nie udało się otworzyć urządzenia DVD: %s"
 
-#: src/support.c:826
-#, fuzzy, c-format
+#: src/support.c:826, c-format
 msgid "Couldn't open VCD device: %s"
-msgstr "Nie udało się otworzyć urządzenia DVD: %s"
+msgstr "Nie udało się otworzyć urządzenia VCD: %s"
 
 #: src/support.c:1684 src/support.c:1717 src/support.c:1762 src/support.c:1792
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
 
-#: src/support.c:2092
-#, fuzzy, c-format
+#: src/support.c:2092, c-format
 msgid "%2i:%02i"
-msgstr "%2i:%02.0f"
+msgstr "%2i:%02i"
 
-#: src/support.c:2094
-#, fuzzy, c-format
+#: src/support.c:2094, c-format
 msgid "%i:%02i:%02i"
-msgstr "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02i"
 
 #: src/support.c:2713
 #, c-format
@@ -1285,7 +1278,7 @@ msgstr "Liczba klatek na sekundę obrazu:"
 
 #: src/nautilus_property_page.c:483
 msgid "Audio/Video"
-msgstr "Obraz/dźwięk:"
+msgstr "Dźwięk/Obraz:"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">Dostosuj ustawienia emulacji wtyczki</span>"
