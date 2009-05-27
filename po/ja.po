@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-26 10:35-0600\n"
-"PO-Revision-Date: 2009-03-06 04:20+0900\n"
+"PO-Revision-Date: 2009-05-28 01:16+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Height of window to embed in"
 
 #: src/main.c:55
 msgid "Unique DBUS controller id"
-msgstr "Unique DBUS controller id"
+msgstr "一意的な DBUS コントーラー id"
 
 #: src/main.c:56
 msgid "File Argument is a playlist"
@@ -67,7 +67,7 @@ msgstr "ウィンドウ内に操作パネルを表示する"
 
 #: src/main.c:66
 msgid "Show the subtitles if available"
-msgstr "可能ならば、サブタイトルを表示する"
+msgstr "可能ならば、字幕を表示する"
 
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
@@ -112,7 +112,7 @@ msgstr "良い同期を保つためにフレーム描画をスキップしない
 
 #: src/main.c:90
 msgid "Use the old subtitle rendering system"
-msgstr "古いサブタイトルレンダリングシステムを使う"
+msgstr "古い字幕レンダリングシステムを使う"
 
 #: src/main.c:93
 msgid "Don't use fonts embedded on matroska files"
@@ -144,7 +144,7 @@ msgstr "Real Player コンソール操作"
 
 #: src/main.c:105
 msgid "Subtitle file for first media file"
-msgstr "初めのメディアファイルに対するサブタイトルファイル"
+msgstr "初めのメディアファイルに対する字幕ファイル"
 
 #: src/main.c:107
 msgid "TV device name"
@@ -180,11 +180,11 @@ msgstr ""
 
 #: src/main.c:119
 msgid "Use large control buttons"
-msgstr ""
+msgstr "大きな操作ボタンを使う"
 
 #: src/main.c:122
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "マウスを動かしていないときは操作パネルを隠す"
 
 #: src/main.c:125
 msgid "Ignore single instance preference for this instance"
@@ -370,11 +370,11 @@ msgstr ""
 
 #: src/gui.c:3174 src/playlist.c:135
 msgid "Set Subtitle"
-msgstr "サブタイトルを設定する"
+msgstr "字幕を設定する"
 
 #: src/gui.c:3302
 msgid "Gnome MPlayer Fullscreen"
-msgstr ""
+msgstr "Gnome MPlayer フルスクリーン"
 
 #: src/gui.c:3742 src/nautilus_property_page.c:339
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -406,7 +406,7 @@ msgstr "チャプター:"
 
 #: src/gui.c:3824 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
-msgstr "<span weight=\"bold\">オーディオ声の詳細</span>"
+msgstr "<span weight=\"bold\">オーディオの詳細</span>"
 
 #: src/gui.c:3831 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -498,7 +498,7 @@ msgstr "言語の設定"
 
 #: src/gui.c:4300
 msgid "Subtitles"
-msgstr "サブタイトル"
+msgstr "字幕"
 
 #: src/gui.c:4302
 msgid "Interface"
@@ -621,7 +621,7 @@ msgstr "DiVX プレイヤーエミュレーション"
 
 #: src/gui.c:4669
 msgid "MIDI Support (requires MPlayer support)"
-msgstr ""
+msgstr "MIDI サポート（MPlayer 側の対応が必要）"
 
 #: src/gui.c:4674
 msgid "Disable Player Embedding"
@@ -637,7 +637,7 @@ msgstr "標準のオーディオ言語"
 
 #: src/gui.c:4699
 msgid "Default Subtitle Language:"
-msgstr "標準のサブタイトル言語"
+msgstr "標準の字幕言語"
 
 #: src/gui.c:4710
 msgid "File Metadata Encoding:"
@@ -645,11 +645,11 @@ msgstr "ファイルのメタデータのエンコード"
 
 #: src/gui.c:4726
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\">サブタイトルの設定</span>"
+msgstr "<span weight=\"bold\">字幕の設定</span>"
 
 #: src/gui.c:4735
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
-msgstr "Advanced Substation Alpha (ASS) サブタイトルのサポートを有効にする"
+msgstr "Advanced Substation Alpha (ASS) 字幕のサポートを有効にする"
 
 #: src/gui.c:4742
 msgid "Use _Embedded Fonts"
@@ -661,7 +661,7 @@ msgstr "フォント:"
 
 #: src/gui.c:4769
 msgid "Subtitle Font Selection"
-msgstr "サブタイトルのフォントの選択"
+msgstr "字幕のフォントの選択"
 
 #: src/gui.c:4774
 msgid "Subtitle Color:"
@@ -669,17 +669,15 @@ msgstr "カラー:"
 
 #: src/gui.c:4799
 msgid "Subtitle Color Selection"
-msgstr "サブタイトルのカラーの選択"
+msgstr "字幕のカラーの選択"
 
 #: src/gui.c:4805
-#, fuzzy
 msgid "Outline Subtitle Font"
-msgstr "フォント:"
+msgstr "アウトラインのフォント:"
 
 #: src/gui.c:4811
-#, fuzzy
 msgid "Shadow Subtitle Font"
-msgstr "フォント:"
+msgstr "影のフォント:"
 
 #: src/gui.c:4817
 msgid "Subtitle Font Scaling:"
@@ -690,9 +688,8 @@ msgid "Subtitle File Encoding:"
 msgstr "ファイルのエンコード:"
 
 #: src/gui.c:4842
-#, fuzzy
 msgid "Show Subtitles by Default"
-msgstr "サブタイトルを表示する(_S)"
+msgstr "字幕を表示する(_S)"
 
 #: src/gui.c:4851
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -736,23 +733,23 @@ msgstr "マウスをクリックして再生を一時停止"
 
 #: src/gui.c:4925
 msgid "Tracker Thumb Position:"
-msgstr ""
+msgstr "再生時間を追跡するツメ位置"
 
 #: src/gui.c:4932
 msgid "Hidden"
-msgstr ""
+msgstr "非表示"
 
 #: src/gui.c:4933
 msgid "Bottom"
-msgstr ""
+msgstr "下のみ"
 
 #: src/gui.c:4934
 msgid "Top"
-msgstr ""
+msgstr "上のみ"
 
 #: src/gui.c:4935
 msgid "Top and Bottom"
-msgstr ""
+msgstr "上下"
 
 #: src/gui.c:4944
 msgid "Verbose Debug Enabled"
@@ -928,11 +925,11 @@ msgstr "オーディオ言語を選択する(_A)"
 
 #: src/gui.c:5676
 msgid "Set Sub_title"
-msgstr "サブタイトルを設定する(_t)"
+msgstr "字幕を設定する(_t)"
 
 #: src/gui.c:5680
 msgid "S_elect Subtitle Language"
-msgstr "サブタイトルの言語を選択する(_e)"
+msgstr "字幕の言語を選択する(_e)"
 
 #: src/gui.c:5687
 msgid "_Take Screenshot"
@@ -960,9 +957,8 @@ msgid "D_etails"
 msgstr "詳細(_e)"
 
 #: src/gui.c:5728
-#, fuzzy
 msgid "Audio _Meter"
-msgstr "ビットレート:"
+msgstr "オーディオメータ (_M):"
 
 #: src/gui.c:5741
 msgid "_Normal (1:1)"
@@ -998,19 +994,19 @@ msgstr "16:10 (_6)"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr ""
+msgstr "ウィンドウ幅に合わせる (_F)"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
-msgstr "サブタイトルを表示する(_S)"
+msgstr "字幕を表示する(_S)"
 
 #: src/gui.c:5779
 msgid "Decrease Subtitle Size"
-msgstr ""
+msgstr "字幕サイズを小さくする"
 
 #: src/gui.c:5781
 msgid "Increase Subtitle Size"
-msgstr ""
+msgstr "字幕サイズを大きくする"
 
 #: src/gui.c:5782
 msgid "Switch An_gle"
@@ -1071,23 +1067,23 @@ msgid "Couldn't open DVD device: %s"
 msgstr "DVD デバイス %s を開けません"
 
 #: src/support.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open VCD device: %s"
-msgstr "DVD デバイス %s を開けません"
+msgstr "VCD デバイス %s を開けません"
 
 #: src/support.c:1684 src/support.c:1717 src/support.c:1762 src/support.c:1792
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "プレイリストを保存できず，書き込みファイルを開けません"
 
 #: src/support.c:2092
-#, fuzzy, c-format
+#, c-format
 msgid "%2i:%02i"
-msgstr "%2i:%02.0f"
+msgstr "%2i:%02i"
 
 #: src/support.c:2094
-#, fuzzy, c-format
+#, c-format
 msgid "%i:%02i:%02i"
-msgstr "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02i"
 
 #: src/support.c:2713
 #, c-format
@@ -1106,7 +1102,7 @@ msgstr "%s を開くのに失敗しました"
 #: src/thread.c:178
 #, c-format
 msgid "Cannot load subtitles: %s"
-msgstr "サブタイトル %s を読み込めません"
+msgstr "字幕 %s を読み込めません"
 
 #: src/thread.c:189
 msgid "Delaying start until cache is full"
@@ -1143,7 +1139,7 @@ msgid ""
 "Subtitle: %s"
 msgstr ""
 "ファイル名: %s\n"
-"サブタイトル: %s"
+"字幕: %s"
 
 #: src/playlist.c:253 src/playlist.c:938
 msgid "Save Playlist"
@@ -1232,7 +1228,7 @@ msgstr "項目を下に移動する"
 
 #: src/playlist.c:1036
 msgid "_Set Subtitle"
-msgstr "サブタイトルを設定する(_S)"
+msgstr "字幕を設定する(_S)"
 
 #: src/nautilus_property_page.c:87
 #, c-format
@@ -1257,9 +1253,8 @@ msgid "Demuxer"
 msgstr "デマルチプレクサ"
 
 #: src/nautilus_property_page.c:379
-#, fuzzy
 msgid "Video Frame Rate:"
-msgstr "フォーマット:"
+msgstr "フレームレート:"
 
 #: src/nautilus_property_page.c:483
 msgid "Audio/Video"
