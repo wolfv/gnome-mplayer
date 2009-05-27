@@ -1,23 +1,16 @@
-# Serbian translation of GNOME Mplayer.
-# Copyright (C) Prevod.org team (http://prevod.org)
-# This file is distributed under the same license as the gnome-mplayer package.
-#
-# Милош Поповић <gpopac@gmail.com>, 2008-2009.
-#
+# Serbian translation of GNOME Mplayer.# Copyright (C) Prevod.org team (http://prevod.org)# This file is distributed under the same license as the gnome-mplayer package.# # Милош Поповић <gpopac@gmail.com>, 2008-2009.# 
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-26 10:35-0600\n"
-"PO-Revision-Date: 2009-01-29 14:55+0000\n"
+"PO-Revision-Date: 2009-05-27 18:55+0200\n"
 "Last-Translator: Милош Поповић <gpopac@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 #: src/main.c:52
 msgid "Window to embed in"
 msgstr "Прозор у који да се прикачим"
@@ -180,11 +173,11 @@ msgstr "Замени по отварању нове датотеке у режи
 
 #: src/main.c:119
 msgid "Use large control buttons"
-msgstr ""
+msgstr "Користи велике контролне дугмиће"
 
 #: src/main.c:122
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "Сакрива командну површину уколико се курсор не помера"
 
 #: src/main.c:125
 msgid "Ignore single instance preference for this instance"
@@ -391,7 +384,7 @@ msgstr "Постави титл"
 
 #: src/gui.c:3302
 msgid "Gnome MPlayer Fullscreen"
-msgstr ""
+msgstr "Гномов Мплејер преко целог екрана"
 
 #: src/gui.c:3742 src/nautilus_property_page.c:339
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -634,7 +627,7 @@ msgstr "DivX плејер емулација"
 
 #: src/gui.c:4669
 msgid "MIDI Support (requires MPlayer support)"
-msgstr ""
+msgstr "Подршка за МИДИ (захтева подршку у Мплејеру)"
 
 #: src/gui.c:4674
 msgid "Disable Player Embedding"
@@ -685,14 +678,12 @@ msgid "Subtitle Color Selection"
 msgstr "Избор боје за титл"
 
 #: src/gui.c:4805
-#, fuzzy
 msgid "Outline Subtitle Font"
-msgstr "Фонт:"
+msgstr "Додај ивицу на титл"
 
 #: src/gui.c:4811
-#, fuzzy
 msgid "Shadow Subtitle Font"
-msgstr "Фонт:"
+msgstr "Додај сенку на титл"
 
 #: src/gui.c:4817
 msgid "Subtitle Font Scaling:"
@@ -703,9 +694,8 @@ msgid "Subtitle File Encoding:"
 msgstr "Кодирање:"
 
 #: src/gui.c:4842
-#, fuzzy
 msgid "Show Subtitles by Default"
-msgstr "Прикажи _титл"
+msgstr "Подразумевано прикажи титлове"
 
 #: src/gui.c:4851
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -733,7 +723,7 @@ msgstr "Дозволи само по један Гномов мплејер у �
 
 #: src/gui.c:4902
 msgid "When opening in single instance mode, replace existing file"
-msgstr "Замени датотеку по отварању нове у режиму са само једном програмом"
+msgstr "Замени датотеку по отварању нове у овом режиму"
 
 #: src/gui.c:4910
 msgid "Remember Window Location and Size"
@@ -753,19 +743,19 @@ msgstr ""
 
 #: src/gui.c:4932
 msgid "Hidden"
-msgstr ""
+msgstr "Сакривено"
 
 #: src/gui.c:4933
 msgid "Bottom"
-msgstr ""
+msgstr "Дно"
 
 #: src/gui.c:4934
 msgid "Top"
-msgstr ""
+msgstr "Врх"
 
 #: src/gui.c:4935
 msgid "Top and Bottom"
-msgstr ""
+msgstr "Врх и дно"
 
 #: src/gui.c:4944
 msgid "Verbose Debug Enabled"
@@ -972,9 +962,8 @@ msgid "D_etails"
 msgstr "Осо_бине"
 
 #: src/gui.c:5728
-#, fuzzy
 msgid "Audio _Meter"
-msgstr "Битски проток:"
+msgstr "_Графикон звука"
 
 #: src/gui.c:5741
 msgid "_Normal (1:1)"
@@ -1010,7 +999,7 @@ msgstr "Размера 1_6:10"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr ""
+msgstr "Прати про_зор"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
@@ -1018,11 +1007,11 @@ msgstr "Прикажи _титл"
 
 #: src/gui.c:5779
 msgid "Decrease Subtitle Size"
-msgstr ""
+msgstr "Смањи титл"
 
 #: src/gui.c:5781
 msgid "Increase Subtitle Size"
-msgstr ""
+msgstr "Повећај титл"
 
 #: src/gui.c:5782
 msgid "Switch An_gle"
@@ -1083,9 +1072,9 @@ msgid "Couldn't open DVD device: %s"
 msgstr "Не могу да отворим ДВД уређај: %s"
 
 #: src/support.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open VCD device: %s"
-msgstr "Не могу да отворим ДВД уређај: %s"
+msgstr "Не могу да отворим ВЦД уређај: %s"
 
 #: src/support.c:1684 src/support.c:1717 src/support.c:1762 src/support.c:1792
 msgid "Unable to save playlist, cannot open file for writing"
@@ -1093,14 +1082,14 @@ msgstr ""
 "Не могу да сачувам листу за пуштање, не могу да отворим датотеку за упис"
 
 #: src/support.c:2092
-#, fuzzy, c-format
+#, c-format
 msgid "%2i:%02i"
-msgstr "%2i:%02.0f"
+msgstr "%2i:%02i"
 
 #: src/support.c:2094
-#, fuzzy, c-format
+#, c-format
 msgid "%i:%02i:%02i"
-msgstr "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02i"
 
 #: src/support.c:2713
 #, c-format
@@ -1273,9 +1262,8 @@ msgid "Demuxer"
 msgstr "Демуксер"
 
 #: src/nautilus_property_page.c:379
-#, fuzzy
 msgid "Video Frame Rate:"
-msgstr "Формат видеа:"
+msgstr "Учестаност видео кадрова:"
 
 #: src/nautilus_property_page.c:483
 msgid "Audio/Video"
