@@ -74,7 +74,7 @@ msgstr "Εμφάνιση υποτίτλων εφόσον υπάρχουν"
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
 msgstr ""
-"Αυτόματη εκκίνηση μέσου στην επιλογή 1, θέσε στο 0 για φόρτωμα αλλά όχι "
+"Αυτόματη εκκίνηση μέσου στην επιλογή 1, θέσε 0 για φόρτωμα αλλά όχι "
 "αναπαραγωγή"
 
 #: src/main.c:71
@@ -87,7 +87,7 @@ msgstr "Απενεργοποίηση πλήρης οθόνης στο φυλλο
 
 #: src/main.c:74
 msgid "Play all files on the playlist forever"
-msgstr "Μόνιμη αναπαραγωγή των αρχείων της λίστας"
+msgstr "Μόνιμη αναπαραγωγή αρχείων λίστας"
 
 #: src/main.c:76
 msgid "Quit application when last file on playlist is played"
@@ -476,7 +476,7 @@ msgstr "Κορεσμός"
 
 #: src/gui.c:4021
 msgid "_Reset"
-msgstr "Επανεκκίνηση"
+msgstr "_Επανεκκίνηση"
 
 #: src/gui.c:4156
 msgid "No Display"
@@ -806,7 +806,7 @@ msgstr ""
 
 #: src/gui.c:4975
 msgid "De_interlace Video"
-msgstr "Απόπλεξη Βίντεο"
+msgstr "Από_πλεξη Βίντεο"
 
 #: src/gui.c:4977
 msgid "Set this option if video looks striped"
@@ -814,7 +814,7 @@ msgstr "Επιλέξτε εδώ αν το βίντεο παρουσιάζει γ
 
 #: src/gui.c:4983
 msgid "_Drop frames"
-msgstr "Κατάργηση Καρέ"
+msgstr "_Κατάργηση Καρέ"
 
 #: src/gui.c:4986
 msgid "Set this option if video is well behind the audio"
@@ -850,28 +850,28 @@ msgstr "Ψάξιμο στο %s"
 
 #: src/gui.c:5447
 msgid "S_how Controls"
-msgstr "Εμφάνιση Ελέγχων"
+msgstr "Εμ_φάνιση Ελέγχων"
 
 #: src/gui.c:5451 src/gui.c:5734
 msgid "_Full Screen"
-msgstr "Πλήρης Οθόνη"
+msgstr "_Πλήρης Οθόνη"
 
 #: src/gui.c:5456
 msgid "_Copy Location"
-msgstr "Αντιγραφή Τοποθεσίας"
+msgstr "_Αντιγραφή Τοποθεσίας"
 
 #. File Menu
 #: src/gui.c:5526
 msgid "_File"
-msgstr "Αρχείο"
+msgstr "_Αρχείο"
 
 #: src/gui.c:5535
 msgid "Open _Location"
-msgstr "Άνοιγμα Τοποθεσίας"
+msgstr "Άνοιγμα _Τοποθεσίας"
 
 #: src/gui.c:5538
 msgid "_Disc"
-msgstr "Δίσκος"
+msgstr "_Δίσκος"
 
 #: src/gui.c:5545
 msgid "Open _Audio CD"
@@ -883,23 +883,23 @@ msgstr "Άνοιγμα _DVD"
 
 #: src/gui.c:5553
 msgid "Open DVD with _Menus"
-msgstr "Άνοιγμα _DVD με Μενού"
+msgstr "Άνοιγμα DVD με _Μενού"
 
 #: src/gui.c:5556
 msgid "Open DVD from _Folder"
-msgstr "Άνοιγμα _DVD από Φάκελο"
+msgstr "Άνοιγμα DVD από _Φάκελο"
 
 #: src/gui.c:5559
 msgid "Open DVD from Folder with M_enus"
-msgstr "Άνοιγμα _DVD από Φάκελο με Μενού"
+msgstr "Άνοιγμα DVD από Φάκελο με Μ_ενού"
 
 #: src/gui.c:5562
 msgid "Open DVD from _ISO"
-msgstr "Άνοιγμα _DVD από ISO"
+msgstr "Άνοιγμα DVD από _ISO"
 
 #: src/gui.c:5565
 msgid "Open DVD from ISO with Me_nus"
-msgstr "Άνοιγμα _DVD από ISO με Μενού"
+msgstr "Άνοιγμα DVD από ISO με Με_νού"
 
 #: src/gui.c:5570
 #, fuzzy
@@ -908,56 +908,56 @@ msgstr "Άνοιγμα _VCD"
 
 #: src/gui.c:5573
 msgid "_TV"
-msgstr "Τηλεόραση"
+msgstr "_Τηλεόραση"
 
 #: src/gui.c:5580
 msgid "Open _Analog TV"
-msgstr "Άνοιγμα Αναλογικής Τηλεόρασης"
+msgstr "Άνοιγμα _Αναλογικής Τηλεόρασης"
 
 #: src/gui.c:5583
 msgid "Open _Digital TV"
-msgstr "Άνοιγμα Ψηφιακής Τηλεόρασης"
+msgstr "Άνοιγμα _Ψηφιακής Τηλεόρασης"
 
 #: src/gui.c:5587
 msgid "Open _iPod™"
-msgstr "Άνοιγμα iPod™"
+msgstr "Άνοιγμα _iPod™"
 
 #: src/gui.c:5593
 msgid "Open _Recent"
-msgstr "Άνοιγμα Πρόσφατου"
+msgstr "Άνοιγμα _Πρόσφατου"
 
 #. Edit Menu
 #: src/gui.c:5650
 msgid "_Edit"
-msgstr "Επεξεργασία"
+msgstr "_Επεξεργασία"
 
 #: src/gui.c:5657
 msgid "_Shuffle Playlist"
-msgstr "Ανακάτεμα Λίστας Αναπαραγωγής"
+msgstr "_Ανακάτεμα Λίστας Αναπαραγωγής"
 
 #: src/gui.c:5661
 msgid "_Loop Playlist"
-msgstr "Επανάληψη Λίστας Αναπαραγωγής"
+msgstr "_Επανάληψη Λίστας Αναπαραγωγής"
 
 #: src/gui.c:5666
 msgid "S_witch Audio Track"
-msgstr "Αλλαγή Κομματιού Ήχου"
+msgstr "Α_λλαγή Κομματιού Ήχου"
 
 #: src/gui.c:5670
 msgid "Select _Audio Language"
-msgstr "Επιλογή Γλώσσας Ήχου"
+msgstr "Επιλογή Γλώσσας _Ήχου"
 
 #: src/gui.c:5676
 msgid "Set Sub_title"
-msgstr "Επιλογή Υποτίτλου"
+msgstr "Επιλογή Υπο_τίτλου"
 
 #: src/gui.c:5680
 msgid "S_elect Subtitle Language"
-msgstr "Επιλογή Γλώσσας Υποτίτλων"
+msgstr "Ε_πιλογή Γλώσσας Υποτίτλων"
 
 #: src/gui.c:5687
 msgid "_Take Screenshot"
-msgstr "Λήψη Στιγμιοτύπου"
+msgstr "_Λήψη Στιγμιοτύπου"
 
 #: src/gui.c:5691
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
@@ -970,56 +970,56 @@ msgstr "Προβολή"
 
 #: src/gui.c:5721
 msgid "_Playlist"
-msgstr "Λίστα Αναπαραγωγής"
+msgstr "_Λίστα Αναπαραγωγής"
 
 #: src/gui.c:5724
 msgid "Media _Info"
-msgstr "Πληροφορίες Αρχείου"
+msgstr "_Πληροφορίες Αρχείου"
 
 #: src/gui.c:5726
 msgid "D_etails"
-msgstr "Λεπτομέρειες"
+msgstr "Λ_επτομέρειες"
 
 #: src/gui.c:5728
 #, fuzzy
 msgid "Audio _Meter"
-msgstr "Ρυθμός Δεδομένων:"
+msgstr "_Μετρητής Ήχου"
 
 #: src/gui.c:5741
 msgid "_Normal (1:1)"
-msgstr "Κανονικό (1:1)"
+msgstr "_Κανονικό (1:1)"
 
 #: src/gui.c:5744
 msgid "_Double Size (2:1)"
-msgstr "Διπλάσιο Μέγεθος (2:1)"
+msgstr "_Διπλάσιο Μέγεθος (2:1)"
 
 #: src/gui.c:5747
 msgid "_Half Size (1:2)"
-msgstr "Μισό Μέγεθος (1:2)"
+msgstr "_Μισό Μέγεθος (1:2)"
 
 #: src/gui.c:5750
 msgid "_Aspect"
-msgstr "Συντελεστής Αναλογίας"
+msgstr "_Συντελεστής Αναλογίας"
 
 #: src/gui.c:5757
 msgid "D_efault Aspect"
-msgstr "Αυτόματο"
+msgstr "_Αυτόματο"
 
 #: src/gui.c:5760
 msgid "_4:3 Aspect"
-msgstr "4:3 (Τηλεόραση)"
+msgstr "_4:3 (Τηλεόραση)"
 
 #: src/gui.c:5763
 msgid "_16:9 Aspect"
-msgstr "16:9 (Ευρεία Οθόνη)"
+msgstr "_16:9 (Ευρεία Οθόνη)"
 
 #: src/gui.c:5766
 msgid "1_6:10 Aspect"
-msgstr "16:10 (Ευρεία Οθόνη)"
+msgstr "1_6:10 (Ευρεία Οθόνη)"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr "Παρακολούθηση Παραθύρου"
+msgstr "_Παρακολούθηση Παραθύρου"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
@@ -1035,20 +1035,20 @@ msgstr "Αύξηση Μεγέθους Υποτίτλων"
 
 #: src/gui.c:5782
 msgid "Switch An_gle"
-msgstr "Αλλαγή Γωνίας"
+msgstr "Αλλαγή Γω_νίας"
 
 #: src/gui.c:5783
 msgid "_Controls"
-msgstr "Έλεγχοι"
+msgstr "_Έλεγχοι"
 
 #: src/gui.c:5795
 msgid "_Video Picture Adjustments"
-msgstr "Διευθετήσεις Εικόνας Βίντεο"
+msgstr "_Διευθετήσεις Εικόνας Βίντεο"
 
 #. Help Menu
 #: src/gui.c:5838
 msgid "_Help"
-msgstr "Βοήθεια"
+msgstr "_Βοήθεια"
 
 #: src/gui.c:6027
 msgid "Menu"
@@ -1129,7 +1129,7 @@ msgstr "Αδυναμία ανοίγματος %s"
 #: src/thread.c:178
 #, c-format
 msgid "Cannot load subtitles: %s"
-msgstr "Δεν είναι δυνατό το φόρτωμα υποτίτλων: %s"
+msgstr "Αδυναμία φόρτωσης υποτίτλων: %s"
 
 #: src/thread.c:189
 msgid "Delaying start until cache is full"
@@ -1143,7 +1143,7 @@ msgstr "Δεν υποστηρίζεται η μορφή συμπιεσμένου
 #: src/thread.c:484
 #, c-format
 msgid "Cache fill: %2.2f%%"
-msgstr ""
+msgstr "Γέμισμα λανθάνουσας μνήμης: %2.2f%%"
 
 #: src/thread.c:493
 #, c-format
@@ -1251,7 +1251,7 @@ msgstr "Μετακίνηση Κάτω"
 
 #: src/playlist.c:1036
 msgid "_Set Subtitle"
-msgstr "Επιλογή Υποτίτλου"
+msgstr "_Επιλογή Υποτίτλου"
 
 #: src/nautilus_property_page.c:87
 #, fuzzy, c-format
