@@ -1006,7 +1006,7 @@ msgstr "Aspetto 1_6:10"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr "Segui la Finestra"
+msgstr "Segui la _Finestra"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
