@@ -57,7 +57,7 @@ msgstr "Χρήση ελέγχου έντασης ήχου mplayer"
 
 #: src/main.c:62
 msgid "Mixer to use"
-msgstr "Χρήση Μίχτη"
+msgstr "Χρήση Μίκτη"
 
 #: src/main.c:63
 msgid "Set initial volume percentage"
@@ -148,7 +148,7 @@ msgstr ""
 
 #: src/main.c:105
 msgid "Subtitle file for first media file"
-msgstr "Αρχείων υποτίτλων για το πρώτο αρχείου του μέσου"
+msgstr "Αρχείο υποτίτλων για το πρώτο αρχείου του μέσου"
 
 #: src/main.c:107
 msgid "TV device name"
@@ -184,11 +184,11 @@ msgstr ""
 
 #: src/main.c:119
 msgid "Use large control buttons"
-msgstr ""
+msgstr "Χρήση ελέγχων με μεγάλα εικονίδια"
 
 #: src/main.c:122
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "Απόκρυψη κέντρου ελέγχου όταν το ποντίκι μένει ακίνητο"
 
 #: src/main.c:125
 msgid "Ignore single instance preference for this instance"
@@ -302,7 +302,7 @@ msgstr "Αναπαράγεται"
 
 #: src/gui.c:1866
 msgid "Paused"
-msgstr "Πάυθηκε"
+msgstr "Παύθηκε"
 
 #: src/gui.c:1932
 msgid "Stopped"
@@ -339,7 +339,7 @@ msgstr "Αποθήκευση Ως"
 #: src/gui.c:2833
 #, c-format
 msgid "Unable to save '%s'"
-msgstr "Μη δηνατότητα αποθήκευσης '%s'"
+msgstr "Αδυναμία αποθήκευσης '%s'"
 
 #: src/gui.c:2836 src/support.c:753 src/support.c:845 src/thread.c:204
 msgid "GNOME MPlayer Error"
@@ -394,7 +394,7 @@ msgstr "Επιλογή Υποτίτλων"
 
 #: src/gui.c:3302
 msgid "Gnome MPlayer Fullscreen"
-msgstr ""
+msgstr "Πλήρης Οθόνη Gnome MPlayer"
 
 #: src/gui.c:3742 src/nautilus_property_page.c:339
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -639,7 +639,7 @@ msgstr "Εξομοίωση DiVX Player"
 
 #: src/gui.c:4669
 msgid "MIDI Support (requires MPlayer support)"
-msgstr ""
+msgstr "Υποστήριξη MIDI (προυποθέτει υποστήριξη από τον MPlayer)"
 
 #: src/gui.c:4674
 msgid "Disable Player Embedding"
@@ -756,23 +756,23 @@ msgstr "Παύση αναπαραγωγής στο αριστερό κλικ"
 
 #: src/gui.c:4925
 msgid "Tracker Thumb Position:"
-msgstr ""
+msgstr "ΘέσηTracker Thumb "
 
 #: src/gui.c:4932
 msgid "Hidden"
-msgstr ""
+msgstr "Κρυμμένος"
 
 #: src/gui.c:4933
 msgid "Bottom"
-msgstr ""
+msgstr "Πάτος"
 
 #: src/gui.c:4934
 msgid "Top"
-msgstr ""
+msgstr "Κορυφή"
 
 #: src/gui.c:4935
 msgid "Top and Bottom"
-msgstr ""
+msgstr "Κορυφή και Πάτος"
 
 #: src/gui.c:4944
 msgid "Verbose Debug Enabled"
@@ -1019,7 +1019,7 @@ msgstr "16:10 (Ευρεία Οθόνη)"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr ""
+msgstr "Παρακολούθηση Παραθύρου"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
@@ -1027,11 +1027,11 @@ msgstr "Προβολή Υποτίτλων"
 
 #: src/gui.c:5779
 msgid "Decrease Subtitle Size"
-msgstr ""
+msgstr "Μείωση Μεγέθους Υποτίτλων"
 
 #: src/gui.c:5781
 msgid "Increase Subtitle Size"
-msgstr ""
+msgstr "Αύξηση Μεγέθους Υποτίτλων"
 
 #: src/gui.c:5782
 msgid "Switch An_gle"
@@ -1269,7 +1269,7 @@ msgstr "<span weight=\"bold\">Media Details</span>"
 
 #: src/nautilus_property_page.c:277
 msgid "Title"
-msgstr "Επικεφαλίδα"
+msgstr "Τίτλος"
 
 #: src/nautilus_property_page.c:325
 msgid "Demuxer"
