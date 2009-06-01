@@ -1,15 +1,15 @@
 # Korean translation of gnome-mplayer.
 # Copyright (C) 2007-2009 Kevin DeKorte <kdekorte@gmail.com>
 # This file is distributed under the same license as the gnome-mplayer package.
-# ByeongSik Jeon <bsjeon@hanmail.net>, 2007-2009.
+# Byeongsik Jeon <bsjeon@hanmail.net>, 2007-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-26 10:35-0600\n"
-"PO-Revision-Date: 2009-03-06 10:10+0900\n"
-"Last-Translator: ByeongSik Jeon <bsjeon@hanmail.net>\n"
+"PO-Revision-Date: 2009-05-31 19:13+0900\n"
+"Last-Translator: Byeongsik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,15 +18,15 @@ msgstr ""
 
 #: src/main.c:52
 msgid "Window to embed in"
-msgstr "그놈 엠플레이어를 내장할 창의 WID"
+msgstr "내장될 그놈 엠플레이어 창의 WID"
 
 #: src/main.c:53
 msgid "Width of window to embed in"
-msgstr "그놈 엠플레이어를 내장할 창의 폭"
+msgstr "내장될 그놈 엠플레이어 창의 폭"
 
 #: src/main.c:54
 msgid "Height of window to embed in"
-msgstr "그놈 엠플레이어를 내장할 창의 높이"
+msgstr "내장될 그놈 엠플레이어 창의 높이"
 
 #: src/main.c:55
 msgid "Unique DBUS controller id"
@@ -158,31 +158,31 @@ msgstr "TV 입력 이름"
 
 #: src/main.c:110
 msgid "Width of TV input"
-msgstr "TV 입력의 너비"
+msgstr "TV 입력 신호의 화면 폭"
 
 #: src/main.c:111
 msgid "Height of TV input"
-msgstr "TV 입력의 높이"
+msgstr "TV 입력 신호의 화면 높이"
 
 #: src/main.c:112
 msgid "Frames per second from TV input"
-msgstr "TV 입력의 프레임/초"
+msgstr "TV 입력 신호의 프레임/초"
 
 #: src/main.c:113
 msgid "Only allow one instance"
-msgstr "그놈 엠플레이어를 하나만 실행합니다."
+msgstr "그놈 엠플레이어를 하나(싱글 인스턴스 모드)만 실행합니다."
 
 #: src/main.c:116
 msgid "Put single instance mode into replace and play mode"
-msgstr "싱글 인스턴스 모드로 설정한 후, 재생 목록을 교체하고 재생합니다."
+msgstr "싱글 인스턴스 모드로 설정한 후, 재생 목록을 새로 갱신한 후 재생합니다."
 
 #: src/main.c:119
 msgid "Use large control buttons"
-msgstr ""
+msgstr "확대된 크기의 컨트롤 사용"
 
 #: src/main.c:122
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "마우스 커서가 움직이지 않을 때, 컨트롤 숨기기"
 
 #: src/main.c:125
 msgid "Ignore single instance preference for this instance"
@@ -190,7 +190,7 @@ msgstr "이 인스턴스에 대해서 싱글 인스턴스 설정 무시하기"
 
 #: src/main.c:128
 msgid "Keep window on top"
-msgstr "윈도우를 가장 위에 위치시키기"
+msgstr "그놈 엠플레이어 창을 다른 창 위에 오도록 하기"
 
 #: src/main.c:132
 msgid "Load all tracks from media player using gpod"
@@ -371,7 +371,7 @@ msgstr "자막 지정"
 
 #: src/gui.c:3302
 msgid "Gnome MPlayer Fullscreen"
-msgstr ""
+msgstr "그놈 엠플레이어 전체화면"
 
 #: src/gui.c:3742 src/nautilus_property_page.c:339
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -383,7 +383,7 @@ msgstr "비디오 크기:"
 
 #: src/gui.c:3762
 msgid "Video Format:"
-msgstr "비디오 포맷:"
+msgstr "비디오 형식:"
 
 #: src/gui.c:3773 src/nautilus_property_page.c:357
 msgid "Video Codec:"
@@ -592,9 +592,9 @@ msgstr ""
 "<span weight=\"bold\">플러그인 에뮬레이션 설정</span>\n"
 "\n"
 "이 옵션은 gecko-mediaplayer 플러그인이 설치되어 있을 때 효과가 있습니다.\n"
-"Getko-mediaplayer는 NPRuntime 호환 브라우저(파이어폭스, 컨커러 등)에서\n"
-"다양한 웹 컨텐츠를 재생하는 파이어폭스 플러그인입니다. 이 플러그인은\n"
-"또한 여러 미디어 플레이어 플러그인을 에뮬레이션할 수 있습니다."
+"Gecko-mediaplayer는 npruntime 호환 브라우저(파이어폭스, 컨커러 등)에서\n"
+"다양한 웹 컨텐츠를 재생하는 파이어폭스 플러그인입니다. Gecko-mediaplayer는\n"
+"다양한 종류의 미디어 플레이어 플러그인을 흉내낼 수 있습니다."
 
 #: src/gui.c:4649
 msgid "QuickTime Emulation"
@@ -614,7 +614,7 @@ msgstr "DiVX 플레이어 흉내내기"
 
 #: src/gui.c:4669
 msgid "MIDI Support (requires MPlayer support)"
-msgstr ""
+msgstr "미디 지원 (엠플레이어에서 지원해야 합니다)"
 
 #: src/gui.c:4674
 msgid "Disable Player Embedding"
@@ -665,27 +665,24 @@ msgid "Subtitle Color Selection"
 msgstr "자막 색깔 선택하기"
 
 #: src/gui.c:4805
-#, fuzzy
 msgid "Outline Subtitle Font"
-msgstr "자막 글꼴:"
+msgstr "자막에 아웃라인 효과 주기"
 
 #: src/gui.c:4811
-#, fuzzy
 msgid "Shadow Subtitle Font"
-msgstr "자막 글꼴:"
+msgstr "자막에 그림자 효과 주기"
 
 #: src/gui.c:4817
 msgid "Subtitle Font Scaling:"
-msgstr "자막 크기:"
+msgstr "자막 글꼴 크기:"
 
 #: src/gui.c:4830
 msgid "Subtitle File Encoding:"
 msgstr "자막 파일 인코딩:"
 
 #: src/gui.c:4842
-#, fuzzy
 msgid "Show Subtitles by Default"
-msgstr "자막 보기(_S)"
+msgstr "자막 보기를 기본값으로 설정"
 
 #: src/gui.c:4851
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -729,23 +726,23 @@ msgstr "마우스로 클릭했을 때 재생 일시중지"
 
 #: src/gui.c:4925
 msgid "Tracker Thumb Position:"
-msgstr ""
+msgstr "트랙커 썸네일 위치:"
 
 #: src/gui.c:4932
 msgid "Hidden"
-msgstr ""
+msgstr "숨기기"
 
 #: src/gui.c:4933
 msgid "Bottom"
-msgstr ""
+msgstr "아래"
 
 #: src/gui.c:4934
 msgid "Top"
-msgstr ""
+msgstr "위"
 
 #: src/gui.c:4935
 msgid "Top and Bottom"
-msgstr ""
+msgstr "아래, 위"
 
 #: src/gui.c:4944
 msgid "Verbose Debug Enabled"
@@ -810,7 +807,7 @@ msgstr "추가 엠플레이어 옵션:"
 
 #: src/gui.c:5017
 msgid "Add any extra mplayer options here (filters etc)"
-msgstr "기타 다른 엠플레이어 옵션(필터 옵션 등)을 여기에 추가할 수 있습니다."
+msgstr "기타 다른 엠플레이어 옵션(필터 설정 등)을 여기에 추가할 수 있습니다."
 
 #: src/gui.c:5123
 #, c-format
@@ -949,9 +946,8 @@ msgid "D_etails"
 msgstr "상세 정보 보기(_E)"
 
 #: src/gui.c:5728
-#, fuzzy
 msgid "Audio _Meter"
-msgstr "오디오 비트레이트:"
+msgstr "오디오 미터(_M)"
 
 #: src/gui.c:5741
 msgid "_Normal (1:1)"
@@ -987,7 +983,7 @@ msgstr "16:10 비율(_6)"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr ""
+msgstr "창 크기에 영상 크기 맞추기(_F)"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
@@ -995,11 +991,11 @@ msgstr "자막 보기(_S)"
 
 #: src/gui.c:5779
 msgid "Decrease Subtitle Size"
-msgstr ""
+msgstr "자막 크기 줄이기"
 
 #: src/gui.c:5781
 msgid "Increase Subtitle Size"
-msgstr ""
+msgstr "자막 크기 늘리기"
 
 #: src/gui.c:5782
 msgid "Switch An_gle"
@@ -1060,23 +1056,23 @@ msgid "Couldn't open DVD device: %s"
 msgstr "DVD 장치 %s을(를) 열 수 없습니다."
 
 #: src/support.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open VCD device: %s"
-msgstr "DVD 장치 %s을(를) 열 수 없습니다."
+msgstr "VCD 장치 %s을(를) 열 수 없습니다."
 
 #: src/support.c:1684 src/support.c:1717 src/support.c:1762 src/support.c:1792
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "저장하려는 파일에 문제가 있기 때문에, 재생 목록을 저장할 수 없습니다."
 
 #: src/support.c:2092
-#, fuzzy, c-format
+#, c-format
 msgid "%2i:%02i"
-msgstr "%2i:%02.0f"
+msgstr "%2i:%02i"
 
 #: src/support.c:2094
-#, fuzzy, c-format
+#, c-format
 msgid "%i:%02i:%02i"
-msgstr "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02i"
 
 #: src/support.c:2713
 #, c-format
@@ -1246,9 +1242,8 @@ msgid "Demuxer"
 msgstr "Demuxer"
 
 #: src/nautilus_property_page.c:379
-#, fuzzy
 msgid "Video Frame Rate:"
-msgstr "비디오 포맷:"
+msgstr "비디오 프레임 레이트:"
 
 #: src/nautilus_property_page.c:483
 msgid "Audio/Video"
