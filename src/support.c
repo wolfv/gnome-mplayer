@@ -360,7 +360,7 @@ gint parse_basic(gchar * uri)
 #endif
                 continue;
             }
-            //printf("line = %s\n", line);
+            printf("line = %s\n", line);
             newline = g_strdup(line);
             if ((g_ascii_strncasecmp(line, "ref", 3) == 0) ||
                 (g_ascii_strncasecmp(line, "file", 4)) == 0) {
@@ -373,7 +373,6 @@ gint parse_basic(gchar * uri)
                 }
                 g_strfreev(parse);
             }
-
             if (g_ascii_strncasecmp(newline, "[playlist]", strlen("[playlist]")) == 0) {
                 //printf("playlist\n");
                 //continue;
@@ -387,7 +386,16 @@ gint parse_basic(gchar * uri)
                 g_free(newline);
                 break;
             } else if (g_strncasecmp(newline, "<smil", strlen("<smil")) == 0) {
+                //printf("smil\n");
+                g_free(newline);
+                break;
+            } else if (g_strrstr(newline, "<asx") != NULL) {
                 //printf("asx\n");
+                idledata->streaming = TRUE;
+                g_free(newline);
+                break;
+            } else if (g_strrstr(newline, "<smil") != NULL) {
+                //printf("smil\n");
                 g_free(newline);
                 break;
             } else if (g_strncasecmp(newline, "numberofentries", strlen("numberofentries")) == 0) {

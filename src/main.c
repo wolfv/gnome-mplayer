@@ -351,7 +351,7 @@ gint play_iter(GtkTreeIter * playiter)
 #ifdef GTK2_12_ENABLED
 #ifdef GIO_ENABLED
     // don't put it on the recent list, if it is running in plugin mode
-    if (control_id == 0) {
+    if (control_id == 0 && !streaming_media (uri)) {
         recent_data = (GtkRecentData *) g_new0(GtkRecentData, 1);
         if (artist != NULL && strlen(artist) > 0) {
             recent_data->display_name = g_strdup_printf("%s - %s", artist, title);
