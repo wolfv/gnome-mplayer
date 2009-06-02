@@ -167,6 +167,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         playback_error = ERROR_RETRY_WITH_HTTP;
     }
 
+	if (strstr(mplayer_output->str, "Error while parsing chunk header") != NULL) {
+        dontplaynext = TRUE;
+        playback_error = ERROR_RETRY_WITH_HTTP;
+    }
+
     if (strstr(mplayer_output->str, "Couldn't open DVD device:") != NULL) {
         error_msg =
             g_strdup_printf(_("Couldn't open DVD device: %s"),

@@ -5641,8 +5641,10 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_open_ipod_callback), NULL);
 #endif
 #ifdef GTK2_12_ENABLED
+#ifdef GIO_ENABLED
     g_signal_connect(GTK_OBJECT(menuitem_file_recent_items), "item-activated",
                      G_CALLBACK(menuitem_open_recent_callback), NULL);
+#endif
 #endif
     g_signal_connect(GTK_OBJECT(menuitem_file_quit), "activate",
                      G_CALLBACK(menuitem_quit_callback), NULL);
