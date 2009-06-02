@@ -375,8 +375,10 @@ gint play_iter(GtkTreeIter * playiter)
         g_object_unref(file);
         recent_data->app_name = g_strdup("gnome-mplayer");
         recent_data->app_exec = g_strdup("gnome-mplayer %u");
-        gtk_recent_manager_add_full(recent_manager, uri, recent_data);
-        g_free(recent_data->mime_type);
+		if (recent_data->mime_type != NULL) {
+	        gtk_recent_manager_add_full(recent_manager, uri, recent_data);
+	        g_free(recent_data->mime_type);
+		}
         g_free(recent_data->app_name);
         g_free(recent_data->app_exec);
         g_free(recent_data);
@@ -445,7 +447,7 @@ gint play_iter(GtkTreeIter * playiter)
         idledata->windowid = get_player_window();
         // these next 3 lines are here to make sure the window is available for mplayer to draw to
         // for some vo's (like xv) if the window is not visible and big enough the vo setup fails
-        if (thread_data->streaming) {
+        if (thread_data->streaming || thread_data->playlist) {
             idledata->videopresent = 1;
             gtk_widget_set_size_request(drawing_area, 16, 16);
             gtk_widget_show_all(fixed);
