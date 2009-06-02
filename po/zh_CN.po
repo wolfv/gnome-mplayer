@@ -178,11 +178,11 @@ msgstr "新打开文件在当前程序中打开而不新开一个"
 
 #: src/main.c:119
 msgid "Use large control buttons"
-msgstr ""
+msgstr "启用大的控制按钮"
 
 #: src/main.c:122
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "当鼠标不移动的时候隐藏控制栏"
 
 #: src/main.c:125
 msgid "Ignore single instance preference for this instance"
@@ -215,6 +215,7 @@ msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr ""
+"运行'gnome-mplayer --help'查看完整的可用命令参数\n"
 
 #: src/gui.c:163 src/gui.c:199
 #, c-format
@@ -233,7 +234,7 @@ msgstr ""
 
 #: src/gui.c:267
 msgid "Media Change"
-msgstr ""
+msgstr "改变媒体"
 
 #: src/gui.c:333
 #, c-format
@@ -450,7 +451,7 @@ msgstr "饱和度"
 
 #: src/gui.c:4021
 msgid "_Reset"
-msgstr "_重置"
+msgstr "重置(_R)"
 
 #: src/gui.c:4156
 msgid "No Display"
@@ -566,7 +567,8 @@ msgstr "最小使用缓存(KB):"
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
-msgstr "当播放网络媒体文件时使用大一点的缓存，如果网络慢，需要更大的缓存。"
+msgstr ""
+"当播放网络媒体文件时使用大一点的缓存，如果网络慢，需要更大的缓存。"
 
 #: src/gui.c:4609
 msgid "On Screen Display Level:"
@@ -585,6 +587,11 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
+"<span weight=\"bold\">调整插件</span>\n"
+"\n"
+"这些选项当gecko-mediaplayer插件安装后有效。\n"
+"Gecko-mediaplayer是一个火狐的插件，可以用来在浏览器里面虚拟多种播放器\n"
+"可以用在兼容NPRuntime的浏览器内(Firefox, Konqueror, 等等)."
 
 #: src/gui.c:4649
 msgid "QuickTime Emulation"
@@ -604,7 +611,7 @@ msgstr "DiVX Player仿真"
 
 #: src/gui.c:4669
 msgid "MIDI Support (requires MPlayer support)"
-msgstr ""
+msgstr "MIDI支持(需要Mplayer本身支持)"
 
 #: src/gui.c:4674
 msgid "Disable Player Embedding"
@@ -655,14 +662,12 @@ msgid "Subtitle Color Selection"
 msgstr "字幕颜色选择"
 
 #: src/gui.c:4805
-#, fuzzy
 msgid "Outline Subtitle Font"
-msgstr "字幕字体:"
+msgstr "字幕字体加边"
 
 #: src/gui.c:4811
-#, fuzzy
 msgid "Shadow Subtitle Font"
-msgstr "字幕字体:"
+msgstr "字幕字体加阴影"
 
 #: src/gui.c:4817
 msgid "Subtitle Font Scaling:"
@@ -673,9 +678,8 @@ msgid "Subtitle File Encoding:"
 msgstr "字幕文件编码:"
 
 #: src/gui.c:4842
-#, fuzzy
 msgid "Show Subtitles by Default"
-msgstr "显示字幕(_S)"
+msgstr "默认显示字幕"
 
 #: src/gui.c:4851
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -719,23 +723,23 @@ msgstr "鼠标左键点击画面暂停"
 
 #: src/gui.c:4925
 msgid "Tracker Thumb Position:"
-msgstr ""
+msgstr "音轨位置"
 
 #: src/gui.c:4932
 msgid "Hidden"
-msgstr ""
+msgstr "隐藏"
 
 #: src/gui.c:4933
 msgid "Bottom"
-msgstr ""
+msgstr "下方"
 
 #: src/gui.c:4934
 msgid "Top"
-msgstr ""
+msgstr "上方"
 
 #: src/gui.c:4935
 msgid "Top and Bottom"
-msgstr ""
+msgstr "上放和下方"
 
 #: src/gui.c:4944
 msgid "Verbose Debug Enabled"
@@ -760,7 +764,8 @@ msgstr "使用mplayer的软件混音音量控制"
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
-msgstr "启用这个选项将会使用软件混音，改变音量大小不会改变全局音量"
+msgstr ""
+"启用这个选项将会使用软件混音，改变音量大小不会改变全局音量"
 
 #: src/gui.c:4975
 msgid "De_interlace Video"
@@ -789,7 +794,8 @@ msgstr "MPlayer可执行文件:"
 #: src/gui.c:5002
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
-msgstr "如果默认路径找不到mplayer就需要在这里自定义"
+msgstr ""
+"如果默认路径找不到mplayer就需要在这里自定义"
 
 #: src/gui.c:5013
 msgid "Extra Options to MPlayer:"
@@ -936,9 +942,8 @@ msgid "D_etails"
 msgstr "细节(_E)"
 
 #: src/gui.c:5728
-#, fuzzy
 msgid "Audio _Meter"
-msgstr "音频比特率"
+msgstr "音频比特率(_M)"
 
 #: src/gui.c:5741
 msgid "_Normal (1:1)"
@@ -974,7 +979,7 @@ msgstr "1_6:10"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr ""
+msgstr "跟随窗口(_F)"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
@@ -982,11 +987,11 @@ msgstr "显示字幕(_S)"
 
 #: src/gui.c:5779
 msgid "Decrease Subtitle Size"
-msgstr ""
+msgstr "减小字幕大小"
 
 #: src/gui.c:5781
 msgid "Increase Subtitle Size"
-msgstr ""
+msgstr "增加字幕大小"
 
 #: src/gui.c:5782
 msgid "Switch An_gle"
@@ -1047,9 +1052,9 @@ msgid "Couldn't open DVD device: %s"
 msgstr "无法开启DVD设备: %s"
 
 #: src/support.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open VCD device: %s"
-msgstr "无法开启DVD设备: %s"
+msgstr "无法开启VCD设备: %s"
 
 #: src/support.c:1684 src/support.c:1717 src/support.c:1762 src/support.c:1792
 msgid "Unable to save playlist, cannot open file for writing"
@@ -1071,6 +1076,7 @@ msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
 msgstr ""
+"你需要升级你的mplayer，否则-volume选项不被支持\n"
 
 #: src/thread.c:154
 #, c-format
@@ -1219,28 +1225,24 @@ msgid "%i:%02i:%02.0f"
 msgstr ""
 
 #: src/nautilus_property_page.c:269
-#, fuzzy
 msgid "<span weight=\"bold\">Media Details</span>"
 msgstr "<span weight=\"bold\">音频详细信息</span>"
 
 #: src/nautilus_property_page.c:277
-#, fuzzy
 msgid "Title"
-msgstr "播放时间"
+msgstr "标题"
 
 #: src/nautilus_property_page.c:325
 msgid "Demuxer"
 msgstr ""
 
 #: src/nautilus_property_page.c:379
-#, fuzzy
 msgid "Video Frame Rate:"
-msgstr "视频格式"
+msgstr "视频帧速率"
 
 #: src/nautilus_property_page.c:483
-#, fuzzy
 msgid "Audio/Video"
-msgstr "音频编码器"
+msgstr "音频/视频"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">调整仿真选项</span>"
