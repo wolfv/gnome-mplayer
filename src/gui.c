@@ -4924,8 +4924,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     conf_label = gtk_label_new(_("Tracker Thumb Position:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 0, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 1, 2, i, i + 1);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     config_thumb_position = gtk_combo_box_new_text();
@@ -4937,7 +4937,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_widget_set_size_request(GTK_WIDGET(config_thumb_position), 200, -1);
 
-    gtk_table_attach(GTK_TABLE(conf_table), config_thumb_position, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_thumb_position, 2, 3, i, i + 1, GTK_SHRINK,
                      GTK_SHRINK, 0, 0);
     i++;
 
