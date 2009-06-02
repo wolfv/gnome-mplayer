@@ -351,11 +351,11 @@ gboolean set_progress_value(void *data)
                            (glong) buf.st_size, idle->byte_pos);
                     printf("cachesize = %f, percent = %f\n", idle->cachepercent, idle->percent);
                     printf("will pause = %i\n",
-                           ((idle->byte_pos + (cache_size * 512)) > buf.st_size));
+                           ((idle->byte_pos + (cache_size * 512)) > buf.st_size)  && !(playlist));
                 }
                 // if ((idle->percent + 0.10) > idle->cachepercent && ((idle->byte_pos + (512 * 1024)) > buf.st_size)) {
                 // if ((buf.st_size > 0) && (idle->byte_pos + (cache_size * 512)) > buf.st_size) {
-                if ((idle->byte_pos + (cache_size * 512)) > buf.st_size) {
+                if (((idle->byte_pos + (cache_size * 512)) > buf.st_size) && !(playlist)) {
                     pause_callback(NULL, NULL, NULL);
                     gtk_widget_set_sensitive(play_event_box, FALSE);
                     autopause = TRUE;
@@ -434,7 +434,7 @@ gboolean set_progress_time(void *data)
 
 
     if ((int) idle->length == 0 || idle->position > idle->length) {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !idle->streaming) {
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist)) {
             g_snprintf(idle->progress_text, 128,
                        "%s | %2i%% \342\226\274", time_position, (int) (idle->cachepercent * 100));
             gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
@@ -444,7 +444,7 @@ gboolean set_progress_time(void *data)
         }
         gmtk_media_tracker_set_thumb_position(tracker, THUMB_HIDDEN);
     } else {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !idle->streaming) {
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist)) {
             g_snprintf(idle->progress_text, 128,
                        "%s / %s | %2i%% \342\226\274",
                        time_position, time_length, (int) (idle->cachepercent * 100));

@@ -1,4 +1,6 @@
 Development
+    Fix bug #187 - no video when playlist opened
+    Update several translations Spanish, Chinese, Korean, Greek, Serbian, Japanes
     Updated Polish translation
     Allow screenshot to work correctly when paused, although frame is still advanced 1 frame
     Fix playlist visibility on load when view playlist on load option is set
