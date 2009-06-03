@@ -360,7 +360,7 @@ gint parse_basic(gchar * uri)
 #endif
                 continue;
             }
-            printf("line = %s\n", line);
+            //printf("line = %s\n", line);
             newline = g_strdup(line);
             if ((g_ascii_strncasecmp(line, "ref", 3) == 0) ||
                 (g_ascii_strncasecmp(line, "file", 4)) == 0) {
@@ -405,7 +405,7 @@ gint parse_basic(gchar * uri)
                 //printf("ver\n");
                 //continue;
             } else if (g_strncasecmp(newline, "title", strlen("title")) == 0) {
-                //printf("tit\n");
+                //printf("title\n");
                 //continue;
             } else if (g_strncasecmp(newline, "length", strlen("length")) == 0) {
                 //printf("len\n");
