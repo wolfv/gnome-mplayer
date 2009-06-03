@@ -2,16 +2,15 @@
 # Copyright (C) 2009 Kevin DeKorte
 # This file is distributed under the same license as the GNOME MPlayer package.
 # Kevin DeKorte <kdekorte@gmail.com> 2007.
-# Festor Wailon Dacoba <festor90@gmail.com> 2008.
+# Festor Wailon Dacoba <nebulosa82@gmail.com> 2008, 2009.
 # Surfaz Gemon Meme <surfaz28@gmail.com> 2009.
-# Festor Wailon Dacoba <nebulosa82@gmail.com> 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-26 10:35-0600\n"
-"PO-Revision-Date: 2009-06-02 16:55+0100\n"
+"PO-Revision-Date: 2009-06-03 00:17+0100\n"
 "Last-Translator: Festor Wailon Dacoba <nebulosa82@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -998,11 +997,11 @@ msgstr "Tamaño medio (1:2)"
 
 #: src/gui.c:5750
 msgid "_Aspect"
-msgstr "Modo"
+msgstr "Relación aspecto"
 
 #: src/gui.c:5757
 msgid "D_efault Aspect"
-msgstr "Modo por defecto"
+msgstr "Original"
 
 #: src/gui.c:5760
 msgid "_4:3 Aspect"
@@ -1018,7 +1017,7 @@ msgstr "Modo 16:10"
 
 #: src/gui.c:5769
 msgid "_Follow Window"
-msgstr "Seguir ventana"
+msgstr "Adaptarse a la ventana"
 
 #: src/gui.c:5776
 msgid "Show _Subtitles"
