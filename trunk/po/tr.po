@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-26 10:35-0600\n"
-"PO-Revision-Date: 2009-05-26 14:12+0300\n"
+"PO-Revision-Date: 2009-06-04 12:03+0300\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -375,7 +375,7 @@ msgstr "Altyazıyı seç"
 
 #: src/gui.c:3302
 msgid "Gnome MPlayer Fullscreen"
-msgstr ""
+msgstr "Gnome MPlayer Tam Ekran"
 
 #: src/gui.c:3742 src/nautilus_property_page.c:339
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -1255,3 +1255,4 @@ msgstr "Video Çerçeve Hızı:"
 #: src/nautilus_property_page.c:483
 msgid "Audio/Video"
 msgstr "Ses/Görüntü:"
+
