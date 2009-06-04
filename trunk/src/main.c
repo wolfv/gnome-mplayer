@@ -743,6 +743,15 @@ int main(int argc, char *argv[])
 
     if (volume == -1) {
         volume = (gint) get_alsa_volume();
+		if (!use_pulse_flat_volume) {
+		    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
+		        if (verbose)
+		            printf
+		                ("Using pulse audio, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
+		                 volume);
+		        volume = 100;
+		    }
+		}		
     } else {
         if (verbose)
             printf("Using volume of %i from gnome-mplayer preference\n", volume);
@@ -756,17 +765,7 @@ int main(int argc, char *argv[])
         volume = 100;
     }
 
-    if (!use_pulse_flat_volume) {
-        if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
-            if (verbose)
-                printf
-                    ("Using pulse audio, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
-                     volume);
-            volume = 100;
-        }
-    }
-
-    if (volume > 0 && volume <= 100) {
+    if (volume >= 0 && volume <= 100) {
         idledata->volume = (gdouble) volume;
     }
 
