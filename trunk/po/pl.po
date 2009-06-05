@@ -1084,7 +1084,8 @@ msgstr "Głośność 100%"
 msgid "Couldn't open DVD device: %s"
 msgstr "Nie udało się otworzyć urządzenia DVD: %s"
 
-#: src/support.c:826, c-format
+#: src/support.c:826
+#, c-format
 msgid "Couldn't open VCD device: %s"
 msgstr "Nie udało się otworzyć urządzenia VCD: %s"
 
@@ -1093,11 +1094,13 @@ msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Nie można zapisać listy odtwarzania, nie można otworzyć pliku do zapisu"
 
-#: src/support.c:2092, c-format
+#: src/support.c:2092
+#, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2094, c-format
+#: src/support.c:2094
+#, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 

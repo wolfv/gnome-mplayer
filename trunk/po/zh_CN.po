@@ -70,7 +70,9 @@ msgstr "å¦‚æžœå¯èƒ½å°±æ˜¾ç¤ºå­—å¹•"
 
 #: src/main.c:69
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
-msgstr "æ˜¯å¦è‡ªåŠ¨æ’­æ”¾åª’ä½“æ–‡ä»¶ï¼Œé€‰1ä¸ºæ’­æ”¾ï¼Œé€‰0æ‰“å¼€æ–‡ä»¶ä½†æ˜¯ä¸æ’­æ”¾ï¼Œé»˜è®¤1"
+msgstr ""
+"æ˜¯å¦è‡ªåŠ¨æ’­æ”¾åª’ä½“æ–‡ä»¶ï¼Œé€‰1ä¸ºæ’­æ”¾ï¼Œé€‰0æ‰“å¼€æ–‡ä»¶ä½†æ˜¯ä¸æ’­"
+"æ”¾ï¼Œé»˜è®¤1"
 
 #: src/main.c:71
 msgid "Disable popup menu on right click"
@@ -214,8 +216,7 @@ msgstr ""
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
-msgstr ""
-"è¿è¡Œ'gnome-mplayer --help'æŸ¥çœ‹å®Œæ•´çš„å¯ç”¨å‘½ä»¤å‚æ•°\n"
+msgstr "è¿è¡Œ'gnome-mplayer --help'æŸ¥çœ‹å®Œæ•´çš„å¯ç”¨å‘½ä»¤å‚æ•°\n"
 
 #: src/gui.c:163 src/gui.c:199
 #, c-format
@@ -237,8 +238,8 @@ msgid "Media Change"
 msgstr "æ”¹å˜åª’ä½“"
 
 #: src/gui.c:333
-#, c-format
-msgid "Paused | %2i%% â–¼"
+#, fuzzy, c-format
+msgid "Paused | %2i%% ▼"
 msgstr "æš‚åœ | %2i%% â–¼"
 
 #: src/gui.c:599 src/support.c:275 src/playlist.c:512 src/playlist.c:869
@@ -528,7 +529,8 @@ msgid ""
 "newer distributions"
 msgstr ""
 "mplayeréŸ³é¢‘è¾“å‡ºè®¾å¤‡ä¸­ï¼Œalsa å’Œ oss æ€»æ˜¯æœ‰æ•ˆçš„ï¼Œ\n"
-"å¯ä»¥å°è¯•åœ¨æ–°çš„å‘è¡Œç‰ˆä½¿ç”¨pulseï¼Œæˆ–è€…åœ¨gnomeçŽ¯å¢ƒä¸‹ä½¿ç”¨esdï¼Œåœ¨kdeä¸‹ä½¿ç”¨artsã€‚"
+"å¯ä»¥å°è¯•åœ¨æ–°çš„å‘è¡Œç‰ˆä½¿ç”¨pulseï¼Œæˆ–è€…åœ¨gnomeçŽ¯å¢"
+"ƒä¸‹ä½¿ç”¨esdï¼Œåœ¨kdeä¸‹ä½¿ç”¨artsã€‚"
 
 #: src/gui.c:4505
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -567,7 +569,8 @@ msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
 msgstr ""
-"å½“æ’­æ”¾ç½‘ç»œåª’ä½“æ–‡ä»¶æ—¶ä½¿ç”¨å¤§ä¸€ç‚¹çš„ç¼“å­˜ï¼Œå¦‚æžœç½‘ç»œæ…¢ï¼Œéœ€è¦æ›´å¤§çš„ç¼“å­˜ã€‚"
+"å½“æ’­æ”¾ç½‘ç»œåª’ä½“æ–‡ä»¶æ—¶ä½¿ç”¨å¤§ä¸€ç‚¹çš„ç¼“å­˜ï¼Œå¦‚æžœç½‘ç»œæ…¢ï¼Œéœ"
+"€è¦æ›´å¤§çš„ç¼“å­˜ã€‚"
 
 #: src/gui.c:4609
 msgid "On Screen Display Level:"
@@ -589,7 +592,8 @@ msgstr ""
 "<span weight=\"bold\">è°ƒæ•´æ’ä»¶</span>\n"
 "\n"
 "è¿™äº›é€‰é¡¹å½“gecko-mediaplayeræ’ä»¶å®‰è£…åŽæœ‰æ•ˆã€‚\n"
-"Gecko-mediaplayeræ˜¯ä¸€ä¸ªç«ç‹çš„æ’ä»¶ï¼Œå¯ä»¥ç”¨æ¥åœ¨æµè§ˆå™¨é‡Œé¢è™šæ‹Ÿå¤šç§æ’­æ”¾å™¨\n"
+"Gecko-mediaplayeræ˜¯ä¸€ä¸ªç«ç‹çš„æ’ä»¶ï¼Œå¯ä»¥ç”¨æ¥åœ¨æµè§ˆå™¨é‡Œé¢è™šæ‹Ÿå"
+"¤šç§æ’­æ”¾å™¨\n"
 "å¯ä»¥ç”¨åœ¨å…¼å®¹NPRuntimeçš„æµè§ˆå™¨å†…(Firefox, Konqueror, ç­‰ç­‰)."
 
 #: src/gui.c:4649
@@ -749,7 +753,8 @@ msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
 msgstr ""
-"å½“è¿™ä¸ªé€‰ç§åŽï¼Œé¢å¤–çš„debugä¿¡æ¯å°†ä¼šæ˜¾ç¤ºåœ¨ç»ˆç«¯æˆ–è€…è¾“å‡ºåˆ°~/.xsession-errors"
+"å½“è¿™ä¸ªé€‰ç§åŽï¼Œé¢å¤–çš„debugä¿¡æ¯å°†ä¼šæ˜¾ç¤ºåœ¨ç»ˆç«¯æˆ–è€…è¾“å‡ºåˆ°~/."
+"xsession-errors"
 
 #: src/gui.c:4958
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
@@ -764,7 +769,8 @@ msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
-"å¯ç”¨è¿™ä¸ªé€‰é¡¹å°†ä¼šä½¿ç”¨è½¯ä»¶æ··éŸ³ï¼Œæ”¹å˜éŸ³é‡å¤§å°ä¸ä¼šæ”¹å˜å…¨å±€éŸ³é‡"
+"å¯ç”¨è¿™ä¸ªé€‰é¡¹å°†ä¼šä½¿ç”¨è½¯ä»¶æ··éŸ³ï¼Œæ”¹å˜éŸ³é‡å¤§å°ä¸ä¼šæ”¹å˜å…¨å±"
+"€éŸ³é‡"
 
 #: src/gui.c:4975
 msgid "De_interlace Video"
@@ -793,8 +799,7 @@ msgstr "MPlayerå¯æ‰§è¡Œæ–‡ä»¶:"
 #: src/gui.c:5002
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
-msgstr ""
-"å¦‚æžœé»˜è®¤è·¯å¾„æ‰¾ä¸åˆ°mplayerå°±éœ€è¦åœ¨è¿™é‡Œè‡ªå®šä¹‰"
+msgstr "å¦‚æžœé»˜è®¤è·¯å¾„æ‰¾ä¸åˆ°mplayerå°±éœ€è¦åœ¨è¿™é‡Œè‡ªå®šä¹‰"
 
 #: src/gui.c:5013
 msgid "Extra Options to MPlayer:"
@@ -879,7 +884,8 @@ msgid "Open _Digital TV"
 msgstr "æ‰“å¼€æ•°å­—TV(_D)"
 
 #: src/gui.c:5587
-msgid "Open _iPodâ„¢"
+#, fuzzy
+msgid "Open _iPod™"
 msgstr "æ‰“å¼€IPod(_I)â„¢"
 
 #: src/gui.c:5593
@@ -920,7 +926,8 @@ msgid "_Take Screenshot"
 msgstr "æˆªå±(_T)"
 
 #: src/gui.c:5691
-msgid "Files named â€™shotNNNN.pngâ€™ will be saved in the working directory"
+#, fuzzy
+msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "æˆªå±å°†ä¼šä»¥â€™shotNNNN.pngâ€™å‘½åå¹¶ä¸”ä¿å­˜åœ¨å½“å‰ç›®å½•"
 
 #. View Menu
@@ -1074,8 +1081,7 @@ msgstr ""
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
-msgstr ""
-"ä½ éœ€è¦å‡çº§ä½ çš„mplayerï¼Œå¦åˆ™-volumeé€‰é¡¹ä¸è¢«æ”¯æŒ\n"
+msgstr "ä½ éœ€è¦å‡çº§ä½ çš„mplayerï¼Œå¦åˆ™-volumeé€‰é¡¹ä¸è¢«æ”¯æŒ\n"
 
 #: src/thread.c:154
 #, c-format
@@ -1245,4 +1251,3 @@ msgstr "éŸ³é¢‘/è§†é¢‘"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">è°ƒæ•´ä»¿çœŸé€‰é¡¹</span>"
-

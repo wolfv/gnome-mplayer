@@ -1255,4 +1255,3 @@ msgstr "Video Çerçeve Hızı:"
 #: src/nautilus_property_page.c:483
 msgid "Audio/Video"
 msgstr "Ses/Görüntü:"
-

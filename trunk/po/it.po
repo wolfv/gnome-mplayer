@@ -1103,8 +1103,8 @@ msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
 msgstr ""
-"Dovresti aggiornare mplayer ad una versione più recente, l'opzione"
-"-volume non è valida per la versione che stai usando\n"
+"Dovresti aggiornare mplayer ad una versione più recente, l'opzione-volume "
+"non è valida per la versione che stai usando\n"
 
 #: src/thread.c:154
 #, c-format
