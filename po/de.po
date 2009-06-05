@@ -533,8 +533,8 @@ msgid ""
 "newer distributions"
 msgstr ""
 "mplayer-Audio-Ausgabegerät\n"
-"alsa oder oss sollten immer funktionieren, "
-"versuche esd in GNOME, arts in KDE oder pulse bei neueren Distributionen"
+"alsa oder oss sollten immer funktionieren, versuche esd in GNOME, arts in "
+"KDE oder pulse bei neueren Distributionen"
 
 #: src/gui.c:4505
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -595,7 +595,8 @@ msgid ""
 msgstr ""
 "<span weight=\"bold\">Konfiguriere Plugin-Emulatioseinstellungen</span>\n"
 "\n"
-"Diese Optionen wirken sich auf den gecko-mediaplayer-Plugin aus, wenn vorhanden.\n"
+"Diese Optionen wirken sich auf den gecko-mediaplayer-Plugin aus, wenn "
+"vorhanden.\n"
 "Gecko-mediaplayer ist ein Firefox-Plugin der verschiedene\n"
 "Media-Pplayer emuliert und die Wiedergabe verschiedener Webinhalte\n"
 "in NPRuntime-kompatiblen Browsern (Firefox, Konqueror, etc) erlaubt."
@@ -707,7 +708,9 @@ msgstr "Zeige Status-Icon"
 
 #: src/gui.c:4884
 msgid "Place playlist below media (requires application restart)"
-msgstr "Platziere die Wiedergabeliste unterhalb des Mediums (erfordert Anwendungsneustart)"
+msgstr ""
+"Platziere die Wiedergabeliste unterhalb des Mediums (erfordert "
+"Anwendungsneustart)"
 
 #: src/gui.c:4890
 msgid "Only allow one instance of Gnome MPlayer"
@@ -716,8 +719,8 @@ msgstr "Erlaube nur eine Instanz des Gnome MPlayer"
 #: src/gui.c:4902
 msgid "When opening in single instance mode, replace existing file"
 msgstr ""
-"Wenn der Modus 'Erlaube nur eine Instanz' aktiviert ist, ersetze die aktuelle "
-"Datei"
+"Wenn der Modus 'Erlaube nur eine Instanz' aktiviert ist, ersetze die "
+"aktuelle Datei"
 
 #: src/gui.c:4910
 msgid "Remember Window Location and Size"

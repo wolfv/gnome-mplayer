@@ -2,8 +2,8 @@
 # Copyright (C) 2007 Kevin DeKorte
 # This file is distributed under the same license as the GNOME MPlayer package.
 # Kevin DeKorte <kdekorte@gmail.com> 2007.
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
