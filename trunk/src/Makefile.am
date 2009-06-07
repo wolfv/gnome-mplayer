@@ -62,8 +62,8 @@ gnome_mplayer_SOURCES = \
 gnome_mplayer_LDFLAGS = 
 
 gnome_mplayer_LDADD = \
-    libgmtk/libgmtk.la \
-    libgmlib/libgmlib.la \
+    libgmtk/libgmtk.a \
+    libgmlib/libgmlib.a \
     $(GTK_LIBS) \
     $(GIO_LIBS) \
     $(DBUS_LIBS) \
@@ -76,18 +76,18 @@ gnome_mplayer_LDADD = \
 if HAVE_NAUTILUS
 
 nautilusdir = $(NAUTILUSDIR)
-nautilus_LTLIBRARIES = libgnome-mplayer-properties-page.la
+nautilus_LIBRARIES = libgnome-mplayer-properties-page.a
 
-libgnome_mplayer_properties_page_la_SOURCES = \
+libgnome_mplayer_properties_page_a_SOURCES = \
     ../config.h \
     mime_types.h \
     nautilus_property_page.c
 
-libgnome_mplayer_properties_page_la_CFLAGS = \
+libgnome_mplayer_properties_page_a_CFLAGS = \
     $(NAUTILUS_CFLAGS) \
     $(AM_CFLAGS)
     
-libgnome_mplayer_properties_page_la_LDFLAGS = -module -avoid-version
+#libgnome_mplayer_properties_page_a_LDFLAGS = -module -avoid-version
 
 endif #HAVE_NAUTILUS
 
