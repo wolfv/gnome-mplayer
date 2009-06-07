@@ -61,9 +61,17 @@ gnome_mplayer_SOURCES = \
 
 gnome_mplayer_LDFLAGS = 
 
-gnome_mplayer_LDADD = $(GTK_LIBS) $(GIO_LIBS) $(DBUS_LIBS) $(GCONF_LIBS) $(ALSA_LIBS) $(NOTIFY_LIBS) $(GPOD_LIBS) $(MUSICBRAINZ_LIBS) \
+gnome_mplayer_LDADD = \
     libgmtk/libgmtk.la \
-    libgmlib/libgmlib.la
+    libgmlib/libgmlib.la \
+    $(GTK_LIBS) \
+    $(GIO_LIBS) \
+    $(DBUS_LIBS) \
+    $(GCONF_LIBS) \
+    $(ALSA_LIBS) \
+    $(NOTIFY_LIBS) \
+    $(GPOD_LIBS) \
+    $(MUSICBRAINZ_LIBS)
 
 if HAVE_NAUTILUS
 
@@ -79,6 +87,7 @@ libgnome_mplayer_properties_page_la_CFLAGS = \
     $(NAUTILUS_CFLAGS) \
     $(AM_CFLAGS)
     
+libgnome_mplayer_properties_page_la_LDFLAGS = -module -avoid-version
 
 endif #HAVE_NAUTILUS
 

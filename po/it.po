@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-26 10:35-0600\n"
+"POT-Creation-Date: 2009-06-05 12:20-0600\n"
 "PO-Revision-Date: 2009-05-26 23:42+0200\n"
 "Last-Translator: Cesare Tirabassi <cesare.tirabassi@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -202,16 +202,16 @@ msgstr "Carica tutte le tracce dal lettore multimediale usando gpod"
 msgid "Don't fetch new cover art images"
 msgstr "Non caricare nuovi immagini di copertina"
 
-#: src/main.c:702
+#: src/main.c:704
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[FILES...] - GNOME Media player è basato su MPlayer"
 
-#: src/main.c:722
+#: src/main.c:724
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:782
+#: src/main.c:783
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -261,7 +261,7 @@ msgid "Pause"
 msgstr "Pausa"
 
 #: src/gui.c:627 src/gui.c:639 src/gui.c:1865 src/gui.c:1921 src/gui.c:1926
-#: src/gui.c:6064
+#: src/gui.c:6066
 msgid "Play"
 msgstr "Lettura"
 
@@ -286,7 +286,7 @@ msgid "Idle"
 msgstr "A riposo"
 
 #: src/gui.c:1167 src/gui.c:1177 src/gui.c:2112 src/gui.c:2153
-#: src/thread.c:408
+#: src/thread.c:413
 #, c-format
 msgid "Volume %i%%"
 msgstr "Volume %i%%"
@@ -336,7 +336,7 @@ msgstr "Salva Come..."
 msgid "Unable to save '%s'"
 msgstr "Impossibile salvare '%s'"
 
-#: src/gui.c:2836 src/support.c:753 src/support.c:845 src/thread.c:204
+#: src/gui.c:2836 src/support.c:761 src/support.c:853 src/thread.c:209
 msgid "GNOME MPlayer Error"
 msgstr "Errore GNOME MPlayer"
 
@@ -841,7 +841,7 @@ msgstr "Cercando per %s"
 msgid "S_how Controls"
 msgstr "Mo_stra i Controlli"
 
-#: src/gui.c:5451 src/gui.c:5734
+#: src/gui.c:5451 src/gui.c:5736
 msgid "_Full Screen"
 msgstr "Schermo Pieno"
 
@@ -915,189 +915,189 @@ msgid "Open _Recent"
 msgstr "Apri _Recente"
 
 #. Edit Menu
-#: src/gui.c:5650
+#: src/gui.c:5652
 msgid "_Edit"
 msgstr "Imposta"
 
-#: src/gui.c:5657
+#: src/gui.c:5659
 msgid "_Shuffle Playlist"
 msgstr "Mescola _Scaletta"
 
-#: src/gui.c:5661
+#: src/gui.c:5663
 msgid "_Loop Playlist"
 msgstr "_Loop Scaletta"
 
-#: src/gui.c:5666
+#: src/gui.c:5668
 msgid "S_witch Audio Track"
 msgstr "Scambia Traccie Audio"
 
-#: src/gui.c:5670
+#: src/gui.c:5672
 msgid "Select _Audio Language"
 msgstr "Seleziona Linguaggio _Audio"
 
-#: src/gui.c:5676
+#: src/gui.c:5678
 msgid "Set Sub_title"
 msgstr "Imposta Sotto_titoli"
 
-#: src/gui.c:5680
+#: src/gui.c:5682
 msgid "S_elect Subtitle Language"
 msgstr "S_eleziona Linguaggio Sottotitoli"
 
-#: src/gui.c:5687
+#: src/gui.c:5689
 msgid "_Take Screenshot"
 msgstr "Prendi Screensho_t"
 
-#: src/gui.c:5691
+#: src/gui.c:5693
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "File chiamati ’shotNNNN.png’ saranno salvati nella directory corrente"
 
 #. View Menu
-#: src/gui.c:5716
+#: src/gui.c:5718
 msgid "_View"
 msgstr "_Vedi"
 
-#: src/gui.c:5721
+#: src/gui.c:5723
 msgid "_Playlist"
 msgstr "Scaletta"
 
-#: src/gui.c:5724
+#: src/gui.c:5726
 msgid "Media _Info"
 msgstr "_Informazioni Media"
 
-#: src/gui.c:5726
+#: src/gui.c:5728
 msgid "D_etails"
 msgstr "D_ettagli"
 
-#: src/gui.c:5728
+#: src/gui.c:5730
 msgid "Audio _Meter"
 msgstr "_Misuratore Audio"
 
-#: src/gui.c:5741
+#: src/gui.c:5743
 msgid "_Normal (1:1)"
 msgstr "_Normale (1:1)"
 
-#: src/gui.c:5744
+#: src/gui.c:5746
 msgid "_Double Size (2:1)"
 msgstr "_Doppia Grandezza (2:1)"
 
-#: src/gui.c:5747
+#: src/gui.c:5749
 msgid "_Half Size (1:2)"
 msgstr "Metà Grandezza (1:2)"
 
-#: src/gui.c:5750
+#: src/gui.c:5752
 msgid "_Aspect"
 msgstr "_Aspetto"
 
-#: src/gui.c:5757
+#: src/gui.c:5759
 msgid "D_efault Aspect"
 msgstr "Aspetto di D_efault"
 
-#: src/gui.c:5760
+#: src/gui.c:5762
 msgid "_4:3 Aspect"
 msgstr "Aspetto _4:3"
 
-#: src/gui.c:5763
+#: src/gui.c:5765
 msgid "_16:9 Aspect"
 msgstr "Aspetto _16:9"
 
-#: src/gui.c:5766
+#: src/gui.c:5768
 msgid "1_6:10 Aspect"
 msgstr "Aspetto 1_6:10"
 
-#: src/gui.c:5769
+#: src/gui.c:5771
 msgid "_Follow Window"
 msgstr "Segui la _Finestra"
 
-#: src/gui.c:5776
+#: src/gui.c:5778
 msgid "Show _Subtitles"
 msgstr "Mostra _Sottotitoli"
 
-#: src/gui.c:5779
+#: src/gui.c:5781
 msgid "Decrease Subtitle Size"
 msgstr "Decrementa la Grandezza dei Sottotitoli"
 
-#: src/gui.c:5781
+#: src/gui.c:5783
 msgid "Increase Subtitle Size"
 msgstr "Incrementa la Grandezza dei Sottotitoli"
 
-#: src/gui.c:5782
+#: src/gui.c:5784
 msgid "Switch An_gle"
 msgstr "Cambia An_golo"
 
-#: src/gui.c:5783
+#: src/gui.c:5785
 msgid "_Controls"
 msgstr "_Controlli"
 
-#: src/gui.c:5795
+#: src/gui.c:5797
 msgid "_Video Picture Adjustments"
 msgstr "Aggiustamenti Immagine _Video"
 
 #. Help Menu
-#: src/gui.c:5838
+#: src/gui.c:5840
 msgid "_Help"
 msgstr "Aiuto"
 
-#: src/gui.c:6027
+#: src/gui.c:6029
 msgid "Menu"
 msgstr "Menu"
 
-#: src/gui.c:6040
+#: src/gui.c:6042
 msgid "Previous"
 msgstr "Precedente"
 
-#: src/gui.c:6053
+#: src/gui.c:6055
 msgid "Rewind"
 msgstr "Torna Indietro"
 
-#: src/gui.c:6076
+#: src/gui.c:6078
 msgid "Stop"
 msgstr "Arresto"
 
-#: src/gui.c:6088
+#: src/gui.c:6090
 msgid "Fast Forward"
 msgstr "Avanzamento Veloce"
 
-#: src/gui.c:6099
+#: src/gui.c:6101
 msgid "Next"
 msgstr "Prossimo"
 
-#: src/gui.c:6120
+#: src/gui.c:6122
 msgid "No Information"
 msgstr "Senza Informazione"
 
-#: src/gui.c:6127
+#: src/gui.c:6129
 msgid "Full Screen"
 msgstr "A Schermo Pieno"
 
-#: src/gui.c:6169
+#: src/gui.c:6171
 msgid "Volume 100%"
 msgstr "Volume Massimo"
 
-#: src/support.c:733 src/thread.c:172
+#: src/support.c:741 src/thread.c:177
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Non può aprire il dispositivo DVD: %s"
 
-#: src/support.c:826
+#: src/support.c:834
 #, c-format
 msgid "Couldn't open VCD device: %s"
 msgstr "Non può aprire il dispositivo VCD: %s"
 
-#: src/support.c:1684 src/support.c:1717 src/support.c:1762 src/support.c:1792
+#: src/support.c:1692 src/support.c:1725 src/support.c:1770 src/support.c:1800
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "Impossibile salvare scaletta, non si può scrivere sul supporto"
 
-#: src/support.c:2092
+#: src/support.c:2100
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2094
+#: src/support.c:2102
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/support.c:2713
+#: src/support.c:2721
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1111,36 +1111,36 @@ msgstr ""
 msgid "Failed to open %s"
 msgstr "Impossibile aprire %s"
 
-#: src/thread.c:178
+#: src/thread.c:183
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "Impossibile caricare sottotitoli %s"
 
-#: src/thread.c:189
+#: src/thread.c:194
 msgid "Delaying start until cache is full"
 msgstr "Ritarda l'avvio fino a che la memoria tampone non sia piena"
 
-#: src/thread.c:194
+#: src/thread.c:199
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Il formato di compressione SWF non è utilizzabile"
 
-#: src/thread.c:484
+#: src/thread.c:489
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Utilizzo Memoria Tampone: %2.2f%%"
 
-#: src/thread.c:493
+#: src/thread.c:498
 #, c-format
 msgid "Connecting"
 msgstr "In Connessione"
 
-#: src/thread.c:615
+#: src/thread.c:620
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Screenshot salvato in '%s'"
 
-#: src/thread.c:618
+#: src/thread.c:623
 msgid "GNOME MPlayer Notification"
 msgstr "Notificazione Gnome MPlayer"
 

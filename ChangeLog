@@ -1,4 +1,6 @@
 Development
+    Apply patch to fix --as-needed linker flag
+0.9.6
     Fix volume setting, when passed on command line
     Updated Turkish and Chinese Translations
     Some fixes for crap files
