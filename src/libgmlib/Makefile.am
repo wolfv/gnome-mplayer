@@ -11,7 +11,7 @@ libgmlib_a_SOURCES = \
 	gm_pref_store.h \
 	gm_pref_store.c
 
-libgmlib_a_CFLAGS = \
+libgmlib_a_CFLAGS = -fPIC \
 	$(GLIB_CFLAGS) \
 	$(GCONF_CFLAGS) \
-	$(GCONF_DEFINES)
+	$(GCONF_DEFINES) 

@@ -11,5 +11,5 @@ libgmtk_a_SOURCES = \
     	gmtk_media_tracker.h \
     	gmtk_media_tracker.c
 
-libgmtk_a_CFLAGS = \
+libgmtk_a_CFLAGS = -fPIC \
 	$(GTK_CFLAGS)
