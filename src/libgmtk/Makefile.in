@@ -30,8 +30,6 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = @build@
-host_triplet = @host@
 subdir = src/libgmtk
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -41,28 +39,23 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
-LTLIBRARIES = $(noinst_LTLIBRARIES)
-libgmtk_la_LIBADD =
-am_libgmtk_la_OBJECTS = libgmtk_la-gmtk_audio_meter.lo \
-	libgmtk_la-gmtk_media_tracker.lo
-libgmtk_la_OBJECTS = $(am_libgmtk_la_OBJECTS)
-libgmtk_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libgmtk_la_CFLAGS) \
-	$(CFLAGS) $(libgmtk_la_LDFLAGS) $(LDFLAGS) -o $@
+LIBRARIES = $(noinst_LIBRARIES)
+AR = ar
+ARFLAGS = cru
+libgmtk_a_AR = $(AR) $(ARFLAGS)
+libgmtk_a_LIBADD =
+am_libgmtk_a_OBJECTS = libgmtk_a-gmtk_audio_meter.$(OBJEXT) \
+	libgmtk_a-gmtk_media_tracker.$(OBJEXT)
+libgmtk_a_OBJECTS = $(am_libgmtk_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
-SOURCES = $(libgmtk_la_SOURCES)
-DIST_SOURCES = $(libgmtk_la_SOURCES)
+LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+SOURCES = $(libgmtk_a_SOURCES)
+DIST_SOURCES = $(libgmtk_a_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -72,7 +65,6 @@ ALSA_CFLAGS = @ALSA_CFLAGS@
 ALSA_DEFINES = @ALSA_DEFINES@
 ALSA_LIBS = @ALSA_LIBS@
 AMTAR = @AMTAR@
-AR = @AR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -85,7 +77,6 @@ CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
-CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
@@ -94,14 +85,11 @@ DBUS_CFLAGS = @DBUS_CFLAGS@
 DBUS_LIBS = @DBUS_LIBS@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
-DSYMUTIL = @DSYMUTIL@
-DUMPBIN = @DUMPBIN@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
-FGREP = @FGREP@
 GCONF_CFLAGS = @GCONF_CFLAGS@
 GCONF_DEFINES = @GCONF_DEFINES@
 GCONF_LIBS = @GCONF_LIBS@
@@ -138,13 +126,9 @@ INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLLIBS = @INTLLIBS@
-LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
-LIBTOOL = @LIBTOOL@
-LIPO = @LIPO@
-LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
@@ -158,15 +142,10 @@ MUSICBRAINZ_LIBS = @MUSICBRAINZ_LIBS@
 NAUTILUSDIR = @NAUTILUSDIR@
 NAUTILUS_CFLAGS = @NAUTILUS_CFLAGS@
 NAUTILUS_LIBS = @NAUTILUS_LIBS@
-NM = @NM@
-NMEDIT = @NMEDIT@
 NOTIFY_CFLAGS = @NOTIFY_CFLAGS@
 NOTIFY_DEFINES = @NOTIFY_DEFINES@
 NOTIFY_LIBS = @NOTIFY_LIBS@
-OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OTOOL = @OTOOL@
-OTOOL64 = @OTOOL64@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
@@ -180,7 +159,6 @@ POSUB = @POSUB@
 PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
 PO_IN_DATADIR_TRUE = @PO_IN_DATADIR_TRUE@
 RANLIB = @RANLIB@
-SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
@@ -193,29 +171,20 @@ abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
-ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
 bindir = @bindir@
-build = @build@
 build_alias = @build_alias@
-build_cpu = @build_cpu@
-build_os = @build_os@
-build_vendor = @build_vendor@
 builddir = @builddir@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
-host = @host@
 host_alias = @host_alias@
-host_cpu = @host_cpu@
-host_os = @host_os@
-host_vendor = @host_vendor@
 htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
@@ -224,7 +193,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -240,26 +208,23 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LTLIBRARIES = \
-        libgmtk.la
+noinst_LIBRARIES = \
+        libgmtk.a
 
-libgmtk_la_SOURCES = \
+libgmtk_a_SOURCES = \
 	gmtk.h \
     	gmtk_audio_meter.h \
     	gmtk_audio_meter.c \
     	gmtk_media_tracker.h \
     	gmtk_media_tracker.c
 
-libgmtk_la_CFLAGS = \
+libgmtk_a_CFLAGS = \
 	$(GTK_CFLAGS)
-
-libgmtk_la_LDFLAGS = \
-	$(GTK_LDFLAGS)
 
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .lo .o .obj
+.SUFFIXES: .c .o .obj
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -290,16 +255,12 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 
-clean-noinstLTLIBRARIES:
-	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
-	@list='$(noinst_LTLIBRARIES)'; for p in $$list; do \
-	  dir="`echo $$p | sed -e 's|/[^/]*$$||'`"; \
-	  test "$$dir" != "$$p" || dir=.; \
-	  echo "rm -f \"$${dir}/so_locations\""; \
-	  rm -f "$${dir}/so_locations"; \
-	done
-libgmtk.la: $(libgmtk_la_OBJECTS) $(libgmtk_la_DEPENDENCIES) 
-	$(libgmtk_la_LINK)  $(libgmtk_la_OBJECTS) $(libgmtk_la_LIBADD) $(LIBS)
+clean-noinstLIBRARIES:
+	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+libgmtk.a: $(libgmtk_a_OBJECTS) $(libgmtk_a_DEPENDENCIES) 
+	-rm -f libgmtk.a
+	$(libgmtk_a_AR) libgmtk.a $(libgmtk_a_OBJECTS) $(libgmtk_a_LIBADD)
+	$(RANLIB) libgmtk.a
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -307,8 +268,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmtk_la-gmtk_audio_meter.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmtk_la-gmtk_media_tracker.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmtk_a-gmtk_audio_meter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmtk_a-gmtk_media_tracker.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -324,32 +285,33 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
-.c.lo:
-@am__fastdepCC_TRUE@	$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+libgmtk_a-gmtk_audio_meter.o: gmtk_audio_meter.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -MT libgmtk_a-gmtk_audio_meter.o -MD -MP -MF $(DEPDIR)/libgmtk_a-gmtk_audio_meter.Tpo -c -o libgmtk_a-gmtk_audio_meter.o `test -f 'gmtk_audio_meter.c' || echo '$(srcdir)/'`gmtk_audio_meter.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmtk_a-gmtk_audio_meter.Tpo $(DEPDIR)/libgmtk_a-gmtk_audio_meter.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_audio_meter.c' object='libgmtk_a-gmtk_audio_meter.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -c -o libgmtk_a-gmtk_audio_meter.o `test -f 'gmtk_audio_meter.c' || echo '$(srcdir)/'`gmtk_audio_meter.c
 
-libgmtk_la-gmtk_audio_meter.lo: gmtk_audio_meter.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_la_CFLAGS) $(CFLAGS) -MT libgmtk_la-gmtk_audio_meter.lo -MD -MP -MF $(DEPDIR)/libgmtk_la-gmtk_audio_meter.Tpo -c -o libgmtk_la-gmtk_audio_meter.lo `test -f 'gmtk_audio_meter.c' || echo '$(srcdir)/'`gmtk_audio_meter.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmtk_la-gmtk_audio_meter.Tpo $(DEPDIR)/libgmtk_la-gmtk_audio_meter.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_audio_meter.c' object='libgmtk_la-gmtk_audio_meter.lo' libtool=yes @AMDEPBACKSLASH@
+libgmtk_a-gmtk_audio_meter.obj: gmtk_audio_meter.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -MT libgmtk_a-gmtk_audio_meter.obj -MD -MP -MF $(DEPDIR)/libgmtk_a-gmtk_audio_meter.Tpo -c -o libgmtk_a-gmtk_audio_meter.obj `if test -f 'gmtk_audio_meter.c'; then $(CYGPATH_W) 'gmtk_audio_meter.c'; else $(CYGPATH_W) '$(srcdir)/gmtk_audio_meter.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmtk_a-gmtk_audio_meter.Tpo $(DEPDIR)/libgmtk_a-gmtk_audio_meter.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_audio_meter.c' object='libgmtk_a-gmtk_audio_meter.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_la_CFLAGS) $(CFLAGS) -c -o libgmtk_la-gmtk_audio_meter.lo `test -f 'gmtk_audio_meter.c' || echo '$(srcdir)/'`gmtk_audio_meter.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -c -o libgmtk_a-gmtk_audio_meter.obj `if test -f 'gmtk_audio_meter.c'; then $(CYGPATH_W) 'gmtk_audio_meter.c'; else $(CYGPATH_W) '$(srcdir)/gmtk_audio_meter.c'; fi`
 
-libgmtk_la-gmtk_media_tracker.lo: gmtk_media_tracker.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_la_CFLAGS) $(CFLAGS) -MT libgmtk_la-gmtk_media_tracker.lo -MD -MP -MF $(DEPDIR)/libgmtk_la-gmtk_media_tracker.Tpo -c -o libgmtk_la-gmtk_media_tracker.lo `test -f 'gmtk_media_tracker.c' || echo '$(srcdir)/'`gmtk_media_tracker.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmtk_la-gmtk_media_tracker.Tpo $(DEPDIR)/libgmtk_la-gmtk_media_tracker.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_media_tracker.c' object='libgmtk_la-gmtk_media_tracker.lo' libtool=yes @AMDEPBACKSLASH@
+libgmtk_a-gmtk_media_tracker.o: gmtk_media_tracker.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -MT libgmtk_a-gmtk_media_tracker.o -MD -MP -MF $(DEPDIR)/libgmtk_a-gmtk_media_tracker.Tpo -c -o libgmtk_a-gmtk_media_tracker.o `test -f 'gmtk_media_tracker.c' || echo '$(srcdir)/'`gmtk_media_tracker.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmtk_a-gmtk_media_tracker.Tpo $(DEPDIR)/libgmtk_a-gmtk_media_tracker.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_media_tracker.c' object='libgmtk_a-gmtk_media_tracker.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_la_CFLAGS) $(CFLAGS) -c -o libgmtk_la-gmtk_media_tracker.lo `test -f 'gmtk_media_tracker.c' || echo '$(srcdir)/'`gmtk_media_tracker.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -c -o libgmtk_a-gmtk_media_tracker.o `test -f 'gmtk_media_tracker.c' || echo '$(srcdir)/'`gmtk_media_tracker.c
 
-mostlyclean-libtool:
-	-rm -f *.lo
-
-clean-libtool:
-	-rm -rf .libs _libs
+libgmtk_a-gmtk_media_tracker.obj: gmtk_media_tracker.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -MT libgmtk_a-gmtk_media_tracker.obj -MD -MP -MF $(DEPDIR)/libgmtk_a-gmtk_media_tracker.Tpo -c -o libgmtk_a-gmtk_media_tracker.obj `if test -f 'gmtk_media_tracker.c'; then $(CYGPATH_W) 'gmtk_media_tracker.c'; else $(CYGPATH_W) '$(srcdir)/gmtk_media_tracker.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmtk_a-gmtk_media_tracker.Tpo $(DEPDIR)/libgmtk_a-gmtk_media_tracker.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_media_tracker.c' object='libgmtk_a-gmtk_media_tracker.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -c -o libgmtk_a-gmtk_media_tracker.obj `if test -f 'gmtk_media_tracker.c'; then $(CYGPATH_W) 'gmtk_media_tracker.c'; else $(CYGPATH_W) '$(srcdir)/gmtk_media_tracker.c'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -426,7 +388,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES)
+all-am: Makefile $(LIBRARIES)
 installdirs:
 install: install-am
 install-exec: install-exec-am
@@ -454,8 +416,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
-	mostlyclean-am
+clean-am: clean-generic clean-noinstLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -498,8 +459,7 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-am
 
-mostlyclean-am: mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool
+mostlyclean-am: mostlyclean-compile mostlyclean-generic
 
 pdf: pdf-am
 
@@ -514,17 +474,17 @@ uninstall-am:
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstLTLIBRARIES ctags distclean \
-	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
-	pdf pdf-am ps ps-am tags uninstall uninstall-am
+	clean-noinstLIBRARIES ctags distclean distclean-compile \
+	distclean-generic distclean-tags distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
+	uninstall-am
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
