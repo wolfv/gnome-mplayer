@@ -26,6 +26,8 @@
 #include "gm_strfuncs.h"
 #ifdef GIO_ENABLED
 #include <gio/gio.h>
+#else
+#include <stdlib.h>
 #endif
 
 #ifdef __cplusplus
