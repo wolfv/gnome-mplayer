@@ -23,4 +23,5 @@
  */
 
 #include "gm_file.h"
+#include "gm_parse.h"
 #include "gm_pref_store.h"

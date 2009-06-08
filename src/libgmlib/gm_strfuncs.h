@@ -1,16 +1,16 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * gm_file.h
+ * gm_strfuncs.h
  * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
  * 
- * gm_file.h is free software.
+ * gm_strfuncs.h is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
  * 
- * gm_file.h is distributed in the hope that it will be useful,
+ * gm_strfuncs.h is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
@@ -28,10 +28,10 @@
 extern "C" {
 #endif
 
-gchar *gm_tempname(gchar * path, const gchar * name_template);
-gchar *gm_get_path(gchar * uri);
+void gm_str_strip_unicode(gchar * data, gsize len);
+void gm_str_replace_amp(gchar * data);
+void gm_str_unreplace_amp(gchar * data);	
 	
 #ifdef __cplusplus
 }
 #endif
-

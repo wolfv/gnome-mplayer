@@ -250,6 +250,8 @@ gint parse_playlist(gchar * uri)
     if (ret != 1)
         ret = parse_ram(uri);
     if (ret != 1)
+        ret = parse_asx(uri);
+    if (ret != 1)
         ret = parse_cdda(uri);
     if (ret != 1)
         ret = parse_dvd(uri);
@@ -382,7 +384,7 @@ gint parse_basic(gchar * uri)
                 //playlist = 1;
             } else if (g_strncasecmp(newline, "<asx", strlen("<asx")) == 0) {
                 //printf("asx\n");
-                idledata->streaming = TRUE;
+                //idledata->streaming = TRUE;
                 g_free(newline);
                 break;
             } else if (g_strncasecmp(newline, "<smil", strlen("<smil")) == 0) {
@@ -391,7 +393,7 @@ gint parse_basic(gchar * uri)
                 break;
             } else if (g_strrstr(newline, "<asx") != NULL) {
                 //printf("asx\n");
-                idledata->streaming = TRUE;
+                //idledata->streaming = TRUE;
                 g_free(newline);
                 break;
             } else if (g_strrstr(newline, "<smil") != NULL) {
@@ -511,6 +513,60 @@ gint parse_ram(gchar * filename)
     g_free(buffer);
     buffer = NULL;
 
+    return ret;
+}
+
+gint parse_asx(gchar * uri)
+{
+	gint ret = 0;
+
+    if (device_name(uri))
+        return 0;
+
+    if (streaming_media(uri))
+        return 0;
+	
+	if (gm_parse_asx_is_asx(uri)) {
+		ret = 1;
+#ifdef GIO_ENABLED
+		gchar *line;
+		GFile *file;
+		GFileInputStream *input;
+		GDataInputStream *data;
+		gchar *asx_data = g_new0(gchar, 16 *1024);
+
+		gsize length;
+		file = g_file_new_for_uri(uri);
+		input = g_file_read(file, NULL, NULL);
+		data = g_data_input_stream_new((GInputStream *) input);		
+		if (data != NULL) {
+		    line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+		    while (line != NULL) {
+				g_strlcat(asx_data,line,16*1024);
+				g_free(line);
+		        line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+		    }
+		    g_input_stream_close((GInputStream *) data, NULL, NULL);
+		    g_input_stream_close((GInputStream *) input, NULL, NULL);
+		}
+		g_object_unref(file);
+
+		gm_parse_asx(asx_data, &add_item_to_playlist_callback, NULL);
+		g_free(asx_data);
+#else
+		gchar *filename;
+		gchar *contents = NULL;
+		
+		filename = g_filename_from_uri(uri,NULL,NULL);
+		g_file_get_contents(filename,&contents,NULL,NULL);
+		if (contents != NULL) {
+			gm_parse_asx(contents, &add_item_to_playlist_callback, NULL);
+			g_free(contents);
+		}	
+		g_free(filename);
+#endif
+	}
+	
     return ret;
 }
 
