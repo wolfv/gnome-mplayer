@@ -29,19 +29,6 @@ static char *device = "default";
 static char *master_mix = "Master";
 #endif
 
-void strip_unicode(gchar * data, gsize len)
-{
-    gsize i = 0;
-
-    if (data != NULL) {
-        for (i = 0; i < len; i++) {
-            if (!g_unichar_validate(data[i])) {
-                data[i] = ' ';
-            }
-        }
-    }
-}
-
 gint detect_playlist(gchar * uri)
 {
 
@@ -82,7 +69,7 @@ gint detect_playlist(gchar * uri)
             if (verbose)
                 printf("opening playlist\n");
             file = g_file_new_for_uri(uri);
-            path = get_path(uri);
+            path = gm_get_path(uri);
             input = g_file_read(file, NULL, NULL);
             if (input != NULL) {
                 memset(buffer, 0, sizeof(buffer));
@@ -327,7 +314,7 @@ gint parse_basic(gchar * uri)
 
     gsize length;
     file = g_file_new_for_uri(uri);
-    path = get_path(uri);
+    path = gm_get_path(uri);
     input = g_file_read(file, NULL, NULL);
     data = g_data_input_stream_new((GInputStream *) input);
     if (data != NULL) {
@@ -341,7 +328,7 @@ gint parse_basic(gchar * uri)
     if (strcmp(file, "file") != 0)
         return 0;               // FIXME: remote playlists unsuppored
     parse = g_strsplit(uri, "/", 3);
-    path = get_path(parse[2]);
+    path = gm_get_path(parse[2]);
     fp = fopen(parse[2], "r");
     g_strfreev(parse);
     line = g_new0(gchar, 1024);
@@ -1317,7 +1304,7 @@ MetaData *get_metadata(gchar * uri)
 
                 if (title == NULL) {
                     title = g_strdup(localtitle);
-                    strip_unicode(title, strlen(title));
+                    gm_str_strip_unicode(title, strlen(title));
                 }
             }
             if (strstr(lower, "=artist") != NULL || strstr(lower, "=author") != NULL) {
@@ -1325,7 +1312,7 @@ MetaData *get_metadata(gchar * uri)
                 artist = metadata_to_utf8(localtitle);
                 if (artist == NULL) {
                     artist = g_strdup(localtitle);
-                    strip_unicode(artist, strlen(artist));
+                    gm_str_strip_unicode(artist, strlen(artist));
                 }
             }
             if (strstr(lower, "=album") != NULL) {
@@ -1333,7 +1320,7 @@ MetaData *get_metadata(gchar * uri)
                 album = metadata_to_utf8(localtitle);
                 if (album == NULL) {
                     album = g_strdup(localtitle);
-                    strip_unicode(album, strlen(album));
+                    gm_str_strip_unicode(album, strlen(album));
                 }
             }
         }
@@ -1344,7 +1331,7 @@ MetaData *get_metadata(gchar * uri)
             title = metadata_to_utf8(localtitle);
             if (title == NULL) {
                 title = g_strdup(localtitle);
-                strip_unicode(title, strlen(title));
+                gm_str_strip_unicode(title, strlen(title));
             }
         }
 
@@ -1862,24 +1849,6 @@ gboolean save_playlist_m3u(gchar * uri)
     }
     g_free(filename);
 #endif
-}
-
-gchar *get_path(gchar * uri)
-{
-    gchar *path = NULL;
-    gchar cwd[1024];
-    gchar *tmp = NULL;
-
-    if (g_strrstr(uri, "/") != NULL) {
-        path = g_strdup(uri);
-        tmp = g_strrstr(path, "/");
-        tmp[0] = '\0';
-    } else {
-        getcwd(cwd, 1024);
-        path = g_strdup(cwd);
-    }
-
-    return path;
 }
 
 void copy_playlist(GtkListStore * source, GtkListStore * dest)

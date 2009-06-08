@@ -1,4 +1,5 @@
 Development
+    Move some functions to libgmlib
     Add internal ASX parser
     Version bump and add -fPIC to gmtk and gmlib
     Remove need to use libtool
