@@ -1,16 +1,16 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * gm_file.h
+ * gm_strfuncs.c
  * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
  * 
- * gm_file.h is free software.
+ * gm_strfuncs.c is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
  * 
- * gm_file.h is distributed in the hope that it will be useful,
+ * gm_strfuncs.c is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
@@ -22,16 +22,41 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include <glib.h>
+#include "gm_strfuncs.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+void gm_str_replace_amp(gchar * data)
+{
 
-gchar *gm_tempname(gchar * path, const gchar * name_template);
-gchar *gm_get_path(gchar * uri);
-	
-#ifdef __cplusplus
+    gchar *pos;
+
+    pos = g_strrstr(data, "&");
+    while (pos) {
+        pos[0] = '\x01';
+        pos = g_strrstr(data, "&");
+    }
 }
-#endif
 
+void gm_str_unreplace_amp(gchar * data)
+{
+    gchar *pos;
+
+    pos = g_strrstr(data, "\x01");
+    while (pos) {
+        pos[0] = '&';
+        pos = g_strrstr(data, "\x01");
+    }
+
+}
+
+void gm_str_strip_unicode(gchar * data, gsize len)
+{
+    gsize i = 0;
+
+    if (data != NULL) {
+        for (i = 0; i < len; i++) {
+            if (!g_unichar_validate(data[i])) {
+                data[i] = ' ';
+            }
+        }
+    }
+}

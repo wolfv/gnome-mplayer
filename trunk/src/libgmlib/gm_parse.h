@@ -1,16 +1,16 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * gm_file.h
+ * gm_parse.h
  * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
  * 
- * gm_file.h is free software.
+ * gm_parse.h is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
  * 
- * gm_file.h is distributed in the hope that it will be useful,
+ * gm_parse.h is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
@@ -23,13 +23,17 @@
  */
 
 #include <glib.h>
+#include "gm_strfuncs.h"
+#ifdef GIO_ENABLED
+#include <gio/gio.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-gchar *gm_tempname(gchar * path, const gchar * name_template);
-gchar *gm_get_path(gchar * uri);
+gboolean gm_parse_asx_is_asx(const gchar *uri);
+void gm_parse_asx(const gchar *content, GFunc callback, gpointer user_data);
 	
 #ifdef __cplusplus
 }

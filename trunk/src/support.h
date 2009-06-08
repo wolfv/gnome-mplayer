@@ -57,6 +57,7 @@ gint play_iter(GtkTreeIter * playiter);
 gint detect_playlist(gchar * filename);
 gchar *metadata_to_utf8(gchar * string);
 gint parse_playlist(gchar * uri);
+gint parse_asx(gchar * uri);
 gint parse_basic(gchar * filename);
 gint parse_ram(gchar * filename);
 gint parse_cdda(gchar * filename);

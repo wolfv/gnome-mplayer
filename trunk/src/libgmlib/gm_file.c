@@ -51,3 +51,21 @@ gchar *gm_tempname(gchar * path, const gchar * name_template)
 
     return result;
 }
+
+gchar *gm_get_path(gchar * uri)
+{
+    gchar *path = NULL;
+    gchar cwd[1024];
+    gchar *tmp = NULL;
+
+    if (g_strrstr(uri, "/") != NULL) {
+        path = g_strdup(uri);
+        tmp = g_strrstr(path, "/");
+        tmp[0] = '\0';
+    } else {
+        getcwd(cwd, 1024);
+        path = g_strdup(cwd);
+    }
+
+    return path;
+}

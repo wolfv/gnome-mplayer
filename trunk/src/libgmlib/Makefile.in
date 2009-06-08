@@ -45,7 +45,9 @@ ARFLAGS = cru
 libgmlib_a_AR = $(AR) $(ARFLAGS)
 libgmlib_a_LIBADD =
 am_libgmlib_a_OBJECTS = libgmlib_a-gm_file.$(OBJEXT) \
-	libgmlib_a-gm_pref_store.$(OBJEXT)
+	libgmlib_a-gm_parse.$(OBJEXT) \
+	libgmlib_a-gm_pref_store.$(OBJEXT) \
+	libgmlib_a-gm_strfuncs.$(OBJEXT)
 libgmlib_a_OBJECTS = $(am_libgmlib_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -215,13 +217,19 @@ libgmlib_a_SOURCES = \
    	gmlib.h \
    	gm_file.h \
    	gm_file.c \
+   	gm_parse.h \
+   	gm_parse.c \
 	gm_pref_store.h \
-	gm_pref_store.c
+	gm_pref_store.c \
+	gm_strfuncs.h \
+	gm_strfuncs.c
 
 libgmlib_a_CFLAGS = -fPIC \
 	$(GLIB_CFLAGS) \
 	$(GCONF_CFLAGS) \
-	$(GCONF_DEFINES) 
+	$(GIO_CFLAGS) \
+	$(GCONF_DEFINES) \
+	$(GIO_DEFINES)
 
 all: all-am
 
@@ -271,7 +279,9 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_a-gm_file.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_a-gm_parse.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_a-gm_pref_store.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_a-gm_strfuncs.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -301,6 +311,20 @@ libgmlib_a-gm_file.obj: gm_file.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -c -o libgmlib_a-gm_file.obj `if test -f 'gm_file.c'; then $(CYGPATH_W) 'gm_file.c'; else $(CYGPATH_W) '$(srcdir)/gm_file.c'; fi`
 
+libgmlib_a-gm_parse.o: gm_parse.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -MT libgmlib_a-gm_parse.o -MD -MP -MF $(DEPDIR)/libgmlib_a-gm_parse.Tpo -c -o libgmlib_a-gm_parse.o `test -f 'gm_parse.c' || echo '$(srcdir)/'`gm_parse.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmlib_a-gm_parse.Tpo $(DEPDIR)/libgmlib_a-gm_parse.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gm_parse.c' object='libgmlib_a-gm_parse.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -c -o libgmlib_a-gm_parse.o `test -f 'gm_parse.c' || echo '$(srcdir)/'`gm_parse.c
+
+libgmlib_a-gm_parse.obj: gm_parse.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -MT libgmlib_a-gm_parse.obj -MD -MP -MF $(DEPDIR)/libgmlib_a-gm_parse.Tpo -c -o libgmlib_a-gm_parse.obj `if test -f 'gm_parse.c'; then $(CYGPATH_W) 'gm_parse.c'; else $(CYGPATH_W) '$(srcdir)/gm_parse.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmlib_a-gm_parse.Tpo $(DEPDIR)/libgmlib_a-gm_parse.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gm_parse.c' object='libgmlib_a-gm_parse.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -c -o libgmlib_a-gm_parse.obj `if test -f 'gm_parse.c'; then $(CYGPATH_W) 'gm_parse.c'; else $(CYGPATH_W) '$(srcdir)/gm_parse.c'; fi`
+
 libgmlib_a-gm_pref_store.o: gm_pref_store.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -MT libgmlib_a-gm_pref_store.o -MD -MP -MF $(DEPDIR)/libgmlib_a-gm_pref_store.Tpo -c -o libgmlib_a-gm_pref_store.o `test -f 'gm_pref_store.c' || echo '$(srcdir)/'`gm_pref_store.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmlib_a-gm_pref_store.Tpo $(DEPDIR)/libgmlib_a-gm_pref_store.Po
@@ -314,6 +338,20 @@ libgmlib_a-gm_pref_store.obj: gm_pref_store.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gm_pref_store.c' object='libgmlib_a-gm_pref_store.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -c -o libgmlib_a-gm_pref_store.obj `if test -f 'gm_pref_store.c'; then $(CYGPATH_W) 'gm_pref_store.c'; else $(CYGPATH_W) '$(srcdir)/gm_pref_store.c'; fi`
+
+libgmlib_a-gm_strfuncs.o: gm_strfuncs.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -MT libgmlib_a-gm_strfuncs.o -MD -MP -MF $(DEPDIR)/libgmlib_a-gm_strfuncs.Tpo -c -o libgmlib_a-gm_strfuncs.o `test -f 'gm_strfuncs.c' || echo '$(srcdir)/'`gm_strfuncs.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmlib_a-gm_strfuncs.Tpo $(DEPDIR)/libgmlib_a-gm_strfuncs.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gm_strfuncs.c' object='libgmlib_a-gm_strfuncs.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -c -o libgmlib_a-gm_strfuncs.o `test -f 'gm_strfuncs.c' || echo '$(srcdir)/'`gm_strfuncs.c
+
+libgmlib_a-gm_strfuncs.obj: gm_strfuncs.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -MT libgmlib_a-gm_strfuncs.obj -MD -MP -MF $(DEPDIR)/libgmlib_a-gm_strfuncs.Tpo -c -o libgmlib_a-gm_strfuncs.obj `if test -f 'gm_strfuncs.c'; then $(CYGPATH_W) 'gm_strfuncs.c'; else $(CYGPATH_W) '$(srcdir)/gm_strfuncs.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgmlib_a-gm_strfuncs.Tpo $(DEPDIR)/libgmlib_a-gm_strfuncs.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gm_strfuncs.c' object='libgmlib_a-gm_strfuncs.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -c -o libgmlib_a-gm_strfuncs.obj `if test -f 'gm_strfuncs.c'; then $(CYGPATH_W) 'gm_strfuncs.c'; else $(CYGPATH_W) '$(srcdir)/gm_strfuncs.c'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
