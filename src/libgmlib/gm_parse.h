@@ -27,7 +27,7 @@
 #ifdef GIO_ENABLED
 #include <gio/gio.h>
 #else
-#include <stdlib.h>
+#include <stdio.h>
 #endif
 
 #ifdef __cplusplus
