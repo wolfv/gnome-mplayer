@@ -3483,6 +3483,7 @@ void config_apply(GtkWidget * widget, void *data)
     verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     details_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_details_visible));
+	use_mediakeys = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_mediakeys));
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     single_instance = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance));
     replace_and_play = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_replace_and_play));
@@ -3563,6 +3564,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, DISABLEPAUSEONCLICK, disable_pause_on_click);
     gm_pref_store_set_boolean(gm_store, SHOWPLAYLIST, playlist_visible);
     gm_pref_store_set_boolean(gm_store, SHOWDETAILS, details_visible);
+    gm_pref_store_set_boolean(gm_store, USE_MEDIAKEYS, use_mediakeys);
     gm_pref_store_set_boolean(gm_store, SHOW_NOTIFICATION, show_notification);
     gm_pref_store_set_boolean(gm_store, SHOW_STATUS_ICON, show_status_icon);
     gm_pref_store_set_boolean(gm_store, VERTICAL, vertical_layout);
@@ -4865,6 +4867,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_details_visible, 0, 2, i, i + 1);
     i++;
 
+    config_use_mediakeys = gtk_check_button_new_with_label(_("Respond to Keyboard Media Keys"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_use_mediakeys), use_mediakeys);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_use_mediakeys, 0, 2, i, i + 1);
+    i++;
+	
 #ifdef NOTIFY_ENABLED
     config_show_notification = gtk_check_button_new_with_label(_("Show notification popup"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_notification), show_notification);

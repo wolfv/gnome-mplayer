@@ -230,6 +230,7 @@ GtkWidget *config_forcecache;
 GtkWidget *config_verbose;
 GtkWidget *config_show_notification;
 GtkWidget *config_thumb_position;
+GtkWidget *config_use_mediakeys;
 
 GtkWidget *config_alang;
 GtkWidget *config_slang;
