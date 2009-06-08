@@ -661,7 +661,7 @@ int main(int argc, char *argv[])
     auto_hide_timeout =
         gm_pref_store_get_int_with_default(gm_store, AUTOHIDETIMEOUT, auto_hide_timeout);
     disable_cover_art_fetch = gm_pref_store_get_boolean(gm_store, DISABLE_COVER_ART_FETCH);
-    use_mediakeys = gm_pref_store_get_boolean(gm_store, USE_MEDIAKEYS);
+    use_mediakeys = gm_pref_store_get_boolean_with_default(gm_store, USE_MEDIAKEYS, use_mediakeys);
     metadata_codepage = gm_pref_store_get_string(gm_store, METADATACODEPAGE);
     subtitlefont = gm_pref_store_get_string(gm_store, SUBTITLEFONT);
     subtitle_scale = gm_pref_store_get_float(gm_store, SUBTITLESCALE);
