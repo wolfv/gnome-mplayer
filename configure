@@ -9808,12 +9808,11 @@ else
 fi
 
 
+FLATVOL=FALSE
 if test -x `which pulseaudio`; then
         PAVER=`pulseaudio --version | sed -e 's/pulseaudio 0.9.//'`
         if test $PAVER -gt 14; then
             FLATVOL=TRUE
-        else
-            FLATVOL=FALSE
         fi
 
 fi
