@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-05 12:20-0600\n"
-"PO-Revision-Date: 2007-05-18 06:35-0600\n"
-"Last-Translator: tim__b <info@yaub.haut.indy-fresse.de>\n"
-"Language-Team: tim__b <info@yaub.haut.indy-fresse.de>\n"
+"POT-Creation-Date: 2009-05-26 10:35-0600\n"
+"PO-Revision-Date: 2009-06-03 22:19+0100\n"
+"Last-Translator: Wolfgang Knauf <his-metality@freenet.de>\n"
+"Language-Team: tim__b <info@yaub.haut.indy-fresse.de>, Wolfgang Knauf <his-metality@freenet.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -204,16 +204,16 @@ msgstr "Lade alle Titel vom Media Player mit gpod"
 msgid "Don't fetch new cover art images"
 msgstr "Hole keine neuen Cover"
 
-#: src/main.c:704
+#: src/main.c:702
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[Dateien...] - GNOME Media player based on MPlayer"
 
-#: src/main.c:724
+#: src/main.c:722
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:783
+#: src/main.c:782
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -264,7 +264,7 @@ msgid "Pause"
 msgstr "Pause"
 
 #: src/gui.c:627 src/gui.c:639 src/gui.c:1865 src/gui.c:1921 src/gui.c:1926
-#: src/gui.c:6066
+#: src/gui.c:6064
 msgid "Play"
 msgstr "Wiedergabe"
 
@@ -289,7 +289,7 @@ msgid "Idle"
 msgstr "Untätig"
 
 #: src/gui.c:1167 src/gui.c:1177 src/gui.c:2112 src/gui.c:2153
-#: src/thread.c:413
+#: src/thread.c:408
 #, c-format
 msgid "Volume %i%%"
 msgstr "Lautstärke %i%%"
@@ -339,7 +339,7 @@ msgstr "Speichern als..."
 msgid "Unable to save '%s'"
 msgstr "Fehler beim Speichern von '%s'"
 
-#: src/gui.c:2836 src/support.c:761 src/support.c:853 src/thread.c:209
+#: src/gui.c:2836 src/support.c:753 src/support.c:845 src/thread.c:204
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer Fehler"
 
@@ -533,8 +533,8 @@ msgid ""
 "newer distributions"
 msgstr ""
 "mplayer-Audio-Ausgabegerät\n"
-"alsa oder oss sollten immer funktionieren, versuche esd in GNOME, arts in "
-"KDE oder pulse bei neueren Distributionen"
+"alsa oder oss sollten immer funktionieren, "
+"versuche esd in GNOME, arts in KDE oder pulse bei neueren Distributionen"
 
 #: src/gui.c:4505
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -578,11 +578,11 @@ msgstr ""
 
 #: src/gui.c:4609
 msgid "On Screen Display Level:"
-msgstr "On Screen Display Level:"
+msgstr "'On Screen Display'-Stufe:"
 
 #: src/gui.c:4623
 msgid "Post-processing level:"
-msgstr "Nachbearbeitungs-Level:"
+msgstr "Nachbearbeitungs-Stufe:"
 
 #: src/gui.c:4638
 msgid ""
@@ -595,8 +595,7 @@ msgid ""
 msgstr ""
 "<span weight=\"bold\">Konfiguriere Plugin-Emulatioseinstellungen</span>\n"
 "\n"
-"Diese Optionen wirken sich auf den gecko-mediaplayer-Plugin aus, wenn "
-"vorhanden.\n"
+"Diese Optionen wirken sich auf den gecko-mediaplayer-Plugin aus, wenn vorhanden.\n"
 "Gecko-mediaplayer ist ein Firefox-Plugin der verschiedene\n"
 "Media-Pplayer emuliert und die Wiedergabe verschiedener Webinhalte\n"
 "in NPRuntime-kompatiblen Browsern (Firefox, Konqueror, etc) erlaubt."
@@ -639,7 +638,7 @@ msgstr "Standard-Untertitelsprache:"
 
 #: src/gui.c:4710
 msgid "File Metadata Encoding:"
-msgstr "Datei-Metadaten-Codierung:"
+msgstr "Datei-Metadaten-Zeichensatz:"
 
 #: src/gui.c:4726
 #, fuzzy
@@ -684,7 +683,7 @@ msgstr "Untertitelskalierung"
 
 #: src/gui.c:4830
 msgid "Subtitle File Encoding:"
-msgstr "Untertitel-Dateikodierung"
+msgstr "Zeichensatz der Untertitel-Datei"
 
 #: src/gui.c:4842
 msgid "Show Subtitles by Default"
@@ -708,9 +707,7 @@ msgstr "Zeige Status-Icon"
 
 #: src/gui.c:4884
 msgid "Place playlist below media (requires application restart)"
-msgstr ""
-"Platziere die Wiedergabeliste unterhalb des Mediums (erfordert "
-"Anwendungsneustart)"
+msgstr "Platziere die Wiedergabeliste unterhalb des Mediums (erfordert Anwendungsneustart)"
 
 #: src/gui.c:4890
 msgid "Only allow one instance of Gnome MPlayer"
@@ -719,8 +716,8 @@ msgstr "Erlaube nur eine Instanz des Gnome MPlayer"
 #: src/gui.c:4902
 msgid "When opening in single instance mode, replace existing file"
 msgstr ""
-"Wenn der Modus 'Erlaube nur eine Instanz' aktiviert ist, ersetze die "
-"aktuelle Datei"
+"Wenn der Modus 'Erlaube nur eine Instanz' aktiviert ist, ersetze die aktuelle "
+"Datei"
 
 #: src/gui.c:4910
 msgid "Remember Window Location and Size"
@@ -830,7 +827,7 @@ msgstr "Spule zu %s"
 msgid "S_how Controls"
 msgstr "Zeige Bedienelemente"
 
-#: src/gui.c:5451 src/gui.c:5736
+#: src/gui.c:5451 src/gui.c:5734
 msgid "_Full Screen"
 msgstr "_Vollbild"
 
@@ -904,189 +901,189 @@ msgid "Open _Recent"
 msgstr "Öffne _letzte Wiedergabe"
 
 #. Edit Menu
-#: src/gui.c:5652
+#: src/gui.c:5650
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
-#: src/gui.c:5659
+#: src/gui.c:5657
 msgid "_Shuffle Playlist"
 msgstr "_Zufallswiedergabe"
 
-#: src/gui.c:5663
+#: src/gui.c:5661
 msgid "_Loop Playlist"
 msgstr "A_lle wiederholen"
 
-#: src/gui.c:5668
+#: src/gui.c:5666
 msgid "S_witch Audio Track"
 msgstr "_Wechsel Audiospur"
 
-#: src/gui.c:5672
+#: src/gui.c:5670
 msgid "Select _Audio Language"
 msgstr "Standard-Audiosprache:"
 
-#: src/gui.c:5678
+#: src/gui.c:5676
 msgid "Set Sub_title"
 msgstr "Setze Un_tertitelspur"
 
-#: src/gui.c:5682
+#: src/gui.c:5680
 msgid "S_elect Subtitle Language"
 msgstr "Standard-Untertitelsprache:"
 
-#: src/gui.c:5689
+#: src/gui.c:5687
 msgid "_Take Screenshot"
 msgstr "_Schnappschuss nehmen"
 
-#: src/gui.c:5693
+#: src/gui.c:5691
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "Dateien  ’shotNNNN.png’ werden im Arbeitsverzeichnis gespeichert"
 
 #. View Menu
-#: src/gui.c:5718
+#: src/gui.c:5716
 msgid "_View"
 msgstr "_Ansicht"
 
-#: src/gui.c:5723
+#: src/gui.c:5721
 msgid "_Playlist"
 msgstr "_Wiedergabeliste"
 
-#: src/gui.c:5726
+#: src/gui.c:5724
 msgid "Media _Info"
 msgstr "Media-_Informationen"
 
-#: src/gui.c:5728
+#: src/gui.c:5726
 msgid "D_etails"
 msgstr "D_etails"
 
-#: src/gui.c:5730
+#: src/gui.c:5728
 msgid "Audio _Meter"
 msgstr ""
 
-#: src/gui.c:5743
+#: src/gui.c:5741
 msgid "_Normal (1:1)"
 msgstr "_Normal (1:1)"
 
-#: src/gui.c:5746
+#: src/gui.c:5744
 msgid "_Double Size (2:1)"
 msgstr "_Doppelte Größe (2:1)"
 
-#: src/gui.c:5749
+#: src/gui.c:5747
 msgid "_Half Size (1:2)"
 msgstr "_Halbe Größe (1:2)"
 
-#: src/gui.c:5752
+#: src/gui.c:5750
 msgid "_Aspect"
 msgstr "_Seitenverhältnis"
 
-#: src/gui.c:5759
+#: src/gui.c:5757
 msgid "D_efault Aspect"
 msgstr "Standard-Seitenverhältnis"
 
-#: src/gui.c:5762
+#: src/gui.c:5760
 msgid "_4:3 Aspect"
 msgstr "4:3-Seitenverhältnis"
 
-#: src/gui.c:5765
+#: src/gui.c:5763
 msgid "_16:9 Aspect"
 msgstr "16:9-Seitenverhältnis"
 
-#: src/gui.c:5768
+#: src/gui.c:5766
 msgid "1_6:10 Aspect"
 msgstr "1_6:10-Seitenverhältnis"
 
-#: src/gui.c:5771
+#: src/gui.c:5769
 msgid "_Follow Window"
 msgstr "Folge dem Fenster"
 
-#: src/gui.c:5778
+#: src/gui.c:5776
 msgid "Show _Subtitles"
 msgstr "Zeige Untertitel"
 
-#: src/gui.c:5781
+#: src/gui.c:5779
 msgid "Decrease Subtitle Size"
 msgstr "Verringere Untertitelgröße"
 
-#: src/gui.c:5783
+#: src/gui.c:5781
 msgid "Increase Subtitle Size"
 msgstr "Erhöhe Untertitelgröße"
 
-#: src/gui.c:5784
+#: src/gui.c:5782
 msgid "Switch An_gle"
 msgstr "Blickwinkel wechseln"
 
-#: src/gui.c:5785
+#: src/gui.c:5783
 msgid "_Controls"
 msgstr "_Bedienelemente"
 
-#: src/gui.c:5797
+#: src/gui.c:5795
 msgid "_Video Picture Adjustments"
 msgstr ""
 
 #. Help Menu
-#: src/gui.c:5840
+#: src/gui.c:5838
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: src/gui.c:6029
+#: src/gui.c:6027
 msgid "Menu"
 msgstr "Menü"
 
-#: src/gui.c:6042
+#: src/gui.c:6040
 msgid "Previous"
 msgstr "Vorheriger Titel"
 
-#: src/gui.c:6055
+#: src/gui.c:6053
 msgid "Rewind"
 msgstr "Zurückspulen"
 
-#: src/gui.c:6078
+#: src/gui.c:6076
 msgid "Stop"
 msgstr "Stop"
 
-#: src/gui.c:6090
+#: src/gui.c:6088
 msgid "Fast Forward"
 msgstr "Schneller Vorlauf"
 
-#: src/gui.c:6101
+#: src/gui.c:6099
 msgid "Next"
 msgstr "Nächster Titel"
 
-#: src/gui.c:6122
+#: src/gui.c:6120
 msgid "No Information"
 msgstr "Keine Informationen"
 
-#: src/gui.c:6129
+#: src/gui.c:6127
 msgid "Full Screen"
 msgstr "Vollbild"
 
-#: src/gui.c:6171
+#: src/gui.c:6169
 msgid "Volume 100%"
 msgstr "Laustärke 100%"
 
-#: src/support.c:741 src/thread.c:177
+#: src/support.c:733 src/thread.c:172
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Konnte DVD-Gerät nicht öffnen: %s"
 
-#: src/support.c:834
+#: src/support.c:826
 #, c-format
 msgid "Couldn't open VCD device: %s"
 msgstr "Konnte VCD-Gerät nicht öffnen: %s"
 
-#: src/support.c:1692 src/support.c:1725 src/support.c:1770 src/support.c:1800
+#: src/support.c:1684 src/support.c:1717 src/support.c:1762 src/support.c:1792
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "Konnte Wiedergabeliste nicht speichern"
 
-#: src/support.c:2100
+#: src/support.c:2092
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2102
+#: src/support.c:2094
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/support.c:2721
+#: src/support.c:2713
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1100,36 +1097,36 @@ msgstr ""
 msgid "Failed to open %s"
 msgstr "Öffnen von %s fehlgeschlagen"
 
-#: src/thread.c:183
+#: src/thread.c:178
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "Konnte Untertitel nicht laden: %s"
 
-#: src/thread.c:194
+#: src/thread.c:189
 msgid "Delaying start until cache is full"
 msgstr "Verzögere Start bis Zwischenspeicher gefüllt ist"
 
-#: src/thread.c:199
+#: src/thread.c:194
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Komprimiertes SWF-Format wird nicht unterstützt"
 
-#: src/thread.c:489
+#: src/thread.c:484
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Zwischenspeichernutzung: %2.2f%%"
 
-#: src/thread.c:498
+#: src/thread.c:493
 #, c-format
 msgid "Connecting"
 msgstr "Verbinde"
 
-#: src/thread.c:620
+#: src/thread.c:615
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Schnappschuss in '%s' gespeichert"
 
-#: src/thread.c:623
+#: src/thread.c:618
 msgid "GNOME MPlayer Notification"
 msgstr ""
 
