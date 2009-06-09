@@ -11,7 +11,7 @@ Packager: Kevin DeKorte <kdekorte@gmail.com>
 Source0: http://dekorte.homeip.net/download/gnome-mplayer/gnome-mplayer-%{ver}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Requires: mplayer mencoder
-BuildRequires: gcc-c++, pkgconfig, gettext, glib2-devel gtk2-devel GConf2-devel dbus-devel dbus-glib-devel alsa-lib-devel libnotify-devel libmusicbrainz3-devel libcurl-devel
+BuildRequires: gcc-c++, pkgconfig, gettext, glib2-devel gtk2-devel GConf2-devel dbus-devel dbus-glib-devel alsa-lib-devel libnotify-devel libmusicbrainz3-devel libcurl-devel pulseaudio
 
 %description
 GNOME MPlayer is a simple GUI for MPlayer based on the Gnome HIG. However, the code is not dependent on any Gnome library
