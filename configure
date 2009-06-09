@@ -637,6 +637,7 @@ ac_includes_default="\
 
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+FLATVOL
 HAVE_NAUTILUS_FALSE
 HAVE_NAUTILUS_TRUE
 NAUTILUSDIR
@@ -9807,6 +9808,15 @@ else
 fi
 
 
+if test -x `which pulseaudio`; then
+        PAVER=`pulseaudio --version | sed -e 's/pulseaudio 0.9.//'`
+        if test $PAVER -gt 14; then
+            FLATVOL=TRUE
+        else
+            FLATVOL=FALSE
+        fi
+
+fi
 
 
 for ac_header in mntent.h
@@ -9954,7 +9964,7 @@ fi
 
 done
 
-ac_config_files="$ac_config_files Makefile src/Makefile src/libgmtk/Makefile src/libgmlib/Makefile po/Makefile.in gnome-mplayer.spec"
+ac_config_files="$ac_config_files Makefile src/Makefile src/libgmtk/Makefile src/libgmlib/Makefile po/Makefile.in gnome-mplayer.spec gnome-mplayer.schemas"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -10627,6 +10637,7 @@ do
     "src/libgmlib/Makefile") CONFIG_FILES="$CONFIG_FILES src/libgmlib/Makefile" ;;
     "po/Makefile.in") CONFIG_FILES="$CONFIG_FILES po/Makefile.in" ;;
     "gnome-mplayer.spec") CONFIG_FILES="$CONFIG_FILES gnome-mplayer.spec" ;;
+    "gnome-mplayer.schemas") CONFIG_FILES="$CONFIG_FILES gnome-mplayer.schemas" ;;
 
   *) { { $as_echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 $as_echo "$as_me: error: invalid argument: $ac_config_target" >&2;}

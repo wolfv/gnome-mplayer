@@ -33,6 +33,7 @@ POST_UNINSTALL = :
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
+	$(srcdir)/gnome-mplayer.schemas.in \
 	$(srcdir)/gnome-mplayer.spec.in $(top_srcdir)/configure \
 	AUTHORS COPYING ChangeLog INSTALL NEWS compile config.guess \
 	config.sub depcomp install-sh ltmain.sh missing mkinstalldirs
@@ -44,7 +45,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = gnome-mplayer.spec
+CONFIG_CLEAN_FILES = gnome-mplayer.spec gnome-mplayer.schemas
 SOURCES =
 DIST_SOURCES =
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
@@ -116,6 +117,7 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+FLATVOL = @FLATVOL@
 GCONF_CFLAGS = @GCONF_CFLAGS@
 GCONF_DEFINES = @GCONF_DEFINES@
 GCONF_LIBS = @GCONF_LIBS@
@@ -309,6 +311,8 @@ $(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 distclean-hdr:
 	-rm -f config.h stamp-h1
 gnome-mplayer.spec: $(top_builddir)/config.status $(srcdir)/gnome-mplayer.spec.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+gnome-mplayer.schemas: $(top_builddir)/config.status $(srcdir)/gnome-mplayer.schemas.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-desktopDATA: $(desktop_DATA)
 	@$(NORMAL_INSTALL)

@@ -153,6 +153,15 @@ if test x$HAVE_NAUTILUS = "xyes"; then
 fi
 AM_CONDITIONAL(HAVE_NAUTILUS, test x$HAVE_NAUTILUS = "xyes")
 
+if test -x `which pulseaudio`; then
+        PAVER=`pulseaudio --version | sed -e 's/pulseaudio 0.9.//'`
+        if test $PAVER -gt 14; then
+            FLATVOL=TRUE
+        else
+            FLATVOL=FALSE
+        fi
+        AC_SUBST(FLATVOL)
+fi
     
 AC_CHECK_HEADERS([mntent.h])
 AC_OUTPUT([
@@ -162,4 +171,5 @@ src/libgmtk/Makefile
 src/libgmlib/Makefile
 po/Makefile.in
 gnome-mplayer.spec
+gnome-mplayer.schemas
 ])
