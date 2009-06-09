@@ -159,8 +159,8 @@ if test -x `which pulseaudio`; then
         if test $PAVER -gt 14; then
             FLATVOL=TRUE
         fi
-        AC_SUBST(FLATVOL)
 fi
+AC_SUBST(FLATVOL)
     
 AC_CHECK_HEADERS([mntent.h])
 AC_OUTPUT([

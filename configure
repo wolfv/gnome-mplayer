@@ -9814,8 +9814,8 @@ if test -x `which pulseaudio`; then
         if test $PAVER -gt 14; then
             FLATVOL=TRUE
         fi
-
 fi
+
 
 
 for ac_header in mntent.h
