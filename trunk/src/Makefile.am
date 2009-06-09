@@ -76,18 +76,18 @@ gnome_mplayer_LDADD = \
 if HAVE_NAUTILUS
 
 nautilusdir = $(NAUTILUSDIR)
-nautilus_LIBRARIES = libgnome-mplayer-properties-page.a
+nautilus_PROGRAMS = libgnome-mplayer-properties-page.so
 
-libgnome_mplayer_properties_page_a_SOURCES = \
+libgnome_mplayer_properties_page_so_SOURCES = \
     ../config.h \
     mime_types.h \
     nautilus_property_page.c
 
-libgnome_mplayer_properties_page_a_CFLAGS = \
+libgnome_mplayer_properties_page_so_CFLAGS = -fPIC \
     $(NAUTILUS_CFLAGS) \
     $(AM_CFLAGS)
     
-#libgnome_mplayer_properties_page_a_LDFLAGS = -module -avoid-version
+libgnome_mplayer_properties_page_so_LDFLAGS = -avoid-version -shared
 
 endif #HAVE_NAUTILUS
 
