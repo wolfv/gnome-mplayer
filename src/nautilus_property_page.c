@@ -151,7 +151,7 @@ static MetaData *get_metadata(gchar * filename)
             ret->length_value = f;
         }
 
-        if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
+        if (g_ascii_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
             if (strstr(lower, "=title") != NULL || strstr(lower, "=name") != NULL) {
                 ptr = strstr(output[ac + 1], "=") + 1;
                 if (ptr)

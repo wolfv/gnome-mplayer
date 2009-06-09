@@ -52,13 +52,13 @@ gint detect_playlist(gchar * uri)
 #endif
 
 
-    if (g_strncasecmp(uri, "cdda://", 7) == 0) {
+    if (g_ascii_strncasecmp(uri, "cdda://", 7) == 0) {
         playlist = 1;
-    } else if (g_strncasecmp(uri, "dvd://", 6) == 0) {
+    } else if (g_ascii_strncasecmp(uri, "dvd://", 6) == 0) {
         playlist = 1;
-    } else if (g_strncasecmp(uri, "vcd://", 6) == 0) {
+    } else if (g_ascii_strncasecmp(uri, "vcd://", 6) == 0) {
         playlist = 1;
-//      } else if (g_strncasecmp(filename,"dvdnav://",9) == 0) {
+//      } else if (g_ascii_strncasecmp(filename,"dvdnav://",9) == 0) {
 //              playlist = 1;
     } else if (device_name(uri)) {
         playlist = 0;
@@ -369,12 +369,12 @@ gint parse_basic(gchar * uri)
                 //printf("ref\n");
                 //continue;
                 //playlist = 1;
-            } else if (g_strncasecmp(newline, "<asx", strlen("<asx")) == 0) {
+            } else if (g_ascii_strncasecmp(newline, "<asx", strlen("<asx")) == 0) {
                 //printf("asx\n");
                 //idledata->streaming = TRUE;
                 g_free(newline);
                 break;
-            } else if (g_strncasecmp(newline, "<smil", strlen("<smil")) == 0) {
+            } else if (g_ascii_strncasecmp(newline, "<smil", strlen("<smil")) == 0) {
                 //printf("smil\n");
                 g_free(newline);
                 break;
@@ -387,22 +387,22 @@ gint parse_basic(gchar * uri)
                 //printf("smil\n");
                 g_free(newline);
                 break;
-            } else if (g_strncasecmp(newline, "numberofentries", strlen("numberofentries")) == 0) {
+            } else if (g_ascii_strncasecmp(newline, "numberofentries", strlen("numberofentries")) == 0) {
                 //printf("num\n");
                 //continue;
-            } else if (g_strncasecmp(newline, "version", strlen("version")) == 0) {
+            } else if (g_ascii_strncasecmp(newline, "version", strlen("version")) == 0) {
                 //printf("ver\n");
                 //continue;
-            } else if (g_strncasecmp(newline, "title", strlen("title")) == 0) {
+            } else if (g_ascii_strncasecmp(newline, "title", strlen("title")) == 0) {
                 //printf("title\n");
                 //continue;
-            } else if (g_strncasecmp(newline, "length", strlen("length")) == 0) {
+            } else if (g_ascii_strncasecmp(newline, "length", strlen("length")) == 0) {
                 //printf("len\n");
                 //continue;
-            } else if (g_strncasecmp(newline, "#extinf", strlen("#extinf")) == 0) {
+            } else if (g_ascii_strncasecmp(newline, "#extinf", strlen("#extinf")) == 0) {
                 //printf("#extinf\n");
                 //continue;
-            } else if (g_strncasecmp(newline, "#", strlen("#")) == 0) {
+            } else if (g_ascii_strncasecmp(newline, "#", strlen("#")) == 0) {
                 //printf("comment\n");
                 //continue;
             } else {
@@ -482,10 +482,10 @@ gint parse_ram(gchar * filename)
                 while (output[ac] != NULL) {
                     g_strchomp(output[ac]);
                     g_strchug(output[ac]);
-                    if (g_strncasecmp(output[ac], "rtsp://", strlen("rtsp://")) == 0) {
+                    if (g_ascii_strncasecmp(output[ac], "rtsp://", strlen("rtsp://")) == 0) {
                         ret = 1;
                         add_item_to_playlist(output[ac], 0);
-                    } else if (g_strncasecmp(output[ac], "pnm://", strlen("pnm://")) == 0) {
+                    } else if (g_ascii_strncasecmp(output[ac], "pnm://", strlen("pnm://")) == 0) {
                         ret = 1;
                         add_item_to_playlist(output[ac], 0);
                     }
@@ -578,7 +578,7 @@ gint parse_cdda(gchar * filename)
     gboolean ok;
     gint addcount = 0;
 
-    if (g_strncasecmp(filename, "cdda://", 7) != 0) {
+    if (g_ascii_strncasecmp(filename, "cdda://", 7) != 0) {
         return 0;
     } else {
         playlist = 0;
@@ -618,21 +618,21 @@ gint parse_cdda(gchar * filename)
         ac = 0;
         while (output[ac] != NULL) {
 
-            if (g_strncasecmp(output[ac], " artist", strlen(" artist")) == 0) {
+            if (g_ascii_strncasecmp(output[ac], " artist", strlen(" artist")) == 0) {
                 artist = g_strdup_printf("%s", output[ac] + strlen(" artist=["));
                 ptr = g_strrstr(artist, "]");
                 if (ptr != NULL)
                     ptr[0] = '\0';
             }
 
-            if (g_strncasecmp(output[ac], " album", strlen(" album")) == 0) {
+            if (g_ascii_strncasecmp(output[ac], " album", strlen(" album")) == 0) {
                 playlistname = g_strdup_printf("%s", output[ac] + strlen(" album=["));
                 ptr = g_strrstr(playlistname, "]");
                 if (ptr != NULL)
                     ptr[0] = '\0';
             }
 
-            if (g_strncasecmp(output[ac], "  #", 3) == 0) {
+            if (g_ascii_strncasecmp(output[ac], "  #", 3) == 0) {
                 sscanf(output[ac], "  #%i", &num);
                 track = g_strdup_printf("cdda://%i", num);
                 title = g_strdup_printf("%s", output[ac] + 26);
@@ -695,7 +695,7 @@ gint parse_cdda(gchar * filename)
         if (addcount == 0) {
             ac = 0;
             while (output[ac] != NULL) {
-                if (g_strncasecmp(output[ac], "ID_CDDA_TRACK__", strlen("ID_CDDA_TRACK_")) == 0) {
+                if (g_ascii_strncasecmp(output[ac], "ID_CDDA_TRACK__", strlen("ID_CDDA_TRACK_")) == 0) {
                     sscanf(output[ac], "ID_CDDA_TRACK_%i", &num);
                     track = g_strdup_printf("cdda://%i", num);
                     add_item_to_playlist(track, 0);
@@ -740,7 +740,7 @@ gint parse_dvd(gchar * filename)
     gchar *error_msg = NULL;
     GtkWidget *dialog;
 
-    if (g_strncasecmp(filename, "dvd://", strlen("dvd://")) == 0) {     // || g_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
+    if (g_ascii_strncasecmp(filename, "dvd://", strlen("dvd://")) == 0) {     // || g_ascii_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
         playlist = 0;
         // run mplayer and try to get the first frame and convert it to a jpeg
         if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
@@ -786,7 +786,7 @@ gint parse_dvd(gchar * filename)
         }
         ac = 0;
         while (output[ac] != NULL) {
-            if (g_strncasecmp(output[ac], "ID_DVD_TITLE_", strlen("ID_DVD_TITLE_")) == 0) {
+            if (g_ascii_strncasecmp(output[ac], "ID_DVD_TITLE_", strlen("ID_DVD_TITLE_")) == 0) {
                 if (strstr(output[ac], "LENGTH") != NULL) {
                     sscanf(output[ac], "ID_DVD_TITLE_%i", &num);
                     track = g_strdup_printf("dvd://%i", num);
@@ -833,7 +833,7 @@ gint parse_vcd(gchar * filename)
     gchar *error_msg = NULL;
     GtkWidget *dialog;
 
-    if (g_strncasecmp(filename, "vcd://", strlen("vcd://")) == 0) {
+    if (g_ascii_strncasecmp(filename, "vcd://", strlen("vcd://")) == 0) {
         playlist = 0;
 
         if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
@@ -879,7 +879,7 @@ gint parse_vcd(gchar * filename)
         }
         ac = 0;
         while (output[ac] != NULL) {
-            if (g_strncasecmp(output[ac], "ID_VCD_TRACK_", strlen("ID_VCD_TRACK_")) == 0) {
+            if (g_ascii_strncasecmp(output[ac], "ID_VCD_TRACK_", strlen("ID_VCD_TRACK_")) == 0) {
                 sscanf(output[ac], "ID_VCD_TRACK_%i", &num);
                 track = g_strdup_printf("vcd://%i", num);
                 printf("adding track %s\n", track);
@@ -1255,8 +1255,8 @@ MetaData *get_metadata(gchar * uri)
 
     error = NULL;
 
-    if (g_strncasecmp(name, "dvb://", strlen("dvb://")) == 0
-        || g_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
+    if (g_ascii_strncasecmp(name, "dvb://", strlen("dvb://")) == 0
+        || g_ascii_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
         if (verbose)
             printf("Skipping gathering metadata for TV channels\n");
     } else {
@@ -1287,14 +1287,14 @@ MetaData *get_metadata(gchar * uri)
     while (output != NULL && output[ac] != NULL) {
         lower = g_ascii_strdown(output[ac], -1);
         if (strstr(output[ac], "_LENGTH") != NULL
-            && (g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0
-                || g_strncasecmp(name, "dvd://", strlen("dvd://")) != 0)) {
+            && (g_ascii_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0
+                || g_ascii_strncasecmp(name, "dvd://", strlen("dvd://")) != 0)) {
             localtitle = strstr(output[ac], "=") + 1;
             sscanf(localtitle, "%f", &seconds);
             length = seconds_to_string(seconds);
         }
 
-        if (g_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
+        if (g_ascii_strncasecmp(output[ac], "ID_CLIP_INFO_NAME", strlen("ID_CLIP_INFO_NAME")) == 0) {
             if (strstr(lower, "=title") != NULL || strstr(lower, "=name") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
                 if (localtitle)
@@ -1326,7 +1326,7 @@ MetaData *get_metadata(gchar * uri)
         }
 
         if (strstr(output[ac], "DVD Title:") != NULL
-            && g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) == 0) {
+            && g_ascii_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) == 0) {
             localtitle = g_strrstr(output[ac], ":") + 1;
             title = metadata_to_utf8(localtitle);
             if (title == NULL) {
@@ -1370,27 +1370,27 @@ MetaData *get_metadata(gchar * uri)
         title = g_strdup(basename);
     }
 
-    if (title == NULL && g_strncasecmp(name, "dvd://", strlen("dvd://")) == 0) {
+    if (title == NULL && g_ascii_strncasecmp(name, "dvd://", strlen("dvd://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
         title = g_strdup_printf("DVD Track %s", localtitle);
     }
 
-    if (title == NULL && g_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
+    if (title == NULL && g_ascii_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
         title = g_strdup_printf("%s", localtitle);
     }
 
-    if (title == NULL && g_strncasecmp(name, "dvb://", strlen("dvb://")) == 0) {
+    if (title == NULL && g_ascii_strncasecmp(name, "dvb://", strlen("dvb://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
         title = g_strdup_printf("%s", localtitle);
     }
 
-    if (title == NULL && g_strncasecmp(name, "vcd://", strlen("vcd://")) == 0) {
+    if (title == NULL && g_ascii_strncasecmp(name, "vcd://", strlen("vcd://")) == 0) {
         localtitle = g_strrstr(name, "/") + 1;
         title = g_strdup_printf("%s", localtitle);
     }
 
-    if (title == NULL && g_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) == 0) {
+    if (title == NULL && g_ascii_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) == 0) {
         title = g_strdup_printf("DVD");
     }
 
@@ -1604,7 +1604,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         data = (MetaData *) g_new0(MetaData, 1);
         data->title = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
     } else if (device_name(local_uri)) {
-        if (g_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
+        if (g_ascii_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
             loop = 1;
         }
         data = get_metadata(local_uri);
@@ -2732,7 +2732,7 @@ gboolean detect_volume_option()
     output = g_strsplit(err, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
-        if (g_strncasecmp(output[ac], "Unknown option", strlen("Unknown option")) == 0) {
+        if (g_ascii_strncasecmp(output[ac], "Unknown option", strlen("Unknown option")) == 0) {
             ret = FALSE;
         }
         ac++;

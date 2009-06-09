@@ -4239,7 +4239,7 @@ void ao_change_callback(GtkComboBox widget, gpointer data)
 {
 
 #ifdef HAVE_ASOUNDLIB
-    if (g_strncasecmp(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_ao)->child)), "alsa", 4) == 0) {
+    if (g_ascii_strncasecmp(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_ao)->child)), "alsa", 4) == 0) {
         gtk_widget_set_sensitive(config_mixer, TRUE);
     } else {
         gtk_widget_set_sensitive(config_mixer, FALSE);
@@ -4447,7 +4447,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         i = 0;
         j = -1;
         while (i < 464) {
-            if (alang != NULL && g_strncasecmp(alang, langlist[i], strlen(alang)) == 0)
+            if (alang != NULL && g_ascii_strncasecmp(alang, langlist[i], strlen(alang)) == 0)
                 j = i;
             gtk_combo_box_append_text(GTK_COMBO_BOX(config_alang), langlist[i++]);
             if (j != -1) {
@@ -4464,7 +4464,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         i = 0;
         j = -1;
         while (i < 464) {
-            if (slang != NULL && g_strncasecmp(slang, langlist[i], strlen(slang)) == 0)
+            if (slang != NULL && g_ascii_strncasecmp(slang, langlist[i], strlen(slang)) == 0)
                 j = i;
             gtk_combo_box_append_text(GTK_COMBO_BOX(config_slang), langlist[i++]);
             if (j != -1)
@@ -4481,7 +4481,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         j = -1;
         while (i < 25) {
             if (metadata_codepage != NULL && strlen(metadata_codepage) > 1
-                && g_strncasecmp(metadata_codepage, codepagelist[i],
+                && g_ascii_strncasecmp(metadata_codepage, codepagelist[i],
                                  strlen(metadata_codepage)) == 0)
                 j = i;
             gtk_combo_box_append_text(GTK_COMBO_BOX(config_metadata_codepage), codepagelist[i++]);
@@ -4495,7 +4495,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         j = -1;
         while (i < 25) {
             if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 1
-                && g_strncasecmp(subtitle_codepage, codepagelist[i],
+                && g_ascii_strncasecmp(subtitle_codepage, codepagelist[i],
                                  strlen(subtitle_codepage)) == 0)
                 j = i;
             gtk_combo_box_append_text(GTK_COMBO_BOX(config_subtitle_codepage), codepagelist[i++]);

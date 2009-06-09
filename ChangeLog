@@ -1,4 +1,5 @@
 Development
+    Replace calls to g_strncasecmp with g_ascii_strncasecmp
     Fix nautilus property page so that it works correctly
     Set flat volume flag in schemas depending on version of pulseaudio installed
     Add "Respond to Keyboard Media keys" option

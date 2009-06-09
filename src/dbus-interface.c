@@ -624,19 +624,19 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_STRING, &keyname,
                          DBUS_TYPE_INVALID)) {
-                        if (g_strncasecmp(keyname, "Play", strlen("Play")) == 0) {
+                        if (g_ascii_strncasecmp(keyname, "Play", strlen("Play")) == 0) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_play, idledata);
                         }
-                        if (g_strncasecmp(keyname, "Stop", strlen("Stop")) == 0) {
+                        if (g_ascii_strncasecmp(keyname, "Stop", strlen("Stop")) == 0) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_stop, idledata);
                         }
-                        if (g_strncasecmp(keyname, "Previous", strlen("Previous")) == 0) {
+                        if (g_ascii_strncasecmp(keyname, "Previous", strlen("Previous")) == 0) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_prev, idledata);
                         }
-                        if (g_strncasecmp(keyname, "Next", strlen("Next")) == 0) {
+                        if (g_ascii_strncasecmp(keyname, "Next", strlen("Next")) == 0) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_next, idledata);
                         }
