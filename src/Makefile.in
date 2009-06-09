@@ -14,7 +14,6 @@
 
 @SET_MAKE@
 
-
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -32,6 +31,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = gnome-mplayer$(EXEEXT)
+@HAVE_NAUTILUS_TRUE@nautilus_PROGRAMS = libgnome-mplayer-properties-page.so$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -41,26 +41,10 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
-am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
-am__vpath_adj = case $$p in \
-    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
-    *) f=$$p;; \
-  esac;
-am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-am__installdirs = "$(DESTDIR)$(nautilusdir)" "$(DESTDIR)$(bindir)"
-nautilusLIBRARIES_INSTALL = $(INSTALL_DATA)
-LIBRARIES = $(nautilus_LIBRARIES)
-AR = ar
-ARFLAGS = cru
-libgnome_mplayer_properties_page_a_AR = $(AR) $(ARFLAGS)
-libgnome_mplayer_properties_page_a_LIBADD =
-am__libgnome_mplayer_properties_page_a_SOURCES_DIST = ../config.h \
-	mime_types.h nautilus_property_page.c
-@HAVE_NAUTILUS_TRUE@am_libgnome_mplayer_properties_page_a_OBJECTS = libgnome_mplayer_properties_page_a-nautilus_property_page.$(OBJEXT)
-libgnome_mplayer_properties_page_a_OBJECTS =  \
-	$(am_libgnome_mplayer_properties_page_a_OBJECTS)
+am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(nautilusdir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
-PROGRAMS = $(bin_PROGRAMS)
+nautilusPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
+PROGRAMS = $(bin_PROGRAMS) $(nautilus_PROGRAMS)
 am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
 	support.$(OBJEXT) mntent_compat.$(OBJEXT) main.$(OBJEXT) \
 	dbus-interface.$(OBJEXT) thread.$(OBJEXT)
@@ -73,6 +57,16 @@ gnome_mplayer_DEPENDENCIES = libgmtk/libgmtk.a libgmlib/libgmlib.a \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 gnome_mplayer_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(gnome_mplayer_LDFLAGS) $(LDFLAGS) -o $@
+am__libgnome_mplayer_properties_page_so_SOURCES_DIST = ../config.h \
+	mime_types.h nautilus_property_page.c
+@HAVE_NAUTILUS_TRUE@am_libgnome_mplayer_properties_page_so_OBJECTS = libgnome_mplayer_properties_page_so-nautilus_property_page.$(OBJEXT)
+libgnome_mplayer_properties_page_so_OBJECTS =  \
+	$(am_libgnome_mplayer_properties_page_so_OBJECTS)
+libgnome_mplayer_properties_page_so_LDADD = $(LDADD)
+libgnome_mplayer_properties_page_so_LINK = $(CCLD) \
+	$(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) \
+	$(libgnome_mplayer_properties_page_so_LDFLAGS) $(LDFLAGS) -o \
+	$@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -80,10 +74,10 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(libgnome_mplayer_properties_page_a_SOURCES) \
-	$(gnome_mplayer_SOURCES)
-DIST_SOURCES = $(am__libgnome_mplayer_properties_page_a_SOURCES_DIST) \
-	$(gnome_mplayer_SOURCES)
+SOURCES = $(gnome_mplayer_SOURCES) \
+	$(libgnome_mplayer_properties_page_so_SOURCES)
+DIST_SOURCES = $(gnome_mplayer_SOURCES) \
+	$(am__libgnome_mplayer_properties_page_so_SOURCES_DIST)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-dvi-recursive install-exec-recursive \
@@ -315,18 +309,16 @@ gnome_mplayer_LDADD = \
     $(MUSICBRAINZ_LIBS)
 
 @HAVE_NAUTILUS_TRUE@nautilusdir = $(NAUTILUSDIR)
-@HAVE_NAUTILUS_TRUE@nautilus_LIBRARIES = libgnome-mplayer-properties-page.a
-@HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_a_SOURCES = \
+@HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_SOURCES = \
 @HAVE_NAUTILUS_TRUE@    ../config.h \
 @HAVE_NAUTILUS_TRUE@    mime_types.h \
 @HAVE_NAUTILUS_TRUE@    nautilus_property_page.c
 
-@HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_a_CFLAGS = \
+@HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_CFLAGS = -fPIC \
 @HAVE_NAUTILUS_TRUE@    $(NAUTILUS_CFLAGS) \
 @HAVE_NAUTILUS_TRUE@    $(AM_CFLAGS)
 
-
-#libgnome_mplayer_properties_page_a_LDFLAGS = -module -avoid-version
+@HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_LDFLAGS = -avoid-version -shared
 EXTRA_DIST = 
 all: all-recursive
 
@@ -361,39 +353,6 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-install-nautilusLIBRARIES: $(nautilus_LIBRARIES)
-	@$(NORMAL_INSTALL)
-	test -z "$(nautilusdir)" || $(MKDIR_P) "$(DESTDIR)$(nautilusdir)"
-	@list='$(nautilus_LIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    f=$(am__strip_dir) \
-	    echo " $(nautilusLIBRARIES_INSTALL) '$$p' '$(DESTDIR)$(nautilusdir)/$$f'"; \
-	    $(nautilusLIBRARIES_INSTALL) "$$p" "$(DESTDIR)$(nautilusdir)/$$f"; \
-	  else :; fi; \
-	done
-	@$(POST_INSTALL)
-	@list='$(nautilus_LIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    p=$(am__strip_dir) \
-	    echo " $(RANLIB) '$(DESTDIR)$(nautilusdir)/$$p'"; \
-	    $(RANLIB) "$(DESTDIR)$(nautilusdir)/$$p"; \
-	  else :; fi; \
-	done
-
-uninstall-nautilusLIBRARIES:
-	@$(NORMAL_UNINSTALL)
-	@list='$(nautilus_LIBRARIES)'; for p in $$list; do \
-	  p=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(nautilusdir)/$$p'"; \
-	  rm -f "$(DESTDIR)$(nautilusdir)/$$p"; \
-	done
-
-clean-nautilusLIBRARIES:
-	-test -z "$(nautilus_LIBRARIES)" || rm -f $(nautilus_LIBRARIES)
-libgnome-mplayer-properties-page.a: $(libgnome_mplayer_properties_page_a_OBJECTS) $(libgnome_mplayer_properties_page_a_DEPENDENCIES) 
-	-rm -f libgnome-mplayer-properties-page.a
-	$(libgnome_mplayer_properties_page_a_AR) libgnome-mplayer-properties-page.a $(libgnome_mplayer_properties_page_a_OBJECTS) $(libgnome_mplayer_properties_page_a_LIBADD)
-	$(RANLIB) libgnome-mplayer-properties-page.a
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	test -z "$(bindir)" || $(MKDIR_P) "$(DESTDIR)$(bindir)"
@@ -417,9 +376,35 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+install-nautilusPROGRAMS: $(nautilus_PROGRAMS)
+	@$(NORMAL_INSTALL)
+	test -z "$(nautilusdir)" || $(MKDIR_P) "$(DESTDIR)$(nautilusdir)"
+	@list='$(nautilus_PROGRAMS)'; for p in $$list; do \
+	  p1=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
+	  if test -f $$p \
+	  ; then \
+	    f=`echo "$$p1" | sed 's,^.*/,,;$(transform);s/$$/$(EXEEXT)/'`; \
+	   echo " $(INSTALL_PROGRAM_ENV) $(nautilusPROGRAMS_INSTALL) '$$p' '$(DESTDIR)$(nautilusdir)/$$f'"; \
+	   $(INSTALL_PROGRAM_ENV) $(nautilusPROGRAMS_INSTALL) "$$p" "$(DESTDIR)$(nautilusdir)/$$f" || exit 1; \
+	  else :; fi; \
+	done
+
+uninstall-nautilusPROGRAMS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(nautilus_PROGRAMS)'; for p in $$list; do \
+	  f=`echo "$$p" | sed 's,^.*/,,;s/$(EXEEXT)$$//;$(transform);s/$$/$(EXEEXT)/'`; \
+	  echo " rm -f '$(DESTDIR)$(nautilusdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(nautilusdir)/$$f"; \
+	done
+
+clean-nautilusPROGRAMS:
+	-test -z "$(nautilus_PROGRAMS)" || rm -f $(nautilus_PROGRAMS)
 gnome-mplayer$(EXEEXT): $(gnome_mplayer_OBJECTS) $(gnome_mplayer_DEPENDENCIES) 
 	@rm -f gnome-mplayer$(EXEEXT)
 	$(gnome_mplayer_LINK) $(gnome_mplayer_OBJECTS) $(gnome_mplayer_LDADD) $(LIBS)
+libgnome-mplayer-properties-page.so$(EXEEXT): $(libgnome_mplayer_properties_page_so_OBJECTS) $(libgnome_mplayer_properties_page_so_DEPENDENCIES) 
+	@rm -f libgnome-mplayer-properties-page.so$(EXEEXT)
+	$(libgnome_mplayer_properties_page_so_LINK) $(libgnome_mplayer_properties_page_so_OBJECTS) $(libgnome_mplayer_properties_page_so_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -429,7 +414,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus-interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gui.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnome_mplayer_properties_page_a-nautilus_property_page.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mntent_compat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/playlist.Po@am__quote@
@@ -450,19 +435,19 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
-libgnome_mplayer_properties_page_a-nautilus_property_page.o: nautilus_property_page.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_a_CFLAGS) $(CFLAGS) -MT libgnome_mplayer_properties_page_a-nautilus_property_page.o -MD -MP -MF $(DEPDIR)/libgnome_mplayer_properties_page_a-nautilus_property_page.Tpo -c -o libgnome_mplayer_properties_page_a-nautilus_property_page.o `test -f 'nautilus_property_page.c' || echo '$(srcdir)/'`nautilus_property_page.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgnome_mplayer_properties_page_a-nautilus_property_page.Tpo $(DEPDIR)/libgnome_mplayer_properties_page_a-nautilus_property_page.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='nautilus_property_page.c' object='libgnome_mplayer_properties_page_a-nautilus_property_page.o' libtool=no @AMDEPBACKSLASH@
+libgnome_mplayer_properties_page_so-nautilus_property_page.o: nautilus_property_page.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -MT libgnome_mplayer_properties_page_so-nautilus_property_page.o -MD -MP -MF $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.o `test -f 'nautilus_property_page.c' || echo '$(srcdir)/'`nautilus_property_page.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='nautilus_property_page.c' object='libgnome_mplayer_properties_page_so-nautilus_property_page.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_a_CFLAGS) $(CFLAGS) -c -o libgnome_mplayer_properties_page_a-nautilus_property_page.o `test -f 'nautilus_property_page.c' || echo '$(srcdir)/'`nautilus_property_page.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.o `test -f 'nautilus_property_page.c' || echo '$(srcdir)/'`nautilus_property_page.c
 
-libgnome_mplayer_properties_page_a-nautilus_property_page.obj: nautilus_property_page.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_a_CFLAGS) $(CFLAGS) -MT libgnome_mplayer_properties_page_a-nautilus_property_page.obj -MD -MP -MF $(DEPDIR)/libgnome_mplayer_properties_page_a-nautilus_property_page.Tpo -c -o libgnome_mplayer_properties_page_a-nautilus_property_page.obj `if test -f 'nautilus_property_page.c'; then $(CYGPATH_W) 'nautilus_property_page.c'; else $(CYGPATH_W) '$(srcdir)/nautilus_property_page.c'; fi`
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgnome_mplayer_properties_page_a-nautilus_property_page.Tpo $(DEPDIR)/libgnome_mplayer_properties_page_a-nautilus_property_page.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='nautilus_property_page.c' object='libgnome_mplayer_properties_page_a-nautilus_property_page.obj' libtool=no @AMDEPBACKSLASH@
+libgnome_mplayer_properties_page_so-nautilus_property_page.obj: nautilus_property_page.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -MT libgnome_mplayer_properties_page_so-nautilus_property_page.obj -MD -MP -MF $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.obj `if test -f 'nautilus_property_page.c'; then $(CYGPATH_W) 'nautilus_property_page.c'; else $(CYGPATH_W) '$(srcdir)/nautilus_property_page.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='nautilus_property_page.c' object='libgnome_mplayer_properties_page_so-nautilus_property_page.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_a_CFLAGS) $(CFLAGS) -c -o libgnome_mplayer_properties_page_a-nautilus_property_page.obj `if test -f 'nautilus_property_page.c'; then $(CYGPATH_W) 'nautilus_property_page.c'; else $(CYGPATH_W) '$(srcdir)/nautilus_property_page.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.obj `if test -f 'nautilus_property_page.c'; then $(CYGPATH_W) 'nautilus_property_page.c'; else $(CYGPATH_W) '$(srcdir)/nautilus_property_page.c'; fi`
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -639,10 +624,10 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(LIBRARIES) $(PROGRAMS)
+all-am: Makefile $(PROGRAMS)
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(nautilusdir)" "$(DESTDIR)$(bindir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(nautilusdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -671,7 +656,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-binPROGRAMS clean-generic clean-nautilusLIBRARIES \
+clean-am: clean-binPROGRAMS clean-generic clean-nautilusPROGRAMS \
 	mostlyclean-am
 
 distclean: distclean-recursive
@@ -690,7 +675,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-nautilusLIBRARIES
+install-data-am: install-nautilusPROGRAMS
 
 install-dvi: install-dvi-recursive
 
@@ -725,26 +710,26 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS uninstall-nautilusLIBRARIES
+uninstall-am: uninstall-binPROGRAMS uninstall-nautilusPROGRAMS
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
 	install-strip
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
 	all all-am check check-am clean clean-binPROGRAMS \
-	clean-generic clean-nautilusLIBRARIES ctags ctags-recursive \
+	clean-generic clean-nautilusPROGRAMS ctags ctags-recursive \
 	distclean distclean-compile distclean-generic distclean-tags \
 	distdir dvi dvi-am html html-am info info-am install \
 	install-am install-binPROGRAMS install-data install-data-am \
 	install-dvi install-dvi-am install-exec install-exec-am \
 	install-html install-html-am install-info install-info-am \
-	install-man install-nautilusLIBRARIES install-pdf \
+	install-man install-nautilusPROGRAMS install-pdf \
 	install-pdf-am install-ps install-ps-am install-strip \
 	installcheck installcheck-am installdirs installdirs-am \
 	maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
 	tags tags-recursive uninstall uninstall-am \
-	uninstall-binPROGRAMS uninstall-nautilusLIBRARIES
+	uninstall-binPROGRAMS uninstall-nautilusPROGRAMS
 
 
 indent:

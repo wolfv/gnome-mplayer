@@ -8,13 +8,13 @@ Release: 1%{?dist}
 License: GPLv2+
 Group: Multimedia
 Packager: Kevin DeKorte <kdekorte@gmail.com>
-Source0: http://dekorte.homeip.net/download/gnome-mplayer/gnome-mplayer-%{ver}.tar.gz
+Source0: http://gnome-mplayer.googlecode.com/files/gnome-mplayer-%{ver}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Requires: mplayer mencoder
 BuildRequires: gcc-c++, pkgconfig, gettext, glib2-devel gtk2-devel GConf2-devel dbus-devel dbus-glib-devel alsa-lib-devel libnotify-devel libmusicbrainz3-devel libcurl-devel pulseaudio
 
 %description
-GNOME MPlayer is a simple GUI for MPlayer based on the Gnome HIG. However, the code is not dependent on any Gnome library
+GNOME MPlayer is a GTK GUI for MPlayer based on the Gnome HIG. However, the code is not dependent on any Gnome library
 
 %prep
 %setup -q
@@ -33,7 +33,7 @@ rm -rf $buildroot
 %post
 update-desktop-database %{_datadir}/applications
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-mplayer.schemas > /dev/null
+gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null
 
 %files
 %defattr(-,root,root,-)
@@ -41,5 +41,6 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-mplayer.s
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/locale
-%{_datadir}/pixmaps/gnome-mplayer.png
-%config %{_sysconfdir}/gconf/schemas/gnome-mplayer.schemas
+%{_datadir}/pixmaps/%{name}.png
+%config %{_sysconfdir}/gconf/schemas/%{name}.schemas
+%{_libdir}/nautilus/extensions-2.0/libgnome-mplayer-properties-page.so
