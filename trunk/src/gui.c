@@ -1068,6 +1068,8 @@ gboolean resize_window(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_smaller_subtitle), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_larger_subtitle), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), idle->videopresent);
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_increase_subtitle_delay), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
@@ -6427,6 +6429,8 @@ void show_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_smaller_subtitle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_larger_subtitle), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_increase_subtitle_delay), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
