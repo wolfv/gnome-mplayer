@@ -179,7 +179,7 @@ void draw(GtkWidget * tracker)
 		
         ptop = (tracker->allocation.height - pheight) / 2;
         pleft = (tracker->allocation.width - pwidth) / 2;
-        gdk_draw_layout(tracker->window, tracker->style->text_gc[0], pleft, ptop + 1, p);
+		gtk_draw_layout(tracker->style,tracker->window,GTK_STATE_NORMAL,TRUE,pleft,ptop+1,p);
         g_object_unref(p);
     }
     // draw handle, draw it last so it sits on top
