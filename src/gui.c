@@ -1265,8 +1265,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
                 && event_button->y > fixed->allocation.y
                 && event_button->x < fixed->allocation.x + fixed->allocation.width
                 && event_button->y < fixed->allocation.y + fixed->allocation.height) {
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen),
-                                               !fullscreen);
+                g_idle_add(set_fullscreen,idledata);
             }
         }
     }
@@ -2175,6 +2174,8 @@ gboolean slide_panel_away(gpointer data)
 		g_mutex_unlock(slide_away);
 		return FALSE;
 	}
+
+	// mutex was already locked, this is good since we only want to do the animation if locked
 	
     if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box)) {
         if (controls_box->allocation.height <= 1) {
@@ -2235,7 +2236,7 @@ gboolean make_panel_and_mouse_visible(gpointer data)
 
 //    if ((fullscreen || always_hide_after_timeout) && !GTK_WIDGET_VISIBLE(controls_box)) {
 		g_mutex_unlock(slide_away);
-        if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
+        if (showcontrols && GTK_IS_WIDGET(controls_box)) {
             gtk_widget_set_size_request(controls_box, -1, -1);
             gtk_widget_show(controls_box);
         }

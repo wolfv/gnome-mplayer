@@ -148,7 +148,6 @@ gboolean gm_parse_asx_is_asx(const gchar *uri)
     line = g_new0(gchar, 1024);
 
     if (fp != NULL) {
-        while (!feof(fp)) {
             memset(line, 0, sizeof(line));
             line = fgets(line, 1024, fp);
             if (line == NULL)
@@ -179,14 +178,13 @@ gboolean gm_parse_asx_is_asx(const gchar *uri)
             g_free(newline);
 #ifdef GIO_ENABLED
             g_free(line);
-            line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+            line = NULL;
         }
         g_input_stream_close((GInputStream *) data, NULL, NULL);
         g_input_stream_close((GInputStream *) input, NULL, NULL);
     }
     g_object_unref(file);
 #else
-        }
     }
     g_free(file);
     fclose(fp);
