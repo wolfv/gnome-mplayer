@@ -2170,6 +2170,12 @@ gboolean slide_panel_away(gpointer data)
         return FALSE;
     }
 
+	if (g_mutex_trylock(slide_away)) {
+		// mutex is locked now, unlock it and exit function
+		g_mutex_unlock(slide_away);
+		return FALSE;
+	}
+	
     if (GTK_IS_WIDGET(controls_box) && GTK_WIDGET_VISIBLE(controls_box)) {
         if (controls_box->allocation.height <= 1) {
             gtk_widget_hide(controls_box);
@@ -2227,8 +2233,8 @@ gboolean make_panel_and_mouse_visible(gpointer data)
 {
 //      GTimeVal currenttime;
 
-    if ((fullscreen || always_hide_after_timeout) && !GTK_WIDGET_VISIBLE(controls_box)) {
-
+//    if ((fullscreen || always_hide_after_timeout) && !GTK_WIDGET_VISIBLE(controls_box)) {
+		g_mutex_unlock(slide_away);
         if (showcontrols && GTK_IS_WIDGET(controls_box) && !GTK_WIDGET_VISIBLE(controls_box)) {
             gtk_widget_set_size_request(controls_box, -1, -1);
             gtk_widget_show(controls_box);
@@ -2240,7 +2246,7 @@ gboolean make_panel_and_mouse_visible(gpointer data)
 			printf("panel and mouse set visible at %li\n",currenttime.tv_sec);
 		}
 */
-    }
+//    }
 
     return FALSE;
 }
@@ -3274,8 +3280,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
                                            restore_playlist);
         }
 
-        fullscreen = 0;
         make_panel_and_mouse_visible(NULL);
+        fullscreen = 0;
 
         while (gtk_events_pending())
             gtk_main_iteration();
