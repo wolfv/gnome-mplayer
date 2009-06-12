@@ -251,6 +251,7 @@ gnome_mplayerdoc_DATA = \
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
 EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(schema_DATA) gnome-mplayer.spec.in config.h.in
+gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -765,11 +766,16 @@ dist-hook:
 		fi \
 	done
 
+update-icon-cache:
+	@-if test -z "$(DESTDIR)"; then \
+		$(gtk_update_icon_cache); \
+	fi
+
 install-schemas: $(schema_DATA)
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool-2 --makefile-install-rule $(schema_DATA) 2>&1 > /dev/null
 
-@GCONF_SCHEMAS_INSTALL_TRUE@install-data-hook: install-schemas
-@GCONF_SCHEMAS_INSTALL_FALSE@install-data-hook:
+@GCONF_SCHEMAS_INSTALL_TRUE@install-data-hook: install-schemas update-icon-cache
+@GCONF_SCHEMAS_INSTALL_FALSE@install-data-hook: update-icon-cache
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

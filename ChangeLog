@@ -1,4 +1,5 @@
 Development
+    Update icon cache during install
     Add in menu options for increasing and decreasing subtitle delay
     Add in new icons, attention packagers: new file locations $datadir/icons
     Add enca to the list of language codes, use this if mplayer supports enca
