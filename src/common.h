@@ -380,6 +380,8 @@ GArray *data;
 GArray *max_data;
 gboolean reading_af_export;
 
+gboolean sub_source_file;
+
 // playlist stuff
 GtkListStore *playliststore;
 GtkListStore *nonrandomplayliststore;

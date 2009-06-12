@@ -231,7 +231,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GtkWidget *dialog;
     gdouble old_pos;
     LangMenu *menu;
-	gboolean sub_source_file = FALSE;
 
     if (source == NULL) {
         g_source_remove(watch_err_id);
@@ -341,15 +340,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (idledata->length < 1.0)
             send_command("get_time_length\n", TRUE);
         send_command("get_property chapters\n", TRUE);
-        send_command("get_property sub_demux\n", TRUE);
         // send_command("get_property switch_audio\n", TRUE);
         send_command("pausing_keep_force get_property path\n", FALSE);
 		if (sub_source_file) {
 			if (verbose)
 				printf("setting subtitle source to file\n");
- 			send_command("set_property sub_source 0\n",TRUE);
- 			send_command("get_property sub_source\n",TRUE);
-		}		
+ 			send_command("sub_file 0\n",TRUE);
+		} else {
+		    send_command("get_property sub_demux\n", TRUE);
+		}
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -580,6 +579,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     if (strstr(mplayer_output->str, "ID_FILE_SUB_ID=") != 0) {
+		menu = g_new0(LangMenu, 1);
+        buf = strstr(mplayer_output->str, "ID_FILE_SUB_ID");
+        sscanf(buf, "ID_FILE_SUB_ID=%i", &menu->value);
+        menu->label = g_strdup_printf("FILE %i", menu->value);
+		menu->value += 9000;
+        g_idle_add(set_new_lang_menu, menu);		
 		sub_source_file = TRUE;
 	}
 	
@@ -788,6 +793,7 @@ gpointer launch_player(gpointer data)
     g_strlcpy(idledata->progress_text, "", 1024);
     idledata->volume = volume;
     idledata->length = 0.0;
+	sub_source_file = FALSE;
 
     g_idle_add(set_progress_value, idledata);
     g_idle_add(set_progress_text, idledata);
