@@ -110,6 +110,8 @@ GtkMenuItem *menuitem_view_sep2;
 GtkMenuItem *menuitem_view_subtitles;
 GtkMenuItem *menuitem_view_smaller_subtitle;
 GtkMenuItem *menuitem_view_larger_subtitle;
+GtkMenuItem *menuitem_view_decrease_subtitle_delay;
+GtkMenuItem *menuitem_view_increase_subtitle_delay;
 GtkMenuItem *menuitem_view_sep5;
 GtkMenuItem *menuitem_view_angle;
 GtkMenuItem *menuitem_view_controls;
@@ -307,6 +309,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data);
 void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data);
 void menuitem_quit_callback(GtkMenuItem * menuitem, void *data);
 void menuitem_details_callback(GtkMenuItem * menuitem, void *data);
+void menuitem_view_decrease_subtitle_delay_callback(GtkMenuItem * menuitem, void *data);
+void menuitem_view_increase_subtitle_delay_callback(GtkMenuItem * menuitem, void *data);
 void clear_playlist(GtkWidget * widget, void *data);
 gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 gint x, gint y, GtkSelectionData * selection_data,
