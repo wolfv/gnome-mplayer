@@ -33,11 +33,18 @@ dist-hook:
 		fi \
 	done
 
+gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
+
+update-icon-cache:
+	@-if test -z "$(DESTDIR)"; then \
+		$(gtk_update_icon_cache); \
+	fi
+
 install-schemas: $(schema_DATA)
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool-2 --makefile-install-rule $(schema_DATA) 2>&1 > /dev/null
 
 if GCONF_SCHEMAS_INSTALL
-install-data-hook: install-schemas
+install-data-hook: install-schemas update-icon-cache
 else
-install-data-hook:
+install-data-hook: update-icon-cache
 endif
