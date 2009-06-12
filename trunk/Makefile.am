@@ -23,10 +23,7 @@ endif
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
 
-icondir = ${prefix}/share/pixmaps
-icon_DATA = gnome-mplayer.png
-
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) $(schema_DATA) gnome-mplayer.spec.in config.h.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(schema_DATA) gnome-mplayer.spec.in config.h.in
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

@@ -41,6 +41,6 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/%{name}.schemas
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/locale
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/icons
 %config %{_sysconfdir}/gconf/schemas/%{name}.schemas
 %{_libdir}/nautilus/extensions-2.0/libgnome-mplayer-properties-page.so
