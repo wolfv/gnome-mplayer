@@ -62,14 +62,11 @@ am__vpath_adj = case $$p in \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(desktopdir)" \
-	"$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(icondir)" \
-	"$(DESTDIR)$(schemadir)"
+	"$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(schemadir)"
 desktopDATA_INSTALL = $(INSTALL_DATA)
 gnome_mplayerdocDATA_INSTALL = $(INSTALL_DATA)
-iconDATA_INSTALL = $(INSTALL_DATA)
 schemaDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(desktop_DATA) $(gnome_mplayerdoc_DATA) $(icon_DATA) \
-	$(schema_DATA)
+DATA = $(desktop_DATA) $(gnome_mplayerdoc_DATA) $(schema_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 ETAGS = etags
@@ -253,9 +250,7 @@ gnome_mplayerdoc_DATA = \
 @GCONF_SCHEMAS_INSTALL_TRUE@schema_DATA = gnome-mplayer.schemas
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
-icondir = ${prefix}/share/pixmaps
-icon_DATA = gnome-mplayer.png
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(icon_DATA) $(schema_DATA) gnome-mplayer.spec.in config.h.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(schema_DATA) gnome-mplayer.spec.in config.h.in
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -347,23 +342,6 @@ uninstall-gnome_mplayerdocDATA:
 	  f=$(am__strip_dir) \
 	  echo " rm -f '$(DESTDIR)$(gnome_mplayerdocdir)/$$f'"; \
 	  rm -f "$(DESTDIR)$(gnome_mplayerdocdir)/$$f"; \
-	done
-install-iconDATA: $(icon_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(icondir)" || $(MKDIR_P) "$(DESTDIR)$(icondir)"
-	@list='$(icon_DATA)'; for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  f=$(am__strip_dir) \
-	  echo " $(iconDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(icondir)/$$f'"; \
-	  $(iconDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(icondir)/$$f"; \
-	done
-
-uninstall-iconDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(icon_DATA)'; for p in $$list; do \
-	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(icondir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(icondir)/$$f"; \
 	done
 install-schemaDATA: $(schema_DATA)
 	@$(NORMAL_INSTALL)
@@ -669,7 +647,7 @@ check: check-recursive
 all-am: Makefile $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(icondir)" "$(DESTDIR)$(schemadir)"; do \
+	for dir in "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(schemadir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -716,7 +694,7 @@ info: info-recursive
 info-am:
 
 install-data-am: install-desktopDATA install-gnome_mplayerdocDATA \
-	install-iconDATA install-schemaDATA
+	install-schemaDATA
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 
@@ -755,7 +733,7 @@ ps: ps-recursive
 ps-am:
 
 uninstall-am: uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
-	uninstall-iconDATA uninstall-schemaDATA
+	uninstall-schemaDATA
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
 	install-data-am install-strip
@@ -770,14 +748,13 @@ uninstall-am: uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
 	install-data-am install-data-hook install-desktopDATA \
 	install-dvi install-dvi-am install-exec install-exec-am \
 	install-gnome_mplayerdocDATA install-html install-html-am \
-	install-iconDATA install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-schemaDATA install-strip installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
-	uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
-	uninstall-iconDATA uninstall-schemaDATA
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-schemaDATA \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am tags \
+	tags-recursive uninstall uninstall-am uninstall-desktopDATA \
+	uninstall-gnome_mplayerdocDATA uninstall-schemaDATA
 
 
 # Copy all the spec files. Of cource, only one is actually used.
