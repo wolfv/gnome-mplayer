@@ -430,6 +430,7 @@ gint play_iter(GtkTreeIter * playiter)
     set_media_info(idledata);
 
     streaming = 0;
+	subtitle_delay = 0.0;
 
     if (thread_data->filename != NULL && strlen(thread_data->filename) != 0) {
         thread_data->player_window = 0;
