@@ -1265,7 +1265,9 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
                 && event_button->y > fixed->allocation.y
                 && event_button->x < fixed->allocation.x + fixed->allocation.width
                 && event_button->y < fixed->allocation.y + fixed->allocation.height) {
-                g_idle_add(set_fullscreen,idledata);
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen),
+                                               !fullscreen);
+
             }
         }
     }

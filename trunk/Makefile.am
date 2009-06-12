@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 ## Created by Anjuta
 
-SUBDIRS = src po
+SUBDIRS = src po icons
 
 gnome_mplayerdocdir = ${prefix}/share/doc/gnome-mplayer
 gnome_mplayerdoc_DATA = \
