@@ -163,8 +163,10 @@ GdkPixbuf *pb_next;
 GdkPixbuf *pb_prev;
 GdkPixbuf *pb_menu;
 GdkPixbuf *pb_icon;
-GdkPixbuf *pb_logo;
 GdkPixbuf *pb_button;
+
+GList *icon_list;
+
 GtkWidget *button_event_box;
 GtkWidget *image_button;
 

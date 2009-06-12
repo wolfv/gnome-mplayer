@@ -1,4 +1,6 @@
 Development
+    Set sub_source to 0 (file) when ID_FILE_SUB_ID is found
+    Prepare for multiple icon sizes
     Replace calls to g_strncasecmp with g_ascii_strncasecmp
     Fix nautilus property page so that it works correctly
     Set flat volume flag in schemas depending on version of pulseaudio installed

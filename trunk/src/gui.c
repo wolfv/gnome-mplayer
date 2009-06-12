@@ -2867,7 +2867,6 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *authors[] = { "Kevin DeKorte", "James Carthew", "Diogo Franco", NULL };
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"),
-                          "logo", pb_logo,
                           "authors", authors,
                           "copyright", "Copyright © 2007,2008 Kevin DeKorte",
                           "comments", _("A media player for GNOME that uses MPlayer"),
@@ -6009,17 +6008,40 @@ GtkWidget *create_window(gint windowid)
 
     image_fs = gtk_image_new_from_pixbuf(pb_fs);
 
+	icon_list = NULL;
     if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
+        pb_icon = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 128, 0, NULL);
+		if (pb_icon)
+			icon_list = g_list_prepend(icon_list,pb_icon);
         pb_icon = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 64, 0, NULL);
-        pb_logo = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 64, 0, NULL);
-    } else {
+		if (pb_icon)
+			icon_list = g_list_prepend(icon_list,pb_icon);
+        pb_icon = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 48, 0, NULL);
+		if (pb_icon)
+			icon_list = g_list_prepend(icon_list,pb_icon);
+        pb_icon = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 24, 0, NULL);
+		if (pb_icon)
+			icon_list = g_list_prepend(icon_list,pb_icon);
+        pb_icon = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 22, 0, NULL);
+		if (pb_icon)
+			icon_list = g_list_prepend(icon_list,pb_icon);
+        pb_icon = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 16, 0, NULL);
+		if (pb_icon)
+			icon_list = g_list_prepend(icon_list,pb_icon);
+	} else {
         pb_icon = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
-        pb_logo = gdk_pixbuf_new_from_xpm_data((const char **) gnome_mplayer_xpm);
+		if (pb_icon)
+			icon_list = g_list_prepend(icon_list,pb_icon);
     }
-    gtk_window_set_icon(GTK_WINDOW(window), pb_icon);
-
+	gtk_window_set_default_icon_list(icon_list);
+	gtk_window_set_icon_list(GTK_WINDOW(window), icon_list);
+   
 #ifdef GTK2_12_ENABLED
-    status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
+	if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
+		status_icon = gtk_status_icon_new_from_icon_name("gnome-mplayer");
+	} else {
+		status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
+	}
     if (control_id != 0) {
         gtk_status_icon_set_visible(status_icon, FALSE);
     } else {
