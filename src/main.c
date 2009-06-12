@@ -747,7 +747,7 @@ int main(int argc, char *argv[])
 		    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
 		        if (verbose)
 		            printf
-		                ("Using pulse audio, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
+		                ("Using pulse audio in non-flat volume mode, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
 		                 volume);
 		        volume = 100;
 		    }
