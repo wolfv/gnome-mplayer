@@ -4478,7 +4478,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_metadata_codepage != NULL) {
         i = 0;
         j = -1;
-        while (i < 25) {
+        while (i < 26) {
             if (metadata_codepage != NULL && strlen(metadata_codepage) > 1
                 && g_ascii_strncasecmp(metadata_codepage, codepagelist[i],
                                  strlen(metadata_codepage)) == 0)
@@ -4492,7 +4492,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_subtitle_codepage != NULL) {
         i = 0;
         j = -1;
-        while (i < 25) {
+        while (i < 26) {
             if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 1
                 && g_ascii_strncasecmp(subtitle_codepage, codepagelist[i],
                                  strlen(subtitle_codepage)) == 0)
