@@ -568,7 +568,10 @@ gboolean set_update_gui(void *data)
 
     if (GTK_IS_WIDGET(menu_edit_sub_langs)) {
         langs = gtk_container_get_children(GTK_CONTAINER(menu_edit_sub_langs));
-        item = g_list_nth(langs, idledata->sub_demux);
+		if (sub_source_file)
+    		item = g_list_last(langs);
+		else
+    		item = g_list_nth(langs, idledata->sub_demux);
         if (item && GTK_IS_WIDGET(item->data))
             gtk_menu_shell_activate_item(GTK_MENU_SHELL(menu_edit_sub_langs),
                                          (GtkWidget *) item->data, FALSE);
@@ -752,7 +755,11 @@ void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer sid)
 {
     gchar *cmd;
 
-    if (GPOINTER_TO_INT(sid) >= 0) {
+    if (GPOINTER_TO_INT(sid) >= 9000) {
+        cmd = g_strdup_printf("sub_file %i\n", GPOINTER_TO_INT(sid - 9000));
+        send_command(cmd, TRUE);
+        g_free(cmd);
+    } else if (GPOINTER_TO_INT(sid) >= 0) {
         cmd = g_strdup_printf("sub_demux %i\n", GPOINTER_TO_INT(sid));
         send_command(cmd, TRUE);
         g_free(cmd);
@@ -2876,7 +2883,7 @@ void menuitem_next_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 {
-    gchar *authors[] = { "Kevin DeKorte", "James Carthew", "Diogo Franco", NULL };
+    gchar *authors[] = { "Kevin DeKorte", "James Carthew", "Diogo Franco","Icons provided by Victor Castillejo", NULL };
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"),
                           "authors", authors,
                           "copyright", "Copyright © 2007,2008 Kevin DeKorte",

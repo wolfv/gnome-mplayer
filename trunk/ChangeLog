@@ -1,4 +1,7 @@
 Development
+    When loading a file that has external subtitles, default to that subtitle mapping
+    Add external subtitles to the subtitle language menu with tag "FILE 0"
+    Icons provided by Victor Castillejo
     Update icon cache during install
     Add in menu options for increasing and decreasing subtitle delay
     Add in new icons, attention packagers: new file locations $datadir/icons
