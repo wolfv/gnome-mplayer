@@ -1,4 +1,6 @@
 Development
+    Add enca to the list of language codes, use this if mplayer supports enca
+        for even better detection add ":[2 letter lang code]" after enca (ie enca:ru)
     Set sub_source to 0 (file) when ID_FILE_SUB_ID is found
     Prepare for multiple icon sizes
     Replace calls to g_strncasecmp with g_ascii_strncasecmp

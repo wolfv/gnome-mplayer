@@ -580,8 +580,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     if (strstr(mplayer_output->str, "ID_FILE_SUB_ID=") != 0) {
-		if (verbose)
-			printf("setting sub_source_file = TRUE\n");
 		sub_source_file = TRUE;
 	}
 	

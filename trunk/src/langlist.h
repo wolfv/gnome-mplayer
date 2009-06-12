@@ -490,7 +490,7 @@ gchar *langlist[464] = { "Abkhazian,abk,ab",
     "Zuni,zun",
 };
 
-gchar *codepagelist[25] = { "",
+gchar *codepagelist[26] = { "",
     "UNICODE",
     "BIG5",
     "CP874",
@@ -514,5 +514,6 @@ gchar *codepagelist[25] = { "",
     "ISO-8859-14",
     "ISO-8859-15",
     "KOI8-R",
-    "KOI8-U/RU"
+    "KOI8-U/RU",
+    "enca"
 };
