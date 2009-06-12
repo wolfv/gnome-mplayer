@@ -3274,9 +3274,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
                                            restore_playlist);
         }
 
+        fullscreen = 0;
         make_panel_and_mouse_visible(NULL);
 
-        fullscreen = 0;
         while (gtk_events_pending())
             gtk_main_iteration();
     } else {
