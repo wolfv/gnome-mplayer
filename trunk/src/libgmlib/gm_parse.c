@@ -77,7 +77,7 @@ asx_start_element(GMarkupParseContext * context,
     gchar *value;
     gint i = 0;
     gchar *ptr;
-	ASXCallback *asx_callback = g_markup_parse_context_get_user_data(context);
+	ASXCallback *asx_callback = user_data; // g_markup_parse_context_get_user_data(context);
 	
 	if (g_ascii_strcasecmp(element_name, "REF") == 0 ||
         g_ascii_strcasecmp(element_name, "ENTRYREF") == 0) {
