@@ -149,6 +149,8 @@ void draw(GtkWidget * tracker)
                        tracker->style->dark_gc[0],
                        FALSE, half_thumb_size, 5, bar_width, tracker->allocation.height - 10);
 
+	// gtk_paint_shadow(tracker->style, tracker->window, GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_OUT, NULL, NULL, NULL, half_thumb_size, 5, bar_width, tracker->allocation.height - 10);
+
 	// if the thumb is hidden we can't seek so tickmarks are useless
 	if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_HIDDEN && GMTK_MEDIA_TRACKER(tracker)->cache_percent == 0.0) {
 		// don't draw it
@@ -208,6 +210,9 @@ void draw(GtkWidget * tracker)
                         tracker->allocation.height -
                         gdk_pixbuf_get_height(GMTK_MEDIA_TRACKER(tracker)->thumb_lower) + 1, -1, -1,
                         GDK_RGB_DITHER_NONE, 0, 0);
+
+		// interesting, but can't see it.
+		// gtk_paint_handle(tracker->style,tracker->window, GTK_STATE_NORMAL, GTK_SHADOW_NONE, NULL, NULL, NULL, handle_left, 0, 20, tracker->allocation.height,GTK_ORIENTATION_HORIZONTAL);
     }
 }
 
