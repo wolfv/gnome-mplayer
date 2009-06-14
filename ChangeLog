@@ -1,4 +1,5 @@
 Development
+    Switch audio language properly in multiaudio file when langcodes are present
     When loading a file that has external subtitles, default to that subtitle mapping
     Add external subtitles to the subtitle language menu with tag "FILE 0"
     Icons provided by Victor Castillejo
