@@ -1,4 +1,5 @@
 Development
+    Raise max cache size from 32MB to 256MB
     Switch audio language properly in multiaudio file when langcodes are present
     When loading a file that has external subtitles, default to that subtitle mapping
     Add external subtitles to the subtitle language menu with tag "FILE 0"
