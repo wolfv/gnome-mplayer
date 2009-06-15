@@ -734,6 +734,12 @@ gboolean thread_query(gpointer data)
         g_idle_add(map_af_export_file, idledata);
     }
 
+	// track volume control
+	if (use_pulse_flat_volume && !softvol) {
+		volume = (gint) get_alsa_volume(FALSE);
+		idledata->volume = volume;
+		g_idle_add(set_volume, idledata);
+	}
 
     if (state == PLAYING) {
         // size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));

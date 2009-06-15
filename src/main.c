@@ -319,7 +319,7 @@ gint play_iter(GtkTreeIter * playiter)
     if (!softvol && ao != NULL
         && (g_ascii_strcasecmp(ao, "alsa") == 0
             || (use_pulse_flat_volume && g_ascii_strcasecmp(ao, "pulse") == 0))) {
-        volume = (gint) get_alsa_volume();
+        volume = (gint) get_alsa_volume(TRUE);
         idledata->volume = volume;
 #if GTK2_12_ENABLED
         gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), volume);
@@ -742,8 +742,15 @@ int main(int argc, char *argv[])
     }
 #endif
 
+	if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
+		// do nothing
+	} else {
+		// we have alsa or pulse flat volume now
+		use_pulse_flat_volume = TRUE;
+	}
+	
     if (volume == -1) {
-        volume = (gint) get_alsa_volume();
+        volume = (gint) get_alsa_volume(TRUE);
 		if (!use_pulse_flat_volume) {
 		    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
 		        if (verbose)
