@@ -140,8 +140,10 @@ gboolean gm_parse_asx_is_asx(const gchar *uri)
     gchar *file = NULL;
 
     file = g_strndup(uri, 4);
-    if (strcmp(file, "file") != 0)
+    if (strcmp(file, "file") != 0) {
+		g_free(file);
         return 0;               // FIXME: remote playlists unsuppored
+	}
     parse = g_strsplit(uri, "/", 3);
     fp = fopen(parse[2], "r");
     g_strfreev(parse);

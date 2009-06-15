@@ -325,8 +325,10 @@ gint parse_basic(gchar * uri)
     gchar *file = NULL;
 
     file = g_strndup(uri, 4);
-    if (strcmp(file, "file") != 0)
+    if (strcmp(file, "file") != 0) {
+		g_free(file);
         return 0;               // FIXME: remote playlists unsuppored
+	}
     parse = g_strsplit(uri, "/", 3);
     path = gm_get_path(parse[2]);
     fp = fopen(parse[2], "r");
