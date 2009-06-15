@@ -1329,6 +1329,12 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
         gm_store = gm_pref_store_new("gnome-mplayer");
         gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
         gtk_window_get_size(GTK_WINDOW(window), &loc_window_width, &loc_window_height);
+
+		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+			loc_window_height = plvbox->allocation.height;
+			loc_window_width = plvbox->allocation.width;
+		}
+		
         gm_pref_store_set_int(gm_store, WINDOW_X, loc_window_x);
         gm_pref_store_set_int(gm_store, WINDOW_Y, loc_window_y);
         gm_pref_store_set_int(gm_store, WINDOW_HEIGHT, loc_window_height);
