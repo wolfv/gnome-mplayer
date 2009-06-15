@@ -1,4 +1,6 @@
 Development
+    Fix minor memory leak
+    Have ogv files use the lavf demuxer
     Fix window inital size when playlist is visible.
     When running in ALSA or PULSE (flat volume), track the main volume control (unless using softvol)
     Raise max cache size from 32MB to 256MB

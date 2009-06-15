@@ -1054,7 +1054,7 @@ gpointer launch_player(gpointer data)
        http://lists.mplayerhq.hu/pipermail/mplayer-users/2007-February/065316.html 
      */
     filename = g_utf8_strdown(threaddata->filename, -1);
-    if (strstr(filename, ".ogm")) {
+    if (strstr(filename, ".ogm") || strstr(filename, ".ogv")) {
         argv[arg++] = g_strdup_printf("-demuxer");
         argv[arg++] = g_strdup_printf("lavf");
     }
