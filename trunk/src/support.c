@@ -1995,7 +1995,7 @@ void randomize_playlist(GtkListStore * store)
     g_rand_free(rand);
 }
 
-gdouble get_alsa_volume()
+gdouble get_alsa_volume(gboolean show_details)
 {
     gdouble vol = 100.0;
 
@@ -2059,7 +2059,7 @@ gdouble get_alsa_volume()
             f_multi = (100 / (float) (pmax - pmin));
             snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
             vol = (gdouble) ((get_vol - pmin) * f_multi);
-            if (verbose) {
+            if (verbose && show_details) {
                 printf("%s Range is %li to %li \n", mixer, pmin, pmax);
                 printf("%s Current Volume %li, multiplier = %f\n", mixer, get_vol, f_multi);
                 printf("Scaled Volume is %lf\n", vol);
@@ -2087,7 +2087,7 @@ gdouble get_alsa_volume()
             f_multi = (100 / (float) (pmax - pmin));
             snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
             vol = (gdouble) ((get_vol - pmin) * f_multi);
-            if (verbose) {
+            if (verbose && show_details) {
                 printf("Master Range is %li to %li \n", pmin, pmax);
                 printf("Master Current Volume %li, multiplier = %f\n", get_vol, f_multi);
                 printf("Scaled Volume is %lf\n", vol);
@@ -2101,7 +2101,7 @@ gdouble get_alsa_volume()
     snd_mixer_close(mhandle);
 #endif
 
-    if (verbose)
+    if (verbose && show_details)
         printf("Using volume of %3.2lf\n", vol);
     return vol;
 }
