@@ -498,6 +498,7 @@ gint parse_ram(gchar * filename)
             if (ret != 1)
                 break;
         }
+		fclose(fp);
     }
     g_free(buffer);
     buffer = NULL;
@@ -1594,7 +1595,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
 
     if (verbose)
         printf("adding %s to playlist (cancel = %i)\n", uri, cancel_folder_load);
-    local_uri = strdup(uri);
+    local_uri = g_strdup(uri);
     if (!device_name(local_uri) && !streaming_media(local_uri)) {
         if (playlist) {
             data = (MetaData *) g_new0(MetaData, 1);
