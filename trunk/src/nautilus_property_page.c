@@ -137,6 +137,8 @@ static MetaData *get_metadata(gchar * filename)
             g_free(out);
         if (err != NULL)
             g_free(err);
+		if (ret != NULL)
+			g_free(ret);
         return NULL;
     }
     output = g_strsplit(out, "\n", 0);
