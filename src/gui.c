@@ -2916,6 +2916,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           "Italian - Cesare Tirabassi\n"
                           "Japanese - Munehiro Yamamoto\n"
                           "Korean - ByeongSik Jeon\n"
+                          "Lithuanian - Mindaugas B.\n"
                           "Polish - Julian Sikorski\n"
                           "Portugese - LL\n"
                           "Russian - Dmitry Stropaloff\n"

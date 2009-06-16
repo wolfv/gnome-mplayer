@@ -1,4 +1,5 @@
 Development
+    Added Lithuanian translation
     Fix minor memory leak
     Have ogv files use the lavf demuxer
     Fix window inital size when playlist is visible.
