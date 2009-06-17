@@ -138,7 +138,7 @@ static GOptionEntry entries[] = {
     {NULL}
 };
 
-gint play_iter(GtkTreeIter * playiter)
+gint play_iter(GtkTreeIter * playiter, gint start_second)
 {
 
     ThreadData *thread_data = (ThreadData *) g_new0(ThreadData, 1);
@@ -435,6 +435,7 @@ gint play_iter(GtkTreeIter * playiter)
     if (thread_data->filename != NULL && strlen(thread_data->filename) != 0) {
         thread_data->player_window = 0;
         thread_data->playlist = playlist;
+		thread_data->start_second = start_second;
         thread_data->streaming = streaming_media(thread_data->uri);
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
@@ -865,7 +866,7 @@ int main(int argc, char *argv[])
                 if (S_ISDIR(buf.st_mode)) {
                     add_item_to_playlist("dvd://", 0);
                     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-                    play_iter(&iter);
+                    play_iter(&iter,0);
                 } else {
                     uri = g_strdup_printf("file://%s", mnt->mnt_dir);
                     create_folder_progress_window();
@@ -877,7 +878,7 @@ int main(int argc, char *argv[])
                         randomize_playlist(playliststore);
                     }
                     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                        play_iter(&iter);
+                        play_iter(&iter,0);
                     }
                 }
             } else {
@@ -888,7 +889,7 @@ int main(int argc, char *argv[])
                 }
                 //play_file("cdda://", playlist);
                 if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                    play_iter(&iter);
+                    play_iter(&iter,0);
                 }
             }
         } else if (S_ISDIR(buf.st_mode)) {
@@ -911,7 +912,7 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                play_iter(&iter);
+                play_iter(&iter,0);
             }
 
         } else {
@@ -956,7 +957,7 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                play_iter(&iter);
+                play_iter(&iter,0);
             }
         }
 

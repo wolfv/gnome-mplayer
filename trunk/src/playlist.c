@@ -192,7 +192,7 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            play_iter(&iter);
+            play_iter(&iter,0);
 
         } else {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
@@ -716,7 +716,7 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
     if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
         dontplaynext = TRUE;
         mplayer_shutdown();
-        play_iter(&iter);
+        play_iter(&iter,0);
         dontplaynext = FALSE;
     }
     return FALSE;

@@ -125,7 +125,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                 g_free(buf);
                                 if (gtk_tree_model_get_iter_first
                                     (GTK_TREE_MODEL(playliststore), &iter)) {
-                                    play_iter(&iter);
+                                    play_iter(&iter,0);
                                 }
 
                             }
@@ -155,7 +155,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         }
                         g_free(buf);
                         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                            play_iter(&iter);
+                            play_iter(&iter,0);
                         }
 
                         if (GTK_IS_TREE_SELECTION(selection)) {
@@ -469,7 +469,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         g_idle_add(set_progress_value, idledata);
                         if (idledata->cachepercent > 0.99 && idledata->retry_on_full_cache) {
                             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                                play_iter(&iter);
+                                play_iter(&iter,0);
                             }
                         }
                     } else {
