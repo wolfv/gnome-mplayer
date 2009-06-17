@@ -1,4 +1,5 @@
 Development
+    Add option to Edit->Preferences to select the default audio output more Stereo, Surround or 5.1
     Added Lithuanian translation
     Fix minor memory leak
     Have ogv files use the lavf demuxer

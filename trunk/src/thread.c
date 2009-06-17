@@ -1012,6 +1012,19 @@ gpointer launch_player(gpointer data)
         }
     }
 
+	argv[arg++] = g_strdup_printf("-channels");
+	switch (audio_channels) {
+		case 1: 
+			argv[arg++] = g_strdup_printf("4");
+			break;
+		case 2: 
+			argv[arg++] = g_strdup_printf("6");
+			break;
+		default: 
+			argv[arg++] = g_strdup_printf("2");
+			break;
+	}
+	
     if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
         argv[arg++] = g_strdup_printf("-subcp");
         argv[arg++] = g_strdup_printf("%s", subtitle_codepage);

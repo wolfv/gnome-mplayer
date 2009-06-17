@@ -3489,6 +3489,7 @@ void config_apply(GtkWidget * widget, void *data)
     subtitle_codepage =
         g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_subtitle_codepage)->child)));
 
+	audio_channels = gtk_combo_box_get_active(GTK_COMBO_BOX(config_audio_channels));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     old_disable_framedrop = disable_framedrop;
     disable_deinterlace =
@@ -3575,6 +3576,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_int(gm_store, VOLUME,
                           gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));
 #endif
+    gm_pref_store_set_int(gm_store, AUDIO_CHANNELS, audio_channels);
     gm_pref_store_set_int(gm_store, CACHE_SIZE, cache_size);
     gm_pref_store_set_string(gm_store, MIXER, mixer);
     gm_pref_store_set_int(gm_store, OSDLEVEL, osdlevel);
@@ -4556,6 +4558,15 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         }
     }
 
+	config_audio_channels = gtk_combo_box_entry_new_text();
+    if (config_audio_channels != NULL) {
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_audio_channels), "Stereo");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_audio_channels), "Surround");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_audio_channels), "5.1 Surround");
+        gtk_combo_box_set_active(GTK_COMBO_BOX(config_audio_channels), audio_channels);
+    }
+
+	
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Output Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
@@ -4596,7 +4607,19 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      0);
     i++;
 #endif
-    conf_label = gtk_label_new("");
+    conf_label = gtk_label_new(_("Audio Channels to Output"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_widget_set_size_request(GTK_WIDGET(config_audio_channels), 200, -1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_audio_channels, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+                     0);
+    i++;
+
+
+	conf_label = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
