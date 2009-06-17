@@ -643,7 +643,8 @@ int main(int argc, char *argv[])
 #ifndef HAVE_ASOUNDLIB
     volume = gm_pref_store_get_int(gm_store, VOLUME);
 #endif
-    fullscreen = gm_pref_store_get_boolean(gm_store, FULLSCREEN);
+	audio_channels = gm_pref_store_get_int(gm_store, AUDIO_CHANNELS);
+	fullscreen = gm_pref_store_get_boolean(gm_store, FULLSCREEN);
     softvol = gm_pref_store_get_boolean(gm_store, SOFTVOL);
     forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
     vertical_layout = gm_pref_store_get_boolean(gm_store, VERTICAL);
@@ -675,7 +676,7 @@ int main(int argc, char *argv[])
     subtitle_shadow = gm_pref_store_get_boolean(gm_store, SUBTITLESHADOW);
     showsubtitles = gm_pref_store_get_boolean_with_default(gm_store, SHOW_SUBTITLES, TRUE);
 
-    qt_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_QT);
+	qt_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_QT);
     real_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_REAL);
     wmp_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_WMP);
     dvx_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_DVX);

@@ -62,6 +62,7 @@
 #define TRACKER_POSITION "tracker_position"
 
 #define VOLUME	"volume"
+#define AUDIO_CHANNELS "audio_channels"
 #define USE_MEDIAKEYS		"use_mediakeys"
 #define DISABLE_COVER_ART_FETCH "disable_cover_art_fetch"
 #define FULLSCREEN	"fullscreen"
@@ -286,6 +287,7 @@ gchar vm[10];
 gchar *vo;
 gchar *ao;
 gchar *mixer;
+gint audio_channels;
 gboolean disable_deinterlace;
 gboolean disable_framedrop;
 gboolean disable_context_menu;
