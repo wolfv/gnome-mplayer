@@ -53,7 +53,7 @@
 
 gint get_bitrate(gchar * name);
 void strip_unicode(gchar * data, gsize len);
-gint play_iter(GtkTreeIter * playiter);
+gint play_iter(GtkTreeIter * playiter, gint start_second);
 gint detect_playlist(gchar * filename);
 gchar *metadata_to_utf8(gchar * string);
 gint parse_playlist(gchar * uri);

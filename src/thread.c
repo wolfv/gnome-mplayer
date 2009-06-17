@@ -78,7 +78,7 @@ gboolean play(void *data)
     if (ok_to_play && p != NULL) {
         gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri,
                            -1);
-        play_iter(&iter);
+        play_iter(&iter,0);
     }
     g_free(p);
 
@@ -924,6 +924,11 @@ gpointer launch_player(gpointer data)
     player_window = idledata->windowid;
     argv[arg++] = g_strdup_printf("0x%x", player_window);
 
+	if (threaddata->start_second > 0) {
+		argv[arg++] = g_strdup_printf("-ss");
+		argv[arg++] = g_strdup_printf("%i", threaddata->start_second);	
+	}
+	
     if (control_id == 0) {
 //        if (!idledata->streaming)
 //            argv[arg++] = g_strdup_printf("-idx");

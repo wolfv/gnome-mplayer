@@ -1836,7 +1836,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
         if (itemcount == 0 || added_single) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            play_iter(&iter);
+            play_iter(&iter,0);
         }
 
         g_strfreev(list);
@@ -1895,10 +1895,10 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
     if (state == QUIT) {
         if (next_item_in_playlist(&iter)) {
-            play_iter(&iter);
+            play_iter(&iter,0);
         } else {
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                play_iter(&iter);
+                play_iter(&iter,0);
             }
         }
     }
@@ -2046,7 +2046,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
     if (valid) {
         dontplaynext = TRUE;
-        play_iter(&previter);
+        play_iter(&previter,0);
         iter = previter;
         if (autopause) {
             autopause = FALSE;
@@ -2345,7 +2345,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
             g_slist_free(filename);
 
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            play_iter(&iter);
+            play_iter(&iter,0);
             dontplaynext = FALSE;
         }
     }
@@ -2388,7 +2388,7 @@ void open_location_callback(GtkWidget * widget, void *data)
 
             g_free(filename);
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            play_iter(&iter);
+            play_iter(&iter,0);
             dontplaynext = FALSE;
         }
     }
@@ -2454,7 +2454,7 @@ void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
     parse_dvd("dvd://");
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-        play_iter(&iter);
+        play_iter(&iter,0);
     }
 }
 
@@ -2486,7 +2486,7 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
         parse_dvd("dvd://");
 
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-            play_iter(&iter);
+            play_iter(&iter,0);
         }
     }
     if (GTK_IS_WIDGET(dialog))
@@ -2528,7 +2528,7 @@ void menuitem_open_dvd_iso_callback(GtkMenuItem * menuitem, void *data)
         parse_dvd("dvd://");
 
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-            play_iter(&iter);
+            play_iter(&iter,0);
         }
     }
     if (GTK_IS_WIDGET(dialog))
@@ -2547,7 +2547,7 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
     dvdnav_title_is_menu = TRUE;
     add_item_to_playlist("dvdnav://", 0);
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-    play_iter(&iter);
+    play_iter(&iter,0);
     gtk_widget_show(menu_event_box);
 }
 
@@ -2581,7 +2581,7 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
         gtk_widget_show(menu_event_box);
 
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-            play_iter(&iter);
+            play_iter(&iter,0);
         }
     }
     if (GTK_IS_WIDGET(dialog))
@@ -2625,7 +2625,7 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
         gtk_widget_show(menu_event_box);
 
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-            play_iter(&iter);
+            play_iter(&iter,0);
         }
     }
     if (GTK_IS_WIDGET(dialog))
@@ -2640,7 +2640,7 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
     parse_playlist("cdda://");
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-        play_iter(&iter);
+        play_iter(&iter,0);
     }
 
 }
@@ -2652,7 +2652,7 @@ void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
     parse_playlist("vcd://");
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-        play_iter(&iter);
+        play_iter(&iter,0);
     }
 
 }
@@ -2664,7 +2664,7 @@ void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
     add_item_to_playlist("tv://", 0);
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-        play_iter(&iter);
+        play_iter(&iter,0);
     }
 }
 
@@ -2697,7 +2697,7 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-        play_iter(&iter);
+        play_iter(&iter,0);
         dontplaynext = FALSE;
     }
 
@@ -2788,7 +2788,7 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-        play_iter(&iter);
+        play_iter(&iter,0);
         dontplaynext = FALSE;
     }
 }
@@ -3633,6 +3633,9 @@ void config_apply(GtkWidget * widget, void *data)
     g_free(filename);
 
     dbus_reload_plugins();
+
+	dontplaynext = TRUE;
+	play_iter(&iter, idledata->position);
 
     gtk_widget_destroy(widget);
 }
