@@ -1279,6 +1279,8 @@ MetaData *get_metadata(gchar * uri)
             g_free(out);
         if (err != NULL)
             g_free(err);
+		if (ret !=  NULL)
+			g_free(ret);
         return NULL;
     }
     if (out != NULL) {
