@@ -1,4 +1,5 @@
 Development
+    Add Dutch Translation
     Restart player at 'close' location when preferences are changed
         Exact frame is limited by mplayer, so restart may not be in exact location
     Add option to Edit->Preferences to select the default audio output more Stereo, Surround or 5.1

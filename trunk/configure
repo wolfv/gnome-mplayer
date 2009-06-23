@@ -1472,7 +1472,8 @@ Optional Features:
 			  (and sometimes confusing) to the casual installer
   --disable-dependency-tracking  speeds up one-time build
   --enable-dependency-tracking   do not reject slow dependency extractors
-  --disable-schemas-install	Disable the schemas installation
+  --disable-schemas-install
+                          Disable the schemas installation
   --enable-nautilus       compile the nautilus plugin
 
 Optional Packages:
@@ -6770,7 +6771,7 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 
-ALL_LINGUAS="bg de el en es fr it ja ko lt pl pt_BR ro ru sr sr@latin sv tr zh_CN zh_HK zh_TW"
+ALL_LINGUAS="bg de el en es fr it ja ko lt nl pl pt_BR ro ru sr sr@latin sv tr zh_CN zh_HK zh_TW"
 
 # On IRIX 5.3, sys/types and inttypes.h are conflicting.
 
