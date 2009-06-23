@@ -147,10 +147,11 @@ gboolean gm_parse_asx_is_asx(const gchar *uri)
     parse = g_strsplit(uri, "/", 3);
     fp = fopen(parse[2], "r");
     g_strfreev(parse);
-    line = g_new0(gchar, 1024);
 
     if (fp != NULL) {
-            memset(line, 0, sizeof(line));
+			if (line != NULL)
+				g_free(line);
+			line = g_new0(gchar, 1024);
             line = fgets(line, 1024, fp);
             if (line == NULL)
                 continue;
