@@ -2909,6 +2909,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           "Chinese (simplified) - Wenzheng Hu\n"
                           "Chinese (Hong Kong) - Hialan Liu\n"
                           "Chinese (Taiwan) - Hailan Liu\n"
+                          "Dutch - Mark Huijgen\n"
                           "German - tim__b\n"
                           "Greek - Georgas\n"
                           "French - Alexandre Bedot\n"
