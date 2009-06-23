@@ -135,6 +135,32 @@ gboolean gm_parse_asx_is_asx(const gchar *uri)
     if (data != NULL) {
         line = g_data_input_stream_read_line(data, &length, NULL, NULL);
         while (line != NULL) {
+            if (line != NULL)
+                g_strstrip(line);
+            if (g_utf8_strlen(line, -1) == 0) {
+                g_free(line);
+                line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+                continue;
+            }
+            newline = g_strdup(line);
+            if (g_strncasecmp(newline, "<asx", g_utf8_strlen("<asx",-1)) == 0) {
+                ret = TRUE;
+                g_free(newline);
+                break;
+            } else if (g_strrstr(newline, "<asx") != NULL) {
+				ret = TRUE;
+				g_free(newline);
+                break;
+            }
+            g_free(newline);
+            g_free(line);
+            line = NULL;
+        }
+        g_input_stream_close((GInputStream *) data, NULL, NULL);
+        g_input_stream_close((GInputStream *) input, NULL, NULL);
+    }
+    g_object_unref(file);
+			
 #else
     FILE *fp;
     gchar *file = NULL;
@@ -149,45 +175,31 @@ gboolean gm_parse_asx_is_asx(const gchar *uri)
     g_strfreev(parse);
 
     if (fp != NULL) {
-			if (line != NULL)
-				g_free(line);
-			line = g_new0(gchar, 1024);
-            line = fgets(line, 1024, fp);
-            if (line == NULL)
-                continue;
-#endif
-            if (line != NULL)
-                g_strstrip(line);
-            if (g_utf8_strlen(line, -1) == 0) {
-#ifdef GIO_ENABLED
-                g_free(line);
-                line = g_data_input_stream_read_line(data, &length, NULL, NULL);
-#endif
-                continue;
-            }
-            //printf("line = %s\n", line);
-            newline = g_strdup(line);
-            if (g_strncasecmp(newline, "<asx", g_utf8_strlen("<asx",-1)) == 0) {
-                //printf("asx\n");
-                ret = TRUE;
-                g_free(newline);
-                break;
-            } else if (g_strrstr(newline, "<asx") != NULL) {
-                //printf("asx\n");
-				ret = TRUE;
+		if (line != NULL)
+			g_free(line);
+		line = g_new0(gchar, 1024);
+        line = fgets(line, 1024, fp);
+        if (line != NULL) {
+		    if (line != NULL)
+		        g_strstrip(line);
+		    if (g_utf8_strlen(line, -1) == 0) {
+				if (line != NULL)
+					g_free(line);
+		    } else {
+				//printf("line = %s\n", line);
+				newline = g_strdup(line);
+				if (g_strncasecmp(newline, "<asx", g_utf8_strlen("<asx",-1)) == 0) {
+				    //printf("asx\n");
+				    ret = TRUE;
+				    g_free(newline);
+				} else if (g_strrstr(newline, "<asx") != NULL) {
+				    //printf("asx\n");
+					ret = TRUE;
+					g_free(newline);
+				}
 				g_free(newline);
-                break;
-            }
-            g_free(newline);
-#ifdef GIO_ENABLED
-            g_free(line);
-            line = NULL;
-        }
-        g_input_stream_close((GInputStream *) data, NULL, NULL);
-        g_input_stream_close((GInputStream *) input, NULL, NULL);
-    }
-    g_object_unref(file);
-#else
+			}
+		}
     }
     g_free(file);
     fclose(fp);
