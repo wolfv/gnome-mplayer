@@ -38,6 +38,7 @@ void mplayer_shutdown()
             g_idle_add(unmap_af_export_file, idledata);
         }
         send_command("quit\n", FALSE);
+		dbus_send_event("Ended",0);
     }
 
 }

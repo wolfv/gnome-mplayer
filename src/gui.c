@@ -466,7 +466,9 @@ gboolean set_progress_time(void *data)
     if (idle->fromdbus == FALSE && state != PAUSED)
         dbus_send_rpsignal_with_string("RP_SetProgressText", idle->progress_text);
     update_status_icon();
-
+	
+	dbus_send_event("TimeChanged", 0);
+	
     return FALSE;
 }
 
