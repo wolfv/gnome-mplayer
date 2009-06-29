@@ -1221,6 +1221,7 @@ MetaData *get_metadata(gchar * uri)
         if (file != NULL) {
             name = g_file_get_path(file);
             basename = g_file_get_basename(file);
+			g_object_unref(file);
         }
 #else
         name = g_filename_from_uri(uri, NULL, NULL);
@@ -1228,9 +1229,12 @@ MetaData *get_metadata(gchar * uri)
 #endif
     }
 
-    if (name == NULL)
+    if (name == NULL) {
+		if (ret != NULL)
+			g_free(ret);
         return NULL;
-
+	}
+	
     if (verbose)
         printf("getting file metadata for %s\n", name);
 
