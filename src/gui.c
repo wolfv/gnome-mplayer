@@ -342,27 +342,29 @@ gboolean set_progress_value(void *data)
 
     if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9) {
         if (autopause == FALSE && state == PLAYING) {
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iteruri, -1);
-            if (iteruri != NULL) {
-                iterfilename = g_filename_from_uri(iteruri, NULL, NULL);
-                g_stat(iterfilename, &buf);
-                if (verbose > 1) {
-                    printf("filename = %s\ndisk size = %li, byte pos = %li\n", iterfilename,
-                           (glong) buf.st_size, idle->byte_pos);
-                    printf("cachesize = %f, percent = %f\n", idle->cachepercent, idle->percent);
-                    printf("will pause = %i\n",
-                           ((idle->byte_pos + (cache_size * 512)) > buf.st_size)  && !(playlist));
-                }
-                // if ((idle->percent + 0.10) > idle->cachepercent && ((idle->byte_pos + (512 * 1024)) > buf.st_size)) {
-                // if ((buf.st_size > 0) && (idle->byte_pos + (cache_size * 512)) > buf.st_size) {
-                if (((idle->byte_pos + (cache_size * 512)) > buf.st_size) && !(playlist)) {
-                    pause_callback(NULL, NULL, NULL);
-                    gtk_widget_set_sensitive(play_event_box, FALSE);
-                    autopause = TRUE;
-                }
-                g_free(iterfilename);
-                g_free(iteruri);
-            }
+			if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+		        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iteruri, -1);
+		        if (iteruri != NULL) {
+		            iterfilename = g_filename_from_uri(iteruri, NULL, NULL);
+		            g_stat(iterfilename, &buf);
+		            if (verbose > 1) {
+		                printf("filename = %s\ndisk size = %li, byte pos = %li\n", iterfilename,
+		                       (glong) buf.st_size, idle->byte_pos);
+		                printf("cachesize = %f, percent = %f\n", idle->cachepercent, idle->percent);
+		                printf("will pause = %i\n",
+		                       ((idle->byte_pos + (cache_size * 512)) > buf.st_size)  && !(playlist));
+		            }
+		            // if ((idle->percent + 0.10) > idle->cachepercent && ((idle->byte_pos + (512 * 1024)) > buf.st_size)) {
+		            // if ((buf.st_size > 0) && (idle->byte_pos + (cache_size * 512)) > buf.st_size) {
+		            if (((idle->byte_pos + (cache_size * 512)) > buf.st_size) && !(playlist)) {
+		                pause_callback(NULL, NULL, NULL);
+		                gtk_widget_set_sensitive(play_event_box, FALSE);
+		                autopause = TRUE;
+		            }
+		            g_free(iterfilename);
+		            g_free(iteruri);
+		        }
+			}
         } else if (autopause == TRUE && state == PAUSED) {
             if (idle->cachepercent > (idle->percent + 0.20)) {
                 gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
