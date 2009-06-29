@@ -981,7 +981,12 @@ int main(int argc, char *argv[])
     show_window(embed_window);
 	if (argv[fileindex] == NULL && embed_window == 0) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
-    }	
+    }
+	
+	if (single_instance && embed_window == 0) {
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
+    }
+	
     gtk_main();
 
     return 0;

@@ -1,4 +1,5 @@
 Development
+    If single instance mode, then always show playlist if start with playlist visible is specified
     Tell session manager and screen saver to inhibit going idle
     Add Dutch Translation
     Restart player at 'close' location when preferences are changed
