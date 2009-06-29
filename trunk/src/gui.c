@@ -6489,7 +6489,8 @@ void show_window(gint windowid)
     gtk_widget_hide(audio_meter);
 
     gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
-    gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
+	if (keep_on_top)
+	    gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
     update_status_icon();
 
 }
