@@ -30,5 +30,6 @@
 #include "support.h"
 
 DBusConnection *connection;
-uint cookie;
+uint ss_cookie;
+uint sm_cookie;
 gboolean dbus_hookup(gint windowid, gint controlid);
