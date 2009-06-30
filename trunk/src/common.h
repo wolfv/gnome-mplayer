@@ -451,6 +451,7 @@ void dbus_send_event(gchar * event, gint button);
 void dbus_unhook();
 void dbus_enable_screensaver();
 void dbus_disable_screensaver();
+void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data);
 
 gboolean update_audio_meter(gpointer data);
 
