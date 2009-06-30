@@ -198,7 +198,8 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
         }
         gtk_list_store_set(playliststore, playiter, COUNT_COLUMN, count + 1, -1);
     } else {
-        printf("iter is invalid, nothing to play\n");
+		if (verbose > 1)
+	        printf("iter is invalid, nothing to play\n");
         return 0;
     }
 
@@ -685,7 +686,10 @@ int main(int argc, char *argv[])
     embedding_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_EMBEDDING);
     single_instance = gm_pref_store_get_boolean(gm_store, SINGLE_INSTANCE);
     if (single_instance)
+    {
         replace_and_play = gm_pref_store_get_boolean(gm_store, REPLACE_AND_PLAY);
+        bring_to_front = gm_pref_store_get_boolean(gm_store, BRING_TO_FRONT);
+    }
 
     mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {

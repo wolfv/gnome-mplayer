@@ -126,6 +126,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                 if (gtk_tree_model_get_iter_first
                                     (GTK_TREE_MODEL(playliststore), &iter)) {
                                     play_iter(&iter,0);
+                                    if (bring_to_front)
+                                        present_main_window();
                                 }
 
                             }
@@ -208,6 +210,11 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                             g_free(buf);
                             g_idle_add(set_update_gui, NULL);
                             // if play on add is set, play the last item on the playlist
+							if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
+								if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+				                    play_iter(&iter,0);
+				                }								
+							}			
                         }
                     } else {
                         dbus_error_free(&error);
