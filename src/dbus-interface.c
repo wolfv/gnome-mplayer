@@ -1176,12 +1176,6 @@ void dbus_enable_screensaver()
     DBusMessage *message;
 
     if (connection != NULL) {
-	    message =
-	        dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-	                                     "org.gnome.ScreenSaver", "UnInhibit");
-        dbus_message_append_args(message, DBUS_TYPE_INT32, &ss_cookie, DBUS_TYPE_INVALID);
-        dbus_connection_send(connection, message, NULL);
-        dbus_message_unref(message);
 
 	    message =
 	        dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
@@ -1190,6 +1184,12 @@ void dbus_enable_screensaver()
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
 
+		message =
+	        dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+	                                     "org.gnome.ScreenSaver", "UnInhibit");
+        dbus_message_append_args(message, DBUS_TYPE_INT32, &ss_cookie, DBUS_TYPE_INVALID);
+        dbus_connection_send(connection, message, NULL);
+        dbus_message_unref(message);
 
 	}
 }
