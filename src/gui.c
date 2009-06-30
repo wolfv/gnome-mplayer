@@ -4290,13 +4290,6 @@ void config_single_instance_callback(GtkWidget * button, gpointer data)
                                                           (config_single_instance)));
 }
 
-void config_replace_and_play_callback(GtkWidget * button, gpointer data)
-{
-    gtk_widget_set_sensitive(config_bring_to_front,
-                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
-                                                          (config_single_instance)));
-}
-
 void ass_toggle_callback(GtkToggleButton * source, gpointer user_data)
 {
     gtk_widget_set_sensitive(config_subtitle_color, gtk_toggle_button_get_active(source));
@@ -5009,8 +5002,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_set_sensitive(config_replace_and_play,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
                                                           (config_single_instance)));
-    g_signal_connect(G_OBJECT(config_replace_and_play), "toggled",
-                     G_CALLBACK(config_replace_and_play_callback), NULL);
     i++;
     conf_label = gtk_label_new("");
     gtk_label_set_width_chars(GTK_LABEL(conf_label), 3);
