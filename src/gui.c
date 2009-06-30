@@ -2957,6 +2957,8 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
     }
 
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(playliststore),-2,GTK_SORT_ASCENDING);
+
     random_order = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random));
     if (random_order) {
         randomize_playlist(playliststore);
