@@ -709,12 +709,6 @@ void move_item_down(GtkWidget * widget, void *data)
 
 }
 
-void unsort_list(GtkWidget * widget, void *data) {
-
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(playliststore),-2,GTK_SORT_ASCENDING);
-	menuitem_edit_random_callback(NULL,NULL);
-}
-
 gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path,
                                   GtkTreeViewColumn * column, gpointer data)
 {
@@ -1009,7 +1003,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         gtk_button_set_image(GTK_BUTTON(undo),
                              gtk_image_new_from_stock(GTK_STOCK_UNDO, GTK_ICON_SIZE_MENU));
         gtk_box_pack_start(GTK_BOX(ctrlbox), undo, FALSE, FALSE, 0);
-        g_signal_connect(GTK_OBJECT(undo), "clicked", GTK_SIGNAL_FUNC(unsort_list), list);
+        g_signal_connect(GTK_OBJECT(undo), "clicked", GTK_SIGNAL_FUNC(menuitem_edit_random_callback), list);
         gtk_widget_set_sensitive(undo, TRUE);
 
         accel_group = gtk_accel_group_new();
