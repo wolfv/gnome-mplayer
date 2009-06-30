@@ -340,7 +340,7 @@ gboolean set_progress_value(void *data)
         }
     }
 
-    if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9) {
+    if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9 && !forcecache) {
         if (autopause == FALSE && state == PLAYING) {
 			if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
 		        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iteruri, -1);
@@ -436,7 +436,7 @@ gboolean set_progress_time(void *data)
 
 
     if ((int) idle->length == 0 || idle->position > idle->length) {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist)) {
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache) {
             g_snprintf(idle->progress_text, 128,
                        "%s | %2i%% \342\226\274", time_position, (int) (idle->cachepercent * 100));
             gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
@@ -446,7 +446,7 @@ gboolean set_progress_time(void *data)
         }
         gmtk_media_tracker_set_thumb_position(tracker, THUMB_HIDDEN);
     } else {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist)) {
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache) {
             g_snprintf(idle->progress_text, 128,
                        "%s / %s | %2i%% \342\226\274",
                        time_position, time_length, (int) (idle->cachepercent * 100));
@@ -3528,7 +3528,8 @@ void config_apply(GtkWidget * widget, void *data)
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
     keep_on_top = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_keep_on_top));
-    gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
+	if (keep_on_top)
+	    gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
 
     if (subtitlefont != NULL) {
         g_free(subtitlefont);
@@ -5119,7 +5120,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_widget_show_all(config_window);
     gtk_window_set_transient_for(GTK_WINDOW(config_window), GTK_WINDOW(window));
-    gtk_window_set_keep_above(GTK_WINDOW(config_window), keep_on_top);
+	if (keep_on_top)
+	    gtk_window_set_keep_above(GTK_WINDOW(config_window), keep_on_top);
     gtk_window_present(GTK_WINDOW(config_window));
 
 }
