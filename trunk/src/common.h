@@ -87,9 +87,11 @@
 #define KEEP_ON_TOP		"keep_on_top"
 #define SINGLE_INSTANCE "single_instance"
 #define REPLACE_AND_PLAY "replace_and_play"
+#define BRING_TO_FRONT  "bring_to_front"
 #define SHOW_NOTIFICATION "show_notification"
 #define SHOW_STATUS_ICON "show_status_icon"
 #define SHOW_SUBTITLES "show_subtitles"
+
 
 // JavaScript Playstates
 #define STATE_UNDEFINED     0
@@ -338,6 +340,7 @@ gboolean use_pulse_flat_volume;
 gboolean single_instance;
 gboolean new_instance;
 gboolean replace_and_play;
+gboolean bring_to_front;
 gboolean use_pausing_keep_force;
 gboolean show_notification;
 gboolean show_status_icon;
@@ -398,6 +401,7 @@ GmPrefStore *gmp_store;
 
 GtkWidget *create_window(gint windowid);
 void show_window(gint windowid);
+void present_main_window();
 gint get_player_window();
 void adjust_paned_rules();
 void reset_paned_rules();

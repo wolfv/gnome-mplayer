@@ -336,6 +336,30 @@
         <long>Only allow one instance of the player to run</long>
       </locale>
     </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/replace_and_play</key>
+      <applyto>/apps/gnome-mplayer/preferences/replace_and_play</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Replace currently playing media in single instance mode</short>
+        <long>Replace currently playing media in single instance mode</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/bring_to_front</key>
+      <applyto>/apps/gnome-mplayer/preferences/bring_to_front</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Bring window to front in single instance mode</short>
+        <long>Bting window to front in single instance mode</long>
+      </locale>
+    </schema>
         
     <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/extraopts</key>

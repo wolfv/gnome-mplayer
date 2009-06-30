@@ -1100,6 +1100,8 @@ gboolean resize_window(void *data)
 
 gboolean set_play(void *data)
 {
+	if (bring_to_front)
+		gtk_window_present(GTK_WINDOW(window));
 
     play_callback(NULL, NULL, data);
     return FALSE;
@@ -1894,7 +1896,6 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         gtk_widget_show(GTK_WIDGET(menuitem_play));
         g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
                          G_CALLBACK(menuitem_pause_callback), NULL);
-
     }
 
     if (state == QUIT) {
@@ -3517,6 +3518,7 @@ void config_apply(GtkWidget * widget, void *data)
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     single_instance = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance));
     replace_and_play = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_replace_and_play));
+    bring_to_front = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_bring_to_front));
 #ifdef NOTIFY_ENABLED
     show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
 #endif
@@ -3528,8 +3530,7 @@ void config_apply(GtkWidget * widget, void *data)
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
     keep_on_top = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_keep_on_top));
-	if (keep_on_top)
-	    gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
+    gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
 
     if (subtitlefont != NULL) {
         g_free(subtitlefont);
@@ -3602,6 +3603,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, VERTICAL, vertical_layout);
     gm_pref_store_set_boolean(gm_store, SINGLE_INSTANCE, single_instance);
     gm_pref_store_set_boolean(gm_store, REPLACE_AND_PLAY, replace_and_play);
+    gm_pref_store_set_boolean(gm_store, BRING_TO_FRONT, bring_to_front);
     gm_pref_store_set_boolean(gm_store, REMEMBER_LOC, remember_loc);
     gm_pref_store_set_boolean(gm_store, KEEP_ON_TOP, keep_on_top);
     gm_pref_store_set_int(gm_store, TRACKER_POSITION, thumb_position);
@@ -3626,6 +3628,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gmp_store, DISABLE_DVX, dvx_disabled);
     gm_pref_store_set_boolean(gmp_store, DISABLE_MIDI, midi_disabled);
     gm_pref_store_set_boolean(gmp_store, DISABLE_EMBEDDING, embedding_disabled);
+    
     gm_pref_store_free(gmp_store);
 
     filename = g_strdup_printf("%s/.mozilla/pluginreg.dat", g_getenv("HOME"));
@@ -4280,6 +4283,16 @@ void osdlevel_change_callback(GtkRange * range, gpointer data)
 void config_single_instance_callback(GtkWidget * button, gpointer data)
 {
     gtk_widget_set_sensitive(config_replace_and_play,
+                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+                                                          (config_single_instance)));
+    gtk_widget_set_sensitive(config_bring_to_front,
+                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+                                                          (config_single_instance)));
+}
+
+void config_replace_and_play_callback(GtkWidget * button, gpointer data)
+{
+    gtk_widget_set_sensitive(config_bring_to_front,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
                                                           (config_single_instance)));
 }
@@ -4996,8 +5009,22 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_set_sensitive(config_replace_and_play,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
                                                           (config_single_instance)));
+    g_signal_connect(G_OBJECT(config_replace_and_play), "toggled",
+                     G_CALLBACK(config_replace_and_play_callback), NULL);
     i++;
-
+    conf_label = gtk_label_new("");
+    gtk_label_set_width_chars(GTK_LABEL(conf_label), 3);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    config_bring_to_front =
+        gtk_check_button_new_with_label(_
+                                        ("When opening file, bring main window to front"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_bring_to_front), bring_to_front);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_bring_to_front, 1, 2, i, i + 1);
+    gtk_widget_set_sensitive(config_bring_to_front,
+                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+                                                          (config_single_instance)));
+    
+    i++;
     config_remember_loc = gtk_check_button_new_with_label(_("Remember Window Location and Size"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_remember_loc), remember_loc);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_remember_loc, 0, 2, i, i + 1);
@@ -5120,8 +5147,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     gtk_widget_show_all(config_window);
     gtk_window_set_transient_for(GTK_WINDOW(config_window), GTK_WINDOW(window));
-	if (keep_on_top)
-	    gtk_window_set_keep_above(GTK_WINDOW(config_window), keep_on_top);
+    gtk_window_set_keep_above(GTK_WINDOW(config_window), keep_on_top);
     gtk_window_present(GTK_WINDOW(config_window));
 
 }
@@ -6495,6 +6521,11 @@ void show_window(gint windowid)
 	    gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
     update_status_icon();
 
+}
+
+void present_main_window()
+{
+    gtk_window_present(GTK_WINDOW(window));
 }
 
 gboolean update_audio_meter(gpointer data)
