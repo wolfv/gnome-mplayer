@@ -589,6 +589,7 @@ int main(int argc, char *argv[])
     replace_and_play = FALSE;
 	bring_to_front = FALSE;
     keep_on_top = FALSE;
+	resize_on_new_media = FALSE;
     use_pausing_keep_force = FALSE;
     show_notification = TRUE;
     show_status_icon = TRUE;
@@ -710,6 +711,7 @@ int main(int argc, char *argv[])
     loc_window_height = gm_pref_store_get_int(gm_store, WINDOW_HEIGHT);
     loc_window_width = gm_pref_store_get_int(gm_store, WINDOW_WIDTH);
     keep_on_top = gm_pref_store_get_boolean(gm_store, KEEP_ON_TOP);
+	resize_on_new_media = gm_pref_store_get_boolean(gm_store, RESIZE_ON_NEW_MEDIA);
     read_mplayer_config();
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));

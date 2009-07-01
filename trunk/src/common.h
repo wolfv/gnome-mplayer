@@ -85,6 +85,7 @@
 #define WINDOW_HEIGHT	"window_height"
 #define WINDOW_WIDTH	"window_width"
 
+#define RESIZE_ON_NEW_MEDIA "resize_on_new_media"
 #define KEEP_ON_TOP		"keep_on_top"
 #define SINGLE_INSTANCE "single_instance"
 #define REPLACE_AND_PLAY "replace_and_play"
@@ -338,6 +339,7 @@ gint subtitle_margin;
 gboolean quit_on_complete;
 gchar *mplayer_bin;
 gchar *extraopts;
+gboolean resize_on_new_media;
 gboolean use_pulse_flat_volume;
 gboolean single_instance;
 gboolean new_instance;

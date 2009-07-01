@@ -916,7 +916,7 @@ gboolean resize_window(void *data)
             }
             gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
 
-            if (window_x == 0 && window_y == 0) {
+            if ((window_x == 0 && window_y == 0) || resize_on_new_media == TRUE) {
                 gtk_widget_show_all(GTK_WIDGET(fixed));
                 gtk_widget_set_size_request(fixed, -1, -1);
                 gtk_widget_set_size_request(drawing_area, -1, -1);
@@ -925,7 +925,7 @@ gboolean resize_window(void *data)
                            idle->height, GTK_WIDGET_VISIBLE(vbox));
                     //printf("last = %i x %i\n",last_window_width,last_window_height);
                 }
-                if (last_window_width == 0 && last_window_height == 0) {
+                if ((last_window_width == 0 && last_window_height == 0) || resize_on_new_media == TRUE) {
                     if (idle->width > 0 && idle->height > 0) {
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
                         gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
@@ -3549,7 +3549,8 @@ void config_apply(GtkWidget * widget, void *data)
 #endif
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
-    keep_on_top = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_keep_on_top));
+	resize_on_new_media = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_resize_on_new_media));
+	keep_on_top = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_keep_on_top));
     gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
 
     if (subtitlefont != NULL) {
@@ -3627,6 +3628,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, BRING_TO_FRONT, bring_to_front);
     gm_pref_store_set_boolean(gm_store, REMEMBER_LOC, remember_loc);
     gm_pref_store_set_boolean(gm_store, KEEP_ON_TOP, keep_on_top);
+    gm_pref_store_set_boolean(gm_store, RESIZE_ON_NEW_MEDIA, resize_on_new_media);
     gm_pref_store_set_int(gm_store, TRACKER_POSITION, thumb_position);
     gm_pref_store_set_int(gm_store, VERBOSE, verbose);
     gm_pref_store_set_string(gm_store, METADATACODEPAGE, metadata_codepage);
@@ -5056,6 +5058,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_remember_loc, 0, 2, i, i + 1);
     i++;
 
+    config_resize_on_new_media = gtk_check_button_new_with_label(_("Resize window when new video is loaded"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_resize_on_new_media), resize_on_new_media);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_resize_on_new_media, 0, 2, i, i + 1);
+    i++;
+	
     config_keep_on_top = gtk_check_button_new_with_label(_("Keep window above other windows"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_keep_on_top), keep_on_top);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_keep_on_top, 0, 2, i, i + 1);
