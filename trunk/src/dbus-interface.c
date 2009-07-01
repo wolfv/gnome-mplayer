@@ -126,7 +126,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                 if (gtk_tree_model_get_iter_first
                                     (GTK_TREE_MODEL(playliststore), &iter)) {
                                     play_iter(&iter,0);
-                                    if (bring_to_front)
+                                    if (embed_window == 0 && bring_to_front)
                                         present_main_window();
                                 }
 
