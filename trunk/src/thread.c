@@ -970,6 +970,12 @@ gpointer launch_player(gpointer data)
     if (!disable_ass) {
         argv[arg++] = g_strdup_printf("-ass");
 
+		if (subtitle_margin > 0) {
+	        argv[arg++] = g_strdup_printf("-ass-bottom-margin");
+	        argv[arg++] = g_strdup_printf("%i", subtitle_margin);
+	        argv[arg++] = g_strdup_printf("-ass-use-margins");
+		}
+		
         // Simply ommiting '-embeddedfonts' did not work
         if (!disable_embeddedfonts && g_strrstr(idledata->demuxer,"mkv")) {
 		    argv[arg++] = g_strdup_printf("-embeddedfonts");
@@ -1003,6 +1009,8 @@ gpointer launch_player(gpointer data)
 	        argv[arg++] = g_strdup_printf("-ass-color");
 	        argv[arg++] = g_strdup_printf("%s", subtitle_color);
 	    }
+
+		
     } else {
         argv[arg++] = g_strdup_printf("-subfont-text-scale");
         argv[arg++] = g_strdup_printf("%d", (int) (subtitle_scale * 5));        // 5 is the default

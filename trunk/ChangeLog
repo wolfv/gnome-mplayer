@@ -1,4 +1,5 @@
 Development
+    Add in option to add a margin for the subtitles on the lower part of the video
     Only use embedded fonts when using an MKV container, fallback to specified fonts otherwise
     Correct some drag and drop mechanics when playlist opened vs closed
     Fix problems with bring to front and embed mode
