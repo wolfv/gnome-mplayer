@@ -982,6 +982,7 @@ gpointer launch_player(gpointer data)
 		} else {
             argv[arg++] = g_strdup_printf("-noembeddedfonts");
 		}
+		
 	    argv[arg++] = g_strdup_printf("-ass-font-scale");
 	    argv[arg++] = g_strdup_printf("%1.2f", subtitle_scale);
 	    if (disable_embeddedfonts && subtitlefont != NULL && strlen(subtitlefont) > 0) {
@@ -1009,7 +1010,6 @@ gpointer launch_player(gpointer data)
 	        argv[arg++] = g_strdup_printf("-ass-color");
 	        argv[arg++] = g_strdup_printf("%s", subtitle_color);
 	    }
-
 		
     } else {
         argv[arg++] = g_strdup_printf("-subfont-text-scale");
@@ -1023,6 +1023,11 @@ gpointer launch_player(gpointer data)
             argv[arg++] = g_strdup_printf("%s", fontname);
             g_free(fontname);
         }
+
+		if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
+			argv[arg++] = g_strdup_printf("-subcp");
+			argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
+		}		
     }
 
 	argv[arg++] = g_strdup_printf("-channels");
@@ -1037,11 +1042,6 @@ gpointer launch_player(gpointer data)
 			argv[arg++] = g_strdup_printf("2");
 			break;
 	}
-	
-    if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
-        argv[arg++] = g_strdup_printf("-subcp");
-        argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
-    }
 
     if (vo == NULL || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
                         || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
