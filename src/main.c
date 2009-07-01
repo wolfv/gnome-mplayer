@@ -587,6 +587,7 @@ int main(int argc, char *argv[])
     disable_deinterlace = TRUE;
     details_visible = FALSE;
     replace_and_play = FALSE;
+	bring_to_front = FALSE;
     keep_on_top = FALSE;
     use_pausing_keep_force = FALSE;
     show_notification = TRUE;
@@ -684,13 +685,15 @@ int main(int argc, char *argv[])
     dvx_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_DVX);
     midi_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_MIDI);
     embedding_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_EMBEDDING);
-    single_instance = gm_pref_store_get_boolean(gm_store, SINGLE_INSTANCE);
-    if (single_instance)
-    {
-        replace_and_play = gm_pref_store_get_boolean(gm_store, REPLACE_AND_PLAY);
-        bring_to_front = gm_pref_store_get_boolean(gm_store, BRING_TO_FRONT);
-    }
-
+	if (embed_window == 0) {
+		single_instance = gm_pref_store_get_boolean(gm_store, SINGLE_INSTANCE);
+		if (single_instance)
+		{
+		    replace_and_play = gm_pref_store_get_boolean(gm_store, REPLACE_AND_PLAY);
+		    bring_to_front = gm_pref_store_get_boolean(gm_store, BRING_TO_FRONT);
+		}
+	}
+	
     mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);

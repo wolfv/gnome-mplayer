@@ -1,4 +1,5 @@
 Development
+    Fix problems with bring to front and embed mode
     Playlist colums are now sortable, Title, Artist and Album. New button to unsort list as well.
     Apply patch "bring_to_front" plus some additional changes
     Workaround side effect of forcecache option

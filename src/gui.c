@@ -1100,7 +1100,9 @@ gboolean resize_window(void *data)
 
 gboolean set_play(void *data)
 {
-	if (bring_to_front)
+	printf("bring_to_front = %i\n",bring_to_front);
+	
+	if (embed_window == 0 && bring_to_front)
 		gtk_window_present(GTK_WINDOW(window));
 
     play_callback(NULL, NULL, data);
