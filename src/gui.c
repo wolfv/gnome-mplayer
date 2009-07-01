@@ -3568,6 +3568,7 @@ void config_apply(GtkWidget * widget, void *data)
                         sub_color.blue >> 8);
     subtitle_outline = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_outline));
     subtitle_shadow = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow));
+	subtitle_margin = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_subtitle_margin));
     showsubtitles = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_subtitles));
 
     if (old_disable_framedrop != disable_framedrop) {
@@ -3635,6 +3636,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_string(gm_store, SUBTITLECOLOR, subtitle_color);
     gm_pref_store_set_boolean(gm_store, SUBTITLEOUTLINE, subtitle_outline);
     gm_pref_store_set_boolean(gm_store, SUBTITLESHADOW, subtitle_shadow);
+	gm_pref_store_set_int(gm_store, SUBTITLE_MARGIN, subtitle_margin);
     gm_pref_store_set_boolean(gm_store, SHOW_SUBTITLES, showsubtitles);
 
     gm_pref_store_set_string(gm_store, MPLAYER_BIN, mplayer_bin);
@@ -4951,6 +4953,19 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_SHRINK, 0, 0);
     i++;
 
+    conf_label = gtk_label_new(_("Subtitle Lower Margin (X11/XV Only):"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    config_subtitle_margin = gtk_spin_button_new_with_range(0, 200, 1);
+    gtk_widget_set_size_request(config_subtitle_scale, -1, -1);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_subtitle_margin), subtitle_margin);
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_margin, 1, 2, i, i + 1, GTK_SHRINK,
+                     GTK_SHRINK, 0, 0);
+    i++;
+	
     config_show_subtitles = gtk_check_button_new_with_label(_("Show Subtitles by Default"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_subtitles), showsubtitles);
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_subtitles, 0, 2, i, i + 1);

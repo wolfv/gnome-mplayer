@@ -1252,6 +1252,7 @@ MetaData *get_metadata(gchar * uri)
     av[ac++] = g_strdup_printf("-noidx");
     av[ac++] = g_strdup_printf("-identify");
     av[ac++] = g_strdup_printf("-nocache");
+
     if (idledata->device != NULL) {
         av[ac++] = g_strdup_printf("-dvd-device");
         av[ac++] = g_strdup_printf("%s", idledata->device);

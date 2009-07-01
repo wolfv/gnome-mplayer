@@ -59,6 +59,7 @@
 #define SUBTITLECOLOR	"subtitlecolor"
 #define SUBTITLEOUTLINE "subtitleoutline"
 #define SUBTITLESHADOW "subtitleshadow"
+#define SUBTITLE_MARGIN "subtitle_margin"
 #define TRACKER_POSITION "tracker_position"
 
 #define VOLUME	"volume"
@@ -333,6 +334,7 @@ gchar *subtitle_codepage;
 gchar *subtitle_color;
 gboolean subtitle_outline;
 gboolean subtitle_shadow;
+gint subtitle_margin;
 gboolean quit_on_complete;
 gchar *mplayer_bin;
 gchar *extraopts;
