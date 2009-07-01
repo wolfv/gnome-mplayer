@@ -228,7 +228,14 @@ gboolean set_media_label(void *data)
             gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
             g_object_unref(pixbuf);
         }
-    }
+    } else {
+		printf("clearing\n");
+		gtk_image_clear(GTK_IMAGE(cover_art));
+		if (GTK_IS_WIDGET(media_label)) {
+			gtk_label_set_markup(GTK_LABEL(media_label), "");
+		}
+		return FALSE;
+	}
 
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info)) && control_id == 0
         && strlen(idle->media_info) > 0) {
@@ -1821,18 +1828,28 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                     playlist = detect_playlist(list[i]);
 
                     if (!playlist) {
-                        dontplaynext = TRUE;
-                        mplayer_shutdown();
-                        gtk_list_store_clear(playliststore);
-                        gtk_list_store_clear(nonrandomplayliststore);
-                        added_single = add_item_to_playlist(list[i], playlist);
+						if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+		                    dontplaynext = TRUE;
+		                    mplayer_shutdown();
+							set_media_label(NULL);
+		                    gtk_list_store_clear(playliststore);
+		                    gtk_list_store_clear(nonrandomplayliststore);
+		                    added_single = add_item_to_playlist(list[i], playlist);
+						} else {
+							add_item_to_playlist(list[i], playlist);
+						}
                     } else {
                         if (!parse_playlist(list[i])) {
-                            dontplaynext = TRUE;
-                            mplayer_shutdown();
-                            gtk_list_store_clear(playliststore);
-                            gtk_list_store_clear(nonrandomplayliststore);
-                            added_single = add_item_to_playlist(list[i], playlist);
+							if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+				                dontplaynext = TRUE;
+				                mplayer_shutdown();
+								set_media_label(NULL);
+				                gtk_list_store_clear(playliststore);
+				                gtk_list_store_clear(nonrandomplayliststore);
+				                added_single = add_item_to_playlist(list[i], playlist);
+							} else {
+								add_item_to_playlist(list[i], playlist);
+							}
                         }
                     }
                 }
@@ -1843,6 +1860,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
         if (itemcount == 0 || added_single) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             play_iter(&iter,0);
+			dontplaynext = FALSE;
         }
 
         g_strfreev(list);
