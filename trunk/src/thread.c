@@ -972,38 +972,37 @@ gpointer launch_player(gpointer data)
 
         // Simply ommiting '-embeddedfonts' did not work
         if (!disable_embeddedfonts && g_strrstr(idledata->demuxer,"mkv")) {
-		        argv[arg++] = g_strdup_printf("-embeddedfonts");
+		    argv[arg++] = g_strdup_printf("-embeddedfonts");
 		} else {
             argv[arg++] = g_strdup_printf("-noembeddedfonts");
-
-		    argv[arg++] = g_strdup_printf("-ass-font-scale");
-		    argv[arg++] = g_strdup_printf("%1.2f", subtitle_scale);
-		    if (disable_embeddedfonts && subtitlefont != NULL && strlen(subtitlefont) > 0) {
-		        fontname = g_strdup(subtitlefont);
-		        size = g_strrstr(fontname, " ");
-		        size[0] = '\0';
-		        size = g_strrstr(fontname, " Bold");
-		        if (size)
-		            size[0] = '\0';
-		        size = g_strrstr(fontname, " Italic");
-		        if (size)
-		            size[0] = '\0';
-		        argv[arg++] = g_strdup_printf("-ass-force-style");
-		        argv[arg++] = g_strconcat("FontName=", fontname,
-		                                  ((g_strrstr(subtitlefont, "Italic") !=
-		                                    NULL) ? ",Italic=1" : ",Italic=0"),
-		                                  ((g_strrstr(subtitlefont, "Bold") !=
-		                                    NULL) ? ",Bold=1" : ",Bold=0"),
-		                                  (subtitle_outline ? ",Outline=1" : ",Outline=0"),
-		                                  (subtitle_shadow ? ",Shadow=2" : ",Shadow=0"), NULL);
-		        g_free(fontname);
-		    }
-
-		    if (subtitle_color != NULL && strlen(subtitle_color) > 0) {
-		        argv[arg++] = g_strdup_printf("-ass-color");
-		        argv[arg++] = g_strdup_printf("%s", subtitle_color);
-		    }
 		}
+	    argv[arg++] = g_strdup_printf("-ass-font-scale");
+	    argv[arg++] = g_strdup_printf("%1.2f", subtitle_scale);
+	    if (disable_embeddedfonts && subtitlefont != NULL && strlen(subtitlefont) > 0) {
+	        fontname = g_strdup(subtitlefont);
+	        size = g_strrstr(fontname, " ");
+	        size[0] = '\0';
+	        size = g_strrstr(fontname, " Bold");
+	        if (size)
+	            size[0] = '\0';
+	        size = g_strrstr(fontname, " Italic");
+	        if (size)
+	            size[0] = '\0';
+	        argv[arg++] = g_strdup_printf("-ass-force-style");
+	        argv[arg++] = g_strconcat("FontName=", fontname,
+	                                  ((g_strrstr(subtitlefont, "Italic") !=
+	                                    NULL) ? ",Italic=1" : ",Italic=0"),
+	                                  ((g_strrstr(subtitlefont, "Bold") !=
+	                                    NULL) ? ",Bold=1" : ",Bold=0"),
+	                                  (subtitle_outline ? ",Outline=1" : ",Outline=0"),
+	                                  (subtitle_shadow ? ",Shadow=2" : ",Shadow=0"), NULL);
+	        g_free(fontname);
+	    }
+
+	    if (subtitle_color != NULL && strlen(subtitle_color) > 0) {
+	        argv[arg++] = g_strdup_printf("-ass-color");
+	        argv[arg++] = g_strdup_printf("%s", subtitle_color);
+	    }
     } else {
         argv[arg++] = g_strdup_printf("-subfont-text-scale");
         argv[arg++] = g_strdup_printf("%d", (int) (subtitle_scale * 5));        // 5 is the default
