@@ -232,7 +232,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GtkWidget *dialog;
     gdouble old_pos;
     LangMenu *menu;
-
+	ThreadData *threaddata = (ThreadData *) data;
+	
     if (source == NULL) {
         g_source_remove(watch_err_id);
         g_source_remove(watch_in_hup_id);
@@ -310,6 +311,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_string_free(mplayer_output, TRUE);
         //g_mutex_unlock(thread_running);
         g_cond_signal(mplayer_complete_cond);
+
+		if (idledata->position < 0.05 && g_strrstr(threaddata->filename,"http://") != NULL) {
+			dontplaynext = TRUE;
+		    playback_error = ERROR_RETRY_WITH_PLAYLIST;
+		}
+			
         return FALSE;
     }
 
@@ -1162,7 +1169,7 @@ gpointer launch_player(gpointer data)
         g_io_channel_set_close_on_unref(channel_err, TRUE);
         watch_in_id =
             g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader,
-                                NULL, NULL);
+                                threaddata, NULL);
         watch_err_id =
             g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP,
                                 thread_reader_error, NULL, NULL);
