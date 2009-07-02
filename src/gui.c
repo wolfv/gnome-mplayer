@@ -6048,6 +6048,7 @@ GtkWidget *create_window(gint windowid)
     cover_art = gtk_image_new();
     media_label = gtk_label_new("");
     gtk_widget_set_size_request(media_label, 300, -1);
+	gtk_label_set_ellipsize(GTK_LABEL(media_label),PANGO_ELLIPSIZE_END);
     media_hbox = gtk_hbox_new(FALSE, 10);
     details_vbox = gtk_vbox_new(FALSE, 10);
     gtk_misc_set_alignment(GTK_MISC(media_label), 0, 0);
