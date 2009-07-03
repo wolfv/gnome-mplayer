@@ -1626,7 +1626,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
             g_free(local_uri);
             local_uri = g_strdup(unescaped);
             g_free(unescaped);
-        }
+        } 
 #ifdef GIO_ENABLED
         unescaped = g_uri_unescape_string(uri, NULL);
 #else

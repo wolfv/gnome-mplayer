@@ -77,6 +77,10 @@ gboolean play(void *data)
     PlayData *p = (PlayData *) data;
 
     if (ok_to_play && p != NULL) {
+		if (!gtk_list_store_iter_is_valid(playliststore, &iter)) {
+			// printf("iter is not valid, getting first one\n");
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+		}
         gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri,
                            -1);
         play_iter(&iter,0);
