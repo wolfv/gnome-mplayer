@@ -1,4 +1,5 @@
 Development
+    Make loading a secondary http:// url via open location work correctly
     Set media label to be ellipsized on long values
     If we have an http url and its playback time was very short, retry with the playlist flag
     Make resizeing on new video media an option under Interface, defaults to false
