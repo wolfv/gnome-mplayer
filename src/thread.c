@@ -104,7 +104,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     GIOStatus status;
     gchar *error_msg = NULL;
     GtkWidget *dialog;
-
+	ThreadData *threaddata = (ThreadData *) data;
+	
     if (source == NULL) {
         g_source_remove(watch_in_id);
         g_source_remove(watch_in_hup_id);
@@ -168,6 +169,16 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         playback_error = ERROR_RETRY_WITH_HTTP;
     }
 
+	if (strstr(mplayer_output->str, "Server returned 404:File Not Found") != NULL && g_strrstr(threaddata->filename,"mmshttp://") != NULL) {
+        dontplaynext = TRUE;
+        playback_error = ERROR_RETRY_WITH_HTTP;
+    }
+
+	if (strstr(mplayer_output->str, "unknown ASF streaming type") != NULL && g_strrstr(threaddata->filename,"mmshttp://") != NULL) {
+        dontplaynext = TRUE;
+        playback_error = ERROR_RETRY_WITH_HTTP;
+    }
+	
 	if (strstr(mplayer_output->str, "Error while parsing chunk header") != NULL) {
         dontplaynext = TRUE;
         playback_error = ERROR_RETRY_WITH_HTTP;
@@ -312,7 +323,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         //g_mutex_unlock(thread_running);
         g_cond_signal(mplayer_complete_cond);
 
-		if (idledata->position < 0.05 && g_strrstr(threaddata->filename,"http://") != NULL) {
+		if (idledata->position < 0.05 && g_strrstr(threaddata->filename,"http://") != NULL && g_strrstr(threaddata->filename,"mmshttp://") == NULL) {
 			dontplaynext = TRUE;
 		    playback_error = ERROR_RETRY_WITH_PLAYLIST;
 		}
@@ -1172,7 +1183,7 @@ gpointer launch_player(gpointer data)
                                 threaddata, NULL);
         watch_err_id =
             g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP,
-                                thread_reader_error, NULL, NULL);
+                                thread_reader_error, threaddata, NULL);
         watch_in_hup_id =
             g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete,
                                 NULL, NULL);
