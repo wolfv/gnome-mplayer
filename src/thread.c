@@ -1046,12 +1046,14 @@ gpointer launch_player(gpointer data)
             g_free(fontname);
         }
 
-		if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
-			argv[arg++] = g_strdup_printf("-subcp");
-			argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
-		}		
+		
     }
 
+	if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
+			argv[arg++] = g_strdup_printf("-subcp");
+			argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
+	}		
+	
 	argv[arg++] = g_strdup_printf("-channels");
 	switch (audio_channels) {
 		case 1: 
