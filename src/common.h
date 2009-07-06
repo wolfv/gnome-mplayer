@@ -357,6 +357,7 @@ gboolean large_buttons;
 gint button_size;
 
 gboolean remember_loc;
+gboolean use_remember_loc;
 gint loc_window_x;
 gint loc_window_y;
 gint loc_window_height;
@@ -392,6 +393,11 @@ gboolean reading_af_export;
 
 gboolean sub_source_file;
 
+// layout variables
+gint non_fs_width;
+gint non_fs_height;
+gboolean adjusting;
+
 // playlist stuff
 GtkListStore *playliststore;
 GtkListStore *nonrandomplayliststore;
@@ -407,8 +413,7 @@ GtkWidget *create_window(gint windowid);
 void show_window(gint windowid);
 void present_main_window();
 gint get_player_window();
-void adjust_paned_rules();
-void reset_paned_rules();
+void adjust_layout();
 gboolean hide_buttons(void *data);
 gboolean show_copyurl(void *data);
 gboolean set_media_info(void *data);

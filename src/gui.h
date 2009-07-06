@@ -316,6 +316,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data);
 void menuitem_view_decrease_subtitle_delay_callback(GtkMenuItem * menuitem, void *data);
 void menuitem_view_increase_subtitle_delay_callback(GtkMenuItem * menuitem, void *data);
 void clear_playlist(GtkWidget * widget, void *data);
+void create_playlist_widget();
 gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 gint x, gint y, GtkSelectionData * selection_data,
                                 guint info, guint t, gpointer data);

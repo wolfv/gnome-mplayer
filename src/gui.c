@@ -58,56 +58,95 @@ gint get_player_window()
     }
 }
 
-void adjust_paned_rules()
-{
+void adjust_layout() {
 
-    if (GTK_IS_WIDGET(pane)) {
-        if (!idledata->videopresent) {
-            g_object_ref(vbox);
-            gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child1);
-            gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, FALSE);
-            if (GTK_IS_WIDGET(plvbox)) {
-                if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
-                    if (vertical_layout) {
-                        g_object_set(pane, "position",
-                                     window->allocation.height - plvbox->allocation.height, NULL);
-                    } else {
-                        g_object_set(pane, "position",
-                                     window->allocation.width - plvbox->allocation.width, NULL);
-                    }
-                }
-            }
-            g_object_unref(vbox);
-            if (GTK_IS_WIDGET(plvbox)) {
-                g_object_ref(plvbox);
-                gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child2);
-                gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
-                g_object_unref(plvbox);
-            }
+	gint total_height;
+	gint total_width;
+	gint handle_size;
+	
+	//printf("media size = %i x %i\n",non_fs_width, non_fs_height);
+	adjusting = TRUE;
+
+	total_height = non_fs_height;
+    total_width = non_fs_width;
+	
+	if (total_width == 0) 
+		total_width = controls_box->requisition.width;
+	
+    total_height += menubar->allocation.height;
+    if (showcontrols) {
+        total_height += controls_box->allocation.height;
+    }
+	
+    if (GTK_IS_WIDGET(media_hbox) && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
+		gtk_widget_show_all(media_hbox);
+		while (gtk_events_pending())
+			gtk_main_iteration();
+		//printf("media hbox height = %i \n",media_hbox->allocation.height);
+        total_height += media_hbox->allocation.height;
+    } else {
+		gtk_widget_hide_all(media_hbox);
+	}
+	
+    if (GTK_IS_WIDGET(details_table) && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
+		gtk_widget_show_all(details_vbox);
+		while (gtk_events_pending())
+			gtk_main_iteration();
+        total_height += details_vbox->allocation.height;
+    } else {
+		gtk_widget_hide_all(details_vbox);
+	}		
+    
+    if (GTK_IS_WIDGET(audio_meter) && GTK_WIDGET_VISIBLE(audio_meter)) {
+        total_height += audio_meter->allocation.height;
+    }
+
+    if (GTK_IS_WIDGET(plvbox) && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+		gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+        gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);		
+		gtk_widget_show_all(plvbox);
+		gtk_widget_grab_default(plclose);
+		while (gtk_events_pending())
+			gtk_main_iteration();
+        gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
+
+		//printf("handle size = %i\n",handle_size);
+		//printf("plvbox req = %i x %i\n",plvbox->requisition.width,plvbox->requisition.height);
+		//printf("plvbox alloc = %i x %i\n",plvbox->allocation.width,plvbox->allocation.height);
+		
+        if (vertical_layout) {
+            total_height += plvbox->allocation.height + handle_size;
         } else {
-            g_object_set(pane, "position-set", FALSE, NULL);
+            total_width += plvbox->allocation.width + handle_size;
+			if (total_height <= (menubar->allocation.height + controls_box->allocation.height))
+				total_height = 300;
         }
-    }
-}
+    } else {
+		if (!idledata->videopresent) {
+			gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    		gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);		
+		}
+		gtk_paned_set_position(GTK_PANED(pane),-1);
+		gtk_widget_hide_all(plvbox);
+	}
 
-void reset_paned_rules()
-{
-    gint position;
+	//printf("controls = %i\n",menubar->allocation.height + controls_box->allocation.height);
+	//printf("totals = %i x %i\n",total_width,total_height);
 
-    if (GTK_IS_WIDGET(pane)) {
-        g_object_get(pane, "position", &position, NULL);
-        g_object_ref(vbox);
-        gtk_container_remove(GTK_CONTAINER(pane), vbox);
-        gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
-        g_object_unref(vbox);
-        if (GTK_IS_WIDGET(plvbox)) {
-            g_object_ref(plvbox);
-            gtk_container_remove(GTK_CONTAINER(pane), GTK_PANED(pane)->child2);
-            gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
-            g_object_unref(plvbox);
-        }
-        g_object_set(pane, "position", position, "position-set", TRUE, NULL);
-    }
+	if (use_remember_loc) {
+		gtk_window_resize(GTK_WINDOW(window), loc_window_width, loc_window_height);
+		use_remember_loc = FALSE;
+    } else {
+		if (total_height > 0 && total_width > 0 && idledata->videopresent) {
+			gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
+		}
+		if (total_height > 0 && total_width > 0 && !idledata->window_resized) {
+			gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
+		}
+	}
+			
+	
+	return;
 }
 
 gboolean hide_buttons(void *data)
@@ -286,6 +325,8 @@ gboolean set_media_label(void *data)
         }
 
     }
+
+	adjust_layout();
     return FALSE;
 }
 
@@ -295,16 +336,17 @@ gboolean set_cover_art(gpointer pixbuf)
         if (GTK_IS_IMAGE(cover_art))
             gtk_image_clear(GTK_IMAGE(cover_art));
         if (strlen(idledata->media_info) > 0) {
-            gtk_widget_show_all(media_hbox);
+            //gtk_widget_show_all(media_hbox);
         } else {
-            gtk_widget_hide_all(media_hbox);
+           // gtk_widget_hide_all(media_hbox);
         }
     } else {
         gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
         g_object_unref(pixbuf);
-        gtk_widget_show_all(media_hbox);
+        //gtk_widget_show_all(media_hbox);
     }
 
+	adjust_layout();
     return FALSE;
 }
 
@@ -891,16 +933,12 @@ gboolean set_new_audio_menu(gpointer data)
 
 gboolean resize_window(void *data)
 {
-
+	gint total_height;
     IdleData *idle = (IdleData *) data;
-    gint total_height = 0;
-    gint total_width = 0;
-    gint handle_size;
     GTimeVal currenttime;
 
     if (GTK_IS_WIDGET(window)) {
         if (idle->videopresent) {
-            gtk_widget_show(fixed);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
             g_get_current_time(&currenttime);
             last_movement_time = currenttime.tv_sec;
@@ -915,157 +953,59 @@ gboolean resize_window(void *data)
                                                showcontrols);
             }
             gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+            gtk_widget_show_all(GTK_WIDGET(fixed));
 
             if ((window_x == 0 && window_y == 0) || resize_on_new_media == TRUE) {
-                gtk_widget_show_all(GTK_WIDGET(fixed));
-                gtk_widget_set_size_request(fixed, -1, -1);
-                gtk_widget_set_size_request(drawing_area, -1, -1);
-                if (verbose) {
-                    printf("Changing window size to %i x %i visible = %i\n", idle->width,
-                           idle->height, GTK_WIDGET_VISIBLE(vbox));
-                    //printf("last = %i x %i\n",last_window_width,last_window_height);
-                }
-                if ((last_window_width == 0 && last_window_height == 0) || resize_on_new_media == TRUE) {
+                //gtk_widget_set_size_request(fixed, -1, -1);
+                //gtk_widget_set_size_request(drawing_area, -1, -1);
+                if ((non_fs_width == 0 && non_fs_height == 0) || resize_on_new_media == TRUE) {
                     if (idle->width > 0 && idle->height > 0) {
-                        gtk_widget_set_size_request(fixed, idle->width, idle->height);
-                        gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
-                        total_height = idle->height;
-                        total_width = idle->width;
-                        total_height += menubar->allocation.height;
-                        if (showcontrols) {
-                            total_height += controls_box->allocation.height;
-                        }
-                        if (GTK_IS_WIDGET(media_hbox) && GTK_WIDGET_VISIBLE(media_hbox)) {
-                            total_height += media_hbox->allocation.height;
-                        }
-                        if (GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table)) {
-                            total_height += details_vbox->allocation.height;
-                        }
-                        if (GTK_IS_WIDGET(audio_meter) && GTK_WIDGET_VISIBLE(audio_meter)) {
-                            total_height += audio_meter->allocation.height;
-                        }
-
-                        if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
-                            gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
-                            if (vertical_layout) {
-                                total_height += plvbox->allocation.height + handle_size;;
-                                gtk_paned_set_position(GTK_PANED(pane), idle->height);
-                            } else {
-                                total_width += plvbox->allocation.width + handle_size;
-                                gtk_paned_set_position(GTK_PANED(pane), idle->width);
-                            }
-                        }
-                        // printf("totals = %i x %i\n",total_width,total_height);
-                        gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
+				        if (verbose) {
+				            printf("Changing window size to %i x %i visible = %i\n", idle->width,
+				                   idle->height, GTK_WIDGET_VISIBLE(vbox));
+				        }
                         last_window_width = idle->width;
                         last_window_height = idle->height;
+						non_fs_width = idle->width;
+						non_fs_height = idle->height;
+			            gtk_widget_set_size_request(fixed, idle->width,idle->height);
+						gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
+						adjust_layout();
                     }
-                } else {
-                    if (GTK_IS_WIDGET(plvbox) && GTK_WIDGET_VISIBLE(plvbox)) {
-                        gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
+				} else {
+		            //gtk_widget_set_size_request(fixed, non_fs_width,non_fs_height);
+					//gtk_widget_set_size_request(drawing_area, non_fs_width,non_fs_height);
 
-                        if (vertical_layout) {
-                            total_height += plvbox->allocation.height + handle_size;;
-                            gtk_paned_set_position(GTK_PANED(pane), idle->height);
-                        } else {
-                            total_width += plvbox->allocation.width + handle_size;
-                            gtk_paned_set_position(GTK_PANED(pane), idle->width);
-                        }
-                    }
-                }
+
+					
+				}
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),
                                                fullscreen);
             } else {
                 if (window_x > 0 && window_y > 0) {
                     total_height = window_y;
-                    gtk_widget_set_size_request(fixed, -1, -1);
-                    gtk_widget_set_size_request(drawing_area, -1, -1);
-                    gtk_widget_show_all(GTK_WIDGET(fixed));
                     if (showcontrols) {
                         total_height -= controls_box->allocation.height;
                     }
 
-                    if (window_x > 0 && total_height > 0)
+                    if (window_x > 0 && total_height > 0) {
                         gtk_widget_set_size_request(fixed, window_x, total_height);
-                    gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
-                }
-            }
+                        gtk_widget_set_size_request(drawing_area, window_x, total_height);
+						adjust_layout();
+					}
+				}
+
+			}
         } else {
             gtk_widget_hide(fixed);
+			non_fs_height = 0;
+			non_fs_width = 0;
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen), FALSE);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
-            adjust_paned_rules();
-            if (window_x > 0 && window_y > 0) {
-                total_height = window_y;
-                gtk_widget_set_size_request(fixed, -1, -1);
-                gtk_widget_set_size_request(drawing_area, -1, -1);
-                gtk_widget_hide_all(GTK_WIDGET(drawing_area));
-                if (showcontrols && rpcontrols == NULL) {
-                    total_height -= controls_box->allocation.height;
-                }
-                if (window_x > 0 && total_height > 0) {
-                    gtk_widget_set_size_request(media_hbox, window_x, total_height);
-                }
-                gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
-            } else {
-                if (embed_window != -1 && GTK_WIDGET_VISIBLE(window)) {
-                    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
-                    gtk_widget_set_size_request(fixed, -1, -1);
-                    gtk_widget_set_size_request(drawing_area, -1, -1);
-                    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-                        gtk_window_set_policy(GTK_WINDOW(window), FALSE, TRUE, TRUE);
-                        gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
-                        adjust_paned_rules();
-                        if (vertical_layout) {
-                            if (window->allocation.height <
-                                media_hbox->allocation.height + plvbox->requisition.height) {
-                                total_width = window->allocation.width;
-                                total_height =
-                                    media_hbox->allocation.height +
-                                    ((plvbox->allocation.height ==
-                                      1) ? plvbox->requisition.height : plvbox->allocation.height);
-                                gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
-                            }
-                            gtk_paned_set_position(GTK_PANED(pane), media_hbox->allocation.height);
-                        } else {
-                            if (window->allocation.width <
-                                media_hbox->allocation.width + plvbox->requisition.width) {
-                                total_width =
-                                    media_hbox->allocation.width +
-                                    ((plvbox->allocation.width ==
-                                      1) ? plvbox->requisition.width : plvbox->allocation.width);
-                                total_height = window->allocation.height;
-                                gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
-                            }
-                            gtk_paned_set_position(GTK_PANED(pane), media_hbox->allocation.width);
-                        }
-
-                    } else {
-                        gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
-                        total_height = menubar->allocation.height;
-                        if (showcontrols && rpcontrols == NULL) {
-                            total_height += controls_box->allocation.height;
-                        }
-                        if (GTK_WIDGET_VISIBLE(media_hbox)) {
-                            total_height += media_hbox->allocation.height;
-                        }
-                        if (GTK_IS_WIDGET(details_table) && GTK_WIDGET_VISIBLE(details_table)) {
-                            total_height += details_vbox->allocation.height;
-                        }
-                        if (GTK_IS_WIDGET(audio_meter) && GTK_WIDGET_VISIBLE(audio_meter)) {
-                            total_height += audio_meter->allocation.height;
-                        }
-
-                        if (menubar->allocation.width > 0 && total_height > 0)
-                            gtk_window_resize(GTK_WINDOW(window), menubar->allocation.width,
-                                              total_height);
-                    }
-                    last_window_height = 0;
-                    last_window_width = 0;
-                }
-            }
+            last_window_height = 0;
+            last_window_width = 0;
         }
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), idle->videopresent);
@@ -1090,18 +1030,14 @@ gboolean resize_window(void *data)
 		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_increase_subtitle_delay), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
-        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
-            menuitem_details_callback(NULL, NULL);
-        }
 
     }
     if (idle != NULL)
         idle->window_resized = TRUE;
 
-    while (gtk_events_pending())
-        gtk_main_iteration();
-
-    menuitem_details_callback(NULL, NULL);
+	menuitem_details_callback(NULL,NULL);
+	
+	
     return FALSE;
 }
 
@@ -1416,7 +1352,7 @@ gboolean move_window(void *data)
 
     IdleData *idle = (IdleData *) data;
 
-    // printf("moving window to %i x %i\n",idle->x,idle->y);
+    //printf("moving window to %i x %i\n",idle->x,idle->y);
     if (GTK_IS_WIDGET(drawing_area) && (idle->x != idle->last_x || idle->y != idle->last_y)) {
         gtk_fixed_move(GTK_FIXED(fixed), GTK_WIDGET(drawing_area), idle->x, idle->y);
         idle->last_x = idle->x;
@@ -1425,6 +1361,29 @@ gboolean move_window(void *data)
     return FALSE;
 }
 
+gboolean window_state_callback(GtkWidget *widget, GdkEventWindowState *event, gpointer user_data)
+{
+
+	// printf("fullscreen = %i\n",event->new_window_state && GDK_WINDOW_STATE_FULLSCREEN);
+	if (embed_window == 0) {
+		fullscreen = event->new_window_state && GDK_WINDOW_STATE_FULLSCREEN;
+		if (fullscreen) {
+			gtk_widget_hide(menubar);
+		} else {
+			gtk_widget_show(menubar);
+		}
+	} 
+	
+	return FALSE;
+}
+
+gboolean configure_callback(GtkWidget *widget, GdkEventConfigure *event, gpointer user_data)
+{
+	adjusting = FALSE;
+
+	return FALSE;
+}
+	
 gboolean expose_fixed_callback(GtkWidget * widget, GdkEventExpose * event, gpointer data)
 {
     if (GDK_IS_DRAWABLE(fixed->window)) {
@@ -1443,6 +1402,9 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     gdouble movie_ratio, window_ratio;
     gint new_width, new_height;
 
+	if (adjusting)
+		return FALSE;
+	
     if (actual_x > 0 && actual_y > 0) {
 
         movie_ratio = (gdouble) actual_x / (gdouble) actual_y;
@@ -1483,13 +1445,38 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         }
         // printf("new_width %i new_height %i\n", new_width, new_height);
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
-        gtk_widget_set_size_request(fixed, allocation->width, allocation->height);
+        //gtk_widget_set_size_request(fixed, allocation->width, allocation->height);
         idledata->x = (allocation->width - new_width) / 2;
         idledata->y = (allocation->height - new_height) / 2;
         move_window(idledata);
 
-    }
+    } 
+	
+	if (!fullscreen) {
+		if (idledata->videopresent) {
+			//printf("fixed resized to %i x %i\n",allocation->width,allocation->height);
+			non_fs_width = allocation->width;
+			non_fs_height = allocation->height;
+//			printf("fixed resized to %i x %i\n",new_width,new_height);
+//			non_fs_width = new_width;
+//			non_fs_height = new_height;
+		} else {
+			non_fs_width = 0;
+			non_fs_height = 0;
+		}
+	}
 
+	/*
+    if (GTK_IS_WIDGET(plvbox) && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+		if (vertical_layout) {
+            gtk_paned_set_position(GTK_PANED(pane), non_fs_height);
+		} else {
+			printf("sent pane to %i\n",non_fs_width);
+            gtk_paned_set_position(GTK_PANED(pane), non_fs_width);
+		}
+	}
+	*/ 
+	
     return TRUE;
 
 }
@@ -1720,11 +1707,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_z:
 			if (fullscreen)
-        		menuitem_view_decrease_subtitle_delay_callback(NULL,NULL);
+       			menuitem_view_decrease_subtitle_delay_callback(NULL,NULL);
             return FALSE;
         case GDK_x:
 			if (fullscreen)
-        		menuitem_view_increase_subtitle_delay_callback(NULL,NULL);
+       			menuitem_view_increase_subtitle_delay_callback(NULL,NULL);
             return FALSE;
         case GDK_F11:
             if (idledata->videopresent)
@@ -3019,44 +3006,13 @@ void menuitem_edit_loop_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_view_info_callback(GtkMenuItem * menuitem, void *data)
 {
-    gint width = 0, height = 0;
 
-    //printf("media info = '%s'\n", idledata->media_info);
     if (GTK_IS_WIDGET(media_hbox)) {
-        if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
-            gtk_window_get_size(GTK_WINDOW(window), &width, &height);
-            gtk_widget_hide_all(media_hbox);
-            gtk_window_resize(GTK_WINDOW(window), width, height - media_hbox->allocation.height);
-            while (gtk_events_pending())
-                gtk_main_iteration();
-
-        } else {
-            if (idledata->window_resized) {
-                while (gtk_events_pending())
-                    gtk_main_iteration();
-
-                if (idledata->videopresent) {
-                    gtk_window_get_size(GTK_WINDOW(window), &width, &height);
-                }
-
-                if (strlen(idledata->media_info) > 0)
-                    gtk_widget_show_all(media_hbox);
-
-                while (gtk_events_pending())
-                    gtk_main_iteration();
-
-                if (idledata->videopresent) {
-                    height += media_hbox->allocation.height;
-                    gtk_window_resize(GTK_WINDOW(window), width, height);
-                }
-
-            } else {
-                if (strlen(idledata->media_info) > 0)
-                    gtk_widget_show_all(media_hbox);
-            }
-
-        }
+		if (!GTK_WIDGET_REALIZED(media_hbox))
+			gtk_widget_realize(media_hbox);
+		adjust_layout();
     }
+
 }
 
 void menuitem_view_fullscreen_callback(GtkMenuItem * menuitem, void *data)
@@ -3267,7 +3223,6 @@ void menuitem_edit_take_screenshot_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 {
-    gint width = 0, height = 0;
     GdkScreen *screen;
     GdkRectangle rect;
     gint wx, wy;
@@ -3311,15 +3266,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             }
             gtk_widget_destroy(fs_window);
             fs_window = NULL;
+			fullscreen = 0;
         } else {
-            gtk_widget_show(menubar);
-            if (GDK_IS_DRAWABLE(window_container))
-                gdk_drawable_get_size(GDK_DRAWABLE(window_container), &width, &height);
-            if (width > 0 && height > 0)
-                gtk_window_resize(GTK_WINDOW(window), width, height);
-            if (stored_window_width != -1 && stored_window_width > 0) {
-                gtk_window_resize(GTK_WINDOW(window), stored_window_width, stored_window_height);
-            }
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), restore_info);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details),
                                            restore_details);
@@ -3328,7 +3276,6 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         }
 
         make_panel_and_mouse_visible(NULL);
-        fullscreen = 0;
 
         while (gtk_events_pending())
             gtk_main_iteration();
@@ -3383,6 +3330,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             }
             while (gtk_events_pending())
                 gtk_main_iteration();
+			fullscreen = 1;
         } else {
             restore_playlist =
                 gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist));
@@ -3393,18 +3341,16 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), FALSE);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), FALSE);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
-            gtk_widget_hide(menubar);
             while (gtk_events_pending())
                 gtk_main_iteration();
         }
 
-        gtk_window_get_size(GTK_WINDOW(window), &stored_window_width, &stored_window_height);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_config), FALSE);
         if (embed_window == 0) {
             gtk_window_fullscreen(GTK_WINDOW(window));
         }
-        fullscreen = 1;
         motion_notify_callback(NULL, NULL, NULL);
+		adjust_layout();
     }
 
 }
@@ -3784,14 +3730,9 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
     gchar *buf;
     gint i = 0;
     IdleData *idle = idledata;
-    gint width = 0, height = 0;
-	gboolean dontresize = FALSE;
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
         if (GTK_IS_WIDGET(details_table)) {
-            gtk_window_get_size(GTK_WINDOW(window), &width, &height);
-            gtk_widget_hide_all(details_vbox);
-            gtk_window_resize(GTK_WINDOW(window), width, height - details_vbox->allocation.height);
             gtk_widget_destroy(details_table);
             details_table = NULL;
         }
@@ -3799,7 +3740,6 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
         if (GTK_IS_WIDGET(details_table)) {
             gtk_widget_destroy(details_table);
             details_table = NULL;
-			dontresize = TRUE;
         }
         details_table = gtk_table_new(20, 2, FALSE);
         gtk_container_add(GTK_CONTAINER(details_vbox), details_table);
@@ -3955,30 +3895,6 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
             i++;
 
         }
-        if (idledata->window_resized) {
-            while (gtk_events_pending())
-                gtk_main_iteration();
-
-            if (idledata->videopresent) {
-                gtk_window_get_size(GTK_WINDOW(window), &width, &height);
-            }
-
-            if (i > 0)
-                gtk_widget_show_all(details_vbox);
-
-            while (gtk_events_pending())
-                gtk_main_iteration();
-
-            if (idledata->videopresent) {
-                height += details_vbox->allocation.height;
-				if (!dontresize)
-	                gtk_window_resize(GTK_WINDOW(window), width, height);
-            }
-
-        } else {
-            if (i > 0)
-                gtk_widget_show_all(details_vbox);
-        }
 
     }
 
@@ -3988,6 +3904,7 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
         details_table = NULL;
     }
 
+	adjust_layout();
 }
 
 
@@ -4147,8 +4064,7 @@ void menuitem_view_decrease_subtitle_delay_callback(GtkMenuItem * menuitem, void
     gchar *cmd;
 
     subtitle_delay -= 0.1;
-
-    cmd = g_strdup_printf("sub_delay %f 1\n", subtitle_delay);
+	cmd = g_strdup_printf("sub_delay %f 1\n", subtitle_delay);
     send_command(cmd, TRUE);
     g_free(cmd);
 
@@ -4161,7 +4077,6 @@ void menuitem_view_increase_subtitle_delay_callback(GtkMenuItem * menuitem, void
     gchar *cmd;
 
     subtitle_delay += 0.1;
-
     cmd = g_strdup_printf("sub_delay %f 1\n", subtitle_delay);
     send_command(cmd, TRUE);
     g_free(cmd);
@@ -5511,6 +5426,8 @@ void setup_accelerators()
 
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_aspect), "activate",
                                accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
+
+	// we want to use "window_key_callback" to handle this, due to GTK keyboard issues.
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), "activate",
                                accel_group, GDK_z, 0, GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_increase_subtitle_delay), "activate",
@@ -5575,6 +5492,10 @@ GtkWidget *create_window(gint windowid)
     delete_signal_id =
         g_signal_connect(GTK_OBJECT(window), "delete_event", G_CALLBACK(delete_callback), NULL);
     g_signal_connect(GTK_OBJECT(window), "motion_notify_event", G_CALLBACK(motion_notify_callback),
+                     NULL);
+    g_signal_connect(GTK_OBJECT(window), "window_state_event", G_CALLBACK(window_state_callback),
+                     NULL);
+    g_signal_connect(GTK_OBJECT(window), "configure_event", G_CALLBACK(configure_callback),
                      NULL);
 
     accel_group = gtk_accel_group_new();
@@ -6080,6 +6001,7 @@ GtkWidget *create_window(gint windowid)
         pane = gtk_hpaned_new();
     }
     gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
+	create_playlist_widget();
 
     vbox_master = gtk_vbox_new(FALSE, 0);
     if (windowid == 0)
@@ -6551,6 +6473,7 @@ void show_window(gint windowid)
     gtk_widget_hide(GTK_WIDGET(menuitem_next));
     gtk_widget_hide(media_hbox);
     gtk_widget_hide(audio_meter);
+	gtk_widget_hide(plvbox);
 
     gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
 	if (keep_on_top)
