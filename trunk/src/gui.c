@@ -1719,10 +1719,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             send_command("audio_delay -0.1 0\n", TRUE);
             return FALSE;
         case GDK_z:
-            // menuitem_view_decrease_subtitle_delay_callback(NULL,NULL);
+			if (fullscreen)
+        		menuitem_view_decrease_subtitle_delay_callback(NULL,NULL);
             return FALSE;
         case GDK_x:
-            // menuitem_view_increase_subtitle_delay_callback(NULL,NULL);
+			if (fullscreen)
+        		menuitem_view_increase_subtitle_delay_callback(NULL,NULL);
             return FALSE;
         case GDK_F11:
             if (idledata->videopresent)
