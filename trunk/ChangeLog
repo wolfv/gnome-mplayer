@@ -1,4 +1,5 @@
 Development
+    Rework subwindow layouts, do all pane allocations now thru adjust_layout
     Fix X and Z keys not working in fullscreen mode
     Move subcp out of disable_ass if block
     Make loading a secondary http:// url via open location work correctly

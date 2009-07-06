@@ -729,8 +729,13 @@ void playlist_close(GtkWidget * widget, void *data)
 
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 {
+	playlist_visible = gtk_check_menu_item_get_active(menuitem);
+		
+	adjust_layout();
+}
 
-    GtkWidget *close;
+void create_playlist_widget()
+{
     GtkWidget *scrolled;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
@@ -747,72 +752,14 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 	GtkWidget *undo;
     GtkTreePath *path;
     GtkAccelGroup *accel_group;
-    GValue value = { 0, };
     GtkTooltips *tooltip;
     gchar *coltitle;
-    gint x, y, depth;
     gint count;
     GtkTargetEntry target_entry[3];
     gint i = 0;
     gint handle_size;
 
-    g_value_init(&value, G_TYPE_BOOLEAN);
-
-    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)) == FALSE) {
-        if (GTK_WIDGET_VISIBLE(plvbox)) {
-            if (idledata->videopresent == FALSE) {
-                window_width = -1;
-                window_height = -1;
-                gtk_window_get_size(GTK_WINDOW(window), &window_width, &window_height);
-                gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
-                gtk_widget_hide(GTK_WIDGET(fixed));
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
-                gtk_widget_set_size_request(window, -1, -1);
-            } else {
-                gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
-                gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-                gtk_widget_set_size_request(window, -1, -1);
-                gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
-                window_width = -1;
-                window_height = -1;
-                gtk_window_get_size(GTK_WINDOW(window), &window_width, &window_height);
-                gtk_widget_hide(plvbox);
-                if (vertical_layout) {
-                    gtk_window_resize(GTK_WINDOW(window), window_width,
-                                      window_height - plvbox->allocation.height - handle_size);
-                } else {
-                    gtk_window_resize(GTK_WINDOW(window),
-                                      window_width - plvbox->allocation.width - handle_size,
-                                      window_height);
-                }
-            }
-            gtk_container_remove(GTK_CONTAINER(pane), plvbox);
-            stored_window_width = -1;
-            stored_window_height = -1;
-            plvbox = NULL;
-            selection = NULL;
-            playlist_visible = FALSE;
-        }
-
-    } else {
-        gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-        if (idledata->videopresent == FALSE) {
-            if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
-            }
-        }
-        if (restore_playlist) {
-            if (vertical_layout) {
-                stored_window_height = restore_pane;
-            } else {
-                stored_window_width = restore_pane;
-            }
-            restore_playlist = FALSE;
-        } else {
-            gdk_window_get_geometry(window->window, &x, &y, &stored_window_width,
-                                    &stored_window_height, &depth);
-        }
-        plvbox = gtk_vbox_new(FALSE, 12);
+	plvbox = gtk_vbox_new(FALSE, 12);
         hbox = gtk_hbox_new(FALSE, 12);
         gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
         box = gtk_hbox_new(FALSE, 10);
@@ -919,13 +866,13 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
 
-        close = gtk_button_new();
+        plclose = gtk_button_new();
         tooltip = gtk_tooltips_new();
-        gtk_tooltips_set_tip(tooltip, close, _("Close Playlist View"), NULL);
-        gtk_container_add(GTK_CONTAINER(close),
+        gtk_tooltips_set_tip(tooltip, plclose, _("Close Playlist View"), NULL);
+        gtk_container_add(GTK_CONTAINER(plclose),
                           gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
 
-        g_signal_connect_swapped(GTK_OBJECT(close), "clicked",
+        g_signal_connect_swapped(GTK_OBJECT(plclose), "clicked",
                                  GTK_SIGNAL_FUNC(playlist_close), NULL);
 
 
@@ -1011,8 +958,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         gtk_widget_add_accelerator(GTK_WIDGET(remove), "clicked",
                                    accel_group, GDK_Delete, 0, GTK_ACCEL_VISIBLE);
 
-        GTK_WIDGET_SET_FLAGS(close, GTK_CAN_DEFAULT);
-        gtk_box_pack_end(GTK_BOX(closebox), close, FALSE, FALSE, 0);
+        GTK_WIDGET_SET_FLAGS(plclose, GTK_CAN_DEFAULT);
+        gtk_box_pack_end(GTK_BOX(closebox), plclose, FALSE, FALSE, 0);
 
         scrolled = gtk_scrolled_window_new(NULL, NULL);
         gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled),
@@ -1025,23 +972,10 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
         gtk_box_pack_start(GTK_BOX(plvbox), hbox, FALSE, FALSE, 0);
 
 
-        gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
-        adjust_paned_rules();
+        gtk_paned_pack2(GTK_PANED(pane), plvbox, FALSE, FALSE);
 
         gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
-        if (vertical_layout) {
-            gtk_widget_set_size_request(plvbox, -1, 150);
-            gtk_window_resize(GTK_WINDOW(window), stored_window_width,
-                              stored_window_height + 150 + handle_size);
-        } else {
-            gtk_widget_set_size_request(plvbox, 300, -1);
-            gtk_window_resize(GTK_WINDOW(window), stored_window_width + 300 + handle_size,
-                              stored_window_height);
-        }
-        gtk_widget_show_all(plvbox);
-        if (idledata->videopresent) {
-            gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
-        }
+        gtk_widget_set_size_request(plvbox, 300, 200);
 
         playlist_popup_menu = GTK_MENU(gtk_menu_new());
         playlist_set_subtitle =
@@ -1054,8 +988,5 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
                                  "button_press_event",
                                  G_CALLBACK(playlist_popup_handler), G_OBJECT(playlist_popup_menu));
         gtk_widget_show_all(GTK_WIDGET(playlist_popup_menu));
-        playlist_visible = TRUE;
-
-        gtk_widget_grab_default(close);
-    }
 }
+
