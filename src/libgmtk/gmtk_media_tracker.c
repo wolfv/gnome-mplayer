@@ -173,7 +173,7 @@ void draw(GtkWidget * tracker)
 			if (GMTK_MEDIA_TRACKER(tracker)->allow_expand) {
 				gtk_widget_set_size_request(tracker,(pwidth + 2 * half_thumb_size),-1);
 			} else {
-				pango_layout_set_width(p, bar_width);
+				pango_layout_set_width(p, bar_width * PANGO_SCALE);
 				pango_layout_set_ellipsize(p, PANGO_ELLIPSIZE_START);
 				pwidth = bar_width;
 			}
