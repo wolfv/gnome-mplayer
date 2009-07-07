@@ -426,12 +426,17 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
     }
     idledata->x = 0;
     idledata->y = 0;
+	idledata->cachepercent = -1.0;
     g_strlcpy(idledata->info, uri, 1024);
     set_media_info(idledata);
 
     streaming = 0;
     subtitle_delay = 0.0;
 
+	gm_store = gm_pref_store_new("gnome-mplayer");
+	forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
+	gm_pref_store_free(gm_store);
+	
     if (thread_data->filename != NULL && strlen(thread_data->filename) != 0) {
         thread_data->player_window = 0;
         thread_data->playlist = playlist;
