@@ -949,6 +949,7 @@ gpointer launch_player(gpointer data)
                     if (g_file_is_native(file)) {
                         argv[arg++] = g_strdup_printf("-nocache");
                     } else {
+						forcecache = TRUE;
                         argv[arg++] = g_strdup_printf("-cache");
                         argv[arg++] = g_strdup_printf("%i", cache_size);
                     }
