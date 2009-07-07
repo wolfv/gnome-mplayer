@@ -968,6 +968,7 @@ gboolean resize_window(void *data)
             gtk_widget_show_all(GTK_WIDGET(fixed));
 
             if (window_x == 0 && window_y == 0) {
+				adjusting = FALSE;
                 if ((non_fs_width == 0 && non_fs_height == 0) || resize_on_new_media == TRUE) {
                     if (idle->width > 0 && idle->height > 0) {
                         if (verbose) {
@@ -978,12 +979,13 @@ gboolean resize_window(void *data)
                         last_window_height = idle->height;
                         non_fs_width = idle->width;
                         non_fs_height = idle->height;
-                        gtk_widget_set_size_request(fixed, idle->width, idle->height);
+						fixed->allocation.width = idle->width;
+						fixed->allocation.height = idle->height;
+						allocate_fixed_callback (fixed,&(fixed->allocation),NULL);
                         adjust_layout();
                     }
                 } else {
-					printf("Just change aspect\n");
-					adjusting = FALSE;
+					// adjust the drawing area, new media may have different aspect
                     allocate_fixed_callback (fixed,&(fixed->allocation),NULL);
 				}
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),
@@ -1417,7 +1419,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 		actual_y = allocation->height;
 	}
 	
-	printf("movie new_width %i new_height %i\n", actual_x, actual_y);
+	// printf("movie new_width %i new_height %i\n", actual_x, actual_y);
     if (actual_x > 0 && actual_y > 0) {
 
         movie_ratio = (gdouble) actual_x / (gdouble) actual_y;
