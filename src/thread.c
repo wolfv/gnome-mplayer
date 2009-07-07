@@ -38,7 +38,7 @@ void mplayer_shutdown()
             g_idle_add(unmap_af_export_file, idledata);
         }
         send_command("quit\n", FALSE);
-		dbus_send_event("Ended",0);
+        dbus_send_event("Ended", 0);
     }
 
 }
@@ -77,13 +77,13 @@ gboolean play(void *data)
     PlayData *p = (PlayData *) data;
 
     if (ok_to_play && p != NULL) {
-		if (!gtk_list_store_iter_is_valid(playliststore, &iter)) {
-			// printf("iter is not valid, getting first one\n");
-			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-		}
+        if (!gtk_list_store_iter_is_valid(playliststore, &iter)) {
+            // printf("iter is not valid, getting first one\n");
+            gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+        }
         gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri,
                            -1);
-        play_iter(&iter,0);
+        play_iter(&iter, 0);
     }
     g_free(p);
 
@@ -108,8 +108,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     GIOStatus status;
     gchar *error_msg = NULL;
     GtkWidget *dialog;
-	ThreadData *threaddata = (ThreadData *) data;
-	
+    ThreadData *threaddata = (ThreadData *) data;
+
     if (source == NULL) {
         g_source_remove(watch_in_id);
         g_source_remove(watch_in_hup_id);
@@ -173,17 +173,19 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         playback_error = ERROR_RETRY_WITH_HTTP;
     }
 
-	if (strstr(mplayer_output->str, "Server returned 404:File Not Found") != NULL && g_strrstr(threaddata->filename,"mmshttp://") != NULL) {
+    if (strstr(mplayer_output->str, "Server returned 404:File Not Found") != NULL
+        && g_strrstr(threaddata->filename, "mmshttp://") != NULL) {
         dontplaynext = TRUE;
         playback_error = ERROR_RETRY_WITH_HTTP;
     }
 
-	if (strstr(mplayer_output->str, "unknown ASF streaming type") != NULL && g_strrstr(threaddata->filename,"mmshttp://") != NULL) {
+    if (strstr(mplayer_output->str, "unknown ASF streaming type") != NULL
+        && g_strrstr(threaddata->filename, "mmshttp://") != NULL) {
         dontplaynext = TRUE;
         playback_error = ERROR_RETRY_WITH_HTTP;
     }
-	
-	if (strstr(mplayer_output->str, "Error while parsing chunk header") != NULL) {
+
+    if (strstr(mplayer_output->str, "Error while parsing chunk header") != NULL) {
         dontplaynext = TRUE;
         playback_error = ERROR_RETRY_WITH_HTTP;
     }
@@ -247,8 +249,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GtkWidget *dialog;
     gdouble old_pos;
     LangMenu *menu;
-	ThreadData *threaddata = (ThreadData *) data;
-	
+    ThreadData *threaddata = (ThreadData *) data;
+
     if (source == NULL) {
         g_source_remove(watch_err_id);
         g_source_remove(watch_in_hup_id);
@@ -327,17 +329,18 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         //g_mutex_unlock(thread_running);
         g_cond_signal(mplayer_complete_cond);
 
-		if (idledata->position < 0.05 && g_strrstr(threaddata->filename,"http://") != NULL && g_strrstr(threaddata->filename,"mmshttp://") == NULL) {
-			dontplaynext = TRUE;
-		    playback_error = ERROR_RETRY_WITH_PLAYLIST;
-		}
-			
+        if (idledata->position < 0.05 && g_strrstr(threaddata->filename, "http://") != NULL
+            && g_strrstr(threaddata->filename, "mmshttp://") == NULL) {
+            dontplaynext = TRUE;
+            playback_error = ERROR_RETRY_WITH_PLAYLIST;
+        }
+
         return FALSE;
     }
 
     if (strstr(mplayer_output->str, "AO:") != NULL) {
         idledata->audiopresent = TRUE;
-		send_command("get_property switch_audio\n", TRUE);
+        send_command("get_property switch_audio\n", TRUE);
     }
 
     if (strstr(mplayer_output->str, "VO:") != NULL) {
@@ -366,13 +369,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         send_command("get_property chapters\n", TRUE);
         // send_command("get_property switch_audio\n", TRUE);
         send_command("pausing_keep_force get_property path\n", FALSE);
-		if (sub_source_file) {
-			if (verbose)
-				printf("setting subtitle source to file\n");
- 			send_command("sub_file 0\n",TRUE);
-		} else {
-		    send_command("get_property sub_demux\n", TRUE);
-		}
+        if (sub_source_file) {
+            if (verbose)
+                printf("setting subtitle source to file\n");
+            send_command("sub_file 0\n", TRUE);
+        } else {
+            send_command("get_property sub_demux\n", TRUE);
+        }
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -603,15 +606,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     if (strstr(mplayer_output->str, "ID_FILE_SUB_ID=") != 0) {
-		menu = g_new0(LangMenu, 1);
+        menu = g_new0(LangMenu, 1);
         buf = strstr(mplayer_output->str, "ID_FILE_SUB_ID");
         sscanf(buf, "ID_FILE_SUB_ID=%i", &menu->value);
         menu->label = g_strdup_printf("FILE %i", menu->value);
-		menu->value += 9000;
-        g_idle_add(set_new_lang_menu, menu);		
-		sub_source_file = TRUE;
-	}
-	
+        menu->value += 9000;
+        g_idle_add(set_new_lang_menu, menu);
+        sub_source_file = TRUE;
+    }
+
     if (strstr(mplayer_output->str, "ID_AID_") != 0) {
         menu = g_new0(LangMenu, 1);
         buf = strstr(mplayer_output->str, "ID_AID_");
@@ -622,11 +625,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             buf += strlen("_LANG=");
             menu->label = g_strdup(buf);
             g_idle_add(set_new_audio_menu, menu);
-			if (g_strrstr(alang,menu->label) != NULL) {
-				buf = g_strdup_printf("switch_audio %i\n",menu->value);
-				send_command(buf,TRUE);
-				g_free(buf);
-			}
+            if (g_strrstr(alang, menu->label) != NULL) {
+                buf = g_strdup_printf("switch_audio %i\n", menu->value);
+                send_command(buf, TRUE);
+                g_free(buf);
+            }
         }
     }
 
@@ -756,13 +759,12 @@ gboolean thread_query(gpointer data)
         // but don't start polling until meter is visible
         g_idle_add(map_af_export_file, idledata);
     }
-
-	// track volume control
-	if (use_pulse_flat_volume && !softvol) {
-		volume = (gint) get_alsa_volume(FALSE);
-		idledata->volume = volume;
-		g_idle_add(set_volume, idledata);
-	}
+    // track volume control
+    if (use_pulse_flat_volume && !softvol) {
+        volume = (gint) get_alsa_volume(FALSE);
+        idledata->volume = volume;
+        g_idle_add(set_volume, idledata);
+    }
 
     if (state == PLAYING) {
         // size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
@@ -828,7 +830,7 @@ gpointer launch_player(gpointer data)
     g_strlcpy(idledata->progress_text, "", 1024);
     idledata->volume = volume;
     idledata->length = 0.0;
-	sub_source_file = FALSE;
+    sub_source_file = FALSE;
 
     g_idle_add(set_progress_value, idledata);
     g_idle_add(set_progress_text, idledata);
@@ -947,11 +949,11 @@ gpointer launch_player(gpointer data)
     player_window = idledata->windowid;
     argv[arg++] = g_strdup_printf("0x%x", player_window);
 
-	if (threaddata->start_second > 0) {
-		argv[arg++] = g_strdup_printf("-ss");
-		argv[arg++] = g_strdup_printf("%i", threaddata->start_second);	
-	}
-	
+    if (threaddata->start_second > 0) {
+        argv[arg++] = g_strdup_printf("-ss");
+        argv[arg++] = g_strdup_printf("%i", threaddata->start_second);
+    }
+
     if (control_id == 0) {
 //        if (!idledata->streaming)
 //            argv[arg++] = g_strdup_printf("-idx");
@@ -992,47 +994,46 @@ gpointer launch_player(gpointer data)
     if (!disable_ass) {
         argv[arg++] = g_strdup_printf("-ass");
 
-		if (subtitle_margin > 0) {
-	        argv[arg++] = g_strdup_printf("-ass-bottom-margin");
-	        argv[arg++] = g_strdup_printf("%i", subtitle_margin);
-	        argv[arg++] = g_strdup_printf("-ass-use-margins");
-		}
-		
+        if (subtitle_margin > 0) {
+            argv[arg++] = g_strdup_printf("-ass-bottom-margin");
+            argv[arg++] = g_strdup_printf("%i", subtitle_margin);
+            argv[arg++] = g_strdup_printf("-ass-use-margins");
+        }
         // Simply ommiting '-embeddedfonts' did not work
-        if (!disable_embeddedfonts && g_strrstr(idledata->demuxer,"mkv")) {
-		    argv[arg++] = g_strdup_printf("-embeddedfonts");
-		} else {
+        if (!disable_embeddedfonts && g_strrstr(idledata->demuxer, "mkv")) {
+            argv[arg++] = g_strdup_printf("-embeddedfonts");
+        } else {
             argv[arg++] = g_strdup_printf("-noembeddedfonts");
-		}
-		
-	    argv[arg++] = g_strdup_printf("-ass-font-scale");
-	    argv[arg++] = g_strdup_printf("%1.2f", subtitle_scale);
-	    if (disable_embeddedfonts && subtitlefont != NULL && strlen(subtitlefont) > 0) {
-	        fontname = g_strdup(subtitlefont);
-	        size = g_strrstr(fontname, " ");
-	        size[0] = '\0';
-	        size = g_strrstr(fontname, " Bold");
-	        if (size)
-	            size[0] = '\0';
-	        size = g_strrstr(fontname, " Italic");
-	        if (size)
-	            size[0] = '\0';
-	        argv[arg++] = g_strdup_printf("-ass-force-style");
-	        argv[arg++] = g_strconcat("FontName=", fontname,
-	                                  ((g_strrstr(subtitlefont, "Italic") !=
-	                                    NULL) ? ",Italic=1" : ",Italic=0"),
-	                                  ((g_strrstr(subtitlefont, "Bold") !=
-	                                    NULL) ? ",Bold=1" : ",Bold=0"),
-	                                  (subtitle_outline ? ",Outline=1" : ",Outline=0"),
-	                                  (subtitle_shadow ? ",Shadow=2" : ",Shadow=0"), NULL);
-	        g_free(fontname);
-	    }
+        }
 
-	    if (subtitle_color != NULL && strlen(subtitle_color) > 0) {
-	        argv[arg++] = g_strdup_printf("-ass-color");
-	        argv[arg++] = g_strdup_printf("%s", subtitle_color);
-	    }
-		
+        argv[arg++] = g_strdup_printf("-ass-font-scale");
+        argv[arg++] = g_strdup_printf("%1.2f", subtitle_scale);
+        if (disable_embeddedfonts && subtitlefont != NULL && strlen(subtitlefont) > 0) {
+            fontname = g_strdup(subtitlefont);
+            size = g_strrstr(fontname, " ");
+            size[0] = '\0';
+            size = g_strrstr(fontname, " Bold");
+            if (size)
+                size[0] = '\0';
+            size = g_strrstr(fontname, " Italic");
+            if (size)
+                size[0] = '\0';
+            argv[arg++] = g_strdup_printf("-ass-force-style");
+            argv[arg++] = g_strconcat("FontName=", fontname,
+                                      ((g_strrstr(subtitlefont, "Italic") !=
+                                        NULL) ? ",Italic=1" : ",Italic=0"),
+                                      ((g_strrstr(subtitlefont, "Bold") !=
+                                        NULL) ? ",Bold=1" : ",Bold=0"),
+                                      (subtitle_outline ? ",Outline=1" : ",Outline=0"),
+                                      (subtitle_shadow ? ",Shadow=2" : ",Shadow=0"), NULL);
+            g_free(fontname);
+        }
+
+        if (subtitle_color != NULL && strlen(subtitle_color) > 0) {
+            argv[arg++] = g_strdup_printf("-ass-color");
+            argv[arg++] = g_strdup_printf("%s", subtitle_color);
+        }
+
     } else {
         argv[arg++] = g_strdup_printf("-subfont-text-scale");
         argv[arg++] = g_strdup_printf("%d", (int) (subtitle_scale * 5));        // 5 is the default
@@ -1046,26 +1047,26 @@ gpointer launch_player(gpointer data)
             g_free(fontname);
         }
 
-		
+
     }
 
-	if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
-			argv[arg++] = g_strdup_printf("-subcp");
-			argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
-	}		
-	
-	argv[arg++] = g_strdup_printf("-channels");
-	switch (audio_channels) {
-		case 1: 
-			argv[arg++] = g_strdup_printf("4");
-			break;
-		case 2: 
-			argv[arg++] = g_strdup_printf("6");
-			break;
-		default: 
-			argv[arg++] = g_strdup_printf("2");
-			break;
-	}
+    if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 0) {
+        argv[arg++] = g_strdup_printf("-subcp");
+        argv[arg++] = g_strdup_printf("%s", subtitle_codepage);
+    }
+
+    argv[arg++] = g_strdup_printf("-channels");
+    switch (audio_channels) {
+    case 1:
+        argv[arg++] = g_strdup_printf("4");
+        break;
+    case 2:
+        argv[arg++] = g_strdup_printf("6");
+        break;
+    default:
+        argv[arg++] = g_strdup_printf("2");
+        break;
+    }
 
     if (vo == NULL || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
                         || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {

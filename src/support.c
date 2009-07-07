@@ -326,9 +326,9 @@ gint parse_basic(gchar * uri)
 
     file = g_strndup(uri, 4);
     if (strcmp(file, "file") != 0) {
-		g_free(file);
+        g_free(file);
         return 0;               // FIXME: remote playlists unsuppored
-	}
+    }
     parse = g_strsplit(uri, "/", 3);
     path = gm_get_path(parse[2]);
     fp = fopen(parse[2], "r");
@@ -389,7 +389,8 @@ gint parse_basic(gchar * uri)
                 //printf("smil\n");
                 g_free(newline);
                 break;
-            } else if (g_ascii_strncasecmp(newline, "numberofentries", strlen("numberofentries")) == 0) {
+            } else if (g_ascii_strncasecmp(newline, "numberofentries", strlen("numberofentries")) ==
+                       0) {
                 //printf("num\n");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "version", strlen("version")) == 0) {
@@ -498,7 +499,7 @@ gint parse_ram(gchar * filename)
             if (ret != 1)
                 break;
         }
-		fclose(fp);
+        fclose(fp);
     }
     g_free(buffer);
     buffer = NULL;
@@ -508,55 +509,55 @@ gint parse_ram(gchar * filename)
 
 gint parse_asx(gchar * uri)
 {
-	gint ret = 0;
+    gint ret = 0;
 
     if (device_name(uri))
         return 0;
 
     if (streaming_media(uri))
         return 0;
-	
-	if (gm_parse_asx_is_asx(uri)) {
-		ret = 1;
+
+    if (gm_parse_asx_is_asx(uri)) {
+        ret = 1;
 #ifdef GIO_ENABLED
-		gchar *line;
-		GFile *file;
-		GFileInputStream *input;
-		GDataInputStream *data;
-		gchar *asx_data = g_new0(gchar, 16 *1024);
+        gchar *line;
+        GFile *file;
+        GFileInputStream *input;
+        GDataInputStream *data;
+        gchar *asx_data = g_new0(gchar, 16 * 1024);
 
-		gsize length;
-		file = g_file_new_for_uri(uri);
-		input = g_file_read(file, NULL, NULL);
-		data = g_data_input_stream_new((GInputStream *) input);		
-		if (data != NULL) {
-		    line = g_data_input_stream_read_line(data, &length, NULL, NULL);
-		    while (line != NULL) {
-				g_strlcat(asx_data,line,16*1024);
-				g_free(line);
-		        line = g_data_input_stream_read_line(data, &length, NULL, NULL);
-		    }
-		    g_input_stream_close((GInputStream *) data, NULL, NULL);
-		    g_input_stream_close((GInputStream *) input, NULL, NULL);
-		}
-		g_object_unref(file);
+        gsize length;
+        file = g_file_new_for_uri(uri);
+        input = g_file_read(file, NULL, NULL);
+        data = g_data_input_stream_new((GInputStream *) input);
+        if (data != NULL) {
+            line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+            while (line != NULL) {
+                g_strlcat(asx_data, line, 16 * 1024);
+                g_free(line);
+                line = g_data_input_stream_read_line(data, &length, NULL, NULL);
+            }
+            g_input_stream_close((GInputStream *) data, NULL, NULL);
+            g_input_stream_close((GInputStream *) input, NULL, NULL);
+        }
+        g_object_unref(file);
 
-		gm_parse_asx(asx_data, &add_item_to_playlist_callback, NULL);
-		g_free(asx_data);
+        gm_parse_asx(asx_data, &add_item_to_playlist_callback, NULL);
+        g_free(asx_data);
 #else
-		gchar *filename;
-		gchar *contents = NULL;
-		
-		filename = g_filename_from_uri(uri,NULL,NULL);
-		g_file_get_contents(filename,&contents,NULL,NULL);
-		if (contents != NULL) {
-			gm_parse_asx(contents, &add_item_to_playlist_callback, NULL);
-			g_free(contents);
-		}	
-		g_free(filename);
+        gchar *filename;
+        gchar *contents = NULL;
+
+        filename = g_filename_from_uri(uri, NULL, NULL);
+        g_file_get_contents(filename, &contents, NULL, NULL);
+        if (contents != NULL) {
+            gm_parse_asx(contents, &add_item_to_playlist_callback, NULL);
+            g_free(contents);
+        }
+        g_free(filename);
 #endif
-	}
-	
+    }
+
     return ret;
 }
 
@@ -698,7 +699,8 @@ gint parse_cdda(gchar * filename)
         if (addcount == 0) {
             ac = 0;
             while (output[ac] != NULL) {
-                if (g_ascii_strncasecmp(output[ac], "ID_CDDA_TRACK__", strlen("ID_CDDA_TRACK_")) == 0) {
+                if (g_ascii_strncasecmp(output[ac], "ID_CDDA_TRACK__", strlen("ID_CDDA_TRACK_")) ==
+                    0) {
                     sscanf(output[ac], "ID_CDDA_TRACK_%i", &num);
                     track = g_strdup_printf("cdda://%i", num);
                     add_item_to_playlist(track, 0);
@@ -743,7 +745,7 @@ gint parse_dvd(gchar * filename)
     gchar *error_msg = NULL;
     GtkWidget *dialog;
 
-    if (g_ascii_strncasecmp(filename, "dvd://", strlen("dvd://")) == 0) {     // || g_ascii_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
+    if (g_ascii_strncasecmp(filename, "dvd://", strlen("dvd://")) == 0) {       // || g_ascii_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
         playlist = 0;
         // run mplayer and try to get the first frame and convert it to a jpeg
         if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
@@ -1221,7 +1223,7 @@ MetaData *get_metadata(gchar * uri)
         if (file != NULL) {
             name = g_file_get_path(file);
             basename = g_file_get_basename(file);
-			g_object_unref(file);
+            g_object_unref(file);
         }
 #else
         name = g_filename_from_uri(uri, NULL, NULL);
@@ -1230,11 +1232,11 @@ MetaData *get_metadata(gchar * uri)
     }
 
     if (name == NULL) {
-		if (ret != NULL)
-			g_free(ret);
+        if (ret != NULL)
+            g_free(ret);
         return NULL;
-	}
-	
+    }
+
     if (verbose)
         printf("getting file metadata for %s\n", name);
 
@@ -1284,8 +1286,8 @@ MetaData *get_metadata(gchar * uri)
             g_free(out);
         if (err != NULL)
             g_free(err);
-		if (ret !=  NULL)
-			g_free(ret);
+        if (ret != NULL)
+            g_free(ret);
         return NULL;
     }
     if (out != NULL) {
@@ -1626,7 +1628,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
             g_free(local_uri);
             local_uri = g_strdup(unescaped);
             g_free(unescaped);
-        } 
+        }
 #ifdef GIO_ENABLED
         unescaped = g_uri_unescape_string(uri, NULL);
 #else

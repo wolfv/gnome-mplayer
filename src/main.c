@@ -198,8 +198,8 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
         }
         gtk_list_store_set(playliststore, playiter, COUNT_COLUMN, count + 1, -1);
     } else {
-		if (verbose > 1)
-	        printf("iter is invalid, nothing to play\n");
+        if (verbose > 1)
+            printf("iter is invalid, nothing to play\n");
         return 0;
     }
 
@@ -351,7 +351,7 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
 #ifdef GTK2_12_ENABLED
 #ifdef GIO_ENABLED
     // don't put it on the recent list, if it is running in plugin mode
-    if (control_id == 0 && !streaming_media (uri)) {
+    if (control_id == 0 && !streaming_media(uri)) {
         recent_data = (GtkRecentData *) g_new0(GtkRecentData, 1);
         if (artist != NULL && strlen(artist) > 0) {
             recent_data->display_name = g_strdup_printf("%s - %s", artist, title);
@@ -375,10 +375,10 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
         g_object_unref(file);
         recent_data->app_name = g_strdup("gnome-mplayer");
         recent_data->app_exec = g_strdup("gnome-mplayer %u");
-		if (recent_data->mime_type != NULL) {
-	        gtk_recent_manager_add_full(recent_manager, uri, recent_data);
-	        g_free(recent_data->mime_type);
-		}
+        if (recent_data->mime_type != NULL) {
+            gtk_recent_manager_add_full(recent_manager, uri, recent_data);
+            g_free(recent_data->mime_type);
+        }
         g_free(recent_data->app_name);
         g_free(recent_data->app_exec);
         g_free(recent_data);
@@ -430,12 +430,12 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
     set_media_info(idledata);
 
     streaming = 0;
-	subtitle_delay = 0.0;
+    subtitle_delay = 0.0;
 
     if (thread_data->filename != NULL && strlen(thread_data->filename) != 0) {
         thread_data->player_window = 0;
         thread_data->playlist = playlist;
-		thread_data->start_second = start_second;
+        thread_data->start_second = start_second;
         thread_data->streaming = streaming_media(thread_data->uri);
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
@@ -586,9 +586,9 @@ int main(int argc, char *argv[])
     disable_deinterlace = TRUE;
     details_visible = FALSE;
     replace_and_play = FALSE;
-	bring_to_front = FALSE;
+    bring_to_front = FALSE;
     keep_on_top = FALSE;
-	resize_on_new_media = FALSE;
+    resize_on_new_media = FALSE;
     use_pausing_keep_force = FALSE;
     show_notification = TRUE;
     show_status_icon = TRUE;
@@ -610,8 +610,8 @@ int main(int argc, char *argv[])
     large_buttons = FALSE;
     button_size = 16;
     lastguistate = -1;
-	adjusting = FALSE;
-	
+    adjusting = FALSE;
+
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;   /* Restart functions if
@@ -647,8 +647,8 @@ int main(int argc, char *argv[])
 #ifndef HAVE_ASOUNDLIB
     volume = gm_pref_store_get_int(gm_store, VOLUME);
 #endif
-	audio_channels = gm_pref_store_get_int(gm_store, AUDIO_CHANNELS);
-	fullscreen = gm_pref_store_get_boolean(gm_store, FULLSCREEN);
+    audio_channels = gm_pref_store_get_int(gm_store, AUDIO_CHANNELS);
+    fullscreen = gm_pref_store_get_boolean(gm_store, FULLSCREEN);
     softvol = gm_pref_store_get_boolean(gm_store, SOFTVOL);
     forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
     vertical_layout = gm_pref_store_get_boolean(gm_store, VERTICAL);
@@ -678,24 +678,23 @@ int main(int argc, char *argv[])
     subtitle_color = gm_pref_store_get_string(gm_store, SUBTITLECOLOR);
     subtitle_outline = gm_pref_store_get_boolean(gm_store, SUBTITLEOUTLINE);
     subtitle_shadow = gm_pref_store_get_boolean(gm_store, SUBTITLESHADOW);
-	subtitle_margin = gm_pref_store_get_int(gm_store, SUBTITLE_MARGIN);
+    subtitle_margin = gm_pref_store_get_int(gm_store, SUBTITLE_MARGIN);
     showsubtitles = gm_pref_store_get_boolean_with_default(gm_store, SHOW_SUBTITLES, TRUE);
 
-	qt_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_QT);
+    qt_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_QT);
     real_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_REAL);
     wmp_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_WMP);
     dvx_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_DVX);
     midi_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_MIDI);
     embedding_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_EMBEDDING);
-	if (embed_window == 0) {
-		single_instance = gm_pref_store_get_boolean(gm_store, SINGLE_INSTANCE);
-		if (single_instance)
-		{
-		    replace_and_play = gm_pref_store_get_boolean(gm_store, REPLACE_AND_PLAY);
-		    bring_to_front = gm_pref_store_get_boolean(gm_store, BRING_TO_FRONT);
-		}
-	}
-	
+    if (embed_window == 0) {
+        single_instance = gm_pref_store_get_boolean(gm_store, SINGLE_INSTANCE);
+        if (single_instance) {
+            replace_and_play = gm_pref_store_get_boolean(gm_store, REPLACE_AND_PLAY);
+            bring_to_front = gm_pref_store_get_boolean(gm_store, BRING_TO_FRONT);
+        }
+    }
+
     mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);
@@ -711,7 +710,7 @@ int main(int argc, char *argv[])
     loc_window_height = gm_pref_store_get_int(gm_store, WINDOW_HEIGHT);
     loc_window_width = gm_pref_store_get_int(gm_store, WINDOW_WIDTH);
     keep_on_top = gm_pref_store_get_boolean(gm_store, KEEP_ON_TOP);
-	resize_on_new_media = gm_pref_store_get_boolean(gm_store, RESIZE_ON_NEW_MEDIA);
+    resize_on_new_media = gm_pref_store_get_boolean(gm_store, RESIZE_ON_NEW_MEDIA);
     read_mplayer_config();
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
@@ -754,24 +753,24 @@ int main(int argc, char *argv[])
     }
 #endif
 
-	if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
-		// do nothing
-	} else {
-		// we have alsa or pulse flat volume now
-		use_pulse_flat_volume = TRUE;
-	}
-	
+    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
+        // do nothing
+    } else {
+        // we have alsa or pulse flat volume now
+        use_pulse_flat_volume = TRUE;
+    }
+
     if (volume == -1) {
         volume = (gint) get_alsa_volume(TRUE);
-		if (!use_pulse_flat_volume) {
-		    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
-		        if (verbose)
-		            printf
-		                ("Using pulse audio in non-flat volume mode, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
-		                 volume);
-		        volume = 100;
-		    }
-		}		
+        if (!use_pulse_flat_volume) {
+            if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
+                if (verbose)
+                    printf
+                        ("Using pulse audio in non-flat volume mode, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
+                         volume);
+                volume = 100;
+            }
+        }
     } else {
         if (verbose)
             printf("Using volume of %i from gnome-mplayer preference\n", volume);
@@ -876,7 +875,7 @@ int main(int argc, char *argv[])
                 if (S_ISDIR(buf.st_mode)) {
                     add_item_to_playlist("dvd://", 0);
                     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-                    play_iter(&iter,0);
+                    play_iter(&iter, 0);
                 } else {
                     uri = g_strdup_printf("file://%s", mnt->mnt_dir);
                     create_folder_progress_window();
@@ -888,7 +887,7 @@ int main(int argc, char *argv[])
                         randomize_playlist(playliststore);
                     }
                     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                        play_iter(&iter,0);
+                        play_iter(&iter, 0);
                     }
                 }
             } else {
@@ -899,7 +898,7 @@ int main(int argc, char *argv[])
                 }
                 //play_file("cdda://", playlist);
                 if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                    play_iter(&iter,0);
+                    play_iter(&iter, 0);
                 }
             }
         } else if (S_ISDIR(buf.st_mode)) {
@@ -922,7 +921,7 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                play_iter(&iter,0);
+                play_iter(&iter, 0);
             }
 
         } else {
@@ -967,12 +966,11 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                play_iter(&iter,0);
+                play_iter(&iter, 0);
             }
         }
 
-    } 
-
+    }
 #ifdef HAVE_GPOD
     if (load_tracks_from_gpod) {
         gpod_mount_point = find_gpod_mount_point();
@@ -989,14 +987,16 @@ int main(int argc, char *argv[])
 
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
-	if (argv[fileindex] == NULL && embed_window == 0) {
-		use_remember_loc = remember_loc;
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
+    if (argv[fileindex] == NULL && embed_window == 0) {
+        use_remember_loc = remember_loc;
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
+                                       playlist_visible);
     }
-	
-	if (single_instance && embed_window == 0) {
-		use_remember_loc = remember_loc;
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
+
+    if (single_instance && embed_window == 0) {
+        use_remember_loc = remember_loc;
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
+                                       playlist_visible);
     }
 
     gtk_main();

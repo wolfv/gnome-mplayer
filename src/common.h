@@ -202,7 +202,7 @@ typedef struct _ThreadData {
     gint streaming;
     gint player_window;
     gint playlist;
-	gint start_second;
+    gint start_second;
     gboolean done;
 } ThreadData;
 

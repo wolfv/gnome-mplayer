@@ -125,7 +125,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                 g_free(buf);
                                 if (gtk_tree_model_get_iter_first
                                     (GTK_TREE_MODEL(playliststore), &iter)) {
-                                    play_iter(&iter,0);
+                                    play_iter(&iter, 0);
                                     if (embed_window == 0 && bring_to_front)
                                         present_main_window();
                                 }
@@ -157,7 +157,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         }
                         g_free(buf);
                         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                            play_iter(&iter,0);
+                            play_iter(&iter, 0);
                         }
 
                         if (GTK_IS_TREE_SELECTION(selection)) {
@@ -210,11 +210,13 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                             g_free(buf);
                             g_idle_add(set_update_gui, NULL);
                             // if play on add is set, play the last item on the playlist
-							if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
-								if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-				                    play_iter(&iter,0);
-				                }								
-							}			
+                            if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)
+                                == 1) {
+                                if (gtk_tree_model_get_iter_first
+                                    (GTK_TREE_MODEL(playliststore), &iter)) {
+                                    play_iter(&iter, 0);
+                                }
+                            }
                         }
                     } else {
                         dbus_error_free(&error);
@@ -476,7 +478,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         g_idle_add(set_progress_value, idledata);
                         if (idledata->cachepercent > 0.99 && idledata->retry_on_full_cache) {
                             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                                play_iter(&iter,0);
+                                play_iter(&iter, 0);
                             }
                         }
                     } else {
@@ -1171,8 +1173,8 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 void dbus_unhook()
 {
     if (connection != NULL) {
-		dbus_enable_screensaver();
-		// dbus_connection_close(connection);
+        dbus_enable_screensaver();
+        // dbus_connection_close(connection);
         dbus_connection_unref(connection);
         connection = NULL;
     }
@@ -1184,21 +1186,21 @@ void dbus_enable_screensaver()
 
     if (connection != NULL) {
 
-	    message =
-	        dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
-	                                     "org.gnome.SessionManager", "UnInhibit");
+        message =
+            dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
+                                         "org.gnome.SessionManager", "UnInhibit");
         dbus_message_append_args(message, DBUS_TYPE_INT32, &sm_cookie, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
 
-		message =
-	        dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-	                                     "org.gnome.ScreenSaver", "UnInhibit");
+        message =
+            dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+                                         "org.gnome.ScreenSaver", "UnInhibit");
         dbus_message_append_args(message, DBUS_TYPE_INT32, &ss_cookie, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
 
-	}
+    }
 }
 
 void dbus_disable_screensaver()
@@ -1208,7 +1210,7 @@ void dbus_disable_screensaver()
     DBusMessage *message;
     const gchar *app;
     const gchar *reason;
-	gint flags;
+    gint flags;
 
     if (connection != NULL) {
         dbus_error_init(&error);
@@ -1220,34 +1222,34 @@ void dbus_disable_screensaver()
         dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
                                  DBUS_TYPE_INVALID);
         reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
-	
+
         if (reply_message) {
             dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &ss_cookie, NULL);
             dbus_message_unref(reply_message);
         }
-		
+
         dbus_message_unref(message);
         dbus_error_free(&error);
 
-			
-	    message =
-	        dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
-	                                     "org.gnome.SessionManager", "Inhibit");
-	    app = g_strdup_printf("gnome-mplayer");
-	    reason = g_strdup_printf("playback");
-		flags = 8;
-		dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32, &(idledata->windowid), 
-		                         DBUS_TYPE_STRING, &reason, DBUS_TYPE_UINT32, &flags,
-	                             DBUS_TYPE_INVALID);
-	    reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
-	
-	    if (reply_message) {
-	        dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &sm_cookie, NULL);
-	        dbus_message_unref(reply_message);
-	    }
-	
-	    dbus_message_unref(message);
-	    dbus_error_free(&error);
+
+        message =
+            dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
+                                         "org.gnome.SessionManager", "Inhibit");
+        app = g_strdup_printf("gnome-mplayer");
+        reason = g_strdup_printf("playback");
+        flags = 8;
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32,
+                                 &(idledata->windowid), DBUS_TYPE_STRING, &reason, DBUS_TYPE_UINT32,
+                                 &flags, DBUS_TYPE_INVALID);
+        reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
+
+        if (reply_message) {
+            dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &sm_cookie, NULL);
+            dbus_message_unref(reply_message);
+        }
+
+        dbus_message_unref(message);
+        dbus_error_free(&error);
 
     }
 }
