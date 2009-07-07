@@ -706,7 +706,6 @@ int main(int argc, char *argv[])
     thumb_position = gm_pref_store_get_int_with_default(gm_store, TRACKER_POSITION, thumb_position);
 
     remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
-	use_remember_loc = remember_loc;
     loc_window_x = gm_pref_store_get_int(gm_store, WINDOW_X);
     loc_window_y = gm_pref_store_get_int(gm_store, WINDOW_Y);
     loc_window_height = gm_pref_store_get_int(gm_store, WINDOW_HEIGHT);
@@ -991,10 +990,12 @@ int main(int argc, char *argv[])
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
 	if (argv[fileindex] == NULL && embed_window == 0) {
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
+		use_remember_loc = remember_loc;
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
     }
 	
 	if (single_instance && embed_window == 0) {
+		use_remember_loc = remember_loc;
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
     }
 

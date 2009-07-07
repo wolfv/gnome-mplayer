@@ -134,13 +134,14 @@ void adjust_layout() {
 	//printf("totals = %i x %i\n",total_width,total_height);
 
 	if (use_remember_loc) {
+		printf("setting size to %i x %i\n",loc_window_width,loc_window_height);
 		gtk_window_resize(GTK_WINDOW(window), loc_window_width, loc_window_height);
 		use_remember_loc = FALSE;
     } else {
 		if (total_height > 0 && total_width > 0 && idledata->videopresent) {
 			gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
 		}
-		if (total_height > 0 && total_width > 0 && !idledata->window_resized) {
+		if (total_height > 0 && total_width > 0 && !idledata->window_resized && !remember_loc) {
 			gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
 		}
 	}
@@ -1280,8 +1281,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
         gtk_window_get_size(GTK_WINDOW(window), &loc_window_width, &loc_window_height);
 
 		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-			loc_window_height = plvbox->allocation.height;
-			loc_window_width = plvbox->allocation.width;
+
 		}
 		
         gm_pref_store_set_int(gm_store, WINDOW_X, loc_window_x);
