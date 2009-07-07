@@ -1,4 +1,5 @@
 Development
+    Added Czech translation by Petr Pisar
     Rework subwindow layouts, do all pane allocations now thru adjust_layout
     Fix X and Z keys not working in fullscreen mode
     Move subcp out of disable_ass if block
