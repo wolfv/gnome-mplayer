@@ -100,9 +100,9 @@ void adjust_layout()
         gtk_widget_hide_all(details_vbox);
     }
 
-    if (GTK_IS_WIDGET(audio_meter) 
+    if (GTK_IS_WIDGET(audio_meter)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter))) {
-		gtk_widget_show_all(audio_meter);
+        gtk_widget_show_all(audio_meter);
         while (gtk_events_pending())
             gtk_main_iteration();
         total_height += audio_meter->allocation.height;
@@ -497,9 +497,10 @@ gboolean set_progress_time(void *data)
 
 
     if ((int) idle->length == 0 || idle->position > idle->length) {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache && !idle->streaming) {
-            g_snprintf(idle->progress_text, 128,
-                       "%s | %2i%% \342\226\274", time_position, (int) (idle->cachepercent * 100));
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache
+            && !idle->streaming) {
+            g_snprintf(idle->progress_text, 128, "%s | %2i%% \342\226\274", time_position,
+                       (int) (idle->cachepercent * 100));
             gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
         } else {
             g_snprintf(idle->progress_text, 128, "%s", time_position);
@@ -507,10 +508,10 @@ gboolean set_progress_time(void *data)
         }
         gmtk_media_tracker_set_thumb_position(tracker, THUMB_HIDDEN);
     } else {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache && !idle->streaming) {
-            g_snprintf(idle->progress_text, 128,
-                       "%s / %s | %2i%% \342\226\274",
-                       time_position, time_length, (int) (idle->cachepercent * 100));
+        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache
+            && !idle->streaming) {
+            g_snprintf(idle->progress_text, 128, "%s / %s | %2i%% \342\226\274", time_position,
+                       time_length, (int) (idle->cachepercent * 100));
             gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
         } else {
             g_snprintf(idle->progress_text, 128, "%s / %s", time_position, time_length);
@@ -2909,7 +2910,8 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *authors[] =
         { "Kevin DeKorte", "James Carthew", "Diogo Franco", "Icons provided by Victor Castillejo",
-NULL };
+        NULL
+    };
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"), "authors", authors,
                           "copyright", "Copyright © 2007,2008 Kevin DeKorte", "comments",
                           _("A media player for GNOME that uses MPlayer"), "version", VERSION,

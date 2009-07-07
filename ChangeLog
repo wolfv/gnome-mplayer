@@ -1,4 +1,5 @@
 Development
+    When GIO is enabled, enable cache if GIO says file is not native
     Added Czech translation by Petr Pisar
     Rework subwindow layouts, do all pane allocations now thru adjust_layout
     Fix X and Z keys not working in fullscreen mode
