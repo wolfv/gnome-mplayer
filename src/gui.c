@@ -156,8 +156,7 @@ void adjust_layout()
         }
     }
 
-
-    return;
+	return;
 }
 
 gboolean hide_buttons(void *data)
@@ -980,10 +979,13 @@ gboolean resize_window(void *data)
                         non_fs_width = idle->width;
                         non_fs_height = idle->height;
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
-                        gtk_widget_set_size_request(drawing_area, idle->width, idle->height);
                         adjust_layout();
                     }
-                }
+                } else {
+					printf("Just change aspect\n");
+					adjusting = FALSE;
+                    allocate_fixed_callback (fixed,&(fixed->allocation),NULL);
+				}
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),
                                                fullscreen);
             } else {
@@ -995,7 +997,6 @@ gboolean resize_window(void *data)
 
                     if (window_x > 0 && total_height > 0) {
                         gtk_widget_set_size_request(fixed, window_x, total_height);
-                        gtk_widget_set_size_request(drawing_area, window_x, total_height);
                         adjust_layout();
                     }
                 }
@@ -1408,9 +1409,15 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     gdouble movie_ratio, window_ratio;
     gint new_width, new_height;
 
-    if (adjusting)
+	if (adjusting)
         return FALSE;
 
+	if (actual_x == 0 && actual_y == 0) {
+		actual_x = allocation->width;
+		actual_y = allocation->height;
+	}
+	
+	printf("movie new_width %i new_height %i\n", actual_x, actual_y);
     if (actual_x > 0 && actual_y > 0) {
 
         movie_ratio = (gdouble) actual_x / (gdouble) actual_y;

@@ -929,6 +929,7 @@ gpointer launch_player(gpointer data)
     }
 
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
+    argv[arg++] = g_strdup_printf("-noidle");
     argv[arg++] = g_strdup_printf("-osdlevel");
     argv[arg++] = g_strdup_printf("%i", osdlevel);
     if (strcmp(threaddata->filename, "dvdnav://") == 0) {

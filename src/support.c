@@ -1254,6 +1254,7 @@ MetaData *get_metadata(gchar * uri)
     av[ac++] = g_strdup_printf("-noidx");
     av[ac++] = g_strdup_printf("-identify");
     av[ac++] = g_strdup_printf("-nocache");
+    av[ac++] = g_strdup_printf("-noidle");
 
     if (idledata->device != NULL) {
         av[ac++] = g_strdup_printf("-dvd-device");
@@ -2721,6 +2722,7 @@ gboolean detect_volume_option()
     }
     av[ac++] = g_strdup_printf("-volume");
     av[ac++] = g_strdup_printf("100");
+    av[ac++] = g_strdup_printf("-noidle");
     av[ac] = NULL;
 
     error = NULL;

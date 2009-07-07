@@ -616,6 +616,8 @@ int main(int argc, char *argv[])
     button_size = 16;
     lastguistate = -1;
     adjusting = FALSE;
+	non_fs_height = 0;
+	non_fs_width = 0;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
