@@ -85,7 +85,6 @@ void adjust_layout()
         gtk_widget_show_all(media_hbox);
         while (gtk_events_pending())
             gtk_main_iteration();
-        //printf("media hbox height = %i \n",media_hbox->allocation.height);
         total_height += media_hbox->allocation.height;
     } else {
         gtk_widget_hide_all(media_hbox);
@@ -1370,9 +1369,9 @@ gboolean move_window(void *data)
 gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, gpointer user_data)
 {
 
-    // printf("fullscreen = %i\n",event->new_window_state && GDK_WINDOW_STATE_FULLSCREEN);
+    // printf("fullscreen = %i\nState = %i mask = %i flag = %i\n",(event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN),event->new_window_state, event->changed_mask, GDK_WINDOW_STATE_FULLSCREEN);
     if (embed_window == 0) {
-        fullscreen = event->new_window_state && GDK_WINDOW_STATE_FULLSCREEN;
+        fullscreen = (event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN);
         if (fullscreen) {
             gtk_widget_hide(menubar);
         } else {
