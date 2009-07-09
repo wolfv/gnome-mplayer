@@ -1480,8 +1480,8 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     if (GDK_IS_DRAWABLE(fixed->window)) {
         if (videopresent || embed_window != 0) {
             // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
-            gdk_draw_rectangle(fixed->window, window->style->black_gc, TRUE, 0,
-                               0, allocation->width, allocation->height);
+            gdk_draw_rectangle(fixed->window, window->style->black_gc, TRUE, allocation->x,
+                               allocation->y, allocation->width, allocation->height);
         }
     }
 
