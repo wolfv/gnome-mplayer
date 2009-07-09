@@ -967,7 +967,9 @@ gboolean resize_window(void *data)
 
             if (window_x == 0 && window_y == 0) {
 				adjusting = FALSE;
-                if ((non_fs_width == 0 && non_fs_height == 0) || resize_on_new_media == TRUE) {
+				if (verbose)
+					printf("current size = %i x %i \n",non_fs_width,non_fs_height);
+                if ((non_fs_width < 8 || non_fs_height < 8) || resize_on_new_media == TRUE) {
                     if (idle->width > 0 && idle->height > 0) {
                         if (verbose) {
                             printf("Changing window size to %i x %i visible = %i\n", idle->width,
@@ -1466,7 +1468,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
     if (!fullscreen) {
         if (idledata->videopresent) {
-            //printf("fixed resized to %i x %i\n",allocation->width,allocation->height);
+            // printf("fixed resized to %i x %i\n",allocation->width,allocation->height);
             non_fs_width = allocation->width;
             non_fs_height = allocation->height;
         } else {
