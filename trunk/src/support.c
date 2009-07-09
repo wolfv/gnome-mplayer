@@ -2067,7 +2067,7 @@ gdouble get_alsa_volume(gboolean show_details)
 
         elem = snd_mixer_find_selem(mhandle, sid);
         if (!elem) {
-            if (verbose)
+            if (verbose && show_details)
                 printf("Unable to find %s Mixer control, trying Master\n", mixer);
         } else {
             snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
@@ -2102,7 +2102,7 @@ gdouble get_alsa_volume(gboolean show_details)
 
         elem = snd_mixer_find_selem(mhandle, sid);
         if (!elem) {
-            if (verbose)
+            if (verbose && show_details)
                 printf("Unable to find Master Mixer control, using default of 100%%\n");
         } else {
             snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
