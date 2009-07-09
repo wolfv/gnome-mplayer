@@ -106,7 +106,7 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
 	gtk_label_set_markup(GTK_LABEL(tracker->timer),"<small>0:00</small>");
 	gtk_misc_set_alignment(GTK_MISC(tracker->timer),1.0,0.0);
 
-	gtk_box_pack_start(GTK_BOX(tracker->hbox),tracker->message,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(tracker->hbox),tracker->message,TRUE,TRUE,5);
 	gtk_box_pack_end(GTK_BOX(tracker->hbox),tracker->timer,FALSE,TRUE,0);
 
 	gtk_box_pack_end(GTK_BOX(tracker),tracker->hbox,FALSE,TRUE,0);
