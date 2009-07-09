@@ -485,15 +485,25 @@ gboolean set_progress_time(void *data)
     seconds = idle->position;
     length_seconds = idle->length;
 
-    if (state == PLAYING) {
-        text = g_strdup_printf(_("Playing %s"), idledata->display_name);
-    } else if (state == PAUSED) {
-        text = g_strdup_printf(_("Paused %s"), idledata->display_name);
-    } else {
-        text = g_strdup_printf(_("Idle"));
-    }
+	if (control_id == 0) {
+		if (state == PLAYING) {
+		    text = g_strdup_printf(_("Playing %s"), idledata->display_name);
+		} else if (state == PAUSED) {
+		    text = g_strdup_printf(_("Paused %s"), idledata->display_name);
+		} else {
+		    text = g_strdup_printf(_("Idle"));
+		}
+	} else {
+		if (state == PLAYING) {
+		    text = g_strdup_printf(_("Playing"));
+		} else if (state == PAUSED) {
+		    text = g_strdup_printf(_("Paused"));
+		} else {
+		    text = g_strdup_printf(_("Idle"));
+		}
+	}
 
-    if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache
+	if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache
         && !idle->streaming) {
         g_snprintf(idle->progress_text, 128, "%s | %2i%% \342\226\274", text,
                    (int) (idle->cachepercent * 100));
