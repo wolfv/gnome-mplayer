@@ -117,6 +117,7 @@ static MetaData *get_metadata(gchar * filename)
     av[ac++] = g_strdup_printf("-noidx");
     av[ac++] = g_strdup_printf("-identify");
     av[ac++] = g_strdup_printf("-nocache");
+    av[ac++] = g_strdup_printf("-noidle");
 
     av[ac++] = g_strdup_printf("%s", filename);
     av[ac] = NULL;
