@@ -1471,6 +1471,7 @@ gint get_bitrate(gchar * name)
     av[ac++] = g_strdup_printf("0");
     av[ac++] = g_strdup_printf("-identify");
     av[ac++] = g_strdup_printf("-nocache");
+    av[ac++] = g_strdup_printf("-noidle");
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
