@@ -608,7 +608,6 @@ int main(int argc, char *argv[])
     vo = NULL;
     use_pulse_flat_volume = FALSE;
     dvdnav_title_is_menu = FALSE;
-    thumb_position = 3;
     data = NULL;
     max_data = NULL;
     details_table = NULL;
@@ -709,7 +708,6 @@ int main(int argc, char *argv[])
     }
     extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
     use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store, USE_PULSE_FLAT_VOLUME);
-    thumb_position = gm_pref_store_get_int_with_default(gm_store, TRACKER_POSITION, thumb_position);
 
     remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
     loc_window_x = gm_pref_store_get_int(gm_store, WINDOW_X);

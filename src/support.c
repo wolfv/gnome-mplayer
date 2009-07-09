@@ -2076,6 +2076,7 @@ gdouble get_alsa_volume(gboolean show_details)
 			if (playback == 1) {
 	            vol = (gdouble) ((get_vol - pmin) * f_multi);
 			} else {
+				idledata->mute = TRUE;
 				vol = 0;
 			}
             if (verbose && show_details) {
@@ -2110,6 +2111,7 @@ gdouble get_alsa_volume(gboolean show_details)
 			if (playback == 1) {
 	            vol = (gdouble) ((get_vol - pmin) * f_multi);
 			} else {
+				idledata->mute = TRUE;
 				vol = 0;
 			}
             if (verbose && show_details) {

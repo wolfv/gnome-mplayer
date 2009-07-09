@@ -128,8 +128,8 @@ void adjust_layout()
             total_height += plvbox->allocation.height + handle_size;
         } else {
             total_width += plvbox->allocation.width + handle_size;
-            if (total_height <= (menubar->allocation.height + controls_box->allocation.height))
-                total_height = 300;
+            if (total_height <= (menubar->allocation.height + controls_box->allocation.height + media_hbox->allocation.height))
+                total_height = (menubar->allocation.height + controls_box->allocation.height + media_hbox->allocation.height) * 2;
         }
     } else {
         if (!idledata->videopresent) {
@@ -152,6 +152,9 @@ void adjust_layout()
             gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
         }
         if (total_height > 0 && total_width > 0 && !idledata->window_resized && !remember_loc) {
+            gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
+        }
+        if (total_height > 0 && total_width > 0 && !idledata->videopresent && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
             gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
         }
     }
@@ -375,24 +378,22 @@ gboolean set_progress_value(void *data)
     if (GTK_IS_WIDGET(tracker)) {
         if (state == QUIT && rpcontrols == NULL) {
             js_state = STATE_BUFFERING;
-            if (idle->cachepercent >= 0.0 && idle->cachepercent <= 1.0)
-                gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
+			text = g_strdup_printf(_("Buffering: %2i%%"),(gint) (idle->cachepercent * 100));
+			gmtk_media_tracker_set_text(tracker, text);
+            g_free(text);                      
             gtk_widget_set_sensitive(play_event_box, FALSE);
         } else {
             if (idle->percent >= 0.0 && idle->percent <= 1.0) {
                 gmtk_media_tracker_set_percentage(tracker, idle->percent);
                 if (autopause == FALSE)
                     gtk_widget_set_sensitive(play_event_box, TRUE);
-            } else {
-                gmtk_media_tracker_set_thumb_position(tracker, THUMB_HIDDEN);
-            }
+            } 
         }
         if (idle->cachepercent < 1.0 && state == PAUSED) {
             text =
                 g_strdup_printf(_("Paused | %2i%% \342\226\274"),
                                 (gint) (idle->cachepercent * 100));
             gmtk_media_tracker_set_text(tracker, text);
-            gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
             g_free(text);
         } else {
             gmtk_media_tracker_set_text(tracker, idle->progress_text);
@@ -427,7 +428,6 @@ gboolean set_progress_value(void *data)
             }
         } else if (autopause == TRUE && state == PAUSED) {
             if (idle->cachepercent > (idle->percent + 0.20)) {
-                gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
                 play_callback(NULL, NULL, NULL);
                 gtk_widget_set_sensitive(play_event_box, TRUE);
                 autopause = FALSE;
@@ -435,13 +435,8 @@ gboolean set_progress_value(void *data)
         }
     }
 
-    if (idle->cachepercent > 0.0 && idle->position == 0) {
-        gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
-    }
-
     if (idle->cachepercent > 0.9) {
         if (autopause == TRUE && state == PAUSED) {
-            gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
             play_callback(NULL, NULL, NULL);
             gtk_widget_set_sensitive(play_event_box, TRUE);
             autopause = FALSE;
@@ -480,9 +475,8 @@ gboolean set_progress_text(void *data)
 gboolean set_progress_time(void *data)
 {
     gfloat seconds, length_seconds;
-    gchar *time_position = NULL;
-    gchar *time_length = NULL;
-
+	gchar *text;
+	
     IdleData *idle = (IdleData *) data;
 
     if (idle == NULL)
@@ -491,39 +485,29 @@ gboolean set_progress_time(void *data)
     seconds = idle->position;
     length_seconds = idle->length;
 
-    time_position = seconds_to_string(seconds);
-    time_length = seconds_to_string(length_seconds);
-
-
-    if ((int) idle->length == 0 || idle->position > idle->length) {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache
-            && !idle->streaming) {
-            g_snprintf(idle->progress_text, 128, "%s | %2i%% \342\226\274", time_position,
-                       (int) (idle->cachepercent * 100));
-            gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
-        } else {
-            g_snprintf(idle->progress_text, 128, "%s", time_position);
-            gmtk_media_tracker_set_cache_percentage(tracker, 0.0);
-        }
-        gmtk_media_tracker_set_thumb_position(tracker, THUMB_HIDDEN);
+    if (state == PLAYING) {
+        text = g_strdup_printf(_("Playing %s"), idledata->display_name);
+    } else if (state == PAUSED) {
+        text = g_strdup_printf(_("Paused %s"), idledata->display_name);
     } else {
-        if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache
-            && !idle->streaming) {
-            g_snprintf(idle->progress_text, 128, "%s / %s | %2i%% \342\226\274", time_position,
-                       time_length, (int) (idle->cachepercent * 100));
-            gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
-        } else {
-            g_snprintf(idle->progress_text, 128, "%s / %s", time_position, time_length);
-            gmtk_media_tracker_set_cache_percentage(tracker, 0.0);
-        }
-        gmtk_media_tracker_set_thumb_position(tracker, thumb_position);
+        text = g_strdup_printf(_("Idle"));
     }
 
-    g_free(time_position);
-    g_free(time_length);
+    if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache
+        && !idle->streaming) {
+        g_snprintf(idle->progress_text, 128, "%s | %2i%% \342\226\274", text,
+                   (int) (idle->cachepercent * 100));
+    } else {
+        g_snprintf(idle->progress_text, 128, "%s", text);
+    }
+
+	gmtk_media_tracker_set_allow_expand(tracker,!idle->streaming);
+	gmtk_media_tracker_set_text(tracker,text);
+	g_free(text);
 
     if (GTK_IS_WIDGET(tracker) && idle->position > 0 && state != PAUSED) {
-        gmtk_media_tracker_set_text(tracker, idle->progress_text);
+        gmtk_media_tracker_set_length(tracker, idle->length);
+        gmtk_media_tracker_set_position(tracker, idle->position);
     }
 
     if (idle->fromdbus == FALSE && state != PAUSED)
@@ -545,14 +529,16 @@ gboolean set_volume_from_slider(gpointer data)
 #else
     vol = (gint) gtk_range_get_value(GTK_RANGE(vol_slider));
 #endif
-    cmd = g_strdup_printf("volume %i 1\n", vol);
-    send_command(cmd, FALSE);
-    g_free(cmd);
-    send_command("get_property volume\n", FALSE);
-    if (state == PAUSED || state == STOPPED) {
-        send_command("pause\n", FALSE);
-    }
-
+	if (!idledata->mute) {
+		cmd = g_strdup_printf("volume %i 1\n", vol);
+		send_command(cmd, FALSE);
+		g_free(cmd);
+		send_command("get_property volume\n", FALSE);
+		if (state == PAUSED || state == STOPPED) {
+		    send_command("pause\n", FALSE);
+		}
+	}
+	
     return FALSE;
 }
 
@@ -1460,7 +1446,6 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         }
         // printf("new_width %i new_height %i\n", new_width, new_height);
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
-        //gtk_widget_set_size_request(fixed, allocation->width, allocation->height);
         idledata->x = (allocation->width - new_width) / 2;
         idledata->y = (allocation->height - new_height) / 2;
         move_window(idledata);
@@ -1472,25 +1457,11 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             //printf("fixed resized to %i x %i\n",allocation->width,allocation->height);
             non_fs_width = allocation->width;
             non_fs_height = allocation->height;
-//                      printf("fixed resized to %i x %i\n",new_width,new_height);
-//                      non_fs_width = new_width;
-//                      non_fs_height = new_height;
         } else {
             non_fs_width = 0;
             non_fs_height = 0;
         }
     }
-
-    /*
-       if (GTK_IS_WIDGET(plvbox) && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-       if (vertical_layout) {
-       gtk_paned_set_position(GTK_PANED(pane), non_fs_height);
-       } else {
-       printf("sent pane to %i\n",non_fs_width);
-       gtk_paned_set_position(GTK_PANED(pane), non_fs_width);
-       }
-       }
-     */
 
     return TRUE;
 
@@ -2148,9 +2119,9 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
         g_free(cmd);
         idledata->mute = TRUE;
     } else {
-        cmd = g_strdup_printf("volume %i 1\n", vol);
-        send_command(cmd, TRUE);
-        g_free(cmd);
+	    cmd = g_strdup_printf("volume %i 1\n", vol);
+	    send_command(cmd, TRUE);
+	    g_free(cmd);
     }
     if (idledata->volume != vol) {
 
@@ -2189,9 +2160,9 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
         g_free(cmd);
         idledata->mute = TRUE;
     } else {
-        cmd = g_strdup_printf("volume %i 1\n", vol);
-        send_command(cmd, TRUE);
-        g_free(cmd);
+	    cmd = g_strdup_printf("volume %i 1\n", vol);
+	    send_command(cmd, TRUE);
+	    g_free(cmd);
     }
     if (idledata->volume != vol) {
 
@@ -3508,7 +3479,6 @@ void config_apply(GtkWidget * widget, void *data)
 #ifdef NOTIFY_ENABLED
     show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
 #endif
-    thumb_position = gtk_combo_box_get_active(GTK_COMBO_BOX(config_thumb_position));
 #ifdef GTK2_12_ENABLED
     show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
     gtk_status_icon_set_visible(status_icon, show_status_icon);
@@ -3596,7 +3566,6 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, REMEMBER_LOC, remember_loc);
     gm_pref_store_set_boolean(gm_store, KEEP_ON_TOP, keep_on_top);
     gm_pref_store_set_boolean(gm_store, RESIZE_ON_NEW_MEDIA, resize_on_new_media);
-    gm_pref_store_set_int(gm_store, TRACKER_POSITION, thumb_position);
     gm_pref_store_set_int(gm_store, VERBOSE, verbose);
     gm_pref_store_set_string(gm_store, METADATACODEPAGE, metadata_codepage);
     gm_pref_store_set_string(gm_store, SUBTITLEFONT, subtitlefont);
@@ -5000,25 +4969,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
     i++;
 
-    conf_label = gtk_label_new(_("Tracker Thumb Position:"));
-    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    gtk_misc_set_padding(GTK_MISC(conf_label), 0, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 1, 2, i, i + 1);
-    gtk_widget_show(conf_label);
-    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
-    config_thumb_position = gtk_combo_box_new_text();
-    gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position), _("Hidden"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position), _("Bottom"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position), _("Top"));
-    gtk_combo_box_append_text(GTK_COMBO_BOX(config_thumb_position), _("Top and Bottom"));
-    gtk_combo_box_set_active(GTK_COMBO_BOX(config_thumb_position), thumb_position);
-
-    gtk_widget_set_size_request(GTK_WIDGET(config_thumb_position), 200, -1);
-
-    gtk_table_attach(GTK_TABLE(conf_table), config_thumb_position, 2, 3, i, i + 1, GTK_SHRINK,
-                     GTK_SHRINK, 0, 0);
-    i++;
-
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_verbose,
@@ -5112,12 +5062,31 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
 }
 
+gboolean tracker_callback(GtkWidget * widget, int percent, void *data)
+{
+	gchar *cmd;
+	
+	if (!idledata->streaming) {
+        if (!autopause) {
+            if (state != STOPPED) {
+                cmd = g_strdup_printf("seek %i 1\n", percent);
+                send_command(cmd, TRUE);
+                /*if (state == PAUSED) {
+                    send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                    send_command("mute 0\n", TRUE);
+                    idledata->position = idledata->length * percent;
+                    gmtk_media_tracker_set_percentage(tracker, percent);
+                } */
+                g_free(cmd);
+            }
+        }
+    }
+	
+	return FALSE;
+}
+
 gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *data)
 {
-    gchar *cmd;
-    gdouble percent;
-    gint width;
-    gint height;
     GdkEventButton *event_button;
 
     if (event->type == GDK_BUTTON_PRESS) {
@@ -5126,105 +5095,9 @@ gboolean progress_callback(GtkWidget * widget, GdkEventButton * event, void *dat
             gtk_menu_popup(popup_menu, NULL, NULL, NULL, NULL, event_button->button,
                            event_button->time);
             return TRUE;
-        } else {
-            gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, &height);
-
-            percent = (gdouble) event->x / (gdouble) width;
-
-            if (idledata->cachepercent > 0.0 && percent > idledata->cachepercent) {
-                percent = idledata->cachepercent - 0.10;
-            }
-
-            if (!idledata->streaming) {
-                if (!autopause) {
-                    if (state != STOPPED) {
-                        cmd = g_strdup_printf("seek %i 1\n", (gint) (percent * 100));
-                        send_command(cmd, TRUE);
-                        if (state == PAUSED) {
-                            send_command("mute 1\nseek 0 0\npause\n", FALSE);
-                            send_command("mute 0\n", TRUE);
-                            idledata->position = idledata->length * percent;
-                            gmtk_media_tracker_set_percentage(tracker, percent);
-                        }
-                        g_free(cmd);
-                        //state = PLAYING;
-                    }
-                }
-            }
-
-        }
-        mouse_down_in_progress = TRUE;
-
-    } else {
-        mouse_down_in_progress = FALSE;
+        } 
     }
 
-    return TRUE;
-}
-
-gboolean progress_leave_callback(GtkWidget * widget, GdkEventCrossing * event, gpointer data)
-{
-    mouse_down_in_progress = FALSE;
-    return TRUE;
-}
-
-gboolean progress_motion_callback(GtkWidget * widget, GdkEventMotion * event, gpointer data)
-{
-    gchar *cmd;
-    gchar *tip;
-    gchar *time;
-    gdouble percent;
-    gint width;
-    gint height;
-    static gdouble last_percent;
-
-    if (mouse_down_in_progress) {
-
-        gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, &height);
-
-        percent = (gdouble) event->x / (gdouble) width;
-
-        if (idledata->cachepercent > 0.0 && percent > idledata->cachepercent) {
-            percent = idledata->cachepercent - 0.10;
-        }
-
-        if (!idledata->streaming) {
-            if (!autopause) {
-                if (state != STOPPED && (fabs(last_percent - percent) > 0.05)) {
-                    if (idledata->mute == 0) {
-                        cmd =
-                            g_strdup_printf("mute 1\nseek %i 1\nmute 0\n", (gint) (percent * 100));
-                    } else {
-                        cmd = g_strdup_printf("seek %f 2\n", percent * idledata->length);
-                    }
-                    time = seconds_to_string(percent * idledata->length);
-                    tip = g_strdup_printf(_("Seeking to %s"), time);
-                    gtk_tooltips_set_tip(progress_tip, GTK_WIDGET(tracker), tip, NULL);
-                    g_free(time);
-                    g_free(tip);
-                    send_command(cmd, TRUE);
-                    g_free(cmd);
-                    if (state == PAUSED) {
-                        send_command("mute 1\nseek 0 0\npause\n", FALSE);
-                        send_command("mute 0\n", TRUE);
-                        idledata->position = idledata->length * percent;
-                        gmtk_media_tracker_set_percentage(tracker, percent);
-                    }
-                    //state = PLAYING;
-                    last_percent = percent;
-                }
-            }
-        }
-
-    } else {
-        gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, &height);
-        percent = (gdouble) event->x / (gdouble) width;
-        time = seconds_to_string(percent * idledata->length);
-        tip = g_strdup_printf("%s", time);
-        gtk_tooltips_set_tip(progress_tip, GTK_WIDGET(tracker), tip, NULL);
-        g_free(time);
-        g_free(tip);
-    }
     return TRUE;
 }
 
@@ -6234,18 +6107,10 @@ GtkWidget *create_window(gint windowid)
 
     // progress bar
     tracker = GMTK_MEDIA_TRACKER(gmtk_media_tracker_new());
-    gmtk_media_tracker_set_thumb_position(tracker, THUMB_HIDDEN);
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(tracker), TRUE, TRUE, 2);
+	g_signal_connect(G_OBJECT(tracker), "value-changed", G_CALLBACK(tracker_callback),NULL);
     g_signal_connect(G_OBJECT(tracker), "button_press_event", G_CALLBACK(progress_callback), NULL);
-    g_signal_connect(G_OBJECT(tracker), "button_release_event", G_CALLBACK(progress_callback),
-                     NULL);
-    g_signal_connect(G_OBJECT(tracker), "motion_notify_event",
-                     G_CALLBACK(progress_motion_callback), NULL);
-    g_signal_connect(G_OBJECT(tracker), "leave_notify_event", G_CALLBACK(progress_leave_callback),
-                     NULL);
     gtk_widget_show(GTK_WIDGET(tracker));
-    progress_tip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(progress_tip, GTK_WIDGET(tracker), _("No Information"), NULL);
 
     // fullscreen button, pack from end for this button and the vol slider
     fs_event_box = gtk_button_new();

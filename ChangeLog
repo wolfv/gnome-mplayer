@@ -1,4 +1,6 @@
 Development
+    Don't mess with the volume when muted in alsamixer
+    Updated media tracker, lots of bugs about the old one being "ugly" and I was "torturing people"
     Add -noidle to mplayer options, cause people like to add it to the .mplayer/config file
     Fix some problems with cache flags
     When GIO is enabled, enable cache if GIO says file is not native

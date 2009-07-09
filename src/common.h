@@ -352,7 +352,6 @@ gboolean load_tracks_from_gpod;
 gchar *gpod_mount_point;
 gboolean disable_cover_art_fetch;
 gboolean updating_recent;
-gint thumb_position;
 gboolean large_buttons;
 gint button_size;
 

@@ -729,7 +729,7 @@ void playlist_close(GtkWidget * widget, void *data)
 
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 {
-    playlist_visible = gtk_check_menu_item_get_active(menuitem);
+    playlist_visible = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
 
     adjust_layout();
 }
