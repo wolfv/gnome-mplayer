@@ -75,11 +75,6 @@ void adjust_layout()
     if (total_width == 0)
         total_width = controls_box->requisition.width;
 
-    total_height += menubar->allocation.height;
-    if (showcontrols) {
-        total_height += controls_box->allocation.height;
-    }
-
     if (GTK_IS_WIDGET(media_hbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
         gtk_widget_show_all(media_hbox);
@@ -128,6 +123,7 @@ void adjust_layout()
             total_height += plvbox->allocation.height + handle_size;
         } else {
             total_width += plvbox->allocation.width + handle_size;
+			total_height = MAX(total_height,plvbox->allocation.height);
             if (total_height <= (menubar->allocation.height + controls_box->allocation.height + media_hbox->allocation.height))
                 total_height = (menubar->allocation.height + controls_box->allocation.height + media_hbox->allocation.height) * 2;
         }
@@ -138,6 +134,12 @@ void adjust_layout()
         }
         gtk_paned_set_position(GTK_PANED(pane), -1);
         gtk_widget_hide_all(plvbox);
+    }
+
+	total_height += menubar->allocation.height;
+
+    if (showcontrols) {
+        total_height += controls_box->allocation.height;
     }
 
     //printf("controls = %i\n",menubar->allocation.height + controls_box->allocation.height);
@@ -1470,6 +1472,14 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         } else {
             non_fs_width = 0;
             non_fs_height = 0;
+        }
+    }
+	
+    if (GDK_IS_DRAWABLE(fixed->window)) {
+        if (videopresent || embed_window != 0) {
+            // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
+            gdk_draw_rectangle(fixed->window, window->style->black_gc, TRUE, 0,
+                               0, allocation->width, allocation->height);
         }
     }
 
