@@ -48,21 +48,29 @@ typedef struct _GmtkMediaTracker GmtkMediaTracker;
 typedef struct _GmtkMediaTrackerClass GmtkMediaTrackerClass;
 
 struct _GmtkMediaTracker {
-    GtkDrawingArea parent;
+    GtkVBox parent;
 
+	GtkWidget *GSEAL(scale);
+	GtkWidget *GSEAL(hbox);
+	GtkWidget *GSEAL(message);
+	GtkWidget *GSEAL(timer);
+	GtkTooltips *GSEAL(progress_tip);
+	
     /* < private > */
     gdouble media_percent;
     gdouble cache_percent;
     gchar *text;
+	gchar *timer_text;
+	gfloat position;
+	gfloat length;
     gboolean mouse_down;
-    GdkPixbuf *thumb_upper;
-    GdkPixbuf *thumb_lower;
-    GmtkThumbPosition position;
 	gboolean allow_expand;
 };
 
 struct _GmtkMediaTrackerClass {
-    GtkDrawingAreaClass parent_class;
+    GtkVBoxClass parent_class;
+	void (* value_changed)  (GmtkMediaTracker *tracker);
+
 };
 
 GType gmtk_media_tracker_get_type(void);
@@ -73,10 +81,9 @@ gdouble gmtk_media_tracker_get_percentage(GmtkMediaTracker * tracker);
 
 void gmtk_media_tracker_set_text(GmtkMediaTracker * tracker, const gchar * text);
 
-void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble percentage);
-gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker);
+void gmtk_media_tracker_set_position(GmtkMediaTracker * tracker, const gfloat seconds);
+void gmtk_media_tracker_set_length(GmtkMediaTracker * tracker, const gfloat seconds);
 
-void gmtk_media_tracker_set_thumb_position(GmtkMediaTracker * tracker, GmtkThumbPosition position);
 void gmtk_media_tracker_set_allow_expand(GmtkMediaTracker * tracker, gboolean allow_expand);
 G_END_DECLS
 #endif

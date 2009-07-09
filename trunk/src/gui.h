@@ -206,7 +206,6 @@ GtkWidget *image_fs;
 GtkWidget *image_icon;
 GtkTooltips *tooltip;
 GtkTooltips *volume_tip;
-GtkTooltips *progress_tip;
 
 #ifdef GTK2_12_ENABLED
 GtkStatusIcon *status_icon;
@@ -287,11 +286,11 @@ GtkWidget *adv_saturation;
 GtkAccelGroup *accel_group;
 
 glong last_movement_time;
-gboolean mouse_down_in_progress;
 
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data);
 void config_close(GtkWidget * widget, void *data);
+gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation, gpointer data);
 
 gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data);

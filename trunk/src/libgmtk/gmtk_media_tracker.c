@@ -25,25 +25,36 @@
 #include "gmtk_media_tracker.h"
 #include "../../pixmaps/media-playback-start.xpm"
 
-G_DEFINE_TYPE(GmtkMediaTracker, gmtk_media_tracker, GTK_TYPE_DRAWING_AREA);
+G_DEFINE_TYPE(GmtkMediaTracker, gmtk_media_tracker, GTK_TYPE_VBOX);
 
-static gboolean gmtk_media_tracker_expose(GtkWidget * meter, GdkEventExpose * event);
 static gboolean gmtk_media_tracker_button_press(GtkWidget * tracker, GdkEventButton * event);
 static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventButton * event);
 static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMotion * event);
 static void gmtk_media_tracker_dispose(GObject * object);
+gchar *gm_seconds_to_string(gfloat seconds);
+
 
 static void gmtk_media_tracker_class_init(GmtkMediaTrackerClass * class)
 {
     GtkWidgetClass *widget_class;
+	GtkObjectClass *object_class;
 
-    widget_class = GTK_WIDGET_CLASS(class);
+	object_class = (GtkObjectClass*) class;
+	widget_class = GTK_WIDGET_CLASS(class);
 
-    widget_class->expose_event = gmtk_media_tracker_expose;
     widget_class->button_press_event = gmtk_media_tracker_button_press;
     widget_class->button_release_event = gmtk_media_tracker_button_release;
     widget_class->motion_notify_event = gmtk_media_tracker_motion_notify;
     G_OBJECT_CLASS(class)->dispose = gmtk_media_tracker_dispose;
+
+	g_signal_new ("value-changed",
+				  G_OBJECT_CLASS_TYPE (object_class),
+				  G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+				  G_STRUCT_OFFSET (GmtkMediaTrackerClass, value_changed),
+				  NULL, NULL,
+				  gtk_marshal_VOID__INT,
+				  G_TYPE_NONE, 1, G_TYPE_INT);
+
 }
 
 static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
@@ -59,31 +70,49 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
 
 
     tracker->text = NULL;
+	tracker->timer_text = NULL;
     tracker->media_percent = 0.0;
     tracker->cache_percent = 0.0;
 
-    p = gtk_widget_create_pango_layout(GTK_WIDGET(tracker), "/^q");
-    pango_layout_get_size(p, &pwidth, &pheight);
-    pwidth = pwidth / PANGO_SCALE;
-    pheight = pheight / PANGO_SCALE;
-    GTK_WIDGET(tracker)->requisition.height = pheight + 16;
-    GTK_WIDGET(tracker)->requisition.width = 128;
-    g_object_unref(p);
-
-    icon_theme = gtk_icon_theme_get_default();
-    if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start")) {
-        temp = gtk_icon_theme_load_icon(icon_theme, "media-playback-start", 16, 0, NULL);
-    } else if (gtk_icon_theme_has_icon(icon_theme, "stock_media-play")) {
-        temp = gtk_icon_theme_load_icon(icon_theme, "stock_media-play", 16, 0, NULL);
-    } else {
-        temp = gdk_pixbuf_new_from_xpm_data((const char **) media_playback_start_xpm);
-    }	
-    tracker->thumb_lower = gdk_pixbuf_rotate_simple(temp, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
-    tracker->thumb_upper = gdk_pixbuf_flip(tracker->thumb_lower, FALSE);
-    gdk_pixbuf_unref(temp);
-
-    tracker->position = THUMB_ON_BOTTOM;
+	tracker->position = 0.0;
+	tracker->length = 0.0;
 	tracker->allow_expand = TRUE;
+	
+
+	gtk_widget_push_composite_child();
+	
+	tracker->scale = gtk_hscale_new_with_range(0,1,0.001);	
+	gtk_scale_set_draw_value(GTK_SCALE(tracker->scale),FALSE);
+	gtk_widget_set_size_request(tracker->scale,200,-1);
+	gtk_widget_show(tracker->scale);
+	gtk_box_pack_start(GTK_BOX(tracker),GTK_WIDGET(tracker->scale),TRUE,TRUE,0);
+	gtk_widget_set_sensitive(tracker->scale, FALSE);
+	
+	tracker->progress_tip = gtk_tooltips_new();
+   	gtk_tooltips_set_tip(tracker->progress_tip, GTK_WIDGET(tracker->scale), "No Information", NULL);
+
+	g_signal_connect_swapped(G_OBJECT(tracker->scale),"button-press-event",G_CALLBACK(gmtk_media_tracker_button_press),tracker);
+	g_signal_connect_swapped(G_OBJECT(tracker->scale),"button-release-event",G_CALLBACK(gmtk_media_tracker_button_release),tracker);
+	g_signal_connect_swapped(G_OBJECT(tracker->scale),"motion-notify-event",G_CALLBACK(gmtk_media_tracker_motion_notify),tracker);
+
+	
+	tracker->hbox = gtk_hbox_new(0,FALSE);
+
+	tracker->message = gtk_label_new("");
+	gtk_label_set_markup(GTK_LABEL(tracker->message),"<small> </small>");
+	gtk_misc_set_alignment(GTK_MISC(tracker->message),0.0,0.0);
+
+	tracker->timer = gtk_label_new("");
+	gtk_label_set_markup(GTK_LABEL(tracker->timer),"<small>0:00</small>");
+	gtk_misc_set_alignment(GTK_MISC(tracker->timer),1.0,0.0);
+
+	gtk_box_pack_start(GTK_BOX(tracker->hbox),tracker->message,TRUE,TRUE,0);
+	gtk_box_pack_end(GTK_BOX(tracker->hbox),tracker->timer,FALSE,TRUE,0);
+
+	gtk_box_pack_end(GTK_BOX(tracker),tracker->hbox,FALSE,TRUE,0);
+	
+
+	gtk_widget_pop_composite_child();
 }
 
 static void gmtk_media_tracker_dispose(GObject * object)
@@ -97,200 +126,58 @@ static void gmtk_media_tracker_dispose(GObject * object)
         tracker->text = NULL;
     }
 
-    if (GDK_IS_PIXBUF(tracker->thumb_upper)) {
-        gdk_pixbuf_unref(tracker->thumb_upper);
-        gdk_pixbuf_unref(tracker->thumb_lower);
+    if (tracker->timer_text) {
+        g_free(tracker->timer_text);
+        tracker->timer_text = NULL;
     }
-
-}
-
-void draw(GtkWidget * tracker)
-{
-
-    gint cache_width = 0;
-    gint handle_left = 0;
-    PangoLayout *p;
-    gint pwidth, pheight;
-    gint ptop, pleft;
-    gint x;
-    gint half_thumb_size;
-    gint bar_width;
-
-    half_thumb_size = gdk_pixbuf_get_width(GMTK_MEDIA_TRACKER(tracker)->thumb_lower) / 2;
-    bar_width =
-        tracker->allocation.width - gdk_pixbuf_get_width(GMTK_MEDIA_TRACKER(tracker)->thumb_lower);
-
-	// don't bother if there is nothing to draw
-	if (bar_width < half_thumb_size * 2)
-		return;
 	
-    // draw the cache bar first, everything is over it
-    if (GMTK_MEDIA_TRACKER(tracker)->cache_percent > 0.0) {
-        cache_width = bar_width * GMTK_MEDIA_TRACKER(tracker)->cache_percent;
-
-        gdk_draw_rectangle(tracker->window,
-                           tracker->style->mid_gc[3],
-                           TRUE, half_thumb_size, 6, cache_width, tracker->allocation.height - 11);
-
-    }
-
-    // draw the progress bar next
-    if (GMTK_MEDIA_TRACKER(tracker)->media_percent > 0.0) {
-        cache_width = bar_width * GMTK_MEDIA_TRACKER(tracker)->media_percent;
-
-        gdk_draw_rectangle(tracker->window,
-                           tracker->style->light_gc[3],
-                           TRUE, half_thumb_size, 6, cache_width, tracker->allocation.height - 11);
-
-    }
-
-	// draw the box and tick marks
-    gdk_draw_rectangle(tracker->window,
-                       tracker->style->dark_gc[0],
-                       FALSE, half_thumb_size, 5, bar_width, tracker->allocation.height - 10);
-
-	// gtk_paint_shadow(tracker->style, tracker->window, GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_OUT, NULL, NULL, NULL, half_thumb_size, 5, bar_width, tracker->allocation.height - 10);
-
-	// if the thumb is hidden we can't seek so tickmarks are useless
-	if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_HIDDEN && GMTK_MEDIA_TRACKER(tracker)->cache_percent == 0.0) {
-		// don't draw it
-	} else {
-		for (x = half_thumb_size; x < bar_width; x = x + (bar_width / 10)) {
-			gdk_draw_line(tracker->window, tracker->style->dark_gc[0], x, 5, x, 8);
-			gdk_draw_line(tracker->window,
-						  tracker->style->dark_gc[0], x, tracker->allocation.height - 5, x,
-						  tracker->allocation.height - 8);
-		}
-	}
-
-    // text over the background
-    if (GMTK_MEDIA_TRACKER(tracker)->text) {
-        p = gtk_widget_create_pango_layout(tracker, GMTK_MEDIA_TRACKER(tracker)->text);
-        pango_layout_get_size(p, &pwidth, &pheight);
-        pwidth = pwidth / PANGO_SCALE;
-        pheight = pheight / PANGO_SCALE;
-		if (pwidth > bar_width)  {
-			if (GMTK_MEDIA_TRACKER(tracker)->allow_expand) {
-				gtk_widget_set_size_request(tracker,(pwidth + 2 * half_thumb_size),-1);
-			} else {
-				pango_layout_set_width(p, bar_width * PANGO_SCALE);
-				pango_layout_set_ellipsize(p, PANGO_ELLIPSIZE_START);
-				pwidth = bar_width;
-			}
-		}
-		
-        ptop = (tracker->allocation.height - pheight) / 2;
-        pleft = (tracker->allocation.width - pwidth) / 2;
-		gtk_draw_layout(tracker->style,tracker->window,GTK_STATE_NORMAL,TRUE,pleft,ptop+1,p);
-        g_object_unref(p);
-    }
-    // draw handle, draw it last so it sits on top
-    handle_left = bar_width * GMTK_MEDIA_TRACKER(tracker)->media_percent;
-    if (handle_left < 0)
-        handle_left = 0;
-    if (handle_left > bar_width + half_thumb_size)
-        handle_left = bar_width + half_thumb_size;
-    if (cache_width > 0)
-        if ((handle_left) > cache_width)
-            handle_left = cache_width;
-
-    if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_ON_TOP ||
-        GMTK_MEDIA_TRACKER(tracker)->position == THUMB_ON_TOP_AND_BOTTOM) {
-
-        gdk_draw_pixbuf(tracker->window, NULL,
-                        GMTK_MEDIA_TRACKER(tracker)->thumb_upper, 0, 0, handle_left,
-                        0, -1, -1, GDK_RGB_DITHER_NONE, 0, 0);
-    }
-
-    if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_ON_BOTTOM ||
-        GMTK_MEDIA_TRACKER(tracker)->position == THUMB_ON_TOP_AND_BOTTOM) {
-
-        gdk_draw_pixbuf(tracker->window, NULL,
-                        GMTK_MEDIA_TRACKER(tracker)->thumb_lower, 0, 0, handle_left,
-                        tracker->allocation.height -
-                        gdk_pixbuf_get_height(GMTK_MEDIA_TRACKER(tracker)->thumb_lower) + 1, -1, -1,
-                        GDK_RGB_DITHER_NONE, 0, 0);
-
-		// interesting, but can't see it.
-		// gtk_paint_handle(tracker->style,tracker->window, GTK_STATE_NORMAL, GTK_SHADOW_NONE, NULL, NULL, NULL, handle_left, 0, 20, tracker->allocation.height,GTK_ORIENTATION_HORIZONTAL);
-    }
 }
 
-
-static gboolean gmtk_media_tracker_expose(GtkWidget * tracker, GdkEventExpose * event)
-{
-    draw(tracker);
-    return FALSE;
-}
 
 static gboolean gmtk_media_tracker_button_press(GtkWidget * tracker, GdkEventButton * event)
 {
     GMTK_MEDIA_TRACKER(tracker)->mouse_down = TRUE;
+	g_signal_emit_by_name(tracker,"button-press-event",event);
     return FALSE;
 }
 
 static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventButton * event)
 {
-    gint half_thumb_size;
-    gint bar_width;
-
-    half_thumb_size = gdk_pixbuf_get_width(GMTK_MEDIA_TRACKER(tracker)->thumb_lower) / 2;
-    bar_width =
-        tracker->allocation.width - gdk_pixbuf_get_width(GMTK_MEDIA_TRACKER(tracker)->thumb_lower);
-
-	if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_HIDDEN)
-		return FALSE;
-	
-    GMTK_MEDIA_TRACKER(tracker)->media_percent = (event->x - half_thumb_size) / bar_width;
-
-    if (GMTK_MEDIA_TRACKER(tracker)->media_percent > 1.0)
-        GMTK_MEDIA_TRACKER(tracker)->media_percent = 1.0;
-
-    if (GMTK_MEDIA_TRACKER(tracker)->cache_percent > 0.0)
-        if (GMTK_MEDIA_TRACKER(tracker)->media_percent > GMTK_MEDIA_TRACKER(tracker)->cache_percent)
-            GMTK_MEDIA_TRACKER(tracker)->media_percent = GMTK_MEDIA_TRACKER(tracker)->cache_percent;
-
-    if (GTK_WIDGET(tracker)->window)
-        gdk_window_invalidate_rect(GTK_WIDGET(tracker)->window, NULL, FALSE);
-
-    GMTK_MEDIA_TRACKER(tracker)->mouse_down = FALSE;
+	if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
+		gtk_range_set_value(GTK_RANGE(GMTK_MEDIA_TRACKER(tracker)->scale),(gdouble)event->x / tracker->allocation.width);
+		g_signal_emit_by_name(tracker,"value-changed", (gint)(100 * (gdouble)event->x / tracker->allocation.width));
+		GMTK_MEDIA_TRACKER(tracker)->mouse_down = FALSE;
+	}
     return FALSE;
 }
 
 static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMotion * event)
 {
-    gint half_thumb_size;
-    gint bar_width;
-
-    half_thumb_size = gdk_pixbuf_get_width(GMTK_MEDIA_TRACKER(tracker)->thumb_lower) / 2;
-    bar_width =
-        tracker->allocation.width - gdk_pixbuf_get_width(GMTK_MEDIA_TRACKER(tracker)->thumb_lower);
-
-	if (GMTK_MEDIA_TRACKER(tracker)->position == THUMB_HIDDEN)
-		return FALSE;
-
+	gchar *tip;
 	
-    if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
-        GMTK_MEDIA_TRACKER(tracker)->media_percent = (event->x - half_thumb_size) / bar_width;
+	if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
+		gtk_range_set_value(GTK_RANGE(GMTK_MEDIA_TRACKER(tracker)->scale),(gdouble)event->x / tracker->allocation.width);
+		g_signal_emit_by_name(tracker,"value-changed", (gint)(100 * (gdouble)event->x / tracker->allocation.width));
+	} else {
+		if (GMTK_MEDIA_TRACKER(tracker)->length > 0.0) {
+			tip = gm_seconds_to_string(GMTK_MEDIA_TRACKER(tracker)->length * ((gdouble)event->x / tracker->allocation.width));
+		} else {
+			tip = NULL;
+		}
+		gtk_tooltips_set_tip(GMTK_MEDIA_TRACKER(tracker)->progress_tip, GTK_WIDGET(GMTK_MEDIA_TRACKER(tracker)->scale), tip, NULL);
+		if (tip)
+			g_free(tip);
+	}
 
-        if (GMTK_MEDIA_TRACKER(tracker)->media_percent > 1.0)
-            GMTK_MEDIA_TRACKER(tracker)->media_percent = 1.0;
-
-        if (GMTK_MEDIA_TRACKER(tracker)->cache_percent > 0.0)
-            if (GMTK_MEDIA_TRACKER(tracker)->media_percent >
-                GMTK_MEDIA_TRACKER(tracker)->cache_percent)
-                GMTK_MEDIA_TRACKER(tracker)->media_percent =
-                    GMTK_MEDIA_TRACKER(tracker)->cache_percent;
-
-        if (GTK_WIDGET(tracker)->window)
-            gdk_window_invalidate_rect(GTK_WIDGET(tracker)->window, NULL, FALSE);
-    }
-    return FALSE;
+	return FALSE;
 }
 
 GtkWidget *gmtk_media_tracker_new()
 {
-    return g_object_new(GMTK_TYPE_MEDIA_TRACKER, NULL);
+	GtkWidget *tracker;
+
+	tracker = g_object_new(GMTK_TYPE_MEDIA_TRACKER,"spacing",0,"homogeneous",FALSE,NULL);
+	return tracker;
 }
 
 
@@ -302,8 +189,7 @@ void gmtk_media_tracker_set_percentage(GmtkMediaTracker * tracker, gdouble perce
     if (tracker->media_percent < 0.0)
         tracker->media_percent = 0.0;
 
-    if (GTK_WIDGET(tracker)->window)
-        gdk_window_invalidate_rect(GTK_WIDGET(tracker)->window, NULL, FALSE);
+	gtk_range_set_value(GTK_RANGE(tracker->scale), tracker->media_percent);
 }
 
 gdouble gmtk_media_tracker_get_percentage(GmtkMediaTracker * tracker)
@@ -319,36 +205,92 @@ void gmtk_media_tracker_set_text(GmtkMediaTracker * tracker, const gchar * text)
     }
 
     if (text)
-        tracker->text = g_strdup(text);
-
-    if (GTK_WIDGET(tracker)->window)
-        gdk_window_invalidate_rect(GTK_WIDGET(tracker)->window, NULL, FALSE);
+        tracker->text = g_markup_printf_escaped("<small>%s</small>",text);
+	
+	gtk_label_set_markup(GTK_LABEL(tracker->message),tracker->text);
+	
 }
 
-void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble percentage)
+void gmtk_media_tracker_set_timer(GmtkMediaTracker * tracker, const gchar * text)
 {
-    tracker->cache_percent = percentage;
+    if (tracker->timer_text) {
+        g_free(tracker->timer_text);
+        tracker->timer_text = NULL;
+    }
 
-    if (tracker->cache_percent > 1.0)
-        tracker->cache_percent = 1.0;
-    if (tracker->cache_percent < 0.0)
-        tracker->cache_percent = 0.0;
-
-    if (GTK_WIDGET(tracker)->window)
-        gdk_window_invalidate_rect(GTK_WIDGET(tracker)->window, NULL, FALSE);
-}
-
-gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker)
-{
-    return tracker->cache_percent;
-}
-
-void gmtk_media_tracker_set_thumb_position(GmtkMediaTracker * tracker, GmtkThumbPosition position)
-{
-    tracker->position = position;
+    if (text)
+        tracker->timer_text = g_markup_printf_escaped("<small>%s</small>",text);
+	
+	gtk_label_set_markup(GTK_LABEL(tracker->timer),tracker->timer_text);
+	
 }
 
 void gmtk_media_tracker_set_allow_expand(GmtkMediaTracker * tracker, gboolean allow_expand)
 {
 	tracker->allow_expand = allow_expand;
+
+	if (allow_expand) {
+		gtk_label_set_ellipsize(GTK_LABEL(tracker->message),PANGO_ELLIPSIZE_NONE);
+	} else {
+		gtk_label_set_ellipsize(GTK_LABEL(tracker->message),PANGO_ELLIPSIZE_END);
+	}	
+}
+
+void gmtk_media_tracker_set_position(GmtkMediaTracker * tracker, const gfloat seconds)
+{
+	gchar *time_position;
+	gchar *time_length;
+	gchar *text;
+
+	tracker->position = seconds;
+	
+	if (tracker->length > 0.0) {
+		gtk_widget_set_sensitive(tracker->scale, TRUE);
+		time_position = gm_seconds_to_string(tracker->position);
+		time_length = gm_seconds_to_string(tracker->length);
+		text = g_strdup_printf("%s / %s",time_position,time_length);
+		gmtk_media_tracker_set_timer(tracker,text);
+		g_free(text);
+		g_free(time_length);
+		g_free(time_position);
+	} else {
+		gtk_widget_set_sensitive(tracker->scale, FALSE);
+		time_position = gm_seconds_to_string(tracker->position);
+		gmtk_media_tracker_set_timer(tracker,time_position);
+		g_free(time_position);
+	}	
+
+}
+
+void gmtk_media_tracker_set_length(GmtkMediaTracker * tracker, const gfloat seconds)
+{
+	
+	tracker->length = seconds;
+	gmtk_media_tracker_set_position(tracker,tracker->position);
+
+}
+
+
+
+gchar *gm_seconds_to_string(gfloat seconds)
+{
+    int hour = 0, min = 0, sec = 0;
+    gchar *result = NULL;
+
+    if (seconds >= 3600) {
+        hour = seconds / 3600;
+        seconds = seconds - (hour * 3600);
+    }
+    if (seconds >= 60) {
+        min = seconds / 60;
+        seconds = seconds - (min * 60);
+    }
+    sec = seconds;
+
+    if (hour == 0) {
+        result = g_strdup_printf("%2i:%02i", min, sec);
+    } else {
+        result = g_strdup_printf("%i:%02i:%02i", hour, min, sec);
+    }
+    return result;
 }

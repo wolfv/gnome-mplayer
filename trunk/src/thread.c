@@ -43,11 +43,27 @@ void mplayer_shutdown()
 
 }
 
+gboolean write_to_mplayer(gpointer data) 
+{
+	gchar *cmd = (gchar *)data;
+    GIOStatus result;
+    gsize bytes_written;
+	
+    if (verbose > 1)
+        printf("send command = %s\n", cmd);
+
+    if (channel_in) {
+        result = g_io_channel_write_chars(channel_in, cmd, -1, &bytes_written, NULL);
+        result = g_io_channel_flush(channel_in, NULL);
+    }
+
+    g_free(cmd);
+	return FALSE;
+}
+
 gboolean send_command(gchar * command, gboolean retain_pause)
 {
     gchar *cmd;
-    GIOStatus result;
-    gsize bytes_written;
 
     if (retain_pause) {
         if (use_pausing_keep_force) {
@@ -59,15 +75,7 @@ gboolean send_command(gchar * command, gboolean retain_pause)
         cmd = g_strdup(command);
     }
 
-    if (verbose > 1)
-        printf("send command = %s\n", cmd);
-
-    if (channel_in) {
-        result = g_io_channel_write_chars(channel_in, cmd, -1, &bytes_written, NULL);
-        result = g_io_channel_flush(channel_in, NULL);
-    }
-
-    g_free(cmd);
+	g_idle_add(write_to_mplayer,(gpointer)cmd);	
     return TRUE;
 
 }
@@ -763,7 +771,8 @@ gboolean thread_query(gpointer data)
     if (use_pulse_flat_volume && !softvol) {
         volume = (gint) get_alsa_volume(FALSE);
         idledata->volume = volume;
-        g_idle_add(set_volume, idledata);
+		if (!idledata->mute)
+    		g_idle_add(set_volume, idledata);
     }
 
     if (state == PLAYING) {
@@ -905,8 +914,10 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-softvol");
 
     if (use_volume_option) {
-        argv[arg++] = g_strdup_printf("-volume");
-        argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
+		if (!idledata->mute) {
+	        argv[arg++] = g_strdup_printf("-volume");
+		    argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
+		}
     }
 
     if (mixer != NULL && strlen(mixer) > 0) {
