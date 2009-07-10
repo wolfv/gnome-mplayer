@@ -98,4 +98,6 @@ indent:
 	indent -kr -l100 -i4 -nut *.h
 	rm *~
 	
+cppcheck:
+	cppcheck -q -a -v -f -j3 .
 	

@@ -178,28 +178,32 @@ gboolean gm_parse_asx_is_asx(const gchar *uri)
 		if (line != NULL)
 			g_free(line);
 		line = g_new0(gchar, 1024);
-        line = fgets(line, 1024, fp);
-        if (line != NULL) {
-		    if (line != NULL)
-		        g_strstrip(line);
-		    if (g_utf8_strlen(line, -1) == 0) {
+		if (line != NULL) {
+		    line = fgets(line, 1024, fp);
+		    if (line != NULL) {
 				if (line != NULL)
-					g_free(line);
-		    } else {
-				//printf("line = %s\n", line);
-				newline = g_strdup(line);
-				if (g_strncasecmp(newline, "<asx", g_utf8_strlen("<asx",-1)) == 0) {
-				    //printf("asx\n");
-				    ret = TRUE;
-				    g_free(newline);
-				} else if (g_strrstr(newline, "<asx") != NULL) {
-				    //printf("asx\n");
-					ret = TRUE;
+				    g_strstrip(line);
+				if (g_utf8_strlen(line, -1) == 0) {
+					// do nothing;
+				} else {
+					//printf("line = %s\n", line);
+					newline = g_strdup(line);
+					if (g_strncasecmp(newline, "<asx", g_utf8_strlen("<asx",-1)) == 0) {
+						//printf("asx\n");
+						ret = TRUE;
+						g_free(newline);
+					} else if (g_strrstr(newline, "<asx") != NULL) {
+						//printf("asx\n");
+						ret = TRUE;
+						g_free(newline);
+					}
 					g_free(newline);
 				}
-				g_free(newline);
 				g_free(line);
+				line = NULL;
 			}
+			g_free(line);
+			line = NULL;
 		}
     }
     g_free(file);
