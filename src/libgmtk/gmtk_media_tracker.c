@@ -101,7 +101,8 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
 	tracker->message = gtk_label_new("");
 	gtk_label_set_markup(GTK_LABEL(tracker->message),"<small> </small>");
 	gtk_misc_set_alignment(GTK_MISC(tracker->message),0.0,0.0);
-
+	gtk_label_set_ellipsize(GTK_LABEL(tracker->message),PANGO_ELLIPSIZE_END);
+	
 	tracker->timer = gtk_label_new("");
 	gtk_label_set_markup(GTK_LABEL(tracker->timer),"<small>0:00</small>");
 	gtk_misc_set_alignment(GTK_MISC(tracker->timer),1.0,0.0);
@@ -223,17 +224,6 @@ void gmtk_media_tracker_set_timer(GmtkMediaTracker * tracker, const gchar * text
 	
 	gtk_label_set_markup(GTK_LABEL(tracker->timer),tracker->timer_text);
 	
-}
-
-void gmtk_media_tracker_set_allow_expand(GmtkMediaTracker * tracker, gboolean allow_expand)
-{
-	tracker->allow_expand = allow_expand;
-
-	if (allow_expand) {
-		gtk_label_set_ellipsize(GTK_LABEL(tracker->message),PANGO_ELLIPSIZE_NONE);
-	} else {
-		gtk_label_set_ellipsize(GTK_LABEL(tracker->message),PANGO_ELLIPSIZE_END);
-	}	
 }
 
 void gmtk_media_tracker_set_position(GmtkMediaTracker * tracker, const gfloat seconds)

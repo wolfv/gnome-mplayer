@@ -513,7 +513,6 @@ gboolean set_progress_time(void *data)
         g_snprintf(idle->progress_text, 128, "%s", text);
     }
 
-	gmtk_media_tracker_set_allow_expand(tracker,!idle->streaming);
 	gmtk_media_tracker_set_text(tracker,text);
 	g_free(text);
 
@@ -6229,7 +6228,6 @@ void show_window(gint windowid)
             gtk_widget_unmap(window);
 
         gdk_window_reparent(window->window, window_container, 0, 0);
-        gmtk_media_tracker_set_allow_expand(tracker, FALSE);
     } else {
         if (remember_loc) {
             gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);

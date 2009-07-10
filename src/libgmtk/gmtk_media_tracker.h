@@ -84,6 +84,5 @@ void gmtk_media_tracker_set_text(GmtkMediaTracker * tracker, const gchar * text)
 void gmtk_media_tracker_set_position(GmtkMediaTracker * tracker, const gfloat seconds);
 void gmtk_media_tracker_set_length(GmtkMediaTracker * tracker, const gfloat seconds);
 
-void gmtk_media_tracker_set_allow_expand(GmtkMediaTracker * tracker, gboolean allow_expand);
 G_END_DECLS
 #endif
