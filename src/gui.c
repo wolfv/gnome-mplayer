@@ -71,7 +71,7 @@ void adjust_layout()
 
     total_height = non_fs_height;
     total_width = non_fs_width;
-
+	
     if (total_width == 0)
         total_width = controls_box->requisition.width;
 
@@ -1482,6 +1482,23 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             non_fs_height = 0;
         }
     }
+
+	if (non_fs_width > 0) {
+		if (non_fs_width < 250) {
+		    gtk_widget_hide(rew_event_box);
+		    gtk_widget_hide(ff_event_box);
+		    gtk_widget_hide(fs_event_box);
+		} else {
+		    gtk_widget_show(rew_event_box);
+		    gtk_widget_show(ff_event_box);
+		    gtk_widget_show(fs_event_box);
+		}
+		if (non_fs_width < 170) {
+		    gtk_widget_hide(GTK_WIDGET(tracker));
+		} else {
+		    gtk_widget_show(GTK_WIDGET(tracker));
+		}		
+	}
 	
     if (GDK_IS_DRAWABLE(fixed->window)) {
         if (videopresent || embed_window != 0) {
