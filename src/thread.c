@@ -54,7 +54,8 @@ gboolean write_to_mplayer(gpointer data)
 
     if (channel_in) {
         result = g_io_channel_write_chars(channel_in, cmd, -1, &bytes_written, NULL);
-        result = g_io_channel_flush(channel_in, NULL);
+		if (result != G_IO_STATUS_ERROR && bytes_written > 0)
+	        result = g_io_channel_flush(channel_in, NULL);
     }
 
     g_free(cmd);
@@ -109,8 +110,6 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
     g_source_remove(watch_in_id);
     g_source_remove(watch_err_id);
     g_cond_signal(mplayer_complete_cond);
-	if (threaddata != NULL)
-		g_free(threaddata);
     return FALSE;
 }
 
@@ -757,7 +756,7 @@ gboolean thread_query(gpointer data)
         return FALSE;
     }
 
-    if (threaddata->done == TRUE) {
+    if (threaddata != NULL && threaddata->done == TRUE) {
         if (verbose)
             printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
                    threaddata->filename);
