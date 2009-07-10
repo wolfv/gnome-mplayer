@@ -100,6 +100,8 @@ gboolean play(void *data)
 
 gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
 {
+	ThreadData *threaddata = (ThreadData *) data;
+	
     if (verbose > 1)
         printf("thread complete\n");
     g_idle_add(set_stop, idledata);
@@ -107,6 +109,8 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
     g_source_remove(watch_in_id);
     g_source_remove(watch_err_id);
     g_cond_signal(mplayer_complete_cond);
+	if (threaddata != NULL)
+		g_free(threaddata);
     return FALSE;
 }
 
@@ -1223,7 +1227,7 @@ gpointer launch_player(gpointer data)
                                 thread_reader_error, threaddata, NULL);
         watch_in_hup_id =
             g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete,
-                                NULL, NULL);
+                                threaddata, NULL);
 //        watch_in_id = g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
 //        watch_err_id = g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
 //        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
