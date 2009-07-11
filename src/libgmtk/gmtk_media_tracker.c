@@ -23,7 +23,6 @@
  */
 
 #include "gmtk_media_tracker.h"
-#include "../../pixmaps/media-playback-start.xpm"
 
 G_DEFINE_TYPE(GmtkMediaTracker, gmtk_media_tracker, GTK_TYPE_VBOX);
 
@@ -138,8 +137,8 @@ static void gmtk_media_tracker_dispose(GObject * object)
 static gboolean gmtk_media_tracker_button_press(GtkWidget * tracker, GdkEventButton * event)
 {
     GMTK_MEDIA_TRACKER(tracker)->mouse_down = TRUE;
-	g_signal_emit_by_name(tracker,"button-press-event",event);
-    return FALSE;
+	//g_signal_emit_by_name(tracker,"button-press-event",event);
+    return TRUE;
 }
 
 static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventButton * event)
