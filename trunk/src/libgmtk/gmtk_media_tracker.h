@@ -29,6 +29,14 @@
 #ifndef __GMTK_MEDIA_TRACKER_H__
 #define __GMTK_MEDIA_TRACKER_H__
 
+#ifndef GSEAL
+#  ifdef GSEAL_ENABLE
+#    define GSEAL(ident)      _g_sealed__ ## ident
+#  else
+#    define GSEAL(ident)      ident
+#  endif
+#endif 
+
 G_BEGIN_DECLS
 #define GMTK_TYPE_MEDIA_TRACKER		(gmtk_media_tracker_get_type ())
 #define GMTK_MEDIA_TRACKER(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GMTK_TYPE_MEDIA_TRACKER, GmtkMediaTracker))

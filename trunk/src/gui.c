@@ -146,7 +146,7 @@ void adjust_layout()
     //printf("totals = %i x %i\n",total_width,total_height);
 
     if (use_remember_loc) {
-        printf("setting size to %i x %i\n", loc_window_width, loc_window_height);
+        // printf("setting size to %i x %i\n", loc_window_width, loc_window_height);
         gtk_window_resize(GTK_WINDOW(window), loc_window_width, loc_window_height);
         use_remember_loc = FALSE;
     } else {

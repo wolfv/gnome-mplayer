@@ -101,7 +101,7 @@ gboolean play(void *data)
 
 gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
 {
-	ThreadData *threaddata = (ThreadData *) data;
+	//ThreadData *threaddata = (ThreadData *) data;
 	
     if (verbose > 1)
         printf("thread complete\n");
