@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-10 12:07-0600\n"
+"POT-Creation-Date: 2009-07-11 07:33-0600\n"
 "PO-Revision-Date: 2008-05-31 17:11+0800\n"
 "Last-Translator: Hialan Liu <hialan.liu@gmail.com>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
@@ -301,7 +301,7 @@ msgid "Adding %s to playlist"
 msgstr "加入項目至播放清單"
 
 #: src/gui.c:1140 src/gui.c:1150 src/gui.c:2172 src/gui.c:2213
-#: src/thread.c:454
+#: src/thread.c:457
 #, c-format
 msgid "Volume %i%%"
 msgstr "音量 %i%%"
@@ -345,7 +345,7 @@ msgstr "另存為..."
 msgid "Unable to save '%s'"
 msgstr "無法儲存「%s」"
 
-#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:235
+#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:238
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer 錯誤"
 
@@ -1067,7 +1067,7 @@ msgstr "全螢幕"
 msgid "Volume 100%"
 msgstr "音量 100%"
 
-#: src/support.c:789 src/thread.c:203
+#: src/support.c:789 src/thread.c:206
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "無法開啟 DVD 裝置：%s"
@@ -1098,41 +1098,41 @@ msgid ""
 "option not supported\n"
 msgstr ""
 
-#: src/thread.c:168
+#: src/thread.c:171
 #, c-format
 msgid "Failed to open %s"
 msgstr "開啟 %s 失敗"
 
-#: src/thread.c:209
+#: src/thread.c:212
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "無法讀取字幕：%s"
 
-#: src/thread.c:220
+#: src/thread.c:223
 msgid "Delaying start until cache is full"
 msgstr ""
 
-#: src/thread.c:225
+#: src/thread.c:228
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "未支援壓縮的 SWF 格式"
 
-#: src/thread.c:530
+#: src/thread.c:533
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "填滿快取：%2.2f%%"
 
-#: src/thread.c:539
+#: src/thread.c:542
 #, c-format
 msgid "Connecting"
 msgstr "正在連接"
 
-#: src/thread.c:676
+#: src/thread.c:679
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr ""
 
-#: src/thread.c:679
+#: src/thread.c:682
 #, fuzzy
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer 設定"
@@ -1268,6 +1268,10 @@ msgstr "視訊格式："
 #, fuzzy
 msgid "Audio/Video"
 msgstr "音訊編碼："
+
+#: src/libgmtk/gmtk_media_tracker.c:91 src/libgmtk/gmtk_media_tracker.c:167
+msgid "No Information"
+msgstr ""
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">調整外掛程式模擬設定</span>"

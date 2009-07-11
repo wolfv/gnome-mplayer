@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-10 12:07-0600\n"
+"POT-Creation-Date: 2009-07-11 07:33-0600\n"
 "PO-Revision-Date: 2009-06-16 11:41+0300\n"
 "Last-Translator: Mindaugas B. <>\n"
 "Language-Team: lietuvių <lt@li.org>\n"
@@ -302,7 +302,7 @@ msgid "Adding %s to playlist"
 msgstr "Pridėti %s prie grojaraščio"
 
 #: src/gui.c:1140 src/gui.c:1150 src/gui.c:2172 src/gui.c:2213
-#: src/thread.c:454
+#: src/thread.c:457
 #, c-format
 msgid "Volume %i%%"
 msgstr "Garsumas %i%%"
@@ -344,7 +344,7 @@ msgstr "Įrašyti kaip..."
 msgid "Unable to save '%s'"
 msgstr "Nepavyksta įrašyti '%s'"
 
-#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:235
+#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:238
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer klaida"
 
@@ -1047,7 +1047,7 @@ msgstr "Visas ekranas"
 msgid "Volume 100%"
 msgstr "Garsumas 100%"
 
-#: src/support.c:789 src/thread.c:203
+#: src/support.c:789 src/thread.c:206
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Nepavyksta atverti DVD įrenginio: %s"
@@ -1079,41 +1079,41 @@ msgid ""
 msgstr ""
 "Mėginkite atnaujinti „mplayer“ programą, -volume parinktis nepalaikoma\n"
 
-#: src/thread.c:168
+#: src/thread.c:171
 #, c-format
 msgid "Failed to open %s"
 msgstr "Nepavyksta atverti %s"
 
-#: src/thread.c:209
+#: src/thread.c:212
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "Nepavyksta įkelti subtitrų: %s"
 
-#: src/thread.c:220
+#: src/thread.c:223
 msgid "Delaying start until cache is full"
 msgstr ""
 
-#: src/thread.c:225
+#: src/thread.c:228
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr ""
 
-#: src/thread.c:530
+#: src/thread.c:533
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Podėlio užpildymas: %2.2f%%"
 
-#: src/thread.c:539
+#: src/thread.c:542
 #, c-format
 msgid "Connecting"
 msgstr "Jungiamasi"
 
-#: src/thread.c:676
+#: src/thread.c:679
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Nuotrauka įrašyta į '%s'"
 
-#: src/thread.c:679
+#: src/thread.c:682
 msgid "GNOME MPlayer Notification"
 msgstr ""
 
@@ -1247,6 +1247,10 @@ msgstr "Vaizdo kadrų dažnis:"
 msgid "Audio/Video"
 msgstr "Garsas/Vaizdas"
 
+#: src/libgmtk/gmtk_media_tracker.c:91 src/libgmtk/gmtk_media_tracker.c:167
+msgid "No Information"
+msgstr "Nėra informacijos"
+
 #~ msgid "Hidden"
 #~ msgstr "Paslėpta"
 
@@ -1255,6 +1259,3 @@ msgstr "Garsas/Vaizdas"
 
 #~ msgid "Top"
 #~ msgstr "Viršuje"
-
-#~ msgid "No Information"
-#~ msgstr "Nėra informacijos"

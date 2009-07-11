@@ -25,6 +25,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib/gi18n.h>
 
 #ifndef __GMTK_MEDIA_TRACKER_H__
 #define __GMTK_MEDIA_TRACKER_H__

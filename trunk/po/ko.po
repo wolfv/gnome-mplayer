@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-10 12:07-0600\n"
+"POT-Creation-Date: 2009-07-11 07:33-0600\n"
 "PO-Revision-Date: 2009-05-31 19:13+0900\n"
 "Last-Translator: Byeongsik Jeon <bsjeon@hanmail.net>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
@@ -299,7 +299,7 @@ msgid "Adding %s to playlist"
 msgstr "재생 목록에 %s 추가"
 
 #: src/gui.c:1140 src/gui.c:1150 src/gui.c:2172 src/gui.c:2213
-#: src/thread.c:454
+#: src/thread.c:457
 #, c-format
 msgid "Volume %i%%"
 msgstr "볼륨 %i%%"
@@ -341,7 +341,7 @@ msgstr "다른 이름으로 저장..."
 msgid "Unable to save '%s'"
 msgstr "%s 저장 실패"
 
-#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:235
+#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:238
 msgid "GNOME MPlayer Error"
 msgstr "그놈 엠플레이어 오류"
 
@@ -1060,7 +1060,7 @@ msgstr "전체 화면"
 msgid "Volume 100%"
 msgstr "볼륨 100%"
 
-#: src/support.c:789 src/thread.c:203
+#: src/support.c:789 src/thread.c:206
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "DVD 장치 %s을(를) 열 수 없습니다."
@@ -1093,41 +1093,41 @@ msgstr ""
 "설치된 mplayer가 -volume옵션을 지원하지 않습니다. 새로운 버전으로 업그레이드"
 "를 고려해 보시기 바랍니다.\n"
 
-#: src/thread.c:168
+#: src/thread.c:171
 #, c-format
 msgid "Failed to open %s"
 msgstr "%s을(를) 여는 데 실패했습니다."
 
-#: src/thread.c:209
+#: src/thread.c:212
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "자막 %s을(를) 불러올 수 없습니다."
 
-#: src/thread.c:220
+#: src/thread.c:223
 msgid "Delaying start until cache is full"
 msgstr "캐쉬가 가득 찰 때까지 시작 지연"
 
-#: src/thread.c:225
+#: src/thread.c:228
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "압축된 SWF 포맷 지원하지 않음"
 
-#: src/thread.c:530
+#: src/thread.c:533
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "캐쉬 채우기: %2.2f%%"
 
-#: src/thread.c:539
+#: src/thread.c:542
 #, c-format
 msgid "Connecting"
 msgstr "연결중"
 
-#: src/thread.c:676
+#: src/thread.c:679
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "스크린샷이 '%s' 파일로 저장되었습니다."
 
-#: src/thread.c:679
+#: src/thread.c:682
 msgid "GNOME MPlayer Notification"
 msgstr "그놈 엠플레이어 알림"
 
@@ -1263,6 +1263,10 @@ msgstr "비디오 프레임 레이트:"
 msgid "Audio/Video"
 msgstr "오디오/비디오"
 
+#: src/libgmtk/gmtk_media_tracker.c:91 src/libgmtk/gmtk_media_tracker.c:167
+msgid "No Information"
+msgstr "정보 없음"
+
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "트랙커 썸네일 위치:"
 
@@ -1280,6 +1284,3 @@ msgstr "오디오/비디오"
 
 #~ msgid "Seeking to %s"
 #~ msgstr "%s 탐색중"
-
-#~ msgid "No Information"
-#~ msgstr "정보 없음"

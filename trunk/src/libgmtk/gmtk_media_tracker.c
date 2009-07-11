@@ -88,7 +88,7 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
 	gtk_widget_set_sensitive(tracker->scale, FALSE);
 	
 	tracker->progress_tip = gtk_tooltips_new();
-   	gtk_tooltips_set_tip(tracker->progress_tip, GTK_WIDGET(tracker->scale), "No Information", NULL);
+   	gtk_tooltips_set_tip(tracker->progress_tip, GTK_WIDGET(tracker->scale), _("No Information"), NULL);
 
 	g_signal_connect_swapped(G_OBJECT(tracker->scale),"button-press-event",G_CALLBACK(gmtk_media_tracker_button_press),tracker);
 	g_signal_connect_swapped(G_OBJECT(tracker->scale),"button-release-event",G_CALLBACK(gmtk_media_tracker_button_release),tracker);
@@ -164,7 +164,7 @@ static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMo
 		} else {
 			tip = NULL;
 		}
-		gtk_tooltips_set_tip(GMTK_MEDIA_TRACKER(tracker)->progress_tip, GTK_WIDGET(GMTK_MEDIA_TRACKER(tracker)->scale), tip, NULL);
+		gtk_tooltips_set_tip(GMTK_MEDIA_TRACKER(tracker)->progress_tip, GTK_WIDGET(GMTK_MEDIA_TRACKER(tracker)->scale), _("No Information"), NULL);
 		if (tip)
 			g_free(tip);
 	}

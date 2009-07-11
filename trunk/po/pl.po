@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-10 12:07-0600\n"
+"POT-Creation-Date: 2009-07-11 07:33-0600\n"
 "PO-Revision-Date: 2009-05-26 22:24+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -306,7 +306,7 @@ msgid "Adding %s to playlist"
 msgstr "Dodawanie %s do listy odtwarzania"
 
 #: src/gui.c:1140 src/gui.c:1150 src/gui.c:2172 src/gui.c:2213
-#: src/thread.c:454
+#: src/thread.c:457
 #, c-format
 msgid "Volume %i%%"
 msgstr "Głośność %i%%"
@@ -348,7 +348,7 @@ msgstr "Zapisz jako..."
 msgid "Unable to save '%s'"
 msgstr "Nie udało się zapisać %s"
 
-#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:235
+#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:238
 msgid "GNOME MPlayer Error"
 msgstr "Błąd GNOME MPlayer"
 
@@ -1089,7 +1089,7 @@ msgstr "Pełny ekran"
 msgid "Volume 100%"
 msgstr "Głośność 100%"
 
-#: src/support.c:789 src/thread.c:203
+#: src/support.c:789 src/thread.c:206
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Nie udało się otworzyć urządzenia DVD: %s"
@@ -1123,41 +1123,41 @@ msgstr ""
 "Proszę rozważyć aktualizację do nowszej wersji mplayera, opcja -volume jest "
 "niewspierana\n"
 
-#: src/thread.c:168
+#: src/thread.c:171
 #, c-format
 msgid "Failed to open %s"
 msgstr "Nie udało się otworzyć %s"
 
-#: src/thread.c:209
+#: src/thread.c:212
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "Nie można załadować napisów: %s"
 
-#: src/thread.c:220
+#: src/thread.c:223
 msgid "Delaying start until cache is full"
 msgstr "Opóźnianie startu do czasu zapełnienia bufora"
 
-#: src/thread.c:225
+#: src/thread.c:228
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Skompresowany format SWF niewspierany"
 
-#: src/thread.c:530
+#: src/thread.c:533
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Zapełnienie bufora: %2.2f%%"
 
-#: src/thread.c:539
+#: src/thread.c:542
 #, c-format
 msgid "Connecting"
 msgstr "Łączenie"
 
-#: src/thread.c:676
+#: src/thread.c:679
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Zrzut ekranu zapisano do '%s'"
 
-#: src/thread.c:679
+#: src/thread.c:682
 msgid "GNOME MPlayer Notification"
 msgstr "Powiadamianie GNOME MPlayer"
 
@@ -1297,6 +1297,10 @@ msgstr "Liczba klatek na sekundę obrazu:"
 msgid "Audio/Video"
 msgstr "Dźwięk/Obraz:"
 
+#: src/libgmtk/gmtk_media_tracker.c:91 src/libgmtk/gmtk_media_tracker.c:167
+msgid "No Information"
+msgstr "Brak informacji"
+
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "Położenie kursora śledzącego"
 
@@ -1314,9 +1318,6 @@ msgstr "Dźwięk/Obraz:"
 
 #~ msgid "Seeking to %s"
 #~ msgstr "Przeszukiwanie do %s"
-
-#~ msgid "No Information"
-#~ msgstr "Brak informacji"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">Dostosuj ustawienia emulacji wtyczki</span>"

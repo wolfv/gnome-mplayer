@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-10 12:07-0600\n"
+"POT-Creation-Date: 2009-07-11 07:33-0600\n"
 "PO-Revision-Date: 2009-06-03 00:17+0100\n"
 "Last-Translator: Festor Wailon Dacoba <nebulosa82@gmail.com>\n"
 "Language-Team: \n"
@@ -308,7 +308,7 @@ msgid "Adding %s to playlist"
 msgstr "Añadiendo %s a la lista de reproducción"
 
 #: src/gui.c:1140 src/gui.c:1150 src/gui.c:2172 src/gui.c:2213
-#: src/thread.c:454
+#: src/thread.c:457
 #, c-format
 msgid "Volume %i%%"
 msgstr "Volumen %i%%"
@@ -350,7 +350,7 @@ msgstr "Guardar como..."
 msgid "Unable to save '%s'"
 msgstr "Imposible de guardar '%s'"
 
-#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:235
+#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:238
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer error"
 
@@ -1094,7 +1094,7 @@ msgstr "Pantalla Completa"
 msgid "Volume 100%"
 msgstr "Volumen 100%"
 
-#: src/support.c:789 src/thread.c:203
+#: src/support.c:789 src/thread.c:206
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "No se pudo abrir la unidad de DVD: %s"
@@ -1129,41 +1129,41 @@ msgstr ""
 "Debería considerar actualizar el mplayer a una versión más actual, la "
 "versión instalada no soporta el parámetro -volume\n"
 
-#: src/thread.c:168
+#: src/thread.c:171
 #, c-format
 msgid "Failed to open %s"
 msgstr "Error al abrir %s"
 
-#: src/thread.c:209
+#: src/thread.c:212
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "No se pudo cargar los subtítulos: %s"
 
-#: src/thread.c:220
+#: src/thread.c:223
 msgid "Delaying start until cache is full"
 msgstr "Retrasar la reproducción hasta que el cache esté lleno"
 
-#: src/thread.c:225
+#: src/thread.c:228
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Formato SWF comprimido no soportado"
 
-#: src/thread.c:530
+#: src/thread.c:533
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Almacenando en el cache: %2.2f%%"
 
-#: src/thread.c:539
+#: src/thread.c:542
 #, c-format
 msgid "Connecting"
 msgstr "Conectando"
 
-#: src/thread.c:676
+#: src/thread.c:679
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Captura guardada: '%s'"
 
-#: src/thread.c:679
+#: src/thread.c:682
 msgid "GNOME MPlayer Notification"
 msgstr "Notificación GNOME MPlayer"
 
@@ -1299,6 +1299,10 @@ msgstr "Imágenes por segundo:"
 msgid "Audio/Video"
 msgstr "Audio/Vídeo"
 
+#: src/libgmtk/gmtk_media_tracker.c:91 src/libgmtk/gmtk_media_tracker.c:167
+msgid "No Information"
+msgstr "No hay información disponible"
+
 #~ msgid "Hidden"
 #~ msgstr "Oculto"
 
@@ -1313,6 +1317,3 @@ msgstr "Audio/Vídeo"
 
 #~ msgid "Seeking to %s"
 #~ msgstr "Saltando a %s"
-
-#~ msgid "No Information"
-#~ msgstr "No hay información disponible"
