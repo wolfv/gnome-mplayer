@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-10 12:07-0600\n"
+"POT-Creation-Date: 2009-07-11 07:33-0600\n"
 "PO-Revision-Date: 2008-07-01 18:50-0300\n"
 "Last-Translator: \n"
 "Language-Team: Portugese <LL@li.org>\n"
@@ -304,7 +304,7 @@ msgid "Adding %s to playlist"
 msgstr "Adicionar Arquivo à Lista de Reprodução"
 
 #: src/gui.c:1140 src/gui.c:1150 src/gui.c:2172 src/gui.c:2213
-#: src/thread.c:454
+#: src/thread.c:457
 #, c-format
 msgid "Volume %i%%"
 msgstr "Volume %i%%"
@@ -348,7 +348,7 @@ msgstr "Salvar Como..."
 msgid "Unable to save '%s'"
 msgstr "Não foi possível salvar '%s'"
 
-#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:235
+#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:238
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer Erro"
 
@@ -1086,7 +1086,7 @@ msgstr "Tela Cheia"
 msgid "Volume 100%"
 msgstr "Volume 100%"
 
-#: src/support.c:789 src/thread.c:203
+#: src/support.c:789 src/thread.c:206
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Erro ao conectar com o dispositivo de DVD: %s"
@@ -1118,41 +1118,41 @@ msgid ""
 "option not supported\n"
 msgstr ""
 
-#: src/thread.c:168
+#: src/thread.c:171
 #, c-format
 msgid "Failed to open %s"
 msgstr "Erro ao abrir %s"
 
-#: src/thread.c:209
+#: src/thread.c:212
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "Erro ao carregar legendas: %s"
 
-#: src/thread.c:220
+#: src/thread.c:223
 msgid "Delaying start until cache is full"
 msgstr ""
 
-#: src/thread.c:225
+#: src/thread.c:228
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Arquivo SWF compactado não é suportado"
 
-#: src/thread.c:530
+#: src/thread.c:533
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Armazenando Cache: %2.2f%%"
 
-#: src/thread.c:539
+#: src/thread.c:542
 #, c-format
 msgid "Connecting"
 msgstr "Conectando"
 
-#: src/thread.c:676
+#: src/thread.c:679
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr ""
 
-#: src/thread.c:679
+#: src/thread.c:682
 #, fuzzy
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer Configurações"
@@ -1292,6 +1292,10 @@ msgstr "Formato do Vídeo:"
 #, fuzzy
 msgid "Audio/Video"
 msgstr "Codec do Áudio:"
+
+#: src/libgmtk/gmtk_media_tracker.c:91 src/libgmtk/gmtk_media_tracker.c:167
+msgid "No Information"
+msgstr ""
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">Configurações do Plug-in de Emulação</span>"

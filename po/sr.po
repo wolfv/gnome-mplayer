@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-10 12:07-0600\n"
+"POT-Creation-Date: 2009-07-11 07:33-0600\n"
 "PO-Revision-Date: 2009-05-27 18:55+0200\n"
 "Last-Translator: Милош Поповић <gpopac@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
@@ -298,7 +298,7 @@ msgid "Adding %s to playlist"
 msgstr "Додајем %s ставку у листу"
 
 #: src/gui.c:1140 src/gui.c:1150 src/gui.c:2172 src/gui.c:2213
-#: src/thread.c:454
+#: src/thread.c:457
 #, c-format
 msgid "Volume %i%%"
 msgstr "Звук %i%%"
@@ -340,7 +340,7 @@ msgstr "Сачувај као..."
 msgid "Unable to save '%s'"
 msgstr "Не могу да сачувам ‘%s’"
 
-#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:235
+#: src/gui.c:2903 src/support.c:809 src/support.c:901 src/thread.c:238
 msgid "GNOME MPlayer Error"
 msgstr "Грешка у Гномовом Мплејеру"
 
@@ -1078,7 +1078,7 @@ msgstr "Цео екран"
 msgid "Volume 100%"
 msgstr "Јачина звука 100%"
 
-#: src/support.c:789 src/thread.c:203
+#: src/support.c:789 src/thread.c:206
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Не могу да отворим ДВД уређај: %s"
@@ -1111,41 +1111,41 @@ msgid ""
 msgstr ""
 "Можда желите да ажурирате МПлејер, јер опција „-volume“ није подржана\n"
 
-#: src/thread.c:168
+#: src/thread.c:171
 #, c-format
 msgid "Failed to open %s"
 msgstr "Не могу да отворим %s"
 
-#: src/thread.c:209
+#: src/thread.c:212
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "Не могу да учитам титл: %s"
 
-#: src/thread.c:220
+#: src/thread.c:223
 msgid "Delaying start until cache is full"
 msgstr "Одложи почетак док се не напуни остава"
 
-#: src/thread.c:225
+#: src/thread.c:228
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Упаковани SWF запис није подржан"
 
-#: src/thread.c:530
+#: src/thread.c:533
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Попуњеност оставе: %2.2f%%"
 
-#: src/thread.c:539
+#: src/thread.c:542
 #, c-format
 msgid "Connecting"
 msgstr "Повезујем се"
 
-#: src/thread.c:676
+#: src/thread.c:679
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Снимак екрана је сачуван у „%s“"
 
-#: src/thread.c:679
+#: src/thread.c:682
 msgid "GNOME MPlayer Notification"
 msgstr "Обавештења Гномовог Мплејера"
 
@@ -1285,6 +1285,10 @@ msgstr "Учестаност видео кадрова:"
 msgid "Audio/Video"
 msgstr "Звук/Видео"
 
+#: src/libgmtk/gmtk_media_tracker.c:91 src/libgmtk/gmtk_media_tracker.c:167
+msgid "No Information"
+msgstr "Нема података"
+
 #~ msgid "Hidden"
 #~ msgstr "Сакривено"
 
@@ -1299,9 +1303,6 @@ msgstr "Звук/Видео"
 
 #~ msgid "Seeking to %s"
 #~ msgstr "Премотавам на %s"
-
-#~ msgid "No Information"
-#~ msgstr "Нема података"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">Поставке додатка за емулацију</span>"
