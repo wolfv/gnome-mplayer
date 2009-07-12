@@ -2072,8 +2072,12 @@ gdouble get_alsa_volume(gboolean show_details)
         } else {
             snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
             f_multi = (100 / (float) (pmax - pmin));
-			snd_mixer_selem_get_playback_switch(elem, 0, &playback);
-            snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
+            if (snd_mixer_selem_has_playback_switch(elem)) {
+                snd_mixer_selem_get_playback_switch(elem, 0, &playback);
+			} else {
+                playback = 1;            
+			}
+			snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
 			if (playback == 1) {
 	            vol = (gdouble) ((get_vol - pmin) * f_multi);
 			} else {
@@ -2107,7 +2111,11 @@ gdouble get_alsa_volume(gboolean show_details)
         } else {
             snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
             f_multi = (100 / (float) (pmax - pmin));
-			snd_mixer_selem_get_playback_switch(elem, 0, &playback);
+            if (snd_mixer_selem_has_playback_switch(elem)) {
+                snd_mixer_selem_get_playback_switch(elem, 0, &playback);
+			} else {
+                playback = 1;            
+			}
             snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
 			if (playback == 1) {
 	            vol = (gdouble) ((get_vol - pmin) * f_multi);
