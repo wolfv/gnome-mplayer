@@ -234,7 +234,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
     if (error_msg != NULL) {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                        GTK_BUTTONS_CLOSE, error_msg);
+                                        GTK_BUTTONS_CLOSE, "%s", error_msg);
         gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
         if (control_id == 0)
             gtk_dialog_run(GTK_DIALOG(dialog));
@@ -367,7 +367,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             actual_y = play_y;
         }
         if (verbose)
-            printf("Resizing to %i x %i \n", actual_x, actual_y);
+            printf("Resizing to %i x %i\n", actual_x, actual_y);
         idledata->width = actual_x;
         idledata->height = actual_y;
         idledata->videopresent = TRUE;
@@ -678,7 +678,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf[12] = '\0';
         message = g_strdup_printf(_("Screenshot saved to '%s'"), buf);
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
-                                        GTK_BUTTONS_OK, message);
+                                        GTK_BUTTONS_OK, "%s", message);
         gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Notification"));
         gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
@@ -723,7 +723,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (error_msg != NULL) {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                        GTK_BUTTONS_OK, error_msg);
+                                        GTK_BUTTONS_OK, "%s", error_msg);
         gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
         g_free(error_msg);
