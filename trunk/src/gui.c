@@ -2899,7 +2899,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
         } else {
             msg = g_strdup_printf(_("Unable to save '%s'"), filename);
             dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                            GTK_BUTTONS_CLOSE, msg);
+                                            GTK_BUTTONS_CLOSE, "%s", msg);
             gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
             gtk_dialog_run(GTK_DIALOG(dialog));
             gtk_widget_destroy(dialog);

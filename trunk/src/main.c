@@ -340,7 +340,7 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
                 error_msg = g_strdup_printf("%s not found\n", thread_data->filename);
                 dialog =
                     gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT,
-                                           GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, error_msg);
+                                           GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, "%s", error_msg);
                 gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
                 gtk_dialog_run(GTK_DIALOG(dialog));
                 gtk_widget_destroy(dialog);
