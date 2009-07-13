@@ -66,7 +66,9 @@ void adjust_layout()
     gint handle_size;
 
     //printf("media size = %i x %i\n",non_fs_width, non_fs_height);
-
+	while (gtk_events_pending())
+        gtk_main_iteration();
+	
     adjusting = TRUE;
 
     total_height = non_fs_height;
@@ -486,7 +488,7 @@ gboolean set_progress_time(void *data)
 
     seconds = idle->position;
     length_seconds = idle->length;
-
+/*
 	if (control_id == 0) {
 		if (state == PLAYING) {
 		    text = g_strdup_printf(_("Playing %s"), idledata->display_name);
@@ -495,7 +497,7 @@ gboolean set_progress_time(void *data)
 		} else {
 		    text = g_strdup_printf(_("Idle"));
 		}
-	} else {
+	} else { */
 		if (state == PLAYING) {
 		    text = g_strdup_printf(_("Playing"));
 		} else if (state == PAUSED) {
@@ -503,7 +505,7 @@ gboolean set_progress_time(void *data)
 		} else {
 		    text = g_strdup_printf(_("Idle"));
 		}
-	}
+//	}
 
 	if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache
         && !idle->streaming) {
@@ -978,9 +980,10 @@ gboolean resize_window(void *data)
                         last_window_height = idle->height;
                         non_fs_width = idle->width;
                         non_fs_height = idle->height;
-						fixed->allocation.width = idle->width;
-						fixed->allocation.height = idle->height;
-						allocate_fixed_callback (fixed,&(fixed->allocation),NULL);
+						//fixed->allocation.width = idle->width;
+						//fixed->allocation.height = idle->height;
+						//allocate_fixed_callback (fixed,&(fixed->allocation),NULL);
+						gtk_widget_set_size_request(fixed,idle->width,idle->height);
                         adjust_layout();
                     }
                 } else {
