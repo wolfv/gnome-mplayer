@@ -636,7 +636,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             buf += strlen("_LANG=");
             menu->label = g_strdup(buf);
             g_idle_add(set_new_audio_menu, menu);
-            if (g_strrstr(alang, menu->label) != NULL) {
+            if (alang != NULL && g_strrstr(alang, menu->label) != NULL) {
                 buf = g_strdup_printf("switch_audio %i\n", menu->value);
                 send_command(buf, TRUE);
                 g_free(buf);
