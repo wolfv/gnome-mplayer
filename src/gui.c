@@ -68,8 +68,8 @@ void adjust_layout()
     //printf("media size = %i x %i\n",non_fs_width, non_fs_height);
 	
 	// This seemed to cause problems with the player size for the details view.
-	//while (gtk_events_pending())
-    //    gtk_main_iteration();
+	// while (gtk_events_pending())
+    //     gtk_main_iteration();
 	
     adjusting = TRUE;
 
@@ -150,6 +150,9 @@ void adjust_layout()
     //printf("controls = %i\n",menubar->allocation.height + controls_box->allocation.height);
     //printf("totals = %i x %i\n",total_width,total_height);
 
+	while (gtk_events_pending())
+        gtk_main_iteration();
+	
     if (use_remember_loc) {
         // printf("setting size to %i x %i\n", loc_window_width, loc_window_height);
         gtk_window_resize(GTK_WINDOW(window), loc_window_width, loc_window_height);
