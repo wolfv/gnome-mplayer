@@ -2143,6 +2143,143 @@ gdouble get_alsa_volume(gboolean show_details)
     return vol;
 }
 
+gboolean set_alsa_volume(gboolean show_details, gint volume)
+{
+
+#ifdef HAVE_ASOUNDLIB
+
+    gint err;
+    snd_mixer_t *mhandle;
+    snd_mixer_elem_t *elem;
+    snd_mixer_selem_id_t *sid;
+    glong set_vol = 0,pmin, pmax;
+	gint playback;
+    gfloat f_multi;
+    gboolean found = FALSE;
+    gchar **local_mixer;
+
+    if ((err = snd_mixer_open(&mhandle, 0)) < 0) {
+        if (verbose)
+            printf("Mixer open error %s\n", snd_strerror(err));
+        return found;
+    }
+
+    if ((err = snd_mixer_attach(mhandle, device)) < 0) {
+        if (verbose)
+            printf("Mixer attach error %s\n", snd_strerror(err));
+        return found;
+    }
+
+    if ((err = snd_mixer_selem_register(mhandle, NULL, NULL)) < 0) {
+        if (verbose)
+            printf("Mixer register error %s\n", snd_strerror(err));
+        return found;
+    }
+
+    if ((err = snd_mixer_load(mhandle)) < 0) {
+        if (verbose)
+            printf("Mixer load error %s\n", snd_strerror(err));
+        return found;
+    }
+
+    if (mixer != NULL && strlen(mixer) > 0) {
+        snd_mixer_selem_id_malloc(&sid);
+        local_mixer = g_strsplit(mixer, ",", 2);
+        if (local_mixer[1] == NULL) {
+            snd_mixer_selem_id_set_index(sid, 0);
+        } else {
+            snd_mixer_selem_id_set_index(sid, (gint) g_strtod(local_mixer[1], NULL));
+        }
+        if (local_mixer[0] == NULL) {
+            snd_mixer_selem_id_set_name(sid, mixer);
+        } else {
+            snd_mixer_selem_id_set_name(sid, local_mixer[0]);
+        }
+        if (local_mixer != NULL)
+            g_strfreev(local_mixer);
+
+        elem = snd_mixer_find_selem(mhandle, sid);
+        if (!elem) {
+            if (verbose && show_details)
+                printf("Unable to find %s Mixer control, trying Master\n", mixer);
+        } else {
+            snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
+            f_multi = ((float) (pmax - pmin) / 100);
+            if (snd_mixer_selem_has_playback_switch(elem)) {
+				if (volume == 0) {
+            		snd_mixer_selem_set_playback_switch(elem, 0, 0);
+				} else {
+            		snd_mixer_selem_set_playback_switch(elem, 0, 1);
+				}
+           		snd_mixer_selem_get_playback_switch(elem, 0, &playback);
+			} else {
+                playback = 1;            
+			}
+			if (playback == 1) {
+				set_vol = (gdouble) ((volume) * f_multi) + pmin;
+				snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
+			}
+            if (verbose && show_details) {
+				printf("%s Playback is %i\n",mixer, playback);
+                printf("%s Range is %li to %li \n", mixer, pmin, pmax);
+                printf("%s Volume %i, multiplier = %f\n", mixer, volume, f_multi);
+                printf("Scaled Volume is %li\n", set_vol);
+            }
+            found = TRUE;
+        }
+        snd_mixer_selem_id_free(sid);
+    }
+
+    if (!found) {
+        if (mixer != NULL) {
+            g_free(mixer);
+            mixer = g_strdup("Master");
+        }
+        snd_mixer_selem_id_malloc(&sid);
+        snd_mixer_selem_id_set_index(sid, 0);
+        snd_mixer_selem_id_set_name(sid, master_mix);
+
+        elem = snd_mixer_find_selem(mhandle, sid);
+        if (!elem) {
+            if (verbose && show_details)
+                printf("Unable to find Master Mixer control, using default of 100%%\n");
+        } else {
+            snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
+            f_multi = ((float) (pmax - pmin) / 100);
+            if (snd_mixer_selem_has_playback_switch(elem)) {
+				if (volume == 0) {
+            		snd_mixer_selem_set_playback_switch(elem, 0, 0);
+				} else {
+            		snd_mixer_selem_set_playback_switch(elem, 0, 1);
+				}
+           		snd_mixer_selem_get_playback_switch(elem, 0, &playback);
+			} else {
+                playback = 1;            
+			}
+			if (playback == 1) {
+				set_vol = (gdouble) ((volume) * f_multi) + pmin;
+				snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
+			}
+            if (verbose && show_details) {
+				printf("%s Playback is %i\n",mixer, playback);
+                printf("%s Range is %li to %li \n", mixer, pmin, pmax);
+                printf("%s Volume %i, multiplier = %f\n", mixer, volume, f_multi);
+                printf("Scaled Volume is %li\n", set_vol);
+            }
+            found = TRUE;
+        }
+        snd_mixer_selem_id_free(sid);
+    }
+
+    snd_mixer_detach(mhandle, device);
+    snd_mixer_close(mhandle);
+#endif
+
+    if (verbose && show_details)
+        printf("Set alsa volume to %li\n", set_vol);
+    return found;
+}
+
 gchar *seconds_to_string(gfloat seconds)
 {
     int hour = 0, min = 0, sec = 0;

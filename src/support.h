@@ -74,7 +74,8 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist);
 gboolean next_item_in_playlist(GtkTreeIter * iter);
 void copy_playlist(GtkListStore * source, GtkListStore * dest);
 void randomize_playlist(GtkListStore * store);
-gdouble get_alsa_volume();
+gdouble get_alsa_volume(gboolean show_details);
+gboolean set_alsa_volume(gboolean show_details, gint volume);
 gchar *seconds_to_string(gfloat seconds);
 
 gchar *get_localfile_from_uri(gchar * uri);

@@ -549,9 +549,13 @@ gboolean set_volume_from_slider(gpointer data)
     vol = (gint) gtk_range_get_value(GTK_RANGE(vol_slider));
 #endif
 	if (!idledata->mute) {
-		cmd = g_strdup_printf("volume %i 1\n", vol);
-		send_command(cmd, FALSE);
-		g_free(cmd);
+		if (use_pulse_flat_volume && !softvol) {		
+			set_alsa_volume (TRUE,vol);
+		} else {
+			cmd = g_strdup_printf("volume %i 1\n", vol);
+			send_command(cmd, FALSE);
+			g_free(cmd);
+		}
 		send_command("get_property volume\n", FALSE);
 		if (state == PAUSED || state == STOPPED) {
 		    send_command("pause\n", FALSE);
@@ -2174,9 +2178,13 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
         g_free(cmd);
         idledata->mute = TRUE;
     } else {
-	    cmd = g_strdup_printf("volume %i 1\n", vol);
-	    send_command(cmd, TRUE);
-	    g_free(cmd);
+		if (use_pulse_flat_volume && !softvol) {		
+			set_alsa_volume (TRUE,vol);
+		} else {
+			cmd = g_strdup_printf("volume %i 1\n", vol);
+			send_command(cmd, TRUE);
+			g_free(cmd);
+		}
     }
     if (idledata->volume != vol) {
 
@@ -3593,6 +3601,16 @@ void config_apply(GtkWidget * widget, void *data)
     update_mplayer_config();
 
     gm_store = gm_pref_store_new("gnome-mplayer");
+
+	// Adjust the internal setting
+	use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store, USE_PULSE_FLAT_VOLUME);
+    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
+        // do nothing
+    } else {
+        // we have alsa or pulse flat volume now
+        use_pulse_flat_volume = TRUE;
+    }
+	
 #ifndef HAVE_ASOUNDLIB
     gm_pref_store_set_int(gm_store, VOLUME,
                           gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));

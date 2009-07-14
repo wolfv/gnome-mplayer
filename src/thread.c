@@ -452,12 +452,16 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_volume");
         sscanf(buf, "ANS_volume=%i", &volume);
         if (!idledata->mute) {
-            idledata->volume = volume;
-            idledata->mute = 0;
-            buf = g_strdup_printf(_("Volume %i%%"), volume);
-            g_strlcpy(idledata->vol_tooltip, buf, 128);
-            g_idle_add(set_volume_tip, idledata);
-            g_free(buf);
+			if (use_pulse_flat_volume && !softvol) {
+				// do nothing
+			} else {
+		        idledata->volume = volume;
+		        idledata->mute = 0;
+		        buf = g_strdup_printf(_("Volume %i%%"), volume);
+		        g_strlcpy(idledata->vol_tooltip, buf, 128);
+		        g_idle_add(set_volume_tip, idledata);
+	            g_free(buf);
+			}
         }
     }
 
@@ -918,8 +922,10 @@ gpointer launch_player(gpointer data)
 
     if (use_volume_option) {
 		if (!idledata->mute) {
-	        argv[arg++] = g_strdup_printf("-volume");
-		    argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
+			if (!use_pulse_flat_volume || softvol) {			
+			    argv[arg++] = g_strdup_printf("-volume");
+				argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
+			}
 		}
     }
 
