@@ -1,4 +1,5 @@
 Development
+    When working in ALSA or PULSE flat mode, set volume thru alsa and not thru mplayer
     Rework how the details are shown, when they are requested
     Stop xscreensaver when media is known to be a video
     Add man page from Debian/Ubuntu to source
