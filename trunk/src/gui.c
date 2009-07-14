@@ -128,9 +128,11 @@ void adjust_layout()
             total_height += plvbox->allocation.height + handle_size;
         } else {
             total_width += plvbox->allocation.width + handle_size;
-			total_height = MAX(total_height,plvbox->allocation.height);
-            if (total_height <= (menubar->allocation.height + controls_box->allocation.height + media_hbox->allocation.height))
-                total_height = (menubar->allocation.height + controls_box->allocation.height + media_hbox->allocation.height) * 2;
+			if (!fullscreen) { 
+				total_height = MAX(total_height,plvbox->allocation.height);
+		        if (total_height <= (menubar->allocation.height + controls_box->allocation.height + media_hbox->allocation.height))
+		            total_height = (menubar->allocation.height + controls_box->allocation.height + media_hbox->allocation.height) * 2;
+			}
         }
     } else {
         if (!idledata->videopresent) {
@@ -3320,6 +3322,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             fs_window = NULL;
             fullscreen = 0;
         } else {
+			while (gtk_events_pending())
+                gtk_main_iteration();
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), restore_info);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details),
                                            restore_details);
