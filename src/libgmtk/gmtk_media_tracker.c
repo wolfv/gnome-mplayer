@@ -162,9 +162,9 @@ static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMo
 		if (GMTK_MEDIA_TRACKER(tracker)->length > 0.0) {
 			tip = gm_seconds_to_string(GMTK_MEDIA_TRACKER(tracker)->length * ((gdouble)event->x / tracker->allocation.width));
 		} else {
-			tip = NULL;
+			tip = g_strdup(_("No Information"));
 		}
-		gtk_tooltips_set_tip(GMTK_MEDIA_TRACKER(tracker)->progress_tip, GTK_WIDGET(GMTK_MEDIA_TRACKER(tracker)->scale), _("No Information"), NULL);
+		gtk_tooltips_set_tip(GMTK_MEDIA_TRACKER(tracker)->progress_tip, GTK_WIDGET(GMTK_MEDIA_TRACKER(tracker)->scale), tip, NULL);
 		if (tip)
 			g_free(tip);
 	}
