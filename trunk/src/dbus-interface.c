@@ -1165,7 +1165,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
             exit(1);
         }
     }
-
+	screensaver_disabled = FALSE;
 
     return TRUE;
 }
@@ -1184,7 +1184,7 @@ void dbus_enable_screensaver()
 {
     DBusMessage *message;
 
-    if (connection != NULL) {
+    if (connection != NULL && screensaver_disabled) {
 
         message =
             dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
@@ -1199,7 +1199,7 @@ void dbus_enable_screensaver()
         dbus_message_append_args(message, DBUS_TYPE_INT32, &ss_cookie, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
-
+		screensaver_disabled = FALSE;
     }
 }
 
@@ -1250,6 +1250,6 @@ void dbus_disable_screensaver()
 
         dbus_message_unref(message);
         dbus_error_free(&error);
-
+		screensaver_disabled = TRUE;
     }
 }

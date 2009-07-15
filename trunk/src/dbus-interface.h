@@ -32,4 +32,5 @@
 DBusConnection *connection;
 uint ss_cookie;
 uint sm_cookie;
+gboolean screensaver_disabled;
 gboolean dbus_hookup(gint windowid, gint controlid);
