@@ -2,19 +2,19 @@
 /*
  * gui.h
  * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
- * 
+ *
  * gui.h is free software.
- * 
+ *
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
- * 
+ *
  * gui.h is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with gui.h.  If not, write to:
  * 	The Free Software Foundation, Inc.,
@@ -237,6 +237,7 @@ GtkWidget *config_verbose;
 GtkWidget *config_show_notification;
 GtkWidget *config_thumb_position;
 GtkWidget *config_use_mediakeys;
+GtkWidget *config_use_defaultpl;
 
 GtkWidget *config_alang;
 GtkWidget *config_slang;

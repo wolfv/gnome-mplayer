@@ -43,23 +43,23 @@ void mplayer_shutdown()
 
 }
 
-gboolean write_to_mplayer(gpointer data) 
+gboolean write_to_mplayer(gpointer data)
 {
-	gchar *cmd = (gchar *)data;
+    gchar *cmd = (gchar *) data;
     GIOStatus result;
     gsize bytes_written;
-	
+
     if (verbose > 1)
         printf("send command = %s\n", cmd);
 
     if (channel_in) {
         result = g_io_channel_write_chars(channel_in, cmd, -1, &bytes_written, NULL);
-		if (result != G_IO_STATUS_ERROR && bytes_written > 0)
-	        result = g_io_channel_flush(channel_in, NULL);
+        if (result != G_IO_STATUS_ERROR && bytes_written > 0)
+            result = g_io_channel_flush(channel_in, NULL);
     }
 
     g_free(cmd);
-	return FALSE;
+    return FALSE;
 }
 
 gboolean send_command(gchar * command, gboolean retain_pause)
@@ -76,7 +76,7 @@ gboolean send_command(gchar * command, gboolean retain_pause)
         cmd = g_strdup(command);
     }
 
-	g_idle_add(write_to_mplayer,(gpointer)cmd);	
+    g_idle_add(write_to_mplayer, (gpointer) cmd);
     return TRUE;
 
 }
@@ -101,8 +101,8 @@ gboolean play(void *data)
 
 gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
 {
-	//ThreadData *threaddata = (ThreadData *) data;
-	
+    //ThreadData *threaddata = (ThreadData *) data;
+
     if (verbose > 1)
         printf("thread complete\n");
     g_idle_add(set_stop, idledata);
@@ -452,16 +452,16 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_volume");
         sscanf(buf, "ANS_volume=%i", &volume);
         if (!idledata->mute) {
-			if (use_pulse_flat_volume && !softvol) {
-				// do nothing
-			} else {
-		        idledata->volume = volume;
-		        idledata->mute = 0;
-		        buf = g_strdup_printf(_("Volume %i%%"), volume);
-		        g_strlcpy(idledata->vol_tooltip, buf, 128);
-		        g_idle_add(set_volume_tip, idledata);
-	            g_free(buf);
-			}
+            if (use_pulse_flat_volume && !softvol) {
+                // do nothing
+            } else {
+                idledata->volume = volume;
+                idledata->mute = 0;
+                buf = g_strdup_printf(_("Volume %i%%"), volume);
+                g_strlcpy(idledata->vol_tooltip, buf, 128);
+                g_idle_add(set_volume_tip, idledata);
+                g_free(buf);
+            }
         }
     }
 
@@ -778,8 +778,8 @@ gboolean thread_query(gpointer data)
     if (use_pulse_flat_volume && !softvol) {
         volume = (gint) get_alsa_volume(FALSE);
         idledata->volume = volume;
-		if (!idledata->mute)
-    		g_idle_add(set_volume, idledata);
+        if (!idledata->mute)
+            g_idle_add(set_volume, idledata);
     }
 
     if (state == PLAYING) {
@@ -921,12 +921,12 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-softvol");
 
     if (use_volume_option) {
-		if (!idledata->mute) {
-			if (!use_pulse_flat_volume || softvol) {			
-			    argv[arg++] = g_strdup_printf("-volume");
-				argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
-			}
-		}
+        if (!idledata->mute) {
+            if (!use_pulse_flat_volume || softvol) {
+                argv[arg++] = g_strdup_printf("-volume");
+                argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
+            }
+        }
     }
 
     if (mixer != NULL && strlen(mixer) > 0) {
@@ -950,9 +950,9 @@ gpointer launch_player(gpointer data)
 
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-noidle");
-	if (idledata->width > 0 && idledata->height > 0)
-	    argv[arg++] = g_strdup_printf("-stop-xscreensaver");
-		
+    if (idledata->width > 0 && idledata->height > 0)
+        argv[arg++] = g_strdup_printf("-stop-xscreensaver");
+
     argv[arg++] = g_strdup_printf("-osdlevel");
     argv[arg++] = g_strdup_printf("%i", osdlevel);
     if (strcmp(threaddata->filename, "dvdnav://") == 0) {
@@ -973,7 +973,7 @@ gpointer launch_player(gpointer data)
                     if (g_file_is_native(file)) {
                         argv[arg++] = g_strdup_printf("-nocache");
                     } else {
-						forcecache = TRUE;
+                        forcecache = TRUE;
                         argv[arg++] = g_strdup_printf("-cache");
                         argv[arg++] = g_strdup_printf("%i", cache_size);
                     }

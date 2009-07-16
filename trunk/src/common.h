@@ -2,19 +2,19 @@
 /*
  * common.h
  * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
- * 
+ *
  * common.h is free software.
- * 
+ *
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
- * 
+ *
  * common.h is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with common.h.  If not, write to:
  * 	The Free Software Foundation, Inc.,
@@ -65,6 +65,7 @@
 #define VOLUME	"volume"
 #define AUDIO_CHANNELS "audio_channels"
 #define USE_MEDIAKEYS		"use_mediakeys"
+#define USE_DEFAULTPL		"use_defaultpl"
 #define DISABLE_COVER_ART_FETCH "disable_cover_art_fetch"
 #define FULLSCREEN	"fullscreen"
 
@@ -377,6 +378,7 @@ GMutex *slide_away;
 GCond *mplayer_complete_cond;
 
 gboolean use_mediakeys;
+gboolean use_defaultpl;
 gboolean dvdnav_title_is_menu;
 
 gboolean qt_disabled;
@@ -468,6 +470,9 @@ gpointer launch_player(gpointer data);
 
 gboolean update_mplayer_config();
 gboolean read_mplayer_config();
+
+gchar *default_playlist;
+gboolean safe_to_save_default_playlist;
 
 #ifdef GTK2_12_ENABLED
 GtkRecentManager *recent_manager;
