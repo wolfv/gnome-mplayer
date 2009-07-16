@@ -516,6 +516,17 @@
         <long>PulseAudio started using a flat volume option by default in 0.9.15 (you can disable however)</long>
       </locale>
     </schema>    
-    
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/use_defaultpl</key>
+      <applyto>/apps/gnome-mplayer/preferences/use_defaultpl</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Set to TRUE if you want to save and load the default playlist</short>
+        <long>Will load and save the playlist when the program runs</long>
+      </locale>
+    </schema>    
   </schemalist>
 </gconfschemafile>

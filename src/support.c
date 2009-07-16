@@ -2020,7 +2020,7 @@ gdouble get_alsa_volume(gboolean show_details)
     snd_mixer_elem_t *elem;
     snd_mixer_selem_id_t *sid;
     glong get_vol, pmin, pmax;
-	gint playback;
+    gint playback;
     gfloat f_multi;
     gboolean found = FALSE;
     gchar **local_mixer;
@@ -2074,18 +2074,18 @@ gdouble get_alsa_volume(gboolean show_details)
             f_multi = (100 / (float) (pmax - pmin));
             if (snd_mixer_selem_has_playback_switch(elem)) {
                 snd_mixer_selem_get_playback_switch(elem, 0, &playback);
-			} else {
-                playback = 1;            
-			}
-			snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
-			if (playback == 1) {
-	            vol = (gdouble) ((get_vol - pmin) * f_multi);
-			} else {
-				idledata->mute = TRUE;
-				vol = 0;
-			}
+            } else {
+                playback = 1;
+            }
+            snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
+            if (playback == 1) {
+                vol = (gdouble) ((get_vol - pmin) * f_multi);
+            } else {
+                idledata->mute = TRUE;
+                vol = 0;
+            }
             if (verbose && show_details) {
-				printf("%s Playback is %i\n",mixer, playback);
+                printf("%s Playback is %i\n", mixer, playback);
                 printf("%s Range is %li to %li \n", mixer, pmin, pmax);
                 printf("%s Current Volume %li, multiplier = %f\n", mixer, get_vol, f_multi);
                 printf("Scaled Volume is %lf\n", vol);
@@ -2113,18 +2113,18 @@ gdouble get_alsa_volume(gboolean show_details)
             f_multi = (100 / (float) (pmax - pmin));
             if (snd_mixer_selem_has_playback_switch(elem)) {
                 snd_mixer_selem_get_playback_switch(elem, 0, &playback);
-			} else {
-                playback = 1;            
-			}
+            } else {
+                playback = 1;
+            }
             snd_mixer_selem_get_playback_volume(elem, 0, &get_vol);
-			if (playback == 1) {
-	            vol = (gdouble) ((get_vol - pmin) * f_multi);
-			} else {
-				idledata->mute = TRUE;
-				vol = 0;
-			}
+            if (playback == 1) {
+                vol = (gdouble) ((get_vol - pmin) * f_multi);
+            } else {
+                idledata->mute = TRUE;
+                vol = 0;
+            }
             if (verbose && show_details) {
-				printf("Master Playback is %i\n", playback);
+                printf("Master Playback is %i\n", playback);
                 printf("Master Range is %li to %li \n", pmin, pmax);
                 printf("Master Current Volume %li, multiplier = %f\n", get_vol, f_multi);
                 printf("Scaled Volume is %lf\n", vol);
@@ -2152,8 +2152,8 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
     snd_mixer_t *mhandle;
     snd_mixer_elem_t *elem;
     snd_mixer_selem_id_t *sid;
-    glong set_vol = 0,pmin, pmax;
-	gint playback;
+    glong set_vol = 0, pmin, pmax;
+    gint playback;
     gfloat f_multi;
     gboolean found = FALSE;
     gchar **local_mixer;
@@ -2206,21 +2206,21 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
             snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
             f_multi = ((float) (pmax - pmin) / 100);
             if (snd_mixer_selem_has_playback_switch(elem)) {
-				if (volume == 0) {
-            		snd_mixer_selem_set_playback_switch(elem, 0, 0);
-				} else {
-            		snd_mixer_selem_set_playback_switch(elem, 0, 1);
-				}
-           		snd_mixer_selem_get_playback_switch(elem, 0, &playback);
-			} else {
-                playback = 1;            
-			}
-			if (playback == 1) {
-				set_vol = (gdouble) ((volume) * f_multi) + pmin;
-				snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
-			}
+                if (volume == 0) {
+                    snd_mixer_selem_set_playback_switch(elem, 0, 0);
+                } else {
+                    snd_mixer_selem_set_playback_switch(elem, 0, 1);
+                }
+                snd_mixer_selem_get_playback_switch(elem, 0, &playback);
+            } else {
+                playback = 1;
+            }
+            if (playback == 1) {
+                set_vol = (gdouble) ((volume) * f_multi) + pmin;
+                snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
+            }
             if (verbose && show_details) {
-				printf("%s Playback is %i\n",mixer, playback);
+                printf("%s Playback is %i\n", mixer, playback);
                 printf("%s Range is %li to %li \n", mixer, pmin, pmax);
                 printf("%s Volume %i, multiplier = %f\n", mixer, volume, f_multi);
                 printf("Scaled Volume is %li\n", set_vol);
@@ -2247,21 +2247,21 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
             snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
             f_multi = ((float) (pmax - pmin) / 100);
             if (snd_mixer_selem_has_playback_switch(elem)) {
-				if (volume == 0) {
-            		snd_mixer_selem_set_playback_switch(elem, 0, 0);
-				} else {
-            		snd_mixer_selem_set_playback_switch(elem, 0, 1);
-				}
-           		snd_mixer_selem_get_playback_switch(elem, 0, &playback);
-			} else {
-                playback = 1;            
-			}
-			if (playback == 1) {
-				set_vol = (gdouble) ((volume) * f_multi) + pmin;
-				snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
-			}
+                if (volume == 0) {
+                    snd_mixer_selem_set_playback_switch(elem, 0, 0);
+                } else {
+                    snd_mixer_selem_set_playback_switch(elem, 0, 1);
+                }
+                snd_mixer_selem_get_playback_switch(elem, 0, &playback);
+            } else {
+                playback = 1;
+            }
+            if (playback == 1) {
+                set_vol = (gdouble) ((volume) * f_multi) + pmin;
+                snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
+            }
             if (verbose && show_details) {
-				printf("%s Playback is %i\n",mixer, playback);
+                printf("%s Playback is %i\n", mixer, playback);
                 printf("%s Range is %li to %li \n", mixer, pmin, pmax);
                 printf("%s Volume %i, multiplier = %f\n", mixer, volume, f_multi);
                 printf("Scaled Volume is %li\n", set_vol);

@@ -2,19 +2,19 @@
 /*
  * playlist.c
  * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
- * 
+ *
  * playlist.c is free software.
- * 
+ *
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
- * 
+ *
  * playlist.c is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with playlist.c.  If not, write to:
  * 	The Free Software Foundation, Inc.,
@@ -26,7 +26,6 @@
 #include "common.h"
 #include "gui.h"
 #include "support.h"
-
 
 void update_gui()
 {
@@ -49,6 +48,9 @@ void update_gui()
     } else {
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
     }
+
+    if (use_defaultpl && safe_to_save_default_playlist)
+        save_playlist_pls(default_playlist);
 
 }
 
@@ -986,4 +988,6 @@ void create_playlist_widget()
                              "button_press_event",
                              G_CALLBACK(playlist_popup_handler), G_OBJECT(playlist_popup_menu));
     gtk_widget_show_all(GTK_WIDGET(playlist_popup_menu));
+
+
 }

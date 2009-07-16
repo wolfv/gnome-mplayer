@@ -2,19 +2,19 @@
 /*
  * main.c
  * Copyright (C) Kevin DeKorte 2006 <kdekorte@gmail.com>
- * 
+ *
  * main.c is free software.
- * 
+ *
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option)
  * any later version.
- * 
+ *
  * main.c is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with main.c.  If not, write to:
  * 	The Free Software Foundation, Inc.,
@@ -426,17 +426,17 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
     }
     idledata->x = 0;
     idledata->y = 0;
-	idledata->cachepercent = -1.0;
+    idledata->cachepercent = -1.0;
     g_strlcpy(idledata->info, uri, 1024);
     set_media_info(idledata);
 
     streaming = 0;
     subtitle_delay = 0.0;
 
-	gm_store = gm_pref_store_new("gnome-mplayer");
-	forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
-	gm_pref_store_free(gm_store);
-	
+    gm_store = gm_pref_store_new("gnome-mplayer");
+    forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
+    gm_pref_store_free(gm_store);
+
     if (thread_data->filename != NULL && strlen(thread_data->filename) != 0) {
         thread_data->player_window = 0;
         thread_data->playlist = playlist;
@@ -586,6 +586,7 @@ int main(int argc, char *argv[])
     disable_animation = FALSE;
     auto_hide_timeout = 3;
     use_mediakeys = TRUE;
+    use_defaultpl = FALSE;
     mplayer_bin = NULL;
     single_instance = FALSE;
     disable_deinterlace = TRUE;
@@ -615,8 +616,8 @@ int main(int argc, char *argv[])
     button_size = 16;
     lastguistate = -1;
     adjusting = FALSE;
-	non_fs_height = 0;
-	non_fs_width = 0;
+    non_fs_height = 0;
+    non_fs_width = 0;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -644,6 +645,10 @@ int main(int argc, char *argv[])
     }
     g_free(uri);
     uri = NULL;
+
+    default_playlist =
+        g_strdup_printf("file://%s/gnome-mplayer/default.pls", g_get_user_config_dir());
+    safe_to_save_default_playlist = TRUE;
 
     gm_store = gm_pref_store_new("gnome-mplayer");
     gmp_store = gm_pref_store_new("gecko-mediaplayer");
@@ -674,6 +679,7 @@ int main(int argc, char *argv[])
         gm_pref_store_get_int_with_default(gm_store, AUTOHIDETIMEOUT, auto_hide_timeout);
     disable_cover_art_fetch = gm_pref_store_get_boolean(gm_store, DISABLE_COVER_ART_FETCH);
     use_mediakeys = gm_pref_store_get_boolean_with_default(gm_store, USE_MEDIAKEYS, use_mediakeys);
+    use_defaultpl = gm_pref_store_get_boolean_with_default(gm_store, USE_DEFAULTPL, use_defaultpl);
     metadata_codepage = gm_pref_store_get_string(gm_store, METADATACODEPAGE);
     subtitlefont = gm_pref_store_get_string(gm_store, SUBTITLEFONT);
     subtitle_scale = gm_pref_store_get_float(gm_store, SUBTITLESCALE);
@@ -996,6 +1002,9 @@ int main(int argc, char *argv[])
         use_remember_loc = remember_loc;
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
                                        playlist_visible);
+    } else {
+        // prevents saving of a playlist with one item on it
+        use_defaultpl = FALSE;
     }
 
     if (single_instance && embed_window == 0) {
@@ -1003,6 +1012,14 @@ int main(int argc, char *argv[])
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
                                        playlist_visible);
     }
+
+    safe_to_save_default_playlist = FALSE;
+    if (use_defaultpl) {
+		create_folder_progress_window();
+        parse_playlist(default_playlist);
+		destroy_folder_progress_window();
+	}
+    safe_to_save_default_playlist = TRUE;
 
     gtk_main();
 
