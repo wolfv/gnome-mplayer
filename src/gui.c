@@ -1759,12 +1759,10 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             send_command("audio_delay -0.1 0\n", TRUE);
             return FALSE;
         case GDK_z:
-            if (fullscreen)
-                menuitem_view_decrease_subtitle_delay_callback(NULL, NULL);
+            menuitem_view_decrease_subtitle_delay_callback(NULL, NULL);
             return FALSE;
         case GDK_x:
-            if (fullscreen)
-                menuitem_view_increase_subtitle_delay_callback(NULL, NULL);
+            menuitem_view_increase_subtitle_delay_callback(NULL, NULL);
             return FALSE;
         case GDK_F11:
             if (idledata->videopresent)
@@ -5346,10 +5344,10 @@ void setup_accelerators(gboolean enable)
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_angle), accel_group, GDK_a,
                                       GDK_CONTROL_MASK);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_aspect), accel_group, GDK_a, 0);
-        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_decrease_subtitle_delay),
-                                      accel_group, GDK_z, 0);
-        gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_increase_subtitle_delay),
-                                      accel_group, GDK_x, 0);
+        //gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_decrease_subtitle_delay),
+        //                              accel_group, GDK_z, 0);
+        //gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_increase_subtitle_delay),
+        //                              accel_group, GDK_x, 0);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), accel_group,
                                       GDK_r, GDK_SHIFT_MASK);
         gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), accel_group, GDK_t,
@@ -5388,10 +5386,10 @@ void setup_accelerators(gboolean enable)
 		                           accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
 
 		// we want to use "window_key_callback" to handle this, due to GTK keyboard issues.
-		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), "activate",
-		                           accel_group, GDK_z, 0, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_increase_subtitle_delay), "activate",
-		                           accel_group, GDK_x, 0, GTK_ACCEL_VISIBLE);
+		//gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), "activate",
+		//                           accel_group, GDK_z, 0, GTK_ACCEL_VISIBLE);
+		//gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_increase_subtitle_delay), "activate",
+		//                           accel_group, GDK_x, 0, GTK_ACCEL_VISIBLE);
 
 		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), "activate",
 		                           accel_group, GDK_r, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);

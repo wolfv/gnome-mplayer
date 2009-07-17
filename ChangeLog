@@ -1,4 +1,5 @@
 Development
+    Remove the X and Z accelerator tips off the menus, but they still work, fixes bug 234
     Enable title searching when mouse is over the playlist, disables accelerators during this.
     Apply patch for using default playlist from Adrian Dimitrov
     When working in ALSA or PULSE flat mode, set volume thru alsa and not thru mplayer
