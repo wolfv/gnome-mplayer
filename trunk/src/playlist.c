@@ -243,6 +243,21 @@ gboolean playlist_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
 
 }
 
+gboolean playlist_enter_callback(GtkWidget * widget, GdkEventMotion * event, gpointer user_data)
+{
+	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list),TRUE);
+	gtk_tree_view_set_search_column(GTK_TREE_VIEW(list),DESCRIPTION_COLUMN);
+	gtk_widget_grab_focus(list);
+	setup_accelerators(FALSE);
+	return TRUE;
+}
+
+gboolean playlist_leave_callback(GtkWidget * widget, GdkEventMotion * event, gpointer user_data)
+{	
+	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list),FALSE);
+	setup_accelerators(TRUE);
+	return TRUE;
+}
 
 void save_playlist(GtkWidget * widget, void *data)
 {
@@ -732,7 +747,6 @@ void playlist_close(GtkWidget * widget, void *data)
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 {
     playlist_visible = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
-
     adjust_layout();
 }
 
@@ -786,6 +800,10 @@ void create_playlist_widget()
                      G_CALLBACK(button_release_callback), NULL);
     g_signal_connect(G_OBJECT(list), "motion-notify-event",
                      G_CALLBACK(playlist_motion_callback), NULL);
+    g_signal_connect(G_OBJECT(list), "enter-notify-event",
+                     G_CALLBACK(playlist_enter_callback), NULL);
+    g_signal_connect(G_OBJECT(list), "leave-notify-event",
+                     G_CALLBACK(playlist_leave_callback), NULL);
     // Give the window the property to accept DnD
     target_entry[i].target = DRAG_NAME_0;
     target_entry[i].flags = 0;
@@ -825,7 +843,7 @@ void create_playlist_widget()
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, DESCRIPTION_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
-
+	
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(_("Artist"),
                                                       renderer, "text", ARTIST_COLUMN, NULL);

@@ -5310,7 +5310,7 @@ void make_button(gchar * src, gchar * hrefid)
 
 }
 
-void setup_accelerators()
+void setup_accelerators(gboolean enable)
 {
     if (gtk_accel_group_query(accel_group, GDK_c, 0, NULL) != NULL) {
         // printf("flushing accelerators\n");
@@ -5357,61 +5357,61 @@ void setup_accelerators()
 
     }
 
+	if (enable) {
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_config), "activate",
+		                           accel_group, GDK_p, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_take_screenshot), "activate",
+		                           accel_group, GDK_t, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_playlist), "activate",
+		                           accel_group, GDK_F9, 0, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_file_open_location), "activate",
+		                           accel_group, GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_info), "activate",
+		                           accel_group, GDK_i, 0, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
+		                           accel_group, GDK_v, 0, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_details), "activate",
+		                           accel_group, GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_meter), "activate",
+		                           accel_group, GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_config), "activate",
-                               accel_group, GDK_p, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_take_screenshot), "activate",
-                               accel_group, GDK_t, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_playlist), "activate",
-                               accel_group, GDK_F9, 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_file_open_location), "activate",
-                               accel_group, GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_info), "activate",
-                               accel_group, GDK_i, 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles), "activate",
-                               accel_group, GDK_v, 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_details), "activate",
-                               accel_group, GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_meter), "activate",
-                               accel_group, GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+		if (!disable_fullscreen) {
+		    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_fullscreen), "activate",
+		                               accel_group, GDK_f, 0, GTK_ACCEL_VISIBLE);
 
-    if (!disable_fullscreen) {
-        gtk_widget_add_accelerator(GTK_WIDGET(menuitem_fullscreen), "activate",
-                                   accel_group, GDK_f, 0, GTK_ACCEL_VISIBLE);
+		    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_fullscreen), "activate",
+		                               accel_group, GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-        gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_fullscreen), "activate",
-                                   accel_group, GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+		}
 
-    }
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_aspect), "activate",
+		                           accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
 
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_aspect), "activate",
-                               accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
+		// we want to use "window_key_callback" to handle this, due to GTK keyboard issues.
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), "activate",
+		                           accel_group, GDK_z, 0, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_increase_subtitle_delay), "activate",
+		                           accel_group, GDK_x, 0, GTK_ACCEL_VISIBLE);
 
-    // we want to use "window_key_callback" to handle this, due to GTK keyboard issues.
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), "activate",
-                               accel_group, GDK_z, 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_increase_subtitle_delay), "activate",
-                               accel_group, GDK_x, 0, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), "activate",
+		                           accel_group, GDK_r, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
 
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), "activate",
-                               accel_group, GDK_r, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), "activate",
+		                           accel_group, GDK_t, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
 
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), "activate",
-                               accel_group, GDK_t, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
+		                           accel_group, GDK_1, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone), "activate",
-                               accel_group, GDK_1, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_twotoone), "activate",
+		                           accel_group, GDK_2, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_twotoone), "activate",
-                               accel_group, GDK_2, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_showcontrols), "activate",
-                               accel_group, GDK_c, 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls), "activate",
-                               accel_group, GDK_c, 0, GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_angle), "activate",
-                               accel_group, GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_showcontrols), "activate",
+		                           accel_group, GDK_c, 0, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls), "activate",
+		                           accel_group, GDK_c, 0, GTK_ACCEL_VISIBLE);
+		gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_angle), "activate",
+		                           accel_group, GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	}
 }
 
 GtkWidget *create_window(gint windowid)
@@ -5897,7 +5897,7 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_about_callback), NULL);
 
     gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
-    setup_accelerators();
+    setup_accelerators(TRUE);
     g_signal_connect(GTK_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
 
     // Give the window the property to accept DnD
