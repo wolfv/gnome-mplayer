@@ -2136,6 +2136,9 @@ gdouble get_alsa_volume(gboolean show_details)
 
     snd_mixer_detach(mhandle, device);
     snd_mixer_close(mhandle);
+    
+    vol = floor(vol + 0.5);
+
 #endif
 
     if (verbose && show_details)

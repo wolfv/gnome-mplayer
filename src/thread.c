@@ -698,12 +698,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         }
         if (buf != NULL) {
             for (i = 1; i < (int) strlen(buf) - 1; i++) {
-                if (buf[i] == '\'') {
+                if (!strncmp(&buf[i], "\';", 2)) {
                     buf[i] = '\0';
                     break;
                 }
             }
-            message = g_strdup_printf("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
+            if (g_utf8_validate(buf + 1, strlen(buf+1), 0))
+                message = g_markup_printf_escaped("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
         }
         if (message) {
             // reset max values in audio meter
@@ -712,7 +713,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             }
             g_strlcpy(idledata->media_info, message, 1024);
             g_free(message);
-            message = g_strdup_printf("\n\t<b>%s</b>\n", buf + 1);
+            message = g_markup_printf_escaped("\n\t<b>%s</b>\n", buf + 1);
             g_strlcpy(idledata->media_notification, message, 1024);
             g_free(message);
             message = NULL;
