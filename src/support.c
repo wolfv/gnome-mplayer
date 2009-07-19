@@ -2276,11 +2276,12 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
 
     snd_mixer_detach(mhandle, device);
     snd_mixer_close(mhandle);
-#endif
 
     if (verbose && show_details)
         printf("Set alsa volume to %li\n", set_vol);
     return found;
+#endif
+
 }
 
 gchar *seconds_to_string(gfloat seconds)
