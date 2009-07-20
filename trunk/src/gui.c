@@ -3748,7 +3748,7 @@ void gamma_callback(GtkRange * range, gpointer data)
     send_command(cmd, TRUE);
     g_free(cmd);
     send_command("get_property gamma\n", TRUE);
-    idle->hue = gamma;
+    idle->gamma = gamma;
 }
 
 void hue_callback(GtkRange * range, gpointer data)
