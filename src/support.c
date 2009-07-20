@@ -2280,6 +2280,14 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
     if (verbose && show_details)
         printf("Set alsa volume to %li\n", set_vol);
     return found;
+
+#else
+	gchar *cmd;
+	
+	cmd = g_strdup_printf("volume %i 1\n", vol);
+    send_command(cmd, TRUE);
+    g_free(cmd);
+	
 #endif
 
 }

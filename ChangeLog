@@ -1,4 +1,5 @@
 Development
+    In set_alsa_volume, if not using asound then tell mplayer to do it
     Retain advanced video settings when switching to new video
     Apply ICY patches and volume rounding patches from assult64
     Remove the X and Z accelerator tips off the menus, but they still work, fixes bug 234
