@@ -253,6 +253,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GString *mplayer_output;
     GIOStatus status;
     gchar *buf, *message = NULL;
+	gchar *cmd;
     gint pos, volume, i;
     gfloat percent;
     GError *error = NULL;
@@ -387,6 +388,27 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         } else {
             send_command("get_property sub_demux\n", TRUE);
         }
+
+		cmd = g_strdup_printf("brightness %i\n",idledata->brightness);
+		send_command(cmd, TRUE);
+		g_free(cmd);
+
+		cmd = g_strdup_printf("contrast %i\n",idledata->contrast);
+		send_command(cmd, TRUE);
+		g_free(cmd);
+
+		cmd = g_strdup_printf("gamma %i\n",idledata->gamma);
+		send_command(cmd, TRUE);
+		g_free(cmd);
+
+		cmd = g_strdup_printf("hue %i\n",idledata->hue);
+		send_command(cmd, TRUE);
+		g_free(cmd);
+
+		cmd = g_strdup_printf("saturation %i\n",idledata->saturation);
+		send_command(cmd, TRUE);
+		g_free(cmd);
+		
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
