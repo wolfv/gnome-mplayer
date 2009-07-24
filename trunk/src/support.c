@@ -2284,7 +2284,7 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
 #else
 	gchar *cmd;
 	
-	cmd = g_strdup_printf("volume %i 1\n", vol);
+	cmd = g_strdup_printf("volume %i 1\n", volume);
     send_command(cmd, TRUE);
     g_free(cmd);
 	
