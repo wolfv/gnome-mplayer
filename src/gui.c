@@ -4573,27 +4573,27 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     conf_label = gtk_label_new(_("Video Output:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_widget_set_size_request(GTK_WIDGET(config_vo), 200, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_vo, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+    gtk_table_attach(GTK_TABLE(conf_table), config_vo, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0,
                      0);
     i++;
 
     conf_label = gtk_label_new(_("Audio Output:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_widget_set_size_request(GTK_WIDGET(config_ao), 200, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_ao, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+    gtk_table_attach(GTK_TABLE(conf_table), config_ao, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0,
                      0);
     i++;
 
@@ -4601,22 +4601,22 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_label = gtk_label_new(_("Default Mixer:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_widget_set_size_request(GTK_WIDGET(config_mixer), 200, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_mixer, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+    gtk_table_attach(GTK_TABLE(conf_table), config_mixer, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0,
                      0);
     i++;
 #endif
     conf_label = gtk_label_new(_("Audio Channels to Output"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_widget_set_size_request(GTK_WIDGET(config_audio_channels), 200, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_audio_channels, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_audio_channels, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     i++;
 
@@ -4624,33 +4624,33 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_label = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_EXPAND, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     i++;
 
     gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 
-    conf_table = gtk_table_new(20, 2, FALSE);
-    gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
-    i = 0;
+    //conf_table = gtk_table_new(20, 2, FALSE);
+    //gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
+    //i = 0;
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Configuration Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
 #ifndef HAVE_ASOUNDLIB
     conf_label = gtk_label_new(_("Default Volume Level:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     config_volume = gtk_spin_button_new_with_range(0, 100, 1);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_volume, _("Default volume for playback"), NULL);
     gtk_widget_set_size_request(config_volume, 100, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     gm_store = gm_pref_store_new("gnome-mplayer");
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume),
@@ -4666,7 +4666,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_label = gtk_label_new(_("Minimum Cache Size (KB):"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     config_cachesize = gtk_spin_button_new_with_range(32, 256 * 1024, 512);
     tooltip = gtk_tooltips_new();
@@ -4675,7 +4675,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                          ("Amount of data to cache when playing media from network, use higher values for slow networks."),
                          NULL);
     gtk_widget_set_size_request(config_cachesize, 100, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_cachesize, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_cachesize, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     //gtk_range_set_value(GTK_RANGE(config_cachesize), cache_size);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_cachesize), cache_size);
@@ -4695,8 +4695,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_set_size_request(config_osdlevel, 150, -1);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_osdlevel, 1, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), config_osdlevel, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     conf_label = gtk_label_new(_("Post-processing level:"));
@@ -4707,8 +4707,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_range_set_value(GTK_RANGE(config_pplevel), pplevel);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pplevel, 1, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), config_pplevel, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     conf_table = gtk_table_new(20, 2, FALSE);
@@ -4722,37 +4722,37 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     config_qt = gtk_check_button_new_with_label(_("QuickTime Emulation"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_qt), !qt_disabled);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_qt, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_qt, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_real = gtk_check_button_new_with_label(_("RealPlayer Emulation"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_real), !real_disabled);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_real, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_real, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_wmp = gtk_check_button_new_with_label(_("Windows Media Player Emulation"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_wmp), !wmp_disabled);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_wmp, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_wmp, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_dvx = gtk_check_button_new_with_label(_("DiVX Player Emulation"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_dvx), !dvx_disabled);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_dvx, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_dvx, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_midi = gtk_check_button_new_with_label(_("MIDI Support (requires MPlayer support)"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_midi), !midi_disabled);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_midi, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_midi, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_noembed = gtk_check_button_new_with_label(_("Disable Player Embedding"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_noembed), embedding_disabled);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_noembed, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_noembed, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     conf_table = gtk_table_new(20, 2, FALSE);
@@ -4762,39 +4762,39 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     conf_label = gtk_label_new(_("Default Audio Language"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_widget_set_size_request(GTK_WIDGET(config_alang), 200, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_alang, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+    gtk_table_attach(GTK_TABLE(conf_table), config_alang, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0,
                      0);
     i++;
 
     conf_label = gtk_label_new(_("Default Subtitle Language:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);;
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_widget_set_size_request(GTK_WIDGET(config_slang), 200, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_slang, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+    gtk_table_attach(GTK_TABLE(conf_table), config_slang, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0,
                      0);
     i++;
 
     conf_label = gtk_label_new(_("File Metadata Encoding:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_widget_set_size_request(GTK_WIDGET(config_metadata_codepage), 200, -1);
 
-    gtk_table_attach(GTK_TABLE(conf_table), config_metadata_codepage, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_metadata_codepage, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     i++;
 
@@ -4806,7 +4806,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     config_ass =
@@ -4814,7 +4814,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                                            ("Enable _Advanced Substation Alpha (ASS) Subtitle Support"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_ass), !disable_ass);
     g_signal_connect(GTK_OBJECT(config_ass), "toggled", GTK_SIGNAL_FUNC(ass_toggle_callback), NULL);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_ass, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_ass, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(config_ass);
     i++;
 
@@ -4823,14 +4823,14 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_set_sensitive(config_embeddedfonts, !disable_ass);
 //    g_signal_connect(GTK_OBJECT(config_embeddedfonts), "toggled",
 //                     GTK_SIGNAL_FUNC(embedded_fonts_toggle_callback), NULL);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_embeddedfonts, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_embeddedfonts, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(config_embeddedfonts);
     i++;
 
     conf_label = gtk_label_new(_("Subtitle Font:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
 
@@ -4839,21 +4839,21 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_font_button_set_font_name(GTK_FONT_BUTTON(config_subtitle_font), subtitlefont);
     }
 //    gtk_widget_set_sensitive(config_subtitle_font, disable_embeddedfonts);
-    gtk_font_button_set_show_size(GTK_FONT_BUTTON(config_subtitle_font), FALSE);
-    gtk_font_button_set_show_style(GTK_FONT_BUTTON(config_subtitle_font), FALSE);
+    gtk_font_button_set_show_size(GTK_FONT_BUTTON(config_subtitle_font), TRUE);
+    gtk_font_button_set_show_style(GTK_FONT_BUTTON(config_subtitle_font), TRUE);
 
     gtk_font_button_set_use_size(GTK_FONT_BUTTON(config_subtitle_font), FALSE);
     gtk_font_button_set_use_font(GTK_FONT_BUTTON(config_subtitle_font), TRUE);
 
     gtk_font_button_set_title(GTK_FONT_BUTTON(config_subtitle_font), _("Subtitle Font Selection"));
-    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_font, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_font, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     i++;
 
     conf_label = gtk_label_new(_("Subtitle Color:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     config_subtitle_color = gtk_color_button_new();
@@ -4877,63 +4877,63 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_color_button_set_title(GTK_COLOR_BUTTON(config_subtitle_color),
                                _("Subtitle Color Selection"));
     gtk_widget_set_sensitive(config_subtitle_color, !disable_ass);
-    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_color, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_color, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     i++;
 
     config_subtitle_outline = gtk_check_button_new_with_label(_("Outline Subtitle Font"));
 //    gtk_widget_set_sensitive(config_subtitle_outline, disable_embeddedfonts);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_subtitle_outline), subtitle_outline);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_subtitle_outline, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_outline, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_subtitle_shadow = gtk_check_button_new_with_label(_("Shadow Subtitle Font"));
 //    gtk_widget_set_sensitive(config_subtitle_shadow, disable_embeddedfonts);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow), subtitle_shadow);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_subtitle_shadow, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_shadow, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     conf_label = gtk_label_new(_("Subtitle Font Scaling:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     config_subtitle_scale = gtk_spin_button_new_with_range(0.25, 10, 0.05);
     gtk_widget_set_size_request(config_subtitle_scale, -1, -1);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_subtitle_scale), subtitle_scale);
-    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_scale, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_scale, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     i++;
 
     conf_label = gtk_label_new(_("Subtitle File Encoding:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_widget_set_size_request(GTK_WIDGET(config_subtitle_codepage), 200, -1);
 
-    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_codepage, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_codepage, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     i++;
 
     conf_label = gtk_label_new(_("Subtitle Lower Margin (X11/XV Only):"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     config_subtitle_margin = gtk_spin_button_new_with_range(0, 200, 1);
     gtk_widget_set_size_request(config_subtitle_scale, -1, -1);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_subtitle_margin), subtitle_margin);
-    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_margin, 1, 2, i, i + 1, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_margin, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     i++;
 
     config_show_subtitles = gtk_check_button_new_with_label(_("Show Subtitles by Default"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_subtitles), showsubtitles);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_subtitles, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_show_subtitles, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     // Page 5
@@ -4944,40 +4944,40 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     config_playlist_visible = gtk_check_button_new_with_label(_("Start with playlist visible"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_playlist_visible), playlist_visible);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_playlist_visible, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_playlist_visible, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_details_visible = gtk_check_button_new_with_label(_("Start with details visible"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_details_visible), details_visible);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_details_visible, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_details_visible, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_use_mediakeys = gtk_check_button_new_with_label(_("Respond to Keyboard Media Keys"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_use_mediakeys), use_mediakeys);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_use_mediakeys, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_use_mediakeys, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_use_defaultpl = gtk_check_button_new_with_label(_("Use default playlist"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_use_defaultpl), use_defaultpl);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_use_defaultpl, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_use_defaultpl, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
 #ifdef NOTIFY_ENABLED
     config_show_notification = gtk_check_button_new_with_label(_("Show notification popup"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_notification), show_notification);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_notification, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_show_notification, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 #endif
 
 #ifdef GTK2_12_ENABLED
     config_show_status_icon = gtk_check_button_new_with_label(_("Show status icon"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_status_icon), show_status_icon);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_show_status_icon, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_show_status_icon, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 #endif
 
@@ -4985,36 +4985,36 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_check_button_new_with_label(_
                                         ("Place playlist below media (requires application restart)"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_vertical_layout), vertical_layout);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_vertical_layout, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_vertical_layout, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_single_instance =
         gtk_check_button_new_with_label(_("Only allow one instance of Gnome MPlayer"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_single_instance), single_instance);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_single_instance, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_single_instance, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     g_signal_connect(G_OBJECT(config_single_instance), "toggled",
                      G_CALLBACK(config_single_instance_callback), NULL);
     i++;
 
     conf_label = gtk_label_new("");
     gtk_label_set_width_chars(GTK_LABEL(conf_label), 3);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
     config_replace_and_play =
         gtk_check_button_new_with_label(_
                                         ("When opening in single instance mode, replace existing file"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_replace_and_play), replace_and_play);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_replace_and_play, 1, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_replace_and_play, 1, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_set_sensitive(config_replace_and_play,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
                                                           (config_single_instance)));
     i++;
     conf_label = gtk_label_new("");
     gtk_label_set_width_chars(GTK_LABEL(conf_label), 3);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
     config_bring_to_front =
         gtk_check_button_new_with_label(_("When opening file, bring main window to front"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_bring_to_front), bring_to_front);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_bring_to_front, 1, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_bring_to_front, 1, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_set_sensitive(config_bring_to_front,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
                                                           (config_single_instance)));
@@ -5022,24 +5022,24 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
     config_remember_loc = gtk_check_button_new_with_label(_("Remember Window Location and Size"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_remember_loc), remember_loc);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_remember_loc, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_remember_loc, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_resize_on_new_media =
         gtk_check_button_new_with_label(_("Resize window when new video is loaded"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_resize_on_new_media),
                                  resize_on_new_media);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_resize_on_new_media, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_resize_on_new_media, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_keep_on_top = gtk_check_button_new_with_label(_("Keep window above other windows"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_keep_on_top), keep_on_top);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_keep_on_top, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_keep_on_top, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_pause_on_click = gtk_check_button_new_with_label(_("Pause playback on mouse click"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_pause_on_click), !disable_pause_on_click);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_pause_on_click, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
@@ -5049,7 +5049,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                          ("When this option is set, extra debug information is sent to the terminal or into ~/.xsession-errors"),
                          NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_verbose), verbose);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_verbose, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_verbose, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     // Page 6
@@ -5060,7 +5060,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
@@ -5070,7 +5070,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                          ("Set this option if changing the volume in Gnome MPlayer changes the master volume"),
                          NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_softvol, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_softvol, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_deinterlace = gtk_check_button_new_with_mnemonic(_("De_interlace Video"));
@@ -5078,7 +5078,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_tooltips_set_tip(tooltip, config_deinterlace, _("Set this option if video looks striped"),
                          NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_deinterlace), !disable_deinterlace);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_deinterlace, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_deinterlace, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_framedrop = gtk_check_button_new_with_mnemonic(_("_Drop frames"));
@@ -5086,15 +5086,19 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_tooltips_set_tip(tooltip, config_framedrop,
                          _("Set this option if video is well behind the audio"), NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_framedrop), !disable_framedrop);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_framedrop, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_framedrop, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_forcecache =
         gtk_check_button_new_with_label(_("Force the use of cache setting on streaming media"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_forcecache), forcecache);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_forcecache, 0, 2, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_forcecache, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
-
+    
+    conf_label = gtk_label_new("");
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    i++;
+    
     conf_label = gtk_label_new(_("MPlayer Executable:"));
     config_mplayer_bin = gtk_entry_new();
     tooltip = gtk_tooltips_new();
@@ -5106,11 +5110,15 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_entry_set_width_chars(GTK_ENTRY(config_mplayer_bin), 40);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_mplayer_bin, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_mplayer_bin, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
-
+    
+    conf_label = gtk_label_new("");
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    i++;
+    
     conf_label = gtk_label_new(_("Extra Options to MPlayer:"));
     config_extraopts = gtk_entry_new();
     tooltip = gtk_tooltips_new();
@@ -5120,9 +5128,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_entry_set_width_chars(GTK_ENTRY(config_extraopts), 40);
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
-    gtk_table_attach_defaults(GTK_TABLE(conf_table), config_extraopts, 0, 1, i, i + 1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_extraopts, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_cancel);
