@@ -161,6 +161,14 @@ if test -x `which pulseaudio`; then
         fi
 fi
 AC_SUBST(FLATVOL)
+
+if test -x `which gnome-power-manager`; then
+        GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
+        if test $GPMVER -ge 26; then
+            AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
+        fi
+fi
+
     
 AC_CHECK_HEADERS([mntent.h])
 AC_OUTPUT([

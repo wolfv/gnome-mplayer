@@ -9928,6 +9928,18 @@ if test -x `which pulseaudio`; then
 fi
 
 
+if test -x `which gnome-power-manager`; then
+        GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
+        if test $GPMVER -gt 24; then
+
+cat >>confdefs.h <<\_ACEOF
+#define SM_INHIBIT 1
+_ACEOF
+
+        fi
+fi
+
+
 
 for ac_header in mntent.h
 do
