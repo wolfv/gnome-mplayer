@@ -1,4 +1,5 @@
 Development
+    Use SessionManager to inhibit idle when gnome-power-manager is >= 2.26, otherwise use ScreenSaver
     Property gui layout patch by assult64
     In set_alsa_volume, if not using asound then tell mplayer to do it
     Retain advanced video settings when switching to new video

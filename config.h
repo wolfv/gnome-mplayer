@@ -100,6 +100,9 @@
 /* Define to the version of this package. */
 #define PACKAGE_VERSION ""
 
+/* Defined if you are using gnome-power-manager 2.26 or higher */
+#define SM_INHIBIT 1
+
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
