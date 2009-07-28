@@ -1192,7 +1192,8 @@ void dbus_enable_screensaver()
         dbus_message_append_args(message, DBUS_TYPE_INT32, &sm_cookie, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
-#else
+#endif
+#ifdef SS_INHIBIT
         message =
             dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
                                          "org.gnome.ScreenSaver", "UnInhibit");
@@ -1216,7 +1217,7 @@ void dbus_disable_screensaver()
     if (connection != NULL) {
         dbus_error_init(&error);
 
-#ifndef SM_INHIBIT
+#ifdef SS_INHIBIT
         message =
             dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
                                          "org.gnome.ScreenSaver", "Inhibit");
@@ -1233,8 +1234,9 @@ void dbus_disable_screensaver()
 
         dbus_message_unref(message);
         dbus_error_free(&error);
-#else
+#endif
 
+#ifdef SM_INHIBIT
         message =
             dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
                                          "org.gnome.SessionManager", "Inhibit");
