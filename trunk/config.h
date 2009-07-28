@@ -103,6 +103,9 @@
 /* Defined if you are using gnome-power-manager 2.26 or higher */
 #define SM_INHIBIT 1
 
+/* Defined if you are using gnome-power-manager below 2.26 */
+/* #undef SS_INHIBIT */
+
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 

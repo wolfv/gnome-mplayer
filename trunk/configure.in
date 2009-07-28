@@ -167,6 +167,10 @@ if test -x `which gnome-power-manager`; then
         if test $GPMVER -ge 26; then
             AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
         fi
+        if test $GPMVER -lt 26; then
+            AC_DEFINE(SS_INHIBIT, 1, [Defined if you are using gnome-power-manager below 2.26 ])
+        fi
+        
 fi
 
     
