@@ -851,6 +851,8 @@ int main(int argc, char *argv[])
     idledata->caching_complete = g_cond_new();
 #endif
 
+    retrieve_metadata_pool = g_thread_pool_new(retrieve_metadata,NULL,10,TRUE,NULL);
+                        
     if (argv[fileindex] != NULL) {
         g_stat(argv[fileindex], &buf);
         if (verbose) {

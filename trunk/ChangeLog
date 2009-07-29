@@ -1,4 +1,5 @@
 Development
+    Move metadata loading into a threadpool, so it is done in the background speeds up playlist loading
     Handle screensaver disabling a little differently
     Fix "Save" sensitivity when running in plugin mode
     Use SessionManager to inhibit idle when gnome-power-manager is >= 2.26, otherwise use ScreenSaver

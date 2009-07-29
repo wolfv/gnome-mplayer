@@ -739,6 +739,86 @@ gboolean set_gui_state(void *data)
     return FALSE;
 }
 
+gboolean set_metadata(gpointer data)
+{
+	MetaData *mdata = (MetaData *)data;
+	gchar *uri;
+	GtkTreeIter riter;
+
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&riter)) {
+		do {
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &riter, ITEM_COLUMN, &uri,-1);
+			if (g_strcmp0(mdata->uri,uri) == 0) {
+				g_free(uri);
+				break;
+			}
+			g_free(uri);
+		} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&riter));
+
+		if(gtk_list_store_iter_is_valid(playliststore,&riter)) {
+			if (mdata != NULL) {
+				
+				gtk_list_store_set(playliststore, &riter,
+		                       DESCRIPTION_COLUMN, mdata->title,
+		                       ARTIST_COLUMN, mdata->artist,
+		                       ALBUM_COLUMN, mdata->album,
+		                       SUBTITLE_COLUMN, mdata->subtitle,
+		                       AUDIO_CODEC_COLUMN, mdata->audio_codec,
+		                       VIDEO_CODEC_COLUMN, mdata->video_codec,
+		                       LENGTH_COLUMN, mdata->length,
+		                       DEMUXER_COLUMN, mdata->demuxer,
+		                       LENGTH_VALUE_COLUMN, mdata->length_value,
+		                       VIDEO_WIDTH_COLUMN, mdata->width, VIDEO_HEIGHT_COLUMN, mdata->height, -1);
+				
+			}
+		}
+	}
+	
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(nonrandomplayliststore),&riter)) {
+		do {
+			gtk_tree_model_get(GTK_TREE_MODEL(nonrandomplayliststore), &riter, ITEM_COLUMN, &uri,-1);
+			if (g_strcmp0(mdata->uri,uri) == 0) {
+				g_free(uri);
+				break;
+			}
+			g_free(uri);
+		} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(nonrandomplayliststore),&riter));
+
+		if(gtk_list_store_iter_is_valid(nonrandomplayliststore,&riter)) {
+			if (mdata != NULL) {
+				
+				gtk_list_store_set(nonrandomplayliststore, &riter,
+		                       DESCRIPTION_COLUMN, mdata->title,
+		                       ARTIST_COLUMN, mdata->artist,
+		                       ALBUM_COLUMN, mdata->album,
+		                       SUBTITLE_COLUMN, mdata->subtitle,
+		                       AUDIO_CODEC_COLUMN, mdata->audio_codec,
+		                       VIDEO_CODEC_COLUMN, mdata->video_codec,
+		                       LENGTH_COLUMN, mdata->length,
+		                       DEMUXER_COLUMN, mdata->demuxer,
+		                       LENGTH_VALUE_COLUMN, mdata->length_value,
+		                       VIDEO_WIDTH_COLUMN, mdata->width, VIDEO_HEIGHT_COLUMN, mdata->height, -1);
+				
+			}
+		}
+	}
+
+	if (mdata != NULL) {
+		g_free(mdata->uri);
+		g_free(mdata->demuxer);
+		g_free(mdata->title);
+		g_free(mdata->artist);
+		g_free(mdata->album);
+		g_free(mdata->length);
+		g_free(mdata->subtitle);
+		g_free(mdata->audio_codec);
+		g_free(mdata->video_codec);
+		g_free(mdata);			
+	}
+	
+	return FALSE;
+}
+
 void cancel_clicked(GtkButton * button, gpointer user_data)
 {
     cancel_folder_load = TRUE;
@@ -1331,10 +1411,12 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     }
 
     mplayer_shutdown();
-    while (gtk_events_pending() || thread != NULL) {
+	g_thread_pool_stop_unused_threads();
+    while (gtk_events_pending() || thread != NULL || g_thread_pool_unprocessed(retrieve_metadata_pool)) {
         gtk_main_iteration();
     }
-
+	g_thread_pool_free(retrieve_metadata_pool,TRUE,TRUE);
+	
     if (control_id != 0)
         dbus_cancel();
 
