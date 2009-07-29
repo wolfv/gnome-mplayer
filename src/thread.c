@@ -974,7 +974,7 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-noconsolecontrols");
     argv[arg++] = g_strdup_printf("-noidle");
 
-#ifndef SM_INHIBIT || SS_INHIBIT
+#if !(SM_INHIBIT || SS_INHIBIT)
     if (idledata->width > 0 && idledata->height > 0)
         argv[arg++] = g_strdup_printf("-stop-xscreensaver");
 #endif

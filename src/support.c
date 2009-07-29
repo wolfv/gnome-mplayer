@@ -1186,6 +1186,119 @@ gchar *metadata_to_utf8(gchar * string)
     return g_locale_to_utf8(string, -1, NULL, NULL, NULL);
 }
 
+void retrieve_metadata(gpointer data, gpointer user_data)
+{
+	gchar *uri = (gchar *)data;
+	MetaData *mdata = NULL;
+	
+	mdata = get_metadata(uri);
+	if (mdata != NULL) {
+		mdata->uri = g_strdup(uri);
+		g_idle_add(set_metadata,(gpointer)mdata);
+	}
+	g_free(data);
+}
+
+MetaData *get_basic_metadata(gchar *uri)
+{
+    gchar *title = NULL;
+    gchar *artist = NULL;
+    gchar *album = NULL;
+    gchar *length = NULL;
+    gchar *name = NULL;
+    gchar *basename = NULL;
+    gchar *audio_codec = NULL;
+    gchar *video_codec = NULL;
+	gchar *demuxer = NULL;
+    gint width = 0;
+    gint height = 0;
+    gfloat seconds = 0;
+    gchar *localtitle = NULL;
+    MetaData *ret = NULL;
+#ifdef GIO_ENABLED
+    GFile *file;
+#endif
+
+    if (ret == NULL)
+        ret = (MetaData *) g_new0(MetaData, 1);
+
+	if (device_name(uri)) {
+        name = g_strdup(uri);
+	} else {
+#ifdef GIO_ENABLED
+        file = g_file_new_for_uri(uri);
+        if (file != NULL) {
+            name = g_file_get_path(file);
+            basename = g_file_get_basename(file);
+            g_object_unref(file);
+        }
+#else
+        name = g_filename_from_uri(uri, NULL, NULL);
+        basename = g_filename_display_basename(name);
+#endif
+    }
+
+    if (name == NULL) {
+        if (ret != NULL)
+            g_free(ret);
+        return NULL;
+    }
+
+    if (title == NULL || strlen(title) == 0) {
+        g_free(title);
+        title = g_strdup(basename);
+    }
+
+    if (title == NULL && g_ascii_strncasecmp(name, "dvd://", strlen("dvd://")) == 0) {
+        localtitle = g_strrstr(name, "/") + 1;
+        title = g_strdup_printf("DVD Track %s", localtitle);
+    }
+
+    if (title == NULL && g_ascii_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
+        localtitle = g_strrstr(name, "/") + 1;
+        title = g_strdup_printf("%s", localtitle);
+    }
+
+    if (title == NULL && g_ascii_strncasecmp(name, "dvb://", strlen("dvb://")) == 0) {
+        localtitle = g_strrstr(name, "/") + 1;
+        title = g_strdup_printf("%s", localtitle);
+    }
+
+    if (title == NULL && g_ascii_strncasecmp(name, "vcd://", strlen("vcd://")) == 0) {
+        localtitle = g_strrstr(name, "/") + 1;
+        title = g_strdup_printf("%s", localtitle);
+    }
+
+    if (title == NULL && g_ascii_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) == 0) {
+        title = g_strdup_printf("DVD");
+    }
+
+    if (ret != NULL) {
+        ret->title = g_strdup(title);
+        ret->artist = g_strdup(artist);
+        ret->album = g_strdup(album);
+        ret->length = g_strdup(length);
+        ret->length_value = seconds;
+        ret->audio_codec = g_strdup(audio_codec);
+        ret->video_codec = g_strdup(video_codec);
+		ret->demuxer = g_strdup(demuxer);
+        ret->width = width;
+        ret->height = height;
+    }
+
+    g_free(title);
+    g_free(artist);
+    g_free(album);
+    g_free(length);
+    g_free(audio_codec);
+    g_free(video_codec);
+	g_free(demuxer);
+    g_free(name);
+    g_free(basename);
+
+    return ret;
+}
+
 MetaData *get_metadata(gchar * uri)
 {
     gchar *title = NULL;
@@ -1196,6 +1309,7 @@ MetaData *get_metadata(gchar * uri)
     gchar *basename = NULL;
     gchar *audio_codec = NULL;
     gchar *video_codec = NULL;
+	gchar *demuxer = NULL;
     gint width = 0;
     gint height = 0;
     GError *error;
@@ -1212,12 +1326,13 @@ MetaData *get_metadata(gchar * uri)
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
-    if (device_name(uri)) {
-        name = g_strdup(uri);
-        if (ret == NULL)
-            ret = (MetaData *) g_new0(MetaData, 1);
 
-    } else {
+    if (ret == NULL)
+        ret = (MetaData *) g_new0(MetaData, 1);
+
+	if (device_name(uri)) {
+        name = g_strdup(uri);
+	} else {
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
         if (file != NULL) {
@@ -1369,10 +1484,8 @@ MetaData *get_metadata(gchar * uri)
         }
 
         if (strstr(output[ac], "ID_DEMUXER") != NULL) {
-            if (ret == NULL)
-                ret = (MetaData *) g_new0(MetaData, 1);
             localtitle = strstr(output[ac], "=") + 1;
-            ret->demuxer = g_strdup(localtitle);
+            demuxer = g_strdup(localtitle);
         }
         g_free(lower);
         ac++;
@@ -1415,6 +1528,7 @@ MetaData *get_metadata(gchar * uri)
         ret->length_value = seconds;
         ret->audio_codec = g_strdup(audio_codec);
         ret->video_codec = g_strdup(video_codec);
+		ret->demuxer = g_strdup(demuxer);
         ret->width = width;
         ret->height = height;
     }
@@ -1425,6 +1539,7 @@ MetaData *get_metadata(gchar * uri)
     g_free(length);
     g_free(audio_codec);
     g_free(video_codec);
+	g_free(demuxer);
     g_strfreev(output);
     if (out != NULL)
         g_free(out);
@@ -1600,6 +1715,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
     gchar *local_uri;
     gchar *unescaped = NULL;
     MetaData *data = NULL;
+	gboolean retrieve = FALSE;
 
     if (strlen(uri) < 1)
         return FALSE;
@@ -1612,7 +1728,8 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
             data = (MetaData *) g_new0(MetaData, 1);
             data->title = g_strdup_printf("%s", uri);
         } else {
-            data = get_metadata(local_uri);
+			retrieve = TRUE;
+            data = get_basic_metadata(local_uri);
         }
     } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
         data = (MetaData *) g_new0(MetaData, 1);
@@ -1621,7 +1738,8 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         if (g_ascii_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
             loop = 1;
         }
-        data = get_metadata(local_uri);
+		retrieve = TRUE;
+        data = get_basic_metadata(local_uri);
 
     } else {
 
@@ -1656,7 +1774,9 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
                            DEMUXER_COLUMN, data->demuxer,
                            LENGTH_VALUE_COLUMN, data->length_value,
                            VIDEO_WIDTH_COLUMN, data->width, VIDEO_HEIGHT_COLUMN, data->height, -1);
-
+		if (retrieve) {
+			g_thread_pool_push(retrieve_metadata_pool,(gpointer)g_strdup(uri),NULL);
+		}
 
         gtk_list_store_append(nonrandomplayliststore, &localiter);
         gtk_list_store_set(nonrandomplayliststore, &localiter, ITEM_COLUMN, local_uri,
@@ -1684,6 +1804,8 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         g_free(data->video_codec);
         g_free(data);
         g_free(local_uri);
+
+		
         return TRUE;
     } else {
         g_free(local_uri);

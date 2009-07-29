@@ -52,6 +52,8 @@
 #endif
 
 gint get_bitrate(gchar * name);
+MetaData *get_metadata(gchar * uri);
+MetaData *get_basic_metadata(gchar * uri);
 void strip_unicode(gchar * data, gsize len);
 gint play_iter(GtkTreeIter * playiter, gint start_second);
 gint detect_playlist(gchar * filename);

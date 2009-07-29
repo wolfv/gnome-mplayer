@@ -377,6 +377,8 @@ GThread *thread;
 GMutex *slide_away;
 GCond *mplayer_complete_cond;
 
+GThreadPool *retrieve_metadata_pool;
+
 gboolean use_mediakeys;
 gboolean use_defaultpl;
 gboolean dvdnav_title_is_menu;
@@ -417,6 +419,7 @@ gint get_player_window();
 void adjust_layout();
 gboolean hide_buttons(void *data);
 gboolean show_copyurl(void *data);
+
 gboolean set_media_info(void *data);
 gboolean set_media_label(void *data);
 gboolean set_cover_art(gpointer pixbuf);
@@ -444,6 +447,8 @@ gboolean set_window_visible(void *data);
 gboolean set_update_gui(void *data);
 gboolean set_subtitle_visibility(void *data);
 gboolean set_item_add_info(void *data);
+gboolean set_metadata(gpointer data);
+
 void remove_langs(GtkWidget * item, gpointer data);
 gboolean set_new_lang_menu(gpointer data);
 gboolean set_new_audio_menu(gpointer data);
@@ -470,6 +475,8 @@ gpointer launch_player(gpointer data);
 
 gboolean update_mplayer_config();
 gboolean read_mplayer_config();
+
+void retrieve_metadata(gpointer data, gpointer user_data);
 
 gchar *default_playlist;
 gboolean safe_to_save_default_playlist;
