@@ -216,6 +216,7 @@ GtkWidget *config_vo;
 GtkWidget *config_ao;
 GtkWidget *config_mixer;
 GtkWidget *config_audio_channels;
+GtkWidget *config_use_hw_audio;
 GtkWidget *config_volume;
 GtkWidget *config_cachesize;
 GtkWidget *config_osdlevel;

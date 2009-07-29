@@ -618,6 +618,7 @@ int main(int argc, char *argv[])
     adjusting = FALSE;
     non_fs_height = 0;
     non_fs_width = 0;
+	use_hw_audio = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -659,6 +660,7 @@ int main(int argc, char *argv[])
     volume = gm_pref_store_get_int(gm_store, VOLUME);
 #endif
     audio_channels = gm_pref_store_get_int(gm_store, AUDIO_CHANNELS);
+    use_hw_audio = gm_pref_store_get_boolean(gm_store, USE_HW_AUDIO);
     fullscreen = gm_pref_store_get_boolean(gm_store, FULLSCREEN);
     softvol = gm_pref_store_get_boolean(gm_store, SOFTVOL);
     forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);

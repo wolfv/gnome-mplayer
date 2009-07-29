@@ -934,6 +934,11 @@ gpointer launch_player(gpointer data)
         }
     }
 
+	if (use_hw_audio) {
+        argv[arg++] = g_strdup_printf("-afm");
+        argv[arg++] = g_strdup_printf("hwac3,");
+	}	
+	
     if (verbose < 2)
         argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
@@ -1189,9 +1194,11 @@ gpointer launch_player(gpointer data)
 	g_free(filename);
 */
 
-    argv[arg++] = g_strdup_printf("-af-add");
-    argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
-
+	if (!use_hw_audio) {
+		argv[arg++] = g_strdup_printf("-af-add");
+		argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
+	}
+	
     if (threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
 
