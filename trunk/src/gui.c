@@ -3612,6 +3612,7 @@ void config_apply(GtkWidget * widget, void *data)
         g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_subtitle_codepage)->child)));
 
     audio_channels = gtk_combo_box_get_active(GTK_COMBO_BOX(config_audio_channels));
+	use_hw_audio = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_hw_audio));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     old_disable_framedrop = disable_framedrop;
     disable_deinterlace =
@@ -3713,6 +3714,7 @@ void config_apply(GtkWidget * widget, void *data)
                           gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));
 #endif
     gm_pref_store_set_int(gm_store, AUDIO_CHANNELS, audio_channels);
+	gm_pref_store_set_boolean(gm_store, USE_HW_AUDIO, use_hw_audio);
     gm_pref_store_set_int(gm_store, CACHE_SIZE, cache_size);
     gm_pref_store_set_string(gm_store, MIXER, mixer);
     gm_pref_store_set_int(gm_store, OSDLEVEL, osdlevel);
@@ -4377,6 +4379,15 @@ void embedded_fonts_toggle_callback(GtkToggleButton * source, gpointer user_data
     gtk_widget_set_sensitive(config_subtitle_outline, !gtk_toggle_button_get_active(source));
 }
 
+void hw_audio_toggle_callback(GtkToggleButton * source, gpointer user_data)
+{
+	if (gtk_toggle_button_get_active(source)) {
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter),FALSE);
+		gtk_widget_hide(GTK_WIDGET(menuitem_view_meter));
+	} else {
+		gtk_widget_show(GTK_WIDGET(menuitem_view_meter));
+	}
+}
 
 void ao_change_callback(GtkComboBox widget, gpointer data)
 {
@@ -4385,8 +4396,11 @@ void ao_change_callback(GtkComboBox widget, gpointer data)
     if (g_ascii_strncasecmp(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_ao)->child)), "alsa", 4) ==
         0) {
         gtk_widget_set_sensitive(config_mixer, TRUE);
+        gtk_widget_set_sensitive(config_use_hw_audio, TRUE);
     } else {
         gtk_widget_set_sensitive(config_mixer, FALSE);
+        gtk_widget_set_sensitive(config_use_hw_audio, FALSE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_use_hw_audio),FALSE);
     }
 #endif
 
@@ -4496,6 +4510,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             }
         }
     }
+
+	config_use_hw_audio = gtk_check_button_new_with_mnemonic(_("Enable AC3/DTS pass-through to S/PDIF"));
+    g_signal_connect(GTK_WIDGET(config_use_hw_audio), "toggled", GTK_SIGNAL_FUNC(hw_audio_toggle_callback), NULL);
+
 #ifdef HAVE_ASOUNDLIB
     config_mixer = gtk_combo_box_entry_new_text();
     if (config_mixer != NULL) {
@@ -4708,6 +4726,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_SHRINK, 0, 0);
     i++;
 
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_use_hw_audio), use_hw_audio);
+    gtk_table_attach(GTK_TABLE(conf_table), config_use_hw_audio, 1, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_widget_show(config_use_hw_audio);
+    i++;	
 
     conf_label = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);

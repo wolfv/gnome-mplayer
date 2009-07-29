@@ -64,6 +64,7 @@
 
 #define VOLUME	"volume"
 #define AUDIO_CHANNELS "audio_channels"
+#define USE_HW_AUDIO "use_hw_audio"
 #define USE_MEDIAKEYS		"use_mediakeys"
 #define USE_DEFAULTPL		"use_defaultpl"
 #define DISABLE_COVER_ART_FETCH "disable_cover_art_fetch"
@@ -294,6 +295,7 @@ gchar *vo;
 gchar *ao;
 gchar *mixer;
 gint audio_channels;
+gboolean use_hw_audio;
 gboolean disable_deinterlace;
 gboolean disable_framedrop;
 gboolean disable_context_menu;
