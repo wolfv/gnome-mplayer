@@ -297,8 +297,8 @@ gboolean set_media_label(void *data)
             g_object_unref(pixbuf);
         }
     } else {
-        printf("clearing\n");
-        gtk_image_clear(GTK_IMAGE(cover_art));
+		if (GTK_IS_IMAGE(cover_art))
+	        gtk_image_clear(GTK_IMAGE(cover_art));
         if (GTK_IS_WIDGET(media_label)) {
             gtk_label_set_markup(GTK_LABEL(media_label), "");
         }
@@ -773,36 +773,7 @@ gboolean set_metadata(gpointer data)
 			}
 		}
 	}
-	
-	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(nonrandomplayliststore),&riter)) {
-		do {
-			gtk_tree_model_get(GTK_TREE_MODEL(nonrandomplayliststore), &riter, ITEM_COLUMN, &uri,-1);
-			if (g_strcmp0(mdata->uri,uri) == 0) {
-				g_free(uri);
-				break;
-			}
-			g_free(uri);
-		} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(nonrandomplayliststore),&riter));
-
-		if(gtk_list_store_iter_is_valid(nonrandomplayliststore,&riter)) {
-			if (mdata != NULL) {
-				
-				gtk_list_store_set(nonrandomplayliststore, &riter,
-		                       DESCRIPTION_COLUMN, mdata->title,
-		                       ARTIST_COLUMN, mdata->artist,
-		                       ALBUM_COLUMN, mdata->album,
-		                       SUBTITLE_COLUMN, mdata->subtitle,
-		                       AUDIO_CODEC_COLUMN, mdata->audio_codec,
-		                       VIDEO_CODEC_COLUMN, mdata->video_codec,
-		                       LENGTH_COLUMN, mdata->length,
-		                       DEMUXER_COLUMN, mdata->demuxer,
-		                       LENGTH_VALUE_COLUMN, mdata->length_value,
-		                       VIDEO_WIDTH_COLUMN, mdata->width, VIDEO_HEIGHT_COLUMN, mdata->height, -1);
-				
-			}
-		}
-	}
-
+		
 	if (mdata != NULL) {
 		g_free(mdata->uri);
 		g_free(mdata->demuxer);
@@ -1962,7 +1933,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                             mplayer_shutdown();
                             set_media_label(NULL);
                             gtk_list_store_clear(playliststore);
-                            gtk_list_store_clear(nonrandomplayliststore);
                             added_single = add_item_to_playlist(list[i], playlist);
                         } else {
                             add_item_to_playlist(list[i], playlist);
@@ -1975,7 +1945,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 mplayer_shutdown();
                                 set_media_label(NULL);
                                 gtk_list_store_clear(playliststore);
-                                gtk_list_store_clear(nonrandomplayliststore);
                                 added_single = add_item_to_playlist(list[i], playlist);
                             } else {
                                 add_item_to_playlist(list[i], playlist);
@@ -2154,42 +2123,27 @@ gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    gchar *iterfilename;
-    gchar *localfilename;
-    GtkTreeIter localiter;
-    GtkTreeIter previter;
     gboolean valid = FALSE;
     GtkTreePath *path;
+	GtkTreeIter previter;
+	GtkTreeIter localiter;
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
         if (idledata->has_chapters) {
             valid = FALSE;
             send_command("seek_chapter -2 0\n", FALSE);
         } else {
-            gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter);
-            do {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,
-                                   &localfilename, -1);
-                // printf("iter = %s   local = %s \n",iterfilename,localfilename);
-                if (g_ascii_strcasecmp(iterfilename, localfilename) == 0) {
-                    // we found the current iter
-                    break;
-                } else {
-                    valid = TRUE;
-                    previter = localiter;
-                }
-                g_free(localfilename);
-            } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
-            g_free(iterfilename);
+            valid = prev_item_in_playlist(&iter);
         }
     } else {
+		// for the case where we have rolled off the end of the list, allow prev to work
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter);
         do {
             previter = localiter;
             valid = TRUE;
             gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter);
         } while (gtk_list_store_iter_is_valid(playliststore, &localiter));
+		iter = previter;
 
         if (idledata->has_chapters) {
             valid = FALSE;
@@ -2199,8 +2153,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
     if (valid) {
         dontplaynext = TRUE;
-        play_iter(&previter, 0);
-        iter = previter;
+        play_iter(&iter, 0);
         if (autopause) {
             autopause = FALSE;
             gtk_widget_set_sensitive(play_event_box, TRUE);
@@ -2494,7 +2447,6 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
         dontplaynext = TRUE;
         mplayer_shutdown();
         gtk_list_store_clear(playliststore);
-        gtk_list_store_clear(nonrandomplayliststore);
 
         if (filename != NULL) {
             g_slist_foreach(filename, &add_item_to_playlist_callback, NULL);
@@ -2527,7 +2479,6 @@ void open_location_callback(GtkWidget * widget, void *data)
         dontplaynext = TRUE;
         mplayer_shutdown();
         gtk_list_store_clear(playliststore);
-        gtk_list_store_clear(nonrandomplayliststore);
 
         if (filename != NULL) {
 
@@ -2602,7 +2553,6 @@ void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_open_dvd_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
-    gtk_list_store_clear(nonrandomplayliststore);
     if (idledata->device != NULL) {
         g_free(idledata->device);
         idledata->device = NULL;
@@ -2636,7 +2586,6 @@ void menuitem_open_dvd_folder_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         gtk_list_store_clear(playliststore);
-        gtk_list_store_clear(nonrandomplayliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
         parse_dvd("dvd://");
@@ -2678,7 +2627,6 @@ void menuitem_open_dvd_iso_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         gtk_list_store_clear(playliststore);
-        gtk_list_store_clear(nonrandomplayliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
         parse_dvd("dvd://");
@@ -2695,7 +2643,6 @@ void menuitem_open_dvd_iso_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
-    gtk_list_store_clear(nonrandomplayliststore);
     if (idledata->device != NULL) {
         g_free(idledata->device);
         idledata->device = NULL;
@@ -2729,7 +2676,6 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         gtk_list_store_clear(playliststore);
-        gtk_list_store_clear(nonrandomplayliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
         dvdnav_title_is_menu = TRUE;
@@ -2773,7 +2719,6 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         gtk_list_store_clear(playliststore);
-        gtk_list_store_clear(nonrandomplayliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
         dvdnav_title_is_menu = TRUE;
@@ -2792,7 +2737,6 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
-    gtk_list_store_clear(nonrandomplayliststore);
     parse_playlist("cdda://");
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
@@ -2804,7 +2748,6 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
-    gtk_list_store_clear(nonrandomplayliststore);
     parse_playlist("vcd://");
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
@@ -2816,7 +2759,6 @@ void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
-    gtk_list_store_clear(nonrandomplayliststore);
     add_item_to_playlist("tv://", 0);
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
@@ -2834,7 +2776,6 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
 
     mplayer_shutdown();
     gtk_list_store_clear(playliststore);
-    gtk_list_store_clear(nonrandomplayliststore);
 
     uri = gtk_recent_chooser_get_current_uri(chooser);
     if (uri != NULL) {
@@ -2929,7 +2870,6 @@ void parseChannels(FILE * f)
 void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
 {
     gtk_list_store_clear(playliststore);
-    gtk_list_store_clear(nonrandomplayliststore);
     FILE *fi;                   // FILE pointer to use to open the conf file
     gchar *mpconf;
     mpconf = g_strdup_printf("%s/.mplayer/channels.conf", g_getenv("HOME"));
@@ -3116,8 +3056,8 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
     if (random_order) {
         randomize_playlist(playliststore);
     } else {
-        copy_playlist(nonrandomplayliststore, playliststore);
-    }
+		reset_playlist_order(playliststore);
+	}
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (GTK_IS_TREE_SELECTION(selection)) {
