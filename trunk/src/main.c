@@ -214,6 +214,27 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
         gtk_main_iteration();
     }
 
+	// wait for metadata to be available on this item
+	if (!streaming_media(uri)) {
+		i = 0;
+		while( i == 0) {
+			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i, 
+			               DESCRIPTION_COLUMN, &title,
+                           ARTIST_COLUMN, &artist,
+                           ALBUM_COLUMN, &album,
+                           AUDIO_CODEC_COLUMN, &audio_codec,
+                           VIDEO_CODEC_COLUMN, &video_codec,
+                           VIDEO_WIDTH_COLUMN, &width,
+                           VIDEO_HEIGHT_COLUMN, &height,
+                           DEMUXER_COLUMN, &demuxer,
+                           COVERART_COLUMN, &pixbuf,
+                           SUBTITLE_COLUMN, &subtitle,
+                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+			gtk_main_iteration();
+		}
+	}
+
+	
     // reset audio meter
     for (i = 0; i < METER_BARS; i++) {
         buckets[i] = 0;
