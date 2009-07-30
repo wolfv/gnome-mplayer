@@ -1,4 +1,6 @@
 Development
+    Now that metadata loading is async, metadata is usually wrong for first item, so wait until it is available 
+        for the playing item, availability is based on "not streaming and length > 0"
     Allow accelerator keys that are not just letters to work when cursor is over the playlist
         Allows typeahead to work, but also allows keys like F9 to work
     Revert pane layout, caused too many issues
