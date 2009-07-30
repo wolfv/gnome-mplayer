@@ -127,7 +127,7 @@ void adjust_layout()
         if (vertical_layout) {
             total_height += plvbox->allocation.height + handle_size;
         } else {
-            total_width += plvbox->allocation.width + handle_size;
+            total_width += MAX(plvbox->requisition.width,plvbox->allocation.width) + handle_size;
             if (!fullscreen) {
                 total_height = MAX(total_height, plvbox->allocation.height);
                 if (total_height <=
@@ -6016,7 +6016,7 @@ GtkWidget *create_window(gint windowid)
     } else {
         pane = gtk_hpaned_new();
     }
-    gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
+    gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, FALSE);
     create_playlist_widget();
 
     vbox_master = gtk_vbox_new(FALSE, 0);

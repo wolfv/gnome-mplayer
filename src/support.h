@@ -73,6 +73,7 @@ gboolean send_command(gchar * command, gboolean retain_pause);
 gboolean streaming_media(gchar * filename);
 gboolean device_name(gchar * filename);
 gboolean add_item_to_playlist(const gchar * uri, gint playlist);
+gboolean first_item_in_playlist(GtkTreeIter * iter);
 gboolean prev_item_in_playlist(GtkTreeIter * iter);
 gboolean next_item_in_playlist(GtkTreeIter * iter);
 void randomize_playlist(GtkListStore * store);
