@@ -1,4 +1,6 @@
 Development
+    Rework pane layout, now give more space to the playlist than the video, works better for audio
+    Fix some user interface issues with the new randomization method
     Remove the need for the nonrandomplaylist, should reduce memory requirements
         Random playback is a little different now, the items in the playlist don't shift
     Add config option to enable passthru of AC3/DTS content to s/pdif over alsa (disables audiometer)

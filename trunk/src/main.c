@@ -830,7 +830,7 @@ int main(int argc, char *argv[])
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
                            G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
-                           G_TYPE_INT, G_TYPE_INT);
+                           G_TYPE_INT, G_TYPE_INT, G_TYPE_INT);
 
     create_window(embed_window);
 
