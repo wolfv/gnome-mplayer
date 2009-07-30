@@ -6016,7 +6016,7 @@ GtkWidget *create_window(gint windowid)
     } else {
         pane = gtk_hpaned_new();
     }
-    gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, FALSE);
+    gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
     create_playlist_widget();
 
     vbox_master = gtk_vbox_new(FALSE, 0);

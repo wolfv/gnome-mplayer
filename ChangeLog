@@ -1,4 +1,5 @@
 Development
+    Revert pane layout, caused too many issues
     Rework pane layout, now give more space to the playlist than the video, works better for audio
     Fix some user interface issues with the new randomization method
     Remove the need for the nonrandomplaylist, should reduce memory requirements

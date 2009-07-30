@@ -974,7 +974,7 @@ void create_playlist_widget()
     gtk_box_pack_start(GTK_BOX(plvbox), hbox, FALSE, FALSE, 0);
 
 
-    gtk_paned_pack2(GTK_PANED(pane), plvbox, TRUE, TRUE);
+    gtk_paned_pack2(GTK_PANED(pane), plvbox, FALSE, FALSE);
 
     gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
     gtk_widget_set_size_request(plvbox, 300, 200);
