@@ -1,4 +1,6 @@
 Development
+    Remove the need for the nonrandomplaylist, should reduce memory requirements
+        Random playback is a little different now, the items in the playlist don't shift
     Add config option to enable passthru of AC3/DTS content to s/pdif over alsa (disables audiometer)
     Move metadata loading into a threadpool, so it is done in the background speeds up playlist loading
     Handle screensaver disabling a little differently

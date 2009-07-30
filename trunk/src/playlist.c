@@ -360,7 +360,6 @@ void load_playlist(GtkWidget * widget, void *data)
         g_free(last_dir);
 
         gtk_list_store_clear(playliststore);
-        gtk_list_store_clear(nonrandomplayliststore);
 
         create_folder_progress_window();
         if (!parse_playlist(filename)) {
@@ -596,29 +595,14 @@ void remove_from_playlist(GtkWidget * widget, gpointer data)
     GtkTreeView *view = (GtkTreeView *) data;
     GtkTreeIter localiter;
     GtkTreePath *path;
-    gchar *localfilename;
-    gchar *removedfilename;
 
     sel = gtk_tree_view_get_selection(view);
 
     if (gtk_tree_selection_get_selected(sel, NULL, &iter)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &removedfilename, -1);
         localiter = iter;
         gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter);
         if (gtk_list_store_remove(playliststore, &iter)) {
-            iter = localiter;
-            gtk_tree_model_get_iter_first(GTK_TREE_MODEL(nonrandomplayliststore), &localiter);
-            do {
-                gtk_tree_model_get(GTK_TREE_MODEL(nonrandomplayliststore), &localiter, ITEM_COLUMN,
-                                   &localfilename, -1);
-                if (localfilename != NULL) {
-                    if (g_ascii_strcasecmp(removedfilename, localfilename) == 0) {
-                        gtk_list_store_remove(nonrandomplayliststore, &localiter);
-                    }
-                    g_free(localfilename);
-                }
-            } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(nonrandomplayliststore), &localiter));
-
+            
             if (!gtk_list_store_iter_is_valid(playliststore, &iter)) {
                 gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             }
@@ -630,7 +614,6 @@ void remove_from_playlist(GtkWidget * widget, gpointer data)
                 gtk_tree_path_free(path);
             }
         }
-        g_free(removedfilename);
     }
     update_gui();
 
@@ -642,7 +625,6 @@ void clear_playlist(GtkWidget * widget, void *data)
     dontplaynext = TRUE;
     mplayer_shutdown();
     gtk_list_store_clear(playliststore);
-    gtk_list_store_clear(nonrandomplayliststore);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
@@ -668,13 +650,6 @@ void move_item_up(GtkWidget * widget, void *data)
             if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
                 if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &b, NULL, pos - 1)) {
                     gtk_list_store_swap(playliststore, &a, &b);
-                }
-            }
-            if (gtk_tree_model_iter_nth_child
-                (GTK_TREE_MODEL(nonrandomplayliststore), &a, NULL, pos)) {
-                if (gtk_tree_model_iter_nth_child
-                    (GTK_TREE_MODEL(nonrandomplayliststore), &b, NULL, pos - 1)) {
-                    gtk_list_store_swap(nonrandomplayliststore, &a, &b);
                 }
             }
         }
@@ -706,13 +681,6 @@ void move_item_down(GtkWidget * widget, void *data)
             if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
                 if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &b, NULL, pos + 1)) {
                     gtk_list_store_swap(playliststore, &a, &b);
-                }
-            }
-            if (gtk_tree_model_iter_nth_child
-                (GTK_TREE_MODEL(nonrandomplayliststore), &a, NULL, pos)) {
-                if (gtk_tree_model_iter_nth_child
-                    (GTK_TREE_MODEL(nonrandomplayliststore), &b, NULL, pos + 1)) {
-                    gtk_list_store_swap(nonrandomplayliststore, &a, &b);
                 }
             }
         }
@@ -765,7 +733,7 @@ void create_playlist_widget()
     GtkWidget *remove;
     GtkWidget *add_folder;
     GtkWidget *clear;
-    GtkWidget *undo;
+    // GtkWidget *undo;
     GtkTreePath *path;
     GtkAccelGroup *accel_group;
     GtkTooltips *tooltip;
@@ -878,12 +846,21 @@ void create_playlist_widget()
 
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes("", renderer, "text", COUNT_COLUMN, NULL);
+    column = gtk_tree_view_column_new_with_attributes(_("Count"), renderer, "text", COUNT_COLUMN, NULL);
     //gtk_tree_view_column_set_expand(column, FALSE);
     g_object_set(renderer, "xalign", 1.0, NULL);
     gtk_tree_view_column_set_resizable(column, FALSE);
+    gtk_tree_view_column_set_sort_column_id(column, COUNT_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes(_("Order"), renderer, "text", ORDER_COLUMN, NULL);
+    //gtk_tree_view_column_set_expand(column, FALSE);
+    g_object_set(renderer, "xalign", 1.0, NULL);
+    gtk_tree_view_column_set_resizable(column, FALSE);
+    gtk_tree_view_column_set_sort_column_id(column, ORDER_COLUMN);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
+	
 
     plclose = gtk_button_new();
     tooltip = gtk_tooltips_new();
@@ -961,6 +938,7 @@ void create_playlist_widget()
     g_signal_connect(GTK_OBJECT(down), "clicked", GTK_SIGNAL_FUNC(move_item_down), list);
     gtk_widget_set_sensitive(down, FALSE);
 
+	/*
     undo = gtk_button_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, undo, _("UnSort List"), NULL);
@@ -970,7 +948,8 @@ void create_playlist_widget()
     g_signal_connect(GTK_OBJECT(undo), "clicked", GTK_SIGNAL_FUNC(menuitem_edit_random_callback),
                      list);
     gtk_widget_set_sensitive(undo, TRUE);
-
+	*/
+	
     accel_group = gtk_accel_group_new();
     gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
     gtk_widget_add_accelerator(GTK_WIDGET(remove), "clicked",

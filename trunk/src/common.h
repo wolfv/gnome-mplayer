@@ -224,6 +224,7 @@ enum {
     DEMUXER_COLUMN,
     VIDEO_WIDTH_COLUMN,
     VIDEO_HEIGHT_COLUMN,
+	ORDER_COLUMN,
     N_COLUMNS
 };
 
@@ -405,7 +406,6 @@ gboolean adjusting;
 
 // playlist stuff
 GtkListStore *playliststore;
-GtkListStore *nonrandomplayliststore;
 GtkTreeIter iter;
 GtkTreeSelection *selection;
 GtkWidget *list;

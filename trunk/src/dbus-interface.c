@@ -107,7 +107,6 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                         if (strlen(s) > 0) {
                             if (strcmp(rpconsole, "NONE") == 0 || control_instance == FALSE) {
                                 gtk_list_store_clear(playliststore);
-                                gtk_list_store_clear(nonrandomplayliststore);
                                 selection = NULL;
                                 if (!uri_exists(s) && !streaming_media(s)) {
                                     buf = g_filename_to_uri(s, NULL, NULL);
@@ -145,7 +144,6 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         gtk_list_store_clear(playliststore);
-                        gtk_list_store_clear(nonrandomplayliststore);
                         selection = NULL;
                         if (!uri_exists(s) && !streaming_media(s)) {
                             buf = g_filename_to_uri(s, NULL, NULL);
