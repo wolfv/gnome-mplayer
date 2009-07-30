@@ -1,4 +1,6 @@
 Development
+    Allow accelerator keys that are not just letters to work when cursor is over the playlist
+        Allows typeahead to work, but also allows keys like F9 to work
     Revert pane layout, caused too many issues
     Rework pane layout, now give more space to the playlist than the video, works better for audio
     Fix some user interface issues with the new randomization method
