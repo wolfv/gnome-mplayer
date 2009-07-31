@@ -747,12 +747,14 @@ gboolean set_metadata(gpointer data)
 
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore),&riter)) {
 		do {
-			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &riter, ITEM_COLUMN, &uri,-1);
-			if (g_strcmp0(mdata->uri,uri) == 0) {
+			if (gtk_list_store_iter_is_valid(playliststore,&riter)) {
+				gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &riter, ITEM_COLUMN, &uri,-1);
+				if (g_strcmp0(mdata->uri,uri) == 0) {
+					g_free(uri);
+					break;
+				}
 				g_free(uri);
-				break;
 			}
-			g_free(uri);
 		} while(gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore),&riter));
 
 		if(gtk_list_store_iter_is_valid(playliststore,&riter)) {
@@ -2774,6 +2776,7 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
     GtkTreeViewColumn *column;
     gchar *coltitle;
 
+	dontplaynext = TRUE;
     mplayer_shutdown();
     gtk_list_store_clear(playliststore);
 
