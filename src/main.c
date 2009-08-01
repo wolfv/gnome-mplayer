@@ -215,7 +215,7 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
     }
 
 	// wait for metadata to be available on this item
-	if (!streaming_media(uri)) {
+	if (!streaming_media(uri) && !device_name(uri)) {
 		i = 0;
 		while( i == 0) {
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i, 
