@@ -1591,7 +1591,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         }
     }
 
-    return TRUE;
+    return FALSE;
 
 }
 
