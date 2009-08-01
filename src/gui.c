@@ -2819,7 +2819,7 @@ void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer
         gtk_widget_destroy(menuitem_file_recent_items);
     menuitem_file_recent_items = gtk_recent_chooser_menu_new();
     recent_filter = gtk_recent_filter_new();
-    gtk_recent_filter_add_application(recent_filter, g_get_application_name());
+    gtk_recent_filter_add_application(recent_filter, "gnome-mplayer");
     gtk_recent_chooser_add_filter(GTK_RECENT_CHOOSER(menuitem_file_recent_items), recent_filter);
     gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(menuitem_file_recent_items), TRUE);
     gtk_recent_chooser_set_sort_type(GTK_RECENT_CHOOSER(menuitem_file_recent_items),
@@ -5692,7 +5692,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_recent));
     menuitem_file_recent_items = gtk_recent_chooser_menu_new();
     recent_filter = gtk_recent_filter_new();
-    gtk_recent_filter_add_application(recent_filter, g_get_application_name());
+    gtk_recent_filter_add_application(recent_filter, "gnome-mplayer");
     gtk_recent_chooser_add_filter(GTK_RECENT_CHOOSER(menuitem_file_recent_items), recent_filter);
     gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(menuitem_file_recent_items), TRUE);
     gtk_recent_chooser_set_sort_type(GTK_RECENT_CHOOSER(menuitem_file_recent_items),

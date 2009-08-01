@@ -450,7 +450,7 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
     idledata->cachepercent = -1.0;
     g_strlcpy(idledata->info, uri, 1024);
     set_media_info(idledata);
-
+	
     streaming = 0;
     subtitle_delay = 0.0;
 
@@ -492,6 +492,8 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
         if (autostart) {
             g_idle_add(hide_buttons, idledata);
             js_state = STATE_PLAYING;
+			while(gtk_events_pending())
+				gtk_main_iteration();
             thread = g_thread_create(launch_player, thread_data, TRUE, NULL);
         }
         autostart = 1;
