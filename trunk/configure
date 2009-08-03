@@ -806,6 +806,8 @@ with_libnotify
 with_libgpod
 with_libmusicbrainz3
 enable_nautilus
+with_gpm_new_method
+with_gpm_old_method
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1491,6 +1493,10 @@ Optional Packages:
   --with-libnotify        Send notifications of new media
   --with-libgpod          Add support for libgpod
   --with-libmusicbrainz3  Add support for libmusicbrainz3
+  --with-gpm-new-method   Use gnome-power-manager 2.26 or higher inhibit
+                          methods (Autodetected)
+  --with-gpm-old-method   Use gnome-power-manager below 2.26 inhibit methods
+                          (Autodetected)
 
 Some influential environment variables:
   CC          C compiler command
@@ -9946,6 +9952,28 @@ _ACEOF
         fi
 
 fi
+
+
+# Check whether --with-gpm-new-method was given.
+if test "${with_gpm_new_method+set}" = set; then
+  withval=$with_gpm_new_method;
+cat >>confdefs.h <<\_ACEOF
+#define SM_INHIBIT 1
+_ACEOF
+
+
+fi
+
+
+# Check whether --with-gpm-old-method was given.
+if test "${with_gpm_old_method+set}" = set; then
+  withval=$with_gpm_old_method;
+cat >>confdefs.h <<\_ACEOF
+#define SS_INHIBIT 1
+_ACEOF
+
+fi
+
 
 
 
