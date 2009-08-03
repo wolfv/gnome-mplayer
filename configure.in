@@ -173,7 +173,18 @@ if test -x `which gnome-power-manager`; then
         
 fi
 
-    
+AC_ARG_WITH([gpm-new-method],
+        [AS_HELP_STRING([--with-gpm-new-method],
+        [Use gnome-power-manager 2.26 or higher inhibit methods (Autodetected)])],
+        [AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])]
+        [])
+AC_ARG_WITH([gpm-old-method],
+        [AS_HELP_STRING([--with-gpm-old-method],
+        [Use gnome-power-manager below 2.26 inhibit methods (Autodetected)])],
+        [AC_DEFINE(SS_INHIBIT, 1, [Defined if you are using gnome-power-manager below 2.26])],
+        [])
+
+
 AC_CHECK_HEADERS([mntent.h])
 AC_OUTPUT([
 Makefile
