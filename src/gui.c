@@ -1607,6 +1607,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     //printf("key name=%s\n", gdk_keyval_name(event->keyval));
     // We don't want to handle CTRL accelerators here
     // if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
+	if (gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)))
+	    return FALSE;
+	
     if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
 
         g_get_current_time(&currenttime);
@@ -1713,7 +1716,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_space:
         case GDK_p:
-            return play_callback(NULL, NULL, NULL);
+        	return play_callback(NULL, NULL, NULL);
             break;
         case GDK_m:
 #ifdef GTK2_12_ENABLED
@@ -1732,6 +1735,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
 
         case GDK_1:
+				    
             send_command("contrast -5\n", TRUE);
             send_command("get_property contrast\n", TRUE);
             return FALSE;
