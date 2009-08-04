@@ -311,26 +311,6 @@ gboolean set_media_label(void *data)
     } else {
         gtk_widget_hide(media_hbox);
     }
-    // gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menuitem_view_info),show_media_label);
-
-    if (strlen(idle->video_format) > 0
-        || strlen(idle->video_codec) > 0
-        || strlen(idle->video_fps) > 0
-        || strlen(idle->video_bitrate) > 0
-        || strlen(idle->audio_codec) > 0
-        || strlen(idle->audio_bitrate) > 0 || strlen(idle->audio_samplerate) > 0) {
-
-        /*
-           printf("details: %i,%i,%i,%i,%i,%i,%i\n",    strlen(idle->video_format),strlen(idle->video_codec),
-           strlen(idle->video_fps),strlen(idle->video_bitrate),strlen(idle->audio_codec),
-           strlen(idle->audio_bitrate),strlen(idle->audio_samplerate));
-           printf("details: %s,%s,%s,%s,%s,%s,%s\n",    idle->video_format,idle->video_codec,
-           idle->video_fps,idle->video_bitrate,idle->audio_codec,
-           idle->audio_bitrate,idle->audio_samplerate);
-         */
-
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), TRUE);
-    }
 
     if (idle->fromdbus == FALSE) {
         dbus_send_rpsignal_with_string("RP_SetMediaLabel", idle->media_info);
@@ -1123,7 +1103,7 @@ gboolean resize_window(void *data)
                                  idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
-
+		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), TRUE);
     }
     if (idle != NULL)
         idle->window_resized = TRUE;
@@ -6475,7 +6455,6 @@ void show_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_increase_subtitle_delay), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
     gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);

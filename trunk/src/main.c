@@ -217,7 +217,15 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
 	// wait for metadata to be available on this item
 	if (!streaming_media(uri) && !device_name(uri)) {
 		i = 0;
-		while( i == 0) {
+		while( demuxer == NULL) {
+			printf("demuxer = %s\n",demuxer);
+			g_free(title);
+			g_free(artist);
+			g_free(album);
+			g_free(audio_codec);
+			g_free(video_codec);
+			g_free(demuxer);
+			g_free(subtitle);
 			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i, 
 			               DESCRIPTION_COLUMN, &title,
                            ARTIST_COLUMN, &artist,
@@ -233,7 +241,6 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
 			gtk_main_iteration();
 		}
 	}
-
 	
     // reset audio meter
     for (i = 0; i < METER_BARS; i++) {
