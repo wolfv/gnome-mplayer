@@ -1033,7 +1033,6 @@ int main(int argc, char *argv[])
 
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), details_visible);
                         
     if (argv[fileindex] == NULL && embed_window == 0) {
         use_remember_loc = remember_loc;
