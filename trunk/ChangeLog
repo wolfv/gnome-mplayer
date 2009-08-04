@@ -1,4 +1,6 @@
 Development
+    Correct details content
+    Fix Details display, however, content is wrong
     Make the adjust layout code run in the event queue, rather than direct. However, this breaks details display
     Don't process keys while over the playlist
     Now that metadata loading is async, metadata is usually wrong for first item, so wait until it is available 

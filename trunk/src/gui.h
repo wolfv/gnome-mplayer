@@ -149,10 +149,20 @@ GtkWidget *fixed;
 GtkWidget *media_hbox;
 GtkWidget *media_label;
 GtkWidget *cover_art;
+GtkWidget *audio_meter;
 GtkWidget *details_vbox;
 GtkWidget *details_table;
-GtkWidget *audio_meter;
 
+GtkWidget *details_video_size;
+GtkWidget *details_video_format;
+GtkWidget *details_video_codec;
+GtkWidget *details_video_fps;
+GtkWidget *details_video_bitrate;
+GtkWidget *details_video_chapters;
+GtkWidget *details_audio_codec;
+GtkWidget *details_audio_channels;
+GtkWidget *details_audio_bitrate;
+GtkWidget *details_audio_samplerate;
 
 GtkWidget *drawing_area;
 GdkPixbuf *pb_play;
@@ -325,6 +335,7 @@ void create_folder_progress_window();
 void destroy_folder_progress_window();
 void update_status_icon();
 void setup_accelerators();
+void update_details_table();
 
 gint get_height();
 gint get_width();
