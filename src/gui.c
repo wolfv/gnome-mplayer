@@ -58,6 +58,11 @@ gint get_player_window()
     }
 }
 
+gboolean set_adjust_layout(gpointer data) {
+	adjust_layout();
+	return FALSE;
+}
+
 void adjust_layout()
 {
 
@@ -76,14 +81,17 @@ void adjust_layout()
     total_height = non_fs_height;
     total_width = non_fs_width;
 
+	//while (gtk_events_pending())
+    //    gtk_main_iteration();
+
     if (total_width == 0)
         total_width = controls_box->requisition.width;
 
     if (GTK_IS_WIDGET(media_hbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
         gtk_widget_show_all(media_hbox);
-        while (gtk_events_pending())
-            gtk_main_iteration();
+        //while (gtk_events_pending())
+        //    gtk_main_iteration();
         total_height += media_hbox->allocation.height;
     } else {
         gtk_widget_hide_all(media_hbox);
@@ -92,9 +100,8 @@ void adjust_layout()
     if (GTK_IS_WIDGET(details_table)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
         gtk_widget_show_all(details_vbox);
-        while (gtk_events_pending())
-            gtk_main_iteration();
-        //printf("adding height\n");
+        //while (gtk_events_pending())
+        //    gtk_main_iteration();
         total_height += details_vbox->allocation.height;
     } else {
         gtk_widget_hide_all(details_vbox);
@@ -103,8 +110,8 @@ void adjust_layout()
     if (GTK_IS_WIDGET(audio_meter)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter))) {
         gtk_widget_show_all(audio_meter);
-        while (gtk_events_pending())
-            gtk_main_iteration();
+        //while (gtk_events_pending())
+        //    gtk_main_iteration();
         total_height += audio_meter->allocation.height;
     } else {
         gtk_widget_hide_all(audio_meter);
@@ -116,8 +123,8 @@ void adjust_layout()
         gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
         gtk_widget_show_all(plvbox);
         gtk_widget_grab_default(plclose);
-        while (gtk_events_pending())
-            gtk_main_iteration();
+        //while (gtk_events_pending())
+        //    gtk_main_iteration();
         gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
 
         //printf("handle size = %i\n",handle_size);
@@ -155,8 +162,8 @@ void adjust_layout()
     //printf("controls = %i\n",menubar->allocation.height + controls_box->allocation.height);
     //printf("totals = %i x %i\n",total_width,total_height);
 
-    while (gtk_events_pending())
-        gtk_main_iteration();
+    //while (gtk_events_pending())
+    //    gtk_main_iteration();
 
     if (use_remember_loc) {
         // printf("setting size to %i x %i\n", loc_window_width, loc_window_height);
@@ -335,7 +342,7 @@ gboolean set_media_label(void *data)
 
     }
 
-    adjust_layout();
+    g_idle_add(set_adjust_layout,NULL);
     return FALSE;
 }
 
@@ -355,7 +362,9 @@ gboolean set_cover_art(gpointer pixbuf)
         //gtk_widget_show_all(media_hbox);
     }
 
-    adjust_layout();
+	g_idle_add(set_adjust_layout,NULL);
+
+    //adjust_layout();
     return FALSE;
 }
 
@@ -1039,7 +1048,8 @@ gboolean resize_window(void *data)
                         //fixed->allocation.height = idle->height;
                         //allocate_fixed_callback (fixed,&(fixed->allocation),NULL);
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
-                        adjust_layout();
+						//gtk_widget_set_usize(fixed, idle->width, idle->height);
+                        g_idle_add(set_adjust_layout,NULL);
                     }
                 } else {
                     // adjust the drawing area, new media may have different aspect
@@ -1056,7 +1066,8 @@ gboolean resize_window(void *data)
 
                     if (window_x > 0 && total_height > 0) {
                         gtk_widget_set_size_request(fixed, window_x, total_height);
-                        adjust_layout();
+                        g_idle_add(set_adjust_layout,NULL);
+						// adjust_layout();
                     }
                 }
             }
@@ -1071,6 +1082,8 @@ gboolean resize_window(void *data)
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
             last_window_height = 0;
             last_window_width = 0;
+			g_idle_add(set_adjust_layout,NULL);
+			// adjust_layout();
         }
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), idle->videopresent);
@@ -1527,7 +1540,8 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             new_width = new_width - (new_width % 16);
             new_height = new_height - (new_height % 16);
         }
-        // printf("new_width %i new_height %i\n", new_width, new_height);
+		if (verbose > 1)
+			printf("new_width %i new_height %i\n", new_width, new_height);
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
         idledata->x = (allocation->width - new_width) / 2;
         idledata->y = (allocation->height - new_height) / 2;
@@ -3083,7 +3097,8 @@ void menuitem_view_info_callback(GtkMenuItem * menuitem, void *data)
     if (GTK_IS_WIDGET(media_hbox)) {
         if (!GTK_WIDGET_REALIZED(media_hbox))
             gtk_widget_realize(media_hbox);
-        adjust_layout();
+            g_idle_add(set_adjust_layout,NULL);
+			// adjust_layout();
     }
 
 }
@@ -3425,7 +3440,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_fullscreen(GTK_WINDOW(window));
         }
         motion_notify_callback(NULL, NULL, NULL);
-        adjust_layout();
+        g_idle_add(set_adjust_layout,NULL);
+		//adjust_layout();
     }
 
 }
@@ -3798,7 +3814,8 @@ void saturation_callback(GtkRange * range, gpointer data)
 
 void menuitem_meter_callback(GtkMenuItem * menuitem, void *data)
 {
-    adjust_layout();
+    g_idle_add(set_adjust_layout,NULL);
+	//adjust_layout();
 }
 
 void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
@@ -3962,11 +3979,22 @@ void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
             gtk_table_attach_defaults(GTK_TABLE(details_table), label, 1, 2, i, i + 1);
         }
         i++;
-
     }
-    gtk_container_add(GTK_CONTAINER(details_vbox), details_table);
-
-    adjust_layout();
+	if (GTK_IS_WIDGET(details_table)) {
+		gtk_container_add(GTK_CONTAINER(details_vbox), details_table);
+		gtk_widget_realize(details_table);
+	}
+	
+	/*
+	if(gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
+		gtk_widget_show_all(details_vbox);
+	} else {
+		gtk_widget_hide_all(details_vbox);
+	}
+	*/
+	
+	g_idle_add(set_adjust_layout,NULL);
+	//adjust_layout();
 }
 
 
