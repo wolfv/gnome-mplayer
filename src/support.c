@@ -1407,6 +1407,8 @@ MetaData *get_metadata(gchar * uri)
     }
     ac = 0;
     while (output != NULL && output[ac] != NULL) {
+		if (verbose > 1)
+			printf("METADATA:%s\n",output[ac]);
         lower = g_ascii_strdown(output[ac], -1);
         if (strstr(output[ac], "_LENGTH") != NULL
             && (g_ascii_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0
