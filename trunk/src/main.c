@@ -218,7 +218,6 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
 	if (!streaming_media(uri) && !device_name(uri)) {
 		i = 0;
 		while( demuxer == NULL) {
-			printf("demuxer = %s\n",demuxer);
 			g_free(title);
 			g_free(artist);
 			g_free(album);
@@ -241,7 +240,7 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
 			gtk_main_iteration();
 		}
 	}
-	
+
     // reset audio meter
     for (i = 0; i < METER_BARS; i++) {
         buckets[i] = 0;
@@ -452,6 +451,13 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
     } else {
         idledata->videopresent = 0;
     }
+
+	if (idledata->audio_codec != NULL && strlen(idledata->audio_codec) >0 ) {
+		idledata->audiopresent = 1;
+	} else {
+		idledata->audiopresent = 0;
+	}
+	
     idledata->x = 0;
     idledata->y = 0;
     idledata->cachepercent = -1.0;
@@ -505,6 +511,8 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
         }
         autostart = 1;
     }
+
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), details_visible);
 
     return 0;
 }
@@ -1023,7 +1031,6 @@ int main(int argc, char *argv[])
     }
 #endif
 
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), details_visible);
 
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
