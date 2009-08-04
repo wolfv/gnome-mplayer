@@ -359,7 +359,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "VO:");
         sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &actual_x, &actual_y, &play_x, &play_y);
 
-        if (play_x >= actual_x && play_y >= actual_y) {
+        if (play_x >= actual_x || play_y >= actual_y) {
             if (actual_x == non_fs_width && actual_y == non_fs_height) {
                 non_fs_height = 0;
                 non_fs_width = 0;

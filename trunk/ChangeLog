@@ -1,4 +1,5 @@
 Development
+    Correct display problem where video says it is one size, but plays at another
     Correct details content
     Fix Details display, however, content is wrong
     Make the adjust layout code run in the event queue, rather than direct. However, this breaks details display

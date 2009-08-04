@@ -1496,12 +1496,18 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         //printf("skipping fixed callback\n");
         return FALSE;
     }
-
+	
+	//printf("movie allocation new_width %i new_height %i\n", allocation->width, allocation->height);
     if (actual_x == 0 && actual_y == 0) {
         actual_x = allocation->width;
         actual_y = allocation->height;
     }
-    // printf("movie new_width %i new_height %i\n", actual_x, actual_y);
+	
+    //printf("movie new_width %i new_height %i\n", actual_x, actual_y);
+
+	if (allocation->width != actual_x || allocation->height != actual_y)
+		return FALSE;
+	
     if (actual_x > 0 && actual_y > 0) {
 
         movie_ratio = (gdouble) actual_x / (gdouble) actual_y;
@@ -6521,6 +6527,8 @@ void show_window(gint windowid)
     gtk_widget_hide(media_hbox);
     gtk_widget_hide(audio_meter);
     gtk_widget_hide(plvbox);
+	gtk_widget_hide(details_vbox);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_details), details_visible);
 
     gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
     if (keep_on_top)
