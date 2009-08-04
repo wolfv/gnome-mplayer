@@ -185,6 +185,7 @@ typedef struct _IdleData {
     gint sub_demux;
     gint switch_audio;
     gboolean retry_on_full_cache;
+	gboolean media_resize;
 #ifdef GIO_ENABLED
     GFile *src;
     GFile *tmp;

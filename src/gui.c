@@ -1047,6 +1047,7 @@ gboolean resize_window(void *data)
                         //fixed->allocation.width = idle->width;
                         //fixed->allocation.height = idle->height;
                         //allocate_fixed_callback (fixed,&(fixed->allocation),NULL);
+						idledata->media_resize = TRUE;
                         gtk_widget_set_size_request(fixed, idle->width, idle->height);
 						//gtk_widget_set_usize(fixed, idle->width, idle->height);
                         g_idle_add(set_adjust_layout,NULL);
@@ -1505,8 +1506,10 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 	
     //printf("movie new_width %i new_height %i\n", actual_x, actual_y);
 
-	if (allocation->width != actual_x || allocation->height != actual_y)
+	if (idledata->media_resize && (allocation->width != non_fs_width || allocation->height != non_fs_height))
 		return FALSE;
+	idledata->media_resize = FALSE;
+
 	
     if (actual_x > 0 && actual_y > 0) {
 
@@ -6488,7 +6491,7 @@ void show_window(gint windowid)
 
 
     }
-    g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), NULL);
+    g_signal_connect(G_OBJECT(fixed), "size_allocate", G_CALLBACK(allocate_fixed_callback), idledata);
     g_signal_connect(G_OBJECT(fixed), "expose_event", G_CALLBACK(expose_fixed_callback), NULL);
 
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), FALSE);
