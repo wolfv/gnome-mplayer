@@ -1587,7 +1587,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     //printf("key name=%s\n", gdk_keyval_name(event->keyval));
     // We don't want to handle CTRL accelerators here
     // if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
-	if (gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)))
+	if (GTK_WIDGET_VISIBLE(plvbox) && gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)))
 	    return FALSE;
 	
     if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
