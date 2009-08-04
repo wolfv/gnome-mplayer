@@ -3823,7 +3823,11 @@ void update_details_table()
 	gchar *buf;
 	IdleData *idle = idledata;
 
-	buf = g_strdup_printf("%i x %i", idle->width, idle->height);
+	if (idle->videopresent) {
+		buf = g_strdup_printf("%i x %i", idle->width, idle->height);
+	} else {
+		buf = g_strdup_printf("0 x 0");
+	}	
 	gtk_label_set_text(GTK_LABEL(details_video_size),buf);
 	g_free(buf);
 	
