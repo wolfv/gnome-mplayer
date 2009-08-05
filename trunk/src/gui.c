@@ -71,7 +71,9 @@ void adjust_layout()
     gint handle_size;
 
     //printf("media size = %i x %i\n",non_fs_width, non_fs_height);
-
+	gtk_widget_set_size_request(fixed, -1, -1);
+    gtk_widget_set_size_request(drawing_area, -1, -1);
+	
     total_height = non_fs_height;
     total_width = non_fs_width;
 
