@@ -1034,7 +1034,7 @@ gboolean resize_window(void *data)
                 adjusting = FALSE;
                 if (verbose)
                     printf("current size = %i x %i \n", non_fs_width, non_fs_height);
-                if ((non_fs_width < 8 || non_fs_height < 8) || resize_on_new_media == TRUE) {
+                if ((non_fs_width < 32 || non_fs_height < 32) || resize_on_new_media == TRUE) {
                     if (idle->width > 0 && idle->height > 0) {
                         if (verbose) {
                             printf("Changing window size to %i x %i visible = %i\n", idle->width,
@@ -1044,12 +1044,7 @@ gboolean resize_window(void *data)
                         last_window_height = idle->height;
                         non_fs_width = idle->width;
                         non_fs_height = idle->height;
-                        //fixed->allocation.width = idle->width;
-                        //fixed->allocation.height = idle->height;
-                        //allocate_fixed_callback (fixed,&(fixed->allocation),NULL);
-						idledata->media_resize = TRUE;
-                        gtk_widget_set_size_request(fixed, idle->width, idle->height);
-						//gtk_widget_set_usize(fixed, idle->width, idle->height);
+                        //gtk_widget_set_size_request(fixed, idle->width, idle->height);
                         g_idle_add(set_adjust_layout,NULL);
                     }
                 } else {
@@ -1492,8 +1487,6 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
     gdouble movie_ratio, window_ratio;
     gint new_width, new_height;
-	GdkScreen *screen;
-	gint w,h;
 
     if (adjusting) {
         //printf("skipping fixed callback\n");
@@ -1507,16 +1500,6 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     }
 	
     // printf("movie new_width %i new_height %i\n", actual_x, actual_y);
-
-	screen = gtk_widget_get_screen(GTK_WIDGET(window));
-	w = MIN(actual_x,gdk_screen_get_width(screen));
-	h = MIN(actual_y,gdk_screen_get_height(screen));
-
-	// printf("w x h = %i x %i\n",w,h);
-	if (idledata->media_resize && (allocation->width < w - 16 || allocation->height < h - 16))
-		return FALSE;
-	idledata->media_resize = FALSE;
-
 	
     if (actual_x > 0 && actual_y > 0) {
 
@@ -1561,7 +1544,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         gtk_widget_set_size_request(drawing_area, new_width, new_height);
         idledata->x = (allocation->width - new_width) / 2;
         idledata->y = (allocation->height - new_height) / 2;
-        move_window(idledata);
+        g_idle_add(move_window,idledata);
 
     }
 
