@@ -139,8 +139,13 @@ void adjust_layout()
         gtk_widget_hide_all(plvbox);
     }
 
-    total_height += menubar->allocation.height;
-
+	if (fullscreen) {
+		gtk_widget_hide(menubar);
+	} else {
+		gtk_widget_show(menubar);
+	    total_height += menubar->allocation.height;
+	}
+	
     if (showcontrols) {
         total_height += controls_box->allocation.height;
     }
