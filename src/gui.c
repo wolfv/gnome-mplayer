@@ -1492,21 +1492,28 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
     gdouble movie_ratio, window_ratio;
     gint new_width, new_height;
+	GdkScreen *screen;
+	gint w,h;
 
     if (adjusting) {
         //printf("skipping fixed callback\n");
         return FALSE;
     }
 	
-	//printf("movie allocation new_width %i new_height %i\n", allocation->width, allocation->height);
+	// printf("movie allocation new_width %i new_height %i\n", allocation->width, allocation->height);
     if (actual_x == 0 && actual_y == 0) {
         actual_x = allocation->width;
         actual_y = allocation->height;
     }
 	
-    //printf("movie new_width %i new_height %i\n", actual_x, actual_y);
+    // printf("movie new_width %i new_height %i\n", actual_x, actual_y);
 
-	if (idledata->media_resize && (allocation->width != non_fs_width || allocation->height != non_fs_height))
+	screen = gtk_widget_get_screen(GTK_WIDGET(window));
+	w = MIN(actual_x,gdk_screen_get_width(screen));
+	h = MIN(actual_y,gdk_screen_get_height(screen));
+
+	// printf("w x h = %i x %i\n",w,h);
+	if (idledata->media_resize && (allocation->width < w - 16 || allocation->height < h - 16))
 		return FALSE;
 	idledata->media_resize = FALSE;
 
@@ -1586,6 +1593,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         }
     }
 
+	/*
     if (GDK_IS_DRAWABLE(fixed->window)) {
         if (videopresent || embed_window != 0) {
             // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
@@ -1593,7 +1601,8 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
                                allocation->y, allocation->width, allocation->height);
         }
     }
-
+	*/
+		
     return FALSE;
 
 }
