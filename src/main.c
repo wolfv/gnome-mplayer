@@ -217,7 +217,7 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
 	// wait for metadata to be available on this item
 	if (!streaming_media(uri) && !device_name(uri)) {
 		i = 0;
-		while( demuxer == NULL) {
+		while( demuxer == NULL && i < 10) {
 			g_free(title);
 			g_free(artist);
 			g_free(album);
@@ -238,6 +238,9 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
                            SUBTITLE_COLUMN, &subtitle,
                            COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
 			gtk_main_iteration();
+			i++;
+			if (demuxer == NULL)
+				g_usleep(10000);
 		}
 	}
 
