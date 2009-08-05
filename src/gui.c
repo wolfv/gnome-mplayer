@@ -1438,7 +1438,7 @@ gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, 
 
     // printf("fullscreen = %i\nState = %i mask = %i flag = %i\n",(event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN),event->new_window_state, event->changed_mask, GDK_WINDOW_STATE_FULLSCREEN);
     if (embed_window == 0) {
-        fullscreen = (event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN);
+        fullscreen = (event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN);
         if (fullscreen) {
             gtk_widget_hide(menubar);
         } else {
