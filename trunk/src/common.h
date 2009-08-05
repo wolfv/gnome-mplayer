@@ -403,7 +403,6 @@ gboolean sub_source_file;
 // layout variables
 gint non_fs_width;
 gint non_fs_height;
-gboolean adjusting;
 
 // playlist stuff
 GtkListStore *playliststore;

@@ -652,7 +652,6 @@ int main(int argc, char *argv[])
     large_buttons = FALSE;
     button_size = 16;
     lastguistate = -1;
-    adjusting = FALSE;
     non_fs_height = 0;
     non_fs_width = 0;
 	use_hw_audio = FALSE;

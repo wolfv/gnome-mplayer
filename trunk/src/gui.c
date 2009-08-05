@@ -72,17 +72,8 @@ void adjust_layout()
 
     //printf("media size = %i x %i\n",non_fs_width, non_fs_height);
 
-    // This seemed to cause problems with the player size for the details view.
-    // while (gtk_events_pending())
-    //     gtk_main_iteration();
-
-    adjusting = TRUE;
-
     total_height = non_fs_height;
     total_width = non_fs_width;
-
-	//while (gtk_events_pending())
-    //    gtk_main_iteration();
 
     if (total_width == 0)
         total_width = controls_box->requisition.width;
@@ -90,8 +81,6 @@ void adjust_layout()
     if (GTK_IS_WIDGET(media_hbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
         gtk_widget_show_all(media_hbox);
-        //while (gtk_events_pending())
-        //    gtk_main_iteration();
         total_height += media_hbox->allocation.height;
     } else {
         gtk_widget_hide_all(media_hbox);
@@ -100,8 +89,6 @@ void adjust_layout()
     if (GTK_IS_WIDGET(details_table)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
         gtk_widget_show_all(details_vbox);
-        //while (gtk_events_pending())
-        //    gtk_main_iteration();
         total_height += details_vbox->allocation.height;
     } else {
         gtk_widget_hide_all(details_vbox);
@@ -110,8 +97,6 @@ void adjust_layout()
     if (GTK_IS_WIDGET(audio_meter)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter))) {
         gtk_widget_show_all(audio_meter);
-        //while (gtk_events_pending())
-        //    gtk_main_iteration();
         total_height += audio_meter->allocation.height;
     } else {
         gtk_widget_hide_all(audio_meter);
@@ -123,8 +108,6 @@ void adjust_layout()
         gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
         gtk_widget_show_all(plvbox);
         gtk_widget_grab_default(plclose);
-        //while (gtk_events_pending())
-        //    gtk_main_iteration();
         gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
 
         //printf("handle size = %i\n",handle_size);
@@ -161,9 +144,6 @@ void adjust_layout()
     }
     //printf("controls = %i\n",menubar->allocation.height + controls_box->allocation.height);
     //printf("totals = %i x %i\n",total_width,total_height);
-
-    //while (gtk_events_pending())
-    //    gtk_main_iteration();
 
     if (use_remember_loc) {
         // printf("setting size to %i x %i\n", loc_window_width, loc_window_height);
@@ -1031,7 +1011,6 @@ gboolean resize_window(void *data)
             gtk_widget_show_all(GTK_WIDGET(fixed));
 
             if (window_x == 0 && window_y == 0) {
-                adjusting = FALSE;
                 if (verbose)
                     printf("current size = %i x %i \n", non_fs_width, non_fs_height);
                 if ((non_fs_width < 16 || non_fs_height < 16) || resize_on_new_media == TRUE || idle->streaming) {
@@ -1465,8 +1444,6 @@ gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, 
 
 gboolean configure_callback(GtkWidget * widget, GdkEventConfigure * event, gpointer user_data)
 {
-    adjusting = FALSE;
-
     return FALSE;
 }
 
@@ -1488,11 +1465,6 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     gdouble movie_ratio, window_ratio;
     gint new_width, new_height;
 
-    if (adjusting) {
-        //printf("skipping fixed callback\n");
-        return FALSE;
-    }
-	
 	// printf("movie allocation new_width %i new_height %i\n", allocation->width, allocation->height);
     if (actual_x == 0 && actual_y == 0) {
         actual_x = allocation->width;
