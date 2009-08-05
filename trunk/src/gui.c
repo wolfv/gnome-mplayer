@@ -1034,7 +1034,7 @@ gboolean resize_window(void *data)
                 adjusting = FALSE;
                 if (verbose)
                     printf("current size = %i x %i \n", non_fs_width, non_fs_height);
-                if ((non_fs_width < 32 || non_fs_height < 32) || resize_on_new_media == TRUE) {
+                if ((non_fs_width < 16 || non_fs_height < 16) || resize_on_new_media == TRUE || idle->streaming) {
                     if (idle->width > 0 && idle->height > 0) {
                         if (verbose) {
                             printf("Changing window size to %i x %i visible = %i\n", idle->width,
