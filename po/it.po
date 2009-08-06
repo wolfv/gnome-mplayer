@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-06 08:13-0600\n"
-"PO-Revision-Date: 2009-05-26 23:42+0200\n"
+"PO-Revision-Date: 2009-08-06 16:09+0200\n"
 "Last-Translator: Cesare Tirabassi <cesare.tirabassi@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -241,7 +241,7 @@ msgstr "Cambio media"
 #: src/gui.c:373
 #, c-format
 msgid "Buffering: %2i%%"
-msgstr ""
+msgstr "Tamponatura: %2i%%"
 
 #: src/gui.c:386
 #, c-format
@@ -551,7 +551,7 @@ msgstr ""
 
 #: src/gui.c:4473
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr ""
+msgstr "Abilita il passaggio AC3/DTS per S/PDIF"
 
 #: src/gui.c:4536
 msgid ""
@@ -580,9 +580,8 @@ msgid "Default Mixer:"
 msgstr "Default Tavola Mixaggio:"
 
 #: src/gui.c:4677
-#, fuzzy
 msgid "Audio Channels to Output"
-msgstr "Canali Audio:"
+msgstr "Canali Audio in Uscita"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -685,9 +684,8 @@ msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Abilita Supporto _Avanzato per Sottotitoli (ASS)"
 
 #: src/gui.c:4890
-#, fuzzy
 msgid "Use _Embedded Fonts (MKV only)"
-msgstr "Usa Caratteri _Embedded"
+msgstr "Usa Caratteri _Embedded (solo MVK)"
 
 #: src/gui.c:4899
 msgid "Subtitle Font:"
@@ -723,7 +721,7 @@ msgstr "Codifica Archivio Sottotitoli:"
 
 #: src/gui.c:4990
 msgid "Subtitle Lower Margin (X11/XV Only):"
-msgstr ""
+msgstr "Margine Inferiore Sottotitoli (Solo X11/XV)"
 
 #: src/gui.c:5003
 msgid "Show Subtitles by Default"
@@ -739,11 +737,11 @@ msgstr "Inizia con la scaletta visibile"
 
 #: src/gui.c:5029
 msgid "Respond to Keyboard Media Keys"
-msgstr ""
+msgstr "Rispondi ai Tasti Multimediali della Tastiera"
 
 #: src/gui.c:5034
 msgid "Use default playlist"
-msgstr ""
+msgstr "Usa la scaletta di default"
 
 #: src/gui.c:5040
 msgid "Show notification popup"
@@ -767,7 +765,7 @@ msgstr "Se in modo a singola istanza, rimpiazza il file esistente"
 
 #: src/gui.c:5084
 msgid "When opening file, bring main window to front"
-msgstr ""
+msgstr "Aprendo un file, porta la finestra principale in evidenza"
 
 #: src/gui.c:5092
 msgid "Remember Window Location and Size"
@@ -775,7 +773,7 @@ msgstr "Ricorda la Posizione e Grandezza della Finestra"
 
 #: src/gui.c:5098
 msgid "Resize window when new video is loaded"
-msgstr ""
+msgstr "Aggiusta la finestra quando un nuovo video viene caricato"
 
 #: src/gui.c:5104
 msgid "Keep window above other windows"
@@ -858,7 +856,7 @@ msgstr "Mo_stra i Controlli"
 
 #: src/gui.c:5563 src/gui.c:5849
 msgid "_Full Screen"
-msgstr "Schermo Pieno"
+msgstr "S_chermo Pieno"
 
 #: src/gui.c:5568
 msgid "_Copy Location"
@@ -932,7 +930,7 @@ msgstr "Apri _Recente"
 #. Edit Menu
 #: src/gui.c:5765
 msgid "_Edit"
-msgstr "Imposta"
+msgstr "_Imposta"
 
 #: src/gui.c:5772
 msgid "_Shuffle Playlist"
@@ -944,7 +942,7 @@ msgstr "_Loop Scaletta"
 
 #: src/gui.c:5781
 msgid "S_witch Audio Track"
-msgstr "Scambia Traccie Audio"
+msgstr "Scam_bia Traccie Audio"
 
 #: src/gui.c:5785
 msgid "Select _Audio Language"
@@ -973,7 +971,7 @@ msgstr "_Vedi"
 
 #: src/gui.c:5836
 msgid "_Playlist"
-msgstr "Scaletta"
+msgstr "Sca_letta"
 
 #: src/gui.c:5839
 msgid "Media _Info"
@@ -997,7 +995,7 @@ msgstr "_Doppia Grandezza (2:1)"
 
 #: src/gui.c:5862
 msgid "_Half Size (1:2)"
-msgstr "Metà Grandezza (1:2)"
+msgstr "_Metà Grandezza (1:2)"
 
 #: src/gui.c:5865
 msgid "_Aspect"
@@ -1036,14 +1034,12 @@ msgid "Increase Subtitle Size"
 msgstr "Incrementa la Grandezza dei Sottotitoli"
 
 #: src/gui.c:5898
-#, fuzzy
 msgid "Decrease Subtitle Delay"
-msgstr "Decrementa la Grandezza dei Sottotitoli"
+msgstr "Decrementa il Ritardo dei Sottotitoli"
 
 #: src/gui.c:5900
-#, fuzzy
 msgid "Increase Subtitle Delay"
-msgstr "Incrementa la Grandezza dei Sottotitoli"
+msgstr "Incrementa il Ritardo dei Sottotitoli"
 
 #: src/gui.c:5901
 msgid "Switch An_gle"
@@ -1060,7 +1056,7 @@ msgstr "Aggiustamenti Immagine _Video"
 #. Help Menu
 #: src/gui.c:5963
 msgid "_Help"
-msgstr "Aiuto"
+msgstr "_Aiuto"
 
 #: src/gui.c:6181
 msgid "Menu"
@@ -1232,13 +1228,12 @@ msgid "Length"
 msgstr "Lunghezza"
 
 #: src/playlist.c:854
-#, fuzzy
 msgid "Count"
-msgstr "Contrasto"
+msgstr "Conteggio"
 
 #: src/playlist.c:862
 msgid "Order"
-msgstr ""
+msgstr "Ordine"
 
 #: src/playlist.c:872
 msgid "Close Playlist View"
@@ -1270,7 +1265,7 @@ msgstr "Muovi Item in Basso"
 
 #: src/playlist.c:949
 msgid "UnSort List"
-msgstr ""
+msgstr "DiSordina Lista"
 
 #: src/playlist.c:984
 msgid "_Set Subtitle"
