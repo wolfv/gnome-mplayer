@@ -495,7 +495,9 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
             idledata->videopresent = 1;
             gtk_widget_set_size_request(drawing_area, 16, 16);
             gtk_widget_show_all(fixed);
-        }
+        } else {
+			g_idle_add(resize_window,idledata);
+		}
 
         if (g_ascii_strcasecmp(uri, "dvdnav://") == 0) {
             gtk_widget_show(menu_event_box);
