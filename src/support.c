@@ -667,9 +667,12 @@ gint parse_cdda(gchar * filename)
                                        PLAYLIST_COLUMN, 0,
                                        ARTIST_COLUMN, artist,
                                        ALBUM_COLUMN, playlistname,
-                                       SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, length, 
-				                       PLAY_ORDER_COLUMN,gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
-				                       ADD_ORDER_COLUMN,gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL), -1);
+                                       SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, length,
+                                       PLAY_ORDER_COLUMN,
+                                       gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),
+                                                                      NULL), ADD_ORDER_COLUMN,
+                                       gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),
+                                                                      NULL), -1);
 
 
                     addcount++;
@@ -1182,18 +1185,18 @@ gchar *metadata_to_utf8(gchar * string)
 
 void retrieve_metadata(gpointer data, gpointer user_data)
 {
-	gchar *uri = (gchar *)data;
-	MetaData *mdata = NULL;
-	
-	mdata = get_metadata(uri);
-	if (mdata != NULL) {
-		mdata->uri = g_strdup(uri);
-		g_idle_add(set_metadata,(gpointer)mdata);
-	}
-	g_free(data);
+    gchar *uri = (gchar *) data;
+    MetaData *mdata = NULL;
+
+    mdata = get_metadata(uri);
+    if (mdata != NULL) {
+        mdata->uri = g_strdup(uri);
+        g_idle_add(set_metadata, (gpointer) mdata);
+    }
+    g_free(data);
 }
 
-MetaData *get_basic_metadata(gchar *uri)
+MetaData *get_basic_metadata(gchar * uri)
 {
     gchar *title = NULL;
     gchar *artist = NULL;
@@ -1203,7 +1206,7 @@ MetaData *get_basic_metadata(gchar *uri)
     gchar *basename = NULL;
     gchar *audio_codec = NULL;
     gchar *video_codec = NULL;
-	gchar *demuxer = NULL;
+    gchar *demuxer = NULL;
     gint width = 0;
     gint height = 0;
     gfloat seconds = 0;
@@ -1216,9 +1219,9 @@ MetaData *get_basic_metadata(gchar *uri)
     if (ret == NULL)
         ret = (MetaData *) g_new0(MetaData, 1);
 
-	if (device_name(uri)) {
+    if (device_name(uri)) {
         name = g_strdup(uri);
-	} else {
+    } else {
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
         if (file != NULL) {
@@ -1275,7 +1278,7 @@ MetaData *get_basic_metadata(gchar *uri)
         ret->length_value = seconds;
         ret->audio_codec = g_strdup(audio_codec);
         ret->video_codec = g_strdup(video_codec);
-		ret->demuxer = g_strdup(demuxer);
+        ret->demuxer = g_strdup(demuxer);
         ret->width = width;
         ret->height = height;
     }
@@ -1286,7 +1289,7 @@ MetaData *get_basic_metadata(gchar *uri)
     g_free(length);
     g_free(audio_codec);
     g_free(video_codec);
-	g_free(demuxer);
+    g_free(demuxer);
     g_free(name);
     g_free(basename);
 
@@ -1303,7 +1306,7 @@ MetaData *get_metadata(gchar * uri)
     gchar *basename = NULL;
     gchar *audio_codec = NULL;
     gchar *video_codec = NULL;
-	gchar *demuxer = NULL;
+    gchar *demuxer = NULL;
     gint width = 0;
     gint height = 0;
     GError *error;
@@ -1324,9 +1327,9 @@ MetaData *get_metadata(gchar * uri)
     if (ret == NULL)
         ret = (MetaData *) g_new0(MetaData, 1);
 
-	if (device_name(uri)) {
+    if (device_name(uri)) {
         name = g_strdup(uri);
-	} else {
+    } else {
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
         if (file != NULL) {
@@ -1407,8 +1410,8 @@ MetaData *get_metadata(gchar * uri)
     }
     ac = 0;
     while (output != NULL && output[ac] != NULL) {
-		if (verbose > 1)
-			printf("METADATA:%s\n",output[ac]);
+        if (verbose > 1)
+            printf("METADATA:%s\n", output[ac]);
         lower = g_ascii_strdown(output[ac], -1);
         if (strstr(output[ac], "_LENGTH") != NULL
             && (g_ascii_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0
@@ -1524,7 +1527,7 @@ MetaData *get_metadata(gchar * uri)
         ret->length_value = seconds;
         ret->audio_codec = g_strdup(audio_codec);
         ret->video_codec = g_strdup(video_codec);
-		ret->demuxer = g_strdup(demuxer);
+        ret->demuxer = g_strdup(demuxer);
         ret->width = width;
         ret->height = height;
     }
@@ -1535,7 +1538,7 @@ MetaData *get_metadata(gchar * uri)
     g_free(length);
     g_free(audio_codec);
     g_free(video_codec);
-	g_free(demuxer);
+    g_free(demuxer);
     g_strfreev(output);
     if (out != NULL)
         g_free(out);
@@ -1711,7 +1714,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
     gchar *local_uri;
     gchar *unescaped = NULL;
     MetaData *data = NULL;
-	gboolean retrieve = FALSE;
+    gboolean retrieve = FALSE;
 
     if (strlen(uri) < 1)
         return FALSE;
@@ -1724,7 +1727,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
             data = (MetaData *) g_new0(MetaData, 1);
             data->title = g_strdup_printf("%s", uri);
         } else {
-			retrieve = TRUE;
+            retrieve = TRUE;
             data = get_basic_metadata(local_uri);
         }
     } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
@@ -1734,7 +1737,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         if (g_ascii_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
             loop = 1;
         }
-		retrieve = TRUE;
+        retrieve = TRUE;
         data = get_basic_metadata(local_uri);
 
     } else {
@@ -1770,11 +1773,13 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
                            DEMUXER_COLUMN, data->demuxer,
                            LENGTH_VALUE_COLUMN, data->length_value,
                            VIDEO_WIDTH_COLUMN, data->width, VIDEO_HEIGHT_COLUMN, data->height,
-                           PLAY_ORDER_COLUMN,gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
-                           ADD_ORDER_COLUMN,gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL), -1);
-		if (retrieve) {
-			g_thread_pool_push(retrieve_metadata_pool,(gpointer)g_strdup(uri),NULL);
-		}
+                           PLAY_ORDER_COLUMN,
+                           gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
+                           ADD_ORDER_COLUMN,
+                           gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL), -1);
+        if (retrieve) {
+            g_thread_pool_push(retrieve_metadata_pool, (gpointer) g_strdup(uri), NULL);
+        }
 
         set_item_add_info(local_uri);
         g_free(data->demuxer);
@@ -1788,7 +1793,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         g_free(data);
         g_free(local_uri);
 
-		
+
         return TRUE;
     } else {
         g_free(local_uri);
@@ -1799,10 +1804,10 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
 
 gboolean first_item_in_playlist(GtkTreeIter * iter)
 {
-	gint i;
-	
-	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
-	do {
+    gint i;
+
+    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
+    do {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
         if (i == 1) {
             // we found the current iter
@@ -1810,66 +1815,67 @@ gboolean first_item_in_playlist(GtkTreeIter * iter)
         }
     } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
 
-	if (gtk_list_store_iter_is_valid(playliststore, iter)) {
-		return TRUE;
-	} else {
-		return FALSE;
-	}	
+    if (gtk_list_store_iter_is_valid(playliststore, iter)) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 
 gboolean prev_item_in_playlist(GtkTreeIter * iter)
 {
-	gint i,j;
-	
+    gint i, j;
+
     if (!gtk_list_store_iter_is_valid(playliststore, iter)) {
         return FALSE;
     } else {
-		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i,-1);
-		if (i > 1) {
-			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
-		    do {
-		        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j, -1);
-		        if (j == (i -1)) {
-		            // we found the current iter
-		            break;
-		        }
-		    } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
-			return TRUE;
-		} else {
-			return FALSE;
-		}
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
+        if (i > 1) {
+            gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
+            do {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j, -1);
+                if (j == (i - 1)) {
+                    // we found the current iter
+                    break;
+                }
+            } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 }
 
 
 gboolean next_item_in_playlist(GtkTreeIter * iter)
 {
-	gint i,j;
-	
+    gint i, j;
+
     if (!gtk_list_store_iter_is_valid(playliststore, iter)) {
         return FALSE;
     } else {
-		gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i,-1);
-		if (i <= gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)) {
-			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
-			if (gtk_list_store_iter_is_valid(playliststore, iter)) {
-				do {
-				    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j, -1);
-				    if (j == (i + 1)) {
-				        // we found the current iter
-				        break;
-				    }
-				} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
-			}
-			if (gtk_list_store_iter_is_valid(playliststore, iter)) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
-		} else {
-			return FALSE;
-		}
-        
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
+        if (i <= gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)) {
+            gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
+            if (gtk_list_store_iter_is_valid(playliststore, iter)) {
+                do {
+                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j,
+                                       -1);
+                    if (j == (i + 1)) {
+                        // we found the current iter
+                        break;
+                    }
+                } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
+            }
+            if (gtk_list_store_iter_is_valid(playliststore, iter)) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        } else {
+            return FALSE;
+        }
+
     }
 }
 
@@ -2037,7 +2043,7 @@ void randomize_playlist(GtkListStore * store)
 
     GtkTreeIter a;
     GtkTreeIter b;
-    gint i,order_a, order_b;
+    gint i, order_a, order_b;
     gint items;
     gint swapid;
     GRand *rand;
@@ -2062,10 +2068,12 @@ void randomize_playlist(GtkListStore * store)
             if (i != swapid) {
                 if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &a, NULL, i)) {
                     if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &b, NULL, swapid)) {
-						gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &a, PLAY_ORDER_COLUMN, &order_a,-1);
-						gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &b, PLAY_ORDER_COLUMN, &order_b,-1);
-						gtk_list_store_set(playliststore, &a, PLAY_ORDER_COLUMN, order_b, -1);
-						gtk_list_store_set(playliststore, &b, PLAY_ORDER_COLUMN, order_a, -1);
+                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &a, PLAY_ORDER_COLUMN,
+                                           &order_a, -1);
+                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &b, PLAY_ORDER_COLUMN,
+                                           &order_b, -1);
+                        gtk_list_store_set(playliststore, &a, PLAY_ORDER_COLUMN, order_b, -1);
+                        gtk_list_store_set(playliststore, &b, PLAY_ORDER_COLUMN, order_a, -1);
                     }
                 }
             }
@@ -2091,7 +2099,7 @@ void reset_playlist_order(GtkListStore * store)
 {
 
     GtkTreeIter a;
-    gint i,j;
+    gint i, j;
     gint items;
     gchar *iterfilename;
     gchar *localfilename;
@@ -2110,8 +2118,8 @@ void reset_playlist_order(GtkListStore * store)
         }
         for (i = 0; i < items; i++) {
             if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &a, NULL, i)) {
-		            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &a, ADD_ORDER_COLUMN, &j,-1);
-					gtk_list_store_set(playliststore, &a, PLAY_ORDER_COLUMN, j, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &a, ADD_ORDER_COLUMN, &j, -1);
+                gtk_list_store_set(playliststore, &a, PLAY_ORDER_COLUMN, j, -1);
             }
         }
 
@@ -2257,7 +2265,7 @@ gdouble get_alsa_volume(gboolean show_details)
 
     snd_mixer_detach(mhandle, device);
     snd_mixer_close(mhandle);
-    
+
     vol = floor(vol + 0.5);
 
 #endif
@@ -2403,12 +2411,12 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
     return found;
 
 #else
-	gchar *cmd;
-	
-	cmd = g_strdup_printf("volume %i 1\n", volume);
+    gchar *cmd;
+
+    cmd = g_strdup_printf("volume %i 1\n", volume);
     send_command(cmd, TRUE);
     g_free(cmd);
-	
+
 #endif
 
 }
@@ -2665,9 +2673,12 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                VIDEO_WIDTH_COLUMN, width,
                                VIDEO_HEIGHT_COLUMN, height,
                                SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,
-                               pixbuf, 
-                               PLAY_ORDER_COLUMN,gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
-                               ADD_ORDER_COLUMN,gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL), -1);
+                               pixbuf,
+                               PLAY_ORDER_COLUMN,
+                               gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
+                               ADD_ORDER_COLUMN,
+                               gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
+                               -1);
 
             g_free(duration);
             g_free(full_path);

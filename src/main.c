@@ -214,36 +214,35 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
         gtk_main_iteration();
     }
 
-	// wait for metadata to be available on this item
-	if (!streaming_media(uri) && !device_name(uri)) {
-		i = 0;
-		while( demuxer == NULL && i < 10) {
-			g_free(title);
-			g_free(artist);
-			g_free(album);
-			g_free(audio_codec);
-			g_free(video_codec);
-			g_free(demuxer);
-			g_free(subtitle);
-			gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i, 
-			               DESCRIPTION_COLUMN, &title,
-                           ARTIST_COLUMN, &artist,
-                           ALBUM_COLUMN, &album,
-                           AUDIO_CODEC_COLUMN, &audio_codec,
-                           VIDEO_CODEC_COLUMN, &video_codec,
-                           VIDEO_WIDTH_COLUMN, &width,
-                           VIDEO_HEIGHT_COLUMN, &height,
-                           DEMUXER_COLUMN, &demuxer,
-                           COVERART_COLUMN, &pixbuf,
-                           SUBTITLE_COLUMN, &subtitle,
-                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-			gtk_main_iteration();
-			i++;
-			if (demuxer == NULL)
-				g_usleep(10000);
-		}
-	}
-
+    // wait for metadata to be available on this item
+    if (!streaming_media(uri) && !device_name(uri)) {
+        i = 0;
+        while (demuxer == NULL && i < 10) {
+            g_free(title);
+            g_free(artist);
+            g_free(album);
+            g_free(audio_codec);
+            g_free(video_codec);
+            g_free(demuxer);
+            g_free(subtitle);
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i,
+                               DESCRIPTION_COLUMN, &title,
+                               ARTIST_COLUMN, &artist,
+                               ALBUM_COLUMN, &album,
+                               AUDIO_CODEC_COLUMN, &audio_codec,
+                               VIDEO_CODEC_COLUMN, &video_codec,
+                               VIDEO_WIDTH_COLUMN, &width,
+                               VIDEO_HEIGHT_COLUMN, &height,
+                               DEMUXER_COLUMN, &demuxer,
+                               COVERART_COLUMN, &pixbuf,
+                               SUBTITLE_COLUMN, &subtitle,
+                               COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+            gtk_main_iteration();
+            i++;
+            if (demuxer == NULL)
+                g_usleep(10000);
+        }
+    }
     // reset audio meter
     for (i = 0; i < METER_BARS; i++) {
         buckets[i] = 0;
@@ -455,18 +454,18 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
         idledata->videopresent = 0;
     }
 
-	if (idledata->audio_codec != NULL && strlen(idledata->audio_codec) >0 ) {
-		idledata->audiopresent = 1;
-	} else {
-		idledata->audiopresent = 0;
-	}
-	
+    if (idledata->audio_codec != NULL && strlen(idledata->audio_codec) > 0) {
+        idledata->audiopresent = 1;
+    } else {
+        idledata->audiopresent = 0;
+    }
+
     idledata->x = 0;
     idledata->y = 0;
     idledata->cachepercent = -1.0;
     g_strlcpy(idledata->info, uri, 1024);
     set_media_info(idledata);
-	
+
     streaming = 0;
     subtitle_delay = 0.0;
 
@@ -496,8 +495,8 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
             gtk_widget_set_size_request(drawing_area, 16, 16);
             gtk_widget_show_all(fixed);
         } else {
-			g_idle_add(resize_window,idledata);
-		}
+            g_idle_add(resize_window, idledata);
+        }
 
         if (g_ascii_strcasecmp(uri, "dvdnav://") == 0) {
             gtk_widget_show(menu_event_box);
@@ -510,8 +509,8 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
         if (autostart) {
             g_idle_add(hide_buttons, idledata);
             js_state = STATE_PLAYING;
-			while(gtk_events_pending())
-				gtk_main_iteration();
+            while (gtk_events_pending())
+                gtk_main_iteration();
             thread = g_thread_create(launch_player, thread_data, TRUE, NULL);
         }
         autostart = 1;
@@ -659,7 +658,7 @@ int main(int argc, char *argv[])
     lastguistate = -1;
     non_fs_height = 0;
     non_fs_width = 0;
-	use_hw_audio = FALSE;
+    use_hw_audio = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -889,8 +888,8 @@ int main(int argc, char *argv[])
     idledata->caching_complete = g_cond_new();
 #endif
 
-    retrieve_metadata_pool = g_thread_pool_new(retrieve_metadata,NULL,10,TRUE,NULL);
-                        
+    retrieve_metadata_pool = g_thread_pool_new(retrieve_metadata, NULL, 10, TRUE, NULL);
+
     if (argv[fileindex] != NULL) {
         g_stat(argv[fileindex], &buf);
         if (verbose) {
@@ -1037,7 +1036,7 @@ int main(int argc, char *argv[])
 
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
-                        
+
     if (argv[fileindex] == NULL && embed_window == 0) {
         use_remember_loc = remember_loc;
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
@@ -1055,10 +1054,10 @@ int main(int argc, char *argv[])
 
     safe_to_save_default_playlist = FALSE;
     if (use_defaultpl) {
-		create_folder_progress_window();
+        create_folder_progress_window();
         parse_playlist(default_playlist);
-		destroy_folder_progress_window();
-	}
+        destroy_folder_progress_window();
+    }
     safe_to_save_default_playlist = TRUE;
 
     gtk_main();
