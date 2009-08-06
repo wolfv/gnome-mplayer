@@ -1,4 +1,7 @@
 Development
+    Update po files
+    Ensure that window is resized prior to launching the thread
+    Add on metadata loader change from length to demuxer to determine if metadata is loaded
     Don't hang if non-media files are in the playlist, like album art
     Correct display problem where video says it is one size, but plays at another
     Correct details content
