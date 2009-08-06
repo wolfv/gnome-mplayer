@@ -245,18 +245,18 @@ gboolean playlist_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
 
 gboolean playlist_enter_callback(GtkWidget * widget, GdkEventMotion * event, gpointer user_data)
 {
-	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list),TRUE);
-	gtk_tree_view_set_search_column(GTK_TREE_VIEW(list),DESCRIPTION_COLUMN);
-	gtk_widget_grab_focus(list);
-	setup_accelerators(FALSE);
-	return TRUE;
+    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list), TRUE);
+    gtk_tree_view_set_search_column(GTK_TREE_VIEW(list), DESCRIPTION_COLUMN);
+    gtk_widget_grab_focus(list);
+    setup_accelerators(FALSE);
+    return TRUE;
 }
 
 gboolean playlist_leave_callback(GtkWidget * widget, GdkEventMotion * event, gpointer user_data)
-{	
-	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list),FALSE);
-	setup_accelerators(TRUE);
-	return TRUE;
+{
+    gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list), FALSE);
+    setup_accelerators(TRUE);
+    return TRUE;
 }
 
 void save_playlist(GtkWidget * widget, void *data)
@@ -602,7 +602,7 @@ void remove_from_playlist(GtkWidget * widget, gpointer data)
         localiter = iter;
         gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter);
         if (gtk_list_store_remove(playliststore, &iter)) {
-            
+
             if (!gtk_list_store_iter_is_valid(playliststore, &iter)) {
                 gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             }
@@ -720,7 +720,8 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 
 void undo_playlist_sort(GtkWidget * widget, void *data)
 {
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(playliststore), PLAY_ORDER_COLUMN, GTK_SORT_ASCENDING);
+    gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(playliststore), PLAY_ORDER_COLUMN,
+                                         GTK_SORT_ASCENDING);
 }
 
 void create_playlist_widget()
@@ -816,7 +817,7 @@ void create_playlist_widget()
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, DESCRIPTION_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
-	
+
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(_("Artist"),
                                                       renderer, "text", ARTIST_COLUMN, NULL);
@@ -851,7 +852,8 @@ void create_playlist_widget()
 
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(_("Count"), renderer, "text", COUNT_COLUMN, NULL);
+    column =
+        gtk_tree_view_column_new_with_attributes(_("Count"), renderer, "text", COUNT_COLUMN, NULL);
     //gtk_tree_view_column_set_expand(column, FALSE);
     g_object_set(renderer, "xalign", 1.0, NULL);
     gtk_tree_view_column_set_resizable(column, FALSE);
@@ -859,13 +861,15 @@ void create_playlist_widget()
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(_("Order"), renderer, "text", PLAY_ORDER_COLUMN, NULL);
+    column =
+        gtk_tree_view_column_new_with_attributes(_("Order"), renderer, "text", PLAY_ORDER_COLUMN,
+                                                 NULL);
     //gtk_tree_view_column_set_expand(column, FALSE);
     g_object_set(renderer, "xalign", 1.0, NULL);
     gtk_tree_view_column_set_resizable(column, FALSE);
     gtk_tree_view_column_set_sort_column_id(column, PLAY_ORDER_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
-	
+
 
     plclose = gtk_button_new();
     tooltip = gtk_tooltips_new();
@@ -943,18 +947,17 @@ void create_playlist_widget()
     g_signal_connect(GTK_OBJECT(down), "clicked", GTK_SIGNAL_FUNC(move_item_down), list);
     gtk_widget_set_sensitive(down, FALSE);
 
-	
+
     undo = gtk_button_new();
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, undo, _("UnSort List"), NULL);
     gtk_button_set_image(GTK_BUTTON(undo),
                          gtk_image_new_from_stock(GTK_STOCK_UNDO, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), undo, FALSE, FALSE, 0);
-    g_signal_connect(GTK_OBJECT(undo), "clicked", GTK_SIGNAL_FUNC(undo_playlist_sort),
-                     list);
+    g_signal_connect(GTK_OBJECT(undo), "clicked", GTK_SIGNAL_FUNC(undo_playlist_sort), list);
     gtk_widget_set_sensitive(undo, TRUE);
-	
-	
+
+
     accel_group = gtk_accel_group_new();
     gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
     gtk_widget_add_accelerator(GTK_WIDGET(remove), "clicked",

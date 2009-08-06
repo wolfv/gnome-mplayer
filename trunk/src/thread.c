@@ -253,7 +253,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GString *mplayer_output;
     GIOStatus status;
     gchar *buf, *message = NULL;
-	gchar *cmd;
+    gchar *cmd;
     gint pos, volume, i;
     gfloat percent;
     GError *error = NULL;
@@ -389,26 +389,26 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             send_command("get_property sub_demux\n", TRUE);
         }
 
-		cmd = g_strdup_printf("brightness %i\n",idledata->brightness);
-		send_command(cmd, TRUE);
-		g_free(cmd);
+        cmd = g_strdup_printf("brightness %i\n", idledata->brightness);
+        send_command(cmd, TRUE);
+        g_free(cmd);
 
-		cmd = g_strdup_printf("contrast %i\n",idledata->contrast);
-		send_command(cmd, TRUE);
-		g_free(cmd);
+        cmd = g_strdup_printf("contrast %i\n", idledata->contrast);
+        send_command(cmd, TRUE);
+        g_free(cmd);
 
-		cmd = g_strdup_printf("gamma %i\n",idledata->gamma);
-		send_command(cmd, TRUE);
-		g_free(cmd);
+        cmd = g_strdup_printf("gamma %i\n", idledata->gamma);
+        send_command(cmd, TRUE);
+        g_free(cmd);
 
-		cmd = g_strdup_printf("hue %i\n",idledata->hue);
-		send_command(cmd, TRUE);
-		g_free(cmd);
+        cmd = g_strdup_printf("hue %i\n", idledata->hue);
+        send_command(cmd, TRUE);
+        g_free(cmd);
 
-		cmd = g_strdup_printf("saturation %i\n",idledata->saturation);
-		send_command(cmd, TRUE);
-		g_free(cmd);
-		
+        cmd = g_strdup_printf("saturation %i\n", idledata->saturation);
+        send_command(cmd, TRUE);
+        g_free(cmd);
+
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -725,8 +725,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     break;
                 }
             }
-            if (g_utf8_validate(buf + 1, strlen(buf+1), 0))
-                message = g_markup_printf_escaped("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
+            if (g_utf8_validate(buf + 1, strlen(buf + 1), 0))
+                message =
+                    g_markup_printf_escaped("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
         }
         if (message) {
             // reset max values in audio meter
@@ -934,11 +935,11 @@ gpointer launch_player(gpointer data)
         }
     }
 
-	if (use_hw_audio) {
+    if (use_hw_audio) {
         argv[arg++] = g_strdup_printf("-afm");
         argv[arg++] = g_strdup_printf("hwac3,");
-	}	
-	
+    }
+
     if (verbose < 2)
         argv[arg++] = g_strdup_printf("-quiet");
     argv[arg++] = g_strdup_printf("-slave");
@@ -983,7 +984,7 @@ gpointer launch_player(gpointer data)
     if (idledata->width > 0 && idledata->height > 0)
         argv[arg++] = g_strdup_printf("-stop-xscreensaver");
 #endif
-	
+
     argv[arg++] = g_strdup_printf("-osdlevel");
     argv[arg++] = g_strdup_printf("%i", osdlevel);
     if (strcmp(threaddata->filename, "dvdnav://") == 0) {
@@ -1194,11 +1195,11 @@ gpointer launch_player(gpointer data)
 	g_free(filename);
 */
 
-	if (!use_hw_audio) {
-		argv[arg++] = g_strdup_printf("-af-add");
-		argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
-	}
-	
+    if (!use_hw_audio) {
+        argv[arg++] = g_strdup_printf("-af-add");
+        argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
+    }
+
     if (threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
 

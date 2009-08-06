@@ -1,4 +1,5 @@
 Development
+    Clean up code with 'make indent'
     Update po files
     Ensure that window is resized prior to launching the thread
     Add on metadata loader change from length to demuxer to determine if metadata is loaded
