@@ -143,7 +143,7 @@ gint detect_playlist(gchar * uri)
             fp = fopen(filename, "r");
             if (path != NULL)
                 g_free(path);
-            path = get_path(filename);
+            path = gm_get_path(filename);
 
             if (fp != NULL) {
                 if (!feof(fp)) {
