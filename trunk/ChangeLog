@@ -1,4 +1,5 @@
 Development
+    Updated Polish translation
     Fix condition where in replace and play mode the content is updated rapidly and the app crashes
     Clean up code with 'make indent'
     Update po files
