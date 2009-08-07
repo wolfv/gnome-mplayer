@@ -637,7 +637,8 @@ void move_item_up(GtkWidget * widget, void *data)
     GtkTreePath *path;
     gint pos = 0;
     gchar *buf;
-
+	gint a_order, b_order;
+	
     sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
     if (gtk_tree_selection_get_selected(sel, NULL, &localiter)) {
         path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &localiter);
@@ -650,6 +651,12 @@ void move_item_up(GtkWidget * widget, void *data)
             if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
                 if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &b, NULL, pos - 1)) {
                     gtk_list_store_swap(playliststore, &a, &b);
+					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &a, PLAY_ORDER_COLUMN, &a_order,
+                                       -1);
+					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &b, PLAY_ORDER_COLUMN, &b_order,
+                                       -1);
+					gtk_list_store_set(playliststore, &a,PLAY_ORDER_COLUMN, b_order, -1);
+					gtk_list_store_set(playliststore, &b,PLAY_ORDER_COLUMN, a_order, -1);
                 }
             }
         }
@@ -669,6 +676,7 @@ void move_item_down(GtkWidget * widget, void *data)
     GtkTreePath *path;
     gint pos = 0;
     gchar *buf;
+	gint a_order, b_order;
 
     sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
     if (gtk_tree_selection_get_selected(sel, NULL, &localiter)) {
@@ -681,6 +689,13 @@ void move_item_down(GtkWidget * widget, void *data)
             if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &a, NULL, pos)) {
                 if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(playliststore), &b, NULL, pos + 1)) {
                     gtk_list_store_swap(playliststore, &a, &b);
+					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &a, PLAY_ORDER_COLUMN, &a_order,
+                                       -1);
+					gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &b, PLAY_ORDER_COLUMN, &b_order,
+                                       -1);
+					gtk_list_store_set(playliststore, &a,PLAY_ORDER_COLUMN, b_order, -1);
+					gtk_list_store_set(playliststore, &b,PLAY_ORDER_COLUMN, a_order, -1);
+					
                 }
             }
         }
