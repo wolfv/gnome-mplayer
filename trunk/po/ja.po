@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-06 08:13-0600\n"
-"PO-Revision-Date: 2009-05-28 01:16+0900\n"
+"PO-Revision-Date: 2009-08-07 08:51+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -534,7 +534,7 @@ msgstr ""
 
 #: src/gui.c:4473
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr ""
+msgstr "S/PDIF出力にAC3/DTSパススルーを許可する"
 
 #: src/gui.c:4536
 msgid ""
@@ -564,9 +564,8 @@ msgid "Default Mixer:"
 msgstr "標準のミキサー"
 
 #: src/gui.c:4677
-#, fuzzy
 msgid "Audio Channels to Output"
-msgstr "チャンネル:"
+msgstr "オーディオチャンネル:"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -671,9 +670,8 @@ msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Advanced Substation Alpha (ASS) 字幕のサポートを有効にする"
 
 #: src/gui.c:4890
-#, fuzzy
 msgid "Use _Embedded Fonts (MKV only)"
-msgstr "埋め込まれたフォントを使う"
+msgstr "埋め込みフォントを使用する(MKVのみ)"
 
 #: src/gui.c:4899
 msgid "Subtitle Font:"
@@ -709,7 +707,7 @@ msgstr "ファイルのエンコード:"
 
 #: src/gui.c:4990
 msgid "Subtitle Lower Margin (X11/XV Only):"
-msgstr ""
+msgstr "下部のマージン(X11/XVのみ)"
 
 #: src/gui.c:5003
 msgid "Show Subtitles by Default"
@@ -725,11 +723,11 @@ msgstr "プレイリストを表示して開始する"
 
 #: src/gui.c:5029
 msgid "Respond to Keyboard Media Keys"
-msgstr ""
+msgstr "キーボードメディアキーに反応する"
 
 #: src/gui.c:5034
 msgid "Use default playlist"
-msgstr ""
+msgstr "デフォルトのプレイリストを使用する"
 
 #: src/gui.c:5040
 msgid "Show notification popup"
@@ -753,7 +751,7 @@ msgstr "単一インスタンスモードで開くとき，既存のファイル
 
 #: src/gui.c:5084
 msgid "When opening file, bring main window to front"
-msgstr ""
+msgstr "ファイルを開くときに，前面にメインウィンドウをもたらす"
 
 #: src/gui.c:5092
 msgid "Remember Window Location and Size"
@@ -761,7 +759,7 @@ msgstr "ウィンドウの位置とサイズを記憶する"
 
 #: src/gui.c:5098
 msgid "Resize window when new video is loaded"
-msgstr ""
+msgstr "新しいビデオを読み込んだときにウィンドウをリサイズする"
 
 #: src/gui.c:5104
 msgid "Keep window above other windows"
@@ -1024,14 +1022,12 @@ msgid "Increase Subtitle Size"
 msgstr "字幕サイズを大きくする"
 
 #: src/gui.c:5898
-#, fuzzy
 msgid "Decrease Subtitle Delay"
-msgstr "字幕サイズを小さくする"
+msgstr "字幕の遅延を小さくする"
 
 #: src/gui.c:5900
-#, fuzzy
 msgid "Increase Subtitle Delay"
-msgstr "字幕サイズを大きくする"
+msgstr "字幕の遅延を大きくする"
 
 #: src/gui.c:5901
 msgid "Switch An_gle"
@@ -1220,13 +1216,12 @@ msgid "Length"
 msgstr "長さ"
 
 #: src/playlist.c:854
-#, fuzzy
 msgid "Count"
-msgstr "コントラスト"
+msgstr "再生回数"
 
 #: src/playlist.c:862
 msgid "Order"
-msgstr ""
+msgstr "再生順序"
 
 #: src/playlist.c:872
 msgid "Close Playlist View"
@@ -1258,7 +1253,7 @@ msgstr "項目を下に移動する"
 
 #: src/playlist.c:949
 msgid "UnSort List"
-msgstr ""
+msgstr "リストを並び替えない"
 
 #: src/playlist.c:984
 msgid "_Set Subtitle"
