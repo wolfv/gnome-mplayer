@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-06 08:13-0600\n"
-"PO-Revision-Date: 2009-06-04 12:03+0300\n"
+"PO-Revision-Date: 2009-08-07 16:11+0300\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -243,7 +243,7 @@ msgstr "Medya Değişikliği"
 #: src/gui.c:373
 #, c-format
 msgid "Buffering: %2i%%"
-msgstr ""
+msgstr "Önbellek: %2i%%"
 
 #: src/gui.c:386
 #, c-format
@@ -535,7 +535,7 @@ msgstr ""
 
 #: src/gui.c:4473
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr ""
+msgstr "AC3/DTS verisini S/PDIF ile çözmeyi aç"
 
 #: src/gui.c:4536
 msgid ""
@@ -564,9 +564,8 @@ msgid "Default Mixer:"
 msgstr "Öntanımlı Ses Seviyesi Aracı:"
 
 #: src/gui.c:4677
-#, fuzzy
 msgid "Audio Channels to Output"
-msgstr "Ses Kanalları:"
+msgstr "Ses Çıkış Kanalları"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -668,9 +667,8 @@ msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "_Gelişmiş Alfa Altyazı (ASS) Desteğini Etkinleştir"
 
 #: src/gui.c:4890
-#, fuzzy
 msgid "Use _Embedded Fonts (MKV only)"
-msgstr "Gömülü _Yazıtipleri Kullan"
+msgstr "Gömülü _Yazıtipleri Kullan (MKV için)"
 
 #: src/gui.c:4899
 msgid "Subtitle Font:"
@@ -706,7 +704,7 @@ msgstr "Altyazı Dosyası Biçimi:"
 
 #: src/gui.c:4990
 msgid "Subtitle Lower Margin (X11/XV Only):"
-msgstr ""
+msgstr "Altyazı Alt Boşluğu (X11/XV için)"
 
 #: src/gui.c:5003
 msgid "Show Subtitles by Default"
@@ -722,11 +720,11 @@ msgstr "Açılışta oynatma listesini göster"
 
 #: src/gui.c:5029
 msgid "Respond to Keyboard Media Keys"
-msgstr ""
+msgstr "Klavye Özel Tuşlarını Kullan"
 
 #: src/gui.c:5034
 msgid "Use default playlist"
-msgstr ""
+msgstr "Öntanımlı oynatma listesini kullan"
 
 #: src/gui.c:5040
 msgid "Show notification popup"
@@ -750,7 +748,7 @@ msgstr "Tek oturum modunda açılırken mevcut dosyayı değiştir"
 
 #: src/gui.c:5084
 msgid "When opening file, bring main window to front"
-msgstr ""
+msgstr "Dosya açarken ana pencereyi en öne getir"
 
 #: src/gui.c:5092
 msgid "Remember Window Location and Size"
@@ -758,7 +756,7 @@ msgstr "Pencere Konumunu ve Boyutunu Hatırla"
 
 #: src/gui.c:5098
 msgid "Resize window when new video is loaded"
-msgstr ""
+msgstr "Yeni dosya yüklenirken pencere boyutunu değiştir"
 
 #: src/gui.c:5104
 msgid "Keep window above other windows"
@@ -1020,14 +1018,12 @@ msgid "Increase Subtitle Size"
 msgstr "Altyazı Boyutunu Arttır"
 
 #: src/gui.c:5898
-#, fuzzy
 msgid "Decrease Subtitle Delay"
-msgstr "Altyazı Boyutunu Azalt"
+msgstr "Altyazı Gecikmesini Azalt"
 
 #: src/gui.c:5900
-#, fuzzy
 msgid "Increase Subtitle Delay"
-msgstr "Altyazı Boyutunu Arttır"
+msgstr "Altyazı Gecikmesini Arttır"
 
 #: src/gui.c:5901
 msgid "Switch An_gle"
@@ -1216,13 +1212,12 @@ msgid "Length"
 msgstr "Uzunluk"
 
 #: src/playlist.c:854
-#, fuzzy
 msgid "Count"
-msgstr "Kontrast"
+msgstr "Sayaç"
 
 #: src/playlist.c:862
 msgid "Order"
-msgstr ""
+msgstr "Sıra"
 
 #: src/playlist.c:872
 msgid "Close Playlist View"
@@ -1254,7 +1249,7 @@ msgstr "Öğeyi Aşağı İndir"
 
 #: src/playlist.c:949
 msgid "UnSort List"
-msgstr ""
+msgstr "Liste Sıralamasını Kaldır"
 
 #: src/playlist.c:984
 msgid "_Set Subtitle"
