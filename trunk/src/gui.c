@@ -2967,12 +2967,23 @@ void menuitem_next_callback(GtkMenuItem * menuitem, void *data)
     next_callback(NULL, NULL, NULL);
 }
 
+static void about_url_hook(GtkAboutDialog * about, const char *link, gpointer data)
+{
+    GError *error = NULL;
+
+    if (!gtk_show_uri(gtk_widget_get_screen(GTK_WIDGET(about)), link,
+                      gtk_get_current_event_time(), &error)) {
+        g_error_free(error);
+    }
+}
+
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 {
     gchar *authors[] =
         { "Kevin DeKorte", "James Carthew", "Diogo Franco", "Icons provided by Victor Castillejo",
         NULL
     };
+    gtk_about_dialog_set_url_hook(about_url_hook, NULL, NULL);
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"), "authors", authors,
                           "copyright", "Copyright © 2007,2008 Kevin DeKorte", "comments",
                           _("A media player for GNOME that uses MPlayer"), "version", VERSION,

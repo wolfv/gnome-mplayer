@@ -225,22 +225,22 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
             g_free(video_codec);
             g_free(demuxer);
             g_free(subtitle);
-			if (gtk_list_store_iter_is_valid(playliststore,playiter)) {
-		        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i,
-		                           DESCRIPTION_COLUMN, &title,
-		                           ARTIST_COLUMN, &artist,
-		                           ALBUM_COLUMN, &album,
-		                           AUDIO_CODEC_COLUMN, &audio_codec,
-		                           VIDEO_CODEC_COLUMN, &video_codec,
-		                           VIDEO_WIDTH_COLUMN, &width,
-		                           VIDEO_HEIGHT_COLUMN, &height,
-		                           DEMUXER_COLUMN, &demuxer,
-		                           COVERART_COLUMN, &pixbuf,
-		                           SUBTITLE_COLUMN, &subtitle,
-		                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-			} else {
-				return 1;   // error condition
-			}
+            if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i,
+                                   DESCRIPTION_COLUMN, &title,
+                                   ARTIST_COLUMN, &artist,
+                                   ALBUM_COLUMN, &album,
+                                   AUDIO_CODEC_COLUMN, &audio_codec,
+                                   VIDEO_CODEC_COLUMN, &video_codec,
+                                   VIDEO_WIDTH_COLUMN, &width,
+                                   VIDEO_HEIGHT_COLUMN, &height,
+                                   DEMUXER_COLUMN, &demuxer,
+                                   COVERART_COLUMN, &pixbuf,
+                                   SUBTITLE_COLUMN, &subtitle,
+                                   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+            } else {
+                return 1;       // error condition
+            }
             gtk_main_iteration();
             i++;
             if (demuxer == NULL)
