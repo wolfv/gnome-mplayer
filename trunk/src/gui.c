@@ -6406,7 +6406,11 @@ void show_window(gint windowid)
         if (windowid != -1)
             gtk_widget_show_all(window);
         gtk_widget_hide(media_hbox);
-        gtk_widget_hide(menu_event_box);
+        if (lastfile != NULL && g_ascii_strcasecmp(lastfile, "dvdnav://") == 0) {
+            gtk_widget_show(menu_event_box);
+        } else {
+            gtk_widget_hide(menu_event_box);
+        }
         gtk_widget_hide(audio_meter);
         if (disable_fullscreen)
             gtk_widget_hide(fs_event_box);
@@ -6439,6 +6443,7 @@ void show_window(gint windowid)
         gtk_widget_hide(fixed);
         gtk_widget_hide(menubar);
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
+
         gtk_widget_hide(menu_event_box);
         gtk_widget_hide(audio_meter);
 
