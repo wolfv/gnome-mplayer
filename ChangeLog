@@ -1,4 +1,5 @@
 Development
+    Fix menu button not showing when starting with dvdnav://
     Fix up/down arrow buttons in playlist view, items were moving by play order was not set right
     Updated Polish translation
     Fix condition where in replace and play mode the content is updated rapidly and the app crashes
