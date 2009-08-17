@@ -2320,22 +2320,24 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
             if (g_mutex_trylock(slide_away)) {
                 g_timeout_add(40, slide_panel_away, NULL);
             }
-            cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
-            cursor =
-                gdk_cursor_new_from_pixmap(cursor_source, cursor_source, &cursor_color,
-                                           &cursor_color, 0, 0);
-            gdk_pixmap_unref(cursor_source);
-            gdk_window_set_cursor(window->window, cursor);
-            gdk_cursor_unref(cursor);
-/*
-			if (verbose > 1) {
-				g_get_current_time(&currenttime);
-				printf("panel and mouse set invisible at %li\n",currenttime.tv_sec);
-			}
-*/
+
         }
 
     }
+
+    g_get_current_time(&currenttime);
+    g_time_val_add(&currenttime, -auto_hide_timeout * G_USEC_PER_SEC);
+    if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
+        cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
+        cursor =
+            gdk_cursor_new_from_pixmap(cursor_source, cursor_source, &cursor_color,
+                                       &cursor_color, 0, 0);
+        gdk_pixmap_unref(cursor_source);
+        gdk_window_set_cursor(window->window, cursor);
+        gdk_cursor_unref(cursor);
+
+    }
+	
     return FALSE;
 }
 
