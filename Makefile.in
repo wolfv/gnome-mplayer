@@ -279,7 +279,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = src po icons
-gnome_mplayerdocdir = ${prefix}/share/doc/gnome-mplayer
+gnome_mplayerdocdir = ${docdir}
 gnome_mplayerdoc_DATA = \
 	README\
 	COPYING\

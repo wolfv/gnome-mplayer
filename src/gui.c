@@ -2343,22 +2343,13 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 
 gboolean make_panel_and_mouse_visible(gpointer data)
 {
-//      GTimeVal currenttime;
 
-//    if ((fullscreen || always_hide_after_timeout) && !GTK_WIDGET_VISIBLE(controls_box)) {
     g_mutex_unlock(slide_away);
     if (showcontrols && GTK_IS_WIDGET(controls_box)) {
         gtk_widget_set_size_request(controls_box, -1, -1);
         gtk_widget_show(controls_box);
     }
     gdk_window_set_cursor(window->window, NULL);
-/*
-		if (verbose > 1) {
-			g_get_current_time(&currenttime);
-			printf("panel and mouse set visible at %li\n",currenttime.tv_sec);
-		}
-*/
-//    }
 
     return FALSE;
 }

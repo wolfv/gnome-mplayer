@@ -3,7 +3,7 @@
 
 SUBDIRS = src po icons
 
-gnome_mplayerdocdir = ${prefix}/share/doc/gnome-mplayer
+gnome_mplayerdocdir = ${docdir}
 gnome_mplayerdoc_DATA = \
 	README\
 	COPYING\
