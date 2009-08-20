@@ -1,4 +1,4 @@
-Development
+0.9.7
     Make sure mouse pointer disappears when over the window and not moving, mplayer didn't always do it.
     Fix menu button not showing when starting with dvdnav://
     Fix up/down arrow buttons in playlist view, items were moving by play order was not set right
