@@ -1,4 +1,4 @@
-# GNOME MPlayer 
+# GNOME MPlayer
 # Copyright (C) 2007 Kevin DeKorte
 # This file is distributed under the same license as the GNOME MPlayer package.
 # Kevin DeKorte <kdekorte@gmail.com> 2007.
@@ -9,14 +9,16 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-06 08:13-0600\n"
-"PO-Revision-Date: 2009-06-03 22:19+0100\n"
-"Last-Translator: Wolfgang Knauf <his-metality@freenet.de>\n"
+"PO-Revision-Date: 2009-08-16 16:14+0000\n"
+"Last-Translator: MixCool <lars.thoms@mixcool.de>\n"
 "Language-Team: tim__b <info@yaub.haut.indy-fresse.de>, Wolfgang Knauf <his-"
 "metality@freenet.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2009-08-20 15:04+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -183,11 +185,11 @@ msgstr ""
 
 #: src/main.c:119
 msgid "Use large control buttons"
-msgstr ""
+msgstr "Benutze größere Bedienelemente"
 
 #: src/main.c:122
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "Verstecke die Bedienelemente, wenn die Maus sich nicht bewegt"
 
 #: src/main.c:125
 msgid "Ignore single instance preference for this instance"
@@ -245,7 +247,7 @@ msgstr "Media _Informationen"
 #: src/gui.c:373
 #, c-format
 msgid "Buffering: %2i%%"
-msgstr ""
+msgstr "Pufferung: %2i%%"
 
 #: src/gui.c:386
 #, c-format
@@ -336,7 +338,7 @@ msgstr "Wähle Ordner"
 
 #: src/gui.c:2602 src/gui.c:2694
 msgid "Disk Image (*.iso)"
-msgstr ""
+msgstr "Speicherabbild"
 
 #: src/gui.c:2899
 msgid "Save As..."
@@ -436,11 +438,11 @@ msgstr "Sample Rate:"
 
 #: src/gui.c:4019
 msgid "Video Picture Adjustments"
-msgstr ""
+msgstr "Videobildanpassung"
 
 #: src/gui.c:4032
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Videobildanpassung</span>"
 
 #: src/gui.c:4039
 msgid "Brightness"
@@ -516,7 +518,7 @@ msgstr "Benutzeroberfläche"
 
 #: src/gui.c:4423
 msgid "MPlayer"
-msgstr ""
+msgstr "MPlayer"
 
 #: src/gui.c:4425
 msgid "Plugin"
@@ -562,12 +564,11 @@ msgstr "Audioausgabe:"
 
 #: src/gui.c:4666
 msgid "Default Mixer:"
-msgstr ""
+msgstr "Standardmixer"
 
 #: src/gui.c:4677
-#, fuzzy
 msgid "Audio Channels to Output"
-msgstr "Audio-Kanäle:"
+msgstr "Audiokanäle zum Ausgang"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -662,16 +663,14 @@ msgid "File Metadata Encoding:"
 msgstr "Datei-Metadaten-Zeichensatz:"
 
 #: src/gui.c:4874
-#, fuzzy
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\">Passe Videoeinstellungen an</span>"
+msgstr "<span weight=\"bold\">Untertitel-Einstellungen</span>"
 
 #: src/gui.c:4883
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Benutze _Advanced Substation Alpha (ASS)-Untertitelunterstützung"
 
 #: src/gui.c:4890
-#, fuzzy
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "Benutze _eingebettete Schriftarten"
 
@@ -729,7 +728,7 @@ msgstr ""
 
 #: src/gui.c:5034
 msgid "Use default playlist"
-msgstr ""
+msgstr "Benutze Standard-Wiedergabeliste"
 
 #: src/gui.c:5040
 msgid "Show notification popup"
@@ -758,6 +757,7 @@ msgstr ""
 #: src/gui.c:5084
 msgid "When opening file, bring main window to front"
 msgstr ""
+"Bringe das Hauptfenster in den Vordergrund, wenn eine Datei geöffnet wird"
 
 #: src/gui.c:5092
 msgid "Remember Window Location and Size"
@@ -765,7 +765,7 @@ msgstr "Speichere Fensterposition"
 
 #: src/gui.c:5098
 msgid "Resize window when new video is loaded"
-msgstr ""
+msgstr "Passe die Größe des Fensters an, wenn ein neues Video geladen wird"
 
 #: src/gui.c:5104
 msgid "Keep window above other windows"
@@ -1026,14 +1026,12 @@ msgid "Increase Subtitle Size"
 msgstr "Erhöhe Untertitelgröße"
 
 #: src/gui.c:5898
-#, fuzzy
 msgid "Decrease Subtitle Delay"
-msgstr "Verringere Untertitelgröße"
+msgstr "Verringere die Untertitel-Anzeigedauer"
 
 #: src/gui.c:5900
-#, fuzzy
 msgid "Increase Subtitle Delay"
-msgstr "Erhöhe Untertitelgröße"
+msgstr "Erhöhe die Untertitel-Anzeigedauer"
 
 #: src/gui.c:5901
 msgid "Switch An_gle"
@@ -1045,7 +1043,7 @@ msgstr "_Bedienelemente"
 
 #: src/gui.c:5916
 msgid "_Video Picture Adjustments"
-msgstr ""
+msgstr "_Videobildanpassung"
 
 #. Help Menu
 #: src/gui.c:5963
@@ -1153,7 +1151,7 @@ msgstr "Schnappschuss in '%s' gespeichert"
 
 #: src/thread.c:708
 msgid "GNOME MPlayer Notification"
-msgstr ""
+msgstr "GNOME MPlayer Benachrichtigung"
 
 #: src/playlist.c:233
 #, c-format
@@ -1198,7 +1196,7 @@ msgid_plural ""
 "\tFound %i files\n"
 msgstr[0] ""
 "\n"
-"\t %i Datei gefunden\n"
+"\t%i Datei gefunden\n"
 msgstr[1] ""
 "\n"
 "\t%i Dateien gefunden\n"
@@ -1222,13 +1220,12 @@ msgid "Length"
 msgstr "Länge"
 
 #: src/playlist.c:854
-#, fuzzy
 msgid "Count"
-msgstr "Kontrast"
+msgstr "Zähler"
 
 #: src/playlist.c:862
 msgid "Order"
-msgstr ""
+msgstr "Reihenfolge"
 
 #: src/playlist.c:872
 msgid "Close Playlist View"
@@ -1260,7 +1257,7 @@ msgstr "Titel nach unten bewegen"
 
 #: src/playlist.c:949
 msgid "UnSort List"
-msgstr ""
+msgstr "Unsortierte Liste"
 
 #: src/playlist.c:984
 msgid "_Set Subtitle"
@@ -1286,11 +1283,11 @@ msgstr "Titel"
 
 #: src/nautilus_property_page.c:328
 msgid "Demuxer"
-msgstr ""
+msgstr "Demuxer"
 
 #: src/nautilus_property_page.c:382
 msgid "Video Frame Rate:"
-msgstr ""
+msgstr "Anzahl der Einzelbilder pro Sekunde:"
 
 #: src/nautilus_property_page.c:486
 msgid "Audio/Video"
