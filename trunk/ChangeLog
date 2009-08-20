@@ -1,3 +1,5 @@
+Development
+    Change samplerate display from KB/s to KHz
 0.9.7
     Make sure mouse pointer disappears when over the window and not moving, mplayer didn't always do it.
     Fix menu button not showing when starting with dvdnav://

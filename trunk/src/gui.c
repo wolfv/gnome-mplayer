@@ -3997,7 +3997,7 @@ void create_details_table()
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
     if (idle != NULL) {
-        buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->audio_samplerate, NULL) / 1000));
+        buf = g_strdup_printf("%i KHz", (gint) (g_strtod(idle->audio_samplerate, NULL) / 1000));
         details_audio_samplerate = gtk_label_new(buf);
         g_free(buf);
         gtk_misc_set_alignment(GTK_MISC(details_audio_samplerate), 0.0, 0.0);
