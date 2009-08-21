@@ -1,4 +1,5 @@
 Development
+    Fix GTK 2.14 specific code
     Fix column title in playlist converting _ in playlist filename to underlines in display
     Add gl2 to the list of possible vo's, my ATI r6xx works well with it, but not gl
     Change samplerate display from KB/s to KHz
