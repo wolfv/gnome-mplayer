@@ -58,11 +58,6 @@ static void gmtk_media_tracker_class_init(GmtkMediaTrackerClass * class)
 
 static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
 {
-    GdkPixbuf *temp;
-    GtkIconTheme *icon_theme;
-    PangoLayout *p;
-    gint pwidth, pheight;
-
     gtk_widget_add_events(GTK_WIDGET(tracker),
                           GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
                           GDK_POINTER_MOTION_MASK);
@@ -137,8 +132,8 @@ static void gmtk_media_tracker_dispose(GObject * object)
 static gboolean gmtk_media_tracker_button_press(GtkWidget * tracker, GdkEventButton * event)
 {
     GMTK_MEDIA_TRACKER(tracker)->mouse_down = TRUE;
-	//g_signal_emit_by_name(tracker,"button-press-event",event);
-    return TRUE;
+
+	return TRUE;
 }
 
 static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventButton * event)
