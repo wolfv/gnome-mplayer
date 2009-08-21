@@ -599,6 +599,8 @@ gboolean set_update_gui(void *data)
     gint count;
     GList *langs;
     GList *item;
+	gchar **split;
+	gchar *joined;
 
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2
         && idledata->has_chapters == FALSE) {
@@ -666,8 +668,13 @@ gboolean set_update_gui(void *data)
         } else {
             coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
         }
-        gtk_tree_view_column_set_title(column, coltitle);
+
+		split = g_strsplit(coltitle,"_",0);
+		joined = g_strjoinv("__",split);
+        gtk_tree_view_column_set_title(column, joined);
         g_free(coltitle);
+		g_free(joined);
+		g_strfreev(split);
     }
     return FALSE;
 }

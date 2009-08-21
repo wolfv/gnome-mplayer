@@ -228,6 +228,8 @@ gint parse_playlist(gchar * uri)
     gchar *coltitle;
     gint count = 0;
     gchar *basename;
+	gchar **split;
+	gchar *joined;
 
     // try and parse a playlist in various forms
     // if a parsing does not work then, return 0
@@ -262,8 +264,12 @@ gint parse_playlist(gchar * uri)
             if (GTK_WIDGET(list)) {
                 column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
                 coltitle = g_strdup_printf(_("%s items"), playlistname);
-                gtk_tree_view_column_set_title(column, coltitle);
-                g_free(coltitle);
+				split = g_strsplit(coltitle,"_",0);
+				joined = g_strjoinv("__",split);
+				gtk_tree_view_column_set_title(column, joined);
+				g_free(coltitle);
+				g_free(joined);
+				g_strfreev(split);                
             }
         }
     } else {
