@@ -1180,7 +1180,9 @@ void dbus_unhook()
 
 void dbus_enable_screensaver()
 {
+#if SM_INHIBIT || SS_INHIBIT
     DBusMessage *message;
+#endif
 
     if (connection != NULL && screensaver_disabled) {
 #ifdef SM_INHIBIT
@@ -1205,17 +1207,19 @@ void dbus_enable_screensaver()
 
 void dbus_disable_screensaver()
 {
+#if SM_INHIBIT || SS_INHIBIT	
     DBusError error;
     DBusMessage *reply_message;
     DBusMessage *message;
     const gchar *app;
     const gchar *reason;
     gint flags;
-
+#endif
+	
     if (connection != NULL) {
-        dbus_error_init(&error);
 
 #ifdef SS_INHIBIT
+        dbus_error_init(&error);
         message =
             dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
                                          "org.gnome.ScreenSaver", "Inhibit");
@@ -1235,6 +1239,7 @@ void dbus_disable_screensaver()
 #endif
 
 #ifdef SM_INHIBIT
+        dbus_error_init(&error);
         message =
             dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
                                          "org.gnome.SessionManager", "Inhibit");

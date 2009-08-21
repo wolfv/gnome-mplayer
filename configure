@@ -10018,29 +10018,11 @@ if test -x `which pulseaudio`; then
 fi
 
 
-if test -x `which gnome-power-manager`; then
-        GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
-        if test $GPMVER -ge 26; then
-
-cat >>confdefs.h <<\_ACEOF
-#define SM_INHIBIT 1
-_ACEOF
-
-        fi
-        if test $GPMVER -lt 26; then
-
-cat >>confdefs.h <<\_ACEOF
-#define SS_INHIBIT 1
-_ACEOF
-
-        fi
-
-fi
-
+CHECK_GPM=yes
 
 # Check whether --with-gpm-new-method was given.
 if test "${with_gpm_new_method+set}" = set; then
-  withval=$with_gpm_new_method;
+  withval=$with_gpm_new_method; CHECK_GPM=no
 cat >>confdefs.h <<\_ACEOF
 #define SM_INHIBIT 1
 _ACEOF
@@ -10051,13 +10033,34 @@ fi
 
 # Check whether --with-gpm-old-method was given.
 if test "${with_gpm_old_method+set}" = set; then
-  withval=$with_gpm_old_method;
+  withval=$with_gpm_old_method; CHECK_GPM=no
 cat >>confdefs.h <<\_ACEOF
 #define SS_INHIBIT 1
 _ACEOF
 
 fi
 
+
+if test x$CHECK_GPM = "xyes"; then
+    if test -x `which gnome-power-manager`; then
+            GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
+            if test $GPMVER -ge 26; then
+
+cat >>confdefs.h <<\_ACEOF
+#define SM_INHIBIT 1
+_ACEOF
+
+            fi
+            if test $GPMVER -lt 26; then
+
+cat >>confdefs.h <<\_ACEOF
+#define SS_INHIBIT 1
+_ACEOF
+
+            fi
+
+    fi
+fi
 
 
 
