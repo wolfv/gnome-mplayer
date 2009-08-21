@@ -2423,6 +2423,7 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
     send_command(cmd, TRUE);
     g_free(cmd);
 
+	return TRUE;
 #endif
 
 }

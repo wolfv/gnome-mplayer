@@ -165,27 +165,30 @@ if test -x `which pulseaudio`; then
 fi
 AC_SUBST(FLATVOL)
 
-if test -x `which gnome-power-manager`; then
-        GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
-        if test $GPMVER -ge 26; then
-            AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
-        fi
-        if test $GPMVER -lt 26; then
-            AC_DEFINE(SS_INHIBIT, 1, [Defined if you are using gnome-power-manager below 2.26 ])
-        fi
-        
-fi
-
+CHECK_GPM=yes
 AC_ARG_WITH([gpm-new-method],
         [AS_HELP_STRING([--with-gpm-new-method],
         [Use gnome-power-manager 2.26 or higher inhibit methods (Autodetected)])],
-        [AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])]
+        [CHECK_GPM=no AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])]
         [])
 AC_ARG_WITH([gpm-old-method],
         [AS_HELP_STRING([--with-gpm-old-method],
         [Use gnome-power-manager below 2.26 inhibit methods (Autodetected)])],
-        [AC_DEFINE(SS_INHIBIT, 1, [Defined if you are using gnome-power-manager below 2.26])],
+        [CHECK_GPM=no AC_DEFINE(SS_INHIBIT, 1, [Defined if you are using gnome-power-manager below 2.26])],
         [])
+
+if test x$CHECK_GPM = "xyes"; then
+    if test -x `which gnome-power-manager`; then
+            GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
+            if test $GPMVER -ge 26; then
+                AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
+            fi
+            if test $GPMVER -lt 26; then
+                AC_DEFINE(SS_INHIBIT, 1, [Defined if you are using gnome-power-manager below 2.26 ])
+            fi
+            
+    fi
+fi
 
 
 AC_CHECK_HEADERS([mntent.h])
