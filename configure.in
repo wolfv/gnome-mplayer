@@ -157,11 +157,25 @@ fi
 AM_CONDITIONAL(HAVE_NAUTILUS, test x$HAVE_NAUTILUS = "xyes")
 
 FLATVOL=FALSE
-if test -x `which pulseaudio`; then
-        PAVER=`pulseaudio --version | sed -e 's/pulseaudio 0.9.//'`
-        if test $PAVER -gt 14; then
-            FLATVOL=TRUE
-        fi
+CHECK_FLAT=yes
+AC_ARG_WITH([flat-volume],
+        [AS_HELP_STRING([--with-flat-volume],
+        [Use pulse audio flat volume feature (Autodetected)])],
+        [CHECK_FLAT=no 
+        case "${withval}" in
+        yes) FLATVOL=TRUE;;
+        no) FLATVOL=FALSE;;
+        esac],
+        [])
+        
+if test x$CHECK_FLAT = "xyes"; then
+    if test -x `which pulseaudio`; then
+            AC_MSG_NOTICE([Checking for flat audio support])
+            PAVER=`pulseaudio --version | sed -e 's/pulseaudio 0.9.//'`
+            if test $PAVER -gt 14; then
+                FLATVOL=TRUE
+            fi
+    fi
 fi
 AC_SUBST(FLATVOL)
 
@@ -169,7 +183,7 @@ CHECK_GPM=yes
 AC_ARG_WITH([gpm-new-method],
         [AS_HELP_STRING([--with-gpm-new-method],
         [Use gnome-power-manager 2.26 or higher inhibit methods (Autodetected)])],
-        [CHECK_GPM=no AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])]
+        [CHECK_GPM=no AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])],
         [])
 AC_ARG_WITH([gpm-old-method],
         [AS_HELP_STRING([--with-gpm-old-method],
@@ -179,6 +193,7 @@ AC_ARG_WITH([gpm-old-method],
 
 if test x$CHECK_GPM = "xyes"; then
     if test -x `which gnome-power-manager`; then
+            AC_MSG_NOTICE([Checking for gnome-power-manager support])
             GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
             if test $GPMVER -ge 26; then
                 AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])

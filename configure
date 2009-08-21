@@ -809,6 +809,7 @@ with_libnotify
 with_libgpod
 with_libmusicbrainz3
 enable_nautilus
+with_flat_volume
 with_gpm_new_method
 with_gpm_old_method
 '
@@ -1498,6 +1499,7 @@ Optional Packages:
   --with-libnotify        Send notifications of new media
   --with-libgpod          Add support for libgpod
   --with-libmusicbrainz3  Add support for libmusicbrainz3
+  --with-flat-volume      Use pulse audio flat volume feature (Autodetected)
   --with-gpm-new-method   Use gnome-power-manager 2.26 or higher inhibit
                           methods (Autodetected)
   --with-gpm-old-method   Use gnome-power-manager below 2.26 inhibit methods
@@ -10010,11 +10012,27 @@ fi
 
 
 FLATVOL=FALSE
-if test -x `which pulseaudio`; then
-        PAVER=`pulseaudio --version | sed -e 's/pulseaudio 0.9.//'`
-        if test $PAVER -gt 14; then
-            FLATVOL=TRUE
-        fi
+CHECK_FLAT=yes
+
+# Check whether --with-flat-volume was given.
+if test "${with_flat_volume+set}" = set; then
+  withval=$with_flat_volume; CHECK_FLAT=no
+        case "${withval}" in
+        yes) FLATVOL=TRUE;;
+        no) FLATVOL=FALSE;;
+        esac
+fi
+
+
+if test x$CHECK_FLAT = "xyes"; then
+    if test -x `which pulseaudio`; then
+            { $as_echo "$as_me:$LINENO: Checking for flat audio support" >&5
+$as_echo "$as_me: Checking for flat audio support" >&6;}
+            PAVER=`pulseaudio --version | sed -e 's/pulseaudio 0.9.//'`
+            if test $PAVER -gt 14; then
+                FLATVOL=TRUE
+            fi
+    fi
 fi
 
 
@@ -10026,7 +10044,6 @@ if test "${with_gpm_new_method+set}" = set; then
 cat >>confdefs.h <<\_ACEOF
 #define SM_INHIBIT 1
 _ACEOF
-
 
 fi
 
@@ -10043,6 +10060,8 @@ fi
 
 if test x$CHECK_GPM = "xyes"; then
     if test -x `which gnome-power-manager`; then
+            { $as_echo "$as_me:$LINENO: Checking for gnome-power-manager support" >&5
+$as_echo "$as_me: Checking for gnome-power-manager support" >&6;}
             GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
             if test $GPMVER -ge 26; then
 

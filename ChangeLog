@@ -1,4 +1,5 @@
 Development
+    Add configure flag for flat volume
     Fix configure issues with gnome-power-manager and some compiler warnings
     Fix GTK 2.14 specific code
     Fix column title in playlist converting _ in playlist filename to underlines in display
