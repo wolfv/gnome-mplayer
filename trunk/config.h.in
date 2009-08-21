@@ -18,6 +18,9 @@
 /* Define to 1 if you have GTK 2.12 or higher */
 #undef GTK2_12_ENABLED
 
+/* Define to 1 if you have GTK 2.14 or higher */
+#undef GTK2_14_ENABLED
+
 /* Define to 1 if you have asoundlib development packages */
 #undef HAVE_ASOUNDLIB
 

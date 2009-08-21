@@ -2969,12 +2969,14 @@ void menuitem_next_callback(GtkMenuItem * menuitem, void *data)
 
 static void about_url_hook(GtkAboutDialog * about, const char *link, gpointer data)
 {
+#ifdef GTK2_14_ENABLED
     GError *error = NULL;
 
     if (!gtk_show_uri(gtk_widget_get_screen(GTK_WIDGET(about)), link,
                       gtk_get_current_event_time(), &error)) {
         g_error_free(error);
     }
+#endif
 }
 
 void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
