@@ -1,4 +1,5 @@
 Development
+    Updated zh_CN translation from launchpad
     Add configure flag for flat volume
     Fix configure issues with gnome-power-manager and some compiler warnings
     Fix GTK 2.14 specific code
