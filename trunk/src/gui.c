@@ -2985,7 +2985,9 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
         { "Kevin DeKorte", "James Carthew", "Diogo Franco", "Icons provided by Victor Castillejo",
         NULL
     };
+#ifdef GTK2_14_ENABLED	
     gtk_about_dialog_set_url_hook(about_url_hook, NULL, NULL);
+#endif
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"), "authors", authors,
                           "copyright", "Copyright © 2007,2008 Kevin DeKorte", "comments",
                           _("A media player for GNOME that uses MPlayer"), "version", VERSION,
