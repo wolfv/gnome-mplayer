@@ -204,7 +204,9 @@ typedef struct _ThreadData {
     gint streaming;
     gint player_window;
     gint playlist;
+	gint restart_second;
     gint start_second;
+	gint play_length;
     gboolean done;
 } ThreadData;
 
@@ -226,6 +228,8 @@ enum {
     VIDEO_HEIGHT_COLUMN,
     PLAY_ORDER_COLUMN,
     ADD_ORDER_COLUMN,
+	START_COLUMN,
+	END_COLUMN,
     N_COLUMNS
 };
 
@@ -304,6 +308,8 @@ gboolean disable_context_menu;
 gboolean disable_fullscreen;
 gboolean disable_pause_on_click;
 gint loop;
+gint start_second;
+gint play_length;
 gint random_order;
 gboolean dontplaynext;
 gboolean autopause;

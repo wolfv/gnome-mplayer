@@ -1,4 +1,5 @@
 Development
+    Added support for --ss and --endpos command line options, similar to mplayer options
     Apple HD trailer fixes
     Don't make the link active in the about dialog if we are using gtk < 2.14
     Updated zh_CN translation from launchpad
