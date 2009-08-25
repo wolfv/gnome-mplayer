@@ -1200,6 +1200,12 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
     }
 
+	if (g_strrstr(threaddata->filename,"apple.com")) {
+        argv[arg++] = g_strdup_printf("-user-agent");
+        argv[arg++] = g_strdup_printf("QuickTime/7.6.2");
+	}	
+
+	
     if (threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
 
