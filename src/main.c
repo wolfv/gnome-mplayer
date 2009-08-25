@@ -78,6 +78,10 @@ static GOptionEntry entries[] = {
      NULL},
     {"cache", 0, 0, G_OPTION_ARG_INT, &cache_size, N_("Set cache size"),
      NULL},
+    {"ss", 0, 0, G_OPTION_ARG_INT, &start_second, N_("Start Second (default to 0)"),
+     NULL},
+    {"endpos", 0, 0, G_OPTION_ARG_INT, &play_length, N_("Length of media to play from start second"),
+     NULL},
     {"forcecache", 0, 0, G_OPTION_ARG_NONE, &forcecache, N_("Force cache usage on streaming sites"),
      NULL},
     {"disabledeinterlace", 0, 0, G_OPTION_ARG_NONE, &disable_deinterlace,
@@ -138,7 +142,7 @@ static GOptionEntry entries[] = {
     {NULL}
 };
 
-gint play_iter(GtkTreeIter * playiter, gint start_second)
+gint play_iter(GtkTreeIter * playiter, gint restart_second)
 {
 
     ThreadData *thread_data = (ThreadData *) g_new0(ThreadData, 1);
@@ -480,7 +484,9 @@ gint play_iter(GtkTreeIter * playiter, gint start_second)
     if (thread_data->filename != NULL && strlen(thread_data->filename) != 0) {
         thread_data->player_window = 0;
         thread_data->playlist = playlist;
-        thread_data->start_second = start_second;
+        thread_data->restart_second = restart_second;
+		thread_data->start_second = start_second;
+		thread_data->play_length = play_length;
         thread_data->streaming = streaming_media(thread_data->uri);
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
@@ -663,6 +669,8 @@ int main(int argc, char *argv[])
     non_fs_height = 0;
     non_fs_width = 0;
     use_hw_audio = FALSE;
+	start_second = 0;
+	play_length = 0;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -874,7 +882,7 @@ int main(int argc, char *argv[])
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
                            G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
-                           G_TYPE_INT, G_TYPE_INT, G_TYPE_INT);
+                           G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_FLOAT, G_TYPE_FLOAT);
 
     create_window(embed_window);
 
@@ -1063,7 +1071,7 @@ int main(int argc, char *argv[])
         destroy_folder_progress_window();
     }
     safe_to_save_default_playlist = TRUE;
-
+                       
     gtk_main();
 
     return 0;
