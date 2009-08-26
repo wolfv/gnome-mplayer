@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-06 08:13-0600\n"
-"PO-Revision-Date: 2009-08-22 10:04+0000\n"
+"PO-Revision-Date: 2009-08-26 09:37+0000\n"
 "Last-Translator: liuhao <Unknown>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2009-08-22 13:16+0000\n"
+"X-Launchpad-Export-Date: 2009-08-26 14:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/main.c:52
@@ -116,7 +116,7 @@ msgstr "使用旧的字幕渲染系统"
 
 #: src/main.c:93
 msgid "Don't use fonts embedded on matroska files"
-msgstr ""
+msgstr "不使用嵌入matroska文件的字体"
 
 #: src/main.c:95
 msgid "Use Vertical Layout"
@@ -382,7 +382,7 @@ msgstr "Gnome MPlayer 全屏幕"
 
 #: src/gui.c:3864 src/nautilus_property_page.c:342
 msgid "<span weight=\"bold\">Video Details</span>"
-msgstr "<span weight=\\\"bold\\\">视频详细信息</span>"
+msgstr "<span weight=\"bold\">视频详细信息</span>"
 
 #: src/gui.c:3871 src/nautilus_property_page.c:349
 msgid "Video Size:"
@@ -410,7 +410,7 @@ msgstr "视频速率:"
 
 #: src/gui.c:3942 src/nautilus_property_page.c:398
 msgid "<span weight=\"bold\">Audio Details</span>"
-msgstr "<span weight=\\\"bold\\\">音频详细信息</span>"
+msgstr "<span weight=\"bold\">音频详细信息</span>"
 
 #: src/gui.c:3949 src/nautilus_property_page.c:405
 msgid "Audio Codec:"
@@ -434,7 +434,7 @@ msgstr "视频画面校正"
 
 #: src/gui.c:4032
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
-msgstr "<span weight=\\\"bold\\\">视频画面校正</span>"
+msgstr "<span weight=\"bold\">视频画面校正</span>"
 
 #: src/gui.c:4039
 msgid "Brightness"
@@ -470,7 +470,7 @@ msgstr "最小模式"
 
 #: src/gui.c:4265
 msgid "Timer"
-msgstr "计时器"
+msgstr "播放时间"
 
 #: src/gui.c:4268
 msgid "Timer/Total"
@@ -543,7 +543,7 @@ msgstr ""
 
 #: src/gui.c:4637
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
-msgstr "<span weight=\\\"bold\\\">调整输出选项</span>"
+msgstr "<span weight=\"bold\">调整输出选项</span>"
 
 #: src/gui.c:4644
 msgid "Video Output:"
@@ -566,7 +566,7 @@ msgstr "输出音频声道数"
 #. i = 0;
 #: src/gui.c:4705
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
-msgstr "<span weight=\\\"bold\\\">调整设置选项</span>"
+msgstr "<span weight=\"bold\">调整设置选项</span>"
 
 #: src/gui.c:4713
 msgid "Default Volume Level:"
@@ -603,27 +603,28 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
-"<span weight=\\\"bold\\\">调整插件</span>\n"
+"<span weight=\"bold\">调整插件</span>\n"
 "\n"
 "这些选项当gecko-mediaplayer插件安装后有效。\n"
+"\n"
 "Gecko-mediaplayer是一个火狐的插件，可以用来在浏览器里面虚拟多种\n"
 "播放器，可以用在兼容NPRuntime的浏览器内(Firefox,Konqueror, 等等)."
 
 #: src/gui.c:4797
 msgid "QuickTime Emulation"
-msgstr ""
+msgstr "QuickTime模拟"
 
 #: src/gui.c:4802
 msgid "RealPlayer Emulation"
-msgstr ""
+msgstr "RealPlayer模拟"
 
 #: src/gui.c:4807
 msgid "Windows Media Player Emulation"
-msgstr ""
+msgstr "Windows Media Player模拟"
 
 #: src/gui.c:4812
 msgid "DiVX Player Emulation"
-msgstr ""
+msgstr "DiVX Player模拟"
 
 #: src/gui.c:4817
 msgid "MIDI Support (requires MPlayer support)"
@@ -635,7 +636,7 @@ msgstr "禁用播放器嵌入"
 
 #: src/gui.c:4830
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
-msgstr "<span weight=\\\"bold\\\">调整语言选项</span>"
+msgstr "<span weight=\"bold\">调整语言选项</span>"
 
 #: src/gui.c:4837
 msgid "Default Audio Language"
@@ -651,7 +652,7 @@ msgstr "文件编码:"
 
 #: src/gui.c:4874
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\\\"bold\\\">字幕设置</span>"
+msgstr "<span weight=\"bold\">字幕设置</span>"
 
 #: src/gui.c:4883
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
@@ -703,7 +704,7 @@ msgstr "默认显示字幕"
 
 #: src/gui.c:5012
 msgid "<span weight=\"bold\">Application Preferences</span>"
-msgstr "<span weight=\\\"bold\\\">外观设置</span>"
+msgstr "<span weight=\"bold\">外观设置</span>"
 
 #: src/gui.c:5019
 msgid "Start with playlist visible"
@@ -731,7 +732,7 @@ msgstr "将播放列表放在下方(下次启动程序生效)"
 
 #: src/gui.c:5061
 msgid "Only allow one instance of Gnome MPlayer"
-msgstr "只允许运行一个Gnome Mplayer"
+msgstr "只允许运行一个Gnome Mplayer实例"
 
 #: src/gui.c:5073
 msgid "When opening in single instance mode, replace existing file"
@@ -765,11 +766,11 @@ msgstr "输出详细Debug信息"
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
-msgstr "当这个选种后，额外的debug信息将会显示在终端或者输出到~/.xsession-errors"
+msgstr "当这个选中后，额外的debug信息将会显示在终端或者输出到~/.xsession-errors"
 
 #: src/gui.c:5128
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
-msgstr "<span weight=\\\"bold\\\">MPlayer高级设置</span>"
+msgstr "<span weight=\"bold\">MPlayer高级设置</span>"
 
 #: src/gui.c:5135
 msgid "Mplayer Software Volume Control Enabled"
@@ -791,7 +792,7 @@ msgstr "如果视频看起来很糟糕就启用这个选项"
 
 #: src/gui.c:5153
 msgid "_Drop frames"
-msgstr "允许丢帧(_D"
+msgstr "允许丢帧(_D)"
 
 #: src/gui.c:5156
 msgid "Set this option if video is well behind the audio"
@@ -828,7 +829,7 @@ msgstr "全屏(_F)"
 
 #: src/gui.c:5568
 msgid "_Copy Location"
-msgstr "复制地址(_L)"
+msgstr "复制地址(_C)"
 
 #. File Menu
 #: src/gui.c:5639
@@ -1245,7 +1246,7 @@ msgstr ""
 
 #: src/nautilus_property_page.c:272
 msgid "<span weight=\"bold\">Media Details</span>"
-msgstr "<span weight=\\\"bold\\\">音频详细信息</span>"
+msgstr "<span weight=\"bold\">音频详细信息</span>"
 
 #: src/nautilus_property_page.c:280
 msgid "Title"
