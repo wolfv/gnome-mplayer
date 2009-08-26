@@ -34,6 +34,7 @@
 
 #define MIXER			"mixer"
 #define CACHE_SIZE		"cache_size"
+#define PLUGIN_CACHE_SIZE		"plugin_cache_size"
 #define OSDLEVEL		"osdlevel"
 #define PPLEVEL		"pplevel"
 #define SOFTVOL			"softvol"
@@ -274,6 +275,7 @@ gint max_buckets[METER_BARS];
 
 gchar *lastfile;
 gint cache_size;
+gint plugin_cache_size;
 gboolean forcecache;
 gint osdlevel;
 gint pplevel;

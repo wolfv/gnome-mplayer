@@ -804,6 +804,14 @@ int main(int argc, char *argv[])
         cache_size = gm_pref_store_get_int(gm_store, CACHE_SIZE);
     if (cache_size == 0)
         cache_size = 2000;
+
+    plugin_cache_size = gm_pref_store_get_int(gm_store, PLUGIN_CACHE_SIZE);
+    if (plugin_cache_size == 0)
+        plugin_cache_size = 2000;
+
+	if (control_id != 0)
+        cache_size = plugin_cache_size;
+
     gm_pref_store_free(gm_store);
     gm_pref_store_free(gmp_store);
 

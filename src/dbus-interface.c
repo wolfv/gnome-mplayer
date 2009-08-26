@@ -795,7 +795,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetCacheSize")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &cache_size,
+                    dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &plugin_cache_size,
                                              DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);

@@ -229,6 +229,7 @@ GtkWidget *config_audio_channels;
 GtkWidget *config_use_hw_audio;
 GtkWidget *config_volume;
 GtkWidget *config_cachesize;
+GtkWidget *config_plugin_cache_size;
 GtkWidget *config_osdlevel;
 GtkWidget *config_deinterlace;
 GtkWidget *config_framedrop;
