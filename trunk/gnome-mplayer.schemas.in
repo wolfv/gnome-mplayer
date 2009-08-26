@@ -14,6 +14,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/plugin_cache_size</key>
+      <applyto>/apps/gnome-mplayer/preferences/plugin_cache_size</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>2000</default>
+      <locale name="C">
+        <short>Cache size</short>
+        <long>The memory cache size for playing</long>
+      </locale>
+    </schema>
+    
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/mixer</key>
       <applyto>/apps/gnome-mplayer/preferences/mixer</applyto>
       <owner>gnome-mplayer</owner>
