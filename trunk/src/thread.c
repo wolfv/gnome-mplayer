@@ -1025,8 +1025,9 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-wid");
     player_window = idledata->windowid;
     argv[arg++] = g_strdup_printf("0x%x", player_window);
+#ifdef ENABLE_PANSCAN
     argv[arg++] = g_strdup_printf("-fs");
-
+#endif
     if (threaddata->restart_second > 0) {
         argv[arg++] = g_strdup_printf("-ss");
         argv[arg++] = g_strdup_printf("%i", threaddata->restart_second);
