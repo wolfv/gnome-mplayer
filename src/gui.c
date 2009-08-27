@@ -3460,9 +3460,11 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         g_idle_add(set_adjust_layout, NULL);
         //adjust_layout();
     }
+#ifdef ENABLE_PANSCAN
 	send_command("vo_fullscreen 1\n",TRUE);
 	send_command("panscan 0 1\n",TRUE);
-
+#endif
+		
 }
 
 void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
