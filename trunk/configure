@@ -809,6 +809,7 @@ with_libnotify
 with_libgpod
 with_libmusicbrainz3
 enable_nautilus
+enable_panscan
 with_flat_volume
 with_gpm_new_method
 with_gpm_old_method
@@ -1485,6 +1486,8 @@ Optional Features:
   --disable-schemas-install
                           Disable the schemas installation
   --enable-nautilus       compile the nautilus plugin
+  --enable-panscan        Enable panscan functionality (requires mplayer svn
+                          r29565 or higher)
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -10010,6 +10013,27 @@ else
   HAVE_NAUTILUS_FALSE=
 fi
 
+
+# Check whether --enable-panscan was given.
+if test "${enable_panscan+set}" = set; then
+  enableval=$enable_panscan; case "${enableval}" in
+        yes) ENABLE_PANSCAN=yes ;;
+        no) ENABLE_PANSCAN=no ;;
+        *) { { $as_echo "$as_me:$LINENO: error: bad value ${enableval} for --enable-nautilus" >&5
+$as_echo "$as_me: error: bad value ${enableval} for --enable-nautilus" >&2;}
+   { (exit 1); exit 1; }; } ;;
+        esac
+else
+  ENABLE_PANSCAN=no
+fi
+
+if test x$ENABLE_PANSCAN = "xyes"; then
+
+cat >>confdefs.h <<\_ACEOF
+#define ENABLE_PANSCAN 1
+_ACEOF
+
+fi
 
 FLATVOL=FALSE
 CHECK_FLAT=yes

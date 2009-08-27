@@ -4,6 +4,9 @@
 /* always defined to indicate that i18n is enabled */
 #define ENABLE_NLS 1
 
+/* defined enable panscan functionality */
+/* #undef ENABLE_PANSCAN */
+
 /* GETTEXT package name */
 #define GETTEXT_PACKAGE "gnome-mplayer"
 
