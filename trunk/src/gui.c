@@ -1479,7 +1479,7 @@ gboolean expose_fixed_callback(GtkWidget * widget, GdkEventExpose * event, gpoin
 
 gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation, gpointer data)
 {
-
+	// gchar *cmd;
     gdouble movie_ratio, window_ratio;
     gint new_width, new_height;
 
@@ -1492,6 +1492,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
     if (actual_x > 0 && actual_y > 0) {
 
+		/*
         movie_ratio = (gdouble) actual_x / (gdouble) actual_y;
         // printf("movie new_width %i new_height %i\n", actual_x, actual_y);
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))
@@ -1503,6 +1504,12 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window)))
             movie_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
 
+		cmd = g_strdup_printf("switch_ratio %f\n",movie_ratio);
+		printf("%s",cmd);
+		// send_command(cmd, TRUE);
+		g_free(cmd);
+		*/
+		
         window_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
         // printf("window new_width %i new_height %i\n", allocation->width,allocation->height);
 
@@ -1530,9 +1537,15 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         }
         if (verbose > 1)
             printf("new_width %i new_height %i\n", new_width, new_height);
-        gtk_widget_set_size_request(drawing_area, new_width, new_height);
-        idledata->x = (allocation->width - new_width) / 2;
-        idledata->y = (allocation->height - new_height) / 2;
+		if (0 /* fullscreen */) {
+	        gtk_widget_set_size_request(drawing_area, new_width, new_height);
+		    idledata->x = (allocation->width - new_width) / 2;
+		    idledata->y = (allocation->height - new_height) / 2;
+		} else { 
+			gtk_widget_set_size_request(drawing_area, allocation->width, allocation->height);
+		    idledata->x = 0; // (allocation->width - new_width) / 2;
+		    idledata->y = 0; // (allocation->height - new_height) / 2;
+		}
         g_idle_add(move_window, idledata);
 
     }
@@ -1852,11 +1865,19 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_i:
             if (fullscreen) {
-                cmd = g_strdup_printf("osd_show_text '%s' 1500 0", idledata->display_name);
+                cmd = g_strdup_printf("osd_show_text '%s' 1500 0\n", idledata->display_name);
                 send_command(cmd, TRUE);
                 g_free(cmd);
             }
             return FALSE;
+		case GDK_w:
+				send_command("panscan -0.1 0\n", TRUE);
+				send_command("get_property panscan\n", TRUE);
+				return FALSE;
+		case GDK_e:
+				send_command("panscan 0.1 0\n", TRUE);
+				send_command("get_property panscan\n", TRUE);
+				return FALSE;
         default:
             if (state == PLAYING) {
                 if (!(event->keyval == 0xffe3 || event->keyval == 0xffc6)) {
@@ -3326,7 +3347,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
     }
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
-        gtk_window_unfullscreen(GTK_WINDOW(window));
+		if (embed_window == 0) {
+	        gtk_window_unfullscreen(GTK_WINDOW(window));
+		}
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_config), TRUE);
 
         if (embed_window != 0) {
@@ -3441,6 +3464,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         g_idle_add(set_adjust_layout, NULL);
         //adjust_layout();
     }
+	send_command("vo_fullscreen 1\n",TRUE);
+	send_command("panscan 0 1\n",TRUE);
 
 }
 
@@ -4202,6 +4227,8 @@ void menuitem_view_increase_subtitle_delay_callback(GtkMenuItem * menuitem, void
 void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
 {
     static gint i = 0;
+	gchar *cmd;
+	gdouble movie_ratio;
 
     if ((gpointer) menuitem == (gpointer) menuitem_view_aspect_default) {
         i++;
@@ -4260,10 +4287,23 @@ void menuitem_view_aspect_callback(GtkMenuItem * menuitem, void *data)
         i--;
     }
 
-
     if (i == 0) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
-        allocate_fixed_callback(fixed, &fixed->allocation, NULL);
+        //allocate_fixed_callback(fixed, &fixed->allocation, NULL);
+        movie_ratio = (gdouble) idledata->original_w / (gdouble) idledata->original_h;
+        // printf("movie new_width %i new_height %i\n", actual_x, actual_y);
+        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))
+            movie_ratio = 4.0 / 3.0;
+        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine)))
+            movie_ratio = 16.0 / 9.0;
+        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten)))
+            movie_ratio = 16.0 / 10.0;
+        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window)))
+            movie_ratio = (gdouble) fixed->allocation.width / (gdouble) fixed->allocation.height;
+
+		cmd = g_strdup_printf("switch_ratio %f\n",movie_ratio);
+		send_command(cmd, TRUE);
+		g_free(cmd);		
     }
 
 

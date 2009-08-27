@@ -153,6 +153,8 @@ typedef struct _IdleData {
     gint y;
     gint last_x;
     gint last_y;
+	gint original_h;
+	gint original_w;
     gint width;
     gint height;
     gboolean videopresent;

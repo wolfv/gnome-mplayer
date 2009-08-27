@@ -456,6 +456,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     last_y = 0;
     idledata->width = width;
     idledata->height = height;
+	idledata->original_h = -1;
+	idledata->original_w = -1;
     if (width > 0 && height > 0) {
         idledata->videopresent = 1;
     } else {

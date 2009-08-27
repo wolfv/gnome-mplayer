@@ -371,6 +371,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             printf("Resizing to %i x %i\n", actual_x, actual_y);
         idledata->width = actual_x;
         idledata->height = actual_y;
+		if (idledata->original_w == -1 && idledata->original_h == -1) {
+			idledata->original_w = idledata->width;
+			idledata->original_h = idledata->height;
+		}
         idledata->videopresent = TRUE;
         g_idle_add(resize_window, idledata);
         g_idle_add(set_subtitle_visibility, idledata);
@@ -1021,6 +1025,7 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-wid");
     player_window = idledata->windowid;
     argv[arg++] = g_strdup_printf("0x%x", player_window);
+    argv[arg++] = g_strdup_printf("-fs");
 
     if (threaddata->restart_second > 0) {
         argv[arg++] = g_strdup_printf("-ss");

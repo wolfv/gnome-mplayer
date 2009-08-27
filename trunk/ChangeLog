@@ -1,4 +1,5 @@
 Development
+    Pan and Scan functionality (with new mplayer)
     Separate out plugin cache value and gnome-mplayer cacheing (disabled by default in player)
     Added support for --ss and --endpos command line options, similar to mplayer options
     Apple HD trailer fixes
