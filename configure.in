@@ -156,6 +156,19 @@ if test x$HAVE_NAUTILUS = "xyes"; then
 fi
 AM_CONDITIONAL(HAVE_NAUTILUS, test x$HAVE_NAUTILUS = "xyes")
 
+AC_ARG_ENABLE(panscan,
+        AC_HELP_STRING([--enable-panscan],[Enable panscan functionality (requires mplayer svn r29565 or higher)]),
+        [case "${enableval}" in
+        yes) ENABLE_PANSCAN=yes ;;
+        no) ENABLE_PANSCAN=no ;;
+        *) AC_MSG_ERROR(bad value ${enableval} for --enable-nautilus) ;;
+        esac],
+        [ENABLE_PANSCAN=no]) dnl Default value
+
+if test x$ENABLE_PANSCAN = "xyes"; then
+        AC_DEFINE(ENABLE_PANSCAN, 1, [defined enable panscan functionality])
+fi
+
 FLATVOL=FALSE
 CHECK_FLAT=yes
 AC_ARG_WITH([flat-volume],

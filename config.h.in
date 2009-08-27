@@ -3,6 +3,9 @@
 /* always defined to indicate that i18n is enabled */
 #undef ENABLE_NLS
 
+/* defined enable panscan functionality */
+#undef ENABLE_PANSCAN
+
 /* GETTEXT package name */
 #undef GETTEXT_PACKAGE
 
