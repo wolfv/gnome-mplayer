@@ -218,6 +218,9 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         gtk_main_iteration();
     }
 
+	while (gtk_events_pending())
+            gtk_main_iteration();
+	
     // wait for metadata to be available on this item
     if (!streaming_media(uri) && !device_name(uri)) {
         i = 0;
@@ -524,6 +527,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
             while (gtk_events_pending())
                 gtk_main_iteration();
             thread = g_thread_create(launch_player, thread_data, TRUE, NULL);
+			if (thread == NULL)
+				printf("Unable to launch player thread\n");
         }
         autostart = 1;
     }
@@ -549,6 +554,7 @@ int main(int argc, char *argv[])
     GOptionContext *context;
     gint i;
     struct sigaction sa;
+	gboolean playiter = FALSE;
 
 #ifdef GIO_ENABLED
     GFile *file;
@@ -959,7 +965,8 @@ int main(int argc, char *argv[])
                         randomize_playlist(playliststore);
                     }
                     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                        play_iter(&iter, 0);
+                        // play_iter(&iter, 0);
+						playiter = TRUE;
                     }
                 }
             } else {
@@ -970,7 +977,8 @@ int main(int argc, char *argv[])
                 }
                 //play_file("cdda://", playlist);
                 if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                    play_iter(&iter, 0);
+                    // play_iter(&iter, 0);
+					playiter = TRUE;
                 }
             }
         } else if (S_ISDIR(buf.st_mode)) {
@@ -993,7 +1001,8 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                play_iter(&iter, 0);
+                //play_iter(&iter, 0);
+				playiter = TRUE;
             }
 
         } else {
@@ -1038,7 +1047,8 @@ int main(int argc, char *argv[])
                 randomize_playlist(playliststore);
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                play_iter(&iter, 0);
+                // play_iter(&iter, 0);
+				playiter = TRUE;
             }
         }
 
@@ -1059,6 +1069,10 @@ int main(int argc, char *argv[])
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
 
+	if (playiter)
+         play_iter(&iter, 0);               
+
+                        
     if (argv[fileindex] == NULL && embed_window == 0) {
         use_remember_loc = remember_loc;
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
