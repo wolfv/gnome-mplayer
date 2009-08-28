@@ -1,4 +1,5 @@
 Development
+    Delay loading the item to play, until everything is setup and flushed
     Don't autopause streaming media
     Pan and Scan functionality causes display issues with old mplayers, --enable-panscan
     Pan and Scan functionality (with new mplayer)
