@@ -10019,8 +10019,8 @@ if test "${enable_panscan+set}" = set; then
   enableval=$enable_panscan; case "${enableval}" in
         yes) ENABLE_PANSCAN=yes ;;
         no) ENABLE_PANSCAN=no ;;
-        *) { { $as_echo "$as_me:$LINENO: error: bad value ${enableval} for --enable-nautilus" >&5
-$as_echo "$as_me: error: bad value ${enableval} for --enable-nautilus" >&2;}
+        *) { { $as_echo "$as_me:$LINENO: error: bad value ${enableval} for --enable-panscan" >&5
+$as_echo "$as_me: error: bad value ${enableval} for --enable-panscan" >&2;}
    { (exit 1); exit 1; }; } ;;
         esac
 else
