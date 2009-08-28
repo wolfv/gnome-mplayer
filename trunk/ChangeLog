@@ -1,4 +1,5 @@
 Development
+    Don't autopause streaming media
     Pan and Scan functionality causes display issues with old mplayers, --enable-panscan
     Pan and Scan functionality (with new mplayer)
     Separate out plugin cache value and gnome-mplayer cacheing (disabled by default in player)

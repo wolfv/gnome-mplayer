@@ -392,10 +392,15 @@ gboolean set_progress_value(void *data)
             gmtk_media_tracker_set_text(tracker, idle->progress_text);
         }
     }
-
-    if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9 && !forcecache) {
+	
+	if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iteruri, -1);
+	}
+	
+    if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9 && !forcecache && !streaming_media(iteruri)) {
         if (autopause == FALSE && state == PLAYING) {
             if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+				g_free(iteruri);
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iteruri, -1);
                 if (iteruri != NULL) {
                     iterfilename = g_filename_from_uri(iteruri, NULL, NULL);
