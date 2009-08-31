@@ -1830,19 +1830,55 @@ gboolean first_item_in_playlist(GtkTreeIter * iter)
     }
 }
 
+gint find_closest_to_x_in_playlist(gint x, gint delta)
+{
+	gint j = 0, k = -1;
+	GtkTreeIter localiter;
+	
+    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter);
+	if (delta > 0)
+		k = G_MAXINT;
+		
+    if (gtk_list_store_iter_is_valid(playliststore, &localiter)) {
+        do {
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, PLAY_ORDER_COLUMN, &j,
+                               -1);
+            if (j == (x + delta)) {
+                // we found the current iter
+				k = j;
+                break;
+            }
+			if (delta < 0) {
+				if (j > k && j < x) {
+					k = j;
+				}
+			} else {
+				if (j < k && j > x) {
+					k = j;
+				}
+			}
+			
+        } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
+    }
+
+	// printf("x = %i, delta = %i, return = %i\n",x,delta,k);
+	return k;
+}
+
 gboolean prev_item_in_playlist(GtkTreeIter * iter)
 {
-    gint i, j;
+    gint i, j, k;
 
     if (!gtk_list_store_iter_is_valid(playliststore, iter)) {
         return FALSE;
     } else {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
         if (i > 1) {
+			k = find_closest_to_x_in_playlist (i, -1);
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
             do {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j, -1);
-                if (j == (i - 1)) {
+                if (j == k) {
                     // we found the current iter
                     break;
                 }
@@ -1857,18 +1893,19 @@ gboolean prev_item_in_playlist(GtkTreeIter * iter)
 
 gboolean next_item_in_playlist(GtkTreeIter * iter)
 {
-    gint i, j;
+    gint i, j, k;
 
     if (!gtk_list_store_iter_is_valid(playliststore, iter)) {
         return FALSE;
     } else {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
+		k = find_closest_to_x_in_playlist (i, 1);
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
         if (gtk_list_store_iter_is_valid(playliststore, iter)) {
             do {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j,
                                    -1);
-                if (j == (i + 1)) {
+                if (j == k) {
                     // we found the current iter
                     break;
                 }
@@ -1882,7 +1919,6 @@ gboolean next_item_in_playlist(GtkTreeIter * iter)
         } else {
             return FALSE;
         }
-
     }
 }
 
