@@ -2031,7 +2031,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (next_item_in_playlist(&iter)) {
             play_iter(&iter, 0);
         } else {
-            if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+            if (first_item_in_playlist(&iter)) {
                 play_iter(&iter, 0);
             }
         }
