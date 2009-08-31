@@ -1863,23 +1863,22 @@ gboolean next_item_in_playlist(GtkTreeIter * iter)
         return FALSE;
     } else {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
-        if (i <= gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)) {
-            gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
-            if (gtk_list_store_iter_is_valid(playliststore, iter)) {
-                do {
-                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j,
-                                       -1);
-                    if (j == (i + 1)) {
-                        // we found the current iter
-                        break;
-                    }
-                } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
-            }
-            if (gtk_list_store_iter_is_valid(playliststore, iter)) {
-                return TRUE;
-            } else {
-                return FALSE;
-            }
+        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
+        if (gtk_list_store_iter_is_valid(playliststore, iter)) {
+            do {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j,
+                                   -1);
+                if (j == (i + 1)) {
+                    // we found the current iter
+                    break;
+                }
+            } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
+        } else {
+			return FALSE;
+		}
+		
+        if (gtk_list_store_iter_is_valid(playliststore, iter)) {
+            return TRUE;
         } else {
             return FALSE;
         }
