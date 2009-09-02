@@ -1,4 +1,5 @@
 Development
+    Version bump, debug message
     Fix prev and next when there are gaps in the playlist order values
     Delay loading the item to play, until everything is setup and flushed
     Don't autopause streaming media
