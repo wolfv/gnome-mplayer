@@ -1,4 +1,5 @@
 Development
+    Updated pt_BR translation
     Add en_GB translation
     Version bump, debug message
     Fix prev and next when there are gaps in the playlist order values
