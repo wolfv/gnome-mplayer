@@ -833,7 +833,12 @@ int main(int argc, char *argv[])
         printf("Running with GIO support\n");
     }
 #endif
-
+#ifdef ENABLE_PANSCAN
+    if (verbose) {
+        printf("Running with panscan enabled (mplayer svn r29565 or higher required)\n");
+    }
+#endif
+                        
     if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
         // do nothing
     } else {
