@@ -1876,11 +1876,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
 #ifdef ENABLE_PANSCAN
 		case GDK_w:
-				send_command("panscan -0.1 0\n", TRUE);
+				send_command("panscan -0.05 0\n", TRUE);
 				send_command("get_property panscan\n", TRUE);
 				return FALSE;
 		case GDK_e:
-				send_command("panscan 0.1 0\n", TRUE);
+				send_command("panscan 0.05 0\n", TRUE);
 				send_command("get_property panscan\n", TRUE);
 				return FALSE;
 #endif
