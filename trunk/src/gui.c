@@ -2370,6 +2370,12 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
         gdk_window_set_cursor(window->window, cursor);
         gdk_cursor_unref(cursor);
 
+		if (use_pulse_flat_volume && !softvol) {
+			if (idledata->mplayer_volume != idledata->volume) {
+				idledata->volume = idledata->mplayer_volume;
+				set_volume(idledata);
+			}
+		}
     }
 	
     return FALSE;
