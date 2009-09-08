@@ -479,15 +479,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_volume=%i", &volume);
         if (!idledata->mute) {
             if (use_pulse_flat_volume && !softvol) {
-                // do nothing
-            } else {
-                idledata->volume = volume;
-                idledata->mute = 0;
-                buf = g_strdup_printf(_("Volume %i%%"), volume);
-                g_strlcpy(idledata->vol_tooltip, buf, 128);
-                g_idle_add(set_volume_tip, idledata);
-                g_free(buf);
-            }
+                // Need to track what the master volume is, gui is updated in make mouse invisible
+                idledata->mplayer_volume = volume;
+                idledata->mute = (volume > 0);
+            } 
         }
     }
 
@@ -954,12 +949,10 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-softvol");
 
     if (use_volume_option) {
-        //if (!idledata->mute) {
-            if (!use_pulse_flat_volume || softvol) {
-                argv[arg++] = g_strdup_printf("-volume");
-                argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
-            }
-        //}		
+        if (!use_pulse_flat_volume || softvol) {
+            argv[arg++] = g_strdup_printf("-volume");
+            argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
+        }
     }
 
     if (mixer != NULL && strlen(mixer) > 0) {
