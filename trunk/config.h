@@ -5,7 +5,7 @@
 #define ENABLE_NLS 1
 
 /* defined enable panscan functionality */
-#define ENABLE_PANSCAN 1
+/* #undef ENABLE_PANSCAN */
 
 /* GETTEXT package name */
 #define GETTEXT_PACKAGE "gnome-mplayer"
