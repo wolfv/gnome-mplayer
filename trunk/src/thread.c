@@ -949,10 +949,11 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-softvol");
 
     if (use_volume_option) {
-        //if (!use_pulse_flat_volume || softvol) {
-            argv[arg++] = g_strdup_printf("-volume");
+        argv[arg++] = g_strdup_printf("-volume");
+		if (idledata->mute)
+            argv[arg++] = g_strdup_printf("0");
+		else
             argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
-        //}
     }
 
     if (mixer != NULL && strlen(mixer) > 0) {
