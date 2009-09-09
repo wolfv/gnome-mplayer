@@ -60,7 +60,8 @@ gint get_player_window()
 
 gboolean set_adjust_layout(gpointer data)
 {
-    adjust_layout();
+	adjusting = FALSE;
+	adjust_layout();
     return FALSE;
 }
 
@@ -71,7 +72,7 @@ void adjust_layout()
     gint total_width;
     gint handle_size;
 
-    //printf("media size = %i x %i\n",non_fs_width, non_fs_height);
+    // printf("media size = %i x %i\n",non_fs_width, non_fs_height);
     gtk_widget_set_size_request(fixed, -1, -1);
     gtk_widget_set_size_request(drawing_area, -1, -1);
 
@@ -1046,7 +1047,8 @@ gboolean resize_window(void *data)
                         non_fs_width = idle->width;
                         non_fs_height = idle->height;
                         //gtk_widget_set_size_request(fixed, idle->width, idle->height);
-                        g_idle_add(set_adjust_layout, NULL);
+						adjusting = TRUE;
+                        g_idle_add(set_adjust_layout, &adjusting);
                     }
                 } else {
                     // adjust the drawing area, new media may have different aspect
@@ -1492,12 +1494,15 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     gdouble movie_ratio, window_ratio;
     gint new_width, new_height;
 
+
+	// printf("video present = %i\n",idledata->videopresent);
+	// printf("movie size = %i x %i\n",non_fs_width,non_fs_height);
     // printf("movie allocation new_width %i new_height %i\n", allocation->width, allocation->height);
+    // printf("actual movie new_width %i new_height %i\n", actual_x, actual_y);
     if (actual_x == 0 && actual_y == 0) {
         actual_x = allocation->width;
         actual_y = allocation->height;
     }
-    // printf("movie new_width %i new_height %i\n", actual_x, actual_y);
 
     if (actual_x > 0 && actual_y > 0) {
 
@@ -1516,7 +1521,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         window_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
         // printf("window new_width %i new_height %i\n", allocation->width,allocation->height);
 
-        if (allocation->width == idledata->width && allocation->height == idledata->width) {
+        if (allocation->width == idledata->width && allocation->height == idledata->height) {
             new_width = allocation->width;
             new_height = allocation->height;
         } else {
@@ -1531,6 +1536,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
                 new_width = roundf(allocation->height * movie_ratio);
             }
         }
+
 
         // printf("pre align new_width %i new_height %i\n",new_width, new_height);
         // adjust video to be aligned when playing on video on a smaller screen
@@ -1556,9 +1562,12 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
     if (!fullscreen) {
         if (idledata->videopresent) {
+			// printf("Adjusting = %i\n",adjusting);
             // printf("fixed resized to %i x %i\n",allocation->width,allocation->height);
-            non_fs_width = allocation->width;
-            non_fs_height = allocation->height;
+			if (!adjusting) {
+		        non_fs_width = allocation->width;
+		        non_fs_height = allocation->height;
+			}
         } else {
             non_fs_width = 0;
             non_fs_height = 0;
