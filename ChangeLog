@@ -1,4 +1,5 @@
 Development
+    Fix situation where mplayer thread being dead is detected in more places
     Fix problem with DVD video size being incorrect on media load
 	Work on mute not being saved across items in playlist
     Updated pt_BR translation

@@ -127,6 +127,21 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         return FALSE;
     }
 
+	if (data == NULL) {
+        if (verbose)
+            printf("shutting down threadquery since threaddata is NULL\n");
+        return FALSE;
+    }
+
+    if (threaddata != NULL && threaddata->done == TRUE) {
+        if (verbose)
+            printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
+                   threaddata->filename);
+        g_free(threaddata);
+        threaddata = NULL;
+        return FALSE;
+    }
+	
     mplayer_output = g_string_new("");
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
 
@@ -270,7 +285,22 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     idledata->fromdbus = FALSE;
+	
+	if (data == NULL) {
+        if (verbose)
+            printf("shutting down threadquery since threaddata is NULL\n");
+        return FALSE;
+    }
 
+    if (threaddata != NULL && threaddata->done == TRUE) {
+        if (verbose)
+            printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
+                   threaddata->filename);
+        g_free(threaddata);
+        threaddata = NULL;
+        return FALSE;
+    }
+	
     if (state == QUIT) {
         if (verbose)
             printf("Thread: state = QUIT, shutting down\n");
