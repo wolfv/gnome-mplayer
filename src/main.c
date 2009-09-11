@@ -142,6 +142,53 @@ static GOptionEntry entries[] = {
     {NULL}
 };
 
+gboolean play(void *data);
+
+void play_next() {
+    gchar *filename;
+    gint count;
+    PlayData *p = NULL;
+
+	if (next_item_in_playlist(&iter)) {
+        if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
+                               COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+            g_strlcpy(idledata->info, filename, 4096);
+            g_idle_add(set_media_info, idledata);
+            p = (PlayData *) g_malloc(sizeof(PlayData));
+            g_strlcpy(p->uri, filename, 4096);
+            p->playlist = playlist;
+            g_idle_add(play, p);
+            g_free(filename);
+        }
+    } else {
+        // printf("end of thread playlist is empty\n");
+        if (loop) {
+            if (first_item_in_playlist(&iter)) {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
+                                   &filename, COUNT_COLUMN, &count, PLAYLIST_COLUMN,
+                                   &playlist, -1);
+                g_strlcpy(idledata->info, filename, 4096);
+                g_idle_add(set_media_info, idledata);
+                p = (PlayData *) g_malloc(sizeof(PlayData));
+                g_strlcpy(p->uri, filename, 4096);
+                p->playlist = playlist;
+                g_idle_add(play, p);
+                g_free(filename);
+            }
+        } else {
+            idledata->fullscreen = 0;
+            g_idle_add(set_fullscreen, idledata);
+            g_idle_add(set_stop, idledata);
+        }
+
+        if (quit_on_complete) {
+            g_idle_add(set_quit, idledata);
+        }
+    }               
+}
+
+
 gint play_iter(GtkTreeIter * playiter, gint restart_second)
 {
 
@@ -160,6 +207,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     gchar *audio_codec;
     gchar *video_codec = NULL;
     gchar *demuxer = NULL;
+	gboolean playable = TRUE;
     gint width;
     gint height;
     gint i;
@@ -187,7 +235,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
                            DEMUXER_COLUMN, &demuxer,
                            COVERART_COLUMN, &pixbuf,
                            SUBTITLE_COLUMN, &subtitle,
-                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
+                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, 
+                           PLAYABLE_COLUMN, &playable, -1);
         if (GTK_IS_TREE_SELECTION(selection)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), playiter);
             if (path) {
@@ -224,35 +273,52 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     // wait for metadata to be available on this item
     if (!streaming_media(uri) && !device_name(uri)) {
         i = 0;
-        while (demuxer == NULL && i < 10) {
-            g_free(title);
-            g_free(artist);
-            g_free(album);
-            g_free(audio_codec);
-            g_free(video_codec);
-            g_free(demuxer);
-            g_free(subtitle);
-            if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i,
-                                   DESCRIPTION_COLUMN, &title,
-                                   ARTIST_COLUMN, &artist,
-                                   ALBUM_COLUMN, &album,
-                                   AUDIO_CODEC_COLUMN, &audio_codec,
-                                   VIDEO_CODEC_COLUMN, &video_codec,
-                                   VIDEO_WIDTH_COLUMN, &width,
-                                   VIDEO_HEIGHT_COLUMN, &height,
-                                   DEMUXER_COLUMN, &demuxer,
-                                   COVERART_COLUMN, &pixbuf,
-                                   SUBTITLE_COLUMN, &subtitle,
-                                   COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-            } else {
-                return 1;       // error condition
-            }
-            gtk_main_iteration();
-            i++;
-            if (demuxer == NULL)
-                g_usleep(10000);
-        }
+		if (playable) {
+		    while (demuxer == NULL && i < 10) {
+		        g_free(title);
+		        g_free(artist);
+		        g_free(album);
+		        g_free(audio_codec);
+		        g_free(video_codec);
+		        g_free(demuxer);
+		        g_free(subtitle);
+		        if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
+		            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i,
+		                               DESCRIPTION_COLUMN, &title,
+		                               ARTIST_COLUMN, &artist,
+		                               ALBUM_COLUMN, &album,
+		                               AUDIO_CODEC_COLUMN, &audio_codec,
+		                               VIDEO_CODEC_COLUMN, &video_codec,
+		                               VIDEO_WIDTH_COLUMN, &width,
+		                               VIDEO_HEIGHT_COLUMN, &height,
+		                               DEMUXER_COLUMN, &demuxer,
+		                               COVERART_COLUMN, &pixbuf,
+		                               SUBTITLE_COLUMN, &subtitle,
+		                               COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, 
+		                               PLAYABLE_COLUMN, &playable, -1);
+					if (!playable) {
+						if (verbose) 
+							printf("%s is not marked as playable (%i)\n", uri,i);
+						play_next();
+						return 0;
+					}
+		        } else {
+					if (verbose)
+						printf("Current iter is not valid\n");
+		            return 1;       // error condition
+		        }
+		        gtk_main_iteration();
+		        i++;
+		        if (demuxer == NULL)
+		            g_usleep(10000);
+		    }
+		} else {
+			if (verbose) 
+				printf("%s is not marked as playable\n", uri);
+			play_next();
+			return 0;
+		}
+			
     }
     // reset audio meter
     for (i = 0; i < METER_BARS; i++) {
@@ -905,7 +971,7 @@ int main(int argc, char *argv[])
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
                            G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
-                           G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_FLOAT, G_TYPE_FLOAT);
+                           G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_FLOAT, G_TYPE_FLOAT,G_TYPE_BOOLEAN);
 
     create_window(embed_window);
 

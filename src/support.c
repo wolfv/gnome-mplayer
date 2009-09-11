@@ -1536,6 +1536,7 @@ MetaData *get_metadata(gchar * uri)
         ret->demuxer = g_strdup(demuxer);
         ret->width = width;
         ret->height = height;
+		ret->playable = (demuxer == NULL)? FALSE:TRUE;
     }
 
     g_free(title);
@@ -1782,7 +1783,8 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
                            PLAY_ORDER_COLUMN,
                            gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
                            ADD_ORDER_COLUMN,
-                           gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL), -1);
+                           gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL), 
+                           PLAYABLE_COLUMN, TRUE, -1);
         if (retrieve) {
             g_thread_pool_push(retrieve_metadata_pool, (gpointer) g_strdup(uri), NULL);
         }
