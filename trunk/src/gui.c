@@ -739,7 +739,7 @@ gboolean set_metadata(gpointer data)
         do {
             if (gtk_list_store_iter_is_valid(playliststore, &riter)) {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &riter, ITEM_COLUMN, &uri, -1);
-                if (g_strcmp0(mdata->uri, uri) == 0) {
+                if (strcmp(mdata->uri, uri) == 0) {
                     g_free(uri);
                     break;
                 }
