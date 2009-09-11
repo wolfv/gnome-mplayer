@@ -234,6 +234,7 @@ enum {
     ADD_ORDER_COLUMN,
 	START_COLUMN,
 	END_COLUMN,
+	PLAYABLE_COLUMN,
     N_COLUMNS
 };
 
@@ -250,6 +251,7 @@ typedef struct _MetaData {
     gchar *demuxer;
     gint width;
     gint height;
+	gboolean playable;
 } MetaData;
 
 typedef struct _LangMenu {

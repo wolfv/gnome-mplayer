@@ -761,7 +761,8 @@ gboolean set_metadata(gpointer data)
                                    DEMUXER_COLUMN, mdata->demuxer,
                                    LENGTH_VALUE_COLUMN, mdata->length_value,
                                    VIDEO_WIDTH_COLUMN, mdata->width, VIDEO_HEIGHT_COLUMN,
-                                   mdata->height, -1);
+                                   mdata->height, 
+                                   PLAYABLE_COLUMN, mdata->playable, -1);
 
             }
         }
