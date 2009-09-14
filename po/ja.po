@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-20 11:28-0600\n"
-"PO-Revision-Date: 2009-08-07 08:51+0900\n"
+"PO-Revision-Date: 2009-09-14 11:58+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -837,6 +837,14 @@ msgstr "MPlayer へのその他のオプション:"
 #: src/gui.c:5245
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "ここに（フィルタ等）余分な MPlayer へのオプションを追加"
+
+#: src/gui.c:5306
+msgid "Enable mplayer cache"
+msgstr "Mplayer のキャッシュを有効にする"
+
+#: src/gui.c:5314
+msgid "Cache Size (KB):"
+msgstr "キャッシュサイズ (KB):"
 
 #: src/gui.c:5610
 msgid "S_how Controls"
