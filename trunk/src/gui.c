@@ -47,6 +47,15 @@
 static char *device = "default";
 #endif
 
+static void drawing_area_realized (GtkWidget *widget, gpointer user_data)
+{
+	/* requesting the XID forces the GdkWindow to be native in GTK+ 2.18
+	* onwards, requesting the native window in a thread causes a BadWindowID,
+	* so we need to request it now. We could call gdk_window_ensure_native(),
+	* but that would mean we require GTK+ 2.18, so instead we call this */
+	GDK_WINDOW_XID (gtk_widget_get_window (GTK_WIDGET (widget)));
+}
+
 gint get_player_window()
 {
     if (GTK_IS_WIDGET(drawing_area)) {
@@ -6174,6 +6183,8 @@ GtkWidget *create_window(gint windowid)
     controls_box = gtk_vbox_new(FALSE, 0);
     fixed = gtk_fixed_new();
     drawing_area = gtk_socket_new();
+	g_signal_connect (drawing_area, "realize",  G_CALLBACK (drawing_area_realized), NULL);
+
 
     cover_art = gtk_image_new();
     media_label = gtk_label_new("");

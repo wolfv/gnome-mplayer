@@ -1,4 +1,5 @@
 Development
+	Prepare for GTK 2.18 Native Client windows, by using a patch from empathy
 	Fix various problems found on mailing list
     Updated Polish translation
     Fix situation where mplayer thread being dead is detected in more places
