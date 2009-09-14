@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-13 08:23-0600\n"
-"PO-Revision-Date: 2009-08-07 16:11+0300\n"
+"PO-Revision-Date: 2009-09-13 19:13+0300\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -101,11 +101,11 @@ msgstr "Önbellek boyutunu ayarla"
 
 #: src/main.c:81
 msgid "Start Second (default to 0)"
-msgstr ""
+msgstr "Başlangıç Saniyesi (öntanımlı 0)"
 
 #: src/main.c:83
 msgid "Length of media to play from start second"
-msgstr ""
+msgstr "Başlangıçtan itibaren oynatma süresi"
 
 #: src/main.c:85
 msgid "Force cache usage on streaming sites"
@@ -638,9 +638,8 @@ msgid "Disable Player Embedding"
 msgstr "Oynatıcı Gömülmesini Kapat"
 
 #: src/gui.c:4918 src/gui.c:5314
-#, fuzzy
 msgid "Cache Size (KB):"
-msgstr "En az Önbellek Boyutu (KB):"
+msgstr "Önbellek Boyutu (KB):"
 
 #: src/gui.c:4927
 msgid ""
@@ -819,18 +818,16 @@ msgid "Set this option if video is well behind the audio"
 msgstr "Görüntü sesten çok geride kalıyorsa bu seçeneği işaretleyin"
 
 #: src/gui.c:5306
-#, fuzzy
 msgid "Enable mplayer cache"
-msgstr "Real Player Adı"
+msgstr "MPlayer önbelliğini kullan"
 
 #: src/gui.c:5323
-#, fuzzy
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
 msgstr ""
-"Ağ üzerinden oynatmada önbelleklenecek veri miktarı, yavaş ağ "
-"bağlantılarında yüksek değerler kullanınız"
+"Önbelleklenecek veri miktarı, yavaş ağ bağlantılarında ve aygıtlarda yüksek "
+"değerler kullanın."
 
 #: src/gui.c:5343
 msgid "MPlayer Executable:"
