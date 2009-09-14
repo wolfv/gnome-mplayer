@@ -76,8 +76,7 @@ asx_start_element(GMarkupParseContext * context,
 {
     gchar *value;
     gint i = 0;
-    gchar *ptr;
-	ASXCallback *asx_callback = user_data; // g_markup_parse_context_get_user_data(context);
+    ASXCallback *asx_callback = user_data; // g_markup_parse_context_get_user_data(context);
 	
 	if (g_ascii_strcasecmp(element_name, "REF") == 0 ||
         g_ascii_strcasecmp(element_name, "ENTRYREF") == 0) {
@@ -118,9 +117,6 @@ gboolean gm_parse_asx_is_asx(const gchar *uri)
 
     gchar *line = NULL;
     gchar *newline = NULL;
-    gchar *line_uri = NULL;
-    gchar **parse;
-    gint playlist = 0;
     gboolean ret = FALSE;
 
 #ifdef GIO_ENABLED

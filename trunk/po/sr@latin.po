@@ -10,8 +10,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -237,7 +237,7 @@ msgstr "Promena medijuma"
 #: src/gui.c:374
 #, c-format
 msgid "Buffering: %2i%%"
-msgstr ""
+msgstr "Skladištim: %2i%%"
 
 #: src/gui.c:387
 #, c-format
@@ -247,7 +247,7 @@ msgstr "Pauzirano | %2i%% ▼"
 #: src/gui.c:497 src/gui.c:1970
 #, c-format
 msgid "Playing"
-msgstr "Puštam"
+msgstr "Pušteno"
 
 #: src/gui.c:499 src/gui.c:1988
 #, c-format
@@ -271,7 +271,7 @@ msgid "Item to Play"
 msgid_plural "Items to Play"
 msgstr[0] "Stavka za puštanje"
 msgstr[1] "Stavke za puštanje"
-msgstr[2] "Stavki za puštanje"
+msgstr[2] "Stavke za puštanje"
 
 #: src/gui.c:680 src/gui.c:1969
 msgid "Pause"
@@ -397,19 +397,19 @@ msgstr "Gnomov Mplejer preko celog ekrana"
 
 #: src/gui.c:3871 src/nautilus_property_page.c:342
 msgid "<span weight=\"bold\">Video Details</span>"
-msgstr "<span weight=\"bold\">Podaci o videu</span>"
+msgstr "<span weight=\"bold\">Video</span>"
 
 #: src/gui.c:3878 src/nautilus_property_page.c:349
 msgid "Video Size:"
-msgstr "Veličina videa:"
+msgstr "Veličina:"
 
 #: src/gui.c:3891
 msgid "Video Format:"
-msgstr "Format videa:"
+msgstr "Format:"
 
 #: src/gui.c:3902 src/nautilus_property_page.c:360
 msgid "Video Codec:"
-msgstr "Video kodek:"
+msgstr "Kodek:"
 
 #: src/gui.c:3913
 msgid "Video FPS:"
@@ -425,15 +425,15 @@ msgstr "Poglavlja filma:"
 
 #: src/gui.c:3949 src/nautilus_property_page.c:398
 msgid "<span weight=\"bold\">Audio Details</span>"
-msgstr "<span weight=\"bold\">Podaci o zvuku</span>"
+msgstr "<span weight=\"bold\">Zvuk</span>"
 
 #: src/gui.c:3956 src/nautilus_property_page.c:405
 msgid "Audio Codec:"
-msgstr "Zvučni kodek:"
+msgstr "Kodek:"
 
 #: src/gui.c:3969 src/nautilus_property_page.c:428
 msgid "Audio Channels:"
-msgstr "Zvučni kanali:"
+msgstr "Broj kanala:"
 
 #: src/gui.c:3982 src/nautilus_property_page.c:416
 msgid "Audio Bitrate:"
@@ -441,7 +441,7 @@ msgstr "Bitski protok:"
 
 #: src/gui.c:3995
 msgid "Audio Sample Rate:"
-msgstr "Učestanost zvuka:"
+msgstr "Učestanost:"
 
 #: src/gui.c:4026
 msgid "Video Picture Adjustments"
@@ -545,7 +545,7 @@ msgstr ""
 
 #: src/gui.c:4481
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr ""
+msgstr "Omogući AC3/DTS prolaz kroz S/PDIF"
 
 #: src/gui.c:4545
 msgid ""
@@ -574,9 +574,8 @@ msgid "Default Mixer:"
 msgstr "Podrazumevani mikser:"
 
 #: src/gui.c:4687
-#, fuzzy
 msgid "Audio Channels to Output"
-msgstr "Zvučni kanali:"
+msgstr "Broj zvučnih kanala na izlazu"
 
 # kako bi drugačije :(
 #. conf_table = gtk_table_new(20, 2, FALSE);
@@ -679,9 +678,8 @@ msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Omogući naprednu „_Alfa podršku za titlove“ (ASS)"
 
 #: src/gui.c:4912
-#, fuzzy
 msgid "Use _Embedded Fonts (MKV only)"
-msgstr "Koristi _umetnute fontove"
+msgstr "Koristi _umetnute fontove (samo za MKV)"
 
 #: src/gui.c:4922
 msgid "Subtitle Font:"
@@ -717,7 +715,7 @@ msgstr "Kodiranje:"
 
 #: src/gui.c:5015
 msgid "Subtitle Lower Margin (X11/XV Only):"
-msgstr ""
+msgstr "Donja linija titla (samo za X11/XV):"
 
 #: src/gui.c:5028
 msgid "Show Subtitles by Default"
@@ -733,11 +731,11 @@ msgstr "Pokreni sa vidljivom listom za puštanje"
 
 #: src/gui.c:5058
 msgid "Respond to Keyboard Media Keys"
-msgstr ""
+msgstr "Omogući multimedijalne tastere"
 
 #: src/gui.c:5064
 msgid "Use default playlist"
-msgstr ""
+msgstr "Koristi podrazumevanu listu za puštanje"
 
 #: src/gui.c:5071
 msgid "Show notification popup"
@@ -761,7 +759,7 @@ msgstr "Zameni datoteku po otvaranju nove u ovom režimu"
 
 #: src/gui.c:5122
 msgid "When opening file, bring main window to front"
-msgstr ""
+msgstr "Pri otvaranju datoteke postavi glavni prozor ispred"
 
 #: src/gui.c:5131
 msgid "Remember Window Location and Size"
@@ -769,7 +767,7 @@ msgstr "Zapamti mesto prozora i veličinu"
 
 #: src/gui.c:5138
 msgid "Resize window when new video is loaded"
-msgstr ""
+msgstr "Promeni veličinu prozora za novi video"
 
 #: src/gui.c:5145
 msgid "Keep window above other windows"
@@ -793,7 +791,7 @@ msgstr ""
 
 #: src/gui.c:5172
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
-msgstr "<span weight=\"bold\">Dodatne postavke za MPlejer</span>"
+msgstr "<span weight=\"bold\">Dodatne postavke za Mplejer</span>"
 
 #: src/gui.c:5180
 msgid "Mplayer Software Volume Control Enabled"
@@ -804,8 +802,8 @@ msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
-"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu "
-"zvuka na glavnom kanalu miksera"
+"Uključite ukoliko promena jačine zvuka u Gnomovom Mplejeru menja jačinu zvuka "
+"na glavnom kanalu miksera"
 
 #: src/gui.c:5191
 msgid "De_interlace Video"
@@ -1031,14 +1029,12 @@ msgid "Increase Subtitle Size"
 msgstr "Povećaj titl"
 
 #: src/gui.c:5949
-#, fuzzy
 msgid "Decrease Subtitle Delay"
-msgstr "Smanji titl"
+msgstr "Smanji trajanje titlova"
 
 #: src/gui.c:5951
-#, fuzzy
 msgid "Increase Subtitle Delay"
-msgstr "Povećaj titl"
+msgstr "Povećaj trajanje titlova"
 
 #: src/gui.c:5952
 msgid "Switch An_gle"
@@ -1203,20 +1199,20 @@ msgid_plural ""
 "\tFound %i files\n"
 msgstr[0] ""
 "\n"
-"\tNađena %i datoteka\n"
+"\tNađena je %i datoteka\n"
 msgstr[1] ""
 "\n"
-"\tNađene %i datoteke\n"
+"\tNađene su %i datoteke\n"
 msgstr[2] ""
 "\n"
-"\tNađeno %i datoteka\n"
+"\tNađeno je %i datoteka\n"
 
 #: src/playlist.c:822
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Stavka za puštanje"
 msgstr[1] "Stavke za puštanje"
-msgstr[2] "Stavki za puštanje"
+msgstr[2] "Stavke za puštanje"
 
 #: src/playlist.c:837 src/nautilus_property_page.c:292
 msgid "Artist"
@@ -1228,16 +1224,15 @@ msgstr "Album"
 
 #: src/playlist.c:860 src/nautilus_property_page.c:316
 msgid "Length"
-msgstr "Dužina"
+msgstr "Trajanje"
 
 #: src/playlist.c:871
-#, fuzzy
 msgid "Count"
-msgstr "Kontrast"
+msgstr "Broj puštanja"
 
 #: src/playlist.c:880
 msgid "Order"
-msgstr ""
+msgstr "Redosled"
 
 #: src/playlist.c:891
 msgid "Close Playlist View"
@@ -1269,7 +1264,7 @@ msgstr "Pomeri stavku naniže"
 
 #: src/playlist.c:968
 msgid "UnSort List"
-msgstr ""
+msgstr "Ne sortiraj listu"
 
 #: src/playlist.c:1002
 msgid "_Set Subtitle"
@@ -1287,7 +1282,7 @@ msgstr "%i:%02i:%02.0f"
 
 #: src/nautilus_property_page.c:272
 msgid "<span weight=\"bold\">Media Details</span>"
-msgstr "<span weight=\"bold\">Multimedijalni podaci</span>"
+msgstr "<span weight=\"bold\">Opšti podaci</span>"
 
 #: src/nautilus_property_page.c:280
 msgid "Title"
@@ -1295,7 +1290,7 @@ msgstr "Naslov"
 
 #: src/nautilus_property_page.c:328
 msgid "Demuxer"
-msgstr "Demukser"
+msgstr "Kontejner"
 
 #: src/nautilus_property_page.c:382
 msgid "Video Frame Rate:"
@@ -1303,23 +1298,26 @@ msgstr "Učestanost video kadrova:"
 
 #: src/nautilus_property_page.c:486
 msgid "Audio/Video"
-msgstr "Zvuk/Video"
+msgstr "Zvuk/video"
 
 #: src/libgmtk/gmtk_media_tracker.c:91 src/libgmtk/gmtk_media_tracker.c:165
 msgid "No Information"
 msgstr "Nema podataka"
 
+#~ msgid "Tracker Thumb Position:"
+#~ msgstr "Mesto za omot albuma:"
+
 #~ msgid "Hidden"
-#~ msgstr "Sakriveno"
+#~ msgstr "Sakriven"
 
 #~ msgid "Bottom"
-#~ msgstr "Dno"
+#~ msgstr "Pri dnu"
 
 #~ msgid "Top"
-#~ msgstr "Vrh"
+#~ msgstr "Na vrhu"
 
 #~ msgid "Top and Bottom"
-#~ msgstr "Vrh i dno"
+#~ msgstr "Na vrhu i pri dnu"
 
 #~ msgid "Seeking to %s"
 #~ msgstr "Premotavam na %s"
