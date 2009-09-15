@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-14 00:42+0200\n"
-"PO-Revision-Date: 2009-09-14 00:44+0200\n"
+"PO-Revision-Date: 2009-09-15 10:49+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -659,9 +659,8 @@ msgid "Disable Player Embedding"
 msgstr "Wyłącz osadzanie odtwarzacza"
 
 #: src/gui.c:4918 src/gui.c:5314
-#, fuzzy
 msgid "Cache Size (KB):"
-msgstr "Minimalny rozmiar bufora (KB):"
+msgstr "Rozmiar bufora (KB):"
 
 #: src/gui.c:4927
 msgid ""
@@ -841,18 +840,16 @@ msgstr ""
 "Użyj tej opcji kiedy obraz jest znacznie opóźniony w stosunku do dźwięku"
 
 #: src/gui.c:5306
-#, fuzzy
 msgid "Enable mplayer cache"
-msgstr "Nazwa Real Player"
+msgstr "Włącz buforowanie mplayera"
 
 #: src/gui.c:5323
-#, fuzzy
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
 msgstr ""
 "Ilość danych do buforowania w przypadku odtwarzania mediów z sieci, użyj "
-"wyższych wartości dla wolnych sieci."
+"wyższych wartości dla wolnych urządzeń oraz sieci."
 
 #: src/gui.c:5343
 msgid "MPlayer Executable:"
