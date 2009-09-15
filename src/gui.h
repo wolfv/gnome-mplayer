@@ -35,7 +35,6 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 #include <glib/gi18n.h>
-#define _XOPEN_SOURCE 600
 #include <math.h>
 #ifdef HAVE_ASOUNDLIB
 #include <asoundlib.h>
