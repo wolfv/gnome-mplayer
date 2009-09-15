@@ -1539,11 +1539,11 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             if (movie_ratio > window_ratio) {
                 // printf("movie %lf > window %lf\n",movie_ratio,window_ratio);
                 new_width = allocation->width;
-                new_height = roundf(allocation->width / movie_ratio);
+                new_height = floor((allocation->width / movie_ratio) + 0.5);
             } else {
                 // printf("movie %lf < window %lf\n",movie_ratio,window_ratio);
                 new_height = allocation->height;
-                new_width = roundf(allocation->height * movie_ratio);
+                new_width = floor((allocation->height * movie_ratio) + 0.5);
             }
         }
 

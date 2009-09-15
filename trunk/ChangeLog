@@ -1,4 +1,5 @@
 Development
+	Work around roundf compliation errors on non-Fedora Linux machines
 	Prepare for GTK 2.18 Native Client windows, by using a patch from empathy
 	Fix various problems found on mailing list
     Updated Polish translation
