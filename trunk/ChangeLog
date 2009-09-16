@@ -1,4 +1,6 @@
 Development
+	Fix problem with gnome-mplayer requesting the next item from gecko-mediaplayer, but
+		gnome-mplayer is in retry mode, so two videos get played over each other
 	Work around roundf compliation errors on non-Fedora Linux machines
 	Prepare for GTK 2.18 Native Client windows, by using a patch from empathy
 	Fix various problems found on mailing list

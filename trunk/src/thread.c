@@ -1337,11 +1337,6 @@ gpointer launch_player(gpointer data)
         g_idle_add(set_progress_value, idledata);
         g_idle_add(set_progress_time, idledata);
 
-        if (embed_window != 0 || control_id != 0) {
-            dbus_send_event("MediaComplete", 0);
-            dbus_open_next();
-        }
-
         if (channel_in != NULL) {
             g_io_channel_shutdown(channel_in, FALSE, NULL);
             g_io_channel_unref(channel_in);
@@ -1427,6 +1422,12 @@ gpointer launch_player(gpointer data)
                     idledata->fullscreen = 0;
                     g_idle_add(set_fullscreen, idledata);
                     g_idle_add(set_stop, idledata);
+
+					// nothing is on the playlist and we are not looping so ask plugin for next item
+					if (embed_window != 0 || control_id != 0) {
+						dbus_send_event("MediaComplete", 0);
+						dbus_open_next();
+					}
                 }
 
                 if (quit_on_complete) {
