@@ -3775,7 +3775,9 @@ void config_apply(GtkWidget * widget, void *data)
     g_remove(filename);
     g_free(filename);
 
-    dbus_reload_plugins();
+	// don't reload plugins when running in plugin mode
+	if (embed_window == 0 && control_id ==0)
+	    dbus_reload_plugins();
 
     dontplaynext = TRUE;
 	
