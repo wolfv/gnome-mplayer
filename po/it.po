@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-15 14:23-0600\n"
-"PO-Revision-Date: 2009-08-10 11:43+0000\n"
+"PO-Revision-Date: 2009-09-16 11:09+0000\n"
 "Last-Translator: Cesare Tirabassi <cesare.tirabassi@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -102,11 +102,11 @@ msgstr "Seleziona la memoria tampone"
 
 #: src/main.c:81
 msgid "Start Second (default to 0)"
-msgstr ""
+msgstr "Secondo d'Inizio (default 0)"
 
 #: src/main.c:83
 msgid "Length of media to play from start second"
-msgstr ""
+msgstr "Durata del media da caricare a partire dal secondo d'inizio"
 
 #: src/main.c:85
 msgid "Force cache usage on streaming sites"
@@ -657,9 +657,8 @@ msgid "Disable Player Embedding"
 msgstr "Disabilita l'embedding del lettore"
 
 #: src/gui.c:4927 src/gui.c:5323
-#, fuzzy
 msgid "Cache Size (KB):"
-msgstr "Capacità Minima della Memoria Tampone (KB):"
+msgstr "Capacità della Memoria Tampone (KB):"
 
 #: src/gui.c:4936
 msgid ""
@@ -838,18 +837,16 @@ msgid "Set this option if video is well behind the audio"
 msgstr "Seleziona quest'opzione se il video è in ritardo rispetto all'audio"
 
 #: src/gui.c:5315
-#, fuzzy
 msgid "Enable mplayer cache"
-msgstr "Nome Real Player"
+msgstr "Abilita la memoria tampone di mplayer"
 
 #: src/gui.c:5332
-#, fuzzy
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
 msgstr ""
-"Quantità di dati da memorizzare in anticipo quando si riproducono media "
-"dalla rete. Usate valori più alti per connessioni lente."
+"Quantità di dati da memorizzare in anticipo quando si riproducono media, "
+"usate valori più alti per dispositivi o connessioni lente."
 
 #: src/gui.c:5352
 msgid "MPlayer Executable:"
