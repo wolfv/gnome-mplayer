@@ -1,4 +1,5 @@
 Development
+	When closing preference dialog, set media start position to 0 when streaming
 	Don't restart streaming media when closing preferences
 	Fix problem with gnome-mplayer requesting the next item from gecko-mediaplayer, but
 		gnome-mplayer is in retry mode, so two videos get played over each other
