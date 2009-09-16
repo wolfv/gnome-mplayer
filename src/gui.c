@@ -3778,7 +3778,9 @@ void config_apply(GtkWidget * widget, void *data)
     dbus_reload_plugins();
 
     dontplaynext = TRUE;
-    play_iter(&iter, idledata->position);
+	
+	if (!idledata->streaming)
+	    play_iter(&iter, idledata->position);
 
     gtk_widget_destroy(widget);
 }
