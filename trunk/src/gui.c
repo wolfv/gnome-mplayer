@@ -3779,7 +3779,9 @@ void config_apply(GtkWidget * widget, void *data)
 
     dontplaynext = TRUE;
 	
-	if (!idledata->streaming)
+	if (idledata->streaming)
+	    play_iter(&iter, 0);
+	else	
 	    play_iter(&iter, idledata->position);
 
     gtk_widget_destroy(widget);
