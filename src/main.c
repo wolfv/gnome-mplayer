@@ -325,7 +325,11 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         buckets[i] = 0;
         max_buckets[i] = 0;
     }
-
+	
+	gmtk_media_tracker_set_text(tracker, _("Playing"));
+	gmtk_media_tracker_set_position(tracker, 0.0);
+	gmtk_media_tracker_set_length(tracker, 0.0);
+	
     message = g_strdup_printf("<small>\n");
     if (title == NULL) {
         title = g_filename_display_basename(uri);
