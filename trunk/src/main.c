@@ -210,6 +210,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 	gboolean playable = TRUE;
     gint width;
     gint height;
+	gfloat length_value;
     gint i;
     gpointer pixbuf;
     gchar *buffer = NULL;
@@ -283,7 +284,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 		        g_free(demuxer);
 		        g_free(subtitle);
 		        if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
-		            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &i,
+		            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &length_value,
 		                               DESCRIPTION_COLUMN, &title,
 		                               ARTIST_COLUMN, &artist,
 		                               ALBUM_COLUMN, &album,
@@ -327,8 +328,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     }
 	
 	gmtk_media_tracker_set_text(tracker, _("Playing"));
-	gmtk_media_tracker_set_position(tracker, 0.0);
-	gmtk_media_tracker_set_length(tracker, 0.0);
+	gmtk_media_tracker_set_position(tracker, (gfloat)restart_second);
+	gmtk_media_tracker_set_length(tracker, length_value);
 	
     message = g_strdup_printf("<small>\n");
     if (title == NULL) {
