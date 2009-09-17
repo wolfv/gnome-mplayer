@@ -374,6 +374,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 					dbus_unhook();
                     gtk_main_quit();
 */
+					dontplaynext = TRUE;
                     g_idle_add(set_quit, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }

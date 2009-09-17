@@ -1,4 +1,5 @@
 Development
+	Prevent next item play when terminating
 	Set tracker default values when playing a new item
 	Don't tell firefox to reload plugins when running in plugin mode
 	When closing preference dialog, set media start position to 0 when streaming
