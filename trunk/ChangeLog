@@ -1,4 +1,5 @@
 Development
+	Make some events from dbus (separate thread) be processed in the idle loop
 	Prevent next item play when terminating
 	Set tracker default values when playing a new item
 	Don't tell firefox to reload plugins when running in plugin mode

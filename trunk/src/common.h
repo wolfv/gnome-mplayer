@@ -147,15 +147,15 @@ typedef struct _IdleData {
     gint streaming;
     gchar progress_text[1024];
     gdouble volume;
-	gint mplayer_volume;
+    gint mplayer_volume;
     gboolean mute;
     gchar vol_tooltip[128];
     gint x;
     gint y;
     gint last_x;
     gint last_y;
-	gint original_h;
-	gint original_w;
+    gint original_h;
+    gint original_w;
     gint width;
     gint height;
     gboolean videopresent;
@@ -208,9 +208,9 @@ typedef struct _ThreadData {
     gint streaming;
     gint player_window;
     gint playlist;
-	gint restart_second;
+    gint restart_second;
     gint start_second;
-	gint play_length;
+    gint play_length;
     gboolean done;
 } ThreadData;
 
@@ -232,9 +232,9 @@ enum {
     VIDEO_HEIGHT_COLUMN,
     PLAY_ORDER_COLUMN,
     ADD_ORDER_COLUMN,
-	START_COLUMN,
-	END_COLUMN,
-	PLAYABLE_COLUMN,
+    START_COLUMN,
+    END_COLUMN,
+    PLAYABLE_COLUMN,
     N_COLUMNS
 };
 
@@ -251,7 +251,7 @@ typedef struct _MetaData {
     gchar *demuxer;
     gint width;
     gint height;
-	gboolean playable;
+    gboolean playable;
 } MetaData;
 
 typedef struct _LangMenu {
@@ -454,6 +454,7 @@ gboolean set_rew(void *data);
 gboolean set_prev(void *data);
 gboolean set_next(void *data);
 gboolean set_quit(void *data);
+gboolean set_kill_mplayer(void *data);
 gboolean set_position(void *data);
 gboolean set_volume(void *data);
 gboolean set_fullscreen(void *data);

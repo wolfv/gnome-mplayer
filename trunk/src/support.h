@@ -99,4 +99,7 @@ gboolean detect_volume_option();
 gboolean map_af_export_file(gpointer data);
 gboolean unmap_af_export_file(gpointer data);
 
+gboolean add_to_playlist_and_play(gpointer data);
+gboolean clear_playlist_and_play(gpointer data);
+
 #endif                          // _SUPPORT_H

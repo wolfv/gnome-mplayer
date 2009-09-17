@@ -228,8 +228,8 @@ gint parse_playlist(gchar * uri)
     gchar *coltitle;
     gint count = 0;
     gchar *basename;
-	gchar **split;
-	gchar *joined;
+    gchar **split;
+    gchar *joined;
 
     // try and parse a playlist in various forms
     // if a parsing does not work then, return 0
@@ -264,12 +264,12 @@ gint parse_playlist(gchar * uri)
             if (GTK_WIDGET(list)) {
                 column = gtk_tree_view_get_column(GTK_TREE_VIEW(list), 0);
                 coltitle = g_strdup_printf(_("%s items"), playlistname);
-				split = g_strsplit(coltitle,"_",0);
-				joined = g_strjoinv("__",split);
-				gtk_tree_view_column_set_title(column, joined);
-				g_free(coltitle);
-				g_free(joined);
-				g_strfreev(split);                
+                split = g_strsplit(coltitle, "_", 0);
+                joined = g_strjoinv("__", split);
+                gtk_tree_view_column_set_title(column, joined);
+                g_free(coltitle);
+                g_free(joined);
+                g_strfreev(split);
             }
         }
     } else {
@@ -1536,7 +1536,7 @@ MetaData *get_metadata(gchar * uri)
         ret->demuxer = g_strdup(demuxer);
         ret->width = width;
         ret->height = height;
-		ret->playable = (demuxer == NULL)? FALSE:TRUE;
+        ret->playable = (demuxer == NULL) ? FALSE : TRUE;
     }
 
     g_free(title);
@@ -1783,7 +1783,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
                            PLAY_ORDER_COLUMN,
                            gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
                            ADD_ORDER_COLUMN,
-                           gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL), 
+                           gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
                            PLAYABLE_COLUMN, TRUE, -1);
         if (retrieve) {
             g_thread_pool_push(retrieve_metadata_pool, (gpointer) g_strdup(uri), NULL);
@@ -1815,16 +1815,16 @@ gboolean first_item_in_playlist(GtkTreeIter * iter)
     gint i;
 
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
-	if (gtk_list_store_iter_is_valid(playliststore, iter)) {
-		do {
-		    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
-		    if (i == 1) {
-		        // we found the current iter
-		        break;
-		    }
-		} while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
-	}
-	
+    if (gtk_list_store_iter_is_valid(playliststore, iter)) {
+        do {
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
+            if (i == 1) {
+                // we found the current iter
+                break;
+            }
+        } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
+    }
+
     if (gtk_list_store_iter_is_valid(playliststore, iter)) {
         return TRUE;
     } else {
@@ -1834,37 +1834,36 @@ gboolean first_item_in_playlist(GtkTreeIter * iter)
 
 gint find_closest_to_x_in_playlist(gint x, gint delta)
 {
-	gint j = 0, k = -1;
-	GtkTreeIter localiter;
-	
+    gint j = 0, k = -1;
+    GtkTreeIter localiter;
+
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter);
-	if (delta > 0)
-		k = G_MAXINT;
-		
+    if (delta > 0)
+        k = G_MAXINT;
+
     if (gtk_list_store_iter_is_valid(playliststore, &localiter)) {
         do {
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, PLAY_ORDER_COLUMN, &j,
                                -1);
             if (j == (x + delta)) {
                 // we found the current iter
-				k = j;
+                k = j;
                 break;
             }
-			if (delta < 0) {
-				if (j > k && j < x) {
-					k = j;
-				}
-			} else {
-				if (j < k && j > x) {
-					k = j;
-				}
-			}
-			
+            if (delta < 0) {
+                if (j > k && j < x) {
+                    k = j;
+                }
+            } else {
+                if (j < k && j > x) {
+                    k = j;
+                }
+            }
+
         } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
     }
-
-	// printf("x = %i, delta = %i, return = %i\n",x,delta,k);
-	return k;
+    // printf("x = %i, delta = %i, return = %i\n",x,delta,k);
+    return k;
 }
 
 gboolean prev_item_in_playlist(GtkTreeIter * iter)
@@ -1876,7 +1875,7 @@ gboolean prev_item_in_playlist(GtkTreeIter * iter)
     } else {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
         if (i > 1) {
-			k = find_closest_to_x_in_playlist (i, -1);
+            k = find_closest_to_x_in_playlist(i, -1);
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
             do {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j, -1);
@@ -1901,21 +1900,20 @@ gboolean next_item_in_playlist(GtkTreeIter * iter)
         return FALSE;
     } else {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
-		k = find_closest_to_x_in_playlist (i, 1);
+        k = find_closest_to_x_in_playlist(i, 1);
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
         if (gtk_list_store_iter_is_valid(playliststore, iter)) {
             do {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j,
-                                   -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j, -1);
                 if (j == k) {
                     // we found the current iter
                     break;
                 }
             } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
         } else {
-			return FALSE;
-		}
-		
+            return FALSE;
+        }
+
         if (gtk_list_store_iter_is_valid(playliststore, iter)) {
             return TRUE;
         } else {
@@ -2462,7 +2460,7 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
     send_command(cmd, TRUE);
     g_free(cmd);
 
-	return TRUE;
+    return TRUE;
 #endif
 
 }
