@@ -80,7 +80,8 @@ static GOptionEntry entries[] = {
      NULL},
     {"ss", 0, 0, G_OPTION_ARG_INT, &start_second, N_("Start Second (default to 0)"),
      NULL},
-    {"endpos", 0, 0, G_OPTION_ARG_INT, &play_length, N_("Length of media to play from start second"),
+    {"endpos", 0, 0, G_OPTION_ARG_INT, &play_length,
+     N_("Length of media to play from start second"),
      NULL},
     {"forcecache", 0, 0, G_OPTION_ARG_NONE, &forcecache, N_("Force cache usage on streaming sites"),
      NULL},
@@ -144,12 +145,13 @@ static GOptionEntry entries[] = {
 
 gboolean play(void *data);
 
-void play_next() {
+void play_next()
+{
     gchar *filename;
     gint count;
     PlayData *p = NULL;
 
-	if (next_item_in_playlist(&iter)) {
+    if (next_item_in_playlist(&iter)) {
         if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
                                COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
@@ -166,8 +168,7 @@ void play_next() {
         if (loop) {
             if (first_item_in_playlist(&iter)) {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
-                                   &filename, COUNT_COLUMN, &count, PLAYLIST_COLUMN,
-                                   &playlist, -1);
+                                   &filename, COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
                 g_strlcpy(idledata->info, filename, 4096);
                 g_idle_add(set_media_info, idledata);
                 p = (PlayData *) g_malloc(sizeof(PlayData));
@@ -185,7 +186,7 @@ void play_next() {
         if (quit_on_complete) {
             g_idle_add(set_quit, idledata);
         }
-    }               
+    }
 }
 
 
@@ -207,10 +208,10 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     gchar *audio_codec;
     gchar *video_codec = NULL;
     gchar *demuxer = NULL;
-	gboolean playable = TRUE;
+    gboolean playable = TRUE;
     gint width;
     gint height;
-	gfloat length_value;
+    gfloat length_value;
     gint i;
     gpointer pixbuf;
     gchar *buffer = NULL;
@@ -236,7 +237,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
                            DEMUXER_COLUMN, &demuxer,
                            COVERART_COLUMN, &pixbuf,
                            SUBTITLE_COLUMN, &subtitle,
-                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, 
+                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist,
                            PLAYABLE_COLUMN, &playable, -1);
         if (GTK_IS_TREE_SELECTION(selection)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), playiter);
@@ -268,69 +269,64 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         gtk_main_iteration();
     }
 
-	while (gtk_events_pending())
-            gtk_main_iteration();
-	
+    while (gtk_events_pending())
+        gtk_main_iteration();
+
     // wait for metadata to be available on this item
     if (!streaming_media(uri) && !device_name(uri)) {
         i = 0;
-		if (playable) {
-		    while (demuxer == NULL && i < 10) {
-		        g_free(title);
-		        g_free(artist);
-		        g_free(album);
-		        g_free(audio_codec);
-		        g_free(video_codec);
-		        g_free(demuxer);
-		        g_free(subtitle);
-		        if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
-		            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN, &length_value,
-		                               DESCRIPTION_COLUMN, &title,
-		                               ARTIST_COLUMN, &artist,
-		                               ALBUM_COLUMN, &album,
-		                               AUDIO_CODEC_COLUMN, &audio_codec,
-		                               VIDEO_CODEC_COLUMN, &video_codec,
-		                               VIDEO_WIDTH_COLUMN, &width,
-		                               VIDEO_HEIGHT_COLUMN, &height,
-		                               DEMUXER_COLUMN, &demuxer,
-		                               COVERART_COLUMN, &pixbuf,
-		                               SUBTITLE_COLUMN, &subtitle,
-		                               COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, 
-		                               PLAYABLE_COLUMN, &playable, -1);
-					if (!playable) {
-						if (verbose) 
-							printf("%s is not marked as playable (%i)\n", uri,i);
-						play_next();
-						return 0;
-					}
-		        } else {
-					if (verbose)
-						printf("Current iter is not valid\n");
-		            return 1;       // error condition
-		        }
-		        gtk_main_iteration();
-		        i++;
-		        if (demuxer == NULL)
-		            g_usleep(10000);
-		    }
-		} else {
-			if (verbose) 
-				printf("%s is not marked as playable\n", uri);
-			play_next();
-			return 0;
-		}
-			
+        if (playable) {
+            while (demuxer == NULL && i < 10) {
+                g_free(title);
+                g_free(artist);
+                g_free(album);
+                g_free(audio_codec);
+                g_free(video_codec);
+                g_free(demuxer);
+                g_free(subtitle);
+                if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
+                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN,
+                                       &length_value, DESCRIPTION_COLUMN, &title, ARTIST_COLUMN,
+                                       &artist, ALBUM_COLUMN, &album, AUDIO_CODEC_COLUMN,
+                                       &audio_codec, VIDEO_CODEC_COLUMN, &video_codec,
+                                       VIDEO_WIDTH_COLUMN, &width, VIDEO_HEIGHT_COLUMN, &height,
+                                       DEMUXER_COLUMN, &demuxer, COVERART_COLUMN, &pixbuf,
+                                       SUBTITLE_COLUMN, &subtitle, COUNT_COLUMN, &count,
+                                       PLAYLIST_COLUMN, &playlist, PLAYABLE_COLUMN, &playable, -1);
+                    if (!playable) {
+                        if (verbose)
+                            printf("%s is not marked as playable (%i)\n", uri, i);
+                        play_next();
+                        return 0;
+                    }
+                } else {
+                    if (verbose)
+                        printf("Current iter is not valid\n");
+                    return 1;   // error condition
+                }
+                gtk_main_iteration();
+                i++;
+                if (demuxer == NULL)
+                    g_usleep(10000);
+            }
+        } else {
+            if (verbose)
+                printf("%s is not marked as playable\n", uri);
+            play_next();
+            return 0;
+        }
+
     }
     // reset audio meter
     for (i = 0; i < METER_BARS; i++) {
         buckets[i] = 0;
         max_buckets[i] = 0;
     }
-	
-	gmtk_media_tracker_set_text(tracker, _("Playing"));
-	gmtk_media_tracker_set_position(tracker, (gfloat)restart_second);
-	gmtk_media_tracker_set_length(tracker, length_value);
-	
+
+    gmtk_media_tracker_set_text(tracker, _("Playing"));
+    gmtk_media_tracker_set_position(tracker, (gfloat) restart_second);
+    gmtk_media_tracker_set_length(tracker, length_value);
+
     message = g_strdup_printf("<small>\n");
     if (title == NULL) {
         title = g_filename_display_basename(uri);
@@ -426,27 +422,27 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
         g_free(subtitle);
     }
-	/*
-#ifdef HAVE_ASOUNDLIB
-    if (!softvol && ao != NULL
-        && (g_ascii_strcasecmp(ao, "alsa") == 0
-            || (use_pulse_flat_volume && g_ascii_strcasecmp(ao, "pulse") == 0))) {
-        volume = (gint) get_alsa_volume(TRUE);
-        idledata->volume = volume;
-#if GTK2_12_ENABLED
-        gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), volume);
-#else
-        gtk_range_set_value(GTK_RANGE(vol_slider), volume);
-#endif
-    }
-#endif
+    /*
+       #ifdef HAVE_ASOUNDLIB
+       if (!softvol && ao != NULL
+       && (g_ascii_strcasecmp(ao, "alsa") == 0
+       || (use_pulse_flat_volume && g_ascii_strcasecmp(ao, "pulse") == 0))) {
+       volume = (gint) get_alsa_volume(TRUE);
+       idledata->volume = volume;
+       #if GTK2_12_ENABLED
+       gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), volume);
+       #else
+       gtk_range_set_value(GTK_RANGE(vol_slider), volume);
+       #endif
+       }
+       #endif
 
-#if GTK2_12_ENABLED
-    volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
-#else
-    volume = gtk_range_get_value(GTK_RANGE(vol_slider));
-#endif
-*/
+       #if GTK2_12_ENABLED
+       volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
+       #else
+       volume = gtk_range_get_value(GTK_RANGE(vol_slider));
+       #endif
+     */
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
         if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
             if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
@@ -532,8 +528,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     last_y = 0;
     idledata->width = width;
     idledata->height = height;
-	idledata->original_h = -1;
-	idledata->original_w = -1;
+    idledata->original_h = -1;
+    idledata->original_w = -1;
     if (width > 0 && height > 0) {
         idledata->videopresent = 1;
     } else {
@@ -563,8 +559,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         thread_data->player_window = 0;
         thread_data->playlist = playlist;
         thread_data->restart_second = restart_second;
-		thread_data->start_second = start_second;
-		thread_data->play_length = play_length;
+        thread_data->start_second = start_second;
+        thread_data->play_length = play_length;
         thread_data->streaming = streaming_media(thread_data->uri);
         idledata->streaming = thread_data->streaming;
         streaming = thread_data->streaming;
@@ -600,8 +596,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
             while (gtk_events_pending())
                 gtk_main_iteration();
             thread = g_thread_create(launch_player, thread_data, TRUE, NULL);
-			if (thread == NULL)
-				printf("Unable to launch player thread\n");
+            if (thread == NULL)
+                printf("Unable to launch player thread\n");
         }
         autostart = 1;
     }
@@ -627,7 +623,7 @@ int main(int argc, char *argv[])
     GOptionContext *context;
     gint i;
     struct sigaction sa;
-	gboolean playiter = FALSE;
+    gboolean playiter = FALSE;
 
 #ifdef GIO_ENABLED
     GFile *file;
@@ -750,8 +746,8 @@ int main(int argc, char *argv[])
     non_fs_height = 0;
     non_fs_width = 0;
     use_hw_audio = FALSE;
-	start_second = 0;
-	play_length = 0;
+    start_second = 0;
+    play_length = 0;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -890,7 +886,7 @@ int main(int argc, char *argv[])
     if (plugin_cache_size == 0)
         plugin_cache_size = 2000;
 
-	if (control_id != 0)
+    if (control_id != 0)
         cache_size = plugin_cache_size;
 
     gm_pref_store_free(gm_store);
@@ -911,7 +907,7 @@ int main(int argc, char *argv[])
         printf("Running with panscan enabled (mplayer svn r29565 or higher required)\n");
     }
 #endif
-                        
+
     if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
         // do nothing
     } else {
@@ -976,7 +972,8 @@ int main(int argc, char *argv[])
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
                            G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
-                           G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_FLOAT, G_TYPE_FLOAT,G_TYPE_BOOLEAN);
+                           G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_FLOAT, G_TYPE_FLOAT,
+                           G_TYPE_BOOLEAN);
 
     create_window(embed_window);
 
@@ -1044,7 +1041,7 @@ int main(int argc, char *argv[])
                     }
                     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
                         // play_iter(&iter, 0);
-						playiter = TRUE;
+                        playiter = TRUE;
                     }
                 }
             } else {
@@ -1056,7 +1053,7 @@ int main(int argc, char *argv[])
                 //play_file("cdda://", playlist);
                 if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
                     // play_iter(&iter, 0);
-					playiter = TRUE;
+                    playiter = TRUE;
                 }
             }
         } else if (S_ISDIR(buf.st_mode)) {
@@ -1080,7 +1077,7 @@ int main(int argc, char *argv[])
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
                 //play_iter(&iter, 0);
-				playiter = TRUE;
+                playiter = TRUE;
             }
 
         } else {
@@ -1126,7 +1123,7 @@ int main(int argc, char *argv[])
             }
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
                 // play_iter(&iter, 0);
-				playiter = TRUE;
+                playiter = TRUE;
             }
         }
 
@@ -1147,10 +1144,10 @@ int main(int argc, char *argv[])
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
 
-	if (playiter)
-         play_iter(&iter, 0);               
+    if (playiter)
+        play_iter(&iter, 0);
 
-                        
+
     if (argv[fileindex] == NULL && embed_window == 0) {
         use_remember_loc = remember_loc;
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
@@ -1173,7 +1170,7 @@ int main(int argc, char *argv[])
         destroy_folder_progress_window();
     }
     safe_to_save_default_playlist = TRUE;
-                       
+
     gtk_main();
 
     return 0;

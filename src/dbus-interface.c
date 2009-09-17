@@ -66,10 +66,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     gchar *path4;
     GString *xml;
     gchar *xml_string;
-    GtkTreePath *treepath;
     gint source_id;
     gint bitrate;
-    gchar *buf = NULL;
 
     message_type = dbus_message_get_type(message);
     sender = dbus_message_get_sender(message);
@@ -100,35 +98,13 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
             // printf("Path matched %s\n", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Open") == 0) {
-                    mplayer_shutdown();
+                    g_idle_add(set_kill_mplayer,NULL);
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0) {
                             if (strcmp(rpconsole, "NONE") == 0 || control_instance == FALSE) {
-                                gtk_list_store_clear(playliststore);
-                                selection = NULL;
-                                if (!uri_exists(s) && !streaming_media(s)) {
-                                    buf = g_filename_to_uri(s, NULL, NULL);
-                                } else {
-                                    buf = g_strdup(s);
-                                }
-                                playlist = detect_playlist(buf);
-                                if (!playlist) {
-                                    add_item_to_playlist(buf, playlist);
-                                } else {
-                                    if (!parse_playlist(buf)) {
-                                        add_item_to_playlist(buf, playlist);
-                                    }
-                                }
-                                g_free(buf);
-                                if (gtk_tree_model_get_iter_first
-                                    (GTK_TREE_MODEL(playliststore), &iter)) {
-                                    play_iter(&iter, 0);
-                                    if (embed_window == 0 && bring_to_front)
-                                        present_main_window();
-                                }
-
+                                g_idle_add(clear_playlist_and_play, g_strdup(s));
                             }
                         }
 
@@ -139,35 +115,12 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "OpenPlaylist") == 0) {
-                    mplayer_shutdown();
+                    g_idle_add(set_kill_mplayer,NULL);
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-                        gtk_list_store_clear(playliststore);
                         selection = NULL;
-                        if (!uri_exists(s) && !streaming_media(s)) {
-                            buf = g_filename_to_uri(s, NULL, NULL);
-                        } else {
-                            buf = g_strdup(s);
-                        }
-                        if (!parse_playlist(buf)) {
-                            add_item_to_playlist(buf, 1);
-                        }
-                        g_free(buf);
-                        if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                            play_iter(&iter, 0);
-                        }
-
-                        if (GTK_IS_TREE_SELECTION(selection)) {
-                            treepath =
-                                gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-                            gtk_tree_selection_select_path(selection, treepath);
-                            if (GTK_IS_WIDGET(list))
-                                gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), treepath, NULL,
-                                                             FALSE, 0, 0);
-                            gtk_tree_path_free(treepath);
-                        }
-                        g_idle_add(set_update_gui, NULL);
+                        g_idle_add(clear_playlist_and_play, g_strdup(s));
 
                     } else {
                         dbus_error_free(&error);
@@ -176,7 +129,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "OpenButton") == 0) {
-                    mplayer_shutdown();
+                    g_idle_add(set_kill_mplayer,NULL);
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s,
                                               DBUS_TYPE_STRING, &hrefid, DBUS_TYPE_INVALID)) {
@@ -192,29 +145,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0) {
-                            if (!uri_exists(s) && !streaming_media(s)) {
-                                buf = g_filename_to_uri(s, NULL, NULL);
-                            } else {
-                                buf = g_strdup(s);
-                            }
-                            playlist = detect_playlist(buf);
-                            if (!playlist) {
-                                add_item_to_playlist(buf, playlist);
-                            } else {
-                                if (!parse_playlist(buf)) {
-                                    add_item_to_playlist(buf, playlist);
-                                }
-                            }
-                            g_free(buf);
-                            g_idle_add(set_update_gui, NULL);
-                            // if play on add is set, play the last item on the playlist
-                            if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)
-                                == 1) {
-                                if (gtk_tree_model_get_iter_first
-                                    (GTK_TREE_MODEL(playliststore), &iter)) {
-                                    play_iter(&iter, 0);
-                                }
-                            }
+                            g_idle_add(add_to_playlist_and_play, g_strdup(s));
                         }
                     } else {
                         dbus_error_free(&error);
@@ -237,12 +168,12 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Close") == 0) {
-                    mplayer_shutdown();
+                    g_idle_add(set_kill_mplayer,NULL);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Quit") == 0) {
-                    mplayer_shutdown();
+                    g_idle_add(set_kill_mplayer,NULL);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
@@ -374,7 +305,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 					dbus_unhook();
                     gtk_main_quit();
 */
-					dontplaynext = TRUE;
+                    dontplaynext = TRUE;
                     g_idle_add(set_quit, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
@@ -1208,7 +1139,7 @@ void dbus_enable_screensaver()
 
 void dbus_disable_screensaver()
 {
-#if SM_INHIBIT || SS_INHIBIT	
+#if SM_INHIBIT || SS_INHIBIT
     DBusError error;
     DBusMessage *reply_message;
     DBusMessage *message;
@@ -1216,7 +1147,7 @@ void dbus_disable_screensaver()
     const gchar *reason;
     gint flags;
 #endif
-	
+
     if (connection != NULL) {
 
 #ifdef SS_INHIBIT

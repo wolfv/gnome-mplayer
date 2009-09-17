@@ -488,9 +488,9 @@ void add_to_playlist(GtkWidget * widget, void *data)
     GtkTreeViewColumn *column;
     gchar *coltitle;
     gint count;
-	gchar **split;
-	gchar *joined;
-	
+    gchar **split;
+    gchar *joined;
+
     dialog = gtk_file_chooser_dialog_new(_("Open File"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -531,14 +531,14 @@ void add_to_playlist(GtkWidget * widget, void *data)
     } else {
         coltitle = g_strdup_printf(ngettext("Item to Play", "Items to Play", count));
     }
-	
-	split = g_strsplit(coltitle,"_",0);
-	joined = g_strjoinv("__",split);
+
+    split = g_strsplit(coltitle, "_", 0);
+    joined = g_strjoinv("__", split);
     gtk_tree_view_column_set_title(column, joined);
     g_free(coltitle);
-	g_free(joined);
-	g_strfreev(split);
-	
+    g_free(joined);
+    g_strfreev(split);
+
     gtk_widget_destroy(dialog);
 }
 
@@ -770,9 +770,9 @@ void create_playlist_widget()
     GtkTargetEntry target_entry[3];
     gint i = 0;
     gint handle_size;
-	gchar **split;
-	gchar *joined;
-	
+    gchar **split;
+    gchar *joined;
+
     plvbox = gtk_vbox_new(FALSE, 12);
     hbox = gtk_hbox_new(FALSE, 12);
     gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
@@ -832,12 +832,12 @@ void create_playlist_widget()
                                                  renderer, "text", DESCRIPTION_COLUMN, NULL);
     if (playlistname != NULL) {
         coltitle = g_strdup_printf(_("%s items"), playlistname);
-		split = g_strsplit(coltitle,"_",0);
-		joined = g_strjoinv("__",split);
+        split = g_strsplit(coltitle, "_", 0);
+        joined = g_strjoinv("__", split);
         gtk_tree_view_column_set_title(column, joined);
         g_free(coltitle);
-		g_free(joined);
-		g_strfreev(split);
+        g_free(joined);
+        g_strfreev(split);
     }
     gtk_tree_view_column_set_expand(column, TRUE);
     //gtk_tree_view_column_set_max_width(column, 40);

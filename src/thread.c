@@ -127,7 +127,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         return FALSE;
     }
 
-	if (data == NULL) {
+    if (data == NULL) {
         if (verbose)
             printf("shutting down threadquery since threaddata is NULL\n");
         return FALSE;
@@ -141,7 +141,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         threaddata = NULL;
         return FALSE;
     }
-	
+
     mplayer_output = g_string_new("");
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
 
@@ -285,8 +285,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     idledata->fromdbus = FALSE;
-	
-	if (data == NULL) {
+
+    if (data == NULL) {
         if (verbose)
             printf("shutting down threadquery since threaddata is NULL\n");
         return FALSE;
@@ -300,7 +300,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         threaddata = NULL;
         return FALSE;
     }
-	
+
     if (state == QUIT) {
         if (verbose)
             printf("Thread: state = QUIT, shutting down\n");
@@ -401,10 +401,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             printf("Resizing to %i x %i\n", actual_x, actual_y);
         idledata->width = actual_x;
         idledata->height = actual_y;
-		if (idledata->original_w == -1 && idledata->original_h == -1) {
-			idledata->original_w = idledata->width;
-			idledata->original_h = idledata->height;
-		}
+        if (idledata->original_w == -1 && idledata->original_h == -1) {
+            idledata->original_w = idledata->width;
+            idledata->original_h = idledata->height;
+        }
         idledata->videopresent = TRUE;
         g_idle_add(resize_window, idledata);
         g_idle_add(set_subtitle_visibility, idledata);
@@ -512,7 +512,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 // Need to track what the master volume is, gui is updated in make mouse invisible
                 idledata->mplayer_volume = volume;
                 idledata->mute = (volume > 0);
-            } 
+            }
         }
     }
 
@@ -839,7 +839,7 @@ gboolean thread_query(gpointer data)
         // size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
         size = write(std_in, "get_time_pos\n", strlen("get_time_pos\n"));
         if (size == -1) {
-            mplayer_shutdown();
+            g_idle_add(set_kill_mplayer,NULL);
             return FALSE;
         } else {
 
@@ -980,9 +980,9 @@ gpointer launch_player(gpointer data)
 
     if (use_volume_option) {
         argv[arg++] = g_strdup_printf("-volume");
-		if (idledata->mute)
+        if (idledata->mute)
             argv[arg++] = g_strdup_printf("0");
-		else
+        else
             argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
     }
 
@@ -1058,13 +1058,13 @@ gpointer launch_player(gpointer data)
     } else {
         argv[arg++] = g_strdup_printf("-ss");
         argv[arg++] = g_strdup_printf("%i", threaddata->start_second);
-	}	
+    }
 
-	if (threaddata->play_length > 0) {
+    if (threaddata->play_length > 0) {
         argv[arg++] = g_strdup_printf("-endpos");
         argv[arg++] = g_strdup_printf("%i", threaddata->play_length);
-	}		
-	
+    }
+
     if (control_id == 0) {
 //        if (!idledata->streaming)
 //            argv[arg++] = g_strdup_printf("-idx");
@@ -1238,12 +1238,12 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
     }
 
-	if (g_strrstr(threaddata->filename,"apple.com")) {
+    if (g_strrstr(threaddata->filename, "apple.com")) {
         argv[arg++] = g_strdup_printf("-user-agent");
         argv[arg++] = g_strdup_printf("QuickTime/7.6.2");
-	}	
+    }
 
-	
+
     if (threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
 
@@ -1423,11 +1423,11 @@ gpointer launch_player(gpointer data)
                     g_idle_add(set_fullscreen, idledata);
                     g_idle_add(set_stop, idledata);
 
-					// nothing is on the playlist and we are not looping so ask plugin for next item
-					if (embed_window != 0 || control_id != 0) {
-						dbus_send_event("MediaComplete", 0);
-						dbus_open_next();
-					}
+                    // nothing is on the playlist and we are not looping so ask plugin for next item
+                    if (embed_window != 0 || control_id != 0) {
+                        dbus_send_event("MediaComplete", 0);
+                        dbus_open_next();
+                    }
                 }
 
                 if (quit_on_complete) {
