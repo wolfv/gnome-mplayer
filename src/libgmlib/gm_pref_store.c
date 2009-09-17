@@ -43,12 +43,12 @@ struct _GmPrefStore {
 GmPrefStore *gm_pref_store_new(const gchar * context) {
 
 	GmPrefStore *store = (GmPrefStore *)g_new0(GmPrefStore,1);
-	gchar *filename;
 
 	store->context = g_strdup(context);
 #ifdef HAVE_GCONF
 	store->gconf = gconf_client_get_default();
 #else
+	gchar *filename;
 
     filename = g_strdup_printf("%s/%s", g_get_user_config_dir(),context);
     if (!g_file_test(filename, G_FILE_TEST_IS_DIR)) {
