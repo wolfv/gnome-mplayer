@@ -258,7 +258,7 @@ void gmtk_media_tracker_set_length(GmtkMediaTracker * tracker, const gfloat seco
 
 gchar *gm_seconds_to_string(gfloat seconds)
 {
-    int hour = 0, min = 0, sec = 0;
+    guint hour = 0, min = 0, sec = 0;
     gchar *result = NULL;
 
     if (seconds >= 3600) {
