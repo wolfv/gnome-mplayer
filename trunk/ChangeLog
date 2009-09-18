@@ -1,3 +1,5 @@
+Development
+	Add GTK2.14 compile defs to gtk_widget_get_window
 0.9.8
 	Make some events from dbus (separate thread) be processed in the idle loop
 	Prevent next item play when terminating

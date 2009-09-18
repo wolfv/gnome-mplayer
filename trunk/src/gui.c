@@ -94,7 +94,9 @@ static void drawing_area_realized(GtkWidget * widget, gpointer user_data)
      * onwards, requesting the native window in a thread causes a BadWindowID,
      * so we need to request it now. We could call gdk_window_ensure_native(),
      * but that would mean we require GTK+ 2.18, so instead we call this */
+#ifdef GTK2_14_ENABLED	
     GDK_WINDOW_XID(gtk_widget_get_window(GTK_WIDGET(widget)));
+#endif
 }
 
 gint get_player_window()
