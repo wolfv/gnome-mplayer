@@ -159,6 +159,7 @@ gboolean gm_parse_asx_is_asx(const gchar *uri)
 			
 #else
     FILE *fp;
+	gchar **parse;
     gchar *file = NULL;
 
     file = g_strndup(uri, 4);
