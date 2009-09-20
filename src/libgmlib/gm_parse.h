@@ -29,6 +29,7 @@
 #else
 #include <stdio.h>
 #endif
+#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {
