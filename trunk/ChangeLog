@@ -1,4 +1,5 @@
 Development
+	Add Preference in GUI to disable fullscreen control bar animation, looks crappy on intel+gtk 2.18
 	Add GTK2.14 compile defs to gtk_widget_get_window
 0.9.8
 	Make some events from dbus (separate thread) be processed in the idle loop

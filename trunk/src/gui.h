@@ -253,6 +253,7 @@ GtkWidget *config_show_notification;
 GtkWidget *config_thumb_position;
 GtkWidget *config_use_mediakeys;
 GtkWidget *config_use_defaultpl;
+GtkWidget *config_disable_animation;
 
 GtkWidget *config_alang;
 GtkWidget *config_slang;
