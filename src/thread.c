@@ -1019,6 +1019,7 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-mouse-movements");
         argv[arg++] = g_strdup_printf("-nocache");
     } else {
+		// argv[arg++] = g_strdup_printf("-nograbpointer");
         if (g_ascii_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0) {
             // argv[arg++] = g_strdup_printf("-nocache");
         } else {

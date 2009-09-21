@@ -3673,6 +3673,8 @@ void config_apply(GtkWidget * widget, void *data)
         !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_embeddedfonts));
     disable_pause_on_click =
         !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_pause_on_click));
+    disable_animation =
+        (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_disable_animation));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
     pplevel = (gint) gtk_range_get_value(GTK_RANGE(config_pplevel));
@@ -3776,6 +3778,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, DISABLEDEINTERLACE, disable_deinterlace);
     gm_pref_store_set_boolean(gm_store, DISABLEFRAMEDROP, disable_framedrop);
     gm_pref_store_set_boolean(gm_store, DISABLEPAUSEONCLICK, disable_pause_on_click);
+    gm_pref_store_set_boolean(gm_store, DISABLEPAUSEONCLICK, disable_animation);
     gm_pref_store_set_boolean(gm_store, SHOWPLAYLIST, playlist_visible);
     gm_pref_store_set_boolean(gm_store, SHOWDETAILS, details_visible);
     gm_pref_store_set_boolean(gm_store, USE_MEDIAKEYS, use_mediakeys);
@@ -5313,6 +5316,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_SHRINK, 0, 0);
     i++;
 
+    config_disable_animation = gtk_check_button_new_with_label(_("Disable Fullscreen Control Bar Animation"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_disable_animation), disable_animation);
+    gtk_table_attach(GTK_TABLE(conf_table), config_disable_animation, 0, 2, i, i + 1, GTK_FILL,
+                     GTK_SHRINK, 0, 0);
+    i++;
+	
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_verbose,
