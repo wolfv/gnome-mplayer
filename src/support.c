@@ -150,10 +150,6 @@ gint detect_playlist(gchar * uri)
                     size = fread(buffer, 1, sizeof(buffer) - 1, fp);
                     output = g_strsplit(buffer, "\n", 0);
 					lower = g_ascii_strdown(buffer, -1);
-                    if (output[0] != NULL) {
-                        g_strchomp(output[0]);
-                        g_strchug(output[0]);
-                    }
                     //printf("buffer=%s\n",buffer);
                     if (strstr(lower, "[playlist]") != 0) {
                         playlist = 1;
