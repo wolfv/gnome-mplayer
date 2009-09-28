@@ -39,6 +39,7 @@ gint detect_playlist(gchar * uri)
     gchar *coltitle;
     gint count;
     gchar *path = NULL;
+	gchar *lower;
 #ifdef GIO_ENABLED
     GFile *file;
     GFileInputStream *input;
@@ -75,40 +76,37 @@ gint detect_playlist(gchar * uri)
                 memset(buffer, 0, sizeof(buffer));
                 g_input_stream_read((GInputStream *) input, buffer, sizeof(buffer), NULL, NULL);
                 output = g_strsplit(buffer, "\n", 0);
-                if (output[0] != NULL) {
-                    g_strchomp(output[0]);
-                    g_strchug(output[0]);
-                }
+				lower = g_ascii_strdown(buffer, -1);			
                 // printf("buffer=%s\n",buffer);
-                if (strstr(g_strdown(buffer), "[playlist]") != 0) {
+                if (strstr(lower, "[playlist]") != 0) {
                     playlist = 1;
                 }
 
-                if (strstr(g_strdown(buffer), "[reference]") != 0) {
+                if (strstr(lower, "[reference]") != 0) {
                     playlist = 1;
                 }
 
-                if (strstr(g_strdown(buffer), "<asx") != 0) {
+                if (strstr(lower, "<asx") != 0) {
                     playlist = 1;
                 }
 
-                if (strstr(g_strdown(buffer), "<smil>") != 0) {
+                if (strstr(lower, "<smil>") != 0) {
                     playlist = 1;
                 }
 
-                if (strstr(g_strdown(buffer), "#extm3u") != 0) {
+                if (strstr(lower, "#extm3u") != 0) {
                     playlist = 1;
                 }
 
-                if (strstr(g_strdown(buffer), "http://") != 0) {
+                if (strstr(lower, "http://") != 0) {
                     playlist = 1;
                 }
 
-                if (strstr(g_strdown(buffer), "rtsp://") != 0) {
+                if (strstr(lower, "rtsp://") != 0) {
                     playlist = 1;
                 }
 
-                if (strstr(g_strdown(buffer), "pnm://") != 0) {
+                if (strstr(lower, "pnm://") != 0) {
                     playlist = 1;
                 }
 
@@ -129,6 +127,7 @@ gint detect_playlist(gchar * uri)
                     }
                     g_free(newuri);
                 }
+				g_free(lower);
                 g_strfreev(output);
 
                 g_input_stream_close((GInputStream *) input, NULL, NULL);
@@ -150,16 +149,17 @@ gint detect_playlist(gchar * uri)
                     memset(buffer, 0, sizeof(buffer));
                     size = fread(buffer, 1, sizeof(buffer) - 1, fp);
                     output = g_strsplit(buffer, "\n", 0);
+					lower = g_ascii_strdown(buffer, -1);
                     if (output[0] != NULL) {
                         g_strchomp(output[0]);
                         g_strchug(output[0]);
                     }
                     //printf("buffer=%s\n",buffer);
-                    if (strstr(g_strdown(buffer), "[playlist]") != 0) {
+                    if (strstr(lower, "[playlist]") != 0) {
                         playlist = 1;
                     }
 
-                    if (strstr(g_strdown(buffer), "[reference]") != 0) {
+                    if (strstr(lower, "[reference]") != 0) {
                         playlist = 1;
                     }
 
@@ -167,19 +167,19 @@ gint detect_playlist(gchar * uri)
                         playlist = 1;
                     }
 
-                    if (strstr(g_strdown(buffer), "<asx") != 0) {
+                    if (strstr(lower, "<asx") != 0) {
                         playlist = 1;
                     }
 
-                    if (strstr(g_strdown(buffer), "http://") != 0) {
+                    if (strstr(lower, "http://") != 0) {
                         playlist = 1;
                     }
 
-                    if (strstr(g_strdown(buffer), "rtsp://") != 0) {
+                    if (strstr(lower, "rtsp://") != 0) {
                         playlist = 1;
                     }
 
-                    if (strstr(g_strdown(buffer), "pnm://") != 0) {
+                    if (strstr(lower, "pnm://") != 0) {
                         playlist = 1;
                     }
                     if (output[0] != NULL && g_file_test(output[0], G_FILE_TEST_EXISTS)) {
@@ -193,7 +193,7 @@ gint detect_playlist(gchar * uri)
                         }
                         g_free(file);
                     }
-
+					g_free(lower);
                     g_strfreev(output);
                 }
                 fclose(fp);
