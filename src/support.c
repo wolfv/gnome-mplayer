@@ -1427,7 +1427,7 @@ MetaData *get_metadata(gchar * uri)
             if (strstr(lower, "=title") != NULL || strstr(lower, "=name") != NULL) {
                 localtitle = strstr(output[ac + 1], "=") + 1;
                 if (localtitle)
-                    title = g_strstrip(metadata_to_utf8(localtitle));
+                    title = metadata_to_utf8(localtitle);
                 else
                     title = NULL;
 
