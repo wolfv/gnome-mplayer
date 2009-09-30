@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-mplayer r1530\n"
+"Project-Id-Version: gnome-mplayer r1568\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-21 08:33-0600\n"
-"PO-Revision-Date: 2009-09-09 15:52+0200\n"
+"PO-Revision-Date: 2009-09-30 11:06+0200\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -790,10 +790,8 @@ msgid "Pause playback on mouse click"
 msgstr "Pozastavit přehrávání při kliknutí myší"
 
 #: src/gui.c:5319
-#, fuzzy
 msgid "Disable Fullscreen Control Bar Animation"
-msgstr ""
-"Potlačit volby celoobrazovkového režimu při přehrávání ve webovém prohlížeči"
+msgstr "Zakázat animaci ovládacího panelu v režimu celé obrazovky"
 
 #: src/gui.c:5325
 msgid "Verbose Debug Enabled"
