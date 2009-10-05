@@ -3778,7 +3778,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, DISABLEDEINTERLACE, disable_deinterlace);
     gm_pref_store_set_boolean(gm_store, DISABLEFRAMEDROP, disable_framedrop);
     gm_pref_store_set_boolean(gm_store, DISABLEPAUSEONCLICK, disable_pause_on_click);
-    gm_pref_store_set_boolean(gm_store, DISABLEPAUSEONCLICK, disable_animation);
+    gm_pref_store_set_boolean(gm_store, DISABLEANIMATION, disable_animation);
     gm_pref_store_set_boolean(gm_store, SHOWPLAYLIST, playlist_visible);
     gm_pref_store_set_boolean(gm_store, SHOWDETAILS, details_visible);
     gm_pref_store_set_boolean(gm_store, USE_MEDIAKEYS, use_mediakeys);
