@@ -59,6 +59,8 @@ static GOptionEntry entries[] = {
      N_("Show even more output on the console"), NULL},
     {"fullscreen", 0, 0, G_OPTION_ARG_NONE, &fullscreen, N_("Start in fullscreen mode"), NULL},
     {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
+	{"remember_softvol", 0, 0, G_OPTION_ARG_NONE, &remember_softvol, N_("When set to TRUE the last volume level is set as the default"), NULL},
+	{"volume_softvol", 0, 0, G_OPTION_ARG_INT, &volume_softvol, N_("Last software volume percentage- only applied when remember_softvol is set to TRUE"), NULL},
     {"mixer", 0, 0, G_OPTION_ARG_STRING, &mixer, N_("Mixer to use"), NULL},
     {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
@@ -682,7 +684,6 @@ int main(int argc, char *argv[])
     tv_height = 0;
     tv_fps = 0;
     ok_to_play = TRUE;
-    softvol = 0;
     alang = NULL;
     slang = NULL;
     metadata_codepage = NULL;
@@ -700,6 +701,8 @@ int main(int argc, char *argv[])
     disable_fullscreen = FALSE;
     disable_framedrop = FALSE;
     softvol = FALSE;
+	remember_softvol = FALSE;
+	volume_softvol = -1;
     subtitlefont = NULL;
     subtitle_codepage = NULL;
     subtitle_color = NULL;
@@ -792,6 +795,8 @@ int main(int argc, char *argv[])
     use_hw_audio = gm_pref_store_get_boolean(gm_store, USE_HW_AUDIO);
     fullscreen = gm_pref_store_get_boolean(gm_store, FULLSCREEN);
     softvol = gm_pref_store_get_boolean(gm_store, SOFTVOL);
+	remember_softvol = gm_pref_store_get_boolean(gm_store, REMEMBER_SOFTVOL);
+	volume_softvol = gm_pref_store_get_int(gm_store, VOLUME_SOFTVOL);	    
     forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
     vertical_layout = gm_pref_store_get_boolean(gm_store, VERTICAL);
     playlist_visible = gm_pref_store_get_boolean(gm_store, SHOWPLAYLIST);
@@ -932,11 +937,17 @@ int main(int argc, char *argv[])
     }
 
     if (softvol) {
-        if (verbose)
-            printf
-                ("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
-                 volume);
-        volume = 100;
+		if (remember_softvol && volume_softvol != -1) {
+			if (verbose)
+				printf("Using softvol, since remember_softvol is enabled volume will be set to %i%% of %i%%\n",volume_softvol,volume);
+			volume = (gdouble) volume_softvol;
+		} else {
+			if (verbose)
+				printf
+					("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
+					volume);
+			volume = 100;
+		}
     }
 
     if (volume >= 0 && volume <= 100) {

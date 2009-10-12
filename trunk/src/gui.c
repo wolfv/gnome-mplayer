@@ -603,6 +603,12 @@ gboolean set_volume_from_slider(gpointer data)
             cmd = g_strdup_printf("volume %i 1\n", vol);
             send_command(cmd, FALSE);
             g_free(cmd);
+			
+			if (remember_softvol) {
+				volume_softvol = vol;
+				set_software_volume(&volume_softvol);
+			}
+			
         }
         send_command("get_property volume\n", FALSE);
         if (state == PAUSED || state == STOPPED) {
@@ -1256,6 +1262,14 @@ gboolean set_position(void *data)
     return FALSE;
 }
 
+gboolean set_software_volume(int *data) {	
+
+	gm_store = gm_pref_store_new("gnome-mplayer");
+	gm_pref_store_set_int(gm_store, VOLUME_SOFTVOL, *data);
+	gm_pref_store_free(gm_store);
+	return FALSE;
+}
+
 gboolean set_volume(void *data)
 {
     IdleData *idle = (IdleData *) data;
@@ -1263,6 +1277,11 @@ gboolean set_volume(void *data)
 
     if (GTK_IS_WIDGET(vol_slider) && idle->volume >= 0 && idle->volume <= 100) {
         //printf("setting slider to %f\n", idle->volume);
+		if (remember_softvol) {
+			volume_softvol = idle->volume;
+			set_software_volume(&volume_softvol);
+		}		
+		
 #ifdef GTK2_12_ENABLED
         if (rpcontrols != NULL && g_strcasecmp(rpcontrols, "volumeslider") == 0) {
             gtk_range_set_value(GTK_RANGE(vol_slider), idle->volume);
@@ -2318,6 +2337,12 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
             g_free(cmd);
         }
     }
+	
+	if (remember_softvol) {
+		volume_softvol = vol;
+		set_software_volume(&volume_softvol);
+	}
+	
     if (idledata->volume != vol) {
 
         buf = g_strdup_printf(_("Volume %i%%"), vol);
@@ -2359,6 +2384,12 @@ void vol_button_callback(GtkVolumeButton * volume, gpointer user_data)
         send_command(cmd, TRUE);
         g_free(cmd);
     }
+
+	if (remember_softvol) {
+		volume_softvol = vol;
+		set_software_volume(&volume_softvol);
+	}
+	
     if (idledata->volume != vol) {
 
         buf = g_strdup_printf(_("Volume %i%%"), vol);
@@ -3679,6 +3710,7 @@ void config_apply(GtkWidget * widget, void *data)
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
     pplevel = (gint) gtk_range_get_value(GTK_RANGE(config_pplevel));
     softvol = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_softvol));
+	remember_softvol = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_softvol));
     verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     details_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_details_visible));
@@ -3772,6 +3804,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_int(gm_store, OSDLEVEL, osdlevel);
     gm_pref_store_set_int(gm_store, PPLEVEL, pplevel);
     gm_pref_store_set_boolean(gm_store, SOFTVOL, softvol);
+	gm_pref_store_set_boolean(gm_store, REMEMBER_SOFTVOL, remember_softvol);
     gm_pref_store_set_boolean(gm_store, FORCECACHE, forcecache);
     gm_pref_store_set_boolean(gm_store, DISABLEASS, disable_ass);
     gm_pref_store_set_boolean(gm_store, DISABLEEMBEDDEDFONTS, disable_embeddedfonts);
@@ -4481,6 +4514,12 @@ void config_single_instance_callback(GtkWidget * button, gpointer data)
     gtk_widget_set_sensitive(config_bring_to_front,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
                                                           (config_single_instance)));
+}
+
+void config_softvol_callback(GtkWidget * button, gpointer data) {
+    gtk_widget_set_sensitive(config_remember_softvol,
+                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+                                                          (config_softvol)));
 }
 
 void config_forcecache_callback(GtkWidget * button, gpointer data)
@@ -5334,14 +5373,14 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
 
     // Page 6
-    conf_table = gtk_table_new(20, 2, FALSE);
+    conf_table = gtk_table_new(20, 3, FALSE);
     gtk_container_add(GTK_CONTAINER(conf_page6), conf_table);
     i = 0;
     conf_label = gtk_label_new(_("<span weight=\"bold\">Advanced Settings for MPlayer</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 3, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     i++;
 
@@ -5352,16 +5391,37 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                          ("Set this option if changing the volume in Gnome MPlayer changes the master volume"),
                          NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
-    gtk_table_attach(GTK_TABLE(conf_table), config_softvol, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0,
+    gtk_table_attach(GTK_TABLE(conf_table), config_softvol, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0,
                      0);
+	g_signal_connect(G_OBJECT(config_softvol), "toggled", G_CALLBACK(config_softvol_callback), NULL);
     i++;
 
+    conf_label = gtk_label_new("");
+    gtk_label_set_width_chars(GTK_LABEL(conf_label), 3);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 1, 2, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0,
+                     0);
+    config_remember_softvol =
+        gtk_check_button_new_with_label(_
+                                        ("Remember last software volume level"));
+	tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_remember_softvol,
+                         _
+                         ("Set this option if you want the software volume level to be remembered"),
+                         NULL);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_remember_softvol), remember_softvol);
+    gtk_table_attach(GTK_TABLE(conf_table), config_remember_softvol, 1, 2, i, i + 1, GTK_FILL,
+                     GTK_SHRINK, 0, 0);
+	gtk_widget_set_sensitive(config_remember_softvol, 
+	                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+                                                          (config_softvol)));
+    i++;
+	
     config_deinterlace = gtk_check_button_new_with_mnemonic(_("De_interlace Video"));
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_deinterlace, _("Set this option if video looks striped"),
                          NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_deinterlace), !disable_deinterlace);
-    gtk_table_attach(GTK_TABLE(conf_table), config_deinterlace, 0, 2, i, i + 1, GTK_FILL,
+    gtk_table_attach(GTK_TABLE(conf_table), config_deinterlace, 0, 3, i, i + 1, GTK_FILL,
                      GTK_SHRINK, 0, 0);
     i++;
 
@@ -5370,13 +5430,13 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_tooltips_set_tip(tooltip, config_framedrop,
                          _("Set this option if video is well behind the audio"), NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_framedrop), !disable_framedrop);
-    gtk_table_attach(GTK_TABLE(conf_table), config_framedrop, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_framedrop, 0, 3, i, i + 1, GTK_FILL, GTK_SHRINK,
                      0, 0);
     i++;
 
     config_forcecache = gtk_check_button_new_with_label(_("Enable mplayer cache"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_forcecache), forcecache);
-    gtk_table_attach(GTK_TABLE(conf_table), config_forcecache, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK,
+    gtk_table_attach(GTK_TABLE(conf_table), config_forcecache, 0, 3, i, i + 1, GTK_FILL, GTK_SHRINK,
                      0, 0);
     g_signal_connect(G_OBJECT(config_forcecache), "toggled",
                      G_CALLBACK(config_forcecache_callback), NULL);
@@ -5385,7 +5445,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_label = gtk_label_new(_("Cache Size (KB):"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     config_cachesize = gtk_spin_button_new_with_range(32, 256 * 1024, 512);
     tooltip = gtk_tooltips_new();
@@ -5394,7 +5454,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                          ("Amount of data to cache when playing media, use higher values for slow devices and sites."),
                          NULL);
     gtk_widget_set_size_request(config_cachesize, 100, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_cachesize, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
+    gtk_table_attach(GTK_TABLE(conf_table), config_cachesize, 2, 3, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     //gtk_range_set_value(GTK_RANGE(config_cachesize), cache_size);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_cachesize), cache_size);
@@ -5407,7 +5467,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
 
     conf_label = gtk_label_new("");
-    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     conf_label = gtk_label_new(_("MPlayer Executable:"));
@@ -5421,9 +5481,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_entry_set_width_chars(GTK_ENTRY(config_mplayer_bin), 40);
-    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
-    gtk_table_attach(GTK_TABLE(conf_table), config_mplayer_bin, 0, 2, i, i + 1,
+    gtk_table_attach(GTK_TABLE(conf_table), config_mplayer_bin, 0, 3, i, i + 1,
                      GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
@@ -5440,9 +5500,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_entry_set_width_chars(GTK_ENTRY(config_extraopts), 40);
-    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
-    gtk_table_attach(GTK_TABLE(conf_table), config_extraopts, 0, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
+    gtk_table_attach(GTK_TABLE(conf_table), config_extraopts, 0, 3, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
     i++;
 
