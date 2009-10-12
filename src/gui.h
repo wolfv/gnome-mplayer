@@ -247,6 +247,7 @@ GtkWidget *config_bring_to_front;
 GtkWidget *config_resize_on_new_media;
 GtkWidget *config_pause_on_click;
 GtkWidget *config_softvol;
+GtkWidget *config_remember_softvol;
 GtkWidget *config_forcecache;
 GtkWidget *config_verbose;
 GtkWidget *config_show_notification;
@@ -341,6 +342,7 @@ void destroy_folder_progress_window();
 void update_status_icon();
 void setup_accelerators();
 void update_details_table();
+gboolean set_software_volume(int *data);
 
 gint get_height();
 gint get_width();

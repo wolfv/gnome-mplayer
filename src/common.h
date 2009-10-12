@@ -38,6 +38,8 @@
 #define OSDLEVEL		"osdlevel"
 #define PPLEVEL		"pplevel"
 #define SOFTVOL			"softvol"
+#define REMEMBER_SOFTVOL	"remember_softvol"
+#define VOLUME_SOFTVOL	"volume_softvol"
 #define VERBOSE			"verbose"
 #define VERTICAL		"vertical"
 #define FORCECACHE		"forcecache"
@@ -295,6 +297,8 @@ gint window_x;
 gint window_y;
 gint control_id;
 gboolean softvol;
+gboolean remember_softvol;
+gint volume_softvol;
 gint verbose;
 gint reallyverbose;
 gint autostart;
