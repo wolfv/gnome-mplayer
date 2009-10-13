@@ -844,6 +844,7 @@ gboolean thread_query(gpointer data)
         } else {
 
             //send_command("get_time_pos\n");
+			send_command("get_time_length\n", TRUE);
             send_command("get_property stream_pos\n", TRUE);
             if (threaddata->streaming)
                 send_command("get_property metadata\n", TRUE);
