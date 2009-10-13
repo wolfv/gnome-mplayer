@@ -856,6 +856,8 @@ int main(int argc, char *argv[])
     loc_window_y = gm_pref_store_get_int(gm_store, WINDOW_Y);
     loc_window_height = gm_pref_store_get_int(gm_store, WINDOW_HEIGHT);
     loc_window_width = gm_pref_store_get_int(gm_store, WINDOW_WIDTH);
+    loc_panel_position = gm_pref_store_get_int(gm_store, PANEL_POSITION);
+		    
     keep_on_top = gm_pref_store_get_boolean(gm_store, KEEP_ON_TOP);
     resize_on_new_media = gm_pref_store_get_boolean(gm_store, RESIZE_ON_NEW_MEDIA);
     read_mplayer_config();
@@ -1174,6 +1176,13 @@ int main(int argc, char *argv[])
                                        playlist_visible);
     }
 
+    if (embed_window == 0) {
+        if (remember_loc) {
+            gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
+			g_idle_add(set_pane_position, NULL);
+        }
+    }	
+		    
     safe_to_save_default_playlist = FALSE;
     if (use_defaultpl) {
         create_folder_progress_window();

@@ -89,6 +89,7 @@
 #define WINDOW_Y		"window_y"
 #define WINDOW_HEIGHT	"window_height"
 #define WINDOW_WIDTH	"window_width"
+#define PANEL_POSITION	    "panel_position"
 
 #define RESIZE_ON_NEW_MEDIA "resize_on_new_media"
 #define KEEP_ON_TOP		"keep_on_top"
@@ -384,6 +385,7 @@ gint loc_window_x;
 gint loc_window_y;
 gint loc_window_height;
 gint loc_window_width;
+gint loc_panel_position;
 gboolean keep_on_top;
 
 gboolean cancel_folder_load;
@@ -469,6 +471,7 @@ gboolean set_update_gui(void *data);
 gboolean set_subtitle_visibility(void *data);
 gboolean set_item_add_info(void *data);
 gboolean set_metadata(gpointer data);
+gboolean set_pane_position(void *data);
 
 void remove_langs(GtkWidget * item, gpointer data);
 gboolean set_new_lang_menu(gpointer data);

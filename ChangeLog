@@ -1,4 +1,5 @@
 Development
+	Remember and restore panel position when playlist is visible on startup
 	Remember softvol option patch by smoohta
 	Updated Czech translation
 	Fix problem with playlist detection on glib < 2.22
