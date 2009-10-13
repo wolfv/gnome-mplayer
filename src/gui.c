@@ -2474,23 +2474,33 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 
     g_get_current_time(&currenttime);
     g_time_val_add(&currenttime, -auto_hide_timeout * G_USEC_PER_SEC);
-    if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
-        cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
-        cursor =
-            gdk_cursor_new_from_pixmap(cursor_source, cursor_source, &cursor_color,
-                                       &cursor_color, 0, 0);
-        gdk_pixmap_unref(cursor_source);
-        gdk_window_set_cursor(window->window, cursor);
-        gdk_cursor_unref(cursor);
+	if (GTK_WIDGET_VISIBLE(menu_file)
+		|| GTK_WIDGET_VISIBLE(menu_edit)
+		|| GTK_WIDGET_VISIBLE(menu_view)
+		|| GTK_WIDGET_VISIBLE(menu_help)) {
+			
+		gdk_window_set_cursor(window->window, NULL);
+			
+	} else {
+		
+		if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
+		    cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
+		    cursor =
+		        gdk_cursor_new_from_pixmap(cursor_source, cursor_source, &cursor_color,
+		                                   &cursor_color, 0, 0);
+		    gdk_pixmap_unref(cursor_source);
+		    gdk_window_set_cursor(window->window, cursor);
+		    gdk_cursor_unref(cursor);
 
-        if (use_pulse_flat_volume && !softvol) {
-            if (idledata->mplayer_volume != idledata->volume) {
-                idledata->volume = idledata->mplayer_volume;
-                set_volume(idledata);
-            }
-        }
-    }
-
+		    if (use_pulse_flat_volume && !softvol) {
+		        if (idledata->mplayer_volume != idledata->volume) {
+		            idledata->volume = idledata->mplayer_volume;
+		            set_volume(idledata);
+		        }
+		    }
+		}
+	} 
+	
     return FALSE;
 }
 
