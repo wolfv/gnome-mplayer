@@ -513,7 +513,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 idledata->mplayer_volume = volume;
                 idledata->mute = (volume > 0);
             }
-        }
+        } else {
+			if (softvol) {
+                idledata->mplayer_volume = volume;
+                idledata->mute = (volume > 0);
+			}
+		}
     }
 
     if (strstr(mplayer_output->str, "ANS_chapters") != 0) {
