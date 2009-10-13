@@ -209,6 +209,7 @@ void adjust_layout()
     if (use_remember_loc) {
         // printf("setting size to %i x %i\n", loc_window_width, loc_window_height);
         gtk_window_resize(GTK_WINDOW(window), loc_window_width, loc_window_height);
+		g_idle_add(set_pane_position, NULL);
 		use_remember_loc = FALSE;
     } else {
         if (total_height > 0 && total_width > 0 && idledata->videopresent) {
