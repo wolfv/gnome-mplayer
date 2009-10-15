@@ -388,7 +388,6 @@ gboolean set_media_label(void *data)
     }
 
     g_idle_add(set_adjust_layout, NULL);
-	g_idle_add(set_pane_position, NULL);
 
     return FALSE;
 }
