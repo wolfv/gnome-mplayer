@@ -1179,6 +1179,8 @@ int main(int argc, char *argv[])
     if (embed_window == 0) {
         if (remember_loc) {
             gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
+			g_idle_add(set_pane_position, NULL);
+
         }
     }	
 		    
