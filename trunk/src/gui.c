@@ -132,7 +132,11 @@ void adjust_layout()
     total_width = non_fs_width;
 
     if (total_width == 0) {
-        total_width = controls_box->requisition.width;
+		if (playlist_visible) {
+			total_width = gtk_paned_get_position(GTK_PANED(pane));
+		} else {
+	        total_width = controls_box->requisition.width;
+		}
 	}
 
     if (GTK_IS_WIDGET(media_hbox)
@@ -209,7 +213,6 @@ void adjust_layout()
     if (use_remember_loc) {
         // printf("setting size to %i x %i\n", loc_window_width, loc_window_height);
         gtk_window_resize(GTK_WINDOW(window), loc_window_width, loc_window_height);
-		g_idle_add(set_pane_position, NULL);
 		use_remember_loc = FALSE;
     } else {
         if (total_height > 0 && total_width > 0 && idledata->videopresent) {
@@ -385,6 +388,8 @@ gboolean set_media_label(void *data)
     }
 
     g_idle_add(set_adjust_layout, NULL);
+	g_idle_add(set_pane_position, NULL);
+
     return FALSE;
 }
 
