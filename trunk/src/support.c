@@ -2249,9 +2249,14 @@ gdouble get_alsa_volume(gboolean show_details)
             if (playback == 1) {
                 vol = (gdouble) ((get_vol - pmin) * f_multi);
             } else {
-                idledata->mute = TRUE;
                 vol = 0;
             }
+			if (vol == 0) { 
+				idledata->mute = TRUE;
+			} else {
+				idledata->mute = FALSE;
+			}
+			
             if (verbose && show_details) {
                 printf("%s Playback is %i\n", mixer, playback);
                 printf("%s Range is %li to %li \n", mixer, pmin, pmax);
@@ -2288,9 +2293,13 @@ gdouble get_alsa_volume(gboolean show_details)
             if (playback == 1) {
                 vol = (gdouble) ((get_vol - pmin) * f_multi);
             } else {
-                idledata->mute = TRUE;
                 vol = 0;
             }
+			if (vol == 0) { 
+				idledata->mute = TRUE;
+			} else {
+				idledata->mute = FALSE;
+			}
             if (verbose && show_details) {
                 printf("Master Playback is %i\n", playback);
                 printf("Master Range is %li to %li \n", pmin, pmax);
