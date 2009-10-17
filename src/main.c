@@ -751,6 +751,7 @@ int main(int argc, char *argv[])
     use_hw_audio = FALSE;
     start_second = 0;
     play_length = 0;
+	save_loc = TRUE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -1168,6 +1169,8 @@ int main(int argc, char *argv[])
     } else {
         // prevents saving of a playlist with one item on it
         use_defaultpl = FALSE;
+		// don't save the loc when launched with a single file
+		save_loc = FALSE;
     }
 
     if (single_instance && embed_window == 0) {
