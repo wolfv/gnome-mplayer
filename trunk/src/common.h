@@ -381,6 +381,7 @@ gint button_size;
 
 gboolean remember_loc;
 gboolean use_remember_loc;
+gboolean save_loc;
 gint loc_window_x;
 gint loc_window_y;
 gint loc_window_height;

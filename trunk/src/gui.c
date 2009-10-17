@@ -131,18 +131,27 @@ void adjust_layout()
     total_height = non_fs_height;
     total_width = non_fs_width;
 
-    if (total_width == 0) {
-		if (playlist_visible) {
-			total_width = gtk_paned_get_position(GTK_PANED(pane));
-		} else {
-	        total_width = controls_box->requisition.width;
-		}
+	if (playlist_visible && !vertical_layout) {
+		total_width = gtk_paned_get_position(GTK_PANED(pane));
+	} 
+
+	if (playlist_visible && vertical_layout) {
+		total_height = gtk_paned_get_position(GTK_PANED(pane));
 	}
+	
+	if (total_width == 0) {
+		total_width = controls_box->requisition.width;
+	}
+	
 
     if (GTK_IS_WIDGET(media_hbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
         gtk_widget_show_all(media_hbox);
-        total_height += media_hbox->allocation.height;
+		if (playlist_visible && vertical_layout) {
+			total_height = gtk_paned_get_position(GTK_PANED(pane));
+		} else {
+	        total_height += media_hbox->allocation.height;
+		}
     } else {
         gtk_widget_hide_all(media_hbox);
     }
@@ -150,7 +159,11 @@ void adjust_layout()
     if (GTK_IS_WIDGET(details_table)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
         gtk_widget_show_all(details_vbox);
-        total_height += details_vbox->allocation.height;
+		if (playlist_visible && vertical_layout) {
+			total_height = gtk_paned_get_position(GTK_PANED(pane));
+		} else {
+	        total_height += details_vbox->allocation.height;
+		}
     } else {
         gtk_widget_hide_all(details_vbox);
     }
@@ -158,7 +171,11 @@ void adjust_layout()
     if (GTK_IS_WIDGET(audio_meter)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter))) {
         gtk_widget_show_all(audio_meter);
-        total_height += audio_meter->allocation.height;
+		if (playlist_visible && vertical_layout) {
+			total_height = gtk_paned_get_position(GTK_PANED(pane));
+		} else {
+	        total_height += audio_meter->allocation.height;
+		}
     } else {
         gtk_widget_hide_all(audio_meter);
     }
@@ -1460,11 +1477,13 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 
         }
 
-        gm_pref_store_set_int(gm_store, WINDOW_X, loc_window_x);
-        gm_pref_store_set_int(gm_store, WINDOW_Y, loc_window_y);
-        gm_pref_store_set_int(gm_store, WINDOW_HEIGHT, loc_window_height);
-        gm_pref_store_set_int(gm_store, WINDOW_WIDTH, loc_window_width);
-		gm_pref_store_set_int(gm_store, PANEL_POSITION, loc_panel_position);
+		if (save_loc) {
+		    gm_pref_store_set_int(gm_store, WINDOW_X, loc_window_x);
+		    gm_pref_store_set_int(gm_store, WINDOW_Y, loc_window_y);
+		    gm_pref_store_set_int(gm_store, WINDOW_HEIGHT, loc_window_height);
+		    gm_pref_store_set_int(gm_store, WINDOW_WIDTH, loc_window_width);
+			gm_pref_store_set_int(gm_store, PANEL_POSITION, loc_panel_position);
+		}
         gm_pref_store_free(gm_store);
     }
 
