@@ -510,7 +510,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_volume=%f", &vol);
         // Need to track what the master volume is, gui is updated in make mouse invisible
         idledata->mplayer_volume = vol;
-        idledata->mute = (vol > 0);
+        idledata->mute = !((gint)vol > 0);
 		g_idle_add(update_volume, idledata);
     }
 
