@@ -424,27 +424,13 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
         g_free(subtitle);
     }
-    /*
-       #ifdef HAVE_ASOUNDLIB
-       if (!softvol && ao != NULL
-       && (g_ascii_strcasecmp(ao, "alsa") == 0
-       || (use_pulse_flat_volume && g_ascii_strcasecmp(ao, "pulse") == 0))) {
-       volume = (gint) get_alsa_volume(TRUE);
-       idledata->volume = volume;
-       #if GTK2_12_ENABLED
-       gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), volume);
-       #else
-       gtk_range_set_value(GTK_RANGE(vol_slider), volume);
-       #endif
-       }
-       #endif
 
-       #if GTK2_12_ENABLED
-       volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
-       #else
-       volume = gtk_range_get_value(GTK_RANGE(vol_slider));
-       #endif
-     */
+#if GTK2_12_ENABLED
+    volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
+#else
+    volume = gtk_range_get_value(GTK_RANGE(vol_slider));
+#endif
+	
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
         if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
             if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {

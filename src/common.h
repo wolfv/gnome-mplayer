@@ -494,6 +494,7 @@ void dbus_disable_screensaver();
 void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data);
 
 gboolean update_audio_meter(gpointer data);
+gboolean update_volume(gpointer data);
 
 void mplayer_shutdown();
 gpointer launch_player(gpointer data);
