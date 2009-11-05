@@ -6345,7 +6345,8 @@ GtkWidget *create_window(gint windowid)
     fixed = gtk_fixed_new();
     drawing_area = gtk_socket_new();
     g_signal_connect(drawing_area, "realize", G_CALLBACK(drawing_area_realized), NULL);
-
+	gtk_widget_modify_bg(drawing_area, GTK_STATE_NORMAL, &(drawing_area->style->black));
+	
     cover_art = gtk_image_new();
     media_label = gtk_label_new("");
     gtk_widget_set_size_request(media_label, 300, -1);

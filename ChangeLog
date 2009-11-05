@@ -1,4 +1,6 @@
 Development
+	Set background of gtk_socket to black, this plus a fix in gtk should fix flickering
+		https://bugzilla.gnome.org/show_bug.cgi?id=598050
 	Remember and restore panel position when playlist is visible on startup
 	Remember softvol option patch by smoohta
 	Updated Czech translation
