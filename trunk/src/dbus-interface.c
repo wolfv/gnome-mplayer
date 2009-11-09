@@ -1092,7 +1092,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
                 if (playlistname != NULL && local_rnp)
                     dbus_set_playlist_name(playlistname);
             }
-            exit(1);
+            exit(EXIT_SUCCESS);
         }
     }
     screensaver_disabled = FALSE;

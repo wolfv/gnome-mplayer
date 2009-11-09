@@ -64,6 +64,7 @@ gnome_mplayer_LDFLAGS =
 gnome_mplayer_LDADD = \
     libgmtk/libgmtk.a \
     libgmlib/libgmlib.a \
+    $(X11_LIBS) \
     $(GTK_LIBS) \
     $(GIO_LIBS) \
     $(DBUS_LIBS) \
