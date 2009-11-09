@@ -70,6 +70,7 @@ gboolean add_to_playlist_and_play(gpointer data)
     g_free(buf);
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+			dontplaynext = TRUE;
             play_iter(&iter, 0);
             if (embed_window == 0 && bring_to_front)
                 present_main_window();
