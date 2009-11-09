@@ -27,6 +27,9 @@ ALL_LINGUAS="bg cs de el en en_GB es fr hu it ja ko lt nl pl pt_BR ro ru sr sr@l
 AC_SUBST(ALL_LINGUAS)
 AM_GLIB_GNU_GETTEXT
 
+PKG_CHECK_MODULES([X11], [x11])
+AC_SUBST(X11_LIBS)
+
 PKG_CHECK_MODULES(GTK, [gtk+-2.0 glib-2.0 gthread-2.0])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)

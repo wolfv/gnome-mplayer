@@ -55,7 +55,8 @@ gnome_mplayer_DEPENDENCIES = libgmtk/libgmtk.a libgmlib/libgmlib.a \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
 gnome_mplayer_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(gnome_mplayer_LDFLAGS) $(LDFLAGS) -o $@
 am__libgnome_mplayer_properties_page_so_SOURCES_DIST = ../config.h \
@@ -230,6 +231,8 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
+X11_CFLAGS = @X11_CFLAGS@
+X11_LIBS = @X11_LIBS@
 XGETTEXT = @XGETTEXT@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -332,6 +335,7 @@ gnome_mplayer_LDFLAGS =
 gnome_mplayer_LDADD = \
     libgmtk/libgmtk.a \
     libgmlib/libgmlib.a \
+    $(X11_LIBS) \
     $(GTK_LIBS) \
     $(GIO_LIBS) \
     $(DBUS_LIBS) \
