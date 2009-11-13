@@ -1,4 +1,5 @@
 Development
+	Add gnome-mplayer to the list of preferred applications
 	Set background of gtk_socket to black, this plus a fix in gtk should fix flickering
 		https://bugzilla.gnome.org/show_bug.cgi?id=598050
 	Remember and restore panel position when playlist is visible on startup

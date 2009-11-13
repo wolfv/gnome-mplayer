@@ -23,10 +23,14 @@ endif
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
 
+prefappdir = ${prefix}/share/gnome-control-center/default-apps
+prefapp_DATA = gnome-mplayer.xml
+
+
 manpagedir = @mandir@/man1
 manpage_DATA = gnome-mplayer.1
 
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(schema_DATA) $(manpage_DATA) gnome-mplayer.spec.in config.h.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(schema_DATA) $(manpage_DATA) $(prefapp_DATA) gnome-mplayer.spec.in config.h.in
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

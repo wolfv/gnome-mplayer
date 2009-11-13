@@ -81,9 +81,9 @@ am__base_list = \
   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
 am__installdirs = "$(DESTDIR)$(desktopdir)" \
 	"$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(manpagedir)" \
-	"$(DESTDIR)$(schemadir)"
+	"$(DESTDIR)$(prefappdir)" "$(DESTDIR)$(schemadir)"
 DATA = $(desktop_DATA) $(gnome_mplayerdoc_DATA) $(manpage_DATA) \
-	$(schema_DATA)
+	$(prefapp_DATA) $(schema_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
@@ -300,9 +300,11 @@ gnome_mplayerdoc_DATA = \
 @GCONF_SCHEMAS_INSTALL_TRUE@schema_DATA = gnome-mplayer.schemas
 desktopdir = ${prefix}/share/applications
 desktop_DATA = gnome-mplayer.desktop
+prefappdir = ${prefix}/share/gnome-control-center/default-apps
+prefapp_DATA = gnome-mplayer.xml
 manpagedir = @mandir@/man1
 manpage_DATA = gnome-mplayer.1
-EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(schema_DATA) $(manpage_DATA) gnome-mplayer.spec.in config.h.in
+EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(schema_DATA) $(manpage_DATA) $(prefapp_DATA) gnome-mplayer.spec.in config.h.in
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
@@ -423,6 +425,26 @@ uninstall-manpageDATA:
 	test -n "$$files" || exit 0; \
 	echo " ( cd '$(DESTDIR)$(manpagedir)' && rm -f" $$files ")"; \
 	cd "$(DESTDIR)$(manpagedir)" && rm -f $$files
+install-prefappDATA: $(prefapp_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(prefappdir)" || $(MKDIR_P) "$(DESTDIR)$(prefappdir)"
+	@list='$(prefapp_DATA)'; test -n "$(prefappdir)" || list=; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(prefappdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(prefappdir)" || exit $$?; \
+	done
+
+uninstall-prefappDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(prefapp_DATA)'; test -n "$(prefappdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	test -n "$$files" || exit 0; \
+	echo " ( cd '$(DESTDIR)$(prefappdir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(prefappdir)" && rm -f $$files
 install-schemaDATA: $(schema_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(schemadir)" || $(MKDIR_P) "$(DESTDIR)$(schemadir)"
@@ -761,7 +783,7 @@ check: check-recursive
 all-am: Makefile $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(manpagedir)" "$(DESTDIR)$(schemadir)"; do \
+	for dir in "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(gnome_mplayerdocdir)" "$(DESTDIR)$(manpagedir)" "$(DESTDIR)$(prefappdir)" "$(DESTDIR)$(schemadir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -811,7 +833,7 @@ info: info-recursive
 info-am:
 
 install-data-am: install-desktopDATA install-gnome_mplayerdocDATA \
-	install-manpageDATA install-schemaDATA
+	install-manpageDATA install-prefappDATA install-schemaDATA
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 install-dvi: install-dvi-recursive
@@ -859,7 +881,8 @@ ps: ps-recursive
 ps-am:
 
 uninstall-am: uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
-	uninstall-manpageDATA uninstall-schemaDATA
+	uninstall-manpageDATA uninstall-prefappDATA \
+	uninstall-schemaDATA
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) all \
 	ctags-recursive install-am install-data-am install-strip \
@@ -876,13 +899,15 @@ uninstall-am: uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
 	install-desktopDATA install-dvi install-dvi-am install-exec \
 	install-exec-am install-gnome_mplayerdocDATA install-html \
 	install-html-am install-info install-info-am install-man \
-	install-manpageDATA install-pdf install-pdf-am install-ps \
-	install-ps-am install-schemaDATA install-strip installcheck \
-	installcheck-am installdirs installdirs-am maintainer-clean \
+	install-manpageDATA install-pdf install-pdf-am \
+	install-prefappDATA install-ps install-ps-am \
+	install-schemaDATA install-strip installcheck installcheck-am \
+	installdirs installdirs-am maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
 	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
 	uninstall-desktopDATA uninstall-gnome_mplayerdocDATA \
-	uninstall-manpageDATA uninstall-schemaDATA
+	uninstall-manpageDATA uninstall-prefappDATA \
+	uninstall-schemaDATA
 
 
 # Copy all the spec files. Of cource, only one is actually used.
