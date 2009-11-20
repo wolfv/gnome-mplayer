@@ -381,9 +381,9 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     if (title == NULL) {
         title = g_filename_display_basename(uri);
     }
-    buffer = g_markup_printf_escaped("\t<b>%s</b>\n", title);
-    message = g_strconcat(message, buffer, NULL);
-    g_free(buffer);
+    //buffer = g_markup_printf_escaped("\t<b>%s</b>\n", title);
+    //message = g_strconcat(message, buffer, NULL);
+    //g_free(buffer);
 
     if (artist != NULL) {
         buffer = g_markup_printf_escaped("\t<i>%s</i>\n", artist);
