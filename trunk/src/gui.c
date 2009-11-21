@@ -159,7 +159,11 @@ void adjust_layout()
 	}
 	
 	if (total_width == 0) {
-		total_width = controls_box->requisition.width;
+		if (playlist_visible && !vertical_layout) {
+			total_width = gtk_paned_get_position(GTK_PANED(pane));
+		} else {
+			total_width = controls_box->requisition.width;
+		}
 	}
 	
 
