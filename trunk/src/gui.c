@@ -143,7 +143,7 @@ void adjust_layout()
     gint total_width;
     gint handle_size;
 
-    // printf("media size = %i x %i\n",non_fs_width, non_fs_height);
+    //printf("media size = %i x %i\n",non_fs_width, non_fs_height);
     gtk_widget_set_size_request(fixed, -1, -1);
     gtk_widget_set_size_request(drawing_area, -1, -1);
 
@@ -165,7 +165,6 @@ void adjust_layout()
 			total_width = controls_box->requisition.width;
 		}
 	}
-	
 
     if (GTK_IS_WIDGET(media_hbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
@@ -1493,13 +1492,13 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 
         }
 
-		if (save_loc) {
+		//if (save_loc) {
 		    gm_pref_store_set_int(gm_store, WINDOW_X, loc_window_x);
 		    gm_pref_store_set_int(gm_store, WINDOW_Y, loc_window_y);
 		    gm_pref_store_set_int(gm_store, WINDOW_HEIGHT, loc_window_height);
 		    gm_pref_store_set_int(gm_store, WINDOW_WIDTH, loc_window_width);
 			gm_pref_store_set_int(gm_store, PANEL_POSITION, loc_panel_position);
-		}
+		//}
         gm_pref_store_free(gm_store);
     }
 
@@ -6394,6 +6393,9 @@ GtkWidget *create_window(gint windowid)
     gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
     create_playlist_widget();
 
+	if (remember_loc)
+		gtk_paned_set_position(GTK_PANED(pane),loc_panel_position);
+	
     vbox_master = gtk_vbox_new(FALSE, 0);
     if (windowid == 0)
         gtk_box_pack_start(GTK_BOX(vbox_master), menubar, FALSE, FALSE, 0);
