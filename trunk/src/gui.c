@@ -1107,9 +1107,14 @@ gboolean resize_window(void *data)
     gint total_height;
     IdleData *idle = (IdleData *) data;
     GTimeVal currenttime;
+	GValue resize_value = {0};
+
+	g_value_init(&resize_value, G_TYPE_BOOLEAN);
 
     if (GTK_IS_WIDGET(window)) {
         if (idle->videopresent) {
+			g_value_set_boolean(&resize_value, TRUE);
+			gtk_container_child_set_property(GTK_CONTAINER(pane),vbox,"resize", &resize_value);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
             g_get_current_time(&currenttime);
             last_movement_time = currenttime.tv_sec;
@@ -1166,6 +1171,8 @@ gboolean resize_window(void *data)
             }
         } else {
             // audio only file
+			g_value_set_boolean(&resize_value, FALSE);
+			gtk_container_child_set_property(GTK_CONTAINER(pane),vbox,"resize",&resize_value);
             gtk_widget_hide(fixed);
             non_fs_height = 0;
             non_fs_width = 0;
@@ -6390,11 +6397,11 @@ GtkWidget *create_window(gint windowid)
     } else {
         pane = gtk_hpaned_new();
     }
-    gtk_paned_pack1(GTK_PANED(pane), vbox, TRUE, TRUE);
+    gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, TRUE);
     create_playlist_widget();
 
-	if (remember_loc)
-		gtk_paned_set_position(GTK_PANED(pane),loc_panel_position);
+	//if (remember_loc)
+	//	gtk_paned_set_position(GTK_PANED(pane),loc_panel_position);
 	
     vbox_master = gtk_vbox_new(FALSE, 0);
     if (windowid == 0)
