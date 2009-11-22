@@ -1143,10 +1143,9 @@ int main(int argc, char *argv[])
 
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
-
+	    
     if (playiter)
         play_iter(&iter, 0);
-
 
     if (argv[fileindex] == NULL && embed_window == 0) {
         use_remember_loc = remember_loc;
@@ -1180,7 +1179,7 @@ int main(int argc, char *argv[])
         destroy_folder_progress_window();
     }
     safe_to_save_default_playlist = TRUE;
-
+	    
     gtk_main();
 
     return 0;
