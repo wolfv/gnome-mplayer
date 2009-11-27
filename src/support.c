@@ -1322,6 +1322,7 @@ MetaData *get_metadata(gchar * uri)
     gfloat seconds;
     gchar *localtitle = NULL;
     MetaData *ret = NULL;
+	gboolean missing_header = FALSE;
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
@@ -1488,10 +1489,28 @@ MetaData *get_metadata(gchar * uri)
             localtitle = strstr(output[ac], "=") + 1;
             demuxer = g_strdup(localtitle);
         }
+		
         g_free(lower);
         ac++;
     }
 
+	g_strfreev(output);
+
+    if (err != NULL) {
+        output = g_strsplit(err, "\n", 0);
+    } else {
+        output = NULL;
+    }
+    ac = 0;
+    while (output != NULL && output[ac] != NULL) {
+        if (verbose > 1)
+            printf("METADATA:%s\n", output[ac]);
+		if (strstr(output[ac], "MOV: missing header (moov/cmov) chunk") != NULL) {
+			missing_header = TRUE;
+	    }
+		ac++;
+	}
+	
     if (title == NULL || strlen(title) == 0) {
         g_free(title);
         title = g_strdup(basename);
@@ -1532,7 +1551,7 @@ MetaData *get_metadata(gchar * uri)
         ret->demuxer = g_strdup(demuxer);
         ret->width = width;
         ret->height = height;
-        ret->playable = (demuxer == NULL) ? FALSE : TRUE;
+        ret->playable = (demuxer == NULL && missing_header == FALSE) ? FALSE : TRUE;
     }
 
     g_free(title);
