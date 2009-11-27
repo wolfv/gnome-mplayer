@@ -1,4 +1,5 @@
 Development
+	Mark item as playable if a broken header is detected in a quick time file
 	Tweak the pane child resize properties at runtime, should work better with remember location
 	Remember pane position between audio only files
 	Remove Media Change text and replace it with title in notification popup

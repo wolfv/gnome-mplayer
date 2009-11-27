@@ -236,6 +236,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (strstr(mplayer_output->str, "MOV: missing header (moov/cmov) chunk") != NULL) {
         idledata->retry_on_full_cache = TRUE;
         g_strlcpy(idledata->progress_text, _("Delaying start until cache is full"), 1024);
+		//printf("delaying start\n");
         g_idle_add(set_progress_text, idledata);
     }
 
@@ -245,6 +246,10 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
     if (strstr(mplayer_output->str, "Error while decoding frame") != NULL) {
         //g_idle_add(set_rew, idledata);
+    }
+
+	if (strstr(mplayer_output->str, "LD_PRELOAD") != NULL) {
+        // not a real error
     }
 
     if (error_msg != NULL) {
