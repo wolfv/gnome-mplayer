@@ -15,7 +15,8 @@ INCLUDES = \
 	$(ALSA_CFLAGS) \
     $(NOTIFY_CFLAGS) \
     $(GPOD_CFLAGS) \
-    $(MUSICBRAINZ_CFLAGS)
+    $(MUSICBRAINZ_CFLAGS) \
+	$(XSCRNSAVER_CFLAGS)    
 
 AM_CFLAGS =\
 	 -Wall\
@@ -72,7 +73,8 @@ gnome_mplayer_LDADD = \
     $(ALSA_LIBS) \
     $(NOTIFY_LIBS) \
     $(GPOD_LIBS) \
-    $(MUSICBRAINZ_LIBS)
+    $(MUSICBRAINZ_LIBS) \
+    $(XSCRNSAVER_LIBS)
 
 if HAVE_NAUTILUS
 

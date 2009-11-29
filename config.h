@@ -107,10 +107,10 @@
 #define PACKAGE_VERSION ""
 
 /* Defined if you are using gnome-power-manager 2.26 or higher */
-#define SM_INHIBIT 1
+#define SM_INHIBIT 0
 
 /* Defined if you are using gnome-power-manager below 2.26 */
-/* #undef SS_INHIBIT */
+#define SS_INHIBIT 0
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1

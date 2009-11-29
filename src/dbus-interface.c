@@ -1118,7 +1118,7 @@ void dbus_enable_screensaver()
 #endif
 
     if (connection != NULL && screensaver_disabled) {
-#ifdef SM_INHIBIT
+#if SM_INHIBIT
         message =
             dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
                                          "org.gnome.SessionManager", "UnInhibit");
@@ -1126,7 +1126,7 @@ void dbus_enable_screensaver()
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
 #endif
-#ifdef SS_INHIBIT
+#if SS_INHIBIT
         message =
             dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
                                          "org.gnome.ScreenSaver", "UnInhibit");
@@ -1134,6 +1134,11 @@ void dbus_enable_screensaver()
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
 #endif
+
+#if !(SM_INHIBIT || SS_INHIBIT)
+		XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(window->window), FALSE);
+#endif
+	
         screensaver_disabled = FALSE;
     }
 }
@@ -1151,7 +1156,7 @@ void dbus_disable_screensaver()
 
     if (connection != NULL) {
 
-#ifdef SS_INHIBIT
+#if SS_INHIBIT
         dbus_error_init(&error);
         message =
             dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
@@ -1171,7 +1176,7 @@ void dbus_disable_screensaver()
         dbus_error_free(&error);
 #endif
 
-#ifdef SM_INHIBIT
+#if SM_INHIBIT
         dbus_error_init(&error);
         message =
             dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
@@ -1192,6 +1197,11 @@ void dbus_disable_screensaver()
         dbus_message_unref(message);
         dbus_error_free(&error);
 #endif
+
+#if !(SM_INHIBIT || SS_INHIBIT)
+		XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(window->window), TRUE);
+#endif
+		
         screensaver_disabled = TRUE;
     }
 }

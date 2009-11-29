@@ -1009,8 +1009,8 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-noidle");
 
 #if !(SM_INHIBIT || SS_INHIBIT)
-    if (idledata->width > 0 && idledata->height > 0)
-        argv[arg++] = g_strdup_printf("-stop-xscreensaver");
+//    if (idledata->width > 0 && idledata->height > 0)
+//        argv[arg++] = g_strdup_printf("-stop-xscreensaver");
 #endif
 
     argv[arg++] = g_strdup_printf("-osdlevel");

@@ -27,6 +27,7 @@
 #include <glib.h>
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib-lowlevel.h>
+#include <X11/extensions/scrnsaver.h>
 #include "support.h"
 
 DBusConnection *connection;
