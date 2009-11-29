@@ -1,4 +1,5 @@
 Development
+	Add configure option --with-gpm=no to skip gnome-power-manager and use the XScreenSaver api
 	Add %U to the Exec line in the desktop file
 	Mark item as playable if a broken header is detected in a quick time file
 	Tweak the pane child resize properties at runtime, should work better with remember location
