@@ -22,13 +22,18 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <glib.h>
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib-lowlevel.h>
-#include <X11/extensions/scrnsaver.h>
 #include "support.h"
+#ifdef XSCRNSAVER_ENABLED
+#include <X11/extensions/scrnsaver.h>
+#endif
 
 DBusConnection *connection;
 uint ss_cookie;
