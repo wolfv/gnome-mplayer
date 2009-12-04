@@ -540,5 +540,18 @@
         <long>Will load and save the playlist when the program runs</long>
       </locale>
     </schema>    
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/use_xscrnsaver</key>
+      <applyto>/apps/gnome-mplayer/preferences/use_xscrnsaver</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Set to TRUE if you want to use xscrnsaver controls over gnome-power-manager</short>
+        <long>When enabled directly tells the xscreensaver to inhibit itself, otherwise uses gnome-power-manager</long>
+      </locale>
+    </schema>    
+
   </schemalist>
 </gconfschemafile>

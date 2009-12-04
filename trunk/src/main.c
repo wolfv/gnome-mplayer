@@ -738,6 +738,7 @@ int main(int argc, char *argv[])
     start_second = 0;
     play_length = 0;
 	save_loc = TRUE;
+	use_xscrnsaver = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -837,6 +838,7 @@ int main(int argc, char *argv[])
     }
     extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
     use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store, USE_PULSE_FLAT_VOLUME);
+	use_xscrnsaver = gm_pref_store_get_boolean_with_default(gm_store, USE_XSCRNSAVER, use_xscrnsaver);	   
 
     remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
     loc_window_x = gm_pref_store_get_int(gm_store, WINDOW_X);

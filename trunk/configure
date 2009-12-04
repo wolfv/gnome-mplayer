@@ -639,8 +639,6 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-XSCRNSAVER_LIBS
-XSCRNSAVER_CFLAGS
 FLATVOL
 HAVE_NAUTILUS_FALSE
 HAVE_NAUTILUS_TRUE
@@ -670,6 +668,8 @@ GCONF_SCHEMAS_INSTALL_FALSE
 GCONF_SCHEMAS_INSTALL_TRUE
 GCONF_SCHEMA_FILE_DIR
 GCONF_SCHEMA_CONFIG_SOURCE
+XSCRNSAVER_LIBS
+XSCRNSAVER_CFLAGS
 DBUS_LIBS
 DBUS_CFLAGS
 GIO_DEFINES
@@ -815,7 +815,6 @@ with_libmusicbrainz3
 enable_nautilus
 enable_panscan
 with_flat_volume
-with_gpm
 with_gpm_new_method
 with_gpm_old_method
 '
@@ -848,6 +847,8 @@ GIO_CFLAGS
 GIO_LIBS
 DBUS_CFLAGS
 DBUS_LIBS
+XSCRNSAVER_CFLAGS
+XSCRNSAVER_LIBS
 GCONF_CFLAGS
 GCONF_LIBS
 ALSA_CFLAGS
@@ -861,9 +862,7 @@ GPOD07_LIBS
 MUSICBRAINZ_CFLAGS
 MUSICBRAINZ_LIBS
 NAUTILUS_CFLAGS
-NAUTILUS_LIBS
-XSCRNSAVER_CFLAGS
-XSCRNSAVER_LIBS'
+NAUTILUS_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1512,7 +1511,6 @@ Optional Packages:
   --with-libgpod          Add support for libgpod
   --with-libmusicbrainz3  Add support for libmusicbrainz3
   --with-flat-volume      Use pulse audio flat volume feature (Autodetected)
-  --with-gpm              Use GPM for power management
   --with-gpm-new-method   Use gnome-power-manager 2.26 or higher inhibit
                           methods (Autodetected)
   --with-gpm-old-method   Use gnome-power-manager below 2.26 inhibit methods
@@ -1552,6 +1550,10 @@ Some influential environment variables:
   GIO_LIBS    linker flags for GIO, overriding pkg-config
   DBUS_CFLAGS C compiler flags for DBUS, overriding pkg-config
   DBUS_LIBS   linker flags for DBUS, overriding pkg-config
+  XSCRNSAVER_CFLAGS
+              C compiler flags for XSCRNSAVER, overriding pkg-config
+  XSCRNSAVER_LIBS
+              linker flags for XSCRNSAVER, overriding pkg-config
   GCONF_CFLAGS
               C compiler flags for GCONF, overriding pkg-config
   GCONF_LIBS  linker flags for GCONF, overriding pkg-config
@@ -1574,10 +1576,6 @@ Some influential environment variables:
               C compiler flags for NAUTILUS, overriding pkg-config
   NAUTILUS_LIBS
               linker flags for NAUTILUS, overriding pkg-config
-  XSCRNSAVER_CFLAGS
-              C compiler flags for XSCRNSAVER, overriding pkg-config
-  XSCRNSAVER_LIBS
-              linker flags for XSCRNSAVER, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -9456,6 +9454,122 @@ fi
 
 
 
+pkg_failed=no
+{ $as_echo "$as_me:$LINENO: checking for XSCRNSAVER" >&5
+$as_echo_n "checking for XSCRNSAVER... " >&6; }
+
+if test -n "$XSCRNSAVER_CFLAGS"; then
+    pkg_cv_XSCRNSAVER_CFLAGS="$XSCRNSAVER_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"xscrnsaver\"") >&5
+  ($PKG_CONFIG --exists --print-errors "xscrnsaver") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_XSCRNSAVER_CFLAGS=`$PKG_CONFIG --cflags "xscrnsaver" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$XSCRNSAVER_LIBS"; then
+    pkg_cv_XSCRNSAVER_LIBS="$XSCRNSAVER_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"xscrnsaver\"") >&5
+  ($PKG_CONFIG --exists --print-errors "xscrnsaver") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_XSCRNSAVER_LIBS=`$PKG_CONFIG --libs "xscrnsaver" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        XSCRNSAVER_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "xscrnsaver" 2>&1`
+        else
+	        XSCRNSAVER_PKG_ERRORS=`$PKG_CONFIG --print-errors "xscrnsaver" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$XSCRNSAVER_PKG_ERRORS" >&5
+
+	{ { $as_echo "$as_me:$LINENO: error: Package requirements (xscrnsaver) were not met:
+
+$XSCRNSAVER_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables XSCRNSAVER_CFLAGS
+and XSCRNSAVER_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" >&5
+$as_echo "$as_me: error: Package requirements (xscrnsaver) were not met:
+
+$XSCRNSAVER_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables XSCRNSAVER_CFLAGS
+and XSCRNSAVER_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" >&2;}
+   { (exit 1); exit 1; }; }
+elif test $pkg_failed = untried; then
+	{ { $as_echo "$as_me:$LINENO: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+{ { $as_echo "$as_me:$LINENO: error: The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables XSCRNSAVER_CFLAGS
+and XSCRNSAVER_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details." >&5
+$as_echo "$as_me: error: The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables XSCRNSAVER_CFLAGS
+and XSCRNSAVER_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details." >&2;}
+   { (exit 1); exit 1; }; }; }
+else
+	XSCRNSAVER_CFLAGS=$pkg_cv_XSCRNSAVER_CFLAGS
+	XSCRNSAVER_LIBS=$pkg_cv_XSCRNSAVER_LIBS
+        { $as_echo "$as_me:$LINENO: result: yes" >&5
+$as_echo "yes" >&6; }
+
+cat >>confdefs.h <<\_ACEOF
+#define XSCRNSAVER_ENABLED 1
+_ACEOF
+
+fi
+
+
+
+
   if test "x$GCONF_SCHEMA_INSTALL_SOURCE" = "x"; then
     GCONF_SCHEMA_CONFIG_SOURCE=`gconftool-2 --get-default-source`
   else
@@ -10189,16 +10303,6 @@ fi
 
 CHECK_GPM=yes
 
-# Check whether --with-gpm was given.
-if test "${with_gpm+set}" = set; then
-  withval=$with_gpm; case "${withval}" in
-        no) CHECK_GPM=no;;
-        esac
-fi
-
-
-if test x$CHECK_GPM = "xno"; then
-
 cat >>confdefs.h <<\_ACEOF
 #define SM_INHIBIT 0
 _ACEOF
@@ -10208,118 +10312,6 @@ cat >>confdefs.h <<\_ACEOF
 #define SS_INHIBIT 0
 _ACEOF
 
-
-pkg_failed=no
-{ $as_echo "$as_me:$LINENO: checking for XSCRNSAVER" >&5
-$as_echo_n "checking for XSCRNSAVER... " >&6; }
-
-if test -n "$XSCRNSAVER_CFLAGS"; then
-    pkg_cv_XSCRNSAVER_CFLAGS="$XSCRNSAVER_CFLAGS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"xscrnsaver\"") >&5
-  ($PKG_CONFIG --exists --print-errors "xscrnsaver") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); }; then
-  pkg_cv_XSCRNSAVER_CFLAGS=`$PKG_CONFIG --cflags "xscrnsaver" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-if test -n "$XSCRNSAVER_LIBS"; then
-    pkg_cv_XSCRNSAVER_LIBS="$XSCRNSAVER_LIBS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"xscrnsaver\"") >&5
-  ($PKG_CONFIG --exists --print-errors "xscrnsaver") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); }; then
-  pkg_cv_XSCRNSAVER_LIBS=`$PKG_CONFIG --libs "xscrnsaver" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-
-
-
-if test $pkg_failed = yes; then
-
-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
-else
-        _pkg_short_errors_supported=no
-fi
-        if test $_pkg_short_errors_supported = yes; then
-	        XSCRNSAVER_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "xscrnsaver" 2>&1`
-        else
-	        XSCRNSAVER_PKG_ERRORS=`$PKG_CONFIG --print-errors "xscrnsaver" 2>&1`
-        fi
-	# Put the nasty error message in config.log where it belongs
-	echo "$XSCRNSAVER_PKG_ERRORS" >&5
-
-	{ { $as_echo "$as_me:$LINENO: error: Package requirements (xscrnsaver) were not met:
-
-$XSCRNSAVER_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables XSCRNSAVER_CFLAGS
-and XSCRNSAVER_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-" >&5
-$as_echo "$as_me: error: Package requirements (xscrnsaver) were not met:
-
-$XSCRNSAVER_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables XSCRNSAVER_CFLAGS
-and XSCRNSAVER_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-" >&2;}
-   { (exit 1); exit 1; }; }
-elif test $pkg_failed = untried; then
-	{ { $as_echo "$as_me:$LINENO: error: in \`$ac_pwd':" >&5
-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-{ { $as_echo "$as_me:$LINENO: error: The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables XSCRNSAVER_CFLAGS
-and XSCRNSAVER_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
-See \`config.log' for more details." >&5
-$as_echo "$as_me: error: The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables XSCRNSAVER_CFLAGS
-and XSCRNSAVER_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
-See \`config.log' for more details." >&2;}
-   { (exit 1); exit 1; }; }; }
-else
-	XSCRNSAVER_CFLAGS=$pkg_cv_XSCRNSAVER_CFLAGS
-	XSCRNSAVER_LIBS=$pkg_cv_XSCRNSAVER_LIBS
-        { $as_echo "$as_me:$LINENO: result: yes" >&5
-$as_echo "yes" >&6; }
-	:
-fi
-
-
-fi
 
 
 # Check whether --with-gpm-new-method was given.
