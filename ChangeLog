@@ -1,4 +1,7 @@
 Development
+	Make config option under interface to choose between X Screen Saver control vs Gnome Power Manager
+	Always try to link with xscreensaver if available (added to .spec file)
+	Drop configure option --with-gpm
 	Add configure option --with-gpm=no to skip gnome-power-manager and use the XScreenSaver api
 	Add %U to the Exec line in the desktop file
 	Mark item as playable if a broken header is detected in a quick time file

@@ -63,6 +63,10 @@ PKG_CHECK_MODULES(DBUS, [dbus-1 >= 0.95 dbus-glib-1 >= 0.70])
 AC_SUBST(DBUS_CFLAGS)
 AC_SUBST(DBUS_LIBS)
 
+PKG_CHECK_MODULES(XSCRNSAVER,[xscrnsaver],[AC_DEFINE([XSCRNSAVER_ENABLED],[1],[When defined we have direct XScrnSaver control])])
+AC_SUBST(XSCRNSAVER_CFLAGS)
+AC_SUBST(XSCRNSAVER_LIBS)
+
 AM_GCONF_SOURCE_2
 AC_ARG_WITH([gconf],
     [AS_HELP_STRING([--with-gconf],
@@ -196,20 +200,8 @@ fi
 AC_SUBST(FLATVOL)
 
 CHECK_GPM=yes
-AC_ARG_WITH([gpm],
-		[AS_HELP_STRING([--with-gpm],[Use GPM for power management])],
-		[case "${withval}" in
-        no) CHECK_GPM=no;;
-        esac],
-        [])
-
-if test x$CHECK_GPM = "xno"; then
-	AC_DEFINE(SM_INHIBIT, 0, [Disabled])
-	AC_DEFINE(SS_INHIBIT, 0, [Disabled])
-	PKG_CHECK_MODULES(XSCRNSAVER,[xscrnsaver],[])
-    AC_SUBST(XSCRNSAVER_CFLAGS)
-    AC_SUBST(XSCRNSAVER_LIBS)
-fi
+AC_DEFINE(SM_INHIBIT, 0, [Disabled])
+AC_DEFINE(SS_INHIBIT, 0, [Disabled])
 
 AC_ARG_WITH([gpm-new-method],
         [AS_HELP_STRING([--with-gpm-new-method],

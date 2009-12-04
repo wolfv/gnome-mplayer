@@ -251,7 +251,7 @@ GtkWidget *config_remember_softvol;
 GtkWidget *config_forcecache;
 GtkWidget *config_verbose;
 GtkWidget *config_show_notification;
-GtkWidget *config_thumb_position;
+GtkWidget *config_use_xscrnsaver;
 GtkWidget *config_use_mediakeys;
 GtkWidget *config_use_defaultpl;
 GtkWidget *config_disable_animation;

@@ -116,3 +116,6 @@
 
 /* Version number of package */
 #undef VERSION
+
+/* When defined we have direct XScrnSaver control */
+#undef XSCRNSAVER_ENABLED

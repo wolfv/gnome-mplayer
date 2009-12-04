@@ -76,6 +76,7 @@
 #define MPLAYER_BIN		"mplayer_bin"
 #define EXTRAOPTS		"extraopts"
 #define USE_PULSE_FLAT_VOLUME "use_pulse_flat_volume"
+#define USE_XSCRNSAVER "use_xscrnsaver"
 
 #define DISABLE_QT		"disable_qt"
 #define DISABLE_REAL	"disable_real"
@@ -378,6 +379,7 @@ gboolean disable_cover_art_fetch;
 gboolean updating_recent;
 gboolean large_buttons;
 gint button_size;
+gboolean use_xscrnsaver;
 
 gboolean remember_loc;
 gboolean use_remember_loc;

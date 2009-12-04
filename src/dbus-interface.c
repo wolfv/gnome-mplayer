@@ -1118,26 +1118,30 @@ void dbus_enable_screensaver()
 #endif
 
     if (connection != NULL && screensaver_disabled) {
-#if SM_INHIBIT
-        message =
-            dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
-                                         "org.gnome.SessionManager", "UnInhibit");
-        dbus_message_append_args(message, DBUS_TYPE_INT32, &sm_cookie, DBUS_TYPE_INVALID);
-        dbus_connection_send(connection, message, NULL);
-        dbus_message_unref(message);
-#endif
-#if SS_INHIBIT
-        message =
-            dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-                                         "org.gnome.ScreenSaver", "UnInhibit");
-        dbus_message_append_args(message, DBUS_TYPE_INT32, &ss_cookie, DBUS_TYPE_INVALID);
-        dbus_connection_send(connection, message, NULL);
-        dbus_message_unref(message);
+
+		if (use_xscrnsaver) {
+#ifdef XSCRNSAVER_ENABLED
+			XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(window->window), FALSE);
 #endif
 
-#if !(SM_INHIBIT || SS_INHIBIT)
-		XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(window->window), FALSE);
+		} else {
+#if SM_INHIBIT
+		    message =
+		        dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
+		                                     "org.gnome.SessionManager", "UnInhibit");
+		    dbus_message_append_args(message, DBUS_TYPE_INT32, &sm_cookie, DBUS_TYPE_INVALID);
+		    dbus_connection_send(connection, message, NULL);
+		    dbus_message_unref(message);
 #endif
+#if SS_INHIBIT
+		    message =
+		        dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+		                                     "org.gnome.ScreenSaver", "UnInhibit");
+		    dbus_message_append_args(message, DBUS_TYPE_INT32, &ss_cookie, DBUS_TYPE_INVALID);
+		    dbus_connection_send(connection, message, NULL);
+	        dbus_message_unref(message);
+#endif
+		}
 	
         screensaver_disabled = FALSE;
     }
@@ -1155,52 +1159,56 @@ void dbus_disable_screensaver()
 #endif
 
     if (connection != NULL) {
+		if (use_xscrnsaver) {
+
+#ifdef XSCRNSAVER_ENABLED
+			XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(window->window), TRUE);
+#endif
+
+		} else {
 
 #if SS_INHIBIT
-        dbus_error_init(&error);
-        message =
-            dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-                                         "org.gnome.ScreenSaver", "Inhibit");
-        app = g_strdup_printf("gnome-mplayer");
-        reason = g_strdup_printf("playback");
-        dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
-                                 DBUS_TYPE_INVALID);
-        reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
+		    dbus_error_init(&error);
+		    message =
+		        dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+		                                     "org.gnome.ScreenSaver", "Inhibit");
+		    app = g_strdup_printf("gnome-mplayer");
+		    reason = g_strdup_printf("playback");
+		    dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
+		                             DBUS_TYPE_INVALID);
+		    reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
 
-        if (reply_message) {
-            dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &ss_cookie, NULL);
-            dbus_message_unref(reply_message);
-        }
+		    if (reply_message) {
+		        dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &ss_cookie, NULL);
+		        dbus_message_unref(reply_message);
+		    }
 
-        dbus_message_unref(message);
-        dbus_error_free(&error);
+		    dbus_message_unref(message);
+		    dbus_error_free(&error);
 #endif
 
 #if SM_INHIBIT
-        dbus_error_init(&error);
-        message =
-            dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
-                                         "org.gnome.SessionManager", "Inhibit");
-        app = g_strdup_printf("gnome-mplayer");
-        reason = g_strdup_printf("playback");
-        flags = 8;
-        dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32,
-                                 &(idledata->windowid), DBUS_TYPE_STRING, &reason, DBUS_TYPE_UINT32,
-                                 &flags, DBUS_TYPE_INVALID);
-        reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
+		    dbus_error_init(&error);
+		    message =
+		        dbus_message_new_method_call("org.gnome.SessionManager", "/org/gnome/SessionManager",
+		                                     "org.gnome.SessionManager", "Inhibit");
+		    app = g_strdup_printf("gnome-mplayer");
+		    reason = g_strdup_printf("playback");
+		    flags = 8;
+		    dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32,
+		                             &(idledata->windowid), DBUS_TYPE_STRING, &reason, DBUS_TYPE_UINT32,
+		                             &flags, DBUS_TYPE_INVALID);
+		    reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
 
-        if (reply_message) {
-            dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &sm_cookie, NULL);
-            dbus_message_unref(reply_message);
-        }
+		    if (reply_message) {
+		        dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &sm_cookie, NULL);
+		        dbus_message_unref(reply_message);
+		    }
 
-        dbus_message_unref(message);
-        dbus_error_free(&error);
+		    dbus_message_unref(message);
+		    dbus_error_free(&error);
 #endif
-
-#if !(SM_INHIBIT || SS_INHIBIT)
-		XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(window->window), TRUE);
-#endif
+		}
 		
         screensaver_disabled = TRUE;
     }
