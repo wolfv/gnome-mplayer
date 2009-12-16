@@ -705,6 +705,7 @@ int main(int argc, char *argv[])
     use_mediakeys = TRUE;
     use_defaultpl = FALSE;
     mplayer_bin = NULL;
+	mplayer_dvd_device = NULL;
     single_instance = FALSE;
     disable_deinterlace = TRUE;
     details_visible = FALSE;
@@ -836,6 +837,7 @@ int main(int argc, char *argv[])
         g_free(mplayer_bin);
         mplayer_bin = NULL;
     }
+    mplayer_dvd_device = gm_pref_store_get_string(gm_store, MPLAYER_DVD_DEVICE);
     extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
     use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store, USE_PULSE_FLAT_VOLUME);
 	use_xscrnsaver = gm_pref_store_get_boolean_with_default(gm_store, USE_XSCRNSAVER, use_xscrnsaver);	   

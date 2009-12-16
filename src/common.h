@@ -77,6 +77,7 @@
 #define EXTRAOPTS		"extraopts"
 #define USE_PULSE_FLAT_VOLUME "use_pulse_flat_volume"
 #define USE_XSCRNSAVER "use_xscrnsaver"
+#define MPLAYER_DVD_DEVICE "mplayer_dvd_device"
 
 #define DISABLE_QT		"disable_qt"
 #define DISABLE_REAL	"disable_real"
@@ -363,6 +364,7 @@ gboolean subtitle_shadow;
 gint subtitle_margin;
 gboolean quit_on_complete;
 gchar *mplayer_bin;
+gchar *mplayer_dvd_device;
 gchar *extraopts;
 gboolean resize_on_new_media;
 gboolean use_pulse_flat_volume;
