@@ -3741,6 +3741,13 @@ void config_apply(GtkWidget * widget, void *data)
     subtitle_codepage =
         g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_subtitle_codepage)->child)));
 
+    if (mplayer_dvd_device != NULL) {
+        g_free(mplayer_dvd_device);
+        mplayer_dvd_device = NULL;
+    }
+    mplayer_dvd_device =
+        g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(config_mplayer_dvd_device)->child)));
+	
     audio_channels = gtk_combo_box_get_active(GTK_COMBO_BOX(config_audio_channels));
     use_hw_audio = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_hw_audio));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
@@ -3890,6 +3897,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, SHOW_SUBTITLES, showsubtitles);
 
     gm_pref_store_set_string(gm_store, MPLAYER_BIN, mplayer_bin);
+    gm_pref_store_set_string(gm_store, MPLAYER_DVD_DEVICE, mplayer_dvd_device);
     gm_pref_store_set_string(gm_store, EXTRAOPTS, extraopts);
     gm_pref_store_free(gm_store);
 
@@ -4894,6 +4902,49 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_combo_box_set_active(GTK_COMBO_BOX(config_audio_channels), audio_channels);
     }
 
+	i = 0;
+	j = -1;
+
+	config_mplayer_dvd_device = gtk_combo_box_entry_new_text();
+	gtk_combo_box_append_text(GTK_COMBO_BOX(config_mplayer_dvd_device), "/dev/dvd");
+	if (mplayer_dvd_device == NULL || g_ascii_strcasecmp("/dev/dvd",mplayer_dvd_device) == 0) {
+		j = i;
+	}
+	i++;
+	
+#ifdef GIO_ENABLED
+	GVolumeMonitor *volumemonitor;
+	GList *d, *drives;
+	GDrive *drive;
+	gchar *unix_device;
+	
+
+	volumemonitor = g_volume_monitor_get();
+	if (volumemonitor != NULL) {
+		drives = g_volume_monitor_get_connected_drives(volumemonitor);
+
+		for (d = drives; d != NULL; d = d->next) {
+			drive = G_DRIVE(d->data);
+			if (g_drive_can_poll_for_media(drive)) {
+					unix_device = g_drive_get_identifier(drive,"unix-device");
+					if (unix_device != NULL) {
+						gtk_combo_box_append_text(GTK_COMBO_BOX(config_mplayer_dvd_device), unix_device);
+						if (mplayer_dvd_device != NULL && g_ascii_strcasecmp(unix_device,mplayer_dvd_device) == 0) {
+							j = i;
+						}
+						g_free(unix_device);
+						i++;
+					}
+			}
+		}
+		
+	}
+
+#endif
+	if (j != -1)
+		gtk_combo_box_set_active(GTK_COMBO_BOX(config_mplayer_dvd_device), j);
+	
+	
 
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Output Settings</span>"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
@@ -5565,6 +5616,16 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_SHRINK, 0, 0);
     i++;
 
+    conf_label = gtk_label_new(_("MPlayer Default Optical Device"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_widget_show(conf_label);
+    gtk_widget_set_size_request(GTK_WIDGET(config_mplayer_dvd_device), 200, -1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_mplayer_dvd_device, 2, 3, i, i + 1, GTK_FILL | GTK_EXPAND,
+                     GTK_SHRINK, 0, 0);
+    i++;
+	
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_cancel);
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
 

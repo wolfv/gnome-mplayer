@@ -1210,7 +1210,12 @@ gpointer launch_player(gpointer data)
     if (idledata->device != NULL) {
         argv[arg++] = g_strdup_printf("-dvd-device");
         argv[arg++] = g_strdup_printf("%s", idledata->device);
-    }
+    } else {
+		if (mplayer_dvd_device != NULL) {
+		    argv[arg++] = g_strdup_printf("-dvd-device");
+		    argv[arg++] = g_strdup_printf("%s", mplayer_dvd_device);
+		}
+	}	
 
     /* 
        This is here in order to be able to switch the
