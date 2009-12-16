@@ -6071,6 +6071,10 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open =
         GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open));
+    menuitem_file_open_folder =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_DIRECTORY, accel_group));
+	gtk_menu_item_set_label(menuitem_file_open_folder,_("Open Folder"));
+    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_folder));
     menuitem_file_open_location =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Location")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_location));
@@ -6154,6 +6158,8 @@ GtkWidget *create_window(gint windowid)
 
     g_signal_connect(GTK_OBJECT(menuitem_file_open), "activate",
                      G_CALLBACK(menuitem_open_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_file_open_folder), "activate",
+                     G_CALLBACK(add_folder_to_playlist), menuitem_file_open_folder);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_location), "activate",
                      G_CALLBACK(menuitem_open_location_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_dvd), "activate",

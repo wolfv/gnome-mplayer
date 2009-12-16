@@ -594,6 +594,11 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
     g_free(message);
     g_idle_add(set_media_label, idledata);
 
+	if (data != NULL) {
+		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+		play_iter(&iter, 0);
+		dontplaynext = FALSE;		
+	}
 }
 
 void remove_from_playlist(GtkWidget * widget, gpointer data)
