@@ -29,6 +29,7 @@ G_DEFINE_TYPE(GmtkMediaTracker, gmtk_media_tracker, GTK_TYPE_VBOX);
 static gboolean gmtk_media_tracker_button_press(GtkWidget * tracker, GdkEventButton * event);
 static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventButton * event);
 static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMotion * event);
+void gmtk_media_tracker_set_timer(GmtkMediaTracker * tracker, const gchar * text);
 static void gmtk_media_tracker_dispose(GObject * object);
 gchar *gm_seconds_to_string(gfloat seconds);
 
@@ -138,10 +139,18 @@ static gboolean gmtk_media_tracker_button_press(GtkWidget * tracker, GdkEventBut
 
 static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventButton * event)
 {
+	gdouble position;
+	
 	if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
-		gtk_range_set_value(GTK_RANGE(GMTK_MEDIA_TRACKER(tracker)->scale),(gdouble)event->x / tracker->allocation.width);
-		g_signal_emit_by_name(tracker,"value-changed", (gint)(100 * (gdouble)event->x / tracker->allocation.width));
+		position = (gdouble)event->x / tracker->allocation.width;
+		gtk_range_set_value(GTK_RANGE(GMTK_MEDIA_TRACKER(tracker)->scale),position);
+		g_signal_emit_by_name(tracker,"value-changed", (gint)(100 * position));
 		GMTK_MEDIA_TRACKER(tracker)->mouse_down = FALSE;
+
+		if (GMTK_MEDIA_TRACKER(tracker)->length > 0.0) {
+			gmtk_media_tracker_set_position(GMTK_MEDIA_TRACKER(tracker), GMTK_MEDIA_TRACKER(tracker)->length * position);
+		}
+
 	}
     return FALSE;
 }
