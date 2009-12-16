@@ -1,4 +1,5 @@
 Development
+	Fix window sizeing issue when we show the playlist
 	Version bump to 0.9.9 to start preparing for next release
 	Add open folder to main file menu
 	Implement setting of mplayer dvd device from mplayer preferences page, list is generated from 

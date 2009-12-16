@@ -150,11 +150,11 @@ void adjust_layout()
     total_height = non_fs_height;
     total_width = non_fs_width;
 
-	if (playlist_visible && !vertical_layout) {
+	if (playlist_visible && remember_loc && !vertical_layout) {
 		total_width = gtk_paned_get_position(GTK_PANED(pane));
 	} 
 
-	if (playlist_visible && vertical_layout) {
+	if (playlist_visible && remember_loc && vertical_layout) {
 		total_height = gtk_paned_get_position(GTK_PANED(pane));
 	}
 	
