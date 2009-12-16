@@ -49,6 +49,7 @@ GtkWidget *menubar;
 GtkMenuItem *menuitem_file;
 GtkMenu *menu_file;
 GtkMenuItem *menuitem_file_open;
+GtkMenuItem *menuitem_file_open_folder;
 GtkMenuItem *menuitem_file_open_location;
 GtkMenuItem *menuitem_file_disc;
 GtkMenu *menu_file_disc;
@@ -335,6 +336,7 @@ void menuitem_view_decrease_subtitle_delay_callback(GtkMenuItem * menuitem, void
 void menuitem_view_increase_subtitle_delay_callback(GtkMenuItem * menuitem, void *data);
 void clear_playlist(GtkWidget * widget, void *data);
 void create_playlist_widget();
+void add_folder_to_playlist(GtkWidget * widget, void *data);
 gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 gint x, gint y, GtkSelectionData * selection_data,
                                 guint info, guint t, gpointer data);

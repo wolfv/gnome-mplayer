@@ -1,4 +1,5 @@
 Development
+	Add open folder to main file menu
 	Implement setting of mplayer dvd device from mplayer preferences page, list is generated from 
 		system pollable device list when gio is enabled. 
 	Update tracker control to update position in timer, when media is paused and position is selected
