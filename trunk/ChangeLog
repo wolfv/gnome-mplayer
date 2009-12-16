@@ -1,4 +1,5 @@
 Development
+	Update tracker control to update position in timer, when media is paused and position is selected
 	Make config option under interface to choose between X Screen Saver control vs Gnome Power Manager
 	Always try to link with xscreensaver if available (added to .spec file)
 	Drop configure option --with-gpm
