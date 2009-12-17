@@ -3769,6 +3769,7 @@ void config_apply(GtkWidget * widget, void *data)
     pplevel = (gint) gtk_range_get_value(GTK_RANGE(config_pplevel));
     softvol = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_softvol));
 	remember_softvol = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_softvol));
+	volume_gain = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume_gain));
     verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     details_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_details_visible));
@@ -3864,6 +3865,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_int(gm_store, PPLEVEL, pplevel);
     gm_pref_store_set_boolean(gm_store, SOFTVOL, softvol);
 	gm_pref_store_set_boolean(gm_store, REMEMBER_SOFTVOL, remember_softvol);
+    gm_pref_store_set_int(gm_store, VOLUME_GAIN, volume_gain);
     gm_pref_store_set_boolean(gm_store, FORCECACHE, forcecache);
     gm_pref_store_set_boolean(gm_store, DISABLEASS, disable_ass);
     gm_pref_store_set_boolean(gm_store, DISABLEEMBEDDEDFONTS, disable_embeddedfonts);
@@ -4581,6 +4583,10 @@ void config_softvol_callback(GtkWidget * button, gpointer data) {
     gtk_widget_set_sensitive(config_remember_softvol,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
                                                           (config_softvol)));
+    gtk_widget_set_sensitive(config_volume_gain,
+                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+                                                          (config_softvol)));
+	
 }
 
 void config_forcecache_callback(GtkWidget * button, gpointer data)
@@ -5525,6 +5531,20 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 	                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
                                                           (config_softvol)));
     i++;
+
+	conf_label = gtk_label_new(_("Volume Gain (-200dB to +60dB)"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 1, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_widget_show(conf_label);
+    config_volume_gain = gtk_spin_button_new_with_range(-200, 60, 1);
+    gtk_widget_set_size_request(config_volume_gain, -1, -1);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume_gain), volume_gain);
+    gtk_table_attach(GTK_TABLE(conf_table), config_volume_gain, 2, 3, i, i + 1, GTK_FILL | GTK_EXPAND,
+                     GTK_SHRINK, 0, 0);
+	gtk_widget_set_sensitive(config_volume_gain, 
+	                             gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+                                                          (config_softvol)));
+	i++;
 	
     config_deinterlace = gtk_check_button_new_with_mnemonic(_("De_interlace Video"));
     tooltip = gtk_tooltips_new();

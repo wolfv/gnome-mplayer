@@ -38,6 +38,7 @@
 #define OSDLEVEL		"osdlevel"
 #define PPLEVEL		"pplevel"
 #define SOFTVOL			"softvol"
+#define VOLUME_GAIN "volume_gain"
 #define REMEMBER_SOFTVOL	"remember_softvol"
 #define VOLUME_SOFTVOL	"volume_softvol"
 #define VERBOSE			"verbose"
@@ -72,6 +73,7 @@
 #define USE_DEFAULTPL		"use_defaultpl"
 #define DISABLE_COVER_ART_FETCH "disable_cover_art_fetch"
 #define FULLSCREEN	"fullscreen"
+
 
 #define MPLAYER_BIN		"mplayer_bin"
 #define EXTRAOPTS		"extraopts"
@@ -302,6 +304,7 @@ gint control_id;
 gboolean softvol;
 gboolean remember_softvol;
 gint volume_softvol;
+gint volume_gain;
 gint verbose;
 gint reallyverbose;
 gint autostart;
