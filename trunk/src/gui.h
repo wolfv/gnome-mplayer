@@ -249,6 +249,7 @@ GtkWidget *config_resize_on_new_media;
 GtkWidget *config_pause_on_click;
 GtkWidget *config_softvol;
 GtkWidget *config_remember_softvol;
+GtkWidget *config_volume_gain;
 GtkWidget *config_forcecache;
 GtkWidget *config_verbose;
 GtkWidget *config_show_notification;

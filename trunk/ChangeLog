@@ -1,4 +1,5 @@
 Development
+	Implement volume gain under software volume control
 	Fix for GTK older thant 2.16
 	Fix window sizeing issue when we show the playlist
 	Version bump to 0.9.9 to start preparing for next release
