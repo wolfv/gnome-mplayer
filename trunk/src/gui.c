@@ -6072,8 +6072,7 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open));
     menuitem_file_open_folder =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_DIRECTORY, accel_group));
-	gtk_menu_item_set_label(menuitem_file_open_folder,_("Open Folder"));
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Folder")));
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_folder));
     menuitem_file_open_location =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Location")));
