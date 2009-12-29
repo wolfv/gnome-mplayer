@@ -1,4 +1,5 @@
 Development
+	Make XScrnSaver usage optional in configure
 	Quicker path for streaming_media, when media appears to be local when using GIO
 	Implement volume gain under software volume control
 	Fix for GTK older thant 2.16
