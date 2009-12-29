@@ -1082,11 +1082,10 @@ gboolean read_mplayer_config()
 gboolean streaming_media(gchar * uri)
 {
     gboolean ret;
+    gchar *local_file = NULL;
 #ifdef GIO_ENABLED
     GFile *file;
     GFileInfo *info;
-#else
-    gchar *local_file = NULL;
 #endif
 
     ret = TRUE;
@@ -1104,24 +1103,30 @@ gboolean streaming_media(gchar * uri)
         ret = TRUE;
     } else {
 #ifdef GIO_ENABLED
-        file = g_file_new_for_uri(uri);
-        if (file != NULL) {
-            info = g_file_query_info(file, "*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
-            if (info != NULL) {
-                // SMB filesystems seem to give incorrect access answers over GIO, 
-                // so if the file has a filesize > 0 we think it is not streaming
-                if (g_ascii_strncasecmp(uri, "smb://", strlen("smb://")) == 0) {
-                    ret = (g_file_info_get_size(info) > 0) ? FALSE : TRUE;
-                } else {
-                    ret =
-                        !g_file_info_get_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
-                }
-                g_object_unref(info);
-            } else {
-                ret = !g_file_test(uri, G_FILE_TEST_EXISTS);
-            }
+        local_file = g_filename_from_uri(uri, NULL, NULL);
+        if (local_file != NULL) {
+            ret = !g_file_test(local_file, G_FILE_TEST_EXISTS);
+            g_free(local_file);
+        } else {
+		    file = g_file_new_for_uri(uri);
+		    if (file != NULL) {
+		        info = g_file_query_info(file, "*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
+		        if (info != NULL) {
+		            // SMB filesystems seem to give incorrect access answers over GIO, 
+		            // so if the file has a filesize > 0 we think it is not streaming
+		            if (g_ascii_strncasecmp(uri, "smb://", strlen("smb://")) == 0) {
+		                ret = (g_file_info_get_size(info) > 0) ? FALSE : TRUE;
+		            } else {
+		                ret =
+		                    !g_file_info_get_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+		            }
+		            g_object_unref(info);
+		        } else {
+		            ret = !g_file_test(uri, G_FILE_TEST_EXISTS);
+		        }
+		    }
+		    g_object_unref(file);
         }
-        g_object_unref(file);
 #else
         local_file = g_filename_from_uri(uri, NULL, NULL);
         if (local_file != NULL) {
