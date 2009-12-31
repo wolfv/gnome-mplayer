@@ -6825,6 +6825,7 @@ void show_window(gint windowid)
             }
             if (window_x > 0 && window_y > 0) {
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
+				gtk_widget_set_size_request(window, window_x, window_y);
             }
         }
 
