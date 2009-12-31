@@ -39,7 +39,7 @@ gint detect_playlist(gchar * uri)
     gchar *coltitle;
     gint count;
     gchar *path = NULL;
-	gchar *lower;
+    gchar *lower;
 #ifdef GIO_ENABLED
     GFile *file;
     GFileInputStream *input;
@@ -76,7 +76,7 @@ gint detect_playlist(gchar * uri)
                 memset(buffer, 0, sizeof(buffer));
                 g_input_stream_read((GInputStream *) input, buffer, sizeof(buffer), NULL, NULL);
                 output = g_strsplit(buffer, "\n", 0);
-				lower = g_ascii_strdown(buffer, -1);			
+                lower = g_ascii_strdown(buffer, -1);
                 // printf("buffer=%s\n",buffer);
                 if (strstr(lower, "[playlist]") != 0) {
                     playlist = 1;
@@ -127,7 +127,7 @@ gint detect_playlist(gchar * uri)
                     }
                     g_free(newuri);
                 }
-				g_free(lower);
+                g_free(lower);
                 g_strfreev(output);
 
                 g_input_stream_close((GInputStream *) input, NULL, NULL);
@@ -149,7 +149,7 @@ gint detect_playlist(gchar * uri)
                     memset(buffer, 0, sizeof(buffer));
                     size = fread(buffer, 1, sizeof(buffer) - 1, fp);
                     output = g_strsplit(buffer, "\n", 0);
-					lower = g_ascii_strdown(buffer, -1);
+                    lower = g_ascii_strdown(buffer, -1);
                     //printf("buffer=%s\n",buffer);
                     if (strstr(lower, "[playlist]") != 0) {
                         playlist = 1;
@@ -189,7 +189,7 @@ gint detect_playlist(gchar * uri)
                         }
                         g_free(file);
                     }
-					g_free(lower);
+                    g_free(lower);
                     g_strfreev(output);
                 }
                 fclose(fp);
@@ -602,6 +602,10 @@ gint parse_cdda(gchar * filename)
         av[ac++] = g_strdup_printf("-identify");
         av[ac++] = g_strdup_printf("cddb://");
         av[ac++] = g_strdup_printf("cdda://");
+        if (mplayer_dvd_device != NULL) {
+            av[ac++] = g_strdup_printf("-cdrom-device");
+            av[ac++] = g_strdup_printf("%s", mplayer_dvd_device);
+        }
         av[ac] = NULL;
 
         error = NULL;
@@ -762,6 +766,11 @@ gint parse_dvd(gchar * filename)
         if (idledata->device != NULL) {
             av[ac++] = g_strdup_printf("-dvd-device");
             av[ac++] = g_strdup_printf("%s", idledata->device);
+        } else {
+            if (mplayer_dvd_device != NULL) {
+                av[ac++] = g_strdup_printf("-dvd-device");
+                av[ac++] = g_strdup_printf("%s", mplayer_dvd_device);
+            }
         }
         av[ac++] = g_strdup_printf("dvd://");
         av[ac] = NULL;
@@ -1108,24 +1117,25 @@ gboolean streaming_media(gchar * uri)
             ret = !g_file_test(local_file, G_FILE_TEST_EXISTS);
             g_free(local_file);
         } else {
-		    file = g_file_new_for_uri(uri);
-		    if (file != NULL) {
-		        info = g_file_query_info(file, "*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
-		        if (info != NULL) {
-		            // SMB filesystems seem to give incorrect access answers over GIO, 
-		            // so if the file has a filesize > 0 we think it is not streaming
-		            if (g_ascii_strncasecmp(uri, "smb://", strlen("smb://")) == 0) {
-		                ret = (g_file_info_get_size(info) > 0) ? FALSE : TRUE;
-		            } else {
-		                ret =
-		                    !g_file_info_get_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
-		            }
-		            g_object_unref(info);
-		        } else {
-		            ret = !g_file_test(uri, G_FILE_TEST_EXISTS);
-		        }
-		    }
-		    g_object_unref(file);
+            file = g_file_new_for_uri(uri);
+            if (file != NULL) {
+                info = g_file_query_info(file, "*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
+                if (info != NULL) {
+                    // SMB filesystems seem to give incorrect access answers over GIO, 
+                    // so if the file has a filesize > 0 we think it is not streaming
+                    if (g_ascii_strncasecmp(uri, "smb://", strlen("smb://")) == 0) {
+                        ret = (g_file_info_get_size(info) > 0) ? FALSE : TRUE;
+                    } else {
+                        ret =
+                            !g_file_info_get_attribute_boolean(info,
+                                                               G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+                    }
+                    g_object_unref(info);
+                } else {
+                    ret = !g_file_test(uri, G_FILE_TEST_EXISTS);
+                }
+            }
+            g_object_unref(file);
         }
 #else
         local_file = g_filename_from_uri(uri, NULL, NULL);
@@ -1327,7 +1337,7 @@ MetaData *get_metadata(gchar * uri)
     gfloat seconds;
     gchar *localtitle = NULL;
     MetaData *ret = NULL;
-	gboolean missing_header = FALSE;
+    gboolean missing_header = FALSE;
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
@@ -1379,6 +1389,11 @@ MetaData *get_metadata(gchar * uri)
     if (idledata->device != NULL) {
         av[ac++] = g_strdup_printf("-dvd-device");
         av[ac++] = g_strdup_printf("%s", idledata->device);
+    } else {
+        if (mplayer_dvd_device != NULL) {
+            av[ac++] = g_strdup_printf("-dvd-device");
+            av[ac++] = g_strdup_printf("%s", mplayer_dvd_device);
+        }
     }
 
     av[ac++] = g_strdup_printf("%s", name);
@@ -1494,12 +1509,12 @@ MetaData *get_metadata(gchar * uri)
             localtitle = strstr(output[ac], "=") + 1;
             demuxer = g_strdup(localtitle);
         }
-		
+
         g_free(lower);
         ac++;
     }
 
-	g_strfreev(output);
+    g_strfreev(output);
 
     if (err != NULL) {
         output = g_strsplit(err, "\n", 0);
@@ -1510,12 +1525,12 @@ MetaData *get_metadata(gchar * uri)
     while (output != NULL && output[ac] != NULL) {
         if (verbose > 1)
             printf("METADATA:%s\n", output[ac]);
-		if (strstr(output[ac], "MOV: missing header (moov/cmov) chunk") != NULL) {
-			missing_header = TRUE;
-	    }
-		ac++;
-	}
-	
+        if (strstr(output[ac], "MOV: missing header (moov/cmov) chunk") != NULL) {
+            missing_header = TRUE;
+        }
+        ac++;
+    }
+
     if (title == NULL || strlen(title) == 0) {
         g_free(title);
         title = g_strdup(basename);
@@ -2275,12 +2290,12 @@ gdouble get_alsa_volume(gboolean show_details)
             } else {
                 vol = 0;
             }
-			if (vol == 0) { 
-				idledata->mute = TRUE;
-			} else {
-				idledata->mute = FALSE;
-			}
-			
+            if (vol == 0) {
+                idledata->mute = TRUE;
+            } else {
+                idledata->mute = FALSE;
+            }
+
             if (verbose && show_details) {
                 printf("%s Playback is %i\n", mixer, playback);
                 printf("%s Range is %li to %li \n", mixer, pmin, pmax);
@@ -2319,11 +2334,11 @@ gdouble get_alsa_volume(gboolean show_details)
             } else {
                 vol = 0;
             }
-			if (vol == 0) { 
-				idledata->mute = TRUE;
-			} else {
-				idledata->mute = FALSE;
-			}
+            if (vol == 0) {
+                idledata->mute = TRUE;
+            } else {
+                idledata->mute = FALSE;
+            }
             if (verbose && show_details) {
                 printf("Master Playback is %i\n", playback);
                 printf("Master Range is %li to %li \n", pmin, pmax);
