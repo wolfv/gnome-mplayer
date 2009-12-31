@@ -1,4 +1,5 @@
 Development
+	Add optical device name where needed
 	Patch to fix https://bugs.webkit.org/show_bug.cgi?id=31519 by Tim Yamin
 	Make XScrnSaver usage optional in configure
 	Quicker path for streaming_media, when media appears to be local when using GIO
