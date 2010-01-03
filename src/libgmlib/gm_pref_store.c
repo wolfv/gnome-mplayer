@@ -79,9 +79,10 @@ void gm_pref_store_free(GmPrefStore *store) {
     if (store->keyfile != NULL) {
         filename = g_strdup_printf("%s/%s/%s.conf", g_get_user_config_dir(),store->context,store->context);
         data = g_key_file_to_data(store->keyfile, NULL, NULL);
-
-        g_file_set_contents(filename, data, -1, NULL);
-        g_free(data);
+		if (data != NULL) {
+		    g_file_set_contents(filename, data, -1, NULL);
+		    g_free(data);
+		}
         g_free(filename);
         g_key_file_free(store->keyfile);
         store->keyfile = NULL;
