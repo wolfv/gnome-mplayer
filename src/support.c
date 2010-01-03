@@ -53,14 +53,24 @@ gint detect_playlist(gchar * uri)
 #endif
 
 
-    if (g_ascii_strncasecmp(uri, "cdda://", 7) == 0) {
-        playlist = 1;
-    } else if (g_ascii_strncasecmp(uri, "dvd://", 6) == 0) {
-        playlist = 1;
-    } else if (g_ascii_strncasecmp(uri, "vcd://", 6) == 0) {
-        playlist = 1;
-//      } else if (g_ascii_strncasecmp(filename,"dvdnav://",9) == 0) {
-//              playlist = 1;
+    if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
+	    if (strlen(uri) > strlen("cdda://")) {
+			playlist = 0;
+		} else {
+	        playlist = 1;
+		}
+    } else if (g_ascii_strncasecmp(uri, "dvd://", strlen("dvd://")) == 0) {
+	    if (strlen(uri) > strlen("dvd://")) {
+			playlist = 0;
+		} else {
+	        playlist = 1;
+		}
+    } else if (g_ascii_strncasecmp(uri, "vcd://", strlen("vcd://")) == 0) {
+	    if (strlen(uri) > strlen("vcd://")) {
+			playlist = 0;
+		} else {
+	        playlist = 1;
+		}
     } else if (device_name(uri)) {
         playlist = 0;
     } else {
@@ -665,7 +675,7 @@ gint parse_cdda(gchar * filename)
                 }
 
                 if (ok) {
-                    //printf("track = %s, artist = %s, album = %s, title = %s, length = %s\n",track,artist,playlistname,title,length);
+                    // printf("track = %s, artist = %s, album = %s, title = %s, length = %s\n",track,artist,playlistname,title,length);
                     gtk_list_store_append(playliststore, &localiter);
                     gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, track,
                                        DESCRIPTION_COLUMN, title,
