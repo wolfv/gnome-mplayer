@@ -143,7 +143,7 @@ void adjust_layout()
     gint total_width;
     gint handle_size;
 
-    printf("media size = %i x %i\n",non_fs_width, non_fs_height);
+    //printf("media size = %i x %i\n",non_fs_width, non_fs_height);
     gtk_widget_set_size_request(fixed, -1, -1);
     gtk_widget_set_size_request(drawing_area, -1, -1);
 
@@ -1699,10 +1699,11 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
     }
 
-    if (!fullscreen) {
+	if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
+//	if (!fullscreen) {
         if (idledata->videopresent) {
-            // printf("Adjusting = %i\n",adjusting);
-            // printf("fixed resized to %i x %i\n",allocation->width,allocation->height);
+            //printf("Adjusting = %i\n",adjusting);
+            //printf("fixed resized to %i x %i\n",allocation->width,allocation->height);
             if (!adjusting) {
                 non_fs_width = allocation->width;
                 non_fs_height = allocation->height;
