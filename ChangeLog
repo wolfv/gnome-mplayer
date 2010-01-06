@@ -1,4 +1,5 @@
 Development
+	Keep window from growing when media_detail or info is visible with playlist
 	Don't write NULL data to pref store
 	Allow passing a optical device name with a track from the command line "cdda://5"
 	Add optical device name where needed

@@ -143,7 +143,7 @@ void adjust_layout()
     gint total_width;
     gint handle_size;
 
-    //printf("media size = %i x %i\n",non_fs_width, non_fs_height);
+    printf("media size = %i x %i\n",non_fs_width, non_fs_height);
     gtk_widget_set_size_request(fixed, -1, -1);
     gtk_widget_set_size_request(drawing_area, -1, -1);
 
@@ -218,14 +218,16 @@ void adjust_layout()
         } else {
             total_width += MAX(plvbox->requisition.width, plvbox->allocation.width) + handle_size;
             if (!fullscreen) {
-                total_height = MAX(total_height, plvbox->allocation.height);
-                if (total_height <=
+                //total_height = MAX(total_height, plvbox->allocation.height);
+/*
+				 if (total_height <=
                     (menubar->allocation.height + controls_box->allocation.height +
                      media_hbox->allocation.height))
                     total_height =
                         (menubar->allocation.height + controls_box->allocation.height +
                          media_hbox->allocation.height) * 2;
-            }
+*/
+			}
         }
     } else {
         if (!idledata->videopresent) {
