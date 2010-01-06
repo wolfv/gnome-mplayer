@@ -1631,7 +1631,7 @@ gboolean expose_fixed_callback(GtkWidget * widget, GdkEventExpose * event, gpoin
 gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation, gpointer data)
 {
     gdouble movie_ratio, window_ratio;
-    gint new_width, new_height;
+    gint new_width = 0, new_height;
 
 
     // printf("video present = %i\n",idledata->videopresent);
@@ -1696,8 +1696,13 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         idledata->y = (allocation->height - new_height) / 2;
 #endif
         g_idle_add(move_window, idledata);
-
     }
+
+	if (idledata->videopresent) {
+		gtk_widget_set_size_request(media_label, new_width * 0.8, -1);
+	} else {
+		gtk_widget_set_size_request(media_label, 300, -1);
+	}	
 
 	if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
 //	if (!fullscreen) {
