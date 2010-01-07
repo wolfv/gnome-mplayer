@@ -1,4 +1,5 @@
 Development
+	Apply showcontrols default value patch
 	Fix media title trim when long title and window is large bug #336
 	Don't adjust mediasize when in fullscreen mode
 	Keep window from growing when media_detail or info is visible with playlist
