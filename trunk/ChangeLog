@@ -1,4 +1,5 @@
 Development
+	Update playlist in header when item added to playlist
 	Apply showcontrols default value patch
 	Fix media title trim when long title and window is large bug #336
 	Don't adjust mediasize when in fullscreen mode
