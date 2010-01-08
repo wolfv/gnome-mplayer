@@ -217,6 +217,8 @@ void adjust_layout()
             total_height += plvbox->allocation.height + handle_size;
         } else {
             total_width += MAX(plvbox->requisition.width, plvbox->allocation.width) + handle_size;
+			if (non_fs_height == 0)
+				total_height = MAX(total_height, plvbox->allocation.height);
             if (!fullscreen) {
                 //total_height = MAX(total_height, plvbox->allocation.height);
 /*

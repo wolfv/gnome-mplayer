@@ -1,4 +1,5 @@
 Development
+	Fix window size when playlist is shown and video not present
 	Update playlist in header when item added to playlist
 	Apply showcontrols default value patch
 	Fix media title trim when long title and window is large bug #336
