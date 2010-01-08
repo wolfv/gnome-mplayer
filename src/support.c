@@ -1845,7 +1845,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         g_free(data->video_codec);
         g_free(data);
         g_free(local_uri);
-
+		g_idle_add(set_media_info, idledata);
 
         return TRUE;
     } else {
