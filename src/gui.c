@@ -2151,7 +2151,17 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     IdleData *idle = (IdleData *) data;
 
+	if (verbose > 1) {
+		if (state == PAUSED)
+			printf("play_callback with state = PAUSED\n");
+		if (state == PLAYING)
+			printf("play_callback with state = PLAYING\n");
+		if (state == QUIT)
+			printf("play_callback with state = QUIT\n");
+	}
+	
     if (state == PAUSED || state == STOPPED) {
+		send_command("pause\n", TRUE);
         send_command("seek 0 0\n", FALSE);
         state = PLAYING;
         js_state = STATE_PLAYING;
