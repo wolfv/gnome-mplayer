@@ -1293,7 +1293,7 @@ gpointer launch_player(gpointer data)
     if (ok) {
         if (verbose)
             printf("Spawn succeeded for filename %s\n", threaddata->filename);
-        state = PAUSED;
+        state = PLAYING;
 
         if (channel_in != NULL) {
             g_io_channel_unref(channel_in);
@@ -1330,7 +1330,7 @@ gpointer launch_player(gpointer data)
 //        watch_err_id = g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
 //        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
 
-        g_idle_add(set_play, NULL);
+        //g_idle_add(set_play, NULL);
 #ifdef GLIB2_14_ENABLED
         g_timeout_add_seconds(1, thread_query, threaddata);
 #else
