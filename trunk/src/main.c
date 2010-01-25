@@ -1155,9 +1155,19 @@ int main(int argc, char *argv[])
         play_iter(&iter, 0);
 
     if (argv[fileindex] == NULL && embed_window == 0) {
-        use_remember_loc = remember_loc;
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
-                                       playlist_visible);
+		// When running as apple.com external player, don't load the default playlist
+		if (control_id == 0) {
+		    use_remember_loc = remember_loc;
+		    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
+		                                   playlist_visible);
+		} else {
+			remember_loc = FALSE;
+			use_remember_loc = FALSE;
+		    // prevents saving of a playlist with one item on it
+		    use_defaultpl = FALSE;
+			// don't save the loc when launched with a single file
+			save_loc = FALSE;
+		}
     } else {
         // prevents saving of a playlist with one item on it
         use_defaultpl = FALSE;
@@ -1166,9 +1176,11 @@ int main(int argc, char *argv[])
     }
 
     if (single_instance && embed_window == 0) {
-        use_remember_loc = remember_loc;
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
-                                       playlist_visible);
+		if (control_id == 0) {
+		    use_remember_loc = remember_loc;
+		    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
+		                                   playlist_visible);
+		}
     }
 
     if (embed_window == 0) {
