@@ -1252,7 +1252,7 @@ gpointer launch_player(gpointer data)
 
     if (g_strrstr(threaddata->filename, "apple.com")) {
         argv[arg++] = g_strdup_printf("-user-agent");
-        argv[arg++] = g_strdup_printf("QuickTime/7.6.2");
+        argv[arg++] = g_strdup_printf("QuickTime/7.6.4");
     }
 
 
