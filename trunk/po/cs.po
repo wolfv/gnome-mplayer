@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer r1568\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-21 08:33-0600\n"
+"POT-Creation-Date: 2010-01-26 16:42-0700\n"
 "PO-Revision-Date: 2009-09-30 11:06+0200\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -53,178 +53,188 @@ msgid "Use mplayer software volume control"
 msgstr "Použít softwarové ovládání hlasitosti mplayeru"
 
 #: src/main.c:62
+msgid "When set to TRUE the last volume level is set as the default"
+msgstr ""
+
+#: src/main.c:63
+msgid ""
+"Last software volume percentage- only applied when remember_softvol is set "
+"to TRUE"
+msgstr ""
+
+#: src/main.c:64
 msgid "Mixer to use"
 msgstr "Použít tento směšovač"
 
-#: src/main.c:63
+#: src/main.c:65
 msgid "Set initial volume percentage"
 msgstr "Nastavit počáteční hlasitost v procentech"
 
-#: src/main.c:64
+#: src/main.c:66
 msgid "Show the controls in window"
 msgstr "Zobrazovat v okně ovládací prvky"
 
-#: src/main.c:66
+#: src/main.c:68
 msgid "Show the subtitles if available"
 msgstr "Zobrazovat titulky, pokud jsou dostupné"
 
-#: src/main.c:69
+#: src/main.c:71
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
 msgstr ""
 "Automaticky přehrávat média (1, implicitní), načíst ale nepřehrávat (0)"
 
-#: src/main.c:71
+#: src/main.c:73
 msgid "Disable popup menu on right click"
 msgstr "Zakázat zobrazovaní vyskakovací nabídky na pravé kliknutí"
 
-#: src/main.c:73
+#: src/main.c:75
 msgid "Disable fullscreen options in browser mode"
 msgstr ""
 "Potlačit volby celoobrazovkového režimu při přehrávání ve webovém prohlížeči"
 
-#: src/main.c:74
+#: src/main.c:76
 msgid "Play all files on the playlist forever"
 msgstr "Přehrávat soubory ze seznamu skladeb dokola"
 
-#: src/main.c:76
+#: src/main.c:78
 msgid "Quit application when last file on playlist is played"
 msgstr "Ukončit aplikaci, po dohrání poslední skladby ze seznamu"
 
-#: src/main.c:77
+#: src/main.c:79
 msgid "Play items on playlist in random order"
 msgstr "Přehrávat skladby ze seznamu v náhodném pořadí"
 
-#: src/main.c:79
+#: src/main.c:81
 msgid "Set cache size"
 msgstr "Nastavit velikost vyrovnávací paměti"
 
-#: src/main.c:81
+#: src/main.c:83
 msgid "Start Second (default to 0)"
 msgstr "Počáteční sekunda (implicitně 0)"
 
-#: src/main.c:84
+#: src/main.c:86
 msgid "Length of media to play from start second"
 msgstr "Přehrát dané množství média měřeno od počáteční sekundy"
 
-#: src/main.c:86
+#: src/main.c:88
 msgid "Force cache usage on streaming sites"
 msgstr "Vynutit používání vyrovnávací paměti při proudování z webu"
 
-#: src/main.c:89
+#: src/main.c:91
 msgid "Disable the deinterlace filter"
 msgstr "Vypnout filtr odstraňující prokládání"
 
-#: src/main.c:92
+#: src/main.c:94
 msgid "Don't skip drawing frames to better keep sync"
 msgstr "Nepřeskakovat vykreslování snímku pro lepší udržení synchronizace"
 
-#: src/main.c:95
+#: src/main.c:97
 msgid "Use the old subtitle rendering system"
 msgstr "Použít starý systém vykreslování titulků"
 
-#: src/main.c:98
+#: src/main.c:100
 msgid "Don't use fonts embedded on matroska files"
 msgstr "Nepoužívat fonty vestavěné do souborů typu matrjoška"
 
-#: src/main.c:100
+#: src/main.c:102
 msgid "Use Vertical Layout"
 msgstr "Použít svislé rozvržení"
 
-#: src/main.c:102
+#: src/main.c:104
 msgid "Start with playlist open"
 msgstr "Zobrazit dialog otevření seznamu skladeb"
 
-#: src/main.c:104 src/gui.c:5214
+#: src/main.c:106 src/gui.c:5383
 msgid "Start with details visible"
 msgstr "Začít se zobrazenými podrobnostmi"
 
-#: src/main.c:106
+#: src/main.c:108
 msgid "Real Player Name"
 msgstr "Název přehrávače Real Player"
 
-#: src/main.c:107
+#: src/main.c:109
 msgid "Real Player Console ID"
 msgstr "Identifikátor konzole Real Playeru"
 
-#: src/main.c:108
+#: src/main.c:110
 msgid "Real Player Console Controls"
 msgstr "Ovládání konzole Real Playeru"
 
-#: src/main.c:110
+#: src/main.c:112
 msgid "Subtitle file for first media file"
 msgstr "Soubor s titulky pro první mediální soubor"
 
-#: src/main.c:112
+#: src/main.c:114
 msgid "TV device name"
 msgstr "Název televizního zařízení"
 
-#: src/main.c:113
+#: src/main.c:115
 msgid "TV driver name (v4l|v4l2)"
 msgstr "Název televizního ovladače (v4l|v4l2)"
 
-#: src/main.c:114
+#: src/main.c:116
 msgid "TV input name"
 msgstr "Název televizního vstupu"
 
-#: src/main.c:115
+#: src/main.c:117
 msgid "Width of TV input"
 msgstr "Šířka televizního vstupu"
 
-#: src/main.c:116
+#: src/main.c:118
 msgid "Height of TV input"
 msgstr "Výška televizního vstupu"
 
-#: src/main.c:117
+#: src/main.c:119
 msgid "Frames per second from TV input"
 msgstr "Snímkovací frekvence televizního vstupu"
 
-#: src/main.c:118
+#: src/main.c:120
 msgid "Only allow one instance"
 msgstr "Povolit jen jednu instanci"
 
-#: src/main.c:121
+#: src/main.c:123
 msgid "Put single instance mode into replace and play mode"
 msgstr "Změnit režim jediné instance na režim „nahraď a přehraj“"
 
-#: src/main.c:124
+#: src/main.c:126
 msgid "Use large control buttons"
 msgstr "Použít velká ovládací tlačítka"
 
-#: src/main.c:127
+#: src/main.c:129
 msgid "Hide control panel when mouse is not moving"
 msgstr "Skrýt ovládací panel, když se zastaví myš"
 
-#: src/main.c:130
+#: src/main.c:132
 msgid "Ignore single instance preference for this instance"
 msgstr "Pro tuto instanci ignorovat volby režimu jedné instance"
 
-#: src/main.c:133
+#: src/main.c:135
 msgid "Keep window on top"
 msgstr "Držet okno na vrchu"
 
-#: src/main.c:137
+#: src/main.c:139
 msgid "Load all tracks from media player using gpod"
 msgstr "Načíst všechny stopy z přehrávače médií pomocí gpod"
 
-#: src/main.c:141
+#: src/main.c:143
 msgid "Don't fetch new cover art images"
 msgstr "Nestahovat nová vyobrazení přebalů"
 
-#: src/main.c:326 src/gui.c:556 src/gui.c:2072
+#: src/main.c:328 src/gui.c:604 src/gui.c:2170
 #, c-format
 msgid "Playing"
 msgstr "Přehrává se"
 
-#: src/main.c:858
+#: src/main.c:859
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[SOUBORY…] – Přehrávač médií pro GNOME založený na MPlayeru"
 
-#: src/main.c:878
+#: src/main.c:879
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer verze %s\n"
 
-#: src/main.c:957
+#: src/main.c:964
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -233,52 +243,48 @@ msgstr ""
 "Seznam všech přepínačů příkazové řádky získáte příkazem „gnome-mplayer --"
 "help“.\n"
 
-#: src/gui.c:279 src/gui.c:315
+#: src/gui.c:326 src/gui.c:362
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s – GNOME MPlayer"
 
-#: src/gui.c:310
+#: src/gui.c:357
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s – (%i/%i) – GNOME MPlayer"
 
-#: src/gui.c:313 src/gui.c:3092 src/gui.c:5750
+#: src/gui.c:360 src/gui.c:3194 src/gui.c:5973
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:370
-msgid "Media Change"
-msgstr "Změna média"
-
-#: src/gui.c:427
+#: src/gui.c:475
 #, c-format
 msgid "Buffering: %2i%%"
 msgstr "Plnění vyrovnávací paměti: %2i %%"
 
-#: src/gui.c:440
+#: src/gui.c:488
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Pozastaveno | %2i %% ▼"
 
-#: src/gui.c:558 src/gui.c:2090
+#: src/gui.c:606 src/gui.c:2188
 #, c-format
 msgid "Paused"
 msgstr "Pozastaveno"
 
-#: src/gui.c:560 src/gui.c:928
+#: src/gui.c:608 src/gui.c:973
 #, c-format
 msgid "Idle"
 msgstr "Nic se neděje"
 
-#: src/gui.c:726 src/support.c:266 src/playlist.c:530 src/playlist.c:834
+#: src/gui.c:771 src/support.c:272 src/playlist.c:530 src/playlist.c:841
 #, c-format
 msgid "%s items"
 msgstr "%s položek"
 
-#: src/gui.c:728 src/gui.c:2548 src/gui.c:2889 src/support.c:215
-#: src/support.c:281 src/playlist.c:532
+#: src/gui.c:773 src/gui.c:2650 src/gui.c:2991 src/support.c:221
+#: src/support.c:287 src/playlist.c:532
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
@@ -286,81 +292,81 @@ msgstr[0] "Položka na přehrání"
 msgstr[1] "Položky na přehrání"
 msgstr[2] "Položky na přehrání"
 
-#: src/gui.c:746 src/gui.c:2071
+#: src/gui.c:791 src/gui.c:2169
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: src/gui.c:759 src/gui.c:771 src/gui.c:2089 src/gui.c:2144 src/gui.c:2149
-#: src/gui.c:6464
+#: src/gui.c:804 src/gui.c:816 src/gui.c:2187 src/gui.c:2242 src/gui.c:2247
+#: src/gui.c:6694
 msgid "Play"
 msgstr "Přehrát"
 
-#: src/gui.c:901
+#: src/gui.c:946
 #, c-format
 msgid "Adding %s to playlist"
 msgstr "Na seznam skladeb se přidává %s"
 
-#: src/gui.c:924
+#: src/gui.c:969
 #, c-format
 msgid "Playing %s"
 msgstr "Přehrává se %s"
 
-#: src/gui.c:926
+#: src/gui.c:971
 #, c-format
 msgid "Paused %s"
 msgstr "%s pozastaveno"
 
-#: src/gui.c:1269 src/gui.c:1279 src/gui.c:2323 src/gui.c:2364
+#: src/gui.c:1342 src/gui.c:1352 src/gui.c:2423 src/gui.c:2465
 #, c-format
 msgid "Volume %i%%"
 msgstr "Hlasitost %i %%"
 
-#: src/gui.c:2155
+#: src/gui.c:2253
 msgid "Stopped"
 msgstr "Zastaveno"
 
-#: src/gui.c:2500 src/playlist.c:494
+#: src/gui.c:2602 src/playlist.c:494
 msgid "Open File"
 msgstr "Otevřít soubor"
 
-#: src/gui.c:2604
+#: src/gui.c:2706
 msgid "Open Location"
 msgstr "Otevřít umístění"
 
-#: src/gui.c:2606
+#: src/gui.c:2708
 msgid "Location:"
 msgstr "Umístění:"
 
-#: src/gui.c:2656 src/gui.c:2746
+#: src/gui.c:2758 src/gui.c:2848
 msgid "Choose Disk Directory"
 msgstr "Vyberte adresář s diskem"
 
-#: src/gui.c:2692 src/gui.c:2784
+#: src/gui.c:2794 src/gui.c:2886
 msgid "Choose Disk Image"
 msgstr "Vyberte obraz disku"
 
-#: src/gui.c:2706 src/gui.c:2798
+#: src/gui.c:2808 src/gui.c:2900
 msgid "Disk Image (*.iso)"
 msgstr "Obraz disku (*.iso)"
 
-#: src/gui.c:3003
+#: src/gui.c:3105
 msgid "Save As..."
 msgstr "Uložit jako…"
 
-#: src/gui.c:3038
+#: src/gui.c:3140
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "„%s“ nelze uložit"
 
-#: src/gui.c:3041 src/support.c:812 src/support.c:904 src/thread.c:253
+#: src/gui.c:3143 src/support.c:827 src/support.c:919 src/thread.c:258
 msgid "GNOME MPlayer Error"
 msgstr "Chyba GNOME MPlayeru"
 
-#: src/gui.c:3094
+#: src/gui.c:3196
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "Přehrávač médií pro GNOME, který používá MPlayer"
 
-#: src/gui.c:3097
+#: src/gui.c:3199
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -400,155 +406,155 @@ msgstr ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 
-#: src/gui.c:3369 src/playlist.c:137
+#: src/gui.c:3471 src/playlist.c:137
 msgid "Set Subtitle"
 msgstr "Nastavit titulky"
 
-#: src/gui.c:3492
+#: src/gui.c:3594
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Gnome MPlayer přes celou obrazovku"
 
-#: src/gui.c:4000 src/nautilus_property_page.c:342
+#: src/gui.c:4116 src/nautilus_property_page.c:342
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">Podrobnosti o videu</span>"
 
-#: src/gui.c:4007 src/nautilus_property_page.c:349
+#: src/gui.c:4123 src/nautilus_property_page.c:349
 msgid "Video Size:"
 msgstr "Velikost obrazu:"
 
-#: src/gui.c:4020
+#: src/gui.c:4136
 msgid "Video Format:"
 msgstr "Formát videa:"
 
-#: src/gui.c:4031 src/nautilus_property_page.c:360
+#: src/gui.c:4147 src/nautilus_property_page.c:360
 msgid "Video Codec:"
 msgstr "Kodek videa:"
 
-#: src/gui.c:4042
+#: src/gui.c:4158
 msgid "Video FPS:"
 msgstr "Snímkovací frekvence videa:"
 
-#: src/gui.c:4051 src/nautilus_property_page.c:371
+#: src/gui.c:4167 src/nautilus_property_page.c:371
 msgid "Video Bitrate:"
 msgstr "Datový tok videa:"
 
-#: src/gui.c:4062
+#: src/gui.c:4178
 msgid "Video Chapters:"
 msgstr "Kapitoly videa:"
 
-#: src/gui.c:4078 src/nautilus_property_page.c:398
+#: src/gui.c:4194 src/nautilus_property_page.c:398
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Podrobnosti o zvuku</span>"
 
-#: src/gui.c:4085 src/nautilus_property_page.c:405
+#: src/gui.c:4201 src/nautilus_property_page.c:405
 msgid "Audio Codec:"
 msgstr "Kodek zvuku:"
 
-#: src/gui.c:4098 src/nautilus_property_page.c:428
+#: src/gui.c:4214 src/nautilus_property_page.c:428
 msgid "Audio Channels:"
 msgstr "Zvukových kanálů:"
 
-#: src/gui.c:4111 src/nautilus_property_page.c:416
+#: src/gui.c:4227 src/nautilus_property_page.c:416
 msgid "Audio Bitrate:"
 msgstr "Datový tok zvuku:"
 
-#: src/gui.c:4124
+#: src/gui.c:4240
 msgid "Audio Sample Rate:"
 msgstr "Vzorkovací frekvence zvuku:"
 
-#: src/gui.c:4155
+#: src/gui.c:4271
 msgid "Video Picture Adjustments"
 msgstr "Úprava obrazu videa"
 
-#: src/gui.c:4168
+#: src/gui.c:4284
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">Úprava obrazu videa</span>"
 
-#: src/gui.c:4175
+#: src/gui.c:4291
 msgid "Brightness"
 msgstr "Jas"
 
-#: src/gui.c:4185
+#: src/gui.c:4301
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: src/gui.c:4195
+#: src/gui.c:4311
 msgid "Gamma"
 msgstr "Gama"
 
-#: src/gui.c:4205
+#: src/gui.c:4321
 msgid "Hue"
 msgstr "Odstín"
 
-#: src/gui.c:4215
+#: src/gui.c:4331
 msgid "Saturation"
 msgstr "Sytost"
 
-#: src/gui.c:4234
+#: src/gui.c:4350
 msgid "_Reset"
 msgstr "V_rátit"
 
-#: src/gui.c:4417
+#: src/gui.c:4533
 msgid "No Display"
 msgstr "Nic nezobrazovat"
 
-#: src/gui.c:4420
+#: src/gui.c:4536
 msgid "Minimal"
 msgstr "Minimální"
 
-#: src/gui.c:4423
+#: src/gui.c:4539
 msgid "Timer"
 msgstr "Poloha"
 
-#: src/gui.c:4426
+#: src/gui.c:4542
 msgid "Timer/Total"
 msgstr "Poloha/Celkem"
 
-#: src/gui.c:4442
+#: src/gui.c:4558
 msgid "No Postprocessing"
 msgstr "Žádné dodatečné zpracování"
 
-#: src/gui.c:4446
+#: src/gui.c:4562
 msgid "Minimal Postprocessing"
 msgstr "Minimální dodatečné zpracování"
 
-#: src/gui.c:4450
+#: src/gui.c:4566
 msgid "More Postprocessing"
 msgstr "Rozsáhlejší dodatečné zpracování"
 
-#: src/gui.c:4454
+#: src/gui.c:4570
 msgid "Maximum Postprocessing"
 msgstr "Maximální dodatečné zpracování"
 
-#: src/gui.c:4579
+#: src/gui.c:4705
 msgid "Player"
 msgstr "Přehrávač"
 
-#: src/gui.c:4581
+#: src/gui.c:4707
 msgid "Language Settings"
 msgstr "Nastavení jazyka"
 
-#: src/gui.c:4583
+#: src/gui.c:4709
 msgid "Subtitles"
 msgstr "Titulky"
 
-#: src/gui.c:4585
+#: src/gui.c:4711
 msgid "Interface"
 msgstr "Rozhraní"
 
-#: src/gui.c:4587
+#: src/gui.c:4713
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:4589
+#: src/gui.c:4715
 msgid "Plugin"
 msgstr "Zásuvný modul"
 
-#: src/gui.c:4595
+#: src/gui.c:4721
 msgid "GNOME MPlayer Configuration"
 msgstr "Nastavení GNOME MPlayeru"
 
-#: src/gui.c:4610
+#: src/gui.c:4736
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
@@ -556,11 +562,11 @@ msgstr ""
 "Výstupní video zařízení mplayeru\n"
 "x11 by mělo fungovat vždy, lepšího výkonu dosáhnete pomocí xv nebo gl"
 
-#: src/gui.c:4641
+#: src/gui.c:4767
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "Zapnout průchod AC3/DTS do S/PDIF"
 
-#: src/gui.c:4705
+#: src/gui.c:4831
 msgid ""
 "mplayer audio output device\n"
 "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
@@ -570,50 +576,50 @@ msgstr ""
 "alsa nebo oss by měly fungovat. V Gnome vyzkoušejte esd, v KDE arts, "
 "v novějších distribucích pulse."
 
-#: src/gui.c:4806
+#: src/gui.c:4975
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Upravte nastavení výstupu</span>"
 
-#: src/gui.c:4814
+#: src/gui.c:4983
 msgid "Video Output:"
 msgstr "Výstup videa:"
 
-#: src/gui.c:4824
+#: src/gui.c:4993
 msgid "Audio Output:"
 msgstr "Výstup zvuku:"
 
-#: src/gui.c:4836
+#: src/gui.c:5005
 msgid "Default Mixer:"
 msgstr "Výchozí směšovač:"
 
-#: src/gui.c:4847
+#: src/gui.c:5016
 msgid "Audio Channels to Output"
 msgstr "Na výstup poslat zvukové kanály"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:4877
+#: src/gui.c:5046
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">Upravte nastavení konfigurace</span>"
 
-#: src/gui.c:4886
+#: src/gui.c:5055
 msgid "Default Volume Level:"
 msgstr "Výchozí úroveň hlasitosti:"
 
-#: src/gui.c:4893
+#: src/gui.c:5062
 msgid "Default volume for playback"
 msgstr "Výchozí hlasitost přehrávání"
 
-#: src/gui.c:4908
+#: src/gui.c:5077
 msgid "On Screen Display Level:"
 msgstr "Úroveň stavových informací nad obrazem (OSD)"
 
-#: src/gui.c:4923
+#: src/gui.c:5092
 msgid "Post-processing level:"
 msgstr "Úroveň dodatečného zpracování:"
 
-#: src/gui.c:4939
+#: src/gui.c:5108
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -629,35 +635,35 @@ msgstr ""
 "přehrávače médií a umožňuje přehrávání různých druhů obsahu webu\n"
 "v prohlížečích s rozhraním NPRuntime (Firefox, Konqueror, aj.)."
 
-#: src/gui.c:4951
+#: src/gui.c:5120
 msgid "QuickTime Emulation"
 msgstr "Emulace přehrávače QuickTime"
 
-#: src/gui.c:4956
+#: src/gui.c:5125
 msgid "RealPlayer Emulation"
 msgstr "Emulace přehrávače RealPlayer"
 
-#: src/gui.c:4962
+#: src/gui.c:5131
 msgid "Windows Media Player Emulation"
 msgstr "Emulace přehrávače Windows Media Player"
 
-#: src/gui.c:4967
+#: src/gui.c:5136
 msgid "DiVX Player Emulation"
 msgstr "Emulace přehrávače DiVX"
 
-#: src/gui.c:4972
+#: src/gui.c:5141
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "Podpora MIDI (vyžaduje podporu ze strany MPlayeru)"
 
-#: src/gui.c:4978
+#: src/gui.c:5147
 msgid "Disable Player Embedding"
 msgstr "Zakázat vestavěné přehrávání"
 
-#: src/gui.c:4984 src/gui.c:5385
+#: src/gui.c:5153 src/gui.c:5595
 msgid "Cache Size (KB):"
 msgstr "Velikost vyrovnávací paměti (KB):"
 
-#: src/gui.c:4993
+#: src/gui.c:5162
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -665,139 +671,143 @@ msgstr ""
 "Množství dat, která se mají uložit do vyrovnávací paměti při přehrávání ze "
 "sítě. Na pomalé síti použijte větší hodnoty."
 
-#: src/gui.c:5011
+#: src/gui.c:5180
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">Upravit nastavení jazyka</span>"
 
-#: src/gui.c:5019
+#: src/gui.c:5188
 msgid "Default Audio Language"
 msgstr "Výchozí jazyk zvuku"
 
-#: src/gui.c:5029
+#: src/gui.c:5198
 msgid "Default Subtitle Language:"
 msgstr "Výchozí jazyk titulků"
 
-#: src/gui.c:5041
+#: src/gui.c:5210
 msgid "File Metadata Encoding:"
 msgstr "Kódování metadat souborů"
 
-#: src/gui.c:5057
+#: src/gui.c:5226
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">Nastavení titulků</span>"
 
-#: src/gui.c:5067
+#: src/gui.c:5236
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Zapnout podporu titulků _Advanced Substation Alpha (ASS)"
 
-#: src/gui.c:5074
+#: src/gui.c:5243
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "Používat v_estavěné fonty (jen matrjoška)"
 
-#: src/gui.c:5084
+#: src/gui.c:5253
 msgid "Subtitle Font:"
 msgstr "Font titulků:"
 
-#: src/gui.c:5102
+#: src/gui.c:5271
 msgid "Subtitle Font Selection"
 msgstr "Výběr fontu titulků"
 
-#: src/gui.c:5107
+#: src/gui.c:5276
 msgid "Subtitle Color:"
 msgstr "Barva titulků:"
 
-#: src/gui.c:5132
+#: src/gui.c:5301
 msgid "Subtitle Color Selection"
 msgstr "Výběr barvy titulků"
 
-#: src/gui.c:5138
+#: src/gui.c:5307
 msgid "Outline Subtitle Font"
 msgstr "Obrysový font titulků"
 
-#: src/gui.c:5145
+#: src/gui.c:5314
 msgid "Shadow Subtitle Font"
 msgstr "Stínovaný font titulků"
 
-#: src/gui.c:5152
+#: src/gui.c:5321
 msgid "Subtitle Font Scaling:"
 msgstr "Škálování fontu titulků:"
 
-#: src/gui.c:5165
+#: src/gui.c:5334
 msgid "Subtitle File Encoding:"
 msgstr "Kódování souborů s titulky:"
 
-#: src/gui.c:5177
+#: src/gui.c:5346
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr "Spodní okraj titulků (jen X11/XV):"
 
-#: src/gui.c:5190
+#: src/gui.c:5359
 msgid "Show Subtitles by Default"
 msgstr "Standardně titulky zobrazovat"
 
-#: src/gui.c:5200
+#: src/gui.c:5369
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Předvolby aplikace</span>"
 
-#: src/gui.c:5208
+#: src/gui.c:5377
 msgid "Start with playlist visible"
 msgstr "Začít s viditelným seznam skladeb"
 
-#: src/gui.c:5220
+#: src/gui.c:5389
 msgid "Respond to Keyboard Media Keys"
 msgstr "Reagovat na multimediální klávesy klávesnice"
 
-#: src/gui.c:5226
+#: src/gui.c:5395
 msgid "Use default playlist"
 msgstr "Použít výchozí seznam skladeb"
 
-#: src/gui.c:5233
+#: src/gui.c:5402
 msgid "Show notification popup"
 msgstr "Zobrazovat vyskakovací upozornění"
 
-#: src/gui.c:5241
+#: src/gui.c:5410
 msgid "Show status icon"
 msgstr "Zobrazovat stavovou ikonu"
 
-#: src/gui.c:5250
+#: src/gui.c:5417
+msgid "Use X Screen Saver control over Gnome Power Manager"
+msgstr ""
+
+#: src/gui.c:5425
 msgid "Place playlist below media (requires application restart)"
 msgstr "Umístit seznam skladeb pod média (vyžaduje nové spuštění aplikace)"
 
-#: src/gui.c:5257
+#: src/gui.c:5432
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Povolit jen jednu instanci Gnome MPlayeru"
 
-#: src/gui.c:5271
+#: src/gui.c:5446
 msgid "When opening in single instance mode, replace existing file"
 msgstr "Při otevření v režimu jedné instance nahradit existující soubor"
 
-#: src/gui.c:5284
+#: src/gui.c:5459
 msgid "When opening file, bring main window to front"
 msgstr "Při otevírání souboru přenést hlavní okno na popředí"
 
-#: src/gui.c:5293
+#: src/gui.c:5468
 msgid "Remember Window Location and Size"
 msgstr "Zapamatovat si umístění a velikost okna"
 
-#: src/gui.c:5300
+#: src/gui.c:5475
 msgid "Resize window when new video is loaded"
 msgstr "Po načtení nového videa změnit velikost okna"
 
-#: src/gui.c:5307
+#: src/gui.c:5482
 msgid "Keep window above other windows"
 msgstr "Udržet okno na ostatními okny"
 
-#: src/gui.c:5313
+#: src/gui.c:5488
 msgid "Pause playback on mouse click"
 msgstr "Pozastavit přehrávání při kliknutí myší"
 
-#: src/gui.c:5319
+#: src/gui.c:5494
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr "Zakázat animaci ovládacího panelu v režimu celé obrazovky"
 
-#: src/gui.c:5325
+#: src/gui.c:5500
 msgid "Verbose Debug Enabled"
 msgstr "Zapnout podrobné ladění"
 
-#: src/gui.c:5329
+#: src/gui.c:5504
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
@@ -805,15 +815,15 @@ msgstr ""
 "Je-li tato volba nastavena, budou na terminál nebo do ~/.xsession-errors "
 "odesílány ladící informace"
 
-#: src/gui.c:5340
+#: src/gui.c:5515
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Pokročilé nastavení MPlayeru</span>"
 
-#: src/gui.c:5348
+#: src/gui.c:5523
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Zapnout softwarové ovládání hlasitosti MPlayerem"
 
-#: src/gui.c:5352
+#: src/gui.c:5527
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
@@ -821,27 +831,40 @@ msgstr ""
 "Použijte tuto volbu, pokud změna hlasitosti v Gnome MPlayeru mění hlavní "
 "hlasitost"
 
-#: src/gui.c:5359
+#: src/gui.c:5541
+#, fuzzy
+msgid "Remember last software volume level"
+msgstr "Použít softwarové ovládání hlasitosti mplayeru"
+
+#: src/gui.c:5545
+msgid "Set this option if you want the software volume level to be remembered"
+msgstr ""
+
+#: src/gui.c:5555
+msgid "Volume Gain (-200dB to +60dB)"
+msgstr ""
+
+#: src/gui.c:5569
 msgid "De_interlace Video"
 msgstr "Odstraňovat prokládání v_idea"
 
-#: src/gui.c:5361
+#: src/gui.c:5571
 msgid "Set this option if video looks striped"
 msgstr "Použijte tuto volbu, pokud video vypadá pruhovaně"
 
-#: src/gui.c:5368
+#: src/gui.c:5578
 msgid "_Drop frames"
 msgstr "Za_hazovat snímky"
 
-#: src/gui.c:5371
+#: src/gui.c:5581
 msgid "Set this option if video is well behind the audio"
 msgstr "Použijte tuto volbu, pokud se obraz zpožďuje za zvukem"
 
-#: src/gui.c:5377
+#: src/gui.c:5587
 msgid "Enable mplayer cache"
 msgstr "Povolit vyrovnávací paměť mplayeru"
 
-#: src/gui.c:5394
+#: src/gui.c:5604
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
@@ -849,289 +872,298 @@ msgstr ""
 "Množství dat, která se mají při přehrávání uložit do vyrovnávací paměti. Na "
 "pomalé síti nebo zařízení použijte větší hodnoty."
 
-#: src/gui.c:5413
+#: src/gui.c:5623
 msgid "MPlayer Executable:"
 msgstr "Spustitelný soubor MPlayeru:"
 
-#: src/gui.c:5418
+#: src/gui.c:5628
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr "Touto volbou lze určit aplikaci mplayeru, která se nenachází v cestě"
 
-#: src/gui.c:5434
+#: src/gui.c:5644
 msgid "Extra Options to MPlayer:"
 msgstr "Dodatečné volby MPlayeru:"
 
-#: src/gui.c:5438
+#: src/gui.c:5648
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "Další volby MPlayeru zadávejte sem (filtry atd.)"
 
-#: src/gui.c:5803
+#: src/gui.c:5659
+msgid "MPlayer Default Optical Device"
+msgstr ""
+
+#: src/gui.c:6026
 msgid "S_how Controls"
 msgstr "Z_obrazovat ovládací prvky"
 
-#: src/gui.c:5807 src/gui.c:6093
+#: src/gui.c:6030 src/gui.c:6321
 msgid "_Full Screen"
 msgstr "_Přes celou obrazovku"
 
-#: src/gui.c:5812
+#: src/gui.c:6035
 msgid "_Copy Location"
 msgstr "_Kopírovat umístění"
 
 #. File Menu
-#: src/gui.c:5883
+#: src/gui.c:6106
 msgid "_File"
 msgstr "_Soubor"
 
-#: src/gui.c:5892
+#: src/gui.c:6115
+#, fuzzy
+msgid "Open _Folder"
+msgstr "Otevřít soubor"
+
+#: src/gui.c:6118
 msgid "Open _Location"
 msgstr "Otevřít _umístění"
 
-#: src/gui.c:5895
+#: src/gui.c:6121
 msgid "_Disc"
 msgstr "_Disk"
 
-#: src/gui.c:5902
+#: src/gui.c:6128
 msgid "Open _Audio CD"
 msgstr "Otevřít _zvukové CD"
 
-#: src/gui.c:5907
+#: src/gui.c:6133
 msgid "Open _DVD"
 msgstr "Otevřít _DVD"
 
-#: src/gui.c:5910
+#: src/gui.c:6136
 msgid "Open DVD with _Menus"
 msgstr "Otevřít DVD s na_bídkami"
 
-#: src/gui.c:5913
+#: src/gui.c:6139
 msgid "Open DVD from _Folder"
 msgstr "Otevřít DVD ze _složky"
 
-#: src/gui.c:5916
+#: src/gui.c:6142
 msgid "Open DVD from Folder with M_enus"
 msgstr "Ot_evřít DVD ze složky s nabídkami"
 
-#: src/gui.c:5919
+#: src/gui.c:6145
 msgid "Open DVD from _ISO"
 msgstr "Otevřít DVD z _ISO"
 
-#: src/gui.c:5922
+#: src/gui.c:6148
 msgid "Open DVD from ISO with Me_nus"
 msgstr "Otevřít DVD z ISO s _nabídkami"
 
-#: src/gui.c:5927
+#: src/gui.c:6153
 msgid "Open _VCD"
 msgstr "Otevřít _VCD"
 
-#: src/gui.c:5930
+#: src/gui.c:6156
 msgid "_TV"
 msgstr "_Televize"
 
-#: src/gui.c:5937
+#: src/gui.c:6163
 msgid "Open _Analog TV"
 msgstr "Otevřít _analogovou televizi"
 
-#: src/gui.c:5940
+#: src/gui.c:6166
 msgid "Open _Digital TV"
 msgstr "Otevřít _digitální televizi"
 
-#: src/gui.c:5944
+#: src/gui.c:6170
 msgid "Open _iPod™"
 msgstr "Otevřít _iPod™"
 
-#: src/gui.c:5950
+#: src/gui.c:6176
 msgid "Open _Recent"
 msgstr "Otevřít _nedávné"
 
 #. Edit Menu
-#: src/gui.c:6009
+#: src/gui.c:6237
 msgid "_Edit"
 msgstr "Úpr_avy"
 
-#: src/gui.c:6016
+#: src/gui.c:6244
 msgid "_Shuffle Playlist"
 msgstr "Zamíchat _seznam skladeb"
 
-#: src/gui.c:6020
+#: src/gui.c:6248
 msgid "_Loop Playlist"
 msgstr "Opakovat seznam sk_ladeb"
 
-#: src/gui.c:6025
+#: src/gui.c:6253
 msgid "S_witch Audio Track"
 msgstr "Přepnout zvukovou _stopu"
 
-#: src/gui.c:6029
+#: src/gui.c:6257
 msgid "Select _Audio Language"
 msgstr "Vybrat j_azyk zvuku"
 
-#: src/gui.c:6035
+#: src/gui.c:6263
 msgid "Set Sub_title"
 msgstr "Nastavit _titulky"
 
-#: src/gui.c:6039
+#: src/gui.c:6267
 msgid "S_elect Subtitle Language"
 msgstr "_Vybrat jazyk titulků"
 
-#: src/gui.c:6046
+#: src/gui.c:6274
 msgid "_Take Screenshot"
 msgstr "Vyrobit _snímek"
 
-#: src/gui.c:6050
+#: src/gui.c:6278
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr ""
 "Soubory pojmenované „shotNNNN.png“ budou ukládány do pracovního adresáře"
 
 #. View Menu
-#: src/gui.c:6075
+#: src/gui.c:6303
 msgid "_View"
 msgstr "_Zobrazit"
 
-#: src/gui.c:6080
+#: src/gui.c:6308
 msgid "_Playlist"
 msgstr "Seznam sklade_b"
 
-#: src/gui.c:6083
+#: src/gui.c:6311
 msgid "Media _Info"
 msgstr "_Informace o médiích"
 
-#: src/gui.c:6085
+#: src/gui.c:6313
 msgid "D_etails"
 msgstr "Po_drobnosti"
 
-#: src/gui.c:6087
+#: src/gui.c:6315
 msgid "Audio _Meter"
 msgstr "Spektrální analýza _zvuku"
 
-#: src/gui.c:6100
+#: src/gui.c:6328
 msgid "_Normal (1:1)"
 msgstr "_Normální (1:1)"
 
-#: src/gui.c:6103
+#: src/gui.c:6331
 msgid "_Double Size (2:1)"
 msgstr "_Dvojnásobná velikost (2:1)"
 
-#: src/gui.c:6106
+#: src/gui.c:6334
 msgid "_Half Size (1:2)"
 msgstr "_Poloviční velikost (1:2)"
 
-#: src/gui.c:6109
+#: src/gui.c:6337
 msgid "_Aspect"
 msgstr "Poměr str_an"
 
-#: src/gui.c:6116
+#: src/gui.c:6344
 msgid "D_efault Aspect"
 msgstr "_Výchozí poměr"
 
-#: src/gui.c:6119
+#: src/gui.c:6347
 msgid "_4:3 Aspect"
 msgstr "Poměr _4:3"
 
-#: src/gui.c:6122
+#: src/gui.c:6350
 msgid "_16:9 Aspect"
 msgstr "Poměr _16:9"
 
-#: src/gui.c:6125
+#: src/gui.c:6353
 msgid "1_6:10 Aspect"
 msgstr "Poměr 1_6:10"
 
-#: src/gui.c:6128
+#: src/gui.c:6356
 msgid "_Follow Window"
 msgstr "Přizpůsobit _oknu"
 
-#: src/gui.c:6135
+#: src/gui.c:6363
 msgid "Show _Subtitles"
 msgstr "Zobrazit _titulky"
 
-#: src/gui.c:6138
+#: src/gui.c:6366
 msgid "Decrease Subtitle Size"
 msgstr "Zmenšit titulky"
 
-#: src/gui.c:6140
+#: src/gui.c:6368
 msgid "Increase Subtitle Size"
 msgstr "Zvětšit titulky"
 
-#: src/gui.c:6142
+#: src/gui.c:6370
 msgid "Decrease Subtitle Delay"
 msgstr "Zvýšit zpoždění titulků"
 
-#: src/gui.c:6144
+#: src/gui.c:6372
 msgid "Increase Subtitle Delay"
 msgstr "Snížit zpoždění titulků "
 
-#: src/gui.c:6145
+#: src/gui.c:6373
 msgid "Switch An_gle"
 msgstr "Přepnout ú_hel"
 
-#: src/gui.c:6146
+#: src/gui.c:6374
 msgid "_Controls"
 msgstr "Ovládá_cí prvky"
 
-#: src/gui.c:6160
+#: src/gui.c:6388
 msgid "_Video Picture Adjustments"
 msgstr "Upravit obraz _videa"
 
 #. Help Menu
-#: src/gui.c:6207
+#: src/gui.c:6435
 msgid "_Help"
 msgstr "Nápo_věda"
 
-#: src/gui.c:6427
+#: src/gui.c:6657
 msgid "Menu"
 msgstr "Nabídka"
 
-#: src/gui.c:6440
+#: src/gui.c:6670
 msgid "Previous"
 msgstr "Předchozí"
 
-#: src/gui.c:6453
+#: src/gui.c:6683
 msgid "Rewind"
 msgstr "Přetočit"
 
-#: src/gui.c:6476
+#: src/gui.c:6706
 msgid "Stop"
 msgstr "Zastavit"
 
-#: src/gui.c:6488
+#: src/gui.c:6718
 msgid "Fast Forward"
 msgstr "Rychlé přehrávání"
 
-#: src/gui.c:6499
+#: src/gui.c:6729
 msgid "Next"
 msgstr "Následující"
 
-#: src/gui.c:6519
+#: src/gui.c:6749
 msgid "Full Screen"
 msgstr "Přes celou obrazovku"
 
-#: src/gui.c:6561
+#: src/gui.c:6791
 msgid "Volume 100%"
 msgstr "Hlasitost 100 %"
 
-#: src/support.c:792 src/thread.c:221
+#: src/support.c:807 src/thread.c:221
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "DVD zařízení nebylo možné otevřít: %s"
 
-#: src/support.c:885
+#: src/support.c:900
 #, c-format
 msgid "Couldn't open VCD device: %s"
 msgstr "VCD zařízení nebylo možné otevřít: %s"
 
-#: src/support.c:1965 src/support.c:1998 src/support.c:2043 src/support.c:2073
+#: src/support.c:2010 src/support.c:2043 src/support.c:2088 src/support.c:2118
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "Seznam skladeb nelze uložit, soubor nelze otevřít pro zápis"
 
-#: src/support.c:2484
+#: src/support.c:2538
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2486
+#: src/support.c:2540
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/support.c:3099
+#: src/support.c:3153
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1154,27 +1186,27 @@ msgstr "Titulky nelze načíst: %s"
 msgid "Delaying start until cache is full"
 msgstr "Přehrávání odloženo do naplnění vyrovnávací paměti"
 
-#: src/thread.c:243
+#: src/thread.c:244
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Komprimovaný formát SWF není podporován"
 
-#: src/thread.c:588
+#: src/thread.c:591
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Naplnění vyrovnávací paměti: %2.2f %%"
 
-#: src/thread.c:597
+#: src/thread.c:600
 #, c-format
 msgid "Connecting"
 msgstr "Navazuje se spojení"
 
-#: src/thread.c:734
+#: src/thread.c:737
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Snímek uložen do „%s“"
 
-#: src/thread.c:737
+#: src/thread.c:740
 msgid "GNOME MPlayer Notification"
 msgstr "Upozorněni GNOME MPlayeru"
 
@@ -1187,7 +1219,7 @@ msgstr ""
 "Název souboru: %s\n"
 "Titulky: %s"
 
-#: src/playlist.c:270 src/playlist.c:921
+#: src/playlist.c:270 src/playlist.c:928
 msgid "Save Playlist"
 msgstr "Uložit seznam skladeb"
 
@@ -1199,7 +1231,7 @@ msgstr "Seznam skladeb (*.pls)"
 msgid "MP3 Playlist (*.m3u)"
 msgstr "Seznam skladeb typu MP3 (*.m3u)"
 
-#: src/playlist.c:329 src/playlist.c:913
+#: src/playlist.c:329 src/playlist.c:920
 msgid "Open Playlist"
 msgstr "Otevřít seznam skladeb"
 
@@ -1229,66 +1261,66 @@ msgstr[2] ""
 "\n"
 "\tNalezeno %i souborů\n"
 
-#: src/playlist.c:831
+#: src/playlist.c:838
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Položka na přehrání"
 msgstr[1] "Položky na přehrání"
 msgstr[2] "Položky na přehrání"
 
-#: src/playlist.c:850 src/nautilus_property_page.c:292
+#: src/playlist.c:857 src/nautilus_property_page.c:292
 msgid "Artist"
 msgstr "Umělec"
 
-#: src/playlist.c:861 src/nautilus_property_page.c:304
+#: src/playlist.c:868 src/nautilus_property_page.c:304
 msgid "Album"
 msgstr "Album"
 
-#: src/playlist.c:873 src/nautilus_property_page.c:316
+#: src/playlist.c:880 src/nautilus_property_page.c:316
 msgid "Length"
 msgstr "Délka"
 
-#: src/playlist.c:884
+#: src/playlist.c:891
 msgid "Count"
 msgstr "Počet"
 
-#: src/playlist.c:893
+#: src/playlist.c:900
 msgid "Order"
 msgstr "Pořadí"
 
-#: src/playlist.c:904
+#: src/playlist.c:911
 msgid "Close Playlist View"
 msgstr "Skrýt seznam skladeb"
 
-#: src/playlist.c:929
+#: src/playlist.c:936
 msgid "Add Item to Playlist"
 msgstr "Přidat na seznam skladeb položku"
 
-#: src/playlist.c:937
+#: src/playlist.c:944
 msgid "Remove Item from Playlist"
 msgstr "Odebrat ze seznamu skladeb položku"
 
-#: src/playlist.c:945
+#: src/playlist.c:952
 msgid "Add Items in Folder to Playlist"
 msgstr "Přidat na seznam skladeb položky ze složky"
 
-#: src/playlist.c:954
+#: src/playlist.c:961
 msgid "Clear Playlist"
 msgstr "Vyprázdnit seznam skladeb"
 
-#: src/playlist.c:962
+#: src/playlist.c:969
 msgid "Move Item Up"
 msgstr "Přesunout položku výše"
 
-#: src/playlist.c:971
+#: src/playlist.c:978
 msgid "Move Item Down"
 msgstr "Přesunout položku níže"
 
-#: src/playlist.c:981
+#: src/playlist.c:988
 msgid "UnSort List"
 msgstr "Zrušit řazení v seznamu"
 
-#: src/playlist.c:1015
+#: src/playlist.c:1022
 msgid "_Set Subtitle"
 msgstr "Na_stavit titulky"
 
@@ -1322,9 +1354,12 @@ msgstr "Snímková frekvence videa"
 msgid "Audio/Video"
 msgstr "Zvuk/Video"
 
-#: src/libgmtk/gmtk_media_tracker.c:86 src/libgmtk/gmtk_media_tracker.c:160
+#: src/libgmtk/gmtk_media_tracker.c:87 src/libgmtk/gmtk_media_tracker.c:169
 msgid "No Information"
 msgstr "Žádné informace"
+
+#~ msgid "Media Change"
+#~ msgstr "Změna média"
 
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr ""
