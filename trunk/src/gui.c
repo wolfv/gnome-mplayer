@@ -3545,6 +3545,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
                             GDK_WINDOW_XWINDOW(window->window), embed_window, 0, 0);
             gtk_widget_map(window);
             gtk_window_move(GTK_WINDOW(window), 0, 0);
+			gtk_widget_set_size_request(fixed, window_x, window_y - 1);
             XResizeWindow(GDK_WINDOW_XDISPLAY(window->window),
                           GDK_WINDOW_XWINDOW(window->window), window_x, window_y - 1);
             if (window_x > 0 && window_y > 0)
@@ -3615,6 +3616,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             XResizeWindow(GDK_WINDOW_XDISPLAY(window->window),
                           GDK_WINDOW_XWINDOW(window->window), rect.width, rect.height - 1);
             gtk_window_resize(GTK_WINDOW(window), rect.width, rect.height);
+			gtk_widget_set_size_request(fixed, rect.width, rect.height);
             if (window_x < 250) {
                 gtk_widget_show(fs_event_box);
             }
