@@ -3,13 +3,13 @@
 # Copyright (C) 2007 THE gnome-mplayer'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-mplayer package.
 #
-# Julian Sikorski <belegdol@gmail.com>, 2007, 2008, 2009.
+# Julian Sikorski <belegdol@gmail.com>, 2007, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 16:42-0700\n"
-"PO-Revision-Date: 2009-09-15 10:49+0200\n"
+"PO-Revision-Date: 2010-01-27 19:14+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -58,6 +58,7 @@ msgstr "Użyj programowej kontroli głośności mplayera"
 #: src/main.c:62
 msgid "When set to TRUE the last volume level is set as the default"
 msgstr ""
+"Kiedy ustawione na PRAWDĘ, ostatnia głośność będzie ustawiona jako domyślna"
 
 #: src/main.c:63
 msgid ""
@@ -805,9 +806,8 @@ msgid "Pause playback on mouse click"
 msgstr "Zatrzymaj odtwarzanie po pojedynczym kliknięciu"
 
 #: src/gui.c:5494
-#, fuzzy
 msgid "Disable Fullscreen Control Bar Animation"
-msgstr "Wyłącz opcje pełnego ekranu w trybie przeglądarki"
+msgstr "Wyłącz animację paska kontrolnego trybu pełnoekranowego"
 
 #: src/gui.c:5500
 msgid "Verbose Debug Enabled"
@@ -838,9 +838,8 @@ msgstr ""
 "główną głośność"
 
 #: src/gui.c:5541
-#, fuzzy
 msgid "Remember last software volume level"
-msgstr "Użyj programowej kontroli głośności mplayera"
+msgstr "Pamiętaj ostatnią głośność (programową)"
 
 #: src/gui.c:5545
 msgid "Set this option if you want the software volume level to be remembered"
@@ -920,9 +919,8 @@ msgid "_File"
 msgstr "_Plik"
 
 #: src/gui.c:6115
-#, fuzzy
 msgid "Open _Folder"
-msgstr "Otwórz plik"
+msgstr "Otwórz k_atalog"
 
 #: src/gui.c:6118
 msgid "Open _Location"
@@ -1113,7 +1111,7 @@ msgstr "Regulacja o_brazu"
 #. Help Menu
 #: src/gui.c:6435
 msgid "_Help"
-msgstr "_Pomoc"
+msgstr "Pomo_c"
 
 #: src/gui.c:6657
 msgid "Menu"
@@ -1179,7 +1177,7 @@ msgid ""
 "option not supported\n"
 msgstr ""
 "Proszę rozważyć aktualizację do nowszej wersji mplayera, opcja -volume jest "
-"niewspierana\n"
+"nieobsługiwana\n"
 
 #: src/thread.c:186
 #, c-format
@@ -1198,7 +1196,7 @@ msgstr "Opóźnianie startu do czasu zapełnienia bufora"
 #: src/thread.c:244
 #, c-format
 msgid "Compressed SWF format not supported"
-msgstr "Skompresowany format SWF niewspierany"
+msgstr "Skompresowany format SWF nieobsługiwany"
 
 #: src/thread.c:591
 #, c-format
