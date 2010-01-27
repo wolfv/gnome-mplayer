@@ -51,7 +51,7 @@ gboolean add_to_playlist_and_play(gpointer data)
 {
     gchar *s = (gchar *) data;
     gboolean playlist;
-    gchar *buf;
+    gchar *buf = NULL;
 
     selection = NULL;
     if (!uri_exists(s) && !streaming_media(s)) {
@@ -59,15 +59,17 @@ gboolean add_to_playlist_and_play(gpointer data)
     } else {
         buf = g_strdup(s);
     }
-    playlist = detect_playlist(buf);
-    if (!playlist) {
-        add_item_to_playlist(buf, playlist);
-    } else {
-        if (!parse_playlist(buf)) {
-            add_item_to_playlist(buf, playlist);
-        }
-    }
-    g_free(buf);
+	if (buf != NULL) {
+		playlist = detect_playlist(buf);
+		if (!playlist) {
+		    add_item_to_playlist(buf, playlist);
+		} else {
+		    if (!parse_playlist(buf)) {
+		        add_item_to_playlist(buf, playlist);
+		    }
+		}
+		g_free(buf);
+	}
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
 			dontplaynext = TRUE;
@@ -76,7 +78,8 @@ gboolean add_to_playlist_and_play(gpointer data)
                 present_main_window();
         }
     }
-    g_free(s);
+	if (s != NULL)
+	    g_free(s);
     g_idle_add(set_update_gui, NULL);
     return FALSE;
 }
