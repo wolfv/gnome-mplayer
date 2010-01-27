@@ -1,10 +1,10 @@
-# Serbian translation of GNOME Mplayer.# Copyright (C) Prevod.org team (http://prevod.org)# This file is distributed under the same license as the gnome-mplayer package.# # Милош Поповић <gpopac@gmail.com>, 2008-2009.# 
+# Serbian translation of GNOME Mplayer.# Copyright (C) Prevod.org team (http://prevod.org)# This file is distributed under the same license as the gnome-mplayer package.# # Милош Поповић <gpopac@gmail.com>, 2008-2010.# 
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 16:42-0700\n"
-"PO-Revision-Date: 2009-05-27 18:55+0200\n"
+"PO-Revision-Date: 2010-01-27 11:18+0000\n"
 "Last-Translator: Милош Поповић <gpopac@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,12 +52,16 @@ msgstr "Користи Мплејерову програмску контрол�
 #: src/main.c:62
 msgid "When set to TRUE the last volume level is set as the default"
 msgstr ""
+"Када је постављено на „true“ (тачно) последња јачина звука ће бити "
+"постављена као подразумевана"
 
 #: src/main.c:63
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
 msgstr ""
+"Јачина звука у процентима при последњем покретању програма — ради само ако "
+"је remember_softvol постављено на „true“ (тачно)"
 
 #: src/main.c:64
 msgid "Mixer to use"
@@ -105,11 +109,11 @@ msgstr "Постави величину оставе"
 
 #: src/main.c:83
 msgid "Start Second (default to 0)"
-msgstr ""
+msgstr "Почетних секунди (подразумевано 0)"
 
 #: src/main.c:86
 msgid "Length of media to play from start second"
-msgstr ""
+msgstr "Дужина медијума који ће бити пуштен од одређеног броја секунди"
 
 #: src/main.c:88
 msgid "Force cache usage on streaming sites"
@@ -655,9 +659,8 @@ msgid "Disable Player Embedding"
 msgstr "Онемогући уметање програма"
 
 #: src/gui.c:5153 src/gui.c:5595
-#, fuzzy
 msgid "Cache Size (KB):"
-msgstr "Најмања величина оставе (KB):"
+msgstr "Величина оставе (KB):"
 
 #: src/gui.c:5162
 msgid ""
@@ -761,7 +764,7 @@ msgstr "Прикажи иконицу у панелу"
 
 #: src/gui.c:5417
 msgid "Use X Screen Saver control over Gnome Power Manager"
-msgstr ""
+msgstr "Управља X-овим чуварем екрана преко Гномовог управника потрошњом"
 
 #: src/gui.c:5425
 msgid "Place playlist below media (requires application restart)"
@@ -796,9 +799,8 @@ msgid "Pause playback on mouse click"
 msgstr "Заустави репродукцију на клик мишем"
 
 #: src/gui.c:5494
-#, fuzzy
 msgid "Disable Fullscreen Control Bar Animation"
-msgstr "Онемогућава приказ преко целог екрана у Интернет прегледнику"
+msgstr "Искључи анимацију контролне линије у целом екрану"
 
 #: src/gui.c:5500
 msgid "Verbose Debug Enabled"
@@ -829,17 +831,16 @@ msgstr ""
 "на главном каналу миксера"
 
 #: src/gui.c:5541
-#, fuzzy
 msgid "Remember last software volume level"
-msgstr "Користи Мплејерову програмску контролу звука"
+msgstr "Запамти последњу јачину звука"
 
 #: src/gui.c:5545
 msgid "Set this option if you want the software volume level to be remembered"
-msgstr ""
+msgstr "Омогућава памћење јачине звука при последњем покретању програма"
 
 #: src/gui.c:5555
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr ""
+msgstr "Појачање звука (од -200dB до +60dB)"
 
 #: src/gui.c:5569
 msgid "De_interlace Video"
@@ -858,18 +859,16 @@ msgid "Set this option if video is well behind the audio"
 msgstr "Укључите уколико слика касни за звуком"
 
 #: src/gui.c:5587
-#, fuzzy
 msgid "Enable mplayer cache"
-msgstr "Назив Риал плејера"
+msgstr "Укључи оставу Мплејера"
 
 #: src/gui.c:5604
-#, fuzzy
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
 msgstr ""
-"Количина података за чување у остави при пуштању датотека са мреже, "
-"користите веће вредности за спорије мреже."
+"Количина података за чување у остави. Користите веће вредности за спорије "
+"мреже и уређаје."
 
 #: src/gui.c:5623
 msgid "MPlayer Executable:"
@@ -892,7 +891,7 @@ msgstr "Можете унети било коју могућност Мплеј�
 
 #: src/gui.c:5659
 msgid "MPlayer Default Optical Device"
-msgstr ""
+msgstr "Подразумевани Мплејеров читач дискова"
 
 #: src/gui.c:6026
 msgid "S_how Controls"
@@ -912,9 +911,8 @@ msgid "_File"
 msgstr "_Датотека"
 
 #: src/gui.c:6115
-#, fuzzy
 msgid "Open _Folder"
-msgstr "Отвори датотеку"
+msgstr "Отвори _фасциклу"
 
 #: src/gui.c:6118
 msgid "Open _Location"
