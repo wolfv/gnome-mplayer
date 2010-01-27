@@ -103,7 +103,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0) {
-                            if (strcmp(rpconsole, "NONE") == 0 || control_instance == FALSE) {
+                            if ((strcmp(rpconsole, "NONE") == 0 || control_instance == FALSE) && s != NULL) {
                                 g_idle_add(clear_playlist_and_play, g_strdup(s));
                             }
                         }
@@ -120,7 +120,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         selection = NULL;
-                        g_idle_add(clear_playlist_and_play, g_strdup(s));
+						if (s != NULL)
+	                        g_idle_add(clear_playlist_and_play, g_strdup(s));
 
                     } else {
                         dbus_error_free(&error);
