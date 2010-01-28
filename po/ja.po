@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 16:42-0700\n"
-"PO-Revision-Date: 2009-09-14 11:58+0900\n"
+"PO-Revision-Date: 2010-01-28 09:57+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -47,11 +47,11 @@ msgstr "Show even more output on the console"
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
-msgstr "フルスクリーンモードで開始する"
+msgstr "全画面モードで開始する"
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
-msgstr "MPlayer ソフトウェアボリュームコントロールを使う"
+msgstr "MPlayer の出力の音量コントロールを使う"
 
 #: src/main.c:62
 msgid "When set to TRUE the last volume level is set as the default"
@@ -69,7 +69,7 @@ msgstr "ミキサーを使う"
 
 #: src/main.c:65
 msgid "Set initial volume percentage"
-msgstr "初期のボリュームパーセントを設定する"
+msgstr "音量の初期値を設定する"
 
 #: src/main.c:66
 msgid "Show the controls in window"
@@ -89,7 +89,7 @@ msgstr "右クリックでポップメニューを無効にする"
 
 #: src/main.c:75
 msgid "Disable fullscreen options in browser mode"
-msgstr "ブラウザモードでフルスクリーンモードオプションを無効にする"
+msgstr "ブラウザモードで全画面モードオプションを無効にする"
 
 #: src/main.c:76
 msgid "Play all files on the playlist forever"
@@ -318,7 +318,7 @@ msgstr "%s を一時停止しています"
 #: src/gui.c:1342 src/gui.c:1352 src/gui.c:2423 src/gui.c:2465
 #, c-format
 msgid "Volume %i%%"
-msgstr "ボリューム %i%%"
+msgstr "音量 %i%%"
 
 #: src/gui.c:2253
 msgid "Stopped"
@@ -394,7 +394,7 @@ msgstr "字幕を設定する"
 
 #: src/gui.c:3594
 msgid "Gnome MPlayer Fullscreen"
-msgstr "Gnome MPlayer フルスクリーン"
+msgstr "Gnome MPlayer 全画面"
 
 #: src/gui.c:4116 src/nautilus_property_page.c:342
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -589,11 +589,11 @@ msgstr "<span weight=\"bold\">環境設定の調整</span>"
 
 #: src/gui.c:5055
 msgid "Default Volume Level:"
-msgstr "標準のボリュームレベル:"
+msgstr "標準の音量レベル:"
 
 #: src/gui.c:5062
 msgid "Default volume for playback"
-msgstr "再生に対する標準のボリューム"
+msgstr "再生に対する標準の音量"
 
 #: src/gui.c:5077
 msgid "On Screen Display Level:"
@@ -654,9 +654,7 @@ msgstr "キャッシュサイズ (KB):"
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
-msgstr ""
-"キャッシュ時にネットワークからのメディアを再生するデータの量は、低速ネット"
-"ワークに高い値を使用します。"
+msgstr "ネットワークからメディアを再生するときのキャッシュサイズ。遅いネットワークに対して、より高い値を設定して下さい。"
 
 #: src/gui.c:5180
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -740,7 +738,7 @@ msgstr "キーボードメディアキーに反応する"
 
 #: src/gui.c:5395
 msgid "Use default playlist"
-msgstr "デフォルトのプレイリストを使用する"
+msgstr "標準のプレイリストを使用する"
 
 #: src/gui.c:5402
 msgid "Show notification popup"
@@ -752,7 +750,7 @@ msgstr "ステータスアイコンを表示する"
 
 #: src/gui.c:5417
 msgid "Use X Screen Saver control over Gnome Power Manager"
-msgstr ""
+msgstr "Gnomeの電源管理上でXスクリーンセーバコントロールを使う"
 
 #: src/gui.c:5425
 msgid "Place playlist below media (requires application restart)"
@@ -784,12 +782,11 @@ msgstr "他のウィンドウ上にウィンドウを保持する"
 
 #: src/gui.c:5488
 msgid "Pause playback on mouse click"
-msgstr "マウスをクリックして再生を一時停止"
+msgstr "マウスをクリックして再生を一時停止する"
 
 #: src/gui.c:5494
-#, fuzzy
 msgid "Disable Fullscreen Control Bar Animation"
-msgstr "ブラウザモードでフルスクリーンモードオプションを無効にする"
+msgstr "全画面で操作パネルのアニメーションを無効にする"
 
 #: src/gui.c:5500
 msgid "Verbose Debug Enabled"
@@ -809,28 +806,25 @@ msgstr "<span weight=\"bold\">MPlayer の詳細設定</span>"
 
 #: src/gui.c:5523
 msgid "Mplayer Software Volume Control Enabled"
-msgstr "MPlayer のソフトウェアボリュームコントロールを有効にする"
+msgstr "MPlayer の音量コントロールを有効にする"
 
 #: src/gui.c:5527
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
-msgstr ""
-"Gnome MPlayer でのボリュームを調整することによって，マスターボリュームを変更"
-"したいのならば、このオプションを設定して下さい。"
+msgstr "Gnome MPlayer における音量を調整することによって，マスター音量を変更したいのならば、このオプションを設定して下さい。"
 
 #: src/gui.c:5541
-#, fuzzy
 msgid "Remember last software volume level"
-msgstr "MPlayer ソフトウェアボリュームコントロールを使う"
+msgstr "最後に設定された音量を記憶する"
 
 #: src/gui.c:5545
 msgid "Set this option if you want the software volume level to be remembered"
-msgstr ""
+msgstr "もし MPlayer の出力の音量を記憶させたいのならば、このオプションを有効にして下さい。"
 
 #: src/gui.c:5555
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr ""
+msgstr "歪み量(-200dB から +60dB まで)"
 
 #: src/gui.c:5569
 msgid "De_interlace Video"
@@ -855,13 +849,10 @@ msgid "Enable mplayer cache"
 msgstr "Mplayer のキャッシュを有効にする"
 
 #: src/gui.c:5604
-#, fuzzy
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
-msgstr ""
-"キャッシュ時にネットワークからのメディアを再生するデータの量は、低速ネット"
-"ワークに高い値を使用します。"
+msgstr "メディアを再生するときのキャッシュサイズ。遅いデバイスやサイトに対して、より高い値を設定して下さい。"
 
 #: src/gui.c:5623
 msgid "MPlayer Executable:"
@@ -870,9 +861,7 @@ msgstr "MPlayer の実行:"
 #: src/gui.c:5628
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
-msgstr ""
-"パスを含まない MPlayer アプリケーションに指定するためにこのオプションを使いま"
-"す。"
+msgstr "パスに含まれない MPlayer バイナリへのパスを指定するために、このオプションを使います。"
 
 #: src/gui.c:5644
 msgid "Extra Options to MPlayer:"
@@ -884,7 +873,7 @@ msgstr "ここに（フィルタ等）余分な MPlayer へのオプションを
 
 #: src/gui.c:5659
 msgid "MPlayer Default Optical Device"
-msgstr ""
+msgstr "MPlayer の標準の光学デバイス:"
 
 #: src/gui.c:6026
 msgid "S_how Controls"
@@ -892,7 +881,7 @@ msgstr "操作パネルを表示する(_h)"
 
 #: src/gui.c:6030 src/gui.c:6321
 msgid "_Full Screen"
-msgstr "フルスクリーン(_F)"
+msgstr "全画面(_F)"
 
 #: src/gui.c:6035
 msgid "_Copy Location"
@@ -904,9 +893,8 @@ msgid "_File"
 msgstr "ファイル(_F)"
 
 #: src/gui.c:6115
-#, fuzzy
 msgid "Open _Folder"
-msgstr "ファイルを開く"
+msgstr "フォルダを開く(_F)"
 
 #: src/gui.c:6118
 msgid "Open _Location"
@@ -979,7 +967,7 @@ msgstr "プレイリストをシャッフルする(_S)"
 
 #: src/gui.c:6248
 msgid "_Loop Playlist"
-msgstr "プレイリストをループする(_L)"
+msgstr "プレイリストを繰り返す(_L)"
 
 #: src/gui.c:6253
 msgid "S_witch Audio Track"
@@ -1060,11 +1048,11 @@ msgstr "16:10 (_6)"
 
 #: src/gui.c:6356
 msgid "_Follow Window"
-msgstr "ウィンドウ幅に合わせる (_F)"
+msgstr "ウィンドウ幅に合わせる(_F) "
 
 #: src/gui.c:6363
 msgid "Show _Subtitles"
-msgstr "字幕を表示する(_S)"
+msgstr "字幕を表示する(_S) "
 
 #: src/gui.c:6366
 msgid "Decrease Subtitle Size"
@@ -1125,11 +1113,11 @@ msgstr "次"
 
 #: src/gui.c:6749
 msgid "Full Screen"
-msgstr "フルスクリーン"
+msgstr "全画面"
 
 #: src/gui.c:6791
 msgid "Volume 100%"
-msgstr "ボリューム 100%"
+msgstr "音量 100%"
 
 #: src/support.c:807 src/thread.c:221
 #, c-format
