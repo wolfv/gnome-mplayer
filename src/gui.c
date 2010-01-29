@@ -1190,6 +1190,7 @@ gboolean resize_window(void *data)
             last_window_height = 0;
             last_window_width = 0;
             g_idle_add(set_adjust_layout, NULL);
+			gtk_widget_set_size_request(media_label, 300, -1);
             // adjust_layout();
         }
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idle->videopresent);
@@ -1704,7 +1705,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     }
 
 	if (idledata->videopresent) {
-		gtk_widget_set_size_request(media_label, new_width * 0.8, -1);
+		gtk_widget_set_size_request(media_label, allocation->width * 0.8, -1);
 	} else {
 		gtk_widget_set_size_request(media_label, 300, -1);
 	}	
