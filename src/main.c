@@ -512,8 +512,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 
     lastfile = g_strdup(thread_data->filename);
 
-    last_x = 0;
-    last_y = 0;
+	last_x = 0;
+	last_y = 0;
     idledata->width = width;
     idledata->height = height;
     idledata->original_h = -1;
