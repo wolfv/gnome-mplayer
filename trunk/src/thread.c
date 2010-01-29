@@ -515,6 +515,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_stream_pos");
         sscanf(buf, "ANS_stream_pos=%li", &idledata->byte_pos);
         g_idle_add(set_progress_time, idledata);
+		lastguistate = STOPPED;
+		guistate = PLAYING;
+		g_idle_add(set_gui_state,NULL);
     }
 
     if (strstr(mplayer_output->str, "ANS_volume") != 0) {
@@ -1338,6 +1341,8 @@ gpointer launch_player(gpointer data)
 //        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
 
         //g_idle_add(set_play, NULL);
+		guistate = PLAYING;
+		g_idle_add(set_gui_state, NULL);
 #ifdef GLIB2_14_ENABLED
         g_timeout_add_seconds(1, thread_query, threaddata);
 #else
