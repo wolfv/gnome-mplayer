@@ -137,7 +137,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         if (verbose)
             printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
                    threaddata->filename);
-        g_free(threaddata);
+		if (threaddata != NULL)
+	        g_free(threaddata);
         threaddata = NULL;
         return FALSE;
     }
@@ -307,7 +308,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (verbose)
             printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
                    threaddata->filename);
-        g_free(threaddata);
+		if (threaddata != NULL)
+	        g_free(threaddata);
         threaddata = NULL;
         return FALSE;
     }
