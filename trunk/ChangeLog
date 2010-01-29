@@ -1,4 +1,5 @@
 Development
+	Fix media_label width, which playing audio only
 	Updated Polish translation
 	Use -playlist fallback when mplayer doesn't
 	Bump QuickTime emulation to 7.6.4
