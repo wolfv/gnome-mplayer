@@ -107,6 +107,8 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
         printf("thread complete\n");
     g_idle_add(set_stop, idledata);
     state = QUIT;
+	lastguistate = STOPPED;
+	g_idle_add(set_gui_state, NULL);
     g_source_remove(watch_in_id);
     g_source_remove(watch_err_id);
     g_cond_signal(mplayer_complete_cond);
