@@ -5,7 +5,7 @@
 #define ENABLE_NLS 1
 
 /* defined enable panscan functionality */
-/* #undef ENABLE_PANSCAN */
+#define ENABLE_PANSCAN 1
 
 /* GETTEXT package name */
 #define GETTEXT_PACKAGE "gnome-mplayer"
@@ -35,7 +35,7 @@
 #define HAVE_DCGETTEXT 1
 
 /* Define to 1 to use GConf to store preferences */
-#define HAVE_GCONF 1
+/* #undef HAVE_GCONF */
 
 /* Define if the GNU gettext() function is already present or preinstalled. */
 #define HAVE_GETTEXT 1
