@@ -662,12 +662,12 @@ ALSA_DEFINES
 ALSA_LIBS
 ALSA_CFLAGS
 GCONF_DEFINES
-GCONF_SCHEMAS_INSTALL_FALSE
-GCONF_SCHEMAS_INSTALL_TRUE
 GCONF_SCHEMA_FILE_DIR
 GCONF_SCHEMA_CONFIG_SOURCE
 GCONF_LIBS
 GCONF_CFLAGS
+GCONF_SCHEMAS_INSTALL_FALSE
+GCONF_SCHEMAS_INSTALL_TRUE
 XSCRNSAVER_LIBS
 XSCRNSAVER_CFLAGS
 DBUS_LIBS
@@ -9532,7 +9532,14 @@ fi
 
 # Check whether --with-gconf was given.
 if test "${with_gconf+set}" = set; then
-  withval=$with_gconf;
+  withval=$with_gconf;  if 1; then
+  GCONF_SCHEMAS_INSTALL_TRUE=
+  GCONF_SCHEMAS_INSTALL_FALSE='#'
+else
+  GCONF_SCHEMAS_INSTALL_TRUE='#'
+  GCONF_SCHEMAS_INSTALL_FALSE=
+fi
+
 else
   with_gconf=check
 fi
@@ -9595,10 +9602,24 @@ fi
 
 	{ $as_echo "$as_me:$LINENO: result: no" >&5
 $as_echo "no" >&6; }
-                { $as_echo "$as_me:$LINENO: Using keystore for preferences" >&5
+                 if 1; then
+  GCONF_SCHEMAS_INSTALL_TRUE=
+  GCONF_SCHEMAS_INSTALL_FALSE='#'
+else
+  GCONF_SCHEMAS_INSTALL_TRUE='#'
+  GCONF_SCHEMAS_INSTALL_FALSE=
+fi
+ { $as_echo "$as_me:$LINENO: Using keystore for preferences" >&5
 $as_echo "$as_me: Using keystore for preferences" >&6;}
 elif test $pkg_failed = untried; then
-	{ $as_echo "$as_me:$LINENO: Using keystore for preferences" >&5
+	 if 1; then
+  GCONF_SCHEMAS_INSTALL_TRUE=
+  GCONF_SCHEMAS_INSTALL_FALSE='#'
+else
+  GCONF_SCHEMAS_INSTALL_TRUE='#'
+  GCONF_SCHEMAS_INSTALL_FALSE=
+fi
+ { $as_echo "$as_me:$LINENO: Using keystore for preferences" >&5
 $as_echo "$as_me: Using keystore for preferences" >&6;}
 else
 	GCONF_CFLAGS=$pkg_cv_GCONF_CFLAGS
@@ -10608,6 +10629,27 @@ if test -z "${am__fastdepCXX_TRUE}" && test -z "${am__fastdepCXX_FALSE}"; then
   { { $as_echo "$as_me:$LINENO: error: conditional \"am__fastdepCXX\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
 $as_echo "$as_me: error: conditional \"am__fastdepCXX\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${GCONF_SCHEMAS_INSTALL_TRUE}" && test -z "${GCONF_SCHEMAS_INSTALL_FALSE}"; then
+  { { $as_echo "$as_me:$LINENO: error: conditional \"GCONF_SCHEMAS_INSTALL\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+$as_echo "$as_me: error: conditional \"GCONF_SCHEMAS_INSTALL\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${GCONF_SCHEMAS_INSTALL_TRUE}" && test -z "${GCONF_SCHEMAS_INSTALL_FALSE}"; then
+  { { $as_echo "$as_me:$LINENO: error: conditional \"GCONF_SCHEMAS_INSTALL\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+$as_echo "$as_me: error: conditional \"GCONF_SCHEMAS_INSTALL\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${GCONF_SCHEMAS_INSTALL_TRUE}" && test -z "${GCONF_SCHEMAS_INSTALL_FALSE}"; then
+  { { $as_echo "$as_me:$LINENO: error: conditional \"GCONF_SCHEMAS_INSTALL\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+$as_echo "$as_me: error: conditional \"GCONF_SCHEMAS_INSTALL\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
