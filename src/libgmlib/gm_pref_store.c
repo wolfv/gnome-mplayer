@@ -99,6 +99,10 @@ void gm_pref_store_free(GmPrefStore *store) {
 gboolean gm_pref_store_get_boolean(GmPrefStore *store, const gchar *key) {
 
 	gboolean value = FALSE;
+	
+	if (store == NULL)
+		return FALSE;
+		
 #ifdef HAVE_GCONF
 	gchar *full_key;
 	
@@ -106,10 +110,8 @@ gboolean gm_pref_store_get_boolean(GmPrefStore *store, const gchar *key) {
 	value = gconf_client_get_bool(store->gconf, full_key, NULL);
     g_free(full_key);
 #else
-	
 	if (g_key_file_has_key(store->keyfile,store->context,key,NULL))
 		value = g_key_file_get_boolean(store->keyfile,store->context,key,NULL);
-
 #endif	
 	return value;
 }
@@ -117,6 +119,10 @@ gboolean gm_pref_store_get_boolean(GmPrefStore *store, const gchar *key) {
 gboolean gm_pref_store_get_boolean_with_default(GmPrefStore *store, const gchar *key, gboolean default_value) {
 
 	gboolean value = FALSE;
+
+	if (store == NULL)
+		return default_value;
+		
 #ifdef HAVE_GCONF
 	
 	gchar *full_key;
@@ -146,6 +152,9 @@ gboolean gm_pref_store_get_boolean_with_default(GmPrefStore *store, const gchar 
 
 void gm_pref_store_set_boolean(GmPrefStore *store, const gchar *key, gboolean value) {
 
+	if (store == NULL)
+		return;
+
 #ifdef HAVE_GCONF
 	gchar *full_key;
 	
@@ -162,6 +171,10 @@ void gm_pref_store_set_boolean(GmPrefStore *store, const gchar *key, gboolean va
 gint gm_pref_store_get_int(GmPrefStore *store, const gchar *key) {
 
 	gint value = 0;
+	
+	if (store == NULL)
+		return value;
+	
 #ifdef HAVE_GCONF
 	gchar *full_key;
 	
@@ -180,6 +193,10 @@ gint gm_pref_store_get_int(GmPrefStore *store, const gchar *key) {
 gint gm_pref_store_get_int_with_default(GmPrefStore *store, const gchar *key, gint default_value) {
 
 	gint value = 0;
+
+	if (store == NULL)
+		return default_value;
+	
 #ifdef HAVE_GCONF
 
 	gchar *full_key;
@@ -211,6 +228,9 @@ gint gm_pref_store_get_int_with_default(GmPrefStore *store, const gchar *key, gi
 
 void gm_pref_store_set_int(GmPrefStore *store, const gchar *key, gint value) {
 
+	if (store == NULL)
+		return;
+
 #ifdef HAVE_GCONF
 	gchar *full_key;
 	
@@ -227,6 +247,10 @@ void gm_pref_store_set_int(GmPrefStore *store, const gchar *key, gint value) {
 gfloat gm_pref_store_get_float(GmPrefStore *store, const gchar *key) {
 
 	gfloat value = 0.0;
+
+	if (store == NULL)
+		return value;
+	
 #ifdef HAVE_GCONF
 	gchar *full_key;
 	
@@ -244,6 +268,9 @@ gfloat gm_pref_store_get_float(GmPrefStore *store, const gchar *key) {
 
 void gm_pref_store_set_float(GmPrefStore *store, const gchar *key, gfloat value) {
 
+	if (store == NULL)
+		return ;
+
 #ifdef HAVE_GCONF
 	gchar *full_key;
 	
@@ -260,6 +287,10 @@ void gm_pref_store_set_float(GmPrefStore *store, const gchar *key, gfloat value)
 gchar * gm_pref_store_get_string(GmPrefStore *store, const gchar *key) {
 
 	gchar * value = NULL;
+
+	if (store == NULL)
+		return value;
+	
 #ifdef HAVE_GCONF
 	gchar *full_key;
 	
@@ -276,6 +307,9 @@ gchar * gm_pref_store_get_string(GmPrefStore *store, const gchar *key) {
 }
 
 void gm_pref_store_set_string(GmPrefStore *store, const gchar *key, gchar * value) {
+
+	if (store == NULL)
+		return;
 
 #ifdef HAVE_GCONF
 	gchar *full_key;
@@ -295,6 +329,9 @@ void gm_pref_store_set_string(GmPrefStore *store, const gchar *key, gchar * valu
 }
 
 void gm_pref_store_unset(GmPrefStore *store, const gchar *key) {
+
+	if (store == NULL)
+		return;
 
 #ifdef HAVE_GCONF
 	gchar *full_key;

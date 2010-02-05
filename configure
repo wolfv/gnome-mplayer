@@ -10297,7 +10297,7 @@ if test x$CHECK_GPM = "xyes"; then
     if test -x `which gnome-power-manager`; then
             { $as_echo "$as_me:$LINENO: Checking for gnome-power-manager support" >&5
 $as_echo "$as_me: Checking for gnome-power-manager support" >&6;}
-            GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
+            GPMVER=`gnome-power-manager --version | sed -e 's/.* 2.//' | cut -b1-2`
             if test $GPMVER -ge 26; then
 
 cat >>confdefs.h <<\_ACEOF
