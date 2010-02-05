@@ -216,7 +216,7 @@ AC_ARG_WITH([gpm-old-method],
 if test x$CHECK_GPM = "xyes"; then
     if test -x `which gnome-power-manager`; then
             AC_MSG_NOTICE([Checking for gnome-power-manager support])
-            GPMVER=`gnome-power-manager --version | sed -e 's/Version 2.//' | cut -b1-2`
+            GPMVER=`gnome-power-manager --version | sed -e 's/.* 2.//' | cut -b1-2`
             if test $GPMVER -ge 26; then
                 AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
             fi

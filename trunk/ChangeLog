@@ -1,4 +1,6 @@
 Development
+	Account for store == NULL case
+	Minor change to gnome-power-manager detection
 	Source in gconf .m4 files only when we are using gconf
 	Fix initial state of play/pause especially when playing shoutcast playlist
 	Fix media_label width, which playing audio only
