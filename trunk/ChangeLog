@@ -1,4 +1,7 @@
 Development
+	Fix problem problem with shoutcast playlists not autostarting
+	Fix warning about invalid list iter
+0.9.9
 	Fix --without-gconf case in configure
 	Account for store == NULL case
 	Minor change to gnome-power-manager detection

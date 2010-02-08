@@ -103,10 +103,16 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0) {
+							if (verbose)
+								printf("opening %s\n", s);
                             if ((strcmp(rpconsole, "NONE") == 0 || control_instance == FALSE) && s != NULL) {
                                 g_idle_add(clear_playlist_and_play, g_strdup(s));
                             }
-                        }
+                        } else {
+							if (verbose) {
+								printf("Open requested, but value is blank\n");
+							}
+						}
 
                     } else {
                         dbus_error_free(&error);
