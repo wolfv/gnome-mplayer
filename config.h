@@ -5,7 +5,7 @@
 #define ENABLE_NLS 1
 
 /* defined enable panscan functionality */
-#define ENABLE_PANSCAN 1
+/* #undef ENABLE_PANSCAN */
 
 /* GETTEXT package name */
 #define GETTEXT_PACKAGE "gnome-mplayer"
@@ -35,7 +35,7 @@
 #define HAVE_DCGETTEXT 1
 
 /* Define to 1 to use GConf to store preferences */
-/* #undef HAVE_GCONF */
+#define HAVE_GCONF 1
 
 /* Define if the GNU gettext() function is already present or preinstalled. */
 #define HAVE_GETTEXT 1
@@ -116,7 +116,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "0.9.9"
+#define VERSION "0.9.9.1"
 
 /* When defined we have direct XScrnSaver control */
 #define XSCRNSAVER_ENABLED 1

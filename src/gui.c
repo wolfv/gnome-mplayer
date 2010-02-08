@@ -70,7 +70,7 @@ gboolean add_to_playlist_and_play(gpointer data)
 		}
 		g_free(buf);
 	}
-    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
+    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1 || !gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
 			dontplaynext = TRUE;
             play_iter(&iter, 0);
@@ -349,13 +349,15 @@ gboolean set_media_info(void *data)
         name = g_strdup(idle->display_name);
 
         total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-        path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-        if (path != NULL) {
-            buf = gtk_tree_path_to_string(path);
-            current = (gint) g_strtod(buf, NULL);
-            g_free(buf);
-            gtk_tree_path_free(path);
-        }
+		if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+		    path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+		    if (path != NULL) {
+		        buf = gtk_tree_path_to_string(path);
+		        current = (gint) g_strtod(buf, NULL);
+		        g_free(buf);
+		        gtk_tree_path_free(path);
+		    }
+		}
         if (total > 1) {
             buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
         } else {
@@ -2535,7 +2537,8 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 	if (GTK_WIDGET_VISIBLE(menu_file)
 		|| GTK_WIDGET_VISIBLE(menu_edit)
 		|| GTK_WIDGET_VISIBLE(menu_view)
-		|| GTK_WIDGET_VISIBLE(menu_help)) {
+		|| GTK_WIDGET_VISIBLE(menu_help)
+	    || gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list))) {
 			
 		gdk_window_set_cursor(window->window, NULL);
 			
