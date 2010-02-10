@@ -55,6 +55,14 @@ static void gmtk_media_tracker_class_init(GmtkMediaTrackerClass * class)
 				  gtk_marshal_VOID__INT,
 				  G_TYPE_NONE, 1, G_TYPE_INT);
 
+	g_signal_new ("difference-changed",
+				  G_OBJECT_CLASS_TYPE (object_class),
+				  G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+				  G_STRUCT_OFFSET (GmtkMediaTrackerClass, difference_changed),
+				  NULL, NULL,
+				  g_cclosure_marshal_VOID__DOUBLE,
+				  G_TYPE_NONE, 1, G_TYPE_DOUBLE);
+	
 }
 
 static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
@@ -140,13 +148,18 @@ static gboolean gmtk_media_tracker_button_press(GtkWidget * tracker, GdkEventBut
 static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventButton * event)
 {
 	gdouble position;
+	gdouble difference;
 	
 	if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
 		position = (gdouble)event->x / tracker->allocation.width;
 		gtk_range_set_value(GTK_RANGE(GMTK_MEDIA_TRACKER(tracker)->scale),position);
 		g_signal_emit_by_name(tracker,"value-changed", (gint)(100 * position));
-		GMTK_MEDIA_TRACKER(tracker)->mouse_down = FALSE;
 
+		difference = (GMTK_MEDIA_TRACKER(tracker)->length * position) - GMTK_MEDIA_TRACKER(tracker)->position;
+		g_signal_emit_by_name(tracker,"difference-changed", difference);
+
+		GMTK_MEDIA_TRACKER(tracker)->mouse_down = FALSE;
+		
 		if (GMTK_MEDIA_TRACKER(tracker)->length > 0.0) {
 			gmtk_media_tracker_set_position(GMTK_MEDIA_TRACKER(tracker), GMTK_MEDIA_TRACKER(tracker)->length * position);
 		}
@@ -158,10 +171,17 @@ static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventB
 static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMotion * event)
 {
 	gchar *tip;
-	
+	gdouble position;
+	gdouble difference;
+
+	position = (gdouble)event->x / tracker->allocation.width;
 	if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
-		gtk_range_set_value(GTK_RANGE(GMTK_MEDIA_TRACKER(tracker)->scale),(gdouble)event->x / tracker->allocation.width);
-		g_signal_emit_by_name(tracker,"value-changed", (gint)(100 * (gdouble)event->x / tracker->allocation.width));
+		gtk_range_set_value(GTK_RANGE(GMTK_MEDIA_TRACKER(tracker)->scale), position);
+		g_signal_emit_by_name(tracker,"value-changed", (gint)(100 * position));
+		difference = (GMTK_MEDIA_TRACKER(tracker)->length * position) - GMTK_MEDIA_TRACKER(tracker)->position;
+		if (ABS(position) > 15)
+		    g_signal_emit_by_name(tracker,"difference-changed", difference);
+		    
 	} else {
 		if (GMTK_MEDIA_TRACKER(tracker)->length > 0.0) {
 			tip = gm_seconds_to_string(GMTK_MEDIA_TRACKER(tracker)->length * ((gdouble)event->x / tracker->allocation.width));

@@ -5688,7 +5688,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #endif
 }
 
-gboolean tracker_callback(GtkWidget * widget, int percent, void *data)
+gboolean tracker_callback(GtkWidget * widget, gint percent, void *data)
 {
     gchar *cmd;
 
@@ -5696,6 +5696,32 @@ gboolean tracker_callback(GtkWidget * widget, int percent, void *data)
         if (!autopause) {
             if (state != STOPPED) {
                 cmd = g_strdup_printf("seek %i 1\n", percent);
+                send_command(cmd, TRUE);
+                /*if (state == PAUSED) {
+                   send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                   send_command("mute 0\n", TRUE);
+                   idledata->position = idledata->length * percent;
+                   gmtk_media_tracker_set_percentage(tracker, percent);
+                   } */
+                g_free(cmd);
+            }
+        }
+    }
+
+    return FALSE;
+}
+
+gboolean tracker_difference_callback(GtkWidget * widget, gdouble difference, void *data)
+{
+    gchar *cmd;
+
+    if (!idledata->streaming) {
+        if (!autopause) {
+            if (state != STOPPED) {
+				if (difference > 0)
+	                cmd = g_strdup_printf("seek +%f 0\n", difference);
+				else
+	                cmd = g_strdup_printf("seek %f 0\n", difference);
                 send_command(cmd, TRUE);
                 /*if (state == PAUSED) {
                    send_command("mute 1\nseek 0 0\npause\n", FALSE);
@@ -6746,7 +6772,8 @@ GtkWidget *create_window(gint windowid)
     // progress bar
     tracker = GMTK_MEDIA_TRACKER(gmtk_media_tracker_new());
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(tracker), TRUE, TRUE, 2);
-    g_signal_connect(G_OBJECT(tracker), "value-changed", G_CALLBACK(tracker_callback), NULL);
+    // g_signal_connect(G_OBJECT(tracker), "value-changed", G_CALLBACK(tracker_callback), NULL);
+    g_signal_connect(G_OBJECT(tracker), "difference-changed", G_CALLBACK(tracker_difference_callback), NULL);
     g_signal_connect(G_OBJECT(tracker), "button_press_event", G_CALLBACK(progress_callback), NULL);
     gtk_widget_show(GTK_WIDGET(tracker));
 

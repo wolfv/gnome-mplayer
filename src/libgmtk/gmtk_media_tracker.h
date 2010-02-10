@@ -79,7 +79,7 @@ struct _GmtkMediaTracker {
 struct _GmtkMediaTrackerClass {
     GtkVBoxClass parent_class;
 	void (* value_changed)  (GmtkMediaTracker *tracker);
-
+	void (* difference_changed) (GmtkMediaTracker *tracker);
 };
 
 GType gmtk_media_tracker_get_type(void);
