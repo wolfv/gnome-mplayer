@@ -3116,6 +3116,7 @@ gboolean detect_volume_option()
     av[ac++] = g_strdup_printf("-volume");
     av[ac++] = g_strdup_printf("100");
     av[ac++] = g_strdup_printf("-noidle");
+    av[ac++] = g_strdup_printf("-softvol");
     av[ac] = NULL;
 
     error = NULL;
