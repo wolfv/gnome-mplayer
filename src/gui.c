@@ -7037,8 +7037,10 @@ gboolean update_audio_meter(gpointer data)
     gfloat f;
     gint max;
     gfloat freq;
+	gfloat lsb16, rsb16;
     Export *export;
     gint bucketid;
+	static gint update_counter = 0;
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter)))
         return TRUE;
@@ -7070,30 +7072,54 @@ gboolean update_audio_meter(gpointer data)
         if (export != NULL) {
             for (i = 0; export != NULL && i < 512; i++) {
                 freq = 0;
-                for (j = 0; j < export->nch; j++) {
-                    // scale SB16 data to 0 - 22000 range, believe this is Hz now
-                    freq += (export->payload[j][i]) * 22000 / (32768 * export->nch);
-                }
-                // ignore values below 20, as this is unhearable and may skew data
-                if (freq > 20) {
-                    bucketid = (gint) (freq / (gfloat) (22000.0 / (gfloat) METER_BARS));
-                    if (bucketid >= METER_BARS) {
-                        printf("bucketid = %i freq = %f\n", bucketid, freq);
-                        bucketid = METER_BARS - 1;
-                    }
-                    buckets[bucketid]++;
-                }
-            }
+
+				// this is an testing meter for two channel
+				if (0 /* export->nch == 2 */) {
+						lsb16 = export->payload[0][i];
+						rsb16 = export->payload[1][i];
+
+						bucketid = (lsb16 / (22000.0 / (gfloat)(METER_BARS / 2)));
+						buckets[(METER_BARS / 2 ) - bucketid]++;
+						bucketid = (rsb16 / (22000.0 / (gfloat)(METER_BARS / 2)));
+						buckets[(METER_BARS /2 ) + bucketid]++;
+				} else {
+			        for (j = 0; j < export->nch; j++) {
+			            // scale SB16 data to 0 - 22000 range, believe this is Hz now
+			            freq += (export->payload[j][i]) * 22000 / (32768 * export->nch);
+			        }
+			        // ignore values below 20, as this is unaudible and may skew data
+			        if (freq > (22000.0 / METER_BARS)) {
+			            bucketid = (gint) (freq / (gfloat) (22000.0 / (gfloat) METER_BARS)) - 1;
+			            if (bucketid >= METER_BARS) {
+			                printf("bucketid = %i freq = %f\n", bucketid, freq);
+			                bucketid = METER_BARS - 1;
+			            }
+			            buckets[bucketid]++;
+			        }
+				}
+			}
             // g_free(export);
         }
         reading_af_export = FALSE;
 
         max = 0;
+		update_counter++;
         for (i = 0; i < METER_BARS; i++) {
-            if (buckets[i] > max_buckets[i])
+            if (buckets[i] > max_buckets[i]) {
                 max_buckets[i] = buckets[i];
+			} else {
+				// raise this value for slower melting of max
+				if (update_counter % 1 == 0) {
+					update_counter = 0;
+					max_buckets[i]--;
+					if (max_buckets[i] < 0)
+						max_buckets[i] = 0;
+				}
+			}
+			
             if (max_buckets[i] > max)
                 max = max_buckets[i];
+
         }
 
         for (i = 0; i < METER_BARS; i++) {
