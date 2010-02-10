@@ -280,7 +280,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     GString *mplayer_output;
     GIOStatus status;
-    gchar *buf, *message = NULL;
+    gchar *buf, *message = NULL, *icy = NULL;
     gchar *cmd;
     gint pos, i;
 	gfloat vol;
@@ -291,6 +291,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gdouble old_pos;
     LangMenu *menu;
     ThreadData *threaddata = (ThreadData *) data;
+	MetaData *metadata;
 
     if (source == NULL) {
         g_source_remove(watch_err_id);
@@ -781,6 +782,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             g_strlcpy(idledata->media_info, message, 1024);
             g_free(message);
             message = g_markup_printf_escaped("\n\t<b>%s</b>\n", buf + 1);
+			icy = g_strdup(buf + 1);
+			if ((buf = strstr(icy, " - ")) != NULL) {
+				metadata = (MetaData *) g_new0(MetaData, 1);
+				metadata->title = g_strdup(buf + 3);
+				buf[0] = '\0';
+				metadata->artist = g_strdup(icy);
+				g_thread_create(get_cover_art,metadata, FALSE, NULL);
+			}
+			g_free(icy);
             g_strlcpy(idledata->media_notification, message, 1024);
             g_free(message);
             message = NULL;
