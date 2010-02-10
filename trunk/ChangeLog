@@ -1,4 +1,5 @@
 Development
+	Use patch by Fabio Scavone as a model to implement more accurate seeking from tracker
 	Fix .spec.in file to account for new gnome-mplayer.xml file
 	Fix problem problem with shoutcast playlists not autostarting
 	Fix warning about invalid list iter
