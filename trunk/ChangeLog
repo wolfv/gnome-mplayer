@@ -1,4 +1,6 @@
 Development
+	Return true in detect playlist on a uri with .m3u in the uri
+	Add -softvol option to -volume detect code to keep from altering master volume
 	Add album art lookup for some shoutcast stations
 	Add melting of max values to audio meter
 	Use patch by Fabio Scavone as a model to implement more accurate seeking from tracker
