@@ -71,6 +71,8 @@ gint detect_playlist(gchar * uri)
 		} else {
 	        playlist = 1;
 		}
+    } else if (g_strrstr(uri,".m3u") != NULL) {
+		playlist = 1;
     } else if (device_name(uri)) {
         playlist = 0;
     } else {
