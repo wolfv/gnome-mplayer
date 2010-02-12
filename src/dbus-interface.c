@@ -68,6 +68,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
     gchar *xml_string;
     gint source_id;
     gint bitrate;
+	ButtonDef *b;
 
     message_type = dbus_message_get_type(message);
     sender = dbus_message_get_sender(message);
@@ -140,7 +141,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s,
                                               DBUS_TYPE_STRING, &hrefid, DBUS_TYPE_INVALID)) {
-                        make_button(s, g_strdup(hrefid));
+						b = (ButtonDef *)g_new0(ButtonDef,1);
+						b->uri = g_strdup(s);
+						b->hrefid = g_strdup(hrefid);						  
+                        g_idle_add(idle_make_button,b);
                     } else {
                         dbus_error_free(&error);
                     }
@@ -505,7 +509,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->url, s, 1024);
-                        show_copyurl(idledata);
+                        g_idle_add(show_copyurl,idledata);
                     } else {
                         dbus_error_free(&error);
                     }
@@ -532,7 +536,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_INT32, &window_x, DBUS_TYPE_INT32, &window_y,
                          DBUS_TYPE_INVALID)) {
-                        g_idle_add(resize_window, idledata);
+						if (window_x > 0 && window_y > 0);
+	                        g_idle_add(resize_window, idledata);
                     } else {
                         dbus_error_free(&error);
                     }

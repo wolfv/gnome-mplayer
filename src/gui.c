@@ -165,7 +165,8 @@ void adjust_layout()
 		if (playlist_visible && !vertical_layout) {
 			total_width = gtk_paned_get_position(GTK_PANED(pane));
 		} else {
-			total_width = controls_box->requisition.width;
+			if (showcontrols)
+				total_width = controls_box->requisition.width;
 		}
 	}
 
@@ -238,7 +239,8 @@ void adjust_layout()
         if (!idledata->videopresent) {
             gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
             gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
-        }
+        } 
+
         gtk_paned_set_position(GTK_PANED(pane), -1);
         gtk_widget_hide_all(plvbox);
     }
@@ -253,6 +255,10 @@ void adjust_layout()
     if (showcontrols) {
         total_height += controls_box->allocation.height;
     }
+
+	if (non_fs_height > 32 && non_fs_width > 32)  {
+		gtk_widget_modify_bg(drawing_area, GTK_STATE_NORMAL, &(window->style->black));
+	}
     //printf("controls = %i\n",menubar->allocation.height + controls_box->allocation.height);
     // printf("totals = %i x %i\n",total_width,total_height);
 
@@ -326,10 +332,12 @@ gboolean show_copyurl(void *data)
     gchar *buf;
 
     gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
-    buf = g_strdup_printf(_("%s - GNOME MPlayer"), idle->url);
-    gtk_window_set_title(GTK_WINDOW(window), buf);
-    g_free(buf);
-
+	if (control_id == 0) {
+		buf = g_strdup_printf(_("%s - GNOME MPlayer"), idle->url);
+		gtk_window_set_title(GTK_WINDOW(window), buf);
+		g_free(buf);
+	}
+	
     return FALSE;
 
 }
@@ -1180,6 +1188,8 @@ gboolean resize_window(void *data)
             }
         } else {
             // audio only file
+			gtk_widget_modify_bg(drawing_area, GTK_STATE_NORMAL, &(window->style->bg[0]));
+
 			g_value_set_boolean(&resize_value, FALSE);
 			gtk_container_child_set_property(GTK_CONTAINER(pane),vbox,"resize",&resize_value);
             gtk_widget_hide(fixed);
@@ -1699,9 +1709,11 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
         idledata->x = 0;        // (allocation->width - new_width) / 2;
         idledata->y = 0;        // (allocation->height - new_height) / 2;
 #else
-        gtk_widget_set_size_request(drawing_area, new_width, new_height);
-        idledata->x = (allocation->width - new_width) / 2;
-        idledata->y = (allocation->height - new_height) / 2;
+		if (new_height > 0 && new_width > 0) {
+		    gtk_widget_set_size_request(drawing_area, new_width, new_height);
+		    idledata->x = (allocation->width - new_width) / 2;
+		    idledata->y = (allocation->height - new_height) / 2;
+		}
 #endif
         g_idle_add(move_window, idledata);
     }
@@ -2481,6 +2493,9 @@ void vol_button_value_changed_callback(GtkScaleButton * volume, gdouble value, g
 
 gboolean slide_panel_away(gpointer data)
 {
+	if (!showcontrols)
+		return FALSE;
+	
     if (!(fullscreen || always_hide_after_timeout)) {
         gtk_widget_set_size_request(controls_box, -1, -1);
         return FALSE;
@@ -5778,9 +5793,22 @@ gboolean load_href_callback(GtkWidget * widget, GdkEventExpose * event, gchar * 
 
 }
 
+gboolean idle_make_button(gpointer data)
+{
+	ButtonDef *b = (ButtonDef *)data;
+
+	if (b != NULL) {
+		make_button(b->uri, b->hrefid);
+		g_free(b->uri);
+		g_free(b->hrefid);
+		g_free(b);
+	}
+		
+	return FALSE;
+}
+
 void make_button(gchar * src, gchar * hrefid)
 {
-
     GError *error;
     gchar *dirname = NULL;
     gchar *filename = NULL;
@@ -5791,7 +5819,9 @@ void make_button(gchar * src, gchar * hrefid)
     gchar *av[255];
     gint ac = 0;
 
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), FALSE);
+	idledata->showcontrols = FALSE;
+	showcontrols = FALSE;
+	set_show_controls(idledata);
 
     error = NULL;
     // only try if src ne NULL
@@ -5837,20 +5867,10 @@ void make_button(gchar * src, gchar * hrefid)
         if (g_file_test(filename, G_FILE_TEST_EXISTS)) {
             pb_button = gdk_pixbuf_new_from_file(filename, &error);
             if (error != NULL) {
+				printf("make_button error: %s\n",error->message);
                 g_error_free(error);
                 error = NULL;
             }
-        }
-
-        if (filename != NULL) {
-            if (g_file_test(filename, G_FILE_TEST_EXISTS))
-                g_remove(filename);
-            g_free(filename);
-        }
-
-        if (dirname != NULL) {
-            g_remove(dirname);
-            g_free(dirname);
         }
 
         if (err != NULL)
@@ -5861,16 +5881,17 @@ void make_button(gchar * src, gchar * hrefid)
     }
 
     if (pb_button != NULL && GDK_IS_PIXBUF(pb_button)) {
-
         button_event_box = gtk_event_box_new();
         image_button = gtk_image_new_from_pixbuf(pb_button);
         gtk_container_add(GTK_CONTAINER(button_event_box), image_button);
         gtk_box_pack_start(GTK_BOX(vbox), button_event_box, FALSE, FALSE, 0);
-
         g_signal_connect(G_OBJECT(button_event_box), "button_press_event",
-                         G_CALLBACK(load_href_callback), hrefid);
+                         G_CALLBACK(load_href_callback), g_strdup(hrefid));
+		gtk_widget_set_size_request(GTK_WIDGET(button_event_box), window_x, window_y);
         gtk_widget_show_all(button_event_box);
-
+		gtk_widget_set_size_request(controls_box,0,0);
+		gtk_widget_hide(controls_box);
+		gtk_widget_show(vbox);
     } else {
         if (verbose)
             printf("unable to make button from media, using default\n");
@@ -5880,10 +5901,23 @@ void make_button(gchar * src, gchar * hrefid)
         gtk_box_pack_start(GTK_BOX(vbox), button_event_box, FALSE, FALSE, 0);
 
         g_signal_connect(G_OBJECT(button_event_box), "button_press_event",
-                         G_CALLBACK(load_href_callback), hrefid);
+                         G_CALLBACK(load_href_callback), g_strdup(hrefid));
         gtk_widget_show_all(button_event_box);
+		gtk_widget_set_size_request(controls_box,0,0);
+		gtk_widget_hide(controls_box);
+		gtk_widget_show(vbox);
     }
 
+    if (filename != NULL) {
+        if (g_file_test(filename, G_FILE_TEST_EXISTS))
+            g_remove(filename);
+        g_free(filename);
+    }
+
+    if (dirname != NULL) {
+        g_remove(dirname);
+        g_free(dirname);
+    }
 
 }
 
@@ -6508,7 +6542,6 @@ GtkWidget *create_window(gint windowid)
     fixed = gtk_fixed_new();
     drawing_area = gtk_socket_new();
     g_signal_connect(drawing_area, "realize", G_CALLBACK(drawing_area_realized), NULL);
-	gtk_widget_modify_bg(drawing_area, GTK_STATE_NORMAL, &(drawing_area->style->black));
 	
     cover_art = gtk_image_new();
     media_label = gtk_label_new("");
@@ -6836,7 +6869,6 @@ GtkWidget *create_window(gint windowid)
 
 void show_window(gint windowid)
 {
-
     gint i;
     gchar **visuals;
 

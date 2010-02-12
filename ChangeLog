@@ -1,4 +1,6 @@
 Development
+	Fix set_size_request warning
+	Put make_button processing into the idle loop and ensure the button is always visible
 	Return true in detect playlist on a uri with .m3u in the uri
 	Add -softvol option to -volume detect code to keep from altering master volume
 	Add album art lookup for some shoutcast stations
