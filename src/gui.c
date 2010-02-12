@@ -1980,6 +1980,10 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_numbersign:
             send_command("switch_audio\n", TRUE);
             return FALSE;
+        case GDK_period:
+			if (state == PAUSED)
+	            send_command("frame_step\n", FALSE);
+            return FALSE;
         case GDK_j:
             send_command("sub_select\n", TRUE);
             send_command("get_property sub_demux\n", TRUE);

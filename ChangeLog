@@ -1,4 +1,5 @@
 Development
+	Map "." to frame step, no backward step due to mplayer limitation
 	Fix set_size_request warning
 	Put make_button processing into the idle loop and ensure the button is always visible
 	Return true in detect playlist on a uri with .m3u in the uri
