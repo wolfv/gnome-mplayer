@@ -274,6 +274,11 @@ typedef struct _Export {
     gint16 payload[7][512];
 } Export;
 
+typedef struct _ButtonDef {
+	gchar *uri;
+	gchar *hrefid;
+} ButtonDef;
+
 #define METER_BARS 		44
 gint buckets[METER_BARS];
 gint max_buckets[METER_BARS];
@@ -486,6 +491,7 @@ void remove_langs(GtkWidget * item, gpointer data);
 gboolean set_new_lang_menu(gpointer data);
 gboolean set_new_audio_menu(gpointer data);
 gboolean make_panel_and_mouse_invisible(gpointer data);
+gboolean idle_make_button(gpointer data);
 void make_button(gchar * src, gchar * href);
 void dbus_open_by_hrefid(gchar * hrefid);
 void dbus_open_next();
