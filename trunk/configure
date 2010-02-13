@@ -9532,7 +9532,7 @@ fi
 
 # Check whether --with-gconf was given.
 if test "${with_gconf+set}" = set; then
-  withval=$with_gconf;  if 1; then
+  withval=$with_gconf;  if false; then
   GCONF_SCHEMAS_INSTALL_TRUE=
   GCONF_SCHEMAS_INSTALL_FALSE='#'
 else
@@ -9602,7 +9602,7 @@ fi
 
 	{ $as_echo "$as_me:$LINENO: result: no" >&5
 $as_echo "no" >&6; }
-                 if 1; then
+                 if false; then
   GCONF_SCHEMAS_INSTALL_TRUE=
   GCONF_SCHEMAS_INSTALL_FALSE='#'
 else
@@ -9612,7 +9612,7 @@ fi
  { $as_echo "$as_me:$LINENO: Using keystore for preferences" >&5
 $as_echo "$as_me: Using keystore for preferences" >&6;}
 elif test $pkg_failed = untried; then
-	 if 1; then
+	 if false; then
   GCONF_SCHEMAS_INSTALL_TRUE=
   GCONF_SCHEMAS_INSTALL_FALSE='#'
 else
