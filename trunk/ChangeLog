@@ -1,4 +1,5 @@
 Development
+	Fix fullscreen video size when in plugin mode
 	Map "." to frame step, no backward step due to mplayer limitation
 	Fix set_size_request warning
 	Put make_button processing into the idle loop and ensure the button is always visible

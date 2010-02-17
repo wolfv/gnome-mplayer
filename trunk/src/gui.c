@@ -3615,6 +3615,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_widget_add_events(fs_window, GDK_POINTER_MOTION_MASK);
             g_signal_connect(GTK_OBJECT(fs_window), "key_press_event",
                              G_CALLBACK(window_key_callback), NULL);
+			g_signal_connect(GTK_OBJECT(fs_window), "motion_notify_event", G_CALLBACK(motion_notify_callback),
+                 			 NULL);
 
             screen = gtk_window_get_screen(GTK_WINDOW(window));
             gtk_window_set_screen(GTK_WINDOW(fs_window), screen);
@@ -3671,7 +3673,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_fullscreen(GTK_WINDOW(window));
         }
         motion_notify_callback(NULL, NULL, NULL);
-        g_idle_add(set_adjust_layout, NULL);
+		if (embed_window == 0)
+    		g_idle_add(set_adjust_layout, NULL);
         //adjust_layout();
     }
 #ifdef ENABLE_PANSCAN
