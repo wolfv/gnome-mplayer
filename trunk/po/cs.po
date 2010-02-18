@@ -1,14 +1,14 @@
 # Czech translation of gnome-mplaer.
 # Copyright (C) 2009 gnome-mplayer authors
 # This file is distributed under the same license as the gnome-mplayer package.
-# Petr Pisar <petr.pisar@atlas.cz>, 2009.
+# Petr Pisar <petr.pisar@atlas.cz>, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-mplayer r1568\n"
+"Project-Id-Version: gnome-mplayer r1642\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-10 06:40-0700\n"
-"PO-Revision-Date: 2009-09-30 11:06+0200\n"
+"PO-Revision-Date: 2010-02-11 10:01+0100\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -54,13 +54,16 @@ msgstr "Použít softwarové ovládání hlasitosti mplayeru"
 
 #: src/main.c:62
 msgid "When set to TRUE the last volume level is set as the default"
-msgstr ""
+msgstr "Je-li nastaveno na TRUE (pravda), bude poslední míra hlasitosti "
+"použita jako výchozí hodnota"
 
 #: src/main.c:63
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
 msgstr ""
+"Poslední úroveň softwarové hlasitosti – použije se, jen když je "
+"remember_softvol nastaveno na TRUE (pravda)"
 
 #: src/main.c:64
 msgid "Mixer to use"
@@ -765,7 +768,7 @@ msgstr "Zobrazovat stavovou ikonu"
 
 #: src/gui.c:5426
 msgid "Use X Screen Saver control over Gnome Power Manager"
-msgstr ""
+msgstr "Použít ovládání X Screen Saveru místo Správce napájení Gnome"
 
 #: src/gui.c:5434
 msgid "Place playlist below media (requires application restart)"
@@ -832,17 +835,17 @@ msgstr ""
 "hlasitost"
 
 #: src/gui.c:5550
-#, fuzzy
 msgid "Remember last software volume level"
-msgstr "Použít softwarové ovládání hlasitosti mplayeru"
+msgstr "Zapamatovat si poslední úroveň softwarové hlasitosti"
 
 #: src/gui.c:5554
 msgid "Set this option if you want the software volume level to be remembered"
-msgstr ""
+msgstr "Použijte tuto volbu, pokud chcete, aby si program pamatoval úroveň "
+"softwarově ovládané hlasitosti"
 
 #: src/gui.c:5564
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr ""
+msgstr "Zesílení přehrávání (−200 dB až +60 dB)"
 
 #: src/gui.c:5578
 msgid "De_interlace Video"
@@ -891,7 +894,7 @@ msgstr "Další volby MPlayeru zadávejte sem (filtry atd.)"
 
 #: src/gui.c:5668
 msgid "MPlayer Default Optical Device"
-msgstr ""
+msgstr "Výchozí optické zařízení MPlayeru"
 
 #: src/gui.c:6035
 msgid "S_how Controls"
@@ -911,9 +914,8 @@ msgid "_File"
 msgstr "_Soubor"
 
 #: src/gui.c:6124
-#, fuzzy
 msgid "Open _Folder"
-msgstr "Otevřít soubor"
+msgstr "Otevřít _složku"
 
 #: src/gui.c:6127
 msgid "Open _Location"
