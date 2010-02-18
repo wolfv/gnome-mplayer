@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-10 06:40-0700\n"
-"PO-Revision-Date: 2009-08-16 16:14+0000\n"
-"Last-Translator: MixCool <lars.thoms@mixcool.de>\n"
-"Language-Team: tim__b <info@yaub.haut.indy-fresse.de>, Wolfgang Knauf <his-"
-"metality@freenet.de>\n"
+"PO-Revision-Date: 2010-02-18 23:22+0000\n"
+"Last-Translator: tim__b <timbuening@uni-muenster.de>\n"
+"Language-Team: tim__b <timbuening@uni-muenster.de>, Wolfgang Knauf <his-"
+"metality@freenet.de>, MixCool <lars.thoms@mixcool.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,13 +58,13 @@ msgstr "Benutze die Software-Lautstärkeregelung des mplayer"
 
 #: src/main.c:62
 msgid "When set to TRUE the last volume level is set as the default"
-msgstr ""
+msgstr "Die zuletzte gesetzte Lautstärke als Standard übernehmen"
 
 #: src/main.c:63
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
-msgstr ""
+msgstr "Die zuletzte gesetzte Lautstärke prozentual speichern."
 
 #: src/main.c:64
 msgid "Mixer to use"
@@ -115,11 +115,11 @@ msgstr "Setze die Größe des Zwischenspeichers"
 
 #: src/main.c:83
 msgid "Start Second (default to 0)"
-msgstr ""
+msgstr "Starsekunde (Standard: 0)"
 
 #: src/main.c:86
 msgid "Length of media to play from start second"
-msgstr ""
+msgstr "Länge des Mediums ab der Startsekunde"
 
 #: src/main.c:88
 msgid "Force cache usage on streaming sites"
@@ -171,7 +171,7 @@ msgstr "Untertiteldatei für die erste Datei"
 
 #: src/main.c:114
 msgid "TV device name"
-msgstr "Name des TV-Gerätes"
+msgstr "Name des TV-Adapters"
 
 #: src/main.c:115
 msgid "TV driver name (v4l|v4l2)"
@@ -199,7 +199,7 @@ msgstr "Erlaube nur eine Instanz"
 
 #: src/main.c:123
 msgid "Put single instance mode into replace and play mode"
-msgstr ""
+msgstr "Ersetze die Wiedergabeliste im Eine-Instanz-Modus"
 
 #: src/main.c:126
 msgid "Use large control buttons"
@@ -551,7 +551,7 @@ msgstr ""
 
 #: src/gui.c:4776
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr ""
+msgstr "AC3/DTS direkt zum S/PDIF Ausgang durchleiten"
 
 #: src/gui.c:4840
 msgid ""
@@ -560,8 +560,8 @@ msgid ""
 "newer distributions"
 msgstr ""
 "mplayer-Audio-Ausgabegerät\n"
-"alsa oder oss sollten immer funktionieren, versuche esd in GNOME, arts in "
-"KDE oder pulse bei neueren Distributionen"
+"ALSA oder OSS sollten immer funktionieren, versuche ESD Audio in GNOME, ARTS in "
+"KDE oder PULSE bei neueren Distributionen"
 
 #: src/gui.c:4984
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -722,7 +722,7 @@ msgstr "Zeichensatz der Untertitel-Datei"
 
 #: src/gui.c:5355
 msgid "Subtitle Lower Margin (X11/XV Only):"
-msgstr ""
+msgstr "Unterer Rand der Untertitel (nur X11/XV)"
 
 #: src/gui.c:5368
 msgid "Show Subtitles by Default"
@@ -738,7 +738,7 @@ msgstr "Starte mit geöffneter Wiedergabeliste"
 
 #: src/gui.c:5398
 msgid "Respond to Keyboard Media Keys"
-msgstr ""
+msgstr "Multimediatasten der Tastatur benutzen"
 
 #: src/gui.c:5404
 msgid "Use default playlist"
@@ -754,7 +754,7 @@ msgstr "Zeige Status-Icon"
 
 #: src/gui.c:5426
 msgid "Use X Screen Saver control over Gnome Power Manager"
-msgstr ""
+msgstr "Bildschirmschonerkontrolle über die GNOME Energieverwaltung"
 
 #: src/gui.c:5434
 msgid "Place playlist below media (requires application restart)"
@@ -833,11 +833,11 @@ msgstr "Benutze die Software-Lautstärkeregelung des mplayer"
 
 #: src/gui.c:5554
 msgid "Set this option if you want the software volume level to be remembered"
-msgstr ""
+msgstr "Software-Lautstärkereinstellungen speichern"
 
 #: src/gui.c:5564
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr ""
+msgstr "Lautstärkeerhöhung (-200dB bis +60dB)"
 
 #: src/gui.c:5578
 msgid "De_interlace Video"
@@ -890,7 +890,7 @@ msgstr "Füge hier weitere MPlayer-Parameter an (Filter etc.)"
 
 #: src/gui.c:5668
 msgid "MPlayer Default Optical Device"
-msgstr ""
+msgstr "MPlayer Standarsaufgabegerät"
 
 #: src/gui.c:6035
 msgid "S_how Controls"
@@ -1030,7 +1030,7 @@ msgstr "D_etails"
 
 #: src/gui.c:6324
 msgid "Audio _Meter"
-msgstr ""
+msgstr "Spektru_manalysator"
 
 #: src/gui.c:6337
 msgid "_Normal (1:1)"
