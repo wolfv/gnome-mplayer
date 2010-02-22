@@ -741,6 +741,7 @@ int main(int argc, char *argv[])
     play_length = 0;
 	save_loc = TRUE;
 	use_xscrnsaver = FALSE;
+	screensaver_disabled = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);

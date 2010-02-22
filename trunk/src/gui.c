@@ -809,7 +809,8 @@ gboolean set_gui_state(void *data)
                 GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
             gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
             gtk_widget_show(GTK_WIDGET(menuitem_play));
-
+			if (idledata->videopresent)
+				dbus_disable_screensaver();
         }
 
         if (guistate == PAUSED) {
@@ -822,6 +823,7 @@ gboolean set_gui_state(void *data)
                 GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
             gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
             gtk_widget_show(GTK_WIDGET(menuitem_play));
+			dbus_enable_screensaver();
         }
 
         if (guistate == STOPPED) {
@@ -834,6 +836,7 @@ gboolean set_gui_state(void *data)
                 GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
             gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
             gtk_widget_show(GTK_WIDGET(menuitem_play));
+			dbus_enable_screensaver();
         }
         lastguistate = guistate;
     }
@@ -1202,7 +1205,11 @@ gboolean resize_window(void *data)
             last_window_height = 0;
             last_window_width = 0;
             g_idle_add(set_adjust_layout, NULL);
-			gtk_widget_set_size_request(media_label, 300, -1);
+			if (window_x > 0) {
+				gtk_widget_set_size_request(media_label, window_x, -1);
+			} else {
+				gtk_widget_set_size_request(media_label, 300, -1);
+			}
             // adjust_layout();
         }
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idle->videopresent);
@@ -2201,6 +2208,8 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
                          G_CALLBACK(menuitem_pause_callback), NULL);
 
+		dbus_disable_screensaver();
+		
     } else if (state == PLAYING) {
         send_command("pause\n", FALSE);
         state = PAUSED;
@@ -2218,6 +2227,8 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         gtk_widget_show(GTK_WIDGET(menuitem_play));
         g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
                          G_CALLBACK(menuitem_pause_callback), NULL);
+		if (idledata->videopresent)
+			dbus_enable_screensaver();
     }
 
     if (state == QUIT) {
@@ -2280,7 +2291,8 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     dbus_send_rpsignal_with_int("RP_SetGUIState", state);
-
+	dbus_enable_screensaver();
+	
     return FALSE;
 }
 

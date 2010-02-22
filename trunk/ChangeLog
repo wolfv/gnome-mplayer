@@ -1,4 +1,6 @@
 Development
+	Allow screen saver to activate when videos are paused
+	Set media label width to window size, when embedded
 	Fix fullscreen video size when in plugin mode
 	Map "." to frame step, no backward step due to mplayer limitation
 	Fix set_size_request warning
