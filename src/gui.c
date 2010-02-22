@@ -146,7 +146,7 @@ void adjust_layout()
     gint total_width;
     gint handle_size;
 
-    //printf("media size = %i x %i\n",non_fs_width, non_fs_height);
+    printf("media size = %i x %i\n",non_fs_width, non_fs_height);
     gtk_widget_set_size_request(fixed, -1, -1);
     gtk_widget_set_size_request(drawing_area, -1, -1);
 
@@ -279,6 +279,10 @@ void adjust_layout()
         }
     }
 
+	if (idledata->fullscreen)
+		allocate_fixed_callback(fixed,&(fixed->allocation), NULL);
+
+	
     return;
 }
 
@@ -1170,6 +1174,9 @@ gboolean resize_window(void *data)
                         g_idle_add(set_adjust_layout, &adjusting);
                     }
                 } else {
+					if (verbose) {
+						printf("old aspect is %f new aspect is %f\n", (gfloat)non_fs_width / (gfloat)non_fs_height, (gfloat)(idle->width) / (gfloat)(idle->height));
+					}
                     // adjust the drawing area, new media may have different aspect
                     allocate_fixed_callback(fixed, &(fixed->allocation), NULL);
                 }
@@ -1659,10 +1666,13 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     gint new_width = 0, new_height;
 
 
-    // printf("video present = %i\n",idledata->videopresent);
-    // printf("movie size = %i x %i\n",non_fs_width,non_fs_height);
-    // printf("movie allocation new_width %i new_height %i\n", allocation->width, allocation->height);
-    // printf("actual movie new_width %i new_height %i\n", actual_x, actual_y);
+	if (verbose > 1) {
+		printf("video present = %i\n",idledata->videopresent);
+		printf("movie size = %i x %i\n",non_fs_width,non_fs_height);
+		printf("movie allocation new_width %i new_height %i\n", allocation->width, allocation->height);
+		printf("actual movie new_width %i new_height %i\n", actual_x, actual_y);
+		printf("original movie width %i height %i\n", idledata->original_w, idledata->original_h);
+	}
     if (actual_x == 0 && actual_y == 0) {
         actual_x = allocation->width;
         actual_y = allocation->height;
@@ -1672,6 +1682,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
 
 
         movie_ratio = (gdouble) idledata->original_w / (gdouble) idledata->original_h;
+        movie_ratio = (gdouble) actual_x / (gdouble) actual_y;
         // printf("movie new_width %i new_height %i\n", actual_x, actual_y);
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))
             movie_ratio = 4.0 / 3.0;

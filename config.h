@@ -116,7 +116,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "0.9.9.1"
+#define VERSION "0.9.9.2"
 
 /* When defined we have direct XScrnSaver control */
 #define XSCRNSAVER_ENABLED 1
