@@ -1,4 +1,5 @@
 Development
+	Added Arabic, Catalan, Galician, Hebrew, Portuguese translations
 	Handle aspect change during video playback
 	Allow screen saver to activate when videos are paused
 	Set media label width to window size, when embedded
