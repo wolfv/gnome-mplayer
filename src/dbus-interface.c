@@ -1170,7 +1170,7 @@ void dbus_disable_screensaver()
     gint flags;
 #endif
 
-    if (connection != NULL) {
+    if (connection != NULL  && screensaver_disabled == FALSE) {
 		if (use_xscrnsaver) {
 
 #ifdef XSCRNSAVER_ENABLED
