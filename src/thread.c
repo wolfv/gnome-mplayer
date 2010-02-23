@@ -107,8 +107,8 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
         printf("thread complete\n");
     g_idle_add(set_stop, idledata);
     state = QUIT;
-	lastguistate = STOPPED;
-	g_idle_add(set_gui_state, NULL);
+    lastguistate = STOPPED;
+    g_idle_add(set_gui_state, NULL);
     g_source_remove(watch_in_id);
     g_source_remove(watch_err_id);
     g_cond_signal(mplayer_complete_cond);
@@ -139,8 +139,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         if (verbose)
             printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
                    threaddata->filename);
-		if (threaddata != NULL)
-	        g_free(threaddata);
+        if (threaddata != NULL)
+            g_free(threaddata);
         threaddata = NULL;
         return FALSE;
     }
@@ -240,11 +240,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         dontplaynext = TRUE;
         playback_error = ERROR_RETRY_WITH_PLAYLIST;
     }
-	
+
     if (strstr(mplayer_output->str, "MOV: missing header (moov/cmov) chunk") != NULL) {
         idledata->retry_on_full_cache = TRUE;
         g_strlcpy(idledata->progress_text, _("Delaying start until cache is full"), 1024);
-		//printf("delaying start\n");
+        //printf("delaying start\n");
         g_idle_add(set_progress_text, idledata);
     }
 
@@ -256,7 +256,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         //g_idle_add(set_rew, idledata);
     }
 
-	if (strstr(mplayer_output->str, "LD_PRELOAD") != NULL) {
+    if (strstr(mplayer_output->str, "LD_PRELOAD") != NULL) {
         // not a real error
     }
 
@@ -283,7 +283,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gchar *buf, *message = NULL, *icy = NULL;
     gchar *cmd;
     gint pos, i;
-	gfloat vol;
+    gfloat vol;
     gfloat percent;
     GError *error = NULL;
     gchar *error_msg = NULL;
@@ -291,7 +291,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gdouble old_pos;
     LangMenu *menu;
     ThreadData *threaddata = (ThreadData *) data;
-	MetaData *metadata;
+    MetaData *metadata;
 
     if (source == NULL) {
         g_source_remove(watch_err_id);
@@ -311,8 +311,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (verbose)
             printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
                    threaddata->filename);
-		if (threaddata != NULL)
-	        g_free(threaddata);
+        if (threaddata != NULL)
+            g_free(threaddata);
         threaddata = NULL;
         return FALSE;
     }
@@ -518,9 +518,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         buf = strstr(mplayer_output->str, "ANS_stream_pos");
         sscanf(buf, "ANS_stream_pos=%li", &idledata->byte_pos);
         g_idle_add(set_progress_time, idledata);
-		lastguistate = STOPPED;
-		guistate = PLAYING;
-		g_idle_add(set_gui_state,NULL);
+        lastguistate = STOPPED;
+        guistate = PLAYING;
+        g_idle_add(set_gui_state, NULL);
     }
 
     if (strstr(mplayer_output->str, "ANS_volume") != 0) {
@@ -528,8 +528,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_volume=%f", &vol);
         // Need to track what the master volume is, gui is updated in make mouse invisible
         idledata->mplayer_volume = vol;
-        idledata->mute = !((gint)vol > 0);
-		g_idle_add(update_volume, idledata);
+        idledata->mute = !((gint) vol > 0);
+        g_idle_add(update_volume, idledata);
     }
 
     if (strstr(mplayer_output->str, "ANS_chapters") != 0) {
@@ -782,15 +782,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             g_strlcpy(idledata->media_info, message, 1024);
             g_free(message);
             message = g_markup_printf_escaped("\n\t<b>%s</b>\n", buf + 1);
-			icy = g_strdup(buf + 1);
-			if ((buf = strstr(icy, " - ")) != NULL) {
-				metadata = (MetaData *) g_new0(MetaData, 1);
-				metadata->title = g_strdup(buf + 3);
-				buf[0] = '\0';
-				metadata->artist = g_strdup(icy);
-				g_thread_create(get_cover_art,metadata, FALSE, NULL);
-			}
-			g_free(icy);
+            icy = g_strdup(buf + 1);
+            if ((buf = strstr(icy, " - ")) != NULL) {
+                metadata = (MetaData *) g_new0(MetaData, 1);
+                metadata->title = g_strdup(buf + 3);
+                buf[0] = '\0';
+                metadata->artist = g_strdup(icy);
+                g_thread_create(get_cover_art, metadata, FALSE, NULL);
+            }
+            g_free(icy);
             g_strlcpy(idledata->media_notification, message, 1024);
             g_free(message);
             message = NULL;
@@ -857,12 +857,12 @@ gboolean thread_query(gpointer data)
         // size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
         size = write(std_in, "get_time_pos\n", strlen("get_time_pos\n"));
         if (size == -1) {
-            g_idle_add(set_kill_mplayer,NULL);
+            g_idle_add(set_kill_mplayer, NULL);
             return FALSE;
         } else {
 
             //send_command("get_time_pos\n");
-			send_command("get_time_length\n", TRUE);
+            send_command("get_time_length\n", TRUE);
             send_command("get_property stream_pos\n", TRUE);
             send_command("get_property volume\n", TRUE);
             if (threaddata->streaming)
@@ -996,22 +996,22 @@ gpointer launch_player(gpointer data)
 
     // this argument seems to cause noise in some videos
     if (softvol) {
-		if (volume_gain != 0) {
-	        argv[arg++] = g_strdup_printf("-af-add");
-	        argv[arg++] = g_strdup_printf("volume=%i", volume_gain);
-		} else {
-	        argv[arg++] = g_strdup_printf("-softvol");
-		}
-	}
-	
+        if (volume_gain != 0) {
+            argv[arg++] = g_strdup_printf("-af-add");
+            argv[arg++] = g_strdup_printf("volume=%i", volume_gain);
+        } else {
+            argv[arg++] = g_strdup_printf("-softvol");
+        }
+    }
+
     if (use_volume_option) {
         argv[arg++] = g_strdup_printf("-volume");
         //if (idledata->mute) {
         //    argv[arg++] = g_strdup_printf("0");
-		//} else {
-            argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
-			idledata->mplayer_volume = idledata->volume;
-		//}
+        //} else {
+        argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
+        idledata->mplayer_volume = idledata->volume;
+        //}
     }
 
     if (mixer != NULL && strlen(mixer) > 0) {
@@ -1047,7 +1047,7 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-mouse-movements");
         argv[arg++] = g_strdup_printf("-nocache");
     } else {
-		// argv[arg++] = g_strdup_printf("-nograbpointer");
+        // argv[arg++] = g_strdup_printf("-nograbpointer");
         if (g_ascii_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0) {
             // argv[arg++] = g_strdup_printf("-nocache");
         } else {
@@ -1239,11 +1239,11 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-dvd-device");
         argv[arg++] = g_strdup_printf("%s", idledata->device);
     } else {
-		if (mplayer_dvd_device != NULL) {
-		    argv[arg++] = g_strdup_printf("-dvd-device");
-		    argv[arg++] = g_strdup_printf("%s", mplayer_dvd_device);
-		}
-	}	
+        if (mplayer_dvd_device != NULL) {
+            argv[arg++] = g_strdup_printf("-dvd-device");
+            argv[arg++] = g_strdup_printf("%s", mplayer_dvd_device);
+        }
+    }
 
     /* 
        This is here in order to be able to switch the
@@ -1353,8 +1353,8 @@ gpointer launch_player(gpointer data)
 //        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
 
         //g_idle_add(set_play, NULL);
-		guistate = PLAYING;
-		g_idle_add(set_gui_state, NULL);
+        guistate = PLAYING;
+        g_idle_add(set_gui_state, NULL);
 #ifdef GLIB2_14_ENABLED
         g_timeout_add_seconds(1, thread_query, threaddata);
 #else

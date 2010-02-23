@@ -275,8 +275,8 @@ typedef struct _Export {
 } Export;
 
 typedef struct _ButtonDef {
-	gchar *uri;
-	gchar *hrefid;
+    gchar *uri;
+    gchar *hrefid;
 } ButtonDef;
 
 #define METER_BARS 		44
