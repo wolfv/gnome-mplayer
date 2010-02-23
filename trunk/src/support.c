@@ -54,25 +54,25 @@ gint detect_playlist(gchar * uri)
 
 
     if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
-	    if (strlen(uri) > strlen("cdda://")) {
-			playlist = 0;
-		} else {
-	        playlist = 1;
-		}
+        if (strlen(uri) > strlen("cdda://")) {
+            playlist = 0;
+        } else {
+            playlist = 1;
+        }
     } else if (g_ascii_strncasecmp(uri, "dvd://", strlen("dvd://")) == 0) {
-	    if (strlen(uri) > strlen("dvd://")) {
-			playlist = 0;
-		} else {
-	        playlist = 1;
-		}
+        if (strlen(uri) > strlen("dvd://")) {
+            playlist = 0;
+        } else {
+            playlist = 1;
+        }
     } else if (g_ascii_strncasecmp(uri, "vcd://", strlen("vcd://")) == 0) {
-	    if (strlen(uri) > strlen("vcd://")) {
-			playlist = 0;
-		} else {
-	        playlist = 1;
-		}
-    } else if (g_strrstr(uri,".m3u") != NULL) {
-		playlist = 1;
+        if (strlen(uri) > strlen("vcd://")) {
+            playlist = 0;
+        } else {
+            playlist = 1;
+        }
+    } else if (g_strrstr(uri, ".m3u") != NULL) {
+        playlist = 1;
     } else if (device_name(uri)) {
         playlist = 0;
     } else {
@@ -1847,7 +1847,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         g_free(data->video_codec);
         g_free(data);
         g_free(local_uri);
-		g_idle_add(set_media_info, idledata);
+        g_idle_add(set_media_info, idledata);
 
         return TRUE;
     } else {

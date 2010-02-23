@@ -594,11 +594,11 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
     g_free(message);
     g_idle_add(set_media_label, idledata);
 
-	if (data != NULL) {
-		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-		play_iter(&iter, 0);
-		dontplaynext = FALSE;		
-	}
+    if (data != NULL) {
+        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+        play_iter(&iter, 0);
+        dontplaynext = FALSE;
+    }
 }
 
 void remove_from_playlist(GtkWidget * widget, gpointer data)
@@ -742,8 +742,8 @@ void playlist_close(GtkWidget * widget, void *data)
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 {
     playlist_visible = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
-	if (remember_loc)
-		use_remember_loc = TRUE;
+    if (remember_loc)
+        use_remember_loc = TRUE;
     adjust_layout();
 }
 

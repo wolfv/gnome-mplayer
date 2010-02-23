@@ -59,8 +59,11 @@ static GOptionEntry entries[] = {
      N_("Show even more output on the console"), NULL},
     {"fullscreen", 0, 0, G_OPTION_ARG_NONE, &fullscreen, N_("Start in fullscreen mode"), NULL},
     {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
-	{"remember_softvol", 0, 0, G_OPTION_ARG_NONE, &remember_softvol, N_("When set to TRUE the last volume level is set as the default"), NULL},
-	{"volume_softvol", 0, 0, G_OPTION_ARG_INT, &volume_softvol, N_("Last software volume percentage- only applied when remember_softvol is set to TRUE"), NULL},
+    {"remember_softvol", 0, 0, G_OPTION_ARG_NONE, &remember_softvol,
+     N_("When set to TRUE the last volume level is set as the default"), NULL},
+    {"volume_softvol", 0, 0, G_OPTION_ARG_INT, &volume_softvol,
+     N_("Last software volume percentage- only applied when remember_softvol is set to TRUE"),
+     NULL},
     {"mixer", 0, 0, G_OPTION_ARG_STRING, &mixer, N_("Mixer to use"), NULL},
     {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
@@ -424,13 +427,12 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
         g_free(subtitle);
     }
-
 #if GTK2_12_ENABLED
     volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
 #else
     volume = gtk_range_get_value(GTK_RANGE(vol_slider));
 #endif
-	
+
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
         if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
             if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
@@ -512,8 +514,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 
     lastfile = g_strdup(thread_data->filename);
 
-	last_x = 0;
-	last_y = 0;
+    last_x = 0;
+    last_y = 0;
     idledata->width = width;
     idledata->height = height;
     idledata->original_h = -1;
@@ -687,9 +689,9 @@ int main(int argc, char *argv[])
     disable_fullscreen = FALSE;
     disable_framedrop = FALSE;
     softvol = FALSE;
-	remember_softvol = FALSE;
-	volume_softvol = -1;
-	volume_gain = 0;
+    remember_softvol = FALSE;
+    volume_softvol = -1;
+    volume_gain = 0;
     subtitlefont = NULL;
     subtitle_codepage = NULL;
     subtitle_color = NULL;
@@ -706,7 +708,7 @@ int main(int argc, char *argv[])
     use_mediakeys = TRUE;
     use_defaultpl = FALSE;
     mplayer_bin = NULL;
-	mplayer_dvd_device = NULL;
+    mplayer_dvd_device = NULL;
     single_instance = FALSE;
     disable_deinterlace = TRUE;
     details_visible = FALSE;
@@ -739,9 +741,9 @@ int main(int argc, char *argv[])
     use_hw_audio = FALSE;
     start_second = 0;
     play_length = 0;
-	save_loc = TRUE;
-	use_xscrnsaver = FALSE;
-	screensaver_disabled = FALSE;
+    save_loc = TRUE;
+    use_xscrnsaver = FALSE;
+    screensaver_disabled = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -786,16 +788,16 @@ int main(int argc, char *argv[])
     use_hw_audio = gm_pref_store_get_boolean(gm_store, USE_HW_AUDIO);
     fullscreen = gm_pref_store_get_boolean(gm_store, FULLSCREEN);
     softvol = gm_pref_store_get_boolean(gm_store, SOFTVOL);
-	remember_softvol = gm_pref_store_get_boolean(gm_store, REMEMBER_SOFTVOL);
-	volume_softvol = gm_pref_store_get_int(gm_store, VOLUME_SOFTVOL);	
-	volume_gain = gm_pref_store_get_int(gm_store, VOLUME_GAIN);
+    remember_softvol = gm_pref_store_get_boolean(gm_store, REMEMBER_SOFTVOL);
+    volume_softvol = gm_pref_store_get_int(gm_store, VOLUME_SOFTVOL);
+    volume_gain = gm_pref_store_get_int(gm_store, VOLUME_GAIN);
     forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
     vertical_layout = gm_pref_store_get_boolean(gm_store, VERTICAL);
     playlist_visible = gm_pref_store_get_boolean(gm_store, SHOWPLAYLIST);
     details_visible = gm_pref_store_get_boolean(gm_store, SHOWDETAILS);
     show_notification = gm_pref_store_get_boolean(gm_store, SHOW_NOTIFICATION);
     show_status_icon = gm_pref_store_get_boolean(gm_store, SHOW_STATUS_ICON);
-	showcontrols = gm_pref_store_get_boolean_with_default(gm_store, SHOW_CONTROLS, showcontrols);		    
+    showcontrols = gm_pref_store_get_boolean_with_default(gm_store, SHOW_CONTROLS, showcontrols);
     disable_deinterlace = gm_pref_store_get_boolean(gm_store, DISABLEDEINTERLACE);
     disable_framedrop = gm_pref_store_get_boolean(gm_store, DISABLEFRAMEDROP);
     disable_fullscreen = gm_pref_store_get_boolean(gm_store, DISABLEFULLSCREEN);
@@ -844,7 +846,8 @@ int main(int argc, char *argv[])
     mplayer_dvd_device = gm_pref_store_get_string(gm_store, MPLAYER_DVD_DEVICE);
     extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
     use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store, USE_PULSE_FLAT_VOLUME);
-	use_xscrnsaver = gm_pref_store_get_boolean_with_default(gm_store, USE_XSCRNSAVER, use_xscrnsaver);	   
+    use_xscrnsaver =
+        gm_pref_store_get_boolean_with_default(gm_store, USE_XSCRNSAVER, use_xscrnsaver);
 
     remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
     loc_window_x = gm_pref_store_get_int(gm_store, WINDOW_X);
@@ -852,7 +855,7 @@ int main(int argc, char *argv[])
     loc_window_height = gm_pref_store_get_int(gm_store, WINDOW_HEIGHT);
     loc_window_width = gm_pref_store_get_int(gm_store, WINDOW_WIDTH);
     loc_panel_position = gm_pref_store_get_int(gm_store, PANEL_POSITION);
-		    
+
     keep_on_top = gm_pref_store_get_boolean(gm_store, KEEP_ON_TOP);
     resize_on_new_media = gm_pref_store_get_boolean(gm_store, RESIZE_ON_NEW_MEDIA);
     read_mplayer_config();
@@ -934,17 +937,19 @@ int main(int argc, char *argv[])
     }
 
     if (softvol) {
-		if (remember_softvol && volume_softvol != -1) {
-			if (verbose)
-				printf("Using softvol, since remember_softvol is enabled volume will be set to %i%% of %i%%\n",volume_softvol,volume);
-			volume = (gdouble) volume_softvol;
-		} else {
-			if (verbose)
-				printf
-					("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
-					volume);
-			volume = 100;
-		}
+        if (remember_softvol && volume_softvol != -1) {
+            if (verbose)
+                printf
+                    ("Using softvol, since remember_softvol is enabled volume will be set to %i%% of %i%%\n",
+                     volume_softvol, volume);
+            volume = (gdouble) volume_softvol;
+        } else {
+            if (verbose)
+                printf
+                    ("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
+                     volume);
+            volume = 100;
+        }
     }
 
     if (volume >= 0 && volume <= 100) {
@@ -1151,47 +1156,47 @@ int main(int argc, char *argv[])
 
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
-	    
+
     if (playiter)
         play_iter(&iter, 0);
 
     if (argv[fileindex] == NULL && embed_window == 0) {
-		// When running as apple.com external player, don't load the default playlist
-		if (control_id == 0) {
-		    use_remember_loc = remember_loc;
-		    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
-		                                   playlist_visible);
-		} else {
-			remember_loc = FALSE;
-			use_remember_loc = FALSE;
-		    // prevents saving of a playlist with one item on it
-		    use_defaultpl = FALSE;
-			// don't save the loc when launched with a single file
-			save_loc = FALSE;
-		}
+        // When running as apple.com external player, don't load the default playlist
+        if (control_id == 0) {
+            use_remember_loc = remember_loc;
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
+                                           playlist_visible);
+        } else {
+            remember_loc = FALSE;
+            use_remember_loc = FALSE;
+            // prevents saving of a playlist with one item on it
+            use_defaultpl = FALSE;
+            // don't save the loc when launched with a single file
+            save_loc = FALSE;
+        }
     } else {
         // prevents saving of a playlist with one item on it
         use_defaultpl = FALSE;
-		// don't save the loc when launched with a single file
-		save_loc = FALSE;
+        // don't save the loc when launched with a single file
+        save_loc = FALSE;
     }
 
     if (single_instance && embed_window == 0) {
-		if (control_id == 0) {
-		    use_remember_loc = remember_loc;
-		    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
-		                                   playlist_visible);
-		}
+        if (control_id == 0) {
+            use_remember_loc = remember_loc;
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
+                                           playlist_visible);
+        }
     }
 
     if (embed_window == 0) {
         if (remember_loc) {
             gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
-			g_idle_add(set_pane_position, NULL);
+            g_idle_add(set_pane_position, NULL);
 
         }
-    }	
-		    
+    }
+
     safe_to_save_default_playlist = FALSE;
     if (use_defaultpl) {
         create_folder_progress_window();
@@ -1199,7 +1204,7 @@ int main(int argc, char *argv[])
         destroy_folder_progress_window();
     }
     safe_to_save_default_playlist = TRUE;
-	    
+
     gtk_main();
 
     return 0;
