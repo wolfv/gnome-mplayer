@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-22 10:41-0700\n"
-"PO-Revision-Date: 2010-01-27 19:14+0100\n"
+"PO-Revision-Date: 2010-02-23 23:48+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,8 @@ msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
 msgstr ""
+"Ostatnia procentowa siła głosu - stosowane jedynie, kiedy remember_softvol "
+"ma wartość PRAWDA"
 
 #: src/main.c:64
 msgid "Mixer to use"
@@ -771,7 +773,7 @@ msgstr "Pokaż ikonę stanu"
 
 #: src/gui.c:5460
 msgid "Use X Screen Saver control over Gnome Power Manager"
-msgstr ""
+msgstr "Kontrola X Screen Saver nad Gnome Power Manager"
 
 #: src/gui.c:5468
 msgid "Place playlist below media (requires application restart)"
@@ -844,10 +846,11 @@ msgstr "Pamiętaj ostatnią głośność (programową)"
 #: src/gui.c:5588
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr ""
+"Włącz tę opcję jeśli chcesz, aby programowa siła głosu została zapamiętana"
 
 #: src/gui.c:5598
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr ""
+msgstr "Współczynnik wzmocnienia głośności (-200 dB do 60 dB)"
 
 #: src/gui.c:5612
 msgid "De_interlace Video"
@@ -899,7 +902,7 @@ msgstr "Podaj tutaj wszelkie dodatkowe opcje mplayera (filtry itd.)"
 
 #: src/gui.c:5702
 msgid "MPlayer Default Optical Device"
-msgstr ""
+msgstr "Domyślny napęd optyczny MPlayera"
 
 #: src/gui.c:6114
 msgid "S_how Controls"
