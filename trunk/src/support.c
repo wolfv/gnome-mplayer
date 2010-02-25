@@ -2914,32 +2914,11 @@ gpointer get_cover_art(gpointer data)
     }
 
     path = g_strdup(metadata->uri);
-    p = g_strrstr(path, "/");
-    if (p != NULL) {
-        p[0] = '\0';
-        p = g_strconcat(path, "/cover.jpg", NULL);
-#ifdef GIO_ENABLED
-        file = g_file_new_for_uri(p);
-        cache_file = g_file_get_path(file);
-        g_object_unref(file);
-#else
-        cache_file = g_filename_from_uri(p, NULL, NULL);
-#endif
-        g_free(p);
-        if (verbose)
-            printf("Looking for cover art at %s\n", cache_file);
-
-    }
-    g_free(path);
-    path = NULL;
-    p = NULL;
-
-    if (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
-        path = g_strdup(metadata->uri);
+    if (path != NULL) {
         p = g_strrstr(path, "/");
         if (p != NULL) {
             p[0] = '\0';
-            p = g_strconcat(path, "/Folder.jpg", NULL);
+            p = g_strconcat(path, "/cover.jpg", NULL);
 #ifdef GIO_ENABLED
             file = g_file_new_for_uri(p);
             cache_file = g_file_get_path(file);
@@ -2950,10 +2929,36 @@ gpointer get_cover_art(gpointer data)
             g_free(p);
             if (verbose)
                 printf("Looking for cover art at %s\n", cache_file);
+
         }
         g_free(path);
         path = NULL;
         p = NULL;
+    }
+
+    if (metadata->uri != NULL
+        && (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS))) {
+        path = g_strdup(metadata->uri);
+        if (path != NULL) {
+            p = g_strrstr(path, "/");
+            if (p != NULL) {
+                p[0] = '\0';
+                p = g_strconcat(path, "/Folder.jpg", NULL);
+#ifdef GIO_ENABLED
+                file = g_file_new_for_uri(p);
+                cache_file = g_file_get_path(file);
+                g_object_unref(file);
+#else
+                cache_file = g_filename_from_uri(p, NULL, NULL);
+#endif
+                g_free(p);
+                if (verbose)
+                    printf("Looking for cover art at %s\n", cache_file);
+            }
+            g_free(path);
+            path = NULL;
+            p = NULL;
+        }
     }
 
     if (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
