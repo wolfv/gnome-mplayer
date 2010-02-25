@@ -812,6 +812,8 @@ gboolean set_gui_state(void *data)
             gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
             menuitem_play =
                 GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
+            g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
+                             G_CALLBACK(menuitem_pause_callback), NULL);
             gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
             gtk_widget_show(GTK_WIDGET(menuitem_play));
             if (idledata->videopresent)
@@ -826,6 +828,8 @@ gboolean set_gui_state(void *data)
             gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
             menuitem_play =
                 GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
+            g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
+                             G_CALLBACK(menuitem_play_callback), NULL);
             gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
             gtk_widget_show(GTK_WIDGET(menuitem_play));
             dbus_enable_screensaver();
@@ -839,6 +843,8 @@ gboolean set_gui_state(void *data)
             gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
             menuitem_play =
                 GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
+            g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
+                             G_CALLBACK(menuitem_play_callback), NULL);
             gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 2);
             gtk_widget_show(GTK_WIDGET(menuitem_play));
             dbus_enable_screensaver();
