@@ -1,4 +1,5 @@
 Development
+	Fix right click pause/play regression Bug #360
 	Fix assertion in get_cover_art
 	Updated Polish translation (some strings were overlooked in the previous update)
 	Added Arabic, Catalan, Galician, Hebrew, Portuguese translations
