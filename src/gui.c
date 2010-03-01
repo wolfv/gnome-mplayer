@@ -6222,12 +6222,17 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open));
     menuitem_file_open_folder =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Folder")));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_folder), gtk_image_new_from_icon_name("folder",GTK_ICON_SIZE_MENU));
+
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_folder));
     menuitem_file_open_location =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Location")));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_location), gtk_image_new_from_icon_name("network-server",GTK_ICON_SIZE_MENU));
+	
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_location));
 
-    menuitem_file_disc = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Disc")));
+    menuitem_file_disc = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Disc")));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_disc), gtk_image_new_from_icon_name("media-optical",GTK_ICON_SIZE_MENU));
     menu_file_disc = GTK_MENU(gtk_menu_new());
     gtk_widget_show(GTK_WIDGET(menuitem_file_disc));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_disc));
@@ -6277,6 +6282,8 @@ GtkWidget *create_window(gint windowid)
 #ifdef HAVE_GPOD
     menuitem_file_open_ipod =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _iPod™")));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_ipod), gtk_image_new_from_icon_name("ipod",GTK_ICON_SIZE_MENU));
+	
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_ipod));
 #endif
 #ifdef GTK2_12_ENABLED
