@@ -1,3 +1,5 @@
+Development
+	Add a couple of icons to the file menu
 0.9.9.2
 	Fix right click pause/play regression Bug #360
 	Fix assertion in get_cover_art
