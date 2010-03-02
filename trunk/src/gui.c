@@ -4804,7 +4804,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "x11");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xv");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xvmc");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vaapi");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vdpau");
+
         if (vo != NULL) {
             if (strcmp(vo, "gl") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 0);
@@ -4816,12 +4818,14 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 3);
             if (strcmp(vo, "xvmc") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 4);
-            if (strcmp(vo, "vdpau") == 0)
+            if (strcmp(vo, "vaapi") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 5);
+            if (strcmp(vo, "vdpau") == 0)
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 6);
             if (gtk_combo_box_get_active(GTK_COMBO_BOX(config_vo))
                 == -1) {
                 gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), vo);
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 6);
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 7);
             }
         }
     }
@@ -6222,17 +6226,22 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open));
     menuitem_file_open_folder =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Folder")));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_folder), gtk_image_new_from_icon_name("folder",GTK_ICON_SIZE_MENU));
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_folder),
+                                  gtk_image_new_from_icon_name("folder", GTK_ICON_SIZE_MENU));
 
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_folder));
     menuitem_file_open_location =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Location")));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_location), gtk_image_new_from_icon_name("network-server",GTK_ICON_SIZE_MENU));
-	
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_location),
+                                  gtk_image_new_from_icon_name("network-server",
+                                                               GTK_ICON_SIZE_MENU));
+
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_location));
 
     menuitem_file_disc = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Disc")));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_disc), gtk_image_new_from_icon_name("media-optical",GTK_ICON_SIZE_MENU));
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_disc),
+                                  gtk_image_new_from_icon_name("media-optical",
+                                                               GTK_ICON_SIZE_MENU));
     menu_file_disc = GTK_MENU(gtk_menu_new());
     gtk_widget_show(GTK_WIDGET(menuitem_file_disc));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_disc));
@@ -6282,8 +6291,9 @@ GtkWidget *create_window(gint windowid)
 #ifdef HAVE_GPOD
     menuitem_file_open_ipod =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _iPod™")));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_ipod), gtk_image_new_from_icon_name("ipod",GTK_ICON_SIZE_MENU));
-	
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_ipod),
+                                  gtk_image_new_from_icon_name("ipod", GTK_ICON_SIZE_MENU));
+
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_ipod));
 #endif
 #ifdef GTK2_12_ENABLED

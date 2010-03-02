@@ -1026,6 +1026,7 @@ gpointer launch_player(gpointer data)
 
     if (vo == NULL
         || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
+             || g_ascii_strncasecmp(vo, "vaapi", strlen("vvapi")) == 0
              || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
         if (!disable_deinterlace) {
             argv[arg++] = g_strdup_printf("-vf-pre");
@@ -1210,6 +1211,7 @@ gpointer launch_player(gpointer data)
     }
 
     if (vo == NULL || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
+                        || g_ascii_strncasecmp(vo, "vaapi", strlen("vvapi")) == 0
                         || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
 
         if (pplevel > 0) {
@@ -1230,6 +1232,7 @@ gpointer launch_player(gpointer data)
 
     if (vo == NULL
         || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
+             || g_ascii_strncasecmp(vo, "vaapi", strlen("vvapi")) == 0
              || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
         argv[arg++] = g_strdup_printf("-vf-add");
         argv[arg++] = g_strdup_printf("screenshot");

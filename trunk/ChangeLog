@@ -1,4 +1,5 @@
 Development
+	Add vaapi to list of supported vo's
 	Add a couple of icons to the file menu
 0.9.9.2
 	Fix right click pause/play regression Bug #360
