@@ -1003,8 +1003,8 @@ void dbus_send_event(gchar * event, gint button)
     if (connection != NULL && control_id != 0) {
         path = g_strdup_printf("/control/%i", control_id);
         localevent = g_strdup_printf("%s", event);
-        if (verbose) {
-            //printf("Posting Event %s\n",localevent);
+        if (verbose > 1) {
+            printf("Posting Event %s\n",localevent);
         }
         message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Event");
         dbus_message_append_args(message, DBUS_TYPE_STRING, &localevent, DBUS_TYPE_INT32,
