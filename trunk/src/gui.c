@@ -434,8 +434,10 @@ gboolean set_media_label(void *data)
             notification =
                 notify_notification_new(idle->display_name, idle->media_notification,
                                         "gnome-mplayer", NULL);
+#ifdef GTK2_12_ENABLED			
             if (show_status_icon)
                 notify_notification_attach_to_status_icon(notification, status_icon);
+#endif
             notify_notification_show(notification, NULL);
             notify_uninit();
         }
