@@ -1499,6 +1499,14 @@ gpointer launch_player(gpointer data)
                 g_idle_add(play, p);
             }
 
+			if (playback_error == NO_ERROR) {
+                // nothing is on the playlist and we are not looping so ask plugin for next item
+                if (embed_window != 0 || control_id != 0) {
+                    dbus_send_event("MediaComplete", 0);
+                    dbus_open_next();
+                }
+			}
+			
             dontplaynext = FALSE;
         }
 
