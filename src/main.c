@@ -260,6 +260,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     } else {
         if (verbose > 1)
             printf("iter is invalid, nothing to play\n");
+        g_free(thread_data);
+        thread_data = NULL;
         return 0;
     }
 

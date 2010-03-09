@@ -147,7 +147,7 @@ void adjust_layout()
     gint total_width;
     gint handle_size;
 
-    printf("media size = %i x %i\n", non_fs_width, non_fs_height);
+    // printf("media size = %i x %i\n", non_fs_width, non_fs_height);
     gtk_widget_set_size_request(fixed, -1, -1);
     gtk_widget_set_size_request(drawing_area, -1, -1);
 
@@ -434,7 +434,7 @@ gboolean set_media_label(void *data)
             notification =
                 notify_notification_new(idle->display_name, idle->media_notification,
                                         "gnome-mplayer", NULL);
-#ifdef GTK2_12_ENABLED			
+#ifdef GTK2_12_ENABLED
             if (show_status_icon)
                 notify_notification_attach_to_status_icon(notification, status_icon);
 #endif
