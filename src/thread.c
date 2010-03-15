@@ -950,7 +950,7 @@ gpointer launch_player(gpointer data)
             argv[arg++] = g_strdup_printf("ffmpeg12mc");
         } else {
             argv[arg++] = g_strdup_printf("-vo");
-            argv[arg++] = g_strdup_printf("xv,x11");
+            argv[arg++] = g_strdup_printf("xvmc,");
             if (!disable_deinterlace) {
                 argv[arg++] = g_strdup_printf("-vf-pre");
                 argv[arg++] = g_strdup_printf("yadif,softskip,scale");
@@ -960,28 +960,16 @@ gpointer launch_player(gpointer data)
 
     if (vo != NULL && g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0) {
         //printf("video_codec = '%s'\n",idledata->video_codec);
-        if (g_ascii_strcasecmp(idledata->video_codec, "ffmpeg1") == 0
-            || g_ascii_strcasecmp(idledata->video_codec, "ffmpeg2") == 0
-            || g_ascii_strcasecmp(idledata->video_codec, "mpegpes") == 0) {
-            argv[arg++] = g_strdup_printf("-vc");
-            argv[arg++] = g_strdup_printf("ffmpeg12vdpau");
-        } else if (g_ascii_strcasecmp(idledata->video_codec, "ffh264") == 0) {
-            argv[arg++] = g_strdup_printf("-vc");
-            argv[arg++] = g_strdup_printf("ffh264vdpau");
-        } else if (g_ascii_strcasecmp(idledata->video_codec, "ffwmv3") == 0) {
-            argv[arg++] = g_strdup_printf("-vc");
-            argv[arg++] = g_strdup_printf("ffwmv3vdpau");
-        } else if (g_ascii_strcasecmp(idledata->video_codec, "ffvc1") == 0) {
-            argv[arg++] = g_strdup_printf("-vc");
-            argv[arg++] = g_strdup_printf("ffvc1vdpau");
+
+        argv[arg++] = g_strdup_printf("-vo");
+        if (!disable_deinterlace) {
+    		argv[arg++] = g_strdup_printf("vdpau:deint=2,");
         } else {
-            argv[arg++] = g_strdup_printf("-vo");
-            argv[arg++] = g_strdup_printf("vdpau,xv,x11");
-            if (!disable_deinterlace) {
-                argv[arg++] = g_strdup_printf("-vf-pre");
-                argv[arg++] = g_strdup_printf("yadif,softskip,scale");
-            }
-        }
+    		argv[arg++] = g_strdup_printf("%s,vdpau,",vo);
+		}		
+
+		argv[arg++] = g_strdup_printf("-vc");
+		argv[arg++] = g_strdup_printf("ffmpeg12vdpau,ffh264vdpau,ffwmv3vdpau,ffvc1vdpau,");
     }
 
     if (use_hw_audio) {
@@ -1026,7 +1014,7 @@ gpointer launch_player(gpointer data)
 
     if (vo == NULL
         || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
-             || g_ascii_strncasecmp(vo, "vaapi", strlen("vvapi")) == 0
+             || g_ascii_strncasecmp(vo, "vaapi", strlen("vaapi")) == 0
              || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
         if (!disable_deinterlace) {
             argv[arg++] = g_strdup_printf("-vf-pre");
