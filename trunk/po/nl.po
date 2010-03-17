@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: 0.9.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-25 14:11-0700\n"
-"PO-Revision-Date: 2009-09-21 16:55+0000\n"
-"Last-Translator: Joshua Lückers <Unknown>\n"
+"PO-Revision-Date: 2010-03-08 12:26+0000\n"
+"Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Mark Huijgen <mark.sf.net@huijgen.tk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-02-22 21:48+0000\n"
+"X-Launchpad-Export-Date: 2010-03-16 18:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/main.c:52
@@ -49,21 +49,25 @@ msgstr "Toon nog meer uitvoer op de console"
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
-msgstr "Start in volledig scherm modus"
+msgstr "Starten in volledig scherm"
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
-msgstr "Gebruik mplayer software volumeregeling"
+msgstr "Gebruik mplayer-softwarevolumeregeling"
 
 #: src/main.c:63
 msgid "When set to TRUE the last volume level is set as the default"
 msgstr ""
+"Indien ingeschakeld zal het laatste volumeniveau als standaard ingesteld "
+"worden"
 
 #: src/main.c:65
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
 msgstr ""
+"Laatste softwarevolumepercentage- wordt alleen toegepast als _softvol is "
+"ingeschakeld"
 
 #: src/main.c:67
 msgid "Mixer to use"
@@ -71,7 +75,7 @@ msgstr "Mixer die gebruikt moet worden"
 
 #: src/main.c:68
 msgid "Set initial volume percentage"
-msgstr "Zet initieel volume percentage"
+msgstr "Stel beginvolumepercentage in"
 
 #: src/main.c:69
 msgid "Show the controls in window"
@@ -79,21 +83,21 @@ msgstr "Toon besturing in venster"
 
 #: src/main.c:71
 msgid "Show the subtitles if available"
-msgstr "Toon ondertitiels indien beschikbaar"
+msgstr "Toon ondertiteling indien beschikbaar"
 
 #: src/main.c:74
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
 msgstr ""
-"Speel media automatisch af (standaard), zet op 0 om te laden maar niet af te "
-"spelen"
+"Zet voor media automatisch afspelen op 1 (standaard), zet op 0 om wel te "
+"laden maar niet af te spelen"
 
 #: src/main.c:76
 msgid "Disable popup menu on right click"
-msgstr "Geen context menu bij rechts klikken"
+msgstr "Geen contextmenu bij rechtsklikken"
 
 #: src/main.c:78
 msgid "Disable fullscreen options in browser mode"
-msgstr "Schakel volledig scherm opties uit in browser modus"
+msgstr "Schakel volledig scherm opties uit in browsermodus"
 
 #: src/main.c:79
 msgid "Play all files on the playlist forever"
@@ -109,23 +113,23 @@ msgstr "Speel items op de afspeellijst in willekeurige volgorde"
 
 #: src/main.c:84
 msgid "Set cache size"
-msgstr "Zet buffergrootte"
+msgstr "Stel buffergrootte in"
 
 #: src/main.c:86
 msgid "Start Second (default to 0)"
-msgstr "Start Seconde (standaard op 0)"
+msgstr "Startseconde (standaard op 0)"
 
 #: src/main.c:89
 msgid "Length of media to play from start second"
-msgstr ""
+msgstr "De tijdsduur van de media af te spelen vanaf de startseconde."
 
 #: src/main.c:91
 msgid "Force cache usage on streaming sites"
-msgstr "Forceer gebruik van buffer bij streaming sites"
+msgstr "Forceer gebruik van buffer bij streaming-sites"
 
 #: src/main.c:94
 msgid "Disable the deinterlace filter"
-msgstr "Schakel deïnterlace filter uit"
+msgstr "Schakel deïnterlacefilter uit"
 
 #: src/main.c:97
 msgid "Don't skip drawing frames to better keep sync"
@@ -133,7 +137,7 @@ msgstr "Sla geen beelden over om beter synchroon te blijven"
 
 #: src/main.c:100
 msgid "Use the old subtitle rendering system"
-msgstr "Gebruik het oude weergavesysteem om ondertitles te tonen"
+msgstr "Gebruik het oude ondertitelingssysteem"
 
 #: src/main.c:103
 msgid "Don't use fonts embedded on matroska files"
@@ -141,7 +145,7 @@ msgstr "Gebruik geen lettertypen die geïntegreerd zijn in matroska bestanden"
 
 #: src/main.c:105
 msgid "Use Vertical Layout"
-msgstr "Gebruik verticale layout"
+msgstr "Gebruik verticale weergave"
 
 #: src/main.c:107
 msgid "Start with playlist open"
@@ -153,43 +157,43 @@ msgstr "Start met details zichtbaar"
 
 #: src/main.c:111
 msgid "Real Player Name"
-msgstr "Real Player Naam"
+msgstr "Real Player-naam"
 
 #: src/main.c:112
 msgid "Real Player Console ID"
-msgstr "Real Player Console ID"
+msgstr "Real Player-console-ID"
 
 #: src/main.c:113
 msgid "Real Player Console Controls"
-msgstr "Real Player Console Controls"
+msgstr "Real Player-consolebediening"
 
 #: src/main.c:115
 msgid "Subtitle file for first media file"
-msgstr "Ondertitelbestand voor eerste mediabestand"
+msgstr "Ondertitelingsbestand voor eerste mediabestand"
 
 #: src/main.c:117
 msgid "TV device name"
-msgstr "Naam TV apparaat"
+msgstr "Naam TV-apparaat"
 
 #: src/main.c:118
 msgid "TV driver name (v4l|v4l2)"
-msgstr "Naam TV driver (v4l|v4l2)"
+msgstr "Naam TV-stuurprogramma (v4l|v4l2)"
 
 #: src/main.c:119
 msgid "TV input name"
-msgstr "Naam TV invoer"
+msgstr "Naam TV-invoer"
 
 #: src/main.c:120
 msgid "Width of TV input"
-msgstr "Breedte van TV invoer"
+msgstr "Breedte van TV-invoer"
 
 #: src/main.c:121
 msgid "Height of TV input"
-msgstr "Hoogte van TV invoer"
+msgstr "Hoogte van TV-invoer"
 
 #: src/main.c:122
 msgid "Frames per second from TV input"
-msgstr "Beelden per seconde van TV invoer"
+msgstr "Beelden per seconde (BPS) van TV-invoer"
 
 #: src/main.c:123
 msgid "Only allow one instance"
@@ -197,7 +201,7 @@ msgstr "Sta maar één instantie toe"
 
 #: src/main.c:126
 msgid "Put single instance mode into replace and play mode"
-msgstr "Zet enkele instantie modus om in vervang-en-speel modus"
+msgstr "Zet enkele instantiemodus om in vervang- en afspeelmodus"
 
 #: src/main.c:129
 msgid "Use large control buttons"
@@ -209,7 +213,7 @@ msgstr "Verberg besturingspaneel als muis niet beweegt"
 
 #: src/main.c:135
 msgid "Ignore single instance preference for this instance"
-msgstr "Negeer enkele instantie voorkeur voor deze instantie"
+msgstr "Negeer enkele instantievoorkeur voor deze instantie"
 
 #: src/main.c:138
 msgid "Keep window on top"
@@ -217,11 +221,11 @@ msgstr "Houd venster bovenop"
 
 #: src/main.c:142
 msgid "Load all tracks from media player using gpod"
-msgstr "Laad alle tracks van media speler met gpod"
+msgstr "Laad alle tracks van mediaspeler met gpod"
 
 #: src/main.c:146
 msgid "Don't fetch new cover art images"
-msgstr "Haal geen nieuwe albumillustraties op"
+msgstr "Haal geen nieuwe albumhoezen op"
 
 #: src/main.c:331 src/gui.c:622 src/gui.c:2219
 #, c-format
@@ -243,8 +247,8 @@ msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr ""
-"Voer 'gnome-mplayer --help' uit voor een volledige lijst van "
-"commandoregelopties\n"
+"Voer 'gnome-mplayer --help' uit voor een volledige lijst met "
+"opdrachtregelopties\n"
 
 #: src/gui.c:341 src/gui.c:380
 #, c-format
@@ -311,7 +315,7 @@ msgstr "%s wordt toegevoegd aan afspeellijst"
 #: src/gui.c:996
 #, c-format
 msgid "Playing %s"
-msgstr "Afspelen %s"
+msgstr "%s aan het afspelen"
 
 #: src/gui.c:998
 #, c-format
@@ -362,11 +366,11 @@ msgstr "Niet gelukt om '%s' op te slaan"
 
 #: src/gui.c:3201 src/support.c:829 src/support.c:921 src/thread.c:266
 msgid "GNOME MPlayer Error"
-msgstr "GNOME MPlayer error"
+msgstr "GNOME MPlayer-fout"
 
 #: src/gui.c:3254
 msgid "A media player for GNOME that uses MPlayer"
-msgstr "Een mediaspeler voor GNOME die MPlayer gebruikt"
+msgstr "Een mediaspeler voor GNOME die gebruik maakt van MPlayer"
 
 #: src/gui.c:3257
 msgid ""
@@ -390,10 +394,30 @@ msgid ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 msgstr ""
+"Gnome MPlayer is vrije software: u mag het herdistribueren en/of wijzigen "
+"onder de\n"
+"voorwaarden van de GNU Algemene Publieke Licentie zoals gepubliceerd door de "
+"\n"
+"Free Software Foundation, onder versie 2 van de Licentie of (naar uw keuze)\n"
+"elke latere versie.\n"
+"\n"
+"Gnome MPlayer is gedistribueerd in de hoop dat het nuttig zal zijn maar "
+"ZONDER\n"
+"ENIGE GARANTIE; zelfs zonder de impliciete garanties die GEBRUIKELIJK ZIJN "
+"IN\n"
+"DE HANDEL of voor BRUIKBAARHEID VOOR EEN SPECIFIEK DOEL. Zie de GNU\n"
+"Algemene Publieke Licentie voor meer details.\n"
+"\n"
+"U hoort een kopie van de GNU Algemene Publieke Licentie te hebben ontvangen\n"
+"samen met Gnome MPlayer, als dat niet het geval is, schrijf dan naar\n"
+"\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin St, Fifth Floor\n"
+"Boston, MA 02110-1301 USA"
 
 #: src/gui.c:3529 src/playlist.c:137
 msgid "Set Subtitle"
-msgstr "Kies ondertitel"
+msgstr "Kies ondertiteling"
 
 #: src/gui.c:3655
 msgid "Gnome MPlayer Fullscreen"
@@ -401,7 +425,7 @@ msgstr "Gnome MPlayer volledig scherm"
 
 #: src/gui.c:4180 src/nautilus_property_page.c:342
 msgid "<span weight=\"bold\">Video Details</span>"
-msgstr "<span weight=\"bold\">Video Details</span>"
+msgstr "<span weight=\"bold\">Videodetails</span>"
 
 #: src/gui.c:4187 src/nautilus_property_page.c:349
 msgid "Video Size:"
@@ -417,7 +441,7 @@ msgstr "Videocodec:"
 
 #: src/gui.c:4222
 msgid "Video FPS:"
-msgstr "Video FPS:"
+msgstr "Video-BPS:"
 
 #: src/gui.c:4231 src/nautilus_property_page.c:371
 msgid "Video Bitrate:"
@@ -429,7 +453,7 @@ msgstr "Videohoofdstukken:"
 
 #: src/gui.c:4258 src/nautilus_property_page.c:398
 msgid "<span weight=\"bold\">Audio Details</span>"
-msgstr "<span weight=\"bold\">Audio Details</span>"
+msgstr "<span weight=\"bold\">Audiodetails</span>"
 
 #: src/gui.c:4265 src/nautilus_property_page.c:405
 msgid "Audio Codec:"
@@ -449,11 +473,11 @@ msgstr "Audiosamplesnelheid:"
 
 #: src/gui.c:4335
 msgid "Video Picture Adjustments"
-msgstr "Videobeeld Bijstellen"
+msgstr "Videobeeld bijstellen"
 
 #: src/gui.c:4348
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
-msgstr "<span weight=\"bold\">Videobeeld Bijstellen</span>"
+msgstr "<span weight=\"bold\">Videobeeld bijstellen</span>"
 
 #: src/gui.c:4355
 msgid "Brightness"
@@ -477,7 +501,7 @@ msgstr "Verzadiging"
 
 #: src/gui.c:4414
 msgid "_Reset"
-msgstr "_Reset"
+msgstr "_Herstellen"
 
 #: src/gui.c:4597
 msgid "No Display"
@@ -489,11 +513,11 @@ msgstr "Minimaal"
 
 #: src/gui.c:4603
 msgid "Timer"
-msgstr "Tijd"
+msgstr "Timer"
 
 #: src/gui.c:4606
 msgid "Timer/Total"
-msgstr "Tijd/Totaal"
+msgstr "Tijd/totaal"
 
 #: src/gui.c:4622
 msgid "No Postprocessing"
@@ -521,7 +545,7 @@ msgstr "Taal"
 
 #: src/gui.c:4772
 msgid "Subtitles"
-msgstr "Ondertitels"
+msgstr "Ondertiteling"
 
 #: src/gui.c:4774
 msgid "Interface"
@@ -533,11 +557,11 @@ msgstr "MPlayer"
 
 #: src/gui.c:4778
 msgid "Plugin"
-msgstr "Plugin"
+msgstr "Plug-in"
 
 #: src/gui.c:4784
 msgid "GNOME MPlayer Configuration"
-msgstr "GNOME MPlayer Configuratie"
+msgstr "GNOME MPlayer-configuratie"
 
 #: src/gui.c:4799
 msgid ""
@@ -549,7 +573,7 @@ msgstr ""
 
 #: src/gui.c:4830
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr ""
+msgstr "Schakel AC3/DTS pass-through naar S/PDIF in"
 
 #: src/gui.c:4894
 msgid ""
@@ -563,46 +587,46 @@ msgstr ""
 
 #: src/gui.c:5039
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
-msgstr "<span weight=\"bold\">Uitvoerinstellingen Aanpassen</span>"
+msgstr "<span weight=\"bold\">Uitvoerinstellingen aanpassen</span>"
 
 #: src/gui.c:5047
 msgid "Video Output:"
-msgstr "Videouitvoer:"
+msgstr "Video-uitvoer:"
 
 #: src/gui.c:5057
 msgid "Audio Output:"
-msgstr "Audiouitvoer:"
+msgstr "Audio-uitvoer:"
 
 #: src/gui.c:5069
 msgid "Default Mixer:"
-msgstr "Standaard mixer:"
+msgstr "Standaardmixer:"
 
 #: src/gui.c:5080
 msgid "Audio Channels to Output"
-msgstr ""
+msgstr "Audiokanalen voor uitvoer"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
 #: src/gui.c:5110
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
-msgstr "<span weight=\"bold\">Configuratieinstellingen Aanpassen</span>"
+msgstr "<span weight=\"bold\">Configuratie-instellingen aanpassen</span>"
 
 #: src/gui.c:5119
 msgid "Default Volume Level:"
-msgstr "Standaard volume niveau:"
+msgstr "Standaardvolumeniveau:"
 
 #: src/gui.c:5126
 msgid "Default volume for playback"
-msgstr "Standaard volume voor afspelen"
+msgstr "Standaardvolume voor afspelen"
 
 #: src/gui.c:5141
 msgid "On Screen Display Level:"
-msgstr "On Screen Display niveau:"
+msgstr "Infoschermvensterniveau:"
 
 #: src/gui.c:5156
 msgid "Post-processing level:"
-msgstr "Nabewerkings niveau:"
+msgstr "Nabewerkingsniveau:"
 
 #: src/gui.c:5172
 msgid ""
@@ -613,33 +637,33 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
-"<span weight=\"bold\">Plugin Emulatie-instellingen Aanpassen</span>\n"
+"<span weight=\"bold\">Plug-inemulatie-instellingen aanpassen</span>\n"
 "\n"
-"Deze opties beïnvloeden de gecko-mediaplayer plugin als deze is "
+"Deze opties hebben effect op de gecko-mediaplayer plug-in als deze is "
 "geïnstalleerd.\n"
-"Gecko-mediaplayer is een Firefox plugin welke verschillende mediaspelers\n"
-"nabootst en het mogelijk maakt om verschillende web content binnen\n"
-"NPRuntime compatible browsers (Firefox, Konqueror, etc) af te spelen."
+"Gecko-mediaplayer is een Firefox-plug-in die verschillende mediaspelers\n"
+"nabootst en het mogelijk maakt om de verschillende soorten webinhoud binnen\n"
+"NPRuntime compatible browsers (Firefox, Konqueror, etc) af te kunnen spelen."
 
 #: src/gui.c:5184
 msgid "QuickTime Emulation"
-msgstr "QuickTime emulatie"
+msgstr "QuickTime-emulatie"
 
 #: src/gui.c:5189
 msgid "RealPlayer Emulation"
-msgstr "RealPlayer emulatie"
+msgstr "RealPlayer-emulatie"
 
 #: src/gui.c:5195
 msgid "Windows Media Player Emulation"
-msgstr "Windows Media Player emulatie"
+msgstr "Windows Media Player-emulatie"
 
 #: src/gui.c:5200
 msgid "DiVX Player Emulation"
-msgstr "DiVX Player emulatie"
+msgstr "DiVX Player-emulatie"
 
 #: src/gui.c:5205
 msgid "MIDI Support (requires MPlayer support)"
-msgstr "MIDI ondersteuning (MPlayer onderstening noodzakelijk)"
+msgstr "MIDI-ondersteuning (MPlayer ondersteuning noodzakelijk)"
 
 #: src/gui.c:5211
 msgid "Disable Player Embedding"
@@ -647,35 +671,35 @@ msgstr "Schakel verankeren speler uit"
 
 #: src/gui.c:5217 src/gui.c:5659
 msgid "Cache Size (KB):"
-msgstr ""
+msgstr "Buffergrootte (KB)"
 
 #: src/gui.c:5226
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
 msgstr ""
-"Hoeveelheid data die gebufferd moet worden waneer media vanaf het netwerk "
-"wordt afgespeeld, gebruik hogere waarden voor trage netwerken."
+"De grootte van de buffer tijdens het afspelen van media vanaf het netwerk, "
+"er kan een grotere buffer gebruikt worden voor langzamere netwerken."
 
 #: src/gui.c:5244
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
-msgstr "<span weight=\"bold\">Taalinstellingen Aanpassen</span>"
+msgstr "<span weight=\"bold\">Taalinstellingen aanpassen</span>"
 
 #: src/gui.c:5252
 msgid "Default Audio Language"
-msgstr "Standaard audiotaal"
+msgstr "Standaardaudiotaal"
 
 #: src/gui.c:5262
 msgid "Default Subtitle Language:"
-msgstr "Standaard ondertiteltaal"
+msgstr "Standaardondertitelingstaal:"
 
 #: src/gui.c:5274
 msgid "File Metadata Encoding:"
-msgstr "Bestandsmetadata codering:"
+msgstr "Bestandsmetadatacodering:"
 
 #: src/gui.c:5290
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\">Ondertitelinstellingen aanpassen</span>"
+msgstr "<span weight=\"bold\">Ondertitelingsinstellingen aanpassen</span>"
 
 #: src/gui.c:5300
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
@@ -684,75 +708,75 @@ msgstr ""
 
 #: src/gui.c:5307
 msgid "Use _Embedded Fonts (MKV only)"
-msgstr ""
+msgstr "Gebruik g_eïntegreerde lettertypes (alleen MKV)"
 
 #: src/gui.c:5317
 msgid "Subtitle Font:"
-msgstr "Lettertype ondertitel:"
+msgstr "Lettertype ondertiteling:"
 
 #: src/gui.c:5335
 msgid "Subtitle Font Selection"
-msgstr "Lettertype ondertitel selectie"
+msgstr "Selectie lettertype ondertiteling"
 
 #: src/gui.c:5340
 msgid "Subtitle Color:"
-msgstr "Kleur ondertitel:"
+msgstr "Kleur ondertiteling:"
 
 #: src/gui.c:5365
 msgid "Subtitle Color Selection"
-msgstr "Ondertitel kleur keuze"
+msgstr "Kleurkeuze ondertiteling"
 
 #: src/gui.c:5371
 msgid "Outline Subtitle Font"
-msgstr "Omlijn lettertype ondertitel"
+msgstr "Omlijn lettertype ondertiteling"
 
 #: src/gui.c:5378
 msgid "Shadow Subtitle Font"
-msgstr "Schaduw lettertype ondertitel"
+msgstr "Schaduw lettertype ondertiteling"
 
 #: src/gui.c:5385
 msgid "Subtitle Font Scaling:"
-msgstr "Schaling lettertype ondertitel:"
+msgstr "Schaling lettertype ondertiteling:"
 
 #: src/gui.c:5398
 msgid "Subtitle File Encoding:"
-msgstr "Codering van ondertitelbestand:"
+msgstr "Ondertitelingsbestandscodering:"
 
 #: src/gui.c:5410
 msgid "Subtitle Lower Margin (X11/XV Only):"
-msgstr ""
+msgstr "Lage marge ondertiteling (alleen X11/XV):"
 
 #: src/gui.c:5423
 msgid "Show Subtitles by Default"
-msgstr "Toon ondertitels standaard"
+msgstr "Toon ondertiteling standaard"
 
 #: src/gui.c:5433
 msgid "<span weight=\"bold\">Application Preferences</span>"
-msgstr "<span weight=\"bold\">Programma Voorkeuren</span>"
+msgstr "<span weight=\"bold\">Programmavoorkeuren</span>"
 
 #: src/gui.c:5441
 msgid "Start with playlist visible"
-msgstr "Start met afspeellijst zichtbaar"
+msgstr "Start met zichtbare afspeellijst"
 
 #: src/gui.c:5453
 msgid "Respond to Keyboard Media Keys"
-msgstr "Reageer op media toetsen van toetsenbord"
+msgstr "Antwoord op mediatoetsen van toetsenbord"
 
 #: src/gui.c:5459
 msgid "Use default playlist"
-msgstr "Gebruik de standaard afspeellijst"
+msgstr "Gebruik de standaardafspeellijst"
 
 #: src/gui.c:5466
 msgid "Show notification popup"
-msgstr "Toon notificatie popup"
+msgstr "Toon notificatiepop-up"
 
 #: src/gui.c:5474
 msgid "Show status icon"
-msgstr "Toon status icoon"
+msgstr "Toon statusicoon"
 
 #: src/gui.c:5482
 msgid "Use X Screen Saver control over Gnome Power Manager"
-msgstr ""
+msgstr "Gebruik X Screen Saver boven Gnome Power Manager"
 
 #: src/gui.c:5490
 msgid "Place playlist below media (requires application restart)"
@@ -772,7 +796,7 @@ msgstr "Breng het hoofdscherm naar voren wanneer het bestand geopend wordt"
 
 #: src/gui.c:5533
 msgid "Remember Window Location and Size"
-msgstr "Onthoud venster locatie en grootte"
+msgstr "Onthoud vensterlocatie en grootte"
 
 #: src/gui.c:5540
 msgid "Resize window when new video is loaded"
@@ -784,11 +808,11 @@ msgstr "Houd venster boven andere vensters"
 
 #: src/gui.c:5553
 msgid "Pause playback on mouse click"
-msgstr "Pauzeer afspelen bij muis klik"
+msgstr "Pauzeer afspelen bij muisklik"
 
 #: src/gui.c:5560
 msgid "Disable Fullscreen Control Bar Animation"
-msgstr ""
+msgstr "Schakel volledig scherm-bedieningsbalkanimatie uit"
 
 #: src/gui.c:5566
 msgid "Verbose Debug Enabled"
@@ -804,11 +828,11 @@ msgstr ""
 
 #: src/gui.c:5581
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
-msgstr "<span weight=\"bold\">Geavanceerde Instellingen voor MPlayer</span>"
+msgstr "<span weight=\"bold\">Geavanceerde instellingen voor MPlayer</span>"
 
 #: src/gui.c:5589
 msgid "Mplayer Software Volume Control Enabled"
-msgstr "MPlayer software volumeregeling"
+msgstr "MPlayer-softwarevolumeregeling inschakelen"
 
 #: src/gui.c:5593
 msgid ""
@@ -820,15 +844,17 @@ msgstr ""
 
 #: src/gui.c:5607
 msgid "Remember last software volume level"
-msgstr ""
+msgstr "Onthoud laatste softwarevolumeniveau"
 
 #: src/gui.c:5611
-msgid "Set this option if you want the software volume level to be remembered"
+msgid ""
+"Set this option if you want the software volume level to be remembered"
 msgstr ""
+"Gebruik deze optie als u wilt dat het softwarevolumeniveau wordt onthouden"
 
 #: src/gui.c:5620
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr ""
+msgstr "Volumetoename (-200dB to +60dB)"
 
 #: src/gui.c:5633
 msgid "De_interlace Video"
@@ -848,13 +874,15 @@ msgstr "Gebruik deze optie als de video flink achterloopt op het geluid"
 
 #: src/gui.c:5651
 msgid "Enable mplayer cache"
-msgstr "Schakel mplayer buffer in"
+msgstr "Schakel mplayer-buffer in"
 
 #: src/gui.c:5668
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
 msgstr ""
+"De grootte van de buffer tijdens het afspelen van media, er kan een grotere "
+"buffer gebruikt worden voor langzamere apparaten en websites."
 
 #: src/gui.c:5687
 msgid "MPlayer Executable:"
@@ -873,11 +901,11 @@ msgstr "Extra opties voor MPlayer:"
 
 #: src/gui.c:5712
 msgid "Add any extra mplayer options here (filters etc)"
-msgstr "Voeg hier extra mplayer opties toe (zoals filters enz)"
+msgstr "Voeg hier extra mplayer-opties toe (zoals filters enz)"
 
 #: src/gui.c:5723
 msgid "MPlayer Default Optical Device"
-msgstr ""
+msgstr "Standaard MPlayer-optisch apparaat"
 
 #: src/gui.c:6135
 msgid "S_how Controls"
@@ -889,7 +917,7 @@ msgstr "_Volledig scherm"
 
 #: src/gui.c:6144
 msgid "_Copy Location"
-msgstr "_Kopiëer locatie"
+msgstr "_Kopieer locatie"
 
 #. File Menu
 #: src/gui.c:6215
@@ -898,7 +926,7 @@ msgstr "_Bestand"
 
 #: src/gui.c:6224
 msgid "Open _Folder"
-msgstr ""
+msgstr "Map _openen"
 
 #: src/gui.c:6227
 msgid "Open _Location"
@@ -910,35 +938,35 @@ msgstr "_Schijf"
 
 #: src/gui.c:6237
 msgid "Open _Audio CD"
-msgstr "Open _Audio CD"
+msgstr "Open _audiocd"
 
 #: src/gui.c:6242
 msgid "Open _DVD"
-msgstr "Open _DVD"
+msgstr "Open _dvd"
 
 #: src/gui.c:6245
 msgid "Open DVD with _Menus"
-msgstr "Open DVD met _menus"
+msgstr "Open dvd met _menu's"
 
 #: src/gui.c:6248
 msgid "Open DVD from _Folder"
-msgstr "Open DVD vanuit _map"
+msgstr "Open dvd vanuit _map"
 
 #: src/gui.c:6251
 msgid "Open DVD from Folder with M_enus"
-msgstr "Open DVD vanuit map met m_enus"
+msgstr "Open dvd vanuit map met m_enu's"
 
 #: src/gui.c:6254
 msgid "Open DVD from _ISO"
-msgstr "Open DVD vanuit _ISO"
+msgstr "Open dvd vanuit _ISO"
 
 #: src/gui.c:6257
 msgid "Open DVD from ISO with Me_nus"
-msgstr "Open DVD vanuit ISO met me_nus"
+msgstr "Open DVD vanuit ISO met me_nu's"
 
 #: src/gui.c:6262
 msgid "Open _VCD"
-msgstr "Open _VCD"
+msgstr "Open _vcd"
 
 #: src/gui.c:6265
 msgid "_TV"
@@ -963,11 +991,11 @@ msgstr "Open _recent"
 #. Edit Menu
 #: src/gui.c:6346
 msgid "_Edit"
-msgstr "Be_werken"
+msgstr "B_ewerken"
 
 #: src/gui.c:6353
 msgid "_Shuffle Playlist"
-msgstr "_Shuffle afspeellijst"
+msgstr "Speel afspeellijst _willekeurig af"
 
 #: src/gui.c:6357
 msgid "_Loop Playlist"
@@ -975,7 +1003,7 @@ msgstr "_Herhaal afspeellijst"
 
 #: src/gui.c:6362
 msgid "S_witch Audio Track"
-msgstr "_Schakel audiospoor"
+msgstr "_Wissel audiospoor"
 
 #: src/gui.c:6366
 msgid "Select _Audio Language"
@@ -983,15 +1011,15 @@ msgstr "Kies _audiotaal"
 
 #: src/gui.c:6372
 msgid "Set Sub_title"
-msgstr "Kies onder_titel"
+msgstr "Kies onder_titeling"
 
 #: src/gui.c:6376
 msgid "S_elect Subtitle Language"
-msgstr "_Kies ondertiteltaal"
+msgstr "_Kies ondertitelingstaal"
 
 #: src/gui.c:6383
 msgid "_Take Screenshot"
-msgstr "_Maak schermafbeelding"
+msgstr "Schermafdruk _maken"
 
 #: src/gui.c:6387
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
@@ -1001,11 +1029,11 @@ msgstr ""
 #. View Menu
 #: src/gui.c:6412
 msgid "_View"
-msgstr "Bee_ld"
+msgstr "Beel_d"
 
 #: src/gui.c:6417
 msgid "_Playlist"
-msgstr "_Afspeellijst"
+msgstr "Afs_peellijst"
 
 #: src/gui.c:6420
 msgid "Media _Info"
@@ -1037,7 +1065,7 @@ msgstr "_Verhouding"
 
 #: src/gui.c:6453
 msgid "D_efault Aspect"
-msgstr "_Standaard verhouding"
+msgstr "_Standaardverhouding"
 
 #: src/gui.c:6456
 msgid "_4:3 Aspect"
@@ -1057,15 +1085,15 @@ msgstr "_Volg venster"
 
 #: src/gui.c:6472
 msgid "Show _Subtitles"
-msgstr "Toon _ondertitels"
+msgstr "Toon _ondertiteling"
 
 #: src/gui.c:6475
 msgid "Decrease Subtitle Size"
-msgstr "Verklein ondertitel"
+msgstr "Verklein ondertiteling"
 
 #: src/gui.c:6477
 msgid "Increase Subtitle Size"
-msgstr "Vergroot ondertitel"
+msgstr "Vergroot ondertiteling"
 
 #: src/gui.c:6479
 msgid "Decrease Subtitle Delay"
@@ -1090,7 +1118,7 @@ msgstr "_Videobeeld bijstellen"
 #. Help Menu
 #: src/gui.c:6544
 msgid "_Help"
-msgstr "_Help"
+msgstr "_Hulp"
 
 #: src/gui.c:6765
 msgid "Menu"
@@ -1127,12 +1155,12 @@ msgstr "Volume 100%"
 #: src/support.c:809 src/thread.c:224
 #, c-format
 msgid "Couldn't open DVD device: %s"
-msgstr "DVD apparaat kon niet worden geopend: %s"
+msgstr "Dvd-apparaat kon niet worden geopend: %s"
 
 #: src/support.c:902
 #, c-format
 msgid "Couldn't open VCD device: %s"
-msgstr "VCD apparaat kon niet worden geopend: %s"
+msgstr "Vcd-apparaat kon niet worden geopend: %s"
 
 #: src/support.c:2012 src/support.c:2045 src/support.c:2090 src/support.c:2120
 msgid "Unable to save playlist, cannot open file for writing"
@@ -1155,8 +1183,8 @@ msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
 "option not supported\n"
 msgstr ""
-"U wil misschien overwegen om een recentere versie van mplayer te "
-"installeren, de -volume optie wordt niet ondersteund\n"
+"U wilt misschien overwegen om een recentere versie van mplayer te "
+"installeren, omdat de -volume-optie niet wordt ondersteund\n"
 
 #: src/thread.c:189
 #, c-format
@@ -1166,7 +1194,7 @@ msgstr "Openen van %s is mislukt"
 #: src/thread.c:230
 #, c-format
 msgid "Cannot load subtitles: %s"
-msgstr "Kan ondertitel niet laden: %s"
+msgstr "Kon ondertiteling niet laden: %s"
 
 #: src/thread.c:246
 msgid "Delaying start until cache is full"
@@ -1175,22 +1203,22 @@ msgstr "Start wordt vertraagd totdat buffer vol zit"
 #: src/thread.c:252
 #, c-format
 msgid "Compressed SWF format not supported"
-msgstr "Gecomprimeerd SWF formaat wordt niet ondersteund"
+msgstr "Gecomprimeerd SWF-formaat wordt niet ondersteund"
 
 #: src/thread.c:604
 #, c-format
 msgid "Cache fill: %2.2f%%"
-msgstr "Buffer niveau: %2.2f%%"
+msgstr "Bufferniveau: %2.2f%%"
 
 #: src/thread.c:613
 #, c-format
 msgid "Connecting"
-msgstr "Verbinden"
+msgstr "Bezig met verbinden"
 
 #: src/thread.c:750
 #, c-format
 msgid "Screenshot saved to '%s'"
-msgstr "Schermafbeelding opgeslagen in '%s'"
+msgstr "Schermafdruk opgeslagen in '%s'"
 
 #: src/thread.c:753
 msgid "GNOME MPlayer Notification"
@@ -1203,7 +1231,7 @@ msgid ""
 "Subtitle: %s"
 msgstr ""
 "Bestandsnaam: %s\n"
-"Ondertitel: %s"
+"Ondertiteling: %s"
 
 #: src/playlist.c:270 src/playlist.c:928
 msgid "Save Playlist"
@@ -1211,11 +1239,11 @@ msgstr "Sla afspeellijst op"
 
 #: src/playlist.c:287 src/playlist.c:341
 msgid "Playlist (*.pls)"
-msgstr "Afspleellijst (*.pls)"
+msgstr "Afspeellijst (*.pls)"
 
 #: src/playlist.c:292 src/playlist.c:351
 msgid "MP3 Playlist (*.m3u)"
-msgstr "MP3 afspeellijst (*.m3u)"
+msgstr "MP3-afspeellijst (*.m3u)"
 
 #: src/playlist.c:329 src/playlist.c:920
 msgid "Open Playlist"
@@ -1300,11 +1328,11 @@ msgstr "Verplaats item naar beneden"
 
 #: src/playlist.c:988
 msgid "UnSort List"
-msgstr ""
+msgstr "Sorteren ongedaan maken"
 
 #: src/playlist.c:1022
 msgid "_Set Subtitle"
-msgstr "_Kies ondertitel"
+msgstr "_Kies ondertiteling"
 
 #: src/nautilus_property_page.c:87
 #, c-format
@@ -1318,7 +1346,7 @@ msgstr "%i:%02i:%02.0f"
 
 #: src/nautilus_property_page.c:272
 msgid "<span weight=\"bold\">Media Details</span>"
-msgstr "<span weight=\"bold\">Media Details</span>"
+msgstr "<span weight=\"bold\">Mediadetails</span>"
 
 #: src/nautilus_property_page.c:280
 msgid "Title"
@@ -1330,11 +1358,11 @@ msgstr "Demuxer"
 
 #: src/nautilus_property_page.c:382
 msgid "Video Frame Rate:"
-msgstr "Video beeldsnelheid:"
+msgstr "Videobeeldsnelheid:"
 
 #: src/nautilus_property_page.c:486
 msgid "Audio/Video"
-msgstr "Audio/Video"
+msgstr "Audio/video"
 
 #: src/libgmtk/gmtk_media_tracker.c:95 src/libgmtk/gmtk_media_tracker.c:189
 msgid "No Information"
