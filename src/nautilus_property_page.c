@@ -112,6 +112,8 @@ static MetaData *get_metadata(gchar * filename)
     av[ac++] = g_strdup_printf("null");
     av[ac++] = g_strdup_printf("-ao");
     av[ac++] = g_strdup_printf("null");
+    av[ac++] = g_strdup_printf("-nomsgcolor");
+    av[ac++] = g_strdup_printf("-nomsgmodule");
     av[ac++] = g_strdup_printf("-frames");
     av[ac++] = g_strdup_printf("0");
     av[ac++] = g_strdup_printf("-noidx");

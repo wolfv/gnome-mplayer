@@ -1,4 +1,5 @@
 Development
+	When running mplayer disable pretty printing
 	Rework vdpau codec selection and deinterlace
 	Fix minor memory leak when we have an invalid item to play
 	When dontplaynext is set, request next item on playlist from plugin

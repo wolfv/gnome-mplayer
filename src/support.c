@@ -609,6 +609,8 @@ gint parse_cdda(gchar * filename)
         av[ac++] = g_strdup_printf("null");
         av[ac++] = g_strdup_printf("-ao");
         av[ac++] = g_strdup_printf("null");
+        av[ac++] = g_strdup_printf("-nomsgcolor");
+        av[ac++] = g_strdup_printf("-nomsgmodule");
         av[ac++] = g_strdup_printf("-frames");
         av[ac++] = g_strdup_printf("0");
         av[ac++] = g_strdup_printf("-identify");
@@ -772,6 +774,8 @@ gint parse_dvd(gchar * filename)
         av[ac++] = g_strdup_printf("null");
         av[ac++] = g_strdup_printf("-ao");
         av[ac++] = g_strdup_printf("null");
+        av[ac++] = g_strdup_printf("-nomsgcolor");
+        av[ac++] = g_strdup_printf("-nomsgmodule");
         av[ac++] = g_strdup_printf("-frames");
         av[ac++] = g_strdup_printf("0");
         av[ac++] = g_strdup_printf("-identify");
@@ -870,6 +874,8 @@ gint parse_vcd(gchar * filename)
         av[ac++] = g_strdup_printf("null");
         av[ac++] = g_strdup_printf("-ao");
         av[ac++] = g_strdup_printf("null");
+        av[ac++] = g_strdup_printf("-nomsgcolor");
+        av[ac++] = g_strdup_printf("-nomsgmodule");
         av[ac++] = g_strdup_printf("-frames");
         av[ac++] = g_strdup_printf("0");
         av[ac++] = g_strdup_printf("-identify");
@@ -1391,6 +1397,8 @@ MetaData *get_metadata(gchar * uri)
     av[ac++] = g_strdup_printf("null");
     av[ac++] = g_strdup_printf("-ao");
     av[ac++] = g_strdup_printf("null");
+    av[ac++] = g_strdup_printf("-nomsgcolor");
+    av[ac++] = g_strdup_printf("-nomsgmodule");
     av[ac++] = g_strdup_printf("-frames");
     av[ac++] = g_strdup_printf("0");
     av[ac++] = g_strdup_printf("-noidx");
@@ -1635,6 +1643,8 @@ gint get_bitrate(gchar * name)
     av[ac++] = g_strdup_printf("null");
     av[ac++] = g_strdup_printf("-ao");
     av[ac++] = g_strdup_printf("null");
+    av[ac++] = g_strdup_printf("-nomsgcolor");
+    av[ac++] = g_strdup_printf("-nomsgmodule");
     av[ac++] = g_strdup_printf("-frames");
     av[ac++] = g_strdup_printf("0");
     av[ac++] = g_strdup_printf("-identify");
