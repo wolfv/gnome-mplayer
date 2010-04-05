@@ -1268,6 +1268,10 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("QuickTime/7.6.4");
     }
 
+    /* disable msg stuff to make sure extra console characters don't mess around */
+    argv[arg++] = g_strdup_printf("-nomsgcolor");
+    argv[arg++] = g_strdup_printf("-nomsgmodule");
+	
 
     if (threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");
