@@ -44,6 +44,7 @@
 GtkWidget *window;
 GdkWindow *window_container;
 GtkWidget *fs_window;
+GtkWidget *fs_controls;
 
 GtkWidget *menubar;
 GtkMenuItem *menuitem_file;
@@ -350,3 +351,6 @@ gboolean set_software_volume(int *data);
 
 gint get_height();
 gint get_width();
+
+void show_fs_controls();
+void hide_fs_controls();
