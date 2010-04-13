@@ -1639,17 +1639,16 @@ gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, 
 
     // printf("fullscreen = %i\nState = %i mask = %i flag = %i\n",(event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN),event->new_window_state, event->changed_mask, GDK_WINDOW_STATE_FULLSCREEN);
     if (embed_window == 0) {
+        update_control_flag = TRUE;
+        printf("restore controls = %i showcontrols = %i\n", restore_controls, showcontrols);
         fullscreen = (event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN);
         if (fullscreen) {
             gtk_widget_hide(menubar);
         } else {
             gtk_widget_show(menubar);
-            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols),
-                                           !restore_controls);
-
         }
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols),
-                                       restore_controls);
+        idledata->showcontrols = restore_controls;
+        set_show_controls(idledata);
     }
 
     return FALSE;
@@ -1799,6 +1798,13 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
        }
        }
      */
+    if (update_control_flag && restore_controls == showcontrols) {
+        idledata->showcontrols = !showcontrols;
+        set_show_controls(idledata);
+        idledata->showcontrols = restore_controls;
+        set_show_controls(idledata);
+        update_control_flag = FALSE;
+    }
 
     return FALSE;
 
@@ -3727,7 +3733,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             while (gtk_events_pending())
                 gtk_main_iteration();
         }
-
+        fullscreen = 1;
 
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_config), FALSE);
         if (embed_window == 0) {
