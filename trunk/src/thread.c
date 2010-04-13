@@ -963,13 +963,13 @@ gpointer launch_player(gpointer data)
 
         argv[arg++] = g_strdup_printf("-vo");
         if (!disable_deinterlace) {
-    		argv[arg++] = g_strdup_printf("vdpau:deint=2,");
+            argv[arg++] = g_strdup_printf("vdpau:deint=2,");
         } else {
-    		argv[arg++] = g_strdup_printf("%s,vdpau,",vo);
-		}		
+            argv[arg++] = g_strdup_printf("%s,vdpau,", vo);
+        }
 
-		argv[arg++] = g_strdup_printf("-vc");
-		argv[arg++] = g_strdup_printf("ffmpeg12vdpau,ffh264vdpau,ffwmv3vdpau,ffvc1vdpau,");
+        argv[arg++] = g_strdup_printf("-vc");
+        argv[arg++] = g_strdup_printf("ffmpeg12vdpau,ffh264vdpau,ffwmv3vdpau,ffvc1vdpau,");
     }
 
     if (use_hw_audio) {
@@ -1271,7 +1271,7 @@ gpointer launch_player(gpointer data)
     /* disable msg stuff to make sure extra console characters don't mess around */
     argv[arg++] = g_strdup_printf("-nomsgcolor");
     argv[arg++] = g_strdup_printf("-nomsgmodule");
-	
+
 
     if (threaddata->playlist)
         argv[arg++] = g_strdup_printf("-playlist");

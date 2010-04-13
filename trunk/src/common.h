@@ -357,6 +357,7 @@ gboolean details_visible;
 gboolean restore_playlist;
 gboolean restore_details;
 gboolean restore_info;
+gboolean restore_controls;
 gint restore_pane;
 gboolean disable_ass;
 gboolean disable_embeddedfonts;
