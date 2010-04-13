@@ -3606,6 +3606,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         }
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_config), TRUE);
 
+		make_panel_and_mouse_visible(NULL);
+		hide_fs_controls();
+
         if (embed_window != 0) {
             while (gtk_events_pending())
                 gtk_main_iteration();
@@ -3641,10 +3644,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
                                            restore_playlist);
         }
 
-		hide_fs_controls();
-		make_panel_and_mouse_visible(NULL);
-
-        while (gtk_events_pending())
+		while (gtk_events_pending())
             gtk_main_iteration();
     } else {
         if (embed_window != 0) {
@@ -7311,7 +7311,9 @@ void show_fs_controls()
                                         gdk_screen_get_monitor_at_window
                                         (screen, window->window), &rect);
 
-		x = rect.x + (rect.width / 2) - (fs_controls->allocation.width / 2);
+		gtk_widget_set_size_request(fs_controls, rect.width /2 , fs_controls->allocation.height);
+		
+		x = rect.x + (rect.width / 4);
 		y = rect.y + rect.height - fs_controls->allocation.height;
 		gtk_window_move(GTK_WINDOW(fs_controls), x, y);
 	}
