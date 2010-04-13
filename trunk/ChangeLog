@@ -1,4 +1,5 @@
 Development
+	Resize controls slightly in fullscreen mode
 	Fullscreen controls in a floating widget
 	When running mplayer disable pretty printing
 	Rework vdpau codec selection and deinterlace
