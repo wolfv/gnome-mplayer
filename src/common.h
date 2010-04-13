@@ -358,6 +358,7 @@ gboolean restore_playlist;
 gboolean restore_details;
 gboolean restore_info;
 gboolean restore_controls;
+gboolean update_control_flag;
 gint restore_pane;
 gboolean disable_ass;
 gboolean disable_embeddedfonts;
