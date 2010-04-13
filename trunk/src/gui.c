@@ -7303,7 +7303,8 @@ void show_fs_controls()
 		gtk_window_set_transient_for(GTK_WINDOW(fs_controls),GTK_WINDOW(fs_window));
 		gtk_widget_unref(hbox);
 		gtk_widget_show(fs_controls);
-
+		while (gtk_events_pending())
+                gtk_main_iteration();
 		// center fs_controls
         screen = gtk_window_get_screen(GTK_WINDOW(window));
         gtk_window_set_screen(GTK_WINDOW(fs_controls), screen);
@@ -7326,7 +7327,8 @@ void hide_fs_controls()
 		gtk_container_remove(GTK_CONTAINER(fs_controls),hbox);
 		gtk_container_add(GTK_CONTAINER(controls_box), hbox);
 		gtk_widget_unref(hbox);
-
+		while (gtk_events_pending())
+                gtk_main_iteration();
 		gtk_widget_destroy(fs_controls);
 		fs_controls = NULL;
 	}
