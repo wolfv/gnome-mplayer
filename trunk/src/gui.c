@@ -3774,24 +3774,27 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
         if (GTK_IS_WIDGET(button_event_box)) {
             gtk_widget_hide_all(button_event_box);
         }
-        gtk_widget_set_size_request(controls_box, -1, -1);
-        gtk_widget_show(controls_box);
-        if (!fullscreen && embed_window == 0) {
-            gtk_window_get_size(GTK_WINDOW(window), &width, &height);
-            gtk_window_resize(GTK_WINDOW(window), width, height + controls_box->allocation.height);
-        }
 
-		show_fs_controls();
-		
+		if (fullscreen) {
+			show_fs_controls();
+		} 
+	    gtk_widget_set_size_request(controls_box, -1, -1);
+	    gtk_widget_show(controls_box);
+	    if (!fullscreen && embed_window == 0) {
+	        gtk_window_get_size(GTK_WINDOW(window), &width, &height);
+	        gtk_window_resize(GTK_WINDOW(window), width, height + controls_box->allocation.height);
+	    }
+			
         showcontrols = TRUE;
     } else {
-        gtk_widget_hide(controls_box);
-        if (!fullscreen && embed_window == 0) {
-            gtk_window_get_size(GTK_WINDOW(window), &width, &height);
-            gtk_window_resize(GTK_WINDOW(window), width, height - controls_box->allocation.height);
-        }
-
-		hide_fs_controls();
+		if (fullscreen) {
+			hide_fs_controls();
+		} 
+	    gtk_widget_hide(controls_box);
+	    if (!fullscreen && embed_window == 0) {
+	        gtk_window_get_size(GTK_WINDOW(window), &width, &height);
+	        gtk_window_resize(GTK_WINDOW(window), width, height - controls_box->allocation.height);
+	    }
 		showcontrols = FALSE;
     }
 }
