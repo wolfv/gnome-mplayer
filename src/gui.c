@@ -3787,6 +3787,7 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
 			
         showcontrols = TRUE;
     } else {
+	    gtk_widget_hide(controls_box);
 		if (fullscreen) {
 			hide_fs_controls();
 		} 
