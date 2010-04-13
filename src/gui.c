@@ -2780,10 +2780,11 @@ void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
     label = gtk_label_new(_("Location:"));
     open_location = gtk_entry_new();
     gtk_entry_set_width_chars(GTK_ENTRY(open_location), 50);
-    item_box = gtk_hbox_new(FALSE, 6);
+	gtk_entry_set_activates_default(GTK_ENTRY(open_location),TRUE);
+	item_box = gtk_hbox_new(FALSE, 6);
     gtk_box_pack_start(GTK_BOX(item_box), label, FALSE, FALSE, 12);
     gtk_box_pack_end(GTK_BOX(item_box), open_location, TRUE, TRUE, 0);
-
+	
     button_box = gtk_hbox_new(FALSE, 6);
     cancel_button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     open_button = gtk_button_new_from_stock(GTK_STOCK_OPEN);
