@@ -800,6 +800,7 @@ int main(int argc, char *argv[])
     show_notification = gm_pref_store_get_boolean(gm_store, SHOW_NOTIFICATION);
     show_status_icon = gm_pref_store_get_boolean(gm_store, SHOW_STATUS_ICON);
     showcontrols = gm_pref_store_get_boolean_with_default(gm_store, SHOW_CONTROLS, showcontrols);
+    restore_controls = showcontrols;
     disable_deinterlace = gm_pref_store_get_boolean(gm_store, DISABLEDEINTERLACE);
     disable_framedrop = gm_pref_store_get_boolean(gm_store, DISABLEFRAMEDROP);
     disable_fullscreen = gm_pref_store_get_boolean(gm_store, DISABLEFULLSCREEN);
