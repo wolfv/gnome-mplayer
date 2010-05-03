@@ -93,6 +93,12 @@ libgnome_mplayer_properties_page_so_CFLAGS = -fPIC \
     
 libgnome_mplayer_properties_page_so_LDFLAGS = -avoid-version -shared
 
+libgnome_mplayer_properties_page_so_LDADD = \
+	$(NAUTILUS_LIBS) \
+	$(GTK_LIBS) \
+	$(GIO_LIBS) \
+	$(GLIB_LIBS)
+
 endif #HAVE_NAUTILUS
 
 EXTRA_DIST = 
