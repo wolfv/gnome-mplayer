@@ -699,6 +699,7 @@ int main(int argc, char *argv[])
     subtitle_color = NULL;
     subtitle_outline = FALSE;
     subtitle_shadow = FALSE;
+    disable_embeddedfonts = FALSE;
     quit_on_complete = FALSE;
     slide_away = NULL;
     verbose = 0;
