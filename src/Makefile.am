@@ -89,6 +89,8 @@ libgnome_mplayer_properties_page_so_SOURCES = \
 
 libgnome_mplayer_properties_page_so_CFLAGS = -fPIC \
     $(NAUTILUS_CFLAGS) \
+	$(GTK_CFLAGS) \
+    $(GIO_CFLAGS) \
     $(AM_CFLAGS)
     
 libgnome_mplayer_properties_page_so_LDFLAGS = -avoid-version -shared
@@ -96,8 +98,7 @@ libgnome_mplayer_properties_page_so_LDFLAGS = -avoid-version -shared
 libgnome_mplayer_properties_page_so_LDADD = \
 	$(NAUTILUS_LIBS) \
 	$(GTK_LIBS) \
-	$(GIO_LIBS) \
-	$(GLIB_LIBS)
+	$(GIO_LIBS)
 
 endif #HAVE_NAUTILUS
 

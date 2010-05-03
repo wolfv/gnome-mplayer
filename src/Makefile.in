@@ -67,7 +67,6 @@ libgnome_mplayer_properties_page_so_OBJECTS =  \
 @HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_DEPENDENCIES =  \
 @HAVE_NAUTILUS_TRUE@	$(am__DEPENDENCIES_1) \
 @HAVE_NAUTILUS_TRUE@	$(am__DEPENDENCIES_1) \
-@HAVE_NAUTILUS_TRUE@	$(am__DEPENDENCIES_1) \
 @HAVE_NAUTILUS_TRUE@	$(am__DEPENDENCIES_1)
 libgnome_mplayer_properties_page_so_LINK = $(CCLD) \
 	$(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) \
@@ -362,14 +361,15 @@ gnome_mplayer_LDADD = \
 
 @HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_CFLAGS = -fPIC \
 @HAVE_NAUTILUS_TRUE@    $(NAUTILUS_CFLAGS) \
+@HAVE_NAUTILUS_TRUE@	$(GTK_CFLAGS) \
+@HAVE_NAUTILUS_TRUE@    $(GIO_CFLAGS) \
 @HAVE_NAUTILUS_TRUE@    $(AM_CFLAGS)
 
 @HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_LDFLAGS = -avoid-version -shared
 @HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_LDADD = \
 @HAVE_NAUTILUS_TRUE@	$(NAUTILUS_LIBS) \
 @HAVE_NAUTILUS_TRUE@	$(GTK_LIBS) \
-@HAVE_NAUTILUS_TRUE@	$(GIO_LIBS) \
-@HAVE_NAUTILUS_TRUE@	$(GLIB_LIBS)
+@HAVE_NAUTILUS_TRUE@	$(GIO_LIBS)
 
 EXTRA_DIST = 
 all: all-recursive
