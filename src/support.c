@@ -1777,6 +1777,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
     GtkTreeIter localiter;
     gchar *local_uri;
     gchar *unescaped = NULL;
+    gchar *slash;
     MetaData *data = NULL;
     gboolean retrieve = FALSE;
 
@@ -1818,7 +1819,12 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         unescaped = g_strdup(uri);
 #endif
         data = (MetaData *) g_new0(MetaData, 1);
-        data->title = g_strdup_printf("Stream from %s", unescaped);
+        slash = g_strrstr(unescaped, "/");
+        if (slash != NULL) {
+            data->title = g_strdup_printf("[Stream] %s", slash + sizeof(gchar));
+        } else {
+            data->title = g_strdup_printf("[Stream] %s", unescaped);
+        }
         g_free(unescaped);
     }
 

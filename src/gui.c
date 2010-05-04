@@ -223,7 +223,12 @@ void adjust_layout()
         } else {
             total_width += MAX(plvbox->requisition.width, plvbox->allocation.width) + handle_size;
             if (non_fs_height == 0)
-                total_height = MAX(total_height, plvbox->allocation.height);
+                //printf("height = %i\n",plvbox->allocation.height);
+                if (plvbox->allocation.height == 0) {
+                    total_height = 200;
+                } else {
+                    total_height = MAX(total_height, plvbox->allocation.height);
+                }
             if (!fullscreen) {
                 //total_height = MAX(total_height, plvbox->allocation.height);
 /*
@@ -1647,10 +1652,10 @@ gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, 
         } else {
             gtk_widget_show(menubar);
         }
-		if (event->changed_mask == GDK_WINDOW_STATE_FULLSCREEN) {
-		    idledata->showcontrols = restore_controls;
-		    set_show_controls(idledata);
-		}
+        if (event->changed_mask == GDK_WINDOW_STATE_FULLSCREEN) {
+            idledata->showcontrols = restore_controls;
+            set_show_controls(idledata);
+        }
     }
 
     return FALSE;
@@ -2610,14 +2615,14 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 
     g_get_current_time(&currenttime);
     g_time_val_add(&currenttime, -auto_hide_timeout * G_USEC_PER_SEC);
-	/*
-	 printf("%i, %i, %i, %i, %i, %i\n",	currenttime.tv_sec,
-	    GTK_WIDGET_VISIBLE(menu_file),
-		GTK_WIDGET_VISIBLE(menu_edit),
-		GTK_WIDGET_VISIBLE(menu_view),
-		GTK_WIDGET_VISIBLE(menu_help),
-		gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)));
-	*/
+    /*
+       printf("%i, %i, %i, %i, %i, %i\n",   currenttime.tv_sec,
+       GTK_WIDGET_VISIBLE(menu_file),
+       GTK_WIDGET_VISIBLE(menu_edit),
+       GTK_WIDGET_VISIBLE(menu_view),
+       GTK_WIDGET_VISIBLE(menu_help),
+       gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)));
+     */
     if (GTK_WIDGET_VISIBLE(menu_file)
         || GTK_WIDGET_VISIBLE(menu_edit)
         || GTK_WIDGET_VISIBLE(menu_view)

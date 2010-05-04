@@ -1129,7 +1129,7 @@ gpointer launch_player(gpointer data)
             argv[arg++] = g_strdup_printf("-ass-use-margins");
         }
         // Simply ommiting '-embeddedfonts' did not work
-		// printf("demuxer = %s\n",idledata->demuxer);
+        // printf("demuxer = %s\n",idledata->demuxer);
         // if (!disable_embeddedfonts) {
         if (!disable_embeddedfonts && g_strrstr(idledata->demuxer, "mkv")) {
             argv[arg++] = g_strdup_printf("-embeddedfonts");
