@@ -1,4 +1,5 @@
 Development
+	Fix bug #391 - Change metadata timeout count from 10 to 50
 	Fix bug #355 - Change stream name to only show last part of URL in playlist, tooltip shows full url
 	Fix problem with mouse not disappearing when over letterboxing
 	Fix bug #392 - the panel disappearing/reappearing on window maximize/restore
@@ -8,7 +9,7 @@ Development
 	Resize controls slightly in fullscreen mode
 	Fullscreen controls in a floating widget
 	When running mplayer disable pretty printing
-	Rework vdpau codec selection and deinterlace
+	Fix bug #376 - Rework vdpau codec selection and deinterlace
 	Fix minor memory leak when we have an invalid item to play
 	When dontplaynext is set, request next item on playlist from plugin
 	Add vaapi to list of supported vo's
