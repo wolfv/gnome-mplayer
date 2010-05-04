@@ -283,7 +283,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     if (!streaming_media(uri) && !device_name(uri)) {
         i = 0;
         if (playable) {
-            while (demuxer == NULL && i < 10) {
+            while (demuxer == NULL && i < 50) {
                 g_free(title);
                 g_free(artist);
                 g_free(album);
