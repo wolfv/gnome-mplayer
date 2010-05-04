@@ -2610,6 +2610,14 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 
     g_get_current_time(&currenttime);
     g_time_val_add(&currenttime, -auto_hide_timeout * G_USEC_PER_SEC);
+	/*
+	 printf("%i, %i, %i, %i, %i, %i\n",	currenttime.tv_sec,
+	    GTK_WIDGET_VISIBLE(menu_file),
+		GTK_WIDGET_VISIBLE(menu_edit),
+		GTK_WIDGET_VISIBLE(menu_view),
+		GTK_WIDGET_VISIBLE(menu_help),
+		gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)));
+	*/
     if (GTK_WIDGET_VISIBLE(menu_file)
         || GTK_WIDGET_VISIBLE(menu_edit)
         || GTK_WIDGET_VISIBLE(menu_view)
