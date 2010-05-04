@@ -1637,7 +1637,7 @@ gboolean move_window(void *data)
 gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, gpointer user_data)
 {
 
-    // printf("fullscreen = %i\nState = %i mask = %i flag = %i\n",(event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN),event->new_window_state, event->changed_mask, GDK_WINDOW_STATE_FULLSCREEN);
+    //printf("fullscreen = %i\nState = %i mask = %i flag = %i\n",(event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN),event->new_window_state, event->changed_mask, GDK_WINDOW_STATE_FULLSCREEN);
     if (embed_window == 0) {
         update_control_flag = TRUE;
         // printf("restore controls = %i showcontrols = %i\n", restore_controls, showcontrols);
@@ -1647,8 +1647,10 @@ gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, 
         } else {
             gtk_widget_show(menubar);
         }
-        idledata->showcontrols = restore_controls;
-        set_show_controls(idledata);
+		if (event->changed_mask == 16) {
+		    idledata->showcontrols = restore_controls;
+		    set_show_controls(idledata);
+		}
     }
 
     return FALSE;

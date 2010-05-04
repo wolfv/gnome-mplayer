@@ -1,4 +1,5 @@
 Development
+	Fix the panel disappearing/reappearing on window maximize/restore
 	Add some libs to the nautilus plugin compliation process
 	Set default value for embedded fonts
 	Fix bug #381 - Open does not activate on Enter in Open->Location
