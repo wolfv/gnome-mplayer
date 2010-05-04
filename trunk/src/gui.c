@@ -1647,7 +1647,7 @@ gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, 
         } else {
             gtk_widget_show(menubar);
         }
-		if (event->changed_mask == 16) {
+		if (event->changed_mask == GDK_WINDOW_STATE_FULLSCREEN) {
 		    idledata->showcontrols = restore_controls;
 		    set_show_controls(idledata);
 		}
