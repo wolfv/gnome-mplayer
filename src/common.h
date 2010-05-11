@@ -528,4 +528,8 @@ GtkRecentManager *recent_manager;
 void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer data);
 #endif
 
+GValue ALLOW_SHRINK_TRUE;
+GValue ALLOW_SHRINK_FALSE;
+
+
 #endif                          /* _COMMON_H */
