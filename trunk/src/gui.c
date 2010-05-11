@@ -1069,7 +1069,7 @@ gboolean set_new_lang_menu(gpointer data)
 
             lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
 
-            gtk_menu_append(menu_edit_sub_langs, GTK_WIDGET(menuitem_lang));
+            gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit_sub_langs), GTK_WIDGET(menuitem_lang));
             g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
                              G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
         }
@@ -1129,7 +1129,7 @@ gboolean set_new_audio_menu(gpointer data)
                 GTK_MENU_ITEM(gtk_radio_menu_item_new_with_label(audio_group, menu->label));
             g_object_set_data(G_OBJECT(menuitem_lang), "id", GINT_TO_POINTER(menu->value));
             audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
-            gtk_menu_append(menu_edit_audio_langs, GTK_WIDGET(menuitem_lang));
+            gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit_audio_langs), GTK_WIDGET(menuitem_lang));
             g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
                              G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
         }
@@ -2820,9 +2820,9 @@ void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
     gtk_box_pack_end(GTK_BOX(button_box), cancel_button, FALSE, FALSE, 0);
 
     g_signal_connect_swapped(GTK_OBJECT(cancel_button), "clicked",
-                             GTK_SIGNAL_FUNC(config_close), open_window);
+                             G_CALLBACK(config_close), open_window);
     g_signal_connect_swapped(GTK_OBJECT(open_button), "clicked",
-                             GTK_SIGNAL_FUNC(open_location_callback), open_window);
+                             G_CALLBACK(open_location_callback), open_window);
 
     gtk_container_add(GTK_CONTAINER(vbox), item_box);
     gtk_container_add(GTK_CONTAINER(vbox), button_box);
@@ -3946,7 +3946,7 @@ void config_apply(GtkWidget * widget, void *data)
         subtitlefont = NULL;
     }
     subtitlefont = g_strdup(gtk_font_button_get_font_name(GTK_FONT_BUTTON(config_subtitle_font)));
-    subtitle_scale = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(config_subtitle_scale));
+    subtitle_scale = gtk_spin_button_get_value(GTK_SPIN_BUTTON(config_subtitle_scale));
     gtk_color_button_get_color(GTK_COLOR_BUTTON(config_subtitle_color), &sub_color);
     if (subtitle_color != NULL) {
         g_free(subtitle_color);
@@ -4475,12 +4475,12 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
                      idledata);
 
     adv_reset = gtk_button_new_with_mnemonic(_("_Reset"));
-    g_signal_connect(GTK_OBJECT(adv_reset), "clicked", GTK_SIGNAL_FUNC(adv_reset_values), NULL);
+    g_signal_connect(GTK_OBJECT(adv_reset), "clicked", G_CALLBACK(adv_reset_values), NULL);
     gtk_container_add(GTK_CONTAINER(adv_hbutton_box), adv_reset);
 
     adv_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     g_signal_connect_swapped(GTK_OBJECT(adv_close), "clicked",
-                             GTK_SIGNAL_FUNC(config_close), adv_window);
+                             G_CALLBACK(config_close), adv_window);
 
     gtk_container_add(GTK_CONTAINER(adv_hbutton_box), adv_close);
     gtk_widget_show_all(adv_window);
@@ -4849,11 +4849,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_window_set_default_size(GTK_WINDOW(config_window), 300, 300);
     conf_ok = gtk_button_new_from_stock(GTK_STOCK_OK);
     g_signal_connect_swapped(GTK_OBJECT(conf_ok), "clicked",
-                             GTK_SIGNAL_FUNC(config_apply), config_window);
+                             G_CALLBACK(config_apply), config_window);
 
     conf_cancel = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
     g_signal_connect_swapped(GTK_OBJECT(conf_cancel), "clicked",
-                             GTK_SIGNAL_FUNC(config_apply), config_window);
+                             G_CALLBACK(config_apply), config_window);
 
     config_vo = gtk_combo_box_entry_new_text();
     tooltip = gtk_tooltips_new();
@@ -4896,7 +4896,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_use_hw_audio =
         gtk_check_button_new_with_mnemonic(_("Enable AC3/DTS pass-through to S/PDIF"));
     g_signal_connect(GTK_WIDGET(config_use_hw_audio), "toggled",
-                     GTK_SIGNAL_FUNC(hw_audio_toggle_callback), NULL);
+                     G_CALLBACK(hw_audio_toggle_callback), NULL);
 
 #ifdef HAVE_ASOUNDLIB
     config_mixer = gtk_combo_box_entry_new_text();
@@ -4954,7 +4954,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #endif
 
     config_ao = gtk_combo_box_entry_new_text();
-    g_signal_connect(GTK_WIDGET(config_ao), "changed", GTK_SIGNAL_FUNC(ao_change_callback), NULL);
+    g_signal_connect(GTK_WIDGET(config_ao), "changed", G_CALLBACK(ao_change_callback), NULL);
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_ao,
                          _
@@ -5209,9 +5209,9 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_osdlevel = gtk_hscale_new_with_range(0.0, 3.0, 1.0);
     gtk_range_set_value(GTK_RANGE(config_osdlevel), osdlevel);
     g_signal_connect(GTK_OBJECT(config_osdlevel), "format-value",
-                     GTK_SIGNAL_FUNC(osdlevel_format_callback), NULL);
+                     G_CALLBACK(osdlevel_format_callback), NULL);
     g_signal_connect(GTK_OBJECT(config_osdlevel), "value-changed",
-                     GTK_SIGNAL_FUNC(osdlevel_change_callback), NULL);
+                     G_CALLBACK(osdlevel_change_callback), NULL);
     gtk_widget_set_size_request(config_osdlevel, 150, -1);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
@@ -5223,7 +5223,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_label = gtk_label_new(_("Post-processing level:"));
     config_pplevel = gtk_hscale_new_with_range(0.0, 6.0, 1.0);
     g_signal_connect(GTK_OBJECT(config_pplevel), "format-value",
-                     GTK_SIGNAL_FUNC(pplevel_format_callback), NULL);
+                     G_CALLBACK(pplevel_format_callback), NULL);
     gtk_widget_set_size_request(config_pplevel, 150, -1);
     gtk_range_set_value(GTK_RANGE(config_pplevel), pplevel);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
@@ -5366,7 +5366,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_check_button_new_with_mnemonic(_
                                            ("Enable _Advanced Substation Alpha (ASS) Subtitle Support"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_ass), !disable_ass);
-    g_signal_connect(GTK_OBJECT(config_ass), "toggled", GTK_SIGNAL_FUNC(ass_toggle_callback), NULL);
+    g_signal_connect(GTK_OBJECT(config_ass), "toggled", G_CALLBACK(ass_toggle_callback), NULL);
     gtk_table_attach(GTK_TABLE(conf_table), config_ass, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(config_ass);
     i++;
@@ -5375,7 +5375,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_embeddedfonts), !disable_embeddedfonts);
     gtk_widget_set_sensitive(config_embeddedfonts, !disable_ass);
 //    g_signal_connect(GTK_OBJECT(config_embeddedfonts), "toggled",
-//                     GTK_SIGNAL_FUNC(embedded_fonts_toggle_callback), NULL);
+//                     G_CALLBACK(embedded_fonts_toggle_callback), NULL);
     gtk_table_attach(GTK_TABLE(conf_table), config_embeddedfonts, 0, 2, i, i + 1, GTK_FILL,
                      GTK_SHRINK, 0, 0);
     gtk_widget_show(config_embeddedfonts);
@@ -6652,7 +6652,7 @@ GtkWidget *create_window(gint windowid)
     gtk_drag_dest_add_uri_targets(window);
 
     //Connect the signal for DnD
-    g_signal_connect(GTK_OBJECT(window), "drag_data_received", GTK_SIGNAL_FUNC(drop_callback),
+    g_signal_connect(GTK_OBJECT(window), "drag_data_received", G_CALLBACK(drop_callback),
                      NULL);
 
 
@@ -7335,11 +7335,11 @@ void show_fs_controls()
 
     if (fs_controls == NULL && fullscreen) {
         fs_controls = gtk_window_new(GTK_WINDOW_POPUP);
-        gtk_widget_ref(hbox);
+        g_object_ref(hbox);
         gtk_container_remove(GTK_CONTAINER(controls_box), hbox);
         gtk_container_add(GTK_CONTAINER(fs_controls), hbox);
         gtk_window_set_transient_for(GTK_WINDOW(fs_controls), GTK_WINDOW(fs_window));
-        gtk_widget_unref(hbox);
+        g_object_unref(hbox);
         gtk_widget_show(fs_controls);
         gtk_window_set_opacity(GTK_WINDOW(fs_controls), 0.75);
         while (gtk_events_pending())
@@ -7362,10 +7362,10 @@ void show_fs_controls()
 void hide_fs_controls()
 {
     if (fs_controls != NULL) {
-        gtk_widget_ref(hbox);
+        g_object_ref(hbox);
         gtk_container_remove(GTK_CONTAINER(fs_controls), hbox);
         gtk_container_add(GTK_CONTAINER(controls_box), hbox);
-        gtk_widget_unref(hbox);
+        g_object_unref(hbox);
         while (gtk_events_pending())
             gtk_main_iteration();
         gtk_widget_destroy(fs_controls);

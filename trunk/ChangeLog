@@ -1,4 +1,5 @@
 Development
+	Start fixing issues to prepare for GTK 3.0 (DEPRECIATED and GSEAL changes)
 	Fix bug #391 - Change metadata timeout count from 10 to 50
 	Fix bug #355 - Change stream name to only show last part of URL in playlist, tooltip shows full url
 	Fix problem with mouse not disappearing when over letterboxing
