@@ -955,8 +955,7 @@ void create_playlist_widget()
     gtk_button_set_image(GTK_BUTTON(add_folder),
                          gtk_image_new_from_stock(GTK_STOCK_DIRECTORY, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), add_folder, FALSE, FALSE, 0);
-    g_signal_connect(GTK_OBJECT(add_folder), "clicked", G_CALLBACK(add_folder_to_playlist),
-                     list);
+    g_signal_connect(GTK_OBJECT(add_folder), "clicked", G_CALLBACK(add_folder_to_playlist), list);
 
     clear = gtk_button_new();
     tooltip = gtk_tooltips_new();

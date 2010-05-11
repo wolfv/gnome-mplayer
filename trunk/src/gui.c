@@ -210,7 +210,9 @@ void adjust_layout()
     if (GTK_IS_WIDGET(plvbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-        gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+        // gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+        gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+        g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
         gtk_widget_show_all(plvbox);
         gtk_widget_grab_default(plclose);
         gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
@@ -229,7 +231,7 @@ void adjust_layout()
                 } else {
                     total_height = MAX(total_height, plvbox->allocation.height);
                 }
-			}
+            }
             if (!fullscreen) {
                 //total_height = MAX(total_height, plvbox->allocation.height);
 /*
@@ -245,7 +247,9 @@ void adjust_layout()
     } else {
         if (!idledata->videopresent) {
             gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
-            gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
+            //gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
+            gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+            g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_FALSE);
         }
 
         gtk_paned_set_position(GTK_PANED(pane), -1);
@@ -1167,7 +1171,9 @@ gboolean resize_window(void *data)
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols),
                                                showcontrols);
             }
-            gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+            // gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+            gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+            g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
             gtk_widget_show_all(GTK_WIDGET(fixed));
 
             if (window_x == 0 && window_y == 0) {
@@ -3679,7 +3685,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
     } else {
         if (embed_window != 0) {
             fs_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-            gtk_window_set_policy(GTK_WINDOW(fs_window), TRUE, TRUE, TRUE);
+            //gtk_window_set_policy(GTK_WINDOW(fs_window), TRUE, TRUE, TRUE);
+            gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+            g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
             gtk_widget_add_events(fs_window, GDK_BUTTON_PRESS_MASK);
             gtk_widget_add_events(fs_window, GDK_BUTTON_RELEASE_MASK);
             gtk_widget_add_events(fs_window, GDK_KEY_PRESS_MASK);
@@ -6152,7 +6160,9 @@ GtkWidget *create_window(gint windowid)
         gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
         GTK_WIDGET_SET_FLAGS(window, GTK_CAN_FOCUS);
     }
-    gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+    //gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, TRUE);
+    gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+    g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
 
     gtk_widget_add_events(window, GDK_BUTTON_PRESS_MASK);
     gtk_widget_add_events(window, GDK_BUTTON_RELEASE_MASK);
@@ -6652,8 +6662,7 @@ GtkWidget *create_window(gint windowid)
     gtk_drag_dest_add_uri_targets(window);
 
     //Connect the signal for DnD
-    g_signal_connect(GTK_OBJECT(window), "drag_data_received", G_CALLBACK(drop_callback),
-                     NULL);
+    g_signal_connect(GTK_OBJECT(window), "drag_data_received", G_CALLBACK(drop_callback), NULL);
 
 
     vbox = gtk_vbox_new(FALSE, 0);
@@ -7160,7 +7169,9 @@ void show_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
-    gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
+    //gtk_window_set_policy(GTK_WINDOW(window), FALSE, FALSE, TRUE);
+    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_FALSE);
     gtk_widget_hide(prev_event_box);
     gtk_widget_hide(next_event_box);
     gtk_widget_hide(GTK_WIDGET(menuitem_prev));

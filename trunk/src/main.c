@@ -763,6 +763,11 @@ int main(int argc, char *argv[])
     // call g_type_init or otherwise we can crash
     g_type_init();
 
+    g_value_init(&ALLOW_SHRINK_TRUE, G_TYPE_BOOLEAN);
+    g_value_init(&ALLOW_SHRINK_FALSE, G_TYPE_BOOLEAN);
+    g_value_set_boolean(&ALLOW_SHRINK_FALSE, FALSE);
+    g_value_set_boolean(&ALLOW_SHRINK_TRUE, TRUE);
+
     uri = g_strdup_printf("%s/gnome-mplayer/cover_art", g_get_user_config_dir());
     if (!g_file_test(uri, G_FILE_TEST_IS_DIR)) {
         g_mkdir_with_parents(uri, 0775);
