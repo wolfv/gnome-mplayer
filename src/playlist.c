@@ -233,7 +233,11 @@ gboolean playlist_motion_callback(GtkWidget * widget, GdkEventMotion * event, gp
                 tip = g_strdup_printf(_("Filename: %s\nSubtitle: %s"), iterfilename, itersubtitle);
                 g_free(itersubtitle);
             }
+#ifdef GTK2_12_ENABLED
+            gtk_widget_set_tooltip_text(widget, tip);
+#else
             gtk_tooltips_set_tip(playlisttip, widget, tip, NULL);
+#endif
             g_free(tip);
             g_free(iterfilename);
         }
@@ -772,7 +776,10 @@ void create_playlist_widget()
     GtkWidget *undo;
     GtkTreePath *path;
     GtkAccelGroup *accel_group;
+#ifdef GTK2_12_ENABLED
+#else
     GtkTooltips *tooltip;
+#endif
     gchar *coltitle;
     gint count;
     GtkTargetEntry target_entry[3];
@@ -830,8 +837,10 @@ void create_playlist_widget()
     g_signal_connect(GTK_OBJECT(plvbox), "drag_data_received",
                      G_CALLBACK(playlist_drop_callback), NULL);
 
-
+#ifdef GTK2_12_ENABLED
+#else
     playlisttip = gtk_tooltips_new();
+#endif
 
     count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
     renderer = gtk_cell_renderer_text_new();
@@ -909,8 +918,12 @@ void create_playlist_widget()
 
 
     plclose = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(plclose, _("Close Playlist View"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, plclose, _("Close Playlist View"), NULL);
+#endif
     gtk_container_add(GTK_CONTAINER(plclose),
                       gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
 
@@ -918,56 +931,86 @@ void create_playlist_widget()
 
 
     loadlist = gtk_button_new();
+
+
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(loadlist, _("Open Playlist"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, loadlist, _("Open Playlist"), NULL);
+#endif
     gtk_container_add(GTK_CONTAINER(loadlist),
                       gtk_image_new_from_stock(GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), loadlist, FALSE, FALSE, 0);
     g_signal_connect(GTK_OBJECT(loadlist), "clicked", G_CALLBACK(load_playlist), NULL);
 
     savelist = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(savelist, _("Save Playlist"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, savelist, _("Save Playlist"), NULL);
+#endif
     gtk_container_add(GTK_CONTAINER(savelist),
                       gtk_image_new_from_stock(GTK_STOCK_SAVE, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), savelist, FALSE, FALSE, 0);
     g_signal_connect(GTK_OBJECT(savelist), "clicked", G_CALLBACK(save_playlist), NULL);
 
     add = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(add, _("Add Item to Playlist"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, add, _("Add Item to Playlist"), NULL);
+#endif
     gtk_button_set_image(GTK_BUTTON(add),
                          gtk_image_new_from_stock(GTK_STOCK_ADD, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), add, FALSE, FALSE, 0);
     g_signal_connect(GTK_OBJECT(add), "clicked", G_CALLBACK(add_to_playlist), NULL);
 
     remove = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(remove, _("Remove Item from Playlist"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, remove, _("Remove Item from Playlist"), NULL);
+#endif
     gtk_button_set_image(GTK_BUTTON(remove),
                          gtk_image_new_from_stock(GTK_STOCK_REMOVE, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), remove, FALSE, FALSE, 0);
     g_signal_connect(GTK_OBJECT(remove), "clicked", G_CALLBACK(remove_from_playlist), list);
 
     add_folder = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(add_folder, _("Add Items in Folder to Playlist"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, add_folder, _("Add Items in Folder to Playlist"), NULL);
+#endif
     gtk_button_set_image(GTK_BUTTON(add_folder),
                          gtk_image_new_from_stock(GTK_STOCK_DIRECTORY, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), add_folder, FALSE, FALSE, 0);
     g_signal_connect(GTK_OBJECT(add_folder), "clicked", G_CALLBACK(add_folder_to_playlist), list);
 
     clear = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(clear, _("Clear Playlist"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, clear, _("Clear Playlist"), NULL);
+#endif
     gtk_button_set_image(GTK_BUTTON(clear),
                          gtk_image_new_from_stock(GTK_STOCK_CLEAR, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), clear, FALSE, FALSE, 0);
     g_signal_connect(GTK_OBJECT(clear), "clicked", G_CALLBACK(clear_playlist), list);
 
     up = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(up, _("Move Item Up"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, up, _("Move Item Up"), NULL);
+#endif
     gtk_button_set_image(GTK_BUTTON(up),
                          gtk_image_new_from_stock(GTK_STOCK_GO_UP, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), up, FALSE, FALSE, 0);
@@ -975,8 +1018,12 @@ void create_playlist_widget()
     gtk_widget_set_sensitive(up, FALSE);
 
     down = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(down, _("Move Item Down"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, down, _("Move Item Down"), NULL);
+#endif
     gtk_button_set_image(GTK_BUTTON(down),
                          gtk_image_new_from_stock(GTK_STOCK_GO_DOWN, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), down, FALSE, FALSE, 0);
@@ -985,8 +1032,12 @@ void create_playlist_widget()
 
 
     undo = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(undo, _("UnSort List"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, undo, _("UnSort List"), NULL);
+#endif
     gtk_button_set_image(GTK_BUTTON(undo),
                          gtk_image_new_from_stock(GTK_STOCK_UNDO, GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), undo, FALSE, FALSE, 0);

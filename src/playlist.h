@@ -26,7 +26,11 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
+#ifdef GTK2_12_ENABLED
+#else
 GtkTooltips *playlisttip;
+#endif
+
 GtkMenu *playlist_popup_menu;
 GtkMenuItem *playlist_set_subtitle;
 gint window_width, window_height;
