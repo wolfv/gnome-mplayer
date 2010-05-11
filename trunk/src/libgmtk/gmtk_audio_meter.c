@@ -46,8 +46,7 @@ static void gmtk_audio_meter_init(GmtkAudioMeter * meter)
     meter->max_data = NULL;
     meter->data_valid = FALSE;
     meter->max_division_width = -1;
-	GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET(meter), GTK_DOUBLE_BUFFERED);
-
+	gtk_widget_set_double_buffered(GTK_WIDGET(meter), FALSE);
 }
 
 static void gmtk_audio_meter_dispose(GObject * object)

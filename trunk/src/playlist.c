@@ -165,11 +165,11 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
      */
     if (selection_data == NULL)
         return FALSE;
-    if (selection_data->length < 0)
+    if (gtk_selection_data_get_length(selection_data) < 0)
         return FALSE;
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
-        list = g_uri_list_extract_uris((const gchar *) selection_data->data);
+        list = g_uri_list_extract_uris((const gchar *) gtk_selection_data_get_data(selection_data));
 
         while (list[i] != NULL) {
             if (strlen(list[i]) > 0) {
@@ -1050,7 +1050,11 @@ void create_playlist_widget()
     gtk_widget_add_accelerator(GTK_WIDGET(remove), "clicked",
                                accel_group, GDK_Delete, 0, GTK_ACCEL_VISIBLE);
 
+#ifdef GTK2_18_ENABLED
+	gtk_widget_set_can_default(plclose, TRUE);
+#else	
     GTK_WIDGET_SET_FLAGS(plclose, GTK_CAN_DEFAULT);
+#endif
     gtk_box_pack_end(GTK_BOX(closebox), plclose, FALSE, FALSE, 0);
 
     scrolled = gtk_scrolled_window_new(NULL, NULL);

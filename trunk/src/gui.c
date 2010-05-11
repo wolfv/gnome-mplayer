@@ -47,6 +47,23 @@
 static char *device = "default";
 #endif
 
+#ifndef GTK2_18_ENABLED
+void gtk_widget_get_allocation(GtkWidget *widget, GtkAllocation *allocation) {
+	allocation = &(widget->allocation);
+}
+
+#endif
+
+#ifndef GTK2_14_ENABLED
+GdkWindow* gtk_widget_get_window(GtkWidget *widget) {
+	return widget->window;
+}
+
+#endif
+
+
+
+
 gboolean add_to_playlist_and_play(gpointer data)
 {
     gchar *s = (gchar *) data;

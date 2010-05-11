@@ -41,8 +41,11 @@ AC_SUBST(GLIB_LIBS)
 PKG_CHECK_MODULES(GTK2_12,[gtk+-2.0 >= 2.12.0],[GTK2_12_DEFINES="-DGTK2_12_ENABLED" AC_DEFINE([GTK2_12_ENABLED],[1],[Define to 1 if you have GTK 2.12 or higher])],AC_MSG_NOTICE([Using slider for volume]))
 AC_SUBST(GTK2_12_DEFINES)
 
-PKG_CHECK_MODULES(GTK2_14,[gtk+-2.0 >= 2.14.0],[GTK2_14_DEFINES="-DGTK2_14_ENABLED -DGTK_DISABLE_DEPRECATED" AC_DEFINE([GTK2_14_ENABLED],[1],[Define to 1 if you have GTK 2.14 or higher])],AC_MSG_NOTICE([gtk_show_uti disabled]))
+PKG_CHECK_MODULES(GTK2_14,[gtk+-2.0 >= 2.14.0],[GTK2_14_DEFINES="-DGTK2_14_ENABLED" AC_DEFINE([GTK2_14_ENABLED],[1],[Define to 1 if you have GTK 2.14 or higher])],AC_MSG_NOTICE([gtk_show_uti disabled]))
 AC_SUBST(GTK2_14_DEFINES)
+
+PKG_CHECK_MODULES(GTK2_18,[gtk+-2.0 >= 2.18.0],[GTK2_18_DEFINES="-DGTK2_18_ENABLED -DGTK_DISABLE_DEPRECATED" AC_DEFINE([GTK2_18_ENABLED],[1],[Define to 1 if you have GTK 2.18 or higher])],AC_MSG_NOTICE([Disabling Depreciated GTK Functions]))
+AC_SUBST(GTK2_18_DEFINES)
 
 PKG_CHECK_MODULES(GLIB2_14,[glib-2.0 >= 2.14.0],[GLIB2_14_DEFINES="-DGLIB2_14_ENABLED" AC_DEFINE([GLIB2_14_ENABLED],[1],[Define to 1 if you have GLIB 2.14 or higher])],AC_MSG_NOTICE([Using slider for volume]))
 AC_SUBST(GLIB2_14_DEFINES)
@@ -174,6 +177,21 @@ AC_ARG_ENABLE(panscan,
 if test x$ENABLE_PANSCAN = "xyes"; then
         AC_DEFINE(ENABLE_PANSCAN, 1, [defined enable panscan functionality])
 fi
+
+AC_ARG_ENABLE(gseal,
+		AC_HELP_STRING([--enable-gseal],[Enable flag for testing]),
+        [case "${enableval}" in
+        yes) ENABLE_GSEAL=yes ;;
+        no) ENABLE_GSEAL=no ;;
+        *) AC_MSG_ERROR(bad value ${enableval} for --enable-gseal) ;;
+        esac],
+        [ENABLE_GSEAL=no]) dnl Default value
+
+if test x$ENABLE_GSEAL = "xyes"; then
+		GTK_CFLAGS="$GTK_CFLAGS -DGSEAL_ENABLE"
+		AC_SUBST(GTK_CFLAGS)
+fi
+		
 
 FLATVOL=FALSE
 CHECK_FLAT=yes

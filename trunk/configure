@@ -678,6 +678,9 @@ GIO_CFLAGS
 GLIB2_14_DEFINES
 GLIB2_14_LIBS
 GLIB2_14_CFLAGS
+GTK2_18_DEFINES
+GTK2_18_LIBS
+GTK2_18_CFLAGS
 GTK2_14_DEFINES
 GTK2_14_LIBS
 GTK2_14_CFLAGS
@@ -814,6 +817,7 @@ with_libgpod
 with_libmusicbrainz3
 enable_nautilus
 enable_panscan
+enable_gseal
 with_flat_volume
 with_gpm_new_method
 with_gpm_old_method
@@ -841,6 +845,8 @@ GTK2_12_CFLAGS
 GTK2_12_LIBS
 GTK2_14_CFLAGS
 GTK2_14_LIBS
+GTK2_18_CFLAGS
+GTK2_18_LIBS
 GLIB2_14_CFLAGS
 GLIB2_14_LIBS
 GIO_CFLAGS
@@ -1496,6 +1502,7 @@ Optional Features:
   --enable-nautilus       compile the nautilus plugin
   --enable-panscan        Enable panscan functionality (requires mplayer svn
                           r29565 or higher)
+  --enable-gseal          Enable flag for testing
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -1542,6 +1549,10 @@ Some influential environment variables:
               C compiler flags for GTK2_14, overriding pkg-config
   GTK2_14_LIBS
               linker flags for GTK2_14, overriding pkg-config
+  GTK2_18_CFLAGS
+              C compiler flags for GTK2_18, overriding pkg-config
+  GTK2_18_LIBS
+              linker flags for GTK2_18, overriding pkg-config
   GLIB2_14_CFLAGS
               C compiler flags for GLIB2_14, overriding pkg-config
   GLIB2_14_LIBS
@@ -9169,9 +9180,84 @@ else
 	GTK2_14_LIBS=$pkg_cv_GTK2_14_LIBS
         { $as_echo "$as_me:$LINENO: result: yes" >&5
 $as_echo "yes" >&6; }
-	GTK2_14_DEFINES="-DGTK2_14_ENABLED -DGTK_DISABLE_DEPRECATED"
+	GTK2_14_DEFINES="-DGTK2_14_ENABLED"
 cat >>confdefs.h <<\_ACEOF
 #define GTK2_14_ENABLED 1
+_ACEOF
+
+fi
+
+
+
+pkg_failed=no
+{ $as_echo "$as_me:$LINENO: checking for GTK2_18" >&5
+$as_echo_n "checking for GTK2_18... " >&6; }
+
+if test -n "$GTK2_18_CFLAGS"; then
+    pkg_cv_GTK2_18_CFLAGS="$GTK2_18_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.18.0\"") >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.18.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_GTK2_18_CFLAGS=`$PKG_CONFIG --cflags "gtk+-2.0 >= 2.18.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$GTK2_18_LIBS"; then
+    pkg_cv_GTK2_18_LIBS="$GTK2_18_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.18.0\"") >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.18.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_GTK2_18_LIBS=`$PKG_CONFIG --libs "gtk+-2.0 >= 2.18.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        GTK2_18_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "gtk+-2.0 >= 2.18.0" 2>&1`
+        else
+	        GTK2_18_PKG_ERRORS=`$PKG_CONFIG --print-errors "gtk+-2.0 >= 2.18.0" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$GTK2_18_PKG_ERRORS" >&5
+
+	{ $as_echo "$as_me:$LINENO: result: no" >&5
+$as_echo "no" >&6; }
+                { $as_echo "$as_me:$LINENO: Disabling Depreciated GTK Functions" >&5
+$as_echo "$as_me: Disabling Depreciated GTK Functions" >&6;}
+elif test $pkg_failed = untried; then
+	{ $as_echo "$as_me:$LINENO: Disabling Depreciated GTK Functions" >&5
+$as_echo "$as_me: Disabling Depreciated GTK Functions" >&6;}
+else
+	GTK2_18_CFLAGS=$pkg_cv_GTK2_18_CFLAGS
+	GTK2_18_LIBS=$pkg_cv_GTK2_18_LIBS
+        { $as_echo "$as_me:$LINENO: result: yes" >&5
+$as_echo "yes" >&6; }
+	GTK2_18_DEFINES="-DGTK2_18_ENABLED -DGTK_DISABLE_DEPRECATED"
+cat >>confdefs.h <<\_ACEOF
+#define GTK2_18_ENABLED 1
 _ACEOF
 
 fi
@@ -10255,6 +10341,25 @@ cat >>confdefs.h <<\_ACEOF
 _ACEOF
 
 fi
+
+# Check whether --enable-gseal was given.
+if test "${enable_gseal+set}" = set; then
+  enableval=$enable_gseal; case "${enableval}" in
+        yes) ENABLE_GSEAL=yes ;;
+        no) ENABLE_GSEAL=no ;;
+        *) { { $as_echo "$as_me:$LINENO: error: bad value ${enableval} for --enable-gseal" >&5
+$as_echo "$as_me: error: bad value ${enableval} for --enable-gseal" >&2;}
+   { (exit 1); exit 1; }; } ;;
+        esac
+else
+  ENABLE_GSEAL=no
+fi
+
+if test x$ENABLE_GSEAL = "xyes"; then
+		GTK_CFLAGS="$GTK_CFLAGS -DGSEAL_ENABLE"
+
+fi
+
 
 FLATVOL=FALSE
 CHECK_FLAT=yes
