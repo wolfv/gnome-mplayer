@@ -219,12 +219,13 @@ GtkWidget *image_prev;
 GtkWidget *image_menu;
 GtkWidget *image_fs;
 GtkWidget *image_icon;
-GtkTooltips *tooltip;
-GtkTooltips *volume_tip;
 
 #ifdef GTK2_12_ENABLED
 GtkStatusIcon *status_icon;
 GtkWidget *config_show_status_icon;
+#else
+GtkTooltips *tooltip;
+GtkTooltips *volume_tip;
 #endif
 
 GtkWidget *config_vo;
