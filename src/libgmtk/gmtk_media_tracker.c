@@ -90,10 +90,13 @@ static void gmtk_media_tracker_init(GmtkMediaTracker * tracker)
 	gtk_widget_show(tracker->scale);
 	gtk_box_pack_start(GTK_BOX(tracker),GTK_WIDGET(tracker->scale),TRUE,TRUE,0);
 	gtk_widget_set_sensitive(tracker->scale, FALSE);
-	
+
+#ifdef GTK2_12_ENABLED
+	gtk_widget_set_tooltip_text(GTK_WIDGET(tracker->scale), _("No Information"));
+#else
 	tracker->progress_tip = gtk_tooltips_new();
    	gtk_tooltips_set_tip(tracker->progress_tip, GTK_WIDGET(tracker->scale), _("No Information"), NULL);
-
+#endif
 	g_signal_connect_swapped(G_OBJECT(tracker->scale),"button-press-event",G_CALLBACK(gmtk_media_tracker_button_press),tracker);
 	g_signal_connect_swapped(G_OBJECT(tracker->scale),"button-release-event",G_CALLBACK(gmtk_media_tracker_button_release),tracker);
 	g_signal_connect_swapped(G_OBJECT(tracker->scale),"motion-notify-event",G_CALLBACK(gmtk_media_tracker_motion_notify),tracker);
@@ -149,9 +152,12 @@ static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventB
 {
 	gdouble position;
 	gdouble difference;
+	GtkAllocation alloc;
+
+	gtk_widget_get_allocation(tracker,&alloc);
 	
 	if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
-		position = (gdouble)event->x / tracker->allocation.width;
+		position = (gdouble)event->x / alloc.width;
 		gtk_range_set_value(GTK_RANGE(GMTK_MEDIA_TRACKER(tracker)->scale),position);
 		g_signal_emit_by_name(tracker,"value-changed", (gint)(100 * position));
 
@@ -173,8 +179,11 @@ static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMo
 	gchar *tip;
 	gdouble position;
 	gdouble difference;
+	GtkAllocation alloc;
 
-	position = (gdouble)event->x / tracker->allocation.width;
+	gtk_widget_get_allocation(tracker,&alloc);
+
+	position = (gdouble)event->x / alloc.width;
 	if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
 		gtk_range_set_value(GTK_RANGE(GMTK_MEDIA_TRACKER(tracker)->scale), position);
 		g_signal_emit_by_name(tracker,"value-changed", (gint)(100 * position));
@@ -184,11 +193,15 @@ static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMo
 		    
 	} else {
 		if (GMTK_MEDIA_TRACKER(tracker)->length > 0.0) {
-			tip = gm_seconds_to_string(GMTK_MEDIA_TRACKER(tracker)->length * ((gdouble)event->x / tracker->allocation.width));
+			tip = gm_seconds_to_string(GMTK_MEDIA_TRACKER(tracker)->length * ((gdouble)event->x / alloc.width));
 		} else {
 			tip = g_strdup(_("No Information"));
 		}
+#ifdef GTK2_12_ENABLED
+		gtk_widget_set_tooltip_text(GMTK_MEDIA_TRACKER(tracker)->scale, tip);
+#else		
 		gtk_tooltips_set_tip(GMTK_MEDIA_TRACKER(tracker)->progress_tip, GTK_WIDGET(GMTK_MEDIA_TRACKER(tracker)->scale), tip, NULL);
+#endif
 		if (tip)
 			g_free(tip);
 	}

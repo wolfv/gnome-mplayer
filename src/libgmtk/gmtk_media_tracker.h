@@ -22,6 +22,9 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -59,11 +62,17 @@ typedef struct _GmtkMediaTrackerClass GmtkMediaTrackerClass;
 struct _GmtkMediaTracker {
     GtkVBox parent;
 
+	/*
 	GtkWidget *GSEAL(scale);
 	GtkWidget *GSEAL(hbox);
 	GtkWidget *GSEAL(message);
 	GtkWidget *GSEAL(timer);
 	GtkTooltips *GSEAL(progress_tip);
+	*/
+	GtkWidget *scale;
+	GtkWidget *hbox;
+	GtkWidget *message;
+	GtkWidget *timer;
 	
     /* < private > */
     gdouble media_percent;
