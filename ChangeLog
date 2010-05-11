@@ -1,6 +1,6 @@
 Development
 	Add configure flag --enable-gseal and start fixing code
-	Code now compiles with -DGTK_DISABLE_DEPRECATED enabled, enabled by default on GTK 2.14 and higher
+	Code now compiles with -DGTK_DISABLE_DEPRECATED enabled, enabled by default on GTK 2.18 and higher
 	Remove depreciated calls to gtk_window_set_policy
 	Start fixing issues to prepare for GTK 3.0 (DEPRECIATED and GSEAL changes)
 	Fix bug #391 - Change metadata timeout count from 10 to 50

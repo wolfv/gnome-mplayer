@@ -1051,8 +1051,8 @@ void create_playlist_widget()
                                accel_group, GDK_Delete, 0, GTK_ACCEL_VISIBLE);
 
 #ifdef GTK2_18_ENABLED
-	gtk_widget_set_can_default(plclose, TRUE);
-#else	
+    gtk_widget_set_can_default(plclose, TRUE);
+#else
     GTK_WIDGET_SET_FLAGS(plclose, GTK_CAN_DEFAULT);
 #endif
     gtk_box_pack_end(GTK_BOX(closebox), plclose, FALSE, FALSE, 0);
