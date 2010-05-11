@@ -29,6 +29,8 @@ AM_CFLAGS =\
      $(NOTIFY_DEFINES) \
      $(GPOD_DEFINES) \
      $(MUSICBRAINZ_DEFINES)
+     ## -DGTK_DISABLE_DEPRECATED 
+     ## -DGSEAL_ENABLE
 
 bin_PROGRAMS = gnome-mplayer 
 
