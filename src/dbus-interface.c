@@ -1134,11 +1134,7 @@ void dbus_enable_screensaver()
 
         if (use_xscrnsaver) {
 #ifdef XSCRNSAVER_ENABLED
-#ifdef GTK2_14_ENABLED
-            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(gtk_widget_get_window(window)), FALSE);
-#else
-            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(window->window), FALSE);
-#endif
+            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(get_window(window)), FALSE);
 #endif
 
         } else {
@@ -1180,11 +1176,7 @@ void dbus_disable_screensaver()
         if (use_xscrnsaver) {
 
 #ifdef XSCRNSAVER_ENABLED
-#ifdef GTK2_14_ENABLED
-            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(gtk_widget_get_window(window)), TRUE);
-#else
-            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(window->window), TRUE);
-#endif
+            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(get_window(window)), TRUE);
 #endif
 
         } else {

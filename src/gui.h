@@ -355,3 +355,7 @@ gint get_width();
 
 void show_fs_controls();
 void hide_fs_controls();
+
+// GSEAL accessors
+void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
+GdkWindow *get_window(GtkWidget * widget);
