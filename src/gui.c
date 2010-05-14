@@ -2222,12 +2222,15 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                     destroy_folder_progress_window();
                 } else {
                     // subtitle?
-                    if (g_strrstr(list[i], ".ass") != NULL || g_strrstr(list[i], ".srt") != NULL) {
+                    if (g_strrstr(list[i], ".ass") != NULL || g_strrstr(list[i], ".ssa") != NULL
+                        || g_strrstr(list[i], ".srt") != NULL) {
                         send_command("sub_remove\n", TRUE);
-                        cmd = g_strdup_printf("sub_load '%s'\n", g_filename_from_uri(list[i],NULL,NULL));
+                        cmd =
+                            g_strdup_printf("sub_load '%s'\n",
+                                            g_filename_from_uri(list[i], NULL, NULL));
                         send_command(cmd, TRUE);
                         g_free(cmd);
-						menuitem_lang_callback(menuitem_lang, GINT_TO_POINTER(9000));
+                        menuitem_lang_callback(menuitem_lang, GINT_TO_POINTER(9000));
                     } else {
                         playlist = detect_playlist(list[i]);
 
