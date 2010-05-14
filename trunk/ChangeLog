@@ -1,4 +1,5 @@
 Development
+	Support drag and drop of subtitle files with .srt or .ass extension. 
 	Make V (show/hide subtitles) work in fullscreen mode
 	More work on making code compile with gseal enabled, still more to do
 	Add configure flag --enable-gseal and start fixing code
