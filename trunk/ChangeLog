@@ -1,4 +1,5 @@
 Development
+	Check for block devices better in gio mode
 	Update the subtitle on the current playlist item, when dragging and dropping.
 	Fix minor memory leak in drag and drop for subtitles
 	Added .ssa as a subtitle extension to drag and drop
