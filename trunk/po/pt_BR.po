@@ -633,8 +633,8 @@ msgstr ""
 "<span weight=\"bold\">Configuração dos Plug-ins de Emulação</span>\n"
 "\n"
 "Estas opções afetam o plug-in gecko-mediaplayer quando instalado.\n"
-"Gecko-mediaplayer é um plug-in para o Firefox que irá emular vários "
-"reprodutores multimídias e permitir a reprodução de vários conteúdos da web "
+"Gecko-mediaplayer é um plug-in para o Firefox que irá emular vários\n"
+"reprodutores multimídias e permitir a reprodução de vários conteúdos da web\n"
 "em navegadores compatíveis com NPRuntime (Firefox, Konqueror, etc)."
 
 #: src/gui.c:5184
