@@ -2091,7 +2091,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             delete_callback(NULL, NULL, NULL);
             return FALSE;
         case GDK_v:
-            //send_command("pausing_keep sub_visibility\n");
+			if (fullscreen) {
+        		send_command("sub_visibility\n", TRUE);
+			}
             return FALSE;
         case GDK_plus:
         case GDK_KP_Add:
