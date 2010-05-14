@@ -748,6 +748,7 @@ int main(int argc, char *argv[])
     use_xscrnsaver = FALSE;
     screensaver_disabled = FALSE;
     update_control_flag = FALSE;
+    gchar *filename;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -1017,7 +1018,19 @@ int main(int argc, char *argv[])
     retrieve_metadata_pool = g_thread_pool_new(retrieve_metadata, NULL, 10, TRUE, NULL);
 
     if (argv[fileindex] != NULL) {
+#ifdef GIO_ENABLED
+        file = g_file_new_for_commandline_arg(argv[fileindex]);
+        if (file != NULL) {
+            uri = g_file_get_uri(file);
+            g_object_unref(file);
+        }
+        filename = g_filename_from_uri(uri, NULL, NULL);
+        g_stat(filename, &buf);
+        g_free(filename);
+#else
         g_stat(argv[fileindex], &buf);
+#endif
+
         if (verbose) {
             printf("opening %s\n", argv[fileindex]);
             printf("is block %i\n", S_ISBLK(buf.st_mode));
@@ -1109,6 +1122,8 @@ int main(int argc, char *argv[])
             i = fileindex;
 
             while (argv[i] != NULL) {
+                if (verbose > 1)
+                    printf("Argument %i is %s\n", i, argv[i]);
 #ifdef GIO_ENABLED
                 if (!device_name(argv[i])) {
                     file = g_file_new_for_commandline_arg(argv[i]);
