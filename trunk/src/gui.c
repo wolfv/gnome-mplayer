@@ -2200,7 +2200,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
     GError *error;
     gboolean added_single = FALSE;
     gchar *cmd;
-
+	gchar *filename;
     /* Important, check if we actually got data.  Sometimes errors
      * occure and selection_data will be NULL.
      */
@@ -2225,12 +2225,14 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                     if (g_strrstr(list[i], ".ass") != NULL || g_strrstr(list[i], ".ssa") != NULL
                         || g_strrstr(list[i], ".srt") != NULL) {
                         send_command("sub_remove\n", TRUE);
+						filename = g_filename_from_uri(list[i], NULL, NULL);
                         cmd =
-                            g_strdup_printf("sub_load '%s'\n",
-                                            g_filename_from_uri(list[i], NULL, NULL));
+                            g_strdup_printf("sub_load '%s'\n",filename);
                         send_command(cmd, TRUE);
                         g_free(cmd);
+						gtk_list_store_set(playliststore, &iter, SUBTITLE_COLUMN, filename, -1);			
                         menuitem_lang_callback(menuitem_lang, GINT_TO_POINTER(9000));
+						g_free(filename);
                     } else {
                         playlist = detect_playlist(list[i]);
 
