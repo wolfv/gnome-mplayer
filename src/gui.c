@@ -2091,9 +2091,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             delete_callback(NULL, NULL, NULL);
             return FALSE;
         case GDK_v:
-			if (fullscreen) {
-        		send_command("sub_visibility\n", TRUE);
-			}
+            if (fullscreen) {
+                send_command("sub_visibility\n", TRUE);
+            }
             return FALSE;
         case GDK_plus:
         case GDK_KP_Add:
@@ -2199,6 +2199,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
     gint itemcount;
     GError *error;
     gboolean added_single = FALSE;
+    gchar *cmd;
 
     /* Important, check if we actually got data.  Sometimes errors
      * occure and selection_data will be NULL.
@@ -2220,21 +2221,17 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                     add_folder_to_playlist_callback(list[i], NULL);
                     destroy_folder_progress_window();
                 } else {
-                    playlist = detect_playlist(list[i]);
-
-                    if (!playlist) {
-                        if (!gtk_check_menu_item_get_active
-                            (GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-                            dontplaynext = TRUE;
-                            mplayer_shutdown();
-                            set_media_label(NULL);
-                            gtk_list_store_clear(playliststore);
-                            added_single = add_item_to_playlist(list[i], playlist);
-                        } else {
-                            add_item_to_playlist(list[i], playlist);
-                        }
+                    // subtitle?
+                    if (g_strrstr(list[i], ".ass") != NULL || g_strrstr(list[i], ".srt") != NULL) {
+                        send_command("sub_remove\n", TRUE);
+                        cmd = g_strdup_printf("sub_load '%s'\n", g_filename_from_uri(list[i],NULL,NULL));
+                        send_command(cmd, TRUE);
+                        g_free(cmd);
+						menuitem_lang_callback(menuitem_lang, GINT_TO_POINTER(9000));
                     } else {
-                        if (!parse_playlist(list[i])) {
+                        playlist = detect_playlist(list[i]);
+
+                        if (!playlist) {
                             if (!gtk_check_menu_item_get_active
                                 (GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
                                 dontplaynext = TRUE;
@@ -2244,6 +2241,19 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 added_single = add_item_to_playlist(list[i], playlist);
                             } else {
                                 add_item_to_playlist(list[i], playlist);
+                            }
+                        } else {
+                            if (!parse_playlist(list[i])) {
+                                if (!gtk_check_menu_item_get_active
+                                    (GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+                                    dontplaynext = TRUE;
+                                    mplayer_shutdown();
+                                    set_media_label(NULL);
+                                    gtk_list_store_clear(playliststore);
+                                    added_single = add_item_to_playlist(list[i], playlist);
+                                } else {
+                                    add_item_to_playlist(list[i], playlist);
+                                }
                             }
                         }
                     }
