@@ -154,7 +154,7 @@ static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventB
 	gdouble difference;
 	GtkAllocation alloc;
 
-	gtk_widget_get_allocation(tracker,&alloc);
+	get_allocation(tracker,&alloc);
 	
 	if (GMTK_MEDIA_TRACKER(tracker)->mouse_down) {
 		position = (gdouble)event->x / alloc.width;
