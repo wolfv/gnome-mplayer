@@ -553,7 +553,10 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
     GSList *uris;
     gchar *last_dir;
     gchar *message;
+	gint count;
 
+	count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
+	
     dialog = gtk_file_chooser_dialog_new(_("Choose Directory"),
                                          GTK_WINDOW(window),
                                          GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
@@ -598,7 +601,7 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
     g_free(message);
     g_idle_add(set_media_label, idledata);
 
-    if (data != NULL) {
+    if (count == 0 && filecount > 0) {
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
         play_iter(&iter, 0);
         dontplaynext = FALSE;
