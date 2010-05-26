@@ -17,7 +17,7 @@
 #define GLIB2_14_ENABLED 1
 
 /* Define to 1 if you have gpod support */
-#define GPOD_ENABLED 1
+/* #undef GPOD_ENABLED */
 
 /* Define to 1 if you have GTK 2.12 or higher */
 #define GTK2_12_ENABLED 1
@@ -59,7 +59,7 @@
 #define HAVE_MNTENT_H 1
 
 /* defined if you build the nautilus plugin */
-#define HAVE_NAUTILUS 1
+/* #undef HAVE_NAUTILUS */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -83,7 +83,7 @@
 #define HAVE_UNISTD_H 1
 
 /* Define to 1 if you have musicbrainz3 support */
-#define MUSICBRAINZ_ENABLED 1
+/* #undef MUSICBRAINZ_ENABLED */
 
 /* Define to 1 if you have NOTIFY support */
 #define NOTIFY_ENABLED 1
@@ -122,4 +122,4 @@
 #define VERSION "0.9.9.2"
 
 /* When defined we have direct XScrnSaver control */
-#define XSCRNSAVER_ENABLED 1
+/* #undef XSCRNSAVER_ENABLED */
