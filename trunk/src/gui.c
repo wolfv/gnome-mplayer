@@ -1614,11 +1614,13 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 
     if (control_id == 0) {
         g_thread_pool_stop_unused_threads();
-        while (gtk_events_pending() || thread != NULL
-               || g_thread_pool_unprocessed(retrieve_metadata_pool)) {
-            gtk_main_iteration();
-        }
-        g_thread_pool_free(retrieve_metadata_pool, TRUE, TRUE);
+		if (retrieve_metadata_pool != NULL) {
+		    while (gtk_events_pending() || thread != NULL
+		           || g_thread_pool_unprocessed(retrieve_metadata_pool)) {
+		        gtk_main_iteration();
+		    }
+		    g_thread_pool_free(retrieve_metadata_pool, TRUE, TRUE);
+		}
     } else {
         while (gtk_events_pending() || thread != NULL) {
             gtk_main_iteration();
