@@ -1,4 +1,5 @@
 Development
+	Fix video playback problems when loading a folder from playlist screen
 	NULL check on retrieve_metadata_pool clear process
 	Check for block devices better in gio mode
 	Update the subtitle on the current playlist item, when dragging and dropping.
