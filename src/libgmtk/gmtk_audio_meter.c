@@ -28,6 +28,8 @@ G_DEFINE_TYPE(GmtkAudioMeter, gmtk_audio_meter, GTK_TYPE_DRAWING_AREA);
 
 static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * event);
 static void gmtk_audio_meter_dispose(GObject * object);
+extern GdkWindow *get_window(GtkWidget * widget);
+extern void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
 /*
 void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
 GdkWindow *get_window(GtkWidget * widget);
