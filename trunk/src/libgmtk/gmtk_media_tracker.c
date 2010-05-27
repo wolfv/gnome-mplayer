@@ -32,7 +32,7 @@ static gboolean gmtk_media_tracker_motion_notify(GtkWidget * tracker, GdkEventMo
 void gmtk_media_tracker_set_timer(GmtkMediaTracker * tracker, const gchar * text);
 static void gmtk_media_tracker_dispose(GObject * object);
 gchar *gm_seconds_to_string(gfloat seconds);
-
+extern void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
 
 static void gmtk_media_tracker_class_init(GmtkMediaTrackerClass * class)
 {
