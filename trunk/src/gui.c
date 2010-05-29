@@ -5293,8 +5293,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
     config_volume = gtk_spin_button_new_with_range(0, 100, 1);
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(config_volume,_("Default volume for playback"));
+#else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_volume, _("Default volume for playback"), NULL);
+#endif	
     gtk_widget_set_size_request(config_volume, 100, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);

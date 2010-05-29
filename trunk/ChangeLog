@@ -1,4 +1,5 @@
 Development
+	Fix bug #406 - compile error when new GTK and no libasound
 	Fix video playback problems when loading a folder from playlist screen
 	NULL check on retrieve_metadata_pool clear process
 	Check for block devices better in gio mode
