@@ -6335,12 +6335,6 @@ GtkWidget *create_window(gint windowid)
     // right click menu
     popup_menu = GTK_MENU(gtk_menu_new());
     menubar = gtk_menu_bar_new();
-    menuitem_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_open));
-    gtk_widget_show(GTK_WIDGET(menuitem_open));
-    menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep3));
-    gtk_widget_show(GTK_WIDGET(menuitem_sep3));
     menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_play));
     gtk_widget_show(GTK_WIDGET(menuitem_play));
@@ -6355,7 +6349,13 @@ GtkWidget *create_window(gint windowid)
     menuitem_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep1));
     gtk_widget_show(GTK_WIDGET(menuitem_sep1));
-    menuitem_showcontrols =
+    menuitem_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group));
+    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_open));
+    gtk_widget_show(GTK_WIDGET(menuitem_open));
+    menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep3));
+    gtk_widget_show(GTK_WIDGET(menuitem_sep3));
+	menuitem_showcontrols =
         GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("S_how Controls")));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_showcontrols));
     gtk_widget_show(GTK_WIDGET(menuitem_showcontrols));
