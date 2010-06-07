@@ -172,6 +172,7 @@ typedef struct _IdleData {
     gboolean showcontrols;
     gdouble position;
     gdouble length;
+	gdouble start_time;
     glong byte_pos;
     gint chapters;
     gint brightness;
