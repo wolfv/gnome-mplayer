@@ -1,4 +1,5 @@
 Development
+	Workaround for media files with non-zero start time, requires mplayer SVN r31346 or greater
 	Fix menu item position change on popup menu due to previous change
 	Move Open on popup menu, below the Play/Pause, Stop, Prev and Next block
 	Fix bug #406 - compile error when new GTK and no libasound

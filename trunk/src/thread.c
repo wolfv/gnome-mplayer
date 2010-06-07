@@ -491,7 +491,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_progress_time, idledata);
     }
 
-    if (strstr(mplayer_output->str, "ID_LENGTH") != 0) {
+    if (strstr(mplayer_output->str, "ID_START_TIME") != 0) {
+        buf = strstr(mplayer_output->str, "ID_START_TIME");
+        sscanf(buf, "ID_START_TIME=%lf", &idledata->start_time);
+        g_idle_add(set_progress_time, idledata);
+    }
+
+	if (strstr(mplayer_output->str, "ID_LENGTH") != 0) {
         buf = strstr(mplayer_output->str, "ID_LENGTH");
         sscanf(buf, "ID_LENGTH=%lf", &idledata->length);
         g_idle_add(set_progress_time, idledata);
@@ -501,7 +507,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         old_pos = idledata->position;
         buf = strstr(mplayer_output->str, "ANS_TIME_POSITION");
         sscanf(buf, "ANS_TIME_POSITION=%lf", &idledata->position);
-        if (idledata->position < old_pos) {
+		idledata->position -= idledata->start_time;
+		if (idledata->position < old_pos) {
             send_command("get_time_length\n", FALSE);
             state = PLAYING;
         }
