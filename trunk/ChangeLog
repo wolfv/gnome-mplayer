@@ -1,4 +1,6 @@
 Development
+	Fix problem with proper audio track being selected, mplayer selects them 0 based but reports
+		them one based, so have to make adjustments to the value returned
 	Workaround for media files with non-zero start time, requires mplayer SVN r31346 or greater
 	Fix menu item position change on popup menu due to previous change
 	Move Open on popup menu, below the Play/Pause, Stop, Prev and Next block

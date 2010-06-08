@@ -458,7 +458,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         cmd = g_strdup_printf("saturation %i\n", idledata->saturation);
         send_command(cmd, TRUE);
         g_free(cmd);
-
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -563,8 +562,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
+		//printf("%s\n", mplayer_output->str);
         buf = strstr(mplayer_output->str, "ANS_switch_audio");
         sscanf(buf, "ANS_switch_audio=%i", &idledata->switch_audio);
+		idledata->switch_audio--;
         g_idle_add(set_update_gui, NULL);
     }
 /*
@@ -719,6 +720,19 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 send_command(buf, TRUE);
                 g_free(buf);
             }
+        }
+        buf = strstr(mplayer_output->str, "_NAME=");
+        if (buf != NULL) {
+            buf += strlen("_NAME=");
+            menu->label = g_strdup(buf);
+			if (menu->label != NULL && strlen(menu->label) > 0) {
+		        g_idle_add(set_new_audio_menu, menu);
+		        if (alang != NULL && g_strrstr(alang, menu->label) != NULL) {
+		            buf = g_strdup_printf("switch_audio %i\n", menu->value);
+		            send_command(buf, TRUE);
+		            g_free(buf);
+		        }
+			}
         }
     }
 

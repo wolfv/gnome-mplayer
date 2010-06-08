@@ -1067,15 +1067,19 @@ void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer sid)
 {
     gchar *cmd;
 
-    if (GPOINTER_TO_INT(sid) >= 9000) {
-        cmd = g_strdup_printf("sub_file %i\n", GPOINTER_TO_INT(sid - 9000));
-        send_command(cmd, TRUE);
-        g_free(cmd);
-    } else if (GPOINTER_TO_INT(sid) >= 0) {
-        cmd = g_strdup_printf("sub_demux %i\n", GPOINTER_TO_INT(sid));
-        send_command(cmd, TRUE);
-        g_free(cmd);
-    }
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
+
+		if (GPOINTER_TO_INT(sid) >= 9000) {
+		    cmd = g_strdup_printf("sub_file %i\n", GPOINTER_TO_INT(sid - 9000));
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		} else if (GPOINTER_TO_INT(sid) >= 0) {
+		    cmd = g_strdup_printf("sub_demux %i\n", GPOINTER_TO_INT(sid));
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		}
+
+	}
 }
 
 gboolean set_new_lang_menu(gpointer data)
@@ -1119,7 +1123,7 @@ gboolean set_new_lang_menu(gpointer data)
             lang_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
 
             gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit_sub_langs), GTK_WIDGET(menuitem_lang));
-            g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+            g_signal_connect(GTK_OBJECT(menuitem_lang), "toggled",
                              G_CALLBACK(menuitem_lang_callback), GINT_TO_POINTER(menu->value));
         }
     }
@@ -1133,11 +1137,15 @@ void menuitem_audio_callback(GtkMenuItem * menuitem, gpointer aid)
 {
     gchar *cmd;
 
-    if (GPOINTER_TO_INT(aid) >= 0) {
-        cmd = g_strdup_printf("switch_audio %i\n", GPOINTER_TO_INT(aid));
-        send_command(cmd, TRUE);
-        g_free(cmd);
-    }
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
+
+	    if (GPOINTER_TO_INT(aid) >= 0) {
+		    cmd = g_strdup_printf("switch_audio %i\n", GPOINTER_TO_INT(aid));
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		}
+
+	}
 }
 
 gboolean set_new_audio_menu(gpointer data)
@@ -1161,6 +1169,8 @@ gboolean set_new_audio_menu(gpointer data)
             while (sub_item && !found) {
                 text = gtk_label_get_text(GTK_LABEL(sub_item->data));
                 if (menu->value == value) {
+					if (verbose)
+						printf("Updating audio track, id = %i, label = %s\n", menu->value, menu->label);
                     if (g_ascii_isdigit(text[0])) {
                         gtk_label_set_text(GTK_LABEL(sub_item->data), menu->label);
                     }
@@ -1172,6 +1182,8 @@ gboolean set_new_audio_menu(gpointer data)
         }
 
         if (!found) {
+			if (verbose)
+				printf("Adding audio track, id = %i, label = %s\n", menu->value, menu->label);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
 
             menuitem_lang =
@@ -1179,7 +1191,7 @@ gboolean set_new_audio_menu(gpointer data)
             g_object_set_data(G_OBJECT(menuitem_lang), "id", GINT_TO_POINTER(menu->value));
             audio_group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem_lang));
             gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit_audio_langs), GTK_WIDGET(menuitem_lang));
-            g_signal_connect(GTK_OBJECT(menuitem_lang), "activate",
+            g_signal_connect(GTK_OBJECT(menuitem_lang), "toggled",
                              G_CALLBACK(menuitem_audio_callback), GINT_TO_POINTER(menu->value));
         }
     }
