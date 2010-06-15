@@ -34,7 +34,8 @@
 
 #define MIXER			"mixer"
 #define CACHE_SIZE		"cache_size"
-#define PLUGIN_CACHE_SIZE		"plugin_cache_size"
+#define PLUGIN_AUDIO_CACHE_SIZE		"plugin_audio_cache_size"
+#define PLUGIN_VIDEO_CACHE_SIZE		"plugin_video_cache_size"
 #define OSDLEVEL		"osdlevel"
 #define PPLEVEL			"pplevel"
 #define SOFTVOL			"softvol"
@@ -172,7 +173,7 @@ typedef struct _IdleData {
     gboolean showcontrols;
     gdouble position;
     gdouble length;
-	gdouble start_time;
+    gdouble start_time;
     glong byte_pos;
     gint chapters;
     gint brightness;
@@ -294,7 +295,8 @@ gint max_buckets[METER_BARS];
 
 gchar *lastfile;
 gint cache_size;
-gint plugin_cache_size;
+gint plugin_audio_cache_size;
+gint plugin_video_cache_size;
 gboolean forcecache;
 gint osdlevel;
 gint pplevel;

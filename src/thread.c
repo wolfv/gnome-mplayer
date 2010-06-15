@@ -39,6 +39,12 @@ void mplayer_shutdown()
         }
         send_command("quit\n", FALSE);
         dbus_send_event("Ended", 0);
+    } else {
+        if (verbose) {
+            printf
+                ("plugin calling mplayer shutdown when mplayer might have already been shutdown\n");
+        }
+        send_command("quit\n", FALSE);
     }
 
 }
@@ -75,7 +81,7 @@ gboolean send_command(gchar * command, gboolean retain_pause)
     } else {
         cmd = g_strdup(command);
     }
-
+    printf("command = %s\n", cmd);
     g_idle_add(write_to_mplayer, (gpointer) cmd);
     return TRUE;
 
@@ -496,7 +502,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_progress_time, idledata);
     }
 
-	if (strstr(mplayer_output->str, "ID_LENGTH") != 0) {
+    if (strstr(mplayer_output->str, "ID_LENGTH") != 0) {
         buf = strstr(mplayer_output->str, "ID_LENGTH");
         sscanf(buf, "ID_LENGTH=%lf", &idledata->length);
         g_idle_add(set_progress_time, idledata);
@@ -506,8 +512,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         old_pos = idledata->position;
         buf = strstr(mplayer_output->str, "ANS_TIME_POSITION");
         sscanf(buf, "ANS_TIME_POSITION=%lf", &idledata->position);
-		idledata->position -= idledata->start_time;
-		if (idledata->position < old_pos) {
+        idledata->position -= idledata->start_time;
+        if (idledata->position < old_pos) {
             send_command("get_time_length\n", FALSE);
             state = PLAYING;
         }
@@ -562,10 +568,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
-		//printf("%s\n", mplayer_output->str);
+        //printf("%s\n", mplayer_output->str);
         buf = strstr(mplayer_output->str, "ANS_switch_audio");
         sscanf(buf, "ANS_switch_audio=%i", &idledata->switch_audio);
-		idledata->switch_audio--;
+        idledata->switch_audio--;
         g_idle_add(set_update_gui, NULL);
     }
 /*
@@ -725,14 +731,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (buf != NULL) {
             buf += strlen("_NAME=");
             menu->label = g_strdup(buf);
-			if (menu->label != NULL && strlen(menu->label) > 0) {
-		        g_idle_add(set_new_audio_menu, menu);
-		        if (alang != NULL && g_strrstr(alang, menu->label) != NULL) {
-		            buf = g_strdup_printf("switch_audio %i\n", menu->value);
-		            send_command(buf, TRUE);
-		            g_free(buf);
-		        }
-			}
+            if (menu->label != NULL && strlen(menu->label) > 0) {
+                g_idle_add(set_new_audio_menu, menu);
+                if (alang != NULL && g_strrstr(alang, menu->label) != NULL) {
+                    buf = g_strdup_printf("switch_audio %i\n", menu->value);
+                    send_command(buf, TRUE);
+                    g_free(buf);
+                }
+            }
         }
     }
 
