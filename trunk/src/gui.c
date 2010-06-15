@@ -1067,19 +1067,19 @@ void menuitem_lang_callback(GtkMenuItem * menuitem, gpointer sid)
 {
     gchar *cmd;
 
-	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
+    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
 
-		if (GPOINTER_TO_INT(sid) >= 9000) {
-		    cmd = g_strdup_printf("sub_file %i\n", GPOINTER_TO_INT(sid - 9000));
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		} else if (GPOINTER_TO_INT(sid) >= 0) {
-		    cmd = g_strdup_printf("sub_demux %i\n", GPOINTER_TO_INT(sid));
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		}
+        if (GPOINTER_TO_INT(sid) >= 9000) {
+            cmd = g_strdup_printf("sub_file %i\n", GPOINTER_TO_INT(sid - 9000));
+            send_command(cmd, TRUE);
+            g_free(cmd);
+        } else if (GPOINTER_TO_INT(sid) >= 0) {
+            cmd = g_strdup_printf("sub_demux %i\n", GPOINTER_TO_INT(sid));
+            send_command(cmd, TRUE);
+            g_free(cmd);
+        }
 
-	}
+    }
 }
 
 gboolean set_new_lang_menu(gpointer data)
@@ -1137,15 +1137,15 @@ void menuitem_audio_callback(GtkMenuItem * menuitem, gpointer aid)
 {
     gchar *cmd;
 
-	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
+    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
 
-	    if (GPOINTER_TO_INT(aid) >= 0) {
-		    cmd = g_strdup_printf("switch_audio %i\n", GPOINTER_TO_INT(aid));
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		}
+        if (GPOINTER_TO_INT(aid) >= 0) {
+            cmd = g_strdup_printf("switch_audio %i\n", GPOINTER_TO_INT(aid));
+            send_command(cmd, TRUE);
+            g_free(cmd);
+        }
 
-	}
+    }
 }
 
 gboolean set_new_audio_menu(gpointer data)
@@ -1169,8 +1169,9 @@ gboolean set_new_audio_menu(gpointer data)
             while (sub_item && !found) {
                 text = gtk_label_get_text(GTK_LABEL(sub_item->data));
                 if (menu->value == value) {
-					if (verbose)
-						printf("Updating audio track, id = %i, label = %s\n", menu->value, menu->label);
+                    if (verbose)
+                        printf("Updating audio track, id = %i, label = %s\n", menu->value,
+                               menu->label);
                     if (g_ascii_isdigit(text[0])) {
                         gtk_label_set_text(GTK_LABEL(sub_item->data), menu->label);
                     }
@@ -1182,8 +1183,8 @@ gboolean set_new_audio_menu(gpointer data)
         }
 
         if (!found) {
-			if (verbose)
-				printf("Adding audio track, id = %i, label = %s\n", menu->value, menu->label);
+            if (verbose)
+                printf("Adding audio track, id = %i, label = %s\n", menu->value, menu->label);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), TRUE);
 
             menuitem_lang =
@@ -1626,13 +1627,13 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 
     if (control_id == 0) {
         g_thread_pool_stop_unused_threads();
-		if (retrieve_metadata_pool != NULL) {
-		    while (gtk_events_pending() || thread != NULL
-		           || g_thread_pool_unprocessed(retrieve_metadata_pool)) {
-		        gtk_main_iteration();
-		    }
-		    g_thread_pool_free(retrieve_metadata_pool, TRUE, TRUE);
-		}
+        if (retrieve_metadata_pool != NULL) {
+            while (gtk_events_pending() || thread != NULL
+                   || g_thread_pool_unprocessed(retrieve_metadata_pool)) {
+                gtk_main_iteration();
+            }
+            g_thread_pool_free(retrieve_metadata_pool, TRUE, TRUE);
+        }
     } else {
         while (gtk_events_pending() || thread != NULL) {
             gtk_main_iteration();
@@ -3999,7 +4000,10 @@ void config_apply(GtkWidget * widget, void *data)
     audio_channels = gtk_combo_box_get_active(GTK_COMBO_BOX(config_audio_channels));
     use_hw_audio = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_hw_audio));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
-    plugin_cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_plugin_cache_size));
+    plugin_audio_cache_size =
+        gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_plugin_audio_cache_size));
+    plugin_video_cache_size =
+        gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_plugin_video_cache_size));
     old_disable_framedrop = disable_framedrop;
     disable_deinterlace =
         !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_deinterlace));
@@ -4108,7 +4112,8 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_int(gm_store, AUDIO_CHANNELS, audio_channels);
     gm_pref_store_set_boolean(gm_store, USE_HW_AUDIO, use_hw_audio);
     gm_pref_store_set_int(gm_store, CACHE_SIZE, cache_size);
-    gm_pref_store_set_int(gm_store, PLUGIN_CACHE_SIZE, plugin_cache_size);
+    gm_pref_store_set_int(gm_store, PLUGIN_AUDIO_CACHE_SIZE, plugin_audio_cache_size);
+    gm_pref_store_set_int(gm_store, PLUGIN_VIDEO_CACHE_SIZE, plugin_video_cache_size);
     gm_pref_store_set_string(gm_store, MIXER, mixer);
     gm_pref_store_set_int(gm_store, OSDLEVEL, osdlevel);
     gm_pref_store_set_int(gm_store, PPLEVEL, pplevel);
@@ -5306,11 +5311,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(conf_label);
     config_volume = gtk_spin_button_new_with_range(0, 100, 1);
 #ifdef GTK2_12_ENABLED
-    gtk_widget_set_tooltip_text(config_volume,_("Default volume for playback"));
+    gtk_widget_set_tooltip_text(config_volume, _("Default volume for playback"));
 #else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_volume, _("Default volume for playback"), NULL);
-#endif	
+#endif
     gtk_widget_set_size_request(config_volume, 100, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_volume, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
                      GTK_SHRINK, 0, 0);
@@ -5401,33 +5406,59 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      0);
     i++;
 
-    conf_label = gtk_label_new(_("Cache Size (KB):"));
+    conf_label = gtk_label_new(_("Audio Cache Size (KB):"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
-    config_plugin_cache_size = gtk_spin_button_new_with_range(32, 256 * 1024, 512);
+    config_plugin_audio_cache_size = gtk_spin_button_new_with_range(32, 256 * 1024, 128);
+    config_plugin_video_cache_size = gtk_spin_button_new_with_range(32, 256 * 1024, 512);
 #ifdef GTK2_12_ENABLED
-    gtk_widget_set_tooltip_text(config_plugin_cache_size,
+    gtk_widget_set_tooltip_text(config_plugin_audio_cache_size,
+                                _
+                                ("Amount of data to cache when playing media from network, use higher values for slow networks."));
+    gtk_widget_set_tooltip_text(config_plugin_video_cache_size,
                                 _
                                 ("Amount of data to cache when playing media from network, use higher values for slow networks."));
 
 #else
     tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_plugin_cache_size,
+    gtk_tooltips_set_tip(tooltip, config_plugin_audio_cache_size,
+                         _
+                         ("Amount of data to cache when playing media from network, use higher values for slow networks."),
+                         NULL);
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_plugin_video_cache_size,
                          _
                          ("Amount of data to cache when playing media from network, use higher values for slow networks."),
                          NULL);
 #endif
     //gtk_widget_set_size_request(config_plugin_cache_size, 200, -1);
-    gtk_table_attach(GTK_TABLE(conf_table), config_plugin_cache_size, 1, 2, i, i + 1,
+    gtk_table_attach(GTK_TABLE(conf_table), config_plugin_audio_cache_size, 1, 2, i, i + 1,
                      GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     //gtk_range_set_value(GTK_RANGE(config_cachesize), cache_size);
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_plugin_cache_size), plugin_cache_size);
-    gtk_entry_set_width_chars(GTK_ENTRY(config_plugin_cache_size), 6);
-    gtk_entry_set_editable(GTK_ENTRY(config_plugin_cache_size), FALSE);
-    gtk_entry_set_alignment(GTK_ENTRY(config_plugin_cache_size), 1);
-    gtk_widget_show(config_plugin_cache_size);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_plugin_audio_cache_size),
+                              plugin_audio_cache_size);
+    gtk_entry_set_width_chars(GTK_ENTRY(config_plugin_audio_cache_size), 6);
+    gtk_entry_set_editable(GTK_ENTRY(config_plugin_audio_cache_size), FALSE);
+    gtk_entry_set_alignment(GTK_ENTRY(config_plugin_audio_cache_size), 1);
+    gtk_widget_show(config_plugin_audio_cache_size);
+    i++;
+
+    conf_label = gtk_label_new(_("Video Cache Size (KB):"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_widget_show(conf_label);
+
+    gtk_table_attach(GTK_TABLE(conf_table), config_plugin_video_cache_size, 1, 2, i, i + 1,
+                     GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_plugin_video_cache_size),
+                              plugin_video_cache_size);
+    gtk_entry_set_width_chars(GTK_ENTRY(config_plugin_video_cache_size), 6);
+    gtk_entry_set_editable(GTK_ENTRY(config_plugin_video_cache_size), FALSE);
+    gtk_entry_set_alignment(GTK_ENTRY(config_plugin_video_cache_size), 1);
+    gtk_widget_show(config_plugin_video_cache_size);
     i++;
 
 
@@ -6367,7 +6398,7 @@ GtkWidget *create_window(gint windowid)
     menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep3));
     gtk_widget_show(GTK_WIDGET(menuitem_sep3));
-	menuitem_showcontrols =
+    menuitem_showcontrols =
         GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("S_how Controls")));
     gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_showcontrols));
     gtk_widget_show(GTK_WIDGET(menuitem_showcontrols));

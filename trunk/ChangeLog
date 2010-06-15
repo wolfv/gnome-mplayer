@@ -1,4 +1,6 @@
 Development
+	Allow for separate audio and video plugin cache sizes, plugin will use video cache size
+		unless mimetype has "audio" in it, then it will use the audio cache size
 	Fix problem with proper audio track being selected, mplayer selects them 0 based but reports
 		them one based, so have to make adjustments to the value returned
 	Workaround for media files with non-zero start time, requires mplayer SVN r31346 or greater
