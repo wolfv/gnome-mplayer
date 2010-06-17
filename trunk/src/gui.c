@@ -5146,7 +5146,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_metadata_codepage != NULL) {
         i = 0;
         j = -1;
-        while (i < 26) {
+        while (i < 27) {
             if (metadata_codepage != NULL && strlen(metadata_codepage) > 1
                 && g_ascii_strncasecmp(metadata_codepage, codepagelist[i],
                                        strlen(metadata_codepage)) == 0)
@@ -5155,12 +5155,16 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             if (j != -1)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_metadata_codepage), j);
         }
+        if (metadata_codepage != NULL && j == -1) {
+            gtk_combo_box_append_text(GTK_COMBO_BOX(config_metadata_codepage), metadata_codepage);
+            gtk_combo_box_set_active(GTK_COMBO_BOX(config_metadata_codepage), i);
+        }
     }
     config_subtitle_codepage = gtk_combo_box_entry_new_text();
     if (config_subtitle_codepage != NULL) {
         i = 0;
         j = -1;
-        while (i < 26) {
+        while (i < 27) {
             if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 1
                 && g_ascii_strncasecmp(subtitle_codepage, codepagelist[i],
                                        strlen(subtitle_codepage)) == 0)
@@ -5168,6 +5172,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             gtk_combo_box_append_text(GTK_COMBO_BOX(config_subtitle_codepage), codepagelist[i++]);
             if (j != -1)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_subtitle_codepage), j);
+        }
+        if (subtitle_codepage != NULL && j == -1) {
+            gtk_combo_box_append_text(GTK_COMBO_BOX(config_subtitle_codepage), subtitle_codepage);
+            gtk_combo_box_set_active(GTK_COMBO_BOX(config_subtitle_codepage), i);
         }
     }
 
