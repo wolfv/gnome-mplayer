@@ -81,7 +81,7 @@ gboolean send_command(gchar * command, gboolean retain_pause)
     } else {
         cmd = g_strdup(command);
     }
-    printf("command = %s\n", cmd);
+    // printf("command = %s\n", cmd);
     g_idle_add(write_to_mplayer, (gpointer) cmd);
     return TRUE;
 
