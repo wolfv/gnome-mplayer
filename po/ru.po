@@ -8,61 +8,61 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-14 11:54-0600\n"
-"PO-Revision-Date: 2010-02-10 21:51+0000\n"
-"Last-Translator: Denis Koryavov <dkoryavov@yandex.ru>\n"
+"POT-Creation-Date: 2010-06-18 20:29+0000\n"
+"PO-Revision-Date: 2010-03-15 10:44+0000\n"
+"Last-Translator: Novichkov Alexander <Unknown>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-02-22 21:48+0000\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2010-06-19 14:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: src/main.c:52
+#: ../src/main.c:52
 msgid "Window to embed in"
 msgstr "Окно для встраивания"
 
-#: src/main.c:53
+#: ../src/main.c:53
 msgid "Width of window to embed in"
 msgstr "Длина окна для встраивания"
 
-#: src/main.c:54
+#: ../src/main.c:54
 msgid "Height of window to embed in"
 msgstr "Высота окна для встраивания"
 
-#: src/main.c:55
+#: ../src/main.c:55
 msgid "Unique DBUS controller id"
 msgstr "Уникальный ID контроллера DBUS"
 
-#: src/main.c:56
+#: ../src/main.c:56
 msgid "File Argument is a playlist"
 msgstr "Аргумент - список воспроизведения"
 
-#: src/main.c:57
+#: ../src/main.c:57
 msgid "Show more output on the console"
 msgstr "Показывать больше вывода в консоли"
 
-#: src/main.c:59
+#: ../src/main.c:59
 msgid "Show even more output on the console"
 msgstr "Показывать еще больше вывода в консоли"
 
-#: src/main.c:60
+#: ../src/main.c:60
 msgid "Start in fullscreen mode"
 msgstr "Запускать в полноэкранном режиме"
 
-#: src/main.c:61
+#: ../src/main.c:61
 msgid "Use mplayer software volume control"
-msgstr "Программное управление громкостью"
+msgstr "Программное управление громкостью mplayer"
 
-#: src/main.c:63
+#: ../src/main.c:63
 msgid "When set to TRUE the last volume level is set as the default"
 msgstr ""
 "Если установлено значение TRUE, последний уровень громкости станет "
 "умалчиваемым"
 
-#: src/main.c:65
+#: ../src/main.c:65
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
@@ -70,179 +70,179 @@ msgstr ""
 "Последнее значение программного уровня громкости используется лишь в случае "
 "установки значения remember_softvol в TRUE"
 
-#: src/main.c:67
+#: ../src/main.c:67
 msgid "Mixer to use"
 msgstr "Использовать микшер"
 
-#: src/main.c:68
+#: ../src/main.c:68
 msgid "Set initial volume percentage"
 msgstr "Начальная громкость"
 
-#: src/main.c:69
+#: ../src/main.c:69
 msgid "Show the controls in window"
 msgstr "Показывать панель управления в окне"
 
-#: src/main.c:71
+#: ../src/main.c:71
 msgid "Show the subtitles if available"
 msgstr "Показывать субтитры если возможно"
 
-#: src/main.c:74
+#: ../src/main.c:74
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
 msgstr "Воспроизведение при добавлении файла; 1 - включено, 0 - выключено"
 
-#: src/main.c:76
+#: ../src/main.c:76
 msgid "Disable popup menu on right click"
 msgstr "Отключить всплывающее меню правой кнопки мыши"
 
-#: src/main.c:78
+#: ../src/main.c:78
 msgid "Disable fullscreen options in browser mode"
 msgstr "Отключить полноэкранный режим в режиме браузера"
 
-#: src/main.c:79
+#: ../src/main.c:79
 msgid "Play all files on the playlist forever"
 msgstr "Повторять список воспроизведения"
 
-#: src/main.c:81
+#: ../src/main.c:81
 msgid "Quit application when last file on playlist is played"
 msgstr "Выйти из приложения по окончании списка воспроизведения"
 
-#: src/main.c:82
+#: ../src/main.c:82
 msgid "Play items on playlist in random order"
 msgstr "Воспроизводить объеты списка воспроизведения в случайном порядке"
 
-#: src/main.c:84
+#: ../src/main.c:84
 msgid "Set cache size"
 msgstr "Размер кэша"
 
-#: src/main.c:86
+#: ../src/main.c:86
 msgid "Start Second (default to 0)"
 msgstr "Проигрывать с секунды (по умолчанию: 0)"
 
-#: src/main.c:89
+#: ../src/main.c:89
 msgid "Length of media to play from start second"
 msgstr ""
 "Время, в течении которого следует проигрывать аудио/видео со стартовой "
 "секунды"
 
-#: src/main.c:91
+#: ../src/main.c:91
 msgid "Force cache usage on streaming sites"
 msgstr "Принудительно использовать кэш для сайтов с потоковым видео"
 
-#: src/main.c:94
+#: ../src/main.c:94
 msgid "Disable the deinterlace filter"
 msgstr "Отключить деинтерлейсинг"
 
-#: src/main.c:97
+#: ../src/main.c:97
 msgid "Don't skip drawing frames to better keep sync"
 msgstr "Не пропускать кадры для лучшей синхронизации"
 
-#: src/main.c:100
+#: ../src/main.c:100
 msgid "Use the old subtitle rendering system"
 msgstr "Использовать старую систему обработки субтитров"
 
-#: src/main.c:103
+#: ../src/main.c:103
 msgid "Don't use fonts embedded on matroska files"
 msgstr "Не использовать шрифты встроенные в файлы .mkv"
 
-#: src/main.c:105
+#: ../src/main.c:105
 msgid "Use Vertical Layout"
 msgstr "Использовать вертикальную раскладку"
 
-#: src/main.c:107
+#: ../src/main.c:107
 msgid "Start with playlist open"
 msgstr "Запускать с открытым списком воспроизведения"
 
-#: src/main.c:109 src/gui.c:5641
+#: ../src/main.c:109 ../src/gui.c:5680
 msgid "Start with details visible"
 msgstr "Показывать подробности при запуске"
 
-#: src/main.c:111
+#: ../src/main.c:111
 msgid "Real Player Name"
 msgstr "Имя прогрывателя Real Player"
 
-#: src/main.c:112
+#: ../src/main.c:112
 msgid "Real Player Console ID"
 msgstr "Консольный идентификатор проигрывателя Real Player"
 
-#: src/main.c:113
+#: ../src/main.c:113
 msgid "Real Player Console Controls"
 msgstr "Консольные комманды для управления прогрывателем Real Player"
 
-#: src/main.c:115
+#: ../src/main.c:115
 msgid "Subtitle file for first media file"
 msgstr "Файл субтитров для первого медиафайла"
 
-#: src/main.c:117
+#: ../src/main.c:117
 msgid "TV device name"
 msgstr "Название устройства для приема ТВ"
 
-#: src/main.c:118
+#: ../src/main.c:118
 msgid "TV driver name (v4l|v4l2)"
 msgstr "Драйвер для устройства приема ТВ (v4l|v4l2)"
 
-#: src/main.c:119
+#: ../src/main.c:119
 msgid "TV input name"
 msgstr "Название ТВ-потока"
 
-#: src/main.c:120
+#: ../src/main.c:120
 msgid "Width of TV input"
 msgstr "Ширина отоображения ТВ-потока"
 
-#: src/main.c:121
+#: ../src/main.c:121
 msgid "Height of TV input"
 msgstr "Высота отображения ТВ-потока"
 
-#: src/main.c:122
+#: ../src/main.c:122
 msgid "Frames per second from TV input"
 msgstr "Количество кадров в секунду для ТВ-потока"
 
-#: src/main.c:123
+#: ../src/main.c:123
 msgid "Only allow one instance"
 msgstr "Только одна копия приложения"
 
-#: src/main.c:126
+#: ../src/main.c:126
 msgid "Put single instance mode into replace and play mode"
 msgstr "Заменить текущий файл в прогрывателе на указанный и проиграть его"
 
-#: src/main.c:129
+#: ../src/main.c:129
 msgid "Use large control buttons"
 msgstr "Использовать большие управляющие кнопки"
 
-#: src/main.c:132
+#: ../src/main.c:132
 msgid "Hide control panel when mouse is not moving"
 msgstr "Скрывать панель управления при отсутствии движения мыши"
 
-#: src/main.c:135
+#: ../src/main.c:135
 msgid "Ignore single instance preference for this instance"
 msgstr "Игнорировать единые настройки для этого экземпляра приложения"
 
-#: src/main.c:138
+#: ../src/main.c:138
 msgid "Keep window on top"
 msgstr "Поверх всех окон"
 
-#: src/main.c:142
+#: ../src/main.c:142
 msgid "Load all tracks from media player using gpod"
 msgstr "Загружать все дорожки из проигрывателя используя gpod"
 
-#: src/main.c:146
+#: ../src/main.c:146
 msgid "Don't fetch new cover art images"
 msgstr "Не извлекать обложки альбомов"
 
-#: src/main.c:333 src/gui.c:663 src/gui.c:2327
+#: ../src/main.c:333 ../src/gui.c:663 ../src/gui.c:2328
 #, c-format
 msgid "Playing"
 msgstr "Воспроизводится"
 
-#: src/main.c:874
+#: ../src/main.c:874
 msgid "[FILES...] - GNOME Media player based on MPlayer"
-msgstr "Медиапроигрыватель на основе MPlayer"
+msgstr "[FILES...] - Медиапроигрыватель на основе MPlayer"
 
-#: src/main.c:894
+#: ../src/main.c:894
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME·MPlayer·v%s\n"
 
-#: src/main.c:981
+#: ../src/main.c:985
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -251,48 +251,49 @@ msgstr ""
 "Запустите 'gnome-mplayer·--help' для получения полного списка настроек "
 "командной строки.\n"
 
-#: src/gui.c:380 src/gui.c:419
+#: ../src/gui.c:380 ../src/gui.c:419
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
 
-#: src/gui.c:414
+#: ../src/gui.c:414
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:417 src/gui.c:3394 src/gui.c:6316
+#: ../src/gui.c:417 ../src/gui.c:3395 ../src/gui.c:6355
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:534
+#: ../src/gui.c:534
 #, c-format
 msgid "Buffering: %2i%%"
 msgstr "Буфферизация: %2i%%"
 
-#: src/gui.c:547
+#: ../src/gui.c:547
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Приостановлено | %2i%% ▼"
 
-#: src/gui.c:665 src/gui.c:2351
+#: ../src/gui.c:665 ../src/gui.c:2352
 #, c-format
 msgid "Paused"
 msgstr "Приостановлено"
 
-#: src/gui.c:667 src/gui.c:1057
+#: ../src/gui.c:667 ../src/gui.c:1057
 #, c-format
 msgid "Idle"
 msgstr "Ожидание"
 
-#: src/gui.c:834 src/support.c:274 src/playlist.c:534 src/playlist.c:855
+#: ../src/gui.c:834 ../src/support.c:274 ../src/playlist.c:534
+#: ../src/playlist.c:855
 #, c-format
 msgid "%s items"
 msgstr "%s объекты"
 
-#: src/gui.c:836 src/gui.c:2849 src/gui.c:3191 src/support.c:223
-#: src/support.c:289 src/playlist.c:536
+#: ../src/gui.c:836 ../src/gui.c:2850 ../src/gui.c:3192 ../src/support.c:223
+#: ../src/support.c:289 ../src/playlist.c:536
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
@@ -300,82 +301,83 @@ msgstr[0] "Элемент для проигрывания"
 msgstr[1] "Элемента для проигрывания"
 msgstr[2] "Элементов для проигрывания"
 
-#: src/gui.c:855 src/gui.c:857 src/gui.c:2323 src/gui.c:2325
+#: ../src/gui.c:855 ../src/gui.c:857 ../src/gui.c:2324 ../src/gui.c:2326
 msgid "Pause"
 msgstr "Приостановить"
 
-#: src/gui.c:875 src/gui.c:877 src/gui.c:894 src/gui.c:896 src/gui.c:2347
-#: src/gui.c:2349 src/gui.c:2409 src/gui.c:2411 src/gui.c:2419 src/gui.c:2421
-#: src/gui.c:7067 src/gui.c:7070
+#: ../src/gui.c:875 ../src/gui.c:877 ../src/gui.c:894 ../src/gui.c:896
+#: ../src/gui.c:2348 ../src/gui.c:2350 ../src/gui.c:2410 ../src/gui.c:2412
+#: ../src/gui.c:2420 ../src/gui.c:2422 ../src/gui.c:7106 ../src/gui.c:7109
 msgid "Play"
 msgstr "Воспроизвести"
 
-#: src/gui.c:1030
+#: ../src/gui.c:1030
 #, c-format
 msgid "Adding %s to playlist"
 msgstr "Добавление %s в список воспроизведения"
 
-#: src/gui.c:1053
+#: ../src/gui.c:1053
 #, c-format
 msgid "Playing %s"
 msgstr "Воспроизведение %s"
 
-#: src/gui.c:1055
+#: ../src/gui.c:1055
 #, c-format
 msgid "Paused %s"
 msgstr "Приостановлено %s"
 
-#: src/gui.c:1453 src/gui.c:1462 src/gui.c:2599 src/gui.c:2641
+#: ../src/gui.c:1454 ../src/gui.c:1463 ../src/gui.c:2600 ../src/gui.c:2642
 #, c-format
 msgid "Volume %i%%"
 msgstr "Громкость %i%%"
 
-#: src/gui.c:2428
+#: ../src/gui.c:2429
 msgid "Stopped"
 msgstr "Остановлено"
 
-#: src/gui.c:2801 src/playlist.c:498
+#: ../src/gui.c:2802 ../src/playlist.c:498
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: src/gui.c:2905
+#: ../src/gui.c:2906
 msgid "Open Location"
 msgstr "Открыть адрес"
 
-#: src/gui.c:2907
+#: ../src/gui.c:2908
 msgid "Location:"
 msgstr "Адрес:"
 
-#: src/gui.c:2958 src/gui.c:3048
+#: ../src/gui.c:2959 ../src/gui.c:3049
 msgid "Choose Disk Directory"
 msgstr "Выбрать каталог с диском"
 
-#: src/gui.c:2994 src/gui.c:3086
+#: ../src/gui.c:2995 ../src/gui.c:3087
 msgid "Choose Disk Image"
 msgstr "Выбрать образ диска"
 
-#: src/gui.c:3008 src/gui.c:3100
+#: ../src/gui.c:3009 ../src/gui.c:3101
 msgid "Disk Image (*.iso)"
 msgstr "Образ диска (*.iso)"
 
-#: src/gui.c:3305
+#: ../src/gui.c:3306
 msgid "Save As..."
 msgstr "Сохранить как..."
 
-#: src/gui.c:3340
+#: ../src/gui.c:3341
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "Не удалось сохранить '%s'"
 
-#: src/gui.c:3343 src/support.c:833 src/support.c:927 src/thread.c:266
+#: ../src/gui.c:3344 ../src/support.c:833 ../src/support.c:927
+#: ../src/thread.c:272
 msgid "GNOME MPlayer Error"
 msgstr "Ошибка GNOME MPlayer"
 
-#: src/gui.c:3396
+#: ../src/gui.c:3397
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "Медиа-проигрыватель для среды GNOME, который использует MPlayer"
 
-#: src/gui.c:3399
+#: ../src/gui.c:3400
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -397,8 +399,8 @@ msgid ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 msgstr ""
-"GNOME MPlayer — свободная программа; вы можете повторно распространять ее и/"
-"или\n"
+"GNOME MPlayer — свободная программа; вы можете повторно распространять ее "
+"и/или\n"
 "модифицировать ее в соответствии с Универсальной Общественной Лицензией\n"
 "GNU, опубликованной Фондом Свободного ПО; либо версии 2, либо (по вашему\n"
 "выбору) любой более поздней версии.\n"
@@ -414,155 +416,155 @@ msgstr ""
 "Free Software Foundation,\n"
 "Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA"
 
-#: src/gui.c:3671 src/playlist.c:137
+#: ../src/gui.c:3672 ../src/playlist.c:137
 msgid "Set Subtitle"
 msgstr "Добавить субтитры"
 
-#: src/gui.c:3802
+#: ../src/gui.c:3803
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Полноэкранный режим"
 
-#: src/gui.c:4345 src/nautilus_property_page.c:344
+#: ../src/gui.c:4350 ../src/nautilus_property_page.c:344
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">Информация о видео</span>"
 
-#: src/gui.c:4352 src/nautilus_property_page.c:351
+#: ../src/gui.c:4357 ../src/nautilus_property_page.c:351
 msgid "Video Size:"
 msgstr "Размер видео:"
 
-#: src/gui.c:4365
+#: ../src/gui.c:4370
 msgid "Video Format:"
 msgstr "Формат видео:"
 
-#: src/gui.c:4376 src/nautilus_property_page.c:362
+#: ../src/gui.c:4381 ../src/nautilus_property_page.c:362
 msgid "Video Codec:"
 msgstr "Видеокодек:"
 
-#: src/gui.c:4387
+#: ../src/gui.c:4392
 msgid "Video FPS:"
 msgstr "Число кадров/сек (FPS):"
 
-#: src/gui.c:4396 src/nautilus_property_page.c:373
+#: ../src/gui.c:4401 ../src/nautilus_property_page.c:373
 msgid "Video Bitrate:"
 msgstr "Битрейт видео:"
 
-#: src/gui.c:4407
+#: ../src/gui.c:4412
 msgid "Video Chapters:"
 msgstr "Главы:"
 
-#: src/gui.c:4423 src/nautilus_property_page.c:400
+#: ../src/gui.c:4428 ../src/nautilus_property_page.c:400
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Информация об аудио</span>"
 
-#: src/gui.c:4430 src/nautilus_property_page.c:407
+#: ../src/gui.c:4435 ../src/nautilus_property_page.c:407
 msgid "Audio Codec:"
 msgstr "Аудиокодек:"
 
-#: src/gui.c:4443 src/nautilus_property_page.c:430
+#: ../src/gui.c:4448 ../src/nautilus_property_page.c:430
 msgid "Audio Channels:"
 msgstr "Аудио каналы:"
 
-#: src/gui.c:4456 src/nautilus_property_page.c:418
+#: ../src/gui.c:4461 ../src/nautilus_property_page.c:418
 msgid "Audio Bitrate:"
 msgstr "Битрейт аудио:"
 
-#: src/gui.c:4469
+#: ../src/gui.c:4474
 msgid "Audio Sample Rate:"
 msgstr "Частота дискретизации аудио:"
 
-#: src/gui.c:4500
+#: ../src/gui.c:4505
 msgid "Video Picture Adjustments"
 msgstr "Настройки изображения"
 
-#: src/gui.c:4513
+#: ../src/gui.c:4518
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">Изменить настройки изображения</span>"
 
-#: src/gui.c:4520
+#: ../src/gui.c:4525
 msgid "Brightness"
 msgstr "Яркость"
 
-#: src/gui.c:4530
+#: ../src/gui.c:4535
 msgid "Contrast"
 msgstr "Контраст"
 
-#: src/gui.c:4540
+#: ../src/gui.c:4545
 msgid "Gamma"
 msgstr "Гамма"
 
-#: src/gui.c:4550
+#: ../src/gui.c:4555
 msgid "Hue"
 msgstr "Тон"
 
-#: src/gui.c:4560
+#: ../src/gui.c:4565
 msgid "Saturation"
 msgstr "Насыщенность"
 
-#: src/gui.c:4579
+#: ../src/gui.c:4584
 msgid "_Reset"
 msgstr "_Сброс"
 
-#: src/gui.c:4762
+#: ../src/gui.c:4767
 msgid "No Display"
 msgstr "Отключено"
 
-#: src/gui.c:4765
+#: ../src/gui.c:4770
 msgid "Minimal"
 msgstr "Минимум"
 
-#: src/gui.c:4768
+#: ../src/gui.c:4773
 msgid "Timer"
 msgstr "Таймер"
 
-#: src/gui.c:4771
+#: ../src/gui.c:4776
 msgid "Timer/Total"
 msgstr "Таймер/Всего"
 
-#: src/gui.c:4787
+#: ../src/gui.c:4792
 msgid "No Postprocessing"
 msgstr "Отключено"
 
-#: src/gui.c:4791
+#: ../src/gui.c:4796
 msgid "Minimal Postprocessing"
 msgstr "Минимум"
 
-#: src/gui.c:4795
+#: ../src/gui.c:4800
 msgid "More Postprocessing"
 msgstr "Средне"
 
-#: src/gui.c:4799
+#: ../src/gui.c:4804
 msgid "Maximum Postprocessing"
 msgstr "Максимум"
 
-#: src/gui.c:4933
+#: ../src/gui.c:4938
 msgid "Player"
 msgstr "Проигрыватель"
 
-#: src/gui.c:4935
+#: ../src/gui.c:4940
 msgid "Language Settings"
 msgstr "Настройки Языка"
 
-#: src/gui.c:4937
+#: ../src/gui.c:4942
 msgid "Subtitles"
 msgstr "Субтитры"
 
-#: src/gui.c:4939
+#: ../src/gui.c:4944
 msgid "Interface"
 msgstr "Сетевой интерфейс"
 
-#: src/gui.c:4941
+#: ../src/gui.c:4946
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:4943
+#: ../src/gui.c:4948
 msgid "Plugin"
 msgstr "Модуль"
 
-#: src/gui.c:4949
+#: ../src/gui.c:4954
 msgid "GNOME MPlayer Configuration"
 msgstr "Настройка GNOME MPlayer"
 
-#: src/gui.c:4964 src/gui.c:4970
+#: ../src/gui.c:4969 ../src/gui.c:4975
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
@@ -570,11 +572,11 @@ msgstr ""
 "Обычно подходит обработчик x11, попробуйте xv или gl для лучшей "
 "производительности"
 
-#: src/gui.c:5006
+#: ../src/gui.c:5011
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "Передавать AC3/DTS по каналу S/PDIF"
 
-#: src/gui.c:5070 src/gui.c:5076
+#: ../src/gui.c:5075 ../src/gui.c:5081
 msgid ""
 "mplayer audio output device\n"
 "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
@@ -584,50 +586,50 @@ msgstr ""
 "Обычно подходят обработчики alsa или oss, попробуйте esd для Gnome, arts для "
 "KDE, или pulse для новых дистрибутивов"
 
-#: src/gui.c:5222
+#: ../src/gui.c:5235
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Настройки вывода</span>"
 
-#: src/gui.c:5230
+#: ../src/gui.c:5243
 msgid "Video Output:"
 msgstr "Вывод видео:"
 
-#: src/gui.c:5240
+#: ../src/gui.c:5253
 msgid "Audio Output:"
 msgstr "Вывод аудио:"
 
-#: src/gui.c:5252
+#: ../src/gui.c:5265
 msgid "Default Mixer:"
 msgstr "Микшер по умолчанию:"
 
-#: src/gui.c:5263
+#: ../src/gui.c:5276
 msgid "Audio Channels to Output"
 msgstr "Аудио-каналы для вывода:"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:5293
+#: ../src/gui.c:5306
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">Конфигурация</span>"
 
-#: src/gui.c:5302
+#: ../src/gui.c:5315
 msgid "Default Volume Level:"
 msgstr "Громкость по умолчанию"
 
-#: src/gui.c:5309 src/gui.c:5312
+#: ../src/gui.c:5322 ../src/gui.c:5325
 msgid "Default volume for playback"
 msgstr "Громкость воспроизведения"
 
-#: src/gui.c:5328
+#: ../src/gui.c:5341
 msgid "On Screen Display Level:"
 msgstr "Уровень OSD:"
 
-#: src/gui.c:5343
+#: ../src/gui.c:5356
 msgid "Post-processing level:"
 msgstr "Уровень постобработки:"
 
-#: src/gui.c:5359
+#: ../src/gui.c:5372
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -648,35 +650,35 @@ msgstr ""
 "NPRuntime\n"
 "(Firefox, Konqueror, Opera, и.т.д)."
 
-#: src/gui.c:5371
+#: ../src/gui.c:5384
 msgid "QuickTime Emulation"
 msgstr "Эмуляция QuickTime"
 
-#: src/gui.c:5376
+#: ../src/gui.c:5389
 msgid "RealPlayer Emulation"
 msgstr "Эмуляция RealPlayer"
 
-#: src/gui.c:5382
+#: ../src/gui.c:5395
 msgid "Windows Media Player Emulation"
 msgstr "Эмуляция Windows Media Player"
 
-#: src/gui.c:5387
+#: ../src/gui.c:5400
 msgid "DiVX Player Emulation"
 msgstr "Эмуляция DivX Player"
 
-#: src/gui.c:5392
+#: ../src/gui.c:5405
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "Поддержка MIDI (требуется поддержка этого формата в MPlayer)"
 
-#: src/gui.c:5398
+#: ../src/gui.c:5411
 msgid "Disable Player Embedding"
 msgstr "Отключить интеграцию проигрывателя с интернет-проводником"
 
-#: src/gui.c:5404 src/gui.c:5880
-msgid "Cache Size (KB):"
-msgstr "Размер кэша (КБ):"
+#: ../src/gui.c:5417
+msgid "Audio Cache Size (KB):"
+msgstr ""
 
-#: src/gui.c:5413 src/gui.c:5419
+#: ../src/gui.c:5427 ../src/gui.c:5430 ../src/gui.c:5436 ../src/gui.c:5441
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -684,144 +686,149 @@ msgstr ""
 "Размер кэша для воспроизведения потокового видео, для медленных соединений "
 "используйте большие значения"
 
-#: src/gui.c:5438
+#: ../src/gui.c:5456
+msgid "Video Cache Size (KB):"
+msgstr ""
+
+#: ../src/gui.c:5477
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">Язык по умолчанию</span>"
 
-#: src/gui.c:5446
+#: ../src/gui.c:5485
 msgid "Default Audio Language"
 msgstr "Язык аудио по умолчанию:"
 
-#: src/gui.c:5456
+#: ../src/gui.c:5495
 msgid "Default Subtitle Language:"
 msgstr "Язык субтитров по умолчанию:"
 
-#: src/gui.c:5468
+#: ../src/gui.c:5507
 msgid "File Metadata Encoding:"
 msgstr "Кодировка метаданных файла:"
 
-#: src/gui.c:5484
+#: ../src/gui.c:5523
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">Настройки субтитров</span>"
 
-#: src/gui.c:5494
+#: ../src/gui.c:5533
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "_Включить поддержку ASS субтитров"
 
-#: src/gui.c:5501
+#: ../src/gui.c:5540
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "Использовать _встроенные шрифты (только для файлов формата MKV)"
 
-#: src/gui.c:5511
+#: ../src/gui.c:5550
 msgid "Subtitle Font:"
 msgstr "Шрифт субтитров:"
 
-#: src/gui.c:5529
+#: ../src/gui.c:5568
 msgid "Subtitle Font Selection"
 msgstr "Выбор шрифта для субтитров"
 
-#: src/gui.c:5534
+#: ../src/gui.c:5573
 msgid "Subtitle Color:"
 msgstr "Цвет субтитров:"
 
-#: src/gui.c:5559
+#: ../src/gui.c:5598
 msgid "Subtitle Color Selection"
 msgstr "Выбор цвета для субтитров"
 
-#: src/gui.c:5565
+#: ../src/gui.c:5604
 msgid "Outline Subtitle Font"
 msgstr "Обводить субтитры по контуру"
 
-#: src/gui.c:5572
+#: ../src/gui.c:5611
 msgid "Shadow Subtitle Font"
 msgstr "Субтитры отбрасывают тень"
 
-#: src/gui.c:5579
+#: ../src/gui.c:5618
 msgid "Subtitle Font Scaling:"
 msgstr "Масштабирование шрифта субтитров:"
 
-#: src/gui.c:5592
+#: ../src/gui.c:5631
 msgid "Subtitle File Encoding:"
 msgstr "Кодировка файла субтитров:"
 
-#: src/gui.c:5604
+#: ../src/gui.c:5643
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr "Минимальное расстояние между субтитрами (только для X11/XV):"
 
-#: src/gui.c:5617
+#: ../src/gui.c:5656
 msgid "Show Subtitles by Default"
 msgstr "Показывать субтитры по умолчанию"
 
-#: src/gui.c:5627
+#: ../src/gui.c:5666
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Настройки приложения</span>"
 
-#: src/gui.c:5635
+#: ../src/gui.c:5674
 msgid "Start with playlist visible"
 msgstr "Показывать список воспроизведения при запуске"
 
-#: src/gui.c:5647
+#: ../src/gui.c:5686
 msgid "Respond to Keyboard Media Keys"
 msgstr "Позволять управление мультимедийными клавишами клавиатуры"
 
-#: src/gui.c:5653
+#: ../src/gui.c:5692
 msgid "Use default playlist"
 msgstr "Использовать умалчиваемый список воспроизведения"
 
-#: src/gui.c:5660
+#: ../src/gui.c:5699
 msgid "Show notification popup"
 msgstr "Показывать всплывающие подсказки"
 
-#: src/gui.c:5668
+#: ../src/gui.c:5707
 msgid "Show status icon"
 msgstr "Показывать иконку в системном лотке"
 
-#: src/gui.c:5676
+#: ../src/gui.c:5715
 msgid "Use X Screen Saver control over Gnome Power Manager"
 msgstr "Управлять хранителем экрана через менеджер питания GNOME"
 
-#: src/gui.c:5684
+#: ../src/gui.c:5723
 msgid "Place playlist below media (requires application restart)"
 msgstr ""
 "Список воспроизведения под основным окном (требуется перезапуск приложения)"
 
-#: src/gui.c:5691
+#: ../src/gui.c:5730
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Запускать только один экземпляр Gnome MPlayer"
 
-#: src/gui.c:5705
+#: ../src/gui.c:5744
 msgid "When opening in single instance mode, replace existing file"
 msgstr "При запуске в режиме одного экземпляра заменять текущий файл"
 
-#: src/gui.c:5718
+#: ../src/gui.c:5757
 msgid "When opening file, bring main window to front"
 msgstr "Поднимать основное окно на передний план при открытии файла"
 
-#: src/gui.c:5727
+#: ../src/gui.c:5766
 msgid "Remember Window Location and Size"
 msgstr "Запоминать размер и положение окна"
 
-#: src/gui.c:5734
+#: ../src/gui.c:5773
 msgid "Resize window when new video is loaded"
 msgstr "Изменять размер окна при загрузке нового видео"
 
-#: src/gui.c:5741
+#: ../src/gui.c:5780
 msgid "Keep window above other windows"
 msgstr "Поверх всех окон"
 
-#: src/gui.c:5747
+#: ../src/gui.c:5786
 msgid "Pause playback on mouse click"
 msgstr "Приостанавливать воспроизведение по щелчку мыши"
 
-#: src/gui.c:5754
+#: ../src/gui.c:5793
 msgid "Disable Fullscreen Control Bar Animation"
-msgstr "Отключить анимацию сокрытия панели инструменов в полноэкранном режиме"
+msgstr ""
+"Отключить анимацию сокрытия панели инструменов в полноэкранном режиме"
 
-#: src/gui.c:5760
+#: ../src/gui.c:5799
 msgid "Verbose Debug Enabled"
 msgstr "Выводить подробные отладочные сообщения"
 
-#: src/gui.c:5764 src/gui.c:5769
+#: ../src/gui.c:5803 ../src/gui.c:5808
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
@@ -829,15 +836,15 @@ msgstr ""
 "Когда эта опция включена, дополнительная отладочная информация выводится на "
 "терминал или в файл ~/.xsession-errors"
 
-#: src/gui.c:5781
+#: ../src/gui.c:5820
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Продвинутые настройки MPlayer</span>"
 
-#: src/gui.c:5789
+#: ../src/gui.c:5828
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Программное управление громкостью"
 
-#: src/gui.c:5793 src/gui.c:5798
+#: ../src/gui.c:5832 ../src/gui.c:5837
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
@@ -845,41 +852,46 @@ msgstr ""
 "Включайте эту опцию, если изменение громкости в Gnome MPlayer изменяет "
 "громкость в системе"
 
-#: src/gui.c:5813
+#: ../src/gui.c:5852
 msgid "Remember last software volume level"
 msgstr "Запоминать значение программного уровеня громкости"
 
-#: src/gui.c:5817 src/gui.c:5822
-msgid "Set this option if you want the software volume level to be remembered"
+#: ../src/gui.c:5856 ../src/gui.c:5861
+msgid ""
+"Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Установите эту настройку для сохранения значения программного уровня "
 "громкости"
 
-#: src/gui.c:5832
+#: ../src/gui.c:5871
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "Усиление громкости (-200Дб до +60Дб)"
 
-#: src/gui.c:5845
+#: ../src/gui.c:5884
 msgid "De_interlace Video"
 msgstr "Убрать _черезстрочность"
 
-#: src/gui.c:5847 src/gui.c:5850
+#: ../src/gui.c:5886 ../src/gui.c:5889
 msgid "Set this option if video looks striped"
 msgstr "Включайте эту опцию, если изображение разбивается на полосы"
 
-#: src/gui.c:5858
+#: ../src/gui.c:5897
 msgid "_Drop frames"
 msgstr "Пропускать _кадры"
 
-#: src/gui.c:5861 src/gui.c:5865
+#: ../src/gui.c:5900 ../src/gui.c:5904
 msgid "Set this option if video is well behind the audio"
 msgstr "Включайте эту опцию, если изображение отстает от звука"
 
-#: src/gui.c:5872
+#: ../src/gui.c:5911
 msgid "Enable mplayer cache"
 msgstr "Включить кеширование в MPlayer"
 
-#: src/gui.c:5888 src/gui.c:5892
+#: ../src/gui.c:5919
+msgid "Cache Size (KB):"
+msgstr "Размер кэша (КБ):"
+
+#: ../src/gui.c:5927 ../src/gui.c:5931
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
@@ -887,298 +899,300 @@ msgstr ""
 "Размер кэша для воспроизведения потокового видео, для медленных устройств и "
 "соединений используйте большие значения."
 
-#: src/gui.c:5912
+#: ../src/gui.c:5951
 msgid "MPlayer Executable:"
 msgstr "Исполняемый файл MPlayer:"
 
-#: src/gui.c:5916 src/gui.c:5920
+#: ../src/gui.c:5955 ../src/gui.c:5959
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr "Используйте эту опцию для указания особого пути до MPlayer"
 
-#: src/gui.c:5937
+#: ../src/gui.c:5976
 msgid "Extra Options to MPlayer:"
 msgstr "Дополнительные параметры для MPlayer:"
 
-#: src/gui.c:5941 src/gui.c:5945
+#: ../src/gui.c:5980 ../src/gui.c:5984
 msgid "Add any extra mplayer options here (filters etc)"
-msgstr "Добавляйте сюда дополнительные параметры для MPlayer (фильтры и т.п.)"
+msgstr ""
+"Добавляйте сюда дополнительные параметры для MPlayer (фильтры и т.п.)"
 
-#: src/gui.c:5957
+#: ../src/gui.c:5996
 msgid "MPlayer Default Optical Device"
 msgstr "Устройство чтения дисков по умолчанию"
 
-#: src/gui.c:6371
+#: ../src/gui.c:6410
 msgid "S_how Controls"
 msgstr "Показать панель _управления"
 
-#: src/gui.c:6375 src/gui.c:6684
+#: ../src/gui.c:6414 ../src/gui.c:6723
 msgid "_Full Screen"
 msgstr "Полноэкранный _режим"
 
-#: src/gui.c:6380
+#: ../src/gui.c:6419
 msgid "_Copy Location"
 msgstr "Копировать адрес _файла"
 
 #. File Menu
-#: src/gui.c:6451
+#: ../src/gui.c:6490
 msgid "_File"
 msgstr "_Файл"
 
-#: src/gui.c:6460
+#: ../src/gui.c:6499
 msgid "Open _Folder"
 msgstr "Открыть _каталог"
 
-#: src/gui.c:6466
+#: ../src/gui.c:6505
 msgid "Open _Location"
 msgstr "Открыть _адрес"
 
-#: src/gui.c:6473
+#: ../src/gui.c:6512
 msgid "_Disc"
 msgstr "_Диск"
 
-#: src/gui.c:6483
+#: ../src/gui.c:6522
 msgid "Open _Audio CD"
 msgstr "Открыть _Аудио CD"
 
-#: src/gui.c:6488
+#: ../src/gui.c:6527
 msgid "Open _DVD"
 msgstr "О_ткрыть DVD"
 
-#: src/gui.c:6491
+#: ../src/gui.c:6530
 msgid "Open DVD with _Menus"
 msgstr "Открыть DVD с _меню"
 
-#: src/gui.c:6494
+#: ../src/gui.c:6533
 msgid "Open DVD from _Folder"
 msgstr "Открыть DVD из _каталога"
 
-#: src/gui.c:6497
+#: ../src/gui.c:6536
 msgid "Open DVD from Folder with M_enus"
 msgstr "Открыть DVD с м_еню из каталога"
 
-#: src/gui.c:6500
+#: ../src/gui.c:6539
 msgid "Open DVD from _ISO"
 msgstr "Открыть DVD _из ISO"
 
-#: src/gui.c:6503
+#: ../src/gui.c:6542
 msgid "Open DVD from ISO with Me_nus"
 msgstr "Открыть DVD с мен_ю из ISO"
 
-#: src/gui.c:6508
+#: ../src/gui.c:6547
 msgid "Open _VCD"
 msgstr "Отк_рыть VCD"
 
-#: src/gui.c:6511
+#: ../src/gui.c:6550
 msgid "_TV"
 msgstr "_ТВ"
 
-#: src/gui.c:6518
+#: ../src/gui.c:6557
 msgid "Open _Analog TV"
 msgstr "Открыть  анало_говое ТВ"
 
-#: src/gui.c:6521
+#: ../src/gui.c:6560
 msgid "Open _Digital TV"
 msgstr "Открыть _цифровое ТВ"
 
-#: src/gui.c:6525
+#: ../src/gui.c:6564
 msgid "Open _iPod™"
 msgstr "Откры_ть iPod™"
 
-#: src/gui.c:6534
+#: ../src/gui.c:6573
 msgid "Open _Recent"
 msgstr "По_следние файлы"
 
 #. Edit Menu
-#: src/gui.c:6595
+#: ../src/gui.c:6634
 msgid "_Edit"
 msgstr "_Правка"
 
-#: src/gui.c:6602
+#: ../src/gui.c:6641
 msgid "_Shuffle Playlist"
 msgstr "_Воспроизводить в случайном порядке"
 
-#: src/gui.c:6606
+#: ../src/gui.c:6645
 msgid "_Loop Playlist"
 msgstr "Повторять _список воспроизведения"
 
-#: src/gui.c:6611
+#: ../src/gui.c:6650
 msgid "S_witch Audio Track"
 msgstr "Переключить аудио _дорожку"
 
-#: src/gui.c:6615
+#: ../src/gui.c:6654
 msgid "Select _Audio Language"
 msgstr "Выбрать я_зык аудио"
 
-#: src/gui.c:6621
+#: ../src/gui.c:6660
 msgid "Set Sub_title"
 msgstr "Доб_авить внешние субтитры"
 
-#: src/gui.c:6625
+#: ../src/gui.c:6664
 msgid "S_elect Subtitle Language"
 msgstr "Выбрать язык _субтитров"
 
-#: src/gui.c:6632
+#: ../src/gui.c:6671
 msgid "_Take Screenshot"
 msgstr "Сделать снимок _экрана"
 
-#: src/gui.c:6637 src/gui.c:6641
+#: ../src/gui.c:6676 ../src/gui.c:6680
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "Файлы с именами 'shotNNNN.png’ будут сохранены в рабочий каталог"
 
 #. View Menu
-#: src/gui.c:6666
+#: ../src/gui.c:6705
 msgid "_View"
 msgstr "_Вид"
 
-#: src/gui.c:6671
+#: ../src/gui.c:6710
 msgid "_Playlist"
 msgstr "_Список воспроизведения"
 
-#: src/gui.c:6674
+#: ../src/gui.c:6713
 msgid "Media _Info"
 msgstr "_Информация"
 
-#: src/gui.c:6676
+#: ../src/gui.c:6715
 msgid "D_etails"
 msgstr "П_одробности"
 
-#: src/gui.c:6678
+#: ../src/gui.c:6717
 msgid "Audio _Meter"
 msgstr "Эквалайзер"
 
-#: src/gui.c:6691
+#: ../src/gui.c:6730
 msgid "_Normal (1:1)"
 msgstr "_Нормальный размер (1:1)"
 
-#: src/gui.c:6694
+#: ../src/gui.c:6733
 msgid "_Double Size (2:1)"
 msgstr "_Двойной размер (2:1)"
 
-#: src/gui.c:6697
+#: ../src/gui.c:6736
 msgid "_Half Size (1:2)"
 msgstr "_Половинный размер (1:2)"
 
-#: src/gui.c:6700
+#: ../src/gui.c:6739
 msgid "_Aspect"
 msgstr "Соотношение сторон _экрана"
 
-#: src/gui.c:6707
+#: ../src/gui.c:6746
 msgid "D_efault Aspect"
 msgstr "С_оотношение по умолчанию"
 
-#: src/gui.c:6710
+#: ../src/gui.c:6749
 msgid "_4:3 Aspect"
 msgstr "Соотношение 4:_3"
 
-#: src/gui.c:6713
+#: ../src/gui.c:6752
 msgid "_16:9 Aspect"
 msgstr "Соотношение 16:_9"
 
-#: src/gui.c:6716
+#: ../src/gui.c:6755
 msgid "1_6:10 Aspect"
 msgstr "Соотношение 16:_10"
 
-#: src/gui.c:6719
+#: ../src/gui.c:6758
 msgid "_Follow Window"
 msgstr "_Принимать размеры окна"
 
-#: src/gui.c:6726
+#: ../src/gui.c:6765
 msgid "Show _Subtitles"
 msgstr "_Показывать субтитры"
 
-#: src/gui.c:6729
+#: ../src/gui.c:6768
 msgid "Decrease Subtitle Size"
 msgstr "Уменьшить размер субтитров"
 
-#: src/gui.c:6731
+#: ../src/gui.c:6770
 msgid "Increase Subtitle Size"
 msgstr "Увеличить размер субтитров"
 
-#: src/gui.c:6733
+#: ../src/gui.c:6772
 msgid "Decrease Subtitle Delay"
 msgstr "Уменьшить задержку вывода субтитров"
 
-#: src/gui.c:6735
+#: ../src/gui.c:6774
 msgid "Increase Subtitle Delay"
 msgstr "Увеличить задержку вывода субтитров"
 
-#: src/gui.c:6736
+#: ../src/gui.c:6775
 msgid "Switch An_gle"
 msgstr "Переключить угол об_зора"
 
-#: src/gui.c:6737
+#: ../src/gui.c:6776
 msgid "_Controls"
 msgstr "Панель _управления"
 
-#: src/gui.c:6751
+#: ../src/gui.c:6790
 msgid "_Video Picture Adjustments"
 msgstr "Настройки изображ_ения"
 
 #. Help Menu
-#: src/gui.c:6798
+#: ../src/gui.c:6837
 msgid "_Help"
 msgstr "_Справка"
 
-#: src/gui.c:7018 src/gui.c:7021
+#: ../src/gui.c:7057 ../src/gui.c:7060
 msgid "Menu"
 msgstr "Меню"
 
-#: src/gui.c:7035 src/gui.c:7038
+#: ../src/gui.c:7074 ../src/gui.c:7077
 msgid "Previous"
 msgstr "Назад"
 
-#: src/gui.c:7052 src/gui.c:7055
+#: ../src/gui.c:7091 ../src/gui.c:7094
 msgid "Rewind"
 msgstr "Перемотать назад"
 
-#: src/gui.c:7083 src/gui.c:7086
+#: ../src/gui.c:7122 ../src/gui.c:7125
 msgid "Stop"
 msgstr "Остановить"
 
-#: src/gui.c:7099 src/gui.c:7102
+#: ../src/gui.c:7138 ../src/gui.c:7141
 msgid "Fast Forward"
 msgstr "Перемотать вперед"
 
-#: src/gui.c:7114 src/gui.c:7117
+#: ../src/gui.c:7153 ../src/gui.c:7156
 msgid "Next"
 msgstr "Вперед"
 
-#: src/gui.c:7140 src/gui.c:7143
+#: ../src/gui.c:7179 ../src/gui.c:7182
 msgid "Full Screen"
 msgstr "Полноэкранный режим"
 
-#: src/gui.c:7189
+#: ../src/gui.c:7228
 msgid "Volume 100%"
 msgstr "Громкость 100%"
 
-#: src/support.c:813 src/thread.c:224
+#: ../src/support.c:813 ../src/thread.c:230
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Не удалось открыть DVD-привод %s"
 
-#: src/support.c:908
+#: ../src/support.c:908
 #, c-format
 msgid "Couldn't open VCD device: %s"
 msgstr "Не удалось открыть VCD-привод: %s"
 
-#: src/support.c:2028 src/support.c:2061 src/support.c:2106 src/support.c:2136
+#: ../src/support.c:2028 ../src/support.c:2061 ../src/support.c:2106
+#: ../src/support.c:2136
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Невозможно сохранить список воспроизведения, не удалось открыть файл для "
 "записи"
 
-#: src/support.c:2556
+#: ../src/support.c:2556
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2558
+#: ../src/support.c:2558
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/support.c:3177
+#: ../src/support.c:3177
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1187,45 +1201,45 @@ msgstr ""
 "Поддержка опции '-volume' отсутствует. Возможно, вам потребуется обновить "
 "MPlayer до новой версии.\n"
 
-#: src/thread.c:189
+#: ../src/thread.c:195
 #, c-format
 msgid "Failed to open %s"
 msgstr "Не удалось открыть %s"
 
-#: src/thread.c:230
+#: ../src/thread.c:236
 #, c-format
 msgid "Cannot load subtitles: %s"
 msgstr "Не удалось загрузить субтитры %s"
 
-#: src/thread.c:246
+#: ../src/thread.c:252
 msgid "Delaying start until cache is full"
 msgstr "Задержка перед стартом до заполнения кэша"
 
-#: src/thread.c:252
+#: ../src/thread.c:258
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Сжатые SWF фалы не поддерживаются"
 
-#: src/thread.c:612
+#: ../src/thread.c:618
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Кэширование: %2.2f%%"
 
-#: src/thread.c:621
+#: ../src/thread.c:627
 #, c-format
 msgid "Connecting"
 msgstr "Соединяюсь"
 
-#: src/thread.c:771
+#: ../src/thread.c:777
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Снимок экрана сохранен в файл '%s'"
 
-#: src/thread.c:774
+#: ../src/thread.c:780
 msgid "GNOME MPlayer Notification"
 msgstr "Сообщения GNOME MPlayer"
 
-#: src/playlist.c:233
+#: ../src/playlist.c:233
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -1234,31 +1248,31 @@ msgstr ""
 "Имя файла: %s\n"
 "Субтитры: %s"
 
-#: src/playlist.c:274 src/playlist.c:952 src/playlist.c:955
+#: ../src/playlist.c:274 ../src/playlist.c:952 ../src/playlist.c:955
 msgid "Save Playlist"
 msgstr "Сохранить список воспроизведения"
 
-#: src/playlist.c:291 src/playlist.c:345
+#: ../src/playlist.c:291 ../src/playlist.c:345
 msgid "Playlist (*.pls)"
 msgstr "Список воспроизведения (*.pls)"
 
-#: src/playlist.c:296 src/playlist.c:355
+#: ../src/playlist.c:296 ../src/playlist.c:355
 msgid "MP3 Playlist (*.m3u)"
 msgstr "Список воспроизведения MP3 (*.m3u)"
 
-#: src/playlist.c:333 src/playlist.c:940 src/playlist.c:943
+#: ../src/playlist.c:333 ../src/playlist.c:940 ../src/playlist.c:943
 msgid "Open Playlist"
 msgstr "Открыть список воспроизведения"
 
-#: src/playlist.c:350
+#: ../src/playlist.c:350
 msgid "Reference Playlist (*.ref)"
 msgstr "Ссылочный список воспроизведения (*.ref)"
 
-#: src/playlist.c:560
+#: ../src/playlist.c:560
 msgid "Choose Directory"
 msgstr "Выбрать каталог"
 
-#: src/playlist.c:598
+#: ../src/playlist.c:598
 #, c-format
 msgid ""
 "\n"
@@ -1276,100 +1290,101 @@ msgstr[2] ""
 "\n"
 "\tНайдено %i файлов\n"
 
-#: src/playlist.c:852
+#: ../src/playlist.c:852
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Элемент для проигрывания"
 msgstr[1] "Элемента для проигрывания"
 msgstr[2] "Элементов для проигрывания"
 
-#: src/playlist.c:871 src/nautilus_property_page.c:294
+#: ../src/playlist.c:871 ../src/nautilus_property_page.c:294
 msgid "Artist"
 msgstr "Исполнитель"
 
-#: src/playlist.c:882 src/nautilus_property_page.c:306
+#: ../src/playlist.c:882 ../src/nautilus_property_page.c:306
 msgid "Album"
 msgstr "Альбом"
 
-#: src/playlist.c:894 src/nautilus_property_page.c:318
+#: ../src/playlist.c:894 ../src/nautilus_property_page.c:318
 msgid "Length"
 msgstr "Продолжительность"
 
-#: src/playlist.c:905
+#: ../src/playlist.c:905
 msgid "Count"
 msgstr "Количество"
 
-#: src/playlist.c:914
+#: ../src/playlist.c:914
 msgid "Order"
 msgstr "Порядок"
 
-#: src/playlist.c:925 src/playlist.c:928
+#: ../src/playlist.c:925 ../src/playlist.c:928
 msgid "Close Playlist View"
 msgstr "Скрыть список воспроизведения"
 
-#: src/playlist.c:964 src/playlist.c:967
+#: ../src/playlist.c:964 ../src/playlist.c:967
 msgid "Add Item to Playlist"
 msgstr "Добавить в список воспроизведения"
 
-#: src/playlist.c:976 src/playlist.c:979
+#: ../src/playlist.c:976 ../src/playlist.c:979
 msgid "Remove Item from Playlist"
 msgstr "Удалить из списка воспроизведения"
 
-#: src/playlist.c:988 src/playlist.c:991
+#: ../src/playlist.c:988 ../src/playlist.c:991
 msgid "Add Items in Folder to Playlist"
 msgstr "Добавить элементы из каталога в список"
 
-#: src/playlist.c:1000 src/playlist.c:1003
+#: ../src/playlist.c:1000 ../src/playlist.c:1003
 msgid "Clear Playlist"
 msgstr "Очистить список воспроизведения"
 
-#: src/playlist.c:1012 src/playlist.c:1015
+#: ../src/playlist.c:1012 ../src/playlist.c:1015
 msgid "Move Item Up"
 msgstr "Переместить вверх"
 
-#: src/playlist.c:1025 src/playlist.c:1028
+#: ../src/playlist.c:1025 ../src/playlist.c:1028
 msgid "Move Item Down"
 msgstr "Переместить вниз"
 
-#: src/playlist.c:1039 src/playlist.c:1042
+#: ../src/playlist.c:1039 ../src/playlist.c:1042
 msgid "UnSort List"
 msgstr "Перемешать список"
 
-#: src/playlist.c:1081
+#: ../src/playlist.c:1081
 msgid "_Set Subtitle"
 msgstr "Добавить внешние с_убтитры"
 
-#: src/nautilus_property_page.c:87
+#: ../src/nautilus_property_page.c:87
 #, c-format
 msgid "%2i:%02.0f"
 msgstr "%2i:%02.0f"
 
-#: src/nautilus_property_page.c:89
+#: ../src/nautilus_property_page.c:89
 #, c-format
 msgid "%i:%02i:%02.0f"
 msgstr "%i:%02i:%02.0f"
 
-#: src/nautilus_property_page.c:274
+#: ../src/nautilus_property_page.c:274
 msgid "<span weight=\"bold\">Media Details</span>"
 msgstr "<span weight=\"bold\">Информация об аудио/видео</span>"
 
-#: src/nautilus_property_page.c:282
+#: ../src/nautilus_property_page.c:282
 msgid "Title"
 msgstr "Заголовок"
 
-#: src/nautilus_property_page.c:330
+#: ../src/nautilus_property_page.c:330
 msgid "Demuxer"
 msgstr "Демультиплексор"
 
-#: src/nautilus_property_page.c:384
+#: ../src/nautilus_property_page.c:384
 msgid "Video Frame Rate:"
 msgstr "Частота кадров в секунду:"
 
-#: src/nautilus_property_page.c:488
+#: ../src/nautilus_property_page.c:488
 msgid "Audio/Video"
 msgstr "Аудио/видео"
 
-#: src/libgmtk/gmtk_media_tracker.c:95 src/libgmtk/gmtk_media_tracker.c:98
-#: src/libgmtk/gmtk_media_tracker.c:198
+#: ../src/libgmtk/gmtk_media_tracker.c:95
+#: ../src/libgmtk/gmtk_media_tracker.c:98
+#: ../src/libgmtk/gmtk_media_tracker.c:198
 msgid "No Information"
 msgstr "Нет информации"

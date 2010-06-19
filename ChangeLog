@@ -1,4 +1,5 @@
 Development
+	Updated Spanish, Czech, Galacian, Polish and Russian translations from launchpad
 	Added new translations from launchpad da,et,eu,fi,fo
 	Add webm mimetypes to nautilus plugin
 	Add webm to desktop file, need mplayer svn + libvpx git to make it work.
