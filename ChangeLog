@@ -1,4 +1,5 @@
 Development
+	Add webm mimetypes to nautilus plugin
 	Add webm to desktop file, need mplayer svn + libvpx git to make it work.
 	Fix some problems where typed in values to languages were not being displayed properly
 	Add CP1256 to the langlist
