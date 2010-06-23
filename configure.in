@@ -27,7 +27,7 @@ ALL_LINGUAS="ar bg ca cs da de el en en_GB es et eu fi fo fr gl he hu it ja ko l
 AC_SUBST(ALL_LINGUAS)
 AM_GLIB_GNU_GETTEXT
 
-PKG_CHECK_MODULES([X11], [x11])
+PKG_CHECK_MODULES([X11], [x11],[AC_DEFINE([X11_ENABLED],[1],[Define to 1 if X11 support is needed])],[AC_MSG_NOTICE([Compiling without X11 support])])
 AC_SUBST(X11_LIBS)
 
 PKG_CHECK_MODULES(GTK, [gtk+-2.0 glib-2.0 gthread-2.0])
@@ -62,7 +62,7 @@ AS_IF([test "x$with_gio" != xno],
     AC_SUBST(GIO_LIBS)
     ])
     
-PKG_CHECK_MODULES(DBUS, [dbus-1 >= 0.95 dbus-glib-1 >= 0.70])
+PKG_CHECK_MODULES(DBUS, [dbus-1 >= 0.95 dbus-glib-1 >= 0.70],[AC_DEFINE([DBUS_ENABLED],[1],[Define to 1 to enable dbus support])],AC_MSG_WARN([Compiling without dbus support cannot be used with gecko-mediaplayer]))
 AC_SUBST(DBUS_CFLAGS)
 AC_SUBST(DBUS_LIBS)
 
