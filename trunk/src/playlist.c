@@ -746,6 +746,16 @@ void playlist_close(GtkWidget * widget, void *data)
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), FALSE);
 }
 
+void repeat_callback(GtkWidget * widget, void *data)
+{
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_loop), !loop);
+}
+
+void shuffle_callback(GtkWidget * widget, void *data)
+{
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random)));
+}
+
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 {
     playlist_visible = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
@@ -1052,6 +1062,33 @@ void create_playlist_widget()
     gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
     gtk_widget_add_accelerator(GTK_WIDGET(remove), "clicked",
                                accel_group, GDK_Delete, 0, GTK_ACCEL_VISIBLE);
+
+    repeat = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(repeat, _("Loop Playlist"));
+#else
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, repeat, _("Loop Playlist"), NULL);
+#endif
+    gtk_button_set_image(GTK_BUTTON(repeat),
+                         gtk_image_new_from_icon_name("media-playlist-repeat", GTK_ICON_SIZE_MENU));
+    gtk_box_pack_start(GTK_BOX(ctrlbox), repeat, FALSE, FALSE, 0);
+    g_signal_connect(GTK_OBJECT(repeat), "clicked", G_CALLBACK(repeat_callback), NULL);
+    gtk_widget_set_sensitive(repeat, TRUE);
+
+    shuffle = gtk_button_new();
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(shuffle, _("Shuffle Playlist"));
+#else
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, shuffle, _("Shuffle Playlist"), NULL);
+#endif
+    gtk_button_set_image(GTK_BUTTON(shuffle),
+                         gtk_image_new_from_icon_name("media-playlist-shuffle", GTK_ICON_SIZE_MENU));
+    gtk_box_pack_start(GTK_BOX(ctrlbox), shuffle, FALSE, FALSE, 0);
+    g_signal_connect(GTK_OBJECT(shuffle), "clicked", G_CALLBACK(shuffle_callback), NULL);
+    gtk_widget_set_sensitive(shuffle, TRUE);
+
 
 #ifdef GTK2_18_ENABLED
     gtk_widget_set_can_default(plclose, TRUE);

@@ -79,6 +79,8 @@ GtkMenuItem *menuitem_edit;
 GtkMenu *menu_edit;
 GtkMenuItem *menuitem_edit_random;
 GtkMenuItem *menuitem_edit_loop;
+GtkWidget *repeat;
+GtkWidget *shuffle;
 GtkMenuItem *menuitem_edit_switch_audio;
 GtkMenuItem *menuitem_edit_select_audio_lang;
 GtkMenu *menu_edit_audio_langs;
