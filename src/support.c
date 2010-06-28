@@ -2794,7 +2794,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
                                ADD_ORDER_COLUMN,
                                gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
-                               -1);
+                               PLAYABLE_COLUMN, TRUE,-1);
 
             g_free(duration);
             g_free(full_path);
