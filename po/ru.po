@@ -550,7 +550,7 @@ msgstr "Субтитры"
 
 #: ../src/gui.c:4944
 msgid "Interface"
-msgstr "Сетевой интерфейс"
+msgstr "Интерфейс"
 
 #: ../src/gui.c:4946
 msgid "MPlayer"
