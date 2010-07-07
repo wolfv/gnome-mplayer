@@ -1,4 +1,5 @@
 Development
+	Set cache size when we detect a playlist
 	Make middle button toggle mute
 	Add buttons to toggle loop and shuffle to the playlist window
 	Correct problem with tracks loaded from an iPod as not being marked playable
