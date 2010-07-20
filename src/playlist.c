@@ -748,12 +748,14 @@ void playlist_close(GtkWidget * widget, void *data)
 
 void repeat_callback(GtkWidget * widget, void *data)
 {
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_loop), !loop);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_loop), !loop);
 }
 
 void shuffle_callback(GtkWidget * widget, void *data)
 {
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random)));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random),
+                                   !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM
+                                                                   (menuitem_edit_random)));
 }
 
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
@@ -1084,7 +1086,8 @@ void create_playlist_widget()
     gtk_tooltips_set_tip(tooltip, shuffle, _("Shuffle Playlist"), NULL);
 #endif
     gtk_button_set_image(GTK_BUTTON(shuffle),
-                         gtk_image_new_from_icon_name("media-playlist-shuffle", GTK_ICON_SIZE_MENU));
+                         gtk_image_new_from_icon_name("media-playlist-shuffle",
+                                                      GTK_ICON_SIZE_MENU));
     gtk_box_pack_start(GTK_BOX(ctrlbox), shuffle, FALSE, FALSE, 0);
     g_signal_connect(GTK_OBJECT(shuffle), "clicked", G_CALLBACK(shuffle_callback), NULL);
     gtk_widget_set_sensitive(shuffle, TRUE);

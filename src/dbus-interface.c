@@ -654,6 +654,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                                           "    <method name=\"GetBitrate\">\n"
                                           "        <arg name=\"url\" type=\"s\" />\n"
                                           "    </method>\n"
+                                          "    <method name=\"GetURI\">\n"
+                                          "    </method>\n"
                                           "    <signal name=\"Open\">\n"
                                           "        <arg name=\"url\" type=\"s\" />\n"
                                           "    </signal>\n"
@@ -792,6 +794,16 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
+                if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetURI")) {
+                    reply_message = dbus_message_new_method_return(message);
+                    s = g_strdup(idledata->info);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_STRING, &s,
+                                             DBUS_TYPE_INVALID);
+                    dbus_connection_send(connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                printf("Unable to find method call\n");
             } else {
                 if (verbose)
                     printf("path didn't match - %s\n", dbus_message_get_path(message));

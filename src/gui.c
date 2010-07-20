@@ -1532,7 +1532,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
             return TRUE;
         }
 
-		if (event_button->button == 2) {
+        if (event_button->button == 2) {
 
 #ifdef GTK2_12_ENABLED
             if (idledata->mute) {
@@ -1546,9 +1546,9 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
             } else {
                 gtk_range_set_value(GTK_RANGE(vol_slider), 0);
             }
-#endif		
-		}
-			
+#endif
+        }
+
         if (event_button->button == 1 && idledata->videopresent == TRUE && !disable_pause_on_click) {
             if (event_button->x > fixed->allocation.x
                 && event_button->y > fixed->allocation.y

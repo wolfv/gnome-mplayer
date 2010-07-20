@@ -1306,7 +1306,7 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("-cache");
         argv[arg++] = g_strdup_printf("%i", cache_size);
         argv[arg++] = g_strdup_printf("-playlist");
-	}
+    }
 
     argv[arg] = g_strdup_printf("%s", threaddata->filename);
     argv[arg + 1] = NULL;
