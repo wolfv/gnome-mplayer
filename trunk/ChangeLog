@@ -1,4 +1,5 @@
 Development
+	Enable dbus method to get the current URI, see dbus.txt
 	Set cache size when we detect a playlist
 	Make middle button toggle mute
 	Add buttons to toggle loop and shuffle to the playlist window

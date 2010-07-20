@@ -13,6 +13,7 @@ FastForward
 FastReverse
 Quit
 Terminate
+Seek			double:
 SetFullscreen	boolean:
 SetInfo			string:
 SetPercent		double:
@@ -42,3 +43,12 @@ dbus-send /window/123 com.gnome.mplayer.Pause
 
 Tell player with controlid of 456 to Open and Play /tmp/media.mov
 dbus-send /control/456 com.gnome.mplayer.Open string:'/tmp/media.mov'
+
+Seek to 400 seconds into the media file
+dbus-send  --type=signal / com.gnome.mplayer.Seek double:400.0
+
+Get the current position
+dbus-send --print-reply --type=method_call --dest=com.gnome.mplayer / com.gnome.mplayer.GetTime
+
+Get the currently playing URI
+dbus-send --print-reply --type=method_call --dest=com.gnome.mplayer / com.gnome.mplayer.GetURI
