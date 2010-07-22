@@ -2185,6 +2185,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 g_free(cmd);
             }
             return FALSE;
+		case GDK_s:
+		case GDK_S:
+                cmd = g_strdup_printf("screenshot 0\n");
+                send_command(cmd, TRUE);
+                g_free(cmd);
+			return FALSE;	
 #ifdef ENABLE_PANSCAN
         case GDK_w:
             send_command("panscan -0.05 0\n", TRUE);
