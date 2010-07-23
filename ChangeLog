@@ -1,4 +1,5 @@
 Development
+	Update man page to include keyboard shortcuts
 	Updates Spanish translation
 	Fixed problem with S taking infinite screenshots
 	Enable dbus method to get the current URI, see dbus.txt
