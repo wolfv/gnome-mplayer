@@ -1,6 +1,9 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
+/* Define to 1 to enable dbus support */
+#define DBUS_ENABLED 1
+
 /* always defined to indicate that i18n is enabled */
 #define ENABLE_NLS 1
 
@@ -123,6 +126,9 @@
 
 /* Version number of package */
 #define VERSION "0.9.9.2"
+
+/* Define to 1 if X11 support is needed */
+#define X11_ENABLED 1
 
 /* When defined we have direct XScrnSaver control */
 #define XSCRNSAVER_ENABLED 1
