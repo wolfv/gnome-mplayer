@@ -3850,11 +3850,13 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             //gtk_window_fullscreen(GTK_WINDOW(fs_window));
             //if (GTK_WIDGET_MAPPED(window))
             //    gtk_widget_unmap(window);
+#ifdef X11_ENABLED
             XReparentWindow(GDK_WINDOW_XDISPLAY(get_window(window)),
                             GDK_WINDOW_XWINDOW(get_window(window)),
                             GDK_WINDOW_XWINDOW(get_window(fs_window)), 0, 0);
-
-			//gdk_window_reparent(get_window(window),get_window(fs_window),0,0);
+#else
+			gdk_window_reparent(get_window(window),get_window(fs_window),0,0);
+#endif
             gtk_widget_map(window);
 			gtk_window_fullscreen(GTK_WINDOW(fs_window));
             //XResizeWindow(GDK_WINDOW_XDISPLAY(get_window(window)),
