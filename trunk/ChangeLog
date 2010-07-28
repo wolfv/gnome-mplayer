@@ -1,4 +1,6 @@
 Development
+	Make X11 support optional, slight side effect of weird fullscreen mode when running as plugin
+		appears to be a GTK/GDK issue.
 	Update man page to include keyboard shortcuts
 	Updates Spanish translation
 	Fixed problem with S taking infinite screenshots
