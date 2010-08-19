@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-14 16:08+0300\n"
+"POT-Creation-Date: 2010-08-19 10:35-0600\n"
 "PO-Revision-Date: 2010-08-14 16:12+0300\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=1;\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -1147,21 +1147,21 @@ msgstr "DVD aygıtı açılamıyor: %s"
 msgid "Couldn't open VCD device: %s"
 msgstr "VCD aygıtı açılamıyor: %s"
 
-#: src/support.c:2028 src/support.c:2061 src/support.c:2106 src/support.c:2136
+#: src/support.c:2036 src/support.c:2069 src/support.c:2114 src/support.c:2144
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "Oynatma listesi kaydedilemiyor, dosya yazılmak için açılamıyor"
 
-#: src/support.c:2556
+#: src/support.c:2564
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2558
+#: src/support.c:2566
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/support.c:3177
+#: src/support.c:3185
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1189,22 +1189,22 @@ msgstr "Önbellek dolana kadar başlatma bekletiliyor"
 msgid "Compressed SWF format not supported"
 msgstr "Sıkıştırılmış SWF desteklenmiyor"
 
-#: src/thread.c:620
+#: src/thread.c:622
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Önbellek: %2.2f%%"
 
-#: src/thread.c:629
+#: src/thread.c:631
 #, c-format
 msgid "Connecting"
 msgstr "Bağlanıyor"
 
-#: src/thread.c:779
+#: src/thread.c:781
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Ekran görüntüsü '%s' olarak kaydedildi"
 
-#: src/thread.c:782
+#: src/thread.c:784
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer Uyarısı"
 
