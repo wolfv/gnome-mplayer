@@ -1321,11 +1321,11 @@ msgstr "Füge Titel zur Wiedergabeliste hinzu"
 
 #: src/playlist.c:988 src/playlist.c:991
 msgid "Remove Item from Playlist"
-msgstr "Entferne Titel aus der Wiedergabeliste"
+msgstr "Titel aus der Wiedergabeliste entfernen"
 
 #: src/playlist.c:1000 src/playlist.c:1003
 msgid "Add Items in Folder to Playlist"
-msgstr "Füge Titel eines Ordners zur Wiedergabeliste hinzu"
+msgstr "Titel eines Ordners zur Wiedergabeliste hinzufügen"
 
 #: src/playlist.c:1012 src/playlist.c:1015
 msgid "Clear Playlist"
