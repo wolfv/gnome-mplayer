@@ -460,7 +460,7 @@ msgstr "Hang kodek"
 
 #: src/gui.c:4481 src/nautilus_property_page.c:430
 msgid "Audio Channels:"
-msgstr "Hang csatornák"
+msgstr "Hangcsatornák"
 
 #: src/gui.c:4494 src/nautilus_property_page.c:418
 msgid "Audio Bitrate:"
