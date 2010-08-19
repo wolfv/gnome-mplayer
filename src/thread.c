@@ -581,31 +581,35 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_update_gui, NULL);
     }
 */
-    if (strstr(mplayer_output->str, "ANS_brightness") != 0) {
-        buf = strstr(mplayer_output->str, "ANS_brightness");
-        sscanf(buf, "ANS_brightness=%i", &idledata->brightness);
-    }
+	if (g_ascii_strncasecmp(vo, "gl2", strlen("gl2")) != 0 ) {
 
-    if (strstr(mplayer_output->str, "ANS_contrast") != 0) {
-        buf = strstr(mplayer_output->str, "ANS_contrast");
-        sscanf(buf, "ANS_contrast=%i", &idledata->contrast);
-    }
+		if (strstr(mplayer_output->str, "ANS_brightness") != 0) {
+		    buf = strstr(mplayer_output->str, "ANS_brightness");
+		    sscanf(buf, "ANS_brightness=%i", &idledata->brightness);
+		}
 
-    if (strstr(mplayer_output->str, "ANS_gamma") != 0) {
-        buf = strstr(mplayer_output->str, "ANS_gamma");
-        sscanf(buf, "ANS_gamma=%i", &idledata->gamma);
-    }
+		if (strstr(mplayer_output->str, "ANS_contrast") != 0) {
+		    buf = strstr(mplayer_output->str, "ANS_contrast");
+		    sscanf(buf, "ANS_contrast=%i", &idledata->contrast);
+		}
 
-    if (strstr(mplayer_output->str, "ANS_hue") != 0) {
-        buf = strstr(mplayer_output->str, "ANS_hue");
-        sscanf(buf, "ANS_hue=%i", &idledata->hue);
-    }
+		if (strstr(mplayer_output->str, "ANS_gamma") != 0) {
+		    buf = strstr(mplayer_output->str, "ANS_gamma");
+		    sscanf(buf, "ANS_gamma=%i", &idledata->gamma);
+		}
 
-    if (strstr(mplayer_output->str, "ANS_saturation") != 0) {
-        buf = strstr(mplayer_output->str, "ANS_saturation");
-        sscanf(buf, "ANS_saturation=%i", &idledata->saturation);
-    }
+		if (strstr(mplayer_output->str, "ANS_hue") != 0) {
+		    buf = strstr(mplayer_output->str, "ANS_hue");
+		    sscanf(buf, "ANS_hue=%i", &idledata->hue);
+		}
 
+		if (strstr(mplayer_output->str, "ANS_saturation") != 0) {
+		    buf = strstr(mplayer_output->str, "ANS_saturation");
+		    sscanf(buf, "ANS_saturation=%i", &idledata->saturation);
+		}
+		
+	}
+	
     if (strstr(mplayer_output->str, "ANS_path") != 0) {
         if (verbose > 1)
             printf("pausing keep force enabled\n");
