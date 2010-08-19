@@ -72,7 +72,7 @@ msgstr "Mesclador ha utilitzar"
 
 #: src/main.c:68
 msgid "Set initial volume percentage"
-msgstr "Establir el percentatge de volum inicial"
+msgstr "Estableix el percentatge de volum inicial"
 
 #: src/main.c:69
 msgid "Show the controls in window"
@@ -395,7 +395,7 @@ msgstr ""
 
 #: src/gui.c:3695 src/playlist.c:137
 msgid "Set Subtitle"
-msgstr "Establir subtitol"
+msgstr "Estableix subtitol"
 
 #: src/gui.c:3832
 msgid "Gnome MPlayer Fullscreen"
