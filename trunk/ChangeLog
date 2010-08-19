@@ -1,4 +1,5 @@
 Development
+	Updated Desktop file patch from Onur Küçük
 	Make X11 support optional, slight side effect of weird fullscreen mode when running as plugin
 		appears to be a GTK/GDK issue.
 	Update man page to include keyboard shortcuts
