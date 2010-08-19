@@ -1419,6 +1419,14 @@ MetaData *get_metadata(gchar * uri)
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
+    if (verbose) {
+        ac = 0;
+        while (av[ac] != NULL) {
+            printf("%s ", av[ac++]);
+        }
+        printf("\n");
+    }
+
     error = NULL;
 
     if (g_ascii_strncasecmp(name, "dvb://", strlen("dvb://")) == 0

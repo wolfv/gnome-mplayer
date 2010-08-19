@@ -40,7 +40,7 @@
 
 #ifdef HAVE_GPOD
 #ifdef HAVE_CONFIG_H
-#  include <config.h>
+#include <config.h>
 #endif
 #include <mntent_compat.h>
 #include <gpod/itdb.h>

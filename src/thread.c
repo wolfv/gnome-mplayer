@@ -40,7 +40,7 @@ void mplayer_shutdown()
         send_command("quit\n", FALSE);
         dbus_send_event("Ended", 0);
     } else {
-        if (verbose) {
+        if (verbose > 1) {
             printf
                 ("plugin calling mplayer shutdown when mplayer might have already been shutdown\n");
         }
