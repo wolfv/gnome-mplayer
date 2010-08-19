@@ -2185,12 +2185,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 g_free(cmd);
             }
             return FALSE;
-		case GDK_s:
-		case GDK_S:
-                cmd = g_strdup_printf("screenshot 0\n");
-                send_command(cmd, TRUE);
-                g_free(cmd);
-			return FALSE;	
+        case GDK_s:
+        case GDK_S:
+            cmd = g_strdup_printf("screenshot 0\n");
+            send_command(cmd, TRUE);
+            g_free(cmd);
+            return FALSE;
 #ifdef ENABLE_PANSCAN
         case GDK_w:
             send_command("panscan -0.05 0\n", TRUE);
@@ -3770,13 +3770,13 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
             //XReparentWindow(GDK_WINDOW_XDISPLAY(get_window(window)),
             //                GDK_WINDOW_XWINDOW(get_window(window)), embed_window, 0, 0);
-			gdk_window_reparent(get_window(window),gdk_window_lookup(embed_window),0,0);
+            gdk_window_reparent(get_window(window), gdk_window_lookup(embed_window), 0, 0);
             gtk_widget_map(window);
             gtk_window_move(GTK_WINDOW(window), 0, 0);
             gtk_widget_set_size_request(fixed, window_x, window_y - 1);
             //XResizeWindow(GDK_WINDOW_XDISPLAY(get_window(window)),
             //              GDK_WINDOW_XWINDOW(get_window(window)), window_x, window_y - 1);
-			gdk_window_resize(get_window(window),window_x,window_y - 1);
+            gdk_window_resize(get_window(window), window_x, window_y - 1);
             if (window_x > 0 && window_y > 0)
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             if (window_x < 250) {
@@ -3812,8 +3812,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
             fs_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 #ifdef GTK2_14_ENABLED
-			GDK_WINDOW_XID(get_window(GTK_WIDGET(fs_window)));
-#endif			
+            GDK_WINDOW_XID(get_window(GTK_WIDGET(fs_window)));
+#endif
             //gtk_window_set_policy(GTK_WINDOW(fs_window), TRUE, TRUE, TRUE);
             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
             g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
@@ -3855,13 +3855,13 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
                             GDK_WINDOW_XWINDOW(get_window(window)),
                             GDK_WINDOW_XWINDOW(get_window(fs_window)), 0, 0);
 #else
-			gdk_window_reparent(get_window(window),get_window(fs_window),0,0);
+            gdk_window_reparent(get_window(window), get_window(fs_window), 0, 0);
 #endif
             gtk_widget_map(window);
-			gtk_window_fullscreen(GTK_WINDOW(fs_window));
+            gtk_window_fullscreen(GTK_WINDOW(fs_window));
             //XResizeWindow(GDK_WINDOW_XDISPLAY(get_window(window)),
             //              GDK_WINDOW_XWINDOW(get_window(window)), rect.width, rect.height - 1);
-			//gdk_window_resize(get_window(window), rect.width, rect.height - 1);
+            //gdk_window_resize(get_window(window), rect.width, rect.height - 1);
             gtk_window_resize(GTK_WINDOW(window), rect.width, rect.height);
             //gtk_widget_set_size_request(fixed, rect.width, rect.height);
             if (window_x < 250) {

@@ -23,7 +23,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#  include <config.h>
+#include <config.h>
 #endif
 #include "mime_types.h"
 #include <libnautilus-extension/nautilus-extension-types.h>

@@ -24,7 +24,7 @@
 //#include <X11/Xlib.h>
 
 #ifdef HAVE_CONFIG_H
-#  include <config.h>
+#include <config.h>
 #endif
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
