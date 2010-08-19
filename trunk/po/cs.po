@@ -37,7 +37,7 @@ msgstr "Jedinečný identifikátor řadiče DBUS"
 
 #: src/main.c:56
 msgid "File Argument is a playlist"
-msgstr "Argument SOUBOR je seznam skladeb"
+msgstr "Argumentem souboru je seznam skladeb"
 
 #: src/main.c:57
 msgid "Show more output on the console"
@@ -49,7 +49,7 @@ msgstr "Vypisovat na konzoli ještě více výstupu"
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
-msgstr "Spustit v režimu přes celou obrazovku"
+msgstr "Spustit v celoobrazovkovém režimu"
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
