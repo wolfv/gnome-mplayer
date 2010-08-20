@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-08-19 10:35-0600\n"
-"PO-Revision-Date: 2010-06-14 21:12+0000\n"
+"PO-Revision-Date: 2010-08-20 08:31+0900\n"
 "Last-Translator: Munehiro Yamamoto <Unknown>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "Language: \n"
@@ -651,7 +651,7 @@ msgstr "プレイヤーの埋め込みを無効にする"
 
 #: src/gui.c:5460
 msgid "Audio Cache Size (KB):"
-msgstr ""
+msgstr "オーディオキャッシュサイズ(KB)"
 
 #: src/gui.c:5470 src/gui.c:5473 src/gui.c:5479 src/gui.c:5484
 msgid ""
@@ -663,7 +663,7 @@ msgstr ""
 
 #: src/gui.c:5499
 msgid "Video Cache Size (KB):"
-msgstr ""
+msgstr "ビデオキャッシュサイズ(KB)"
 
 #: src/gui.c:5520
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -731,7 +731,7 @@ msgstr "下部のマージン(X11/XVのみ)"
 
 #: src/gui.c:5699
 msgid "Show Subtitles by Default"
-msgstr "字幕を表示する(_S)"
+msgstr "字幕を表示する"
 
 #: src/gui.c:5709
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -1314,14 +1314,12 @@ msgid "UnSort List"
 msgstr "リストを並び替えない"
 
 #: src/playlist.c:1070 src/playlist.c:1073
-#, fuzzy
 msgid "Loop Playlist"
-msgstr "プレイリストを繰り返す(_L)"
+msgstr "プレイリストを繰り返す"
 
 #: src/playlist.c:1083 src/playlist.c:1086
-#, fuzzy
 msgid "Shuffle Playlist"
-msgstr "プレイリストをシャッフルする(_S)"
+msgstr "プレイリストをシャッフルする"
 
 #: src/playlist.c:1121
 msgid "_Set Subtitle"
