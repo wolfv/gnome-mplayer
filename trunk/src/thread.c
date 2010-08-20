@@ -445,25 +445,27 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             send_command("get_property sub_demux\n", TRUE);
         }
 
-        cmd = g_strdup_printf("brightness %i\n", idledata->brightness);
-        send_command(cmd, TRUE);
-        g_free(cmd);
+		if (g_ascii_strncasecmp(vo, "gl2", strlen("gl2")) != 0) {
+		    cmd = g_strdup_printf("brightness %i\n", idledata->brightness);
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
 
-        cmd = g_strdup_printf("contrast %i\n", idledata->contrast);
-        send_command(cmd, TRUE);
-        g_free(cmd);
+		    cmd = g_strdup_printf("contrast %i\n", idledata->contrast);
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
 
-        cmd = g_strdup_printf("gamma %i\n", idledata->gamma);
-        send_command(cmd, TRUE);
-        g_free(cmd);
+		    cmd = g_strdup_printf("gamma %i\n", idledata->gamma);
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
 
-        cmd = g_strdup_printf("hue %i\n", idledata->hue);
-        send_command(cmd, TRUE);
-        g_free(cmd);
+		    cmd = g_strdup_printf("hue %i\n", idledata->hue);
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
 
-        cmd = g_strdup_printf("saturation %i\n", idledata->saturation);
-        send_command(cmd, TRUE);
-        g_free(cmd);
+		    cmd = g_strdup_printf("saturation %i\n", idledata->saturation);
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		}
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -581,33 +583,30 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_update_gui, NULL);
     }
 */
-    if (g_ascii_strncasecmp(vo, "gl2", strlen("gl2")) != 0) {
 
-        if (strstr(mplayer_output->str, "ANS_brightness") != 0) {
-            buf = strstr(mplayer_output->str, "ANS_brightness");
-            sscanf(buf, "ANS_brightness=%i", &idledata->brightness);
-        }
+    if (strstr(mplayer_output->str, "ANS_brightness") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_brightness");
+        sscanf(buf, "ANS_brightness=%i", &idledata->brightness);
+    }
 
-        if (strstr(mplayer_output->str, "ANS_contrast") != 0) {
-            buf = strstr(mplayer_output->str, "ANS_contrast");
-            sscanf(buf, "ANS_contrast=%i", &idledata->contrast);
-        }
+    if (strstr(mplayer_output->str, "ANS_contrast") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_contrast");
+        sscanf(buf, "ANS_contrast=%i", &idledata->contrast);
+    }
 
-        if (strstr(mplayer_output->str, "ANS_gamma") != 0) {
-            buf = strstr(mplayer_output->str, "ANS_gamma");
-            sscanf(buf, "ANS_gamma=%i", &idledata->gamma);
-        }
+    if (strstr(mplayer_output->str, "ANS_gamma") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_gamma");
+        sscanf(buf, "ANS_gamma=%i", &idledata->gamma);
+    }
 
-        if (strstr(mplayer_output->str, "ANS_hue") != 0) {
-            buf = strstr(mplayer_output->str, "ANS_hue");
-            sscanf(buf, "ANS_hue=%i", &idledata->hue);
-        }
+    if (strstr(mplayer_output->str, "ANS_hue") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_hue");
+        sscanf(buf, "ANS_hue=%i", &idledata->hue);
+    }
 
-        if (strstr(mplayer_output->str, "ANS_saturation") != 0) {
-            buf = strstr(mplayer_output->str, "ANS_saturation");
-            sscanf(buf, "ANS_saturation=%i", &idledata->saturation);
-        }
-
+    if (strstr(mplayer_output->str, "ANS_saturation") != 0) {
+        buf = strstr(mplayer_output->str, "ANS_saturation");
+        sscanf(buf, "ANS_saturation=%i", &idledata->saturation);
     }
 
     if (strstr(mplayer_output->str, "ANS_path") != 0) {
