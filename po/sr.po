@@ -1,18 +1,23 @@
-# Serbian translation of GNOME Mplayer.# Copyright (C) Prevod.org team (http://prevod.org)# This file is distributed under the same license as the gnome-mplayer package.# # Милош Поповић <gpopac@gmail.com>, 2008-2010.# 
+# Serbian translation of GNOME Mplayer.
+# Copyright (C) Prevod.org team (http://prevod.org)
+# This file is distributed under the same license as the gnome-mplayer package.
+# 
+# Милош Поповић <gpopac@gmail.com>, 2008-2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-08-19 10:35-0600\n"
-"PO-Revision-Date: 2010-01-27 11:18+0000\n"
+"PO-Revision-Date: 2010-08-22 19:31+0200\n"
 "Last-Translator: Милош Поповић <gpopac@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4;    plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 :    n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -291,6 +296,7 @@ msgid_plural "Items to Play"
 msgstr[0] "Ставка за пуштање"
 msgstr[1] "Ставке за пуштање"
 msgstr[2] "Ставке за пуштање"
+msgstr[3] "Ставка за пуштање"
 
 #: src/gui.c:855 src/gui.c:857 src/gui.c:2347 src/gui.c:2349
 msgid "Pause"
@@ -661,9 +667,8 @@ msgid "Disable Player Embedding"
 msgstr "Онемогући уметање програма"
 
 #: src/gui.c:5460
-#, fuzzy
 msgid "Audio Cache Size (KB):"
-msgstr "Величина оставе (KB):"
+msgstr "Величина звучне оставе (KB):"
 
 #: src/gui.c:5470 src/gui.c:5473 src/gui.c:5479 src/gui.c:5484
 msgid ""
@@ -674,9 +679,8 @@ msgstr ""
 "користите веће вредности за спорије мреже."
 
 #: src/gui.c:5499
-#, fuzzy
 msgid "Video Cache Size (KB):"
-msgstr "Величина оставе (KB):"
+msgstr "Величина видео оставе (KB):"
 
 #: src/gui.c:5520
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -993,7 +997,7 @@ msgstr "_Уређивање"
 
 #: src/gui.c:6684
 msgid "_Shuffle Playlist"
-msgstr "Испре_тумбани режим"
+msgstr "На_сумични режим"
 
 #: src/gui.c:6688
 msgid "_Loop Playlist"
@@ -1271,6 +1275,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "\tНађено је %i датотека\n"
+msgstr[3] ""
+"\n"
+"\tНађена је датотека\n"
 
 #: src/playlist.c:864
 msgid "Item to play"
@@ -1278,6 +1285,7 @@ msgid_plural "Items to Play"
 msgstr[0] "Ставка за пуштање"
 msgstr[1] "Ставке за пуштање"
 msgstr[2] "Ставке за пуштање"
+msgstr[3] "Ставка за пуштање"
 
 #: src/playlist.c:883 src/nautilus_property_page.c:294
 msgid "Artist"
@@ -1332,14 +1340,12 @@ msgid "UnSort List"
 msgstr "Не сортирај листу"
 
 #: src/playlist.c:1070 src/playlist.c:1073
-#, fuzzy
 msgid "Loop Playlist"
-msgstr "_Режим понављања"
+msgstr "Понављај листу"
 
 #: src/playlist.c:1083 src/playlist.c:1086
-#, fuzzy
 msgid "Shuffle Playlist"
-msgstr "Испре_тумбани режим"
+msgstr "Измешај листу"
 
 #: src/playlist.c:1121
 msgid "_Set Subtitle"
@@ -1379,126 +1385,3 @@ msgstr "Звук/видео"
 #: src/libgmtk/gmtk_media_tracker.c:198
 msgid "No Information"
 msgstr "Нема података"
-
-#~ msgid "Media Change"
-#~ msgstr "Промена медијума"
-
-#~ msgid "Force the use of cache setting on streaming media"
-#~ msgstr "Приморај коришћење оставе на токовима"
-
-#~ msgid "Tracker Thumb Position:"
-#~ msgstr "Место за омот албума:"
-
-#~ msgid "Hidden"
-#~ msgstr "Сакривен"
-
-#~ msgid "Bottom"
-#~ msgstr "При дну"
-
-#~ msgid "Top"
-#~ msgstr "На врху"
-
-#~ msgid "Top and Bottom"
-#~ msgstr "На врху и при дну"
-
-#~ msgid "Seeking to %s"
-#~ msgstr "Премотавам на %s"
-
-#~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
-#~ msgstr "<span weight=\"bold\">Поставке додатка за емулацију</span>"
-
-#~ msgid "Advanced Video Controls"
-#~ msgstr "Додатне видео контроле"
-
-#~ msgid "<span weight=\"bold\">Adjust Video Settings</span>"
-#~ msgstr "<span weight=\"bold\">Подешавања видеа</span>"
-
-#~ msgid "Start with playlist below media window"
-#~ msgstr "Покрени са листом за пуштање поред главног прозора"
-
-#~ msgid "Advanced _Options"
-#~ msgstr "Додатне _могућности"
-
-#~ msgid "Playing DVD"
-#~ msgstr "Пуштам ДВД"
-
-#~ msgid "Playing Audio CD"
-#~ msgstr "Пуштам звучни ЦД"
-
-#~ msgid ""
-#~ "Default volume for playback, a value of -1 causes the setting from ALSA "
-#~ "to be used"
-#~ msgstr ""
-#~ "Подразумевана јачина звука. Вредност -1 ће захтевати коришћење АЛСА "
-#~ "подешавања"
-
-#~ msgid "_DVD"
-#~ msgstr "_ДВД"
-
-#~ msgid "Unknown"
-#~ msgstr "Непознато"
-
-#~ msgid "Advanced"
-#~ msgstr "Додатно"
-
-#~ msgid ""
-#~ "<small>\n"
-#~ "<b>Title:</b>\t%s\n"
-#~ "<b>Artist:</b>\t%s\n"
-#~ "<b>File:</b>\t%s\n"
-#~ "</small>"
-#~ msgstr ""
-#~ "<small>\n"
-#~ "<b>Наслов:</b>\t%s\n"
-#~ "<b>Извођач:</b>\t%s\n"
-#~ "<b>Датотека:</b>\t%s\n"
-#~ "</small>"
-
-#~ msgid ""
-#~ "<small>\n"
-#~ "<b>Title:</b>\t%s\n"
-#~ "<b>Artist:</b>\t%s\n"
-#~ "<b>Album:</b>\t%s\n"
-#~ "</small>"
-#~ msgstr ""
-#~ "<small>\n"
-#~ "<b>Наслов:</b>\t%s\n"
-#~ "<b>Извођач:</b>\t%s\n"
-#~ "<b>Албум:</b>\t%s\n"
-#~ "</small>"
-
-#~ msgid ""
-#~ "<small>\n"
-#~ "<b>File:</b>\t%s\n"
-#~ "</small>"
-#~ msgstr ""
-#~ "<small>\n"
-#~ "<b>Датотека:</b>\t%s\n"
-#~ "</small>"
-
-#~ msgid "_Copy URL"
-#~ msgstr "_Умножи адресу"
-
-#~ msgid "%2i:%02i | %2i%% ▼"
-#~ msgstr "%2i:%02i | %2i%% ▼"
-
-#~ msgid "%2i:%02i / %2i:%02i | %2i%% ▼"
-#~ msgstr "%2i:%02i / %2i:%02i | %2i%% ▼"
-
-#~ msgid "%2i:%02i / %2i:%02i"
-#~ msgstr "%2i:%02i / %2i:%02i"
-
-#~ msgid "%i:%02i:%02i | %2i%% ▼"
-#~ msgstr "%i:%02i:%02i | %2i%% ▼"
-
-#~ msgid "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
-#~ msgstr "%i:%02i:%02i / %i:%02i:%02i | %2i%% ▼"
-
-#~ msgid "%i:%02i:%02i / %i:%02i:%02i"
-#~ msgstr "%i:%02i:%02i / %i:%02i:%02i"
-
-#~ msgid "Enable _ASS"
-#~ msgstr "Омогући _ASS"
-
-#~ msgid "File Details"
-#~ msgstr "Подаци о датотеци"
