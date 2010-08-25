@@ -3582,7 +3582,9 @@ void menuitem_view_onetoone_callback(GtkMenuItem * menuitem, void *data)
                 total_width = total_width + plvbox->allocation.width;
             }
         }
-        total_height += controls_box->allocation.height;
+        if (GTK_IS_WIDGET(controls_box) && get_visible(controls_box)) {
+            total_height += controls_box->allocation.height;
+        }
         gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
     }
 }
@@ -3620,7 +3622,9 @@ void menuitem_view_twotoone_callback(GtkMenuItem * menuitem, void *data)
                 total_width = total_width + plvbox->allocation.width;
             }
         }
-        total_height += controls_box->allocation.height;
+        if (GTK_IS_WIDGET(controls_box) && get_visible(controls_box)) {
+            total_height += controls_box->allocation.height;
+        }
         gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
     }
 }
@@ -3658,7 +3662,9 @@ void menuitem_view_onetotwo_callback(GtkMenuItem * menuitem, void *data)
                 total_width = total_width + plvbox->allocation.width;
             }
         }
-        total_height += controls_box->allocation.height;
+        if (GTK_IS_WIDGET(controls_box) && get_visible(controls_box)) {
+            total_height += controls_box->allocation.height;
+        }
         gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
     }
 }
