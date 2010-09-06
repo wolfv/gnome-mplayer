@@ -57,7 +57,7 @@ static GOptionEntry entries[] = {
     {"verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, N_("Show more output on the console"), NULL},
     {"reallyverbose", '\0', 0, G_OPTION_ARG_NONE, &reallyverbose,
      N_("Show even more output on the console"), NULL},
-    {"fullscreen", 0, 0, G_OPTION_ARG_NONE, &fullscreen, N_("Start in fullscreen mode"), NULL},
+    {"fullscreen", 0, 0, G_OPTION_ARG_NONE, &init_fullscreen, N_("Start in fullscreen mode"), NULL},
     {"softvol", 0, 0, G_OPTION_ARG_NONE, &softvol, N_("Use mplayer software volume control"), NULL},
     {"remember_softvol", 0, 0, G_OPTION_ARG_NONE, &remember_softvol,
      N_("When set to TRUE the last volume level is set as the default"), NULL},
@@ -593,7 +593,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         }
         autostart = 1;
     }
-
 
     return 0;
 }
@@ -1182,7 +1181,6 @@ int main(int argc, char *argv[])
     }
 #endif
 
-
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
 
@@ -1225,7 +1223,7 @@ int main(int argc, char *argv[])
 
         }
     }
-
+                        
     safe_to_save_default_playlist = FALSE;
     if (use_defaultpl) {
         create_folder_progress_window();

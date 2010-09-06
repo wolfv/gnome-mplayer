@@ -1279,6 +1279,12 @@ gboolean resize_window(void *data)
                 }
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),
                                                fullscreen);
+				if (init_fullscreen) {
+	                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen),
+                                               init_fullscreen);
+					init_fullscreen = 0;
+				}
+				
             } else {
                 if (window_x > 0 && window_y > 0) {
                     total_height = window_y;

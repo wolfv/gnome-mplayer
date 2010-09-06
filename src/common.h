@@ -304,6 +304,7 @@ gint streaming;
 gint showcontrols;
 gboolean showsubtitles;
 gint fullscreen;
+gint init_fullscreen;
 gint videopresent;
 gint playlist;
 gint embed_window;
