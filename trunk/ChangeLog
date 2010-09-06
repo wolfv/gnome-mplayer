@@ -1,4 +1,6 @@
 Development
+	Version bump to 0.9.99rc2
+	Fixed problem with --fullscreen flag not working
 	Updated Polish translation
 	Apply patch found in bug report #431
 	Updated French translation
