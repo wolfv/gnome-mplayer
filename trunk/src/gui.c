@@ -592,7 +592,7 @@ gboolean set_progress_value(void *data)
                     }
                     // if ((idle->percent + 0.10) > idle->cachepercent && ((idle->byte_pos + (512 * 1024)) > buf.st_size)) {
                     // if ((buf.st_size > 0) && (idle->byte_pos + (cache_size * 512)) > buf.st_size) {
-                    if (((idle->byte_pos + (cache_size * 512)) > buf.st_size) && !(playlist)) {
+                    if (((idle->byte_pos + (cache_size * 1024)) > buf.st_size) && !(playlist)) {
                         pause_callback(NULL, NULL, NULL);
                         gtk_widget_set_sensitive(play_event_box, FALSE);
                         autopause = TRUE;
@@ -602,7 +602,7 @@ gboolean set_progress_value(void *data)
                 }
             }
         } else if (autopause == TRUE && state == PAUSED) {
-            if (idle->cachepercent > (idle->percent + 0.20)) {
+            if (idle->cachepercent > (idle->percent + 0.20) || idle->cachepercent >= 0.99) {
                 play_callback(NULL, NULL, NULL);
                 gtk_widget_set_sensitive(play_event_box, TRUE);
                 autopause = FALSE;
@@ -610,7 +610,7 @@ gboolean set_progress_value(void *data)
         }
     }
 
-    if (idle->cachepercent > 0.9) {
+    if (idle->cachepercent > 0.95) {
         if (autopause == TRUE && state == PAUSED) {
             play_callback(NULL, NULL, NULL);
             gtk_widget_set_sensitive(play_event_box, TRUE);
