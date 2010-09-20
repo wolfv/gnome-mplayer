@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-08-19 10:35-0600\n"
-"PO-Revision-Date: 2010-09-19 04:51+0200\n"
+"PO-Revision-Date: 2010-09-20 19:18+0200\n"
 "Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
-"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2010-06-19 14:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
@@ -34,7 +34,7 @@ msgstr "Upotetun ikkunan korkeus"
 
 #: src/main.c:55
 msgid "Unique DBUS controller id"
-msgstr "Ainutlaatuisen dbus-ohjaimen id"
+msgstr "Dbus-ohjaimen id"
 
 #: src/main.c:56
 msgid "File Argument is a playlist"
@@ -46,7 +46,7 @@ msgstr "Näytä lisää ulostuloja konsolissa"
 
 #: src/main.c:59
 msgid "Show even more output on the console"
-msgstr "Näytä vähän lisää ulostuloja konsolissa"
+msgstr "Näytä kaikki ulostulot konsolissa"
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
@@ -54,7 +54,7 @@ msgstr "Käynnistä kokonäyttö tilassa"
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
-msgstr "Käytä mplayer ohjelman äänenvoimakkuutta"
+msgstr "Käytä MPlayer ohjelman äänenvoimakkuutta"
 
 #: src/main.c:63
 #, fuzzy
@@ -117,7 +117,7 @@ msgstr "Aloita sekunnissa (oletus on 0)"
 #: src/main.c:89
 #, fuzzy
 msgid "Length of media to play from start second"
-msgstr "Median pituus kun soitetaan sekunnissa"
+msgstr "Median pituus kun soitto aloitetaan sekunnissa"
 
 #: src/main.c:91
 msgid "Force cache usage on streaming sites"
@@ -125,7 +125,7 @@ msgstr "Pakota välimuisti käyttöön streaming-sivustoilla"
 
 #: src/main.c:94
 msgid "Disable the deinterlace filter"
-msgstr "Poista deinterlace suodatin"
+msgstr "Poista deinterlace-suodatin"
 
 #: src/main.c:97
 #, fuzzy
@@ -138,7 +138,7 @@ msgstr "Käytä vanhaa tekstityksien renderointijärjestelmää"
 
 #: src/main.c:103
 msgid "Don't use fonts embedded on matroska files"
-msgstr "Älä käytä upotettuja fontteja  matroska tiedostoissa"
+msgstr "Älä käytä upotettuja fontteja matroska tiedostoissa"
 
 #: src/main.c:105
 msgid "Use Vertical Layout"
@@ -159,11 +159,11 @@ msgstr "Real Player Nimi"
 
 #: src/main.c:112
 msgid "Real Player Console ID"
-msgstr "Real Player Konsolin Id"
+msgstr "Real Player Konsolin ID"
 
 #: src/main.c:113
 msgid "Real Player Console Controls"
-msgstr "Real Playerin Konsoli ohjaimet"
+msgstr "Real Playerin Konsolin ohjaimet"
 
 #: src/main.c:115
 msgid "Subtitle file for first media file"
@@ -179,7 +179,7 @@ msgstr "TV ajurin nimi (v4l|v4l2)"
 
 #: src/main.c:119
 msgid "TV input name"
-msgstr "TV-sisääntulon tulon nimi"
+msgstr "TV-sisääntulon nimi"
 
 #: src/main.c:120
 msgid "Width of TV input"
@@ -211,9 +211,8 @@ msgid "Hide control panel when mouse is not moving"
 msgstr "Piilota ohjauspaneeli kun hiiri ei liiku"
 
 #: src/main.c:135
-#, fuzzy
 msgid "Ignore single instance preference for this instance"
-msgstr "Ignore single instance preference for this instance"
+msgstr ""
 
 #: src/main.c:138
 msgid "Keep window on top"
@@ -305,8 +304,8 @@ msgstr "%s kohdetta"
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
-msgstr[0] "Kappale soi"
-msgstr[1] "Kappaleet soivat"
+msgstr[0] "Tiedosto"
+msgstr[1] "Tiedostot"
 
 #: src/gui.c:855
 #: src/gui.c:857
@@ -406,7 +405,6 @@ msgid "A media player for GNOME that uses MPlayer"
 msgstr "Mediasoitin GNOMELLE joka käyttää MPlayeriä"
 
 #: src/gui.c:3423
-#, fuzzy
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it under\n"
 "the terms of the GNU General Public License as published by the Free\n"
@@ -425,27 +423,11 @@ msgid ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 msgstr ""
-"Gnome MPlayer is free software; you can redistribute it and/or modify it under\n"
-"the terms of the GNU General Public License as published by the Free\n"
-"Software Foundation; either version 2 of the License, or (at your option)\n"
-"any later version.\n"
-"\n"
-"Gnome MPlayer is distributed in the hope that it will be useful, but WITHOUT\n"
-"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\n"
-"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\n"
-"more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License along with\n"
-"Gnome MPlayer if not, write to the\n"
-"\n"
-"Free Software Foundation, Inc.,\n"
-"51 Franklin St, Fifth Floor\n"
-"Boston, MA 02110-1301 USA"
 
 #: src/gui.c:3695
 #: src/playlist.c:137
 msgid "Set Subtitle"
-msgstr "Aseta Tekstitys"
+msgstr "Aseta tekstitys"
 
 #: src/gui.c:3837
 msgid "Gnome MPlayer Fullscreen"
@@ -481,7 +463,7 @@ msgstr "Bittinopeus:"
 
 #: src/gui.c:4455
 msgid "Video Chapters:"
-msgstr "Videon Luvut:"
+msgstr "Kappaleet:"
 
 #: src/gui.c:4471
 #: src/nautilus_property_page.c:400
@@ -630,11 +612,11 @@ msgstr "<span weight=\"bold\">Säädä Ulostulo asetuksia</span>"
 
 #: src/gui.c:5286
 msgid "Video Output:"
-msgstr "Video Ulostulo:"
+msgstr "Videon Ulostulo:"
 
 #: src/gui.c:5296
 msgid "Audio Output:"
-msgstr "Ääni Ulostulo:"
+msgstr "Äänen Ulostulo:"
 
 #: src/gui.c:5308
 msgid "Default Mixer:"
@@ -642,7 +624,7 @@ msgstr "Oletus Mikseri:"
 
 #: src/gui.c:5319
 msgid "Audio Channels to Output"
-msgstr "Ääni Kanavat Ulostuloon"
+msgstr "Äänikanavat ulostuloon"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -653,7 +635,7 @@ msgstr "<span weight=\"bold\">Säädä Asetuksia</span>"
 
 #: src/gui.c:5358
 msgid "Default Volume Level:"
-msgstr "Oletus Äänitaso:"
+msgstr "Äänitaso (oletus):"
 
 #: src/gui.c:5365
 #: src/gui.c:5368
@@ -666,7 +648,7 @@ msgstr "Kuvaruudun taso:"
 
 #: src/gui.c:5399
 msgid "Post-processing level:"
-msgstr "Jälkikäsittely taso:"
+msgstr "Jälkikäsittelyn taso:"
 
 #: src/gui.c:5415
 msgid ""
@@ -706,7 +688,7 @@ msgstr "MIDI Tuki (vaatii MPlayerin tuen)"
 
 #: src/gui.c:5454
 msgid "Disable Player Embedding"
-msgstr "Poista Soitin upotus"
+msgstr "Poista Soitinupotus"
 
 #: src/gui.c:5460
 msgid "Audio Cache Size (KB):"
@@ -729,15 +711,15 @@ msgstr "<span weight=\"bold\">Säädä Kieliasetuksia</span>"
 
 #: src/gui.c:5528
 msgid "Default Audio Language"
-msgstr "Äänen oletus kieli"
+msgstr "Äänen kieli (oletus)"
 
 #: src/gui.c:5538
 msgid "Default Subtitle Language:"
-msgstr "Tekstityksen oletus kieli"
+msgstr "Tekstityksen kieli (oletus):"
 
 #: src/gui.c:5550
 msgid "File Metadata Encoding:"
-msgstr "Tiedoston Metadatan Koodaus:"
+msgstr "Tiedoston Koodaus:"
 
 #: src/gui.c:5566
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
@@ -753,19 +735,19 @@ msgstr "Käytä upotettuja kirjaimia (ainoastaan MKV)"
 
 #: src/gui.c:5593
 msgid "Subtitle Font:"
-msgstr "Tekstityksen Fontti:"
+msgstr "Tekstityksen kirjaisin:"
 
 #: src/gui.c:5611
 msgid "Subtitle Font Selection"
-msgstr "Tekstityksen Kirjaisinvalitsin"
+msgstr "Tekstityksen kirjaisinvalitsin"
 
 #: src/gui.c:5616
 msgid "Subtitle Color:"
-msgstr "Tekstityksen Väri:"
+msgstr "Tekstityksen väri:"
 
 #: src/gui.c:5641
 msgid "Subtitle Color Selection"
-msgstr "Tekstityksen Värivalitsin"
+msgstr "Tekstityksen värivalitsin"
 
 #: src/gui.c:5647
 msgid "Outline Subtitle Font"
@@ -773,15 +755,15 @@ msgstr "Tekstityksen ääriviivat"
 
 #: src/gui.c:5654
 msgid "Shadow Subtitle Font"
-msgstr "Varjosta Tekstityksen Fonttia"
+msgstr "Varjosta tekstityksen kirjaisinta"
 
 #: src/gui.c:5661
 msgid "Subtitle Font Scaling:"
-msgstr "Tekstityksen Fontti Skaalaus"
+msgstr "Skaalaa tekstityksen kirjaisinta"
 
 #: src/gui.c:5674
 msgid "Subtitle File Encoding:"
-msgstr "Tekstityksen Tiedosto Koodaus"
+msgstr "Tekstitys tiedoston koodaus"
 
 #: src/gui.c:5686
 msgid "Subtitle Lower Margin (X11/XV Only):"
@@ -824,9 +806,8 @@ msgid "Place playlist below media (requires application restart)"
 msgstr "Aseta soittolista median alle (vaatii sovelluksen uudelleenkäynnistyksen)"
 
 #: src/gui.c:5773
-#, fuzzy
 msgid "Only allow one instance of Gnome MPlayer"
-msgstr "Salli vain yksi instanssi Gnome MPlayerissa"
+msgstr "Salli vain yksi Gnome MPlayer"
 
 #: src/gui.c:5787
 #, fuzzy
@@ -872,7 +853,7 @@ msgstr "<span weight=\"bold\">Kehittyneet Asetukset Mplayrille</span>"
 
 #: src/gui.c:5871
 msgid "Mplayer Software Volume Control Enabled"
-msgstr "Mplayeri ohjelman äänenvoimakkuuden säätö käytössä"
+msgstr "Mplayer ohjelman äänenvoimakkuuden säätö käytössä"
 
 #: src/gui.c:5875
 #: src/gui.c:5880
@@ -881,7 +862,7 @@ msgstr "Aseta tämä vaihtoehto, jos Gnome MPlayer haluaa muuttaa pää äänenv
 
 #: src/gui.c:5895
 msgid "Remember last software volume level"
-msgstr "Muista viimeisin äänenvoimakkuus taso"
+msgstr "Muista äänenvoimakkuus taso"
 
 #: src/gui.c:5899
 #: src/gui.c:5904
@@ -890,11 +871,11 @@ msgstr "Aseta tämä valinta, jos haluat ohjelmiston äänenvoimakkuuden muistet
 
 #: src/gui.c:5914
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr "Pää Äänenvoimakkuus (-200dB +60dB)"
+msgstr "Pää äänenvoimakkuus (-200dB +60dB)"
 
 #: src/gui.c:5927
 msgid "De_interlace Video"
-msgstr "Videon Limitys"
+msgstr "Videon limitys"
 
 #: src/gui.c:5929
 #: src/gui.c:5932
@@ -903,7 +884,7 @@ msgstr "Aseta tämä vaihtoehto, jos video näyttää raidalliselta"
 
 #: src/gui.c:5940
 msgid "_Drop frames"
-msgstr "_Pudota Ruutunopeutta"
+msgstr "_Pudota ruutunopeutta"
 
 #: src/gui.c:5943
 #: src/gui.c:5947
@@ -912,7 +893,7 @@ msgstr "Aseta tämä vaihtoehto, jos video on selvästi ääntä jäljessä"
 
 #: src/gui.c:5954
 msgid "Enable mplayer cache"
-msgstr "Salli mplayerin välimuisti"
+msgstr "Salli MPlayerin välimuisti"
 
 #: src/gui.c:5962
 msgid "Cache Size (KB):"
@@ -925,7 +906,7 @@ msgstr "Suuri tietojen määrä välimuistissa median toistossa, käytä korkeit
 
 #: src/gui.c:5994
 msgid "MPlayer Executable:"
-msgstr "MPlayer Suoritettavat:"
+msgstr "MPlayerin polku:"
 
 #: src/gui.c:5998
 #: src/gui.c:6002
@@ -943,11 +924,11 @@ msgstr "Lisää muut mplayerin erikoisasetukset tänne (filtterit jne.)"
 
 #: src/gui.c:6039
 msgid "MPlayer Default Optical Device"
-msgstr "Mplayerin optinen oletus laite"
+msgstr "MPlayerin optinen laite (oletus)"
 
 #: src/gui.c:6453
 msgid "S_how Controls"
-msgstr "Nä_ytä Saatimet"
+msgstr "Nä_ytä saatimet"
 
 #: src/gui.c:6457
 #: src/gui.c:6766
@@ -956,7 +937,7 @@ msgstr "_Kokonäyttö"
 
 #: src/gui.c:6462
 msgid "_Copy Location"
-msgstr "_Kopioi Sijainnista"
+msgstr "_Kopioi sijainnista"
 
 #. File Menu
 #: src/gui.c:6533
@@ -969,7 +950,7 @@ msgstr "Avaa kansiosta"
 
 #: src/gui.c:6548
 msgid "Open _Location"
-msgstr "Avaa Sijainnista"
+msgstr "Avaa sijainnista"
 
 #: src/gui.c:6555
 msgid "_Disc"
@@ -1042,19 +1023,19 @@ msgstr "_Kertaa soittolistaa"
 
 #: src/gui.c:6693
 msgid "S_witch Audio Track"
-msgstr "V_aihda Ääniraitaa"
+msgstr "V_aihda ääniraitaa"
 
 #: src/gui.c:6697
 msgid "Select _Audio Language"
-msgstr "Valitse _Äänen Kieli"
+msgstr "Valitse _äänen kieli"
 
 #: src/gui.c:6703
 msgid "Set Sub_title"
-msgstr "Aseta Tek_stitys"
+msgstr "Aseta tek_stitys"
 
 #: src/gui.c:6707
 msgid "S_elect Subtitle Language"
-msgstr "V_alitse Tekstityksen Kieli"
+msgstr "V_alitse tekstityksen kieli"
 
 #: src/gui.c:6714
 msgid "_Take Screenshot"
@@ -1076,7 +1057,7 @@ msgstr "_Soittolista"
 
 #: src/gui.c:6756
 msgid "Media _Info"
-msgstr "Median _Ominaisuudet"
+msgstr "Kappaleen _nimi"
 
 #: src/gui.c:6758
 msgid "D_etails"
@@ -1084,7 +1065,7 @@ msgstr "Y_ksityiskohdat"
 
 #: src/gui.c:6760
 msgid "Audio _Meter"
-msgstr "Ääni _Mittari"
+msgstr "Ekvalisaattori"
 
 #: src/gui.c:6773
 msgid "_Normal (1:1)"
@@ -1120,11 +1101,11 @@ msgstr "1_6:10 Kuvasuhde"
 
 #: src/gui.c:6801
 msgid "_Follow Window"
-msgstr "_Seuraa Ikkunaa"
+msgstr "_Seuraa ikkunaa"
 
 #: src/gui.c:6808
 msgid "Show _Subtitles"
-msgstr "Näytä _Tekstitykset"
+msgstr "Näytä _tekstitykset"
 
 #: src/gui.c:6811
 msgid "Decrease Subtitle Size"
@@ -1152,7 +1133,7 @@ msgstr "_Säätimet"
 
 #: src/gui.c:6833
 msgid "_Video Picture Adjustments"
-msgstr "_Videon Kuvasäädöt"
+msgstr "_Videon kuvasäädöt"
 
 #. Help Menu
 #: src/gui.c:6880
@@ -1293,7 +1274,7 @@ msgstr "Soittolista (*.pls)"
 #: src/playlist.c:296
 #: src/playlist.c:355
 msgid "MP3 Playlist (*.m3u)"
-msgstr "Mp3 Soittolista (*.m3u)"
+msgstr "Mp3 soittolista (*.m3u)"
 
 #: src/playlist.c:333
 #: src/playlist.c:952
@@ -1426,9 +1407,8 @@ msgid "Title"
 msgstr "Nimi"
 
 #: src/nautilus_property_page.c:330
-#, fuzzy
 msgid "Demuxer"
-msgstr "Demuxer"
+msgstr "Multiplekseri"
 
 #: src/nautilus_property_page.c:384
 msgid "Video Frame Rate:"
