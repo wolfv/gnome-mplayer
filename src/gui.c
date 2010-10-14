@@ -3456,6 +3456,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           "Chinese (Hong Kong) - Hialan Liu\n"
                           "Chinese (Taiwan) - Hailan Liu\n"
                           "Dutch - Mark Huijgen\n"
+                          "Finnish - Kristian Polso & Tuomas Lähteenmäki\n"
                           "French - Alexandre Bedot\n"
                           "German - Tim Buening\n"
                           "Greek - Γεώργιος Γεωργάς\n"
