@@ -1,4 +1,6 @@
 Development
+	Add cache percentage graphical display to the tracker
+0.9.99.rc3
 	Updated Finnish translation
 	Version bump to 0.9.99rc2
 	Fixed problem with --fullscreen flag not working
