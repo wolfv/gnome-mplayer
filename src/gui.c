@@ -1680,7 +1680,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
         }
         dbus_cancel();
     }
-
+	dbus_enable_screensaver();
     dbus_unhook();
 
     if (use_defaultpl && embed_window == 0)
