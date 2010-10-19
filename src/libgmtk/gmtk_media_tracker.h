@@ -97,6 +97,9 @@ GtkWidget *gmtk_media_tracker_new();
 void gmtk_media_tracker_set_percentage(GmtkMediaTracker * tracker, gdouble percentage);
 gdouble gmtk_media_tracker_get_percentage(GmtkMediaTracker * tracker);
 
+void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble percentage);
+gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker);
+
 void gmtk_media_tracker_set_text(GmtkMediaTracker * tracker, const gchar * text);
 
 void gmtk_media_tracker_set_position(GmtkMediaTracker * tracker, const gfloat seconds);

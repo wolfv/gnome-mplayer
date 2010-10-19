@@ -565,8 +565,9 @@ gboolean set_progress_value(void *data)
             gmtk_media_tracker_set_text(tracker, text);
             g_free(text);
         } else {
-            gmtk_media_tracker_set_text(tracker, idle->progress_text);
+            //gmtk_media_tracker_set_text(tracker, idle->progress_text);
         }
+		gmtk_media_tracker_set_cache_percentage(tracker,idle->cachepercent);
     }
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {

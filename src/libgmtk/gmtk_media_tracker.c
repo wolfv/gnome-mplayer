@@ -234,6 +234,30 @@ gdouble gmtk_media_tracker_get_percentage(GmtkMediaTracker * tracker)
     return tracker->media_percent;
 }
 
+void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble percentage)
+{
+    tracker->cache_percent = percentage;
+    if (tracker->cache_percent > 1.0)
+        tracker->cache_percent = 1.0;
+    if (tracker->cache_percent < 0.0)
+        tracker->cache_percent = 0.0;
+
+	if (tracker->cache_percent > 0.0) {
+		gtk_range_set_show_fill_level(GTK_RANGE(tracker->scale),TRUE);
+		gtk_range_set_restrict_to_fill_level(GTK_RANGE(tracker->scale),TRUE);
+		gtk_range_set_fill_level(GTK_RANGE(tracker->scale),tracker->cache_percent);
+	} else {
+		gtk_range_set_show_fill_level(GTK_RANGE(tracker->scale),FALSE);
+		gtk_range_set_restrict_to_fill_level(GTK_RANGE(tracker->scale),FALSE);
+	}
+	
+	gtk_range_set_value(GTK_RANGE(tracker->scale), tracker->media_percent);
+}
+
+gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker)
+{
+    return tracker->cache_percent;
+}
 void gmtk_media_tracker_set_text(GmtkMediaTracker * tracker, const gchar * text)
 {
     if (tracker->text) {
