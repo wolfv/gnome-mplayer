@@ -507,6 +507,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ID_LENGTH") != 0) {
         buf = strstr(mplayer_output->str, "ID_LENGTH");
         sscanf(buf, "ID_LENGTH=%lf", &idledata->length);
+		if (idledata->streaming)
+			idledata->cachepercent = 0.0;
         g_idle_add(set_progress_time, idledata);
     }
 
