@@ -445,6 +445,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             send_command("get_property sub_demux\n", TRUE);
         }
 
+		if (embed_window == 0)
+			idledata->cachepercent = 0.0;
+
 		if (g_ascii_strncasecmp(vo, "gl2", strlen("gl2")) != 0) {
 		    cmd = g_strdup_printf("brightness %i\n", idledata->brightness);
 		    send_command(cmd, TRUE);
