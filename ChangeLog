@@ -1,4 +1,5 @@
 Development
+	Fix case of cache fill display not being reset with remote files
 	Set cache fill graphical display to 0 once streaming media is started
 	Enable screensaver at quit
 	Add cache percentage graphical display to the tracker
