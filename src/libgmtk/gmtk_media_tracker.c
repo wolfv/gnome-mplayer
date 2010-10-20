@@ -249,9 +249,8 @@ void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble
 	} else {
 		gtk_range_set_show_fill_level(GTK_RANGE(tracker->scale),FALSE);
 		gtk_range_set_restrict_to_fill_level(GTK_RANGE(tracker->scale),FALSE);
+		gtk_range_set_fill_level(GTK_RANGE(tracker->scale),tracker->cache_percent);
 	}
-	
-	gtk_range_set_value(GTK_RANGE(tracker->scale), tracker->media_percent);
 }
 
 gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker)

@@ -1,4 +1,6 @@
 Development
+	Set cache fill graphical display to 0 once streaming media is started
+	Enable screensaver at quit
 	Add cache percentage graphical display to the tracker
 0.9.99.rc3
 	Updated Finnish translation

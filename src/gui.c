@@ -2422,7 +2422,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
     if (idle == NULL) {
         dbus_send_rpsignal("RP_Play");
-    }
+    }	
     dbus_send_rpsignal_with_int("RP_SetGUIState", state);
 
     return FALSE;
