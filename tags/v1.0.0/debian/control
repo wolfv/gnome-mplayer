@@ -1,0 +1,16 @@
+Source: gnome-mplayer
+Section: sound
+Priority: extra
+Maintainer: Michael Rasmussen <mir@datanom.net>
+Build-Depends: debhelper (>= 5), autotools-dev, libgnome2-dev, libgnomeui-dev (>= 2), libdbus-1-dev, libdbus-glib-1-dev, pkg-config
+Standards-Version: 3.7.2
+
+Package: gnome-mplayer
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: GNOME MPlayer is a simple GUI for MPlayer
+ It is based heavily on the mplayerplug-in source code and
+ can basically be seen as a standalone version of that.
+ GNOME MPlayer is currently changing alot. However, it is
+ good enough that I can use it as my default viewer for media
+ on my personal machine.
