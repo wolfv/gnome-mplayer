@@ -1,4 +1,4 @@
-Development
+1.0.0
 	Updated es and pt_BR translations from Launchpad
 	Fix bug #444 - embedded fonts not being used in mkv files
 	Fix case of cache fill display not being reset with remote files

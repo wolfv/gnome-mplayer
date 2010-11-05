@@ -62,7 +62,7 @@
 #define HAVE_MNTENT_H 1
 
 /* defined if you build the nautilus plugin */
-#define HAVE_NAUTILUS 1
+/* #undef HAVE_NAUTILUS */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -125,7 +125,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "0.9.99.rc3"
+#define VERSION "1.0.0"
 
 /* Define to 1 if X11 support is needed */
 #define X11_ENABLED 1
