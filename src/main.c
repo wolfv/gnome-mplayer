@@ -707,6 +707,7 @@ int main(int argc, char *argv[])
     disable_pause_on_click = FALSE;
     disable_animation = FALSE;
     auto_hide_timeout = 3;
+	mouse_over_controls = FALSE;
     use_mediakeys = TRUE;
     use_defaultpl = FALSE;
     mplayer_bin = NULL;

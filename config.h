@@ -62,7 +62,7 @@
 #define HAVE_MNTENT_H 1
 
 /* defined if you build the nautilus plugin */
-/* #undef HAVE_NAUTILUS */
+#define HAVE_NAUTILUS 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1

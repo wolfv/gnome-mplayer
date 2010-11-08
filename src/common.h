@@ -369,6 +369,7 @@ gboolean disable_embeddedfonts;
 gboolean disable_animation;
 gint auto_hide_timeout;
 gboolean always_hide_after_timeout;
+gboolean mouse_over_controls;
 gchar *subtitlefont;
 gdouble subtitle_scale;
 gdouble subtitle_delay;

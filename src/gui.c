@@ -2716,7 +2716,7 @@ gboolean slide_panel_away(gpointer data)
     }
     // mutex was already locked, this is good since we only want to do the animation if locked
 
-    if (GTK_IS_WIDGET(fs_controls) && get_visible(fs_controls)) {
+    if (GTK_IS_WIDGET(fs_controls) && get_visible(fs_controls) && mouse_over_controls == FALSE) {
         gtk_widget_hide(fs_controls);
         g_mutex_unlock(slide_away);
         return FALSE;
@@ -2748,7 +2748,8 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     GTimeVal currenttime;
 
     if ((fullscreen || always_hide_after_timeout) && auto_hide_timeout > 0
-        && (get_visible(controls_box) || fs_controls != NULL)) {
+        && (get_visible(controls_box) || fs_controls != NULL)
+        && mouse_over_controls == FALSE) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -auto_hide_timeout * G_USEC_PER_SEC);
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
@@ -2834,6 +2835,19 @@ gboolean leave_button_callback(GtkWidget * widget, GdkEventCrossing * event, gpo
     in_button = FALSE;
     return FALSE;
 }
+
+gboolean fs_controls_entered(GtkWidget * widget, GdkEventCrossing * event, gpointer data)
+{
+	mouse_over_controls = TRUE;
+	return FALSE;
+}
+
+gboolean fs_controls_left(GtkWidget * widget, GdkEventCrossing * event, gpointer data)
+{
+	mouse_over_controls = FALSE;
+	return FALSE;
+}
+
 
 void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 {
@@ -7658,6 +7672,10 @@ void show_fs_controls()
 
     if (fs_controls == NULL && fullscreen) {
         fs_controls = gtk_window_new(GTK_WINDOW_POPUP);
+		gtk_widget_add_events(fs_controls, GDK_ENTER_NOTIFY_MASK);
+		gtk_widget_add_events(fs_controls, GDK_LEAVE_NOTIFY_MASK);
+		g_signal_connect(G_OBJECT(fs_controls), "enter_notify_event", G_CALLBACK(fs_controls_entered), NULL);
+		g_signal_connect(G_OBJECT(fs_controls), "leave_notify_event", G_CALLBACK(fs_controls_left), NULL);
         g_object_ref(hbox);
         gtk_container_remove(GTK_CONTAINER(controls_box), hbox);
         gtk_container_add(GTK_CONTAINER(fs_controls), hbox);
