@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-mplayer r1642\n"
+"Project-Id-Version: gnome-mplayer 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-11 10:27-0600\n"
-"PO-Revision-Date: 2010-06-14 21:15+0000\n"
-"Last-Translator: Petr Písař <petr.pisar@atlas.cz>\n"
+"PO-Revision-Date: 2010-11-07 19:45+0100\n"
+"Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -669,7 +669,7 @@ msgstr "Zakázat vestavěné přehrávání"
 
 #: src/gui.c:5489
 msgid "Audio Cache Size (KB):"
-msgstr ""
+msgstr "Velikost vyrovnávací paměti pro zvuk (kB):"
 
 #: src/gui.c:5499 src/gui.c:5502 src/gui.c:5508 src/gui.c:5513
 msgid ""
@@ -681,7 +681,7 @@ msgstr ""
 
 #: src/gui.c:5528
 msgid "Video Cache Size (KB):"
-msgstr ""
+msgstr "Velikost vyrovnávací paměti pro video (kB):"
 
 #: src/gui.c:5549
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -1337,14 +1337,12 @@ msgid "UnSort List"
 msgstr "Zrušit řazení v seznamu"
 
 #: src/playlist.c:1070 src/playlist.c:1073
-#, fuzzy
 msgid "Loop Playlist"
-msgstr "Opakovat seznam sk_ladeb"
+msgstr "Opakovat seznam skladeb dokola"
 
 #: src/playlist.c:1083 src/playlist.c:1086
-#, fuzzy
 msgid "Shuffle Playlist"
-msgstr "Zamíchat _seznam skladeb"
+msgstr "Přehrávat na přeskáčku"
 
 #: src/playlist.c:1121
 msgid "_Set Subtitle"
