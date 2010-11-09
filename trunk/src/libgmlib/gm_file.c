@@ -26,7 +26,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/socket.h> 
 
 gchar *gm_tempname(gchar * path, const gchar * name_template)
 {
