@@ -128,7 +128,9 @@ static void drawing_area_realized(GtkWidget * widget, gpointer user_data)
      * so we need to request it now. We could call gdk_window_ensure_native(),
      * but that would mean we require GTK+ 2.18, so instead we call this */
 #ifdef GTK2_14_ENABLED
+#ifdef X11_ENABLED
     GDK_WINDOW_XID(get_window(GTK_WIDGET(widget)));
+#endif
 #endif
 }
 

@@ -26,7 +26,7 @@
 #  include <config.h>
 #endif
 #include <gtk/gtk.h>
-#include <gdk/gdk.h>
+#include <cairo.h>
 
 #ifndef __GMTK_AUDIO_METER_H__
 #define __GMTK_AUDIO_METER_H__
