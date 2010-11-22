@@ -1,4 +1,5 @@
 Development
+	Revert parts of the update technique, it made the gui crash, cpu usage is still lower
 	Experimental audio meter update technique, should use less CPU and be more interactive
 	Use pretty gradients in the audio meter
 	Use cairo to draw audio meter bars
