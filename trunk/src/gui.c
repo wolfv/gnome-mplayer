@@ -7528,11 +7528,13 @@ gboolean update_audio_meter(gpointer data)
     gint i, j;
     gfloat f;
     gint max;
-    gfloat freq;
-    gfloat lsb16, rsb16;
+    //gfloat freq;
+    gfloat lsb16; // , rsb16;
     Export *export;
     gint bucketid;
     static gint update_counter = 0;
+	static gint export_counter = 0;
+	gboolean refresh;
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter)))
         return TRUE;
@@ -7557,16 +7559,18 @@ gboolean update_audio_meter(gpointer data)
             buckets[i] = 0;
         }
 
+		refresh = FALSE;
         reading_af_export = TRUE;
         export = NULL;
         if (idledata->mapped_af_export != NULL)
             export = (Export *) g_mapped_file_get_contents(idledata->mapped_af_export);
         if (export != NULL) {
-            for (i = 0; export != NULL && i < 512; i++) {
+			/*
+            for (i = 0; export != NULL && i < (export->size / (export->nch * sizeof(gint16)); i++) {
                 freq = 0;
 
                 // this is an testing meter for two channel
-                if (0 /* export->nch == 2 */ ) {
+                if (0) {
                     lsb16 = export->payload[0][i];
                     rsb16 = export->payload[1][i];
 
@@ -7588,49 +7592,64 @@ gboolean update_audio_meter(gpointer data)
                         }
                         buckets[bucketid]++;
                     }
+					
                 }
             }
+			*/
             // g_free(export);
+			if (export->counter > export_counter) {
+				for (j =0; j < export->nch ; j++) {
+					lsb16 = 0;
+					for(i=0; i < (export->size / ( export->nch * sizeof(gint16))); i++) {
+						lsb16 += export->payload[j][i];
+						bucketid = abs(lsb16) * METER_BARS / 1000000;
+						buckets[bucketid]++;
+					}
+				}
+				export_counter = export->counter;
+				refresh = TRUE;
+			}
         }
         reading_af_export = FALSE;
 
-        max = 0;
-        update_counter++;
-        for (i = 0; i < METER_BARS; i++) {
-            if (buckets[i] > max_buckets[i]) {
-                max_buckets[i] = buckets[i];
-            } else {
-                // raise this value for slower melting of max
-                if (update_counter % 1 == 0) {
-                    update_counter = 0;
-                    max_buckets[i]--;
-                    if (max_buckets[i] < 0)
-                        max_buckets[i] = 0;
-                }
-            }
+		if (refresh) {
+		    max = 0;
+		    update_counter++;
+		    for (i = 0; i < METER_BARS; i++) {
+		        if (buckets[i] > max_buckets[i]) {
+		            max_buckets[i] = buckets[i];
+		        } else {
+		            // raise this value for slower melting of max
+		            if (update_counter % 1 == 0) {
+		                update_counter = 0;
+		                max_buckets[i]--;
+		                if (max_buckets[i] < 0)
+		                    max_buckets[i] = 0;
+		            }
+		        }
 
-            if (max_buckets[i] > max)
-                max = max_buckets[i];
+		        if (max_buckets[i] > max)
+		            max = max_buckets[i];
 
-        }
+		    }
 
-        for (i = 0; i < METER_BARS; i++) {
-            if (max == 0) {
-                f = 0.0;
-                g_array_append_val(data, f);
-                g_array_append_val(max_data, f);
-            } else {
-                f = logf((gfloat) buckets[i]) / logf((gfloat) max);
-                // f = ((gfloat) buckets[i]) / ((gfloat) max);
-                g_array_append_val(data, f);
-                f = logf((gfloat) max_buckets[i]) / logf((gfloat) max);
-                // f = ((gfloat) max_buckets[i]) / ((gfloat) max);
-                g_array_append_val(max_data, f);
-            }
-        }
+		    for (i = 0; i < METER_BARS; i++) {
+		        if (max == 0) {
+		            f = 0.0;
+		            g_array_append_val(data, f);
+		            g_array_append_val(max_data, f);
+		        } else {
+		            f = logf((gfloat) buckets[i]) / logf((gfloat) max);
+		            // f = ((gfloat) buckets[i]) / ((gfloat) max);
+		            g_array_append_val(data, f);
+		            f = logf((gfloat) max_buckets[i]) / logf((gfloat) max);
+		            // f = ((gfloat) max_buckets[i]) / ((gfloat) max);
+		            g_array_append_val(max_data, f);
+		        }
+		    }
 
-        gmtk_audio_meter_set_data_full(GMTK_AUDIO_METER(audio_meter), data, max_data);
-
+		    gmtk_audio_meter_set_data_full(GMTK_AUDIO_METER(audio_meter), data, max_data);
+		}
     }
     return TRUE;
 
