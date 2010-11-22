@@ -7528,8 +7528,8 @@ gboolean update_audio_meter(gpointer data)
     gint i, j;
     gfloat f;
     gint max;
-    //gfloat freq;
-    gfloat lsb16; // , rsb16;
+    gfloat freq;
+    //gfloat lsb16, rsb16;
     Export *export;
     gint bucketid;
     static gint update_counter = 0;
@@ -7565,20 +7565,11 @@ gboolean update_audio_meter(gpointer data)
         if (idledata->mapped_af_export != NULL)
             export = (Export *) g_mapped_file_get_contents(idledata->mapped_af_export);
         if (export != NULL) {
-			/*
-            for (i = 0; export != NULL && i < (export->size / (export->nch * sizeof(gint16)); i++) {
-                freq = 0;
+			if (export->counter > export_counter) {
+		        for (i = 0; export != NULL && i < (export->size / (export->nch * sizeof(gint16))); i++) {
+		            freq = 0;
 
                 // this is an testing meter for two channel
-                if (0) {
-                    lsb16 = export->payload[0][i];
-                    rsb16 = export->payload[1][i];
-
-                    bucketid = (lsb16 / (22000.0 / (gfloat) (METER_BARS / 2)));
-                    buckets[(METER_BARS / 2) - bucketid]++;
-                    bucketid = (rsb16 / (22000.0 / (gfloat) (METER_BARS / 2)));
-                    buckets[(METER_BARS / 2) + bucketid]++;
-                } else {
                     for (j = 0; j < export->nch; j++) {
                         // scale SB16 data to 0 - 22000 range, believe this is Hz now
                         freq += (export->payload[j][i]) * 22000 / (32768 * export->nch);
@@ -7594,21 +7585,26 @@ gboolean update_audio_meter(gpointer data)
                     }
 					
                 }
-            }
-			*/
+				export_counter = export->counter;
+				refresh = TRUE;
+		             
+			}
+			
             // g_free(export);
+			/*
 			if (export->counter > export_counter) {
 				for (j =0; j < export->nch ; j++) {
 					lsb16 = 0;
 					for(i=0; i < (export->size / ( export->nch * sizeof(gint16))); i++) {
 						lsb16 += export->payload[j][i];
 						bucketid = abs(lsb16) * METER_BARS / 1000000;
-						buckets[bucketid]++;
+						buckets[bucketid - 1]++;
 					}
 				}
 				export_counter = export->counter;
 				refresh = TRUE;
 			}
+			*/
         }
         reading_af_export = FALSE;
 
