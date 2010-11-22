@@ -1,4 +1,5 @@
 Development
+	Make audio meter display db values, based on af_stats plugin from mplayer
 	Revert parts of the update technique, it made the gui crash, cpu usage is still lower
 	Experimental audio meter update technique, should use less CPU and be more interactive
 	Use pretty gradients in the audio meter

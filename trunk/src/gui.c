@@ -7523,18 +7523,29 @@ void present_main_window()
     gtk_window_present(GTK_WINDOW(window));
 }
 
+static inline double logdb(double v)
+{
+    if (v > 1)
+        return 0;
+    if (v <= 1E-8)
+        return METER_BARS - 1;
+    return log(v) / -0.23025850929940456840179914546843642076;
+}
+
 gboolean update_audio_meter(gpointer data)
 {
     gint i, j;
     gfloat f;
     gint max;
     gfloat freq;
+	gfloat v;
     //gfloat lsb16, rsb16;
     Export *export;
     gint bucketid;
     static gint update_counter = 0;
 	static gint export_counter = 0;
 	gboolean refresh;
+	long long histogram[65536];
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter)))
         return TRUE;
@@ -7566,6 +7577,7 @@ gboolean update_audio_meter(gpointer data)
             export = (Export *) g_mapped_file_get_contents(idledata->mapped_af_export);
         if (export != NULL) {
 			if (export->counter != export_counter) {
+				/*
 		        for (i = 0; export != NULL && i < (export->size / (export->nch * sizeof(gint16))); i++) {
 		            freq = 0;
 
@@ -7587,7 +7599,23 @@ gboolean update_audio_meter(gpointer data)
                 }
 				export_counter = export->counter;
 				refresh = TRUE;
-		             
+		        */
+				for (j = 0; j < 65336; j++) {
+					histogram[j] = 0;
+				}
+		        for (i = 0; export != NULL && i < (export->size / (export->nch * sizeof(gint16))); i++) {
+		            for (j = 0; j < export->nch; j++) {
+		                // scale SB16 data to 0 - 22000 range, believe this is Hz now
+		                histogram[(export->payload[j][i]) + 32768]++;
+		            }
+				}
+				for (i =0; i < 65536; i++) {
+					v = (i - 32768) / 32768.0;
+					buckets[(gint)(logdb(v * v) / 2.0)] += histogram[i];
+				}
+				buckets[0] = 0;
+				export_counter = export->counter;
+				refresh = TRUE;
 			}
 			
             // g_free(export);
