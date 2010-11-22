@@ -71,6 +71,7 @@ static void gmtk_audio_meter_init(GmtkAudioMeter * meter)
     meter->data_valid = FALSE;
     meter->max_division_width = -1;
 	gtk_widget_set_double_buffered(GTK_WIDGET(meter), FALSE);
+
 }
 
 static void gmtk_audio_meter_dispose(GObject * object)
@@ -90,6 +91,7 @@ static void gmtk_audio_meter_dispose(GObject * object)
         g_array_free(meter->max_data, TRUE);
         meter->max_data = NULL;
     }
+
 }
 
 
@@ -100,6 +102,7 @@ static void draw(GtkWidget * meter)
     gint division_width;
 	GtkAllocation alloc;
 	cairo_t *cr;
+	cairo_pattern_t *pattern;
 	
 	get_allocation(meter,&alloc);
 	
@@ -151,13 +154,20 @@ static void draw(GtkWidget * meter)
         if (v <= 0.0)
             v = 0.00;
 
+		pattern = cairo_pattern_create_linear(0,0, division_width, alloc.height);
+		cairo_pattern_add_color_stop_rgb(pattern, 0.33, 1.0, 0, 0);
+		cairo_pattern_add_color_stop_rgb(pattern, 0.66, 1.0, 1.0, 0);
+		cairo_pattern_add_color_stop_rgb(pattern, 1.0, 0, 1.0, 0);
+		
 		cairo_set_source_rgb(cr, meter->style->mid[3].red / 65535.0, meter->style->mid[3].green / 65535.0,meter->style->mid[3].blue / 65535.0);
 		cairo_rectangle(cr, 
 		                i * division_width,
                         alloc.height * (1.0 - v) + 3,
                         division_width, alloc.height * v);
+		cairo_set_source(cr, pattern);
 		cairo_fill(cr);
 		cairo_stroke(cr);
+		cairo_pattern_destroy(pattern);
 
 		cairo_set_source_rgb(cr, meter->style->fg[0].red / 65535.0, meter->style->fg[0].green / 65535.0,meter->style->fg[0].blue / 65535.0);
 		cairo_rectangle(cr, 
