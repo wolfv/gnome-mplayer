@@ -7565,7 +7565,7 @@ gboolean update_audio_meter(gpointer data)
         if (idledata->mapped_af_export != NULL)
             export = (Export *) g_mapped_file_get_contents(idledata->mapped_af_export);
         if (export != NULL) {
-			if (export->counter > export_counter) {
+			if (export->counter != export_counter) {
 		        for (i = 0; export != NULL && i < (export->size / (export->nch * sizeof(gint16))); i++) {
 		            freq = 0;
 
