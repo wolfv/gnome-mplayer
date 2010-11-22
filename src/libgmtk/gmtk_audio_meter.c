@@ -154,9 +154,9 @@ static void draw(GtkWidget * meter)
         if (v <= 0.0)
             v = 0.00;
 
-		pattern = cairo_pattern_create_linear(0,0, division_width, alloc.height);
-		cairo_pattern_add_color_stop_rgb(pattern, 0.33, 1.0, 0, 0);
-		cairo_pattern_add_color_stop_rgb(pattern, 0.66, 1.0, 1.0, 0);
+		pattern = cairo_pattern_create_linear(0.0,0.0, 1.0, (gdouble)alloc.height);
+		cairo_pattern_add_color_stop_rgb(pattern, 0.30, 1.0, 0, 0);
+		cairo_pattern_add_color_stop_rgb(pattern, 0.7, 1.0, 1.0, 0);
 		cairo_pattern_add_color_stop_rgb(pattern, 1.0, 0, 1.0, 0);
 		
 		cairo_set_source_rgb(cr, meter->style->mid[3].red / 65535.0, meter->style->mid[3].green / 65535.0,meter->style->mid[3].blue / 65535.0);
