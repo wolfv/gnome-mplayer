@@ -281,7 +281,7 @@ typedef struct _ButtonDef {
     gchar *hrefid;
 } ButtonDef;
 
-#define METER_BARS 		44
+#define METER_BARS 		40
 gint buckets[METER_BARS];
 gint max_buckets[METER_BARS];
 
