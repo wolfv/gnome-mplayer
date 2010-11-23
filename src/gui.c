@@ -7537,11 +7537,11 @@ gboolean update_audio_meter(gpointer data)
     gint i, j;
     gfloat f;
     gint max;
-    gfloat freq;
+    //gfloat freq;
 	gfloat v;
     //gfloat lsb16, rsb16;
     Export *export;
-    gint bucketid;
+    //gint bucketid;
     static gint update_counter = 0;
 	static gint export_counter = 0;
 	gboolean refresh;
@@ -7613,7 +7613,8 @@ gboolean update_audio_meter(gpointer data)
 					v = (i - 32768) / 32768.0;
 					buckets[(gint)(logdb(v * v) / 2.0)] += histogram[i];
 				}
-				buckets[0] = 0;
+				buckets[0] = buckets[1] - (buckets[2] - buckets[1]);
+				if (buckets[0] < 0) buckets[0] = 0;
 				export_counter = export->counter;
 				refresh = TRUE;
 			}
