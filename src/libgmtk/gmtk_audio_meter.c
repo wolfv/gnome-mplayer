@@ -188,6 +188,7 @@ static void draw(GtkWidget * meter)
 	cairo_line_to(cr, alloc.width - 1, alloc.height - 1);
 
 	cairo_destroy(cr);
+	gdk_flush();
 }
 
 static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * event)
