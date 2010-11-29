@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-11 10:27-0600\n"
-"PO-Revision-Date: 2010-02-26 18:17+0200\n"
+"PO-Revision-Date: 2010-11-26 21:43+0200\n"
 "Last-Translator: Mindaugas Baranauskas <embar@users.berlios.de>\n"
-"Language-Team: Lithuanian <kde-i18n-doc@kde.org>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.0\n"
 
 #: src/main.c:52
@@ -118,7 +118,7 @@ msgstr ""
 
 #: src/main.c:91
 msgid "Force cache usage on streaming sites"
-msgstr ""
+msgstr "Priverstinai naudoti podėlį gaunant "
 
 #: src/main.c:94
 msgid "Disable the deinterlace filter"
@@ -516,7 +516,7 @@ msgstr "Grotuvas"
 
 #: src/gui.c:5012
 msgid "Language Settings"
-msgstr "Kalbos nustatymai"
+msgstr "Kalbos nuostatos"
 
 #: src/gui.c:5014
 msgid "Subtitles"
@@ -536,7 +536,7 @@ msgstr "Įskiepiai"
 
 #: src/gui.c:5026
 msgid "GNOME MPlayer Configuration"
-msgstr "GNOME MPlayer nustatymai"
+msgstr "GNOME MPlayer nuostatos"
 
 #: src/gui.c:5041 src/gui.c:5047
 msgid ""
@@ -560,7 +560,7 @@ msgstr ""
 
 #: src/gui.c:5307
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
-msgstr "<span weight=\"bold\">Išvesties nustatymai</span>"
+msgstr "<span weight=\"bold\">Išvesties nuostatos</span>"
 
 #: src/gui.c:5315
 msgid "Video Output:"
@@ -636,9 +636,8 @@ msgid "Disable Player Embedding"
 msgstr "Uždrausti grotuvo įtalpinimą"
 
 #: src/gui.c:5489
-#, fuzzy
 msgid "Audio Cache Size (KB):"
-msgstr "Podėlio dydis (KB)"
+msgstr "Garso podėlio dydis (KB):"
 
 #: src/gui.c:5499 src/gui.c:5502 src/gui.c:5508 src/gui.c:5513
 msgid ""
@@ -647,13 +646,12 @@ msgid ""
 msgstr ""
 
 #: src/gui.c:5528
-#, fuzzy
 msgid "Video Cache Size (KB):"
-msgstr "Podėlio dydis (KB)"
+msgstr "Vaizdo podėlio dydis (KB):"
 
 #: src/gui.c:5549
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
-msgstr "<span weight=\"bold\"> Kalbos nustatymai</span>"
+msgstr "<span weight=\"bold\"> Kalbos nuostatos</span>"
 
 #: src/gui.c:5557
 msgid "Default Audio Language"
@@ -669,7 +667,7 @@ msgstr "Rinkmenos metaduomenų koduotė:"
 
 #: src/gui.c:5595
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\"> Subtitrų nustatymai</span>"
+msgstr "<span weight=\"bold\"> Subtitrų nuostatos</span>"
 
 #: src/gui.c:5605
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
@@ -795,7 +793,7 @@ msgstr ""
 
 #: src/gui.c:5892
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
-msgstr "<span weight=\"bold\"> Sudėtingesni MPlayer nustatymai</span>"
+msgstr "<span weight=\"bold\"> Sudėtingesnės MPlayer nuostatos</span>"
 
 #: src/gui.c:5900
 msgid "Mplayer Software Volume Control Enabled"
@@ -909,7 +907,7 @@ msgstr "Atverti _DVD"
 
 #: src/gui.c:6602
 msgid "Open DVD with _Menus"
-msgstr "Atverti DVD _Meniu"
+msgstr "Atverti DVD _meniu"
 
 #: src/gui.c:6605
 msgid "Open DVD from _Folder"
@@ -917,7 +915,7 @@ msgstr "Atverti DVD iš _aplanko"
 
 #: src/gui.c:6608
 msgid "Open DVD from Folder with M_enus"
-msgstr "Atverti DVD iš aplanko su M_eniu"
+msgstr "Atverti DVD iš aplanko su m_eniu"
 
 #: src/gui.c:6611
 msgid "Open DVD from _ISO"
@@ -925,7 +923,7 @@ msgstr "Atverti DVD iš _ISO"
 
 #: src/gui.c:6614
 msgid "Open DVD from ISO with Me_nus"
-msgstr "Atverti DVD iš ISO su Me_niu"
+msgstr "Atverti DVD iš ISO su me_niu"
 
 #: src/gui.c:6619
 msgid "Open _VCD"
@@ -954,7 +952,7 @@ msgstr "_Atverti vėliausią"
 #. Edit Menu
 #: src/gui.c:6706
 msgid "_Edit"
-msgstr "_Keisti"
+msgstr "_Taisa"
 
 #: src/gui.c:6713
 msgid "_Shuffle Playlist"
@@ -982,7 +980,7 @@ msgstr "Pasiri_nkti subtitrų kalbą"
 
 #: src/gui.c:6743
 msgid "_Take Screenshot"
-msgstr "Padayti ekrano _Nuotrauką"
+msgstr "Padaryti ekrano _nuotrauką"
 
 #: src/gui.c:6748 src/gui.c:6752
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
@@ -1071,7 +1069,7 @@ msgstr "Keisti _kampą"
 
 #: src/gui.c:6848
 msgid "_Controls"
-msgstr "_Valdykliai"
+msgstr "_Valdikliai"
 
 #: src/gui.c:6862
 msgid "_Video Picture Adjustments"
@@ -1207,11 +1205,11 @@ msgstr "MP3 grojaraštis (*.m3u)"
 
 #: src/playlist.c:333 src/playlist.c:952 src/playlist.c:955
 msgid "Open Playlist"
-msgstr "Atverti grojaraščio rinkmenūą"
+msgstr "Atverti grojaraščio rinkmeną"
 
 #: src/playlist.c:350
 msgid "Reference Playlist (*.ref)"
-msgstr ""
+msgstr "Nuorodų grojaraštis (*.ref)"
 
 #: src/playlist.c:560
 msgid "Choose Directory"
@@ -1295,14 +1293,12 @@ msgid "UnSort List"
 msgstr "Nerikiuoti sąrašo"
 
 #: src/playlist.c:1070 src/playlist.c:1073
-#, fuzzy
 msgid "Loop Playlist"
-msgstr "_Kartoti grojaraštį"
+msgstr "Kartoti grojaraštį"
 
 #: src/playlist.c:1083 src/playlist.c:1086
-#, fuzzy
 msgid "Shuffle Playlist"
-msgstr "_Maišyti"
+msgstr "Maišyti grojaraštį"
 
 #: src/playlist.c:1121
 msgid "_Set Subtitle"
@@ -1342,3 +1338,4 @@ msgstr "Garsas/Vaizdas"
 #: src/libgmtk/gmtk_media_tracker.c:198
 msgid "No Information"
 msgstr "Nėra informacijos"
+
