@@ -88,6 +88,9 @@
 #undef MUSICBRAINZ_ENABLED
 
 /* Define to 1 if you have NOTIFY support */
+#undef NOTIFY0_7_ENABLED
+
+/* Define to 1 if you have NOTIFY support */
 #undef NOTIFY_ENABLED
 
 /* Define to 1 if your C compiler doesn't accept -c and -o together. */

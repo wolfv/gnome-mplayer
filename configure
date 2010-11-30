@@ -612,6 +612,8 @@ GPOD_DEFINES
 GPOD06_LIBS
 GPOD06_CFLAGS
 NOTIFY_DEFINES
+LIBNOTIFY_07_LIBS
+LIBNOTIFY_07_CFLAGS
 NOTIFY_LIBS
 NOTIFY_CFLAGS
 ALSA_DEFINES
@@ -818,6 +820,8 @@ ALSA_CFLAGS
 ALSA_LIBS
 NOTIFY_CFLAGS
 NOTIFY_LIBS
+LIBNOTIFY_07_CFLAGS
+LIBNOTIFY_07_LIBS
 GPOD06_CFLAGS
 GPOD06_LIBS
 GPOD07_CFLAGS
@@ -1519,6 +1523,10 @@ Some influential environment variables:
   NOTIFY_CFLAGS
               C compiler flags for NOTIFY, overriding pkg-config
   NOTIFY_LIBS linker flags for NOTIFY, overriding pkg-config
+  LIBNOTIFY_07_CFLAGS
+              C compiler flags for LIBNOTIFY_07, overriding pkg-config
+  LIBNOTIFY_07_LIBS
+              linker flags for LIBNOTIFY_07, overriding pkg-config
   GPOD06_CFLAGS
               C compiler flags for GPOD06, overriding pkg-config
   GPOD06_LIBS linker flags for GPOD06, overriding pkg-config
@@ -8319,6 +8327,78 @@ else
 $as_echo "yes" >&6; }
 	NOTIFY_DEFINES="-DNOTIFY_ENABLED"
 $as_echo "#define NOTIFY_ENABLED 1" >>confdefs.h
+
+fi
+	 # Check for libnotify >= 0.7
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBNOTIFY_07" >&5
+$as_echo_n "checking for LIBNOTIFY_07... " >&6; }
+
+if test -n "$LIBNOTIFY_07_CFLAGS"; then
+    pkg_cv_LIBNOTIFY_07_CFLAGS="$LIBNOTIFY_07_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libnotify >= 0.7\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libnotify >= 0.7") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_LIBNOTIFY_07_CFLAGS=`$PKG_CONFIG --cflags "libnotify >= 0.7" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$LIBNOTIFY_07_LIBS"; then
+    pkg_cv_LIBNOTIFY_07_LIBS="$LIBNOTIFY_07_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libnotify >= 0.7\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libnotify >= 0.7") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_LIBNOTIFY_07_LIBS=`$PKG_CONFIG --libs "libnotify >= 0.7" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        LIBNOTIFY_07_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "libnotify >= 0.7" 2>&1`
+        else
+	        LIBNOTIFY_07_PKG_ERRORS=`$PKG_CONFIG --print-errors "libnotify >= 0.7" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$LIBNOTIFY_07_PKG_ERRORS" >&5
+
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+                { $as_echo "$as_me:${as_lineno-$LINENO}: Using older libnotify" >&5
+$as_echo "$as_me: Using older libnotify" >&6;}
+elif test $pkg_failed = untried; then
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Using older libnotify" >&5
+$as_echo "$as_me: Using older libnotify" >&6;}
+else
+	LIBNOTIFY_07_CFLAGS=$pkg_cv_LIBNOTIFY_07_CFLAGS
+	LIBNOTIFY_07_LIBS=$pkg_cv_LIBNOTIFY_07_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+$as_echo "#define NOTIFY0_7_ENABLED 1" >>confdefs.h
 
 fi
 
