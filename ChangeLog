@@ -1,4 +1,5 @@
 Development
+	Fix compile on GTK 2.12
 	Update Lithuaninan translation bug #458
 	Apply patch from bug #457
 	Make audio meter display db values, based on af_stats plugin from mplayer
