@@ -165,12 +165,20 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
      */
     if (selection_data == NULL)
         return FALSE;
+#ifdef GTK2_14_ENABLED
     if (gtk_selection_data_get_length(selection_data) < 0)
         return FALSE;
+#else
+	if (selection_data->length < 0)
+ 	    return FALSE;
+#endif
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
+#ifdef GTK2_14_ENABLED
         list = g_uri_list_extract_uris((const gchar *) gtk_selection_data_get_data(selection_data));
-
+#else
+		list = g_uri_list_extract_uris((const gchar *) selection_data->data);
+#endif
         while (list[i] != NULL) {
             if (strlen(list[i]) > 0) {
                 if (is_uri_dir(list[i])) {
