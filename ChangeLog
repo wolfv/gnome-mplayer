@@ -1,4 +1,5 @@
 Development
+	Rework goto/return from fullscreen code 
 	Support LIBNOTIFY 0.7 and higher bug #454
 	Fix compile on GTK 2.12
 	Update Lithuaninan translation bug #458
