@@ -1,4 +1,5 @@
 Development
+	Allow loading a separate audio track when playing a video with Edit > Set Audio Issue #423
 	Rework goto/return from fullscreen code 
 	Support LIBNOTIFY 0.7 and higher bug #454
 	Fix compile on GTK 2.12

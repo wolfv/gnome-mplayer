@@ -202,6 +202,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     GtkWidget *dialog;
     gchar *error_msg = NULL;
     gchar *subtitle = NULL;
+    gchar *audiofile = NULL;
     GtkTreePath *path;
     gchar *local_file = NULL;
     gchar *uri = NULL;
@@ -242,6 +243,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
                            DEMUXER_COLUMN, &demuxer,
                            COVERART_COLUMN, &pixbuf,
                            SUBTITLE_COLUMN, &subtitle,
+                           AUDIOFILE_COLUMN, &audiofile,
                            COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist,
                            PLAYABLE_COLUMN, &playable, -1);
         if (GTK_IS_TREE_SELECTION(selection)) {
@@ -291,6 +293,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
                 g_free(video_codec);
                 g_free(demuxer);
                 g_free(subtitle);
+                g_free(audiofile);
                 if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
                     gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, LENGTH_VALUE_COLUMN,
                                        &length_value, DESCRIPTION_COLUMN, &title, ARTIST_COLUMN,
@@ -298,7 +301,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
                                        &audio_codec, VIDEO_CODEC_COLUMN, &video_codec,
                                        VIDEO_WIDTH_COLUMN, &width, VIDEO_HEIGHT_COLUMN, &height,
                                        DEMUXER_COLUMN, &demuxer, COVERART_COLUMN, &pixbuf,
-                                       SUBTITLE_COLUMN, &subtitle, COUNT_COLUMN, &count,
+                                       SUBTITLE_COLUMN, &subtitle, AUDIOFILE_COLUMN, &audiofile, COUNT_COLUMN, &count,
                                        PLAYLIST_COLUMN, &playlist, PLAYABLE_COLUMN, &playable, -1);
                     if (!playable) {
                         if (verbose)
@@ -428,6 +431,10 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     if (subtitle != NULL) {
         g_strlcpy(thread_data->subtitle, subtitle, 1024);
         g_free(subtitle);
+    }
+    if (audiofile != NULL) {
+        g_strlcpy(thread_data->audiofile, audiofile, 1024);
+        g_free(audiofile);
     }
 #if GTK2_12_ENABLED
     volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
@@ -998,7 +1005,7 @@ int main(int argc, char *argv[])
     // setup playliststore
     playliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
-                           G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
+                           G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING, G_TYPE_STRING,
                            G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
                            G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_FLOAT, G_TYPE_FLOAT,
                            G_TYPE_BOOLEAN);

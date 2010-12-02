@@ -1150,6 +1150,11 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("%i", tv_fps);
     }
 
+    if (threaddata->audiofile != NULL && strlen(threaddata->audiofile) > 0) {
+        argv[arg++] = g_strdup_printf("-audiofile");
+        argv[arg++] = g_strdup_printf("%s", threaddata->audiofile);
+    }
+
     if (threaddata->subtitle != NULL && strlen(threaddata->subtitle) > 0) {
         argv[arg++] = g_strdup_printf("-sub");
         argv[arg++] = g_strdup_printf("%s", threaddata->subtitle);

@@ -215,6 +215,7 @@ typedef struct _ThreadData {
     gchar uri[2048];
     gchar filename[1024];
     gchar subtitle[1024];
+    gchar audiofile[1024];
     gint streaming;
     gint player_window;
     gint playlist;
@@ -234,6 +235,7 @@ enum {
     LENGTH_COLUMN,
     LENGTH_VALUE_COLUMN,
     SUBTITLE_COLUMN,
+    AUDIOFILE_COLUMN,
     COVERART_COLUMN,
     AUDIO_CODEC_COLUMN,
     VIDEO_CODEC_COLUMN,

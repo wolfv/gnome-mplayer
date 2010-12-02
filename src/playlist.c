@@ -151,6 +151,43 @@ void playlist_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
 
 }
 
+void playlist_set_audiofile_callback(GtkMenuItem * menuitem, void *data)
+{
+    GtkTreeSelection *sel;
+    GtkTreeView *view = (GtkTreeView *) data;
+    GtkTreeIter localiter;
+    gchar *audiofile;
+    GtkWidget *dialog;
+    gchar *path;
+    gchar *item;
+    gchar *p;
+
+    sel = gtk_tree_view_get_selection(view);
+
+    if (gtk_tree_selection_get_selected(sel, NULL, &localiter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN, &item, -1);
+        path = g_strdup(item);
+        p = g_strrstr(path, "/");
+        if (p != NULL)
+            p[1] = '\0';
+
+        dialog = gtk_file_chooser_dialog_new(_("Set Audio"),
+                                             GTK_WINDOW(window),
+                                             GTK_FILE_CHOOSER_ACTION_OPEN,
+                                             GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                             GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+        gtk_widget_show(dialog);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), path);
+        if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+            audiofile = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+            gtk_list_store_set(playliststore, &localiter, AUDIOFILE_COLUMN, audiofile, -1);
+            g_free(audiofile);
+        }
+        gtk_widget_destroy(dialog);
+    }
+
+}
+
 
 gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 gint x, gint y, GtkSelectionData * selection_data,
@@ -1131,6 +1168,12 @@ void create_playlist_widget()
                      G_CALLBACK(playlist_set_subtitle_callback), list);
 
     gtk_menu_append(playlist_popup_menu, GTK_WIDGET(playlist_set_subtitle));
+    playlist_set_audiofile =
+        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Set Audi_o")));
+    g_signal_connect(GTK_OBJECT(playlist_set_audiofile), "activate",
+                     G_CALLBACK(playlist_set_audiofile_callback), list);
+
+    gtk_menu_append(playlist_popup_menu, GTK_WIDGET(playlist_set_audiofile));
     g_signal_connect_swapped(G_OBJECT(list),
                              "button_press_event",
                              G_CALLBACK(playlist_popup_handler), G_OBJECT(playlist_popup_menu));
