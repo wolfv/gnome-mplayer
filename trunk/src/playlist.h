@@ -33,6 +33,7 @@ GtkTooltips *playlisttip;
 
 GtkMenu *playlist_popup_menu;
 GtkMenuItem *playlist_set_subtitle;
+GtkMenuItem *playlist_set_audiofile;
 gint window_width, window_height;
 gint filecount;
 GtkWidget *up;

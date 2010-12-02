@@ -1247,6 +1247,7 @@ gboolean resize_window(void *data)
             last_movement_time = currenttime.tv_sec;
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), TRUE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), TRUE);
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_audiofile), TRUE);
             dbus_disable_screensaver();
             if (embed_window == -1) {
                 gtk_widget_show_all(window);
@@ -1323,6 +1324,7 @@ gboolean resize_window(void *data)
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_info), FALSE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_audiofile), FALSE);
             last_window_height = 0;
             last_window_width = 0;
             g_idle_add(set_adjust_layout, NULL);
@@ -1336,6 +1338,7 @@ gboolean resize_window(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), idle->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), idle->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_audiofile), idle->videopresent);
         if (vo == NULL
             || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
                  || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
@@ -3728,6 +3731,46 @@ void menuitem_edit_switch_audio_callback(GtkMenuItem * menuitem, void *data)
     cmd = g_strdup_printf("switch_audio\n");
     send_command(cmd, TRUE);
     g_free(cmd);
+}
+
+void menuitem_edit_set_audiofile_callback(GtkMenuItem * menuitem, void *data)
+{
+    gchar *audiofile = NULL;
+    GtkWidget *dialog;
+    gchar *path;
+    gchar *item;
+    gchar *p;
+
+    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &item, -1);
+
+        path = g_strdup(item);
+        p = g_strrstr(path, "/");
+        if (p != NULL)
+            p[1] = '\0';
+
+        dialog = gtk_file_chooser_dialog_new(_("Set AudioFile"),
+                                             GTK_WINDOW(window),
+                                             GTK_FILE_CHOOSER_ACTION_OPEN,
+                                             GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                             GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+        gtk_widget_show(dialog);
+        gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog), path);
+        if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+            audiofile = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+            gtk_list_store_set(playliststore, &iter, AUDIOFILE_COLUMN, audiofile, -1);
+        }
+        gtk_widget_destroy(dialog);
+
+        if (audiofile != NULL) {
+			dontplaynext = TRUE;
+
+			if (idledata->streaming)
+				play_iter(&iter, 0);
+			else
+				play_iter(&iter, idledata->position);        
+		}
+    }
 }
 
 void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
@@ -6876,6 +6919,9 @@ GtkWidget *create_window(gint windowid)
         GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("S_witch Audio Track")));
     gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_switch_audio));
 
+    menuitem_edit_set_audiofile = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Audi_o")));
+    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_set_audiofile));
+
     menuitem_edit_select_audio_lang =
         GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Select _Audio Language")));
     menu_edit_audio_langs = GTK_MENU(gtk_menu_new());
@@ -6916,6 +6962,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_edit_random_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_loop), "activate",
                      G_CALLBACK(menuitem_edit_loop_callback), NULL);
+    g_signal_connect(GTK_OBJECT(menuitem_edit_set_audiofile), "activate",
+                     G_CALLBACK(menuitem_edit_set_audiofile_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_switch_audio), "activate",
                      G_CALLBACK(menuitem_edit_switch_audio_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_set_subtitle), "activate",
@@ -7611,6 +7659,7 @@ void show_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_audiofile), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
