@@ -170,6 +170,13 @@ void view_option_show_callback(GtkWidget *widget, gpointer data)
 
 void view_option_size_allocate_callback(GtkWidget *widget, GtkAllocation *allocation, gpointer data)
 {
+
+	//if (widget == plvbox)
+			//printf("plvbox size_allocate_callback\n");
+	//else
+			//printf("size_allocate_callback\n");
+	
+	
 	g_idle_add(set_adjust_layout,NULL);
 }
 
@@ -224,7 +231,8 @@ void adjust_layout()
             total_height = gtk_paned_get_position(GTK_PANED(pane));
         } else {
             total_height += media_hbox->allocation.height;
-            //total_width += media_hbox->allocation.width;
+            //if (!idledata->videopresent)
+	        //    total_width += media_hbox->allocation.width;
         }
     } else {
         gtk_widget_hide_all(media_hbox);
@@ -262,12 +270,14 @@ void adjust_layout()
 
     if (GTK_IS_WIDGET(plvbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-        gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-        g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
+        //gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+        //g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
         if (get_visible(plvbox) == 0) {
 	        gtk_widget_show_all(plvbox);
 	        return;
 	    }
+        gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+        g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
         gtk_widget_grab_default(plclose);
         gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
         //printf("handle size = %i\n",handle_size);
@@ -279,7 +289,7 @@ void adjust_layout()
         } else {
             total_width += plvbox->allocation.width + handle_size;
             if (non_fs_height == 0) {
-                printf("height = %i\n",plvbox->allocation.height);
+                // printf("height = %i\n",plvbox->allocation.height);
                 if (plvbox->allocation.height < 16) {
                     total_height = 200;
                 } else {
@@ -3882,6 +3892,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 		hide_fs_controls();
 		
 		if (embed_window == 0) {
+			skip_fixed_allocation = TRUE;
 			gtk_window_unfullscreen(GTK_WINDOW(window));
 		} else {
             if (GTK_WIDGET_MAPPED(window))
@@ -3920,6 +3931,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
 			gtk_widget_show(plvbox);
 		}
+		skip_fixed_allocation = FALSE;
 		gtk_window_resize(GTK_WINDOW(window), last_window_width, last_window_height);
 	
 	} else {
