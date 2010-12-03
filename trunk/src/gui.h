@@ -353,6 +353,7 @@ void update_status_icon();
 void setup_accelerators();
 void update_details_table();
 gboolean set_software_volume(int *data);
+gboolean set_adjust_layout(gpointer data);
 
 gint get_height();
 gint get_width();
