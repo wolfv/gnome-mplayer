@@ -400,6 +400,7 @@ gboolean updating_recent;
 gboolean large_buttons;
 gint button_size;
 gboolean use_xscrnsaver;
+gboolean skip_fixed_allocation;
 
 gboolean remember_loc;
 gboolean use_remember_loc;
