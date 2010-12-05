@@ -756,7 +756,8 @@ int main(int argc, char *argv[])
     screensaver_disabled = FALSE;
     update_control_flag = FALSE;
     gchar *filename;
-    skip_fixed_allocation = FALSE;
+    skip_fixed_allocation_on_show = FALSE;
+    skip_fixed_allocation_on_hide = FALSE;
 
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);

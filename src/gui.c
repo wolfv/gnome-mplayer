@@ -165,12 +165,12 @@ gboolean update_volume(gpointer data)
 
 void view_option_show_callback(GtkWidget *widget, gpointer data)
 {
-	skip_fixed_allocation = TRUE;
+	skip_fixed_allocation_on_show = TRUE;
 }
 
 void view_option_hide_callback(GtkWidget *widget, gpointer data)
 {
-	skip_fixed_allocation = TRUE;
+	skip_fixed_allocation_on_hide = TRUE;
 	g_idle_add(set_adjust_layout,NULL);
 }
 
@@ -1850,9 +1850,13 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     gdouble movie_ratio, window_ratio;
     gint new_width = 0, new_height;
 
-	//printf("allocate_fixed_callback %i\n", skip_fixed_allocation);
-	if (skip_fixed_allocation == TRUE) {
-		skip_fixed_allocation = FALSE;
+	//printf("allocate_fixed_callback %i\n", skip_fixed_allocation_on_show);
+	if (skip_fixed_allocation_on_show == TRUE) {
+		skip_fixed_allocation_on_show = FALSE;
+		return TRUE;
+	}
+	if (skip_fixed_allocation_on_hide == TRUE) {
+		skip_fixed_allocation_on_hide = FALSE;
 		return TRUE;
 	}
 
@@ -3902,7 +3906,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 		hide_fs_controls();
 		
 		if (embed_window == 0) {
-			skip_fixed_allocation = TRUE;
+			skip_fixed_allocation_on_show = TRUE;
 			gtk_window_unfullscreen(GTK_WINDOW(window));
 		} else {
             if (GTK_WIDGET_MAPPED(window))
@@ -3941,7 +3945,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
 			gtk_widget_show(plvbox);
 		}
-		skip_fixed_allocation = FALSE;
+		skip_fixed_allocation_on_show = FALSE;
 		gtk_window_resize(GTK_WINDOW(window), last_window_width, last_window_height);
 	
 	} else {
