@@ -168,6 +168,12 @@ void view_option_show_callback(GtkWidget *widget, gpointer data)
 	skip_fixed_allocation = TRUE;
 }
 
+void view_option_hide_callback(GtkWidget *widget, gpointer data)
+{
+	skip_fixed_allocation = TRUE;
+	g_idle_add(set_adjust_layout,NULL);
+}
+
 void view_option_size_allocate_callback(GtkWidget *widget, GtkAllocation *allocation, gpointer data)
 {
 
@@ -315,9 +321,11 @@ void adjust_layout()
             gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
             g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_FALSE);
         }
-
-        gtk_paned_set_position(GTK_PANED(pane), -1);
-        gtk_widget_hide_all(plvbox);
+	    gtk_paned_set_position(GTK_PANED(pane), -1);
+	    if (get_visible(plvbox) == 1) {
+	    	gtk_widget_hide_all(plvbox);
+	    	return;
+	    }
     }
 
     if (!fullscreen) {
@@ -1840,7 +1848,7 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
     gdouble movie_ratio, window_ratio;
     gint new_width = 0, new_height;
 
-	//printf("allocate_fixed_callback\n");
+	//printf("allocate_fixed_callback %i\n", skip_fixed_allocation);
 	if (skip_fixed_allocation == TRUE) {
 		skip_fixed_allocation = FALSE;
 		return TRUE;
@@ -7235,6 +7243,7 @@ GtkWidget *create_window(gint windowid)
     gtk_paned_pack1(GTK_PANED(pane), vbox, FALSE, TRUE);
     create_playlist_widget();
     g_signal_connect(plvbox,"show", G_CALLBACK(view_option_show_callback), NULL);
+    g_signal_connect(plvbox,"hide", G_CALLBACK(view_option_hide_callback), NULL);
     g_signal_connect(plvbox,"size_allocate", G_CALLBACK(view_option_size_allocate_callback), NULL);
 
     //if (remember_loc)
