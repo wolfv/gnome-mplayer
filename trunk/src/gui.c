@@ -1123,9 +1123,11 @@ void update_status_icon()
     } else {
         text = g_strdup_printf(_("Idle"));
     }
-
-    gtk_status_icon_set_tooltip(status_icon, text);
-
+	
+	if (GTK_IS_WIDGET(status_icon)) {
+	    gtk_status_icon_set_tooltip(status_icon, text);
+	}
+	
     g_free(text);
 #endif
 }
@@ -4355,7 +4357,26 @@ void config_apply(GtkWidget * widget, void *data)
 #endif
 #ifdef GTK2_12_ENABLED
     show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
-    gtk_status_icon_set_visible(status_icon, show_status_icon);
+    if (GTK_IS_WIDGET(status_icon)) {
+	    gtk_status_icon_set_visible(status_icon, show_status_icon);
+	} else {
+		if (show_status_icon) {
+			GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+			if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
+				status_icon = gtk_status_icon_new_from_icon_name("gnome-mplayer");
+			} else {
+				status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
+			}
+			gtk_status_icon_set_visible(status_icon, show_status_icon);
+			g_signal_connect(status_icon, "activate", G_CALLBACK(status_icon_callback), NULL);
+			g_signal_connect(status_icon, "popup_menu", G_CALLBACK(status_icon_context_callback), NULL);
+		
+		} else {
+			gtk_widget_destroy(GTK_WIDGET(status_icon));
+			status_icon = NULL;	
+		}
+	}	
+	
 #endif
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
@@ -7368,18 +7389,20 @@ GtkWidget *create_window(gint windowid)
     gtk_window_set_icon_list(GTK_WINDOW(window), icon_list);
 
 #ifdef GTK2_12_ENABLED
-    if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
-        status_icon = gtk_status_icon_new_from_icon_name("gnome-mplayer");
-    } else {
-        status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
-    }
-    if (control_id != 0) {
-        gtk_status_icon_set_visible(status_icon, FALSE);
-    } else {
-        gtk_status_icon_set_visible(status_icon, show_status_icon);
-    }
-    g_signal_connect(status_icon, "activate", G_CALLBACK(status_icon_callback), NULL);
-    g_signal_connect(status_icon, "popup_menu", G_CALLBACK(status_icon_context_callback), NULL);
+	if (control_id == 0 && show_status_icon) {
+		if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
+		    status_icon = gtk_status_icon_new_from_icon_name("gnome-mplayer");
+		} else {
+		    status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
+		}
+		if (control_id != 0) {
+		    gtk_status_icon_set_visible(status_icon, FALSE);
+		} else {
+		    gtk_status_icon_set_visible(status_icon, show_status_icon);
+		}
+		g_signal_connect(status_icon, "activate", G_CALLBACK(status_icon_callback), NULL);
+		g_signal_connect(status_icon, "popup_menu", G_CALLBACK(status_icon_context_callback), NULL);
+	}
 #endif
 
     menu_event_box = gtk_button_new();
