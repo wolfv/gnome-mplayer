@@ -434,7 +434,7 @@ gboolean set_media_info(void *data)
 
     IdleData *idle = (IdleData *) data;
     gchar *buf;
-    gchar *name;
+    gchar *name = NULL;
     GtkTreePath *path;
     gint current = 0, total;
 
@@ -453,7 +453,11 @@ gboolean set_media_info(void *data)
             }
         }
         if (total > 1) {
-            buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
+        	if (name != NULL)
+	            buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);	
+	        else 
+	            buf = g_strdup_printf(_("(%i/%i) - GNOME MPlayer"), current + 1, total);	
+	        
         } else {
             if (name == NULL || strlen(name) < 1) {
                 buf = g_strdup_printf(_("GNOME MPlayer"));
@@ -1012,6 +1016,10 @@ gboolean set_metadata(gpointer data)
                                    VIDEO_WIDTH_COLUMN, mdata->width, VIDEO_HEIGHT_COLUMN,
                                    mdata->height, PLAYABLE_COLUMN, mdata->playable, -1);
 
+				if (mdata->playable == FALSE) {
+					gtk_list_store_remove(playliststore, &riter);
+					g_idle_add(set_media_info,idledata);
+				}
             }
         }
     }
