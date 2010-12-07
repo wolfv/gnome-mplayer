@@ -1,7 +1,8 @@
 Development
-	Only create status icon when needed
-	Fix the window filling to the right on playlist reveal
-	Better window size allocation when showing optional panes
+	Remove files from playlist, that are not playable on folder load
+	Only create status icon when needed Issue #465
+	Fix the window filling to the right on playlist reveal Issue #463
+	Better window size allocation when showing optional panes Issue #463
 	Allow loading a separate audio track when playing a video with Edit > Set Audio Issue #423
 	Rework goto/return from fullscreen code 
 	Support LIBNOTIFY 0.7 and higher bug #454
