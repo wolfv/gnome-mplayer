@@ -1675,14 +1675,26 @@ gboolean drawing_area_scroll_event_callback(GtkWidget * widget, GdkEventScroll *
                                             gpointer data)
 {
 
-    if (event->direction == GDK_SCROLL_UP) {
-        set_ff(NULL);
-    }
+	if (mouse_wheel_changes_volume == FALSE) {
+		if (event->direction == GDK_SCROLL_UP) {
+		    set_ff(NULL);
+		}
 
-    if (event->direction == GDK_SCROLL_DOWN) {
-        set_rew(NULL);
-    }
+		if (event->direction == GDK_SCROLL_DOWN) {
+		    set_rew(NULL);
+		}
+	} else {
+		if (event->direction == GDK_SCROLL_UP) {
+			idledata->volume++;
+			g_idle_add(set_volume, idledata);
+		}
 
+		if (event->direction == GDK_SCROLL_DOWN) {
+			idledata->volume--;
+			g_idle_add(set_volume, idledata);
+		}
+	}	
+	
     return TRUE;
 }
 
@@ -4355,6 +4367,7 @@ void config_apply(GtkWidget * widget, void *data)
         (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_softvol));
     volume_gain = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume_gain));
     verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
+    mouse_wheel_changes_volume = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_mouse_wheel));
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     details_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_details_visible));
     use_mediakeys = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_mediakeys));
@@ -4481,6 +4494,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, USE_MEDIAKEYS, use_mediakeys);
     gm_pref_store_set_boolean(gm_store, USE_DEFAULTPL, use_defaultpl);
     gm_pref_store_set_boolean(gm_store, USE_XSCRNSAVER, use_xscrnsaver);
+    gm_pref_store_set_boolean(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, mouse_wheel_changes_volume);
     gm_pref_store_set_boolean(gm_store, SHOW_NOTIFICATION, show_notification);
     gm_pref_store_set_boolean(gm_store, SHOW_STATUS_ICON, show_status_icon);
     gm_pref_store_set_boolean(gm_store, VERTICAL, vertical_layout);
@@ -6142,6 +6156,13 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_check_button_new_with_label(_("Disable Fullscreen Control Bar Animation"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_disable_animation), disable_animation);
     gtk_table_attach(GTK_TABLE(conf_table), config_disable_animation, 0, 2, i, i + 1, GTK_FILL,
+                     GTK_SHRINK, 0, 0);
+    i++;
+
+    config_mouse_wheel =
+        gtk_check_button_new_with_label(_("Use Mouse Wheel to change volume, instead of seeking"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_mouse_wheel), mouse_wheel_changes_volume);
+    gtk_table_attach(GTK_TABLE(conf_table), config_mouse_wheel, 0, 2, i, i + 1, GTK_FILL,
                      GTK_SHRINK, 0, 0);
     i++;
 
