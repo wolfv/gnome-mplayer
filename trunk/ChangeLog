@@ -1,4 +1,5 @@
 Development
+	Change tooltip timeout from default of 500 to 0 (no timeout) should fix Issue #446
 	Remove files from playlist, that are not playable on folder load
 	Only create status icon when needed Issue #465
 	Fix the window filling to the right on playlist reveal Issue #463
