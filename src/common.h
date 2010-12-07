@@ -67,6 +67,7 @@
 #define SUBTITLESHADOW "subtitleshadow"
 #define SUBTITLE_MARGIN "subtitle_margin"
 #define TRACKER_POSITION "tracker_position"
+#define MOUSE_WHEEL_CHANGES_VOLUME "mouse_wheel_changes_volume"
 
 #define VOLUME	"volume"
 #define AUDIO_CHANNELS "audio_channels"
@@ -402,6 +403,7 @@ gint button_size;
 gboolean use_xscrnsaver;
 gboolean skip_fixed_allocation_on_show;
 gboolean skip_fixed_allocation_on_hide;
+gboolean mouse_wheel_changes_volume;
 
 gboolean remember_loc;
 gboolean use_remember_loc;
