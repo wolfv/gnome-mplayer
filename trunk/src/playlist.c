@@ -1159,7 +1159,7 @@ void create_playlist_widget()
     gtk_paned_pack2(GTK_PANED(pane), plvbox, FALSE, FALSE);
 
     gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
-    gtk_widget_set_size_request(plvbox, 300, 200);
+    gtk_widget_set_size_request(plvbox, 350, 200);
 
     playlist_popup_menu = GTK_MENU(gtk_menu_new());
     playlist_set_subtitle =

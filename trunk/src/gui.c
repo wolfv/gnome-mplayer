@@ -234,7 +234,8 @@ void adjust_layout()
 	        return;
 	    }
         if (playlist_visible && vertical_layout) {
-            total_height = gtk_paned_get_position(GTK_PANED(pane));
+            //total_height = gtk_paned_get_position(GTK_PANED(pane));
+            total_height += media_hbox->allocation.height;
         } else {
             total_height += media_hbox->allocation.height;
             //if (!idledata->videopresent)
@@ -251,7 +252,8 @@ void adjust_layout()
 	        return;
 	    }
         if (playlist_visible && vertical_layout) {
-            total_height = gtk_paned_get_position(GTK_PANED(pane));
+            //total_height = gtk_paned_get_position(GTK_PANED(pane));
+            total_height += details_vbox->allocation.height;
         } else {
             total_height += details_vbox->allocation.height;
         }
@@ -266,7 +268,8 @@ void adjust_layout()
 	        return;
 	    }
         if (playlist_visible && vertical_layout) {
-            total_height = gtk_paned_get_position(GTK_PANED(pane));
+            //total_height = gtk_paned_get_position(GTK_PANED(pane));
+            total_height += audio_meter->allocation.height;
         } else {
             total_height += audio_meter->allocation.height;
         }
@@ -291,29 +294,21 @@ void adjust_layout()
         //printf("plvbox alloc = %i x %i\n",plvbox->allocation.width,plvbox->allocation.height);
 
         if (vertical_layout) {
+        	// printf("totals = %i x %i\n",total_width,total_height);
+        	//gtk_paned_set_position(GTK_PANED(pane), total_height);
             total_height += plvbox->allocation.height + handle_size;
         } else {
             total_width += plvbox->allocation.width + handle_size;
-            if (non_fs_height == 0) {
-                // printf("height = %i\n",plvbox->allocation.height);
-                if (plvbox->allocation.height < 16) {
-                    total_height = 200;
-                } else {
-                    total_height = plvbox->allocation.height;
-                }
-            }
-            if (!fullscreen) {
-                //total_height = MAX(total_height, plvbox->allocation.height);
-/*
-				 if (total_height <=
-                    (menubar->allocation.height + controls_box->allocation.height +
-                     media_hbox->allocation.height))
-                    total_height =
-                        (menubar->allocation.height + controls_box->allocation.height +
-                         media_hbox->allocation.height) * 2;
-*/
+        }
+        if (non_fs_height == 0) {
+            // printf("height = %i\n",plvbox->allocation.height);
+            if (plvbox->allocation.height < 16) {
+                total_height = 200;
+            } else {
+                total_height = MAX(total_height, plvbox->allocation.height);
             }
         }
+        
     } else {
         if (!idledata->videopresent) {
             gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
@@ -327,7 +322,7 @@ void adjust_layout()
 	    	return;
 	    }
     }
-
+    
     if (!fullscreen) {
         //printf("menubar = %i\n",menubar->allocation.height);
         total_height += menubar->allocation.height;
