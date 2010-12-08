@@ -767,6 +767,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_idle_add(set_update_gui, NULL);
     }
 
+    if (strstr(mplayer_output->str, "ID_SEEKABLE=") != 0) {
+    	buf = strstr(mplayer_output->str, "ID_SEEKABLE");
+        sscanf(buf, "ID_SEEKABLE=%i", &idledata->seekable);
+        g_idle_add(set_show_seek_buttons, idledata);
+    }
+
     if (strstr(mplayer_output->str, "DVDNAV_TITLE_IS_MENU") != 0) {
         dvdnav_title_is_menu = TRUE;
     }

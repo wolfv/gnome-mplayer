@@ -1,4 +1,5 @@
 Development
+	Allow seeking in streaming media when mplayer says it is seekable Issue #443
 	Add option to allow mouse wheel to change volume vs seeking Issue #414 (partial)
 	Change tooltip timeout from default of 500 to 0 (no timeout) should fix Issue #446
 	Remove files from playlist, that are not playable on folder load

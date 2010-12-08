@@ -292,7 +292,7 @@ void gmtk_media_tracker_set_position(GmtkMediaTracker * tracker, const gfloat se
 	gchar *text;
 
 	tracker->position = seconds;
-	
+
 	if (tracker->length > 0.0) {
 		gtk_widget_set_sensitive(tracker->scale, TRUE);
 		time_position = gm_seconds_to_string(tracker->position);
