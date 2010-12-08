@@ -155,6 +155,7 @@ typedef struct _IdleData {
     gdouble percent;
     gdouble cachepercent;
     gint streaming;
+    gboolean seekable;
     gchar progress_text[1024];
     gdouble volume;
     gint mplayer_volume;
@@ -505,6 +506,7 @@ gboolean set_new_lang_menu(gpointer data);
 gboolean set_new_audio_menu(gpointer data);
 gboolean make_panel_and_mouse_invisible(gpointer data);
 gboolean idle_make_button(gpointer data);
+gboolean set_show_seek_buttons(gpointer data);
 void make_button(gchar * src, gchar * href);
 void dbus_open_by_hrefid(gchar * hrefid);
 void dbus_open_next();

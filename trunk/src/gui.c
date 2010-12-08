@@ -1040,6 +1040,18 @@ gboolean set_metadata(gpointer data)
     return FALSE;
 }
 
+gboolean set_show_seek_buttons(gpointer data)
+{
+	IdleData *idle = (IdleData *) data;
+	
+	if (idle->seekable) {
+		gtk_widget_show_all(ff_event_box);
+		gtk_widget_show_all(rew_event_box);
+	}
+	
+	return FALSE;
+}
+	
 void cancel_clicked(GtkButton * button, gpointer user_data)
 {
     cancel_folder_load = TRUE;
@@ -6413,7 +6425,7 @@ gboolean tracker_difference_callback(GtkWidget * widget, gdouble difference, voi
 {
     gchar *cmd;
 
-    if (!idledata->streaming) {
+    if (!idledata->streaming || idledata->seekable == TRUE) {
         if (!autopause) {
             if (state != STOPPED) {
                 if (difference > 0)
