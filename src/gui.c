@@ -5236,8 +5236,11 @@ void hw_audio_toggle_callback(GtkToggleButton * source, gpointer user_data)
     if (gtk_toggle_button_get_active(source)) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter), FALSE);
         gtk_widget_hide(GTK_WIDGET(menuitem_view_meter));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), FALSE);
+		gtk_widget_set_sensitive(GTK_WIDGET(config_softvol), FALSE);
     } else {
         gtk_widget_show(GTK_WIDGET(menuitem_view_meter));
+		gtk_widget_set_sensitive(GTK_WIDGET(config_softvol), TRUE);
     }
 }
 
