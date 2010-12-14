@@ -1506,6 +1506,7 @@ gpointer launch_player(gpointer data)
 
                     // nothing is on the playlist and we are not looping so ask plugin for next item
                     if (embed_window != 0 || control_id != 0) {
+						js_state = STATE_MEDIAENDED;
                         dbus_send_event("MediaComplete", 0);
                         dbus_open_next();
                     }
