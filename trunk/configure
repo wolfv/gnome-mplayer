@@ -7875,13 +7875,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$GIO_PKG_ERRORS" >&5
 
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without gio support" >&5
-$as_echo "$as_me: WARNING: Compiling without gio support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without gio support" >&5
+$as_echo "$as_me: Compiling without gio support" >&6;}
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without gio support" >&5
-$as_echo "$as_me: WARNING: Compiling without gio support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without gio support" >&5
+$as_echo "$as_me: Compiling without gio support" >&6;}
 else
 	GIO_CFLAGS=$pkg_cv_GIO_CFLAGS
 	GIO_LIBS=$pkg_cv_GIO_LIBS
@@ -7954,13 +7954,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$DBUS_PKG_ERRORS" >&5
 
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without dbus support cannot be used with gecko-mediaplayer" >&5
-$as_echo "$as_me: WARNING: Compiling without dbus support cannot be used with gecko-mediaplayer" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without dbus support cannot be used with gecko-mediaplayer, may cause cause compile to fail" >&5
+$as_echo "$as_me: Compiling without dbus support cannot be used with gecko-mediaplayer, may cause cause compile to fail" >&6;}
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without dbus support cannot be used with gecko-mediaplayer" >&5
-$as_echo "$as_me: WARNING: Compiling without dbus support cannot be used with gecko-mediaplayer" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without dbus support cannot be used with gecko-mediaplayer, may cause cause compile to fail" >&5
+$as_echo "$as_me: Compiling without dbus support cannot be used with gecko-mediaplayer, may cause cause compile to fail" >&6;}
 else
 	DBUS_CFLAGS=$pkg_cv_DBUS_CFLAGS
 	DBUS_LIBS=$pkg_cv_DBUS_LIBS
@@ -8030,13 +8030,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$XSCRNSAVER_PKG_ERRORS" >&5
 
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling withou xscrnsaver support" >&5
-$as_echo "$as_me: WARNING: Compiling withou xscrnsaver support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling withou xscrnsaver support" >&5
+$as_echo "$as_me: Compiling withou xscrnsaver support" >&6;}
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling withou xscrnsaver support" >&5
-$as_echo "$as_me: WARNING: Compiling withou xscrnsaver support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling withou xscrnsaver support" >&5
+$as_echo "$as_me: Compiling withou xscrnsaver support" >&6;}
 else
 	XSCRNSAVER_CFLAGS=$pkg_cv_XSCRNSAVER_CFLAGS
 	XSCRNSAVER_LIBS=$pkg_cv_XSCRNSAVER_LIBS
@@ -8273,13 +8273,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$ALSA_PKG_ERRORS" >&5
 
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without asound support" >&5
-$as_echo "$as_me: WARNING: Compiling without asound support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without asound support" >&5
+$as_echo "$as_me: Compiling without asound support" >&6;}
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without asound support" >&5
-$as_echo "$as_me: WARNING: Compiling without asound support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without asound support" >&5
+$as_echo "$as_me: Compiling without asound support" >&6;}
 else
 	ALSA_CFLAGS=$pkg_cv_ALSA_CFLAGS
 	ALSA_LIBS=$pkg_cv_ALSA_LIBS
@@ -8361,13 +8361,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$NOTIFY_PKG_ERRORS" >&5
 
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without libnotify support" >&5
-$as_echo "$as_me: WARNING: Compiling without libnotify support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libnotify support" >&5
+$as_echo "$as_me: Compiling without libnotify support" >&6;}
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without libnotify support" >&5
-$as_echo "$as_me: WARNING: Compiling without libnotify support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libnotify support" >&5
+$as_echo "$as_me: Compiling without libnotify support" >&6;}
 else
 	NOTIFY_CFLAGS=$pkg_cv_NOTIFY_CFLAGS
 	NOTIFY_LIBS=$pkg_cv_NOTIFY_LIBS
@@ -8523,13 +8523,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$GPOD06_PKG_ERRORS" >&5
 
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without libgpod 0.6.0 support" >&5
-$as_echo "$as_me: WARNING: Compiling without libgpod 0.6.0 support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libgpod 0.6.0 support" >&5
+$as_echo "$as_me: Compiling without libgpod 0.6.0 support" >&6;}
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without libgpod 0.6.0 support" >&5
-$as_echo "$as_me: WARNING: Compiling without libgpod 0.6.0 support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libgpod 0.6.0 support" >&5
+$as_echo "$as_me: Compiling without libgpod 0.6.0 support" >&6;}
 else
 	GPOD06_CFLAGS=$pkg_cv_GPOD06_CFLAGS
 	GPOD06_LIBS=$pkg_cv_GPOD06_LIBS
@@ -8603,13 +8603,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$GPOD07_PKG_ERRORS" >&5
 
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without libgpod 0.7.0 support" >&5
-$as_echo "$as_me: WARNING: Compiling without libgpod 0.7.0 support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libgpod 0.7.0 support" >&5
+$as_echo "$as_me: Compiling without libgpod 0.7.0 support" >&6;}
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without libgpod 0.7.0 support" >&5
-$as_echo "$as_me: WARNING: Compiling without libgpod 0.7.0 support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libgpod 0.7.0 support" >&5
+$as_echo "$as_me: Compiling without libgpod 0.7.0 support" >&6;}
 else
 	GPOD07_CFLAGS=$pkg_cv_GPOD07_CFLAGS
 	GPOD07_LIBS=$pkg_cv_GPOD07_LIBS
@@ -8696,13 +8696,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$MUSICBRAINZ_PKG_ERRORS" >&5
 
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without libmusicbrainz3 support" >&5
-$as_echo "$as_me: WARNING: Compiling without libmusicbrainz3 support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libmusicbrainz3 support" >&5
+$as_echo "$as_me: Compiling without libmusicbrainz3 support" >&6;}
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Compiling without libmusicbrainz3 support" >&5
-$as_echo "$as_me: WARNING: Compiling without libmusicbrainz3 support" >&2;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libmusicbrainz3 support" >&5
+$as_echo "$as_me: Compiling without libmusicbrainz3 support" >&6;}
 else
 	MUSICBRAINZ_CFLAGS=$pkg_cv_MUSICBRAINZ_CFLAGS
 	MUSICBRAINZ_LIBS=$pkg_cv_MUSICBRAINZ_LIBS

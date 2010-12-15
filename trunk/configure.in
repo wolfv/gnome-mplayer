@@ -56,17 +56,17 @@ AC_ARG_WITH([gio],
         [],
         [with_gio=check])
 AS_IF([test "x$with_gio" != xno], 
-    [PKG_CHECK_MODULES(GIO,[gio-2.0],[GIO_DEFINES="-DGIO_ENABLED" AC_DEFINE([GIO_ENABLED],[1],[Define to 1 if you have GIO support])],AC_MSG_WARN([Compiling without gio support]))
+    [PKG_CHECK_MODULES(GIO,[gio-2.0],[GIO_DEFINES="-DGIO_ENABLED" AC_DEFINE([GIO_ENABLED],[1],[Define to 1 if you have GIO support])],AC_MSG_NOTICE([Compiling without gio support]))
     AC_SUBST(GIO_DEFINES)
     AC_SUBST(GIO_CFLAGS)
     AC_SUBST(GIO_LIBS)
     ])
     
-PKG_CHECK_MODULES(DBUS, [dbus-1 >= 0.95 dbus-glib-1 >= 0.70],[AC_DEFINE([DBUS_ENABLED],[1],[Define to 1 to enable dbus support])],AC_MSG_WARN([Compiling without dbus support cannot be used with gecko-mediaplayer]))
+PKG_CHECK_MODULES(DBUS, [dbus-1 >= 0.95 dbus-glib-1 >= 0.70],[AC_DEFINE([DBUS_ENABLED],[1],[Define to 1 to enable dbus support])], [AC_MSG_NOTICE([Compiling without dbus support cannot be used with gecko-mediaplayer, may cause cause compile to fail])])
 AC_SUBST(DBUS_CFLAGS)
 AC_SUBST(DBUS_LIBS)
 
-PKG_CHECK_MODULES(XSCRNSAVER,[xscrnsaver],[AC_DEFINE([XSCRNSAVER_ENABLED],[1],[When defined we have direct XScrnSaver control])], AC_MSG_WARN([Compiling withou xscrnsaver support]))
+PKG_CHECK_MODULES(XSCRNSAVER,[xscrnsaver],[AC_DEFINE([XSCRNSAVER_ENABLED],[1],[When defined we have direct XScrnSaver control])], AC_MSG_NOTICE([Compiling withou xscrnsaver support]))
 AC_SUBST(XSCRNSAVER_CFLAGS)
 AC_SUBST(XSCRNSAVER_LIBS)
 
@@ -88,7 +88,7 @@ AC_ARG_WITH([alsa],
         [],
         [with_alsa=check])
 AS_IF([test "x$with_alsa" != xno], 
-    [PKG_CHECK_MODULES(ALSA, [alsa], [ALSA_DEFINES="-DHAVE_ASOUNDLIB" AC_DEFINE([HAVE_ASOUNDLIB],[1],[Define to 1 if you have asoundlib development packages])],AC_MSG_WARN([Compiling without asound support]))
+    [PKG_CHECK_MODULES(ALSA, [alsa], [ALSA_DEFINES="-DHAVE_ASOUNDLIB" AC_DEFINE([HAVE_ASOUNDLIB],[1],[Define to 1 if you have asoundlib development packages])],AC_MSG_NOTICE([Compiling without asound support]))
     AC_SUBST(ALSA_DEFINES)
     AC_SUBST(ALSA_CFLAGS)
     AC_SUBST(ALSA_LIBS)
@@ -100,7 +100,7 @@ AC_ARG_WITH([libnotify],
         [],
         [with_libnotify=check])
 AS_IF([test "x$with_libnotify" != xno], 
-    [PKG_CHECK_MODULES(NOTIFY,[libnotify],[NOTIFY_DEFINES="-DNOTIFY_ENABLED" AC_DEFINE([NOTIFY_ENABLED],[1],[Define to 1 if you have NOTIFY support])],AC_MSG_WARN([Compiling without libnotify support]))
+    [PKG_CHECK_MODULES(NOTIFY,[libnotify],[NOTIFY_DEFINES="-DNOTIFY_ENABLED" AC_DEFINE([NOTIFY_ENABLED],[1],[Define to 1 if you have NOTIFY support])],AC_MSG_NOTICE([Compiling without libnotify support]))
 	 # Check for libnotify >= 0.7
 	 PKG_CHECK_MODULES(LIBNOTIFY_07, [libnotify >= 0.7], [AC_DEFINE([NOTIFY0_7_ENABLED],[1],[Define to 1 if you have NOTIFY support])],[AC_MSG_NOTICE([Using older libnotify])])
      AC_SUBST(NOTIFY_DEFINES)
@@ -114,14 +114,14 @@ AC_ARG_WITH([libgpod],
         [],
         [with_libgpod=check])
 AS_IF([test "x$with_libgpod" != xno], 
-    [PKG_CHECK_MODULES(GPOD06,[libgpod-1.0 <= 0.6.0],[GPOD_DEFINES="-DHAVE_GPOD -DGPOD_06" AC_DEFINE([GPOD_ENABLED],[1],[Define to 1 if you have gpod support])],AC_MSG_WARN([Compiling without libgpod 0.6.0 support]))
+    [PKG_CHECK_MODULES(GPOD06,[libgpod-1.0 <= 0.6.0],[GPOD_DEFINES="-DHAVE_GPOD -DGPOD_06" AC_DEFINE([GPOD_ENABLED],[1],[Define to 1 if you have gpod support])],AC_MSG_NOTICE([Compiling without libgpod 0.6.0 support]))
     AC_SUBST(GPOD_DEFINES)
     AC_SUBST(GPOD06_CFLAGS)
     AC_SUBST(GPOD06_LIBS)
     ])
 
 AS_IF([test "x$with_libgpod" != xno], 
-    [PKG_CHECK_MODULES(GPOD07,[libgpod-1.0 >= 0.7.0],[GPOD_DEFINES="-DHAVE_GPOD -DGPOD_07" AC_DEFINE([GPOD_ENABLED],[1],[Define to 1 if you have gpod support])],AC_MSG_WARN([Compiling without libgpod 0.7.0 support]))
+    [PKG_CHECK_MODULES(GPOD07,[libgpod-1.0 >= 0.7.0],[GPOD_DEFINES="-DHAVE_GPOD -DGPOD_07" AC_DEFINE([GPOD_ENABLED],[1],[Define to 1 if you have gpod support])],AC_MSG_NOTICE([Compiling without libgpod 0.7.0 support]))
     AC_SUBST(GPOD_DEFINES)
     AC_SUBST(GPOD07_CFLAGS)
     AC_SUBST(GPOD07_LIBS)
@@ -138,7 +138,7 @@ AC_ARG_WITH([libmusicbrainz3],
         [],
         [with_libmusicbrainz3=check])
 AS_IF([test "x$with_libmusicbrainz3" != xno], 
-    [PKG_CHECK_MODULES(MUSICBRAINZ,[libmusicbrainz3 libcurl],[MUSICBRAINZ_DEFINES="-DHAVE_MUSICBRAINZ" AC_DEFINE([MUSICBRAINZ_ENABLED],[1],[Define to 1 if you have musicbrainz3 support])],AC_MSG_WARN([Compiling without libmusicbrainz3 support]))
+    [PKG_CHECK_MODULES(MUSICBRAINZ,[libmusicbrainz3 libcurl],[MUSICBRAINZ_DEFINES="-DHAVE_MUSICBRAINZ" AC_DEFINE([MUSICBRAINZ_ENABLED],[1],[Define to 1 if you have musicbrainz3 support])],AC_MSG_NOTICE([Compiling without libmusicbrainz3 support]))
     AC_SUBST(MUSICBRAINZ_DEFINES)
     AC_SUBST(MUSICBRAINZ_CFLAGS)
     AC_SUBST(MUSICBRAINZ_LIBS)
