@@ -210,8 +210,19 @@ void adjust_layout()
 		
     //printf("media size = %i x %i\n", non_fs_width, non_fs_height);
     //printf("fixed = %i x %i\n", fixed->allocation.width, fixed->allocation.height);
-    gtk_widget_set_size_request(fixed, -1, -1);
-    gtk_widget_set_size_request(drawing_area, -1, -1);
+	if (GTK_IS_WIDGET(fixed)) {
+	    gtk_widget_set_size_request(fixed, -1, -1);
+	} else {
+		printf("fixed is not a widget\n");
+		return;
+	}
+	
+	if (GTK_IS_WIDGET(drawing_area)) {
+	    gtk_widget_set_size_request(drawing_area, -1, -1);
+	} else {
+		printf("drawing area is not a widget\n");
+		return;
+	}
 
     total_height = non_fs_height;
 	total_width = non_fs_width;
