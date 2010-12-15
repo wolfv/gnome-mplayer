@@ -1,4 +1,5 @@
 Development
+	Fix detection of PA and GPM so errors are not emitted when not found
 	Set the MEDIAENDED state correctly when running as plugin
 	Disable mplayer softvol when AC3 is enabled Issue #468
 	More window size fixes Issue #467

@@ -208,9 +208,10 @@ AC_ARG_WITH([flat-volume],
         [])
         
 if test x$CHECK_FLAT = "xyes"; then
-    if test -x `which pulseaudio`; then
+	PA=`which pulseaudio`;
+    if test "$PA" != ""; then
             AC_MSG_NOTICE([Checking for flat audio support])
-            PAVER=`pulseaudio --version | sed -e 's/pulseaudio 0.9.//'`
+            PAVER=`$PA --version | sed -e 's/pulseaudio 0.9.//'`
             if test $PAVER -gt 14; then
                 FLATVOL=TRUE
             fi
@@ -234,9 +235,10 @@ AC_ARG_WITH([gpm-old-method],
         [])
 
 if test x$CHECK_GPM = "xyes"; then
-    if test -x `which gnome-power-manager`; then
+	GPM=`which gnome-power-manager`
+    if test "$GPM" != ""; then
             AC_MSG_NOTICE([Checking for gnome-power-manager support])
-            GPMVER=`gnome-power-manager --version | sed -e 's/.* 2.//' | cut -b1-2`
+            GPMVER=`$GPM --version | sed -e 's/.* 2.//' | cut -b1-2`
             if test $GPMVER -ge 26; then
                 AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
             fi
