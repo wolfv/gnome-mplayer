@@ -7258,6 +7258,9 @@ GtkWidget *create_window(gint windowid)
     controls_box = gtk_vbox_new(FALSE, 0);
     fixed = gtk_fixed_new();
     drawing_area = gtk_socket_new();
+#ifdef GTK2_18_ENABLED
+	gtk_widget_set_has_window(GTK_WIDGET(drawing_area), TRUE);
+#endif
     g_signal_connect(drawing_area, "realize", G_CALLBACK(drawing_area_realized), NULL);
 
     cover_art = gtk_image_new();
