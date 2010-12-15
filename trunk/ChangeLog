@@ -1,4 +1,5 @@
 Development
+	Rework code that ensures that a window id is available for mplayer to use
 	Change warnings to notices in configure
 	Fix detection of PA and GPM so errors are not emitted when not found
 	Set the MEDIAENDED state correctly when running as plugin
