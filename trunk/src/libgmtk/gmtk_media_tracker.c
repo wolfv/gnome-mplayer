@@ -241,7 +241,7 @@ void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble
         tracker->cache_percent = 1.0;
     if (tracker->cache_percent < 0.0)
         tracker->cache_percent = 0.0;
-
+#ifdef GTK2_12_ENABLED
 	if (tracker->cache_percent > 0.0) {
 		gtk_range_set_show_fill_level(GTK_RANGE(tracker->scale),TRUE);
 		gtk_range_set_restrict_to_fill_level(GTK_RANGE(tracker->scale),TRUE);
@@ -251,6 +251,7 @@ void gmtk_media_tracker_set_cache_percentage(GmtkMediaTracker * tracker, gdouble
 		gtk_range_set_restrict_to_fill_level(GTK_RANGE(tracker->scale),FALSE);
 		gtk_range_set_fill_level(GTK_RANGE(tracker->scale),tracker->cache_percent);
 	}
+#endif
 }
 
 gdouble gmtk_media_tracker_get_cache_percentage(GmtkMediaTracker * tracker)
