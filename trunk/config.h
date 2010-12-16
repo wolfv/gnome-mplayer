@@ -23,7 +23,7 @@
 #define GPOD_ENABLED 1
 
 /* Define to 1 if you have GTK 2.12 or higher */
-#define GTK2_12_ENABLED 1
+//#define GTK2_12_ENABLED 1
 
 /* Define to 1 if you have GTK 2.14 or higher */
 #define GTK2_14_ENABLED 1
@@ -62,7 +62,7 @@
 #define HAVE_MNTENT_H 1
 
 /* defined if you build the nautilus plugin */
-#define HAVE_NAUTILUS 1
+/* #undef HAVE_NAUTILUS */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
