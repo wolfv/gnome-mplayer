@@ -83,6 +83,9 @@ struct _GmtkMediaTracker {
 	gfloat length;
     gboolean mouse_down;
 	gboolean allow_expand;
+#ifndef GTK2_12_ENABLED
+	GtkTooltips *progress_tip;
+#endif
 };
 
 struct _GmtkMediaTrackerClass {
