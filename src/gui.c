@@ -8057,7 +8057,9 @@ void show_fs_controls()
         gtk_window_set_transient_for(GTK_WINDOW(fs_controls), GTK_WINDOW(fs_window));
         g_object_unref(hbox);
         gtk_widget_show(fs_controls);
+#ifdef GTK2_12_ENABLED
         gtk_window_set_opacity(GTK_WINDOW(fs_controls), 0.75);
+#endif
         //while (gtk_events_pending())
         //    gtk_main_iteration();
         // center fs_controls
