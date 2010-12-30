@@ -301,8 +301,9 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
                                        &audio_codec, VIDEO_CODEC_COLUMN, &video_codec,
                                        VIDEO_WIDTH_COLUMN, &width, VIDEO_HEIGHT_COLUMN, &height,
                                        DEMUXER_COLUMN, &demuxer, COVERART_COLUMN, &pixbuf,
-                                       SUBTITLE_COLUMN, &subtitle, AUDIOFILE_COLUMN, &audiofile, COUNT_COLUMN, &count,
-                                       PLAYLIST_COLUMN, &playlist, PLAYABLE_COLUMN, &playable, -1);
+                                       SUBTITLE_COLUMN, &subtitle, AUDIOFILE_COLUMN, &audiofile,
+                                       COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist,
+                                       PLAYABLE_COLUMN, &playable, -1);
                     if (!playable) {
                         if (verbose)
                             printf("%s is not marked as playable (%i)\n", uri, i);
@@ -714,7 +715,7 @@ int main(int argc, char *argv[])
     disable_pause_on_click = FALSE;
     disable_animation = FALSE;
     auto_hide_timeout = 3;
-	mouse_over_controls = FALSE;
+    mouse_over_controls = FALSE;
     use_mediakeys = TRUE;
     use_defaultpl = FALSE;
     mplayer_bin = NULL;
@@ -878,8 +879,9 @@ int main(int argc, char *argv[])
 
     keep_on_top = gm_pref_store_get_boolean(gm_store, KEEP_ON_TOP);
     resize_on_new_media = gm_pref_store_get_boolean(gm_store, RESIZE_ON_NEW_MEDIA);
-    mouse_wheel_changes_volume = gm_pref_store_get_boolean_with_default(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, FALSE);
-    
+    mouse_wheel_changes_volume =
+        gm_pref_store_get_boolean_with_default(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, FALSE);
+
     read_mplayer_config();
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
@@ -1009,10 +1011,10 @@ int main(int argc, char *argv[])
     // setup playliststore
     playliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
-                           G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING, G_TYPE_STRING,
-                           G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
-                           G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_FLOAT, G_TYPE_FLOAT,
-                           G_TYPE_BOOLEAN);
+                           G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
+                           G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING,
+                           G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
+                           G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_BOOLEAN);
 
     create_window(embed_window);
 
@@ -1235,7 +1237,7 @@ int main(int argc, char *argv[])
 
         }
     }
-                        
+
     safe_to_save_default_playlist = FALSE;
     if (use_defaultpl) {
         create_folder_progress_window();
@@ -1244,7 +1246,7 @@ int main(int argc, char *argv[])
     }
     safe_to_save_default_playlist = TRUE;
 
-	g_object_set(gtk_settings_get_default(),"gtk-tooltip-timeout",0,NULL);
+    g_object_set(gtk_settings_get_default(), "gtk-tooltip-timeout", 0, NULL);
 
     gtk_main();
 

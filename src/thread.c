@@ -445,30 +445,30 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             send_command("get_property sub_demux\n", TRUE);
         }
 
-		if (embed_window == 0)
-			idledata->cachepercent = 0.0;
+        if (embed_window == 0)
+            idledata->cachepercent = 0.0;
 
-		if (vo != NULL && g_ascii_strncasecmp(vo, "gl2", strlen("gl2")) != 0) {
-		    cmd = g_strdup_printf("brightness %i\n", idledata->brightness);
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
+        if (vo != NULL && g_ascii_strncasecmp(vo, "gl2", strlen("gl2")) != 0) {
+            cmd = g_strdup_printf("brightness %i\n", idledata->brightness);
+            send_command(cmd, TRUE);
+            g_free(cmd);
 
-		    cmd = g_strdup_printf("contrast %i\n", idledata->contrast);
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
+            cmd = g_strdup_printf("contrast %i\n", idledata->contrast);
+            send_command(cmd, TRUE);
+            g_free(cmd);
 
-		    cmd = g_strdup_printf("gamma %i\n", idledata->gamma);
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
+            cmd = g_strdup_printf("gamma %i\n", idledata->gamma);
+            send_command(cmd, TRUE);
+            g_free(cmd);
 
-		    cmd = g_strdup_printf("hue %i\n", idledata->hue);
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
+            cmd = g_strdup_printf("hue %i\n", idledata->hue);
+            send_command(cmd, TRUE);
+            g_free(cmd);
 
-		    cmd = g_strdup_printf("saturation %i\n", idledata->saturation);
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		}
+            cmd = g_strdup_printf("saturation %i\n", idledata->saturation);
+            send_command(cmd, TRUE);
+            g_free(cmd);
+        }
     }
 
     if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -510,8 +510,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (strstr(mplayer_output->str, "ID_LENGTH") != 0) {
         buf = strstr(mplayer_output->str, "ID_LENGTH");
         sscanf(buf, "ID_LENGTH=%lf", &idledata->length);
-		if (idledata->streaming)
-			idledata->cachepercent = 0.0;
+        if (idledata->streaming)
+            idledata->cachepercent = 0.0;
         g_idle_add(set_progress_time, idledata);
     }
 
@@ -768,7 +768,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     }
 
     if (strstr(mplayer_output->str, "ID_SEEKABLE=") != 0) {
-    	buf = strstr(mplayer_output->str, "ID_SEEKABLE");
+        buf = strstr(mplayer_output->str, "ID_SEEKABLE");
         sscanf(buf, "ID_SEEKABLE=%i", &idledata->seekable);
         g_idle_add(set_show_seek_buttons, idledata);
     }
@@ -1177,7 +1177,8 @@ gpointer launch_player(gpointer data)
         // Simply ommiting '-embeddedfonts' did not work
         // printf("demuxer = %s\n",idledata->demuxer);
         // if (!disable_embeddedfonts) {
-        if (!disable_embeddedfonts && (g_strrstr(idledata->demuxer, "mkv") || g_strrstr(idledata->demuxer, "lavfpref")) ) {
+        if (!disable_embeddedfonts
+            && (g_strrstr(idledata->demuxer, "mkv") || g_strrstr(idledata->demuxer, "lavfpref"))) {
             argv[arg++] = g_strdup_printf("-embeddedfonts");
         } else {
             argv[arg++] = g_strdup_printf("-noembeddedfonts");
@@ -1506,7 +1507,7 @@ gpointer launch_player(gpointer data)
 
                     // nothing is on the playlist and we are not looping so ask plugin for next item
                     if (embed_window != 0 || control_id != 0) {
-						js_state = STATE_MEDIAENDED;
+                        js_state = STATE_MEDIAENDED;
                         dbus_send_event("MediaComplete", 0);
                         dbus_open_next();
                     }

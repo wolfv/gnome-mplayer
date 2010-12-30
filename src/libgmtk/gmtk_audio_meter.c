@@ -103,8 +103,10 @@ static void draw(GtkWidget * meter)
 	GtkAllocation alloc;
 	cairo_t *cr;
 	cairo_pattern_t *pattern;
+	GtkStyle *style;
 	
 	get_allocation(meter,&alloc);
+	style = gtk_widget_get_style(meter);
 	
     if (GMTK_AUDIO_METER(meter)->data == NULL)
         return;
@@ -128,7 +130,7 @@ static void draw(GtkWidget * meter)
             if (v <= 0.0)
                 v = 0.0;
 
-			cairo_set_source_rgb(cr, meter->style->dark[0].red / 65535.0, meter->style->dark[0].green / 65535.0,meter->style->dark[0].blue / 65535.0);
+			cairo_set_source_rgb(cr, style->dark[0].red / 65535.0, style->dark[0].green / 65535.0,style->dark[0].blue / 65535.0);
 			cairo_rectangle(cr, 
 			                i * division_width,
                             alloc.height * (1.0 - v) + 3,
@@ -136,7 +138,7 @@ static void draw(GtkWidget * meter)
 			cairo_fill(cr);
 			cairo_stroke(cr);
 			
-			cairo_set_source_rgb(cr, meter->style->mid[3].red / 65535.0, meter->style->mid[3].green / 65535.0,meter->style->mid[3].blue / 65535.0);
+			cairo_set_source_rgb(cr, style->mid[3].red / 65535.0, style->mid[3].green / 65535.0,style->mid[3].blue / 65535.0);
 			cairo_rectangle(cr, 
 			                i * division_width,
                             alloc.height * (1.0 - v) + 3,
@@ -159,7 +161,7 @@ static void draw(GtkWidget * meter)
 		cairo_pattern_add_color_stop_rgb(pattern, 0.7, 1.0, 1.0, 0);
 		cairo_pattern_add_color_stop_rgb(pattern, 1.0, 0, 1.0, 0);
 		
-		cairo_set_source_rgb(cr, meter->style->mid[3].red / 65535.0, meter->style->mid[3].green / 65535.0,meter->style->mid[3].blue / 65535.0);
+		cairo_set_source_rgb(cr, style->mid[3].red / 65535.0, style->mid[3].green / 65535.0,style->mid[3].blue / 65535.0);
 		cairo_rectangle(cr, 
 		                i * division_width,
                         alloc.height * (1.0 - v) + 3,
@@ -169,7 +171,7 @@ static void draw(GtkWidget * meter)
 		cairo_stroke(cr);
 		cairo_pattern_destroy(pattern);
 
-		cairo_set_source_rgb(cr, meter->style->fg[0].red / 65535.0, meter->style->fg[0].green / 65535.0,meter->style->fg[0].blue / 65535.0);
+		cairo_set_source_rgb(cr, style->fg[0].red / 65535.0, style->fg[0].green / 65535.0,style->fg[0].blue / 65535.0);
 		cairo_rectangle(cr, 
 		                i * division_width,
                         alloc.height * (1.0 - v) + 3,
@@ -182,7 +184,7 @@ static void draw(GtkWidget * meter)
                        gtk_widget_get_style(meter)->text_aa_gc[0],
                        FALSE, 0, 0, meter->allocation.width - 1, meter->allocation.height - 1);
 */
-	cairo_set_source_rgb(cr, meter->style->text_aa[0].red / 65535.0, meter->style->text_aa[0].green / 65535.0,meter->style->text_aa[0].blue / 65535.0);
+	cairo_set_source_rgb(cr, style->text_aa[0].red / 65535.0, style->text_aa[0].green / 65535.0,style->text_aa[0].blue / 65535.0);
 
 	cairo_move_to(cr, 0, alloc.height -1);
 	cairo_line_to(cr, alloc.width - 1, alloc.height - 1);

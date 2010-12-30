@@ -206,15 +206,15 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
     if (gtk_selection_data_get_length(selection_data) < 0)
         return FALSE;
 #else
-	if (selection_data->length < 0)
- 	    return FALSE;
+    if (selection_data->length < 0)
+        return FALSE;
 #endif
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
 #ifdef GTK2_14_ENABLED
         list = g_uri_list_extract_uris((const gchar *) gtk_selection_data_get_data(selection_data));
 #else
-		list = g_uri_list_extract_uris((const gchar *) selection_data->data);
+        list = g_uri_list_extract_uris((const gchar *) selection_data->data);
 #endif
         while (list[i] != NULL) {
             if (strlen(list[i]) > 0) {
@@ -1168,8 +1168,7 @@ void create_playlist_widget()
                      G_CALLBACK(playlist_set_subtitle_callback), list);
 
     gtk_menu_append(playlist_popup_menu, GTK_WIDGET(playlist_set_subtitle));
-    playlist_set_audiofile =
-        GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Set Audi_o")));
+    playlist_set_audiofile = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Set Audi_o")));
     g_signal_connect(GTK_OBJECT(playlist_set_audiofile), "activate",
                      G_CALLBACK(playlist_set_audiofile_callback), list);
 

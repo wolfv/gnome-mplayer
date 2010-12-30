@@ -31,6 +31,12 @@
 /* Define to 1 if you have GTK 2.18 or higher */
 #define GTK2_18_ENABLED 1
 
+/* Define to 1 if you have GTK 2.20 or higher */
+#define GTK2_20_ENABLED 1
+
+/* Define to 1 if you have GTK 2.22 or higher */
+#define GTK2_22_ENABLED 1
+
 /* Define to 1 if you have asoundlib development packages */
 #define HAVE_ASOUNDLIB 1
 
@@ -62,7 +68,7 @@
 #define HAVE_MNTENT_H 1
 
 /* defined if you build the nautilus plugin */
-/* #undef HAVE_NAUTILUS */
+#define HAVE_NAUTILUS 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
