@@ -356,9 +356,6 @@ void update_details_table();
 gboolean set_software_volume(int *data);
 gboolean set_adjust_layout(gpointer data);
 
-gint get_height();
-gint get_width();
-
 void show_fs_controls();
 void hide_fs_controls();
 
