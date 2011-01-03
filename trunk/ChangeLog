@@ -1,4 +1,6 @@
 Development
+	Added VDPAU to the list of devices that ok to fail 
+		(found on Ubuntu mailing list, but never a bug opened or brought to my attention otherwise)
 	Use keyboard key 'd' to toggle framedropping mode
 	Run make indent on source
 	Enable compile with --enable-gseal (GTK3 prep)
