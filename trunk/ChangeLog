@@ -1,4 +1,5 @@
 Development
+	Use keyboard key 'd' to toggle framedropping mode
 	Run make indent on source
 	Enable compile with --enable-gseal (GTK3 prep)
 	Try to prevent and isolate GTK assertions
