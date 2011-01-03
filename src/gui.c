@@ -2049,7 +2049,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     // printf("state = %i\n",event->state);
     // printf("other = %i\n", event->state & ~GDK_CONTROL_MASK);
 
-    //printf("key name=%s\n", gdk_keyval_name(event->keyval));
+    // printf("key name=%s\n", gdk_keyval_name(event->keyval));
     // We don't want to handle CTRL accelerators here
     // if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
     if (get_visible(plvbox) && gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)))
@@ -2317,6 +2317,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three),
                                                TRUE);
             return FALSE;
+		case GDK_d:
+			send_command("frame_drop\nosd_show_property_text \"framedropping: ${framedropping}\"\n", TRUE);
+			return FALSE;
         case GDK_i:
             if (fullscreen) {
                 cmd = g_strdup_printf("osd_show_text '%s' 1500 0\n", idledata->display_name);
