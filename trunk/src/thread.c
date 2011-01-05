@@ -1309,8 +1309,10 @@ gpointer launch_player(gpointer data)
 */
 
     if (!use_hw_audio) {
+#ifndef OS_WIN32		
         argv[arg++] = g_strdup_printf("-af-add");
         argv[arg++] = g_strdup_printf("export=%s:512", idledata->af_export);
+#endif
     }
 
     if (g_strrstr(threaddata->filename, "apple.com")) {
