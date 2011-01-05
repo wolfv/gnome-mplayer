@@ -28,14 +28,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <glib.h>
+#ifdef DBUS_ENABLED
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib-lowlevel.h>
+#endif
 #include "support.h"
 #ifdef XSCRNSAVER_ENABLED
 #include <X11/extensions/scrnsaver.h>
 #endif
 
+#ifdef DBUS_ENABLED
 DBusConnection *connection;
+#endif
 uint ss_cookie;
 uint sm_cookie;
 gboolean screensaver_disabled;

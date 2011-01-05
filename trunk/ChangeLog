@@ -1,4 +1,5 @@
 Development
+	Add configure option --with-dbus/--without-dbus so that gnome-mplayer can be compiled without dbus
 	Added VDPAU to the list of devices that ok to fail 
 		(found on Ubuntu mailing list, but never a bug opened or brought to my attention otherwise)
 	Use keyboard key 'd' to toggle framedropping mode
