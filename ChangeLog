@@ -1,4 +1,5 @@
 Development
+	Detect and compile on Windows
 	Code cleanup around optional components
 	Work on tooltip flickering more, seems that when any tooltip is updated, the visible tooltip is
 		redrawn. May be a bug in GTK, but another app I am working on does not have this issue

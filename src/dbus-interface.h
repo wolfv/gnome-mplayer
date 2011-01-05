@@ -40,7 +40,7 @@
 #ifdef DBUS_ENABLED
 DBusConnection *connection;
 #endif
-uint ss_cookie;
-uint sm_cookie;
+guint ss_cookie;
+guint sm_cookie;
 gboolean screensaver_disabled;
 gboolean dbus_hookup(gint windowid, gint controlid);

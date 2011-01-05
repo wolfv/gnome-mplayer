@@ -4030,7 +4030,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 #else
             if (GTK_WIDGET_MAPPED(window))
                 gtk_widget_unmap(window);
-#endif
+#endif			
             gdk_window_reparent(get_window(window), gdk_window_lookup(embed_window), 0, 0);
             gtk_widget_map(window);
             gtk_window_move(GTK_WINDOW(window), 0, 0);
@@ -4089,8 +4089,14 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_fullscreen(GTK_WINDOW(window));
         } else {
             fs_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+#ifdef GTK2_18_ENABLED
+		    gdk_window_ensure_native(gtk_widget_get_window(fs_window));
+#else
 #ifdef GTK2_14_ENABLED
-            GDK_WINDOW_XID(get_window(GTK_WIDGET(fs_window)));
+#ifdef X11_ENABLED
+		    GDK_WINDOW_XID(get_window(GTK_WIDGET(fs_window)));
+#endif
+#endif
 #endif
             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
             g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
