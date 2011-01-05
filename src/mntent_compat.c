@@ -30,10 +30,9 @@
 #else
 #include "mntent_compat.h"
 #include <sys/param.h>
-//#include <sys/ucred.h>
-#include <sys/mount.h>
+#ifdef HAVE_FSTAB_H
 #include <fstab.h>
-
+#endif 
 struct statfs *getmntent_mntbufp;
 int getmntent_mntcount = 0;
 int getmntent_mntpos = 0;
@@ -43,8 +42,10 @@ struct mntent mntent_global_mntent;
 FILE *setmntent(char *filep, char *type)
 {
     getmntent_mntpos = 0;
-    getmntent_mntcount = getmntinfo(&getmntent_mntbufp, MNT_WAIT);
-    return (FILE *) 1;          // dummy
+#ifdef HAVE_SYS_MOUNT_H
+	getmntent_mntcount = getmntinfo(&getmntent_mntbufp, MNT_WAIT);
+#endif
+	return (FILE *) 1;          // dummy
 }
 
 void getmntent_addopt(char **c, const char *s)
@@ -57,6 +58,7 @@ void getmntent_addopt(char **c, const char *s)
 
 struct mntent *getmntent(FILE * filep)
 {
+#ifdef HAVE_SYS_MOUNT_H
     char *c = mntent_global_opts + 2;
     struct fstab *fst;
     if (getmntent_mntpos >= getmntent_mntcount)
@@ -124,6 +126,9 @@ struct mntent *getmntent(FILE * filep)
     }
     ++getmntent_mntpos;
     return &mntent_global_mntent;
+#else
+	return NULL;
+#endif	
 }
 
 int endmntent(FILE * filep)

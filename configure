@@ -9118,6 +9118,54 @@ fi
 
 done
 
+for ac_header in sys/ucred.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "sys/ucred.h" "ac_cv_header_sys_ucred_h" "$ac_includes_default"
+if test "x$ac_cv_header_sys_ucred_h" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_SYS_UCRED_H 1
+_ACEOF
+
+fi
+
+done
+
+for ac_header in sys/mount.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "sys/mount.h" "ac_cv_header_sys_mount_h" "$ac_includes_default"
+if test "x$ac_cv_header_sys_mount_h" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_SYS_MOUNT_H 1
+_ACEOF
+
+fi
+
+done
+
+for ac_header in fstab.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "fstab.h" "ac_cv_header_fstab_h" "$ac_includes_default"
+if test "x$ac_cv_header_fstab_h" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_FSTAB_H 1
+_ACEOF
+
+fi
+
+done
+
+for ac_header in signal.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "signal.h" "ac_cv_header_signal_h" "$ac_includes_default"
+if test "x$ac_cv_header_signal_h" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_SIGNAL_H 1
+_ACEOF
+
+fi
+
+done
+
 ac_config_files="$ac_config_files Makefile icons/Makefile icons/16x16/Makefile icons/22x22/Makefile icons/24x24/Makefile icons/32x32/Makefile icons/48x48/Makefile icons/scalable/Makefile src/Makefile src/libgmtk/Makefile src/libgmlib/Makefile po/Makefile.in gnome-mplayer.spec gnome-mplayer.schemas"
 
 cat >confcache <<\_ACEOF

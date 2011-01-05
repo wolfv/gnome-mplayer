@@ -263,6 +263,10 @@ if test x$CHECK_GPM = "xyes"; then
 fi
 
 AC_CHECK_HEADERS([mntent.h])
+AC_CHECK_HEADERS([sys/ucred.h])
+AC_CHECK_HEADERS([sys/mount.h])
+AC_CHECK_HEADERS([fstab.h])
+AC_CHECK_HEADERS([signal.h])
 AC_OUTPUT([
 Makefile
 icons/Makefile
