@@ -774,6 +774,7 @@ enable_option_checking
 enable_maintainer_mode
 enable_dependency_tracking
 with_gio
+with_dbus
 with_gconf
 with_gconf_source
 with_gconf_schema_file_dir
@@ -1472,6 +1473,8 @@ Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-gio              Use GIO for file I/O
+  --with-dbus             Enable DBUS support, DBUS is required when using
+                          with gecko-mediaplayer
   --with-gconf            Use Gconf to store preferences
   --with-gconf-source=sourceaddress
                           Config database for installing schema files.
@@ -8066,6 +8069,15 @@ fi
 fi
 
 
+# Check whether --with-dbus was given.
+if test "${with_dbus+set}" = set; then :
+  withval=$with_dbus;
+else
+  with_dbus=check
+fi
+
+if test "x$with_dbus" != xno; then :
+
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for DBUS" >&5
 $as_echo_n "checking for DBUS... " >&6; }
@@ -8140,6 +8152,8 @@ $as_echo "#define DBUS_ENABLED 1" >>confdefs.h
 fi
 
 
+
+fi
 
 
 pkg_failed=no
