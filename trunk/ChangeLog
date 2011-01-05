@@ -1,4 +1,6 @@
 Development
+	Work on tooltip flickering more, seems that when any tooltip is updated, the visible tooltip is
+		redrawn. May be a bug in GTK, but another app I am working on does not have this issue
 	Add configure option --with-dbus/--without-dbus so that gnome-mplayer can be compiled without dbus
 	Added VDPAU to the list of devices that ok to fail 
 		(found on Ubuntu mailing list, but never a bug opened or brought to my attention otherwise)
