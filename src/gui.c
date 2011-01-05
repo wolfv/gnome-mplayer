@@ -802,12 +802,16 @@ gboolean set_volume_from_slider(gpointer data)
 
 gboolean set_volume_tip(void *data)
 {
-
+	gchar *tip_text = NULL;
+	
     IdleData *idle = (IdleData *) data;
 
     if (GTK_IS_WIDGET(vol_slider)) {
 #ifdef GTK2_12_ENABLED
-        gtk_widget_set_tooltip_text(vol_slider, idle->vol_tooltip);
+		tip_text = gtk_widget_get_tooltip_text(vol_slider);
+		if (tip_text == NULL || g_ascii_strcasecmp(tip_text,idle->vol_tooltip) != 0)
+	        gtk_widget_set_tooltip_text(vol_slider, idle->vol_tooltip);
+		g_free(tip_text);
 #else
         gtk_tooltips_set_tip(volume_tip, vol_slider, idle->vol_tooltip, NULL);
 #endif
@@ -931,11 +935,16 @@ gboolean set_update_gui(void *data)
 
 gboolean set_gui_state(void *data)
 {
+	gchar *tip_text = NULL;
+	
     if (lastguistate != guistate) {
         if (guistate == PLAYING) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
 #ifdef GTK2_12_ENABLED
-            gtk_widget_set_tooltip_text(play_event_box, _("Pause"));
+			tip_text = gtk_widget_get_tooltip_text(play_event_box);
+			if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Pause")) != 0)
+	            gtk_widget_set_tooltip_text(play_event_box, _("Pause"));
+			g_free(tip_text);
 #else
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
 #endif
@@ -955,7 +964,10 @@ gboolean set_gui_state(void *data)
         if (guistate == PAUSED) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
 #ifdef GTK2_12_ENABLED
-            gtk_widget_set_tooltip_text(play_event_box, _("Play"));
+			tip_text = gtk_widget_get_tooltip_text(play_event_box);
+			if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
+	            gtk_widget_set_tooltip_text(play_event_box, _("Play"));
+			g_free(tip_text);
 #else
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
 #endif
@@ -974,7 +986,10 @@ gboolean set_gui_state(void *data)
         if (guistate == STOPPED) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
 #ifdef GTK2_12_ENABLED
-            gtk_widget_set_tooltip_text(play_event_box, _("Play"));
+			tip_text = gtk_widget_get_tooltip_text(play_event_box);
+			if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
+	            gtk_widget_set_tooltip_text(play_event_box, _("Play"));
+			g_free(tip_text);
 #else
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
 #endif

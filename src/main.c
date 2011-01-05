@@ -1246,7 +1246,7 @@ int main(int argc, char *argv[])
     }
     safe_to_save_default_playlist = TRUE;
 
-    g_object_set(gtk_settings_get_default(), "gtk-tooltip-timeout", 0, NULL);
+    //g_object_set(gtk_settings_get_default(), "gtk-tooltip-timeout", 1000, NULL);
 
     gtk_main();
 
