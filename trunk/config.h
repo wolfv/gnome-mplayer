@@ -115,6 +115,9 @@
 /* Define to 1 if your C compiler doesn't accept -c and -o together. */
 /* #undef NO_MINUS_C_MINUS_O */
 
+/* Define if we are on win32 */
+/* #undef OS_WIN32 */
+
 /* Name of package */
 #define PACKAGE "gnome-mplayer"
 

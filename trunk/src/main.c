@@ -605,7 +605,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     return 0;
 }
 
-#ifdef HAVE_SIGNAL_H	
+#ifndef OS_WIN32	
 static void hup_handler(int signum)
 {
     // printf("handling signal %i\n",signum);
@@ -617,13 +617,13 @@ int main(int argc, char *argv[])
 {
     struct stat buf;
     struct mntent *mnt = NULL;
-    FILE *fp;
+    FILE *fp = NULL;
     gchar *uri;
     gint fileindex = 1;
     GError *error = NULL;
     GOptionContext *context;
     gint i;
-#ifdef HAVE_SIGNAL_H	
+#ifndef OS_WIN32	
     struct sigaction sa;
 #endif
     gboolean playiter = FALSE;
@@ -764,17 +764,25 @@ int main(int argc, char *argv[])
     skip_fixed_allocation_on_show = FALSE;
     skip_fixed_allocation_on_hide = FALSE;
 
-#ifdef HAVE_SIGNAL_H	
+#ifndef OS_WIN32	
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
+#ifdef SA_RESTART	
     sa.sa_flags = SA_RESTART;   /* Restart functions if
                                    interrupted by handler */
+#endif
+#ifdef SIGINT
     if (sigaction(SIGINT, &sa, NULL) == -1)
         printf("SIGINT signal handler not installed\n");
+#endif
+#ifdef SIGHUP	
     if (sigaction(SIGHUP, &sa, NULL) == -1)
         printf("SIGHUP signal handler not installed\n");
+#endif
+#ifdef SIGTERM		
     if (sigaction(SIGTERM, &sa, NULL) == -1)
         printf("SIGTERM signal handler not installed\n");
+#endif
 #endif
 		
     // call g_type_init or otherwise we can crash
