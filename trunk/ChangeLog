@@ -1,4 +1,6 @@
 Development
+	Run make indent
+	Fix crash in File->Open TV->Analog TV
 	My Windows mplayer doesn't have the export filter in it
 	Detect and compile on Windows
 	Code cleanup around optional components

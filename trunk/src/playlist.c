@@ -836,8 +836,8 @@ void create_playlist_widget()
     GtkWidget *undo;
     GtkTreePath *path;
     GtkAccelGroup *accel_group;
-	GtkIconTheme *icon_theme;
-	
+    GtkIconTheme *icon_theme;
+
 #ifdef GTK2_12_ENABLED
 #else
     GtkTooltips *tooltip;
@@ -1119,11 +1119,12 @@ void create_playlist_widget()
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, repeat, _("Loop Playlist"), NULL);
 #endif
-	icon_theme = gtk_icon_theme_get_default();
-	if (gtk_icon_theme_has_icon(icon_theme,"media-playlist-repeat")) {
-	    gtk_button_set_image(GTK_BUTTON(repeat),
-                         gtk_image_new_from_icon_name("media-playlist-repeat", GTK_ICON_SIZE_MENU));
-	}
+    icon_theme = gtk_icon_theme_get_default();
+    if (gtk_icon_theme_has_icon(icon_theme, "media-playlist-repeat")) {
+        gtk_button_set_image(GTK_BUTTON(repeat),
+                             gtk_image_new_from_icon_name("media-playlist-repeat",
+                                                          GTK_ICON_SIZE_MENU));
+    }
     gtk_box_pack_start(GTK_BOX(ctrlbox), repeat, FALSE, FALSE, 0);
     g_signal_connect(GTK_OBJECT(repeat), "clicked", G_CALLBACK(repeat_callback), NULL);
     gtk_widget_set_sensitive(repeat, TRUE);
@@ -1135,11 +1136,11 @@ void create_playlist_widget()
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, shuffle, _("Shuffle Playlist"), NULL);
 #endif
-	if (gtk_icon_theme_has_icon(icon_theme,"media-playlist-shuffle")) {
-		gtk_button_set_image(GTK_BUTTON(shuffle),
-                         gtk_image_new_from_icon_name("media-playlist-shuffle",
-                                                      GTK_ICON_SIZE_MENU));
-	}
+    if (gtk_icon_theme_has_icon(icon_theme, "media-playlist-shuffle")) {
+        gtk_button_set_image(GTK_BUTTON(shuffle),
+                             gtk_image_new_from_icon_name("media-playlist-shuffle",
+                                                          GTK_ICON_SIZE_MENU));
+    }
     gtk_box_pack_start(GTK_BOX(ctrlbox), shuffle, FALSE, FALSE, 0);
     g_signal_connect(GTK_OBJECT(shuffle), "clicked", G_CALLBACK(shuffle_callback), NULL);
     gtk_widget_set_sensitive(shuffle, TRUE);
