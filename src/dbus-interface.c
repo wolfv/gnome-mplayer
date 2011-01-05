@@ -46,7 +46,7 @@ indent -kr -l100 -i4 -nut
 
 */
 
-#ifdef DBUS_ENABLED	
+#ifdef DBUS_ENABLED
 
 static DBusHandlerResult filter_func(DBusConnection * connection,
                                      DBusMessage * message, void *user_data)
@@ -822,7 +822,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
 void dbus_open_by_hrefid(gchar * hrefid)
 {
-#ifdef DBUS_ENABLED	
+#ifdef DBUS_ENABLED
     gchar *path;
     DBusMessage *message;
     gchar *id;
@@ -839,12 +839,12 @@ void dbus_open_by_hrefid(gchar * hrefid)
         g_free(path);
     }
     g_free(id);
-#endif	
+#endif
 }
 
 void dbus_open_next()
 {
-#ifdef DBUS_ENABLED	
+#ifdef DBUS_ENABLED
     gchar *path;
     DBusMessage *message;
 
@@ -884,7 +884,7 @@ void dbus_open(gchar * arg)
 
 void dbus_set_playlist_name(gchar * arg)
 {
-#ifdef DBUS_ENABLED	
+#ifdef DBUS_ENABLED
     gchar *path;
     gchar *localarg;
     DBusMessage *message;
@@ -899,12 +899,12 @@ void dbus_set_playlist_name(gchar * arg)
         g_free(localarg);
         g_free(path);
     }
-#endif	
+#endif
 }
 
 void dbus_cancel()
 {
-#ifdef DBUS_ENABLED	
+#ifdef DBUS_ENABLED
     gchar *path;
     DBusMessage *message;
     gint id;
@@ -923,7 +923,7 @@ void dbus_cancel()
 
 void dbus_send_rpsignal(gchar * signal)
 {
-#ifdef DBUS_ENABLED	
+#ifdef DBUS_ENABLED
     gchar *path;
     gchar *localsignal;
     DBusMessage *message;
@@ -943,12 +943,12 @@ void dbus_send_rpsignal(gchar * signal)
         g_free(localsignal);
         g_free(path);
     }
-#endif	
+#endif
 }
 
 void dbus_send_rpsignal_with_int(gchar * signal, int value)
 {
-#ifdef DBUS_ENABLED	
+#ifdef DBUS_ENABLED
     gchar *path;
     gchar *localsignal;
     DBusMessage *message;
@@ -969,12 +969,12 @@ void dbus_send_rpsignal_with_int(gchar * signal, int value)
         g_free(localsignal);
         g_free(path);
     }
-#endif	
+#endif
 }
 
 void dbus_send_rpsignal_with_double(gchar * signal, gdouble value)
 {
-#ifdef DBUS_ENABLED	
+#ifdef DBUS_ENABLED
     gchar *path;
     gchar *localsignal;
     DBusMessage *message;
@@ -1000,8 +1000,8 @@ void dbus_send_rpsignal_with_double(gchar * signal, gdouble value)
 
 void dbus_send_rpsignal_with_string(gchar * signal, gchar * value)
 {
-#ifdef DBUS_ENABLED	
-	gchar *path;
+#ifdef DBUS_ENABLED
+    gchar *path;
     gchar *localsignal;
     DBusMessage *message;
     gint id;
@@ -1029,8 +1029,8 @@ void dbus_send_rpsignal_with_string(gchar * signal, gchar * value)
 
 void dbus_reload_plugins()
 {
-#ifdef DBUS_ENABLED	
-	gchar *path;
+#ifdef DBUS_ENABLED
+    gchar *path;
     DBusMessage *message;
 
     if (connection != NULL && control_id != 0) {
@@ -1045,8 +1045,8 @@ void dbus_reload_plugins()
 
 void dbus_send_event(gchar * event, gint button)
 {
-#ifdef DBUS_ENABLED	
-	gchar *path;
+#ifdef DBUS_ENABLED
+    gchar *path;
     gchar *localevent;
     gint localbutton = 0;
     DBusMessage *message;
@@ -1079,8 +1079,8 @@ gboolean GetProperty(gchar * property)
 
 gboolean dbus_hookup(gint windowid, gint controlid)
 {
-#ifdef DBUS_ENABLED	
-	
+#ifdef DBUS_ENABLED
+
     DBusError error;
     DBusBusType type = DBUS_BUS_SESSION;
     gchar *match;
@@ -1166,7 +1166,7 @@ gboolean dbus_hookup(gint windowid, gint controlid)
         }
     }
 #endif
-	screensaver_disabled = FALSE;
+    screensaver_disabled = FALSE;
 
     return TRUE;
 }
@@ -1174,10 +1174,10 @@ gboolean dbus_hookup(gint windowid, gint controlid)
 void dbus_unhook()
 {
     dbus_enable_screensaver();
-#ifdef DBUS_ENABLED	
-	if (connection != NULL) {
+#ifdef DBUS_ENABLED
+    if (connection != NULL) {
         // dbus_connection_close(connection);
-		dbus_connection_unref(connection);
+        dbus_connection_unref(connection);
         connection = NULL;
     }
 #endif
@@ -1186,8 +1186,8 @@ void dbus_unhook()
 void dbus_enable_screensaver()
 {
 #if SM_INHIBIT || SS_INHIBIT
-#ifdef DBUS_ENABLED	
-	DBusMessage *message;
+#ifdef DBUS_ENABLED
+    DBusMessage *message;
 #endif
 #endif
 
@@ -1199,28 +1199,28 @@ void dbus_enable_screensaver()
 #endif
 
         } else {
-#ifdef DBUS_ENABLED	
-			if (connection != NULL) {	
+#ifdef DBUS_ENABLED
+            if (connection != NULL) {
 #if SM_INHIBIT
-		        message =
-		            dbus_message_new_method_call("org.gnome.SessionManager",
-		                                         "/org/gnome/SessionManager",
-		                                         "org.gnome.SessionManager", "UnInhibit");
-		        dbus_message_append_args(message, DBUS_TYPE_INT32, &sm_cookie, DBUS_TYPE_INVALID);
-		        dbus_connection_send(connection, message, NULL);
-		        dbus_message_unref(message);
+                message =
+                    dbus_message_new_method_call("org.gnome.SessionManager",
+                                                 "/org/gnome/SessionManager",
+                                                 "org.gnome.SessionManager", "UnInhibit");
+                dbus_message_append_args(message, DBUS_TYPE_INT32, &sm_cookie, DBUS_TYPE_INVALID);
+                dbus_connection_send(connection, message, NULL);
+                dbus_message_unref(message);
 #endif
 #if SS_INHIBIT
-		        message =
-		            dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-		                                         "org.gnome.ScreenSaver", "UnInhibit");
-		        dbus_message_append_args(message, DBUS_TYPE_INT32, &ss_cookie, DBUS_TYPE_INVALID);
-		        dbus_connection_send(connection, message, NULL);
-		        dbus_message_unref(message);
+                message =
+                    dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+                                                 "org.gnome.ScreenSaver", "UnInhibit");
+                dbus_message_append_args(message, DBUS_TYPE_INT32, &ss_cookie, DBUS_TYPE_INVALID);
+                dbus_connection_send(connection, message, NULL);
+                dbus_message_unref(message);
 #endif
-			}
+            }
 #endif
-		}
+        }
         screensaver_disabled = FALSE;
     }
 }
@@ -1228,7 +1228,7 @@ void dbus_enable_screensaver()
 void dbus_disable_screensaver()
 {
 #if SM_INHIBIT || SS_INHIBIT
-#ifdef DBUS_ENABLED	
+#ifdef DBUS_ENABLED
     DBusError error;
     DBusMessage *reply_message;
     DBusMessage *message;
@@ -1237,7 +1237,7 @@ void dbus_disable_screensaver()
     gint flags;
 #endif
 #endif
-	
+
     if (screensaver_disabled == FALSE) {
         if (use_xscrnsaver) {
 
@@ -1246,54 +1246,54 @@ void dbus_disable_screensaver()
 #endif
 
         } else {
-#ifdef DBUS_ENABLED	
-			if (connection != NULL) {
+#ifdef DBUS_ENABLED
+            if (connection != NULL) {
 #if SS_INHIBIT
-		        dbus_error_init(&error);
-		        message =
-		            dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
-		                                         "org.gnome.ScreenSaver", "Inhibit");
-		        app = g_strdup_printf("gnome-mplayer");
-		        reason = g_strdup_printf("playback");
-		        dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
-		                                 DBUS_TYPE_INVALID);
-		        reply_message =
-		            dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
+                dbus_error_init(&error);
+                message =
+                    dbus_message_new_method_call("org.gnome.ScreenSaver", "/org/gnome/ScreenSaver",
+                                                 "org.gnome.ScreenSaver", "Inhibit");
+                app = g_strdup_printf("gnome-mplayer");
+                reason = g_strdup_printf("playback");
+                dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
+                                         DBUS_TYPE_INVALID);
+                reply_message =
+                    dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
 
-		        if (reply_message) {
-		            dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &ss_cookie, NULL);
-		            dbus_message_unref(reply_message);
-		        }
+                if (reply_message) {
+                    dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &ss_cookie, NULL);
+                    dbus_message_unref(reply_message);
+                }
 
-		        dbus_message_unref(message);
-		        dbus_error_free(&error);
+                dbus_message_unref(message);
+                dbus_error_free(&error);
 #endif
 
 #if SM_INHIBIT
-		        dbus_error_init(&error);
-		        message =
-		            dbus_message_new_method_call("org.gnome.SessionManager",
-		                                         "/org/gnome/SessionManager",
-		                                         "org.gnome.SessionManager", "Inhibit");
-		        app = g_strdup_printf("gnome-mplayer");
-		        reason = g_strdup_printf("playback");
-		        flags = 8;
-		        dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32,
-		                                 &(idledata->windowid), DBUS_TYPE_STRING, &reason,
-		                                 DBUS_TYPE_UINT32, &flags, DBUS_TYPE_INVALID);
-		        reply_message =
-		            dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
+                dbus_error_init(&error);
+                message =
+                    dbus_message_new_method_call("org.gnome.SessionManager",
+                                                 "/org/gnome/SessionManager",
+                                                 "org.gnome.SessionManager", "Inhibit");
+                app = g_strdup_printf("gnome-mplayer");
+                reason = g_strdup_printf("playback");
+                flags = 8;
+                dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32,
+                                         &(idledata->windowid), DBUS_TYPE_STRING, &reason,
+                                         DBUS_TYPE_UINT32, &flags, DBUS_TYPE_INVALID);
+                reply_message =
+                    dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
 
-		        if (reply_message) {
-		            dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &sm_cookie, NULL);
-		            dbus_message_unref(reply_message);
-		        }
+                if (reply_message) {
+                    dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &sm_cookie, NULL);
+                    dbus_message_unref(reply_message);
+                }
 
-		        dbus_message_unref(message);
-		        dbus_error_free(&error);
+                dbus_message_unref(message);
+                dbus_error_free(&error);
 #endif
-			}
-#endif			
+            }
+#endif
         }
 
         screensaver_disabled = TRUE;

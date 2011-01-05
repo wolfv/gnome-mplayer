@@ -151,7 +151,7 @@ gint get_player_window()
             gtk_widget_realize(GTK_WIDGET(drawing_area));
         }
 #endif
-        return (gint)gtk_socket_get_id(GTK_SOCKET(drawing_area));
+        return (gint) gtk_socket_get_id(GTK_SOCKET(drawing_area));
     } else {
         return 0;
     }
@@ -455,7 +455,7 @@ gboolean set_media_info(void *data)
         name = g_strdup(idle->display_name);
 
         total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
-        if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+        if (total > 0 && gtk_list_store_iter_is_valid(playliststore, &iter)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
             if (path != NULL) {
                 buf = gtk_tree_path_to_string(path);
@@ -636,7 +636,8 @@ gboolean set_progress_value(void *data)
         gmtk_media_tracker_set_cache_percentage(tracker, idle->cachepercent);
     }
 
-    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 0
+        && gtk_list_store_iter_is_valid(playliststore, &iter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iteruri, -1);
     }
 
@@ -802,16 +803,16 @@ gboolean set_volume_from_slider(gpointer data)
 
 gboolean set_volume_tip(void *data)
 {
-	gchar *tip_text = NULL;
-	
+    gchar *tip_text = NULL;
+
     IdleData *idle = (IdleData *) data;
 
     if (GTK_IS_WIDGET(vol_slider)) {
 #ifdef GTK2_12_ENABLED
-		tip_text = gtk_widget_get_tooltip_text(vol_slider);
-		if (tip_text == NULL || g_ascii_strcasecmp(tip_text,idle->vol_tooltip) != 0)
-	        gtk_widget_set_tooltip_text(vol_slider, idle->vol_tooltip);
-		g_free(tip_text);
+        tip_text = gtk_widget_get_tooltip_text(vol_slider);
+        if (tip_text == NULL || g_ascii_strcasecmp(tip_text, idle->vol_tooltip) != 0)
+            gtk_widget_set_tooltip_text(vol_slider, idle->vol_tooltip);
+        g_free(tip_text);
 #else
         gtk_tooltips_set_tip(volume_tip, vol_slider, idle->vol_tooltip, NULL);
 #endif
@@ -935,16 +936,16 @@ gboolean set_update_gui(void *data)
 
 gboolean set_gui_state(void *data)
 {
-	gchar *tip_text = NULL;
-	
+    gchar *tip_text = NULL;
+
     if (lastguistate != guistate) {
         if (guistate == PLAYING) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_pause);
 #ifdef GTK2_12_ENABLED
-			tip_text = gtk_widget_get_tooltip_text(play_event_box);
-			if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Pause")) != 0)
-	            gtk_widget_set_tooltip_text(play_event_box, _("Pause"));
-			g_free(tip_text);
+            tip_text = gtk_widget_get_tooltip_text(play_event_box);
+            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Pause")) != 0)
+                gtk_widget_set_tooltip_text(play_event_box, _("Pause"));
+            g_free(tip_text);
 #else
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
 #endif
@@ -964,10 +965,10 @@ gboolean set_gui_state(void *data)
         if (guistate == PAUSED) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
 #ifdef GTK2_12_ENABLED
-			tip_text = gtk_widget_get_tooltip_text(play_event_box);
-			if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
-	            gtk_widget_set_tooltip_text(play_event_box, _("Play"));
-			g_free(tip_text);
+            tip_text = gtk_widget_get_tooltip_text(play_event_box);
+            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
+                gtk_widget_set_tooltip_text(play_event_box, _("Play"));
+            g_free(tip_text);
 #else
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
 #endif
@@ -986,10 +987,10 @@ gboolean set_gui_state(void *data)
         if (guistate == STOPPED) {
             gtk_image_set_from_pixbuf(GTK_IMAGE(image_play), pb_play);
 #ifdef GTK2_12_ENABLED
-			tip_text = gtk_widget_get_tooltip_text(play_event_box);
-			if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
-	            gtk_widget_set_tooltip_text(play_event_box, _("Play"));
-			g_free(tip_text);
+            tip_text = gtk_widget_get_tooltip_text(play_event_box);
+            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
+                gtk_widget_set_tooltip_text(play_event_box, _("Play"));
+            g_free(tip_text);
 #else
             gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
 #endif
@@ -1043,7 +1044,7 @@ gboolean set_metadata(gpointer data)
                                    VIDEO_WIDTH_COLUMN, mdata->width, VIDEO_HEIGHT_COLUMN,
                                    mdata->height, PLAYABLE_COLUMN, mdata->playable, -1);
 
-                if (mdata->playable == FALSE) {
+                if (mdata != NULL && mdata->playable == FALSE) {
                     gtk_list_store_remove(playliststore, &riter);
                     g_idle_add(set_media_info, idledata);
                 }
@@ -2332,9 +2333,10 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three),
                                                TRUE);
             return FALSE;
-		case GDK_d:
-			send_command("frame_drop\nosd_show_property_text \"framedropping: ${framedropping}\"\n", TRUE);
-			return FALSE;
+        case GDK_d:
+            send_command("frame_drop\nosd_show_property_text \"framedropping: ${framedropping}\"\n",
+                         TRUE);
+            return FALSE;
         case GDK_i:
             if (fullscreen) {
                 cmd = g_strdup_printf("osd_show_text '%s' 1500 0\n", idledata->display_name);
@@ -4030,7 +4032,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 #else
             if (GTK_WIDGET_MAPPED(window))
                 gtk_widget_unmap(window);
-#endif			
+#endif
             gdk_window_reparent(get_window(window), gdk_window_lookup(embed_window), 0, 0);
             gtk_widget_map(window);
             gtk_window_move(GTK_WINDOW(window), 0, 0);
@@ -4090,11 +4092,11 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         } else {
             fs_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 #ifdef GTK2_18_ENABLED
-		    gdk_window_ensure_native(gtk_widget_get_window(fs_window));
+            gdk_window_ensure_native(gtk_widget_get_window(fs_window));
 #else
 #ifdef GTK2_14_ENABLED
 #ifdef X11_ENABLED
-		    GDK_WINDOW_XID(get_window(GTK_WIDGET(fs_window)));
+            GDK_WINDOW_XID(get_window(GTK_WIDGET(fs_window)));
 #endif
 #endif
 #endif

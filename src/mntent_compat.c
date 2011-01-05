@@ -32,7 +32,7 @@
 #include <sys/param.h>
 #ifdef HAVE_FSTAB_H
 #include <fstab.h>
-#endif 
+#endif
 struct statfs *getmntent_mntbufp;
 int getmntent_mntcount = 0;
 int getmntent_mntpos = 0;
@@ -43,9 +43,9 @@ FILE *setmntent(char *filep, char *type)
 {
     getmntent_mntpos = 0;
 #ifdef HAVE_SYS_MOUNT_H
-	getmntent_mntcount = getmntinfo(&getmntent_mntbufp, MNT_WAIT);
+    getmntent_mntcount = getmntinfo(&getmntent_mntbufp, MNT_WAIT);
 #endif
-	return (FILE *) 1;          // dummy
+    return (FILE *) 1;          // dummy
 }
 
 void getmntent_addopt(char **c, const char *s)
@@ -127,8 +127,8 @@ struct mntent *getmntent(FILE * filep)
     ++getmntent_mntpos;
     return &mntent_global_mntent;
 #else
-	return NULL;
-#endif	
+    return NULL;
+#endif
 }
 
 int endmntent(FILE * filep)
