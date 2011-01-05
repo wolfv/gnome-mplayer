@@ -46,6 +46,9 @@
 /* Define to 1 if you have the `dcgettext' function. */
 #define HAVE_DCGETTEXT 1
 
+/* Define to 1 if you have the <fstab.h> header file. */
+#define HAVE_FSTAB_H 1
+
 /* Define to 1 to use GConf to store preferences */
 #define HAVE_GCONF 1
 
@@ -70,6 +73,9 @@
 /* defined if you build the nautilus plugin */
 #define HAVE_NAUTILUS 1
 
+/* Define to 1 if you have the <signal.h> header file. */
+#define HAVE_SIGNAL_H 1
+
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
 
@@ -82,11 +88,17 @@
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
 
+/* Define to 1 if you have the <sys/mount.h> header file. */
+#define HAVE_SYS_MOUNT_H 1
+
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
 
 /* Define to 1 if you have the <sys/types.h> header file. */
 #define HAVE_SYS_TYPES_H 1
+
+/* Define to 1 if you have the <sys/ucred.h> header file. */
+/* #undef HAVE_SYS_UCRED_H */
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1

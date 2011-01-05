@@ -605,11 +605,13 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     return 0;
 }
 
+#ifdef HAVE_SIGNAL_H	
 static void hup_handler(int signum)
 {
     // printf("handling signal %i\n",signum);
     delete_callback(NULL, NULL, NULL);
 }
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -621,7 +623,9 @@ int main(int argc, char *argv[])
     GError *error = NULL;
     GOptionContext *context;
     gint i;
+#ifdef HAVE_SIGNAL_H	
     struct sigaction sa;
+#endif
     gboolean playiter = FALSE;
 
 #ifdef GIO_ENABLED
@@ -760,6 +764,7 @@ int main(int argc, char *argv[])
     skip_fixed_allocation_on_show = FALSE;
     skip_fixed_allocation_on_hide = FALSE;
 
+#ifdef HAVE_SIGNAL_H	
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;   /* Restart functions if
@@ -770,7 +775,8 @@ int main(int argc, char *argv[])
         printf("SIGHUP signal handler not installed\n");
     if (sigaction(SIGTERM, &sa, NULL) == -1)
         printf("SIGTERM signal handler not installed\n");
-
+#endif
+		
     // call g_type_init or otherwise we can crash
     g_type_init();
 
@@ -1060,6 +1066,7 @@ int main(int argc, char *argv[])
         if (S_ISBLK(buf.st_mode)) {
             // might have a block device, so could be a DVD
 
+#ifdef HAVE_SYS_MOUNT_H			
             fp = setmntent("/etc/mtab", "r");
             do {
                 mnt = getmntent(fp);
@@ -1072,7 +1079,7 @@ int main(int argc, char *argv[])
             }
             while (mnt);
             endmntent(fp);
-
+#endif
             if (mnt) {
                 printf("%s is mounted on %s\n", argv[fileindex], mnt->mnt_dir);
                 uri = g_strdup_printf("%s/VIDEO_TS", mnt->mnt_dir);

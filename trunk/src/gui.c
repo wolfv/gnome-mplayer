@@ -151,7 +151,7 @@ gint get_player_window()
             gtk_widget_realize(GTK_WIDGET(drawing_area));
         }
 #endif
-        return gtk_socket_get_id(GTK_SOCKET(drawing_area));
+        return (gint)gtk_socket_get_id(GTK_SOCKET(drawing_area));
     } else {
         return 0;
     }

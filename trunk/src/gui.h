@@ -28,7 +28,9 @@
 #endif
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+#ifdef X11_ENABLED
 #include <gdk/gdkx.h>
+#endif
 #include "libgmlib/gmlib.h"
 #include "libgmtk/gmtk.h"
 #include <gdk/gdkkeysyms.h>

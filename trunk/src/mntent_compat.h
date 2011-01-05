@@ -33,9 +33,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/param.h>
+#ifdef HAVE_SYS_UCRED_H
 #include <sys/ucred.h>
+#endif
+#ifdef HAVE_SYS_MOUNT_H
 #include <sys/mount.h>
-
+#endif 
 #define MOUNTED "mounted"
 #define MNTTYPE_NFS "nfs"
 
