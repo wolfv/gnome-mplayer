@@ -3472,9 +3472,11 @@ void parseChannels(FILE * f)
 
 void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
 {
-    gtk_list_store_clear(playliststore);
     FILE *fi;                   // FILE pointer to use to open the conf file
     gchar *mpconf;
+
+    gtk_list_store_clear(playliststore);
+	
     mpconf = g_strdup_printf("%s/.mplayer/channels.conf", g_getenv("HOME"));
     fi = fopen(mpconf, "r");    // Make sure this is pointing to
     // the appropriate file
@@ -3484,7 +3486,8 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
     } else {
         printf("Unable to open the config file\n");     //can change this to whatever error message system is used
     }
-
+	g_free(mpconf);
+	
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         play_iter(&iter, 0);
