@@ -1,4 +1,5 @@
 Development
+	Bump QuickTime emulated version to 7.6.9
 	Fix crash in File->Open TV->Analog TV when tried multiple times
 	Run make indent
 	Fix crash in File->Open TV->Analog TV
