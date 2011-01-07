@@ -1967,7 +1967,8 @@ gboolean next_item_in_playlist(GtkTreeIter * iter)
 {
     gint i, j, k;
 
-    if (!gtk_list_store_iter_is_valid(playliststore, iter)) {
+    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 0
+        || !gtk_list_store_iter_is_valid(playliststore, iter)) {
         return FALSE;
     } else {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &i, -1);
