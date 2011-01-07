@@ -499,7 +499,8 @@ gboolean set_media_label(void *data)
 
         pixbuf = NULL;
         gtk_image_clear(GTK_IMAGE(cover_art));
-        if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 0 
+            && gtk_list_store_iter_is_valid(playliststore, &iter)) {
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COVERART_COLUMN, &pixbuf, -1);
         }
         if (pixbuf != NULL) {
