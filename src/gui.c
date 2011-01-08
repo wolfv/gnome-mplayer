@@ -5906,8 +5906,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_show(conf_label);
-    config_plugin_audio_cache_size = gtk_spin_button_new_with_range(32, 256 * 1024, 128);
-    config_plugin_video_cache_size = gtk_spin_button_new_with_range(32, 256 * 1024, 512);
+    config_plugin_audio_cache_size = gtk_spin_button_new_with_range(64, 256 * 1024, 64);
+    config_plugin_video_cache_size = gtk_spin_button_new_with_range(256, 256 * 1024, 256);
 #ifdef GTK2_12_ENABLED
     gtk_widget_set_tooltip_text(config_plugin_audio_cache_size,
                                 _
