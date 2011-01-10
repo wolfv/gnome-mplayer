@@ -1,4 +1,5 @@
 Development
+	Updated Korean translation from Byeongsik Jeon
 	Adjust video and audio cache size minimum and incremental values
 	Correct minor memory leak
 	Bump QuickTime emulated version to 7.6.9
