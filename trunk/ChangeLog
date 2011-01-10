@@ -1,4 +1,5 @@
 Development
+	Set user agent to Mozilla/5.0 unless it is an apple.com site, then set it to the QuickTime value
 	Added Ukranian translation
 	Updated Portugese and Spanish translation
 	Updated Korean translation from Byeongsik Jeon
