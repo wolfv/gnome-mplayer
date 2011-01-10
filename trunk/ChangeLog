@@ -1,4 +1,6 @@
 Development
+	Added Ukranian translation
+	Updated Portugese and Spanish translation
 	Updated Korean translation from Byeongsik Jeon
 	Adjust video and audio cache size minimum and incremental values
 	Correct minor memory leak
