@@ -749,7 +749,7 @@ int main(int argc, char *argv[])
     max_data = NULL;
     details_table = NULL;
     large_buttons = FALSE;
-    button_size = 16;
+    button_size = GTK_ICON_SIZE_BUTTON;
     lastguistate = -1;
     non_fs_height = 0;
     non_fs_width = 0;
@@ -1001,7 +1001,7 @@ int main(int argc, char *argv[])
     use_volume_option = detect_volume_option();
 
     if (large_buttons)
-        button_size = 48;
+        button_size = GTK_ICON_SIZE_DIALOG;
 
     if (playlist_visible && control_id != 0)
         playlist_visible = FALSE;

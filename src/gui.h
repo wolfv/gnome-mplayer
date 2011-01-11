@@ -175,15 +175,6 @@ GtkWidget *details_audio_bitrate;
 GtkWidget *details_audio_samplerate;
 
 GtkWidget *drawing_area;
-GdkPixbuf *pb_play;
-GdkPixbuf *pb_pause;
-GdkPixbuf *pb_stop;
-GdkPixbuf *pb_ff;
-GdkPixbuf *pb_rew;
-GdkPixbuf *pb_fs;
-GdkPixbuf *pb_next;
-GdkPixbuf *pb_prev;
-GdkPixbuf *pb_menu;
 GdkPixbuf *pb_icon;
 GdkPixbuf *pb_button;
 

@@ -400,7 +400,7 @@ gchar *gpod_mount_point;
 gboolean disable_cover_art_fetch;
 gboolean updating_recent;
 gboolean large_buttons;
-gint button_size;
+GtkIconSize button_size;
 gboolean use_xscrnsaver;
 gboolean skip_fixed_allocation_on_show;
 gboolean skip_fixed_allocation_on_hide;
