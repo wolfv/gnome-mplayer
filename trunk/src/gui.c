@@ -7063,7 +7063,7 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_ipod =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _iPod™")));
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_ipod),
-                                  gtk_image_new_from_icon_name("ipod", GTK_ICON_SIZE_MENU));
+                                  gtk_image_new_from_icon_name("multimedia-player", GTK_ICON_SIZE_MENU));
 
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_ipod));
 #endif
