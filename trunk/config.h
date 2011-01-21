@@ -19,6 +19,9 @@
 /* Define to 1 if you have GLIB 2.14 or higher */
 #define GLIB2_14_ENABLED 1
 
+/* Define to 1 if you have GLIB 2.26 or higher */
+/* #undef GLIB2_26_ENABLED */
+
 /* Define to 1 if you have gpod support */
 #define GPOD_ENABLED 1
 
@@ -35,7 +38,7 @@
 #define GTK2_20_ENABLED 1
 
 /* Define to 1 if you have GTK 2.22 or higher */
-#define GTK2_22_ENABLED 1
+/* #undef GTK2_22_ENABLED */
 
 /* Define to 1 if you have asoundlib development packages */
 #define HAVE_ASOUNDLIB 1
@@ -71,7 +74,7 @@
 #define HAVE_MNTENT_H 1
 
 /* defined if you build the nautilus plugin */
-#define HAVE_NAUTILUS 1
+/* #undef HAVE_NAUTILUS */
 
 /* Define to 1 if you have the <signal.h> header file. */
 #define HAVE_SIGNAL_H 1
