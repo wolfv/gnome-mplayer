@@ -13,6 +13,7 @@ INCLUDES = \
 	$(DBUS_CFLAGS) \
 	$(GCONF_CFLAGS) \
 	$(ALSA_CFLAGS) \
+	$(PULSE_CFLAGS) \
     $(NOTIFY_CFLAGS) \
     $(GPOD_CFLAGS) \
     $(MUSICBRAINZ_CFLAGS) \
@@ -74,6 +75,7 @@ gnome_mplayer_LDADD = \
     $(DBUS_LIBS) \
     $(GCONF_LIBS) \
     $(ALSA_LIBS) \
+	$(PULSE_LIBS) \
     $(NOTIFY_LIBS) \
     $(GPOD_LIBS) \
     $(MUSICBRAINZ_LIBS) \
