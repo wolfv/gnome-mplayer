@@ -20,4 +20,5 @@ libgmlib_a_CFLAGS = -fPIC \
 	$(GCONF_CFLAGS) \
 	$(GIO_CFLAGS) \
 	$(GCONF_DEFINES) \
-	$(GIO_DEFINES)
+	$(GIO_DEFINES) \
+	$(GLIB2_26_DEFINES)

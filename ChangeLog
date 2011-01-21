@@ -1,4 +1,5 @@
 Development
+	Detect if we are using glib2 2.26 or higher
 	Change icon from ipod to multimedia-player Issue #476
 	Switch to using stock icons where possible 
 	Add Russian entries to desktop file
