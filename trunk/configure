@@ -616,6 +616,9 @@ LIBNOTIFY_07_LIBS
 LIBNOTIFY_07_CFLAGS
 NOTIFY_LIBS
 NOTIFY_CFLAGS
+PULSE_DEFINES
+PULSE_LIBS
+PULSE_CFLAGS
 ALSA_DEFINES
 ALSA_LIBS
 ALSA_CFLAGS
@@ -783,6 +786,7 @@ with_gconf_source
 with_gconf_schema_file_dir
 enable_schemas_install
 with_alsa
+with_pulseaudio
 with_libnotify
 with_libgpod
 with_libmusicbrainz3
@@ -836,6 +840,8 @@ GCONF_CFLAGS
 GCONF_LIBS
 ALSA_CFLAGS
 ALSA_LIBS
+PULSE_CFLAGS
+PULSE_LIBS
 NOTIFY_CFLAGS
 NOTIFY_LIBS
 LIBNOTIFY_07_CFLAGS
@@ -1484,6 +1490,7 @@ Optional Packages:
   --with-gconf-schema-file-dir=dir
                           Directory for installing schema files.
   --with-alsa             Read volume from alsa devices
+  --with-pulseaudio       PulseAudio device and volume support
   --with-libnotify        Send notifications of new media
   --with-libgpod          Add support for libgpod
   --with-libmusicbrainz3  Add support for libmusicbrainz3
@@ -1552,6 +1559,9 @@ Some influential environment variables:
   GCONF_LIBS  linker flags for GCONF, overriding pkg-config
   ALSA_CFLAGS C compiler flags for ALSA, overriding pkg-config
   ALSA_LIBS   linker flags for ALSA, overriding pkg-config
+  PULSE_CFLAGS
+              C compiler flags for PULSE, overriding pkg-config
+  PULSE_LIBS  linker flags for PULSE, overriding pkg-config
   NOTIFY_CFLAGS
               C compiler flags for NOTIFY, overriding pkg-config
   NOTIFY_LIBS linker flags for NOTIFY, overriding pkg-config
@@ -8549,6 +8559,92 @@ else
 $as_echo "yes" >&6; }
 	ALSA_DEFINES="-DHAVE_ASOUNDLIB"
 $as_echo "#define HAVE_ASOUNDLIB 1" >>confdefs.h
+
+fi
+
+
+
+
+fi
+
+
+# Check whether --with-pulseaudio was given.
+if test "${with_pulseaudio+set}" = set; then :
+  withval=$with_pulseaudio;
+else
+  with_pulseaudio=check
+fi
+
+if test "x$with_pulseaudio" != xno; then :
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for PULSE" >&5
+$as_echo_n "checking for PULSE... " >&6; }
+
+if test -n "$PULSE_CFLAGS"; then
+    pkg_cv_PULSE_CFLAGS="$PULSE_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpulse libpulse-mainloop-glib\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libpulse libpulse-mainloop-glib") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_PULSE_CFLAGS=`$PKG_CONFIG --cflags "libpulse libpulse-mainloop-glib" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$PULSE_LIBS"; then
+    pkg_cv_PULSE_LIBS="$PULSE_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libpulse libpulse-mainloop-glib\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libpulse libpulse-mainloop-glib") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_PULSE_LIBS=`$PKG_CONFIG --libs "libpulse libpulse-mainloop-glib" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        PULSE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "libpulse libpulse-mainloop-glib" 2>&1`
+        else
+	        PULSE_PKG_ERRORS=`$PKG_CONFIG --print-errors "libpulse libpulse-mainloop-glib" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$PULSE_PKG_ERRORS" >&5
+
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+                { $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without PulseAudio support" >&5
+$as_echo "$as_me: Compiling without PulseAudio support" >&6;}
+elif test $pkg_failed = untried; then
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without PulseAudio support" >&5
+$as_echo "$as_me: Compiling without PulseAudio support" >&6;}
+else
+	PULSE_CFLAGS=$pkg_cv_PULSE_CFLAGS
+	PULSE_LIBS=$pkg_cv_PULSE_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+$as_echo "#define HAVE_PULSEAUDIO 1" >>confdefs.h
 
 fi
 

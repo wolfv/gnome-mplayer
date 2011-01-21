@@ -76,6 +76,9 @@
 /* defined if you build the nautilus plugin */
 /* #undef HAVE_NAUTILUS */
 
+/* Define to 1 if you have PulseAudio development packages */
+#define HAVE_PULSEAUDIO 1
+
 /* Define to 1 if you have the <signal.h> header file. */
 #define HAVE_SIGNAL_H 1
 
