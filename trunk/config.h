@@ -19,8 +19,8 @@
 /* Define to 1 if you have GLIB 2.14 or higher */
 #define GLIB2_14_ENABLED 1
 
-/* Define to 1 if you have GLIB 2.26 or higher */
-/* #undef GLIB2_26_ENABLED */
+/* Define to 1 if you have GLIB 2.28 or higher */
+/* #undef GLIB2_28_ENABLED */
 
 /* Define to 1 if you have gpod support */
 #define GPOD_ENABLED 1
@@ -38,7 +38,7 @@
 #define GTK2_20_ENABLED 1
 
 /* Define to 1 if you have GTK 2.22 or higher */
-/* #undef GTK2_22_ENABLED */
+#define GTK2_22_ENABLED 1
 
 /* Define to 1 if you have asoundlib development packages */
 #define HAVE_ASOUNDLIB 1
@@ -74,7 +74,7 @@
 #define HAVE_MNTENT_H 1
 
 /* defined if you build the nautilus plugin */
-/* #undef HAVE_NAUTILUS */
+#define HAVE_NAUTILUS 1
 
 /* Define to 1 if you have PulseAudio development packages */
 #define HAVE_PULSEAUDIO 1
