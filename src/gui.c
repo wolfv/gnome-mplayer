@@ -256,6 +256,12 @@ void adjust_layout()
         }
     }
 
+	if (total_height == 0) {
+		if (playlist_visible && vertical_layout) {
+			total_height = gtk_paned_get_position(GTK_PANED(pane));
+		}
+	}
+
     if (GTK_IS_WIDGET(media_hbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
         if (get_visible(media_hbox) == 0) {
@@ -316,6 +322,7 @@ void adjust_layout()
         } else {
             total_width += alloc.width + handle_size;
         }
+		
         if (non_fs_height == 0) {
             // printf("height = %i\n",plvbox->allocation.height);
             if (alloc.height < 16) {
@@ -368,10 +375,10 @@ void adjust_layout()
         if (total_height > 0 && total_width > 0 && !idledata->window_resized && !remember_loc) {
             gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
         }
-        if (total_height > 0 && total_width > 0 && !idledata->videopresent
-            && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-            gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
-        }
+        //if (total_height > 0 && total_width > 0 && !idledata->videopresent
+        //    && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+        //    gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
+        //}
     }
 
     if (idledata->fullscreen) {
