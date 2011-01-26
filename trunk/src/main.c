@@ -941,6 +941,10 @@ int main(int argc, char *argv[])
 
     read_mplayer_config();
 
+    if (verbose && embed_window) {
+        printf("embedded in window id 0x%x\n", embed_window);
+    }
+                        
     if (verbose && single_instance) {
         printf("Running in single instance mode\n");
     }
