@@ -2354,6 +2354,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 g_free(cmd);
             }
             return FALSE;
+		case GDK_b:
+			send_command("sub_scale -0.1 0\n",TRUE);
+			return FALSE;
+		case GDK_B:
+			send_command("sub_scale 0.1 0\n",TRUE);
+			return FALSE;
         case GDK_s:
         case GDK_S:
             cmd = g_strdup_printf("screenshot 0\n");
@@ -6855,9 +6861,11 @@ GtkWidget *create_window(gint windowid)
     last_movement_time = -1;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
 
     if (windowid > 0 && embedding_disabled == FALSE) {
+	    g_signal_connect(window, "realize", G_CALLBACK(drawing_area_realized), NULL);
         gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
 #ifdef GTK2_20_ENABLED
         gtk_widget_set_can_focus(window, TRUE);
