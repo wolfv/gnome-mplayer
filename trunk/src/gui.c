@@ -2355,10 +2355,10 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             return FALSE;
 		case GDK_b:
-			send_command("sub_scale -0.1 0\n",TRUE);
+			send_command("sub_pos -1 0\n",TRUE);
 			return FALSE;
 		case GDK_B:
-			send_command("sub_scale 0.1 0\n",TRUE);
+			send_command("sub_pos 1 0\n",TRUE);
 			return FALSE;
         case GDK_s:
         case GDK_S:
