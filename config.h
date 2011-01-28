@@ -19,8 +19,8 @@
 /* Define to 1 if you have GLIB 2.14 or higher */
 #define GLIB2_14_ENABLED 1
 
-/* Define to 1 if you have GLIB 2.28 or higher */
-/* #undef GLIB2_28_ENABLED */
+/* Define to 1 if you have GLIB 2.26 or higher */
+#define GLIB2_26_ENABLED 1
 
 /* Define to 1 if you have gpod support */
 #define GPOD_ENABLED 1

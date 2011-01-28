@@ -172,9 +172,9 @@ GIO_LIBS = @GIO_LIBS@
 GLIB2_14_CFLAGS = @GLIB2_14_CFLAGS@
 GLIB2_14_DEFINES = @GLIB2_14_DEFINES@
 GLIB2_14_LIBS = @GLIB2_14_LIBS@
-GLIB2_28_CFLAGS = @GLIB2_28_CFLAGS@
-GLIB2_28_DEFINES = @GLIB2_28_DEFINES@
-GLIB2_28_LIBS = @GLIB2_28_LIBS@
+GLIB2_26_CFLAGS = @GLIB2_26_CFLAGS@
+GLIB2_26_DEFINES = @GLIB2_26_DEFINES@
+GLIB2_26_LIBS = @GLIB2_26_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
@@ -951,6 +951,12 @@ install-schemas: $(schema_DATA)
 
 @GCONF_SCHEMAS_INSTALL_TRUE@install-data-hook: install-schemas update-icon-cache
 @GCONF_SCHEMAS_INSTALL_FALSE@install-data-hook: update-icon-cache
+
+#gsettings_ENUM_NAMESPACE = apps.gnome-mplayer.preferences
+#gsettings_ENUM_FILES = $(top_srcdir)/src/*.h
+#gsettings_SCHEMAS = apps.gnome-mplayer.preferences.gschema.xml apps.gecko-mediaplayer.preferences.gschema.xml
+
+#@GSETTINGS_RULES@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
