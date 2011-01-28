@@ -1,4 +1,7 @@
 Development
+	Run make indent
+	Change glib detection back to 2.26
+	When subtitles are hidden, set sub_forced_only to 1
 	Change b/B change raise/lower subtitle position
 	Use b/B to decrease/increase subtitle size while viewing
 	Fix window resize issues with audio files and playlist

@@ -256,11 +256,11 @@ void adjust_layout()
         }
     }
 
-	if (total_height == 0) {
-		if (playlist_visible && vertical_layout) {
-			total_height = gtk_paned_get_position(GTK_PANED(pane));
-		}
-	}
+    if (total_height == 0) {
+        if (playlist_visible && vertical_layout) {
+            total_height = gtk_paned_get_position(GTK_PANED(pane));
+        }
+    }
 
     if (GTK_IS_WIDGET(media_hbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
@@ -322,7 +322,7 @@ void adjust_layout()
         } else {
             total_width += alloc.width + handle_size;
         }
-		
+
         if (non_fs_height == 0) {
             // printf("height = %i\n",plvbox->allocation.height);
             if (alloc.height < 16) {
@@ -508,7 +508,7 @@ gboolean set_media_label(void *data)
 
         pixbuf = NULL;
         gtk_image_clear(GTK_IMAGE(cover_art));
-        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 0 
+        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 0
             && gtk_list_store_iter_is_valid(playliststore, &iter)) {
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COVERART_COLUMN, &pixbuf, -1);
         }
@@ -2354,12 +2354,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 g_free(cmd);
             }
             return FALSE;
-		case GDK_b:
-			send_command("sub_pos -1 0\n",TRUE);
-			return FALSE;
-		case GDK_B:
-			send_command("sub_pos 1 0\n",TRUE);
-			return FALSE;
+        case GDK_b:
+            send_command("sub_pos -1 0\n", TRUE);
+            return FALSE;
+        case GDK_B:
+            send_command("sub_pos 1 0\n", TRUE);
+            return FALSE;
         case GDK_s:
         case GDK_S:
             cmd = g_strdup_printf("screenshot 0\n");
@@ -3491,7 +3491,7 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
     gchar *mpconf;
 
     gtk_list_store_clear(playliststore);
-	
+
     mpconf = g_strdup_printf("%s/.mplayer/channels.conf", g_getenv("HOME"));
     fi = fopen(mpconf, "r");    // Make sure this is pointing to
     // the appropriate file
@@ -3501,8 +3501,8 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
     } else {
         printf("Unable to open the config file\n");     //can change this to whatever error message system is used
     }
-	g_free(mpconf);
-	
+    g_free(mpconf);
+
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         play_iter(&iter, 0);
@@ -3910,6 +3910,14 @@ void menuitem_view_subtitles_callback(GtkMenuItem * menuitem, void *data)
                                                        (menuitem_view_subtitles)));
     send_command(cmd, TRUE);
     g_free(cmd);
+
+    cmd =
+        g_strdup_printf("set_property sub_forced_only %i\n",
+                        !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM
+                                                        (menuitem_view_subtitles)));
+    send_command(cmd, TRUE);
+    g_free(cmd);
+
 }
 
 //      Switch Audio Streams
@@ -6861,11 +6869,11 @@ GtkWidget *create_window(gint windowid)
     last_movement_time = -1;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	
+
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
 
     if (windowid > 0 && embedding_disabled == FALSE) {
-	    g_signal_connect(window, "realize", G_CALLBACK(drawing_area_realized), NULL);
+        g_signal_connect(window, "realize", G_CALLBACK(drawing_area_realized), NULL);
         gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
 #ifdef GTK2_20_ENABLED
         gtk_widget_set_can_focus(window, TRUE);
@@ -7078,7 +7086,8 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_ipod =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _iPod™")));
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_ipod),
-                                  gtk_image_new_from_icon_name("multimedia-player", GTK_ICON_SIZE_MENU));
+                                  gtk_image_new_from_icon_name("multimedia-player",
+                                                               GTK_ICON_SIZE_MENU));
 
     gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_ipod));
 #endif
@@ -8101,7 +8110,7 @@ void show_fs_controls()
         g_signal_connect(G_OBJECT(fs_controls), "leave_notify_event", G_CALLBACK(fs_controls_left),
                          NULL);
         g_object_ref(hbox);
-		gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_LEAVE_FULLSCREEN, button_size);
+        gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_LEAVE_FULLSCREEN, button_size);
         gtk_container_remove(GTK_CONTAINER(controls_box), hbox);
         gtk_container_add(GTK_CONTAINER(fs_controls), hbox);
         gtk_window_set_transient_for(GTK_WINDOW(fs_controls), GTK_WINDOW(fs_window));
@@ -8133,7 +8142,7 @@ void hide_fs_controls()
 
     if (fs_controls != NULL) {
         g_object_ref(hbox);
-		gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_FULLSCREEN, button_size);
+        gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_FULLSCREEN, button_size);
         gtk_container_remove(GTK_CONTAINER(fs_controls), hbox);
         gtk_container_add(GTK_CONTAINER(controls_box), hbox);
         g_object_unref(hbox);

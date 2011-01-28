@@ -55,3 +55,10 @@ install-data-hook: install-schemas update-icon-cache
 else
 install-data-hook: update-icon-cache
 endif
+
+#gsettings_ENUM_NAMESPACE = apps.gnome-mplayer.preferences
+#gsettings_ENUM_FILES = $(top_srcdir)/src/*.h
+#gsettings_SCHEMAS = apps.gnome-mplayer.preferences.gschema.xml apps.gecko-mediaplayer.preferences.gschema.xml
+
+#@GSETTINGS_RULES@
+
