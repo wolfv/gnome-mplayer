@@ -1,4 +1,5 @@
 Development
+	Apply desktop patch from Issue 481
 	Run make indent
 	Change glib detection back to 2.26
 	When subtitles are hidden, set sub_forced_only to 1
