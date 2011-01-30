@@ -86,4 +86,5 @@ const char *mime_types[] = {
     "video/webm",
     "video/x-webm",
     "application/x-extension-webm",
+	"video/mp2t",
 };
