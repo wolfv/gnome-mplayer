@@ -149,8 +149,8 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     gtk_widget_pop_composite_child();
 
     gtk_widget_show_all(GTK_WIDGET(player));
-    player->player_state = DEAD;
-    player->media_state = UNKNOWN;
+    player->player_state = PLAYER_STATE_DEAD;
+    player->media_state = MEDIA_STATE_UNKNOWN;
     player->uri = NULL;
     player->mplayer_thread = NULL;
     player->aspect_ratio = ASPECT_DEFAULT;
@@ -356,7 +356,7 @@ void gmtk_media_player_set_uri(GmtkMediaPlayer * player, const gchar * uri)
     player->length = 0;
     player->start_time = 0;
 
-    if (player->player_state == RUNNING) {
+    if (player->player_state == PLAYER_STATE_RUNNING) {
         if (player->uri != NULL) {
             filename = g_filename_from_uri(player->uri, NULL, NULL);
         }
@@ -366,8 +366,8 @@ void gmtk_media_player_set_uri(GmtkMediaPlayer * player, const gchar * uri)
         if (filename != NULL) {
             g_free(filename);
         }
-        if (player->media_state == STOP) {
-            gmtk_media_player_set_state(player, PLAY);
+        if (player->media_state == MEDIA_STATE_STOP) {
+            gmtk_media_player_set_state(player, MEDIA_STATE_PLAY);
         }
     }
 
@@ -381,65 +381,65 @@ gchar *gmtk_media_player_get_uri(GmtkMediaPlayer * player)
 void gmtk_media_player_set_state(GmtkMediaPlayer * player,
                                  const GmtkMediaPlayerMediaState new_state)
 {
-    if (player->player_state == DEAD) {
+    if (player->player_state == PLAYER_STATE_DEAD) {
 
-        if (new_state == QUIT) {
-            player->media_state = UNKNOWN;
+        if (new_state == MEDIA_STATE_QUIT) {
+            player->media_state = MEDIA_STATE_UNKNOWN;
         }
 
-        if (new_state == STOP) {
-            player->media_state = UNKNOWN;
+        if (new_state == MEDIA_STATE_STOP) {
+            player->media_state = MEDIA_STATE_UNKNOWN;
         }
 
-        if (new_state == PAUSE) {
-            player->media_state = UNKNOWN;
+        if (new_state == MEDIA_STATE_PAUSE) {
+            player->media_state = MEDIA_STATE_UNKNOWN;
         }
 
-        if (new_state == PLAY) {
+        if (new_state == MEDIA_STATE_PLAY) {
             // launch player
             player->mplayer_thread = g_thread_create(launch_mplayer, player, TRUE, NULL);
             if (player->mplayer_thread != NULL) {
-                player->player_state = RUNNING;
+                player->player_state = PLAYER_STATE_RUNNING;
                 g_signal_emit_by_name(player, "player-state-changed", player->player_state);
-                player->media_state = PLAY;
+                player->media_state = MEDIA_STATE_PLAY;
                 g_signal_emit_by_name(player, "media-state-changed", player->media_state);
             }
         }
 
     }
 
-    if (player->player_state == RUNNING) {
-        if (new_state == STOP) {
+    if (player->player_state == PLAYER_STATE_RUNNING) {
+        if (new_state == MEDIA_STATE_STOP) {
             write_to_mplayer(player, "pausing_keep_force seek 0 2\n");
-            if (player->media_state == PLAY) {
+            if (player->media_state == MEDIA_STATE_PLAY) {
                 write_to_mplayer(player, "pause\n");
             }
-            player->media_state = STOP;
+            player->media_state = MEDIA_STATE_STOP;
             g_signal_emit_by_name(player, "position-changed", 0.0);
             g_signal_emit_by_name(player, "media-state-changed", player->media_state);
         }
 
-        if (new_state == PLAY) {
-            if (player->media_state == PAUSE || player->media_state == STOP) {
+        if (new_state == MEDIA_STATE_PLAY) {
+            if (player->media_state == MEDIA_STATE_PAUSE || player->media_state == MEDIA_STATE_STOP) {
                 write_to_mplayer(player, "pause\n");
-                player->media_state = PLAY;
+                player->media_state = MEDIA_STATE_PLAY;
                 g_signal_emit_by_name(player, "media-state-changed", player->media_state);
             }
-            if (player->media_state == UNKNOWN) {
-                player->media_state = PLAY;
+            if (player->media_state == MEDIA_STATE_UNKNOWN) {
+                player->media_state = MEDIA_STATE_PLAY;
                 g_signal_emit_by_name(player, "media-state-changed", player->media_state);
             }
         }
 
-        if (new_state == PAUSE) {
-            if (player->media_state == PLAY) {
+        if (new_state == MEDIA_STATE_PAUSE) {
+            if (player->media_state == MEDIA_STATE_PLAY) {
                 write_to_mplayer(player, "pause\n");
-                player->media_state = PAUSE;
+                player->media_state = MEDIA_STATE_PAUSE;
                 g_signal_emit_by_name(player, "media-state-changed", player->media_state);
             }
         }
 
-        if (new_state == QUIT) {
+        if (new_state == MEDIA_STATE_QUIT) {
             write_to_mplayer(player, "quit\n");
         }
     }
@@ -459,7 +459,7 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
 
     if (attribute == ATTRIBUTE_SUB_VISIBLE) {
         player->sub_visible = value;
-        if (player->player_state == RUNNING) {
+        if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property sub_visibility %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
@@ -593,7 +593,7 @@ void gmtk_media_player_set_volume(GmtkMediaPlayer * player, gdouble value)
     gchar *cmd;
 
     player->volume = value;
-    if (player->player_state == RUNNING) {
+    if (player->player_state == PLAYER_STATE_RUNNING) {
         cmd = g_strdup_printf("pausing_keep_force volume %i 1\n", (gint) (player->volume * 100));
         write_to_mplayer(player, cmd);
         g_free(cmd);
@@ -649,7 +649,7 @@ void gmtk_media_player_select_audio_track(GmtkMediaPlayer * player, const gchar 
         list = list->next;
     }
 
-    if (list != NULL && track != NULL && player->player_state == RUNNING) {
+    if (list != NULL && track != NULL && player->player_state == PLAYER_STATE_RUNNING) {
         cmd = g_strdup_printf("pausing_keep_force switch_audio %i \n", track->id);
         write_to_mplayer(player, cmd);
         g_free(cmd);
@@ -767,8 +767,8 @@ gpointer launch_mplayer(gpointer data)
         g_cond_wait(player->mplayer_complete_cond, player->thread_running);
     }
 
-    player->player_state = DEAD;
-    player->media_state = UNKNOWN;
+    player->player_state = PLAYER_STATE_DEAD;
+    player->media_state = MEDIA_STATE_UNKNOWN;
     g_mutex_unlock(player->thread_running);
     player->mplayer_thread = NULL;
     player->start_time = 0.0;
@@ -784,8 +784,8 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
 {
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(data);
 
-    player->player_state = DEAD;
-    player->media_state = UNKNOWN;
+    player->player_state = PLAYER_STATE_DEAD;
+    player->media_state = MEDIA_STATE_UNKNOWN;
     g_source_remove(player->watch_in_id);
     g_source_remove(player->watch_err_id);
     g_cond_signal(player->mplayer_complete_cond);
@@ -908,7 +908,7 @@ gboolean thread_query(gpointer data)
         return FALSE;
     }
 
-    if (player->media_state == PLAY) {
+    if (player->media_state == MEDIA_STATE_PLAY) {
         written =
             write(player->std_in, "pausing_keep_force get_time_pos\n",
                   strlen("pausing_keep_force get_time_pos\n"));
@@ -918,7 +918,7 @@ gboolean thread_query(gpointer data)
             return TRUE;
         }
     } else {
-        if (player->media_state == UNKNOWN || player->media_state == QUIT) {
+        if (player->media_state == MEDIA_STATE_UNKNOWN || player->media_state == MEDIA_STATE_QUIT) {
             return FALSE;
         } else {
             return TRUE;
