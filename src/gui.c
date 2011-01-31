@@ -2544,7 +2544,8 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
                          G_CALLBACK(menuitem_pause_callback), NULL);
 
-        dbus_disable_screensaver();
+		if (idle->videopresent)
+	        dbus_disable_screensaver();
 
     } else if (state == PLAYING) {
         send_command("pause\n", FALSE);
