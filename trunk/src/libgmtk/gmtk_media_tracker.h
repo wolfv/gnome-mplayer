@@ -23,7 +23,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#  include <config.h>
+#include <config.h>
 #endif
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
@@ -34,12 +34,12 @@
 #define __GMTK_MEDIA_TRACKER_H__
 
 #ifndef GSEAL
-#  ifdef GSEAL_ENABLE
-#    define GSEAL(ident)      _g_sealed__ ## ident
-#  else
-#    define GSEAL(ident)      ident
-#  endif
-#endif 
+#ifdef GSEAL_ENABLE
+#define GSEAL(ident)      _g_sealed__ ## ident
+#else
+#define GSEAL(ident)      ident
+#endif
+#endif
 
 G_BEGIN_DECLS
 #define GMTK_TYPE_MEDIA_TRACKER		(gmtk_media_tracker_get_type ())
@@ -48,9 +48,8 @@ G_BEGIN_DECLS
 #define GMTK_IS_MEDIA_TRACKER(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GMTK_TYPE_MEDIA_TRACKER))
 #define GMTK_IS_MEDIA_TRACKER_CLASS(obj)	(G_TYPE_CHECK_CLASS_TYPE ((obj), GMTK_TYPE_MEDIA_TRACKER))
 #define GMTK_MEDIA_TRACKER_GET_CLASS	(G_TYPE_INSTANCE_GET_CLASS ((obj), GMTK_TYPE_MEDIA_TRACKER, GmtkMediaTrackerClass))
-
-typedef enum {
-	THUMB_HIDDEN,
+    typedef enum {
+    THUMB_HIDDEN,
     THUMB_ON_BOTTOM,
     THUMB_ON_TOP,
     THUMB_ON_TOP_AND_BOTTOM
@@ -62,36 +61,36 @@ typedef struct _GmtkMediaTrackerClass GmtkMediaTrackerClass;
 struct _GmtkMediaTracker {
     GtkVBox parent;
 
-	/*
-	GtkWidget *GSEAL(scale);
-	GtkWidget *GSEAL(hbox);
-	GtkWidget *GSEAL(message);
-	GtkWidget *GSEAL(timer);
-	GtkTooltips *GSEAL(progress_tip);
-	*/
-	GtkWidget *scale;
-	GtkWidget *hbox;
-	GtkWidget *message;
-	GtkWidget *timer;
-	
+    /*
+       GtkWidget *GSEAL(scale);
+       GtkWidget *GSEAL(hbox);
+       GtkWidget *GSEAL(message);
+       GtkWidget *GSEAL(timer);
+       GtkTooltips *GSEAL(progress_tip);
+     */
+    GtkWidget *scale;
+    GtkWidget *hbox;
+    GtkWidget *message;
+    GtkWidget *timer;
+
     /* < private > */
     gdouble media_percent;
     gdouble cache_percent;
     gchar *text;
-	gchar *timer_text;
-	gfloat position;
-	gfloat length;
+    gchar *timer_text;
+    gfloat position;
+    gfloat length;
     gboolean mouse_down;
-	gboolean allow_expand;
+    gboolean allow_expand;
 #ifndef GTK2_12_ENABLED
-	GtkTooltips *progress_tip;
+    GtkTooltips *progress_tip;
 #endif
 };
 
 struct _GmtkMediaTrackerClass {
     GtkVBoxClass parent_class;
-	void (* value_changed)  (GmtkMediaTracker *tracker);
-	void (* difference_changed) (GmtkMediaTracker *tracker);
+    void (*value_changed) (GmtkMediaTracker * tracker);
+    void (*difference_changed) (GmtkMediaTracker * tracker);
 };
 
 GType gmtk_media_tracker_get_type(void);

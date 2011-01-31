@@ -24,3 +24,5 @@
 
 #include "gmtk_audio_meter.h"
 #include "gmtk_media_tracker.h"
+#include "gmtk_media_player.h"
+#include "gmtk_output_combo_box.h"
