@@ -188,7 +188,7 @@ GtkWidget *gmtk_output_combo_box_new()
 const gchar *gmtk_output_combo_box_get_active_device(GmtkOutputComboBox * output)
 {
     GtkTreeIter iter;
-    gchar *device = NULL;
+    const gchar *device = NULL;
 
     if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, 3, &device, -1);
@@ -196,3 +196,21 @@ const gchar *gmtk_output_combo_box_get_active_device(GmtkOutputComboBox * output
     return device;
 
 }
+
+const gchar *gmtk_output_combo_box_get_active_description(GmtkOutputComboBox * output)
+{
+    GtkTreeIter iter;
+    const gchar *desc = NULL;
+
+    if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, 0, &desc, -1);
+    }
+    return desc;
+
+}
+
+GtkTreeModel *gmtk_output_combo_box_get_tree_model(GmtkOutputComboBox * output)
+{
+	return GTK_TREE_MODEL(output->list);
+}
+
