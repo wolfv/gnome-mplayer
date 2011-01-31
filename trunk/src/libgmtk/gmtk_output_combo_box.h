@@ -56,6 +56,8 @@ struct _GmtkOutputComboBoxClass {
 GType gmtk_output_combo_box_get_type(void);
 GtkWidget *gmtk_output_combo_box_new();
 const gchar *gmtk_output_combo_box_get_active_device(GmtkOutputComboBox * output);
+const gchar *gmtk_output_combo_box_get_active_description(GmtkOutputComboBox * output);
+GtkTreeModel *gmtk_output_combo_box_get_tree_model(GmtkOutputComboBox * output);
 
 G_END_DECLS
 #endif

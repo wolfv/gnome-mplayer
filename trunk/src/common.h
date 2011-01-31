@@ -107,6 +107,7 @@
 #define SHOW_STATUS_ICON "show_status_icon"
 #define SHOW_SUBTITLES "show_subtitles"
 
+#define AUDIO_DEVICE_NAME "audio-device-name"
 
 // JavaScript Playstates
 #define STATE_UNDEFINED     0
@@ -331,6 +332,7 @@ gboolean adjusting;
 gchar vm[10];
 gchar *vo;
 gchar *ao;
+gchar *audio_device_name;
 gchar *mixer;
 gint audio_channels;
 gboolean use_hw_audio;

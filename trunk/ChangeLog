@@ -1,4 +1,6 @@
 Development
+	Intergrate gmtk_output_combo_box into preference screen. Allows easy switching between ALSA device
+		will be enhanced to provide pulse devices soon.
 	Allow gmtk_output_combo_box to compile without alsa
 	Fix merged in enums so code compiles
 	Add new widgets to source code, gmtk_media_player and gmtk_output_combo_box

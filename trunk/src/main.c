@@ -896,6 +896,9 @@ int main(int argc, char *argv[])
     mouse_wheel_changes_volume =
         gm_pref_store_get_boolean_with_default(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, FALSE);
 
+	audio_device_name = gm_pref_store_get_string(gm_store, AUDIO_DEVICE_NAME);
+
+                        
     read_mplayer_config();
 
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
