@@ -26,7 +26,9 @@
 #include <config.h>
 #endif
 #include <gtk/gtk.h>
+#ifdef HAVE_ASOUNDLIB
 #include <asoundlib.h>
+#endif
 
 #ifndef __GMTK_OUTPUT_COMBO_BOX_H__
 #define __GMTK_OUTPUT_COMBO_BOX_H__

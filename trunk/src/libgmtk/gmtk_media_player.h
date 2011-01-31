@@ -51,16 +51,16 @@ G_BEGIN_DECLS
 #define GMTK_IS_MEDIA_PLAYER_CLASS(obj)	(G_TYPE_CHECK_CLASS_TYPE ((obj), GMTK_TYPE_MEDIA_PLAYER))
 #define GMTK_MEDIA_PLAYER_GET_CLASS	(G_TYPE_INSTANCE_GET_CLASS ((obj), GMTK_TYPE_MEDIA_PLAYER, GmtkMediaPlayerClass))
     typedef enum {
-    DEAD,
-    RUNNING
+    PLAYER_STATE_DEAD,
+    PLAYER_STATE_RUNNING
 } GmtkMediaPlayerPlayerState;
 
 typedef enum {
-    UNKNOWN,
-    PLAY,
-    PAUSE,
-    STOP,
-    QUIT
+    MEDIA_STATE_UNKNOWN,
+    MEDIA_STATE_PLAY,
+    MEDIA_STATE_PAUSE,
+    MEDIA_STATE_STOP,
+    MEDIA_STATE_QUIT
 } GmtkMediaPlayerMediaState;
 
 typedef enum {

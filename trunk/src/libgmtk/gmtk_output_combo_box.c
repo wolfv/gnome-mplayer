@@ -84,11 +84,13 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gchar *menu;
     gchar *mplayer_device;
 
+#ifdef HAVE_ASOUNDLIB
     snd_pcm_stream_t stream = SND_PCM_STREAM_PLAYBACK;
     snd_ctl_t *handle;
     snd_ctl_card_info_t *info;
     snd_pcm_info_t *pcminfo;
-
+#endif
+	
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(output), renderer, FALSE);
     gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(output), renderer, "text", 0);
@@ -98,7 +100,7 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gtk_list_store_append(output->list, &iter);
     gtk_list_store_set(output->list, &iter, 0, "Default", 1, -1, 2, -1, 3, "", -1);
 
-
+#ifdef HAVE_ASOUNDLIB
     snd_ctl_card_info_alloca(&info);
     snd_pcm_info_alloca(&pcminfo);
 
@@ -150,15 +152,10 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
                                -1);
         }
 
-
         snd_ctl_close(handle);
 
     }
-
-
-
-  skip:
-
+#endif
 
     sortable = GTK_TREE_SORTABLE(output->list);
     gtk_tree_sortable_set_sort_func(sortable, 0, sort_iter_compare_func, GINT_TO_POINTER(0), NULL);
