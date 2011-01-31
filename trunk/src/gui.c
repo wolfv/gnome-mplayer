@@ -4523,7 +4523,7 @@ void config_apply(GtkWidget * widget, void *data)
 #endif
 #ifdef GTK2_12_ENABLED
     show_status_icon = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_status_icon));
-    if (GTK_IS_WIDGET(status_icon)) {
+    if (GTK_IS_STATUS_ICON(status_icon)) {
         gtk_status_icon_set_visible(status_icon, show_status_icon);
     } else {
         if (show_status_icon) {
