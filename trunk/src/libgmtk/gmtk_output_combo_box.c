@@ -99,6 +99,18 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
 
     gtk_list_store_append(output->list, &iter);
     gtk_list_store_set(output->list, &iter, 0, "Default", 1, -1, 2, -1, 3, "", -1);
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, 0, "ALSA", 1, -1, 2, -1, 3, "alsa", -1);
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, 0, "ARTS", 1, -1, 2, -1, 3, "arts", -1);
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, 0, "ESD", 1, -1, 2, -1, 3, "esd", -1);
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, 0, "JACK", 1, -1, 2, -1, 3, "jack", -1);
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, 0, "OSS", 1, -1, 2, -1, 3, "oss", -1);
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, 0, "PulseAudio", 1, -1, 2, -1, 3, "pulse", -1);
 
 #ifdef HAVE_ASOUNDLIB
     snd_ctl_card_info_alloca(&info);

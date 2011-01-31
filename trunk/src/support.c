@@ -1101,7 +1101,7 @@ gboolean read_mplayer_config()
     g_key_file_free(config);
 
     if (verbose)
-        printf("vo = %s ao = %s\n", vo, ao);
+        printf("read mplayer config values: vo = %s ao = %s\n", vo, ao);
 
     return TRUE;
 }
