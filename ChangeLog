@@ -1,4 +1,5 @@
 Development
+	Add new widgets to source code, gmtk_media_player and gmtk_output_combo_box
 	Fall back to using XScrnSaverSuspend if the call to Gnome SessionManager/ScreenSaver fails
 	Make sure dbus_disable_screensaver is only called when video is present
 	Apply desktop patch from Issue 481

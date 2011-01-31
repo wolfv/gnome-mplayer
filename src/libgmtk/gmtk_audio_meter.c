@@ -70,7 +70,7 @@ static void gmtk_audio_meter_init(GmtkAudioMeter * meter)
     meter->max_data = NULL;
     meter->data_valid = FALSE;
     meter->max_division_width = -1;
-	gtk_widget_set_double_buffered(GTK_WIDGET(meter), FALSE);
+    gtk_widget_set_double_buffered(GTK_WIDGET(meter), FALSE);
 
 }
 
@@ -100,14 +100,14 @@ static void draw(GtkWidget * meter)
     gint i;
     gfloat v;
     gint division_width;
-	GtkAllocation alloc;
-	cairo_t *cr;
-	cairo_pattern_t *pattern;
-	GtkStyle *style;
-	
-	get_allocation(meter,&alloc);
-	style = gtk_widget_get_style(meter);
-	
+    GtkAllocation alloc;
+    cairo_t *cr;
+    cairo_pattern_t *pattern;
+    GtkStyle *style;
+
+    get_allocation(meter, &alloc);
+    style = gtk_widget_get_style(meter);
+
     if (GMTK_AUDIO_METER(meter)->data == NULL)
         return;
 
@@ -118,10 +118,10 @@ static void draw(GtkWidget * meter)
         && division_width > GMTK_AUDIO_METER(meter)->max_division_width)
         division_width = GMTK_AUDIO_METER(meter)->max_division_width;
 
-	cr = gdk_cairo_create(get_window(meter));
-	cairo_set_antialias(cr, CAIRO_ANTIALIAS_NONE);	
-	cairo_set_line_width (cr, 2.0);
-	
+    cr = gdk_cairo_create(get_window(meter));
+    cairo_set_antialias(cr, CAIRO_ANTIALIAS_NONE);
+    cairo_set_line_width(cr, 2.0);
+
     for (i = 0; i < GMTK_AUDIO_METER(meter)->divisions; i++) {
         if (GMTK_AUDIO_METER(meter)->max_data) {
             v = g_array_index(GMTK_AUDIO_METER(meter)->max_data, gfloat, i);
@@ -130,20 +130,18 @@ static void draw(GtkWidget * meter)
             if (v <= 0.0)
                 v = 0.0;
 
-			cairo_set_source_rgb(cr, style->dark[0].red / 65535.0, style->dark[0].green / 65535.0,style->dark[0].blue / 65535.0);
-			cairo_rectangle(cr, 
-			                i * division_width,
-                            alloc.height * (1.0 - v) + 3,
-                            division_width, alloc.height * v);
-			cairo_fill(cr);
-			cairo_stroke(cr);
-			
-			cairo_set_source_rgb(cr, style->mid[3].red / 65535.0, style->mid[3].green / 65535.0,style->mid[3].blue / 65535.0);
-			cairo_rectangle(cr, 
-			                i * division_width,
-                            alloc.height * (1.0 - v) + 3,
-                            division_width, alloc.height * v);
-			cairo_stroke(cr);
+            cairo_set_source_rgb(cr, style->dark[0].red / 65535.0, style->dark[0].green / 65535.0,
+                                 style->dark[0].blue / 65535.0);
+            cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width,
+                            alloc.height * v);
+            cairo_fill(cr);
+            cairo_stroke(cr);
+
+            cairo_set_source_rgb(cr, style->mid[3].red / 65535.0, style->mid[3].green / 65535.0,
+                                 style->mid[3].blue / 65535.0);
+            cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width,
+                            alloc.height * v);
+            cairo_stroke(cr);
 
         }
     }
@@ -156,47 +154,46 @@ static void draw(GtkWidget * meter)
         if (v <= 0.0)
             v = 0.00;
 
-		pattern = cairo_pattern_create_linear(0.0,0.0, 1.0, (gdouble)alloc.height);
-		cairo_pattern_add_color_stop_rgb(pattern, 0.30, 1.0, 0, 0);
-		cairo_pattern_add_color_stop_rgb(pattern, 0.7, 1.0, 1.0, 0);
-		cairo_pattern_add_color_stop_rgb(pattern, 1.0, 0, 1.0, 0);
-		
-		cairo_set_source_rgb(cr, style->mid[3].red / 65535.0, style->mid[3].green / 65535.0,style->mid[3].blue / 65535.0);
-		cairo_rectangle(cr, 
-		                i * division_width,
-                        alloc.height * (1.0 - v) + 3,
-                        division_width, alloc.height * v);
-		cairo_set_source(cr, pattern);
-		cairo_fill(cr);
-		cairo_stroke(cr);
-		cairo_pattern_destroy(pattern);
+        pattern = cairo_pattern_create_linear(0.0, 0.0, 1.0, (gdouble) alloc.height);
+        cairo_pattern_add_color_stop_rgb(pattern, 0.30, 1.0, 0, 0);
+        cairo_pattern_add_color_stop_rgb(pattern, 0.7, 1.0, 1.0, 0);
+        cairo_pattern_add_color_stop_rgb(pattern, 1.0, 0, 1.0, 0);
 
-		cairo_set_source_rgb(cr, style->fg[0].red / 65535.0, style->fg[0].green / 65535.0,style->fg[0].blue / 65535.0);
-		cairo_rectangle(cr, 
-		                i * division_width,
-                        alloc.height * (1.0 - v) + 3,
-                        division_width, alloc.height * v);
-		cairo_stroke(cr);
-		
+        cairo_set_source_rgb(cr, style->mid[3].red / 65535.0, style->mid[3].green / 65535.0,
+                             style->mid[3].blue / 65535.0);
+        cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width,
+                        alloc.height * v);
+        cairo_set_source(cr, pattern);
+        cairo_fill(cr);
+        cairo_stroke(cr);
+        cairo_pattern_destroy(pattern);
+
+        cairo_set_source_rgb(cr, style->fg[0].red / 65535.0, style->fg[0].green / 65535.0,
+                             style->fg[0].blue / 65535.0);
+        cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width,
+                        alloc.height * v);
+        cairo_stroke(cr);
+
     }
 /*
     gdk_draw_rectangle(get_window(meter),
                        gtk_widget_get_style(meter)->text_aa_gc[0],
                        FALSE, 0, 0, meter->allocation.width - 1, meter->allocation.height - 1);
 */
-	cairo_set_source_rgb(cr, style->text_aa[0].red / 65535.0, style->text_aa[0].green / 65535.0,style->text_aa[0].blue / 65535.0);
+    cairo_set_source_rgb(cr, style->text_aa[0].red / 65535.0, style->text_aa[0].green / 65535.0,
+                         style->text_aa[0].blue / 65535.0);
 
-	cairo_move_to(cr, 0, alloc.height -1);
-	cairo_line_to(cr, alloc.width - 1, alloc.height - 1);
+    cairo_move_to(cr, 0, alloc.height - 1);
+    cairo_line_to(cr, alloc.width - 1, alloc.height - 1);
 
-	cairo_destroy(cr);
+    cairo_destroy(cr);
 }
 
 static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * event)
 {
     PangoLayout *p;
 
-	gdk_window_begin_paint_region(get_window(meter),event->region);
+    gdk_window_begin_paint_region(get_window(meter), event->region);
     if (GMTK_AUDIO_METER(meter)->data_valid) {
         draw(meter);
     } else {
@@ -204,7 +201,7 @@ static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * even
         gdk_draw_layout(get_window(meter), gtk_widget_get_style(meter)->black_gc, 0, 0, p);
         g_object_unref(p);
     }
-	gdk_window_end_paint(get_window(meter));
+    gdk_window_end_paint(get_window(meter));
     return FALSE;
 }
 

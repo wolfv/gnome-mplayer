@@ -48,7 +48,9 @@ ARFLAGS = cru
 libgmtk_a_AR = $(AR) $(ARFLAGS)
 libgmtk_a_LIBADD =
 am_libgmtk_a_OBJECTS = libgmtk_a-gmtk_audio_meter.$(OBJEXT) \
-	libgmtk_a-gmtk_media_tracker.$(OBJEXT)
+	libgmtk_a-gmtk_media_tracker.$(OBJEXT) \
+	libgmtk_a-gmtk_media_player.$(OBJEXT) \
+	libgmtk_a-gmtk_output_combo_box.$(OBJEXT)
 libgmtk_a_OBJECTS = $(am_libgmtk_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -248,10 +250,15 @@ libgmtk_a_SOURCES = \
     	gmtk_audio_meter.h \
     	gmtk_audio_meter.c \
     	gmtk_media_tracker.h \
-    	gmtk_media_tracker.c
+    	gmtk_media_tracker.c \
+    	gmtk_media_player.h \
+    	gmtk_media_player.c \
+    	gmtk_output_combo_box.h \
+    	gmtk_output_combo_box.c
 
 libgmtk_a_CFLAGS = -fPIC \
-	$(GTK_CFLAGS)
+	$(GTK_CFLAGS) \
+	$(ALSA_CFLAGS)
 
 all: all-am
 
@@ -302,7 +309,9 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmtk_a-gmtk_audio_meter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmtk_a-gmtk_media_player.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmtk_a-gmtk_media_tracker.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmtk_a-gmtk_output_combo_box.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -345,6 +354,34 @@ libgmtk_a-gmtk_media_tracker.obj: gmtk_media_tracker.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_media_tracker.c' object='libgmtk_a-gmtk_media_tracker.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -c -o libgmtk_a-gmtk_media_tracker.obj `if test -f 'gmtk_media_tracker.c'; then $(CYGPATH_W) 'gmtk_media_tracker.c'; else $(CYGPATH_W) '$(srcdir)/gmtk_media_tracker.c'; fi`
+
+libgmtk_a-gmtk_media_player.o: gmtk_media_player.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -MT libgmtk_a-gmtk_media_player.o -MD -MP -MF $(DEPDIR)/libgmtk_a-gmtk_media_player.Tpo -c -o libgmtk_a-gmtk_media_player.o `test -f 'gmtk_media_player.c' || echo '$(srcdir)/'`gmtk_media_player.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libgmtk_a-gmtk_media_player.Tpo $(DEPDIR)/libgmtk_a-gmtk_media_player.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_media_player.c' object='libgmtk_a-gmtk_media_player.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -c -o libgmtk_a-gmtk_media_player.o `test -f 'gmtk_media_player.c' || echo '$(srcdir)/'`gmtk_media_player.c
+
+libgmtk_a-gmtk_media_player.obj: gmtk_media_player.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -MT libgmtk_a-gmtk_media_player.obj -MD -MP -MF $(DEPDIR)/libgmtk_a-gmtk_media_player.Tpo -c -o libgmtk_a-gmtk_media_player.obj `if test -f 'gmtk_media_player.c'; then $(CYGPATH_W) 'gmtk_media_player.c'; else $(CYGPATH_W) '$(srcdir)/gmtk_media_player.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libgmtk_a-gmtk_media_player.Tpo $(DEPDIR)/libgmtk_a-gmtk_media_player.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_media_player.c' object='libgmtk_a-gmtk_media_player.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -c -o libgmtk_a-gmtk_media_player.obj `if test -f 'gmtk_media_player.c'; then $(CYGPATH_W) 'gmtk_media_player.c'; else $(CYGPATH_W) '$(srcdir)/gmtk_media_player.c'; fi`
+
+libgmtk_a-gmtk_output_combo_box.o: gmtk_output_combo_box.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -MT libgmtk_a-gmtk_output_combo_box.o -MD -MP -MF $(DEPDIR)/libgmtk_a-gmtk_output_combo_box.Tpo -c -o libgmtk_a-gmtk_output_combo_box.o `test -f 'gmtk_output_combo_box.c' || echo '$(srcdir)/'`gmtk_output_combo_box.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libgmtk_a-gmtk_output_combo_box.Tpo $(DEPDIR)/libgmtk_a-gmtk_output_combo_box.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_output_combo_box.c' object='libgmtk_a-gmtk_output_combo_box.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -c -o libgmtk_a-gmtk_output_combo_box.o `test -f 'gmtk_output_combo_box.c' || echo '$(srcdir)/'`gmtk_output_combo_box.c
+
+libgmtk_a-gmtk_output_combo_box.obj: gmtk_output_combo_box.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -MT libgmtk_a-gmtk_output_combo_box.obj -MD -MP -MF $(DEPDIR)/libgmtk_a-gmtk_output_combo_box.Tpo -c -o libgmtk_a-gmtk_output_combo_box.obj `if test -f 'gmtk_output_combo_box.c'; then $(CYGPATH_W) 'gmtk_output_combo_box.c'; else $(CYGPATH_W) '$(srcdir)/gmtk_output_combo_box.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libgmtk_a-gmtk_output_combo_box.Tpo $(DEPDIR)/libgmtk_a-gmtk_output_combo_box.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gmtk_output_combo_box.c' object='libgmtk_a-gmtk_output_combo_box.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmtk_a_CFLAGS) $(CFLAGS) -c -o libgmtk_a-gmtk_output_combo_box.obj `if test -f 'gmtk_output_combo_box.c'; then $(CYGPATH_W) 'gmtk_output_combo_box.c'; else $(CYGPATH_W) '$(srcdir)/gmtk_output_combo_box.c'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -541,6 +578,9 @@ uninstall-am:
 	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
 	uninstall-am
 
+
+#libgmtk_a_LDADD = \
+#	$(ALSA_LIBS)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
