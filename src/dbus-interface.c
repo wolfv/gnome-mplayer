@@ -1264,7 +1264,12 @@ void dbus_disable_screensaver()
                     dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &ss_cookie, NULL);
                     dbus_message_unref(reply_message);
                 }
-
+                if (error.message != NULL) {
+#ifdef XSCRNSAVER_ENABLED
+                    XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(get_window(window)), TRUE);
+                    use_xscrnsaver = TRUE;
+#endif
+                }
                 dbus_message_unref(message);
                 dbus_error_free(&error);
 #endif
@@ -1285,12 +1290,19 @@ void dbus_disable_screensaver()
                     dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
 
                 if (reply_message) {
-                    dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &sm_cookie, NULL);
+                    dbus_message_get_args(reply_message, &error, DBUS_TYPE_UINT32, &sm_cookie,
+                                          NULL);
                     dbus_message_unref(reply_message);
                 }
 
-                dbus_message_unref(message);
+                if (error.message != NULL) {
+#ifdef XSCRNSAVER_ENABLED
+                    XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(get_window(window)), TRUE);
+                    use_xscrnsaver = TRUE;
+#endif
+                }
                 dbus_error_free(&error);
+                dbus_message_unref(message);
 #endif
             }
 #endif
