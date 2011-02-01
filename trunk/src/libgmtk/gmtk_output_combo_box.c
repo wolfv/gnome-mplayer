@@ -61,39 +61,39 @@ gint sort_iter_compare_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter *
 
 #ifdef HAVE_PULSEAUDIO
 
-void pa_sink_cb(pa_context *c, const pa_sink_info *i, int eol, gpointer data)
+void pa_sink_cb(pa_context * c, const pa_sink_info * i, int eol, gpointer data)
 {
-	GmtkOutputComboBox *output = GMTK_OUTPUT_COMBO_BOX(data);
-	GtkTreeIter iter;
-	gchar *name;
-	gchar *device;
-	
-	if (i) {
-		name = g_strdup_printf("%s (PulseAudio)",i->description);
-		device = g_strdup_printf("pulse::%i",i->index);
-		gtk_list_store_append(output->list, &iter);
-	    gtk_list_store_set(output->list, &iter, 0, name, 1, -1, 2, -1, 3, device, -1);
-		g_free(device);
-		g_free(name);
+    GmtkOutputComboBox *output = GMTK_OUTPUT_COMBO_BOX(data);
+    GtkTreeIter iter;
+    gchar *name;
+    gchar *device;
 
-	}
+    if (i) {
+        name = g_strdup_printf("%s (PulseAudio)", i->description);
+        device = g_strdup_printf("pulse::%i", i->index);
+        gtk_list_store_append(output->list, &iter);
+        gtk_list_store_set(output->list, &iter, 0, name, 1, -1, 2, -1, 3, device, -1);
+        g_free(device);
+        g_free(name);
+
+    }
 }
 
-void context_state_callback(pa_context *context, gpointer data) 
+void context_state_callback(pa_context * context, gpointer data)
 {
-	//printf("context state callback\n");
-	int i;
-	
-	switch (pa_context_get_state(context)) {
-		case PA_CONTEXT_READY: {
-			for (i = 0; i < 255; i++) {
-				pa_context_get_sink_info_by_index(context, i, pa_sink_cb, data);
-			}
-		}
+    //printf("context state callback\n");
+    int i;
 
-		default:
-			return;
-	}
+    switch (pa_context_get_state(context)) {
+    case PA_CONTEXT_READY:{
+            for (i = 0; i < 255; i++) {
+                pa_context_get_sink_info_by_index(context, i, pa_sink_cb, data);
+            }
+        }
+
+    default:
+        return;
+    }
 
 }
 #endif
@@ -130,27 +130,13 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     snd_ctl_card_info_t *info;
     snd_pcm_info_t *pcminfo;
 #endif
-	
+
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(output), renderer, FALSE);
     gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(output), renderer, "text", 0);
 
     output->list = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
 
-#ifdef HAVE_PULSEAUDIO
-
-	pa_glib_mainloop *loop = pa_glib_mainloop_new(g_main_context_default());
-    pa_context *context = pa_context_new(pa_glib_mainloop_get_api(loop),"gmtk context");	                          
-    pa_context_connect(context, NULL, 0 , NULL);
-	pa_context_set_state_callback(context, context_state_callback, output);
-
-	// make sure the pulse events are done before we exit this function
-	while (gtk_events_pending())
-        gtk_main_iteration();
-
-	
-#endif
-	
     gtk_list_store_append(output->list, &iter);
     gtk_list_store_set(output->list, &iter, 0, _("Default"), 1, -1, 2, -1, 3, "", -1);
     gtk_list_store_append(output->list, &iter);
@@ -220,6 +206,21 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     }
 #endif
 
+#ifdef HAVE_PULSEAUDIO
+
+    pa_glib_mainloop *loop = pa_glib_mainloop_new(g_main_context_default());
+    pa_context *context = pa_context_new(pa_glib_mainloop_get_api(loop), "gmtk context");
+    if (context) {
+        pa_context_connect(context, NULL, 0, NULL);
+        pa_context_set_state_callback(context, context_state_callback, output);
+    }
+    // make sure the pulse events are done before we exit this function
+    while (gtk_events_pending())
+        gtk_main_iteration();
+
+
+#endif
+
     sortable = GTK_TREE_SORTABLE(output->list);
     gtk_tree_sortable_set_sort_func(sortable, 0, sort_iter_compare_func, GINT_TO_POINTER(0), NULL);
     gtk_tree_sortable_set_sort_column_id(sortable, 0, GTK_SORT_ASCENDING);
@@ -274,6 +275,5 @@ const gchar *gmtk_output_combo_box_get_active_description(GmtkOutputComboBox * o
 
 GtkTreeModel *gmtk_output_combo_box_get_tree_model(GmtkOutputComboBox * output)
 {
-	return GTK_TREE_MODEL(output->list);
+    return GTK_TREE_MODEL(output->list);
 }
-
