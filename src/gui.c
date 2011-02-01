@@ -2544,7 +2544,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         g_signal_connect(GTK_OBJECT(menuitem_play), "activate",
                          G_CALLBACK(menuitem_pause_callback), NULL);
 
-        if (idle->videopresent)
+        if (idle && idle->videopresent)
             dbus_disable_screensaver();
 
     } else if (state == PLAYING) {
@@ -7470,7 +7470,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_size_request(audio_meter, -1, 100);
     g_timeout_add_full(G_PRIORITY_HIGH, 40, update_audio_meter, NULL, NULL);
 
-    gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
+	gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(media_hbox), cover_art, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(media_hbox), media_label, FALSE, FALSE, 0);
