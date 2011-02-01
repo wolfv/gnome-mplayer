@@ -4433,9 +4433,10 @@ void config_apply(GtkWidget * widget, void *data)
         g_free(ao);
         ao = NULL;
     }
-    audio_device_name = g_strdup(gmtk_output_combo_box_get_active_description(GMTK_OUTPUT_COMBO_BOX(config_ao)));
-	ao = g_strdup(gmtk_output_combo_box_get_active_device(GMTK_OUTPUT_COMBO_BOX(config_ao)));
-	
+    audio_device_name =
+        g_strdup(gmtk_output_combo_box_get_active_description(GMTK_OUTPUT_COMBO_BOX(config_ao)));
+    ao = g_strdup(gmtk_output_combo_box_get_active_device(GMTK_OUTPUT_COMBO_BOX(config_ao)));
+
 #ifdef HAVE_ASOUNDLIB
     if (mixer != NULL) {
         g_free(mixer);
@@ -4609,7 +4610,7 @@ void config_apply(GtkWidget * widget, void *data)
         use_pulse_flat_volume = TRUE;
     }
 
-	gm_pref_store_set_string(gm_store,AUDIO_DEVICE_NAME, audio_device_name);
+    gm_pref_store_set_string(gm_store, AUDIO_DEVICE_NAME, audio_device_name);
 
 #ifndef HAVE_ASOUNDLIB
     gm_pref_store_set_int(gm_store, VOLUME,
@@ -5422,8 +5423,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GdkColor sub_color;
     gint i = 0;
     gint j = -1;
-	GtkTreeIter ao_iter;
-	gchar *desc;
+    GtkTreeIter ao_iter;
+    gchar *desc;
 
 #ifdef HAVE_ASOUNDLIB
     snd_mixer_t *mhandle;
@@ -5582,30 +5583,36 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     }
 #endif
-	config_ao = gmtk_output_combo_box_new();
+    config_ao = gmtk_output_combo_box_new();
 
-	if (gtk_tree_model_get_iter_first(gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter)) {
+    if (gtk_tree_model_get_iter_first
+        (gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter)) {
         do {
-            if (gtk_list_store_iter_is_valid(GTK_LIST_STORE(gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao))), &ao_iter)) {
-                gtk_tree_model_get(gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter, 0, &desc, -1);
+            if (gtk_list_store_iter_is_valid
+                (GTK_LIST_STORE
+                 (gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao))),
+                 &ao_iter)) {
+                gtk_tree_model_get(gmtk_output_combo_box_get_tree_model
+                                   (GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter, 0, &desc, -1);
 
-				printf("'%s' = '%s'\n",audio_device_name,desc);
-
-				
                 if (audio_device_name != NULL && strcmp(audio_device_name, desc) == 0) {
-					gtk_combo_box_set_active_iter(GTK_COMBO_BOX(config_ao),&ao_iter);
+                    gtk_combo_box_set_active_iter(GTK_COMBO_BOX(config_ao), &ao_iter);
                     g_free(desc);
                     break;
                 }
-				if (audio_device_name == NULL && strcmp(desc,_("Default")) == 0) {
-					gtk_combo_box_set_active_iter(GTK_COMBO_BOX(config_ao),&ao_iter);
+
+                if (audio_device_name == NULL && strcmp(desc, _("Default")) == 0) {
+                    gtk_combo_box_set_active_iter(GTK_COMBO_BOX(config_ao), &ao_iter);
                     g_free(desc);
                     break;
-				}
+                }
                 g_free(desc);
+
             }
-        } while (gtk_tree_model_iter_next(gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter));
-	}
+        } while (gtk_tree_model_iter_next
+                 (gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao)),
+                  &ao_iter));
+    }
 /*
     config_ao = gtk_combo_box_entry_new_text();
     g_signal_connect(GTK_WIDGET(config_ao), "changed", G_CALLBACK(ao_change_callback), NULL);

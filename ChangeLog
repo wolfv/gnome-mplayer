@@ -1,4 +1,5 @@
 Development
+	Code cleanups
 	Drop en translation as it is redundant
 	Update translations for new text "Default"
 	Enhance gmtk_output_combo_box to list PulseAudio devices, when PulseAudio support enabled
