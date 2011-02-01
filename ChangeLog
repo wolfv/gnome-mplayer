@@ -1,4 +1,6 @@
 Development
+	Update translations for new text "Default"
+	Enhance gmtk_output_combo_box to list PulseAudio devices, when PulseAudio support enabled
 	Add in some Generic mplayer AO devices to the selector
 	Fix status icon from showing up multiple times (after config apply)
 	Intergrate gmtk_output_combo_box into preference screen. Allows easy switching between ALSA device

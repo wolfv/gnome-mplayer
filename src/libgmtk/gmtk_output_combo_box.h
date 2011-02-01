@@ -26,8 +26,14 @@
 #include <config.h>
 #endif
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
+
 #ifdef HAVE_ASOUNDLIB
 #include <asoundlib.h>
+#endif
+#ifdef HAVE_PULSEAUDIO
+#include <pulse/pulseaudio.h>
+#include <pulse/glib-mainloop.h>
 #endif
 
 #ifndef __GMTK_OUTPUT_COMBO_BOX_H__
