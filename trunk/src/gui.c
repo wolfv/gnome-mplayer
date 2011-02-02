@@ -4116,6 +4116,10 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_widget_hide(plvbox);
         }
         if (embed_window == 0) {
+            // --fullscreen option doesn't work without this event flush
+            while (gtk_events_pending())
+                gtk_main_iteration();
+
             gtk_window_fullscreen(GTK_WINDOW(window));
         } else {
             fs_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -7470,7 +7474,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_set_size_request(audio_meter, -1, 100);
     g_timeout_add_full(G_PRIORITY_HIGH, 40, update_audio_meter, NULL, NULL);
 
-	gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
+    gtk_fixed_put(GTK_FIXED(fixed), drawing_area, 0, 0);
     gtk_box_pack_start(GTK_BOX(vbox), fixed, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(media_hbox), cover_art, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(media_hbox), media_label, FALSE, FALSE, 0);
