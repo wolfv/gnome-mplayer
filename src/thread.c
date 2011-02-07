@@ -1276,11 +1276,11 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("screenshot");
     }
 
-    if (idledata->device != NULL) {
+    if (idledata->device != NULL && strlen(idledata->device) > 0) {
         argv[arg++] = g_strdup_printf("-dvd-device");
         argv[arg++] = g_strdup_printf("%s", idledata->device);
     } else {
-        if (mplayer_dvd_device != NULL) {
+        if (mplayer_dvd_device != NULL && strlen(mplayer_dvd_device) > 0) {
             argv[arg++] = g_strdup_printf("-dvd-device");
             argv[arg++] = g_strdup_printf("%s", mplayer_dvd_device);
         }

@@ -1,4 +1,5 @@
 Development
+	Try and account for device names that are not null but zero characters long
 	Fix --fullscreen flag not putting window actually in fullscreen
 	Add ALSA and PulseAudio to output selected when ALSA or Pulse support not enabled
 	Fix crash, coming out of pause state
