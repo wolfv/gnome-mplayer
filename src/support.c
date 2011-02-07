@@ -616,7 +616,7 @@ gint parse_cdda(gchar * filename)
         av[ac++] = g_strdup_printf("-identify");
         av[ac++] = g_strdup_printf("cddb://");
         av[ac++] = g_strdup_printf("cdda://");
-        if (mplayer_dvd_device != NULL) {
+        if (mplayer_dvd_device != NULL && strlen(mplayer_dvd_device) > 0) {
             av[ac++] = g_strdup_printf("-cdrom-device");
             av[ac++] = g_strdup_printf("%s", mplayer_dvd_device);
         }
@@ -779,11 +779,11 @@ gint parse_dvd(gchar * filename)
         av[ac++] = g_strdup_printf("-frames");
         av[ac++] = g_strdup_printf("0");
         av[ac++] = g_strdup_printf("-identify");
-        if (idledata->device != NULL) {
+        if (idledata->device != NULL && strlen(idledata->device) > 0) {
             av[ac++] = g_strdup_printf("-dvd-device");
             av[ac++] = g_strdup_printf("%s", idledata->device);
         } else {
-            if (mplayer_dvd_device != NULL) {
+            if (mplayer_dvd_device != NULL && strlen(mplayer_dvd_device) > 0) {
                 av[ac++] = g_strdup_printf("-dvd-device");
                 av[ac++] = g_strdup_printf("%s", mplayer_dvd_device);
             }
@@ -879,7 +879,7 @@ gint parse_vcd(gchar * filename)
         av[ac++] = g_strdup_printf("-frames");
         av[ac++] = g_strdup_printf("0");
         av[ac++] = g_strdup_printf("-identify");
-        if (idledata->device != NULL) {
+        if (idledata->device != NULL && strlen(idledata->device) > 0) {
             av[ac++] = g_strdup_printf("-dvd-device");
             av[ac++] = g_strdup_printf("%s", idledata->device);
         }
@@ -1406,16 +1406,16 @@ MetaData *get_metadata(gchar * uri)
     av[ac++] = g_strdup_printf("-nocache");
     av[ac++] = g_strdup_printf("-noidle");
 
-    if (idledata->device != NULL) {
+    if (idledata->device != NULL && strlen(idledata->device) > 0) {
         av[ac++] = g_strdup_printf("-dvd-device");
         av[ac++] = g_strdup_printf("%s", idledata->device);
     } else {
-        if (mplayer_dvd_device != NULL) {
+        if (mplayer_dvd_device != NULL && strlen(mplayer_dvd_device) > 0) {
             av[ac++] = g_strdup_printf("-dvd-device");
             av[ac++] = g_strdup_printf("%s", mplayer_dvd_device);
         }
     }
-
+	
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
