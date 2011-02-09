@@ -441,6 +441,10 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player,
 
         if (new_state == MEDIA_STATE_QUIT) {
             write_to_mplayer(player, "quit\n");
+			while(player->player_state != PLAYER_STATE_DEAD) {
+				while (gtk_events_pending())
+    				gtk_main_iteration();
+			}
         }
     }
 
@@ -814,6 +818,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         g_source_remove(player->watch_in_hup_id);
         return FALSE;
     }
+
+	if (player->player_state == PLAYER_STATE_DEAD) {
+		return FALSE;
+	}
+	
     mplayer_output = g_string_new("");
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
 
@@ -842,6 +851,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         g_source_remove(player->watch_in_hup_id);
         return FALSE;
     }
+
+	if (player->player_state == PLAYER_STATE_DEAD) {
+		return FALSE;
+	}
+
     mplayer_output = g_string_new("");
 
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, &error);
@@ -908,22 +922,26 @@ gboolean thread_query(gpointer data)
         return FALSE;
     }
 
-    if (player->media_state == MEDIA_STATE_PLAY) {
-        written =
-            write(player->std_in, "pausing_keep_force get_time_pos\n",
-                  strlen("pausing_keep_force get_time_pos\n"));
-        if (written == -1) {
-            return FALSE;
-        } else {
-            return TRUE;
-        }
-    } else {
-        if (player->media_state == MEDIA_STATE_UNKNOWN || player->media_state == MEDIA_STATE_QUIT) {
-            return FALSE;
-        } else {
-            return TRUE;
-        }
-    }
+	if (player->player_state = PLAYER_STATE_RUNNING) {
+		if (player->media_state == MEDIA_STATE_PLAY) {
+		    written =
+		        write(player->std_in, "pausing_keep_force get_time_pos\n",
+		              strlen("pausing_keep_force get_time_pos\n"));
+		    if (written == -1) {
+		        return FALSE;
+		    } else {
+		        return TRUE;
+		    }
+		} else {
+		    if (player->media_state == MEDIA_STATE_UNKNOWN || player->media_state == MEDIA_STATE_QUIT) {
+		        return FALSE;
+		    } else {
+		        return TRUE;
+		    }
+		}
+	} else {
+		return FALSE;
+	}
 }
 
 gboolean write_to_mplayer(GmtkMediaPlayer * player, const gchar * cmd)
