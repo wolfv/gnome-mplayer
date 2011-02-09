@@ -9,6 +9,8 @@ Close
 Play			
 Pause
 Stop
+Prev
+Next
 FastForward
 FastReverse
 Quit

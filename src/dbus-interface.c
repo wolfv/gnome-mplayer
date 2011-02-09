@@ -253,6 +253,19 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Prev") == 0
+                    && idledata != NULL) {
+                    g_idle_add(set_prev, idledata);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+
+				if (g_ascii_strcasecmp(dbus_message_get_member(message), "Next") == 0
+                    && idledata != NULL) {
+                    g_idle_add(set_next, idledata);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+				
+
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastForward") == 0
                     && idledata != NULL) {
                     g_idle_add(set_ff, idledata);
