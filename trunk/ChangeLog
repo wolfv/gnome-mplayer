@@ -1,4 +1,6 @@
 Development
+	libgmtk - gmtk_media_player, crash protection fixes
+	libgmtk - gmtk_media_player, wait for mplayer thread to be dead when setting state to quit
 	Add Prev and Next dbus methods Issue #483, using modified patch in Issue
 	Try and account for device names that are not null but zero characters long
 	Fix --fullscreen flag not putting window actually in fullscreen
