@@ -924,7 +924,7 @@ gboolean thread_query(gpointer data)
         return FALSE;
     }
 
-	if (player->player_state = PLAYER_STATE_RUNNING) {
+	if (player->player_state == PLAYER_STATE_RUNNING) {
 		if (player->media_state == MEDIA_STATE_PLAY) {
 		    written =
 		        write(player->std_in, "pausing_keep_force get_time_pos\n",
