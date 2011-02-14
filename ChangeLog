@@ -1,4 +1,5 @@
 Development
+	libgmtk - gmtk_media_player, add softvol support
 	libgmtk - gmtk_media_player, crash protection fixes
 	libgmtk - gmtk_media_player, wait for mplayer thread to be dead when setting state to quit
 	Add Prev and Next dbus methods Issue #483, using modified patch in Issue
