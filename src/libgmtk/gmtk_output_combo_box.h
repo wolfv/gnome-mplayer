@@ -49,6 +49,25 @@ G_BEGIN_DECLS
 typedef struct _GmtkOutputComboBox GmtkOutputComboBox;
 typedef struct _GmtkOutputComboBoxClass GmtkOutputComboBoxClass;
 
+typedef enum {
+    OUTPUT_TYPE_BASIC,
+    OUTPUT_TYPE_ALSA,
+    OUTPUT_TYPE_PULSE
+} GmtkOutputComboBoxType;
+
+
+enum {
+    OUTPUT_DESCRIPTION_COLUMN,
+    OUTPUT_TYPE_COLUMN,
+    OUTPUT_CARD_COLUMN,
+    OUTPUT_DEVICE_COLUMN,
+    OUTPUT_MPLAYER_DEVICE_COLUMN,
+    OUTPUT_N_COLUMNS
+};
+
+
+
+
 struct _GmtkOutputComboBox {
     GtkComboBox parent;
 

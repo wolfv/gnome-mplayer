@@ -80,7 +80,7 @@ typedef enum {
     ATTRIBUTE_HEIGHT,
     ATTRIBUTE_VO,
     ATTRIBUTE_AO,
-	ATTRIBUTE_SOFTVOL,
+    ATTRIBUTE_SOFTVOL,
     ATTRIBUTE_CACHE_SIZE,
     ATTRIBUTE_SUB_VISIBLE,
     ATTRIBUTE_SUBS_EXIST,
@@ -147,7 +147,7 @@ struct _GmtkMediaPlayer {
     gboolean title_is_menu;
     gchar *vo;
     gchar *ao;
-	gboolean softvol;
+    gboolean softvol;
     gdouble cache_size;
     gboolean sub_visible;
     GList *subtitles;
