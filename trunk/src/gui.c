@@ -5597,7 +5597,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                  (gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao))),
                  &ao_iter)) {
                 gtk_tree_model_get(gmtk_output_combo_box_get_tree_model
-                                   (GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter, 0, &desc, -1);
+                                   (GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter, OUTPUT_DESCRIPTION_COLUMN, &desc, -1);
 
                 if (audio_device_name != NULL && strcmp(audio_device_name, desc) == 0) {
                     gtk_combo_box_set_active_iter(GTK_COMBO_BOX(config_ao), &ao_iter);

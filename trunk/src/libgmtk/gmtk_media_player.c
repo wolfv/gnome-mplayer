@@ -441,10 +441,10 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player,
 
         if (new_state == MEDIA_STATE_QUIT) {
             write_to_mplayer(player, "quit\n");
-			while(player->player_state != PLAYER_STATE_DEAD) {
-				while (gtk_events_pending())
-    				gtk_main_iteration();
-			}
+            while (player->player_state != PLAYER_STATE_DEAD) {
+                while (gtk_events_pending())
+                    gtk_main_iteration();
+            }
             player->media_state = MEDIA_STATE_QUIT;
             g_signal_emit_by_name(player, "media-state-changed", player->media_state);
         }
@@ -489,10 +489,10 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player,
         ret = (player->subtitles != NULL);
         break;
 
-	case ATTRIBUTE_SOFTVOL:
-		ret = player->softvol;
-		break;
-			
+    case ATTRIBUTE_SOFTVOL:
+        ret = player->softvol;
+        break;
+
     default:
         printf("Unsupported Attribute\n");
     }
@@ -507,9 +507,9 @@ void gmtk_media_player_set_attribute_double(GmtkMediaPlayer * player,
         player->cache_size = value;
     }
 
-	if (attribute == ATTRIBUTE_SOFTVOL) {
-		player->softvol = value;
-	}
+    if (attribute == ATTRIBUTE_SOFTVOL) {
+        player->softvol = value;
+    }
 
     return;
 }
@@ -706,10 +706,10 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("%i", (gint) (player->volume * 100));
     }
 
-	if (player->softvol == TRUE) {
+    if (player->softvol == TRUE) {
         argv[argn++] = g_strdup_printf("-softvol");
-	}	
-	
+    }
+
     if ((gint) (player->start_time) > 0) {
         argv[argn++] = g_strdup_printf("-ss");
         argv[argn++] = g_strdup_printf("%f", player->start_time);
@@ -834,10 +834,10 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         return FALSE;
     }
 
-	if (player->player_state == PLAYER_STATE_DEAD) {
-		return FALSE;
-	}
-	
+    if (player->player_state == PLAYER_STATE_DEAD) {
+        return FALSE;
+    }
+
     mplayer_output = g_string_new("");
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
 
@@ -867,9 +867,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         return FALSE;
     }
 
-	if (player->player_state == PLAYER_STATE_DEAD) {
-		return FALSE;
-	}
+    if (player->player_state == PLAYER_STATE_DEAD) {
+        return FALSE;
+    }
 
     mplayer_output = g_string_new("");
 
@@ -937,26 +937,27 @@ gboolean thread_query(gpointer data)
         return FALSE;
     }
 
-	if (player->player_state == PLAYER_STATE_RUNNING) {
-		if (player->media_state == MEDIA_STATE_PLAY) {
-		    written =
-		        write(player->std_in, "pausing_keep_force get_time_pos\n",
-		              strlen("pausing_keep_force get_time_pos\n"));
-		    if (written == -1) {
-		        return FALSE;
-		    } else {
-		        return TRUE;
-		    }
-		} else {
-		    if (player->media_state == MEDIA_STATE_UNKNOWN || player->media_state == MEDIA_STATE_QUIT) {
-		        return FALSE;
-		    } else {
-		        return TRUE;
-		    }
-		}
-	} else {
-		return FALSE;
-	}
+    if (player->player_state == PLAYER_STATE_RUNNING) {
+        if (player->media_state == MEDIA_STATE_PLAY) {
+            written =
+                write(player->std_in, "pausing_keep_force get_time_pos\n",
+                      strlen("pausing_keep_force get_time_pos\n"));
+            if (written == -1) {
+                return FALSE;
+            } else {
+                return TRUE;
+            }
+        } else {
+            if (player->media_state == MEDIA_STATE_UNKNOWN
+                || player->media_state == MEDIA_STATE_QUIT) {
+                return FALSE;
+            } else {
+                return TRUE;
+            }
+        }
+    } else {
+        return FALSE;
+    }
 }
 
 gboolean write_to_mplayer(GmtkMediaPlayer * player, const gchar * cmd)

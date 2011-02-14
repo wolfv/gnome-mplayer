@@ -1,4 +1,6 @@
 Development
+	libgmtk - run make indent
+	libgmtk - gmtk_output_combo_box, use enums instead of hardcoded values
 	libgmtk - gmtk_media_player, add softvol support
 	libgmtk - gmtk_media_player, crash protection fixes
 	libgmtk - gmtk_media_player, wait for mplayer thread to be dead when setting state to quit

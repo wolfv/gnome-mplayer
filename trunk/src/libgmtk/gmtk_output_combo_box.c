@@ -34,9 +34,9 @@ gint sort_iter_compare_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter *
     gchar *b_desc;
 
     switch (sortcol) {
-    case 0:
-        gtk_tree_model_get(model, a, 0, &a_desc, -1);
-        gtk_tree_model_get(model, b, 0, &b_desc, -1);
+    case OUTPUT_DESCRIPTION_COLUMN:
+        gtk_tree_model_get(model, a, OUTPUT_DESCRIPTION_COLUMN, &a_desc, -1);
+        gtk_tree_model_get(model, b, OUTPUT_DESCRIPTION_COLUMN, &b_desc, -1);
 
         if (a_desc == NULL || b_desc == NULL) {
             if (a_desc == NULL && b_desc == NULL)
@@ -72,7 +72,9 @@ void pa_sink_cb(pa_context * c, const pa_sink_info * i, int eol, gpointer data)
         name = g_strdup_printf("%s (PulseAudio)", i->description);
         device = g_strdup_printf("pulse::%i", i->index);
         gtk_list_store_append(output->list, &iter);
-        gtk_list_store_set(output->list, &iter, 0, name, 1, -1, 2, -1, 3, device, -1);
+        gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_PULSE,
+                           OUTPUT_DESCRIPTION_COLUMN, name, OUTPUT_CARD_COLUMN, -1,
+                           OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, device, -1);
         g_free(device);
         g_free(name);
 
@@ -135,18 +137,30 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(output), renderer, FALSE);
     gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(output), renderer, "text", 0);
 
-    output->list = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
+    output->list =
+        gtk_list_store_new(OUTPUT_N_COLUMNS, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
+                           G_TYPE_STRING);
 
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, 0, _("Default"), 1, -1, 2, -1, 3, "", -1);
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
+                       OUTPUT_DESCRIPTION_COLUMN, _("Default"), OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "", -1);
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, 0, "ARTS", 1, -1, 2, -1, 3, "arts", -1);
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
+                       OUTPUT_DESCRIPTION_COLUMN, "ARTS", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "arts", -1);
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, 0, "ESD", 1, -1, 2, -1, 3, "esd", -1);
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
+                       OUTPUT_DESCRIPTION_COLUMN, "ESD", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "esd", -1);
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, 0, "JACK", 1, -1, 2, -1, 3, "jack", -1);
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
+                       OUTPUT_DESCRIPTION_COLUMN, "JACK", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "jack", -1);
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, 0, "OSS", 1, -1, 2, -1, 3, "oss", -1);
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
+                       OUTPUT_DESCRIPTION_COLUMN, "OSS", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "oss", -1);
 
 #ifdef HAVE_ASOUNDLIB
     snd_ctl_card_info_alloca(&info);
@@ -193,18 +207,22 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
             mplayer_device = g_strdup_printf("alsa:device=hw=%i.%i", card, dev);
 
             gtk_list_store_append(output->list, &iter);
-            gtk_list_store_set(output->list, &iter, 0, menu, 1, card, 2, dev, 3, mplayer_device,
-                               -1);
+            gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_ALSA,
+                               OUTPUT_DESCRIPTION_COLUMN, menu, OUTPUT_CARD_COLUMN, card,
+                               OUTPUT_DEVICE_COLUMN, dev, OUTPUT_MPLAYER_DEVICE_COLUMN,
+                               mplayer_device, -1);
         }
 
         snd_ctl_close(handle);
 
     }
-	
+
 #else
-	
-	gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, 0, "ALSA", 1, -1, 2, -1, 3, "alsa", -1);
+
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
+                       OUTPUT_DESCRIPTION_COLUMN, "ALSA", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "alsa", -1);
 
 #endif
 
@@ -221,15 +239,18 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
         gtk_main_iteration();
 
 #else
-	
+
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, 0, "PulseAudio", 1, -1, 2, -1, 3, "pulse", -1);
-	
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
+                       OUTPUT_DESCRIPTION_COLUMN, "PulseAudio", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
+
 #endif
 
     sortable = GTK_TREE_SORTABLE(output->list);
-    gtk_tree_sortable_set_sort_func(sortable, 0, sort_iter_compare_func, GINT_TO_POINTER(0), NULL);
-    gtk_tree_sortable_set_sort_column_id(sortable, 0, GTK_SORT_ASCENDING);
+    gtk_tree_sortable_set_sort_func(sortable, OUTPUT_DESCRIPTION_COLUMN, sort_iter_compare_func,
+                                    GINT_TO_POINTER(OUTPUT_DESCRIPTION_COLUMN), NULL);
+    gtk_tree_sortable_set_sort_column_id(sortable, OUTPUT_DESCRIPTION_COLUMN, GTK_SORT_ASCENDING);
 
     gtk_combo_box_set_model(GTK_COMBO_BOX(output), GTK_TREE_MODEL(output->list));
     //gtk_combo_box_set_active(GTK_COMBO_BOX(output), 0);
@@ -261,7 +282,8 @@ const gchar *gmtk_output_combo_box_get_active_device(GmtkOutputComboBox * output
     const gchar *device = NULL;
 
     if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, 3, &device, -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_MPLAYER_DEVICE_COLUMN,
+                           &device, -1);
     }
     return device;
 
@@ -273,7 +295,8 @@ const gchar *gmtk_output_combo_box_get_active_description(GmtkOutputComboBox * o
     const gchar *desc = NULL;
 
     if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, 0, &desc, -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_DESCRIPTION_COLUMN, &desc,
+                           -1);
     }
     return desc;
 
