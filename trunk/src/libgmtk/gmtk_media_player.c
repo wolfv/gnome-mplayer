@@ -489,6 +489,10 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player,
         ret = (player->subtitles != NULL);
         break;
 
+	case ATTRIBUTE_SOFTVOL:
+		ret = player->softvol;
+		break;
+			
     default:
         printf("Unsupported Attribute\n");
     }
@@ -502,6 +506,10 @@ void gmtk_media_player_set_attribute_double(GmtkMediaPlayer * player,
     if (attribute == ATTRIBUTE_CACHE_SIZE) {
         player->cache_size = value;
     }
+
+	if (attribute == ATTRIBUTE_SOFTVOL) {
+		player->softvol = value;
+	}
 
     return;
 }
@@ -697,6 +705,11 @@ gpointer launch_mplayer(gpointer data)
         printf("volume = %f\n", player->volume);
         argv[argn++] = g_strdup_printf("%i", (gint) (player->volume * 100));
     }
+
+	if (player->softvol == TRUE) {
+        argv[argn++] = g_strdup_printf("-softvol");
+	}	
+	
     if ((gint) (player->start_time) > 0) {
         argv[argn++] = g_strdup_printf("-ss");
         argv[argn++] = g_strdup_printf("%f", player->start_time);
