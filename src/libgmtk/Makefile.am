@@ -21,3 +21,12 @@ libgmtk_a_CFLAGS = -fPIC \
 	
 #libgmtk_a_LDADD = \
 #	$(ALSA_LIBS)
+
+indent:
+	indent -kr -l100 -i4 -nut *.c
+	indent -kr -l100 -i4 -nut *.h
+	rm *~
+	
+cppcheck:
+	cppcheck -q -a -v -f -j3 .
+	
