@@ -302,6 +302,19 @@ const gchar *gmtk_output_combo_box_get_active_description(GmtkOutputComboBox * o
 
 }
 
+GmtkOutputComboBoxType gmtk_output_combo_box_get_active_type(GmtkOutputComboBox * output)
+{
+    GtkTreeIter iter;
+    GmtkOutputComboBoxType type;
+
+    if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_TYPE_COLUMN, &type,
+                           -1);
+    }
+    return type;
+
+}
+
 GtkTreeModel *gmtk_output_combo_box_get_tree_model(GmtkOutputComboBox * output)
 {
     return GTK_TREE_MODEL(output->list);

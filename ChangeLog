@@ -1,4 +1,5 @@
 Development
+	libgmtk - gmtk_output_combo_box, add get_active_type method
 	libgmtk - add make indent and make cppcheck to the Makefile
 	libgmtk - run make indent
 	libgmtk - gmtk_output_combo_box, use enums instead of hardcoded values
