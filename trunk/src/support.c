@@ -367,8 +367,7 @@ gint parse_basic(gchar * uri)
             }
             //printf("line = %s\n", line);
             newline = g_strdup(line);
-            if ((g_ascii_strncasecmp(line, "ref", 3) == 0) ||
-                (g_ascii_strncasecmp(line, "file", 4)) == 0) {
+            if ((g_ascii_strncasecmp(line, "ref", 3) == 0) || (g_ascii_strncasecmp(line, "file", 4)) == 0) {
                 //printf("ref/file\n");
                 parse = g_strsplit(line, "=", 2);
                 if (parse != NULL && parse[1] != NULL) {
@@ -403,8 +402,7 @@ gint parse_basic(gchar * uri)
                 //printf("smil\n");
                 g_free(newline);
                 break;
-            } else if (g_ascii_strncasecmp(newline, "numberofentries", strlen("numberofentries")) ==
-                       0) {
+            } else if (g_ascii_strncasecmp(newline, "numberofentries", strlen("numberofentries")) == 0) {
                 //printf("num\n");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "version", strlen("version")) == 0) {
@@ -624,8 +622,7 @@ gint parse_cdda(gchar * filename)
 
         error = NULL;
 
-        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
-                     &exit_status, &error);
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
         for (i = 0; i < ac; i++) {
             g_free(av[i]);
         }
@@ -666,8 +663,7 @@ gint parse_cdda(gchar * filename)
 
                 length =
                     g_strdup_printf("%c%c%c%c%c%c%c%c", output[ac][7], output[ac][8], output[ac][9],
-                                    output[ac][10], output[ac][11], output[ac][12], output[ac][13],
-                                    output[ac][14]);
+                                    output[ac][10], output[ac][11], output[ac][12], output[ac][13], output[ac][14]);
 
                 ok = FALSE;
                 if (strlen(filename) > 7) {
@@ -691,8 +687,7 @@ gint parse_cdda(gchar * filename)
                                        PLAY_ORDER_COLUMN,
                                        gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),
                                                                       NULL), ADD_ORDER_COLUMN,
-                                       gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore),
-                                                                      NULL), -1);
+                                       gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL), -1);
 
 
                     addcount++;
@@ -716,8 +711,7 @@ gint parse_cdda(gchar * filename)
         if (addcount == 0) {
             ac = 0;
             while (output[ac] != NULL) {
-                if (g_ascii_strncasecmp(output[ac], "ID_CDDA_TRACK__", strlen("ID_CDDA_TRACK_")) ==
-                    0) {
+                if (g_ascii_strncasecmp(output[ac], "ID_CDDA_TRACK__", strlen("ID_CDDA_TRACK_")) == 0) {
                     sscanf(output[ac], "ID_CDDA_TRACK_%i", &num);
                     track = g_strdup_printf("cdda://%i", num);
                     add_item_to_playlist(track, 0);
@@ -793,8 +787,7 @@ gint parse_dvd(gchar * filename)
 
         error = NULL;
 
-        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
-                     &exit_status, &error);
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
         for (i = 0; i < ac; i++) {
             g_free(av[i]);
         }
@@ -809,9 +802,7 @@ gint parse_dvd(gchar * filename)
         }
         output = g_strsplit(out, "\n", 0);
         if (strstr(err, "Couldn't open DVD device:") != NULL) {
-            error_msg =
-                g_strdup_printf(_("Couldn't open DVD device: %s"),
-                                err + strlen("Couldn't open DVD device: "));
+            error_msg = g_strdup_printf(_("Couldn't open DVD device: %s"), err + strlen("Couldn't open DVD device: "));
         }
         ac = 0;
         while (output[ac] != NULL) {
@@ -888,8 +879,7 @@ gint parse_vcd(gchar * filename)
 
         error = NULL;
 
-        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err,
-                     &exit_status, &error);
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
         for (i = 0; i < ac; i++) {
             g_free(av[i]);
         }
@@ -904,9 +894,7 @@ gint parse_vcd(gchar * filename)
         }
         output = g_strsplit(out, "\n", 0);
         if (strstr(err, "Couldn't open VCD device:") != NULL) {
-            error_msg =
-                g_strdup_printf(_("Couldn't open VCD device: %s"),
-                                err + strlen("Couldn't open VCD device: "));
+            error_msg = g_strdup_printf(_("Couldn't open VCD device: %s"), err + strlen("Couldn't open VCD device: "));
         }
         ac = 0;
         while (output[ac] != NULL) {
@@ -954,9 +942,7 @@ gboolean update_mplayer_config()
         return FALSE;
 
     filename = g_strdup_printf("%s/.mplayer/config", g_getenv("HOME"));
-    g_key_file_load_from_file(config,
-                              filename,
-                              G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, &error);
+    g_key_file_load_from_file(config, filename, G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, &error);
 
     if (error != NULL) {
         //printf("%i\n%s", error->code, error->message);
@@ -1076,8 +1062,7 @@ gboolean read_mplayer_config()
             error = NULL;
             g_key_file_load_from_data(config,
                                       (const gchar *) def, strlen(def),
-                                      G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
-                                      &error);
+                                      G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, &error);
             g_free(def);
 
         }
@@ -1144,9 +1129,7 @@ gboolean streaming_media(gchar * uri)
                     if (g_ascii_strncasecmp(uri, "smb://", strlen("smb://")) == 0) {
                         ret = (g_file_info_get_size(info) > 0) ? FALSE : TRUE;
                     } else {
-                        ret =
-                            !g_file_info_get_attribute_boolean(info,
-                                                               G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+                        ret = !g_file_info_get_attribute_boolean(info, G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
                     }
                     g_object_unref(info);
                 } else {
@@ -1415,7 +1398,7 @@ MetaData *get_metadata(gchar * uri)
             av[ac++] = g_strdup_printf("%s", mplayer_dvd_device);
         }
     }
-	
+
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
@@ -1434,8 +1417,7 @@ MetaData *get_metadata(gchar * uri)
         if (verbose)
             printf("Skipping gathering metadata for TV channels\n");
     } else {
-        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status,
-                     &error);
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
     }
 
     for (i = 0; i < ac; i++) {
@@ -1914,8 +1896,7 @@ gint find_closest_to_x_in_playlist(gint x, gint delta)
 
     if (gtk_list_store_iter_is_valid(playliststore, &localiter)) {
         do {
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, PLAY_ORDER_COLUMN, &j,
-                               -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, PLAY_ORDER_COLUMN, &j, -1);
             if (j == (x + delta)) {
                 // we found the current iter
                 k = j;
@@ -2020,8 +2001,7 @@ gboolean save_playlist_pls(gchar * uri)
         g_data_output_stream_put_string(data, "Version=2\n", NULL, NULL);
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter)) {
             do {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,
-                                   &itemname, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN, &itemname, -1);
                 buffer = g_strdup_printf("File%i=%s\n", i++, itemname);
                 g_data_output_stream_put_string(data, buffer, NULL, NULL);
                 g_free(buffer);
@@ -2033,8 +2013,7 @@ gboolean save_playlist_pls(gchar * uri)
         return TRUE;
     } else {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                        GTK_BUTTONS_CLOSE,
-                                        _("Unable to save playlist, cannot open file for writing"));
+                                        GTK_BUTTONS_CLOSE, _("Unable to save playlist, cannot open file for writing"));
         gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
         gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
@@ -2050,13 +2029,11 @@ gboolean save_playlist_pls(gchar * uri)
     contents = fopen(filename, "w");
     if (contents != NULL) {
         fprintf(contents, "[playlist]\n");
-        fprintf(contents, "NumberOfEntries=%i\n",
-                gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL));
+        fprintf(contents, "NumberOfEntries=%i\n", gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL));
         fprintf(contents, "Version=2\n");
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter)) {
             do {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,
-                                   &itemname, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN, &itemname, -1);
                 fprintf(contents, "File%i=%s\n", i++, itemname);
                 g_free(itemname);
             } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
@@ -2066,8 +2043,7 @@ gboolean save_playlist_pls(gchar * uri)
         return TRUE;
     } else {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                        GTK_BUTTONS_CLOSE,
-                                        _("Unable to save playlist, cannot open file for writing"));
+                                        GTK_BUTTONS_CLOSE, _("Unable to save playlist, cannot open file for writing"));
         gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
         gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
@@ -2098,8 +2074,7 @@ gboolean save_playlist_m3u(gchar * uri)
         g_data_output_stream_put_string(data, "#EXTM3U\n", NULL, NULL);
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter)) {
             do {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,
-                                   &itemname, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN, &itemname, -1);
                 buffer = g_strdup_printf("%s\n", itemname);
                 g_data_output_stream_put_string(data, buffer, NULL, NULL);
                 g_free(buffer);
@@ -2111,8 +2086,7 @@ gboolean save_playlist_m3u(gchar * uri)
         return TRUE;
     } else {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                        GTK_BUTTONS_CLOSE,
-                                        _("Unable to save playlist, cannot open file for writing"));
+                                        GTK_BUTTONS_CLOSE, _("Unable to save playlist, cannot open file for writing"));
         gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
         gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
@@ -2130,8 +2104,7 @@ gboolean save_playlist_m3u(gchar * uri)
         fprintf(contents, "#EXTM3U\n");
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter)) {
             do {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN,
-                                   &itemname, -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ITEM_COLUMN, &itemname, -1);
                 fprintf(contents, "%s\n", itemname);
                 g_free(itemname);
             } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
@@ -2141,8 +2114,7 @@ gboolean save_playlist_m3u(gchar * uri)
         return TRUE;
     } else {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                        GTK_BUTTONS_CLOSE,
-                                        _("Unable to save playlist, cannot open file for writing"));
+                                        GTK_BUTTONS_CLOSE, _("Unable to save playlist, cannot open file for writing"));
         gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
         gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
@@ -2171,22 +2143,18 @@ void randomize_playlist(GtkListStore * store)
 
     if (items > 0) {
         if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename,
-                               -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
         } else {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename,
-                               -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
         }
         for (i = 0; i < items; i++) {
             swapid = g_rand_int_range(rand, 0, items);
             if (i != swapid) {
                 if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &a, NULL, i)) {
                     if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &b, NULL, swapid)) {
-                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &a, PLAY_ORDER_COLUMN,
-                                           &order_a, -1);
-                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &b, PLAY_ORDER_COLUMN,
-                                           &order_b, -1);
+                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &a, PLAY_ORDER_COLUMN, &order_a, -1);
+                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &b, PLAY_ORDER_COLUMN, &order_b, -1);
                         gtk_list_store_set(playliststore, &a, PLAY_ORDER_COLUMN, order_b, -1);
                         gtk_list_store_set(playliststore, &b, PLAY_ORDER_COLUMN, order_a, -1);
                     }
@@ -2224,12 +2192,10 @@ void reset_playlist_order(GtkListStore * store)
 
     if (items > 0) {
         if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename,
-                               -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
         } else {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename,
-                               -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iterfilename, -1);
         }
         for (i = 0; i < items; i++) {
             if (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &a, NULL, i)) {
@@ -2623,8 +2589,7 @@ gchar *get_localfile_from_uri(gchar * uri)
                 if (verbose)
                     printf("caching uri to localfile via gio asynchronously\n");
                 g_file_copy_async(idledata->src, idledata->tmp, G_FILE_COPY_NONE,
-                                  G_PRIORITY_DEFAULT, idledata->cancel, cache_callback, NULL,
-                                  ready_callback, NULL);
+                                  G_PRIORITY_DEFAULT, idledata->cancel, cache_callback, NULL, ready_callback, NULL);
                 g_cond_wait(idledata->caching_complete, idledata->caching);
                 g_mutex_unlock(idledata->caching);
                 idledata->tmpfile = TRUE;
@@ -2890,9 +2855,7 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
                         if (ret != NULL)
                             g_free(ret);
                         highest_score = score;
-                        ret =
-                            g_strdup_printf
-                            ("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
+                        ret = g_strdup_printf("http://images.amazon.com/images/P/%s.01.TZZZZZZZ.jpg\n", asin);
                     }
                 }
             }
@@ -2961,8 +2924,7 @@ gpointer get_cover_art(gpointer data)
         p = NULL;
     }
 
-    if (metadata->uri != NULL
-        && (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS))) {
+    if (metadata->uri != NULL && (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS))) {
         path = g_strdup(metadata->uri);
         if (path != NULL) {
             p = g_strrstr(path, "/");
@@ -2987,9 +2949,7 @@ gpointer get_cover_art(gpointer data)
     }
 
     if (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
-        path =
-            g_strdup_printf("%s/gnome-mplayer/cover_art/%s", g_get_user_cache_dir(),
-                            metadata->artist);
+        path = g_strdup_printf("%s/gnome-mplayer/cover_art/%s", g_get_user_cache_dir(), metadata->artist);
 
         cache_file =
             g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(),
@@ -3011,8 +2971,7 @@ gpointer get_cover_art(gpointer data)
             url = get_cover_art_url(metadata->artist, metadata->title, metadata->album);
             if (url == NULL && metadata->album != NULL && strlen(metadata->album) > 0) {
                 g_free(path);
-                path =
-                    g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown", g_get_user_cache_dir());
+                path = g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown", g_get_user_cache_dir());
                 g_free(cache_file);
                 cache_file =
                     g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg",
@@ -3024,9 +2983,7 @@ gpointer get_cover_art(gpointer data)
                 if ((p = strstr(metadata->title, " - ")) != NULL) {
                     p[0] = '\0';
                     g_free(path);
-                    path =
-                        g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown",
-                                        g_get_user_cache_dir());
+                    path = g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown", g_get_user_cache_dir());
                     g_free(cache_file);
                     cache_file =
                         g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown/%s.jpeg",
@@ -3037,8 +2994,7 @@ gpointer get_cover_art(gpointer data)
                     if (metadata->artist != NULL && strlen(metadata->artist) != 0) {
                         g_free(path);
                         path =
-                            g_strdup_printf("%s/gnome-mplayer/cover_art/%s",
-                                            g_get_user_cache_dir(), metadata->artist);
+                            g_strdup_printf("%s/gnome-mplayer/cover_art/%s", g_get_user_cache_dir(), metadata->artist);
                         g_free(cache_file);
                         cache_file =
                             g_strdup_printf("%s/gnome-mplayer/cover_art/%s/Unknown.jpeg",
@@ -3182,8 +3138,7 @@ gboolean detect_volume_option()
     g_free(err);
 
     if (!ret)
-        printf(_
-               ("You might want to consider upgrading mplayer to a newer version, -volume option not supported\n"));
+        printf(_("You might want to consider upgrading mplayer to a newer version, -volume option not supported\n"));
     return ret;
 }
 

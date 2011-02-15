@@ -1,4 +1,7 @@
 Development
+	Run make indent, after changing indent line length from 100 to 120
+	gui.c - Update mixer selection dialog when output device changes
+	libgmtk - gmtk_output_combo_box, add get_active_card method
 	libgmtk - gmtk_output_combo_box, add get_active_type method
 	libgmtk - add make indent and make cppcheck to the Makefile
 	libgmtk - run make indent

@@ -244,8 +244,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
                            COVERART_COLUMN, &pixbuf,
                            SUBTITLE_COLUMN, &subtitle,
                            AUDIOFILE_COLUMN, &audiofile,
-                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist,
-                           PLAYABLE_COLUMN, &playable, -1);
+                           COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, PLAYABLE_COLUMN, &playable, -1);
         if (GTK_IS_TREE_SELECTION(selection)) {
             path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), playiter);
             if (path) {
@@ -363,8 +362,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     message = g_strconcat(message, "</small>", NULL);
 
     // probably not much cover art for random video files
-    if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0
-        && !playlist) {
+    if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0 && !playlist) {
         metadata = (MetaData *) g_new0(MetaData, 1);
         metadata->uri = g_strdup(uri);
         if (title != NULL)
@@ -473,8 +471,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         file = g_file_new_for_uri(uri);
         file_info = g_file_query_info(file,
                                       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
-                                      G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-                                      G_FILE_QUERY_INFO_NONE, NULL, NULL);
+                                      G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME, G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
 
         if (file_info) {
@@ -806,8 +803,7 @@ int main(int argc, char *argv[])
     g_free(uri);
     uri = NULL;
 
-    default_playlist =
-        g_strdup_printf("file://%s/gnome-mplayer/default.pls", g_get_user_config_dir());
+    default_playlist = g_strdup_printf("file://%s/gnome-mplayer/default.pls", g_get_user_config_dir());
     safe_to_save_default_playlist = TRUE;
 
     gm_store = gm_pref_store_new("gnome-mplayer");
@@ -841,8 +837,7 @@ int main(int argc, char *argv[])
     disable_embeddedfonts = gm_pref_store_get_boolean(gm_store, DISABLEEMBEDDEDFONTS);
     disable_pause_on_click = gm_pref_store_get_boolean(gm_store, DISABLEPAUSEONCLICK);
     disable_animation = gm_pref_store_get_boolean(gm_store, DISABLEANIMATION);
-    auto_hide_timeout =
-        gm_pref_store_get_int_with_default(gm_store, AUTOHIDETIMEOUT, auto_hide_timeout);
+    auto_hide_timeout = gm_pref_store_get_int_with_default(gm_store, AUTOHIDETIMEOUT, auto_hide_timeout);
     disable_cover_art_fetch = gm_pref_store_get_boolean(gm_store, DISABLE_COVER_ART_FETCH);
     use_mediakeys = gm_pref_store_get_boolean_with_default(gm_store, USE_MEDIAKEYS, use_mediakeys);
     use_defaultpl = gm_pref_store_get_boolean_with_default(gm_store, USE_DEFAULTPL, use_defaultpl);
@@ -881,8 +876,7 @@ int main(int argc, char *argv[])
     mplayer_dvd_device = gm_pref_store_get_string(gm_store, MPLAYER_DVD_DEVICE);
     extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
     use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store, USE_PULSE_FLAT_VOLUME);
-    use_xscrnsaver =
-        gm_pref_store_get_boolean_with_default(gm_store, USE_XSCRNSAVER, use_xscrnsaver);
+    use_xscrnsaver = gm_pref_store_get_boolean_with_default(gm_store, USE_XSCRNSAVER, use_xscrnsaver);
 
     remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
     loc_window_x = gm_pref_store_get_int(gm_store, WINDOW_X);
@@ -893,8 +887,7 @@ int main(int argc, char *argv[])
 
     keep_on_top = gm_pref_store_get_boolean(gm_store, KEEP_ON_TOP);
     resize_on_new_media = gm_pref_store_get_boolean(gm_store, RESIZE_ON_NEW_MEDIA);
-    mouse_wheel_changes_volume =
-        gm_pref_store_get_boolean_with_default(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, FALSE);
+    mouse_wheel_changes_volume = gm_pref_store_get_boolean_with_default(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, FALSE);
 
     audio_device_name = gm_pref_store_get_string(gm_store, AUDIO_DEVICE_NAME);
 
@@ -994,9 +987,7 @@ int main(int argc, char *argv[])
             volume = (gdouble) volume_softvol;
         } else {
             if (verbose)
-                printf
-                    ("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
-                     volume);
+                printf("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n", volume);
             volume = 100;
         }
     }
@@ -1015,8 +1006,7 @@ int main(int argc, char *argv[])
 
     if (error != NULL) {
         printf("%s\n", error->message);
-        printf(_
-               ("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
+        printf(_("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
         return 1;
     }
 
@@ -1227,8 +1217,7 @@ int main(int argc, char *argv[])
         // When running as apple.com external player, don't load the default playlist
         if (control_id == 0) {
             use_remember_loc = remember_loc;
-            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
-                                           playlist_visible);
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
         } else {
             remember_loc = FALSE;
             use_remember_loc = FALSE;
@@ -1247,8 +1236,7 @@ int main(int argc, char *argv[])
     if (single_instance && embed_window == 0) {
         if (control_id == 0) {
             use_remember_loc = remember_loc;
-            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist),
-                                           playlist_visible);
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
         }
     }
 

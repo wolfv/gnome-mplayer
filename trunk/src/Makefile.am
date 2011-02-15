@@ -109,8 +109,8 @@ endif #HAVE_NAUTILUS
 EXTRA_DIST = 
 	
 indent:
-	indent -kr -l100 -i4 -nut *.c
-	indent -kr -l100 -i4 -nut *.h
+	indent -kr -l120 -i4 -nut *.c
+	indent -kr -l120 -i4 -nut *.h
 	rm *~
 	
 cppcheck:

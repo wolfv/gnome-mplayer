@@ -193,30 +193,22 @@ GtkWidget *gmtk_media_player_new();
 void gmtk_media_player_set_uri(GmtkMediaPlayer * player, const gchar * uri);
 gchar *gmtk_media_player_get_uri(GmtkMediaPlayer * player);
 
-void gmtk_media_player_set_state(GmtkMediaPlayer * player,
-                                 const GmtkMediaPlayerMediaState new_state);
+void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayerMediaState new_state);
 GmtkMediaPlayerMediaState gmtk_media_player_get_state(GmtkMediaPlayer * player);
 
 void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
-                                             GmtkMediaPlayerMediaAttributes attribute,
-                                             gboolean value);
-gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player,
-                                                 GmtkMediaPlayerMediaAttributes attribute);
+                                             GmtkMediaPlayerMediaAttributes attribute, gboolean value);
+gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute);
 
 void gmtk_media_player_set_attribute_double(GmtkMediaPlayer * player,
-                                            GmtkMediaPlayerMediaAttributes attribute,
-                                            gdouble value);
-gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player,
-                                               GmtkMediaPlayerMediaAttributes attribute);
+                                            GmtkMediaPlayerMediaAttributes attribute, gdouble value);
+gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute);
 
 void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
-                                            GmtkMediaPlayerMediaAttributes attribute,
-                                            const gchar * value);
-const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player,
-                                                    GmtkMediaPlayerMediaAttributes attribute);
+                                            GmtkMediaPlayerMediaAttributes attribute, const gchar * value);
+const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute);
 
-void gmtk_media_player_seek(GmtkMediaPlayer * player, gdouble value,
-                            GmtkMediaPlayerSeekType seek_type);
+void gmtk_media_player_seek(GmtkMediaPlayer * player, gdouble value, GmtkMediaPlayerSeekType seek_type);
 
 void gmtk_media_player_set_volume(GmtkMediaPlayer * player, gdouble value);
 gdouble gmtk_media_player_get_volume(GmtkMediaPlayer * player);
@@ -225,8 +217,7 @@ void gmtk_media_player_set_media_device(GmtkMediaPlayer * player, gchar * media_
 void gmtk_media_player_set_media_type(GmtkMediaPlayer * player, GmtkMediaPlayerMediaType type);
 GmtkMediaPlayerMediaType gmtk_media_player_get_media_type(GmtkMediaPlayer * player);
 
-gboolean gmtk_media_player_send_key_press_event(GmtkMediaPlayer * widget, GdkEventKey * event,
-                                                gpointer data);
+gboolean gmtk_media_player_send_key_press_event(GmtkMediaPlayer * widget, GdkEventKey * event, gpointer data);
 
 void gmtk_media_player_select_subtitle(GmtkMediaPlayer * player, const gchar * label);
 void gmtk_media_player_select_audio_track(GmtkMediaPlayer * player, const gchar * label);

@@ -270,8 +270,7 @@ static gboolean get_properties(GtkWidget * page, gchar * uri)
 
         data = get_metadata(filename);
 
-        label =
-            gtk_label_new(dgettext(GETTEXT_PACKAGE, "<span weight=\"bold\">Media Details</span>"));
+        label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "<span weight=\"bold\">Media Details</span>"));
         gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
         gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
         gtk_misc_set_padding(GTK_MISC(label), 0, 6);
@@ -339,9 +338,7 @@ static gboolean get_properties(GtkWidget * page, gchar * uri)
         }
 
         if (data->video_present) {
-            label =
-                gtk_label_new(dgettext
-                              (GETTEXT_PACKAGE, "<span weight=\"bold\">Video Details</span>"));
+            label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "<span weight=\"bold\">Video Details</span>"));
             gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_misc_set_padding(GTK_MISC(label), 0, 6);
@@ -395,9 +392,7 @@ static gboolean get_properties(GtkWidget * page, gchar * uri)
         }
 
         if (data->audio_present) {
-            label =
-                gtk_label_new(dgettext
-                              (GETTEXT_PACKAGE, "<span weight=\"bold\">Audio Details</span>"));
+            label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "<span weight=\"bold\">Audio Details</span>"));
             gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
             gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
             gtk_misc_set_padding(GTK_MISC(label), 0, 6);
@@ -458,8 +453,7 @@ static gboolean get_properties(GtkWidget * page, gchar * uri)
     return FALSE;
 }
 
-static GList *gnome_mplayer_properties_get_pages(NautilusPropertyPageProvider * provider,
-                                                 GList * files)
+static GList *gnome_mplayer_properties_get_pages(NautilusPropertyPageProvider * provider, GList * files)
 {
     GList *pages = NULL;
     NautilusFileInfo *file;
@@ -522,12 +516,9 @@ static void gnome_mplayer_properties_plugin_register_type(GTypeModule * module)
         NULL
     };
 
-    pp_type = g_type_module_register_type(module, G_TYPE_OBJECT,
-                                          "GnomeMPlayerPropertiesPlugin", &info, 0);
+    pp_type = g_type_module_register_type(module, G_TYPE_OBJECT, "GnomeMPlayerPropertiesPlugin", &info, 0);
     g_type_module_add_interface(module,
-                                pp_type,
-                                NAUTILUS_TYPE_PROPERTY_PAGE_PROVIDER,
-                                &property_page_provider_iface_info);
+                                pp_type, NAUTILUS_TYPE_PROPERTY_PAGE_PROVIDER, &property_page_provider_iface_info);
 }
 
 

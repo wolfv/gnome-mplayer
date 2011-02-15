@@ -339,8 +339,7 @@ void clear_playlist(GtkWidget * widget, void *data);
 void create_playlist_widget();
 void add_folder_to_playlist(GtkWidget * widget, void *data);
 gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
-                                gint x, gint y, GtkSelectionData * selection_data,
-                                guint info, guint t, gpointer data);
+                                gint x, gint y, GtkSelectionData * selection_data, guint info, guint t, gpointer data);
 void create_folder_progress_window();
 void destroy_folder_progress_window();
 void update_status_icon();

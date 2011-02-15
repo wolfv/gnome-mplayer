@@ -138,8 +138,7 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(output), renderer, "text", 0);
 
     output->list =
-        gtk_list_store_new(OUTPUT_N_COLUMNS, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
-                           G_TYPE_STRING);
+        gtk_list_store_new(OUTPUT_N_COLUMNS, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
 
     gtk_list_store_append(output->list, &iter);
     gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
@@ -201,16 +200,13 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
                 continue;
             }
 
-            menu =
-                g_strdup_printf("%s (%s) (alsa)", snd_ctl_card_info_get_name(info),
-                                snd_pcm_info_get_name(pcminfo));
+            menu = g_strdup_printf("%s (%s) (alsa)", snd_ctl_card_info_get_name(info), snd_pcm_info_get_name(pcminfo));
             mplayer_device = g_strdup_printf("alsa:device=hw=%i.%i", card, dev);
 
             gtk_list_store_append(output->list, &iter);
             gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_ALSA,
                                OUTPUT_DESCRIPTION_COLUMN, menu, OUTPUT_CARD_COLUMN, card,
-                               OUTPUT_DEVICE_COLUMN, dev, OUTPUT_MPLAYER_DEVICE_COLUMN,
-                               mplayer_device, -1);
+                               OUTPUT_DEVICE_COLUMN, dev, OUTPUT_MPLAYER_DEVICE_COLUMN, mplayer_device, -1);
         }
 
         snd_ctl_close(handle);
@@ -220,7 +216,7 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
 #else
 
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_ALSA,
                        OUTPUT_DESCRIPTION_COLUMN, "ALSA", OUTPUT_CARD_COLUMN, -1,
                        OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "alsa", -1);
 
@@ -241,7 +237,7 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
 #else
 
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_PULSE,
                        OUTPUT_DESCRIPTION_COLUMN, "PulseAudio", OUTPUT_CARD_COLUMN, -1,
                        OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
 
@@ -282,8 +278,7 @@ const gchar *gmtk_output_combo_box_get_active_device(GmtkOutputComboBox * output
     const gchar *device = NULL;
 
     if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_MPLAYER_DEVICE_COLUMN,
-                           &device, -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_MPLAYER_DEVICE_COLUMN, &device, -1);
     }
     return device;
 
@@ -295,23 +290,33 @@ const gchar *gmtk_output_combo_box_get_active_description(GmtkOutputComboBox * o
     const gchar *desc = NULL;
 
     if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_DESCRIPTION_COLUMN, &desc,
-                           -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_DESCRIPTION_COLUMN, &desc, -1);
     }
     return desc;
 
 }
 
-GmtkOutputComboBoxType gmtk_output_combo_box_get_active_type(GmtkOutputComboBox * output)
+GmtkOutputType gmtk_output_combo_box_get_active_type(GmtkOutputComboBox * output)
 {
     GtkTreeIter iter;
-    GmtkOutputComboBoxType type;
+    GmtkOutputType type;
 
     if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
-        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_TYPE_COLUMN, &type,
-                           -1);
+        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_TYPE_COLUMN, &type, -1);
     }
     return type;
+
+}
+
+gint gmtk_output_combo_box_get_active_card(GmtkOutputComboBox * output)
+{
+    GtkTreeIter iter;
+    gint card;
+
+    if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_CARD_COLUMN, &card, -1);
+    }
+    return card;
 
 }
 
