@@ -5291,6 +5291,10 @@ void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
             device = g_strdup_printf("hw:%i", card);
         }
 
+		// this might be wrong, so commenting out
+		//softvol = FALSE;
+		//gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
+
         gtk_list_store_clear(GTK_LIST_STORE(gtk_combo_box_get_model(config_mixer)));
         gtk_combo_box_set_active(config_mixer, -1);
 
@@ -5360,6 +5364,11 @@ void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
 #endif
     } else {
         gtk_widget_set_sensitive(GTK_WIDGET(config_mixer), FALSE);
+		// eventually we'll want to fix this for Pulse
+		//if (gmtk_output_combo_box_get_active_type(GMTK_OUTPUT_COMBO_BOX(config_ao)) == OUTPUT_TYPE_BASIC) {
+			softvol = TRUE;
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
+		//}
     }
 }
 
@@ -5478,6 +5487,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     g_signal_connect(GTK_WIDGET(config_use_hw_audio), "toggled", G_CALLBACK(hw_audio_toggle_callback), NULL);
 
     config_mixer = gtk_combo_box_entry_new_text();
+    config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
 
     config_ao = gmtk_output_combo_box_new();
     g_signal_connect(GTK_WIDGET(config_ao), "changed", G_CALLBACK(output_combobox_changed_callback), config_mixer);
@@ -5506,49 +5516,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         } while (gtk_tree_model_iter_next
                  (gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter));
     }
-/*
-    config_ao = gtk_combo_box_entry_new_text();
-    g_signal_connect(GTK_WIDGET(config_ao), "changed", G_CALLBACK(ao_change_callback), NULL);
-#ifdef GTK2_12_ENABLED
-    gtk_widget_set_tooltip_text(config_ao,
-                                _
-                                ("mplayer audio output device\nalsa or oss should always work, try esd in gnome, arts in kde, or pulse on newer distributions"));
-
-#else
-    tooltip = gtk_tooltips_new();
-    gtk_tooltips_set_tip(tooltip, config_ao,
-                         _
-                         ("mplayer audio output device\nalsa or oss should always work, try esd in gnome, arts in kde, or pulse on newer distributions"),
-                         NULL);
-#endif
-    if (config_ao != NULL) {
-        gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "alsa");
-        gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "arts");
-        gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "esd");
-        gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "jack");
-        gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "oss");
-        gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), "pulse");
-        if (ao != NULL) {
-            if (strcmp(ao, "alsa") == 0)
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 0);
-            if (strcmp(ao, "arts") == 0)
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 1);
-            if (strcmp(ao, "esd") == 0)
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 2);
-            if (strcmp(ao, "jack") == 0)
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 3);
-            if (strcmp(ao, "oss") == 0)
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 4);
-            if (strcmp(ao, "pulse") == 0)
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 5);
-            if (gtk_combo_box_get_active(GTK_COMBO_BOX(config_ao))
-                == -1) {
-                gtk_combo_box_append_text(GTK_COMBO_BOX(config_ao), ao);
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_ao), 6);
-            }
-        }
-    }
-*/
+	
     config_alang = gtk_combo_box_entry_new_text();
     if (config_alang != NULL) {
         i = 0;
@@ -5566,6 +5534,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             gtk_combo_box_set_active(GTK_COMBO_BOX(config_alang), i);
         }
     }
+	
     config_slang = gtk_combo_box_entry_new_text();
     if (config_slang != NULL) {
         i = 0;
@@ -6202,7 +6171,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 3, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
-    config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
 #ifdef GTK2_12_ENABLED
     gtk_widget_set_tooltip_text(config_softvol,
                                 _("Set this option if changing the volume in Gnome MPlayer changes the master volume"));
