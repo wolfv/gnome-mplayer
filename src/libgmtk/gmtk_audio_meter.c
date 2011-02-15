@@ -114,8 +114,7 @@ static void draw(GtkWidget * meter)
     division_width = alloc.width / GMTK_AUDIO_METER(meter)->divisions;
     if (division_width < 2)
         division_width = 2;
-    if (GMTK_AUDIO_METER(meter)->max_division_width > 0
-        && division_width > GMTK_AUDIO_METER(meter)->max_division_width)
+    if (GMTK_AUDIO_METER(meter)->max_division_width > 0 && division_width > GMTK_AUDIO_METER(meter)->max_division_width)
         division_width = GMTK_AUDIO_METER(meter)->max_division_width;
 
     cr = gdk_cairo_create(get_window(meter));
@@ -132,15 +131,13 @@ static void draw(GtkWidget * meter)
 
             cairo_set_source_rgb(cr, style->dark[0].red / 65535.0, style->dark[0].green / 65535.0,
                                  style->dark[0].blue / 65535.0);
-            cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width,
-                            alloc.height * v);
+            cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width, alloc.height * v);
             cairo_fill(cr);
             cairo_stroke(cr);
 
             cairo_set_source_rgb(cr, style->mid[3].red / 65535.0, style->mid[3].green / 65535.0,
                                  style->mid[3].blue / 65535.0);
-            cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width,
-                            alloc.height * v);
+            cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width, alloc.height * v);
             cairo_stroke(cr);
 
         }
@@ -161,17 +158,14 @@ static void draw(GtkWidget * meter)
 
         cairo_set_source_rgb(cr, style->mid[3].red / 65535.0, style->mid[3].green / 65535.0,
                              style->mid[3].blue / 65535.0);
-        cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width,
-                        alloc.height * v);
+        cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width, alloc.height * v);
         cairo_set_source(cr, pattern);
         cairo_fill(cr);
         cairo_stroke(cr);
         cairo_pattern_destroy(pattern);
 
-        cairo_set_source_rgb(cr, style->fg[0].red / 65535.0, style->fg[0].green / 65535.0,
-                             style->fg[0].blue / 65535.0);
-        cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width,
-                        alloc.height * v);
+        cairo_set_source_rgb(cr, style->fg[0].red / 65535.0, style->fg[0].green / 65535.0, style->fg[0].blue / 65535.0);
+        cairo_rectangle(cr, i * division_width, alloc.height * (1.0 - v) + 3, division_width, alloc.height * v);
         cairo_stroke(cr);
 
     }

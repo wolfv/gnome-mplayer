@@ -31,14 +31,10 @@ static GObjectClass *parent_class = NULL;
 static void gmtk_media_player_dispose(GObject * object);
 static gboolean gmtk_media_player_expose_event(GtkWidget * widget, GdkEventExpose * event);
 static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * allocation);
-static gboolean socket_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocation,
-                                              gpointer data);
-static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey * event,
-                                                gpointer data);
-static gboolean player_button_press_event_callback(GtkWidget * widget, GdkEventButton * event,
-                                                   gpointer data);
-static gboolean player_motion_notify_event_callback(GtkWidget * widget, GdkEventMotion * event,
-                                                    gpointer data);
+static gboolean socket_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocation, gpointer data);
+static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey * event, gpointer data);
+static gboolean player_button_press_event_callback(GtkWidget * widget, GdkEventButton * event, gpointer data);
+static gboolean player_motion_notify_event_callback(GtkWidget * widget, GdkEventMotion * event, gpointer data);
 
 // monitoring functions
 gpointer launch_mplayer(gpointer data);
@@ -117,10 +113,8 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     //gtk_widget_set_can_default(GTK_WIDGET(player), TRUE);
 
     g_signal_connect(player, "key_press_event", G_CALLBACK(player_key_press_event_callback), NULL);
-    g_signal_connect(player, "motion_notify_event", G_CALLBACK(player_motion_notify_event_callback),
-                     NULL);
-    g_signal_connect(player, "button_press_event", G_CALLBACK(player_button_press_event_callback),
-                     NULL);
+    g_signal_connect(player, "motion_notify_event", G_CALLBACK(player_motion_notify_event_callback), NULL);
+    g_signal_connect(player, "button_press_event", G_CALLBACK(player_button_press_event_callback), NULL);
 
     style = gtk_widget_get_style(GTK_WIDGET(player));
 
@@ -141,10 +135,8 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
 
     gtk_fixed_put(GTK_FIXED(player), player->socket, 0, 0);
-    g_signal_connect_swapped(player->socket, "size-allocate",
-                             G_CALLBACK(socket_size_allocate_callback), player);
-    g_signal_connect(player->socket, "key_press_event", G_CALLBACK(player_key_press_event_callback),
-                     NULL);
+    g_signal_connect_swapped(player->socket, "size-allocate", G_CALLBACK(socket_size_allocate_callback), player);
+    g_signal_connect(player->socket, "key_press_event", G_CALLBACK(player_key_press_event_callback), NULL);
 
     gtk_widget_pop_composite_child();
 
@@ -207,8 +199,7 @@ static gboolean gmtk_media_player_expose_event(GtkWidget * widget, GdkEventExpos
     return FALSE;
 }
 
-static gboolean socket_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocation,
-                                              gpointer data)
+static gboolean socket_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocation, gpointer data)
 {
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(widget);
 
@@ -216,16 +207,14 @@ static gboolean socket_size_allocate_callback(GtkWidget * widget, GtkAllocation 
     return FALSE;
 }
 
-gboolean gmtk_media_player_send_key_press_event(GmtkMediaPlayer * widget, GdkEventKey * event,
-                                                gpointer data)
+gboolean gmtk_media_player_send_key_press_event(GmtkMediaPlayer * widget, GdkEventKey * event, gpointer data)
 {
     return player_key_press_event_callback(GTK_WIDGET(widget), event, data);
 }
 
 
 
-static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey * event,
-                                                gpointer data)
+static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey * event, gpointer data)
 {
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(widget);
 
@@ -272,8 +261,7 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
     return FALSE;
 }
 
-static gboolean player_button_press_event_callback(GtkWidget * widget, GdkEventButton * event,
-                                                   gpointer data)
+static gboolean player_button_press_event_callback(GtkWidget * widget, GdkEventButton * event, gpointer data)
 {
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(widget);
     gchar *cmd;
@@ -290,8 +278,7 @@ static gboolean player_button_press_event_callback(GtkWidget * widget, GdkEventB
     return FALSE;
 }
 
-static gboolean player_motion_notify_event_callback(GtkWidget * widget, GdkEventMotion * event,
-                                                    gpointer data)
+static gboolean player_motion_notify_event_callback(GtkWidget * widget, GdkEventMotion * event, gpointer data)
 {
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(widget);
     gchar *cmd;
@@ -378,8 +365,7 @@ gchar *gmtk_media_player_get_uri(GmtkMediaPlayer * player)
     return g_strdup(player->uri);
 }
 
-void gmtk_media_player_set_state(GmtkMediaPlayer * player,
-                                 const GmtkMediaPlayerMediaState new_state)
+void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayerMediaState new_state)
 {
     if (player->player_state == PLAYER_STATE_DEAD) {
 
@@ -458,8 +444,7 @@ GmtkMediaPlayerMediaState gmtk_media_player_get_state(GmtkMediaPlayer * player)
 }
 
 void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
-                                             GmtkMediaPlayerMediaAttributes attribute,
-                                             gboolean value)
+                                             GmtkMediaPlayerMediaAttributes attribute, gboolean value)
 {
     gchar *cmd = NULL;
 
@@ -475,8 +460,7 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
     return;
 }
 
-gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player,
-                                                 GmtkMediaPlayerMediaAttributes attribute)
+gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute)
 {
     gboolean ret = FALSE;
 
@@ -514,8 +498,7 @@ void gmtk_media_player_set_attribute_double(GmtkMediaPlayer * player,
     return;
 }
 
-gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player,
-                                               GmtkMediaPlayerMediaAttributes attribute)
+gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute)
 {
     gdouble ret = 0.0;
 
@@ -551,8 +534,7 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player,
 }
 
 void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
-                                            GmtkMediaPlayerMediaAttributes attribute,
-                                            const gchar * value)
+                                            GmtkMediaPlayerMediaAttributes attribute, const gchar * value)
 {
     switch (attribute) {
     case ATTRIBUTE_VO:
@@ -580,8 +562,7 @@ void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
     }
 }
 
-const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player,
-                                                    GmtkMediaPlayerMediaAttributes attribute)
+const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute)
 {
     gchar *value = NULL;
 
@@ -592,8 +573,7 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player,
     return value;
 }
 
-void gmtk_media_player_seek(GmtkMediaPlayer * player, gdouble value,
-                            GmtkMediaPlayerSeekType seek_type)
+void gmtk_media_player_seek(GmtkMediaPlayer * player, gdouble value, GmtkMediaPlayerSeekType seek_type)
 {
     gchar *cmd;
 
@@ -773,8 +753,7 @@ gpointer launch_mplayer(gpointer data)
         g_io_channel_set_close_on_unref(player->channel_out, TRUE);
         g_io_channel_set_close_on_unref(player->channel_err, TRUE);
         player->watch_in_id =
-            g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP,
-                                thread_reader, player, NULL);
+            g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader, player, NULL);
         player->watch_err_id =
             g_io_add_watch_full(player->channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP,
                                 thread_reader_error, player, NULL);
@@ -881,8 +860,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
         if (strstr(mplayer_output->str, "VO:") != NULL) {
             buf = strstr(mplayer_output->str, "VO:");
-            sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &w, &h, &(player->video_width),
-                   &(player->video_height));
+            sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &w, &h, &(player->video_width), &(player->video_height));
+            gtk_widget_get_allocation(GTK_WIDGET(player), &allocation);
+            g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
+        }
+
+        if (strstr(mplayer_output->str, "Video: no video") != NULL) {
+            player->video_width = 0;
+            player->video_height = 0;
             gtk_widget_get_allocation(GTK_WIDGET(player), &allocation);
             g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
@@ -940,16 +926,14 @@ gboolean thread_query(gpointer data)
     if (player->player_state == PLAYER_STATE_RUNNING) {
         if (player->media_state == MEDIA_STATE_PLAY) {
             written =
-                write(player->std_in, "pausing_keep_force get_time_pos\n",
-                      strlen("pausing_keep_force get_time_pos\n"));
+                write(player->std_in, "pausing_keep_force get_time_pos\n", strlen("pausing_keep_force get_time_pos\n"));
             if (written == -1) {
                 return FALSE;
             } else {
                 return TRUE;
             }
         } else {
-            if (player->media_state == MEDIA_STATE_UNKNOWN
-                || player->media_state == MEDIA_STATE_QUIT) {
+            if (player->media_state == MEDIA_STATE_UNKNOWN || player->media_state == MEDIA_STATE_QUIT) {
                 return FALSE;
             } else {
                 return TRUE;

@@ -53,7 +53,7 @@ typedef enum {
     OUTPUT_TYPE_BASIC,
     OUTPUT_TYPE_ALSA,
     OUTPUT_TYPE_PULSE
-} GmtkOutputComboBoxType;
+} GmtkOutputType;
 
 
 enum {
@@ -82,7 +82,8 @@ GType gmtk_output_combo_box_get_type(void);
 GtkWidget *gmtk_output_combo_box_new();
 const gchar *gmtk_output_combo_box_get_active_device(GmtkOutputComboBox * output);
 const gchar *gmtk_output_combo_box_get_active_description(GmtkOutputComboBox * output);
-GmtkOutputComboBoxType gmtk_output_combo_box_get_active_type(GmtkOutputComboBox * output);
+GmtkOutputType gmtk_output_combo_box_get_active_type(GmtkOutputComboBox * output);
+gint gmtk_output_combo_box_get_active_card(GmtkOutputComboBox * output);
 GtkTreeModel *gmtk_output_combo_box_get_tree_model(GmtkOutputComboBox * output);
 
 G_END_DECLS

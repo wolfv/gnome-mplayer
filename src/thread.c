@@ -41,8 +41,7 @@ void mplayer_shutdown()
         dbus_send_event("Ended", 0);
     } else {
         if (verbose > 1) {
-            printf
-                ("plugin calling mplayer shutdown when mplayer might have already been shutdown\n");
+            printf("plugin calling mplayer shutdown when mplayer might have already been shutdown\n");
         }
         send_command("quit\n", FALSE);
     }
@@ -96,8 +95,7 @@ gboolean play(void *data)
             // printf("iter is not valid, getting first one\n");
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
         }
-        gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri,
-                           -1);
+        gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri, -1);
         play_iter(&iter, 0);
     }
     g_free(p);
@@ -143,8 +141,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
     if (threaddata != NULL && threaddata->done == TRUE) {
         if (verbose)
-            printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
-                   threaddata->filename);
+            printf("shutting down threadquery for %s since threaddata->done is TRUE\n", threaddata->filename);
         if (threaddata != NULL)
             g_free(threaddata);
         threaddata = NULL;
@@ -187,14 +184,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
-            strstr(mplayer_output->str, "VDPAU") == NULL &&
-            strstr(mplayer_output->str, "registry file") == NULL) {
+            strstr(mplayer_output->str, "VDPAU") == NULL && strstr(mplayer_output->str, "registry file") == NULL) {
             // error_msg = g_strdup(mplayer_output->str);
             if (strstr(mplayer_output->str, "<") == NULL && strstr(mplayer_output->str, ">") == NULL
                 && idledata->streaming == FALSE) {
-                error_msg =
-                    g_strdup_printf(_("Failed to open %s"),
-                                    mplayer_output->str + strlen("Failed to open "));
+                error_msg = g_strdup_printf(_("Failed to open %s"), mplayer_output->str + strlen("Failed to open "));
             }
 
             if (strstr(mplayer_output->str, "mms://") != NULL && idledata->streaming) {
@@ -234,8 +228,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
     if (strstr(mplayer_output->str, "Cannot load subtitles: ") != NULL) {
         error_msg =
-            g_strdup_printf(_("Cannot load subtitles: %s"),
-                            mplayer_output->str + strlen("Cannot load subtitles: "));
+            g_strdup_printf(_("Cannot load subtitles: %s"), mplayer_output->str + strlen("Cannot load subtitles: "));
     }
 
     if (strstr(mplayer_output->str, "Failed to initiate \"video/X-ASF-PF\" RTP subsession") != NULL) {
@@ -316,8 +309,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
     if (threaddata != NULL && threaddata->done == TRUE) {
         if (verbose)
-            printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
-                   threaddata->filename);
+            printf("shutting down threadquery for %s since threaddata->done is TRUE\n", threaddata->filename);
         if (threaddata != NULL)
             g_free(threaddata);
         threaddata = NULL;
@@ -813,8 +805,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 }
             }
             if (g_utf8_validate(buf + 1, strlen(buf + 1), 0))
-                message =
-                    g_markup_printf_escaped("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
+                message = g_markup_printf_escaped("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
         }
         if (message) {
             // reset max values in audio meter
@@ -882,8 +873,7 @@ gboolean thread_query(gpointer data)
 
     if (threaddata != NULL && threaddata->done == TRUE) {
         if (verbose)
-            printf("shutting down threadquery for %s since threaddata->done is TRUE\n",
-                   threaddata->filename);
+            printf("shutting down threadquery for %s since threaddata->done is TRUE\n", threaddata->filename);
         g_free(threaddata);
         threaddata = NULL;
         return FALSE;
@@ -1178,8 +1168,7 @@ gpointer launch_player(gpointer data)
         // Simply ommiting '-embeddedfonts' did not work
         // printf("demuxer = %s\n",idledata->demuxer);
         // if (!disable_embeddedfonts) {
-        if (!disable_embeddedfonts
-            && (g_strrstr(idledata->demuxer, "mkv") || g_strrstr(idledata->demuxer, "lavfpref"))) {
+        if (!disable_embeddedfonts && (g_strrstr(idledata->demuxer, "mkv") || g_strrstr(idledata->demuxer, "lavfpref"))) {
             argv[arg++] = g_strdup_printf("-embeddedfonts");
         } else {
             argv[arg++] = g_strdup_printf("-noembeddedfonts");
@@ -1348,8 +1337,7 @@ gpointer launch_player(gpointer data)
     state = PAUSED;
     error = NULL;
     ok = g_spawn_async_with_pipes(NULL, argv, NULL,
-                                  G_SPAWN_SEARCH_PATH,
-                                  NULL, NULL, &pid, &std_in, &std_out, &std_err, &error);
+                                  G_SPAWN_SEARCH_PATH, NULL, NULL, &pid, &std_in, &std_out, &std_err, &error);
 
     if (error != NULL) {
         printf("error code = %i - %s\n", error->code, error->message);
@@ -1392,14 +1380,12 @@ gpointer launch_player(gpointer data)
         g_io_channel_set_close_on_unref(channel_out, TRUE);
         g_io_channel_set_close_on_unref(channel_err, TRUE);
         watch_in_id =
-            g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader,
-                                threaddata, NULL);
+            g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader, threaddata, NULL);
         watch_err_id =
             g_io_add_watch_full(channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP,
                                 thread_reader_error, threaddata, NULL);
         watch_in_hup_id =
-            g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete,
-                                threaddata, NULL);
+            g_io_add_watch_full(channel_out, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete, threaddata, NULL);
 //        watch_in_id = g_io_add_watch(channel_in, G_IO_IN, thread_reader, NULL);
 //        watch_err_id = g_io_add_watch(channel_err, G_IO_IN | G_IO_ERR | G_IO_HUP, thread_reader_error, NULL);
 //        watch_in_hup_id = g_io_add_watch(channel_in, G_IO_ERR | G_IO_HUP, thread_complete, NULL);
@@ -1496,8 +1482,7 @@ gpointer launch_player(gpointer data)
                 if (loop) {
                     if (first_item_in_playlist(&iter)) {
                         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
-                                           &filename, COUNT_COLUMN, &count, PLAYLIST_COLUMN,
-                                           &playlist, -1);
+                                           &filename, COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
                         g_strlcpy(idledata->info, filename, 4096);
                         g_idle_add(set_media_info, idledata);
                         p = (PlayData *) g_malloc(sizeof(PlayData));

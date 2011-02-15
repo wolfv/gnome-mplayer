@@ -48,8 +48,7 @@ indent -kr -l100 -i4 -nut
 
 #ifdef DBUS_ENABLED
 
-static DBusHandlerResult filter_func(DBusConnection * connection,
-                                     DBusMessage * message, void *user_data)
+static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * message, void *user_data)
 {
 
     const gchar *sender;
@@ -94,16 +93,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
             g_ascii_strcasecmp(dbus_message_get_path(message), path3) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), path4) == 0 ||
             g_ascii_strcasecmp(dbus_message_get_path(message), "/org/gnome/SettingsDaemon") == 0 ||
-            g_ascii_strcasecmp(dbus_message_get_path(message),
-                               "/org/gnome/SettingsDaemon/MediaKeys") == 0) {
+            g_ascii_strcasecmp(dbus_message_get_path(message), "/org/gnome/SettingsDaemon/MediaKeys") == 0) {
 
             // printf("Path matched %s\n", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Open") == 0) {
                     g_idle_add(set_kill_mplayer, NULL);
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0) {
                             if (verbose)
                                 printf("opening %s\n", s);
@@ -126,8 +123,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "OpenPlaylist") == 0) {
                     g_idle_add(set_kill_mplayer, NULL);
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         selection = NULL;
                         if (s != NULL)
                             g_idle_add(clear_playlist_and_play, g_strdup(s));
@@ -155,8 +151,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Add") == 0) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0) {
                             g_idle_add(add_to_playlist_and_play, g_strdup(s));
                         }
@@ -168,8 +163,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetPlaylistName") == 0) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (playlistname != NULL)
                             g_free(playlistname);
                         playlistname = g_strdup(s);
@@ -190,17 +184,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Play") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Play") == 0 && idledata != NULL) {
                     g_idle_add(set_play, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Play") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Play") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_play, idledata);
@@ -211,17 +202,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Pause") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Pause") == 0 && idledata != NULL) {
                     g_idle_add(set_pause, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Pause") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Pause") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_pause, idledata);
@@ -232,17 +220,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Stop") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Stop") == 0 && idledata != NULL) {
                     g_idle_add(set_stop, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Stop") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Stop") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_stop, idledata);
@@ -253,30 +238,25 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Prev") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Prev") == 0 && idledata != NULL) {
                     g_idle_add(set_prev, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-				if (g_ascii_strcasecmp(dbus_message_get_member(message), "Next") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Next") == 0 && idledata != NULL) {
                     g_idle_add(set_next, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-				
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastForward") == 0
-                    && idledata != NULL) {
+
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastForward") == 0 && idledata != NULL) {
                     g_idle_add(set_ff, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_FastForward") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_FastForward") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_ff, idledata);
@@ -288,17 +268,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastReverse") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "FastReverse") == 0 && idledata != NULL) {
                     g_idle_add(set_rew, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_FastReverse") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_FastReverse") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_rew, idledata);
@@ -309,12 +286,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Seek") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Seek") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->position),
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->position), DBUS_TYPE_INVALID)) {
                         g_idle_add(set_position, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -336,12 +311,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Volume") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "Volume") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->volume),
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->volume), DBUS_TYPE_INVALID)) {
                         g_idle_add(set_volume, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -349,8 +322,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "VolumeUp") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "VolumeUp") == 0 && idledata != NULL) {
                     if (idledata->volume < 100) {
                         idledata->volume++;
                         g_idle_add(set_volume, idledata);
@@ -358,8 +330,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "VolumeDown") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "VolumeDown") == 0 && idledata != NULL) {
                     if (idledata->volume > 0) {
                         idledata->volume--;
                         g_idle_add(set_volume, idledata);
@@ -367,8 +338,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Volume") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Volume") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_DOUBLE, &(idledata->volume), DBUS_TYPE_INT32,
@@ -383,12 +353,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetFullScreen") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetFullScreen") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_BOOLEAN, &(idledata->fullscreen),
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_BOOLEAN, &(idledata->fullscreen), DBUS_TYPE_INVALID)) {
                         g_idle_add(set_fullscreen, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -396,12 +364,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetPercent") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetPercent") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->percent),
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->percent), DBUS_TYPE_INVALID)) {
                         g_idle_add(set_progress_value, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -409,8 +375,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetPercent") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetPercent") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_DOUBLE, &(idledata->percent), DBUS_TYPE_INT32,
@@ -425,12 +390,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetCachePercent") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetCachePercent") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->cachepercent),
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->cachepercent), DBUS_TYPE_INVALID)) {
                         g_idle_add(set_progress_value, idledata);
                         if (idledata->cachepercent > 0.99 && idledata->retry_on_full_cache) {
                             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
@@ -444,11 +407,9 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetProgressText") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetProgressText") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->progress_text, s, 1024);
                         if (state != PLAYING)
                             g_idle_add(set_progress_text, idledata);
@@ -458,12 +419,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetProgressText") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetProgressText") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id,
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->progress_text, s, 1024);
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
@@ -476,11 +435,9 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetMediaLabel") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetMediaLabel") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->media_info, s, 1024);
                         g_idle_add(set_media_label, idledata);
                     } else {
@@ -489,12 +446,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetMediaLabel") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetMediaLabel") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id,
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->media_info, s, 1024);
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
@@ -506,11 +461,9 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetInfo") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetInfo") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->info, s, 1024);
                         g_idle_add(set_media_info, idledata);
                     } else {
@@ -521,8 +474,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetURL") == 0) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->url, s, 1024);
                         g_idle_add(show_copyurl, idledata);
                     } else {
@@ -532,12 +484,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
 
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetShowControls") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetShowControls") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_BOOLEAN, &(idledata->showcontrols),
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_BOOLEAN, &(idledata->showcontrols), DBUS_TYPE_INVALID)) {
                         g_idle_add(set_show_controls, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -545,12 +495,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "ResizeWindow") == 0
-                    && idledata != NULL) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "ResizeWindow") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &window_x, DBUS_TYPE_INT32, &window_y,
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_INT32, &window_x, DBUS_TYPE_INT32, &window_y, DBUS_TYPE_INVALID)) {
                         if (window_x > 0 && window_y > 0);
                         g_idle_add(resize_window, idledata);
                     } else {
@@ -561,8 +509,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetGUIState") == 0) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &guistate, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &guistate, DBUS_TYPE_INVALID)) {
                         g_idle_add(set_gui_state, NULL);
                     } else {
                         dbus_error_free(&error);
@@ -573,8 +520,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetGUIState") == 0) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_INT32, &guistate, DBUS_TYPE_INT32, &source_id,
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_INT32, &guistate, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_gui_state, NULL);
@@ -585,12 +531,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
-                if (g_ascii_strcasecmp(dbus_message_get_member(message), "MediaPlayerKeyPressed") ==
-                    0) {
+                if (g_ascii_strcasecmp(dbus_message_get_member(message), "MediaPlayerKeyPressed") == 0) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_STRING, &keyname,
-                         DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_STRING, &keyname, DBUS_TYPE_INVALID)) {
                         if (g_ascii_strncasecmp(keyname, "Play", strlen("Play")) == 0) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_play, idledata);
@@ -633,8 +577,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
             } else if (message_type == DBUS_MESSAGE_TYPE_METHOD_CALL) {
                 // printf("Got member %s\n",dbus_message_get_member(message));
-                if (dbus_message_is_method_call
-                    (message, "org.freedesktop.DBus.Introspectable", "Introspect")) {
+                if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Introspectable", "Introspect")) {
 
                     xml =
                         g_string_new
@@ -692,8 +635,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
 
                     xml_string = g_string_free(xml, FALSE);
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message,
-                                             DBUS_TYPE_STRING, &xml_string, DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_STRING, &xml_string, DBUS_TYPE_INVALID);
                     g_free(xml_string);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
@@ -708,16 +650,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetVolume")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->volume,
-                                             DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->volume, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetFullScreen")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, &fullscreen,
-                                             DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, &fullscreen, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -725,32 +665,28 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetShowControls")) {
                     showcontrols = get_show_controls();
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, &showcontrols,
-                                             DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, &showcontrols, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetTime")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->position,
-                                             DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->position, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetDuration")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->length,
-                                             DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->length, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetPercent")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->percent,
-                                             DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->percent, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -764,8 +700,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     cache_size = plugin_video_cache_size;
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-                if (dbus_message_is_method_call
-                    (message, "com.gnome.mplayer", "GetPluginAudioCacheSize")) {
+                if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetPluginAudioCacheSize")) {
                     reply_message = dbus_message_new_method_return(message);
                     dbus_message_append_args(reply_message, DBUS_TYPE_INT32,
                                              &plugin_audio_cache_size, DBUS_TYPE_INVALID);
@@ -774,8 +709,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                     cache_size = plugin_audio_cache_size;
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-                if (dbus_message_is_method_call
-                    (message, "com.gnome.mplayer", "GetPluginVideoCacheSize")) {
+                if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetPluginVideoCacheSize")) {
                     reply_message = dbus_message_new_method_return(message);
                     dbus_message_append_args(reply_message, DBUS_TYPE_INT32,
                                              &plugin_video_cache_size, DBUS_TYPE_INVALID);
@@ -786,24 +720,21 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetPlayState")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &js_state,
-                                             DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &js_state, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetBitrate")) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         bitrate = get_bitrate(s);
                     } else {
                         dbus_error_free(&error);
                         bitrate = 0;
                     }
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &bitrate,
-                                             DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &bitrate, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -811,8 +742,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection,
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetURI")) {
                     reply_message = dbus_message_new_method_return(message);
                     s = g_strdup(idledata->info);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_STRING, &s,
-                                             DBUS_TYPE_INVALID);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -975,8 +905,7 @@ void dbus_send_rpsignal_with_int(gchar * signal, int value)
         path = g_strdup_printf("/console/%s", rpconsole);
         localsignal = g_strdup(signal);
         message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
-        dbus_message_append_args(message, DBUS_TYPE_INT32, &value, DBUS_TYPE_INT32, &id,
-                                 DBUS_TYPE_INVALID);
+        dbus_message_append_args(message, DBUS_TYPE_INT32, &value, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
         g_free(localsignal);
@@ -1001,8 +930,7 @@ void dbus_send_rpsignal_with_double(gchar * signal, gdouble value)
         path = g_strdup_printf("/console/%s", rpconsole);
         localsignal = g_strdup(signal);
         message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
-        dbus_message_append_args(message, DBUS_TYPE_DOUBLE, &value, DBUS_TYPE_INT32, &id,
-                                 DBUS_TYPE_INVALID);
+        dbus_message_append_args(message, DBUS_TYPE_DOUBLE, &value, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
         g_free(localsignal);
@@ -1029,8 +957,7 @@ void dbus_send_rpsignal_with_string(gchar * signal, gchar * value)
         localsignal = g_strdup(signal);
         localstr = g_strdup(value);
         message = dbus_message_new_signal(path, "com.gnome.mplayer", localsignal);
-        dbus_message_append_args(message, DBUS_TYPE_STRING, &localstr, DBUS_TYPE_INT32, &id,
-                                 DBUS_TYPE_INVALID);
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &localstr, DBUS_TYPE_INT32, &id, DBUS_TYPE_INVALID);
         dbus_connection_send(connection, message, NULL);
         dbus_message_unref(message);
         g_free(localstr);
@@ -1162,14 +1089,12 @@ gboolean dbus_hookup(gint windowid, gint controlid)
         ret = dbus_bus_request_name(connection, "com.gnome.mplayer", 0, NULL);
         if (single_instance && ret > 1) {
             if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-                                   -1);
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename, -1);
                 dbus_open(filename);
                 local_rnp = replace_and_play;
                 while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &iter)) {
                     replace_and_play = FALSE;
-                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
-                                       -1);
+                    gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename, -1);
                     dbus_open(filename);
                 }
                 if (playlistname != NULL && local_rnp)
@@ -1217,8 +1142,7 @@ void dbus_enable_screensaver()
 #if SM_INHIBIT
                 message =
                     dbus_message_new_method_call("org.gnome.SessionManager",
-                                                 "/org/gnome/SessionManager",
-                                                 "org.gnome.SessionManager", "UnInhibit");
+                                                 "/org/gnome/SessionManager", "org.gnome.SessionManager", "UnInhibit");
                 dbus_message_append_args(message, DBUS_TYPE_INT32, &sm_cookie, DBUS_TYPE_INVALID);
                 dbus_connection_send(connection, message, NULL);
                 dbus_message_unref(message);
@@ -1268,10 +1192,8 @@ void dbus_disable_screensaver()
                                                  "org.gnome.ScreenSaver", "Inhibit");
                 app = g_strdup_printf("gnome-mplayer");
                 reason = g_strdup_printf("playback");
-                dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason,
-                                         DBUS_TYPE_INVALID);
-                reply_message =
-                    dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
+                dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason, DBUS_TYPE_INVALID);
+                reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
 
                 if (reply_message) {
                     dbus_message_get_args(reply_message, &error, DBUS_TYPE_INT32, &ss_cookie, NULL);
@@ -1291,20 +1213,17 @@ void dbus_disable_screensaver()
                 dbus_error_init(&error);
                 message =
                     dbus_message_new_method_call("org.gnome.SessionManager",
-                                                 "/org/gnome/SessionManager",
-                                                 "org.gnome.SessionManager", "Inhibit");
+                                                 "/org/gnome/SessionManager", "org.gnome.SessionManager", "Inhibit");
                 app = g_strdup_printf("gnome-mplayer");
                 reason = g_strdup_printf("playback");
                 flags = 8;
                 dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32,
                                          &(idledata->windowid), DBUS_TYPE_STRING, &reason,
                                          DBUS_TYPE_UINT32, &flags, DBUS_TYPE_INVALID);
-                reply_message =
-                    dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
+                reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
 
                 if (reply_message) {
-                    dbus_message_get_args(reply_message, &error, DBUS_TYPE_UINT32, &sm_cookie,
-                                          NULL);
+                    dbus_message_get_args(reply_message, &error, DBUS_TYPE_UINT32, &sm_cookie, NULL);
                     dbus_message_unref(reply_message);
                 }
 
