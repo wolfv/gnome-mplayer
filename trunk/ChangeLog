@@ -1,4 +1,5 @@
 Development
+	Fix Issue 486, set user agent to something other than Mozilla/x
 	Set softvol on by default when not using ALSA Volume
 	Run make indent, after changing indent line length from 100 to 120
 	gui.c - Update mixer selection dialog when output device changes
