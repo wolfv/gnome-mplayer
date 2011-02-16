@@ -61,6 +61,7 @@ enum {
     OUTPUT_TYPE_COLUMN,
     OUTPUT_CARD_COLUMN,
     OUTPUT_DEVICE_COLUMN,
+	OUTPUT_INDEX_COLUMN,
     OUTPUT_MPLAYER_DEVICE_COLUMN,
     OUTPUT_N_COLUMNS
 };
@@ -84,6 +85,7 @@ const gchar *gmtk_output_combo_box_get_active_device(GmtkOutputComboBox * output
 const gchar *gmtk_output_combo_box_get_active_description(GmtkOutputComboBox * output);
 GmtkOutputType gmtk_output_combo_box_get_active_type(GmtkOutputComboBox * output);
 gint gmtk_output_combo_box_get_active_card(GmtkOutputComboBox * output);
+gint gmtk_output_combo_box_get_active_index(GmtkOutputComboBox * output);
 GtkTreeModel *gmtk_output_combo_box_get_tree_model(GmtkOutputComboBox * output);
 
 G_END_DECLS

@@ -74,7 +74,8 @@ void pa_sink_cb(pa_context * c, const pa_sink_info * i, int eol, gpointer data)
         gtk_list_store_append(output->list, &iter);
         gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_PULSE,
                            OUTPUT_DESCRIPTION_COLUMN, name, OUTPUT_CARD_COLUMN, -1,
-                           OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, device, -1);
+                           OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, i->index, 
+                           OUTPUT_MPLAYER_DEVICE_COLUMN, device, -1);
         g_free(device);
         g_free(name);
 
@@ -138,7 +139,7 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(output), renderer, "text", 0);
 
     output->list =
-        gtk_list_store_new(OUTPUT_N_COLUMNS, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
+        gtk_list_store_new(OUTPUT_N_COLUMNS, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
 
     gtk_list_store_append(output->list, &iter);
     gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
@@ -239,7 +240,8 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gtk_list_store_append(output->list, &iter);
     gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_PULSE,
                        OUTPUT_DESCRIPTION_COLUMN, "PulseAudio", OUTPUT_CARD_COLUMN, -1,
-                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, -1, 
+                       OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
 
 #endif
 
@@ -317,6 +319,18 @@ gint gmtk_output_combo_box_get_active_card(GmtkOutputComboBox * output)
         gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_CARD_COLUMN, &card, -1);
     }
     return card;
+
+}
+
+gint gmtk_output_combo_box_get_active_index(GmtkOutputComboBox * output)
+{
+    GtkTreeIter iter;
+    gint index;
+
+    if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(output), &iter)) {
+        gtk_tree_model_get(GTK_TREE_MODEL(output->list), &iter, OUTPUT_INDEX_COLUMN, &index, -1);
+    }
+    return index;
 
 }
 
