@@ -518,18 +518,6 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/use_pulse_flat_volume</key>
-      <applyto>/apps/gnome-mplayer/preferences/use_pulse_flat_volume</applyto>
-      <owner>gnome-mplayer</owner>
-      <type>bool</type>
-      <default>TRUE</default>
-      <locale name="C">
-        <short>Set to TRUE if using with pulseaudio 0.9.15</short>
-        <long>PulseAudio started using a flat volume option by default in 0.9.15 (you can disable however)</long>
-      </locale>
-    </schema>    
-
-    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/use_defaultpl</key>
       <applyto>/apps/gnome-mplayer/preferences/use_defaultpl</applyto>
       <owner>gnome-mplayer</owner>

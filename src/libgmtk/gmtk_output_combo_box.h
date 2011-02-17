@@ -50,7 +50,7 @@ typedef struct _GmtkOutputComboBox GmtkOutputComboBox;
 typedef struct _GmtkOutputComboBoxClass GmtkOutputComboBoxClass;
 
 typedef enum {
-    OUTPUT_TYPE_BASIC,
+    OUTPUT_TYPE_SOFTVOL,
     OUTPUT_TYPE_ALSA,
     OUTPUT_TYPE_PULSE
 } GmtkOutputType;

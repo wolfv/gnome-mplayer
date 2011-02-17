@@ -64,7 +64,7 @@ static GOptionEntry entries[] = {
     {"volume_softvol", 0, 0, G_OPTION_ARG_INT, &volume_softvol,
      N_("Last software volume percentage- only applied when remember_softvol is set to TRUE"),
      NULL},
-    {"mixer", 0, 0, G_OPTION_ARG_STRING, &mixer, N_("Mixer to use"), NULL},
+    {"mixer", 0, 0, G_OPTION_ARG_STRING, &(audio_device.alsa_mixer), N_("Mixer to use"), NULL},
     {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
      "[0|1]"},
@@ -736,11 +736,8 @@ int main(int argc, char *argv[])
     gpod_mount_point = NULL;
     load_tracks_from_gpod = FALSE;
     disable_cover_art_fetch = FALSE;
-    mixer = NULL;
     fullscreen = 0;
-    ao = NULL;
     vo = NULL;
-    use_pulse_flat_volume = FALSE;
     dvdnav_title_is_menu = FALSE;
     data = NULL;
     max_data = NULL;
@@ -808,7 +805,7 @@ int main(int argc, char *argv[])
 
     gm_store = gm_pref_store_new("gnome-mplayer");
     gmp_store = gm_pref_store_new("gecko-mediaplayer");
-    mixer = gm_pref_store_get_string(gm_store, MIXER);
+    audio_device.alsa_mixer = gm_pref_store_get_string(gm_store, ALSA_MIXER);
     osdlevel = gm_pref_store_get_int(gm_store, OSDLEVEL);
     pplevel = gm_pref_store_get_int(gm_store, PPLEVEL);
 #ifndef HAVE_ASOUNDLIB
@@ -875,7 +872,6 @@ int main(int argc, char *argv[])
     }
     mplayer_dvd_device = gm_pref_store_get_string(gm_store, MPLAYER_DVD_DEVICE);
     extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
-    use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store, USE_PULSE_FLAT_VOLUME);
     use_xscrnsaver = gm_pref_store_get_boolean_with_default(gm_store, USE_XSCRNSAVER, use_xscrnsaver);
 
     remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
@@ -960,24 +956,8 @@ int main(int argc, char *argv[])
 	}
 
 		
-    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
-        // do nothing
-    } else {
-        // we have alsa or pulse flat volume now
-        use_pulse_flat_volume = TRUE;
-    }
-
     if (volume == -1) {
         volume = (gint) get_alsa_volume(TRUE);
-        if (!use_pulse_flat_volume) {
-            if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
-                if (verbose)
-                    printf
-                        ("Using pulse audio in non-flat volume mode, setting volume to max (will be limited by mixer 100%% of %i%%)\n",
-                         volume);
-                volume = 100;
-            }
-        }
     } else {
         if (verbose)
             printf("Using volume of %i from gnome-mplayer preference\n", volume);

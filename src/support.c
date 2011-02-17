@@ -998,12 +998,6 @@ gboolean update_mplayer_config()
         g_key_file_remove_key(config, "gnome-mplayer", "vo", NULL);
     }
 
-    if (ao != NULL && strlen(ao) != 0) {
-        g_key_file_set_string(config, "gnome-mplayer", "ao", ao);
-    } else {
-        g_key_file_remove_key(config, "gnome-mplayer", "ao", NULL);
-    }
-
     if (alang != NULL && strlen(alang) != 0) {
         g_key_file_set_string(config, "gnome-mplayer", "alang", alang);
     } else {
@@ -1070,10 +1064,7 @@ gboolean read_mplayer_config()
 
     if (vo != NULL)
         g_free(vo);
-    if (ao != NULL)
-        g_free(ao);
     vo = g_key_file_get_string(config, "gnome-mplayer", "vo", NULL);
-    ao = g_key_file_get_string(config, "gnome-mplayer", "ao", NULL);
     alang = g_key_file_get_string(config, "gnome-mplayer", "alang", NULL);
     slang = g_key_file_get_string(config, "gnome-mplayer", "slang", NULL);
 
@@ -1086,7 +1077,7 @@ gboolean read_mplayer_config()
     g_key_file_free(config);
 
     if (verbose)
-        printf("read mplayer config values: vo = %s ao = %s\n", vo, ao);
+        printf("read mplayer config values: vo = %s\n", vo);
 
     return TRUE;
 }
@@ -2259,16 +2250,16 @@ gdouble get_alsa_volume(gboolean show_details)
         return vol;
     }
 
-    if (mixer != NULL && strlen(mixer) > 0) {
+    if (audio_device.alsa_mixer != NULL && strlen(audio_device.alsa_mixer) > 0) {
         snd_mixer_selem_id_malloc(&sid);
-        local_mixer = g_strsplit(mixer, ",", 2);
+        local_mixer = g_strsplit(audio_device.alsa_mixer, ",", 2);
         if (local_mixer[1] == NULL) {
             snd_mixer_selem_id_set_index(sid, 0);
         } else {
             snd_mixer_selem_id_set_index(sid, (gint) g_strtod(local_mixer[1], NULL));
         }
         if (local_mixer[0] == NULL) {
-            snd_mixer_selem_id_set_name(sid, mixer);
+            snd_mixer_selem_id_set_name(sid, audio_device.alsa_mixer);
         } else {
             snd_mixer_selem_id_set_name(sid, local_mixer[0]);
         }
@@ -2278,7 +2269,7 @@ gdouble get_alsa_volume(gboolean show_details)
         elem = snd_mixer_find_selem(mhandle, sid);
         if (!elem) {
             if (verbose && show_details)
-                printf("Unable to find %s Mixer control, trying Master\n", mixer);
+                printf("Unable to find %s Mixer control, trying Master\n", audio_device.alsa_mixer);
         } else {
             snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
             f_multi = (100 / (float) (pmax - pmin));
@@ -2300,9 +2291,9 @@ gdouble get_alsa_volume(gboolean show_details)
             }
 
             if (verbose && show_details) {
-                printf("%s Playback is %i\n", mixer, playback);
-                printf("%s Range is %li to %li \n", mixer, pmin, pmax);
-                printf("%s Current Volume %li, multiplier = %f\n", mixer, get_vol, f_multi);
+                printf("%s Playback is %i\n", audio_device.alsa_mixer, playback);
+                printf("%s Range is %li to %li \n", audio_device.alsa_mixer, pmin, pmax);
+                printf("%s Current Volume %li, multiplier = %f\n", audio_device.alsa_mixer, get_vol, f_multi);
                 printf("Scaled Volume is %lf\n", vol);
             }
             found = TRUE;
@@ -2311,9 +2302,9 @@ gdouble get_alsa_volume(gboolean show_details)
     }
 
     if (!found) {
-        if (mixer != NULL) {
-            g_free(mixer);
-            mixer = g_strdup("Master");
+        if (audio_device.alsa_mixer != NULL) {
+            g_free(audio_device.alsa_mixer);
+            audio_device.alsa_mixer = g_strdup("Master");
         }
         snd_mixer_selem_id_malloc(&sid);
         snd_mixer_selem_id_set_index(sid, 0);
@@ -2404,16 +2395,16 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
         return found;
     }
 
-    if (mixer != NULL && strlen(mixer) > 0) {
+    if (audio_device.alsa_mixer != NULL && strlen(audio_device.alsa_mixer) > 0) {
         snd_mixer_selem_id_malloc(&sid);
-        local_mixer = g_strsplit(mixer, ",", 2);
+        local_mixer = g_strsplit(audio_device.alsa_mixer, ",", 2);
         if (local_mixer[1] == NULL) {
             snd_mixer_selem_id_set_index(sid, 0);
         } else {
             snd_mixer_selem_id_set_index(sid, (gint) g_strtod(local_mixer[1], NULL));
         }
         if (local_mixer[0] == NULL) {
-            snd_mixer_selem_id_set_name(sid, mixer);
+            snd_mixer_selem_id_set_name(sid, audio_device.alsa_mixer);
         } else {
             snd_mixer_selem_id_set_name(sid, local_mixer[0]);
         }
@@ -2423,7 +2414,7 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
         elem = snd_mixer_find_selem(mhandle, sid);
         if (!elem) {
             if (verbose && show_details)
-                printf("Unable to find %s Mixer control, trying Master\n", mixer);
+                printf("Unable to find %s Mixer control, trying Master\n", audio_device.alsa_mixer);
         } else {
             snd_mixer_selem_get_playback_volume_range(elem, &pmin, &pmax);
             f_multi = ((float) (pmax - pmin) / 100);
@@ -2442,9 +2433,9 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
                 snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
             }
             if (verbose && show_details) {
-                printf("%s Playback is %i\n", mixer, playback);
-                printf("%s Range is %li to %li \n", mixer, pmin, pmax);
-                printf("%s Volume %i, multiplier = %f\n", mixer, volume, f_multi);
+                printf("%s Playback is %i\n", audio_device.alsa_mixer, playback);
+                printf("%s Range is %li to %li \n", audio_device.alsa_mixer, pmin, pmax);
+                printf("%s Volume %i, multiplier = %f\n", audio_device.alsa_mixer, volume, f_multi);
                 printf("Scaled Volume is %li\n", set_vol);
             }
             found = TRUE;
@@ -2453,9 +2444,9 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
     }
 
     if (!found) {
-        if (mixer != NULL) {
-            g_free(mixer);
-            mixer = g_strdup("Master");
+        if (audio_device.alsa_mixer != NULL) {
+            g_free(audio_device.alsa_mixer);
+            audio_device.alsa_mixer = g_strdup("Master");
         }
         snd_mixer_selem_id_malloc(&sid);
         snd_mixer_selem_id_set_index(sid, 0);
@@ -2483,9 +2474,9 @@ gboolean set_alsa_volume(gboolean show_details, gint volume)
                 snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
             }
             if (verbose && show_details) {
-                printf("%s Playback is %i\n", mixer, playback);
-                printf("%s Range is %li to %li \n", mixer, pmin, pmax);
-                printf("%s Volume %i, multiplier = %f\n", mixer, volume, f_multi);
+                printf("%s Playback is %i\n", audio_device.alsa_mixer, playback);
+                printf("%s Range is %li to %li \n", audio_device.alsa_mixer, pmin, pmax);
+                printf("%s Volume %i, multiplier = %f\n", audio_device.alsa_mixer, volume, f_multi);
                 printf("Scaled Volume is %li\n", set_vol);
             }
             found = TRUE;
