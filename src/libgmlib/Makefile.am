@@ -23,4 +23,15 @@ libgmlib_a_CFLAGS = -fPIC \
 	$(GIO_CFLAGS) \
 	$(GCONF_DEFINES) \
 	$(GIO_DEFINES) \
-	$(GLIB2_26_DEFINES)
+	$(GLIB2_26_DEFINES) \
+	$(ALSA_CFLAGS) \
+	$(PULSE_CFLAGS)
+
+indent:
+	indent -kr -l120 -i4 -nut *.c
+	indent -kr -l120 -i4 -nut *.h
+	rm *~
+	
+cppcheck:
+	cppcheck -q -a -v -f -j3 .
+	

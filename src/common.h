@@ -546,5 +546,7 @@ void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer
 GValue ALLOW_SHRINK_TRUE;
 GValue ALLOW_SHRINK_FALSE;
 
+AudioDevice audio_device;
+
 
 #endif                          /* _COMMON_H */

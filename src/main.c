@@ -890,6 +890,7 @@ int main(int argc, char *argv[])
     mouse_wheel_changes_volume = gm_pref_store_get_boolean_with_default(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, FALSE);
 
     audio_device_name = gm_pref_store_get_string(gm_store, AUDIO_DEVICE_NAME);
+	audio_device.description = g_strdup(audio_device_name);                                       
 
 
     read_mplayer_config();
@@ -954,7 +955,11 @@ int main(int argc, char *argv[])
         printf("Running with panscan enabled (mplayer svn r29565 or higher required)\n");
     }
 #endif
+	if (verbose) {
+		printf("Using audio device: %s\n", audio_device_name);
+	}
 
+		
     if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
         // do nothing
     } else {
@@ -1206,7 +1211,7 @@ int main(int argc, char *argv[])
         }
     }
 #endif
-
+	gm_audio_update_device(&audio_device);     
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
 
@@ -1255,9 +1260,7 @@ int main(int argc, char *argv[])
         destroy_folder_progress_window();
     }
     safe_to_save_default_playlist = TRUE;
-
-    //g_object_set(gtk_settings_get_default(), "gtk-tooltip-timeout", 1000, NULL);
-
+                                      
     gtk_main();
 
     return 0;

@@ -1,4 +1,5 @@
 Development
+	libgmlib - gm_audio list population and update
 	libgmlib - gm_audio skeleton
 	Fix typo in gnome-mplayer.schemas.in
 	libgmtk - gmtk_output_combo_box, fix memory leak
