@@ -1020,7 +1020,7 @@ gpointer launch_player(gpointer data)
     argv[arg++] = g_strdup_printf("-identify");
 
     // this argument seems to cause noise in some videos
-    if (softvol) {
+    if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
         if (volume_gain != 0) {
             argv[arg++] = g_strdup_printf("-af-add");
             argv[arg++] = g_strdup_printf("volume=%i", volume_gain);
@@ -1029,6 +1029,7 @@ gpointer launch_player(gpointer data)
         }
     }
 
+	// might want to use this only in softvol mode
     if (use_volume_option) {
         argv[arg++] = g_strdup_printf("-volume");
         //if (idledata->mute) {
