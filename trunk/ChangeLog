@@ -1,4 +1,5 @@
 Development
+	Hide fullscreen controls, when active workspace switches Issue #488
 	libgmtk - gmtk_output_combo_box, store pulse audio device index id and add getter
 	Fix Issue 486, set user agent to something other than Mozilla/x
 	Set softvol on by default when not using ALSA Volume
