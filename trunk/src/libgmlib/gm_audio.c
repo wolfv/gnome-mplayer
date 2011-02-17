@@ -60,6 +60,37 @@ gboolean gm_audio_query_devices()
     if (audio_devices != NULL) {
         gm_audio_free();
     }
+
+	device = g_new0(AudioDevice, 1);
+	device->description = g_strdup(_("Default"));
+	device->type = AUDIO_TYPE_SOFTVOL;
+	device->mplayer_ao = g_strdup("");
+	audio_devices = g_list_append(audio_devices, device);	
+
+	device = g_new0(AudioDevice, 1);
+	device->description = g_strdup("ARTS");
+	device->type = AUDIO_TYPE_SOFTVOL;
+	device->mplayer_ao = g_strdup("arts");
+	audio_devices = g_list_append(audio_devices, device);	
+
+	device = g_new0(AudioDevice, 1);
+	device->description = g_strdup("ESD");
+	device->type = AUDIO_TYPE_SOFTVOL;
+	device->mplayer_ao = g_strdup("esd");
+	audio_devices = g_list_append(audio_devices, device);	
+
+	device = g_new0(AudioDevice, 1);
+	device->description = g_strdup("JACK");
+	device->type = AUDIO_TYPE_SOFTVOL;
+	device->mplayer_ao = g_strdup("jack");
+	audio_devices = g_list_append(audio_devices, device);	
+
+	device = g_new0(AudioDevice, 1);
+	device->description = g_strdup("OSS");
+	device->type = AUDIO_TYPE_SOFTVOL;
+	device->mplayer_ao = g_strdup("oss");
+	audio_devices = g_list_append(audio_devices, device);	
+	
 #ifdef HAVE_ASOUNDLIB
     snd_ctl_card_info_alloca(&info);
     snd_pcm_info_alloca(&pcminfo);
@@ -122,12 +153,13 @@ gboolean gm_audio_query_devices()
     }
 
 #else
-/*
-    gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
-                       OUTPUT_DESCRIPTION_COLUMN, "ALSA", OUTPUT_CARD_COLUMN, -1,
-                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "alsa", -1);
-*/
+
+	device = g_new0(AudioDevice, 1);
+	device->description = g_strdup("ALSA");
+	device->type = AUDIO_TYPE_SOFTVOL;
+	device->mplayer_ao = g_strdup("alsa");
+	audio_devices = g_list_append(audio_devices, device);	
+
 #endif
 
 #ifdef HAVE_PULSEAUDIO
@@ -143,19 +175,16 @@ gboolean gm_audio_query_devices()
         gtk_main_iteration();
 
 #else
-/*
-    gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
-                       OUTPUT_DESCRIPTION_COLUMN, "PulseAudio", OUTPUT_CARD_COLUMN, -1,
-                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, -1, 
-                       OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
-*/
+	
+	device = g_new0(AudioDevice, 1);
+	device->description = g_strdup("PulseAudio");
+	device->type = AUDIO_TYPE_SOFTVOL;
+	device->mplayer_ao = g_strdup("pulse");
+	audio_devices = g_list_append(audio_devices, device);	
+
 #endif
 
-
-
-
-    return FALSE;
+    return TRUE;
 }
 
 gboolean gm_audio_update_device(AudioDevice * device)
@@ -168,12 +197,12 @@ gboolean gm_audio_update_device(AudioDevice * device)
         gm_audio_query_devices();
     }
 
-    printf("update device, looking for %s\n", device->description);
+    //printf("update device, looking for %s\n", device->description);
 
     iter = audio_devices;
     while (iter != NULL) {
         data = (AudioDevice *) iter->data;
-        printf("Checking %s\n", data->description);
+        //printf("Checking %s\n", data->description);
         if (g_ascii_strcasecmp(device->description, data->description) == 0) {
             device->type = data->type;
             device->alsa_card = data->alsa_card;
@@ -226,7 +255,7 @@ void gm_audio_pa_sink_cb(pa_context * c, const pa_sink_info * i, int eol, gpoint
 
         device = g_new0(AudioDevice, 1);
         device->description = g_strdup(desc);
-        device->type = AUDIO_TYPE_ALSA;
+        device->type = AUDIO_TYPE_PULSE;
         device->pulse_index = i->index;
         device->mplayer_ao = g_strdup(mplayer_ao);
         audio_devices = g_list_append(audio_devices, device);

@@ -970,11 +970,16 @@ gpointer launch_player(gpointer data)
 
     // argv[arg++] = g_strdup_printf("-v");
 
-    if ((vo != NULL && strlen(vo) > 0) || (ao != NULL && strlen(ao) > 0)) {
+    if (vo != NULL && strlen(vo) > 0) {
         argv[arg++] = g_strdup_printf("-profile");
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
 
+	if (audio_device.mplayer_ao != NULL && strlen(audio_device.mplayer_ao) > 0) {
+		argv[arg++] = g_strdup_printf("-ao");
+		argv[arg++] = g_strdup_printf("%s", audio_device.mplayer_ao);
+	}	
+	
     if (vo != NULL && g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0) {
         if (g_ascii_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0
             || g_ascii_strncasecmp(threaddata->filename, "dvdnav://", strlen("dvdnav://")) == 0) {
@@ -1034,10 +1039,10 @@ gpointer launch_player(gpointer data)
         //}
     }
 
-    if (mixer != NULL && strlen(mixer) > 0) {
-        if (ao == NULL || (ao != NULL && g_ascii_strncasecmp(ao, "alsa", 4) == 0)) {
+    if (audio_device.alsa_mixer != NULL && strlen(audio_device.alsa_mixer) > 0) {
+        if (audio_device.type == AUDIO_TYPE_ALSA) {
             argv[arg++] = g_strdup_printf("-mixer-channel");
-            argv[arg++] = g_strdup_printf("%s", mixer);
+            argv[arg++] = g_strdup_printf("%s", audio_device.alsa_mixer);
         }
     }
 

@@ -32,7 +32,7 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
-#define MIXER			"mixer"
+#define ALSA_MIXER			"alsa-mixer"
 #define CACHE_SIZE		"cache_size"
 #define PLUGIN_AUDIO_CACHE_SIZE		"plugin_audio_cache_size"
 #define PLUGIN_VIDEO_CACHE_SIZE		"plugin_video_cache_size"
@@ -80,7 +80,6 @@
 
 #define MPLAYER_BIN		"mplayer_bin"
 #define EXTRAOPTS		"extraopts"
-#define USE_PULSE_FLAT_VOLUME "use_pulse_flat_volume"
 #define USE_XSCRNSAVER "use_xscrnsaver"
 #define MPLAYER_DVD_DEVICE "mplayer_dvd_device"
 
@@ -331,9 +330,8 @@ gint stored_window_width, stored_window_height;
 gboolean adjusting;
 gchar vm[10];
 gchar *vo;
-gchar *ao;
+AudioDevice audio_device;
 gchar *audio_device_name;
-gchar *mixer;
 gint audio_channels;
 gboolean use_hw_audio;
 gboolean disable_deinterlace;
@@ -389,7 +387,6 @@ gchar *mplayer_bin;
 gchar *mplayer_dvd_device;
 gchar *extraopts;
 gboolean resize_on_new_media;
-gboolean use_pulse_flat_volume;
 gboolean single_instance;
 gboolean new_instance;
 gboolean replace_and_play;
@@ -545,8 +542,5 @@ void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer
 
 GValue ALLOW_SHRINK_TRUE;
 GValue ALLOW_SHRINK_FALSE;
-
-AudioDevice audio_device;
-
 
 #endif                          /* _COMMON_H */

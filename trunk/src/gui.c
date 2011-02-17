@@ -158,7 +158,7 @@ gint get_player_window()
 
 gboolean update_volume(gpointer data)
 {
-    if (use_pulse_flat_volume && !softvol) {
+    if (!softvol) {
         if (state != QUIT) {
             //printf("mplayer volume = %i, app volume = %f\n", idledata->mplayer_volume, idledata->volume);
             if (idledata->mplayer_volume + 1 != idledata->volume) {
@@ -4347,19 +4347,21 @@ void config_apply(GtkWidget * widget, void *data)
     }
     vo = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(config_vo)))));
 
-    if (ao != NULL) {
-        g_free(ao);
-        ao = NULL;
-    }
     audio_device_name = g_strdup(gmtk_output_combo_box_get_active_description(GMTK_OUTPUT_COMBO_BOX(config_ao)));
-    ao = g_strdup(gmtk_output_combo_box_get_active_device(GMTK_OUTPUT_COMBO_BOX(config_ao)));
+
+	if (audio_device.description != NULL) {
+		g_free(audio_device.description);
+		audio_device.description = NULL;
+	}
+	audio_device.description = g_strdup(audio_device_name);
+	gm_audio_update_device(&audio_device);
 
 #ifdef HAVE_ASOUNDLIB
-    if (mixer != NULL) {
-        g_free(mixer);
-        mixer = NULL;
+    if (audio_device.alsa_mixer != NULL) {
+        g_free(audio_device.alsa_mixer);
+        audio_device.alsa_mixer = NULL;
     }
-    mixer = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(config_mixer)))));
+    audio_device.alsa_mixer = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(config_mixer)))));
 #endif
 
     if (alang != NULL) {
@@ -4499,15 +4501,6 @@ void config_apply(GtkWidget * widget, void *data)
 
     gm_store = gm_pref_store_new("gnome-mplayer");
 
-    // Adjust the internal setting
-    use_pulse_flat_volume = gm_pref_store_get_boolean(gm_store, USE_PULSE_FLAT_VOLUME);
-    if (ao != NULL && g_ascii_strncasecmp(ao, "pulse", strlen("pulse")) == 0) {
-        // do nothing
-    } else {
-        // we have alsa or pulse flat volume now
-        use_pulse_flat_volume = TRUE;
-    }
-
     gm_pref_store_set_string(gm_store, AUDIO_DEVICE_NAME, audio_device_name);
 
 #ifndef HAVE_ASOUNDLIB
@@ -4518,7 +4511,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_int(gm_store, CACHE_SIZE, cache_size);
     gm_pref_store_set_int(gm_store, PLUGIN_AUDIO_CACHE_SIZE, plugin_audio_cache_size);
     gm_pref_store_set_int(gm_store, PLUGIN_VIDEO_CACHE_SIZE, plugin_video_cache_size);
-    gm_pref_store_set_string(gm_store, MIXER, mixer);
+    gm_pref_store_set_string(gm_store, ALSA_MIXER, audio_device.alsa_mixer);
     gm_pref_store_set_int(gm_store, OSDLEVEL, osdlevel);
     gm_pref_store_set_int(gm_store, PPLEVEL, pplevel);
     gm_pref_store_set_boolean(gm_store, SOFTVOL, softvol);
@@ -5347,7 +5340,7 @@ void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
                 mix = g_strdup_printf("%s,%i", snd_mixer_selem_id_get_name(sid), snd_mixer_selem_id_get_index(sid));
                 //mix = g_strdup_printf("%s", snd_mixer_selem_id_get_name(sid));
                 gtk_combo_box_append_text(GTK_COMBO_BOX(config_mixer), mix);
-                if (mixer != NULL && g_ascii_strcasecmp(mix, mixer) == 0)
+                if (audio_device.alsa_mixer != NULL && g_ascii_strcasecmp(mix, audio_device.alsa_mixer) == 0)
                     j = i;
                 if (g_ascii_strcasecmp(snd_mixer_selem_id_get_name(sid), "Master") == 0)
                     master = i;
