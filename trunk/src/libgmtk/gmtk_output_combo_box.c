@@ -217,7 +217,7 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
 #else
 
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_ALSA,
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
                        OUTPUT_DESCRIPTION_COLUMN, "ALSA", OUTPUT_CARD_COLUMN, -1,
                        OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "alsa", -1);
 
@@ -238,7 +238,7 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
 #else
 
     gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_PULSE,
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_BASIC,
                        OUTPUT_DESCRIPTION_COLUMN, "PulseAudio", OUTPUT_CARD_COLUMN, -1,
                        OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, -1, 
                        OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
@@ -258,7 +258,10 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
 
 static void gmtk_output_combo_box_dispose(GObject * object)
 {
-
+	GmtkOutputComboBox *output = GMTK_OUTPUT_COMBO_BOX(object);
+	
+	gtk_list_store_clear(output->list);
+	g_object_unref(output->list);
 
 }
 
