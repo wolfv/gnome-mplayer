@@ -26,23 +26,25 @@
 #include <config.h>
 #endif
 
+#include <glib.h>
+
 #ifndef __GM_AUDIO_H__
 #define __GM_AUDIO_H__
 
 typedef enum {
-    AUDIO_TYPE_SOFTVOL,	// use mplayer software volume control for non-alsa and non-pulse devices
+    AUDIO_TYPE_SOFTVOL,         // use mplayer software volume control for non-alsa and non-pulse devices
     AUDIO_TYPE_ALSA,
     AUDIO_TYPE_PULSE
 } GmAudioType;
 
 typedef struct _AudioDevice {
-	gchar *description;    // use this as a key to look up the information 
-	GmAudioType type;
-	gint alsa_card;
-	gint alsa_device;
-	gchar *alsa_mixer;     // this is not looked up
-	gint pulse_index;
-	gchar *mplayer_ao;
+    gchar *description;         // use this as a key to look up the information 
+    GmAudioType type;
+    gint alsa_card;
+    gint alsa_device;
+    gchar *alsa_mixer;          // this is not looked up
+    gint pulse_index;
+    gchar *mplayer_ao;
 } AudioDevice;
 
 
@@ -51,11 +53,11 @@ extern "C" {
 #endif
 
 // prototypes go here
+    gboolean gm_audio_query_devices();
+    gboolean gm_audio_free();
+    gboolean gm_audio_update_device(AudioDevice * device);
 
-
-	
 #ifdef __cplusplus
 }
 #endif
-
 #endif

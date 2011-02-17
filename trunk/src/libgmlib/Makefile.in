@@ -264,7 +264,9 @@ libgmlib_a_CFLAGS = -fPIC \
 	$(GIO_CFLAGS) \
 	$(GCONF_DEFINES) \
 	$(GIO_DEFINES) \
-	$(GLIB2_26_DEFINES)
+	$(GLIB2_26_DEFINES) \
+	$(ALSA_CFLAGS) \
+	$(PULSE_CFLAGS)
 
 all: all-am
 
@@ -599,6 +601,14 @@ uninstall-am:
 	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
 	uninstall-am
 
+
+indent:
+	indent -kr -l120 -i4 -nut *.c
+	indent -kr -l120 -i4 -nut *.h
+	rm *~
+
+cppcheck:
+	cppcheck -q -a -v -f -j3 .
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
