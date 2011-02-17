@@ -1835,12 +1835,25 @@ gboolean move_window(void *data)
 gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, gpointer user_data)
 {
 
-    return FALSE;
+    //return FALSE;
 
-    //printf("fullscreen = %i\nState = %i mask = %i flag = %i\n",(event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN),event->new_window_state, event->changed_mask, GDK_WINDOW_STATE_FULLSCREEN);
+    printf("fullscreen = %i\nState = %i mask = %i flag = %i\n",(event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN),event->new_window_state, event->changed_mask, GDK_WINDOW_STATE_FULLSCREEN);
     //if (embed_window == 0) {
-    update_control_flag = TRUE;
-    // printf("restore controls = %i showcontrols = %i\n", restore_controls, showcontrols);
+    //update_control_flag = TRUE;
+    printf("restore controls = %i showcontrols = %i\n", restore_controls, showcontrols);
+	if (fullscreen == 1 && (event->new_window_state & GDK_WINDOW_STATE_ICONIFIED)) {
+		//printf("fullscreen, but window hidden\n");
+		hide_fs_controls();
+	}
+
+	if (fullscreen == 1 && (event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN)) {
+		if (showcontrols) {
+			show_fs_controls();
+		}
+	}
+	
+	return FALSE;
+	
     fullscreen = (event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN);
     if (fullscreen) {
         gtk_widget_hide(menubar);
