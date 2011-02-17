@@ -1,4 +1,5 @@
 Development
+	Enable softvol option when preferred or when audio_device recommends it
 	Change "mixer" preference to "alsa-mixer"
 	Remove global variable use_pulse_flat_volume
 	Remove configure check for PulseAudio flat volume
