@@ -411,7 +411,7 @@
 
     <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/audio_channels</key>
-      <applyto>/apps/gnome-mplayer/preferences/audio_channles</applyto>
+      <applyto>/apps/gnome-mplayer/preferences/audio_channels</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
       <default>0</default>
