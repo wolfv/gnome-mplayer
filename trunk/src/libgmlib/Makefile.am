@@ -6,6 +6,8 @@ noinst_LIBRARIES = \
 
 libgmlib_a_SOURCES = \
    	gmlib.h \
+   	gm_audio.h \
+   	gm_audio.c \
    	gm_file.h \
    	gm_file.c \
    	gm_parse.h \

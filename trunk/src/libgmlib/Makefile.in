@@ -47,8 +47,8 @@ AR = ar
 ARFLAGS = cru
 libgmlib_a_AR = $(AR) $(ARFLAGS)
 libgmlib_a_LIBADD =
-am_libgmlib_a_OBJECTS = libgmlib_a-gm_file.$(OBJEXT) \
-	libgmlib_a-gm_parse.$(OBJEXT) \
+am_libgmlib_a_OBJECTS = libgmlib_a-gm_audio.$(OBJEXT) \
+	libgmlib_a-gm_file.$(OBJEXT) libgmlib_a-gm_parse.$(OBJEXT) \
 	libgmlib_a-gm_pref_store.$(OBJEXT) \
 	libgmlib_a-gm_strfuncs.$(OBJEXT)
 libgmlib_a_OBJECTS = $(am_libgmlib_a_OBJECTS)
@@ -247,6 +247,8 @@ noinst_LIBRARIES = \
 
 libgmlib_a_SOURCES = \
    	gmlib.h \
+   	gm_audio.h \
+   	gm_audio.c \
    	gm_file.h \
    	gm_file.c \
    	gm_parse.h \
@@ -312,6 +314,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_a-gm_audio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_a-gm_file.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_a-gm_parse.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgmlib_a-gm_pref_store.Po@am__quote@
@@ -330,6 +333,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
+
+libgmlib_a-gm_audio.o: gm_audio.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -MT libgmlib_a-gm_audio.o -MD -MP -MF $(DEPDIR)/libgmlib_a-gm_audio.Tpo -c -o libgmlib_a-gm_audio.o `test -f 'gm_audio.c' || echo '$(srcdir)/'`gm_audio.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libgmlib_a-gm_audio.Tpo $(DEPDIR)/libgmlib_a-gm_audio.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gm_audio.c' object='libgmlib_a-gm_audio.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -c -o libgmlib_a-gm_audio.o `test -f 'gm_audio.c' || echo '$(srcdir)/'`gm_audio.c
+
+libgmlib_a-gm_audio.obj: gm_audio.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -MT libgmlib_a-gm_audio.obj -MD -MP -MF $(DEPDIR)/libgmlib_a-gm_audio.Tpo -c -o libgmlib_a-gm_audio.obj `if test -f 'gm_audio.c'; then $(CYGPATH_W) 'gm_audio.c'; else $(CYGPATH_W) '$(srcdir)/gm_audio.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libgmlib_a-gm_audio.Tpo $(DEPDIR)/libgmlib_a-gm_audio.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gm_audio.c' object='libgmlib_a-gm_audio.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -c -o libgmlib_a-gm_audio.obj `if test -f 'gm_audio.c'; then $(CYGPATH_W) 'gm_audio.c'; else $(CYGPATH_W) '$(srcdir)/gm_audio.c'; fi`
 
 libgmlib_a-gm_file.o: gm_file.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgmlib_a_CFLAGS) $(CFLAGS) -MT libgmlib_a-gm_file.o -MD -MP -MF $(DEPDIR)/libgmlib_a-gm_file.Tpo -c -o libgmlib_a-gm_file.o `test -f 'gm_file.c' || echo '$(srcdir)/'`gm_file.c

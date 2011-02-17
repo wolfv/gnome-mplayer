@@ -1,4 +1,6 @@
 Development
+	libgmlib - gm_audio skeleton
+	Fix typo in gnome-mplayer.schemas.in
 	libgmtk - gmtk_output_combo_box, fix memory leak
 	Hide fullscreen controls, when active workspace switches Issue #488
 	libgmtk - gmtk_output_combo_box, store pulse audio device index id and add getter
