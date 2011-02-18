@@ -955,33 +955,18 @@ int main(int argc, char *argv[])
 		printf("Using audio device: %s\n", audio_device_name);
 	}
 
-		
-    if (volume == -1) {
-        volume = (gint) get_alsa_volume(TRUE);
-    } else {
-        if (verbose)
-            printf("Using volume of %i from gnome-mplayer preference\n", volume);
-    }
-
     if (softvol) {
+        if (verbose)
+            printf("Using MPlayer Software Volume control\n");
         if (remember_softvol && volume_softvol != -1) {
             if (verbose)
-                printf
-                    ("Using softvol, since remember_softvol is enabled volume will be set to %i%% of %i%%\n",
-                     volume_softvol, volume);
+                printf("Using last volume of %i%%\n", volume_softvol);
             volume = (gdouble) volume_softvol;
         } else {
-            if (verbose)
-                printf("Using softvol, setting volume to max (will be limited by mixer 100%% of %i%%)\n", volume);
             volume = 100;
         }
     }
 
-    if (volume >= 0 && volume <= 100) {
-        idledata->volume = (gdouble) volume;
-    }
-
-    use_volume_option = detect_volume_option();
 
     if (large_buttons)
         button_size = GTK_ICON_SIZE_DIALOG;
@@ -1191,7 +1176,20 @@ int main(int argc, char *argv[])
         }
     }
 #endif
+
 	gm_audio_update_device(&audio_device);     
+    gm_audio_get_volume(&audio_device);
+	if (!softvol) {                                      
+		printf("The volume on '%s' is %f\n", audio_device.description, audio_device.volume);
+		volume = audio_device.volume * 100;
+#ifdef GTK2_12_ENABLED
+		gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume * 100.0);
+#else
+		gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume * 100.0);
+#endif
+	}
+    use_volume_option = detect_volume_option();
+                                       
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
 
