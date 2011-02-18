@@ -28,11 +28,11 @@
 extern "C" {
 #endif
 
-void gm_str_strip_unicode(gchar * data, gsize len);
-void gm_str_replace_amp(gchar * data);
-void gm_str_unreplace_amp(gchar * data);	
-gint gm_str_hms_in_seconds(gchar *timestr);
-	
+    void gm_str_strip_unicode(gchar * data, gsize len);
+    void gm_str_replace_amp(gchar * data);
+    void gm_str_unreplace_amp(gchar * data);
+    gint gm_str_hms_in_seconds(gchar * timestr);
+
 #ifdef __cplusplus
 }
 #endif

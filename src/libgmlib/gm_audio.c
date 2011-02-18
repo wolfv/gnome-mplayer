@@ -38,8 +38,8 @@ gboolean gm_audio_debug = FALSE;
 // private prototypes
 
 #ifdef HAVE_ASOUNDLIB
-gdouble get_alsa_volume(gchar *device, gchar *mixer);
-gboolean set_alsa_volume(gchar *device, gchar *mixer, gdouble volume);
+gdouble get_alsa_volume(gchar * device, gchar * mixer);
+gboolean set_alsa_volume(gchar * device, gchar * mixer, gdouble volume);
 #endif
 
 #ifdef HAVE_PULSEAUDIO
@@ -63,43 +63,43 @@ gboolean gm_audio_query_devices()
     snd_ctl_t *handle;
     snd_ctl_card_info_t *info;
     snd_pcm_info_t *pcminfo;
-	gchar *device_name;
+    gchar *device_name;
 #endif
 
     if (gm_audio_devices != NULL) {
         gm_audio_free();
     }
 
-	device = g_new0(AudioDevice, 1);
-	device->description = g_strdup(_("Default"));
-	device->type = AUDIO_TYPE_SOFTVOL;
-	device->mplayer_ao = g_strdup("");
-	gm_audio_devices = g_list_append(gm_audio_devices, device);	
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup(_("Default"));
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->mplayer_ao = g_strdup("");
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
 
-	device = g_new0(AudioDevice, 1);
-	device->description = g_strdup("ARTS");
-	device->type = AUDIO_TYPE_SOFTVOL;
-	device->mplayer_ao = g_strdup("arts");
-	gm_audio_devices = g_list_append(gm_audio_devices, device);	
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("ARTS");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->mplayer_ao = g_strdup("arts");
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
 
-	device = g_new0(AudioDevice, 1);
-	device->description = g_strdup("ESD");
-	device->type = AUDIO_TYPE_SOFTVOL;
-	device->mplayer_ao = g_strdup("esd");
-	gm_audio_devices = g_list_append(gm_audio_devices, device);	
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("ESD");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->mplayer_ao = g_strdup("esd");
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
 
-	device = g_new0(AudioDevice, 1);
-	device->description = g_strdup("JACK");
-	device->type = AUDIO_TYPE_SOFTVOL;
-	device->mplayer_ao = g_strdup("jack");
-	gm_audio_devices = g_list_append(gm_audio_devices, device);	
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("JACK");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->mplayer_ao = g_strdup("jack");
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
 
-	device = g_new0(AudioDevice, 1);
-	device->description = g_strdup("OSS");
-	device->type = AUDIO_TYPE_SOFTVOL;
-	device->mplayer_ao = g_strdup("oss");
-	gm_audio_devices = g_list_append(gm_audio_devices, device);	
-	
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("OSS");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->mplayer_ao = g_strdup("oss");
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
+
 #ifdef HAVE_ASOUNDLIB
     snd_ctl_card_info_alloca(&info);
     snd_pcm_info_alloca(&pcminfo);
@@ -140,7 +140,7 @@ gboolean gm_audio_query_devices()
             }
 
             desc = g_strdup_printf("%s (%s) (alsa)", snd_ctl_card_info_get_name(info), snd_pcm_info_get_name(pcminfo));
-			device_name = g_strdup_printf("hw:%i",card);
+            device_name = g_strdup_printf("hw:%i", card);
             mplayer_ao = g_strdup_printf("alsa:device=hw=%i.%i", card, dev);
 
             device = g_new0(AudioDevice, 1);
@@ -148,7 +148,7 @@ gboolean gm_audio_query_devices()
             device->type = AUDIO_TYPE_ALSA;
             device->alsa_card = card;
             device->alsa_device = dev;
-			device->alsa_device_name = g_strdup(device_name);
+            device->alsa_device_name = g_strdup(device_name);
             device->mplayer_ao = g_strdup(mplayer_ao);
             gm_audio_devices = g_list_append(gm_audio_devices, device);
 
@@ -165,12 +165,12 @@ gboolean gm_audio_query_devices()
 
 #else
 
-	device = g_new0(AudioDevice, 1);
-	device->description = g_strdup("ALSA");
-	device->type = AUDIO_TYPE_SOFTVOL;
-	define->alsa_device_name = g_strdup("default");
-	device->mplayer_ao = g_strdup("alsa");
-	gm_audio_devices = g_list_append(gm_audio_devices, device);	
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("ALSA");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    define->alsa_device_name = g_strdup("default");
+    device->mplayer_ao = g_strdup("alsa");
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
 
 #endif
 
@@ -187,12 +187,12 @@ gboolean gm_audio_query_devices()
         gtk_main_iteration();
 
 #else
-	
-	device = g_new0(AudioDevice, 1);
-	device->description = g_strdup("PulseAudio");
-	device->type = AUDIO_TYPE_SOFTVOL;
-	device->mplayer_ao = g_strdup("pulse");
-	gm_audio_devices = g_list_append(gm_audio_devices, device);	
+
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("PulseAudio");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->mplayer_ao = g_strdup("pulse");
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
 
 #endif
 
@@ -208,40 +208,39 @@ gboolean gm_audio_update_device(AudioDevice * device)
     if (gm_audio_devices == NULL) {
         gm_audio_query_devices();
     }
-
     //printf("update device, looking for %s\n", device->description);
 
-	device->type = AUDIO_TYPE_UNKNOWN;
-	if (device->alsa_device_name != NULL) {
+    device->type = AUDIO_TYPE_UNKNOWN;
+    if (device->alsa_device_name != NULL) {
         g_free(device->alsa_device_name);
         device->alsa_device_name = NULL;
     }
-	if (device->mplayer_ao != NULL) {
+    if (device->mplayer_ao != NULL) {
         g_free(device->mplayer_ao);
         device->mplayer_ao = NULL;
     }
-	
+
     iter = gm_audio_devices;
     while (iter != NULL) {
         data = (AudioDevice *) iter->data;
         //printf("Checking %s\n", data->description);
         if ((device->description != NULL && g_ascii_strcasecmp(device->description, data->description) == 0)
-            || ((device->description == NULL || g_ascii_strcasecmp(device->description,"") == 0)
-                && g_ascii_strcasecmp(data->description, _("Default")) == 0 )) {
-			if (device->description == NULL || g_ascii_strcasecmp(device->description,"") == 0) {
-				if (device->description != NULL) {
-					g_free(device->description);
-					device->description = NULL;
-				}
-				device->description = g_strdup(data->description);
-			}
+            || ((device->description == NULL || g_ascii_strcasecmp(device->description, "") == 0)
+                && g_ascii_strcasecmp(data->description, _("Default")) == 0)) {
+            if (device->description == NULL || g_ascii_strcasecmp(device->description, "") == 0) {
+                if (device->description != NULL) {
+                    g_free(device->description);
+                    device->description = NULL;
+                }
+                device->description = g_strdup(data->description);
+            }
             device->type = data->type;
             device->alsa_card = data->alsa_card;
             device->alsa_device = data->alsa_device;
             device->pulse_index = data->pulse_index;
-			device->pulse_channels = data->pulse_channels;
-			device->volume = -1.0;
-			device->alsa_device_name = g_strdup(data->alsa_device_name);
+            device->pulse_channels = data->pulse_channels;
+            device->volume = -1.0;
+            device->alsa_device_name = g_strdup(data->alsa_device_name);
             device->mplayer_ao = g_strdup(data->mplayer_ao);
         }
         iter = iter->next;
@@ -256,7 +255,7 @@ void free_list_item(gpointer item, gpointer data)
 
     g_free(device->description);
     g_free(device->alsa_mixer);
-	g_free(device->alsa_device_name);
+    g_free(device->alsa_device_name);
     g_free(device->mplayer_ao);
 }
 
@@ -273,48 +272,49 @@ gboolean gm_audio_free()
 
 gdouble gm_audio_get_volume(AudioDevice * device)
 {
-	
-#ifdef HAVE_ASOUNDLIB
-	if (device->type == AUDIO_TYPE_ALSA) {
-		device->volume = get_alsa_volume(device->alsa_device_name, device->alsa_mixer);
-	}
-#endif	
 
-#ifdef HAVE_PULSEAUDIO	
-	if (device->type == AUDIO_TYPE_PULSE) {
-		if (gm_audio_context) {
-			device->volume = -1.0;
-			pa_context_get_sink_info_by_index(gm_audio_context, device->pulse_index, gm_audio_pa_sink_update_volume_cb, device);
-		}
-		while (gtk_events_pending() || device->volume == -1)
-    		gtk_main_iteration();
-	}
+#ifdef HAVE_ASOUNDLIB
+    if (device->type == AUDIO_TYPE_ALSA) {
+        device->volume = get_alsa_volume(device->alsa_device_name, device->alsa_mixer);
+    }
 #endif
-	
-	return device->volume;
+
+#ifdef HAVE_PULSEAUDIO
+    if (device->type == AUDIO_TYPE_PULSE) {
+        if (gm_audio_context) {
+            device->volume = -1.0;
+            pa_context_get_sink_info_by_index(gm_audio_context, device->pulse_index, gm_audio_pa_sink_update_volume_cb,
+                                              device);
+        }
+        while (gtk_events_pending() || device->volume == -1)
+            gtk_main_iteration();
+    }
+#endif
+
+    return device->volume;
 }
 
 gboolean gm_audio_set_volume(AudioDevice * device, gdouble volume)
 {
-#ifdef HAVE_PULSEAUDIO	
-	pa_cvolume cv;
+#ifdef HAVE_PULSEAUDIO
+    pa_cvolume cv;
 #endif
 
 #ifdef HAVE_ASOUNDLIB
-	if (device->type == AUDIO_TYPE_ALSA) {
-		set_alsa_volume(device->alsa_device_name, device->alsa_mixer, volume);
-	}
-#endif		
-	
-#ifdef HAVE_PULSEAUDIO	
-	if (device->type == AUDIO_TYPE_PULSE) {
-		if (gm_audio_context) {
-			pa_cvolume_set(&cv, device->pulse_channels, volume * (gdouble)PA_VOLUME_NORM);
-			pa_context_set_sink_volume_by_index(gm_audio_context, device->pulse_index, &cv, NULL, NULL);
-		}
-	}
-#endif	
-	return TRUE;
+    if (device->type == AUDIO_TYPE_ALSA) {
+        set_alsa_volume(device->alsa_device_name, device->alsa_mixer, volume);
+    }
+#endif
+
+#ifdef HAVE_PULSEAUDIO
+    if (device->type == AUDIO_TYPE_PULSE) {
+        if (gm_audio_context) {
+            pa_cvolume_set(&cv, device->pulse_channels, volume * (gdouble) PA_VOLUME_NORM);
+            pa_context_set_sink_volume_by_index(gm_audio_context, device->pulse_index, &cv, NULL, NULL);
+        }
+    }
+#endif
+    return TRUE;
 }
 
 
@@ -322,18 +322,18 @@ gboolean gm_audio_set_volume(AudioDevice * device, gdouble volume)
 
 void gm_audio_pa_sink_update_volume_cb(pa_context * c, const pa_sink_info * i, int eol, gpointer data)
 {
-    AudioDevice *device = (AudioDevice *)data;
+    AudioDevice *device = (AudioDevice *) data;
 
-	//printf("gm_audio_pa_sink_update_volume_cb %p, %i, %p\n",i, eol,data);
+    //printf("gm_audio_pa_sink_update_volume_cb %p, %i, %p\n",i, eol,data);
     if (i) {
-		device->pulse_channels = i->volume.channels;
-		device->volume = (gdouble)pa_cvolume_avg(&(i->volume)) / (gdouble)PA_VOLUME_NORM;
-		//printf("device volume = %f\n", device->volume);
+        device->pulse_channels = i->volume.channels;
+        device->volume = (gdouble) pa_cvolume_avg(&(i->volume)) / (gdouble) PA_VOLUME_NORM;
+        //printf("device volume = %f\n", device->volume);
     } else {
-		// eol == -1 when the index requested is not found
-		if (eol == -1)
-			device->volume = 0.0;
-	}
+        // eol == -1 when the index requested is not found
+        if (eol == -1)
+            device->volume = 0.0;
+    }
 }
 
 
@@ -351,12 +351,12 @@ void gm_audio_pa_sink_cb(pa_context * c, const pa_sink_info * i, int eol, gpoint
         device->description = g_strdup(desc);
         device->type = AUDIO_TYPE_PULSE;
         device->pulse_index = i->index;
-		device->pulse_channels = i->volume.channels;
-		device->volume = (gdouble)pa_cvolume_avg(&(i->volume)) / (gdouble)PA_VOLUME_NORM;
+        device->pulse_channels = i->volume.channels;
+        device->volume = (gdouble) pa_cvolume_avg(&(i->volume)) / (gdouble) PA_VOLUME_NORM;
         device->mplayer_ao = g_strdup(mplayer_ao);
         gm_audio_devices = g_list_append(gm_audio_devices, device);
-		//printf("\n%s\n\nproperties\n%s",desc,pa_proplist_to_string(i->proplist));
-		
+        //printf("\n%s\n\nproperties\n%s",desc,pa_proplist_to_string(i->proplist));
+
         g_free(desc);
         g_free(mplayer_ao);
 
@@ -384,7 +384,7 @@ void gm_audio_context_state_callback(pa_context * c, gpointer data)
 #endif
 
 #ifdef HAVE_ASOUNDLIB
-gdouble get_alsa_volume(gchar *device, gchar *mixer)
+gdouble get_alsa_volume(gchar * device, gchar * mixer)
 {
     gdouble vol = -1.0;
     gint err;
@@ -447,25 +447,25 @@ gdouble get_alsa_volume(gchar *device, gchar *mixer)
             } else {
                 vol = 0;
             }
-			if (gm_audio_debug) {
-		        printf("%s Playback is %i\n", mixer, playback);
-		        printf("%s Range is %li to %li \n", mixer, pmin, pmax);
-		        printf("%s Current Volume %li, multiplier = %f\n", mixer, get_vol, f_multi);
-		        printf("Scaled Volume is %lf\n", vol);
-			}
+            if (gm_audio_debug) {
+                printf("%s Playback is %i\n", mixer, playback);
+                printf("%s Range is %li to %li \n", mixer, pmin, pmax);
+                printf("%s Current Volume %li, multiplier = %f\n", mixer, get_vol, f_multi);
+                printf("Scaled Volume is %lf\n", vol);
+            }
         }
         snd_mixer_selem_id_free(sid);
     }
-	
+
     snd_mixer_detach(mhandle, device);
     snd_mixer_close(mhandle);
 
     vol = floor(vol + 0.5);
 
-	return vol;
+    return vol;
 }
 
-gboolean set_alsa_volume(gchar *device, gchar *mixer, gdouble volume)
+gboolean set_alsa_volume(gchar * device, gchar * mixer, gdouble volume)
 {
 
     gint err;
@@ -532,13 +532,13 @@ gboolean set_alsa_volume(gchar *device, gchar *mixer, gdouble volume)
                 set_vol = (gdouble) ((volume) * f_multi) + pmin;
                 snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
             }
-			if (gm_audio_debug) {
-		        printf("%s Playback is %i\n", mixer, playback);
-		        printf("%s Range is %li to %li \n", mixer, pmin, pmax);
-		        printf("%s Volume %f, multiplier = %f\n", mixer, volume, f_multi);
-		        printf("Scaled Volume is %li\n", set_vol);
-			}
-			found = TRUE;
+            if (gm_audio_debug) {
+                printf("%s Playback is %i\n", mixer, playback);
+                printf("%s Range is %li to %li \n", mixer, pmin, pmax);
+                printf("%s Volume %f, multiplier = %f\n", mixer, volume, f_multi);
+                printf("Scaled Volume is %li\n", set_vol);
+            }
+            found = TRUE;
         }
         snd_mixer_selem_id_free(sid);
     }
@@ -550,4 +550,3 @@ gboolean set_alsa_volume(gchar *device, gchar *mixer, gdouble volume)
 
 }
 #endif
-

@@ -778,19 +778,19 @@ gboolean set_volume_from_slider(gpointer data)
 gboolean set_volume_tip(void *data)
 {
 #ifndef GTK2_12_ENABLED
-	gchar *tip_text = NULL;
+    gchar *tip_text = NULL;
     IdleData *idle = (IdleData *) data;
 #endif
-	
+
     if (GTK_IS_WIDGET(vol_slider)) {
 #ifdef GTK2_12_ENABLED
-		// should be automatic
-		/*
-        tip_text = gtk_widget_get_tooltip_text(vol_slider);
-        if (tip_text == NULL || g_ascii_strcasecmp(tip_text, idle->vol_tooltip) != 0)
-            gtk_widget_set_tooltip_text(vol_slider, idle->vol_tooltip);
-        g_free(tip_text);
-		*/
+        // should be automatic
+        /*
+           tip_text = gtk_widget_get_tooltip_text(vol_slider);
+           if (tip_text == NULL || g_ascii_strcasecmp(tip_text, idle->vol_tooltip) != 0)
+           gtk_widget_set_tooltip_text(vol_slider, idle->vol_tooltip);
+           g_free(tip_text);
+         */
 #else
         gtk_tooltips_set_tip(volume_tip, vol_slider, idle->vol_tooltip, NULL);
 #endif
@@ -1824,19 +1824,19 @@ gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, 
     //if (embed_window == 0) {
     //update_control_flag = TRUE;
     //printf("restore controls = %i showcontrols = %i\n", restore_controls, showcontrols);
-	if (fullscreen == 1 && (event->new_window_state & GDK_WINDOW_STATE_ICONIFIED)) {
-		// fullscreen, but window hidden
-		hide_fs_controls();
-	}
+    if (fullscreen == 1 && (event->new_window_state & GDK_WINDOW_STATE_ICONIFIED)) {
+        // fullscreen, but window hidden
+        hide_fs_controls();
+    }
 
-	if (fullscreen == 1 && (event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN)) {
-		if (showcontrols) {
-			show_fs_controls();
-		}
-	}
-	
-	return FALSE;
-	
+    if (fullscreen == 1 && (event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN)) {
+        if (showcontrols) {
+            show_fs_controls();
+        }
+    }
+
+    return FALSE;
+
     fullscreen = (event->new_window_state & GDK_WINDOW_STATE_FULLSCREEN);
     if (fullscreen) {
         gtk_widget_hide(menubar);
@@ -2698,33 +2698,33 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
     gint vol;
     gchar *cmd;
 
-	if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
-		vol = (gint) gtk_range_get_value(range);
-		if (idledata->mute && vol > 0) {
-		    cmd = g_strdup_printf("mute 0\n");
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		    idledata->mute = FALSE;
-		}
-		if (vol == 0) {
-		    cmd = g_strdup_printf("mute 1\n");
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		    idledata->mute = TRUE;
-		} else {
-		    cmd = g_strdup_printf("volume %i 1\n", vol);
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		}
+    if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
+        vol = (gint) gtk_range_get_value(range);
+        if (idledata->mute && vol > 0) {
+            cmd = g_strdup_printf("mute 0\n");
+            send_command(cmd, TRUE);
+            g_free(cmd);
+            idledata->mute = FALSE;
+        }
+        if (vol == 0) {
+            cmd = g_strdup_printf("mute 1\n");
+            send_command(cmd, TRUE);
+            g_free(cmd);
+            idledata->mute = TRUE;
+        } else {
+            cmd = g_strdup_printf("volume %i 1\n", vol);
+            send_command(cmd, TRUE);
+            g_free(cmd);
+        }
 
-		if (remember_softvol) {
-		    volume_softvol = vol;
-		    set_software_volume(&volume_softvol);
-		}
-	} else {
-		gm_audio_set_volume(&audio_device, gtk_range_get_value(range));
-	}
-	
+        if (remember_softvol) {
+            volume_softvol = vol;
+            set_software_volume(&volume_softvol);
+        }
+    } else {
+        gm_audio_set_volume(&audio_device, gtk_range_get_value(range));
+    }
+
     dbus_send_rpsignal_with_double("RP_Volume", gtk_range_get_value(GTK_RANGE(vol_slider)));
 
 }
@@ -2735,34 +2735,34 @@ void vol_button_value_changed_callback(GtkScaleButton * volume, gdouble value, g
     gint vol = value;
     gchar *cmd;
 
-	if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
-		if (idledata->mute && vol > 0) {
-		    cmd = g_strdup_printf("mute 0\n");
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		    idledata->mute = FALSE;
-		}
-		if (!idledata->mute && vol == 0) {
-		    cmd = g_strdup_printf("mute 1\n");
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		    idledata->mute = TRUE;
-		} else {
-		    cmd = g_strdup_printf("volume %i 1\n", vol);
-		    send_command(cmd, TRUE);
-		    g_free(cmd);
-		    idledata->volume = vol;
-		}
+    if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
+        if (idledata->mute && vol > 0) {
+            cmd = g_strdup_printf("mute 0\n");
+            send_command(cmd, TRUE);
+            g_free(cmd);
+            idledata->mute = FALSE;
+        }
+        if (!idledata->mute && vol == 0) {
+            cmd = g_strdup_printf("mute 1\n");
+            send_command(cmd, TRUE);
+            g_free(cmd);
+            idledata->mute = TRUE;
+        } else {
+            cmd = g_strdup_printf("volume %i 1\n", vol);
+            send_command(cmd, TRUE);
+            g_free(cmd);
+            idledata->volume = vol;
+        }
 
-		if (remember_softvol) {
-		    volume_softvol = vol;
-		    set_software_volume(&volume_softvol);
-		}
-	} else {
-		gm_audio_set_volume(&audio_device, value / 100.0);
-	}
+        if (remember_softvol) {
+            volume_softvol = vol;
+            set_software_volume(&volume_softvol);
+        }
+    } else {
+        gm_audio_set_volume(&audio_device, value / 100.0);
+    }
 
-	dbus_send_rpsignal_with_double("RP_Volume", vol);
+    dbus_send_rpsignal_with_double("RP_Volume", vol);
 
 }
 #endif
@@ -4326,12 +4326,12 @@ void config_apply(GtkWidget * widget, void *data)
 
     audio_device_name = g_strdup(gmtk_output_combo_box_get_active_description(GMTK_OUTPUT_COMBO_BOX(config_ao)));
 
-	if (audio_device.description != NULL) {
-		g_free(audio_device.description);
-		audio_device.description = NULL;
-	}
-	audio_device.description = g_strdup(audio_device_name);
-	gm_audio_update_device(&audio_device);
+    if (audio_device.description != NULL) {
+        g_free(audio_device.description);
+        audio_device.description = NULL;
+    }
+    audio_device.description = g_strdup(audio_device_name);
+    gm_audio_update_device(&audio_device);
     gm_audio_get_volume(&audio_device);
 
 #ifdef HAVE_ASOUNDLIB
@@ -5272,9 +5272,9 @@ void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
             device = g_strdup_printf("hw:%i", card);
         }
 
-		// this might be wrong, so commenting out
-		//softvol = FALSE;
-		//gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
+        // this might be wrong, so commenting out
+        //softvol = FALSE;
+        //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
 
         gtk_list_store_clear(GTK_LIST_STORE(gtk_combo_box_get_model(config_mixer)));
         gtk_combo_box_set_active(config_mixer, -1);
@@ -5492,7 +5492,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         } while (gtk_tree_model_iter_next
                  (gmtk_output_combo_box_get_tree_model(GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter));
     }
-	
+
     config_alang = gtk_combo_box_entry_new_text();
     if (config_alang != NULL) {
         i = 0;
@@ -5510,7 +5510,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             gtk_combo_box_set_active(GTK_COMBO_BOX(config_alang), i);
         }
     }
-	
+
     config_slang = gtk_combo_box_entry_new_text();
     if (config_slang != NULL) {
         i = 0;
@@ -7387,7 +7387,7 @@ GtkWidget *create_window(gint windowid)
 #endif
     }
 #ifdef GTK2_12_ENABLED
-	// no tooltip on the volume_button is needed
+    // no tooltip on the volume_button is needed
     // gtk_widget_set_tooltip_text(vol_slider, idledata->vol_tooltip);
 #else
     volume_tip = gtk_tooltips_new();

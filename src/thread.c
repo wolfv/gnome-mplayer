@@ -973,11 +973,11 @@ gpointer launch_player(gpointer data)
         argv[arg++] = g_strdup_printf("gnome-mplayer");
     }
 
-	if (audio_device.mplayer_ao != NULL && strlen(audio_device.mplayer_ao) > 0) {
-		argv[arg++] = g_strdup_printf("-ao");
-		argv[arg++] = g_strdup_printf("%s", audio_device.mplayer_ao);
-	}	
-	
+    if (audio_device.mplayer_ao != NULL && strlen(audio_device.mplayer_ao) > 0) {
+        argv[arg++] = g_strdup_printf("-ao");
+        argv[arg++] = g_strdup_printf("%s", audio_device.mplayer_ao);
+    }
+
     if (vo != NULL && g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0) {
         if (g_ascii_strncasecmp(threaddata->filename, "dvd://", strlen("dvd://")) == 0
             || g_ascii_strncasecmp(threaddata->filename, "dvdnav://", strlen("dvdnav://")) == 0) {
@@ -1026,8 +1026,7 @@ gpointer launch_player(gpointer data)
             argv[arg++] = g_strdup_printf("-softvol");
         }
     }
-
-	// might want to use this only in softvol mode
+    // might want to use this only in softvol mode
     if (use_volume_option) {
         argv[arg++] = g_strdup_printf("-volume");
         argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);

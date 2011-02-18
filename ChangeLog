@@ -1,4 +1,5 @@
 Development
+    Run make indent on all source files
     Remove idledata->mplayer_volume tracking as not needed anymore (to be replaced with other code)
     Rework volume code to control audio device in alsa or pulse mode
     Rework volume code to push volume to mplayer in softvol mode

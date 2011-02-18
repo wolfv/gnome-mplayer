@@ -35,10 +35,9 @@
 extern "C" {
 #endif
 
-gboolean gm_parse_asx_is_asx(const gchar *uri);
-void gm_parse_asx(const gchar *content, GFunc callback, gpointer user_data);
-	
+    gboolean gm_parse_asx_is_asx(const gchar * uri);
+    void gm_parse_asx(const gchar * content, GFunc callback, gpointer user_data);
+
 #ifdef __cplusplus
 }
 #endif
-

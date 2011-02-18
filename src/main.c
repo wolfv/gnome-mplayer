@@ -886,7 +886,7 @@ int main(int argc, char *argv[])
     mouse_wheel_changes_volume = gm_pref_store_get_boolean_with_default(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, FALSE);
 
     audio_device_name = gm_pref_store_get_string(gm_store, AUDIO_DEVICE_NAME);
-	audio_device.description = g_strdup(audio_device_name);                                       
+    audio_device.description = g_strdup(audio_device_name);
 
 
     read_mplayer_config();
@@ -951,9 +951,9 @@ int main(int argc, char *argv[])
         printf("Running with panscan enabled (mplayer svn r29565 or higher required)\n");
     }
 #endif
-	if (verbose) {
-		printf("Using audio device: %s\n", audio_device_name);
-	}
+    if (verbose) {
+        printf("Using audio device: %s\n", audio_device_name);
+    }
 
     if (softvol) {
         if (verbose)
@@ -1177,19 +1177,19 @@ int main(int argc, char *argv[])
     }
 #endif
 
-	gm_audio_update_device(&audio_device);     
+    gm_audio_update_device(&audio_device);
     gm_audio_get_volume(&audio_device);
-	if (!softvol) {                                      
-		printf("The volume on '%s' is %f\n", audio_device.description, audio_device.volume);
-		volume = audio_device.volume * 100;
+    if (!softvol) {
+        printf("The volume on '%s' is %f\n", audio_device.description, audio_device.volume);
+        volume = audio_device.volume * 100;
 #ifdef GTK2_12_ENABLED
-		gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume * 100.0);
+        gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume * 100.0);
 #else
-		gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume * 100.0);
+        gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume * 100.0);
 #endif
-	}
+    }
     use_volume_option = detect_volume_option();
-                                       
+
     dbus_hookup(embed_window, control_id);
     show_window(embed_window);
 
@@ -1238,7 +1238,7 @@ int main(int argc, char *argv[])
         destroy_folder_progress_window();
     }
     safe_to_save_default_playlist = TRUE;
-                                      
+
     gtk_main();
 
     return 0;
