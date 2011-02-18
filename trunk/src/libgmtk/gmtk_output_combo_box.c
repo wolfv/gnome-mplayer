@@ -74,7 +74,7 @@ void pa_sink_cb(pa_context * c, const pa_sink_info * i, int eol, gpointer data)
         gtk_list_store_append(output->list, &iter);
         gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_PULSE,
                            OUTPUT_DESCRIPTION_COLUMN, name, OUTPUT_CARD_COLUMN, -1,
-                           OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, i->index, 
+                           OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, i->index,
                            OUTPUT_MPLAYER_DEVICE_COLUMN, device, -1);
         g_free(device);
         g_free(name);
@@ -139,7 +139,8 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(output), renderer, "text", 0);
 
     output->list =
-        gtk_list_store_new(OUTPUT_N_COLUMNS, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
+        gtk_list_store_new(OUTPUT_N_COLUMNS, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
+                           G_TYPE_STRING);
 
     gtk_list_store_append(output->list, &iter);
     gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
@@ -240,8 +241,7 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gtk_list_store_append(output->list, &iter);
     gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
                        OUTPUT_DESCRIPTION_COLUMN, "PulseAudio", OUTPUT_CARD_COLUMN, -1,
-                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, -1, 
-                       OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
 
 #endif
 
@@ -258,10 +258,10 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
 
 static void gmtk_output_combo_box_dispose(GObject * object)
 {
-	GmtkOutputComboBox *output = GMTK_OUTPUT_COMBO_BOX(object);
-	
-	gtk_list_store_clear(output->list);
-	g_object_unref(output->list);
+    GmtkOutputComboBox *output = GMTK_OUTPUT_COMBO_BOX(object);
+
+    gtk_list_store_clear(output->list);
+    g_object_unref(output->list);
 
 }
 

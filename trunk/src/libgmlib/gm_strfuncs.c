@@ -61,27 +61,28 @@ void gm_str_strip_unicode(gchar * data, gsize len)
     }
 }
 
-gint gm_str_hms_in_seconds(gchar *timestr)
+gint gm_str_hms_in_seconds(gchar * timestr)
 {
-	gchar **split;
-	gint ret = 0;
-	
-	split = g_strsplit(timestr,":",0);
+    gchar **split;
+    gint ret = 0;
 
-	switch (g_strv_length(split)) {
-		case 1: 
-			ret = g_ascii_strtod(split[0],NULL);
-			break;
-		case 2:
-			ret = g_ascii_strtod(split[0],NULL) * 60 + g_ascii_strtod(split[1],NULL);
-			break;
-		case 3:
-			ret = g_ascii_strtod(split[0],NULL) * 3600 + g_ascii_strtod(split[1],NULL) * 60 + g_ascii_strtod(split[2],NULL);
-			break;
-	}
-	
-	g_strfreev(split);
-	
-	return ret;
+    split = g_strsplit(timestr, ":", 0);
+
+    switch (g_strv_length(split)) {
+    case 1:
+        ret = g_ascii_strtod(split[0], NULL);
+        break;
+    case 2:
+        ret = g_ascii_strtod(split[0], NULL) * 60 + g_ascii_strtod(split[1], NULL);
+        break;
+    case 3:
+        ret =
+            g_ascii_strtod(split[0], NULL) * 3600 + g_ascii_strtod(split[1], NULL) * 60 + g_ascii_strtod(split[2],
+                                                                                                         NULL);
+        break;
+    }
+
+    g_strfreev(split);
+
+    return ret;
 }
-	

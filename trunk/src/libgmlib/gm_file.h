@@ -28,10 +28,9 @@
 extern "C" {
 #endif
 
-gchar *gm_tempname(gchar * path, const gchar * name_template);
-gchar *gm_get_path(gchar * uri);
-	
+    gchar *gm_tempname(gchar * path, const gchar * name_template);
+    gchar *gm_get_path(gchar * uri);
+
 #ifdef __cplusplus
 }
 #endif
-
