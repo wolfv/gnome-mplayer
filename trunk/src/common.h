@@ -158,7 +158,6 @@ typedef struct _IdleData {
     gboolean seekable;
     gchar progress_text[1024];
     gdouble volume;
-    gint mplayer_volume;
     gboolean mute;
     gchar vol_tooltip[128];
     gint x;
@@ -522,7 +521,6 @@ void dbus_disable_screensaver();
 void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data);
 
 gboolean update_audio_meter(gpointer data);
-gboolean update_volume(gpointer data);
 
 void mplayer_shutdown();
 gpointer launch_player(gpointer data);

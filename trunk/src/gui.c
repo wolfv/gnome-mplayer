@@ -156,24 +156,6 @@ gint get_player_window()
     }
 }
 
-gboolean update_volume(gpointer data)
-{
-    if (!softvol) {
-        if (state != QUIT) {
-            //printf("mplayer volume = %i, app volume = %f\n", idledata->mplayer_volume, idledata->volume);
-            if (idledata->mplayer_volume + 1 != idledata->volume) {
-#ifdef GTK2_12_ENABLED
-                gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), idledata->mplayer_volume);
-#else
-                gtk_range_set_value(GTK_RANGE(vol_slider), idledata->mplayer_volume);
-#endif
-            }
-        }
-    }
-
-    return FALSE;
-}
-
 void view_option_show_callback(GtkWidget * widget, gpointer data)
 {
     skip_fixed_allocation_on_show = TRUE;
@@ -795,16 +777,20 @@ gboolean set_volume_from_slider(gpointer data)
 
 gboolean set_volume_tip(void *data)
 {
-    gchar *tip_text = NULL;
-
+#ifndef GTK2_12_ENABLED
+	gchar *tip_text = NULL;
     IdleData *idle = (IdleData *) data;
-
+#endif
+	
     if (GTK_IS_WIDGET(vol_slider)) {
 #ifdef GTK2_12_ENABLED
+		// should be automatic
+		/*
         tip_text = gtk_widget_get_tooltip_text(vol_slider);
         if (tip_text == NULL || g_ascii_strcasecmp(tip_text, idle->vol_tooltip) != 0)
             gtk_widget_set_tooltip_text(vol_slider, idle->vol_tooltip);
         g_free(tip_text);
+		*/
 #else
         gtk_tooltips_set_tip(volume_tip, vol_slider, idle->vol_tooltip, NULL);
 #endif
@@ -2711,39 +2697,34 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
 {
     gint vol;
     gchar *cmd;
-    gchar *buf;
 
-    vol = (gint) gtk_range_get_value(range);
-    if (idledata->mute && vol > 0) {
-        cmd = g_strdup_printf("mute 0\n");
-        send_command(cmd, TRUE);
-        g_free(cmd);
-        idledata->mute = FALSE;
-    }
-    if (vol == 0) {
-        cmd = g_strdup_printf("mute 1\n");
-        send_command(cmd, TRUE);
-        g_free(cmd);
-        idledata->mute = TRUE;
-    } else {
-        cmd = g_strdup_printf("volume %i 1\n", vol);
-        send_command(cmd, TRUE);
-        g_free(cmd);
-    }
+	if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
+		vol = (gint) gtk_range_get_value(range);
+		if (idledata->mute && vol > 0) {
+		    cmd = g_strdup_printf("mute 0\n");
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		    idledata->mute = FALSE;
+		}
+		if (vol == 0) {
+		    cmd = g_strdup_printf("mute 1\n");
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		    idledata->mute = TRUE;
+		} else {
+		    cmd = g_strdup_printf("volume %i 1\n", vol);
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		}
 
-    if (remember_softvol) {
-        volume_softvol = vol;
-        set_software_volume(&volume_softvol);
-    }
-
-    if (idledata->volume != vol) {
-
-        buf = g_strdup_printf(_("Volume %i%%"), vol);
-        g_strlcpy(idledata->vol_tooltip, buf, 128);
-        g_idle_add(set_volume_tip, idledata);
-        g_free(buf);
-    }
-
+		if (remember_softvol) {
+		    volume_softvol = vol;
+		    set_software_volume(&volume_softvol);
+		}
+	} else {
+		gm_audio_set_volume(&audio_device, gtk_range_get_value(range));
+	}
+	
     dbus_send_rpsignal_with_double("RP_Volume", gtk_range_get_value(GTK_RANGE(vol_slider)));
 
 }
@@ -2753,39 +2734,35 @@ void vol_button_value_changed_callback(GtkScaleButton * volume, gdouble value, g
 {
     gint vol = value;
     gchar *cmd;
-    gchar *buf;
 
-    if (idledata->mute && vol > 0) {
-        cmd = g_strdup_printf("mute 0\n");
-        send_command(cmd, TRUE);
-        g_free(cmd);
-        idledata->mute = FALSE;
-    }
-    if (!idledata->mute && vol == 0) {
-        cmd = g_strdup_printf("mute 1\n");
-        send_command(cmd, TRUE);
-        g_free(cmd);
-        idledata->mute = TRUE;
-    } else {
-        cmd = g_strdup_printf("volume %i 1\n", vol);
-        send_command(cmd, TRUE);
-        g_free(cmd);
-        idledata->volume = vol;
-    }
+	if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
+		if (idledata->mute && vol > 0) {
+		    cmd = g_strdup_printf("mute 0\n");
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		    idledata->mute = FALSE;
+		}
+		if (!idledata->mute && vol == 0) {
+		    cmd = g_strdup_printf("mute 1\n");
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		    idledata->mute = TRUE;
+		} else {
+		    cmd = g_strdup_printf("volume %i 1\n", vol);
+		    send_command(cmd, TRUE);
+		    g_free(cmd);
+		    idledata->volume = vol;
+		}
 
-    if (remember_softvol) {
-        volume_softvol = vol;
-        set_software_volume(&volume_softvol);
-    }
+		if (remember_softvol) {
+		    volume_softvol = vol;
+		    set_software_volume(&volume_softvol);
+		}
+	} else {
+		gm_audio_set_volume(&audio_device, value / 100.0);
+	}
 
-    if (idledata->volume != vol) {
-
-        buf = g_strdup_printf(_("Volume %i%%"), vol);
-        g_strlcpy(idledata->vol_tooltip, buf, 128);
-        g_free(buf);
-    }
-    g_idle_add(set_volume_tip, idledata);
-    dbus_send_rpsignal_with_double("RP_Volume", vol);
+	dbus_send_rpsignal_with_double("RP_Volume", vol);
 
 }
 #endif
@@ -4355,6 +4332,7 @@ void config_apply(GtkWidget * widget, void *data)
 	}
 	audio_device.description = g_strdup(audio_device_name);
 	gm_audio_update_device(&audio_device);
+    gm_audio_get_volume(&audio_device);
 
 #ifdef HAVE_ASOUNDLIB
     if (audio_device.alsa_mixer != NULL) {
@@ -5367,11 +5345,6 @@ void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
 #endif
     } else {
         gtk_widget_set_sensitive(GTK_WIDGET(config_mixer), FALSE);
-		// eventually we'll want to fix this for Pulse
-		//if (gmtk_output_combo_box_get_active_type(GMTK_OUTPUT_COMBO_BOX(config_ao)) == OUTPUT_TYPE_BASIC) {
-			softvol = TRUE;
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_softvol), softvol);
-		//}
     }
 }
 
@@ -7396,7 +7369,7 @@ GtkWidget *create_window(gint windowid)
         adj->step_increment = 1.0;
 #endif
         gtk_scale_button_set_adjustment(GTK_SCALE_BUTTON(vol_slider), adj);
-        gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), idledata->volume);
+        gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume * 100.0);
         if (large_buttons)
             gtk_object_set(GTK_OBJECT(vol_slider), "size", GTK_ICON_SIZE_BUTTON, NULL);
         else
@@ -7409,12 +7382,13 @@ GtkWidget *create_window(gint windowid)
         vol_slider = gtk_hscale_new_with_range(0.0, 100.0, 1.0);
         gtk_widget_set_size_request(vol_slider, 44, button_size);
         gtk_scale_set_draw_value(GTK_SCALE(vol_slider), FALSE);
-        gtk_range_set_value(GTK_RANGE(vol_slider), idledata->volume);
+        gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume * 100.0);
         g_signal_connect(G_OBJECT(vol_slider), "value_changed", G_CALLBACK(vol_slider_callback), idledata);
 #endif
     }
 #ifdef GTK2_12_ENABLED
-    gtk_widget_set_tooltip_text(vol_slider, idledata->vol_tooltip);
+	// no tooltip on the volume_button is needed
+    // gtk_widget_set_tooltip_text(vol_slider, idledata->vol_tooltip);
 #else
     volume_tip = gtk_tooltips_new();
     gtk_tooltips_set_tip(volume_tip, vol_slider, _("Volume 100%"), NULL);

@@ -1,4 +1,8 @@
 Development
+    Remove idledata->mplayer_volume tracking as not needed anymore (to be replaced with other code)
+    Rework volume code to control audio device in alsa or pulse mode
+    Rework volume code to push volume to mplayer in softvol mode
+    Move all volume handling to gmlib/gm_audio
 	Enable softvol option when preferred or when audio_device recommends it
 	Change "mixer" preference to "alsa-mixer"
 	Remove global variable use_pulse_flat_volume
