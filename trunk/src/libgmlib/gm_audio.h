@@ -64,7 +64,7 @@ extern "C" {
     gboolean gm_audio_update_device(AudioDevice * device);
     gdouble gm_audio_get_volume(AudioDevice * device);
     gboolean gm_audio_set_volume(AudioDevice * device, gdouble volume);
-	void gm_audio_set_server_volume_update_callback(void *callback);
+    void gm_audio_set_server_volume_update_callback(AudioDevice * device, void *callback);
 
 #ifdef __cplusplus
 }
