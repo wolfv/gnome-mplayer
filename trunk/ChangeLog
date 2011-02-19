@@ -1,4 +1,5 @@
 Development
+    Process PulseAudio volume changes from PulseAudio server, to keep gui in sync
     Run make indent on all source files
     Remove idledata->mplayer_volume tracking as not needed anymore (to be replaced with other code)
     Rework volume code to control audio device in alsa or pulse mode

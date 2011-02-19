@@ -1529,6 +1529,18 @@ gboolean set_volume(void *data)
     IdleData *idle = (IdleData *) data;
     gchar *buf = NULL;
 
+	if (data == NULL) {
+		// printf("in set_volume without data\n");
+		gm_audio_get_volume(&audio_device);
+		// printf("new volume is %f\n",audio_device.volume); 
+#ifdef GTK2_12_ENABLED
+        gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume * 100.0);
+#else
+        gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume * 100.0);
+#endif
+		return FALSE;
+	}
+	
     if (GTK_IS_WIDGET(vol_slider) && idle->volume >= 0 && idle->volume <= 100) {
         //printf("setting slider to %f\n", idle->volume);
         if (remember_softvol) {

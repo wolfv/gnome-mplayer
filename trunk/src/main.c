@@ -1179,6 +1179,7 @@ int main(int argc, char *argv[])
 
     gm_audio_update_device(&audio_device);
     gm_audio_get_volume(&audio_device);
+	gm_audio_set_server_volume_update_callback(set_volume);                                       
     if (!softvol) {
         printf("The volume on '%s' is %f\n", audio_device.description, audio_device.volume);
         volume = audio_device.volume * 100;
