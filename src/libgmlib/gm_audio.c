@@ -34,7 +34,7 @@
 
 GList *gm_audio_devices = NULL;
 gboolean gm_audio_debug = FALSE;
-
+void *gm_audio_server_volume_update_callback = NULL;
 // private prototypes
 
 #ifdef HAVE_ASOUNDLIB
@@ -317,17 +317,38 @@ gboolean gm_audio_set_volume(AudioDevice * device, gdouble volume)
     return TRUE;
 }
 
+void gm_audio_set_server_volume_update_callback(void *callback)
+{
+	gm_audio_server_volume_update_callback = callback;
+}
+	
+
 
 #ifdef HAVE_PULSEAUDIO
 
 void gm_audio_pa_sink_update_volume_cb(pa_context * c, const pa_sink_info * i, int eol, gpointer data)
 {
     AudioDevice *device = (AudioDevice *) data;
-
+	GList *iter;
+	
     //printf("gm_audio_pa_sink_update_volume_cb %p, %i, %p\n",i, eol,data);
     if (i) {
-        device->pulse_channels = i->volume.channels;
-        device->volume = (gdouble) pa_cvolume_avg(&(i->volume)) / (gdouble) PA_VOLUME_NORM;
+		if (device) {
+		    device->pulse_channels = i->volume.channels;
+		    device->volume = (gdouble) pa_cvolume_avg(&(i->volume)) / (gdouble) PA_VOLUME_NORM;
+		} else {
+		    iter = gm_audio_devices;
+			while (iter != NULL) {
+				device = (AudioDevice *) iter->data;
+				if (i->index == device->pulse_index) {
+					device->volume = (gdouble) pa_cvolume_avg(&(i->volume)) / (gdouble) PA_VOLUME_NORM;
+					// printf("updated %s volume to %f\n", device->description, device->volume);
+				}
+				iter = iter->next;
+			}
+			if (gm_audio_server_volume_update_callback)
+				g_idle_add(gm_audio_server_volume_update_callback, NULL);
+		}
         //printf("device volume = %f\n", device->volume);
     } else {
         // eol == -1 when the index requested is not found
@@ -364,6 +385,22 @@ void gm_audio_pa_sink_cb(pa_context * c, const pa_sink_info * i, int eol, gpoint
     }
 }
 
+void gm_audio_pa_subscribe_callback(pa_context *c, pa_subscription_event_type_t t, uint32_t index, void *userdata)
+{
+	// printf("subscribe_callback\n");
+	switch (t & PA_SUBSCRIPTION_EVENT_FACILITY_MASK) {
+		case PA_SUBSCRIPTION_EVENT_SINK:
+			pa_context_get_sink_info_by_index(c, index, gm_audio_pa_sink_update_volume_cb, NULL);
+			break;
+		case PA_SUBSCRIPTION_EVENT_SERVER:
+			//pa_context_get_server_info(context,pa_server_info_callback,NULL);
+			break;
+		default:
+			//printf("index = %i\n",index);
+			break;
+	}
+}
+
 void gm_audio_context_state_callback(pa_context * c, gpointer data)
 {
     //printf("context state callback\n");
@@ -374,6 +411,9 @@ void gm_audio_context_state_callback(pa_context * c, gpointer data)
             for (i = 0; i < 255; i++) {
                 pa_context_get_sink_info_by_index(c, i, gm_audio_pa_sink_cb, data);
             }
+			pa_context_set_subscribe_callback(c, gm_audio_pa_subscribe_callback, NULL);
+			pa_context_subscribe(c, (pa_subscription_mask_t)(PA_SUBSCRIPTION_MASK_SINK | PA_SUBSCRIPTION_MASK_SERVER)
+			                     , NULL, NULL);		
         }
 
     default:
