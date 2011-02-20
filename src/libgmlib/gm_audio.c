@@ -75,30 +75,35 @@ gboolean gm_audio_query_devices()
     device->description = g_strdup(_("Default"));
     device->type = AUDIO_TYPE_SOFTVOL;
     device->mplayer_ao = g_strdup("");
+    device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
     device = g_new0(AudioDevice, 1);
     device->description = g_strdup("ARTS");
     device->type = AUDIO_TYPE_SOFTVOL;
     device->mplayer_ao = g_strdup("arts");
+    device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
     device = g_new0(AudioDevice, 1);
     device->description = g_strdup("ESD");
     device->type = AUDIO_TYPE_SOFTVOL;
     device->mplayer_ao = g_strdup("esd");
+    device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
     device = g_new0(AudioDevice, 1);
     device->description = g_strdup("JACK");
     device->type = AUDIO_TYPE_SOFTVOL;
     device->mplayer_ao = g_strdup("jack");
+    device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
     device = g_new0(AudioDevice, 1);
     device->description = g_strdup("OSS");
     device->type = AUDIO_TYPE_SOFTVOL;
     device->mplayer_ao = g_strdup("oss");
+    device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
 #ifdef HAVE_ASOUNDLIB
@@ -171,6 +176,7 @@ gboolean gm_audio_query_devices()
     device->type = AUDIO_TYPE_SOFTVOL;
     define->alsa_device_name = g_strdup("default");
     device->mplayer_ao = g_strdup("alsa");
+    device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
 #endif
@@ -193,6 +199,7 @@ gboolean gm_audio_query_devices()
     device->description = g_strdup("PulseAudio");
     device->type = AUDIO_TYPE_SOFTVOL;
     device->mplayer_ao = g_strdup("pulse");
+    device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
 #endif
@@ -240,7 +247,11 @@ gboolean gm_audio_update_device(AudioDevice * device)
             device->alsa_device = data->alsa_device;
             device->pulse_index = data->pulse_index;
             device->pulse_channels = data->pulse_channels;
-            device->volume = -1.0;
+            if (device->type != AUDIO_TYPE_SOFTVOL) {
+                device->volume = -1.0;
+            } else {
+                device->volume = data->volume;
+            }
             device->alsa_device_name = g_strdup(data->alsa_device_name);
             device->mplayer_ao = g_strdup(data->mplayer_ao);
         }
