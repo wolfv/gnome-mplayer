@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 10:19-0700\n"
+"POT-Creation-Date: 2011-02-21 12:40-0700\n"
 "PO-Revision-Date: 2010-09-20 19:18+0200\n"
 "Last-Translator: Tuomas Lähteenmäki <lahtis@gmail.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -57,20 +57,14 @@ msgid "Use mplayer software volume control"
 msgstr "Käytä MPlayer ohjelman äänenvoimakkuutta"
 
 #: src/main.c:63
-#, fuzzy
 msgid "When set to TRUE the last volume level is set as the default"
 msgstr ""
-"Kun arvo on asetettu todeksi viimeinen äänenvoimakkuus on asetettu "
-"oletukseksi"
 
 #: src/main.c:65
-#, fuzzy
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
 msgstr ""
-"Edellisen ohjelmiston äänenvoimakkuus prosentteina-sovelletaan vain kun "
-"remember_softvol on asetettu arvoon TOSI"
 
 #: src/main.c:67
 msgid "Mixer to use"
@@ -122,9 +116,8 @@ msgid "Start Second (default to 0)"
 msgstr "Aloita sekunnissa (oletus on 0)"
 
 #: src/main.c:89
-#, fuzzy
 msgid "Length of media to play from start second"
-msgstr "Median pituus kun soitto aloitetaan sekunnissa"
+msgstr ""
 
 #: src/main.c:91
 msgid "Force cache usage on streaming sites"
@@ -135,9 +128,8 @@ msgid "Disable the deinterlace filter"
 msgstr "Poista deinterlace-suodatin"
 
 #: src/main.c:97
-#, fuzzy
 msgid "Don't skip drawing frames to better keep sync"
-msgstr "Älä hypi yli kehyksien yli,  parempi on synkronoida"
+msgstr ""
 
 #: src/main.c:100
 msgid "Use the old subtitle rendering system"
@@ -204,9 +196,8 @@ msgid "Only allow one instance"
 msgstr "Sallia vain yksi instanssi"
 
 #: src/main.c:126
-#, fuzzy
 msgid "Put single instance mode into replace and play mode"
-msgstr "Laita vain kertaalleen tila otetaan tilalle ja toistotilassa"
+msgstr ""
 
 #: src/main.c:129
 msgid "Use large control buttons"
@@ -484,18 +475,16 @@ msgid "Contrast"
 msgstr "Kontrasti"
 
 #: src/gui.c:4933
-#, fuzzy
 msgid "Gamma"
-msgstr "Gamma"
+msgstr ""
 
 #: src/gui.c:4943
 msgid "Hue"
 msgstr "Värisävy"
 
 #: src/gui.c:4953
-#, fuzzy
 msgid "Saturation"
-msgstr "Saturaatio"
+msgstr ""
 
 #: src/gui.c:4969
 msgid "_Reset"
@@ -789,9 +778,8 @@ msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Salli vain yksi Gnome MPlayer"
 
 #: src/gui.c:6090
-#, fuzzy
 msgid "When opening in single instance mode, replace existing file"
-msgstr "Kun avaat yhden esimerkki tilaan, vaihda olemassa olevan tiedosto"
+msgstr ""
 
 #: src/gui.c:6099
 msgid "When opening file, bring main window to front"
@@ -1204,9 +1192,8 @@ msgid "Cannot load subtitles: %s"
 msgstr "Tekstitystä ei voida avata: %s"
 
 #: src/thread.c:246
-#, fuzzy
 msgid "Delaying start until cache is full"
-msgstr "Hidastus alkaa, kunnes välimuisti on täynnä"
+msgstr ""
 
 #: src/thread.c:252
 #, c-format
