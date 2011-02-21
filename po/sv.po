@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 10:19-0700\n"
+"POT-Creation-Date: 2011-02-21 12:40-0700\n"
 "PO-Revision-Date: 2007-05-18 06:37-0600\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -224,14 +224,13 @@ msgid "Playing"
 msgstr "Spelar"
 
 #: src/main.c:894
-#, fuzzy
 msgid "[FILES...] - GNOME Media player based on MPlayer"
-msgstr "- GNOME-mediaspelare baserad på MPlayer"
+msgstr ""
 
 #: src/main.c:914
 #, fuzzy, c-format
 msgid "GNOME MPlayer v%s\n"
-msgstr "GNOME MPlayer - %s"
+msgstr "GNOME MPlayer"
 
 #: src/main.c:979
 #, c-format
@@ -266,9 +265,9 @@ msgid "Buffering: %2i%%"
 msgstr ""
 
 #: src/gui.c:608
-#, fuzzy, c-format
+#, c-format
 msgid "Paused | %2i%% ▼"
-msgstr "%2i.%02i | %2i%% ▼"
+msgstr ""
 
 #: src/gui.c:725 src/gui.c:2493
 #, c-format
@@ -287,11 +286,11 @@ msgstr ""
 
 #: src/gui.c:899 src/gui.c:2997 src/gui.c:3341 src/support.c:218
 #: src/support.c:284 src/playlist.c:578
-#, fuzzy, c-format
+#, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
-msgstr[0] "Spelar"
-msgstr[1] "Spelar"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/gui.c:921 src/gui.c:922 src/gui.c:925 src/gui.c:2466 src/gui.c:2468
 msgid "Pause"
@@ -304,9 +303,9 @@ msgid "Play"
 msgstr "Spela"
 
 #: src/gui.c:1114
-#, fuzzy, c-format
+#, c-format
 msgid "Adding %s to playlist"
-msgstr "Spelar"
+msgstr ""
 
 #: src/gui.c:1137
 #, fuzzy, c-format
@@ -418,9 +417,8 @@ msgid "Video Format:"
 msgstr "Videoutmatning:"
 
 #: src/gui.c:4770 src/nautilus_property_page.c:359
-#, fuzzy
 msgid "Video Codec:"
-msgstr "Videoutmatning:"
+msgstr ""
 
 #: src/gui.c:4781
 #, fuzzy
@@ -446,9 +444,8 @@ msgid "Audio Codec:"
 msgstr ""
 
 #: src/gui.c:4837 src/nautilus_property_page.c:425
-#, fuzzy
 msgid "Audio Channels:"
-msgstr "Ljudutmatning:"
+msgstr ""
 
 #: src/gui.c:4850 src/nautilus_property_page.c:413
 #, fuzzy
@@ -456,9 +453,8 @@ msgid "Audio Bitrate:"
 msgstr "Ljudutmatning:"
 
 #: src/gui.c:4863
-#, fuzzy
 msgid "Audio Sample Rate:"
-msgstr "Ljudutmatning:"
+msgstr ""
 
 #: src/gui.c:4893
 msgid "Video Picture Adjustments"
@@ -473,9 +469,8 @@ msgid "Brightness"
 msgstr ""
 
 #: src/gui.c:4923
-#, fuzzy
 msgid "Contrast"
-msgstr "Visa kontroller"
+msgstr ""
 
 #: src/gui.c:4933
 msgid "Gamma"
@@ -548,9 +543,8 @@ msgid "MPlayer"
 msgstr "Spela"
 
 #: src/gui.c:5415
-#, fuzzy
 msgid "Plugin"
-msgstr "Spelar"
+msgstr ""
 
 #: src/gui.c:5421
 msgid "GNOME MPlayer Configuration"
@@ -654,9 +648,8 @@ msgid "Disable Player Embedding"
 msgstr ""
 
 #: src/gui.c:5793
-#, fuzzy
 msgid "Audio Cache Size (KB):"
-msgstr "Minsta cachestorlek:"
+msgstr ""
 
 #: src/gui.c:5803 src/gui.c:5806 src/gui.c:5812 src/gui.c:5817
 msgid ""
@@ -665,9 +658,8 @@ msgid ""
 msgstr ""
 
 #: src/gui.c:5831
-#, fuzzy
 msgid "Video Cache Size (KB):"
-msgstr "Minsta cachestorlek:"
+msgstr ""
 
 #: src/gui.c:5851
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -858,9 +850,8 @@ msgid "Enable mplayer cache"
 msgstr ""
 
 #: src/gui.c:6233
-#, fuzzy
 msgid "Cache Size (KB):"
-msgstr "Minsta cachestorlek:"
+msgstr ""
 
 #: src/gui.c:6241 src/gui.c:6245
 msgid ""
@@ -890,9 +881,8 @@ msgid "MPlayer Default Optical Device"
 msgstr ""
 
 #: src/gui.c:6705
-#, fuzzy
 msgid "S_how Controls"
-msgstr "Visa kontroller"
+msgstr ""
 
 #: src/gui.c:6709 src/gui.c:6970
 #, fuzzy
@@ -905,9 +895,8 @@ msgstr ""
 
 #. File Menu
 #: src/gui.c:6766
-#, fuzzy
 msgid "_File"
-msgstr "Arkiv"
+msgstr ""
 
 #: src/gui.c:6773
 #, fuzzy
@@ -928,9 +917,8 @@ msgid "Open _Audio CD"
 msgstr "Spela ljud-cd"
 
 #: src/gui.c:6797
-#, fuzzy
 msgid "Open _DVD"
-msgstr "Spela ljud-cd"
+msgstr ""
 
 #: src/gui.c:6799
 msgid "Open DVD with _Menus"
@@ -953,18 +941,16 @@ msgid "Open DVD from ISO with Me_nus"
 msgstr ""
 
 #: src/gui.c:6814
-#, fuzzy
 msgid "Open _VCD"
-msgstr "Spela ljud-cd"
+msgstr ""
 
 #: src/gui.c:6817
 msgid "_TV"
 msgstr ""
 
 #: src/gui.c:6823
-#, fuzzy
 msgid "Open _Analog TV"
-msgstr "Spela ljud-cd"
+msgstr ""
 
 #: src/gui.c:6825
 msgid "Open _Digital TV"
@@ -980,19 +966,16 @@ msgstr ""
 
 #. Edit Menu
 #: src/gui.c:6888
-#, fuzzy
 msgid "_Edit"
-msgstr "Redigera"
+msgstr ""
 
 #: src/gui.c:6894
-#, fuzzy
 msgid "_Shuffle Playlist"
-msgstr "Spelar"
+msgstr ""
 
 #: src/gui.c:6898
-#, fuzzy
 msgid "_Loop Playlist"
-msgstr "Spelar"
+msgstr ""
 
 #: src/gui.c:6902
 msgid "S_witch Audio Track"
@@ -1024,9 +1007,8 @@ msgstr ""
 
 #. View Menu
 #: src/gui.c:6953
-#, fuzzy
 msgid "_View"
-msgstr "Arkiv"
+msgstr ""
 
 #: src/gui.c:6958
 #, fuzzy
@@ -1042,9 +1024,8 @@ msgid "D_etails"
 msgstr ""
 
 #: src/gui.c:6965
-#, fuzzy
 msgid "Audio _Meter"
-msgstr "Ljudutmatning:"
+msgstr ""
 
 #: src/gui.c:6976
 msgid "_Normal (1:1)"
@@ -1107,9 +1088,8 @@ msgid "Switch An_gle"
 msgstr ""
 
 #: src/gui.c:7012
-#, fuzzy
 msgid "_Controls"
-msgstr "Visa kontroller"
+msgstr ""
 
 #: src/gui.c:7025
 msgid "_Video Picture Adjustments"
@@ -1117,9 +1097,8 @@ msgstr ""
 
 #. Help Menu
 #: src/gui.c:7064
-#, fuzzy
 msgid "_Help"
-msgstr "Hjälp"
+msgstr ""
 
 #: src/gui.c:7236 src/gui.c:7239
 msgid "Menu"
@@ -1168,14 +1147,14 @@ msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 
 #: src/support.c:2224
-#, fuzzy, c-format
+#, c-format
 msgid "%2i:%02i"
-msgstr "%2i.%02i"
+msgstr ""
 
 #: src/support.c:2226
-#, fuzzy, c-format
+#, c-format
 msgid "%i:%02i:%02i"
-msgstr "%i.%02i.%02i"
+msgstr ""
 
 #: src/support.c:2834
 #, c-format
@@ -1224,9 +1203,8 @@ msgid "GNOME MPlayer Notification"
 msgstr "Konfiguration av GNOME MPlayer"
 
 #: src/playlist.c:173
-#, fuzzy
 msgid "Set Audio"
-msgstr "Spela ljud-cd"
+msgstr ""
 
 #: src/playlist.c:275
 #, c-format
@@ -1236,14 +1214,12 @@ msgid ""
 msgstr ""
 
 #: src/playlist.c:316 src/playlist.c:986 src/playlist.c:989
-#, fuzzy
 msgid "Save Playlist"
-msgstr "Spelar"
+msgstr ""
 
 #: src/playlist.c:333 src/playlist.c:387
-#, fuzzy
 msgid "Playlist (*.pls)"
-msgstr "Spelar"
+msgstr ""
 
 #: src/playlist.c:338 src/playlist.c:397
 msgid "MP3 Playlist (*.m3u)"
@@ -1273,11 +1249,10 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/playlist.c:894
-#, fuzzy
 msgid "Item to play"
 msgid_plural "Items to Play"
-msgstr[0] "Spelar"
-msgstr[1] "Spelar"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/playlist.c:913 src/nautilus_property_page.c:293
 msgid "Artist"
@@ -1292,37 +1267,32 @@ msgid "Length"
 msgstr ""
 
 #: src/playlist.c:943
-#, fuzzy
 msgid "Count"
-msgstr "Visa kontroller"
+msgstr ""
 
 #: src/playlist.c:951
 msgid "Order"
 msgstr ""
 
 #: src/playlist.c:961 src/playlist.c:964
-#, fuzzy
 msgid "Close Playlist View"
-msgstr "Spelar"
+msgstr ""
 
 #: src/playlist.c:997 src/playlist.c:1000
-#, fuzzy
 msgid "Add Item to Playlist"
-msgstr "Spelar"
+msgstr ""
 
 #: src/playlist.c:1008 src/playlist.c:1011
 msgid "Remove Item from Playlist"
 msgstr ""
 
 #: src/playlist.c:1019 src/playlist.c:1022
-#, fuzzy
 msgid "Add Items in Folder to Playlist"
-msgstr "Spelar"
+msgstr ""
 
 #: src/playlist.c:1030 src/playlist.c:1033
-#, fuzzy
 msgid "Clear Playlist"
-msgstr "Spelar"
+msgstr ""
 
 #: src/playlist.c:1041 src/playlist.c:1044
 msgid "Move Item Up"
@@ -1337,46 +1307,42 @@ msgid "UnSort List"
 msgstr ""
 
 #: src/playlist.c:1083 src/playlist.c:1086
-#, fuzzy
 msgid "Loop Playlist"
-msgstr "Spelar"
+msgstr ""
 
 #: src/playlist.c:1099 src/playlist.c:1102
-#, fuzzy
 msgid "Shuffle Playlist"
-msgstr "Spelar"
+msgstr ""
 
 #: src/playlist.c:1136
 msgid "_Set Subtitle"
 msgstr ""
 
 #: src/nautilus_property_page.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "%2i:%02.0f"
-msgstr "%2i.%02i"
+msgstr ""
 
 #: src/nautilus_property_page.c:89
-#, fuzzy, c-format
+#, c-format
 msgid "%i:%02i:%02.0f"
-msgstr "%i.%02i.%02i"
+msgstr ""
 
 #: src/nautilus_property_page.c:273
 msgid "<span weight=\"bold\">Media Details</span>"
 msgstr ""
 
 #: src/nautilus_property_page.c:281
-#, fuzzy
 msgid "Title"
-msgstr "Arkiv"
+msgstr ""
 
 #: src/nautilus_property_page.c:329
 msgid "Demuxer"
 msgstr ""
 
 #: src/nautilus_property_page.c:381
-#, fuzzy
 msgid "Video Frame Rate:"
-msgstr "Videoutmatning:"
+msgstr ""
 
 #: src/nautilus_property_page.c:482
 msgid "Audio/Video"
@@ -1389,6 +1355,3 @@ msgstr ""
 
 #~ msgid "Playing DVD"
 #~ msgstr "Spelar dvd"
-
-#~ msgid "Playing Audio CD"
-#~ msgstr "Spela ljud-cd"

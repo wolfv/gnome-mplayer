@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 10:19-0700\n"
+"POT-Creation-Date: 2011-02-21 12:40-0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Adrian Dimitrov <Enzo_01@abv.bg>\n"
 "Language-Team: \n"
@@ -287,8 +287,8 @@ msgstr "%s обекта"
 #, fuzzy, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
-msgstr[0] "Items to Play"
-msgstr[1] "Items to Play"
+msgstr[0] "Добави обект към списъка за изпълнение"
+msgstr[1] "Добави обект към списъка за изпълнение"
 
 #: src/gui.c:921 src/gui.c:922 src/gui.c:925 src/gui.c:2466 src/gui.c:2468
 msgid "Pause"
@@ -669,9 +669,8 @@ msgid "Disable Player Embedding"
 msgstr "Забрани вграждането на плейъра"
 
 #: src/gui.c:5793
-#, fuzzy
 msgid "Audio Cache Size (KB):"
-msgstr "Минимална големи на на кеша (KB):"
+msgstr ""
 
 #: src/gui.c:5803 src/gui.c:5806 src/gui.c:5812 src/gui.c:5817
 msgid ""
@@ -684,7 +683,7 @@ msgstr ""
 #: src/gui.c:5831
 #, fuzzy
 msgid "Video Cache Size (KB):"
-msgstr "Минимална големи на на кеша (KB):"
+msgstr "Видео размер:"
 
 #: src/gui.c:5851
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -711,9 +710,8 @@ msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Включи поддръжката на '_Advanced Substation Alpha (ASS)'"
 
 #: src/gui.c:5907
-#, fuzzy
 msgid "Use _Embedded Fonts (MKV only)"
-msgstr "Използвай вгра_дените шрифтове"
+msgstr ""
 
 #: src/gui.c:5916
 msgid "Subtitle Font:"
@@ -887,9 +885,8 @@ msgid "Enable mplayer cache"
 msgstr "Real Player Name"
 
 #: src/gui.c:6233
-#, fuzzy
 msgid "Cache Size (KB):"
-msgstr "Минимална големи на на кеша (KB):"
+msgstr ""
 
 #: src/gui.c:6241 src/gui.c:6245
 #, fuzzy
@@ -1284,7 +1281,7 @@ msgid "Choose Directory"
 msgstr "Избери директория"
 
 #: src/playlist.c:639
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "\tFound %i file\n"
@@ -1292,18 +1289,14 @@ msgid_plural ""
 "\n"
 "\tFound %i files\n"
 msgstr[0] ""
-"\n"
-"\tFound %i files\n"
 msgstr[1] ""
-"\n"
-"\tFound %i files\n"
 
 #: src/playlist.c:894
 #, fuzzy
 msgid "Item to play"
 msgid_plural "Items to Play"
-msgstr[0] "Обекти за изпълнение"
-msgstr[1] "Обекти за изпълнение"
+msgstr[0] "Добави обект към списъка за изпълнение"
+msgstr[1] "Добави обект към списъка за изпълнение"
 
 #: src/playlist.c:913 src/nautilus_property_page.c:293
 msgid "Artist"
@@ -1318,9 +1311,8 @@ msgid "Length"
 msgstr "Продължителност"
 
 #: src/playlist.c:943
-#, fuzzy
 msgid "Count"
-msgstr "Контраст"
+msgstr ""
 
 #: src/playlist.c:951
 msgid "Order"

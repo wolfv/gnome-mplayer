@@ -1250,7 +1250,7 @@ msgstr "GNOME MPlayer Benachrichtigung"
 #: src/playlist.c:173
 #, fuzzy
 msgid "Set Audio"
-msgstr "Öffne _Audio-CD"
+msgstr "Wähle Untertiteldatei"
 
 #: src/playlist.c:275
 #, c-format
