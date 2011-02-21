@@ -337,9 +337,12 @@ gboolean gm_audio_alsa_monitor(gpointer data)
 
     old_volume = device->volume;
     //printf("old volume = %f '%s' '%s'\n",old_volume,device->alsa_device_name, device->alsa_mixer);
+
+#ifdef HAVE_ASOUNDLIB
     if (device->alsa_device_name && device->alsa_mixer)
         device->volume = get_alsa_volume(device->alsa_device_name, device->alsa_mixer);
-
+#endif
+	
     if (gm_audio_server_volume_update_callback && old_volume != device->volume)
         g_idle_add(gm_audio_server_volume_update_callback, NULL);
 
