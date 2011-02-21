@@ -6,5 +6,6 @@ src/dbus-interface.c
 src/thread.c
 src/playlist.c
 src/nautilus_property_page.c
+src/libgmlib/gm_audio.c
 src/libgmtk/gmtk_media_tracker.c
 src/libgmtk/gmtk_output_combo_box.c
