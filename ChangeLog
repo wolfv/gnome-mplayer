@@ -1,4 +1,5 @@
 Development
+    Updated Polish translation
     Fix cross compile to Windows
     libgmlib - gm_audio monitor alsa device volume changes outside of gnome-mplayer
     Fix default volume on SOFTVOL audio devices
