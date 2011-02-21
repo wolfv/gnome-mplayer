@@ -1,4 +1,5 @@
 Development
+    libgmlib - gm_audio monitor alsa device volume changes outside of gnome-mplayer
     Fix default volume on SOFTVOL audio devices
     libgmlib - gm_audio Reduce load when type is not pulse
     Process PulseAudio volume changes from PulseAudio server, to keep gui in sync

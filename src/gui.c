@@ -4345,6 +4345,7 @@ void config_apply(GtkWidget * widget, void *data)
     audio_device.description = g_strdup(audio_device_name);
     gm_audio_update_device(&audio_device);
     gm_audio_get_volume(&audio_device);
+    gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
 
 #ifdef HAVE_ASOUNDLIB
     if (audio_device.alsa_mixer != NULL) {
