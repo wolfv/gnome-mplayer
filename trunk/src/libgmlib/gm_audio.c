@@ -36,6 +36,7 @@ GList *gm_audio_devices = NULL;
 gboolean gm_audio_debug = FALSE;
 void *gm_audio_server_volume_update_callback = NULL;
 GmAudioType gm_audio_monitored_type = AUDIO_TYPE_UNKNOWN;
+
 // private prototypes
 
 #ifdef HAVE_ASOUNDLIB
@@ -329,11 +330,33 @@ gboolean gm_audio_set_volume(AudioDevice * device, gdouble volume)
     return TRUE;
 }
 
+gboolean gm_audio_alsa_monitor(gpointer data)
+{
+    AudioDevice *device = (AudioDevice *) data;
+    gdouble old_volume;
+
+    old_volume = device->volume;
+    //printf("old volume = %f '%s' '%s'\n",old_volume,device->alsa_device_name, device->alsa_mixer);
+    if (device->alsa_device_name && device->alsa_mixer)
+        device->volume = get_alsa_volume(device->alsa_device_name, device->alsa_mixer);
+
+    if (gm_audio_server_volume_update_callback && old_volume != device->volume)
+        g_idle_add(gm_audio_server_volume_update_callback, NULL);
+
+    //printf("in alsa monitor %f\n",device->volume);
+    return device->type == AUDIO_TYPE_ALSA;
+}
+
 void gm_audio_set_server_volume_update_callback(AudioDevice * device, void *callback)
 {
     gm_audio_server_volume_update_callback = callback;
     gm_audio_monitored_type = device->type;
+
+    if (device->type == AUDIO_TYPE_ALSA) {
+        g_timeout_add(100, gm_audio_alsa_monitor, device);
+    }
 }
+
 
 
 
@@ -505,6 +528,7 @@ gdouble get_alsa_volume(gchar * device, gchar * mixer)
                 vol = 0;
             }
             if (gm_audio_debug) {
+                printf("Getting Volume \n");
                 printf("%s Playback is %i\n", mixer, playback);
                 printf("%s Range is %li to %li \n", mixer, pmin, pmax);
                 printf("%s Current Volume %li, multiplier = %f\n", mixer, get_vol, f_multi);
@@ -518,6 +542,7 @@ gdouble get_alsa_volume(gchar * device, gchar * mixer)
     snd_mixer_close(mhandle);
 
     vol = floor(vol + 0.5);
+    vol = vol / 100.0;
 
     return vol;
 }
@@ -590,6 +615,7 @@ gboolean set_alsa_volume(gchar * device, gchar * mixer, gdouble volume)
                 snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
             }
             if (gm_audio_debug) {
+                printf("Setting Volume\n");
                 printf("%s Playback is %i\n", mixer, playback);
                 printf("%s Range is %li to %li \n", mixer, pmin, pmax);
                 printf("%s Volume %f, multiplier = %f\n", mixer, volume, f_multi);
