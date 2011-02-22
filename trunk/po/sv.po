@@ -227,32 +227,12 @@ msgstr "Spelar"
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr ""
 
-#: src/main.c:914
-#, fuzzy, c-format
-msgid "GNOME MPlayer v%s\n"
-msgstr "GNOME MPlayer"
-
 #: src/main.c:979
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr ""
-
-#: src/gui.c:420 src/gui.c:463
-#, fuzzy, c-format
-msgid "%s - GNOME MPlayer"
-msgstr "GNOME MPlayer"
-
-#: src/gui.c:455
-#, fuzzy, c-format
-msgid "%s - (%i/%i) - GNOME MPlayer"
-msgstr "GNOME MPlayer"
-
-#: src/gui.c:457
-#, fuzzy, c-format
-msgid "(%i/%i) - GNOME MPlayer"
-msgstr "GNOME MPlayer"
 
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
@@ -307,16 +287,6 @@ msgstr "Spela"
 msgid "Adding %s to playlist"
 msgstr ""
 
-#: src/gui.c:1137
-#, fuzzy, c-format
-msgid "Playing %s"
-msgstr "Spelar"
-
-#: src/gui.c:1139
-#, fuzzy, c-format
-msgid "Paused %s"
-msgstr "Pausad"
-
 #: src/gui.c:1553 src/gui.c:1562
 #, c-format
 msgid "Volume %i%%"
@@ -358,11 +328,6 @@ msgstr ""
 #, c-format
 msgid "Unable to save '%s'"
 msgstr ""
-
-#: src/gui.c:3495 src/support.c:819 src/support.c:910 src/thread.c:266
-#, fuzzy
-msgid "GNOME MPlayer Error"
-msgstr "GNOME MPlayer"
 
 #: src/gui.c:3546
 msgid "A media player for GNOME that uses MPlayer"
@@ -411,29 +376,9 @@ msgstr ""
 msgid "Video Size:"
 msgstr ""
 
-#: src/gui.c:4759
-#, fuzzy
-msgid "Video Format:"
-msgstr "Videoutmatning:"
-
 #: src/gui.c:4770 src/nautilus_property_page.c:359
 msgid "Video Codec:"
 msgstr ""
-
-#: src/gui.c:4781
-#, fuzzy
-msgid "Video FPS:"
-msgstr "Videoutmatning:"
-
-#: src/gui.c:4790 src/nautilus_property_page.c:370
-#, fuzzy
-msgid "Video Bitrate:"
-msgstr "Videoutmatning:"
-
-#: src/gui.c:4801
-#, fuzzy
-msgid "Video Chapters:"
-msgstr "Videoutmatning:"
 
 #: src/gui.c:4817 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
@@ -446,11 +391,6 @@ msgstr ""
 #: src/gui.c:4837 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
 msgstr ""
-
-#: src/gui.c:4850 src/nautilus_property_page.c:413
-#, fuzzy
-msgid "Audio Bitrate:"
-msgstr "Ljudutmatning:"
 
 #: src/gui.c:4863
 msgid "Audio Sample Rate:"
@@ -520,11 +460,6 @@ msgstr ""
 msgid "Maximum Postprocessing"
 msgstr ""
 
-#: src/gui.c:5405
-#, fuzzy
-msgid "Player"
-msgstr "Spela"
-
 #: src/gui.c:5407
 msgid "Language Settings"
 msgstr ""
@@ -536,11 +471,6 @@ msgstr ""
 #: src/gui.c:5411
 msgid "Interface"
 msgstr ""
-
-#: src/gui.c:5413
-#, fuzzy
-msgid "MPlayer"
-msgstr "Spela"
 
 #: src/gui.c:5415
 msgid "Plugin"
@@ -584,11 +514,6 @@ msgstr "Ljudutmatning:"
 #: src/gui.c:5656
 msgid "Default Mixer:"
 msgstr ""
-
-#: src/gui.c:5666
-#, fuzzy
-msgid "Audio Channels to Output"
-msgstr "Ljudutmatning:"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -884,11 +809,6 @@ msgstr ""
 msgid "S_how Controls"
 msgstr ""
 
-#: src/gui.c:6709 src/gui.c:6970
-#, fuzzy
-msgid "_Full Screen"
-msgstr "Helskärm"
-
 #: src/gui.c:6714
 msgid "_Copy Location"
 msgstr ""
@@ -898,11 +818,6 @@ msgstr ""
 msgid "_File"
 msgstr ""
 
-#: src/gui.c:6773
-#, fuzzy
-msgid "Open _Folder"
-msgstr "Öppna fil"
-
 #: src/gui.c:6778
 msgid "Open _Location"
 msgstr ""
@@ -910,11 +825,6 @@ msgstr ""
 #: src/gui.c:6784
 msgid "_Disc"
 msgstr ""
-
-#: src/gui.c:6792
-#, fuzzy
-msgid "Open _Audio CD"
-msgstr "Spela ljud-cd"
 
 #: src/gui.c:6797
 msgid "Open _DVD"
@@ -1009,11 +919,6 @@ msgstr ""
 #: src/gui.c:6953
 msgid "_View"
 msgstr ""
-
-#: src/gui.c:6958
-#, fuzzy
-msgid "_Playlist"
-msgstr "Spelar"
 
 #: src/gui.c:6961
 msgid "Media _Info"
@@ -1196,11 +1101,6 @@ msgstr ""
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr ""
-
-#: src/thread.c:785
-#, fuzzy
-msgid "GNOME MPlayer Notification"
-msgstr "Konfiguration av GNOME MPlayer"
 
 #: src/playlist.c:173
 msgid "Set Audio"

@@ -262,11 +262,6 @@ msgstr "%s - GNOME MPlayer"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:457
-#, fuzzy, c-format
-msgid "(%i/%i) - GNOME MPlayer"
-msgstr "%s - (%i/%i) - GNOME MPlayer"
-
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
 msgid "GNOME MPlayer"
@@ -419,11 +414,6 @@ msgstr ""
 "\n"
 "Free Software Foundation,\n"
 "Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA"
-
-#: src/gui.c:3860
-#, fuzzy
-msgid "Set AudioFile"
-msgstr "Добавить субтитры"
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -588,12 +578,6 @@ msgstr "Передавать AC3/DTS по каналу S/PDIF"
 #: src/gui.c:5479
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Программное управление громкостью"
-
-#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
-#: src/libgmtk/gmtk_output_combo_box.c:147
-#, fuzzy
-msgid "Default"
-msgstr "Микшер по умолчанию:"
 
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -1248,11 +1232,6 @@ msgstr "Снимок экрана сохранен в файл '%s'"
 msgid "GNOME MPlayer Notification"
 msgstr "Сообщения GNOME MPlayer"
 
-#: src/playlist.c:173
-#, fuzzy
-msgid "Set Audio"
-msgstr "Открыть _Аудио CD"
-
 #: src/playlist.c:275
 #, c-format
 msgid ""
@@ -1362,16 +1341,6 @@ msgstr "Переместить вниз"
 #: src/playlist.c:1066 src/playlist.c:1069
 msgid "UnSort List"
 msgstr "Перемешать список"
-
-#: src/playlist.c:1083 src/playlist.c:1086
-#, fuzzy
-msgid "Loop Playlist"
-msgstr "Повторять _список воспроизведения"
-
-#: src/playlist.c:1099 src/playlist.c:1102
-#, fuzzy
-msgid "Shuffle Playlist"
-msgstr "_Воспроизводить в случайном порядке"
 
 #: src/playlist.c:1136
 msgid "_Set Subtitle"

@@ -586,12 +586,6 @@ msgstr "Activar a passagem de sinal AC3/DTS para a saída S/PDIF"
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Activado o Controlo de Volume do Mplayer"
 
-#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
-#: src/libgmtk/gmtk_output_combo_box.c:147
-#, fuzzy
-msgid "Default"
-msgstr "Misturador por Omissão:"
-
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Ajustar Definições de Saída</span>"
