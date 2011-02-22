@@ -19,15 +19,15 @@ msgstr ""
 
 #: src/main.c:52
 msgid "Window to embed in"
-msgstr ""
+msgstr "gnome-mplayer를 내장할 윈도우의 WID"
 
 #: src/main.c:53
 msgid "Width of window to embed in"
-msgstr ""
+msgstr "내장할 윈도우의 폭"
 
 #: src/main.c:54
 msgid "Height of window to embed in"
-msgstr ""
+msgstr "내장할 위도우의 높이"
 
 #: src/main.c:55
 msgid "Unique DBUS controller id"
@@ -151,15 +151,15 @@ msgstr "시작할 때 상세 정보 표시"
 
 #: src/main.c:111
 msgid "Real Player Name"
-msgstr ""
+msgstr "Real Player Name"
 
 #: src/main.c:112
 msgid "Real Player Console ID"
-msgstr ""
+msgstr "Real Player Console ID"
 
 #: src/main.c:113
 msgid "Real Player Console Controls"
-msgstr ""
+msgstr "Real Player Console Controls"
 
 #: src/main.c:115
 msgid "Subtitle file for first media file"
@@ -392,6 +392,25 @@ msgid ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 msgstr ""
+"Gnome MPlayer is free software; you can redistribute it and/or modify it "
+"under\n"
+"the terms of the GNU General Public License as published by the Free\n"
+"Software Foundation; either version 2 of the License, or (at your option)\n"
+"any later version.\n"
+"\n"
+"Gnome MPlayer is distributed in the hope that it will be useful, but "
+"WITHOUT\n"
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\n"
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\n"
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along "
+"with\n"
+"Gnome MPlayer if not, write to the\n"
+"\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin St, Fifth Floor\n"
+"Boston, MA 02110-1301 USA"
 
 #: src/gui.c:3860
 msgid "Set AudioFile"
@@ -403,7 +422,7 @@ msgstr "자막 지정"
 
 #: src/gui.c:4061
 msgid "Gnome MPlayer Fullscreen"
-msgstr "GNOME Mplayer 전체화면"
+msgstr "Gnome Mplayer 전체화면"
 
 #: src/gui.c:4739 src/nautilus_property_page.c:341
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -451,7 +470,7 @@ msgstr "오디오 비트레이트:"
 
 #: src/gui.c:4863
 msgid "Audio Sample Rate:"
-msgstr "오디오 샘플 레이트:"
+msgstr "오디오 샘플레이트:"
 
 #: src/gui.c:4893
 msgid "Video Picture Adjustments"
@@ -551,8 +570,8 @@ msgid ""
 "x11 should always work, try xv or gl for better performance"
 msgstr ""
 "비디오 출력 장치 선택\n"
-"x11은 항상 동작합니다. xv나 gl로 설정했을 때 더 나은 성능을 얻을 수도 있습니"
-"다."
+"x11로 설정할 경우 항상 동작합니다. xv나 gl로 설정했을 때 더 나은 성능"
+"을 얻을 수도 있습니다."
 
 #: src/gui.c:5475
 msgid "Enable AC3/DTS pass-through to S/PDIF"
@@ -564,9 +583,8 @@ msgstr "소프트웨어 볼륨 조절 기능 사용"
 
 #: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
 #: src/libgmtk/gmtk_output_combo_box.c:147
-#, fuzzy
 msgid "Default"
-msgstr "기본 믹서:"
+msgstr "Default"
 
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -623,8 +641,8 @@ msgstr ""
 "<span weight=\"bold\">플러그인 에뮬레이션 설정</span>\n"
 "\n"
 "이 옵션은 gecko-mediaplayer 플러그인이 설치되어 있을 때 효과가 있습니다.\n"
-"Gecko-mediaplayer는 npruntime 호환 브라우저(파이어폭스, 컨커러 등)에서\n"
-"다양한 웹 컨텐츠를 재생하는 파이어폭스 플러그인입니다. Gecko-mediaplayer는\n"
+"gecko-mediaplayer는 NPRuntime 호환 브라우저(파이어폭스, 컨커러 등)에서\n"
+"다양한 웹 컨텐츠를 재생하는 플러그인입니다. gecko-mediaplayer는\n"
 "다양한 종류의 미디어 플레이어 플러그인을 흉내낼 수 있습니다."
 
 #: src/gui.c:5763
@@ -932,7 +950,7 @@ msgstr "DVD 장치 열기(_D)"
 
 #: src/gui.c:6799
 msgid "Open DVD with _Menus"
-msgstr "DVD 장치 열기[메뉴](_M)"
+msgstr "DVD 장치 열기 -- 메뉴(_M)"
 
 #: src/gui.c:6801
 msgid "Open DVD from _Folder"
@@ -940,7 +958,7 @@ msgstr "DVD 폴더 열기(_F)"
 
 #: src/gui.c:6804
 msgid "Open DVD from Folder with M_enus"
-msgstr "DVD 폴더 열기[메뉴](_E)"
+msgstr "DVD 폴더 열기 -- 메뉴(_E)"
 
 #: src/gui.c:6806
 msgid "Open DVD from _ISO"
@@ -948,7 +966,7 @@ msgstr "DVD ISO 파일 열기(_I)"
 
 #: src/gui.c:6809
 msgid "Open DVD from ISO with Me_nus"
-msgstr "DVD ISO 파일 열기[메뉴](_N)"
+msgstr "DVD ISO 파일 열기 -- 메뉴(_N)"
 
 #: src/gui.c:6814
 msgid "Open _VCD"
@@ -1364,12 +1382,3 @@ msgstr "오디오/비디오"
 #: src/libgmtk/gmtk_media_tracker.c:197
 msgid "No Information"
 msgstr "정보 없음"
-
-#~ msgid ""
-#~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
-#~ msgstr ""
-#~ "오디오 출력 장치 선택\n"
-#~ "alsa나 oss는 항상 동작합니다. GNOME에서는 esd를, KDE에서는 arts를, 또는 최"
-#~ "근 배포판에서는 pulse를 선택해도 됩니다."

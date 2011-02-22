@@ -1,4 +1,6 @@
 Development
+    Updated Korean translation
+1.0.1b1
     Updated Polish translation
     Fix cross compile to Windows
     libgmlib - gm_audio monitor alsa device volume changes outside of gnome-mplayer
