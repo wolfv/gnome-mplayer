@@ -258,11 +258,6 @@ msgstr "%s - GNOME MPlayer"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:457
-#, fuzzy, c-format
-msgid "(%i/%i) - GNOME MPlayer"
-msgstr "%s - (%i/%i) - GNOME MPlayer"
-
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
 msgid "GNOME MPlayer"
@@ -414,11 +409,6 @@ msgstr ""
 "Free Software Foundation, Inc.,\n"
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
-
-#: src/gui.c:3860
-#, fuzzy
-msgid "Set AudioFile"
-msgstr "Seleccionar os subtítulos"
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -583,12 +573,6 @@ msgstr "Permitir o envío de fluxos AC3/DTS cara a saída S/PDIF"
 #: src/gui.c:5479
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "O control do volume do Mplayer está activado"
-
-#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
-#: src/libgmtk/gmtk_output_combo_box.c:147
-#, fuzzy
-msgid "Default"
-msgstr "Mesturador predeterminado:"
 
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -1243,11 +1227,6 @@ msgstr "A captura de pantalla gardouse en  «%s»"
 msgid "GNOME MPlayer Notification"
 msgstr "Notificación do Gnome MPlayer"
 
-#: src/playlist.c:173
-#, fuzzy
-msgid "Set Audio"
-msgstr "Abrir un CD de _son"
-
 #: src/playlist.c:275
 #, c-format
 msgid ""
@@ -1353,16 +1332,6 @@ msgstr "Mover cara a abaixo"
 #: src/playlist.c:1066 src/playlist.c:1069
 msgid "UnSort List"
 msgstr "Lista sen ordenar"
-
-#: src/playlist.c:1083 src/playlist.c:1086
-#, fuzzy
-msgid "Loop Playlist"
-msgstr "_Repetir"
-
-#: src/playlist.c:1099 src/playlist.c:1102
-#, fuzzy
-msgid "Shuffle Playlist"
-msgstr "Li_sta ao chou"
 
 #: src/playlist.c:1136
 msgid "_Set Subtitle"

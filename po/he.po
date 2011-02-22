@@ -252,11 +252,6 @@ msgstr ""
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr ""
 
-#: src/gui.c:457
-#, fuzzy, c-format
-msgid "(%i/%i) - GNOME MPlayer"
-msgstr "שגיאה בGNOME MPlayer"
-
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
 msgid "GNOME MPlayer"

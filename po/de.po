@@ -1247,11 +1247,6 @@ msgstr "Schnappschuss in '%s' gespeichert"
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer Benachrichtigung"
 
-#: src/playlist.c:173
-#, fuzzy
-msgid "Set Audio"
-msgstr "Wähle Untertiteldatei"
-
 #: src/playlist.c:275
 #, c-format
 msgid ""

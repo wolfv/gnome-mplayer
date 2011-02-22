@@ -247,11 +247,6 @@ msgstr "%s - GNOME MPlayer"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:457
-#, fuzzy, c-format
-msgid "(%i/%i) - GNOME MPlayer"
-msgstr "%s - (%i/%i) - GNOME MPlayer"
-
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
 msgid "GNOME MPlayer"
@@ -281,14 +276,6 @@ msgstr "Бездействане"
 #, c-format
 msgid "%s items"
 msgstr "%s обекта"
-
-#: src/gui.c:899 src/gui.c:2997 src/gui.c:3341 src/support.c:218
-#: src/support.c:284 src/playlist.c:578
-#, fuzzy, c-format
-msgid "Item to Play"
-msgid_plural "Items to Play"
-msgstr[0] "Добави обект към списъка за изпълнение"
-msgstr[1] "Добави обект към списъка за изпълнение"
 
 #: src/gui.c:921 src/gui.c:922 src/gui.c:925 src/gui.c:2466 src/gui.c:2468
 msgid "Pause"
@@ -406,11 +393,6 @@ msgstr ""
 "Free Software Foundation, Inc.,\n"
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
-
-#: src/gui.c:3860
-#, fuzzy
-msgid "Set AudioFile"
-msgstr "Постави субтитри"
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -576,12 +558,6 @@ msgstr ""
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Разреши софтуерен контрол на звука от mplayer"
 
-#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
-#: src/libgmtk/gmtk_output_combo_box.c:147
-#, fuzzy
-msgid "Default"
-msgstr "Миксер по подразбиране"
-
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Коригирай настройките на изхода</span>"
@@ -597,11 +573,6 @@ msgstr "Аудио изход:"
 #: src/gui.c:5656
 msgid "Default Mixer:"
 msgstr "Миксер по подразбиране"
-
-#: src/gui.c:5666
-#, fuzzy
-msgid "Audio Channels to Output"
-msgstr "Аудио канали:"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -679,11 +650,6 @@ msgid ""
 msgstr ""
 "Размер на данни на кеш паметта, при изпълнение от мрежата. Използвайте "
 "високи стойности за бавни мрежи. "
-
-#: src/gui.c:5831
-#, fuzzy
-msgid "Video Cache Size (KB):"
-msgstr "Видео размер:"
 
 #: src/gui.c:5851
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -817,11 +783,6 @@ msgstr "Придържай прозореца над останалите про
 msgid "Pause playback on mouse click"
 msgstr "Паузирай при кликване с мишката"
 
-#: src/gui.c:6126
-#, fuzzy
-msgid "Disable Fullscreen Control Bar Animation"
-msgstr "Забрани опцията за пълен екран, в режим на прелистване"
-
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr ""
@@ -850,11 +811,6 @@ msgstr ""
 "Задайте тази опция, ако промяната силата на звука в Gnome MPlayer влияе на "
 "глобалната сила на звука"
 
-#: src/gui.c:6179
-#, fuzzy
-msgid "Remember last software volume level"
-msgstr "Използвай софтуерния контрол на звука от mplayer"
-
 #: src/gui.c:6182 src/gui.c:6186
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr ""
@@ -879,23 +835,9 @@ msgstr "_Пропускай кадри"
 msgid "Set this option if video is well behind the audio"
 msgstr "Задайте тази опция, ако видеото изостава от аудиото"
 
-#: src/gui.c:6227
-#, fuzzy
-msgid "Enable mplayer cache"
-msgstr "Real Player Name"
-
 #: src/gui.c:6233
 msgid "Cache Size (KB):"
 msgstr ""
-
-#: src/gui.c:6241 src/gui.c:6245
-#, fuzzy
-msgid ""
-"Amount of data to cache when playing media, use higher values for slow "
-"devices and sites."
-msgstr ""
-"Размер на данни на кеш паметта, при изпълнение от мрежата. Използвайте "
-"високи стойности за бавни мрежи. "
 
 #: src/gui.c:6263
 msgid "MPlayer Executable:"
@@ -936,11 +878,6 @@ msgstr "_Копирай местоположение"
 #: src/gui.c:6766
 msgid "_File"
 msgstr "_Файл"
-
-#: src/gui.c:6773
-#, fuzzy
-msgid "Open _Folder"
-msgstr "Отвори файл"
 
 #: src/gui.c:6778
 msgid "Open _Location"
@@ -1174,11 +1111,6 @@ msgstr "Сила на звука - 100%"
 msgid "Couldn't open DVD device: %s"
 msgstr "Немога да отворя DVD устройсто: %s"
 
-#: src/support.c:892
-#, fuzzy, c-format
-msgid "Couldn't open VCD device: %s"
-msgstr "Немога да отворя DVD устройсто: %s"
-
 #: src/support.c:2002 src/support.c:2032 src/support.c:2075 src/support.c:2103
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
@@ -1242,11 +1174,6 @@ msgstr "Снимката е записана в '%s'"
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer известяване"
 
-#: src/playlist.c:173
-#, fuzzy
-msgid "Set Audio"
-msgstr "Отвори _Аудио диск"
-
 #: src/playlist.c:275
 #, c-format
 msgid ""
@@ -1290,13 +1217,6 @@ msgid_plural ""
 "\tFound %i files\n"
 msgstr[0] ""
 msgstr[1] ""
-
-#: src/playlist.c:894
-#, fuzzy
-msgid "Item to play"
-msgid_plural "Items to Play"
-msgstr[0] "Добави обект към списъка за изпълнение"
-msgstr[1] "Добави обект към списъка за изпълнение"
 
 #: src/playlist.c:913 src/nautilus_property_page.c:293
 msgid "Artist"
@@ -1349,16 +1269,6 @@ msgstr "Премести обекта надолу"
 #: src/playlist.c:1066 src/playlist.c:1069
 msgid "UnSort List"
 msgstr ""
-
-#: src/playlist.c:1083 src/playlist.c:1086
-#, fuzzy
-msgid "Loop Playlist"
-msgstr "_Повторение на списъка за изпълнение"
-
-#: src/playlist.c:1099 src/playlist.c:1102
-#, fuzzy
-msgid "Shuffle Playlist"
-msgstr "Ра_збъркан списък за изпълнение"
 
 #: src/playlist.c:1136
 msgid "_Set Subtitle"

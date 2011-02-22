@@ -565,12 +565,6 @@ msgstr ""
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Увімкнути програмне керування гучністю MPlayer"
 
-#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
-#: src/libgmtk/gmtk_output_combo_box.c:147
-#, fuzzy
-msgid "Default"
-msgstr "Міксер за замовчуванням:"
-
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Вивід</span>"

@@ -570,8 +570,8 @@ msgid ""
 "x11 should always work, try xv or gl for better performance"
 msgstr ""
 "비디오 출력 장치 선택\n"
-"x11로 설정할 경우 항상 동작합니다. xv나 gl로 설정했을 때 더 나은 성능"
-"을 얻을 수도 있습니다."
+"x11로 설정할 경우 항상 동작합니다. xv나 gl로 설정했을 때 더 나은 성능을 얻을 "
+"수도 있습니다."
 
 #: src/gui.c:5475
 msgid "Enable AC3/DTS pass-through to S/PDIF"
