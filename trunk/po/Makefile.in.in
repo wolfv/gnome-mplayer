@@ -219,6 +219,9 @@ dist distdir: update-po $(DISTFILES)
 	  ln $(srcdir)/$$file $(distdir) 2> /dev/null \
 	    || cp -p $(srcdir)/$$file $(distdir); \
 	done
+	
+no-fuzzy:
+	for f in `ls *.po`; do msgattrib --no-fuzzy -o $$f $$f; done
 
 update-po: Makefile
 	$(MAKE) $(GETTEXT_PACKAGE).pot
