@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2010-08-20 08:31+0900\n"
-"Last-Translator: Munehiro Yamamoto <Unknown>\n"
+"PO-Revision-Date: 2011-02-24 11:06+0900\n"
+"Last-Translator: Munehiro Yamamoto <munepi@vinelinux.org>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -254,7 +254,7 @@ msgstr "%s - GNOME MPlayer"
 #: src/gui.c:455
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
-msgstr ""
+msgstr "%s - (%i/%i) - GNOME MPlayer"
 
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
@@ -264,7 +264,7 @@ msgstr "GNOME MPlayer"
 #: src/gui.c:596
 #, c-format
 msgid "Buffering: %2i%%"
-msgstr ""
+msgstr "バッファリング: %2i%%"
 
 #: src/gui.c:608
 #, c-format
@@ -792,7 +792,7 @@ msgstr "全画面で操作パネルのアニメーションを無効にする"
 
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
-msgstr ""
+msgstr "マウスホイールをシークの代わりに、音量変更に割り当てる"
 
 #: src/gui.c:6136
 msgid "Verbose Debug Enabled"
@@ -989,7 +989,7 @@ msgstr "オーディオトラックを切り替える(_w)"
 
 #: src/gui.c:6905 src/playlist.c:1140
 msgid "Set Audi_o"
-msgstr ""
+msgstr "オーディオファイルを設定する(_o)"
 
 #: src/gui.c:6908
 msgid "Select _Audio Language"
