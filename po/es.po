@@ -10,17 +10,17 @@ msgstr ""
 "Project-Id-Version: GNOME MPlayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2011-01-09 05:13+0000\n"
-"Last-Translator: Fitoschido <Unknown>\n"
+"PO-Revision-Date: 2011-02-07 14:59+0000\n"
+"Last-Translator: Julián Unrrein <Unknown>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-01-10 14:36+0000\n"
-"X-Generator: Launchpad (build 12161)\n"
+"X-Launchpad-Export-Date: 2011-02-25 17:04+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
 "X-Poedit-Country: SPAIN\n"
+"Language: \n"
 "X-Poedit-Language: Spanish\n"
 
 #: src/main.c:52
@@ -593,6 +593,11 @@ msgstr "Activar paso AC3/DTS a través de S/PDIF"
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Control de volumen Mplayer por software habilitado"
 
+#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
+#: src/libgmtk/gmtk_output_combo_box.c:147
+msgid "Default"
+msgstr "Por defecto"
+
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Opciones de salida</span>"
@@ -859,7 +864,8 @@ msgid "Remember last software volume level"
 msgstr "Recordar configuración del control de volumen por software"
 
 #: src/gui.c:6182 src/gui.c:6186
-msgid "Set this option if you want the software volume level to be remembered"
+msgid ""
+"Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Selecciona esta opción si quieres que el nivel de volumen por software sea "
 "recordado"
@@ -1403,15 +1409,6 @@ msgstr "Audio/Vídeo"
 msgid "No Information"
 msgstr "No hay información disponible"
 
-#~ msgid ""
-#~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
-#~ msgstr ""
-#~ "Las salidas de audio del mplayer\n"
-#~ "alsa u oss deberían funcionar siempre, pruebe esd en GNOME, arts en KDE o "
-#~ "pulse en distribuciones más actuales"
-
 #~ msgid "Media Change"
 #~ msgstr "Cambio de medio"
 
@@ -1435,3 +1432,12 @@ msgstr "No hay información disponible"
 
 #~ msgid "Seeking to %s"
 #~ msgstr "Saltando a %s"
+
+#~ msgid ""
+#~ "mplayer audio output device\n"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+#~ "newer distributions"
+#~ msgstr ""
+#~ "Las salidas de audio del mplayer\n"
+#~ "alsa u oss deberían funcionar siempre, pruebe esd en GNOME, arts en KDE o "
+#~ "pulse en distribuciones más actuales"
