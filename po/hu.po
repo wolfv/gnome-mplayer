@@ -1,4 +1,4 @@
-# GNOME MPlayer 
+# GNOME MPlayer
 # Copyright (C) 2007 Kevin DeKorte
 # This file is distributed under the same license as the GNOME MPlayer package.
 # Kevin DeKorte <kdekorte@gmail.com> 2007.
@@ -9,16 +9,18 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2009-09-27 20:46+0100\n"
-"Last-Translator: Zamiere Vonthokikkeiin <info@kikke.hu>\n"
+"PO-Revision-Date: 2011-02-16 08:19+0000\n"
+"Last-Translator: Fuli Sándor <Unknown>\n"
 "Language-Team: Angelique OS <info@angelique.hu>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Poedit-Language: Hungarian\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2011-02-25 17:04+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
 "X-Poedit-Country: HUNGARY\n"
+"Language: \n"
+"X-Poedit-Language: Hungarian\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -58,13 +60,15 @@ msgstr "Használja az mplayer szoftveres hangerőszabályzót"
 
 #: src/main.c:63
 msgid "When set to TRUE the last volume level is set as the default"
-msgstr ""
+msgstr "Ha TRUE-ra állítja, az utolsó hangerő-érték lesz az alapértelmezett."
 
 #: src/main.c:65
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
 msgstr ""
+"Utolsó szoftveres hangerő százalék - csak akkor kerül alkalmazásra, ha a "
+"remeber_softvol TRUE-ra van állítva."
 
 #: src/main.c:67
 msgid "Mixer to use"
@@ -190,7 +194,7 @@ msgstr "TV bemenet magasság"
 
 #: src/main.c:122
 msgid "Frames per second from TV input"
-msgstr "TV bemenet másodpercenkénti képkocka "
+msgstr "TV bemenet másodpercenkénti képkocka"
 
 #: src/main.c:123
 msgid "Only allow one instance"
@@ -258,6 +262,11 @@ msgstr "%s - GNOME MPlayer"
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
+
+#: src/gui.c:457
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr ""
 
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
@@ -413,6 +422,10 @@ msgstr ""
 "Free Software Foundation, Inc.,\n"
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
+
+#: src/gui.c:3860
+msgid "Set AudioFile"
+msgstr ""
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -579,6 +592,11 @@ msgstr "AC3/DTS átjátszás S/PDIF-re"
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Mplayer szoftveres hangerőszabályozó"
 
+#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
+#: src/libgmtk/gmtk_output_combo_box.c:147
+msgid "Default"
+msgstr "Alapértelmezett"
+
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Kimenet beállítások</span>"
@@ -663,6 +681,10 @@ msgstr "MIDI támogatás (MPlayer támogatást igényel)"
 msgid "Disable Player Embedding"
 msgstr "Lejátszó beépülés tiltása"
 
+#: src/gui.c:5793
+msgid "Audio Cache Size (KB):"
+msgstr "Hang gyorsítótár mérete (KB):"
+
 #: src/gui.c:5803 src/gui.c:5806 src/gui.c:5812 src/gui.c:5817
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
@@ -670,6 +692,10 @@ msgid ""
 msgstr ""
 "Gyorsítótárnak használt memóriamennyiség, használjon nagyobb értékeket lassú "
 "hálózatokhoz."
+
+#: src/gui.c:5831
+msgid "Video Cache Size (KB):"
+msgstr "Videó gyorsítótár mérete (KB)"
 
 #: src/gui.c:5851
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -765,7 +791,7 @@ msgstr "Tálcaikon megjelenítése"
 
 #: src/gui.c:6069
 msgid "Use X Screen Saver control over Gnome Power Manager"
-msgstr ""
+msgstr "X Képernyővédő vezérlés használata Gnome Power Manager felett"
 
 #: src/gui.c:6075
 msgid "Place playlist below media (requires application restart)"
@@ -799,6 +825,10 @@ msgstr "A lejátszóablak mindig legfelül"
 msgid "Pause playback on mouse click"
 msgstr "Pillanat állj kattintáskor"
 
+#: src/gui.c:6126
+msgid "Disable Fullscreen Control Bar Animation"
+msgstr "Teljesképernyős vezérlősáv animálásának kikapcsolása"
+
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr ""
@@ -825,13 +855,20 @@ msgid ""
 "volume"
 msgstr "Ezzel az opcióval a Gnome MPlayer változtathat a fő hangerőn"
 
+#: src/gui.c:6179
+msgid "Remember last software volume level"
+msgstr "Emlékezzen az utolsó hangerő-értékre"
+
 #: src/gui.c:6182 src/gui.c:6186
-msgid "Set this option if you want the software volume level to be remembered"
+msgid ""
+"Set this option if you want the software volume level to be remembered"
 msgstr ""
+"Kapcsolja be ezt az opciót, ha szeretné, hogy a szoftveres hangerő-érték "
+"megjegyzésre kerüljön."
 
 #: src/gui.c:6193
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr ""
+msgstr "Hangerősítő (- 200dB-től +60dB-ig)"
 
 #: src/gui.c:6205
 msgid "De_interlace Video"
@@ -839,7 +876,8 @@ msgstr "_Váltottsoros képszűrő"
 
 #: src/gui.c:6207 src/gui.c:6210
 msgid "Set this option if video looks striped"
-msgstr "Ezzel az opcióval szüntethető meg a váltottsoros videók csíkozottsága"
+msgstr ""
+"Ezzel az opcióval szüntethető meg a váltottsoros videók csíkozottsága"
 
 #: src/gui.c:6216
 msgid "_Drop frames"
@@ -886,7 +924,7 @@ msgstr "Extra mplayer paraméterek (szűrők stb.) megadása"
 
 #: src/gui.c:6304
 msgid "MPlayer Default Optical Device"
-msgstr ""
+msgstr "MPlayer alapértelmezett optikai eszköz"
 
 #: src/gui.c:6705
 msgid "S_how Controls"
@@ -904,6 +942,10 @@ msgstr "Hely _másolása"
 #: src/gui.c:6766
 msgid "_File"
 msgstr "_Fájl"
+
+#: src/gui.c:6773
+msgid "Open _Folder"
+msgstr "Mappa _Megnyitása"
 
 #: src/gui.c:6778
 msgid "Open _Location"
@@ -1144,7 +1186,8 @@ msgstr "Nem lehet megnyitni a VCD eszközt: %s"
 
 #: src/support.c:2002 src/support.c:2032 src/support.c:2075 src/support.c:2103
 msgid "Unable to save playlist, cannot open file for writing"
-msgstr "Nem lehet menteni a lejátszólistát, nem lehet megnyitni írásra a fájlt"
+msgstr ""
+"Nem lehet menteni a lejátszólistát, nem lehet megnyitni írásra a fájlt"
 
 #: src/support.c:2224
 #, c-format
@@ -1202,6 +1245,10 @@ msgstr "Képernyőkép mentve a '%s' fájlba"
 #: src/thread.c:785
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer figyelmeztetés"
+
+#: src/playlist.c:173
+msgid "Set Audio"
+msgstr ""
 
 #: src/playlist.c:275
 #, c-format
@@ -1309,6 +1356,14 @@ msgstr "Elem lejjebb helyezése"
 msgid "UnSort List"
 msgstr "Lista sorrendjének visszarendezése"
 
+#: src/playlist.c:1083 src/playlist.c:1086
+msgid "Loop Playlist"
+msgstr "Lejátszási lista hurkolása (Loop)"
+
+#: src/playlist.c:1099 src/playlist.c:1102
+msgid "Shuffle Playlist"
+msgstr "Véletlenszerű lejátszás"
+
 #: src/playlist.c:1136
 msgid "_Set Subtitle"
 msgstr "_Felirat beállítása"
@@ -1350,12 +1405,12 @@ msgstr "Nincsenek információk"
 
 #~ msgid ""
 #~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+#~ "newer distributions"
 #~ msgstr ""
 #~ "mplayer hang kimeneti eszköz\n"
-#~ "az alsa vagy oss legtöbb esetben működik, próbálja az esd-t gnome, az "
-#~ "arts-ot kde, vagy a pulse kimenetet újabb disztribúciókon"
+#~ "az alsa vagy oss legtöbb esetben működik, próbálja az esd-t gnome, az arts-"
+#~ "ot kde, vagy a pulse kimenetet újabb disztribúciókon"
 
 #~ msgid "Media Change"
 #~ msgstr "Média változás"
