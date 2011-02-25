@@ -2,19 +2,19 @@
 # Turkish translation of GNOME MPlayer.
 # This file is distributed under the same license as the gnome-mplayer package.
 # Copyright (C) Kevin DeKorte 2006-2008 <kdekorte@gmail.com>
-# Onur Küçük <onur@pardus.org.tr>, 2008, 2009, 2010.
+# Onur Küçük <onur@pardus.org.tr>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2010-08-14 16:12+0300\n"
+"PO-Revision-Date: 2011-02-24 22:22+0200\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
-"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=1;\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -258,6 +258,11 @@ msgstr "%s - GNOME MPlayer"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) GNOME MPlayer"
 
+#: src/gui.c:457
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr "(%i/%i) GNOME MPlayer"
+
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
 msgid "GNOME MPlayer"
@@ -393,6 +398,10 @@ msgid ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 msgstr ""
+
+#: src/gui.c:3860
+msgid "Set AudioFile"
+msgstr "Ses dosyasını seç"
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -558,6 +567,11 @@ msgstr "AC3/DTS verisini S/PDIF ile çözmeyi aç"
 #: src/gui.c:5479
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "MPlayer Yazılımsal Ses Seviyesi Açık"
+
+#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
+#: src/libgmtk/gmtk_output_combo_box.c:147
+msgid "Default"
+msgstr "Öntanımlı"
 
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -792,7 +806,7 @@ msgstr "Tarayıcı modunda tamekran seçeneklerini kapat"
 
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
-msgstr ""
+msgstr "Fare tekerleğini ileri/geri gitmek yerine ses seviyesini değiştirsin"
 
 #: src/gui.c:6136
 msgid "Verbose Debug Enabled"
@@ -986,7 +1000,7 @@ msgstr "Ses _İzini Değiştir"
 
 #: src/gui.c:6905 src/playlist.c:1140
 msgid "Set Audi_o"
-msgstr ""
+msgstr "Sesi S_eç"
 
 #: src/gui.c:6908
 msgid "Select _Audio Language"
@@ -1205,6 +1219,10 @@ msgstr "Ekran görüntüsü '%s' olarak kaydedildi"
 #: src/thread.c:785
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer Uyarısı"
+
+#: src/playlist.c:173
+msgid "Set Audio"
+msgstr "Sesi Seç"
 
 #: src/playlist.c:275
 #, c-format
