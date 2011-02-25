@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2010-11-07 19:45+0100\n"
-"Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
+"PO-Revision-Date: 2011-02-19 13:58+0000\n"
+"Last-Translator: victor96 <Unknown>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-06-19 14:00+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-25 17:04+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
+"Language: cs\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -49,7 +49,7 @@ msgstr "Vypisovat na konzoli ještě více výstupu"
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
-msgstr "Spustit v celoobrazovkovém režimu"
+msgstr "Spusti v režimu Celá obrazovka"
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
@@ -260,6 +260,11 @@ msgstr "%s – GNOME MPlayer"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s – (%i/%i) – GNOME MPlayer"
 
+#: src/gui.c:457
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr "(%i/%i) – GNOME MPlayer"
+
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
 msgid "GNOME MPlayer"
@@ -413,6 +418,10 @@ msgstr ""
 "Free Software Foundation, Inc.,\n"
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
+
+#: src/gui.c:3860
+msgid "Set AudioFile"
+msgstr "Vybrat zvukový soubor"
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -577,6 +586,11 @@ msgstr "Zapnout průchod AC3/DTS do S/PDIF"
 #: src/gui.c:5479
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Zapnout softwarové ovládání hlasitosti MPlayerem"
+
+#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
+#: src/libgmtk/gmtk_output_combo_box.c:147
+msgid "Default"
+msgstr ""
 
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -811,7 +825,7 @@ msgstr "Zakázat animaci ovládacího panelu v režimu celé obrazovky"
 
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
-msgstr ""
+msgstr "Pro změnu zvuku použijte kolečko myši"
 
 #: src/gui.c:6136
 msgid "Verbose Debug Enabled"
@@ -842,7 +856,8 @@ msgid "Remember last software volume level"
 msgstr "Zapamatovat si poslední úroveň softwarové hlasitosti"
 
 #: src/gui.c:6182 src/gui.c:6186
-msgid "Set this option if you want the software volume level to be remembered"
+msgid ""
+"Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Použijte tuto volbu, pokud chcete, aby si program pamatoval úroveň "
 "softwarově ovládané hlasitosti"
@@ -1004,7 +1019,7 @@ msgstr "Přepnout zvukovou _stopu"
 
 #: src/gui.c:6905 src/playlist.c:1140
 msgid "Set Audi_o"
-msgstr ""
+msgstr "Vybraz _zvuk"
 
 #: src/gui.c:6908
 msgid "Select _Audio Language"
@@ -1224,6 +1239,10 @@ msgstr "Snímek uložen do „%s“"
 msgid "GNOME MPlayer Notification"
 msgstr "Upozorněni GNOME MPlayeru"
 
+#: src/playlist.c:173
+msgid "Set Audio"
+msgstr "Vybrat zvuk"
+
 #: src/playlist.c:275
 #, c-format
 msgid ""
@@ -1381,21 +1400,23 @@ msgstr "Zvuk/Video"
 msgid "No Information"
 msgstr "Žádné informace"
 
+#~ msgid "Media Change"
+#~ msgstr "Změna média"
+
 #~ msgid ""
 #~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+#~ "newer distributions"
 #~ msgstr ""
 #~ "Výstupní zvukové zařízení mplayeru\n"
 #~ "alsa nebo oss by měly fungovat. V Gnome vyzkoušejte esd, v KDE arts, "
 #~ "v novějších distribucích pulse."
 
-#~ msgid "Media Change"
-#~ msgstr "Změna média"
+#~ msgid "Minimum Cache Size (KB):"
+#~ msgstr "Minimální velikost vyrovnávací paměti (KB):"
 
 #~ msgid "Force the use of cache setting on streaming media"
-#~ msgstr ""
-#~ "Vynutit použití vyrovnávací paměti při přehrávání proudovaných médií"
+#~ msgstr "Vynutit použití vyrovnávací paměti při přehrávání proudovaných médií"
 
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "Umístění táhla pozice ve stopě"
