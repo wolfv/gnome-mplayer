@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2010-02-19 12:35+0000\n"
-"Last-Translator: Cesare Tirabassi <cesare.tirabassi@gmail.com>\n"
+"PO-Revision-Date: 2011-02-04 20:03+0000\n"
+"Last-Translator: Martino Barbon <Unknown>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-02-22 20:40+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-25 17:04+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
+"Language: it\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -258,6 +258,11 @@ msgstr "%s - GNOME MPlayer"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
+#: src/gui.c:457
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr "(%i/%i) - GNOME MPlayer"
+
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
 msgid "GNOME MPlayer"
@@ -411,6 +416,10 @@ msgstr ""
 "Free Software Foundation, Inc.,\n"
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
+
+#: src/gui.c:3860
+msgid "Set AudioFile"
+msgstr "Imposta file audio"
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -577,6 +586,11 @@ msgstr "Abilita il passaggio AC3/DTS per S/PDIF"
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Controllo Software del Volume Mplayer abilitato"
 
+#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
+#: src/libgmtk/gmtk_output_combo_box.c:147
+msgid "Default"
+msgstr "Predefinito"
+
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Aggiusta le Impostazioni di Uscita</span>"
@@ -661,6 +675,10 @@ msgstr "Supporto MIDI (richiede il supporto MPlayer)"
 msgid "Disable Player Embedding"
 msgstr "Disabilita l'embedding del lettore"
 
+#: src/gui.c:5793
+msgid "Audio Cache Size (KB):"
+msgstr "Dimensione (KB) della Cache Audio:"
+
 #: src/gui.c:5803 src/gui.c:5806 src/gui.c:5812 src/gui.c:5817
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
@@ -668,6 +686,10 @@ msgid ""
 msgstr ""
 "Quantità di dati da memorizzare in anticipo quando si riproducono media "
 "dalla rete. Usate valori più alti per connessioni lente."
+
+#: src/gui.c:5831
+msgid "Video Cache Size (KB):"
+msgstr "Dimensione (KB) della Cache Video:"
 
 #: src/gui.c:5851
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -687,7 +709,8 @@ msgstr "Archivio di Codifica Metadata:"
 
 #: src/gui.c:5893
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\">Aggiusta le Impostazioni dei Sottotitoli</span>"
+msgstr ""
+"<span weight=\"bold\">Aggiusta le Impostazioni dei Sottotitoli</span>"
 
 #: src/gui.c:5900
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
@@ -804,7 +827,7 @@ msgstr ""
 
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
-msgstr ""
+msgstr "Usa la rotella del mouse per il controllo volume invece del cursore"
 
 #: src/gui.c:6136
 msgid "Verbose Debug Enabled"
@@ -835,7 +858,8 @@ msgid "Remember last software volume level"
 msgstr "Memorizza l'ultimo livello di volume software"
 
 #: src/gui.c:6182 src/gui.c:6186
-msgid "Set this option if you want the software volume level to be remembered"
+msgid ""
+"Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Seleziona questa opzione se vuoi che sia memorizzato il livello di volume "
 "software"
@@ -999,7 +1023,7 @@ msgstr "Scam_bia Traccie Audio"
 
 #: src/gui.c:6905 src/playlist.c:1140
 msgid "Set Audi_o"
-msgstr ""
+msgstr "Imposta audi_o"
 
 #: src/gui.c:6908
 msgid "Select _Audio Language"
@@ -1019,7 +1043,8 @@ msgstr "Prendi Screensho_t"
 
 #: src/gui.c:6927 src/gui.c:6931
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
-msgstr "File chiamati ’shotNNNN.png’ saranno salvati nella directory corrente"
+msgstr ""
+"File chiamati ’shotNNNN.png’ saranno salvati nella directory corrente"
 
 #. View Menu
 #: src/gui.c:6953
@@ -1218,6 +1243,10 @@ msgstr "Screenshot salvato in '%s'"
 msgid "GNOME MPlayer Notification"
 msgstr "Notificazione Gnome MPlayer"
 
+#: src/playlist.c:173
+msgid "Set Audio"
+msgstr "Imposta audio"
+
 #: src/playlist.c:275
 #, c-format
 msgid ""
@@ -1324,6 +1353,14 @@ msgstr "Muovi Item in Basso"
 msgid "UnSort List"
 msgstr "DiSordina Lista"
 
+#: src/playlist.c:1083 src/playlist.c:1086
+msgid "Loop Playlist"
+msgstr "Playlist Continuativa"
+
+#: src/playlist.c:1099 src/playlist.c:1102
+msgid "Shuffle Playlist"
+msgstr "Mescola scaletta"
+
 #: src/playlist.c:1136
 msgid "_Set Subtitle"
 msgstr "Impo_sta Sottotitolo"
@@ -1363,17 +1400,20 @@ msgstr "Audio/Video"
 msgid "No Information"
 msgstr "Senza Informazione"
 
+#~ msgid "Media Change"
+#~ msgstr "Cambio media"
+
 #~ msgid ""
 #~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+#~ "newer distributions"
 #~ msgstr ""
 #~ "dispositivo da usare per l'uscita audio mplayer\n"
 #~ "alsa o oss dovrebbero funzionare sempre, prova esd in gnome, arts in kde\n"
 #~ "oppure pulse per distribuzioni più recenti"
 
-#~ msgid "Media Change"
-#~ msgstr "Cambio media"
+#~ msgid "Minimum Cache Size (KB):"
+#~ msgstr "Capacità Minima della Memoria Tampone (KB):"
 
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Forza l'utilizzo della memoria tampone per media streaming"
