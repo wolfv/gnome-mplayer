@@ -10,14 +10,16 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2010-08-22 17:00+0100\n"
-"Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
+"PO-Revision-Date: 2011-02-07 14:03+0000\n"
+"Last-Translator: dommy9111 <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Launchpad-Export-Date: 2011-02-25 17:04+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
+"Language: fr\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -262,6 +264,11 @@ msgstr "%s - GNOME MPlayer"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
+#: src/gui.c:457
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr "(%i/%i) - GNOME MPlayer"
+
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
 msgid "GNOME MPlayer"
@@ -346,7 +353,7 @@ msgstr "Ouvrir un emplacement"
 
 #: src/gui.c:3055
 msgid "Location:"
-msgstr "Emplacement : "
+msgstr "Emplacement :"
 
 #: src/gui.c:3108 src/gui.c:3198
 msgid "Choose Disk Directory"
@@ -420,6 +427,10 @@ msgstr ""
 "51 Franklin Street, Fifth Floor,\n"
 "Boston, MA 02110-1301, USA."
 
+#: src/gui.c:3860
+msgid "Set AudioFile"
+msgstr "Choisir un fichier audio"
+
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
 msgstr "Sélectionner un fichier de sous-titres"
@@ -478,7 +489,7 @@ msgstr "Vitesse d'échantillonnage audio :"
 
 #: src/gui.c:4893
 msgid "Video Picture Adjustments"
-msgstr "Affinage de l'image vidéo "
+msgstr "Affinage de l'image vidéo"
 
 #: src/gui.c:4906
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
@@ -584,6 +595,11 @@ msgstr "Permettre l'envoi des flux AC3/DTS vers la sortie S/PDIF"
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Activer le contrôle de volume logiciel de Mplayer"
 
+#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
+#: src/libgmtk/gmtk_output_combo_box.c:147
+msgid "Default"
+msgstr "Défaut"
+
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Définition des paramètres de sortie</span>"
@@ -637,8 +653,8 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
-"<span weight=\"bold\">Définition des paramètres d'émulation du greffon</"
-"span>\n"
+"<span weight=\"bold\">Définition des paramètres d'émulation du "
+"greffon</span>\n"
 "\n"
 "Ces options modifient le comportement du greffon gecko-mediaplayer quand "
 "celui-ci est installé.\n"
@@ -803,7 +819,8 @@ msgstr "En mode « instance unique », remplacer le fichier existant"
 
 #: src/gui.c:6099
 msgid "When opening file, bring main window to front"
-msgstr "Mettre la fenêtre principale en avant-plan au chargement d'un fichier"
+msgstr ""
+"Mettre la fenêtre principale en avant-plan au chargement d'un fichier"
 
 #: src/gui.c:6106
 msgid "Remember Window Location and Size"
@@ -828,6 +845,7 @@ msgstr "Désactiver l'animation de la barre de contrôle en mode plein écran"
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr ""
+"Utiliser la molette de la souris pour changer le volume, au lieu de cliquer"
 
 #: src/gui.c:6136
 msgid "Verbose Debug Enabled"
@@ -858,7 +876,8 @@ msgid "Remember last software volume level"
 msgstr "Mémoriser le niveau du volume logiciel"
 
 #: src/gui.c:6182 src/gui.c:6186
-msgid "Set this option if you want the software volume level to be remembered"
+msgid ""
+"Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Sélectionnez cette option si vous désirez que le niveau du volume logiciel "
 "soit retenu."
@@ -918,7 +937,8 @@ msgstr "Options additionnelles pour MPlayer :"
 
 #: src/gui.c:6290 src/gui.c:6293
 msgid "Add any extra mplayer options here (filters etc)"
-msgstr "Ajoutez ici toutes options additionnelles pour mplayer (filtres etc)."
+msgstr ""
+"Ajoutez ici toutes options additionnelles pour mplayer (filtres etc)."
 
 #: src/gui.c:6304
 msgid "MPlayer Default Optical Device"
@@ -1024,7 +1044,7 @@ msgstr "Changer de pi_ste audio"
 
 #: src/gui.c:6905 src/playlist.c:1140
 msgid "Set Audi_o"
-msgstr ""
+msgstr "Choisir un fichier audi_o"
 
 #: src/gui.c:6908
 msgid "Select _Audio Language"
@@ -1249,6 +1269,10 @@ msgstr "Cliché sauvegardé en tant que « %s »"
 msgid "GNOME MPlayer Notification"
 msgstr "Notification de GNOME MPlayer"
 
+#: src/playlist.c:173
+msgid "Set Audio"
+msgstr "Choisir un fichier audio"
+
 #: src/playlist.c:275
 #, c-format
 msgid ""
@@ -1404,11 +1428,21 @@ msgstr "Audio/Vidéo"
 msgid "No Information"
 msgstr "Aucune information"
 
+#~ msgid "Media Change"
+#~ msgstr "Changement de média"
+
 #~ msgid ""
 #~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+#~ "newer distributions"
 #~ msgstr ""
 #~ "Périphérique de sortie audio de mplayer\n"
-#~ "alsa ou oss devrait toujours fonctionner, essayez esd avec GNOME, arts "
-#~ "avec KDE, ou pulse sur les distributions récentes."
+#~ "alsa ou oss devrait toujours fonctionner, essayez esd avec GNOME, arts avec "
+#~ "KDE, ou pulse sur les distributions récentes."
+
+#~ msgid "Minimum Cache Size (KB):"
+#~ msgstr "Taille minimum de la mémoire tampon (Ko) :"
+
+#~ msgid "Force the use of cache setting on streaming media"
+#~ msgstr ""
+#~ "Forcer l'utilisation des paramètres de la mémoire tampon pour les flux"
