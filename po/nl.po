@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: 0.9.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2010-10-07 09:40+0000\n"
+"PO-Revision-Date: 2011-02-06 09:50+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Mark Huijgen <mark.sf.net@huijgen.tk>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-10-07 19:44+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-25 17:04+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
+"Language: \n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -142,7 +142,8 @@ msgstr "Oude ondertitelingssysteem gebruiken"
 
 #: src/main.c:103
 msgid "Don't use fonts embedded on matroska files"
-msgstr "Geen lettertypen gebruiken die geïntegreerd zijn in matroska-bestanden"
+msgstr ""
+"Geen lettertypen gebruiken die geïntegreerd zijn in matroska-bestanden"
 
 #: src/main.c:105
 msgid "Use Vertical Layout"
@@ -260,6 +261,11 @@ msgstr "%s - GNOME MPlayer"
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
+
+#: src/gui.c:457
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr "(%i/%i) - GNOME MPlayer"
 
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
@@ -398,8 +404,8 @@ msgid ""
 msgstr ""
 "Gnome MPlayer is vrije software: u mag het herdistribueren en/of wijzigen "
 "onder de\n"
-"voorwaarden van de GNU Algemene Publieke Licentie zoals gepubliceerd door "
-"de \n"
+"voorwaarden van de GNU Algemene Publieke Licentie zoals gepubliceerd door de "
+"\n"
 "Free Software Foundation, onder versie 2 van de Licentie of (naar uw keuze)\n"
 "elke latere versie.\n"
 "\n"
@@ -416,6 +422,10 @@ msgstr ""
 "Free Software Foundation, Inc.,\n"
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
+
+#: src/gui.c:3860
+msgid "Set AudioFile"
+msgstr "Audiobestand instellen"
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -580,6 +590,11 @@ msgstr "Schakel AC3/DTS pass-through naar S/PDIF in"
 #: src/gui.c:5479
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "MPlayer-softwarevolumeregeling inschakelen"
+
+#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
+#: src/libgmtk/gmtk_output_combo_box.c:147
+msgid "Default"
+msgstr "Standaard"
 
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -816,7 +831,7 @@ msgstr "Volledig scherm-bedieningsbalkanimatie uitschakelen"
 
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
-msgstr ""
+msgstr "Gebruik Muiswiel om geluidsvolme te veranderen in plaats van zoeken"
 
 #: src/gui.c:6136
 msgid "Verbose Debug Enabled"
@@ -847,7 +862,8 @@ msgid "Remember last software volume level"
 msgstr "Onthoud laatste softwarevolumeniveau"
 
 #: src/gui.c:6182 src/gui.c:6186
-msgid "Set this option if you want the software volume level to be remembered"
+msgid ""
+"Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Gebruik deze optie als u wilt dat het softwarevolumeniveau wordt onthouden"
 
@@ -1010,7 +1026,7 @@ msgstr "Audiospoor _wisselen"
 
 #: src/gui.c:6905 src/playlist.c:1140
 msgid "Set Audi_o"
-msgstr ""
+msgstr "Audi_o instellen"
 
 #: src/gui.c:6908
 msgid "Select _Audio Language"
@@ -1149,7 +1165,7 @@ msgstr "Snel vooruit"
 
 #: src/gui.c:7328 src/gui.c:7331
 msgid "Next"
-msgstr ""
+msgstr "Volgende"
 
 #: src/gui.c:7352 src/gui.c:7355
 msgid "Full Screen"
@@ -1230,6 +1246,10 @@ msgstr "Schermafdruk opgeslagen in '%s'"
 #: src/thread.c:785
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer-notificatie"
+
+#: src/playlist.c:173
+msgid "Set Audio"
+msgstr "Audiobestand instellen"
 
 #: src/playlist.c:275
 #, c-format
@@ -1384,17 +1404,20 @@ msgstr "Audio/video"
 msgid "No Information"
 msgstr "Geen informatie"
 
-#~ msgid ""
-#~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
-#~ msgstr ""
-#~ "mplayer audiouitvoerapparaat\n"
-#~ "alsa of oss zou altijd moeten werken, probeer esd in gnome, arts in kde "
-#~ "of pluse op nieuwere distributies"
-
 #~ msgid "Media Change"
 #~ msgstr "Verandering media"
+
+#~ msgid ""
+#~ "mplayer audio output device\n"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+#~ "newer distributions"
+#~ msgstr ""
+#~ "mplayer audiouitvoerapparaat\n"
+#~ "alsa of oss zou altijd moeten werken, probeer esd in gnome, arts in kde of "
+#~ "pluse op nieuwere distributies"
+
+#~ msgid "Minimum Cache Size (KB):"
+#~ msgstr "Minimum buffer grootte (KB):"
 
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Forceer het gebruik van de buffer bij streaming media"
