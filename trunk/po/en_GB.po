@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2010-02-11 13:09+0000\n"
-"Last-Translator: Robert Readman <Unknown>\n"
+"PO-Revision-Date: 2011-02-03 16:32+0000\n"
+"Last-Translator: Andi Chandler <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-02-22 21:48+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-25 17:04+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
+"Language: \n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -256,6 +256,11 @@ msgstr "%s - GNOME MPlayer"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
+#: src/gui.c:457
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr "(%i/%i) - GNOME MPlayer"
+
 #: src/gui.c:461 src/gui.c:3544 src/gui.c:6650
 #, c-format
 msgid "GNOME MPlayer"
@@ -410,6 +415,10 @@ msgstr ""
 "Free Software Foundation, Inc.,\n"
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
+
+#: src/gui.c:3860
+msgid "Set AudioFile"
+msgstr "Set AudioFile"
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -575,6 +584,11 @@ msgstr "Enable AC3/DTS pass-through to S/PDIF"
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Mplayer Software Volume Control Enabled"
 
+#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
+#: src/libgmtk/gmtk_output_combo_box.c:147
+msgid "Default"
+msgstr "Default"
+
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -658,6 +672,10 @@ msgstr "MIDI Support (requires MPlayer support)"
 msgid "Disable Player Embedding"
 msgstr "Disable Player Embedding"
 
+#: src/gui.c:5793
+msgid "Audio Cache Size (KB):"
+msgstr "Audio Cache Size (KB):"
+
 #: src/gui.c:5803 src/gui.c:5806 src/gui.c:5812 src/gui.c:5817
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
@@ -665,6 +683,10 @@ msgid ""
 msgstr ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
+
+#: src/gui.c:5831
+msgid "Video Cache Size (KB):"
+msgstr "Video Cache Size (KB):"
 
 #: src/gui.c:5851
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -800,7 +822,7 @@ msgstr "Disable Fullscreen Control Bar Animation"
 
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
-msgstr ""
+msgstr "Use Mouse Wheel to change volume, instead of seeking"
 
 #: src/gui.c:6136
 msgid "Verbose Debug Enabled"
@@ -831,8 +853,10 @@ msgid "Remember last software volume level"
 msgstr "Remember last software volume level"
 
 #: src/gui.c:6182 src/gui.c:6186
-msgid "Set this option if you want the software volume level to be remembered"
-msgstr "Set this option if you want the software volume level to be remembered"
+msgid ""
+"Set this option if you want the software volume level to be remembered"
+msgstr ""
+"Set this option if you want the software volume level to be remembered"
 
 #: src/gui.c:6193
 msgid "Volume Gain (-200dB to +60dB)"
@@ -992,7 +1016,7 @@ msgstr "S_witch Audio Track"
 
 #: src/gui.c:6905 src/playlist.c:1140
 msgid "Set Audi_o"
-msgstr ""
+msgstr "Set Audi_o"
 
 #: src/gui.c:6908
 msgid "Select _Audio Language"
@@ -1211,6 +1235,10 @@ msgstr "Screenshot saved to '%s'"
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer Notification"
 
+#: src/playlist.c:173
+msgid "Set Audio"
+msgstr "Set Audio"
+
 #: src/playlist.c:275
 #, c-format
 msgid ""
@@ -1317,6 +1345,14 @@ msgstr "Move Item Down"
 msgid "UnSort List"
 msgstr "UnSort List"
 
+#: src/playlist.c:1083 src/playlist.c:1086
+msgid "Loop Playlist"
+msgstr "Loop Playlist"
+
+#: src/playlist.c:1099 src/playlist.c:1102
+msgid "Shuffle Playlist"
+msgstr "Shuffle Playlist"
+
 #: src/playlist.c:1136
 msgid "_Set Subtitle"
 msgstr "_Set Subtitle"
@@ -1356,17 +1392,20 @@ msgstr "Audio/Video"
 msgid "No Information"
 msgstr "No Information"
 
-#~ msgid ""
-#~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
-#~ msgstr ""
-#~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
-
 #~ msgid "Media Change"
 #~ msgstr "Media Change"
+
+#~ msgid ""
+#~ "mplayer audio output device\n"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+#~ "newer distributions"
+#~ msgstr ""
+#~ "mplayer audio output device\n"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
+#~ "newer distributions"
+
+#~ msgid "Minimum Cache Size (KB):"
+#~ msgstr "Minimum Cache Size (KB):"
 
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Force the use of cache setting on streaming media"
