@@ -1230,6 +1230,9 @@ gpointer launch_player(gpointer data)
     case 2:
         argv[arg++] = g_strdup_printf("6");
         break;
+    case 3:
+        argv[arg++] = g_strdup_printf("8");
+        break;
     default:
         argv[arg++] = g_strdup_printf("2");
         break;

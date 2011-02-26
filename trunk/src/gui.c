@@ -5580,6 +5580,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_audio_channels), "Stereo");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_audio_channels), "Surround");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_audio_channels), "5.1 Surround");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_audio_channels), "7.1 Surround");
         gtk_combo_box_set_active(GTK_COMBO_BOX(config_audio_channels), audio_channels);
     }
 
