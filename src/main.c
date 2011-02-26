@@ -1183,12 +1183,14 @@ int main(int argc, char *argv[])
     if (!softvol) {
         printf("The volume on '%s' is %f\n", audio_device.description, audio_device.volume);
         volume = audio_device.volume * 100;
+    } else {
+		audio_device.volume = volume / 100.0;
+	}
 #ifdef GTK2_12_ENABLED
-        gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume * 100.0);
+    gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume * 100.0);
 #else
-        gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume * 100.0);
+    gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume * 100.0);
 #endif
-    }
     use_volume_option = detect_volume_option();
 
     dbus_hookup(embed_window, control_id);
