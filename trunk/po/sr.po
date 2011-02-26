@@ -303,6 +303,7 @@ msgid_plural "Items to Play"
 msgstr[0] "Ставка за пуштање"
 msgstr[1] "Ставке за пуштање"
 msgstr[2] "Ставке за пуштање"
+msgstr[3] "Ставке за пуштање"
 
 #: src/gui.c:921 src/gui.c:922 src/gui.c:925 src/gui.c:2466 src/gui.c:2468
 msgid "Pause"
@@ -1293,6 +1294,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "\tНађено је %i датотека\n"
+msgstr[3] ""
+"\n"
+"\tНађено је %i датотека\n"
 
 #: src/playlist.c:894
 msgid "Item to play"
@@ -1300,6 +1304,7 @@ msgid_plural "Items to Play"
 msgstr[0] "Ставка за пуштање"
 msgstr[1] "Ставке за пуштање"
 msgstr[2] "Ставке за пуштање"
+msgstr[3] "Ставке за пуштање"
 
 #: src/playlist.c:913 src/nautilus_property_page.c:293
 msgid "Artist"

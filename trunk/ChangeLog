@@ -1,4 +1,5 @@
 Development
+    "fix" purals in Serbian translation. All I did was copy the last one, so probably grammer errors
     Fix volume problem when softvol and volume gain != 0
     Added support for 7.1 Surround
     Fix Software Volume, remembered value not being loaded
