@@ -1,4 +1,5 @@
 Development
+    Fix volume problem when softvol and volume gain != 0
     Added support for 7.1 Surround
     Fix Software Volume, remembered value not being loaded
     Updated French translation from Starcrasher
