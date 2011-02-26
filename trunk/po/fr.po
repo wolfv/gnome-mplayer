@@ -1,25 +1,23 @@
 # French translation of GNOME MPlayer.
-# Copyright (C) 2002-2010 Free Software Foundation, Inc.
+# Copyright (C) 2002-2011 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-mplayer package.
 #
-# Kevin DeKorte <kdekorte@gmail.com>, 2006-2010
-# Alexandre Bedot <alexandre.bedot@free.fr>, 2007-2010.
+# Kevin DeKorte <kdekorte@gmail.com>, 2006-2011
+# Alexandre Bedot <alexandre.bedot@free.fr>, 2007-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 12:40-0700\n"
-"PO-Revision-Date: 2011-02-07 14:03+0000\n"
-"Last-Translator: dommy9111 <Unknown>\n"
+"PO-Revision-Date: 2011-02-26 13:30+0100\n"
+"Last-Translator: Alexandre Bedot <alexandre.bedot@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2011-02-25 17:04+0000\n"
-"X-Generator: Launchpad (build 12460)\n"
 "Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
@@ -429,7 +427,7 @@ msgstr ""
 
 #: src/gui.c:3860
 msgid "Set AudioFile"
-msgstr "Choisir un fichier audio"
+msgstr "Sélectionner un fichier pour la piste audio"
 
 #: src/gui.c:3901 src/playlist.c:136
 msgid "Set Subtitle"
@@ -598,7 +596,7 @@ msgstr "Activer le contrôle de volume logiciel de Mplayer"
 #: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
 #: src/libgmtk/gmtk_output_combo_box.c:147
 msgid "Default"
-msgstr "Défaut"
+msgstr "Système sonore par défaut"
 
 #: src/gui.c:5629
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -653,8 +651,8 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
-"<span weight=\"bold\">Définition des paramètres d'émulation du "
-"greffon</span>\n"
+"<span weight=\"bold\">Définition des paramètres d'émulation du greffon</"
+"span>\n"
 "\n"
 "Ces options modifient le comportement du greffon gecko-mediaplayer quand "
 "celui-ci est installé.\n"
@@ -819,8 +817,7 @@ msgstr "En mode « instance unique », remplacer le fichier existant"
 
 #: src/gui.c:6099
 msgid "When opening file, bring main window to front"
-msgstr ""
-"Mettre la fenêtre principale en avant-plan au chargement d'un fichier"
+msgstr "Mettre la fenêtre principale en avant-plan au chargement d'un fichier"
 
 #: src/gui.c:6106
 msgid "Remember Window Location and Size"
@@ -845,7 +842,8 @@ msgstr "Désactiver l'animation de la barre de contrôle en mode plein écran"
 #: src/gui.c:6131
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr ""
-"Utiliser la molette de la souris pour changer le volume, au lieu de cliquer"
+"Utiliser la molette de la souris pour changer le volume au lieu de se "
+"déplacer dans le fichier"
 
 #: src/gui.c:6136
 msgid "Verbose Debug Enabled"
@@ -876,8 +874,7 @@ msgid "Remember last software volume level"
 msgstr "Mémoriser le niveau du volume logiciel"
 
 #: src/gui.c:6182 src/gui.c:6186
-msgid ""
-"Set this option if you want the software volume level to be remembered"
+msgid "Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Sélectionnez cette option si vous désirez que le niveau du volume logiciel "
 "soit retenu."
@@ -937,8 +934,7 @@ msgstr "Options additionnelles pour MPlayer :"
 
 #: src/gui.c:6290 src/gui.c:6293
 msgid "Add any extra mplayer options here (filters etc)"
-msgstr ""
-"Ajoutez ici toutes options additionnelles pour mplayer (filtres etc)."
+msgstr "Ajoutez ici toutes options additionnelles pour mplayer (filtres etc)."
 
 #: src/gui.c:6304
 msgid "MPlayer Default Optical Device"
@@ -1044,7 +1040,7 @@ msgstr "Changer de pi_ste audio"
 
 #: src/gui.c:6905 src/playlist.c:1140
 msgid "Set Audi_o"
-msgstr "Choisir un fichier audi_o"
+msgstr "Choisir un fichier pour la piste audi_o"
 
 #: src/gui.c:6908
 msgid "Select _Audio Language"
@@ -1271,7 +1267,7 @@ msgstr "Notification de GNOME MPlayer"
 
 #: src/playlist.c:173
 msgid "Set Audio"
-msgstr "Choisir un fichier audio"
+msgstr "Sélectionner un fichier pour la piste audio"
 
 #: src/playlist.c:275
 #, c-format
@@ -1427,22 +1423,3 @@ msgstr "Audio/Vidéo"
 #: src/libgmtk/gmtk_media_tracker.c:197
 msgid "No Information"
 msgstr "Aucune information"
-
-#~ msgid "Media Change"
-#~ msgstr "Changement de média"
-
-#~ msgid ""
-#~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse on "
-#~ "newer distributions"
-#~ msgstr ""
-#~ "Périphérique de sortie audio de mplayer\n"
-#~ "alsa ou oss devrait toujours fonctionner, essayez esd avec GNOME, arts avec "
-#~ "KDE, ou pulse sur les distributions récentes."
-
-#~ msgid "Minimum Cache Size (KB):"
-#~ msgstr "Taille minimum de la mémoire tampon (Ko) :"
-
-#~ msgid "Force the use of cache setting on streaming media"
-#~ msgstr ""
-#~ "Forcer l'utilisation des paramètres de la mémoire tampon pour les flux"
