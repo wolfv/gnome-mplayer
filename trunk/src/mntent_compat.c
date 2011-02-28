@@ -33,6 +33,13 @@
 #ifdef HAVE_FSTAB_H
 #include <fstab.h>
 #endif
+
+#if defined(__NetBSD__) && (__NetBSD_Version__ >= 299000900)
+#include <sys/statvfs.h>
+#define statfs statvfs
+#define f_flags f_flag
+#endif
+
 struct statfs *getmntent_mntbufp;
 int getmntent_mntcount = 0;
 int getmntent_mntpos = 0;
