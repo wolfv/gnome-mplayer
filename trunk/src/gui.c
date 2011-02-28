@@ -3542,7 +3542,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
     gtk_about_dialog_set_url_hook(about_url_hook, NULL, NULL);
 #endif
     gtk_show_about_dialog(GTK_WINDOW(window), "name", _("GNOME MPlayer"), "authors", authors,
-                          "copyright", "Copyright © 2007-2010 Kevin DeKorte", "comments",
+                          "copyright", "Copyright © 2007-2011 Kevin DeKorte", "comments",
                           _("A media player for GNOME that uses MPlayer"), "version", VERSION,
                           "license",
                           _
