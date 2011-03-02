@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-02 08:13-0700\n"
+"POT-Creation-Date: 2011-03-02 13:08-0700\n"
 "PO-Revision-Date: 2010-06-19 14:47+0000\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -282,13 +282,13 @@ msgstr "På pause"
 msgid "Idle"
 msgstr "Inaktiv"
 
-#: src/gui.c:897 src/support.c:269 src/playlist.c:576 src/playlist.c:897
+#: src/gui.c:897 src/support.c:248 src/playlist.c:583 src/playlist.c:904
 #, c-format
 msgid "%s items"
 msgstr "%s genstande"
 
-#: src/gui.c:899 src/gui.c:2997 src/gui.c:3341 src/support.c:218
-#: src/support.c:284 src/playlist.c:578
+#: src/gui.c:899 src/gui.c:2997 src/gui.c:3341 src/support.c:197
+#: src/support.c:263 src/playlist.c:585
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
@@ -329,7 +329,7 @@ msgstr "Lydstyrke %i%%"
 msgid "Stopped"
 msgstr "Stoppet"
 
-#: src/gui.c:2949 src/playlist.c:540
+#: src/gui.c:2949 src/playlist.c:547
 msgid "Open File"
 msgstr "Åbn fil"
 
@@ -362,7 +362,7 @@ msgstr "Gem som..."
 msgid "Unable to save '%s'"
 msgstr "Kan ikke gemme '%s'"
 
-#: src/gui.c:3495 src/support.c:819 src/support.c:910 src/thread.c:266
+#: src/gui.c:3495 src/support.c:798 src/support.c:889 src/thread.c:266
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer Fejl"
 
@@ -976,7 +976,7 @@ msgstr "_Gentag afspilningsliste"
 msgid "S_witch Audio Track"
 msgstr "S_kift lydspor"
 
-#: src/gui.c:6906 src/playlist.c:1140
+#: src/gui.c:6906 src/playlist.c:1147
 msgid "Set Audi_o"
 msgstr ""
 
@@ -1126,31 +1126,31 @@ msgstr "Fuldskærm"
 msgid "Volume 100%"
 msgstr "Lydstyrke 100%"
 
-#: src/support.c:800 src/thread.c:225
+#: src/support.c:779 src/thread.c:225
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Kunne ikke åbne DVD enhed: %s"
 
-#: src/support.c:892
+#: src/support.c:871
 #, c-format
 msgid "Couldn't open VCD device: %s"
 msgstr "Kunne ikke åbne VCD enhed: %s"
 
-#: src/support.c:2002 src/support.c:2032 src/support.c:2075 src/support.c:2103
+#: src/support.c:1981 src/support.c:2011 src/support.c:2054 src/support.c:2082
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr "Kunne ikke gemme afspilningsliste, kan ikke åbne fil til skrivning"
 
-#: src/support.c:2224
+#: src/support.c:2203
 #, c-format
 msgid "%2i:%02i"
 msgstr ""
 
-#: src/support.c:2226
+#: src/support.c:2205
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr ""
 
-#: src/support.c:2834
+#: src/support.c:2813
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1210,7 +1210,7 @@ msgstr ""
 "Filnavn: %s\n"
 "Undertekster: %s"
 
-#: src/playlist.c:316 src/playlist.c:986 src/playlist.c:989
+#: src/playlist.c:316 src/playlist.c:993 src/playlist.c:996
 msgid "Save Playlist"
 msgstr "Gem afspilningsliste"
 
@@ -1222,7 +1222,7 @@ msgstr "Afspilningsliste (*.pls)"
 msgid "MP3 Playlist (*.m3u)"
 msgstr "MP3 afspilningsliste (*.m3u)"
 
-#: src/playlist.c:375 src/playlist.c:975 src/playlist.c:978
+#: src/playlist.c:375 src/playlist.c:982 src/playlist.c:985
 msgid "Open Playlist"
 msgstr "Åbn afspilningsliste"
 
@@ -1230,11 +1230,16 @@ msgstr "Åbn afspilningsliste"
 msgid "Reference Playlist (*.ref)"
 msgstr "Reference Afspilningsliste (*.ref)"
 
-#: src/playlist.c:602
+#: src/playlist.c:402
+#, fuzzy
+msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
+msgstr "MP3 afspilningsliste (*.m3u)"
+
+#: src/playlist.c:609
 msgid "Choose Directory"
 msgstr "Vælg bibliotek"
 
-#: src/playlist.c:639
+#: src/playlist.c:646
 #, c-format
 msgid ""
 "\n"
@@ -1249,73 +1254,73 @@ msgstr[1] ""
 "\n"
 "\tFandt %i filer\n"
 
-#: src/playlist.c:894
+#: src/playlist.c:901
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Genstand til afspilning"
 msgstr[1] "Genstande til afspilning"
 
-#: src/playlist.c:913 src/nautilus_property_page.c:293
+#: src/playlist.c:920 src/nautilus_property_page.c:293
 msgid "Artist"
 msgstr "Kunstner"
 
-#: src/playlist.c:923 src/nautilus_property_page.c:305
+#: src/playlist.c:930 src/nautilus_property_page.c:305
 msgid "Album"
 msgstr "Album"
 
-#: src/playlist.c:934 src/nautilus_property_page.c:317
+#: src/playlist.c:941 src/nautilus_property_page.c:317
 msgid "Length"
 msgstr "Varighed"
 
-#: src/playlist.c:943
+#: src/playlist.c:950
 msgid "Count"
 msgstr "Antal"
 
-#: src/playlist.c:951
+#: src/playlist.c:958
 msgid "Order"
 msgstr "Rækkefølge"
 
-#: src/playlist.c:961 src/playlist.c:964
+#: src/playlist.c:968 src/playlist.c:971
 msgid "Close Playlist View"
 msgstr "Luk visning af afspilningsliste"
 
-#: src/playlist.c:997 src/playlist.c:1000
+#: src/playlist.c:1004 src/playlist.c:1007
 msgid "Add Item to Playlist"
 msgstr "Tilføj genstand til afspilningsliste"
 
-#: src/playlist.c:1008 src/playlist.c:1011
+#: src/playlist.c:1015 src/playlist.c:1018
 msgid "Remove Item from Playlist"
 msgstr "Fjern genstand fra afspilningsliste"
 
-#: src/playlist.c:1019 src/playlist.c:1022
+#: src/playlist.c:1026 src/playlist.c:1029
 msgid "Add Items in Folder to Playlist"
 msgstr "Tilføj genstande i mappe til afspilningsliste"
 
-#: src/playlist.c:1030 src/playlist.c:1033
+#: src/playlist.c:1037 src/playlist.c:1040
 msgid "Clear Playlist"
 msgstr "Ryd afspilningslisten"
 
-#: src/playlist.c:1041 src/playlist.c:1044
+#: src/playlist.c:1048 src/playlist.c:1051
 msgid "Move Item Up"
 msgstr "Flyt punkt op"
 
-#: src/playlist.c:1053 src/playlist.c:1056
+#: src/playlist.c:1060 src/playlist.c:1063
 msgid "Move Item Down"
 msgstr "Flyt punkt ned"
 
-#: src/playlist.c:1066 src/playlist.c:1069
+#: src/playlist.c:1073 src/playlist.c:1076
 msgid "UnSort List"
 msgstr ""
 
-#: src/playlist.c:1083 src/playlist.c:1086
+#: src/playlist.c:1090 src/playlist.c:1093
 msgid "Loop Playlist"
 msgstr ""
 
-#: src/playlist.c:1099 src/playlist.c:1102
+#: src/playlist.c:1106 src/playlist.c:1109
 msgid "Shuffle Playlist"
 msgstr ""
 
-#: src/playlist.c:1136
+#: src/playlist.c:1143
 msgid "_Set Subtitle"
 msgstr "_Vælg undertekster"
 
