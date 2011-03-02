@@ -1184,8 +1184,8 @@ int main(int argc, char *argv[])
         printf("The volume on '%s' is %f\n", audio_device.description, audio_device.volume);
         volume = audio_device.volume * 100;
     } else {
-		audio_device.volume = volume / 100.0;
-	}
+        audio_device.volume = volume / 100.0;
+    }
 #ifdef GTK2_12_ENABLED
     gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume * 100.0);
 #else
