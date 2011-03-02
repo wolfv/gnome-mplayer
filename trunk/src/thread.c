@@ -1023,7 +1023,7 @@ gpointer launch_player(gpointer data)
         if (volume_gain != 0) {
             argv[arg++] = g_strdup_printf("-af-add");
             argv[arg++] = g_strdup_printf("volume=%i", volume_gain);
-        } 
+        }
     }
     // might want to use this only in softvol mode
     if (use_volume_option) {

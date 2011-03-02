@@ -66,7 +66,8 @@ gint detect_playlist(gchar * uri)
         } else {
             playlist = 1;
         }
-    } else if (g_strrstr(uri, ".m3u") != NULL) {
+    } else if (g_strrstr(uri, ".m3u") != NULL
+               || g_strrstr(uri, ".mxu") != NULL || g_strrstr(uri, ".m1u") != NULL || g_strrstr(uri, ".m4u") != NULL) {
         playlist = 1;
     } else if (device_name(uri)) {
         playlist = 0;
@@ -85,35 +86,13 @@ gint detect_playlist(gchar * uri)
                 output = g_strsplit(buffer, "\n", 0);
                 lower = g_ascii_strdown(buffer, -1);
                 // printf("buffer=%s\n",buffer);
-                if (strstr(lower, "[playlist]") != 0) {
-                    playlist = 1;
-                }
-
-                if (strstr(lower, "[reference]") != 0) {
-                    playlist = 1;
-                }
-
-                if (strstr(lower, "<asx") != 0) {
-                    playlist = 1;
-                }
-
-                if (strstr(lower, "<smil>") != 0) {
-                    playlist = 1;
-                }
-
-                if (strstr(lower, "#extm3u") != 0) {
-                    playlist = 1;
-                }
-
-                if (strstr(lower, "http://") != 0) {
-                    playlist = 1;
-                }
-
-                if (strstr(lower, "rtsp://") != 0) {
-                    playlist = 1;
-                }
-
-                if (strstr(lower, "pnm://") != 0) {
+                if (strstr(lower, "[playlist]") != 0
+                    || strstr(lower, "[reference]") != 0
+                    || strstr(lower, "<asx") != 0
+                    || strstr(lower, "<smil>") != 0
+                    || strstr(lower, "#extm3u") != 0
+                    || strstr(lower, "#extm4u") != 0
+                    || strstr(lower, "http://") != 0 || strstr(lower, "rtsp://") != 0 || strstr(lower, "pnm://") != 0) {
                     playlist = 1;
                 }
 
@@ -298,7 +277,7 @@ gint parse_playlist(gchar * uri)
     return ret;
 }
 
-// parse_basic covers .pls, .m3u and reference playlist types 
+// parse_basic covers .pls, .m3u, mxu and reference playlist types 
 gint parse_basic(gchar * uri)
 {
 

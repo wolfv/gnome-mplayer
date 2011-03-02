@@ -398,6 +398,13 @@ void load_playlist(GtkWidget * widget, void *data)
     gtk_file_filter_add_pattern(filter, "*.m3u");
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
 
+    filter = gtk_file_filter_new();
+    gtk_file_filter_set_name(filter, _("MPEG Playlist (*.mxu,*.m1u,*.m4u)"));
+    gtk_file_filter_add_pattern(filter, "*.mxu");
+    gtk_file_filter_add_pattern(filter, "*.m1u");
+    gtk_file_filter_add_pattern(filter, "*.m4u");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
+
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 
         filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
