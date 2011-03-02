@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-02 08:13-0700\n"
+"POT-Creation-Date: 2011-03-02 13:08-0700\n"
 "PO-Revision-Date: 2010-08-22 19:31+0200\n"
 "Last-Translator: Miloš Popović <gpopac@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
@@ -288,13 +288,13 @@ msgstr "Pauzirano"
 msgid "Idle"
 msgstr "Besposlen"
 
-#: src/gui.c:897 src/support.c:269 src/playlist.c:576 src/playlist.c:897
+#: src/gui.c:897 src/support.c:248 src/playlist.c:583 src/playlist.c:904
 #, c-format
 msgid "%s items"
 msgstr "%s stavki"
 
-#: src/gui.c:899 src/gui.c:2997 src/gui.c:3341 src/support.c:218
-#: src/support.c:284 src/playlist.c:578
+#: src/gui.c:899 src/gui.c:2997 src/gui.c:3341 src/support.c:197
+#: src/support.c:263 src/playlist.c:585
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
@@ -337,7 +337,7 @@ msgstr "Zvuk %i%%"
 msgid "Stopped"
 msgstr "Zaustavljeno"
 
-#: src/gui.c:2949 src/playlist.c:540
+#: src/gui.c:2949 src/playlist.c:547
 msgid "Open File"
 msgstr "Otvori datoteku"
 
@@ -370,7 +370,7 @@ msgstr "Sačuvaj kao..."
 msgid "Unable to save '%s'"
 msgstr "Ne mogu da sačuvam ‘%s’"
 
-#: src/gui.c:3495 src/support.c:819 src/support.c:910 src/thread.c:266
+#: src/gui.c:3495 src/support.c:798 src/support.c:889 src/thread.c:266
 msgid "GNOME MPlayer Error"
 msgstr "Greška u Gnomovom Mplejeru"
 
@@ -1017,7 +1017,7 @@ msgstr "_Režim ponavljanja"
 msgid "S_witch Audio Track"
 msgstr "Zameni zvučnu stazu"
 
-#: src/gui.c:6906 src/playlist.c:1140
+#: src/gui.c:6906 src/playlist.c:1147
 msgid "Set Audi_o"
 msgstr ""
 
@@ -1168,32 +1168,32 @@ msgstr "Ceo ekran"
 msgid "Volume 100%"
 msgstr "Jačina zvuka 100%"
 
-#: src/support.c:800 src/thread.c:225
+#: src/support.c:779 src/thread.c:225
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Ne mogu da otvorim DVD uređaj: %s"
 
-#: src/support.c:892
+#: src/support.c:871
 #, c-format
 msgid "Couldn't open VCD device: %s"
 msgstr "Ne mogu da otvorim VCD uređaj: %s"
 
-#: src/support.c:2002 src/support.c:2032 src/support.c:2075 src/support.c:2103
+#: src/support.c:1981 src/support.c:2011 src/support.c:2054 src/support.c:2082
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Ne mogu da sačuvam listu za puštanje, ne mogu da otvorim datoteku za upis"
 
-#: src/support.c:2224
+#: src/support.c:2203
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2226
+#: src/support.c:2205
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/support.c:2834
+#: src/support.c:2813
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1253,7 +1253,7 @@ msgstr ""
 "Ime datoteke: %s\n"
 "Titl: %s"
 
-#: src/playlist.c:316 src/playlist.c:986 src/playlist.c:989
+#: src/playlist.c:316 src/playlist.c:993 src/playlist.c:996
 msgid "Save Playlist"
 msgstr "Sačuvaj listu za puštanje"
 
@@ -1265,7 +1265,7 @@ msgstr "Lista za puštanje (*.pls)"
 msgid "MP3 Playlist (*.m3u)"
 msgstr "Lista za puštanje (*.m3u)"
 
-#: src/playlist.c:375 src/playlist.c:975 src/playlist.c:978
+#: src/playlist.c:375 src/playlist.c:982 src/playlist.c:985
 msgid "Open Playlist"
 msgstr "Otvori listu za puštanje"
 
@@ -1273,11 +1273,16 @@ msgstr "Otvori listu za puštanje"
 msgid "Reference Playlist (*.ref)"
 msgstr "Vezana lista za puštanje (*.ref)"
 
-#: src/playlist.c:602
+#: src/playlist.c:402
+#, fuzzy
+msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
+msgstr "Lista za puštanje (*.m3u)"
+
+#: src/playlist.c:609
 msgid "Choose Directory"
 msgstr "Izaberite direktorijum"
 
-#: src/playlist.c:639
+#: src/playlist.c:646
 #, c-format
 msgid ""
 "\n"
@@ -1298,7 +1303,7 @@ msgstr[3] ""
 "\n"
 "\tNađena je datoteka\n"
 
-#: src/playlist.c:894
+#: src/playlist.c:901
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Stavka za puštanje"
@@ -1306,67 +1311,67 @@ msgstr[1] "Stavke za puštanje"
 msgstr[2] "Stavke za puštanje"
 msgstr[3] "Stavka za puštanje"
 
-#: src/playlist.c:913 src/nautilus_property_page.c:293
+#: src/playlist.c:920 src/nautilus_property_page.c:293
 msgid "Artist"
 msgstr "Izvođač"
 
-#: src/playlist.c:923 src/nautilus_property_page.c:305
+#: src/playlist.c:930 src/nautilus_property_page.c:305
 msgid "Album"
 msgstr "Album"
 
-#: src/playlist.c:934 src/nautilus_property_page.c:317
+#: src/playlist.c:941 src/nautilus_property_page.c:317
 msgid "Length"
 msgstr "Trajanje"
 
-#: src/playlist.c:943
+#: src/playlist.c:950
 msgid "Count"
 msgstr "Broj puštanja"
 
-#: src/playlist.c:951
+#: src/playlist.c:958
 msgid "Order"
 msgstr "Redosled"
 
-#: src/playlist.c:961 src/playlist.c:964
+#: src/playlist.c:968 src/playlist.c:971
 msgid "Close Playlist View"
 msgstr "Zatvori listu za puštanje"
 
-#: src/playlist.c:997 src/playlist.c:1000
+#: src/playlist.c:1004 src/playlist.c:1007
 msgid "Add Item to Playlist"
 msgstr "Dodaj stavke u listu"
 
-#: src/playlist.c:1008 src/playlist.c:1011
+#: src/playlist.c:1015 src/playlist.c:1018
 msgid "Remove Item from Playlist"
 msgstr "Ukloni stavke iz liste"
 
-#: src/playlist.c:1019 src/playlist.c:1022
+#: src/playlist.c:1026 src/playlist.c:1029
 msgid "Add Items in Folder to Playlist"
 msgstr "Dodaj stavke iz fascikle u listu"
 
-#: src/playlist.c:1030 src/playlist.c:1033
+#: src/playlist.c:1037 src/playlist.c:1040
 msgid "Clear Playlist"
 msgstr "Očisti listu"
 
-#: src/playlist.c:1041 src/playlist.c:1044
+#: src/playlist.c:1048 src/playlist.c:1051
 msgid "Move Item Up"
 msgstr "Pomeri stavku naviše"
 
-#: src/playlist.c:1053 src/playlist.c:1056
+#: src/playlist.c:1060 src/playlist.c:1063
 msgid "Move Item Down"
 msgstr "Pomeri stavku naniže"
 
-#: src/playlist.c:1066 src/playlist.c:1069
+#: src/playlist.c:1073 src/playlist.c:1076
 msgid "UnSort List"
 msgstr "Ne sortiraj listu"
 
-#: src/playlist.c:1083 src/playlist.c:1086
+#: src/playlist.c:1090 src/playlist.c:1093
 msgid "Loop Playlist"
 msgstr "Ponavljaj listu"
 
-#: src/playlist.c:1099 src/playlist.c:1102
+#: src/playlist.c:1106 src/playlist.c:1109
 msgid "Shuffle Playlist"
 msgstr "Izmešaj listu"
 
-#: src/playlist.c:1136
+#: src/playlist.c:1143
 msgid "_Set Subtitle"
 msgstr "Postavi _titl"
 
