@@ -107,6 +107,22 @@ gboolean gm_audio_query_devices()
     device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
+#ifdef OPENBSD
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("Sound I/O");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->mplayer_ao = g_strdup("sndio");
+    device->volume = 1.0;
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
+
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("RTunes");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->mplayer_ao = g_strdup("rtunes");
+    device->volume = 1.0;
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
+#endif
+
 #ifdef HAVE_ASOUNDLIB
     snd_ctl_card_info_alloca(&info);
     snd_pcm_info_alloca(&pcminfo);
@@ -342,7 +358,7 @@ gboolean gm_audio_alsa_monitor(gpointer data)
     if (device->alsa_device_name && device->alsa_mixer)
         device->volume = get_alsa_volume(device->alsa_device_name, device->alsa_mixer);
 #endif
-	
+
     if (gm_audio_server_volume_update_callback && old_volume != device->volume)
         g_idle_add(gm_audio_server_volume_update_callback, NULL);
 
