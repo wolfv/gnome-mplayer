@@ -950,7 +950,6 @@ gpointer launch_player(gpointer data)
     g_free(buffer);
     idledata->percent = 0.0;
     g_strlcpy(idledata->progress_text, "", 1024);
-    idledata->volume = volume;
     idledata->length = 0.0;
     sub_source_file = FALSE;
 
@@ -1028,7 +1027,7 @@ gpointer launch_player(gpointer data)
     // might want to use this only in softvol mode
     if (use_volume_option) {
         argv[arg++] = g_strdup_printf("-volume");
-        argv[arg++] = g_strdup_printf("%i", (gint) idledata->volume);
+        argv[arg++] = g_strdup_printf("%i", (gint) (audio_device.volume * 100.0));
     }
 
     if (audio_device.alsa_mixer != NULL && strlen(audio_device.alsa_mixer) > 0) {

@@ -1,4 +1,9 @@
 Development
+    Add sndio and rtunes audio outputs for OpenBSD
+    Add verbose flag to volume display
+    Make volume on commandline work again
+    Change volume range from 0 to 100 to 0.0 to 1.0 internally makes volume widget work
+    Delete global varibles volume and idledata.volume
 1.0.2
     Version Bump to 1.0.2
     Apply Patch for MpegURL playlists from Issue #491

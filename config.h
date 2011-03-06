@@ -155,7 +155,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "1.0.2"
+#define VERSION "1.0.3beta"
 
 /* Define to 1 if X11 support is needed */
 #define X11_ENABLED 1

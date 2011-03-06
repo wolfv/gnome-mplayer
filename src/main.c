@@ -65,7 +65,7 @@ static GOptionEntry entries[] = {
      N_("Last software volume percentage- only applied when remember_softvol is set to TRUE"),
      NULL},
     {"mixer", 0, 0, G_OPTION_ARG_STRING, &(audio_device.alsa_mixer), N_("Mixer to use"), NULL},
-    {"volume", 0, 0, G_OPTION_ARG_INT, &volume, N_("Set initial volume percentage"), NULL},
+    {"volume", 0, 0, G_OPTION_ARG_INT, &(pref_volume), N_("Set initial volume percentage"), NULL},
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
      "[0|1]"},
     {"showsubtitles", 0, 0, G_OPTION_ARG_INT, &showsubtitles, N_("Show the subtitles if available"),
@@ -435,11 +435,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         g_strlcpy(thread_data->audiofile, audiofile, 1024);
         g_free(audiofile);
     }
-#if GTK2_12_ENABLED
-    volume = gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider));
-#else
-    volume = gtk_range_get_value(GTK_RANGE(vol_slider));
-#endif
 
     if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
         if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
@@ -620,6 +615,8 @@ int main(int argc, char *argv[])
     GError *error = NULL;
     GOptionContext *context;
     gint i;
+    gdouble volume = 100.0;
+
 #ifndef OS_WIN32
     struct sigaction sa;
 #endif
@@ -650,7 +647,6 @@ int main(int argc, char *argv[])
     dontplaynext = FALSE;
     idledata = (IdleData *) g_new0(IdleData, 1);
     idledata->videopresent = FALSE;
-    idledata->volume = 100.0;
     idledata->mute = FALSE;
     idledata->length = 0.0;
     idledata->brightness = 0;
@@ -692,7 +688,6 @@ int main(int argc, char *argv[])
     stored_window_height = -1;
     cache_size = 0;
     forcecache = FALSE;
-    volume = -1;
     use_volume_option = FALSE;
     vertical_layout = FALSE;
     playlist_visible = FALSE;
@@ -757,6 +752,7 @@ int main(int argc, char *argv[])
     gchar *filename;
     skip_fixed_allocation_on_show = FALSE;
     skip_fixed_allocation_on_hide = FALSE;
+    pref_volume = -1;
 
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;
@@ -961,9 +957,9 @@ int main(int argc, char *argv[])
         if (remember_softvol && volume_softvol != -1) {
             if (verbose)
                 printf("Using last volume of %i%%\n", volume_softvol);
-            volume = (gdouble) volume_softvol;
+            volume = (gdouble) volume_softvol *100.0;
         } else {
-            volume = 100;
+            volume = 100.0;
         }
     }
 
@@ -1181,15 +1177,19 @@ int main(int argc, char *argv[])
     gm_audio_get_volume(&audio_device);
     gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
     if (!softvol) {
-        printf("The volume on '%s' is %f\n", audio_device.description, audio_device.volume);
+        if (pref_volume != -1) {
+            audio_device.volume = (gdouble) pref_volume / 100.0;
+        }
+        if (verbose)
+            printf("The volume on '%s' is %f\n", audio_device.description, audio_device.volume);
         volume = audio_device.volume * 100;
     } else {
         audio_device.volume = volume / 100.0;
     }
 #ifdef GTK2_12_ENABLED
-    gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume * 100.0);
+    gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
 #else
-    gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume * 100.0);
+    gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume);
 #endif
     use_volume_option = detect_volume_option();
 

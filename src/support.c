@@ -2774,7 +2774,7 @@ gboolean detect_volume_option()
         av[ac++] = g_strdup_printf("%s", mplayer_bin);
     }
     av[ac++] = g_strdup_printf("-volume");
-    av[ac++] = g_strdup_printf("%i", (gint) idledata->volume);
+    av[ac++] = g_strdup_printf("%i", (gint) (audio_device.volume * 100.0));
     av[ac++] = g_strdup_printf("-noidle");
     av[ac++] = g_strdup_printf("-softvol");
     av[ac] = NULL;

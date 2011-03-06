@@ -157,7 +157,6 @@ typedef struct _IdleData {
     gint streaming;
     gboolean seekable;
     gchar progress_text[1024];
-    gdouble volume;
     gboolean mute;
     gchar vol_tooltip[128];
     gint x;
@@ -356,7 +355,6 @@ gchar *subtitle;
 gchar *alang;
 gchar *slang;
 gchar *metadata_codepage;
-gint volume;
 gboolean use_volume_option;
 gboolean vertical_layout;
 gboolean playlist_visible;
@@ -532,6 +530,9 @@ void retrieve_metadata(gpointer data, gpointer user_data);
 
 gchar *default_playlist;
 gboolean safe_to_save_default_playlist;
+
+gint pref_volume;
+
 
 #ifdef GTK2_12_ENABLED
 GtkRecentManager *recent_manager;

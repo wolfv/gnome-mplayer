@@ -69,6 +69,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
     gint source_id;
     gint bitrate;
     ButtonDef *b;
+    gdouble volume;
 
     message_type = dbus_message_get_type(message);
     sender = dbus_message_get_sender(message);
@@ -313,8 +314,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Volume") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->volume), DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_DOUBLE, &volume, DBUS_TYPE_INVALID)) {
+                        audio_device.volume = volume / 100.0;
                         g_idle_add(set_volume, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -323,16 +324,20 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "VolumeUp") == 0 && idledata != NULL) {
-                    if (idledata->volume < 100) {
-                        idledata->volume++;
+                    if (audio_device.volume < 1.0) {
+                        audio_device.volume += 0.10;
+                        if (audio_device.volume > 1.0)
+                            audio_device.volume = 1.0;
                         g_idle_add(set_volume, idledata);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "VolumeDown") == 0 && idledata != NULL) {
-                    if (idledata->volume > 0) {
-                        idledata->volume--;
+                    if (audio_device.volume > 0.0) {
+                        audio_device.volume -= 0.10;
+                        if (audio_device.volume < 0.0)
+                            audio_device.volume = 0.0;
                         g_idle_add(set_volume, idledata);
                     }
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -341,10 +346,11 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_Volume") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->volume), DBUS_TYPE_INT32,
+                        (message, &error, DBUS_TYPE_DOUBLE, &(volume), DBUS_TYPE_INT32,
                          &source_id, DBUS_TYPE_INVALID)) {
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
+                            audio_device.volume = volume / 100.0;
                             g_idle_add(set_volume, idledata);
                         }
                     } else {
@@ -650,7 +656,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetVolume")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->volume, DBUS_TYPE_INVALID);
+                    volume = audio_device.volume * 100.0;
+                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &volume, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
