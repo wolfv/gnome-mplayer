@@ -1,4 +1,5 @@
 Development
+    Remove vdpau and vaapi vo devices on OpenBSD
     Use correct DVD device name on OpenBSD
     Add include to gmtk_media_player.h
     Add sndio and rtunes audio outputs for OpenBSD
