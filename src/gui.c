@@ -5587,10 +5587,17 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     j = -1;
 
     config_mplayer_dvd_device = gtk_combo_box_entry_new_text();
+#ifdef OPENBSD
+	gtk_combo_box_append_text(GTK_COMBO_BOX(config_mplayer_dvd_device), "/dev/rcd0c");
+    if (mplayer_dvd_device == NULL || g_ascii_strcasecmp("/dev/rcd0c", mplayer_dvd_device) == 0) {
+        j = i;
+    }
+#else
     gtk_combo_box_append_text(GTK_COMBO_BOX(config_mplayer_dvd_device), "/dev/dvd");
     if (mplayer_dvd_device == NULL || g_ascii_strcasecmp("/dev/dvd", mplayer_dvd_device) == 0) {
         j = i;
     }
+#endif
     i++;
 
 #ifdef GIO_ENABLED
