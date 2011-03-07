@@ -1,4 +1,5 @@
 Development
+    Add include to gmtk_media_player.h
     Add sndio and rtunes audio outputs for OpenBSD
     Add verbose flag to volume display
     Make volume on commandline work again
