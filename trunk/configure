@@ -625,6 +625,7 @@ PULSE_CFLAGS
 ALSA_DEFINES
 ALSA_LIBS
 ALSA_CFLAGS
+USE_GCONF
 GCONF_DEFINES
 GCONF_SCHEMA_FILE_DIR
 GCONF_SCHEMA_CONFIG_SOURCE
@@ -8377,6 +8378,7 @@ fi
 
 
 
+USE_GCONF=0
 
 # Check whether --with-gconf was given.
 if test "${with_gconf+set}" = set; then :
@@ -8525,7 +8527,7 @@ else
   GCONF_SCHEMAS_INSTALL_FALSE=
 fi
 
- GCONF_DEFINES="-DHAVE_GCONF"
+ USE_GCONF=1 GCONF_DEFINES="-DHAVE_GCONF"
 $as_echo "#define HAVE_GCONF 1" >>confdefs.h
 
 fi
@@ -8534,6 +8536,7 @@ fi
 
 
 fi
+
 
 
 # Check whether --with-alsa was given.
