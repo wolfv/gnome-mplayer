@@ -8120,7 +8120,7 @@ else
 	GLIB2_26_LIBS=$pkg_cv_GLIB2_26_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
-	with_gconf=no GLIB2_26_DEFINES="-DGLIB2_26_ENABLED"
+	with_gconf=no with_gsettings=yes GLIB2_26_DEFINES="-DGLIB2_26_ENABLED"
 $as_echo "#define GLIB2_26_ENABLED 1" >>confdefs.h
 
 fi
@@ -9313,6 +9313,7 @@ $as_echo "#define SS_INHIBIT 1" >>confdefs.h
     fi
 fi
 
+if test x$with_gsettings = "xyes"; then
 
 
   # Check whether --enable-schemas-compile was given.
@@ -9554,6 +9555,11 @@ endif
 
 
 
+fi
+if test x$with_gsettings != "xyes"; then
+GSETTINGS_RULES=""
+
+fi
 
 for ac_header in mntent.h
 do :
