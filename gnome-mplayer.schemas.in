@@ -2,7 +2,7 @@
   <schemalist>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/cache_size</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/cache-size</key>
       <applyto>/apps/gnome-mplayer/preferences/cache_size</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
@@ -14,8 +14,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/plugin_cache_size</key>
-      <applyto>/apps/gnome-mplayer/preferences/plugin_cache_size</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/plugin-cache-size</key>
+      <applyto>/apps/gnome-mplayer/preferences/plugin-cache-size</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
       <default>2000</default>
@@ -86,8 +86,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/last_dir</key>
-      <applyto>/apps/gnome-mplayer/preferences/last_dir</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/last-dir</key>
+      <applyto>/apps/gnome-mplayer/preferences/last-dir</applyto>
       <owner>gnome-mplayer</owner>
       <type>string</type>
       <default></default>
@@ -194,8 +194,8 @@
     </schema>
       
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disable_deinterlace</key>
-      <applyto>/apps/gnome-mplayer/preferences/disable_deinterlace</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-deinterlace</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable-deinterlace</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>TRUE</default>
@@ -206,8 +206,8 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disable_pause_on_click</key>
-      <applyto>/apps/gnome-mplayer/preferences/disable_pause_on_click</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-pause-on-click</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable-pause-on-click</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>TRUE</default>
@@ -218,8 +218,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disable_animation</key>
-      <applyto>/apps/gnome-mplayer/preferences/disable_animation</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-animation</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable-animation</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
@@ -230,8 +230,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/auto_hide_timeout</key>
-      <applyto>/apps/gnome-mplayer/preferences/auto_hide_timeout</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/auto-hide-timeout</key>
+      <applyto>/apps/gnome-mplayer/preferences/auto-hide-timeout</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
       <default>3</default>
@@ -242,8 +242,8 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disable_cover_art_fetch</key>
-      <applyto>/apps/gnome-mplayer/preferences/disable_cover_art_fetch</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-cover-art-fetch</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable-cover-art-fetch</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
@@ -338,8 +338,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/single_instance</key>
-      <applyto>/apps/gnome-mplayer/preferences/single_instance</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/single-instance</key>
+      <applyto>/apps/gnome-mplayer/preferences/single-instance</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
@@ -350,8 +350,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/replace_and_play</key>
-      <applyto>/apps/gnome-mplayer/preferences/replace_and_play</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/replace-and-play</key>
+      <applyto>/apps/gnome-mplayer/preferences/replace-and-play</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
@@ -362,8 +362,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/bring_to_front</key>
-      <applyto>/apps/gnome-mplayer/preferences/bring_to_front</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/bring-to-front</key>
+      <applyto>/apps/gnome-mplayer/preferences/bring-to-front</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
@@ -386,8 +386,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/remember_loc</key>
-      <applyto>/apps/gnome-mplayer/preferences/remember_loc</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/remember-loc</key>
+      <applyto>/apps/gnome-mplayer/preferences/remember-loc</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
@@ -410,8 +410,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/audio_channels</key>
-      <applyto>/apps/gnome-mplayer/preferences/audio_channels</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/audio-channels</key>
+      <applyto>/apps/gnome-mplayer/preferences/audio-channels</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
       <default>0</default>
@@ -422,8 +422,8 @@
     </schema>
         
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/window_x</key>
-      <applyto>/apps/gnome-mplayer/preferences/window_x</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/window-x</key>
+      <applyto>/apps/gnome-mplayer/preferences/window-x</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
       <default>0</default>
@@ -434,8 +434,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/window_y</key>
-      <applyto>/apps/gnome-mplayer/preferences/window_y</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/window-y</key>
+      <applyto>/apps/gnome-mplayer/preferences/window-y</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
       <default>0</default>
@@ -446,8 +446,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/tracker_position</key>
-      <applyto>/apps/gnome-mplayer/preferences/tracker_position</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/tracker-position</key>
+      <applyto>/apps/gnome-mplayer/preferences/tracker-position</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
       <default>3</default>
@@ -458,8 +458,8 @@
     </schema>    
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/keep_on_top</key>
-      <applyto>/apps/gnome-mplayer/preferences/keep_on_top</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/keep-on-top</key>
+      <applyto>/apps/gnome-mplayer/preferences/keep-on-top</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
@@ -470,8 +470,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/use_mediakeys</key>
-      <applyto>/apps/gnome-mplayer/preferences/use_mediakeys</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/use-mediakeys</key>
+      <applyto>/apps/gnome-mplayer/preferences/use-mediakeys</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>TRUE</default>
@@ -482,8 +482,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/show_notification</key>
-      <applyto>/apps/gnome-mplayer/preferences/show_notification</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-notification</key>
+      <applyto>/apps/gnome-mplayer/preferences/show-notification</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>TRUE</default>
@@ -494,8 +494,8 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/show_subtitles</key>
-      <applyto>/apps/gnome-mplayer/preferences/show_subtitles</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-subtitles</key>
+      <applyto>/apps/gnome-mplayer/preferences/show-subtitles</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>TRUE</default>
@@ -506,8 +506,8 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/show_status_icon</key>
-      <applyto>/apps/gnome-mplayer/preferences/show_status_icon</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-status-icon</key>
+      <applyto>/apps/gnome-mplayer/preferences/show-status-icon</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>TRUE</default>
@@ -518,8 +518,8 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/use_defaultpl</key>
-      <applyto>/apps/gnome-mplayer/preferences/use_defaultpl</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/use-defaultpl</key>
+      <applyto>/apps/gnome-mplayer/preferences/use-defaultpl</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
@@ -530,8 +530,8 @@
     </schema>    
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/use_xscrnsaver</key>
-      <applyto>/apps/gnome-mplayer/preferences/use_xscrnsaver</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/use-xscrnsaver</key>
+      <applyto>/apps/gnome-mplayer/preferences/use-xscrnsaver</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>FALSE</default>
@@ -543,8 +543,8 @@
 
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/show_controls</key>
-      <applyto>/apps/gnome-mplayer/preferences/show_controls</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-controls</key>
+      <applyto>/apps/gnome-mplayer/preferences/show-controls</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
       <default>TRUE</default>
