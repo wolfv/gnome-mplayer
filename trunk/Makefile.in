@@ -175,6 +175,7 @@ GLIB2_26_CFLAGS = @GLIB2_26_CFLAGS@
 GLIB2_26_DEFINES = @GLIB2_26_DEFINES@
 GLIB2_26_LIBS = @GLIB2_26_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
@@ -186,6 +187,7 @@ GPOD_CFLAGS = @GPOD_CFLAGS@
 GPOD_DEFINES = @GPOD_DEFINES@
 GPOD_LIBS = @GPOD_LIBS@
 GREP = @GREP@
+GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GTK2_12_CFLAGS = @GTK2_12_CFLAGS@
 GTK2_12_DEFINES = @GTK2_12_DEFINES@
 GTK2_12_LIBS = @GTK2_12_LIBS@
@@ -280,6 +282,7 @@ datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+gsettingsschemadir = @gsettingsschemadir@
 host_alias = @host_alias@
 htmldir = @htmldir@
 includedir = @includedir@
@@ -327,6 +330,9 @@ manpagedir = @mandir@/man1
 manpage_DATA = gnome-mplayer.1
 EXTRA_DIST = $(gnome_mplayerdoc_DATA) $(desktop_DATA) $(schema_DATA) $(manpage_DATA) $(prefapp_DATA) gnome-mplayer.spec.in config.h.in
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
+gsettings_ENUM_NAMESPACE = apps.gnome-mplayer.preferences
+gsettings_ENUM_FILES = $(top_srcdir)/src/*.h
+gsettings_SCHEMAS = apps.gnome-mplayer.preferences.gschema.xml apps.gecko-mediaplayer.preferences.gschema.xml
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -951,11 +957,7 @@ install-schemas: $(schema_DATA)
 @GCONF_SCHEMAS_INSTALL_TRUE@install-data-hook: install-schemas update-icon-cache
 @GCONF_SCHEMAS_INSTALL_FALSE@install-data-hook: update-icon-cache
 
-#gsettings_ENUM_NAMESPACE = apps.gnome-mplayer.preferences
-#gsettings_ENUM_FILES = $(top_srcdir)/src/*.h
-#gsettings_SCHEMAS = apps.gnome-mplayer.preferences.gschema.xml apps.gecko-mediaplayer.preferences.gschema.xml
-
-#@GSETTINGS_RULES@
+@GSETTINGS_RULES@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

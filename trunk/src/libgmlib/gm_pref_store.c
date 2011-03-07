@@ -24,18 +24,26 @@
 
 #include "gm_pref_store.h"
 
+#if GIO_ENABLED && GLIB2_26_ENABLED
+#include <gio/gio.h>
+#else
 #ifdef HAVE_GCONF
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-value.h>
 #endif
+#endif
 #include <stdio.h>
 
 struct _GmPrefStore {
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    GSettings *settings;
+#else
 #ifdef HAVE_GCONF
     GConfClient *gconf;
 #else
     GKeyFile *keyfile;
+#endif
 #endif
     gchar *context;
 };
@@ -45,6 +53,10 @@ GmPrefStore *gm_pref_store_new(const gchar * context)
 
     GmPrefStore *store = (GmPrefStore *) g_new0(GmPrefStore, 1);
 
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    store->context = g_strdup_printf("apps.%s.preferences", context);
+    store->settings = g_settings_new(store->context);
+#else
     store->context = g_strdup(context);
 #ifdef HAVE_GCONF
     store->gconf = gconf_client_get_default();
@@ -62,12 +74,17 @@ GmPrefStore *gm_pref_store_new(const gchar * context)
     g_key_file_load_from_file(store->keyfile, filename, G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS, NULL);
 
 #endif
+#endif
     return store;
 }
 
 void gm_pref_store_free(GmPrefStore * store)
 {
 
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    g_object_unref(store->settings);
+    store->settings = NULL;
+#else
 #ifdef HAVE_GCONF
     if (G_IS_OBJECT(store->gconf))
         g_object_unref(G_OBJECT(store->gconf));
@@ -88,6 +105,7 @@ void gm_pref_store_free(GmPrefStore * store)
         store->keyfile = NULL;
     }
 #endif
+#endif
     g_free(store->context);
     store->context = NULL;
 
@@ -104,6 +122,9 @@ gboolean gm_pref_store_get_boolean(GmPrefStore * store, const gchar * key)
     if (store == NULL)
         return FALSE;
 
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    value = g_settings_get_boolean(store->settings, key);
+#else
 #ifdef HAVE_GCONF
     gchar *full_key;
 
@@ -113,6 +134,7 @@ gboolean gm_pref_store_get_boolean(GmPrefStore * store, const gchar * key)
 #else
     if (g_key_file_has_key(store->keyfile, store->context, key, NULL))
         value = g_key_file_get_boolean(store->keyfile, store->context, key, NULL);
+#endif
 #endif
     return value;
 }
@@ -125,6 +147,9 @@ gboolean gm_pref_store_get_boolean_with_default(GmPrefStore * store, const gchar
     if (store == NULL)
         return default_value;
 
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    value = g_settings_get_boolean(store->settings, key);
+#else
 #ifdef HAVE_GCONF
 
     gchar *full_key;
@@ -149,6 +174,7 @@ gboolean gm_pref_store_get_boolean_with_default(GmPrefStore * store, const gchar
         value = default_value;
     }
 #endif
+#endif
     return value;
 }
 
@@ -157,7 +183,9 @@ void gm_pref_store_set_boolean(GmPrefStore * store, const gchar * key, gboolean 
 
     if (store == NULL)
         return;
-
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    g_settings_set_boolean(store->settings, key, value);
+#else
 #ifdef HAVE_GCONF
     gchar *full_key;
 
@@ -169,6 +197,7 @@ void gm_pref_store_set_boolean(GmPrefStore * store, const gchar * key, gboolean 
     g_key_file_set_boolean(store->keyfile, store->context, key, value);
 
 #endif
+#endif
 }
 
 gint gm_pref_store_get_int(GmPrefStore * store, const gchar * key)
@@ -178,7 +207,9 @@ gint gm_pref_store_get_int(GmPrefStore * store, const gchar * key)
 
     if (store == NULL)
         return value;
-
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    value = g_settings_get_int(store->settings, key);
+#else
 #ifdef HAVE_GCONF
     gchar *full_key;
 
@@ -191,6 +222,7 @@ gint gm_pref_store_get_int(GmPrefStore * store, const gchar * key)
         value = g_key_file_get_integer(store->keyfile, store->context, key, NULL);
 
 #endif
+#endif
     return value;
 }
 
@@ -202,6 +234,9 @@ gint gm_pref_store_get_int_with_default(GmPrefStore * store, const gchar * key, 
     if (store == NULL)
         return default_value;
 
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    value = g_settings_get_int(store->settings, key);
+#else
 #ifdef HAVE_GCONF
 
     gchar *full_key;
@@ -227,6 +262,7 @@ gint gm_pref_store_get_int_with_default(GmPrefStore * store, const gchar * key, 
     }
 
 #endif
+#endif
     return value;
 }
 
@@ -237,6 +273,9 @@ void gm_pref_store_set_int(GmPrefStore * store, const gchar * key, gint value)
     if (store == NULL)
         return;
 
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    g_settings_set_int(store->settings, key, value);
+#else
 #ifdef HAVE_GCONF
     gchar *full_key;
 
@@ -248,6 +287,7 @@ void gm_pref_store_set_int(GmPrefStore * store, const gchar * key, gint value)
     g_key_file_set_integer(store->keyfile, store->context, key, value);
 
 #endif
+#endif
 }
 
 gfloat gm_pref_store_get_float(GmPrefStore * store, const gchar * key)
@@ -258,6 +298,9 @@ gfloat gm_pref_store_get_float(GmPrefStore * store, const gchar * key)
     if (store == NULL)
         return value;
 
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    value = g_settings_get_double(store->settings, key);
+#else
 #ifdef HAVE_GCONF
     gchar *full_key;
 
@@ -270,6 +313,7 @@ gfloat gm_pref_store_get_float(GmPrefStore * store, const gchar * key)
         value = g_key_file_get_double(store->keyfile, store->context, key, NULL);
 
 #endif
+#endif
     return value;
 }
 
@@ -278,7 +322,9 @@ void gm_pref_store_set_float(GmPrefStore * store, const gchar * key, gfloat valu
 
     if (store == NULL)
         return;
-
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    g_settings_set_double(store->settings, key, value);
+#else
 #ifdef HAVE_GCONF
     gchar *full_key;
 
@@ -290,6 +336,7 @@ void gm_pref_store_set_float(GmPrefStore * store, const gchar * key, gfloat valu
     g_key_file_set_double(store->keyfile, store->context, key, value);
 
 #endif
+#endif
 }
 
 gchar *gm_pref_store_get_string(GmPrefStore * store, const gchar * key)
@@ -300,6 +347,9 @@ gchar *gm_pref_store_get_string(GmPrefStore * store, const gchar * key)
     if (store == NULL)
         return value;
 
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    value = g_settings_get_string(store->settings, key);
+#else
 #ifdef HAVE_GCONF
     gchar *full_key;
 
@@ -312,6 +362,7 @@ gchar *gm_pref_store_get_string(GmPrefStore * store, const gchar * key)
         value = g_key_file_get_string(store->keyfile, store->context, key, NULL);
 
 #endif
+#endif
     return value;
 }
 
@@ -320,7 +371,13 @@ void gm_pref_store_set_string(GmPrefStore * store, const gchar * key, gchar * va
 
     if (store == NULL)
         return;
-
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    if (value == NULL) {
+        g_settings_reset(store->settings, key);
+    } else {
+        g_settings_set_string(store->settings, key, value);
+    }
+#else
 #ifdef HAVE_GCONF
     gchar *full_key;
 
@@ -336,6 +393,7 @@ void gm_pref_store_set_string(GmPrefStore * store, const gchar * key, gchar * va
         g_key_file_remove_key(store->keyfile, store->context, key, NULL);
     }
 #endif
+#endif
 }
 
 void gm_pref_store_unset(GmPrefStore * store, const gchar * key)
@@ -343,7 +401,9 @@ void gm_pref_store_unset(GmPrefStore * store, const gchar * key)
 
     if (store == NULL)
         return;
-
+#if GIO_ENABLED && GLIB2_26_ENABLED
+    g_settings_reset(store->settings, key);
+#else
 #ifdef HAVE_GCONF
     gchar *full_key;
 
@@ -353,5 +413,5 @@ void gm_pref_store_unset(GmPrefStore * store, const gchar * key)
 #else
     g_key_file_remove_key(store->keyfile, store->context, key, NULL);
 #endif
-
+#endif
 }
