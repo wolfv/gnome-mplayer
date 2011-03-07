@@ -812,7 +812,7 @@ int main(int argc, char *argv[])
     fullscreen = gm_pref_store_get_boolean(gm_store, FULLSCREEN);
     softvol = gm_pref_store_get_boolean(gm_store, SOFTVOL);
     remember_softvol = gm_pref_store_get_boolean(gm_store, REMEMBER_SOFTVOL);
-    volume_softvol = gm_pref_store_get_int(gm_store, VOLUME_SOFTVOL);
+    volume_softvol = gm_pref_store_get_float(gm_store, VOLUME_SOFTVOL);
     volume_gain = gm_pref_store_get_int(gm_store, VOLUME_GAIN);
     forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
     vertical_layout = gm_pref_store_get_boolean(gm_store, VERTICAL);

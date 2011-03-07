@@ -78,7 +78,7 @@ AC_SUBST(GTK2_22_DEFINES)
 PKG_CHECK_MODULES(GLIB2_14,[glib-2.0 >= 2.14.0],[GLIB2_14_DEFINES="-DGLIB2_14_ENABLED" AC_DEFINE([GLIB2_14_ENABLED],[1],[Define to 1 if you have GLIB 2.14 or higher])],AC_MSG_NOTICE([Using slider for volume]))
 AC_SUBST(GLIB2_14_DEFINES)
 
-PKG_CHECK_MODULES(GLIB2_26,[glib-2.0 >= 2.26.0],[GLIB2_26_DEFINES="-DGLIB2_26_ENABLED" AC_DEFINE([GLIB2_26_ENABLED],[1],[Define to 1 if you have GLIB 2.26 or higher])],AC_MSG_NOTICE([Using GLIB < 2.26 specific features]))
+PKG_CHECK_MODULES(GLIB2_26,[glib-2.0 >= 2.26.0],[with_gconf=no GLIB2_26_DEFINES="-DGLIB2_26_ENABLED" AC_DEFINE([GLIB2_26_ENABLED],[1],[Define to 1 if you have GLIB 2.26 or higher])],AC_MSG_NOTICE([Using GLIB < 2.26 specific features]))
 AC_SUBST(GLIB2_26_DEFINES)
 
 AC_ARG_WITH([gio],
@@ -274,7 +274,7 @@ if test x$CHECK_GPM = "xyes"; then
     fi
 fi
 
-#GLIB_GSETTINGS
+GLIB_GSETTINGS
 
 AC_CHECK_HEADERS([mntent.h])
 AC_CHECK_HEADERS([sys/ucred.h])
