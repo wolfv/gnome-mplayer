@@ -31,6 +31,7 @@
 #include <gdk/gdkx.h>
 #endif
 #include <gdk/gdkkeysyms.h>
+#include <glib/gstdio.h>
 #include <glib/gi18n.h>
 #include <math.h>
 
