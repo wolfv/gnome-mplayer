@@ -14,11 +14,23 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/plugin-cache-size</key>
-      <applyto>/apps/gnome-mplayer/preferences/plugin-cache-size</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/plugin-audio-cache-size</key>
+      <applyto>/apps/gnome-mplayer/preferences/plugin-audio-cache-size</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
-      <default>2000</default>
+      <default>128</default>
+      <locale name="C">
+        <short>Cache size</short>
+        <long>The memory cache size for playing</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/plugin-video-cache-size</key>
+      <applyto>/apps/gnome-mplayer/preferences/plugin-video-cache-size</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>2048</default>
       <locale name="C">
         <short>Cache size</short>
         <long>The memory cache size for playing</long>
@@ -26,8 +38,8 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/mixer</key>
-      <applyto>/apps/gnome-mplayer/preferences/mixer</applyto>
+      <key>/schemas/apps/gnome-mplayer/preferences/alsa-mixer</key>
+      <applyto>/apps/gnome-mplayer/preferences/alsa-mixer</applyto>
       <owner>gnome-mplayer</owner>
       <type>string</type>
       <default></default>
@@ -38,7 +50,7 @@
     </schema>
  
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/osdlevel</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/osd-level</key>
       <applyto>/apps/gnome-mplayer/preferences/osdlevel</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
@@ -50,7 +62,7 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/pplevel</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/pp-level</key>
       <applyto>/apps/gnome-mplayer/preferences/pplevel</applyto>
       <owner>gnome-mplayer</owner>
       <type>int</type>
@@ -110,7 +122,7 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/showplaylist</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-playlist</key>
       <applyto>/apps/gnome-mplayer/preferences/showplaylist</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
@@ -122,7 +134,7 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/showdetails</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-details</key>
       <applyto>/apps/gnome-mplayer/preferences/showdetails</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
@@ -134,7 +146,7 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disablefullscreen</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-fullscreen</key>
       <applyto>/apps/gnome-mplayer/preferences/disablefullscreen</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
@@ -146,7 +158,7 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disableframedrop</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-framedrop</key>
       <applyto>/apps/gnome-mplayer/preferences/disableframedrop</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
@@ -158,7 +170,7 @@
     </schema>
         
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disablecontextmenu</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-contextmenu</key>
       <applyto>/apps/gnome-mplayer/preferences/disablecontextmenu</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
@@ -170,7 +182,7 @@
     </schema>
    
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disableass</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-ass</key>
       <applyto>/apps/gnome-mplayer/preferences/disableass</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
@@ -182,7 +194,7 @@
     </schema>
    
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/disableembeddedfonts</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-embeddedfonts</key>
       <applyto>/apps/gnome-mplayer/preferences/disableembeddedfonts</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
@@ -254,7 +266,7 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/forcecache</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/force-cache</key>
       <applyto>/apps/gnome-mplayer/preferences/forcecache</applyto>
       <owner>gnome-mplayer</owner>
       <type>bool</type>
@@ -278,7 +290,7 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/metadatacodepage</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/metadata-codepage</key>
       <applyto>/apps/gnome-mplayer/preferences/metadatacodepage</applyto>
       <owner>gnome-mplayer</owner>
       <type>string</type>
@@ -290,7 +302,7 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/subtitlecodepage</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-codepage</key>
       <applyto>/apps/gnome-mplayer/preferences/subtitlecodepage</applyto>
       <owner>gnome-mplayer</owner>
       <type>string</type>
@@ -302,7 +314,7 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/subtitlefont</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-font</key>
       <applyto>/apps/gnome-mplayer/preferences/subtitlefont</applyto>
       <owner>gnome-mplayer</owner>
       <type>string</type>
@@ -314,7 +326,7 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/subtitlecolor</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-color</key>
       <applyto>/apps/gnome-mplayer/preferences/subtitlecolor</applyto>
       <owner>gnome-mplayer</owner>
       <type>string</type>
@@ -326,7 +338,7 @@
     </schema>
     
     <schema>
-      <key>/schemas/apps/gnome-mplayer/preferences/subtitlescale</key>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-scale</key>
       <applyto>/apps/gnome-mplayer/preferences/subtitlescale</applyto>
       <owner>gnome-mplayer</owner>
       <type>float</type>
