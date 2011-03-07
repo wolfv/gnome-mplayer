@@ -5445,9 +5445,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "x11");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xv");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xvmc");
+#ifndef OPENBSD		
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vaapi");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vdpau");
-
+#endif
         if (vo != NULL) {
             if (strcmp(vo, "gl") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 0);
