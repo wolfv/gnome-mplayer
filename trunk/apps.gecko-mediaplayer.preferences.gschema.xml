@@ -30,6 +30,16 @@
       <summary>Disable Embedded plugin</summary>
       <description>Disable Embedded plugin</description>
     </key>
+    <key name="debug-level" type="i">
+      <default>0</default>
+      <summary>Debug feedback level</summary>
+      <description>Debug feedback level</description>
+    </key>
+    <key name="player-backend" type="s">
+      <default>''</default>
+      <summary>Player engine to use (no value defaults to gnome-mplayer)</summary>
+      <description>Player engine to use (no value defaults to gnome-mplayer)</description>
+    </key>
 
   </schema>
 </schemalist>
