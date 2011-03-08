@@ -162,6 +162,11 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->subtitles = NULL;
     player->audio_tracks = NULL;
     player->af_export_filename = gm_tempname(NULL, "mplayer-af_exportXXXXXX");
+    player->brightness = 0;
+    player->contrast = 0;
+    player->gamma = 0;
+    player->hue = 0;
+    player->saturation = 0;
 }
 
 static void gmtk_media_player_dispose(GObject * object)
@@ -573,6 +578,113 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
     return value;
 }
 
+void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute,
+                                             gint value)
+{
+    gchar *cmd = NULL;
+
+    if (attribute == ATTRIBUTE_BRIGHTNESS) {
+        player->brightness = value;
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("pausing_keep_force set_property brightness %i\n", value);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+    }
+
+    if (attribute == ATTRIBUTE_CONTRAST) {
+        player->contrast = value;
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("pausing_keep_force set_property contrast %i\n", value);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+    }
+
+    if (attribute == ATTRIBUTE_GAMMA) {
+        player->gamma = value;
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("pausing_keep_force set_property gamma %i\n", value);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+    }
+
+    if (attribute == ATTRIBUTE_HUE) {
+        player->hue = value;
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("pausing_keep_force set_property hue %i\n", value);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+    }
+
+    if (attribute == ATTRIBUTE_SATURATION) {
+        player->saturation = value;
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("pausing_keep_force set_property saturation %i\n", value);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+    }
+
+    return;
+
+}
+
+void gmtk_media_player_set_attribute_integer_delta(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute,
+                                                   gint delta)
+{
+    gint value;
+
+    switch (attribute) {
+    case ATTRIBUTE_BRIGHTNESS:
+        value = player->brightness + delta;
+        break;
+    case ATTRIBUTE_CONTRAST:
+        value = player->contrast + delta;
+        break;
+    case ATTRIBUTE_GAMMA:
+        value = player->gamma + delta;
+        break;
+    case ATTRIBUTE_HUE:
+        value = player->hue + delta;
+        break;
+    case ATTRIBUTE_SATURATION:
+        value = player->saturation + delta;
+        break;
+    default:
+        return;
+    }
+
+    gmtk_media_player_set_attribute_integer(player, attribute, value);
+
+}
+
+gint gmtk_media_player_get_attribute_integer(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute)
+{
+    switch (attribute) {
+    case ATTRIBUTE_BRIGHTNESS:
+        return player->brightness;
+        break;
+    case ATTRIBUTE_CONTRAST:
+        return player->contrast;
+        break;
+    case ATTRIBUTE_GAMMA:
+        return player->gamma;
+        break;
+    case ATTRIBUTE_HUE:
+        return player->hue;
+        break;
+    case ATTRIBUTE_SATURATION:
+        return player->saturation;
+        break;
+    default:
+        return 0;
+    }
+}
+
+
 void gmtk_media_player_seek(GmtkMediaPlayer * player, gdouble value, GmtkMediaPlayerSeekType seek_type)
 {
     gchar *cmd;
@@ -588,7 +700,7 @@ void gmtk_media_player_set_volume(GmtkMediaPlayer * player, gdouble value)
 
     player->volume = value;
     if (player->player_state == PLAYER_STATE_RUNNING) {
-        cmd = g_strdup_printf("pausing_keep_force volume %i 1\n", (gint) (player->volume * 100));
+        cmd = g_strdup_printf("pausing_keep_force volume %i 1\n", (gint) (player->volume * 100.0));
         write_to_mplayer(player, cmd);
         g_free(cmd);
     }
@@ -705,6 +817,17 @@ gpointer launch_mplayer(gpointer data)
     gtk_widget_realize(player->socket);
     argv[argn++] = g_strdup_printf("0x%x", gtk_socket_get_id(GTK_SOCKET(player->socket)));
 
+    argv[argn++] = g_strdup_printf("-brightness");
+    argv[argn++] = g_strdup_printf("%i", player->brightness);
+    argv[argn++] = g_strdup_printf("-contrast");
+    argv[argn++] = g_strdup_printf("%i", player->contrast);
+    argv[argn++] = g_strdup_printf("-gamma");
+    argv[argn++] = g_strdup_printf("%i", player->gamma);
+    argv[argn++] = g_strdup_printf("-hue");
+    argv[argn++] = g_strdup_printf("%i", player->hue);
+    argv[argn++] = g_strdup_printf("-saturation");
+    argv[argn++] = g_strdup_printf("%i", player->saturation);
+
     switch (player->type) {
     case TYPE_FILE:
         if (g_strrstr(filename, "apple.com")) {
@@ -728,6 +851,7 @@ gpointer launch_mplayer(gpointer data)
         printf("Unrecognized type\n");
     }
     //argv[argn++] = g_strdup_printf("-v");
+
     argv[argn] = NULL;
 
     for (i = 0; i < argn; i++) {

@@ -89,7 +89,12 @@ typedef enum {
     ATTRIBUTE_SUBS_EXIST,
     ATTRIBUTE_SUB_COUNT,
     ATTRIBUTE_AUDIO_TRACK_COUNT,
-    ATTRIBUTE_AF_EXPORT_FILENAME
+    ATTRIBUTE_AF_EXPORT_FILENAME,
+    ATTRIBUTE_BRIGHTNESS,
+    ATTRIBUTE_CONTRAST,
+    ATTRIBUTE_GAMMA,
+    ATTRIBUTE_HUE,
+    ATTRIBUTE_SATURATION
 } GmtkMediaPlayerMediaAttributes;
 
 typedef enum {
@@ -156,6 +161,11 @@ struct _GmtkMediaPlayer {
     GList *subtitles;
     GList *audio_tracks;
     gchar *af_export_filename;
+    gint brightness;
+    gint contrast;
+    gint hue;
+    gint gamma;
+    gint saturation;
 
     GmtkMediaPlayerPlayerState player_state;
     GmtkMediaPlayerMediaState media_state;
@@ -210,6 +220,12 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
 void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
                                             GmtkMediaPlayerMediaAttributes attribute, const gchar * value);
 const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute);
+
+void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute,
+                                             gint value);
+void gmtk_media_player_set_attribute_integer_delta(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute,
+                                                   gint delta);
+gint gmtk_media_player_get_attribute_integer(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute);
 
 void gmtk_media_player_seek(GmtkMediaPlayer * player, gdouble value, GmtkMediaPlayerSeekType seek_type);
 
