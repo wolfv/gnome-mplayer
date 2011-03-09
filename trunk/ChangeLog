@@ -1,5 +1,6 @@
 Development
-    libgmtk - gm_media_player, add video attributes
+    libgmtk - gmtk_media_player, gamma is not a command line option
+    libgmtk - gmtk_media_player, add video attributes
     Fix up spec file building
     When GSettings are available use them over GConf or GKeyStore
     Remove vdpau and vaapi vo devices on OpenBSD
