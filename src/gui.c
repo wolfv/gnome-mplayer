@@ -269,7 +269,7 @@ void adjust_layout()
         if (get_visible(audio_meter) == 0) {
             gtk_widget_show_all(audio_meter);
             return;
-        }
+		}
         get_allocation(audio_meter, &alloc);
         total_height += alloc.height;
     } else {
@@ -302,13 +302,14 @@ void adjust_layout()
         }
 
         if (non_fs_height == 0) {
-            // printf("height = %i\n",plvbox->allocation.height);
+            //printf("height = %i\ntotal_height = %i\n",alloc.height, total_height);
             if (alloc.height < 16) {
                 total_height = 200;
             } else {
                 total_height = MAX(total_height, alloc.height);
             }
-        }
+            //printf("total_height = %i\n",total_height);
+		}
 
     } else {
         if (!idledata->videopresent) {
@@ -352,10 +353,10 @@ void adjust_layout()
         if (total_height > 0 && total_width > 0 && !idledata->window_resized && !remember_loc) {
             gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
         }
-        //if (total_height > 0 && total_width > 0 && !idledata->videopresent
-        //    && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-        //    gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
-        //}
+        if (total_height > 0 && total_width > 0 && !idledata->videopresent
+            && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
+            gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
+        }
     }
 
     if (idledata->fullscreen) {
