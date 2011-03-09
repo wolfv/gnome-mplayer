@@ -150,7 +150,6 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->thread_running = g_mutex_new();
     player->video_width = 0;
     player->video_height = 0;
-    player->monitor = NULL;
     player->media_device = NULL;
     player->type = TYPE_FILE;
     player->title_is_menu = FALSE;
@@ -911,10 +910,6 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
     g_source_remove(player->watch_in_id);
     g_source_remove(player->watch_err_id);
     g_cond_signal(player->mplayer_complete_cond);
-    if (player->monitor != NULL) {
-        g_object_unref(player->monitor);
-        player->monitor = NULL;
-    }
     g_unlink(player->af_export_filename);
 
     return FALSE;
