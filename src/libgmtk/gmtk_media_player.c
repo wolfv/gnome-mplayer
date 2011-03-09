@@ -821,8 +821,8 @@ gpointer launch_mplayer(gpointer data)
     argv[argn++] = g_strdup_printf("%i", player->brightness);
     argv[argn++] = g_strdup_printf("-contrast");
     argv[argn++] = g_strdup_printf("%i", player->contrast);
-    argv[argn++] = g_strdup_printf("-gamma");
-    argv[argn++] = g_strdup_printf("%i", player->gamma);
+    //argv[argn++] = g_strdup_printf("-gamma");
+    //argv[argn++] = g_strdup_printf("%i", player->gamma);
     argv[argn++] = g_strdup_printf("-hue");
     argv[argn++] = g_strdup_printf("%i", player->hue);
     argv[argn++] = g_strdup_printf("-saturation");
