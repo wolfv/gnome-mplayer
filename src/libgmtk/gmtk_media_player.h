@@ -150,7 +150,6 @@ struct _GmtkMediaPlayer {
     gdouble start_time;
     gdouble run_time;
     gdouble volume;
-    GFileMonitor *monitor;
     gchar *media_device;
     gboolean title_is_menu;
     gchar *vo;
