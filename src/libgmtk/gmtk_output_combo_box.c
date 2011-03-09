@@ -24,7 +24,7 @@
 
 #include "gmtk_output_combo_box.h"
 
-
+static GObjectClass *parent_class = NULL;
 
 gint sort_iter_compare_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gpointer data)
 {
@@ -113,6 +113,7 @@ static void gmtk_output_combo_box_class_init(GmtkOutputComboBoxClass * class)
     object_class = (GtkObjectClass *) class;
     widget_class = GTK_WIDGET_CLASS(class);
 
+    parent_class = g_type_class_peek_parent(class);
 }
 
 static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
@@ -262,6 +263,8 @@ static void gmtk_output_combo_box_dispose(GObject * object)
 
     gtk_list_store_clear(output->list);
     g_object_unref(output->list);
+
+    G_OBJECT_CLASS(parent_class)->dispose(object);
 
 }
 

@@ -25,6 +25,7 @@
 #include "gmtk_audio_meter.h"
 
 G_DEFINE_TYPE(GmtkAudioMeter, gmtk_audio_meter, GTK_TYPE_DRAWING_AREA);
+static GObjectClass *parent_class = NULL;
 
 static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * event);
 static void gmtk_audio_meter_dispose(GObject * object);
@@ -59,6 +60,7 @@ static void gmtk_audio_meter_class_init(GmtkAudioMeterClass * class)
 
     widget_class = GTK_WIDGET_CLASS(class);
 
+    parent_class = g_type_class_peek_parent(class);
     widget_class->expose_event = gmtk_audio_meter_expose;
     G_OBJECT_CLASS(class)->dispose = gmtk_audio_meter_dispose;
 }
@@ -92,6 +94,7 @@ static void gmtk_audio_meter_dispose(GObject * object)
         meter->max_data = NULL;
     }
 
+    G_OBJECT_CLASS(parent_class)->dispose(object);
 }
 
 
