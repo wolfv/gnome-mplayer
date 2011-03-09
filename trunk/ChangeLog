@@ -1,4 +1,5 @@
 Development
+    libgmtk - Dispose widgets properly, should solve memory leak
     libgmtk - gmtk_media_player, remove usage of GFileMonitor, not needed
     Fix window resize problem Issue #467 again
     libgmtk - gmtk_media_player, gamma is not a command line option

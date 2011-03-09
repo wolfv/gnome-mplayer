@@ -25,6 +25,7 @@
 #include "gmtk_media_tracker.h"
 
 G_DEFINE_TYPE(GmtkMediaTracker, gmtk_media_tracker, GTK_TYPE_VBOX);
+static GObjectClass *parent_class = NULL;
 
 static gboolean gmtk_media_tracker_button_press(GtkWidget * tracker, GdkEventButton * event);
 static gboolean gmtk_media_tracker_button_release(GtkWidget * tracker, GdkEventButton * event);
@@ -42,6 +43,7 @@ static void gmtk_media_tracker_class_init(GmtkMediaTrackerClass * class)
     object_class = (GtkObjectClass *) class;
     widget_class = GTK_WIDGET_CLASS(class);
 
+    parent_class = g_type_class_peek_parent(class);
     widget_class->button_press_event = gmtk_media_tracker_button_press;
     widget_class->button_release_event = gmtk_media_tracker_button_release;
     widget_class->motion_notify_event = gmtk_media_tracker_motion_notify;
@@ -135,6 +137,8 @@ static void gmtk_media_tracker_dispose(GObject * object)
         g_free(tracker->timer_text);
         tracker->timer_text = NULL;
     }
+
+    G_OBJECT_CLASS(parent_class)->dispose(object);
 
 }
 
