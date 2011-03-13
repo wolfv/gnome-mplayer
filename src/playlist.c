@@ -301,6 +301,7 @@ gboolean playlist_enter_callback(GtkWidget * widget, GdkEventMotion * event, gpo
 gboolean playlist_leave_callback(GtkWidget * widget, GdkEventMotion * event, gpointer user_data)
 {
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list), FALSE);
+    gtk_widget_grab_focus(play_event_box);
     setup_accelerators(TRUE);
     return TRUE;
 }
