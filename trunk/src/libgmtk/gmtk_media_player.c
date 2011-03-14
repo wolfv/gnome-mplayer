@@ -734,7 +734,30 @@ GmtkMediaPlayerMediaType gmtk_media_player_get_media_type(GmtkMediaPlayer * play
 
 void gmtk_media_player_select_subtitle(GmtkMediaPlayer * player, const gchar * label)
 {
-    printf("selecting %s\n", label);
+    GList *list;
+    GmtkMediaPlayerSubtitle *subtitle;
+    gchar *cmd;
+
+    list = player->subtitles;
+    subtitle = NULL;
+
+    while (list != NULL) {
+        subtitle = (GmtkMediaPlayerAudioTrack *) list->data;
+        if (g_ascii_strcasecmp(subtitle->label, label) == 0) {
+            break;
+        }
+        list = list->next;
+    }
+
+    if (list != NULL && subtitle != NULL && player->player_state == PLAYER_STATE_RUNNING) {
+        if (subtitle->is_file) {
+            cmd = g_strdup_printf("pausing_keep_force sub_file %i \n", subtitle->id);
+        } else {
+            cmd = g_strdup_printf("pausing_keep_force sub_demux %i \n", subtitle->id);
+        }
+        write_to_mplayer(player, cmd);
+        g_free(cmd);
+    }
 }
 
 void gmtk_media_player_select_audio_track(GmtkMediaPlayer * player, const gchar * label)
@@ -1057,17 +1080,36 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 while (iter) {
                     subtitle = ((GmtkMediaPlayerSubtitle *) (iter->data));
                     if (subtitle->id == id && subtitle->is_file == FALSE) {
-                        if (subtitle->label != NULL) {
-                            g_free(subtitle->label);
-                            subtitle->label = NULL;
+                        if (subtitle->lang != NULL) {
+                            g_free(subtitle->lang);
+                            subtitle->lang = NULL;
                         }
-                        subtitle->label = g_strdup(buf);
+                        subtitle->lang = g_strdup(buf);
                     }
-                    printf("id = %i - %s\n", ((GmtkMediaPlayerSubtitle *) (iter->data))->id,
-                           ((GmtkMediaPlayerSubtitle *) (iter->data))->label);
                     iter = iter->next;
                 }
             }
+            buf = strstr(mplayer_output->str, "_NAME=");
+            if (buf != NULL) {
+                buf += strlen("_NAME=");
+                iter = player->subtitles;
+                while (iter) {
+                    subtitle = ((GmtkMediaPlayerSubtitle *) (iter->data));
+                    if (subtitle->id == id && subtitle->is_file == FALSE) {
+                        if (subtitle->name != NULL) {
+                            g_free(subtitle->name);
+                            subtitle->name = NULL;
+                        }
+                        subtitle->name = g_strdup(buf);
+                    }
+                    iter = iter->next;
+                }
+            }
+            if (subtitle->label != NULL) {
+                g_free(subtitle->label);
+                subtitle->label = NULL;
+            }
+            subtitle->label = g_strdup_printf("%s (%s)", subtitle->name, subtitle->lang);
         }
 
         if (strstr(mplayer_output->str, "ID_FILE_SUB_ID=") != 0) {
@@ -1099,17 +1141,38 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 while (iter) {
                     audio_track = ((GmtkMediaPlayerAudioTrack *) (iter->data));
                     if (audio_track->id == id) {
-                        if (audio_track->label != NULL) {
-                            g_free(audio_track->label);
-                            audio_track->label = NULL;
+                        if (audio_track->lang != NULL) {
+                            g_free(audio_track->lang);
+                            audio_track->lang = NULL;
                         }
-                        audio_track->label = g_strdup(buf);
+                        audio_track->lang = g_strdup(buf);
                     }
-                    printf("id = %i - %s\n", ((GmtkMediaPlayerAudioTrack *) (iter->data))->id,
-                           ((GmtkMediaPlayerAudioTrack *) (iter->data))->label);
                     iter = iter->next;
                 }
             }
+            buf = strstr(mplayer_output->str, "_NAME=");
+            if (buf != NULL) {
+                buf += strlen("_NAME=");
+                iter = player->audio_tracks;
+                while (iter) {
+                    audio_track = ((GmtkMediaPlayerAudioTrack *) (iter->data));
+                    if (audio_track->id == id) {
+                        if (audio_track->name != NULL) {
+                            g_free(audio_track->name);
+                            audio_track->name = NULL;
+                        }
+                        audio_track->name = g_strdup(buf);
+                    }
+                    iter = iter->next;
+                }
+            }
+
+            if (audio_track->label != NULL) {
+                g_free(audio_track->label);
+                audio_track->label = NULL;
+            }
+            audio_track->label = g_strdup_printf("%s (%s)", audio_track->name, audio_track->lang);
+
         }
 
 
