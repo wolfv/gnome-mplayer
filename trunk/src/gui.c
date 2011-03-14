@@ -3951,6 +3951,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
     static gboolean restore_playlist;
     static gboolean restore_details;
     static gboolean restore_meter;
+	static gboolean restore_info;
 
     if (GTK_CHECK_MENU_ITEM(menuitem) == GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen)) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen),
@@ -4002,8 +4003,8 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         if (restore_meter) {
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter), TRUE);
         }
-        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
-            gtk_widget_show(media_hbox);
+        if (restore_info) {
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
         }
         if (restore_playlist) {
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), TRUE);
@@ -4030,7 +4031,10 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             restore_meter = FALSE;
         }
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
-            gtk_widget_hide(media_hbox);
+            restore_info = TRUE;
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
+        } else {
+            restore_info = FALSE;
         }
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
             restore_playlist = TRUE;
