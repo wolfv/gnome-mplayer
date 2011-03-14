@@ -1,4 +1,5 @@
 Development
+    Fix up some issues with shoutcast stream information display
     libgmtk - gmtk_media_player, clamp values
     Fix view info, like view meter and view details
     Issue #467, playlist and details not disappearing

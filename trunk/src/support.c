@@ -1775,7 +1775,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
 #endif
         data = (MetaData *) g_new0(MetaData, 1);
         slash = g_strrstr(unescaped, "/");
-        if (slash != NULL) {
+        if (slash != NULL && strlen(slash + sizeof(gchar)) > 0) {
             data->title = g_strdup_printf("[Stream] %s", slash + sizeof(gchar));
         } else {
             data->title = g_strdup_printf("[Stream] %s", unescaped);

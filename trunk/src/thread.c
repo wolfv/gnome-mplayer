@@ -802,8 +802,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     break;
                 }
             }
-            if (g_utf8_validate(buf + 1, strlen(buf + 1), 0))
-                message = g_markup_printf_escaped("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
+            if (g_ascii_strcasecmp(buf + 1, " - ") != 0) {
+                if (g_utf8_validate(buf + 1, strlen(buf + 1), 0))
+                    message = g_markup_printf_escaped("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
+            }
         }
         if (message) {
             // reset max values in audio meter
