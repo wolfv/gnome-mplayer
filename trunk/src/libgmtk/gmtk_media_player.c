@@ -583,7 +583,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     gchar *cmd = NULL;
 
     if (attribute == ATTRIBUTE_BRIGHTNESS) {
-        player->brightness = value;
+        player->brightness = CLAMP(value,-100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property brightness %i\n", value);
             write_to_mplayer(player, cmd);
@@ -592,7 +592,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     }
 
     if (attribute == ATTRIBUTE_CONTRAST) {
-        player->contrast = value;
+        player->contrast = CLAMP(value,-100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property contrast %i\n", value);
             write_to_mplayer(player, cmd);
@@ -601,7 +601,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     }
 
     if (attribute == ATTRIBUTE_GAMMA) {
-        player->gamma = value;
+        player->gamma = CLAMP(value,-100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property gamma %i\n", value);
             write_to_mplayer(player, cmd);
@@ -610,7 +610,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     }
 
     if (attribute == ATTRIBUTE_HUE) {
-        player->hue = value;
+        player->hue = CLAMP(value,-100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property hue %i\n", value);
             write_to_mplayer(player, cmd);
@@ -619,7 +619,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     }
 
     if (attribute == ATTRIBUTE_SATURATION) {
-        player->saturation = value;
+        player->saturation = CLAMP(value,-100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property saturation %i\n", value);
             write_to_mplayer(player, cmd);
