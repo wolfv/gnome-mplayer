@@ -284,7 +284,7 @@ void adjust_layout()
             gtk_widget_show_all(plvbox);
             return;
         }
-		gtk_widget_grab_focus(play_event_box);
+        gtk_widget_grab_focus(play_event_box);
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
         g_object_set_property(G_OBJECT(window), "allow-shrink", &ALLOW_SHRINK_TRUE);
         gtk_widget_grab_default(plclose);
@@ -3951,7 +3951,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
     static gboolean restore_playlist;
     static gboolean restore_details;
     static gboolean restore_meter;
-	static gboolean restore_info;
+    static gboolean restore_info;
 
     if (GTK_CHECK_MENU_ITEM(menuitem) == GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen)) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen),
@@ -4004,7 +4004,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter), TRUE);
         }
         if (restore_info) {
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
+            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
         }
         if (restore_playlist) {
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), TRUE);
