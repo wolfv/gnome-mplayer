@@ -583,7 +583,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     gchar *cmd = NULL;
 
     if (attribute == ATTRIBUTE_BRIGHTNESS) {
-        player->brightness = CLAMP(value,-100.0, 100.0);
+        player->brightness = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property brightness %i\n", value);
             write_to_mplayer(player, cmd);
@@ -592,7 +592,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     }
 
     if (attribute == ATTRIBUTE_CONTRAST) {
-        player->contrast = CLAMP(value,-100.0, 100.0);
+        player->contrast = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property contrast %i\n", value);
             write_to_mplayer(player, cmd);
@@ -601,7 +601,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     }
 
     if (attribute == ATTRIBUTE_GAMMA) {
-        player->gamma = CLAMP(value,-100.0, 100.0);
+        player->gamma = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property gamma %i\n", value);
             write_to_mplayer(player, cmd);
@@ -610,7 +610,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     }
 
     if (attribute == ATTRIBUTE_HUE) {
-        player->hue = CLAMP(value,-100.0, 100.0);
+        player->hue = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property hue %i\n", value);
             write_to_mplayer(player, cmd);
@@ -619,7 +619,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     }
 
     if (attribute == ATTRIBUTE_SATURATION) {
-        player->saturation = CLAMP(value,-100.0, 100.0);
+        player->saturation = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property saturation %i\n", value);
             write_to_mplayer(player, cmd);
@@ -734,7 +734,7 @@ GmtkMediaPlayerMediaType gmtk_media_player_get_media_type(GmtkMediaPlayer * play
 
 void gmtk_media_player_select_subtitle(GmtkMediaPlayer * player, const gchar * label)
 {
-
+    printf("selecting %s\n", label);
 }
 
 void gmtk_media_player_select_audio_track(GmtkMediaPlayer * player, const gchar * label)
@@ -771,6 +771,10 @@ gpointer launch_mplayer(gpointer data)
     GError *error;
     gint i;
     gint spawn;
+
+    // TODO: Fix memory leak
+    player->subtitles = NULL;
+    player->audio_tracks = NULL;
 
     g_mutex_lock(player->thread_running);
     if (player->uri != NULL) {
@@ -953,7 +957,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     gchar *buf;
     gint w, h;
     gchar vm[10];
+    gint id;
     GtkAllocation allocation;
+    GmtkMediaPlayerSubtitle *subtitle;
+    GmtkMediaPlayerAudioTrack *audio_track;
+    GList *iter;
 
     if (player == NULL) {
         return FALSE;
@@ -983,6 +991,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             gtk_widget_get_allocation(GTK_WIDGET(player), &allocation);
             g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
+            g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));
+            g_signal_emit_by_name(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
         }
 
         if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -1026,6 +1036,82 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             player->title_is_menu = FALSE;
             write_to_mplayer(player, "get_time_length\n");
         }
+
+        if (strstr(mplayer_output->str, "ID_SUBTITLE_ID=") != 0) {
+            buf = strstr(mplayer_output->str, "ID_SUBTITLE_ID");
+            sscanf(buf, "ID_SUBTITLE_ID=%i", &id);
+            subtitle = g_new0(GmtkMediaPlayerSubtitle, 1);
+            subtitle->id = id;
+            player->subtitles = g_list_append(player->subtitles, subtitle);
+
+        }
+
+        if (strstr(mplayer_output->str, "ID_SID_") != 0) {
+            buf = strstr(mplayer_output->str, "ID_SID_");
+            sscanf(buf, "ID_SID_%i_", &id);
+            g_string_truncate(mplayer_output, mplayer_output->len - 1);
+            buf = strstr(mplayer_output->str, "_LANG=");
+            if (buf != NULL) {
+                buf += strlen("_LANG=");
+                iter = player->subtitles;
+                while (iter) {
+                    subtitle = ((GmtkMediaPlayerSubtitle *) (iter->data));
+                    if (subtitle->id == id && subtitle->is_file == FALSE) {
+                        if (subtitle->label != NULL) {
+                            g_free(subtitle->label);
+                            subtitle->label = NULL;
+                        }
+                        subtitle->label = g_strdup(buf);
+                    }
+                    printf("id = %i - %s\n", ((GmtkMediaPlayerSubtitle *) (iter->data))->id,
+                           ((GmtkMediaPlayerSubtitle *) (iter->data))->label);
+                    iter = iter->next;
+                }
+            }
+        }
+
+        if (strstr(mplayer_output->str, "ID_FILE_SUB_ID=") != 0) {
+            buf = strstr(mplayer_output->str, "ID_FILE_SUB_ID");
+            sscanf(buf, "ID_FILE_SUB_ID=%i", &id);
+            subtitle = g_new0(GmtkMediaPlayerSubtitle, 1);
+            subtitle->id = id;
+            subtitle->is_file = TRUE;
+            subtitle->label = g_strdup_printf(_("External Subtitle #%i"), id + 1);
+            player->subtitles = g_list_append(player->subtitles, subtitle);
+        }
+
+        if (strstr(mplayer_output->str, "ID_AUDIO_ID=") != 0) {
+            buf = strstr(mplayer_output->str, "ID_AUDIO_ID");
+            sscanf(buf, "ID_AUDIO_ID=%i", &id);
+            audio_track = g_new0(GmtkMediaPlayerAudioTrack, 1);
+            audio_track->id = id;
+            player->audio_tracks = g_list_append(player->audio_tracks, audio_track);
+        }
+
+        if (strstr(mplayer_output->str, "ID_AID_") != 0) {
+            buf = strstr(mplayer_output->str, "ID_AID_");
+            sscanf(buf, "ID_AID_%i_", &id);
+            g_string_truncate(mplayer_output, mplayer_output->len - 1);
+            buf = strstr(mplayer_output->str, "_LANG=");
+            if (buf != NULL) {
+                buf += strlen("_LANG=");
+                iter = player->audio_tracks;
+                while (iter) {
+                    audio_track = ((GmtkMediaPlayerAudioTrack *) (iter->data));
+                    if (audio_track->id == id) {
+                        if (audio_track->label != NULL) {
+                            g_free(audio_track->label);
+                            audio_track->label = NULL;
+                        }
+                        audio_track->label = g_strdup(buf);
+                    }
+                    printf("id = %i - %s\n", ((GmtkMediaPlayerAudioTrack *) (iter->data))->id,
+                           ((GmtkMediaPlayerAudioTrack *) (iter->data))->label);
+                    iter = iter->next;
+                }
+            }
+        }
+
 
     }
 

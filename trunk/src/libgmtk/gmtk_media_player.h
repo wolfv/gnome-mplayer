@@ -118,7 +118,7 @@ typedef struct _GmtkMediaPlayer GmtkMediaPlayer;
 typedef struct _GmtkMediaPlayerClass GmtkMediaPlayerClass;
 
 typedef struct _GmtkMediaPlayerSubtitle {
-    gchar *lable;
+    gchar *label;
     gint id;
     gboolean is_file;
 } GmtkMediaPlayerSubtitle;
