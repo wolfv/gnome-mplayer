@@ -1,4 +1,5 @@
 Development
+    Fix view info, like view meter and view details
     Issue #467, playlist and details not disappearing
     Fix compile failure on fy.po, really dumb failure
     libgmtk - Dispose widgets properly, should solve memory leak
