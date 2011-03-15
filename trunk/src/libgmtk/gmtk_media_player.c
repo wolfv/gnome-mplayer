@@ -305,6 +305,24 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
         case GDK_8:
             gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_SATURATION, 5);
             break;
+        case GDK_plus:
+        case GDK_KP_Add:
+            writer_to_mplayer(player, "pausing_keep_force audio_delay 0.1 0\n");
+            break;
+        case GDK_minus:
+        case GDK_KP_Subtract:
+            writer_to_mplayer(player, "pausing_keep_force audio_delay -0.1 0\n");
+            break;
+        case GDK_numbersign:
+            writer_to_mplayer(player, "pausing_keep_force switch_audio\n");
+            break;
+        case GDK_period:
+            if (player->media_state == MEDIA_STATE_PAUSE)
+                writer_to_mplayer(player, "pausing_keep_force frame_step\n");
+            break;
+        case GDK_j:
+            send_command("sub_select\n", TRUE);
+
         default:
             printf("ignoring key %i\n", event->keyval);
         }
