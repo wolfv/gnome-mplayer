@@ -1,4 +1,5 @@
 Development
+    libgmtk - gmtk_media_player, handle 1-8 keys for contrast, brightness, hue, and saturation
     libgmtk - gmtk_media_player, handle p and space keys for pausing
     libgmtk - gmtk_media_player, implement restart method
     libgmtk - gmtk_media_player, make subtitle selection work, and use better names in label
