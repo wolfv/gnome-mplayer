@@ -35,6 +35,7 @@ static gboolean socket_size_allocate_callback(GtkWidget * widget, GtkAllocation 
 static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey * event, gpointer data);
 static gboolean player_button_press_event_callback(GtkWidget * widget, GdkEventButton * event, gpointer data);
 static gboolean player_motion_notify_event_callback(GtkWidget * widget, GdkEventMotion * event, gpointer data);
+static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player, gpointer data);
 
 // monitoring functions
 gpointer launch_mplayer(gpointer data);
@@ -85,14 +86,20 @@ static void gmtk_media_player_class_init(GmtkMediaPlayerClass * class)
     g_signal_new("subtitles-changed",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-                 G_STRUCT_OFFSET(GmtkMediaPlayerClass, media_state_changed),
+                 G_STRUCT_OFFSET(GmtkMediaPlayerClass, subtitles_changed),
                  NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
 
     g_signal_new("audio-tracks-changed",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-                 G_STRUCT_OFFSET(GmtkMediaPlayerClass, media_state_changed),
+                 G_STRUCT_OFFSET(GmtkMediaPlayerClass, audio_tracks_changed),
                  NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
+
+    g_signal_new("restart-complete",
+                 G_OBJECT_CLASS_TYPE(object_class),
+                 G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+                 G_STRUCT_OFFSET(GmtkMediaPlayerClass, restart_complete),
+                 NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
 }
 
@@ -138,6 +145,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     g_signal_connect_swapped(player->socket, "size-allocate", G_CALLBACK(socket_size_allocate_callback), player);
     g_signal_connect(player->socket, "key_press_event", G_CALLBACK(player_key_press_event_callback), NULL);
 
+    g_signal_connect(player, "restart-complete", G_CALLBACK(gmtk_media_player_restart_complete_callback), NULL);
     gtk_widget_pop_composite_child();
 
     gtk_widget_show_all(GTK_WIDGET(player));
@@ -166,6 +174,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->gamma = 0;
     player->hue = 0;
     player->saturation = 0;
+    player->restart = FALSE;
 }
 
 static void gmtk_media_player_dispose(GObject * object)
@@ -335,6 +344,27 @@ GtkWidget *gmtk_media_player_new()
 
     return player;
 }
+
+static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player, gpointer data)
+{
+    gmtk_media_player_seek(player, player->restart_position, SEEK_ABSOLUTE);
+    g_signal_emit_by_name(player, "position-changed", player->restart_position);
+    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), player->restart_state);
+    player->restart = FALSE;
+    printf("restart complete\n");
+}
+
+void gmtk_media_player_restart(GmtkMediaPlayer * player)
+{
+    player->restart = TRUE;
+    player->restart_state = gmtk_media_player_get_state(player);
+    gmtk_media_player_set_state(player, MEDIA_STATE_PAUSE);
+    player->restart_position = player->position;
+    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_QUIT);
+    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_PLAY);
+
+}
+
 
 void gmtk_media_player_set_uri(GmtkMediaPlayer * player, const gchar * uri)
 {
@@ -742,7 +772,7 @@ void gmtk_media_player_select_subtitle(GmtkMediaPlayer * player, const gchar * l
     subtitle = NULL;
 
     while (list != NULL) {
-        subtitle = (GmtkMediaPlayerAudioTrack *) list->data;
+        subtitle = (GmtkMediaPlayerSubtitle *) list->data;
         if (g_ascii_strcasecmp(subtitle->label, label) == 0) {
             break;
         }
@@ -832,6 +862,7 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("-ss");
         argv[argn++] = g_strdup_printf("%f", player->start_time);
     }
+
     if ((gint) (player->run_time) > 0) {
         argv[argn++] = g_strdup_printf("-endpos");
         argv[argn++] = g_strdup_printf("%f", player->run_time);
@@ -1012,7 +1043,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             buf = strstr(mplayer_output->str, "VO:");
             sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &w, &h, &(player->video_width), &(player->video_height));
             gtk_widget_get_allocation(GTK_WIDGET(player), &allocation);
-            g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
+            if (player->restart) {
+                g_signal_emit_by_name(player, "restart-complete", NULL);
+            } else {
+                g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
+            }
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
             g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));
             g_signal_emit_by_name(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
@@ -1022,8 +1057,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             player->video_width = 0;
             player->video_height = 0;
             gtk_widget_get_allocation(GTK_WIDGET(player), &allocation);
-            g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
+            if (player->restart) {
+                g_signal_emit_by_name(player, "restart-complete", NULL);
+            } else {
+                g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
+            }
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
+            g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));
+            g_signal_emit_by_name(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
         }
 
         if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {

@@ -1,4 +1,5 @@
 Development
+    libgmtk - gmtk_media_player, implement restart method
     libgmtk - gmtk_media_player, make subtitle selection work, and use better names in label
     libgmtk - gmtk_media_player, subtitle and audio_track work
     Fix up some issues with shoutcast stream information display
