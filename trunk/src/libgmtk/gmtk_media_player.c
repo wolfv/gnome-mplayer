@@ -307,22 +307,23 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
             break;
         case GDK_plus:
         case GDK_KP_Add:
-            writer_to_mplayer(player, "pausing_keep_force audio_delay 0.1 0\n");
+            write_to_mplayer(player, "pausing_keep_force audio_delay 0.1 0\n");
             break;
         case GDK_minus:
         case GDK_KP_Subtract:
-            writer_to_mplayer(player, "pausing_keep_force audio_delay -0.1 0\n");
+            write_to_mplayer(player, "pausing_keep_force audio_delay -0.1 0\n");
             break;
         case GDK_numbersign:
-            writer_to_mplayer(player, "pausing_keep_force switch_audio\n");
+            write_to_mplayer(player, "pausing_keep_force switch_audio -1\n");
+			return TRUE;
             break;
         case GDK_period:
             if (player->media_state == MEDIA_STATE_PAUSE)
-                writer_to_mplayer(player, "pausing_keep_force frame_step\n");
+                write_to_mplayer(player, "frame_step\n");
             break;
         case GDK_j:
-            send_command("sub_select\n", TRUE);
-
+            write_to_mplayer(player,"pausing_keep_force sub_select\n");
+			break;
         default:
             printf("ignoring key %i\n", event->keyval);
         }
