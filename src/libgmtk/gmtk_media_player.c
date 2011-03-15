@@ -315,15 +315,29 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
             break;
         case GDK_numbersign:
             write_to_mplayer(player, "pausing_keep_force switch_audio -1\n");
-			return TRUE;
+            return TRUE;
             break;
         case GDK_period:
             if (player->media_state == MEDIA_STATE_PAUSE)
                 write_to_mplayer(player, "frame_step\n");
             break;
         case GDK_j:
-            write_to_mplayer(player,"pausing_keep_force sub_select\n");
-			break;
+            write_to_mplayer(player, "pausing_keep_force sub_select\n");
+            break;
+        case GDK_d:
+            write_to_mplayer(player,
+                             "pausing_keep_force frame_drop\npausing_keep_force osd_show_property_text \"framedropping: ${framedropping}\"\n");
+            break;
+        case GDK_b:
+            write_to_mplayer(player, "pausing_keep_force sub_pos -1 0\n");
+            break;
+        case GDK_B:
+            write_to_mplayer(player, "pausing_keep_force sub_pos 1 0\n");
+            break;
+        case GDK_s:
+        case GDK_S:
+            write_to_mplayer(player, "pausing_keep_force screenshot 0\n");
+            break;
         default:
             printf("ignoring key %i\n", event->keyval);
         }
