@@ -281,6 +281,30 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
                 break;
             }
             break;
+        case GDK_1:
+            gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_CONTRAST, -5);
+            break;
+        case GDK_2:
+            gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_CONTRAST, 5);
+            break;
+        case GDK_3:
+            gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_BRIGHTNESS, -5);
+            break;
+        case GDK_4:
+            gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_BRIGHTNESS, 5);
+            break;
+        case GDK_5:
+            gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_HUE, -5);
+            break;
+        case GDK_6:
+            gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_HUE, 5);
+            break;
+        case GDK_7:
+            gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_SATURATION, -5);
+            break;
+        case GDK_8:
+            gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_SATURATION, 5);
+            break;
         default:
             printf("ignoring key %i\n", event->keyval);
         }
