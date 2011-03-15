@@ -143,7 +143,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
 
     gtk_fixed_put(GTK_FIXED(player), player->socket, 0, 0);
     g_signal_connect_swapped(player->socket, "size-allocate", G_CALLBACK(socket_size_allocate_callback), player);
-    g_signal_connect(player->socket, "key_press_event", G_CALLBACK(player_key_press_event_callback), NULL);
+    g_signal_connect(player->socket, "key_press_event", G_CALLBACK(player_key_press_event_callback), player);
 
     g_signal_connect(player, "restart-complete", G_CALLBACK(gmtk_media_player_restart_complete_callback), NULL);
     gtk_widget_pop_composite_child();
@@ -229,8 +229,13 @@ gboolean gmtk_media_player_send_key_press_event(GmtkMediaPlayer * widget, GdkEve
 
 static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey * event, gpointer data)
 {
-    GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(widget);
+    GmtkMediaPlayer *player;
 
+    if (data != NULL) {
+        player = GMTK_MEDIA_PLAYER(data);
+    } else {
+        player = GMTK_MEDIA_PLAYER(widget);
+    }
     if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
         switch (event->keyval) {
         case GDK_Right:
@@ -265,7 +270,17 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
             }
             return TRUE;
             break;
-
+        case GDK_space:
+        case GDK_p:
+            switch (player->media_state) {
+            case MEDIA_STATE_PAUSE:
+                gmtk_media_player_set_state(player, MEDIA_STATE_PLAY);
+                break;
+            case MEDIA_STATE_PLAY:
+                gmtk_media_player_set_state(player, MEDIA_STATE_PAUSE);
+                break;
+            }
+            break;
         default:
             printf("ignoring key %i\n", event->keyval);
         }
