@@ -191,6 +191,9 @@ struct _GmtkMediaPlayer {
     guint watch_err_id;
     guint watch_in_hup_id;
 
+    gboolean restart;
+    gdouble restart_position;
+    GmtkMediaPlayerMediaState restart_state;
 };
 
 struct _GmtkMediaPlayerClass {
@@ -201,6 +204,7 @@ struct _GmtkMediaPlayerClass {
     void (*media_state_changed) (GmtkMediaPlayer * player);
     void (*subtitles_changed) (GmtkMediaPlayer * player);
     void (*audio_tracks_changed) (GmtkMediaPlayer * player);
+    void (*restart_complete) (GmtkMediaPlayer * player);
 };
 
 GType gmtk_media_player_get_type(void);
@@ -244,6 +248,7 @@ gboolean gmtk_media_player_send_key_press_event(GmtkMediaPlayer * widget, GdkEve
 void gmtk_media_player_select_subtitle(GmtkMediaPlayer * player, const gchar * label);
 void gmtk_media_player_select_audio_track(GmtkMediaPlayer * player, const gchar * label);
 
+void gmtk_media_player_restart(GmtkMediaPlayer * player);
 
 G_END_DECLS
 #endif
