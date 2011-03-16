@@ -98,7 +98,16 @@ typedef enum {
     ATTRIBUTE_SEEKABLE,
     ATTRIBUTE_HAS_CHAPTERS,
     ATTRIBUTE_AUDIO_TRACK,
-    ATTRIBUTE_SUBTITLE
+    ATTRIBUTE_SUBTITLE,
+    ATTRIBUTE_VIDEO_FORMAT,
+    ATTRIBUTE_VIDEO_CODEC,
+    ATTRIBUTE_VIDEO_FPS,
+    ATTRIBUTE_VIDEO_BITRATE,
+    ATTRIBUTE_AUDIO_FORMAT,
+    ATTRIBUTE_AUDIO_CODEC,
+    ATTRIBUTE_AUDIO_BITRATE,
+    ATTRIBUTE_AUDIO_RATE,
+    ATTRIBUTE_AUDIO_NCH
 } GmtkMediaPlayerMediaAttributes;
 
 typedef enum {
@@ -179,6 +188,15 @@ struct _GmtkMediaPlayer {
     gint saturation;
     gboolean seekable;
     gboolean has_chapters;
+    gchar *video_format;
+    gchar *video_codec;
+    gint video_bitrate;
+    gdouble video_fps;
+    gchar *audio_format;
+    gchar *audio_codec;
+    gint audio_bitrate;
+    gint audio_rate;
+    gint audio_nch;
 
     GmtkMediaPlayerPlayerState player_state;
     GmtkMediaPlayerMediaState media_state;
