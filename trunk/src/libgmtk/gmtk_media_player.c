@@ -1539,8 +1539,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_NCH") != 0) {
-            buf = strstr(mplayer_output->str, "ID_AUDIO_RATE");
-            sscanf(buf, "ID_AUDIO_RATE=%i", &player->audio_nch);
+            buf = strstr(mplayer_output->str, "ID_AUDIO_NCH");
+            sscanf(buf, "ID_AUDIO_NCH=%i", &player->audio_nch);
         }
 
 
