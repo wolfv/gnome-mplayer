@@ -583,6 +583,14 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkM
         ret = player->softvol;
         break;
 
+    case ATTRIBUTE_SEEKABLE:
+        ret = player->seekable;
+        break;
+
+    case ATTRIBUTE_HAS_CHAPTERS:
+        ret = player->has_chapters;
+        break;
+
     default:
         printf("Unsupported Attribute\n");
     }
@@ -671,11 +679,34 @@ void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
 const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute)
 {
     gchar *value = NULL;
+    GList *iter;
+    GmtkMediaPlayerAudioTrack *track;
+    GmtkMediaPlayerSubtitle *subtitle;
 
     if (attribute == ATTRIBUTE_AF_EXPORT_FILENAME) {
         value = player->af_export_filename;
     }
 
+    if (attribute == ATTRIBUTE_AUDIO_TRACK) {
+        iter = player->audio_tracks;
+        while (iter) {
+            track = (GmtkMediaPlayerAudioTrack *) iter->data;
+            if (track->id == player->audio_track_id)
+                value = track->label;
+            iter = iter->next;
+        }
+    }
+
+    if (attribute == ATTRIBUTE_SUBTITLE) {
+        iter = player->subtitles;
+        while (iter) {
+            subtitle = (GmtkMediaPlayerSubtitle *) iter->data;
+            if (subtitle->id == player->subtitle_id && subtitle->is_file == player->subtitle_is_file)
+                value = subtitle->label;
+            iter = iter->next;
+        }
+    }
+    printf("value = %s\n", value);
     return value;
 }
 
@@ -857,6 +888,8 @@ void gmtk_media_player_select_subtitle(GmtkMediaPlayer * player, const gchar * l
         } else {
             cmd = g_strdup_printf("pausing_keep_force sub_demux %i \n", subtitle->id);
         }
+        player->subtitle_id = subtitle->id;
+        player->subtitle_is_file = subtitle->is_file;
         write_to_mplayer(player, cmd);
         g_free(cmd);
     }
@@ -881,6 +914,63 @@ void gmtk_media_player_select_audio_track(GmtkMediaPlayer * player, const gchar 
 
     if (list != NULL && track != NULL && player->player_state == PLAYER_STATE_RUNNING) {
         cmd = g_strdup_printf("pausing_keep_force switch_audio %i \n", track->id);
+        printf("%s", cmd);
+        player->audio_track_id = track->id;
+        write_to_mplayer(player, cmd);
+        g_free(cmd);
+    }
+}
+
+void gmtk_media_player_select_subtitle_by_id(GmtkMediaPlayer * player, gint id)
+{
+    GList *list;
+    GmtkMediaPlayerSubtitle *subtitle;
+    gchar *cmd;
+
+    list = player->subtitles;
+    subtitle = NULL;
+
+    while (list != NULL) {
+        subtitle = (GmtkMediaPlayerSubtitle *) list->data;
+        if (subtitle->id == id) {
+            break;
+        }
+        list = list->next;
+    }
+
+    if (list != NULL && subtitle != NULL && player->player_state == PLAYER_STATE_RUNNING) {
+        if (subtitle->is_file) {
+            cmd = g_strdup_printf("pausing_keep_force sub_file %i \n", subtitle->id);
+        } else {
+            cmd = g_strdup_printf("pausing_keep_force sub_demux %i \n", subtitle->id);
+        }
+        player->subtitle_id = subtitle->id;
+        player->subtitle_is_file = subtitle->is_file;
+        write_to_mplayer(player, cmd);
+        g_free(cmd);
+    }
+}
+
+void gmtk_media_player_select_audio_track_by_id(GmtkMediaPlayer * player, gint id)
+{
+    GList *list;
+    GmtkMediaPlayerAudioTrack *track;
+    gchar *cmd;
+
+    list = player->audio_tracks;
+    track = NULL;
+
+    while (list != NULL) {
+        track = (GmtkMediaPlayerAudioTrack *) list->data;
+        if (track->id == id) {
+            break;
+        }
+        list = list->next;
+    }
+
+    if (list != NULL && track != NULL && player->player_state == PLAYER_STATE_RUNNING) {
+        cmd = g_strdup_printf("pausing_keep_force switch_audio %i \n", track->id);
+        player->audio_track_id = track->id;
         write_to_mplayer(player, cmd);
         g_free(cmd);
     }
@@ -900,6 +990,9 @@ gpointer launch_mplayer(gpointer data)
     // TODO: Fix memory leak
     player->subtitles = NULL;
     player->audio_tracks = NULL;
+
+    player->seekable = FALSE;
+    player->has_chapters = FALSE;
 
     g_mutex_lock(player->thread_running);
     if (player->uri != NULL) {
@@ -1110,6 +1203,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         return FALSE;
     } else {
         printf("%s", mplayer_output->str);
+        if (strstr(mplayer_output->str, "AO:") != NULL) {
+            write_to_mplayer(player, "get_property switch_audio\n");
+        }
 
         if (strstr(mplayer_output->str, "VO:") != NULL) {
             buf = strstr(mplayer_output->str, "VO:");
@@ -1120,6 +1216,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             } else {
                 g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
             }
+            write_to_mplayer(player, "get_property sub_source\n");
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
             g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));
             g_signal_emit_by_name(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
@@ -1163,6 +1260,52 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_LENGTH);
         }
 
+        if (strstr(mplayer_output->str, "ID_AUDIO_TRACK") != 0) {
+            buf = strstr(mplayer_output->str, "ID_AUDIO_TRACK");
+            sscanf(buf, "ID_AUDIO_TRACK=%i", &player->audio_track_id);
+            player->audio_track_id--;
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
+        }
+
+        if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
+            buf = strstr(mplayer_output->str, "ANS_switch_audio");
+            sscanf(buf, "ANS_switch_audio=%i", &player->audio_track_id);
+            player->audio_track_id--;
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
+        }
+
+        if (strstr(mplayer_output->str, "ANS_sub_source") != 0) {
+            buf = strstr(mplayer_output->str, "ANS_sub_source");
+            sscanf(buf, "ANS_sub_source=%i", &player->subtitle_source);
+            switch (player->subtitle_source) {
+            case 0:
+                player->subtitle_is_file = TRUE;
+                write_to_mplayer(player, "get_property sub_file\n");
+                break;
+            case 1:
+                player->subtitle_is_file = FALSE;
+                write_to_mplayer(player, "get_property sub_vob\n");
+                break;
+            case 2:
+                player->subtitle_is_file = FALSE;
+                write_to_mplayer(player, "get_property sub_demux\n");
+                break;
+            }
+        }
+
+        if (strstr(mplayer_output->str, "ANS_sub_file") != 0) {
+            buf = strstr(mplayer_output->str, "ANS_sub_file");
+            sscanf(buf, "ANS_sub_file=%i", &player->subtitle_id);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SUBTITLE);
+        }
+
+        if (strstr(mplayer_output->str, "ANS_sub_demux") != 0) {
+            buf = strstr(mplayer_output->str, "ANS_sub_demux");
+            sscanf(buf, "ANS_sub_demux=%i", &player->subtitle_id);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SUBTITLE);
+        }
+
+
         if (strstr(mplayer_output->str, "DVDNAV_TITLE_IS_MENU") != 0) {
             player->title_is_menu = TRUE;
             write_to_mplayer(player, "get_time_length\n");
@@ -1178,6 +1321,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             sscanf(buf, "ID_SUBTITLE_ID=%i", &id);
             subtitle = g_new0(GmtkMediaPlayerSubtitle, 1);
             subtitle->id = id;
+            subtitle->lang = g_strdup_printf(_("Unknown"));
+            subtitle->name = g_strdup_printf(_("Unknown"));
+            subtitle->label = g_strdup_printf("%s (%s)", subtitle->name, subtitle->lang);
             player->subtitles = g_list_append(player->subtitles, subtitle);
 
         }
@@ -1222,7 +1368,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_free(subtitle->label);
                 subtitle->label = NULL;
             }
-            subtitle->label = g_strdup_printf("%s (%s)", subtitle->name, subtitle->lang);
+            subtitle->label =
+                g_strdup_printf("%s (%s)", (subtitle->name) ? subtitle->name : _("Unknown"), subtitle->lang);
         }
 
         if (strstr(mplayer_output->str, "ID_FILE_SUB_ID=") != 0) {
@@ -1240,6 +1387,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             sscanf(buf, "ID_AUDIO_ID=%i", &id);
             audio_track = g_new0(GmtkMediaPlayerAudioTrack, 1);
             audio_track->id = id;
+            audio_track->lang = g_strdup_printf(_("Unknown"));
+            audio_track->name = g_strdup_printf(_("Unknown"));
+            audio_track->label = g_strdup_printf("%s (%s)", audio_track->name, audio_track->lang);
             player->audio_tracks = g_list_append(player->audio_tracks, audio_track);
         }
 
@@ -1284,10 +1434,20 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_free(audio_track->label);
                 audio_track->label = NULL;
             }
-            audio_track->label = g_strdup_printf("%s (%s)", audio_track->name, audio_track->lang);
+            audio_track->label =
+                g_strdup_printf("%s (%s)", (audio_track->name) ? audio_track->name : _("Unknown"), audio_track->lang);
 
         }
 
+        if ((strstr(mplayer_output->str, "ID_CHAPTERS=") != NULL)
+            && !(strstr(mplayer_output->str, "ID_CHAPTERS=0") != NULL)) {
+            player->has_chapters = TRUE;
+        }
+
+        if ((strstr(mplayer_output->str, "ID_SEEKABLE=") != NULL)
+            && !(strstr(mplayer_output->str, "ID_SEEKABLE=0") != NULL)) {
+            player->seekable = TRUE;
+        }
 
     }
 

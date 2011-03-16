@@ -94,7 +94,11 @@ typedef enum {
     ATTRIBUTE_CONTRAST,
     ATTRIBUTE_GAMMA,
     ATTRIBUTE_HUE,
-    ATTRIBUTE_SATURATION
+    ATTRIBUTE_SATURATION,
+    ATTRIBUTE_SEEKABLE,
+    ATTRIBUTE_HAS_CHAPTERS,
+    ATTRIBUTE_AUDIO_TRACK,
+    ATTRIBUTE_SUBTITLE
 } GmtkMediaPlayerMediaAttributes;
 
 typedef enum {
@@ -163,12 +167,18 @@ struct _GmtkMediaPlayer {
     gboolean sub_visible;
     GList *subtitles;
     GList *audio_tracks;
+    gint audio_track_id;
+    gint subtitle_source;
+    gint subtitle_id;
+    gint subtitle_is_file;
     gchar *af_export_filename;
     gint brightness;
     gint contrast;
     gint hue;
     gint gamma;
     gint saturation;
+    gboolean seekable;
+    gboolean has_chapters;
 
     GmtkMediaPlayerPlayerState player_state;
     GmtkMediaPlayerMediaState media_state;
@@ -247,6 +257,8 @@ gboolean gmtk_media_player_send_key_press_event(GmtkMediaPlayer * widget, GdkEve
 
 void gmtk_media_player_select_subtitle(GmtkMediaPlayer * player, const gchar * label);
 void gmtk_media_player_select_audio_track(GmtkMediaPlayer * player, const gchar * label);
+void gmtk_media_player_select_subtitle_by_id(GmtkMediaPlayer * player, gint id);
+void gmtk_media_player_select_audio_track_by_id(GmtkMediaPlayer * player, gint id);
 
 void gmtk_media_player_restart(GmtkMediaPlayer * player);
 
