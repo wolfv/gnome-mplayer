@@ -175,6 +175,10 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->hue = 0;
     player->saturation = 0;
     player->restart = FALSE;
+    player->video_format = NULL;
+    player->video_codec = NULL;
+    player->audio_format = NULL;
+    player->audio_codec = NULL;
 }
 
 static void gmtk_media_player_dispose(GObject * object)
@@ -1473,6 +1477,72 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             && !(strstr(mplayer_output->str, "ID_SEEKABLE=0") != NULL)) {
             player->seekable = TRUE;
         }
+
+        if (strstr(mplayer_output->str, "ID_VIDEO_FORMAT") != 0) {
+            g_string_truncate(mplayer_output, mplayer_output->len - 1);
+            buf = strstr(mplayer_output->str, "ID_VIDEO_FORMAT") + strlen("ID_VIDEO_FORMAT=");
+            if (player->video_format != NULL) {
+                g_free(player->video_format);
+                player->video_format = NULL;
+            }
+            player->video_format = g_strdup(buf);
+        }
+
+        if (strstr(mplayer_output->str, "ID_VIDEO_CODEC") != 0) {
+            g_string_truncate(mplayer_output, mplayer_output->len - 1);
+            buf = strstr(mplayer_output->str, "ID_VIDEO_CODEC") + strlen("ID_VIDEO_CODEC=");
+            if (player->video_codec != NULL) {
+                g_free(player->video_codec);
+                player->video_codec = NULL;
+            }
+            player->video_codec = g_strdup(buf);
+        }
+
+        if (strstr(mplayer_output->str, "ID_VIDEO_FPS") != 0) {
+            buf = strstr(mplayer_output->str, "ID_VIDEO_FPS");
+            sscanf(buf, "ID_VIDEO_FPS=%lf", &player->video_fps);
+        }
+
+        if (strstr(mplayer_output->str, "ID_VIDEO_BITRATE") != 0) {
+            buf = strstr(mplayer_output->str, "ID_VIDEO_BITRATE");
+            sscanf(buf, "ID_VIDEO_BITRATE=%i", &player->video_bitrate);
+        }
+
+        if (strstr(mplayer_output->str, "ID_AUDIO_FORMAT") != 0) {
+            g_string_truncate(mplayer_output, mplayer_output->len - 1);
+            buf = strstr(mplayer_output->str, "ID_AUDIO_FORMAT") + strlen("ID_AUDIO_FORMAT=");
+            if (player->audio_format != NULL) {
+                g_free(player->audio_format);
+                player->audio_format = NULL;
+            }
+            player->audio_format = g_strdup(buf);
+        }
+
+        if (strstr(mplayer_output->str, "ID_AUDIO_CODEC") != 0) {
+            g_string_truncate(mplayer_output, mplayer_output->len - 1);
+            buf = strstr(mplayer_output->str, "ID_AUDIO_CODEC") + strlen("ID_AUDIO_CODEC=");
+            if (player->audio_codec != NULL) {
+                g_free(player->audio_codec);
+                player->audio_codec = NULL;
+            }
+            player->audio_codec = g_strdup(buf);
+        }
+
+        if (strstr(mplayer_output->str, "ID_AUDIO_BITRATE") != 0) {
+            buf = strstr(mplayer_output->str, "ID_AUDIO_BITRATE");
+            sscanf(buf, "ID_AUDIO_BITRATE=%i", &player->audio_bitrate);
+        }
+
+        if (strstr(mplayer_output->str, "ID_AUDIO_RATE") != 0) {
+            buf = strstr(mplayer_output->str, "ID_AUDIO_RATE");
+            sscanf(buf, "ID_AUDIO_RATE=%i", &player->audio_rate);
+        }
+
+        if (strstr(mplayer_output->str, "ID_AUDIO_NCH") != 0) {
+            buf = strstr(mplayer_output->str, "ID_AUDIO_RATE");
+            sscanf(buf, "ID_AUDIO_RATE=%i", &player->audio_nch);
+        }
+
 
     }
 
