@@ -706,7 +706,6 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
             iter = iter->next;
         }
     }
-    printf("value = %s\n", value);
     return value;
 }
 
@@ -914,7 +913,6 @@ void gmtk_media_player_select_audio_track(GmtkMediaPlayer * player, const gchar 
 
     if (list != NULL && track != NULL && player->player_state == PLAYER_STATE_RUNNING) {
         cmd = g_strdup_printf("pausing_keep_force switch_audio %i \n", track->id);
-        printf("%s", cmd);
         player->audio_track_id = track->id;
         write_to_mplayer(player, cmd);
         g_free(cmd);
@@ -1270,7 +1268,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
             buf = strstr(mplayer_output->str, "ANS_switch_audio");
             sscanf(buf, "ANS_switch_audio=%i", &player->audio_track_id);
-            player->audio_track_id--;
+            if (player->type == TYPE_DVD) {
+                // do nothing  for now
+            } else {
+                player->audio_track_id--;
+            }
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
         }
 
@@ -1385,12 +1387,24 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (strstr(mplayer_output->str, "ID_AUDIO_ID=") != 0) {
             buf = strstr(mplayer_output->str, "ID_AUDIO_ID");
             sscanf(buf, "ID_AUDIO_ID=%i", &id);
-            audio_track = g_new0(GmtkMediaPlayerAudioTrack, 1);
-            audio_track->id = id;
-            audio_track->lang = g_strdup_printf(_("Unknown"));
-            audio_track->name = g_strdup_printf(_("Unknown"));
-            audio_track->label = g_strdup_printf("%s (%s)", audio_track->name, audio_track->lang);
-            player->audio_tracks = g_list_append(player->audio_tracks, audio_track);
+            iter = player->audio_tracks;
+            gboolean found = FALSE;
+            while (iter) {
+                audio_track = ((GmtkMediaPlayerAudioTrack *) (iter->data));
+                if (audio_track->id == id) {
+                    found = TRUE;
+                }
+                iter = iter->next;
+            }
+
+            if (!found) {
+                audio_track = g_new0(GmtkMediaPlayerAudioTrack, 1);
+                audio_track->id = id;
+                audio_track->lang = g_strdup_printf(_("Unknown"));
+                audio_track->name = g_strdup_printf(_("Unknown"));
+                audio_track->label = g_strdup_printf("%s (%s)", audio_track->name, audio_track->lang);
+                player->audio_tracks = g_list_append(player->audio_tracks, audio_track);
+            }
         }
 
         if (strstr(mplayer_output->str, "ID_AID_") != 0) {
@@ -1401,9 +1415,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             if (buf != NULL) {
                 buf += strlen("_LANG=");
                 iter = player->audio_tracks;
+                gboolean updated = FALSE;
                 while (iter) {
                     audio_track = ((GmtkMediaPlayerAudioTrack *) (iter->data));
                     if (audio_track->id == id) {
+                        updated = TRUE;
                         if (audio_track->lang != NULL) {
                             g_free(audio_track->lang);
                             audio_track->lang = NULL;
@@ -1411,6 +1427,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                         audio_track->lang = g_strdup(buf);
                     }
                     iter = iter->next;
+                }
+                if (updated == FALSE) {
+                    audio_track = g_new0(GmtkMediaPlayerAudioTrack, 1);
+                    audio_track->id = id;
+                    audio_track->lang = g_strdup_printf("%s", buf);
+                    audio_track->name = g_strdup_printf(_("Unknown"));
+                    audio_track->label = g_strdup_printf("%s (%s)", audio_track->name, audio_track->lang);
+                    player->audio_tracks = g_list_append(player->audio_tracks, audio_track);
+                    g_signal_emit_by_name(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
                 }
             }
             buf = strstr(mplayer_output->str, "_NAME=");
