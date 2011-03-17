@@ -279,6 +279,7 @@ GtkWidget *config_wmp;
 GtkWidget *config_dvx;
 GtkWidget *config_midi;
 GtkWidget *config_noembed;
+GtkWidget *config_noscaling;
 
 GtkWidget *config_mplayer_bin;
 GtkWidget *config_mplayer_dvd_device;

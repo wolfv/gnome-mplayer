@@ -1936,16 +1936,24 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             new_width = allocation->width;
             new_height = allocation->height;
         } else {
-            // printf("last %i x %i\n",last_window_width,last_window_height);
-            if (movie_ratio > window_ratio) {
-                // printf("movie %lf > window %lf\n",movie_ratio,window_ratio);
-                new_width = allocation->width;
-                new_height = floorf((allocation->width / movie_ratio) + 0.5);
-            } else {
-                // printf("movie %lf < window %lf\n",movie_ratio,window_ratio);
-                new_height = allocation->height;
-                new_width = floorf((allocation->height * movie_ratio) + 0.5);
-            }
+
+			if ( embed_window != 0 && disable_embedded_scaling && allocation->width >= idledata->width && allocation->height >= idledata->height) {
+				new_width = idledata->width;
+				new_height = idledata->height;
+			} else {
+			
+		        // printf("last %i x %i\n",last_window_width,last_window_height);
+		        if (movie_ratio > window_ratio) {
+		            // printf("movie %lf > window %lf\n",movie_ratio,window_ratio);
+		            new_width = allocation->width;
+		            new_height = floorf((allocation->width / movie_ratio) + 0.5);
+		        } else {
+		            // printf("movie %lf < window %lf\n",movie_ratio,window_ratio);
+		            new_height = allocation->height;
+		            new_width = floorf((allocation->height * movie_ratio) + 0.5);
+		        }
+
+			}
         }
 
 
@@ -4338,7 +4346,7 @@ void config_apply(GtkWidget * widget, void *data)
     dvx_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_dvx));
     midi_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_midi));
     embedding_disabled = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_noembed));
-
+	disable_embedded_scaling = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_noscaling));
     mplayer_bin = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_mplayer_bin)));
     if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);
@@ -4411,6 +4419,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gmp_store, DISABLE_DVX, dvx_disabled);
     gm_pref_store_set_boolean(gmp_store, DISABLE_MIDI, midi_disabled);
     gm_pref_store_set_boolean(gmp_store, DISABLE_EMBEDDING, embedding_disabled);
+    gm_pref_store_set_boolean(gmp_store, DISABLE_EMBEDDED_SCALING, disable_embedded_scaling);
 
     gm_pref_store_free(gmp_store);
 
@@ -5658,6 +5667,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_noembed, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
+    config_noscaling = gtk_check_button_new_with_label(_("Disable Embedded Player Scaling"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_noscaling), disable_embedded_scaling);
+    gtk_table_attach(GTK_TABLE(conf_table), config_noscaling, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    i++;
+	
     conf_label = gtk_label_new(_("Audio Cache Size (KB):"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);

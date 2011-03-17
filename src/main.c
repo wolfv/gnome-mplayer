@@ -853,6 +853,7 @@ int main(int argc, char *argv[])
     dvx_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_DVX);
     midi_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_MIDI);
     embedding_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_EMBEDDING);
+	disable_embedded_scaling = gm_pref_store_get_boolean(gmp_store, DISABLE_EMBEDDED_SCALING);       
     if (embed_window == 0) {
         single_instance = gm_pref_store_get_boolean(gm_store, SINGLE_INSTANCE);
         if (single_instance) {

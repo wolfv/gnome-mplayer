@@ -106,6 +106,7 @@
 #define DISABLE_DVX			"disable-dvx"
 #define DISABLE_MIDI		"disable-midi"
 #define DISABLE_EMBEDDING	"disable-embedding"
+#define DISABLE_EMBEDDED_SCALING "disable-embedded-scaling"
 
 // JavaScript Playstates
 #define STATE_UNDEFINED     0
@@ -436,6 +437,7 @@ gboolean wmp_disabled;
 gboolean dvx_disabled;
 gboolean midi_disabled;
 gboolean embedding_disabled;
+gboolean disable_embedded_scaling;
 
 GArray *data;
 GArray *max_data;
