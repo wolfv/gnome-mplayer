@@ -1,4 +1,5 @@
 Development
+    Add new preference to plugin tab, to disable scaling when video is embedded
     libgmtk - gmtk_media_player, parse mplayer properties
     libgmtk - gmtk_media_player, audio track selection fixes
     libgmtk - gmtk_media_player, initial subtitle and audio track detection
