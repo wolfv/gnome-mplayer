@@ -1,4 +1,5 @@
 Development
+    libgmtk - gmtk_media_player, add attribute disable_upscaling
     Add new preference to plugin tab, to disable scaling when video is embedded
     libgmtk - gmtk_media_player, parse mplayer properties
     libgmtk - gmtk_media_player, audio track selection fixes
