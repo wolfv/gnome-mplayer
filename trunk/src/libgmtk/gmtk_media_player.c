@@ -179,6 +179,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->video_codec = NULL;
     player->audio_format = NULL;
     player->audio_codec = NULL;
+    player->disable_upscaling = FALSE;
 }
 
 static void gmtk_media_player_dispose(GObject * object)
@@ -399,12 +400,18 @@ static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * 
         video_aspect = (gdouble) player->video_width / (gdouble) player->video_height;
         widget_aspect = (gdouble) allocation->width / (gdouble) allocation->height;
 
-        if (video_aspect > widget_aspect) {
-            da_width = allocation->width;
-            da_height = floorf((allocation->width / video_aspect) + 0.5);
+        if (player->disable_upscaling && allocation->width > player->video_width
+            && allocation->height > player->video_height) {
+            da_width = player->video_width;
+            da_height = player->video_height;
         } else {
-            da_height = allocation->height;
-            da_width = floorf((allocation->height * video_aspect) + 0.5);
+            if (video_aspect > widget_aspect) {
+                da_width = allocation->width;
+                da_height = floorf((allocation->width / video_aspect) + 0.5);
+            } else {
+                da_height = allocation->height;
+                da_width = floorf((allocation->height * video_aspect) + 0.5);
+            }
         }
         gtk_widget_set_size_request(player->socket, da_width, da_height);
         player->top = (allocation->width - da_width) / 2;
@@ -558,13 +565,22 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
 {
     gchar *cmd = NULL;
 
-    if (attribute == ATTRIBUTE_SUB_VISIBLE) {
+    switch (attribute) {
+    case ATTRIBUTE_SUB_VISIBLE:
         player->sub_visible = value;
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property sub_visibility %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
+        break;
+
+    case ATTRIBUTE_DISABLE_UPSCALING:
+        player->disable_upscaling = value;
+        break;
+
+    default:
+        printf("Unsupported Attribute\n");
     }
 
     return;
@@ -593,6 +609,10 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkM
 
     case ATTRIBUTE_HAS_CHAPTERS:
         ret = player->has_chapters;
+        break;
+
+    case ATTRIBUTE_DISABLE_UPSCALING:
+        ret = player->disable_upscaling;
         break;
 
     default:
