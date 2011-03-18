@@ -1,4 +1,5 @@
 Development
+    Fix resize issue in vertical layout
     Fix software volume stored value
     Apply OpenBSD patches 
     Make playlist columns reorderable with drag and drop

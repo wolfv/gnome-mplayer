@@ -354,7 +354,7 @@ void adjust_layout()
         if (total_height > 0 && total_width > 0 && !idledata->window_resized && !remember_loc) {
             gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
         }
-        if (total_height > 0 && total_width > 0 && !idledata->videopresent
+        if (total_height > 0 && total_width > 0 && !idledata->videopresent && !vertical_layout
             && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
             gtk_window_resize(GTK_WINDOW(window), total_width, total_height);
         }
