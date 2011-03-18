@@ -957,7 +957,7 @@ int main(int argc, char *argv[])
             printf("Using MPlayer Software Volume control\n");
         if (remember_softvol && volume_softvol != -1) {
             if (verbose)
-                printf("Using last volume of %f%%\n", volume_softvol);
+                printf("Using last volume of %f%%\n", volume_softvol * 100.0);
             volume = (gdouble) volume_softvol *100.0;
         } else {
             volume = 100.0;
