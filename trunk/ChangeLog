@@ -1,4 +1,6 @@
 Development
+    Fix software volume stored value
+    Apply OpenBSD patches 
     Make playlist columns reorderable with drag and drop
     libgmtk - gmtk_media_player, add attribute disable_upscaling
     Add new preference to plugin tab, to disable scaling when video is embedded

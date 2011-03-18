@@ -346,7 +346,7 @@ void destroy_folder_progress_window();
 void update_status_icon();
 void setup_accelerators();
 void update_details_table();
-gboolean set_software_volume(int *data);
+gboolean set_software_volume(gdouble *data);
 gboolean set_adjust_layout(gpointer data);
 
 void show_fs_controls();

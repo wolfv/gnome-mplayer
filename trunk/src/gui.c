@@ -1517,11 +1517,10 @@ gboolean set_position(void *data)
     return FALSE;
 }
 
-gboolean set_software_volume(int *data)
+gboolean set_software_volume(gdouble *data)
 {
-
     gm_store = gm_pref_store_new("gnome-mplayer");
-    gm_pref_store_set_int(gm_store, VOLUME_SOFTVOL, *data);
+    gm_pref_store_set_float(gm_store, VOLUME_SOFTVOL, *data);
     gm_pref_store_free(gm_store);
     return FALSE;
 }
@@ -5314,7 +5313,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "x11");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xv");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xvmc");
-#ifndef OPENBSD
+#ifndef __OpenBSD__
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vaapi");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vdpau");
 #endif
@@ -5458,7 +5457,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     j = -1;
 
     config_mplayer_dvd_device = gtk_combo_box_entry_new_text();
-#ifdef OPENBSD
+#ifdef __OpenBSD__
     gtk_combo_box_append_text(GTK_COMBO_BOX(config_mplayer_dvd_device), "/dev/rcd0c");
     if (mplayer_dvd_device == NULL || g_ascii_strcasecmp("/dev/rcd0c", mplayer_dvd_device) == 0) {
         j = i;
