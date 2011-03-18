@@ -1,4 +1,5 @@
 Development
+    When stopping media, just quit mplayer instead of pausing and seeking to 0
     Fix resize issue in vertical layout
     Fix software volume stored value
     Apply OpenBSD patches 
