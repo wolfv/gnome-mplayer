@@ -2544,15 +2544,9 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (state == PLAYING) {
-        if (idledata != NULL && idledata->streaming) {
-            send_command("quit\n", FALSE);
-            state = QUIT;
-            autopause = FALSE;
-        } else {
-            send_command("seek 0 2\npause\n", FALSE);
-            state = STOPPED;
-            autopause = FALSE;
-        }
+        send_command("quit\n", FALSE);
+        state = QUIT;
+        autopause = FALSE;
         gmtk_media_tracker_set_percentage(tracker, 0.0);
         gtk_widget_set_sensitive(play_event_box, TRUE);
         gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
