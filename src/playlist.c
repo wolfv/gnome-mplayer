@@ -858,6 +858,7 @@ void create_playlist_widget()
     gtk_tree_view_set_reorderable(GTK_TREE_VIEW(list), FALSE);
     gtk_widget_add_events(list, GDK_BUTTON_PRESS_MASK);
     gtk_widget_set_size_request(GTK_WIDGET(list), -1, -1);
+    gtk_tree_view_set_column_drag_function(GTK_TREE_VIEW(list), NULL, NULL, NULL);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list));
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -911,8 +912,10 @@ void create_playlist_widget()
         g_strfreev(split);
     }
     gtk_tree_view_column_set_expand(column, TRUE);
+
     //gtk_tree_view_column_set_max_width(column, 40);
     g_object_set(renderer, "width-chars", 40, NULL);
+    gtk_tree_view_column_set_reorderable(column, TRUE);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, DESCRIPTION_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
@@ -923,6 +926,7 @@ void create_playlist_widget()
     //gtk_tree_view_column_set_max_width(column, 20);
     g_object_set(renderer, "width-chars", 20, NULL);
     gtk_tree_view_column_set_alignment(column, 0.0);
+    gtk_tree_view_column_set_reorderable(column, TRUE);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, ARTIST_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
@@ -933,6 +937,7 @@ void create_playlist_widget()
     //gtk_tree_view_column_set_max_width(column, 20);
     g_object_set(renderer, "width-chars", 20, NULL);
     gtk_tree_view_column_set_alignment(column, 0.0);
+    gtk_tree_view_column_set_reorderable(column, TRUE);
     gtk_tree_view_column_set_resizable(column, TRUE);
     gtk_tree_view_column_set_sort_column_id(column, ALBUM_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
@@ -943,7 +948,9 @@ void create_playlist_widget()
     //gtk_tree_view_column_set_expand(column, FALSE);
     gtk_tree_view_column_set_alignment(column, 1.0);
     g_object_set(renderer, "xalign", 1.0, NULL);
+    gtk_tree_view_column_set_reorderable(column, TRUE);
     gtk_tree_view_column_set_resizable(column, FALSE);
+    gtk_tree_view_column_set_sort_column_id(column, LENGTH_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
 
@@ -951,6 +958,7 @@ void create_playlist_widget()
     column = gtk_tree_view_column_new_with_attributes(_("Count"), renderer, "text", COUNT_COLUMN, NULL);
     //gtk_tree_view_column_set_expand(column, FALSE);
     g_object_set(renderer, "xalign", 1.0, NULL);
+    gtk_tree_view_column_set_reorderable(column, TRUE);
     gtk_tree_view_column_set_resizable(column, FALSE);
     gtk_tree_view_column_set_sort_column_id(column, COUNT_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
@@ -959,6 +967,7 @@ void create_playlist_widget()
     column = gtk_tree_view_column_new_with_attributes(_("Order"), renderer, "text", PLAY_ORDER_COLUMN, NULL);
     //gtk_tree_view_column_set_expand(column, FALSE);
     g_object_set(renderer, "xalign", 1.0, NULL);
+    gtk_tree_view_column_set_reorderable(column, TRUE);
     gtk_tree_view_column_set_resizable(column, FALSE);
     gtk_tree_view_column_set_sort_column_id(column, PLAY_ORDER_COLUMN);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
