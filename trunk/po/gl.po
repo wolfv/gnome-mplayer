@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-03 07:34-0700\n"
+"POT-Creation-Date: 2011-03-18 08:46-0600\n"
 "PO-Revision-Date: 2010-06-14 21:14+0000\n"
 "Last-Translator: Kevin DeKorte <kdekorte@gmail.com>\n"
 "Language-Team: Galician <marcoslansgarza@gmail.com>\n"
@@ -149,7 +149,7 @@ msgstr "Usar a disposición vertical"
 msgid "Start with playlist open"
 msgstr "Iniciar coa lista de reprodución aberta"
 
-#: src/main.c:109 src/gui.c:6041
+#: src/main.c:109 src/gui.c:5922
 msgid "Start with details visible"
 msgstr "Iniciar coa información detallada visíbel"
 
@@ -225,21 +225,21 @@ msgstr "Cargar todas as pistas do reprodutor multimedia usando o gpod"
 msgid "Don't fetch new cover art images"
 msgstr "Non buscar máis imaxes de cubertas"
 
-#: src/main.c:336 src/gui.c:723 src/gui.c:2470
+#: src/main.c:336 src/gui.c:725 src/gui.c:2481
 #, c-format
 msgid "Playing"
 msgstr "Reproducindo"
 
-#: src/main.c:894
+#: src/main.c:891
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[FILES...] - Reprodutor multimedia para GNOME basado en MPlayer"
 
-#: src/main.c:914
+#: src/main.c:911
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:979
+#: src/main.c:976
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -248,135 +248,135 @@ msgstr ""
 "Executar «gnome-mplayer --help» para ver a lista de opcións para a liña de "
 "ordes.\n"
 
-#: src/gui.c:420 src/gui.c:463
+#: src/gui.c:422 src/gui.c:465
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
 
-#: src/gui.c:455
+#: src/gui.c:457
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:457
+#: src/gui.c:459
 #, fuzzy, c-format
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:461 src/gui.c:3544 src/gui.c:6651
+#: src/gui.c:463 src/gui.c:3554 src/gui.c:6532
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:596
+#: src/gui.c:598
 #, c-format
 msgid "Buffering: %2i%%"
 msgstr "Precargando: %2i%%"
 
-#: src/gui.c:608
+#: src/gui.c:610
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Pausado | %2i%% ▼"
 
-#: src/gui.c:725 src/gui.c:2493
+#: src/gui.c:727 src/gui.c:2504
 #, c-format
 msgid "Paused"
 msgstr "Pausado"
 
-#: src/gui.c:727 src/gui.c:1141
+#: src/gui.c:729 src/gui.c:1143
 #, c-format
 msgid "Idle"
 msgstr "Inactivo"
 
-#: src/gui.c:897 src/support.c:248 src/playlist.c:583 src/playlist.c:904
+#: src/gui.c:899 src/support.c:248 src/playlist.c:584 src/playlist.c:906
 #, c-format
 msgid "%s items"
 msgstr "%s elementos"
 
-#: src/gui.c:899 src/gui.c:2997 src/gui.c:3341 src/support.c:197
-#: src/support.c:263 src/playlist.c:585
+#: src/gui.c:901 src/gui.c:3007 src/gui.c:3351 src/support.c:197
+#: src/support.c:263 src/playlist.c:586
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
 msgstr[0] "Elemento a reproducir"
 msgstr[1] "Elementos a reproducir"
 
-#: src/gui.c:921 src/gui.c:922 src/gui.c:925 src/gui.c:2466 src/gui.c:2468
+#: src/gui.c:923 src/gui.c:924 src/gui.c:927 src/gui.c:2477 src/gui.c:2479
 msgid "Pause"
 msgstr "Pausar"
 
-#: src/gui.c:942 src/gui.c:943 src/gui.c:946 src/gui.c:962 src/gui.c:963
-#: src/gui.c:966 src/gui.c:2489 src/gui.c:2491 src/gui.c:2549 src/gui.c:2551
-#: src/gui.c:2559 src/gui.c:2561 src/gui.c:7284 src/gui.c:7287
+#: src/gui.c:944 src/gui.c:945 src/gui.c:948 src/gui.c:964 src/gui.c:965
+#: src/gui.c:968 src/gui.c:2500 src/gui.c:2502 src/gui.c:2560 src/gui.c:2562
+#: src/gui.c:2570 src/gui.c:2572 src/gui.c:7165 src/gui.c:7168
 msgid "Play"
 msgstr "Reproducir"
 
-#: src/gui.c:1114
+#: src/gui.c:1116
 #, c-format
 msgid "Adding %s to playlist"
 msgstr "Engadindo %s á lista de reprodución"
 
-#: src/gui.c:1137
+#: src/gui.c:1139
 #, c-format
 msgid "Playing %s"
 msgstr "Reproducindo %s"
 
-#: src/gui.c:1139
+#: src/gui.c:1141
 #, c-format
 msgid "Paused %s"
 msgstr "Pausado %s"
 
-#: src/gui.c:1553 src/gui.c:1562
+#: src/gui.c:1554 src/gui.c:1563
 #, c-format
 msgid "Volume %i%%"
 msgstr "Volume %i%%"
 
-#: src/gui.c:2568
+#: src/gui.c:2579
 msgid "Stopped"
 msgstr "Detido"
 
-#: src/gui.c:2949 src/playlist.c:547
+#: src/gui.c:2959 src/playlist.c:548
 msgid "Open File"
 msgstr "Abrir un ficheiro"
 
-#: src/gui.c:3053
+#: src/gui.c:3063
 msgid "Open Location"
 msgstr "Abrir unha localización"
 
-#: src/gui.c:3055
+#: src/gui.c:3065
 msgid "Location:"
 msgstr "Localización:"
 
-#: src/gui.c:3108 src/gui.c:3198
+#: src/gui.c:3118 src/gui.c:3208
 msgid "Choose Disk Directory"
 msgstr "Escoller o directorio do disco"
 
-#: src/gui.c:3144 src/gui.c:3236
+#: src/gui.c:3154 src/gui.c:3246
 msgid "Choose Disk Image"
 msgstr "Escoller a imaxe do disco"
 
-#: src/gui.c:3158 src/gui.c:3250
+#: src/gui.c:3168 src/gui.c:3260
 msgid "Disk Image (*.iso)"
 msgstr "Imaxe do disco (*.iso)"
 
-#: src/gui.c:3457
+#: src/gui.c:3467
 msgid "Save As..."
 msgstr "Gardar como..."
 
-#: src/gui.c:3492
+#: src/gui.c:3502
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "Non se puido gardar  «%s»"
 
-#: src/gui.c:3495 src/support.c:798 src/support.c:889 src/thread.c:266
+#: src/gui.c:3505 src/support.c:798 src/support.c:889 src/thread.c:266
 msgid "GNOME MPlayer Error"
 msgstr "Produciuse un erro no GNOME MPlayer"
 
-#: src/gui.c:3546
+#: src/gui.c:3556
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "Un reprodutor multimedia para GNOME baseado en MPlayer"
 
-#: src/gui.c:3549
+#: src/gui.c:3559
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -415,160 +415,160 @@ msgstr ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 
-#: src/gui.c:3860
+#: src/gui.c:3870
 #, fuzzy
 msgid "Set AudioFile"
 msgstr "Seleccionar os subtítulos"
 
-#: src/gui.c:3901 src/playlist.c:136
+#: src/gui.c:3911 src/playlist.c:136
 msgid "Set Subtitle"
 msgstr "Seleccionar os subtítulos"
 
-#: src/gui.c:4061
+#: src/gui.c:4087
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Pantalla completa do Gnome MPlayer"
 
-#: src/gui.c:4739 src/nautilus_property_page.c:341
+#: src/gui.c:4606 src/nautilus_property_page.c:341
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">Detalles do vídeo</span>"
 
-#: src/gui.c:4746 src/nautilus_property_page.c:348
+#: src/gui.c:4613 src/nautilus_property_page.c:348
 msgid "Video Size:"
 msgstr "Tamaño do vídeo:"
 
-#: src/gui.c:4759
+#: src/gui.c:4626
 msgid "Video Format:"
 msgstr "Formato do vídeo:"
 
-#: src/gui.c:4770 src/nautilus_property_page.c:359
+#: src/gui.c:4637 src/nautilus_property_page.c:359
 msgid "Video Codec:"
 msgstr "Códec do vídeo:"
 
-#: src/gui.c:4781
+#: src/gui.c:4648
 msgid "Video FPS:"
 msgstr "FPS do vídeo:"
 
-#: src/gui.c:4790 src/nautilus_property_page.c:370
+#: src/gui.c:4657 src/nautilus_property_page.c:370
 msgid "Video Bitrate:"
 msgstr "Taxa de bits do vídeo:"
 
-#: src/gui.c:4801
+#: src/gui.c:4668
 msgid "Video Chapters:"
 msgstr "Capítulos do vídeo:"
 
-#: src/gui.c:4817 src/nautilus_property_page.c:395
+#: src/gui.c:4684 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Detalles do son</span>"
 
-#: src/gui.c:4824 src/nautilus_property_page.c:402
+#: src/gui.c:4691 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
 msgstr "Códec de son:"
 
-#: src/gui.c:4837 src/nautilus_property_page.c:425
+#: src/gui.c:4704 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
 msgstr "Canles de son"
 
-#: src/gui.c:4850 src/nautilus_property_page.c:413
+#: src/gui.c:4717 src/nautilus_property_page.c:413
 msgid "Audio Bitrate:"
 msgstr "Taxa de bits do son:"
 
-#: src/gui.c:4863
+#: src/gui.c:4730
 msgid "Audio Sample Rate:"
 msgstr "Taxa de mostraxe do audio"
 
-#: src/gui.c:4893
+#: src/gui.c:4760
 msgid "Video Picture Adjustments"
 msgstr "Axustes da imaxe do vídeo"
 
-#: src/gui.c:4906
+#: src/gui.c:4773
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">Axustes da imaxe do vídeo</span>"
 
-#: src/gui.c:4913
+#: src/gui.c:4780
 msgid "Brightness"
 msgstr "Brillo"
 
-#: src/gui.c:4923
+#: src/gui.c:4790
 msgid "Contrast"
 msgstr "Contraste"
 
-#: src/gui.c:4933
+#: src/gui.c:4800
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/gui.c:4943
+#: src/gui.c:4810
 msgid "Hue"
 msgstr "Matiz"
 
-#: src/gui.c:4953
+#: src/gui.c:4820
 msgid "Saturation"
 msgstr "Saturación"
 
-#: src/gui.c:4969
+#: src/gui.c:4836
 msgid "_Reset"
 msgstr "_Restabelecer"
 
-#: src/gui.c:5143
+#: src/gui.c:5010
 msgid "No Display"
 msgstr "Sen visualización"
 
-#: src/gui.c:5146
+#: src/gui.c:5013
 msgid "Minimal"
 msgstr "Mínimo"
 
-#: src/gui.c:5149
+#: src/gui.c:5016
 msgid "Timer"
 msgstr "Cronómetro"
 
-#: src/gui.c:5152
+#: src/gui.c:5019
 msgid "Timer/Total"
 msgstr "Cronómetro/Total"
 
-#: src/gui.c:5168
+#: src/gui.c:5035
 msgid "No Postprocessing"
 msgstr "Sen post-procesamento"
 
-#: src/gui.c:5172
+#: src/gui.c:5039
 msgid "Minimal Postprocessing"
 msgstr "Post-procesamento mínimo"
 
-#: src/gui.c:5176
+#: src/gui.c:5043
 msgid "More Postprocessing"
 msgstr "Máis post-procesamento"
 
-#: src/gui.c:5180
+#: src/gui.c:5047
 msgid "Maximum Postprocessing"
 msgstr "Máximo post-procesamento"
 
-#: src/gui.c:5405
+#: src/gui.c:5272
 msgid "Player"
 msgstr "Reprodutor"
 
-#: src/gui.c:5407
+#: src/gui.c:5274
 msgid "Language Settings"
 msgstr "Axustes de idioma"
 
-#: src/gui.c:5409
+#: src/gui.c:5276
 msgid "Subtitles"
 msgstr "Subtítulos"
 
-#: src/gui.c:5411
+#: src/gui.c:5278
 msgid "Interface"
 msgstr "Interface"
 
-#: src/gui.c:5413
+#: src/gui.c:5280
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:5415
+#: src/gui.c:5282
 msgid "Plugin"
 msgstr "Engadido"
 
-#: src/gui.c:5421
+#: src/gui.c:5288
 msgid "GNOME MPlayer Configuration"
 msgstr "Configuración do GNOME MPlayer"
 
-#: src/gui.c:5434 src/gui.c:5440
+#: src/gui.c:5301 src/gui.c:5307
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
@@ -576,64 +576,64 @@ msgstr ""
 "dispositivo de saída de vídeo do mplayer\n"
 "x11 debería funcionar. Probe xv ou gl para un mellor rendemento"
 
-#: src/gui.c:5475
+#: src/gui.c:5343
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "Permitir o envío de fluxos AC3/DTS cara a saída S/PDIF"
 
-#: src/gui.c:5479
+#: src/gui.c:5347
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "O control do volume do Mplayer está activado"
 
-#: src/gui.c:5497 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:238
-#: src/libgmtk/gmtk_output_combo_box.c:147
+#: src/gui.c:5366 src/libgmlib/gm_audio.c:76 src/libgmlib/gm_audio.c:254
+#: src/libgmtk/gmtk_output_combo_box.c:148
 #, fuzzy
 msgid "Default"
 msgstr "Mesturador predeterminado:"
 
-#: src/gui.c:5630
+#: src/gui.c:5506
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Axustes de saída</span>"
 
-#: src/gui.c:5637
+#: src/gui.c:5513
 msgid "Video Output:"
 msgstr "Saída de vídeo:"
 
-#: src/gui.c:5646
+#: src/gui.c:5522
 msgid "Audio Output:"
 msgstr "Saída de audio:"
 
-#: src/gui.c:5657
+#: src/gui.c:5533
 msgid "Default Mixer:"
 msgstr "Mesturador predeterminado:"
 
-#: src/gui.c:5667
+#: src/gui.c:5543
 msgid "Audio Channels to Output"
 msgstr "Canles de son de saída"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:5695
+#: src/gui.c:5571
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">Axustes na configuración</span>"
 
-#: src/gui.c:5703
+#: src/gui.c:5579
 msgid "Default Volume Level:"
 msgstr "Nivel de volume predeterminado:"
 
-#: src/gui.c:5710 src/gui.c:5713
+#: src/gui.c:5586 src/gui.c:5589
 msgid "Default volume for playback"
 msgstr "Volume predeterminado para a reprodución"
 
-#: src/gui.c:5727
+#: src/gui.c:5603
 msgid "On Screen Display Level:"
 msgstr "Nivel da información na pantalla:"
 
-#: src/gui.c:5739
+#: src/gui.c:5615
 msgid "Post-processing level:"
 msgstr "Nivel de post-procesamento:"
 
-#: src/gui.c:5753
+#: src/gui.c:5629
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -649,35 +649,40 @@ msgstr ""
 "lectores multimedia e permite a reprodución de determinados contidos web en\n"
 "navegadores compatíbeis con eNPRuntime (Firefox, Konqueror, etc)."
 
-#: src/gui.c:5764
+#: src/gui.c:5640
 msgid "QuickTime Emulation"
 msgstr "Emulación do QuickTime"
 
-#: src/gui.c:5769
+#: src/gui.c:5645
 msgid "RealPlayer Emulation"
 msgstr "Emulación do RealPlayer"
 
-#: src/gui.c:5774
+#: src/gui.c:5650
 msgid "Windows Media Player Emulation"
 msgstr "Emulación do Windows Media Player"
 
-#: src/gui.c:5779
+#: src/gui.c:5655
 msgid "DiVX Player Emulation"
 msgstr "Emulación do DiVX Player"
 
-#: src/gui.c:5784
+#: src/gui.c:5660
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "Compatibilidade para MIDI (require da compatibilidade MPlayer)"
 
-#: src/gui.c:5789
+#: src/gui.c:5665
 msgid "Disable Player Embedding"
 msgstr "Desactivar o reprodutor encaixado"
 
-#: src/gui.c:5794
+#: src/gui.c:5670
+#, fuzzy
+msgid "Disable Embedded Player Scaling"
+msgstr "Desactivar o reprodutor encaixado"
+
+#: src/gui.c:5675
 msgid "Audio Cache Size (KB):"
 msgstr ""
 
-#: src/gui.c:5804 src/gui.c:5807 src/gui.c:5813 src/gui.c:5818
+#: src/gui.c:5685 src/gui.c:5688 src/gui.c:5694 src/gui.c:5699
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -685,154 +690,154 @@ msgstr ""
 "Volume de datos que almacenar na caché cando se reproduza un multimeda da "
 "rede, empregar valores máis altos para redes lentas."
 
-#: src/gui.c:5832
+#: src/gui.c:5713
 msgid "Video Cache Size (KB):"
 msgstr ""
 
-#: src/gui.c:5852
+#: src/gui.c:5733
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">Axustes de idioma</span>"
 
-#: src/gui.c:5859
+#: src/gui.c:5740
 msgid "Default Audio Language"
 msgstr "Idioma predeterminado do son"
 
-#: src/gui.c:5868
+#: src/gui.c:5749
 msgid "Default Subtitle Language:"
 msgstr "Idioma predeterminado dos subtítulos:"
 
-#: src/gui.c:5878
+#: src/gui.c:5759
 msgid "File Metadata Encoding:"
 msgstr "Codificación dos metadatos do ficheiro"
 
-#: src/gui.c:5894
+#: src/gui.c:5775
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">Axustes dos subtítulos</span>"
 
-#: src/gui.c:5901
+#: src/gui.c:5782
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr ""
 "Activar a compatibilidade para subtítulos _Advanced Substation Alpha (ASS)"
 
-#: src/gui.c:5908
+#: src/gui.c:5789
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "_Empregar tipos de letra integrados (só MKV)"
 
-#: src/gui.c:5917
+#: src/gui.c:5798
 msgid "Subtitle Font:"
 msgstr "Tipo de letra dos subtítulos:"
 
-#: src/gui.c:5935
+#: src/gui.c:5816
 msgid "Subtitle Font Selection"
 msgstr "Tipo de letra dos subtitulos"
 
-#: src/gui.c:5940
+#: src/gui.c:5821
 msgid "Subtitle Color:"
 msgstr "Cor dos subtitulos:"
 
-#: src/gui.c:5964
+#: src/gui.c:5845
 msgid "Subtitle Color Selection"
 msgstr "Selección da cor para o subtítulo"
 
-#: src/gui.c:5970
+#: src/gui.c:5851
 msgid "Outline Subtitle Font"
 msgstr "Empregar nos subtítulos a letra con contorno"
 
-#: src/gui.c:5976
+#: src/gui.c:5857
 msgid "Shadow Subtitle Font"
 msgstr "Empregar letras con sombra nos subtítulos"
 
-#: src/gui.c:5982
+#: src/gui.c:5863
 msgid "Subtitle Font Scaling:"
 msgstr "Dimensionar o tipo de letra:"
 
-#: src/gui.c:5995
+#: src/gui.c:5876
 msgid "Subtitle File Encoding:"
 msgstr "Codificación dos subtítulos:"
 
-#: src/gui.c:6007
+#: src/gui.c:5888
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr "Marxe inferior dos subtítulos (só X11/XV):"
 
-#: src/gui.c:6020
+#: src/gui.c:5901
 msgid "Show Subtitles by Default"
 msgstr "Mostrar os subtítulos de forma predefinida"
 
-#: src/gui.c:6029
+#: src/gui.c:5910
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Preferencias do aplicativo</span>"
 
-#: src/gui.c:6036
+#: src/gui.c:5917
 msgid "Start with playlist visible"
 msgstr "Iniciar coa lista de reprodución visíbel"
 
-#: src/gui.c:6046
+#: src/gui.c:5927
 msgid "Respond to Keyboard Media Keys"
 msgstr "Responder a teclado multimedia"
 
-#: src/gui.c:6051
+#: src/gui.c:5932
 msgid "Use default playlist"
 msgstr "Empregar a lista predeterminada"
 
-#: src/gui.c:6057
+#: src/gui.c:5938
 msgid "Show notification popup"
 msgstr "Mostrar a xanela emerxente de avisos"
 
-#: src/gui.c:6064
+#: src/gui.c:5945
 msgid "Show status icon"
 msgstr "Mostrar a icona do estado"
 
-#: src/gui.c:6070
+#: src/gui.c:5951
 msgid "Use X Screen Saver control over Gnome Power Manager"
 msgstr "Usar X Screen Saver sobre o xestor de enerxía de GNOME"
 
-#: src/gui.c:6076
+#: src/gui.c:5957
 msgid "Place playlist below media (requires application restart)"
 msgstr ""
 "Colocar a lista de reprodución debaixo do medio (reiniciar o aplicativo)"
 
-#: src/gui.c:6081
+#: src/gui.c:5962
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Permitir unha única instancia do Gnome Player"
 
-#: src/gui.c:6091
+#: src/gui.c:5972
 msgid "When opening in single instance mode, replace existing file"
 msgstr "En modo «Instancia única», substituír o ficheiro existente"
 
-#: src/gui.c:6100
+#: src/gui.c:5981
 msgid "When opening file, bring main window to front"
 msgstr ""
 "Cando se abra un ficheiro, colocar a xanela principal en primeiro termo"
 
-#: src/gui.c:6107
+#: src/gui.c:5988
 msgid "Remember Window Location and Size"
 msgstr "Lembrar o tamaño e a localización da xanela"
 
-#: src/gui.c:6112
+#: src/gui.c:5993
 msgid "Resize window when new video is loaded"
 msgstr "Redimensionar a xanela cando se cargue un vídeo novo"
 
-#: src/gui.c:6117
+#: src/gui.c:5998
 msgid "Keep window above other windows"
 msgstr "Manter a xanela por riba das outras xanelas"
 
-#: src/gui.c:6122
+#: src/gui.c:6003
 msgid "Pause playback on mouse click"
 msgstr "Pausar a reprodución cun clic do rato"
 
-#: src/gui.c:6127
+#: src/gui.c:6008
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr "Desactivar a animación da barra de control de pantalla completa"
 
-#: src/gui.c:6132
+#: src/gui.c:6013
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr ""
 
-#: src/gui.c:6137
+#: src/gui.c:6018
 msgid "Verbose Debug Enabled"
 msgstr "Activar a depuración detallada"
 
-#: src/gui.c:6141 src/gui.c:6146
+#: src/gui.c:6022 src/gui.c:6027
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
@@ -840,11 +845,11 @@ msgstr ""
 "Cando esta opción está activada, a información suplementaria de depuración é "
 "enviada á terminal ou a  ~/.xsession-errors"
 
-#: src/gui.c:6157
+#: src/gui.c:6038
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Axustes avanzados do MPlayer</span>"
 
-#: src/gui.c:6166 src/gui.c:6170
+#: src/gui.c:6047 src/gui.c:6051
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
@@ -852,45 +857,45 @@ msgstr ""
 "Escolla esta opción se ao cambiar o volume do Gnome MPlayer cambia tamén o "
 "volume principal"
 
-#: src/gui.c:6180
+#: src/gui.c:6061
 msgid "Remember last software volume level"
 msgstr "Lembrar os axustes de volume por software"
 
-#: src/gui.c:6183 src/gui.c:6187
+#: src/gui.c:6064 src/gui.c:6068
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Estabelecer esta opción para que se lembren os axustes de volume por "
 "software."
 
-#: src/gui.c:6194
+#: src/gui.c:6075
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "Aumento do volume (-200dB to +60dB)"
 
-#: src/gui.c:6206
+#: src/gui.c:6087
 msgid "De_interlace Video"
 msgstr "Desentrelaza_r o vídeo"
 
-#: src/gui.c:6208 src/gui.c:6211
+#: src/gui.c:6089 src/gui.c:6092
 msgid "Set this option if video looks striped"
 msgstr "Escolla esta opción se o vídeo parece riscado"
 
-#: src/gui.c:6217
+#: src/gui.c:6098
 msgid "_Drop frames"
 msgstr "Activar os saltos _de imaxes"
 
-#: src/gui.c:6219 src/gui.c:6222
+#: src/gui.c:6100 src/gui.c:6103
 msgid "Set this option if video is well behind the audio"
 msgstr "Escolla esta opción se o vídeo vai por detrás do audio"
 
-#: src/gui.c:6228
+#: src/gui.c:6109
 msgid "Enable mplayer cache"
 msgstr "Activar a caché do MPlayer"
 
-#: src/gui.c:6234
+#: src/gui.c:6115
 msgid "Cache Size (KB):"
 msgstr "Tamaño da caché (KB):"
 
-#: src/gui.c:6242 src/gui.c:6246
+#: src/gui.c:6123 src/gui.c:6127
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
@@ -898,275 +903,275 @@ msgstr ""
 "Cantidade de datos que se gardarán na caché cando se reproduza un ficheiro, "
 "empregar valores máis altos para dispositivos e sitios web lentos."
 
-#: src/gui.c:6264
+#: src/gui.c:6145
 msgid "MPlayer Executable:"
 msgstr "Executábel do MPlayer:"
 
-#: src/gui.c:6268 src/gui.c:6272
+#: src/gui.c:6149 src/gui.c:6153
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Empregue esta opción para especificar un aplicativo do mplayer que non está "
 "no camiño predeterminado"
 
-#: src/gui.c:6288
+#: src/gui.c:6169
 msgid "Extra Options to MPlayer:"
 msgstr "Opcións extra do MPlayer:"
 
-#: src/gui.c:6291 src/gui.c:6294
+#: src/gui.c:6172 src/gui.c:6175
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "Engadir aquí calquera opción adicional do MPlayer (filtros etc)"
 
-#: src/gui.c:6305
+#: src/gui.c:6186
 msgid "MPlayer Default Optical Device"
 msgstr "Dispositivo óptico predeterminado de MPlayer"
 
-#: src/gui.c:6706
+#: src/gui.c:6587
 msgid "S_how Controls"
 msgstr "Mostrar os _controis"
 
-#: src/gui.c:6710 src/gui.c:6971
+#: src/gui.c:6591 src/gui.c:6852
 msgid "_Full Screen"
 msgstr "_Pantalla completa"
 
-#: src/gui.c:6715
+#: src/gui.c:6596
 msgid "_Copy Location"
 msgstr "_Copiar a localización"
 
 #. File Menu
-#: src/gui.c:6767
+#: src/gui.c:6648
 msgid "_File"
 msgstr "_Ficheiro"
 
-#: src/gui.c:6774
+#: src/gui.c:6655
 msgid "Open _Folder"
 msgstr "Abrir carta_fol"
 
-#: src/gui.c:6779
+#: src/gui.c:6660
 msgid "Open _Location"
 msgstr "Abrir unha _localización"
 
-#: src/gui.c:6785
+#: src/gui.c:6666
 msgid "_Disc"
 msgstr "_Disco"
 
-#: src/gui.c:6793
+#: src/gui.c:6674
 msgid "Open _Audio CD"
 msgstr "Abrir un CD de _son"
 
-#: src/gui.c:6798
+#: src/gui.c:6679
 msgid "Open _DVD"
 msgstr "Abrir un _DVD"
 
-#: src/gui.c:6800
+#: src/gui.c:6681
 msgid "Open DVD with _Menus"
 msgstr "Abrir un DVD con _menús"
 
-#: src/gui.c:6802
+#: src/gui.c:6683
 msgid "Open DVD from _Folder"
 msgstr "Abrir un DVD desde un _cartafol"
 
-#: src/gui.c:6805
+#: src/gui.c:6686
 msgid "Open DVD from Folder with M_enus"
 msgstr "Abrir un DVD desde un cartafol con m_enús"
 
-#: src/gui.c:6807
+#: src/gui.c:6688
 msgid "Open DVD from _ISO"
 msgstr "Abrir un DVD desde unha _ISO"
 
-#: src/gui.c:6810
+#: src/gui.c:6691
 msgid "Open DVD from ISO with Me_nus"
 msgstr "Abrir un DVD desde unha ISO con me_nús"
 
-#: src/gui.c:6815
+#: src/gui.c:6696
 msgid "Open _VCD"
 msgstr "Abrir un _VCD"
 
-#: src/gui.c:6818
+#: src/gui.c:6699
 msgid "_TV"
 msgstr "_TV"
 
-#: src/gui.c:6824
+#: src/gui.c:6705
 msgid "Open _Analog TV"
 msgstr "Abrir unha TV _analóxica"
 
-#: src/gui.c:6826
+#: src/gui.c:6707
 msgid "Open _Digital TV"
 msgstr "Abrir unha TV _dixital"
 
-#: src/gui.c:6829
+#: src/gui.c:6710
 msgid "Open _iPod™"
 msgstr "Abrir un _iPod™"
 
-#: src/gui.c:6838
+#: src/gui.c:6719
 msgid "Open _Recent"
 msgstr "Abrir _recentes"
 
 #. Edit Menu
-#: src/gui.c:6889
+#: src/gui.c:6770
 msgid "_Edit"
 msgstr "_Editar"
 
-#: src/gui.c:6895
+#: src/gui.c:6776
 msgid "_Shuffle Playlist"
 msgstr "Li_sta ao chou"
 
-#: src/gui.c:6899
+#: src/gui.c:6780
 msgid "_Loop Playlist"
 msgstr "_Repetir"
 
-#: src/gui.c:6903
+#: src/gui.c:6784
 msgid "S_witch Audio Track"
 msgstr "Cambiar a pista de son"
 
-#: src/gui.c:6906 src/playlist.c:1147
+#: src/gui.c:6787 src/playlist.c:1157
 msgid "Set Audi_o"
 msgstr ""
 
-#: src/gui.c:6909
+#: src/gui.c:6790
 msgid "Select _Audio Language"
 msgstr "Seleccionar o idioma para o _son"
 
-#: src/gui.c:6915
+#: src/gui.c:6796
 msgid "Set Sub_title"
 msgstr "Estabelecer o sub_título"
 
-#: src/gui.c:6918
+#: src/gui.c:6799
 msgid "S_elect Subtitle Language"
 msgstr "Seleccionar o idioma dos subtítulos"
 
-#: src/gui.c:6924
+#: src/gui.c:6805
 msgid "_Take Screenshot"
 msgstr "Facer unha captura da pan_talla"
 
-#: src/gui.c:6928 src/gui.c:6932
+#: src/gui.c:6809 src/gui.c:6813
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr ""
 "Os ficheiros chamados «shotNNNN.png» gardaranse no cartafol de traballo"
 
 #. View Menu
-#: src/gui.c:6954
+#: src/gui.c:6835
 msgid "_View"
 msgstr "_Ver"
 
-#: src/gui.c:6959
+#: src/gui.c:6840
 msgid "_Playlist"
 msgstr "_Lista de reprodución"
 
-#: src/gui.c:6962
+#: src/gui.c:6843
 msgid "Media _Info"
 msgstr "_Información do medio"
 
-#: src/gui.c:6964
+#: src/gui.c:6845
 msgid "D_etails"
 msgstr "D_etalles"
 
-#: src/gui.c:6966
+#: src/gui.c:6847
 msgid "Audio _Meter"
 msgstr "_Medidor de son"
 
-#: src/gui.c:6977
+#: src/gui.c:6858
 msgid "_Normal (1:1)"
 msgstr "_Normal (1:1)"
 
-#: src/gui.c:6979
+#: src/gui.c:6860
 msgid "_Double Size (2:1)"
 msgstr "_Dobre (2:1)"
 
-#: src/gui.c:6981
+#: src/gui.c:6862
 msgid "_Half Size (1:2)"
 msgstr "Me_tade (1:2)"
 
-#: src/gui.c:6984
+#: src/gui.c:6865
 msgid "_Aspect"
 msgstr "_Proporción"
 
-#: src/gui.c:6990
+#: src/gui.c:6871
 msgid "D_efault Aspect"
 msgstr "Proporción pre_determinada"
 
-#: src/gui.c:6992
+#: src/gui.c:6873
 msgid "_4:3 Aspect"
 msgstr "_Proporción 4:3"
 
-#: src/gui.c:6994
+#: src/gui.c:6875
 msgid "_16:9 Aspect"
 msgstr "Proporción _16:9"
 
-#: src/gui.c:6996
+#: src/gui.c:6877
 msgid "1_6:10 Aspect"
 msgstr "Proporción 1_6:10"
 
-#: src/gui.c:6998
+#: src/gui.c:6879
 msgid "_Follow Window"
 msgstr "A_xustar á xanela"
 
-#: src/gui.c:7004
+#: src/gui.c:6885
 msgid "Show _Subtitles"
 msgstr "Mostrar os _subtítulos"
 
-#: src/gui.c:7006
+#: src/gui.c:6887
 msgid "Decrease Subtitle Size"
 msgstr "Diminuír o tamaño dos subtítulos"
 
-#: src/gui.c:7007
+#: src/gui.c:6888
 msgid "Increase Subtitle Size"
 msgstr "Aumentar o tamaño dos subtítulos"
 
-#: src/gui.c:7009
+#: src/gui.c:6890
 msgid "Decrease Subtitle Delay"
 msgstr "Diminuír o atraso dos subtítulos"
 
-#: src/gui.c:7011
+#: src/gui.c:6892
 msgid "Increase Subtitle Delay"
 msgstr "Aumentar o atraso dos subtítulos"
 
-#: src/gui.c:7012
+#: src/gui.c:6893
 msgid "Switch An_gle"
 msgstr "Cambiar o án_gulo"
 
-#: src/gui.c:7013
+#: src/gui.c:6894
 msgid "_Controls"
 msgstr "_Controis"
 
-#: src/gui.c:7026
+#: src/gui.c:6907
 msgid "_Video Picture Adjustments"
 msgstr "Axustes da imaxe do _vídeo"
 
 #. Help Menu
-#: src/gui.c:7065
+#: src/gui.c:6946
 msgid "_Help"
 msgstr "_Axuda"
 
-#: src/gui.c:7237 src/gui.c:7240
+#: src/gui.c:7118 src/gui.c:7121
 msgid "Menu"
 msgstr "Menú"
 
-#: src/gui.c:7253 src/gui.c:7256
+#: src/gui.c:7134 src/gui.c:7137
 msgid "Previous"
 msgstr "Anterior"
 
-#: src/gui.c:7269 src/gui.c:7272
+#: src/gui.c:7150 src/gui.c:7153
 msgid "Rewind"
 msgstr "Retorno rápido"
 
-#: src/gui.c:7299 src/gui.c:7302
+#: src/gui.c:7180 src/gui.c:7183
 msgid "Stop"
 msgstr "Deter"
 
-#: src/gui.c:7314 src/gui.c:7317
+#: src/gui.c:7195 src/gui.c:7198
 msgid "Fast Forward"
 msgstr "Avance rápido"
 
-#: src/gui.c:7329 src/gui.c:7332
+#: src/gui.c:7210 src/gui.c:7213
 msgid "Next"
 msgstr "Seguinte"
 
-#: src/gui.c:7353 src/gui.c:7356
+#: src/gui.c:7234 src/gui.c:7237
 msgid "Full Screen"
 msgstr "Pantalla completa"
 
-#: src/gui.c:7408
+#: src/gui.c:7280
 msgid "Volume 100%"
 msgstr "Volume 100%"
 
@@ -1257,36 +1262,36 @@ msgstr ""
 "Nome do ficheiro: %s\n"
 "Subtítulo: %s"
 
-#: src/playlist.c:316 src/playlist.c:993 src/playlist.c:996
+#: src/playlist.c:317 src/playlist.c:1003 src/playlist.c:1006
 msgid "Save Playlist"
 msgstr "Gardar a lista de reprodución"
 
-#: src/playlist.c:333 src/playlist.c:387
+#: src/playlist.c:334 src/playlist.c:388
 msgid "Playlist (*.pls)"
 msgstr "Lista de reprodución (*.pls)"
 
-#: src/playlist.c:338 src/playlist.c:397
+#: src/playlist.c:339 src/playlist.c:398
 msgid "MP3 Playlist (*.m3u)"
 msgstr "Lista de reprodución de MP3 (*.m3u)"
 
-#: src/playlist.c:375 src/playlist.c:982 src/playlist.c:985
+#: src/playlist.c:376 src/playlist.c:992 src/playlist.c:995
 msgid "Open Playlist"
 msgstr "Abrir a lista de reprodución"
 
-#: src/playlist.c:392
+#: src/playlist.c:393
 msgid "Reference Playlist (*.ref)"
 msgstr "Lista de referencia (*.ref)"
 
-#: src/playlist.c:402
+#: src/playlist.c:403
 #, fuzzy
 msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
 msgstr "Lista de reprodución de MP3 (*.m3u)"
 
-#: src/playlist.c:609
+#: src/playlist.c:610
 msgid "Choose Directory"
 msgstr "Escoller un directorio"
 
-#: src/playlist.c:646
+#: src/playlist.c:647
 #, c-format
 msgid ""
 "\n"
@@ -1301,75 +1306,75 @@ msgstr[1] ""
 "\n"
 "\tAtopáronse %i ficheiros\n"
 
-#: src/playlist.c:901
+#: src/playlist.c:903
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Elemento a reproducir"
 msgstr[1] "Elementos a reproducir"
 
-#: src/playlist.c:920 src/nautilus_property_page.c:293
+#: src/playlist.c:924 src/nautilus_property_page.c:293
 msgid "Artist"
 msgstr "Artista"
 
-#: src/playlist.c:930 src/nautilus_property_page.c:305
+#: src/playlist.c:935 src/nautilus_property_page.c:305
 msgid "Album"
 msgstr "Álbum"
 
-#: src/playlist.c:941 src/nautilus_property_page.c:317
+#: src/playlist.c:947 src/nautilus_property_page.c:317
 msgid "Length"
 msgstr "Duración"
 
-#: src/playlist.c:950
+#: src/playlist.c:958
 msgid "Count"
 msgstr "Contador"
 
-#: src/playlist.c:958
+#: src/playlist.c:967
 msgid "Order"
 msgstr "Orde"
 
-#: src/playlist.c:968 src/playlist.c:971
+#: src/playlist.c:978 src/playlist.c:981
 msgid "Close Playlist View"
 msgstr "Pechar a vista da lista"
 
-#: src/playlist.c:1004 src/playlist.c:1007
+#: src/playlist.c:1014 src/playlist.c:1017
 msgid "Add Item to Playlist"
 msgstr "Engadir un elemento á lista de reprodución"
 
-#: src/playlist.c:1015 src/playlist.c:1018
+#: src/playlist.c:1025 src/playlist.c:1028
 msgid "Remove Item from Playlist"
 msgstr "Eliminar un elemento da lista de reprodución"
 
-#: src/playlist.c:1026 src/playlist.c:1029
+#: src/playlist.c:1036 src/playlist.c:1039
 msgid "Add Items in Folder to Playlist"
 msgstr "Engadir os elementos deste cartafol á lista de reprodución"
 
-#: src/playlist.c:1037 src/playlist.c:1040
+#: src/playlist.c:1047 src/playlist.c:1050
 msgid "Clear Playlist"
 msgstr "Limpar a lista de reprodución"
 
-#: src/playlist.c:1048 src/playlist.c:1051
+#: src/playlist.c:1058 src/playlist.c:1061
 msgid "Move Item Up"
 msgstr "Mover cara a arriba"
 
-#: src/playlist.c:1060 src/playlist.c:1063
+#: src/playlist.c:1070 src/playlist.c:1073
 msgid "Move Item Down"
 msgstr "Mover cara a abaixo"
 
-#: src/playlist.c:1073 src/playlist.c:1076
+#: src/playlist.c:1083 src/playlist.c:1086
 msgid "UnSort List"
 msgstr "Lista sen ordenar"
 
-#: src/playlist.c:1090 src/playlist.c:1093
+#: src/playlist.c:1100 src/playlist.c:1103
 #, fuzzy
 msgid "Loop Playlist"
 msgstr "_Repetir"
 
-#: src/playlist.c:1106 src/playlist.c:1109
+#: src/playlist.c:1116 src/playlist.c:1119
 #, fuzzy
 msgid "Shuffle Playlist"
 msgstr "Li_sta ao chou"
 
-#: src/playlist.c:1143
+#: src/playlist.c:1153
 msgid "_Set Subtitle"
 msgstr "_Estabelecer os subtítulos"
 
@@ -1403,8 +1408,8 @@ msgstr "Taxa de fotogramas do vídeo:"
 msgid "Audio/Video"
 msgstr "Son/Vídeo"
 
-#: src/libgmtk/gmtk_media_tracker.c:90 src/libgmtk/gmtk_media_tracker.c:93
-#: src/libgmtk/gmtk_media_tracker.c:197
+#: src/libgmtk/gmtk_media_tracker.c:92 src/libgmtk/gmtk_media_tracker.c:95
+#: src/libgmtk/gmtk_media_tracker.c:201
 msgid "No Information"
 msgstr "Non hai información"
 
