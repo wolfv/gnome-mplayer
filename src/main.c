@@ -853,7 +853,7 @@ int main(int argc, char *argv[])
     dvx_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_DVX);
     midi_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_MIDI);
     embedding_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_EMBEDDING);
-    disable_embedded_scaling = gm_pref_store_get_boolean(gmp_store, DISABLE_EMBEDDED_SCALING);
+	disable_embedded_scaling = gm_pref_store_get_boolean(gmp_store, DISABLE_EMBEDDED_SCALING);       
     if (embed_window == 0) {
         single_instance = gm_pref_store_get_boolean(gm_store, SINGLE_INSTANCE);
         if (single_instance) {
@@ -957,7 +957,7 @@ int main(int argc, char *argv[])
             printf("Using MPlayer Software Volume control\n");
         if (remember_softvol && volume_softvol != -1) {
             if (verbose)
-                printf("Using last volume of %i%%\n", volume_softvol);
+                printf("Using last volume of %f%%\n", volume_softvol);
             volume = (gdouble) volume_softvol *100.0;
         } else {
             volume = 100.0;

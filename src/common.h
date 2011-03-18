@@ -315,7 +315,7 @@ gint window_y;
 gint control_id;
 gboolean softvol;
 gboolean remember_softvol;
-gint volume_softvol;
+gdouble volume_softvol;
 gint volume_gain;
 gint verbose;
 gint reallyverbose;

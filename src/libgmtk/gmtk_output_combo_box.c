@@ -219,6 +219,16 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
 #else
 
     gtk_list_store_append(output->list, &iter);
+#ifdef __OpenBSD__
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
+                       OUTPUT_DESCRIPTION_COLUMN, "SNDIO", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "sndio", -1);
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
+                       OUTPUT_DESCRIPTION_COLUMN, "RTunes", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "rtunes", -1);
+    gtk_list_store_append(output->list, &iter);
+#endif
     gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
                        OUTPUT_DESCRIPTION_COLUMN, "ALSA", OUTPUT_CARD_COLUMN, -1,
                        OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "alsa", -1);

@@ -107,9 +107,9 @@ gboolean gm_audio_query_devices()
     device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
-#ifdef OPENBSD
+#ifdef __OpenBSD__
     device = g_new0(AudioDevice, 1);
-    device->description = g_strdup("Sound I/O");
+    device->description = g_strdup("SNDIO");
     device->type = AUDIO_TYPE_SOFTVOL;
     device->mplayer_ao = g_strdup("sndio");
     device->volume = 1.0;
