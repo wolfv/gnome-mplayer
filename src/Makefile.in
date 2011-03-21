@@ -77,10 +77,25 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
+AM_V_lt = $(am__v_lt_$(V))
+am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
+am__v_lt_0 = --silent
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+AM_V_CC = $(am__v_CC_$(V))
+am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
+am__v_CC_0 = @echo "  CC    " $@;
+AM_V_at = $(am__v_at_$(V))
+am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
+am__v_at_0 = @
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+AM_V_CCLD = $(am__v_CCLD_$(V))
+am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
+am__v_CCLD_0 = @echo "  CCLD  " $@;
+AM_V_GEN = $(am__v_GEN_$(V))
+am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
+am__v_GEN_0 = @echo "  GEN   " $@;
 SOURCES = $(gnome_mplayer_SOURCES) \
 	$(libgnome_mplayer_properties_page_so_SOURCES)
 DIST_SOURCES = $(gnome_mplayer_SOURCES) \
@@ -132,6 +147,7 @@ ALSA_CFLAGS = @ALSA_CFLAGS@
 ALSA_DEFINES = @ALSA_DEFINES@
 ALSA_LIBS = @ALSA_LIBS@
 AMTAR = @AMTAR@
+AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -508,10 +524,10 @@ clean-nautilusPROGRAMS:
 	-test -z "$(nautilus_PROGRAMS)" || rm -f $(nautilus_PROGRAMS)
 gnome-mplayer$(EXEEXT): $(gnome_mplayer_OBJECTS) $(gnome_mplayer_DEPENDENCIES) 
 	@rm -f gnome-mplayer$(EXEEXT)
-	$(gnome_mplayer_LINK) $(gnome_mplayer_OBJECTS) $(gnome_mplayer_LDADD) $(LIBS)
+	$(AM_V_CCLD)$(gnome_mplayer_LINK) $(gnome_mplayer_OBJECTS) $(gnome_mplayer_LDADD) $(LIBS)
 libgnome-mplayer-properties-page.so$(EXEEXT): $(libgnome_mplayer_properties_page_so_OBJECTS) $(libgnome_mplayer_properties_page_so_DEPENDENCIES) 
 	@rm -f libgnome-mplayer-properties-page.so$(EXEEXT)
-	$(libgnome_mplayer_properties_page_so_LINK) $(libgnome_mplayer_properties_page_so_OBJECTS) $(libgnome_mplayer_properties_page_so_LDADD) $(LIBS)
+	$(AM_V_CCLD)$(libgnome_mplayer_properties_page_so_LINK) $(libgnome_mplayer_properties_page_so_OBJECTS) $(libgnome_mplayer_properties_page_so_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -529,29 +545,33 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/thread.Po@am__quote@
 
 .c.o:
-@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c $<
 
 .c.obj:
-@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
 libgnome_mplayer_properties_page_so-nautilus_property_page.o: nautilus_property_page.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -MT libgnome_mplayer_properties_page_so-nautilus_property_page.o -MD -MP -MF $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.o `test -f 'nautilus_property_page.c' || echo '$(srcdir)/'`nautilus_property_page.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -MT libgnome_mplayer_properties_page_so-nautilus_property_page.o -MD -MP -MF $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.o `test -f 'nautilus_property_page.c' || echo '$(srcdir)/'`nautilus_property_page.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='nautilus_property_page.c' object='libgnome_mplayer_properties_page_so-nautilus_property_page.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.o `test -f 'nautilus_property_page.c' || echo '$(srcdir)/'`nautilus_property_page.c
 
 libgnome_mplayer_properties_page_so-nautilus_property_page.obj: nautilus_property_page.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -MT libgnome_mplayer_properties_page_so-nautilus_property_page.obj -MD -MP -MF $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.obj `if test -f 'nautilus_property_page.c'; then $(CYGPATH_W) 'nautilus_property_page.c'; else $(CYGPATH_W) '$(srcdir)/nautilus_property_page.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -MT libgnome_mplayer_properties_page_so-nautilus_property_page.obj -MD -MP -MF $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.obj `if test -f 'nautilus_property_page.c'; then $(CYGPATH_W) 'nautilus_property_page.c'; else $(CYGPATH_W) '$(srcdir)/nautilus_property_page.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Tpo $(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='nautilus_property_page.c' object='libgnome_mplayer_properties_page_so-nautilus_property_page.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnome_mplayer_properties_page_so_CFLAGS) $(CFLAGS) -c -o libgnome_mplayer_properties_page_so-nautilus_property_page.obj `if test -f 'nautilus_property_page.c'; then $(CYGPATH_W) 'nautilus_property_page.c'; else $(CYGPATH_W) '$(srcdir)/nautilus_property_page.c'; fi`
