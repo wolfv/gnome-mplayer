@@ -46,6 +46,9 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
 
 gboolean write_to_mplayer(GmtkMediaPlayer * player, const gchar * cmd);
 
+extern void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
+
+
 static void gmtk_media_player_class_init(GmtkMediaPlayerClass * class)
 {
     GtkWidgetClass *widget_class;
@@ -1232,7 +1235,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (strstr(mplayer_output->str, "VO:") != NULL) {
             buf = strstr(mplayer_output->str, "VO:");
             sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &w, &h, &(player->video_width), &(player->video_height));
-            gtk_widget_get_allocation(GTK_WIDGET(player), &allocation);
+            get_allocation(GTK_WIDGET(player), &allocation);
             if (player->restart) {
                 g_signal_emit_by_name(player, "restart-complete", NULL);
             } else {

@@ -1,4 +1,6 @@
 Development
+    libgmtk - gmtk_audio_meter, move a varible context
+    libgmtk - gmtk_media_player, get_allocation
     Try out silent make files
     Run update-po
     When stopping media, just quit mplayer instead of pausing and seeking to 0
