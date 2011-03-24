@@ -224,6 +224,8 @@ struct _GmtkMediaPlayer {
     gboolean restart;
     gdouble restart_position;
     GmtkMediaPlayerMediaState restart_state;
+
+    GdkColor *default_background;
 };
 
 struct _GmtkMediaPlayerClass {
