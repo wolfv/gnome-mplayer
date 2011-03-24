@@ -210,6 +210,8 @@ static void gmtk_media_player_dispose(GObject * object)
         player->af_export_filename = NULL;
     }
 
+	gdk_color_free(player->default_background);
+	
     G_OBJECT_CLASS(parent_class)->dispose(object);
 }
 
