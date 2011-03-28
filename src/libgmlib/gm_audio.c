@@ -32,6 +32,8 @@
 #include <pulse/glib-mainloop.h>
 #endif
 
+#include <math.h>
+
 GList *gm_audio_devices = NULL;
 gboolean gm_audio_debug = FALSE;
 void *gm_audio_server_volume_update_callback = NULL;
