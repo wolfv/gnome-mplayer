@@ -48,11 +48,16 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas
 %{_docdir}/%{name}
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}
+%{_datadir}/icons
+%{_datadir}/gnome-control-center
+%{_datadir}/locale
+%{_datadir}/man
 %if %{use_gconf}
 %config %{_sysconfdir}/gconf/schemas/%{name}.schemas
 %endif
 %if %{use_gsettings}
-%{_datadir}/glib-2.0/schemas
+%{_datadir}/glib-2.0/schemas/apps.gecko-mediaplayer.preferences.gschema.xml
+%{_datadir}/glib-2.0/schemas/apps.gnome-mplayer.preferences.enums.xml
+%{_datadir}/glib-2.0/schemas/apps.gnome-mplayer.preferences.gschema.xml
 %endif
 %{_libdir}/nautilus/extensions-2.0/libgnome-mplayer-properties-page.so

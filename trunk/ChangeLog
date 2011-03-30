@@ -1,4 +1,5 @@
 Development
+    Be more specific in SPEC file
     Fix RPM generation when using GSettings
     Fix problem with STOP when playing a playlist
     libgmlib - gm_audio, include math.h, Issue #499
