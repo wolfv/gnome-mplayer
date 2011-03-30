@@ -641,6 +641,7 @@ GIO_DEFINES
 GIO_LIBS
 GIO_CFLAGS
 GLIB2_26_DEFINES
+USE_GSETTINGS
 GLIB2_26_LIBS
 GLIB2_26_CFLAGS
 GLIB2_14_DEFINES
@@ -8138,7 +8139,7 @@ else
 	GLIB2_26_LIBS=$pkg_cv_GLIB2_26_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
-	with_gconf=no with_gsettings=yes GLIB2_26_DEFINES="-DGLIB2_26_ENABLED"
+	with_gconf=no with_gsettings=yes USE_GSETTINGS=1  GLIB2_26_DEFINES="-DGLIB2_26_ENABLED"
 $as_echo "#define GLIB2_26_ENABLED 1" >>confdefs.h
 
 fi

@@ -1,5 +1,6 @@
 %define ver @VERSION@
 %define use_gconf @USE_GCONF@
+%define use_gsettings @USE_GSETTINGS@
 
 Name: gnome-mplayer
 Summary: GNOME Frontend for MPlayer
@@ -38,6 +39,10 @@ export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/%{name}.schemas > /dev/null
 %endif
 
+%if %{use_gsettings}
+glib-compile-schemas %{_datadir}/glib-2.0/schemas
+%endif
+
 %files
 %defattr(-,root,root,-)
 %{_docdir}/%{name}
@@ -46,5 +51,8 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/%{name}.schemas
 %{_datadir}
 %if %{use_gconf}
 %config %{_sysconfdir}/gconf/schemas/%{name}.schemas
+%endif
+%if %{use_gsettings}
+%{_datadir}/glib-2.0/schemas
 %endif
 %{_libdir}/nautilus/extensions-2.0/libgnome-mplayer-properties-page.so
