@@ -2544,9 +2544,15 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (state == PLAYING) {
-        dontplaynext = TRUE;
-        send_command("quit\n", FALSE);
-        state = QUIT;
+        if (forcecache || (idledata != NULL && idledata->streaming)) {
+            dontplaynext = TRUE;
+            send_command("quit\n", FALSE);
+            state = QUIT;
+        } else {
+            send_command("seek 0 2\n", TRUE);
+            send_command("pause\n", FALSE);
+            state = STOPPED;
+        }
         autopause = FALSE;
         gmtk_media_tracker_set_percentage(tracker, 0.0);
         gtk_widget_set_sensitive(play_event_box, TRUE);
@@ -2682,24 +2688,40 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
+    gboolean valid = FALSE;
+    GtkTreePath *path;
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (idledata->has_chapters) {
             send_command("seek_chapter 1 0\n", FALSE);
         } else {
-            mplayer_shutdown();
-            if (autopause) {
-                autopause = FALSE;
-                gtk_widget_set_sensitive(play_event_box, TRUE);
-                gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
-            }
-            gtk_widget_set_sensitive(ff_event_box, TRUE);
-            gtk_widget_set_sensitive(rew_event_box, TRUE);
+            valid = next_item_in_playlist(&iter);
         }
     } else {
         if (idledata->has_chapters) {
             send_command("seek_chapter 1 0\n", FALSE);
         }
+    }
+
+    if (valid) {
+        dontplaynext = TRUE;
+        play_iter(&iter, 0);
+        if (autopause) {
+            autopause = FALSE;
+            gtk_widget_set_sensitive(play_event_box, TRUE);
+            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+        }
+        gtk_widget_set_sensitive(ff_event_box, TRUE);
+        gtk_widget_set_sensitive(rew_event_box, TRUE);
+
+    }
+
+    if (GTK_IS_TREE_SELECTION(selection)) {
+        path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+        gtk_tree_selection_select_path(selection, path);
+        if (GTK_IS_WIDGET(list))
+            gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
+        gtk_tree_path_free(path);
     }
 
     return FALSE;

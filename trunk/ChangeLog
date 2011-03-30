@@ -1,4 +1,6 @@
 Development
+    Fix memory pointer issue that could lead to crash in mplayer thread
+    Rework Next option when caching is enabled (recommend that caching be disabled)
     Be more specific in SPEC file
     Fix RPM generation when using GSettings
     Fix problem with STOP when playing a playlist
