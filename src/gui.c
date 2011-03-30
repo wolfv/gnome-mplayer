@@ -1517,7 +1517,7 @@ gboolean set_position(void *data)
     return FALSE;
 }
 
-gboolean set_software_volume(gdouble *data)
+gboolean set_software_volume(gdouble * data)
 {
     gm_store = gm_pref_store_new("gnome-mplayer");
     gm_pref_store_set_float(gm_store, VOLUME_SOFTVOL, *data);
@@ -2544,6 +2544,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (state == PLAYING) {
+        dontplaynext = TRUE;
         send_command("quit\n", FALSE);
         state = QUIT;
         autopause = FALSE;
