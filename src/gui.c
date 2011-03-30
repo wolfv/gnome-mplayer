@@ -4364,7 +4364,7 @@ void config_apply(GtkWidget * widget, void *data)
     midi_disabled = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_midi));
     embedding_disabled = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_noembed));
     disable_embedded_scaling = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_noscaling));
-    mplayer_bin = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_mplayer_bin)));
+    mplayer_bin = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(config_mplayer_bin)));
     if (!g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);
         mplayer_bin = NULL;
@@ -5244,7 +5244,6 @@ void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
         gtk_widget_set_sensitive(GTK_WIDGET(config_mixer), FALSE);
     }
 }
-
 
 void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 {
@@ -6160,7 +6159,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i++;
 
     conf_label = gtk_label_new(_("MPlayer Executable:"));
-    config_mplayer_bin = gtk_entry_new();
+    config_mplayer_bin = gtk_file_chooser_button_new("Select", GTK_FILE_CHOOSER_ACTION_OPEN);
 #ifdef GTK2_12_ENABLED
     gtk_widget_set_tooltip_text(config_mplayer_bin, _
                                 ("Use this option to specify a mplayer application that is not in the path"));
@@ -6169,7 +6168,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_tooltips_set_tip(tooltip, config_mplayer_bin, _
                          ("Use this option to specify a mplayer application that is not in the path"), NULL);
 #endif
-    gtk_entry_set_text(GTK_ENTRY(config_mplayer_bin), ((mplayer_bin) ? mplayer_bin : ""));
+    if (mplayer_bin != NULL)
+        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(config_mplayer_bin), mplayer_bin);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_entry_set_width_chars(GTK_ENTRY(config_mplayer_bin), 40);
