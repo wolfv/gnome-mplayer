@@ -1,4 +1,5 @@
 Development
+    Fix problem with STOP when playing a playlist
     libgmlib - gm_audio, include math.h, Issue #499
     libgmtk - gmtk_media_player, fix memory leak with stored color
     libgmtk - gmtk_media_player, manage widget background color correctly
