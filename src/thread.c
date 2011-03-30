@@ -55,7 +55,7 @@ gboolean write_to_mplayer(gpointer data)
     gsize bytes_written;
 
     if (verbose > 1)
-        printf("send command = %s\n", cmd);
+        printf("send command = %s", cmd);
 
     if (channel_in) {
         result = g_io_channel_write_chars(channel_in, cmd, -1, &bytes_written, NULL);
@@ -105,10 +105,14 @@ gboolean play(void *data)
 
 gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer data)
 {
-    //ThreadData *threaddata = (ThreadData *) data;
+    ThreadData *threaddata = (ThreadData *) data;
 
     if (verbose > 1)
         printf("thread complete\n");
+    if (threaddata != NULL) {
+        g_free(threaddata);
+        threaddata = NULL;
+    }
     g_idle_add(set_stop, idledata);
     state = QUIT;
     lastguistate = STOPPED;
@@ -142,9 +146,9 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (threaddata != NULL && threaddata->done == TRUE) {
         if (verbose)
             printf("shutting down threadquery for %s since threaddata->done is TRUE\n", threaddata->filename);
-        if (threaddata != NULL)
-            g_free(threaddata);
-        threaddata = NULL;
+        //if (threaddata != NULL)
+        //    g_free(threaddata);
+        //threaddata = NULL;
         return FALSE;
     }
 
@@ -310,9 +314,9 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (threaddata != NULL && threaddata->done == TRUE) {
         if (verbose)
             printf("shutting down threadquery for %s since threaddata->done is TRUE\n", threaddata->filename);
-        if (threaddata != NULL)
-            g_free(threaddata);
-        threaddata = NULL;
+        //if (threaddata != NULL)
+        //    g_free(threaddata);
+        //threaddata = NULL;
         return FALSE;
     }
 
@@ -514,7 +518,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         sscanf(buf, "ANS_TIME_POSITION=%lf", &idledata->position);
         idledata->position -= idledata->start_time;
         if (idledata->position < old_pos) {
-            send_command("get_time_length\n", FALSE);
+            send_command("get_time_length\n", TRUE);
             state = PLAYING;
         }
         g_idle_add(set_progress_time, idledata);
@@ -522,7 +526,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             idledata->percent = idledata->position / idledata->length;
             g_idle_add(set_progress_value, idledata);
         } else {
-            send_command("get_percent_pos\n", FALSE);
+            send_command("get_percent_pos\n", TRUE);
         }
     }
 
@@ -855,7 +859,7 @@ gboolean thread_query(gpointer data)
     int size;
     ThreadData *threaddata = (ThreadData *) data;
 
-    //printf("thread_query state = %i\n",state);
+    // printf("thread_query state = %i\n",state);
 
     // this function wakes up every 1/2 second and so 
     // this is where we should put in some code to detect if the media is getting 
@@ -874,8 +878,8 @@ gboolean thread_query(gpointer data)
     if (threaddata != NULL && threaddata->done == TRUE) {
         if (verbose)
             printf("shutting down threadquery for %s since threaddata->done is TRUE\n", threaddata->filename);
-        g_free(threaddata);
-        threaddata = NULL;
+        //g_free(threaddata);
+        //threaddata = NULL;
         return FALSE;
     }
 
@@ -887,13 +891,16 @@ gboolean thread_query(gpointer data)
 
     if (state == PLAYING) {
         // size = write(std_in, "get_percent_pos\n", strlen("get_percent_pos\n"));
-        size = write(std_in, "get_time_pos\n", strlen("get_time_pos\n"));
+        if (use_pausing_keep_force) {
+            size = write(std_in, "pausing_keep_force get_time_pos\n", strlen("pausing_keep_force get_time_pos\n"));
+        } else {
+            size = write(std_in, "pausing_keep get_time_pos\n", strlen("pausing_keep get_time_pos\n"));
+        }
         if (size == -1) {
             g_idle_add(set_kill_mplayer, NULL);
             return FALSE;
         } else {
 
-            //send_command("get_time_pos\n");
             send_command("get_time_length\n", TRUE);
             send_command("get_property stream_pos\n", TRUE);
             send_command("get_property volume\n", TRUE);
