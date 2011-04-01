@@ -753,6 +753,7 @@ int main(int argc, char *argv[])
     skip_fixed_allocation_on_show = FALSE;
     skip_fixed_allocation_on_hide = FALSE;
     pref_volume = -1;
+    use_mplayer2 = FALSE;
 
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;
