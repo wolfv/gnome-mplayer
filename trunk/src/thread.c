@@ -71,7 +71,7 @@ gboolean send_command(gchar * command, gboolean retain_pause)
 {
     gchar *cmd;
 
-    if (retain_pause) {
+    if (retain_pause && use_mplayer2 == FALSE) {
         if (use_pausing_keep_force) {
             cmd = g_strdup_printf("pausing_keep_force %s", command);
         } else {

@@ -2803,6 +2803,9 @@ gboolean detect_volume_option()
         if (g_ascii_strncasecmp(output[ac], "Unknown option", strlen("Unknown option")) == 0) {
             ret = FALSE;
         }
+        if (g_ascii_strncasecmp(output[ac], "MPlayer2", strlen("MPlayer2")) == 0) {
+            use_mplayer2 = TRUE;
+        }
         ac++;
     }
     g_strfreev(output);

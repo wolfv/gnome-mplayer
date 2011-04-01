@@ -1,4 +1,5 @@
 Development
+    Add support for MPlayer2 detection
     Use a file chooser button to pick the mplayer executable rather than typing in the path
     Fix memory pointer issue that could lead to crash in mplayer thread
     Rework Next option when caching is enabled (recommend that caching be disabled)
