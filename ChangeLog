@@ -1,4 +1,5 @@
 Development
+    Convert mute 1\nseek 0 0\n commands to separate commands
     Add support for MPlayer2 detection
     Use a file chooser button to pick the mplayer executable rather than typing in the path
     Fix memory pointer issue that could lead to crash in mplayer thread
