@@ -2086,7 +2086,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             if (state != STOPPED && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 send_command("seek +600 0\n", TRUE);
             if (state == PAUSED) {
-                send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                send_command("mute 1\n", TRUE);
+                send_command("seek 0 0\n", TRUE);
                 send_command("mute 0\n", TRUE);
                 idledata->position += 600;
                 if (idledata->position > idledata->length)
@@ -2098,7 +2099,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             if (state != STOPPED && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 send_command("seek -600 0\n", TRUE);
             if (state == PAUSED) {
-                send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                send_command("mute 1\n", TRUE);
+                send_command("seek 0 0\n", TRUE);
                 send_command("mute 0\n", TRUE);
                 idledata->position -= 600;
                 if (idledata->position < 0)
@@ -2113,7 +2115,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 if (state != STOPPED && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     send_command("seek +60 0\n", TRUE);
                 if (state == PAUSED) {
-                    send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                    send_command("mute 1\n", TRUE);
+                    send_command("seek 0 0\n", TRUE);
                     send_command("mute 0\n", TRUE);
                     idledata->position += 60;
                     if (idledata->position > idledata->length)
@@ -2130,7 +2133,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 if (state != STOPPED && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     send_command("seek -60 0\n", TRUE);
                 if (state == PAUSED) {
-                    send_command("mute 1\nseek 0 0\npause\n", FALSE);
+                    send_command("mute 1\n", TRUE);
+                    send_command("seek 0 0\n", TRUE);
                     send_command("mute 0\n", TRUE);
                     idledata->position -= 60;
                     if (idledata->position < 0)
@@ -2595,7 +2599,8 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     if (state != STOPPED) {
         send_command("seek +10 0\n", TRUE);
         if (state == PAUSED) {
-            send_command("mute 1\nseek 0 0\npause\n", FALSE);
+            send_command("mute 1\n", TRUE);
+            send_command("seek 0 0\n", TRUE);
             send_command("mute 0\n", TRUE);
             idledata->position += 10;
             if (idledata->position > idledata->length)
@@ -2616,7 +2621,8 @@ gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     if (state != STOPPED) {
         send_command("seek -10 0\n", TRUE);
         if (state == PAUSED) {
-            send_command("mute 1\nseek 0 0\npause\n", FALSE);
+            send_command("mute 1\n", TRUE);
+            send_command("seek 0 0\n", TRUE);
             send_command("mute 0\n", TRUE);
             idledata->position -= 10;
             if (idledata->position < 0)
