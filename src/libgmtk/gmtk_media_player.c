@@ -1628,6 +1628,8 @@ gboolean write_to_mplayer(GmtkMediaPlayer * player, const gchar * cmd)
         } else {
             return FALSE;
         }
-    }
+    } else {
+		return FALSE;
+	}
 
 }
