@@ -108,7 +108,8 @@ typedef enum {
     ATTRIBUTE_AUDIO_BITRATE,
     ATTRIBUTE_AUDIO_RATE,
     ATTRIBUTE_AUDIO_NCH,
-    ATTRIBUTE_DISABLE_UPSCALING
+    ATTRIBUTE_DISABLE_UPSCALING,
+    ATTRIBUTE_MPLAYER_BINARY
 } GmtkMediaPlayerMediaAttributes;
 
 typedef enum {
@@ -208,6 +209,9 @@ struct _GmtkMediaPlayer {
 
     GMutex *thread_running;
     GCond *mplayer_complete_cond;
+    gchar *mplayer_binary;
+    gboolean use_mplayer2;
+    gboolean features_detected;
 
     gint std_in;
     gint std_out;

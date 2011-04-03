@@ -47,6 +47,7 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
 gboolean write_to_mplayer(GmtkMediaPlayer * player, const gchar * cmd);
 
 extern void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
+gboolean detect_mplayer_features(GmtkMediaPlayer * player);
 
 
 static void gmtk_media_player_class_init(GmtkMediaPlayerClass * class)
@@ -181,6 +182,9 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->audio_format = NULL;
     player->audio_codec = NULL;
     player->disable_upscaling = FALSE;
+    player->mplayer_binary = NULL;
+    player->use_mplayer2 = FALSE;
+    player->features_detected = FALSE;
 }
 
 static void gmtk_media_player_dispose(GObject * object)
@@ -210,8 +214,8 @@ static void gmtk_media_player_dispose(GObject * object)
         player->af_export_filename = NULL;
     }
 
-	gdk_color_free(player->default_background);
-	
+    gdk_color_free(player->default_background);
+
     G_OBJECT_CLASS(parent_class)->dispose(object);
 }
 
@@ -691,6 +695,7 @@ void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
             player->vo = g_strdup(value);
         }
         break;
+
     case ATTRIBUTE_AO:
         if (value == NULL || strlen(value) == 0) {
             if (player->ao != NULL) {
@@ -701,6 +706,19 @@ void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
             player->ao = g_strdup(value);
         }
         break;
+
+    case ATTRIBUTE_MPLAYER_BINARY:
+        if (value == NULL || strlen(value) == 0) {
+            if (player->mplayer_binary != NULL) {
+                g_free(player->mplayer_binary);
+                player->mplayer_binary = NULL;
+            }
+        } else {
+            player->mplayer_binary = g_strdup(value);
+        }
+        player->features_detected = FALSE;
+        break;
+
     default:
         printf("Unsupported Attribute\n");
     }
@@ -1027,6 +1045,8 @@ gpointer launch_mplayer(gpointer data)
     if (player->uri != NULL) {
         filename = g_filename_from_uri(player->uri, NULL, NULL);
     }
+
+    detect_mplayer_features(player);
 
     argv[argn++] = g_strdup_printf("mplayer");
     if (player->vo != NULL) {
@@ -1629,7 +1649,69 @@ gboolean write_to_mplayer(GmtkMediaPlayer * player, const gchar * cmd)
             return FALSE;
         }
     } else {
-		return FALSE;
-	}
+        return FALSE;
+    }
 
+}
+
+gboolean detect_mplayer_features(GmtkMediaPlayer * player)
+{
+    gchar *av[255];
+    gint ac = 0, i;
+    gchar **output;
+    GError *error;
+    gint exit_status;
+    gchar *out = NULL;
+    gchar *err = NULL;
+    gboolean ret = TRUE;
+
+    if (player->features_detected)
+        return ret;
+
+    if (player->mplayer_binary == NULL || !g_file_test(player->mplayer_binary, G_FILE_TEST_EXISTS)) {
+        av[ac++] = g_strdup_printf("mplayer");
+    } else {
+        av[ac++] = g_strdup_printf("%s", player->mplayer_binary);
+    }
+    av[ac++] = g_strdup_printf("-noidle");
+    av[ac++] = g_strdup_printf("-softvol");
+    av[ac] = NULL;
+
+    error = NULL;
+
+    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
+
+    for (i = 0; i < ac; i++) {
+        g_free(av[i]);
+    }
+
+    if (error != NULL) {
+        printf("Error when running: %s\n", error->message);
+        g_error_free(error);
+        error = NULL;
+        if (out != NULL)
+            g_free(out);
+        if (err != NULL)
+            g_free(err);
+        return FALSE;
+    }
+    output = g_strsplit(err, "\n", 0);
+    ac = 0;
+    while (output[ac] != NULL) {
+        if (g_ascii_strncasecmp(output[ac], "Unknown option", strlen("Unknown option")) == 0) {
+            ret = FALSE;
+        }
+        if (g_ascii_strncasecmp(output[ac], "MPlayer2", strlen("MPlayer2")) == 0) {
+            player->use_mplayer2 = TRUE;
+        }
+        ac++;
+    }
+    g_strfreev(output);
+    g_free(out);
+    g_free(err);
+
+    player->features_detected = TRUE;
+    if (!ret)
+        printf(_("You might want to consider upgrading mplayer to a newer version\n"));
+    return ret;
 }
