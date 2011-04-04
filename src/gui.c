@@ -3305,6 +3305,8 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 {
+    dontplaynext = TRUE;
+    mplayer_shutdown();
     gtk_list_store_clear(playliststore);
     parse_playlist("cdda://");
 
@@ -3316,6 +3318,8 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
 {
+    dontplaynext = TRUE;
+    mplayer_shutdown();
     gtk_list_store_clear(playliststore);
     parse_playlist("vcd://");
 
@@ -3327,6 +3331,8 @@ void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
 {
+    dontplaynext = TRUE;
+    mplayer_shutdown();
     gtk_list_store_clear(playliststore);
     add_item_to_playlist("tv://", 0);
 
@@ -3441,6 +3447,8 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
     FILE *fi;                   // FILE pointer to use to open the conf file
     gchar *mpconf;
 
+    dontplaynext = TRUE;
+    mplayer_shutdown();
     gtk_list_store_clear(playliststore);
 
     mpconf = g_strdup_printf("%s/.mplayer/channels.conf", g_getenv("HOME"));
