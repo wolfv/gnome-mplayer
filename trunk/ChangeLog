@@ -1,4 +1,5 @@
 Development
+    Shutdown mplayer before clearing playlist in open dtv, acd, vcd, and atv
     libgmtk - detect mplayer2, and allow setting a custom mplayer
     Convert mute 1\nseek 0 0\n commands to separate commands
     Add support for MPlayer2 detection
