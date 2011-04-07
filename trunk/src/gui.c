@@ -1956,7 +1956,6 @@ gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation,
             }
         }
 
-
         // printf("pre align new_width %i new_height %i\n",new_width, new_height);
         // adjust video to be aligned when playing on video on a smaller screen
         if (new_height < idledata->height || new_width < idledata->width) {
