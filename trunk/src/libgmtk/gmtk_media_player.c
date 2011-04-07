@@ -185,7 +185,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->mplayer_binary = NULL;
     player->use_mplayer2 = FALSE;
     player->features_detected = FALSE;
-	player->zoom = 1.0;
+    player->zoom = 1.0;
 }
 
 static void gmtk_media_player_dispose(GObject * object)
@@ -320,13 +320,13 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
             gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_SATURATION, 5);
             break;
         case GDK_plus:
-            write_to_mplayer(player, "pausing_keep_force audio_delay 0.1 0\n");
+            write_to_mplayer(player, "audio_delay 0.1 0\n");
             break;
         case GDK_minus:
-            write_to_mplayer(player, "pausing_keep_force audio_delay -0.1 0\n");
+            write_to_mplayer(player, "audio_delay -0.1 0\n");
             break;
         case GDK_numbersign:
-            write_to_mplayer(player, "pausing_keep_force switch_audio -1\n");
+            write_to_mplayer(player, "switch_audio -1\n");
             return TRUE;
             break;
         case GDK_period:
@@ -351,21 +351,21 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
             gmtk_media_player_size_allocate(GTK_WIDGET(player), &alloc);
             break;
         case GDK_j:
-            write_to_mplayer(player, "pausing_keep_force sub_select\n");
+            write_to_mplayer(player, "sub_select\n");
             break;
         case GDK_d:
-            write_to_mplayer(player,
-                             "pausing_keep_force frame_drop\npausing_keep_force osd_show_property_text \"framedropping: ${framedropping}\"\n");
+            write_to_mplayer(player, "frame_drop\n");
+            write_to_mplayer(player, "osd_show_property_text \"framedropping: ${framedropping}\"\n");
             break;
         case GDK_b:
-            write_to_mplayer(player, "pausing_keep_force sub_pos -1 0\n");
+            write_to_mplayer(player, "sub_pos -1 0\n");
             break;
         case GDK_B:
-            write_to_mplayer(player, "pausing_keep_force sub_pos 1 0\n");
+            write_to_mplayer(player, "sub_pos 1 0\n");
             break;
         case GDK_s:
         case GDK_S:
-            write_to_mplayer(player, "pausing_keep_force screenshot 0\n");
+            write_to_mplayer(player, "screenshot 0\n");
             break;
         default:
             printf("ignoring key %i\n", event->keyval);
@@ -545,7 +545,7 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
 
     if (player->player_state == PLAYER_STATE_RUNNING) {
         if (new_state == MEDIA_STATE_STOP) {
-            write_to_mplayer(player, "pausing_keep_force seek 0 2\n");
+            write_to_mplayer(player, "seek 0 2\n");
             if (player->media_state == MEDIA_STATE_PLAY) {
                 write_to_mplayer(player, "pause\n");
             }
@@ -601,7 +601,7 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
     case ATTRIBUTE_SUB_VISIBLE:
         player->sub_visible = value;
         if (player->player_state == PLAYER_STATE_RUNNING) {
-            cmd = g_strdup_printf("pausing_keep_force set_property sub_visibility %i\n", value);
+            cmd = g_strdup_printf("set_property sub_visibility %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
@@ -800,7 +800,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     case ATTRIBUTE_BRIGHTNESS:
         player->brightness = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
-            cmd = g_strdup_printf("pausing_keep_force set_property brightness %i\n", value);
+            cmd = g_strdup_printf("set_property brightness %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
@@ -809,7 +809,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     case ATTRIBUTE_CONTRAST:
         player->contrast = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
-            cmd = g_strdup_printf("pausing_keep_force set_property contrast %i\n", value);
+            cmd = g_strdup_printf("set_property contrast %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
@@ -818,7 +818,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     case ATTRIBUTE_GAMMA:
         player->gamma = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
-            cmd = g_strdup_printf("pausing_keep_force set_property gamma %i\n", value);
+            cmd = g_strdup_printf("set_property gamma %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
@@ -827,7 +827,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     case ATTRIBUTE_HUE:
         player->hue = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
-            cmd = g_strdup_printf("pausing_keep_force set_property hue %i\n", value);
+            cmd = g_strdup_printf("set_property hue %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
@@ -836,7 +836,7 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
     case ATTRIBUTE_SATURATION:
         player->saturation = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
-            cmd = g_strdup_printf("pausing_keep_force set_property saturation %i\n", value);
+            cmd = g_strdup_printf("set_property saturation %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
@@ -940,7 +940,7 @@ void gmtk_media_player_set_volume(GmtkMediaPlayer * player, gdouble value)
 
     player->volume = value;
     if (player->player_state == PLAYER_STATE_RUNNING) {
-        cmd = g_strdup_printf("pausing_keep_force volume %i 1\n", (gint) (player->volume * 100.0));
+        cmd = g_strdup_printf("volume %i 1\n", (gint) (player->volume * 100.0));
         write_to_mplayer(player, cmd);
         g_free(cmd);
     }
@@ -992,9 +992,9 @@ void gmtk_media_player_select_subtitle(GmtkMediaPlayer * player, const gchar * l
 
     if (list != NULL && subtitle != NULL && player->player_state == PLAYER_STATE_RUNNING) {
         if (subtitle->is_file) {
-            cmd = g_strdup_printf("pausing_keep_force sub_file %i \n", subtitle->id);
+            cmd = g_strdup_printf("sub_file %i \n", subtitle->id);
         } else {
-            cmd = g_strdup_printf("pausing_keep_force sub_demux %i \n", subtitle->id);
+            cmd = g_strdup_printf("sub_demux %i \n", subtitle->id);
         }
         player->subtitle_id = subtitle->id;
         player->subtitle_is_file = subtitle->is_file;
@@ -1021,7 +1021,7 @@ void gmtk_media_player_select_audio_track(GmtkMediaPlayer * player, const gchar 
     }
 
     if (list != NULL && track != NULL && player->player_state == PLAYER_STATE_RUNNING) {
-        cmd = g_strdup_printf("pausing_keep_force switch_audio %i \n", track->id);
+        cmd = g_strdup_printf("switch_audio %i \n", track->id);
         player->audio_track_id = track->id;
         write_to_mplayer(player, cmd);
         g_free(cmd);
@@ -1047,9 +1047,9 @@ void gmtk_media_player_select_subtitle_by_id(GmtkMediaPlayer * player, gint id)
 
     if (list != NULL && subtitle != NULL && player->player_state == PLAYER_STATE_RUNNING) {
         if (subtitle->is_file) {
-            cmd = g_strdup_printf("pausing_keep_force sub_file %i \n", subtitle->id);
+            cmd = g_strdup_printf("sub_file %i \n", subtitle->id);
         } else {
-            cmd = g_strdup_printf("pausing_keep_force sub_demux %i \n", subtitle->id);
+            cmd = g_strdup_printf("sub_demux %i \n", subtitle->id);
         }
         player->subtitle_id = subtitle->id;
         player->subtitle_is_file = subtitle->is_file;
@@ -1076,7 +1076,7 @@ void gmtk_media_player_select_audio_track_by_id(GmtkMediaPlayer * player, gint i
     }
 
     if (list != NULL && track != NULL && player->player_state == PLAYER_STATE_RUNNING) {
-        cmd = g_strdup_printf("pausing_keep_force switch_audio %i \n", track->id);
+        cmd = g_strdup_printf("switch_audio %i \n", track->id);
         player->audio_track_id = track->id;
         write_to_mplayer(player, cmd);
         g_free(cmd);
@@ -1389,7 +1389,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             if (player->type == TYPE_DVD) {
                 // do nothing  for now
             } else {
-                player->audio_track_id--;
+				if (!player->use_mplayer2)
+	                player->audio_track_id--;
             }
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
         }
@@ -1675,8 +1676,13 @@ gboolean thread_query(gpointer data)
 
     if (player->player_state == PLAYER_STATE_RUNNING) {
         if (player->media_state == MEDIA_STATE_PLAY) {
-            written =
-                write(player->std_in, "pausing_keep_force get_time_pos\n", strlen("pausing_keep_force get_time_pos\n"));
+            if (player->use_mplayer2) {
+                written = write(player->std_in, "get_time_pos\n", strlen("get_time_pos\n"));
+            } else {
+                written =
+                    write(player->std_in, "pausing_keep_force get_time_pos\n",
+                          strlen("pausing_keep_force get_time_pos\n"));
+            }
             if (written == -1) {
                 return FALSE;
             } else {
@@ -1698,11 +1704,22 @@ gboolean write_to_mplayer(GmtkMediaPlayer * player, const gchar * cmd)
 {
     GIOStatus result;
     gsize bytes_written;
+    gchar *pkf_cmd;
 
     //printf("send command = %s\n", cmd);
 
     if (player->channel_in) {
-        result = g_io_channel_write_chars(player->channel_in, cmd, -1, &bytes_written, NULL);
+        if (player->use_mplayer2) {
+            pkf_cmd = g_strdup(cmd);
+        } else {
+            if (g_strncasecmp(cmd, "pause", strlen("pause")) == 0) {
+                pkf_cmd = g_strdup(cmd);
+            } else {
+                pkf_cmd = g_strdup_printf("pausing_keep_force %s", cmd);
+            }
+        }
+        result = g_io_channel_write_chars(player->channel_in, pkf_cmd, -1, &bytes_written, NULL);
+        g_free(pkf_cmd);
         if (result != G_IO_STATUS_ERROR && bytes_written > 0) {
             result = g_io_channel_flush(player->channel_in, NULL);
             return TRUE;
