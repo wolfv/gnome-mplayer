@@ -1104,7 +1104,7 @@ gpointer launch_mplayer(gpointer data)
     player->seekable = FALSE;
     player->has_chapters = FALSE;
     gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
-    gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
+    gtk_widget_hide(GTK_WIDGET(player->socket));
 
     g_mutex_lock(player->thread_running);
     if (player->uri != NULL) {
@@ -1249,6 +1249,7 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
     g_cond_signal(player->mplayer_complete_cond);
     g_unlink(player->af_export_filename);
     gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
+    gtk_widget_hide(GTK_WIDGET(player->socket));
 
     return FALSE;
 }
@@ -1336,6 +1337,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             style = gtk_widget_get_style(GTK_WIDGET(player));
             gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, &(style->black));
             gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
+            gtk_widget_show(GTK_WIDGET(player->socket));
             write_to_mplayer(player, "get_property sub_source\n");
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
             g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));
