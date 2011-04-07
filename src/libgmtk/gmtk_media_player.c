@@ -242,6 +242,7 @@ gboolean gmtk_media_player_send_key_press_event(GmtkMediaPlayer * widget, GdkEve
 static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey * event, gpointer data)
 {
     GmtkMediaPlayer *player;
+    GtkAllocation alloc;
 
     if (data != NULL) {
         player = GMTK_MEDIA_PLAYER(data);
@@ -318,11 +319,9 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
             gmtk_media_player_set_attribute_integer_delta(player, ATTRIBUTE_SATURATION, 5);
             break;
         case GDK_plus:
-        case GDK_KP_Add:
             write_to_mplayer(player, "pausing_keep_force audio_delay 0.1 0\n");
             break;
         case GDK_minus:
-        case GDK_KP_Subtract:
             write_to_mplayer(player, "pausing_keep_force audio_delay -0.1 0\n");
             break;
         case GDK_numbersign:
@@ -332,6 +331,23 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
         case GDK_period:
             if (player->media_state == MEDIA_STATE_PAUSE)
                 write_to_mplayer(player, "frame_step\n");
+            break;
+        case GDK_KP_Add:
+            player->zoom += 0.10;
+            player->zoom = CLAMP(player->zoom, 0.1, 10.0);
+            get_allocation(GTK_WIDGET(player), &alloc);
+            gmtk_media_player_size_allocate(GTK_WIDGET(player), &alloc);
+            break;
+        case GDK_KP_Subtract:
+            player->zoom -= 0.10;
+            player->zoom = CLAMP(player->zoom, 0.1, 10.0);
+            get_allocation(GTK_WIDGET(player), &alloc);
+            gmtk_media_player_size_allocate(GTK_WIDGET(player), &alloc);
+            break;
+        case GDK_KP_Enter:
+            player->zoom = 1.0;
+            get_allocation(GTK_WIDGET(player), &alloc);
+            gmtk_media_player_size_allocate(GTK_WIDGET(player), &alloc);
             break;
         case GDK_j:
             write_to_mplayer(player, "pausing_keep_force sub_select\n");
@@ -423,6 +439,11 @@ static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * 
                 da_width = floorf((allocation->height * video_aspect) + 0.5);
             }
         }
+
+        // apply zoom factor
+        da_width = (gdouble) da_width *player->zoom;
+        da_height = (gdouble) da_height *player->zoom;
+
         gtk_widget_set_size_request(player->socket, da_width, da_height);
         player->top = (allocation->width - da_width) / 2;
         player->left = (allocation->height - da_height) / 2;
@@ -589,6 +610,10 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
         player->disable_upscaling = value;
         break;
 
+    case ATTRIBUTE_SOFTVOL:
+        player->softvol = value;
+        break;
+
     default:
         printf("Unsupported Attribute\n");
     }
@@ -634,13 +659,17 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkM
 void gmtk_media_player_set_attribute_double(GmtkMediaPlayer * player,
                                             GmtkMediaPlayerMediaAttributes attribute, gdouble value)
 {
-
-    if (attribute == ATTRIBUTE_CACHE_SIZE) {
+    switch (attribute) {
+    case ATTRIBUTE_CACHE_SIZE:
         player->cache_size = value;
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_SOFTVOL) {
-        player->softvol = value;
+    case ATTRIBUTE_ZOOM:
+        player->zoom = CLAMP(value, 0.1, 10.0);
+        break;
+
+    default:
+        printf("Unsupported Attribute\n");
     }
 
     return;
@@ -673,6 +702,10 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
 
     case ATTRIBUTE_AUDIO_TRACK_COUNT:
         ret = (gdouble) g_list_length(player->audio_tracks);
+        break;
+
+    case ATTRIBUTE_ZOOM:
+        ret = player->zoom;
         break;
 
     default:
@@ -762,49 +795,54 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
 {
     gchar *cmd = NULL;
 
-    if (attribute == ATTRIBUTE_BRIGHTNESS) {
+    switch (attribute) {
+    case ATTRIBUTE_BRIGHTNESS:
         player->brightness = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property brightness %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_CONTRAST) {
+    case ATTRIBUTE_CONTRAST:
         player->contrast = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property contrast %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_GAMMA) {
+    case ATTRIBUTE_GAMMA:
         player->gamma = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property gamma %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_HUE) {
+    case ATTRIBUTE_HUE:
         player->hue = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property hue %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_SATURATION) {
+    case ATTRIBUTE_SATURATION:
         player->saturation = CLAMP(value, -100.0, 100.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("pausing_keep_force set_property saturation %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
+        break;
+
+    default:
+        printf("Unsupported Attribute\n");
     }
 
     return;
@@ -820,18 +858,23 @@ void gmtk_media_player_set_attribute_integer_delta(GmtkMediaPlayer * player, Gmt
     case ATTRIBUTE_BRIGHTNESS:
         value = player->brightness + delta;
         break;
+
     case ATTRIBUTE_CONTRAST:
         value = player->contrast + delta;
         break;
+
     case ATTRIBUTE_GAMMA:
         value = player->gamma + delta;
         break;
+
     case ATTRIBUTE_HUE:
         value = player->hue + delta;
         break;
+
     case ATTRIBUTE_SATURATION:
         value = player->saturation + delta;
         break;
+
     default:
         return;
     }
@@ -842,25 +885,42 @@ void gmtk_media_player_set_attribute_integer_delta(GmtkMediaPlayer * player, Gmt
 
 gint gmtk_media_player_get_attribute_integer(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute)
 {
+    gint ret;
+
     switch (attribute) {
     case ATTRIBUTE_BRIGHTNESS:
-        return player->brightness;
+        ret = player->brightness;
         break;
+
     case ATTRIBUTE_CONTRAST:
-        return player->contrast;
+        ret = player->contrast;
         break;
+
     case ATTRIBUTE_GAMMA:
-        return player->gamma;
+        ret = player->gamma;
         break;
+
     case ATTRIBUTE_HUE:
-        return player->hue;
+        ret = player->hue;
         break;
+
     case ATTRIBUTE_SATURATION:
-        return player->saturation;
+        ret = player->saturation;
         break;
+
+    case ATTRIBUTE_WIDTH:
+        ret = player->video_width;
+        break;
+
+    case ATTRIBUTE_HEIGHT:
+        ret = player->video_height;
+        break;
+
     default:
         return 0;
     }
+
+    return ret;
 }
 
 
