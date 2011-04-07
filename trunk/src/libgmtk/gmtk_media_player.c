@@ -185,6 +185,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->mplayer_binary = NULL;
     player->use_mplayer2 = FALSE;
     player->features_detected = FALSE;
+	player->zoom = 1.0;
 }
 
 static void gmtk_media_player_dispose(GObject * object)

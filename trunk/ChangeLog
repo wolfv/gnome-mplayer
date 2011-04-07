@@ -1,4 +1,5 @@
 Development
+    libgmtk - gmtk_media_player, set default zoom to 1.0
     libgmtk - gmtk_media_player, clean up some attribute setter/getters
     libgmtk - gmtk_media_player, implement zoom factor for media, useful for panscan
     Shutdown mplayer before clearing playlist in open dtv, acd, vcd, and atv
