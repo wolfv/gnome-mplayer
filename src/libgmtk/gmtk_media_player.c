@@ -244,6 +244,7 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
 {
     GmtkMediaPlayer *player;
     GtkAllocation alloc;
+    gchar *cmd;
 
     if (data != NULL) {
         player = GMTK_MEDIA_PLAYER(data);
@@ -355,7 +356,9 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
             break;
         case GDK_d:
             write_to_mplayer(player, "frame_drop\n");
-            write_to_mplayer(player, "osd_show_property_text \"framedropping: ${framedropping}\"\n");
+            cmd = g_strdup_printf("osd_show_property_text \"%s: ${framedropping}\"\n", _("framedropping"));
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
             break;
         case GDK_b:
             write_to_mplayer(player, "sub_pos -1 0\n");
@@ -1389,8 +1392,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             if (player->type == TYPE_DVD) {
                 // do nothing  for now
             } else {
-				if (!player->use_mplayer2)
-	                player->audio_track_id--;
+                if (!player->use_mplayer2)
+                    player->audio_track_id--;
             }
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
         }
