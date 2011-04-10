@@ -6185,7 +6185,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(config_mplayer_bin), mplayer_bin);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
-    gtk_entry_set_width_chars(GTK_ENTRY(config_mplayer_bin), 40);
     gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
     gtk_table_attach(GTK_TABLE(conf_table), config_mplayer_bin, 0, 3, i, i + 1,
