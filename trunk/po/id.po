@@ -1,62 +1,59 @@
-# GNOME MPlayer
-# Copyright (C) 2007 Kevin DeKorte
-# This file is distributed under the same license as the GNOME MPlayer package.
-# Kevin DeKorte <kdekorte@gmail.com> 2007.
-#
+# Indonesian translation for gnome-mplayer
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the gnome-mplayer package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.3\n"
+"Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-04-11 08:44-0600\n"
-"PO-Revision-Date: 2010-08-20 22:14+0000\n"
-"Last-Translator: Daniel Șerbănescu <cyber19rider@gmail.com>\n"
-"Language-Team: \n"
-"Language: \n"
+"PO-Revision-Date: 2011-01-08 13:22+0000\n"
+"Last-Translator: Joshua Purba <jrocky@gmail.com>\n"
+"Language-Team: Indonesian <id@li.org>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
-"== 0) && (n != 0))) ? 2: 1));\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
 "X-Generator: Launchpad (build 12792)\n"
-"X-Poedit-Language: Romanian\n"
 
 #: src/main.c:52
 msgid "Window to embed in"
-msgstr "Fereastră de incorporat"
+msgstr ""
 
 #: src/main.c:53
 msgid "Width of window to embed in"
-msgstr "Lățime fereastră de incorporat"
+msgstr ""
 
 #: src/main.c:54
 msgid "Height of window to embed in"
-msgstr "Înălțime fereastră de incorparat"
+msgstr ""
 
 #: src/main.c:55
 msgid "Unique DBUS controller id"
-msgstr "DBUS controller id unic"
+msgstr ""
 
 #: src/main.c:56
 msgid "File Argument is a playlist"
-msgstr "Argumentul fișier este o listă de redare"
+msgstr ""
 
 #: src/main.c:57
 msgid "Show more output on the console"
-msgstr "Arată mai multe detalii în terminal"
+msgstr ""
 
 #: src/main.c:59
 msgid "Show even more output on the console"
-msgstr "Arată și mai multe detalii în terminal"
+msgstr ""
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
-msgstr "Pornește pe tot ecranul"
+msgstr ""
 
 #: src/main.c:61
 msgid "Use mplayer software volume control"
-msgstr "Folosește volumul de control mplayer"
+msgstr ""
 
 #: src/main.c:63
 msgid "When set to TRUE the last volume level is set as the default"
@@ -70,175 +67,173 @@ msgstr ""
 
 #: src/main.c:67
 msgid "Mixer to use"
-msgstr "Mixer de utilizat"
+msgstr ""
 
 #: src/main.c:68
 msgid "Set initial volume percentage"
-msgstr "Definește procentul volumului inițiat"
+msgstr ""
 
 #: src/main.c:69
 msgid "Show the controls in window"
-msgstr "Afișare fereastra cu controale"
+msgstr ""
 
 #: src/main.c:71
 msgid "Show the subtitles if available"
-msgstr "Arată subtitrări dacă sunt disponibile"
+msgstr ""
 
 #: src/main.c:74
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
 msgstr ""
-"Pornire automată definit implicit la 1, definire la 0 pentru a încărca dar a "
-"nu reda"
 
 #: src/main.c:76
 msgid "Disable popup menu on right click"
-msgstr "Dezactivare meniu contectual la clic dreata"
+msgstr ""
 
 #: src/main.c:78
 msgid "Disable fullscreen options in browser mode"
-msgstr "Dezactivare opțiune pe tot ecranul în modul navigator"
+msgstr ""
 
 #: src/main.c:79
 msgid "Play all files on the playlist forever"
-msgstr "Redă încontinuu toate fișierele din lista de redare"
+msgstr ""
 
 #: src/main.c:81
 msgid "Quit application when last file on playlist is played"
-msgstr "Închide aplicația după redarea ultimului fișier din lista de redare"
+msgstr ""
 
 #: src/main.c:82
 msgid "Play items on playlist in random order"
-msgstr "Redă elementele din lista de redare în ordine aleatoare"
+msgstr ""
 
 #: src/main.c:84
 msgid "Set cache size"
-msgstr "Definire dimensiune cache"
+msgstr ""
 
 #: src/main.c:86
 msgid "Start Second (default to 0)"
-msgstr "Secunda de start (implicit 0)"
+msgstr ""
 
 #: src/main.c:89
 msgid "Length of media to play from start second"
-msgstr "Lungimea de redat de la secunda de start"
+msgstr ""
 
 #: src/main.c:91
 msgid "Force cache usage on streaming sites"
-msgstr "Forțează folosirea cache-ului pentru fluxuri"
+msgstr ""
 
 #: src/main.c:94
 msgid "Disable the deinterlace filter"
-msgstr "Dezactivează filtrul de deîntrețesere"
+msgstr ""
 
 #: src/main.c:97
 msgid "Don't skip drawing frames to better keep sync"
-msgstr "Nu sări redarea cadrelor pentru o mai bună sincronizare"
+msgstr ""
 
 #: src/main.c:100
 msgid "Use the old subtitle rendering system"
-msgstr "Folosește vechiul sistem de redare subtitrări"
+msgstr ""
 
 #: src/main.c:103
 msgid "Don't use fonts embedded on matroska files"
-msgstr "Nu folosi embele de fonturi în fișierele matroska"
+msgstr ""
 
 #: src/main.c:105
 msgid "Use Vertical Layout"
-msgstr "Folosește aranjament vertical"
+msgstr ""
 
 #: src/main.c:107
 msgid "Start with playlist open"
-msgstr "Pornește cu lista de redare deschisă"
+msgstr ""
 
 #: src/main.c:109 src/gui.c:5951
 msgid "Start with details visible"
-msgstr "Pornește cu detaliile vizibile"
+msgstr ""
 
 #: src/main.c:111
 msgid "Real Player Name"
-msgstr "Nume Real Player"
+msgstr ""
 
 #: src/main.c:112
 msgid "Real Player Console ID"
-msgstr "ID consolă Real Player"
+msgstr ""
 
 #: src/main.c:113
 msgid "Real Player Console Controls"
-msgstr "Consolă controale Real Player"
+msgstr ""
 
 #: src/main.c:115
 msgid "Subtitle file for first media file"
-msgstr "Fișier subtitrare pentru primul fișier media"
+msgstr ""
 
 #: src/main.c:117
 msgid "TV device name"
-msgstr "Nume dispozitiv TV"
+msgstr ""
 
 #: src/main.c:118
 msgid "TV driver name (v4l|v4l2)"
-msgstr "Nume driver TV (v4l|v4l2)"
+msgstr ""
 
 #: src/main.c:119
 msgid "TV input name"
-msgstr "Nume intrare TV"
+msgstr ""
 
 #: src/main.c:120
 msgid "Width of TV input"
-msgstr "Lățime intrare TV"
+msgstr ""
 
 #: src/main.c:121
 msgid "Height of TV input"
-msgstr "Înălțime intrare TV"
+msgstr ""
 
 #: src/main.c:122
 msgid "Frames per second from TV input"
-msgstr "Cadre pe secundă de la intrarea TV"
+msgstr ""
 
 #: src/main.c:123
 msgid "Only allow one instance"
-msgstr "Permite numai o instanță"
+msgstr ""
 
 #: src/main.c:126
 msgid "Put single instance mode into replace and play mode"
-msgstr "Pune modul cu o singură instanță în modul „înlocuiește și redă”"
+msgstr ""
 
 #: src/main.c:129
 msgid "Use large control buttons"
-msgstr "Folosește butoane de control mari"
+msgstr "Gunakan tombol-tombol kendali yang besar"
 
 #: src/main.c:132
 msgid "Hide control panel when mouse is not moving"
-msgstr "Ascunde panoul de control când mausul nu se mișcă"
+msgstr "Sembunyikan panel kendali saat tetikus tidak bergerak"
 
 #: src/main.c:135
 msgid "Ignore single instance preference for this instance"
-msgstr "Ignoră preferință pentru o singură instanță pentru această instanță"
+msgstr ""
 
 #: src/main.c:138
 msgid "Keep window on top"
-msgstr "Întotneauna deasupra altor feresetre"
+msgstr ""
 
 #: src/main.c:142
 msgid "Load all tracks from media player using gpod"
-msgstr "Încarcă toate piesele din media player folosind gpod"
+msgstr ""
 
 #: src/main.c:146
 msgid "Don't fetch new cover art images"
-msgstr "Nu descărca coperți de albume noi"
+msgstr ""
 
 #: src/main.c:336 src/gui.c:725 src/gui.c:2484
 #, c-format
 msgid "Playing"
-msgstr "Se redă"
+msgstr "Memainkan"
 
 #: src/main.c:892
 msgid "[FILES...] - GNOME Media player based on MPlayer"
-msgstr "[FIȘIERE...] - GNOME Media player bazat pe MPlayer"
+msgstr ""
 
 #: src/main.c:912
 #, c-format
 msgid "GNOME MPlayer v%s\n"
-msgstr "GNOME MPlayer v%s\n"
+msgstr ""
 
 #: src/main.c:977
 #, c-format
@@ -246,18 +241,18 @@ msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr ""
-"Rulați „gnome-mplayer --help” pentru a vedea o listă completă a opțiunilor "
-"din linia de comandă.\n"
+"Jalankan 'gnome-mplayer --help' dari terminal untuk melihat daftar lengkap "
+"dari pilihan-pilihan baris perintah yang tersedia.\n"
 
 #: src/gui.c:422 src/gui.c:465
 #, c-format
 msgid "%s - GNOME MPlayer"
-msgstr "%s - GNOME MPlayer"
+msgstr ""
 
 #: src/gui.c:457
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
-msgstr "%s - (%i/%i) - GNOME MPlayer"
+msgstr ""
 
 #: src/gui.c:459
 #, c-format
@@ -272,111 +267,110 @@ msgstr "GNOME MPlayer"
 #: src/gui.c:598
 #, c-format
 msgid "Buffering: %2i%%"
-msgstr "Preîncărcare: %2i%%"
+msgstr ""
 
 #: src/gui.c:610
 #, c-format
 msgid "Paused | %2i%% ▼"
-msgstr "Pauză | %2i%% ▼"
+msgstr ""
 
 #: src/gui.c:727 src/gui.c:2507
 #, c-format
 msgid "Paused"
-msgstr "Întrerupt"
+msgstr ""
 
 #: src/gui.c:729 src/gui.c:1143
 #, c-format
 msgid "Idle"
-msgstr "Inactiv"
+msgstr ""
 
 #: src/gui.c:899 src/support.c:248 src/playlist.c:584 src/playlist.c:906
 #, c-format
 msgid "%s items"
-msgstr "%s elemente"
+msgstr ""
 
 #: src/gui.c:901 src/gui.c:3029 src/gui.c:3379 src/support.c:197
 #: src/support.c:263 src/playlist.c:586
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
-msgstr[0] "Element de redat"
-msgstr[1] "Elemente de redat"
-msgstr[2] "Elemente de redat"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/gui.c:923 src/gui.c:924 src/gui.c:927 src/gui.c:2480 src/gui.c:2482
 msgid "Pause"
-msgstr "Pauză"
+msgstr ""
 
 #: src/gui.c:944 src/gui.c:945 src/gui.c:948 src/gui.c:964 src/gui.c:965
 #: src/gui.c:968 src/gui.c:2503 src/gui.c:2505 src/gui.c:2564 src/gui.c:2566
 #: src/gui.c:2574 src/gui.c:2576 src/gui.c:7194 src/gui.c:7197
 msgid "Play"
-msgstr "Redare"
+msgstr "Mainkan"
 
 #: src/gui.c:1116
 #, c-format
 msgid "Adding %s to playlist"
-msgstr "Se adaugă %s la lista de redare"
+msgstr "Menambahkan %s ke daftar main"
 
 #: src/gui.c:1139
 #, c-format
 msgid "Playing %s"
-msgstr "Se redă %s"
+msgstr "Memainkan %s"
 
 #: src/gui.c:1141
 #, c-format
 msgid "Paused %s"
-msgstr "%s întrerupt"
+msgstr ""
 
 #: src/gui.c:1554 src/gui.c:1563
 #, c-format
 msgid "Volume %i%%"
-msgstr "Volum %i%%"
+msgstr ""
 
 #: src/gui.c:2583
 msgid "Stopped"
-msgstr "Oprit"
+msgstr ""
 
 #: src/gui.c:2981 src/playlist.c:548
 msgid "Open File"
-msgstr "Deschide fișier"
+msgstr "Buka Berkas"
 
 #: src/gui.c:3085
 msgid "Open Location"
-msgstr "Deschide loc"
+msgstr "Buka Lokasi"
 
 #: src/gui.c:3087
 msgid "Location:"
-msgstr "Loc:"
+msgstr "Lokasi:"
 
 #: src/gui.c:3140 src/gui.c:3230
 msgid "Choose Disk Directory"
-msgstr "Alege un dosar de pe disc"
+msgstr ""
 
 #: src/gui.c:3176 src/gui.c:3268
 msgid "Choose Disk Image"
-msgstr "Alege un o imagine de disc"
+msgstr ""
 
 #: src/gui.c:3190 src/gui.c:3282
 msgid "Disk Image (*.iso)"
-msgstr "Imagine de disc (*.iso)"
+msgstr ""
 
 #: src/gui.c:3497
 msgid "Save As..."
-msgstr "Salvează ca..."
+msgstr "Simpan Sebagai..."
 
 #: src/gui.c:3532
 #, c-format
 msgid "Unable to save '%s'"
-msgstr "Nu se poate salva „%s”"
+msgstr "Tidak dapat menyimpan '%s'"
 
 #: src/gui.c:3535 src/support.c:798 src/support.c:889 src/thread.c:270
 msgid "GNOME MPlayer Error"
-msgstr "Eroare GNOME MPlayer"
+msgstr "Galat GNOME MPlayer"
 
 #: src/gui.c:3586
 msgid "A media player for GNOME that uses MPlayer"
-msgstr "Un player media GNOME ce folosește MPlayer"
+msgstr ""
 
 #: src/gui.c:3589
 msgid ""
@@ -400,18 +394,6 @@ msgid ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 msgstr ""
-"Acest program este liber; îl puteți redistribui și/sau modifica în "
-"conformitate cu termenii Licenței Publice Generale GNU, așa cum este "
-"publicată de către Free Software Foundation; fie versiunea 3 a Licenței, fie "
-"(la latitudinea dumneavoastră) orice versiune ulterioară.\n"
-"\n"
-"Acest program este distribuit cu speranța că va fi util, dar FĂRĂ NICI O "
-"GARANȚIE; fără macar garanția implicită de\n"
-"VÂNDABILITATE sau CONFORMITATE UNUI ANUMIT SCOP. A se vedea Licența Publică "
-"Generală GNU pentru detalii.\n"
-"\n"
-"Ar trebui să fi primit o copie a Licenței Publice Generale GNU împreună cu "
-"acest program. În caz contrar, consultați <http://www.gnu.org/licenses/>."
 
 #: src/gui.c:3900
 msgid "Set AudioFile"
@@ -419,168 +401,165 @@ msgstr ""
 
 #: src/gui.c:3941 src/playlist.c:136
 msgid "Set Subtitle"
-msgstr "Definește subtitrare"
+msgstr ""
 
 #: src/gui.c:4117
 msgid "Gnome MPlayer Fullscreen"
-msgstr "Gnome MPlayer pe tot ecranul"
+msgstr ""
 
 #: src/gui.c:4636 src/nautilus_property_page.c:341
 msgid "<span weight=\"bold\">Video Details</span>"
-msgstr "<span weight=\"bold\">Detalii video</span>"
+msgstr "<span weight=\"bold\">Detil-detil Video</span>"
 
 #: src/gui.c:4643 src/nautilus_property_page.c:348
 msgid "Video Size:"
-msgstr "Dimensiune video:"
+msgstr ""
 
 #: src/gui.c:4656
 msgid "Video Format:"
-msgstr "Format video:"
+msgstr "Format Video"
 
 #: src/gui.c:4667 src/nautilus_property_page.c:359
 msgid "Video Codec:"
-msgstr "Codec video:"
+msgstr ""
 
 #: src/gui.c:4678
 msgid "Video FPS:"
-msgstr "FPS video:"
+msgstr ""
 
 #: src/gui.c:4687 src/nautilus_property_page.c:370
 msgid "Video Bitrate:"
-msgstr "Rată biți video:"
+msgstr ""
 
 #: src/gui.c:4698
 msgid "Video Chapters:"
-msgstr "Capitole video:"
+msgstr ""
 
 #: src/gui.c:4714 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
-msgstr "<span weight=\"bold\">Detalii audio</span>"
+msgstr "<span weight=\"bold\">Detil-detil Audio</span>"
 
 #: src/gui.c:4721 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
-msgstr "Codec audio:"
+msgstr ""
 
 #: src/gui.c:4734 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
-msgstr "Canale audio:"
+msgstr ""
 
 #: src/gui.c:4747 src/nautilus_property_page.c:413
 msgid "Audio Bitrate:"
-msgstr "Rată biți  audio:"
+msgstr ""
 
 #: src/gui.c:4760
 msgid "Audio Sample Rate:"
-msgstr "Rată eșantionare audio:"
+msgstr ""
 
 #: src/gui.c:4790
 msgid "Video Picture Adjustments"
-msgstr "Ajustări ale imaginii video"
+msgstr ""
 
 #: src/gui.c:4803
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
-msgstr "<span weight=\"bold\">Ajustări ale imaginii video</span>"
+msgstr ""
 
 #: src/gui.c:4810
 msgid "Brightness"
-msgstr "Luminozitate"
+msgstr "Kecerahan"
 
 #: src/gui.c:4820
 msgid "Contrast"
-msgstr "Contrast"
+msgstr ""
 
 #: src/gui.c:4830
 msgid "Gamma"
-msgstr "Gamma"
+msgstr ""
 
 #: src/gui.c:4840
 msgid "Hue"
-msgstr "Nuanță"
+msgstr ""
 
 #: src/gui.c:4850
 msgid "Saturation"
-msgstr "Saturație"
+msgstr ""
 
 #: src/gui.c:4866
 msgid "_Reset"
-msgstr "_Resetează"
+msgstr ""
 
 #: src/gui.c:5040
 msgid "No Display"
-msgstr "Fără afișare"
+msgstr ""
 
 #: src/gui.c:5043
 msgid "Minimal"
-msgstr "Minimal"
+msgstr ""
 
 #: src/gui.c:5046
 msgid "Timer"
-msgstr "Cronomentru"
+msgstr ""
 
 #: src/gui.c:5049
 msgid "Timer/Total"
-msgstr "Cronomentru/Total"
+msgstr ""
 
 #: src/gui.c:5065
 msgid "No Postprocessing"
-msgstr "Fără post-procesare"
+msgstr ""
 
 #: src/gui.c:5069
 msgid "Minimal Postprocessing"
-msgstr "Post-procesare minimă"
+msgstr ""
 
 #: src/gui.c:5073
 msgid "More Postprocessing"
-msgstr "Mai multă post-procesare"
+msgstr ""
 
 #: src/gui.c:5077
 msgid "Maximum Postprocessing"
-msgstr "Post-procesare maximă"
+msgstr ""
 
 #: src/gui.c:5301
 msgid "Player"
-msgstr "Player"
+msgstr ""
 
 #: src/gui.c:5303
 msgid "Language Settings"
-msgstr "Configurări limbă"
+msgstr ""
 
 #: src/gui.c:5305
 msgid "Subtitles"
-msgstr "Subtitrări"
+msgstr ""
 
 #: src/gui.c:5307
 msgid "Interface"
-msgstr "Interfață"
+msgstr ""
 
 #: src/gui.c:5309
 msgid "MPlayer"
-msgstr "MPlayer"
+msgstr ""
 
 #: src/gui.c:5311
 msgid "Plugin"
-msgstr "Modul"
+msgstr ""
 
 #: src/gui.c:5317
 msgid "GNOME MPlayer Configuration"
-msgstr "Configurare GNOME MPlayer"
+msgstr ""
 
 #: src/gui.c:5330 src/gui.c:5336
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
 msgstr ""
-"dispozitiv de ieșire video mplayer\n"
-"x11 ar trebui întotdeauna să meargă, incercați xv sau gl pentru o "
-"performanță mai bună"
 
 #: src/gui.c:5372
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr "Activează trecerea AC3/DTS către S/PDIF"
+msgstr ""
 
 #: src/gui.c:5376
 msgid "Mplayer Software Volume Control Enabled"
-msgstr "Control volum Mplayer activat"
+msgstr ""
 
 #: src/gui.c:5395 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
 #: src/libgmtk/gmtk_output_combo_box.c:148
@@ -589,46 +568,46 @@ msgstr ""
 
 #: src/gui.c:5535
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
-msgstr "<span weight=\"bold\">Ajustare configurări ieșire</span>"
+msgstr ""
 
 #: src/gui.c:5542
 msgid "Video Output:"
-msgstr "Ieșire video:"
+msgstr ""
 
 #: src/gui.c:5551
 msgid "Audio Output:"
-msgstr "Ieșire audio:"
+msgstr ""
 
 #: src/gui.c:5562
 msgid "Default Mixer:"
-msgstr "Mixer implicit:"
+msgstr ""
 
 #: src/gui.c:5572
 msgid "Audio Channels to Output"
-msgstr "Canale audio de ieșire"
+msgstr ""
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
 #: src/gui.c:5600
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
-msgstr "<span weight=\"bold\">Schimbă setari de configurare</span>"
+msgstr ""
 
 #: src/gui.c:5608
 msgid "Default Volume Level:"
-msgstr "Nivel implicit volum:"
+msgstr ""
 
 #: src/gui.c:5615 src/gui.c:5618
 msgid "Default volume for playback"
-msgstr "Nivel implicit al volumului la redare"
+msgstr ""
 
 #: src/gui.c:5632
 msgid "On Screen Display Level:"
-msgstr "Nivel afișaj pe ecran:"
+msgstr ""
 
 #: src/gui.c:5644
 msgid "Post-processing level:"
-msgstr "Nivel post-procesare:"
+msgstr ""
 
 #: src/gui.c:5658
 msgid ""
@@ -639,36 +618,30 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
-"<span weight=\"bold\">Setări emulare module</span>\n"
-"\n"
-"Aceste opțiuni schimbă modulul gecko-mediaplayer atunci când este instalat.\n"
-"Gecko-mediaplayer este un modul pentru Firefox care emuleaza multe\n"
-"media playere și permite redarea conținuturilor web in\n"
-"navigatoare compatibile cu NPRuntime (Firefox, Konqueror, etc)."
 
 #: src/gui.c:5669
 msgid "QuickTime Emulation"
-msgstr "Emulare QuickTime"
+msgstr ""
 
 #: src/gui.c:5674
 msgid "RealPlayer Emulation"
-msgstr "Emulare RealPlayer"
+msgstr ""
 
 #: src/gui.c:5679
 msgid "Windows Media Player Emulation"
-msgstr "Emulare Windows Media Player"
+msgstr ""
 
 #: src/gui.c:5684
 msgid "DiVX Player Emulation"
-msgstr "Emulare DiVX Player"
+msgstr ""
 
 #: src/gui.c:5689
 msgid "MIDI Support (requires MPlayer support)"
-msgstr "Suport MIDI (necesită suport MPlayer)"
+msgstr ""
 
 #: src/gui.c:5694
 msgid "Disable Player Embedding"
-msgstr "Dezactivează redarea inclusă"
+msgstr ""
 
 #: src/gui.c:5699
 msgid "Disable Embedded Player Scaling"
@@ -683,8 +656,6 @@ msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
 msgstr ""
-"Mărimea cache-ului când se redă continut media de pe internet, folosiți "
-"valori mai mari pentru conexiuni cu bandă mai ingustă."
 
 #: src/gui.c:5742
 msgid "Video Cache Size (KB):"
@@ -692,15 +663,15 @@ msgstr ""
 
 #: src/gui.c:5762
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
-msgstr "<span weight=\"bold\">Ajustare configurări limbă</span>"
+msgstr ""
 
 #: src/gui.c:5769
 msgid "Default Audio Language"
-msgstr "Limbă audio implicită"
+msgstr ""
 
 #: src/gui.c:5778
 msgid "Default Subtitle Language:"
-msgstr "Limbă subtitrare implicită:"
+msgstr ""
 
 #: src/gui.c:5788
 msgid "File Metadata Encoding:"
@@ -708,7 +679,7 @@ msgstr ""
 
 #: src/gui.c:5804
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
-msgstr "<span weight=\"bold\">Ajustare configurări video</span>"
+msgstr ""
 
 #: src/gui.c:5811
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
@@ -720,19 +691,19 @@ msgstr ""
 
 #: src/gui.c:5827
 msgid "Subtitle Font:"
-msgstr "Font subtirare:"
+msgstr ""
 
 #: src/gui.c:5845
 msgid "Subtitle Font Selection"
-msgstr "Alegere font subtitrare"
+msgstr ""
 
 #: src/gui.c:5850
 msgid "Subtitle Color:"
-msgstr "Culoare subtitrare:"
+msgstr ""
 
 #: src/gui.c:5874
 msgid "Subtitle Color Selection"
-msgstr "Alegere culoare subtitrare"
+msgstr ""
 
 #: src/gui.c:5880
 msgid "Outline Subtitle Font"
@@ -744,11 +715,11 @@ msgstr ""
 
 #: src/gui.c:5892
 msgid "Subtitle Font Scaling:"
-msgstr "Scalare font subtitrare:"
+msgstr ""
 
 #: src/gui.c:5905
 msgid "Subtitle File Encoding:"
-msgstr "Encodare fișier subtitrare:"
+msgstr ""
 
 #: src/gui.c:5917
 msgid "Subtitle Lower Margin (X11/XV Only):"
@@ -756,15 +727,15 @@ msgstr ""
 
 #: src/gui.c:5930
 msgid "Show Subtitles by Default"
-msgstr "Afișează subtitrările în mod implicit"
+msgstr ""
 
 #: src/gui.c:5939
 msgid "<span weight=\"bold\">Application Preferences</span>"
-msgstr "<span weight=\"bold\">Preferințele aplicației</span>"
+msgstr "<span weight=\"bold\">Preferensi Aplikasi</span>"
 
 #: src/gui.c:5946
 msgid "Start with playlist visible"
-msgstr "Pornește cu lista de redare vizibilă"
+msgstr "Mulai dengan daftar main terlihat"
 
 #: src/gui.c:5956
 msgid "Respond to Keyboard Media Keys"
@@ -772,7 +743,7 @@ msgstr ""
 
 #: src/gui.c:5961
 msgid "Use default playlist"
-msgstr "Folosește lista de redare implicită"
+msgstr ""
 
 #: src/gui.c:5967
 msgid "Show notification popup"
@@ -780,7 +751,7 @@ msgstr ""
 
 #: src/gui.c:5974
 msgid "Show status icon"
-msgstr "Afișează pictograma de stare"
+msgstr "Tampilkan ikon status"
 
 #: src/gui.c:5980
 msgid "Use X Screen Saver control over Gnome Power Manager"
@@ -792,7 +763,7 @@ msgstr ""
 
 #: src/gui.c:5991
 msgid "Only allow one instance of Gnome MPlayer"
-msgstr "Permite numai o singură instanță pentru Gnome MPlayer"
+msgstr ""
 
 #: src/gui.c:6001
 msgid "When opening in single instance mode, replace existing file"
@@ -800,23 +771,23 @@ msgstr ""
 
 #: src/gui.c:6010
 msgid "When opening file, bring main window to front"
-msgstr "Când se deschide fișierul, se aduce fereastra principală în faţă"
+msgstr "Saat membuka file, geser jendela utama ke depan"
 
 #: src/gui.c:6017
 msgid "Remember Window Location and Size"
-msgstr "Se ține minte mărimea și locația ferestrei"
+msgstr "Ingat Lokasi dan Ukuran Jendela"
 
 #: src/gui.c:6022
 msgid "Resize window when new video is loaded"
-msgstr "Redimensionează fereastra când un nou video este încărcat"
+msgstr ""
 
 #: src/gui.c:6027
 msgid "Keep window above other windows"
-msgstr "Ține fereastra deasupra altor ferestre"
+msgstr ""
 
 #: src/gui.c:6032
 msgid "Pause playback on mouse click"
-msgstr "Suspendă derularea când se face clic"
+msgstr ""
 
 #: src/gui.c:6037
 msgid "Disable Fullscreen Control Bar Animation"
@@ -828,7 +799,7 @@ msgstr ""
 
 #: src/gui.c:6047
 msgid "Verbose Debug Enabled"
-msgstr "Activare depanare detaliată"
+msgstr ""
 
 #: src/gui.c:6051 src/gui.c:6056
 msgid ""
@@ -838,7 +809,7 @@ msgstr ""
 
 #: src/gui.c:6067
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
-msgstr "<span weight=\"bold\">Opțiuni avansate pentru MPlayer</span>"
+msgstr "<span weight=\"bold\">Pengaturan Lanjutan untuk MPlayer</span>"
 
 #: src/gui.c:6076 src/gui.c:6080
 msgid ""
@@ -868,7 +839,7 @@ msgstr ""
 
 #: src/gui.c:6127
 msgid "_Drop frames"
-msgstr "Pier_de cadre"
+msgstr ""
 
 #: src/gui.c:6129 src/gui.c:6132
 msgid "Set this option if video is well behind the audio"
@@ -880,7 +851,7 @@ msgstr ""
 
 #: src/gui.c:6144
 msgid "Cache Size (KB):"
-msgstr "Mărime cache (KB):"
+msgstr ""
 
 #: src/gui.c:6152 src/gui.c:6156
 msgid ""
@@ -890,7 +861,7 @@ msgstr ""
 
 #: src/gui.c:6174
 msgid "MPlayer Executable:"
-msgstr "Executabilul MPlayer:"
+msgstr ""
 
 #: src/gui.c:6178 src/gui.c:6182
 msgid ""
@@ -899,7 +870,7 @@ msgstr ""
 
 #: src/gui.c:6198
 msgid "Extra Options to MPlayer:"
-msgstr "Opțiuni extra în MPlayer:"
+msgstr ""
 
 #: src/gui.c:6201 src/gui.c:6204
 msgid "Add any extra mplayer options here (filters etc)"
@@ -907,52 +878,52 @@ msgstr ""
 
 #: src/gui.c:6215
 msgid "MPlayer Default Optical Device"
-msgstr "Uintatea optică implicită a lui MPlayer"
+msgstr ""
 
 #: src/gui.c:6616
 msgid "S_how Controls"
-msgstr "A_fișare controale"
+msgstr ""
 
 #: src/gui.c:6620 src/gui.c:6881
 msgid "_Full Screen"
-msgstr "_Pe tot ecranul"
+msgstr ""
 
 #: src/gui.c:6625
 msgid "_Copy Location"
-msgstr "_Copiază locația"
+msgstr ""
 
 #. File Menu
 #: src/gui.c:6677
 msgid "_File"
-msgstr "_Fișier"
+msgstr ""
 
 #: src/gui.c:6684
 msgid "Open _Folder"
-msgstr "Deschide _dosar"
+msgstr ""
 
 #: src/gui.c:6689
 msgid "Open _Location"
-msgstr "Deschide _loc"
+msgstr ""
 
 #: src/gui.c:6695
 msgid "_Disc"
-msgstr "_Disc"
+msgstr ""
 
 #: src/gui.c:6703
 msgid "Open _Audio CD"
-msgstr "Deschide CD _Audio"
+msgstr "Buka CD _Audio"
 
 #: src/gui.c:6708
 msgid "Open _DVD"
-msgstr "Deschide _DVD"
+msgstr "Buka _DVD"
 
 #: src/gui.c:6710
 msgid "Open DVD with _Menus"
-msgstr "Deschide DVD cu _meniuri"
+msgstr ""
 
 #: src/gui.c:6712
 msgid "Open DVD from _Folder"
-msgstr "Deschide DVD din _dosar"
+msgstr ""
 
 #: src/gui.c:6715
 msgid "Open DVD from Folder with M_enus"
@@ -968,7 +939,7 @@ msgstr ""
 
 #: src/gui.c:6725
 msgid "Open _VCD"
-msgstr ""
+msgstr "Buka _VCD"
 
 #: src/gui.c:6728
 msgid "_TV"
@@ -976,36 +947,36 @@ msgstr "_TV"
 
 #: src/gui.c:6734
 msgid "Open _Analog TV"
-msgstr "Deschide TV _analog"
+msgstr ""
 
 #: src/gui.c:6736
 msgid "Open _Digital TV"
-msgstr "Deschide TV _digital"
+msgstr ""
 
 #: src/gui.c:6739
 msgid "Open _iPod™"
-msgstr "Deschide _iPod™"
+msgstr ""
 
 #: src/gui.c:6748
 msgid "Open _Recent"
-msgstr "Deschide fișiere _recente"
+msgstr ""
 
 #. Edit Menu
 #: src/gui.c:6799
 msgid "_Edit"
-msgstr "_Editare"
+msgstr ""
 
 #: src/gui.c:6805
 msgid "_Shuffle Playlist"
-msgstr "Ame_stecă lista de redare"
+msgstr ""
 
 #: src/gui.c:6809
 msgid "_Loop Playlist"
-msgstr "Repetă _lista de redare"
+msgstr ""
 
 #: src/gui.c:6813
 msgid "S_witch Audio Track"
-msgstr "Co_mută pistă audio"
+msgstr ""
 
 #: src/gui.c:6816 src/playlist.c:1157
 msgid "Set Audi_o"
@@ -1017,7 +988,7 @@ msgstr ""
 
 #: src/gui.c:6825
 msgid "Set Sub_title"
-msgstr "Definește sub_titrare"
+msgstr ""
 
 #: src/gui.c:6828
 msgid "S_elect Subtitle Language"
@@ -1034,19 +1005,19 @@ msgstr ""
 #. View Menu
 #: src/gui.c:6864
 msgid "_View"
-msgstr "_Vizualizare"
+msgstr ""
 
 #: src/gui.c:6869
 msgid "_Playlist"
-msgstr "Listă _redare"
+msgstr ""
 
 #: src/gui.c:6872
 msgid "Media _Info"
-msgstr "_Informații media"
+msgstr ""
 
 #: src/gui.c:6874
 msgid "D_etails"
-msgstr "D_etalii"
+msgstr ""
 
 #: src/gui.c:6876
 msgid "Audio _Meter"
@@ -1054,35 +1025,35 @@ msgstr ""
 
 #: src/gui.c:6887
 msgid "_Normal (1:1)"
-msgstr "_Normal·(1:1)"
+msgstr "_Normal (1:1)"
 
 #: src/gui.c:6889
 msgid "_Double Size (2:1)"
-msgstr "_Dimensiune dublă·(2:1)"
+msgstr ""
 
 #: src/gui.c:6891
 msgid "_Half Size (1:2)"
-msgstr "Dimensiune jumătate·(1:2)"
+msgstr ""
 
 #: src/gui.c:6894
 msgid "_Aspect"
-msgstr "_Aspect"
+msgstr ""
 
 #: src/gui.c:6900
 msgid "D_efault Aspect"
-msgstr "Asp_ect implicit"
+msgstr ""
 
 #: src/gui.c:6902
 msgid "_4:3 Aspect"
-msgstr "Aspect _4:3"
+msgstr ""
 
 #: src/gui.c:6904
 msgid "_16:9 Aspect"
-msgstr "Aspect _16:9"
+msgstr ""
 
 #: src/gui.c:6906
 msgid "1_6:10 Aspect"
-msgstr "Aspect 1_6:10"
+msgstr ""
 
 #: src/gui.c:6908
 msgid "_Follow Window"
@@ -1090,7 +1061,7 @@ msgstr ""
 
 #: src/gui.c:6914
 msgid "Show _Subtitles"
-msgstr "Afișare _subtitrări"
+msgstr ""
 
 #: src/gui.c:6916
 msgid "Decrease Subtitle Size"
@@ -1114,7 +1085,7 @@ msgstr ""
 
 #: src/gui.c:6923
 msgid "_Controls"
-msgstr "_Controale"
+msgstr ""
 
 #: src/gui.c:6936
 msgid "_Video Picture Adjustments"
@@ -1123,44 +1094,44 @@ msgstr ""
 #. Help Menu
 #: src/gui.c:6975
 msgid "_Help"
-msgstr "_Ajutor"
+msgstr ""
 
 #: src/gui.c:7147 src/gui.c:7150
 msgid "Menu"
-msgstr "Meniu"
+msgstr "Menu"
 
 #: src/gui.c:7163 src/gui.c:7166
 msgid "Previous"
-msgstr "Anterior"
+msgstr ""
 
 #: src/gui.c:7179 src/gui.c:7182
 msgid "Rewind"
-msgstr "Derulare înapoi"
+msgstr ""
 
 #: src/gui.c:7209 src/gui.c:7212
 msgid "Stop"
-msgstr "Stop"
+msgstr ""
 
 #: src/gui.c:7224 src/gui.c:7227
 msgid "Fast Forward"
-msgstr "Derulare rapidă înainte"
+msgstr ""
 
 #: src/gui.c:7239 src/gui.c:7242
 msgid "Next"
-msgstr "Următor"
+msgstr ""
 
 #: src/gui.c:7263 src/gui.c:7266
 msgid "Full Screen"
-msgstr "Pe tot ecranul"
+msgstr "Layar Penuh"
 
 #: src/gui.c:7309
 msgid "Volume 100%"
-msgstr "Volum 100%"
+msgstr ""
 
 #: src/support.c:779 src/thread.c:229
 #, c-format
 msgid "Couldn't open DVD device: %s"
-msgstr "Nu s-a putu deschide dispozitivul DVD: %s"
+msgstr ""
 
 #: src/support.c:871
 #, c-format
@@ -1170,7 +1141,6 @@ msgstr ""
 #: src/support.c:1981 src/support.c:2011 src/support.c:2054 src/support.c:2082
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
-"Nu s-a putut salva lista de redare, nu pot deschide fișirul pentru scriere"
 
 #: src/support.c:2203
 #, c-format
@@ -1192,12 +1162,12 @@ msgstr ""
 #: src/thread.c:195
 #, c-format
 msgid "Failed to open %s"
-msgstr "Eșec la deschiderea %s"
+msgstr "Gagal membuka %s"
 
 #: src/thread.c:235
 #, c-format
 msgid "Cannot load subtitles: %s"
-msgstr "Nu s-au putut încărca subtitrările: %s"
+msgstr ""
 
 #: src/thread.c:250
 msgid "Delaying start until cache is full"
@@ -1206,17 +1176,17 @@ msgstr ""
 #: src/thread.c:256
 #, c-format
 msgid "Compressed SWF format not supported"
-msgstr "Nu sunt suportate fișiere SWF comprimate"
+msgstr ""
 
 #: src/thread.c:621
 #, c-format
 msgid "Cache fill: %2.2f%%"
-msgstr "Umplere cache: %2.2f%%"
+msgstr ""
 
 #: src/thread.c:630
 #, c-format
 msgid "Connecting"
-msgstr "Se conectează"
+msgstr "Menghubungkan"
 
 #: src/thread.c:786
 #, c-format
@@ -1237,28 +1207,26 @@ msgid ""
 "Filename: %s\n"
 "Subtitle: %s"
 msgstr ""
-"Nume fișier: %s\n"
-"Subtitrare: %s"
 
 #: src/playlist.c:317 src/playlist.c:1003 src/playlist.c:1006
 msgid "Save Playlist"
-msgstr "Salvează lista de redare"
+msgstr "Simpan Daftar Main"
 
 #: src/playlist.c:334 src/playlist.c:388
 msgid "Playlist (*.pls)"
-msgstr "Listă de redare (*.pls)"
+msgstr ""
 
 #: src/playlist.c:339 src/playlist.c:398
 msgid "MP3 Playlist (*.m3u)"
-msgstr "Listă de redare MP3 (*.m3u)"
+msgstr ""
 
 #: src/playlist.c:376 src/playlist.c:992 src/playlist.c:995
 msgid "Open Playlist"
-msgstr "Deschide listă de redare"
+msgstr "Buka Daftar Main"
 
 #: src/playlist.c:393
 msgid "Reference Playlist (*.ref)"
-msgstr "Listă de redare referință (*.ref)"
+msgstr ""
 
 #: src/playlist.c:403
 msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
@@ -1266,7 +1234,7 @@ msgstr ""
 
 #: src/playlist.c:610
 msgid "Choose Directory"
-msgstr "Alege dosar"
+msgstr "Pilih Direktori"
 
 #: src/playlist.c:647
 #, c-format
@@ -1277,25 +1245,17 @@ msgid_plural ""
 "\n"
 "\tFound %i files\n"
 msgstr[0] ""
-"\n"
-"\tS-a găsit %i fișier\n"
 msgstr[1] ""
-"\n"
-"\tS-au găsit %i fișiere\n"
-msgstr[2] ""
-"\n"
-"\tS-au găsit %i de fișiere\n"
 
 #: src/playlist.c:903
 msgid "Item to play"
 msgid_plural "Items to Play"
-msgstr[0] "Element de redat"
-msgstr[1] "Elemente de redat"
-msgstr[2] "Elemente de redat"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/playlist.c:924 src/nautilus_property_page.c:293
 msgid "Artist"
-msgstr "Artist"
+msgstr ""
 
 #: src/playlist.c:935 src/nautilus_property_page.c:305
 msgid "Album"
@@ -1303,7 +1263,7 @@ msgstr ""
 
 #: src/playlist.c:947 src/nautilus_property_page.c:317
 msgid "Length"
-msgstr "Lungime"
+msgstr ""
 
 #: src/playlist.c:958
 msgid "Count"
@@ -1311,35 +1271,35 @@ msgstr ""
 
 #: src/playlist.c:967
 msgid "Order"
-msgstr ""
+msgstr "Urutan"
 
 #: src/playlist.c:978 src/playlist.c:981
 msgid "Close Playlist View"
-msgstr "Închide vizualizare listă de redare"
+msgstr ""
 
 #: src/playlist.c:1014 src/playlist.c:1017
 msgid "Add Item to Playlist"
-msgstr "Adaugă element la lista de redare"
+msgstr ""
 
 #: src/playlist.c:1025 src/playlist.c:1028
 msgid "Remove Item from Playlist"
-msgstr "Șterge element din lista de redare"
+msgstr ""
 
 #: src/playlist.c:1036 src/playlist.c:1039
 msgid "Add Items in Folder to Playlist"
-msgstr "Adaugă elemente din dosar în lista de redare"
+msgstr ""
 
 #: src/playlist.c:1047 src/playlist.c:1050
 msgid "Clear Playlist"
-msgstr "Curăță lista de redare"
+msgstr "Kosongkan Daftar Main"
 
 #: src/playlist.c:1058 src/playlist.c:1061
 msgid "Move Item Up"
-msgstr "Mută element sus"
+msgstr ""
 
 #: src/playlist.c:1070 src/playlist.c:1073
 msgid "Move Item Down"
-msgstr "Mută element jos"
+msgstr ""
 
 #: src/playlist.c:1083 src/playlist.c:1086
 msgid "UnSort List"
@@ -1355,7 +1315,7 @@ msgstr ""
 
 #: src/playlist.c:1153
 msgid "_Set Subtitle"
-msgstr "Definire _subtitrare"
+msgstr ""
 
 #: src/nautilus_property_page.c:87
 #, c-format
@@ -1373,7 +1333,7 @@ msgstr ""
 
 #: src/nautilus_property_page.c:281
 msgid "Title"
-msgstr ""
+msgstr "Judul"
 
 #: src/nautilus_property_page.c:329
 msgid "Demuxer"
@@ -1385,76 +1345,9 @@ msgstr ""
 
 #: src/nautilus_property_page.c:482
 msgid "Audio/Video"
-msgstr ""
+msgstr "Audio/Video"
 
 #: src/libgmtk/gmtk_media_tracker.c:92 src/libgmtk/gmtk_media_tracker.c:95
 #: src/libgmtk/gmtk_media_tracker.c:201
 msgid "No Information"
-msgstr ""
-
-#~ msgid "Minimum Cache Size (KB):"
-#~ msgstr "Dimensiune minimă cache (KO):"
-
-#~ msgid "Force the use of cache setting on streaming media"
-#~ msgstr "Forțează folosirea parametrilor de cache în fluxurile media"
-
-#~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
-#~ msgstr "<span weight=\"bold\">Ajustare configurări emulator modul</span>"
-
-#~ msgid "Advanced Video Controls"
-#~ msgstr "Control video avansat"
-
-#~ msgid "<span weight=\"bold\">Adjust Video Settings</span>"
-#~ msgstr "<span weight=\"bold\">Ajustare configurări video</span>"
-
-#~ msgid "Start with playlist below media window"
-#~ msgstr "Pornește cu lista de redare sub fereastra media"
-
-#~ msgid "Playing DVD"
-#~ msgstr "Se redă DVD"
-
-#~ msgid "Playing Audio CD"
-#~ msgstr "Se redă CD audio"
-
-#~ msgid "_DVD"
-#~ msgstr "_DVD"
-
-#~ msgid "Unknown"
-#~ msgstr "Necunoscut"
-
-#~ msgid "Advanced"
-#~ msgstr "Avansat"
-
-#~ msgid ""
-#~ "<small>\n"
-#~ "<b>Title:</b>\t%s\n"
-#~ "<b>Artist:</b>\t%s\n"
-#~ "<b>Album:</b>\t%s\n"
-#~ "</small>"
-#~ msgstr ""
-#~ "<small>\n"
-#~ "<b>Titlu:</b>\t%s\n"
-#~ "<b>Artist:</b>\t%s\n"
-#~ "<b>Album:</b>\t%s\n"
-#~ "</small>"
-
-#~ msgid ""
-#~ "<small>\n"
-#~ "<b>File:</b>\t%s\n"
-#~ "</small>"
-#~ msgstr ""
-#~ "<small>\n"
-#~ "<b>Fișier:</b>\t%s\n"
-#~ "</small>"
-
-#~ msgid "_Copy URL"
-#~ msgstr "_Copiază URL"
-
-#~ msgid ""
-#~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
-#~ msgstr ""
-#~ "dispozitiv de ieșire audio mplayer\n"
-#~ "alsa sau oss ar trebui întotdeauna să meargă, incercați esd în gnome, "
-#~ "arts în kde, sau pulse în distribuții mai noi"
+msgstr "Tidak Ada Informasi"
