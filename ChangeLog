@@ -1,4 +1,7 @@
 Development
+    Run autoreconf with new autoconf tools
+    Removed --avoid-version from nautilus plugin
+1.0.3beta
     Updated translations from launchpad, added in several new translations
     libgmtk - gmtk_media_player, better support for mplayer2
     libgmtk - gmtk_media_player, set default zoom to 1.0
