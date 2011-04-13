@@ -1,4 +1,5 @@
 Development
+    Updated Polish translation
     Clean up some compiler warnings
     Run autoreconf with new autoconf tools
     Removed --avoid-version from nautilus plugin
