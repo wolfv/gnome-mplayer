@@ -797,9 +797,9 @@ enable_option_checking
 enable_maintainer_mode
 enable_silent_rules
 enable_dependency_tracking
+with_gconf
 with_gio
 with_dbus
-with_gconf
 with_gconf_source
 with_gconf_schema_file_dir
 enable_schemas_install
@@ -1506,10 +1506,10 @@ Optional Features:
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-gconf            Use Gconf to store preferences
   --with-gio              Use GIO for file I/O
   --with-dbus             Enable DBUS support, DBUS is required when using
                           with gecko-mediaplayer
-  --with-gconf            Use Gconf to store preferences
   --with-gconf-source=sourceaddress
                           Config database for installing schema files.
   --with-gconf-schema-file-dir=dir
@@ -8080,6 +8080,15 @@ fi
 
 
 
+# Check whether --with-gconf was given.
+if test "${with_gconf+set}" = set; then :
+  withval=$with_gconf;
+else
+  with_gconf=check
+fi
+
+if test "x$with_gconf" != xyes; then :
+
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for GLIB2_26" >&5
 $as_echo_n "checking for GLIB2_26... " >&6; }
@@ -8152,6 +8161,9 @@ $as_echo "yes" >&6; }
 $as_echo "#define GLIB2_26_ENABLED 1" >>confdefs.h
 
 fi
+
+fi
+
 
 
 
@@ -9329,17 +9341,22 @@ if test x$CHECK_GPM = "xyes"; then
             { $as_echo "$as_me:${as_lineno-$LINENO}: Checking for gnome-power-manager support" >&5
 $as_echo "$as_me: Checking for gnome-power-manager support" >&6;}
             GPMVER=`$GPM --version | sed -e 's/.* 2.//' | cut -b1-2`
-            if test $GPMVER -ge 26; then
+            if test -n $GPMVER; then
 
 $as_echo "#define SM_INHIBIT 1" >>confdefs.h
 
-            fi
-            if test $GPMVER -lt 26; then
+            else
+                if test $GPMVER -ge 26; then
+
+$as_echo "#define SM_INHIBIT 1" >>confdefs.h
+
+                fi
+                if test $GPMVER -lt 26; then
 
 $as_echo "#define SS_INHIBIT 1" >>confdefs.h
 
+                fi
             fi
-
     fi
 fi
 

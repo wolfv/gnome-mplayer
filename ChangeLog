@@ -1,4 +1,6 @@
 Development
+    Clean up shell script warning in configure
+    Make configure option --with-gconf=yes override use of gsettings
     Updated Polish translation
     Clean up some compiler warnings
     Run autoreconf with new autoconf tools
