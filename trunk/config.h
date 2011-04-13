@@ -146,7 +146,7 @@
 #define PACKAGE_VERSION ""
 
 /* Defined if you are using gnome-power-manager 2.26 or higher */
-#define SM_INHIBIT 0
+#define SM_INHIBIT 1
 
 /* Defined if you are using gnome-power-manager below 2.26 */
 #define SS_INHIBIT 0
