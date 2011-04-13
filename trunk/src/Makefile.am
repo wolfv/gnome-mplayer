@@ -97,7 +97,7 @@ libgnome_mplayer_properties_page_so_CFLAGS = -fPIC \
     $(GIO_CFLAGS) \
     $(AM_CFLAGS)
     
-libgnome_mplayer_properties_page_so_LDFLAGS = -avoid-version -shared
+libgnome_mplayer_properties_page_so_LDFLAGS = -shared
 
 libgnome_mplayer_properties_page_so_LDADD = \
 	$(NAUTILUS_LIBS) \

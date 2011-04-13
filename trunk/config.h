@@ -113,7 +113,7 @@
 #define MUSICBRAINZ_ENABLED 1
 
 /* Define to 1 if you have NOTIFY support */
-/* #undef NOTIFY0_7_ENABLED */
+#define NOTIFY0_7_ENABLED 1
 
 /* Define to 1 if you have NOTIFY support */
 #define NOTIFY_ENABLED 1
@@ -146,7 +146,7 @@
 #define PACKAGE_VERSION ""
 
 /* Defined if you are using gnome-power-manager 2.26 or higher */
-#define SM_INHIBIT 1
+#define SM_INHIBIT 0
 
 /* Defined if you are using gnome-power-manager below 2.26 */
 #define SS_INHIBIT 0

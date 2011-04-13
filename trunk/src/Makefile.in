@@ -408,7 +408,7 @@ gnome_mplayer_LDADD = \
 @HAVE_NAUTILUS_TRUE@    $(GIO_CFLAGS) \
 @HAVE_NAUTILUS_TRUE@    $(AM_CFLAGS)
 
-@HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_LDFLAGS = -avoid-version -shared
+@HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_LDFLAGS = -shared
 @HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_LDADD = \
 @HAVE_NAUTILUS_TRUE@	$(NAUTILUS_LIBS) \
 @HAVE_NAUTILUS_TRUE@	$(GTK_LIBS) \
