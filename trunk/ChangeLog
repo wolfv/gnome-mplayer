@@ -1,4 +1,5 @@
 Development
+    Clean up some compiler warnings
     Run autoreconf with new autoconf tools
     Removed --avoid-version from nautilus plugin
 1.0.3beta
