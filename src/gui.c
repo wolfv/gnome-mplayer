@@ -701,7 +701,6 @@ gboolean set_progress_text(void *data)
 
 gboolean set_progress_time(void *data)
 {
-    gfloat seconds, length_seconds;
     gchar *text;
 
     IdleData *idle = (IdleData *) data;
@@ -709,26 +708,13 @@ gboolean set_progress_time(void *data)
     if (idle == NULL)
         return FALSE;
 
-    seconds = idle->position;
-    length_seconds = idle->length;
-/*
-	if (control_id == 0) {
-		if (state == PLAYING) {
-		    text = g_strdup_printf(_("Playing %s"), idledata->display_name);
-		} else if (state == PAUSED) {
-		    text = g_strdup_printf(_("Paused %s"), idledata->display_name);
-		} else {
-		    text = g_strdup_printf(_("Idle"));
-		}
-	} else { */
-    if (state == PLAYING) {
+	if (state == PLAYING) {
         text = g_strdup_printf(_("Playing"));
     } else if (state == PAUSED) {
         text = g_strdup_printf(_("Paused"));
     } else {
         text = g_strdup_printf(_("Idle"));
     }
-//      }
 
     if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache && !idle->streaming) {
         g_snprintf(idle->progress_text, 128, "%s | %2i%% \342\226\274", text, (int) (idle->cachepercent * 100));
@@ -2361,7 +2347,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
     gint i = 0;
     gint playlist;
     gint itemcount;
-    GError *error;
     gboolean added_single = FALSE;
     gchar *cmd;
     gchar *filename;
@@ -2379,7 +2364,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 #endif
 
     if ((info == DRAG_INFO_0) || (info == DRAG_INFO_1) || (info == DRAG_INFO_2)) {
-        error = NULL;
 #ifdef GTK2_14_ENABLED
         list = g_uri_list_extract_uris((const gchar *) gtk_selection_data_get_data(selection_data));
 #else
@@ -3985,7 +3969,6 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
     GdkScreen *screen;
     GdkRectangle rect;
     gint wx, wy;
-    gint x, y;
     static gboolean restore_playlist;
     static gboolean restore_details;
     static gboolean restore_meter;
@@ -4118,8 +4101,6 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gdk_screen_get_monitor_geometry(screen,
                                             gdk_screen_get_monitor_at_window(screen, get_window(window)), &rect);
 
-            x = rect.width;
-            y = rect.height;
             gtk_widget_realize(fs_window);
 
             gdk_window_get_root_origin(get_window(window), &wx, &wy);
@@ -6543,7 +6524,6 @@ void setup_accelerators(gboolean enable)
 
 GtkWidget *create_window(gint windowid)
 {
-    GError *error = NULL;
     GtkIconTheme *icon_theme;
     GtkTargetEntry target_entry[3];
     gint i = 0;
@@ -7077,10 +7057,7 @@ GtkWidget *create_window(gint windowid)
 
     gtk_container_add(GTK_CONTAINER(window), vbox_master);
 
-    error = NULL;
     icon_theme = gtk_icon_theme_get_default();
-
-
 
     image_play = gtk_image_new_from_stock(GTK_STOCK_MEDIA_PLAY, button_size);
     image_stop = gtk_image_new_from_stock(GTK_STOCK_MEDIA_STOP, button_size);
