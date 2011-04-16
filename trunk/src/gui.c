@@ -708,7 +708,7 @@ gboolean set_progress_time(void *data)
     if (idle == NULL)
         return FALSE;
 
-	if (state == PLAYING) {
+    if (state == PLAYING) {
         text = g_strdup_printf(_("Playing"));
     } else if (state == PAUSED) {
         text = g_strdup_printf(_("Paused"));
@@ -1600,6 +1600,8 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
     GdkEventButton *event_button;
     GTimeVal currenttime;
     GtkAllocation alloc;
+    gint x, y;
+    gchar *cmd;
 
     g_get_current_time(&currenttime);
     last_movement_time = currenttime.tv_sec;
@@ -1637,11 +1639,21 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
         }
 
         if (event_button->button == 1 && idledata->videopresent == TRUE && !disable_pause_on_click) {
-            get_allocation(fixed, &alloc);
-            if (event_button->x > alloc.x
-                && event_button->y > alloc.y
-                && event_button->x < alloc.x + alloc.width && event_button->y < alloc.y + alloc.height) {
-                play_callback(NULL, NULL, NULL);
+
+            if (dvdnav_title_is_menu) {
+                gtk_widget_get_pointer(drawing_area, &x, &y);
+                cmd = g_strdup_printf("set_mouse_pos %i %i\n", x, y);
+                send_command(cmd, TRUE);
+                g_free(cmd);
+
+                send_command("dvdnav mouse\n", FALSE);
+            } else {
+                get_allocation(fixed, &alloc);
+                if (event_button->x > alloc.x
+                    && event_button->y > alloc.y
+                    && event_button->x < alloc.x + alloc.width && event_button->y < alloc.y + alloc.height) {
+                    play_callback(NULL, NULL, NULL);
+                }
             }
         }
 
