@@ -413,7 +413,7 @@ void gm_audio_pa_sink_update_volume_cb(pa_context * c, const pa_sink_info * i, i
         //printf("device volume = %f\n", device->volume);
     } else {
         // eol == -1 when the index requested is not found
-        if (eol == -1)
+        if (eol == -1 && device)
             device->volume = 0.0;
     }
 }
