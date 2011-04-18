@@ -181,6 +181,10 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         error_msg = g_strdup(mplayer_output->str);
     }
 
+    if (strstr(mplayer_output->str, "X11 error") != 0) {
+        g_idle_add(resize_window, idledata);
+    }
+
     if (strstr(mplayer_output->str, "signal") != NULL) {
         error_msg = g_strdup(mplayer_output->str);
     }
