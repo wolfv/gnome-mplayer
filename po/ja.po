@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-04-11 08:44-0600\n"
-"PO-Revision-Date: 2011-02-25 07:07+0000\n"
+"PO-Revision-Date: 2011-04-17 14:40+0900\n"
 "Last-Translator: Munehiro Yamamoto <Unknown>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "Language: \n"
@@ -22,15 +22,15 @@ msgstr ""
 
 #: src/main.c:52
 msgid "Window to embed in"
-msgstr "Window to embed in"
+msgstr ""
 
 #: src/main.c:53
 msgid "Width of window to embed in"
-msgstr "Width of window to embed in"
+msgstr ""
 
 #: src/main.c:54
 msgid "Height of window to embed in"
-msgstr "Height of window to embed in"
+msgstr ""
 
 #: src/main.c:55
 msgid "Unique DBUS controller id"
@@ -38,15 +38,15 @@ msgstr "一意な DBUS コントーラID"
 
 #: src/main.c:56
 msgid "File Argument is a playlist"
-msgstr "File Argument is a playlist"
+msgstr ""
 
 #: src/main.c:57
 msgid "Show more output on the console"
-msgstr "Show more output on the console"
+msgstr ""
 
 #: src/main.c:59
 msgid "Show even more output on the console"
-msgstr "Show even more output on the console"
+msgstr ""
 
 #: src/main.c:60
 msgid "Start in fullscreen mode"
@@ -58,13 +58,13 @@ msgstr "MPlayer の出力の音量コントロールを使う"
 
 #: src/main.c:63
 msgid "When set to TRUE the last volume level is set as the default"
-msgstr ""
+msgstr "TRUE のとき、最後に設定された音量が標準として設定されます。"
 
 #: src/main.c:65
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
-msgstr ""
+msgstr "remember_softvol が TRUE のとき、最後に設定された音量だけが適応されます。"
 
 #: src/main.c:67
 msgid "Mixer to use"
@@ -84,7 +84,7 @@ msgstr "可能ならば、字幕を表示する"
 
 #: src/main.c:74
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
-msgstr "Autostart the media default to 1, set to 0 to load but don't play"
+msgstr "1 に設定すると、メディアを自動再生します。0 に設定すると、メディアを読み込みますが、自動再生しません。"
 
 #: src/main.c:76
 msgid "Disable popup menu on right click"
@@ -586,7 +586,7 @@ msgstr "MPlayer の音量コントロールを有効にする"
 #: src/gui.c:5395 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
 #: src/libgmtk/gmtk_output_combo_box.c:148
 msgid "Default"
-msgstr ""
+msgstr "標準"
 
 #: src/gui.c:5535
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -676,7 +676,7 @@ msgstr "プレイヤーの埋め込みを無効にする"
 
 #: src/gui.c:5699
 msgid "Disable Embedded Player Scaling"
-msgstr ""
+msgstr "埋めこまれているプレイヤーのスケーリングを無効にする"
 
 #: src/gui.c:5704
 msgid "Audio Cache Size (KB):"
@@ -904,7 +904,7 @@ msgstr ""
 
 #: src/gui.c:6174
 msgid "MPlayer Executable:"
-msgstr "MPlayer の実行:"
+msgstr "MPlayer の実行可能なバイナリ:"
 
 #: src/gui.c:6178 src/gui.c:6182
 msgid ""
@@ -1279,7 +1279,7 @@ msgstr "参照プレイリスト(*.ref)"
 
 #: src/playlist.c:403
 msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
-msgstr ""
+msgstr "MPEG プレイリスト(*.mux,*.m1u,*.m4u)"
 
 #: src/playlist.c:610
 msgid "Choose Directory"
