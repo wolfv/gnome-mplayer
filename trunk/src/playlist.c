@@ -819,7 +819,6 @@ void create_playlist_widget()
     GtkWidget *scrolled;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
-    GtkWidget *box;
     GtkWidget *ctrlbox;
     GtkWidget *closebox;
     GtkWidget *hbox;
@@ -849,7 +848,6 @@ void create_playlist_widget()
     plvbox = gtk_vbox_new(FALSE, 12);
     hbox = gtk_hbox_new(FALSE, 12);
     gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
-    box = gtk_hbox_new(FALSE, 10);
     ctrlbox = gtk_hbox_new(FALSE, 0);
     closebox = gtk_hbox_new(FALSE, 0);
 

@@ -154,6 +154,16 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
     mplayer_output = g_string_new("");
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
+	if (status == G_IO_STATUS_ERROR) {
+        g_string_free(mplayer_output, TRUE);
+        g_idle_add(set_stop, idledata);
+        state = QUIT;
+        g_source_remove(watch_in_id);
+        g_source_remove(watch_in_hup_id);
+        //g_mutex_unlock(thread_running);
+        g_cond_signal(mplayer_complete_cond);
+        return FALSE;
+    }
 
     if (state == QUIT) {
         if (verbose > 1) {

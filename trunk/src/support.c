@@ -1153,9 +1153,6 @@ gboolean device_name(gchar * filename)
 
 gchar *metadata_to_utf8(gchar * string)
 {
-    const gchar *lang;
-    lang = g_getenv("LANG");
-
     if (metadata_codepage != NULL && strlen(metadata_codepage) > 1) {
         // zh_TW usually use BIG5 on tags, if the file is from Windows
         if (g_utf8_validate(string, strlen(string), NULL) == FALSE) {

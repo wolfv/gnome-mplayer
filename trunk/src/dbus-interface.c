@@ -51,8 +51,8 @@ indent -kr -l100 -i4 -nut
 static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * message, void *user_data)
 {
 
-    const gchar *sender;
-    const gchar *destination;
+    //const gchar *sender;
+    //const gchar *destination;
     gint message_type;
     gchar *s = NULL;
     gchar *hrefid = NULL;
@@ -72,8 +72,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
     gdouble volume;
 
     message_type = dbus_message_get_type(message);
-    sender = dbus_message_get_sender(message);
-    destination = dbus_message_get_destination(message);
+    //sender = dbus_message_get_sender(message);
+    //destination = dbus_message_get_destination(message);
 
     /*
        printf("path=%s; interface=%s; member=%s; data=%s\n",
