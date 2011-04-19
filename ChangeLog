@@ -1,4 +1,5 @@
 Development
+    Cleanup some compiler warnings
     Updated Japanese translation
     Fix black screen issue when loading DVD
     Fix potential NULL pointer referenced Issue #503

@@ -206,7 +206,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     GtkTreePath *path;
     gchar *local_file = NULL;
     gchar *uri = NULL;
-    gint count, pos;
+    gint count;
     gint playlist;
     gchar *title = NULL;
     gchar *artist = NULL;
@@ -252,7 +252,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
                 if (GTK_IS_WIDGET(list))
                     gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
                 buffer = gtk_tree_path_to_string(path);
-                pos = (gint) g_strtod(buffer, NULL);
                 g_free(buffer);
                 gtk_tree_path_free(path);
             }
