@@ -38,7 +38,7 @@ extern void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
 static void gmtk_media_tracker_class_init(GmtkMediaTrackerClass * class)
 {
     GtkWidgetClass *widget_class;
-    GtkObjectClass *object_class;
+    GObjectClass *object_class;
 
     object_class = (GtkObjectClass *) class;
     widget_class = GTK_WIDGET_CLASS(class);

@@ -1,4 +1,5 @@
 Development
+    libgmtk - change GtkObjectClass to GObjectClass
     Cleanup some compiler warnings
     Updated Japanese translation
     Fix black screen issue when loading DVD

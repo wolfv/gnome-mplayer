@@ -53,9 +53,9 @@ gboolean detect_mplayer_features(GmtkMediaPlayer * player);
 static void gmtk_media_player_class_init(GmtkMediaPlayerClass * class)
 {
     GtkWidgetClass *widget_class;
-    GtkObjectClass *object_class;
+    GObjectClass *object_class;
 
-    object_class = (GtkObjectClass *) class;
+    object_class = G_OBJECT_CLASS(class);
     widget_class = GTK_WIDGET_CLASS(class);
 
     parent_class = g_type_class_peek_parent(class);

@@ -108,9 +108,9 @@ G_DEFINE_TYPE(GmtkOutputComboBox, gmtk_output_combo_box, GTK_TYPE_COMBO_BOX);
 static void gmtk_output_combo_box_class_init(GmtkOutputComboBoxClass * class)
 {
     GtkWidgetClass *widget_class;
-    GtkObjectClass *object_class;
+    GObjectClass *object_class;
 
-    object_class = (GtkObjectClass *) class;
+    object_class = G_OBJECT_CLASS(class);
     widget_class = GTK_WIDGET_CLASS(class);
 
     parent_class = g_type_class_peek_parent(class);
