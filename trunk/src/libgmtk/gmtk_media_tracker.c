@@ -40,7 +40,7 @@ static void gmtk_media_tracker_class_init(GmtkMediaTrackerClass * class)
     GtkWidgetClass *widget_class;
     GObjectClass *object_class;
 
-    object_class = (GtkObjectClass *) class;
+    object_class = G_OBJECT_CLASS(class);
     widget_class = GTK_WIDGET_CLASS(class);
 
     parent_class = g_type_class_peek_parent(class);
