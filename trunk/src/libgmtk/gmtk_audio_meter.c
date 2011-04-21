@@ -208,7 +208,10 @@ static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * even
         draw(meter);
     } else {
         p = gtk_widget_create_pango_layout(meter, "No Data");
+#ifdef GTK3_ENABLED
+#else
         gdk_draw_layout(get_window(meter), gtk_widget_get_style(meter)->fg_gc[0], 0, 0, p);
+#endif
         g_object_unref(p);
     }
     gdk_window_end_paint(get_window(meter));
