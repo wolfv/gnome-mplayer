@@ -69,11 +69,18 @@ AS_IF([test "x$ENABLE_GTK3" == "xyes"],
     
     PKG_CHECK_MODULES(GTK, [gtk+-3.0 glib-2.0 gthread-2.0]) 
     AC_DEFINE([GTK3_ENABLED],[1],[Define to 1 if you have GTK 3 or higher])
-    AC_DEFINE([GTK2_12_ENABLED],[1],[Define to 1 if you have GTK 2.12 or higher])    
-    AC_DEFINE([GTK2_14_ENABLED],[1],[Define to 1 if you have GTK 2.14 or higher])    
-    AC_DEFINE([GTK2_18_ENABLED],[1],[Define to 1 if you have GTK 2.18 or higher])    
-    AC_DEFINE([GTK2_20_ENABLED],[1],[Define to 1 if you have GTK 2.20 or higher])    
-    AC_DEFINE([GTK2_22_ENABLED],[1],[Define to 1 if you have GTK 2.22 or higher])    
+    AC_DEFINE([GTK2_12_ENABLED],[1],[Define to 1 if you have GTK 2.12 or higher])
+    AC_SUBST(GTK2_12_DEFINES)    
+    AC_DEFINE([GTK2_14_ENABLED],[1],[Define to 1 if you have GTK 2.14 or higher])
+    AC_SUBST(GTK2_14_DEFINES)    
+    AC_DEFINE([GTK2_18_ENABLED],[1],[Define to 1 if you have GTK 2.18 or higher])
+    AC_SUBST(GTK2_18_DEFINES)    
+    AC_DEFINE([GTK2_20_ENABLED],[1],[Define to 1 if you have GTK 2.20 or higher])
+    AC_SUBST(GTK2_20_DEFINES)    
+    AC_DEFINE([GTK2_22_ENABLED],[1],[Define to 1 if you have GTK 2.22 or higher])
+    AC_SUBST(GTK2_22_DEFINES)    
+    AC_DEFINE([GTK2_24_ENABLED],[1],[Define to 1 if you have GTK 2.24 or higher])
+    AC_SUBST(GTK2_24_DEFINES)    
     
     AC_ARG_WITH([gconf],
         [AS_HELP_STRING([--with-gconf],
@@ -113,6 +120,9 @@ AS_IF([test "x$ENABLE_GTK3" != "xyes"],
 
     PKG_CHECK_MODULES(GTK2_22,[gtk+-2.0 >= 2.22.0],[GTK2_22_DEFINES="-DGTK2_22_ENABLED -DGTK_DISABLE_DEPRECATED" AC_DEFINE([GTK2_22_ENABLED],[1],[Define to 1 if you have GTK 2.22 or higher])],AC_MSG_NOTICE([Disabling Depreciated GTK Functions]))
     AC_SUBST(GTK2_22_DEFINES)
+
+    PKG_CHECK_MODULES(GTK2_22,[gtk+-2.0 >= 2.24.0],[GTK2_22_DEFINES="-DGTK2_24_ENABLED -DGTK_DISABLE_DEPRECATED" AC_DEFINE([GTK2_24_ENABLED],[1],[Define to 1 if you have GTK 2.24 or higher])],AC_MSG_NOTICE([Disabling Depreciated GTK Functions]))
+    AC_SUBST(GTK2_24_DEFINES)
 
     PKG_CHECK_MODULES(GLIB2_14,[glib-2.0 >= 2.14.0],[GLIB2_14_DEFINES="-DGLIB2_14_ENABLED" AC_DEFINE([GLIB2_14_ENABLED],[1],[Define to 1 if you have GLIB 2.14 or higher])],AC_MSG_NOTICE([Using slider for volume]))
     AC_SUBST(GLIB2_14_DEFINES)

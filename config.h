@@ -40,6 +40,9 @@
 /* Define to 1 if you have GTK 2.22 or higher */
 #define GTK2_22_ENABLED 1
 
+/* Define to 1 if you have GTK 2.24 or higher */
+#define GTK2_24_ENABLED 1
+
 /* Define to 1 if you have GTK 3 or higher */
 /* #undef GTK3_ENABLED */
 
