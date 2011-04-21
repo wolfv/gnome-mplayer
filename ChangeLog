@@ -1,4 +1,5 @@
 Development
+    Allow code to compile when --enable-gtk3 is used
     More configure macros
     Add --enable-gtk3 to configure, code does not compile yet in this mode
     libgmtk - gtk3 prep
