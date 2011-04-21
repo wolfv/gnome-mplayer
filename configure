@@ -648,10 +648,6 @@ DBUS_CFLAGS
 GIO_DEFINES
 GIO_LIBS
 GIO_CFLAGS
-GLIB2_26_DEFINES
-USE_GSETTINGS
-GLIB2_26_LIBS
-GLIB2_26_CFLAGS
 GLIB2_14_DEFINES
 GLIB2_14_LIBS
 GLIB2_14_CFLAGS
@@ -672,6 +668,10 @@ GTK2_12_LIBS
 GTK2_12_CFLAGS
 GLIB_LIBS
 GLIB_CFLAGS
+GLIB2_26_DEFINES
+USE_GSETTINGS
+GLIB2_26_LIBS
+GLIB2_26_CFLAGS
 GTK_LIBS
 GTK_CFLAGS
 X11_LIBS
@@ -797,6 +797,7 @@ enable_option_checking
 enable_maintainer_mode
 enable_silent_rules
 enable_dependency_tracking
+enable_gtk3
 with_gconf
 with_gio
 with_dbus
@@ -834,6 +835,8 @@ X11_CFLAGS
 X11_LIBS
 GTK_CFLAGS
 GTK_LIBS
+GLIB2_26_CFLAGS
+GLIB2_26_LIBS
 GLIB_CFLAGS
 GLIB_LIBS
 GTK2_12_CFLAGS
@@ -848,8 +851,6 @@ GTK2_22_CFLAGS
 GTK2_22_LIBS
 GLIB2_14_CFLAGS
 GLIB2_14_LIBS
-GLIB2_26_CFLAGS
-GLIB2_26_LIBS
 GIO_CFLAGS
 GIO_LIBS
 DBUS_CFLAGS
@@ -1494,6 +1495,7 @@ Optional Features:
   --disable-silent-rules         verbose build output (undo: `make V=0')
   --disable-dependency-tracking  speeds up one-time build
   --enable-dependency-tracking   do not reject slow dependency extractors
+  --enable-gtk3           compile using GTK3
   --disable-schemas-install
                           Disable the schemas installation
   --enable-nautilus       compile the nautilus plugin
@@ -1510,6 +1512,7 @@ Optional Packages:
   --with-gio              Use GIO for file I/O
   --with-dbus             Enable DBUS support, DBUS is required when using
                           with gecko-mediaplayer
+  --with-gconf            Use Gconf to store preferences
   --with-gconf-source=sourceaddress
                           Config database for installing schema files.
   --with-gconf-schema-file-dir=dir
@@ -1544,6 +1547,10 @@ Some influential environment variables:
   X11_LIBS    linker flags for X11, overriding pkg-config
   GTK_CFLAGS  C compiler flags for GTK, overriding pkg-config
   GTK_LIBS    linker flags for GTK, overriding pkg-config
+  GLIB2_26_CFLAGS
+              C compiler flags for GLIB2_26, overriding pkg-config
+  GLIB2_26_LIBS
+              linker flags for GLIB2_26, overriding pkg-config
   GLIB_CFLAGS C compiler flags for GLIB, overriding pkg-config
   GLIB_LIBS   linker flags for GLIB, overriding pkg-config
   GTK2_12_CFLAGS
@@ -1570,10 +1577,6 @@ Some influential environment variables:
               C compiler flags for GLIB2_14, overriding pkg-config
   GLIB2_14_LIBS
               linker flags for GLIB2_14, overriding pkg-config
-  GLIB2_26_CFLAGS
-              C compiler flags for GLIB2_26, overriding pkg-config
-  GLIB2_26_LIBS
-              linker flags for GLIB2_26, overriding pkg-config
   GIO_CFLAGS  C compiler flags for GIO, overriding pkg-config
   GIO_LIBS    linker flags for GIO, overriding pkg-config
   DBUS_CFLAGS C compiler flags for DBUS, overriding pkg-config
@@ -7441,6 +7444,227 @@ $as_echo "#define X11_ENABLED 1" >>confdefs.h
 fi
 
 
+# Check whether --enable-gtk3 was given.
+if test "${enable_gtk3+set}" = set; then :
+  enableval=$enable_gtk3; case "${enableval}" in
+    yes) ENABLE_GTK3=yes ;;
+    no) ENABLE_GTK3=no ;;
+    *) as_fn_error $? "bad value ${enableval} for --enable-gtk3" "$LINENO" 5 ;;
+    esac
+else
+  ENABLE_GTK3=no
+fi
+
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: gtk3 is $ENABLE_GTK3" >&5
+$as_echo "$as_me: gtk3 is $ENABLE_GTK3" >&6;}
+
+if test "x$ENABLE_GTK3" == "xyes"; then :
+
+
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GTK" >&5
+$as_echo_n "checking for GTK... " >&6; }
+
+if test -n "$GTK_CFLAGS"; then
+    pkg_cv_GTK_CFLAGS="$GTK_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-3.0 glib-2.0 gthread-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-3.0 glib-2.0 gthread-2.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GTK_CFLAGS=`$PKG_CONFIG --cflags "gtk+-3.0 glib-2.0 gthread-2.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$GTK_LIBS"; then
+    pkg_cv_GTK_LIBS="$GTK_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-3.0 glib-2.0 gthread-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-3.0 glib-2.0 gthread-2.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GTK_LIBS=`$PKG_CONFIG --libs "gtk+-3.0 glib-2.0 gthread-2.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        GTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "gtk+-3.0 glib-2.0 gthread-2.0" 2>&1`
+        else
+	        GTK_PKG_ERRORS=`$PKG_CONFIG --print-errors "gtk+-3.0 glib-2.0 gthread-2.0" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$GTK_PKG_ERRORS" >&5
+
+	as_fn_error $? "Package requirements (gtk+-3.0 glib-2.0 gthread-2.0) were not met:
+
+$GTK_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables GTK_CFLAGS
+and GTK_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details." "$LINENO" 5
+
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables GTK_CFLAGS
+and GTK_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details" "$LINENO" 5; }
+
+else
+	GTK_CFLAGS=$pkg_cv_GTK_CFLAGS
+	GTK_LIBS=$pkg_cv_GTK_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+fi
+
+$as_echo "#define GTK3_ENABLED 1" >>confdefs.h
+
+
+$as_echo "#define GTK2_12_ENABLED 1" >>confdefs.h
+
+
+$as_echo "#define GTK2_14_ENABLED 1" >>confdefs.h
+
+
+$as_echo "#define GTK2_18_ENABLED 1" >>confdefs.h
+
+
+$as_echo "#define GTK2_20_ENABLED 1" >>confdefs.h
+
+
+$as_echo "#define GTK2_22_ENABLED 1" >>confdefs.h
+
+
+
+# Check whether --with-gconf was given.
+if test "${with_gconf+set}" = set; then :
+  withval=$with_gconf;
+else
+  with_gconf=check
+fi
+
+    if test "x$with_gconf" != xyes; then :
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GLIB2_26" >&5
+$as_echo_n "checking for GLIB2_26... " >&6; }
+
+if test -n "$GLIB2_26_CFLAGS"; then
+    pkg_cv_GLIB2_26_CFLAGS="$GLIB2_26_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.26.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= 2.26.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GLIB2_26_CFLAGS=`$PKG_CONFIG --cflags "glib-2.0 >= 2.26.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$GLIB2_26_LIBS"; then
+    pkg_cv_GLIB2_26_LIBS="$GLIB2_26_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.26.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= 2.26.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GLIB2_26_LIBS=`$PKG_CONFIG --libs "glib-2.0 >= 2.26.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        GLIB2_26_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "glib-2.0 >= 2.26.0" 2>&1`
+        else
+	        GLIB2_26_PKG_ERRORS=`$PKG_CONFIG --print-errors "glib-2.0 >= 2.26.0" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$GLIB2_26_PKG_ERRORS" >&5
+
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Using GLIB < 2.26 specific features" >&5
+$as_echo "$as_me: Using GLIB < 2.26 specific features" >&6;}
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Using GLIB < 2.26 specific features" >&5
+$as_echo "$as_me: Using GLIB < 2.26 specific features" >&6;}
+else
+	GLIB2_26_CFLAGS=$pkg_cv_GLIB2_26_CFLAGS
+	GLIB2_26_LIBS=$pkg_cv_GLIB2_26_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	with_gconf=no with_gsettings=yes USE_GSETTINGS=1  GLIB2_26_DEFINES="-DGLIB2_26_ENABLED"
+$as_echo "#define GLIB2_26_ENABLED 1" >>confdefs.h
+
+fi
+
+fi
+
+
+
+
+fi
+
+if test "x$ENABLE_GTK3" != "xyes"; then :
+
+
 
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for GTK" >&5
@@ -8087,7 +8311,7 @@ else
   with_gconf=check
 fi
 
-if test "x$with_gconf" != xyes; then :
+    if test "x$with_gconf" != xyes; then :
 
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for GLIB2_26" >&5
@@ -8164,6 +8388,10 @@ fi
 
 fi
 
+
+
+
+fi
 
 
 

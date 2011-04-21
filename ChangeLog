@@ -1,4 +1,5 @@
 Development
+    Add --enable-gtk3 to configure, code does not compile yet in this mode
     libgmtk - gtk3 prep
     Convert gtk_menu_append to gtk_menu_shell_append
 1.0.3
