@@ -1151,11 +1151,11 @@ void create_playlist_widget()
     playlist_set_subtitle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Set Subtitle")));
     g_signal_connect(GTK_OBJECT(playlist_set_subtitle), "activate", G_CALLBACK(playlist_set_subtitle_callback), list);
 
-    gtk_menu_append(playlist_popup_menu, GTK_WIDGET(playlist_set_subtitle));
+    gtk_menu_shell_append(GTK_MENU_SHELL(playlist_popup_menu), GTK_WIDGET(playlist_set_subtitle));
     playlist_set_audiofile = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Set Audi_o")));
     g_signal_connect(GTK_OBJECT(playlist_set_audiofile), "activate", G_CALLBACK(playlist_set_audiofile_callback), list);
 
-    gtk_menu_append(playlist_popup_menu, GTK_WIDGET(playlist_set_audiofile));
+    gtk_menu_shell_append(GTK_MENU_SHELL(playlist_popup_menu), GTK_WIDGET(playlist_set_audiofile));
     g_signal_connect_swapped(G_OBJECT(list),
                              "button_press_event", G_CALLBACK(playlist_popup_handler), G_OBJECT(playlist_popup_menu));
     gtk_widget_show_all(GTK_WIDGET(playlist_popup_menu));
