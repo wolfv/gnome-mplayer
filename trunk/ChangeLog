@@ -1,4 +1,4 @@
-Development
+1.0.3
     libgmtk - change GtkObjectClass to GObjectClass
     Cleanup some compiler warnings
     Updated Japanese translation
