@@ -667,6 +667,9 @@ GLIB2_26_DEFINES
 USE_GSETTINGS
 GLIB2_26_LIBS
 GLIB2_26_CFLAGS
+GLIB2_24_DEFINES
+GLIB2_24_LIBS
+GLIB2_24_CFLAGS
 GTK2_24_DEFINES
 GTK2_22_DEFINES
 GTK2_20_DEFINES
@@ -836,6 +839,8 @@ X11_CFLAGS
 X11_LIBS
 GTK_CFLAGS
 GTK_LIBS
+GLIB2_24_CFLAGS
+GLIB2_24_LIBS
 GLIB2_26_CFLAGS
 GLIB2_26_LIBS
 GLIB_CFLAGS
@@ -1548,6 +1553,10 @@ Some influential environment variables:
   X11_LIBS    linker flags for X11, overriding pkg-config
   GTK_CFLAGS  C compiler flags for GTK, overriding pkg-config
   GTK_LIBS    linker flags for GTK, overriding pkg-config
+  GLIB2_24_CFLAGS
+              C compiler flags for GLIB2_24, overriding pkg-config
+  GLIB2_24_LIBS
+              linker flags for GLIB2_24, overriding pkg-config
   GLIB2_26_CFLAGS
               C compiler flags for GLIB2_26, overriding pkg-config
   GLIB2_26_LIBS
@@ -7583,6 +7592,81 @@ $as_echo "#define GTK2_24_ENABLED 1" >>confdefs.h
 
 
 
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GLIB2_24" >&5
+$as_echo_n "checking for GLIB2_24... " >&6; }
+
+if test -n "$GLIB2_24_CFLAGS"; then
+    pkg_cv_GLIB2_24_CFLAGS="$GLIB2_24_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.24.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= 2.24.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GLIB2_24_CFLAGS=`$PKG_CONFIG --cflags "glib-2.0 >= 2.24.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$GLIB2_24_LIBS"; then
+    pkg_cv_GLIB2_24_LIBS="$GLIB2_24_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.24.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= 2.24.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GLIB2_24_LIBS=`$PKG_CONFIG --libs "glib-2.0 >= 2.24.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        GLIB2_24_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "glib-2.0 >= 2.24.0" 2>&1`
+        else
+	        GLIB2_24_PKG_ERRORS=`$PKG_CONFIG --print-errors "glib-2.0 >= 2.24.0" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$GLIB2_24_PKG_ERRORS" >&5
+
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Using GLIB 2.24 features" >&5
+$as_echo "$as_me: Using GLIB 2.24 features" >&6;}
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Using GLIB 2.24 features" >&5
+$as_echo "$as_me: Using GLIB 2.24 features" >&6;}
+else
+	GLIB2_24_CFLAGS=$pkg_cv_GLIB2_24_CFLAGS
+	GLIB2_24_LIBS=$pkg_cv_GLIB2_24_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	GLIB2_24_DEFINES="-DGLIB2_24_ENABLED"
+$as_echo "#define GLIB2_24_ENABLED 1" >>confdefs.h
+
+fi
+
+
+
 # Check whether --with-gconf was given.
 if test "${with_gconf+set}" = set; then :
   withval=$with_gconf;
@@ -8386,6 +8470,82 @@ $as_echo "yes" >&6; }
 $as_echo "#define GLIB2_14_ENABLED 1" >>confdefs.h
 
 fi
+
+
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GLIB2_24" >&5
+$as_echo_n "checking for GLIB2_24... " >&6; }
+
+if test -n "$GLIB2_24_CFLAGS"; then
+    pkg_cv_GLIB2_24_CFLAGS="$GLIB2_24_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.24.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= 2.24.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GLIB2_24_CFLAGS=`$PKG_CONFIG --cflags "glib-2.0 >= 2.24.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$GLIB2_24_LIBS"; then
+    pkg_cv_GLIB2_24_LIBS="$GLIB2_24_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= 2.24.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= 2.24.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_GLIB2_24_LIBS=`$PKG_CONFIG --libs "glib-2.0 >= 2.24.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        GLIB2_24_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "glib-2.0 >= 2.24.0" 2>&1`
+        else
+	        GLIB2_24_PKG_ERRORS=`$PKG_CONFIG --print-errors "glib-2.0 >= 2.24.0" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$GLIB2_24_PKG_ERRORS" >&5
+
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Using GLIB 2.24 features" >&5
+$as_echo "$as_me: Using GLIB 2.24 features" >&6;}
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Using GLIB 2.24 features" >&5
+$as_echo "$as_me: Using GLIB 2.24 features" >&6;}
+else
+	GLIB2_24_CFLAGS=$pkg_cv_GLIB2_24_CFLAGS
+	GLIB2_24_LIBS=$pkg_cv_GLIB2_24_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	GLIB2_24_DEFINES="-DGLIB2_24_ENABLED"
+$as_echo "#define GLIB2_24_ENABLED 1" >>confdefs.h
+
+fi
+
 
 
 
