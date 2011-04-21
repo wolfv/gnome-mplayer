@@ -6587,47 +6587,47 @@ GtkWidget *create_window(gint windowid)
     popup_menu = GTK_MENU(gtk_menu_new());
     menubar = gtk_menu_bar_new();
     menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_play));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play));
     gtk_widget_show(GTK_WIDGET(menuitem_play));
     menuitem_stop = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_STOP, NULL));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_stop));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_stop));
     gtk_widget_show(GTK_WIDGET(menuitem_stop));
     menuitem_prev = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PREVIOUS, NULL));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_prev));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_prev));
     menuitem_next = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_NEXT, NULL));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_next));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_next));
     menuitem_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep1));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_sep1));
     gtk_widget_show(GTK_WIDGET(menuitem_sep1));
     menuitem_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_open));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_open));
     gtk_widget_show(GTK_WIDGET(menuitem_open));
     menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep3));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_sep3));
     gtk_widget_show(GTK_WIDGET(menuitem_sep3));
     menuitem_showcontrols = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("S_how Controls")));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_showcontrols));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_showcontrols));
     gtk_widget_show(GTK_WIDGET(menuitem_showcontrols));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), TRUE);
     menuitem_fullscreen = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Full Screen")));
     if (!disable_fullscreen) {
-        gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_fullscreen));
+        gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_fullscreen));
         gtk_widget_show(GTK_WIDGET(menuitem_fullscreen));
     }
     menuitem_copyurl = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Copy Location")));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_copyurl));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_copyurl));
     gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
     menuitem_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep2));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_sep2));
     gtk_widget_show(GTK_WIDGET(menuitem_sep2));
     menuitem_config = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES, NULL));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_config));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_config));
     gtk_widget_show(GTK_WIDGET(menuitem_config));
 
     menuitem_sep4 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep4));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_sep4));
     menuitem_save = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, accel_group));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_save));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_save));
     // we only want to show the save option when under control of gecko-mediaplayer
     if (control_id != 0) {
         gtk_widget_show(GTK_WIDGET(menuitem_sep4));
@@ -6636,10 +6636,10 @@ GtkWidget *create_window(gint windowid)
     }
 
     menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_sep3));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_sep3));
     gtk_widget_show(GTK_WIDGET(menuitem_sep3));
     menuitem_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group));
-    gtk_menu_append(popup_menu, GTK_WIDGET(menuitem_quit));
+    gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_quit));
     gtk_widget_show(GTK_WIDGET(menuitem_quit));
 
 
@@ -6672,17 +6672,17 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), GTK_WIDGET(menuitem_file));
     gtk_menu_item_set_submenu(menuitem_file, GTK_WIDGET(menu_file));
     menuitem_file_open = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group));
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_open));
     menuitem_file_open_folder = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Folder")));
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_folder),
                                   gtk_image_new_from_icon_name("folder", GTK_ICON_SIZE_MENU));
 
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_folder));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_open_folder));
     menuitem_file_open_location = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Location")));
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_location),
                                   gtk_image_new_from_icon_name("network-server", GTK_ICON_SIZE_MENU));
 
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_location));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_open_location));
 
     menuitem_file_disc = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Disc")));
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_disc),
@@ -6693,29 +6693,29 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_file_disc, GTK_WIDGET(menu_file_disc));
 
     menuitem_file_open_acd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Audio CD")));
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_acd));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_acd));
     menuitem_file_open_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_sep1));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_sep1));
 
     menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvd));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
     menuitem_file_open_dvdnav = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD with _Menus")));
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvdnav));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvdnav));
     menuitem_file_open_dvd_folder = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from _Folder")));
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvd_folder));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd_folder));
     menuitem_file_open_dvdnav_folder =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from Folder with M_enus")));
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvdnav_folder));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvdnav_folder));
     menuitem_file_open_dvd_iso = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from _ISO")));
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvd_iso));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd_iso));
     menuitem_file_open_dvdnav_iso =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from ISO with Me_nus")));
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_dvdnav_iso));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvdnav_iso));
 
     menuitem_file_open_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_sep2));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_sep2));
     menuitem_file_open_vcd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _VCD")));
-    gtk_menu_append(menu_file_disc, GTK_WIDGET(menuitem_file_open_vcd));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_vcd));
 
     menuitem_file_tv = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_TV")));
     menu_file_tv = GTK_MENU(gtk_menu_new());
@@ -6724,22 +6724,22 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_file_tv, GTK_WIDGET(menu_file_tv));
 
     menuitem_file_open_atv = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Analog TV")));
-    gtk_menu_append(menu_file_tv, GTK_WIDGET(menuitem_file_open_atv));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_tv), GTK_WIDGET(menuitem_file_open_atv));
     menuitem_file_open_dtv = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _Digital TV")));
-    gtk_menu_append(menu_file_tv, GTK_WIDGET(menuitem_file_open_dtv));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_tv), GTK_WIDGET(menuitem_file_open_dtv));
 #ifdef HAVE_GPOD
     menuitem_file_open_ipod = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _iPod™")));
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem_file_open_ipod),
                                   gtk_image_new_from_icon_name("multimedia-player", GTK_ICON_SIZE_MENU));
 
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_open_ipod));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_open_ipod));
 #endif
 #ifdef GTK2_12_ENABLED
 #ifdef GIO_ENABLED
     recent_manager = gtk_recent_manager_get_default();
     menuitem_file_recent = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Open _Recent")));
     // g_signal_connect(recent_manager, "changed", G_CALLBACK(recent_manager_changed_callback), NULL);
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_recent));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_recent));
     menuitem_file_recent_items = gtk_recent_chooser_menu_new();
     recent_filter = gtk_recent_filter_new();
     gtk_recent_filter_add_application(recent_filter, "gnome-mplayer");
@@ -6752,10 +6752,10 @@ GtkWidget *create_window(gint windowid)
 #endif
 
     menuitem_file_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_sep2));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_sep2));
 
     menuitem_file_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group));
-    gtk_menu_append(menu_file, GTK_WIDGET(menuitem_file_quit));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file), GTK_WIDGET(menuitem_file_quit));
 
     g_signal_connect(GTK_OBJECT(menuitem_file_open), "activate", G_CALLBACK(menuitem_open_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_file_open_folder), "activate",
@@ -6796,17 +6796,17 @@ GtkWidget *create_window(gint windowid)
 
     menuitem_edit_random = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Shuffle Playlist")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), random_order);
-    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_random));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_random));
 
     menuitem_edit_loop = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Loop Playlist")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_loop), loop);
-    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_loop));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_loop));
 
     menuitem_edit_switch_audio = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("S_witch Audio Track")));
-    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_switch_audio));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_switch_audio));
 
     menuitem_edit_set_audiofile = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Audi_o")));
-    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_set_audiofile));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_set_audiofile));
 
     menuitem_edit_select_audio_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Select _Audio Language")));
     menu_edit_audio_langs = GTK_MENU(gtk_menu_new());
@@ -6815,7 +6815,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_edit_select_audio_lang, GTK_WIDGET(menu_edit_audio_langs));
 
     menuitem_edit_set_subtitle = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Sub_title")));
-    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_set_subtitle));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_set_subtitle));
 
     menuitem_edit_select_sub_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("S_elect Subtitle Language")));
     menu_edit_sub_langs = GTK_MENU(gtk_menu_new());
@@ -6824,7 +6824,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_edit_select_sub_lang, GTK_WIDGET(menu_edit_sub_langs));
 
     menuitem_edit_take_screenshot = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Take Screenshot")));
-    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_take_screenshot));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_take_screenshot));
 #ifdef GTK2_12_ENABLED
     gtk_widget_set_tooltip_text(GTK_WIDGET(menuitem_edit_take_screenshot),
                                 _("Files named ’shotNNNN.png’ will be saved in the working directory"));
@@ -6834,10 +6834,10 @@ GtkWidget *create_window(gint windowid)
                          _("Files named ’shotNNNN.png’ will be saved in the working directory"), NULL);
 #endif
     menuitem_edit_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_sep1));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_sep1));
 
     menuitem_edit_config = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES, NULL));
-    gtk_menu_append(menu_edit, GTK_WIDGET(menuitem_edit_config));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_config));
     g_signal_connect(GTK_OBJECT(menuitem_edit_random), "activate", G_CALLBACK(menuitem_edit_random_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_loop), "activate", G_CALLBACK(menuitem_edit_loop_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_edit_set_audiofile), "activate",
@@ -6860,28 +6860,28 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_view, GTK_WIDGET(menu_view));
     menuitem_view_playlist = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Playlist")));
     // gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist), playlist_visible);
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_playlist));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_playlist));
     menuitem_view_info = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Media _Info")));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_info));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_info));
     menuitem_view_details = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_etails")));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_details));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_details));
     menuitem_view_meter = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("Audio _Meter")));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_meter));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_meter));
     menuitem_view_sep0 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep0));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_sep0));
 
     menuitem_view_fullscreen = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Full Screen")));
     menuitem_view_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     if (!disable_fullscreen) {
-        gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_fullscreen));
-        gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep1));
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_fullscreen));
+        gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_sep1));
     }
     menuitem_view_onetoone = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Normal (1:1)")));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_onetoone));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_onetoone));
     menuitem_view_twotoone = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Double Size (2:1)")));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_twotoone));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_twotoone));
     menuitem_view_onetotwo = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_onetotwo));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_onetotwo));
 
     menuitem_view_aspect = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Aspect")));
     menu_view_aspect = GTK_MENU(gtk_menu_new());
@@ -6890,15 +6890,15 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_item_set_submenu(menuitem_view_aspect, GTK_WIDGET(menu_view_aspect));
 
     menuitem_view_aspect_default = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("D_efault Aspect")));
-    gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_aspect_default));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view_aspect), GTK_WIDGET(menuitem_view_aspect_default));
     menuitem_view_aspect_four_three = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_4:3 Aspect")));
-    gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_aspect_four_three));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view_aspect), GTK_WIDGET(menuitem_view_aspect_four_three));
     menuitem_view_aspect_sixteen_nine = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_16:9 Aspect")));
-    gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_aspect_sixteen_nine));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view_aspect), GTK_WIDGET(menuitem_view_aspect_sixteen_nine));
     menuitem_view_aspect_sixteen_ten = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("1_6:10 Aspect")));
-    gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_aspect_sixteen_ten));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view_aspect), GTK_WIDGET(menuitem_view_aspect_sixteen_ten));
     menuitem_view_aspect_follow_window = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Follow Window")));
-    gtk_menu_append(menu_view_aspect, GTK_WIDGET(menuitem_view_aspect_follow_window));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view_aspect), GTK_WIDGET(menuitem_view_aspect_follow_window));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default), TRUE);
 
     menuitem_view_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
@@ -6914,19 +6914,19 @@ GtkWidget *create_window(gint windowid)
     menuitem_view_angle = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Switch An_gle")));
     menuitem_view_controls = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Controls")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), TRUE);
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep2));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_subtitles));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_smaller_subtitle));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_larger_subtitle));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_decrease_subtitle_delay));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_increase_subtitle_delay));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep5));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_angle));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_controls));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_sep2));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_subtitles));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_smaller_subtitle));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_larger_subtitle));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_decrease_subtitle_delay));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_increase_subtitle_delay));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_sep5));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_angle));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_controls));
     menuitem_view_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_sep3));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_sep3));
     menuitem_view_advanced = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Video Picture Adjustments")));
-    gtk_menu_append(menu_view, GTK_WIDGET(menuitem_view_advanced));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_advanced));
 
     g_signal_connect(GTK_OBJECT(menuitem_view_playlist), "toggled", G_CALLBACK(menuitem_view_playlist_callback), NULL);
     g_signal_connect(GTK_OBJECT(menuitem_view_info), "activate", G_CALLBACK(menuitem_view_info_callback), NULL);
@@ -6970,7 +6970,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), GTK_WIDGET(menuitem_help));
     gtk_menu_item_set_submenu(menuitem_help, GTK_WIDGET(menu_help));
     menuitem_help_about = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL));
-    gtk_menu_append(menu_help, GTK_WIDGET(menuitem_help_about));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_help), GTK_WIDGET(menuitem_help_about));
     g_signal_connect(GTK_OBJECT(menuitem_help_about), "activate", G_CALLBACK(menuitem_about_callback), NULL);
 
     gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);

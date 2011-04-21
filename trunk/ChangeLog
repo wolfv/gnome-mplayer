@@ -1,3 +1,5 @@
+Development
+    Convert gtk_menu_append to gtk_menu_shell_append
 1.0.3
     libgmtk - change GtkObjectClass to GObjectClass
     Cleanup some compiler warnings
