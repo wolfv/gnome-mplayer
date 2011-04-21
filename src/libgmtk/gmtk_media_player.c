@@ -60,7 +60,10 @@ static void gmtk_media_player_class_init(GmtkMediaPlayerClass * class)
 
     parent_class = g_type_class_peek_parent(class);
     G_OBJECT_CLASS(class)->dispose = gmtk_media_player_dispose;
+#ifdef GTK3_ENABLED
+#else
     widget_class->expose_event = gmtk_media_player_expose_event;
+#endif
     widget_class->size_allocate = gmtk_media_player_size_allocate;
 
     g_signal_new("position-changed",

@@ -29,8 +29,15 @@
 #include <gdk/gdk.h>
 #ifdef X11_ENABLED
 #include <gdk/gdkx.h>
+#ifdef GTK3_ENABLED
+#include <gtk/gtkx.h>
 #endif
+#endif
+#ifdef GTK3_ENABLED
+#include <gdk/gdkkeysyms-compat.h>
+#else
 #include <gdk/gdkkeysyms.h>
+#endif
 #include <glib/gstdio.h>
 #include <glib/gi18n.h>
 #include <math.h>

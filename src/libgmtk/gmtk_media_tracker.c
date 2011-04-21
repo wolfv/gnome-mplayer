@@ -53,7 +53,7 @@ static void gmtk_media_tracker_class_init(GmtkMediaTrackerClass * class)
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
                  G_STRUCT_OFFSET(GmtkMediaTrackerClass, value_changed),
-                 NULL, NULL, gtk_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
+                 NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
 
     g_signal_new("difference-changed",
                  G_OBJECT_CLASS_TYPE(object_class),

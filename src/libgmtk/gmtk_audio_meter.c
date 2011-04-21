@@ -61,7 +61,10 @@ static void gmtk_audio_meter_class_init(GmtkAudioMeterClass * class)
     widget_class = GTK_WIDGET_CLASS(class);
 
     parent_class = g_type_class_peek_parent(class);
+#ifdef GTK3_ENABLED
+#else
     widget_class->expose_event = gmtk_audio_meter_expose;
+#endif
     G_OBJECT_CLASS(class)->dispose = gmtk_audio_meter_dispose;
 }
 
@@ -205,7 +208,7 @@ static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * even
         draw(meter);
     } else {
         p = gtk_widget_create_pango_layout(meter, "No Data");
-        gdk_draw_layout(get_window(meter), gtk_widget_get_style(meter)->black_gc, 0, 0, p);
+        gdk_draw_layout(get_window(meter), gtk_widget_get_style(meter)->fg_gc[0], 0, 0, p);
         g_object_unref(p);
     }
     gdk_window_end_paint(get_window(meter));
