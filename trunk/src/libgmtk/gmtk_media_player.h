@@ -158,7 +158,7 @@ typedef struct _GmtkMediaPlayerAudioTrack {
 
 
 struct _GmtkMediaPlayer {
-    GtkVBox parent;
+    GtkEventBox parent;
 
     /*
        GtkWidget *GSEAL(scale);
@@ -167,6 +167,7 @@ struct _GmtkMediaPlayer {
        GtkWidget *GSEAL(timer);
        GtkTooltips *GSEAL(progress_tip);
      */
+    GtkWidget *alignment;
     GtkWidget *socket;
     gchar *uri;
     gdouble position;
@@ -242,7 +243,7 @@ struct _GmtkMediaPlayer {
 };
 
 struct _GmtkMediaPlayerClass {
-    GtkFixedClass parent_class;
+    GtkEventBoxClass parent_class;
     void (*position_changed) (GmtkMediaPlayer * player);
     void (*attribute_changed) (GmtkMediaPlayer * player);
     void (*player_state_changed) (GmtkMediaPlayer * player);
