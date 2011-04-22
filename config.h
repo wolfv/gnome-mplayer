@@ -17,7 +17,7 @@
 #define GIO_ENABLED 1
 
 /* Define to 1 if you have GLIB 2.14 or higher */
-#define GLIB2_14_ENABLED 1
+/* #undef GLIB2_14_ENABLED */
 
 /* Define to 1 if you have GLIB 2.24 or higher */
 #define GLIB2_24_ENABLED 1
@@ -47,7 +47,7 @@
 #define GTK2_24_ENABLED 1
 
 /* Define to 1 if you have GTK 3 or higher */
-/* #undef GTK3_ENABLED */
+#define GTK3_ENABLED 1
 
 /* Define to 1 if you have asoundlib development packages */
 #define HAVE_ASOUNDLIB 1

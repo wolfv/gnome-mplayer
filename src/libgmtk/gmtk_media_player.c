@@ -25,13 +25,12 @@
 #include "gmtk_media_player.h"
 #include "../libgmlib/gmlib.h"
 
-G_DEFINE_TYPE(GmtkMediaPlayer, gmtk_media_player, GTK_TYPE_FIXED);
+G_DEFINE_TYPE(GmtkMediaPlayer, gmtk_media_player, GTK_TYPE_EVENT_BOX);
 static GObjectClass *parent_class = NULL;
 
 static void gmtk_media_player_dispose(GObject * object);
 static gboolean gmtk_media_player_expose_event(GtkWidget * widget, GdkEventExpose * event);
 static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * allocation);
-static gboolean socket_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocation, gpointer data);
 static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey * event, gpointer data);
 static gboolean player_button_press_event_callback(GtkWidget * widget, GdkEventButton * event, gpointer data);
 static gboolean player_motion_notify_event_callback(GtkWidget * widget, GdkEventMotion * event, gpointer data);
@@ -121,31 +120,31 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
                           GDK_POINTER_MOTION_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_ENTER_NOTIFY_MASK);
 
 
-    gtk_widget_set_size_request(GTK_WIDGET(player), 320, 200);
-    gtk_widget_set_has_window(GTK_WIDGET(player), TRUE);
+    //gtk_widget_set_size_request(GTK_WIDGET(player), 320, 200);
+    //gtk_widget_set_has_window(GTK_WIDGET(player), TRUE);
     //gtk_widget_set_can_focus(GTK_WIDGET(player), TRUE);
     //gtk_widget_set_can_default(GTK_WIDGET(player), TRUE);
 
     g_signal_connect(player, "key_press_event", G_CALLBACK(player_key_press_event_callback), NULL);
     g_signal_connect(player, "motion_notify_event", G_CALLBACK(player_motion_notify_event_callback), NULL);
     g_signal_connect(player, "button_press_event", G_CALLBACK(player_button_press_event_callback), NULL);
-
     gtk_widget_push_composite_child();
 
+    player->alignment = gtk_alignment_new(0.0, 0.0, 1.0, 1.0);
     player->socket = gtk_socket_new();
+    gtk_container_add(GTK_CONTAINER(player), player->alignment);
+    gtk_container_add(GTK_CONTAINER(player->alignment), player->socket);
     //gtk_widget_add_events(GTK_WIDGET(player->socket),
     //                      GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK |
     //                      GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
     //                      GDK_POINTER_MOTION_MASK | 
     //                      GDK_LEAVE_NOTIFY_MASK | GDK_ENTER_NOTIFY_MASK);
-    gtk_widget_set_size_request(player->socket, 320, 200);
+    //gtk_widget_set_size_request(player->socket, 320, 200);
     gtk_widget_set_has_window(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_focus(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_default(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_activate(GTK_WIDGET(player->socket));
 
-    gtk_fixed_put(GTK_FIXED(player), player->socket, 0, 0);
-    g_signal_connect_swapped(player->socket, "size-allocate", G_CALLBACK(socket_size_allocate_callback), player);
     g_signal_connect(player->socket, "key_press_event", G_CALLBACK(player_key_press_event_callback), player);
 
     g_signal_connect(player, "restart-complete", G_CALLBACK(gmtk_media_player_restart_complete_callback), NULL);
@@ -228,20 +227,10 @@ static gboolean gmtk_media_player_expose_event(GtkWidget * widget, GdkEventExpos
     return FALSE;
 }
 
-static gboolean socket_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocation, gpointer data)
-{
-    GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(widget);
-
-    gtk_fixed_move(GTK_FIXED(player), player->socket, player->top, player->left);
-    return FALSE;
-}
-
 gboolean gmtk_media_player_send_key_press_event(GmtkMediaPlayer * widget, GdkEventKey * event, gpointer data)
 {
     return player_key_press_event_callback(GTK_WIDGET(widget), event, data);
 }
-
-
 
 static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey * event, gpointer data)
 {
@@ -421,39 +410,30 @@ static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * 
     gdouble video_aspect;
     gdouble widget_aspect;
     gint da_width, da_height;
+    gfloat xscale, yscale;
 
     if (player->video_width == 0 || player->video_height == 0) {
-        allocation->width = 1;
-        allocation->height = 1;
-        gtk_widget_set_size_request(player->socket, allocation->width, allocation->height);
-        gtk_widget_set_size_request(GTK_WIDGET(player), allocation->width, allocation->height);
-        player->top = 0;
-        player->left = 0;
+        gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.0, 0.0, 1.0, 1.0);
     } else {
         video_aspect = (gdouble) player->video_width / (gdouble) player->video_height;
         widget_aspect = (gdouble) allocation->width / (gdouble) allocation->height;
 
         if (player->disable_upscaling && allocation->width > player->video_width
             && allocation->height > player->video_height) {
-            da_width = player->video_width;
-            da_height = player->video_height;
+
+            // todo
+
         } else {
             if (video_aspect > widget_aspect) {
-                da_width = allocation->width;
-                da_height = floorf((allocation->width / video_aspect) + 0.5);
+                yscale = (allocation->width / video_aspect) / allocation->height;
+
+                gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0, 0.5, 1, yscale);
             } else {
-                da_height = allocation->height;
-                da_width = floorf((allocation->height * video_aspect) + 0.5);
+                xscale = (allocation->height * video_aspect) / allocation->width;
+
+                gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.5, 0, xscale, 1);
             }
         }
-
-        // apply zoom factor
-        da_width = (gdouble) da_width *player->zoom;
-        da_height = (gdouble) da_height *player->zoom;
-
-        gtk_widget_set_size_request(player->socket, da_width, da_height);
-        player->top = (allocation->width - da_width) / 2;
-        player->left = (allocation->height - da_height) / 2;
     }
 
     GTK_WIDGET_CLASS(parent_class)->size_allocate(widget, allocation);
