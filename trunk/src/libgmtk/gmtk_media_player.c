@@ -1369,19 +1369,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (strstr(mplayer_output->str, "ID_AUDIO_TRACK") != 0) {
             buf = strstr(mplayer_output->str, "ID_AUDIO_TRACK");
             sscanf(buf, "ID_AUDIO_TRACK=%i", &player->audio_track_id);
-            player->audio_track_id--;
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
         }
 
         if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
             buf = strstr(mplayer_output->str, "ANS_switch_audio");
-            sscanf(buf, "ANS_switch_audio=%i", &player->audio_track_id);
-            if (player->type == TYPE_DVD) {
-                // do nothing  for now
-            } else {
-                if (!player->use_mplayer2)
-                    player->audio_track_id--;
-            }
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
         }
 
