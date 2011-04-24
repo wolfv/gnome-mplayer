@@ -1374,6 +1374,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
         if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
             buf = strstr(mplayer_output->str, "ANS_switch_audio");
+			sscanf(buf, "ANS_switch_audio=%i", &player->audio_track_id);
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
         }
 
