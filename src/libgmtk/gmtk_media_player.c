@@ -2078,6 +2078,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if ((strstr(mplayer_output->str, "ID_CHAPTERS=") != NULL)
             && !(strstr(mplayer_output->str, "ID_CHAPTERS=0") != NULL)) {
             player->has_chapters = TRUE;
+			g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_HAS_CHAPTERS);	
         }
 
         if ((strstr(mplayer_output->str, "ID_SEEKABLE=") != NULL)

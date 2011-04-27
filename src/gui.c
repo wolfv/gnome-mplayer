@@ -4273,9 +4273,7 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 
     adv_vbox = gtk_vbox_new(FALSE, 10);
     adv_hbutton_box = gtk_hbutton_box_new();
-#ifndef GTK3_ENABLED
-    gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-#endif
+    gtk_button_box_set_layout(GTK_BUTTON_BOX(adv_hbutton_box), GTK_BUTTONBOX_END);
     adv_table = gtk_table_new(20, 2, FALSE);
 
     gtk_container_add(GTK_CONTAINER(adv_vbox), adv_table);
@@ -4744,9 +4742,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_page5 = gtk_vbox_new(FALSE, 10);
     conf_page6 = gtk_vbox_new(FALSE, 10);
     conf_hbutton_box = gtk_hbutton_box_new();
-#ifndef GTK3_ENABLED
-    gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-#endif
+    gtk_button_box_set_layout(GTK_BUTTON_BOX(conf_hbutton_box),GTK_BUTTONBOX_END);
     conf_table = gtk_table_new(20, 2, FALSE);
 
     notebook = gtk_notebook_new();
@@ -5893,8 +5889,6 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     const gchar *name;
     GList *list;
     GtkMenuItem *item;
-    GtkAllocation alloc;
-    GtkAllocation cb_alloc;
 
     if (attribute == ATTRIBUTE_LENGTH) {
         if (GTK_IS_WIDGET(tracker)) {
@@ -5991,6 +5985,12 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
             }
         }
     }
+
+	if (attribute == ATTRIBUTE_HAS_CHAPTERS) {
+        gtk_widget_show_all(prev_event_box);
+        gtk_widget_show_all(next_event_box);
+	}
+		
 
 }
 
