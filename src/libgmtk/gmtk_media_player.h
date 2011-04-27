@@ -210,6 +210,7 @@ struct _GmtkMediaPlayer {
     gint audio_channels;
     gboolean softvol;
     gdouble cache_size;
+    gdouble cache_percent;
     gboolean force_cache;
     gboolean sub_visible;
     GList *subtitles;
@@ -242,6 +243,7 @@ struct _GmtkMediaPlayer {
     gboolean disable_upscaling;
     gdouble zoom;
     gdouble speed_multiplier;
+    gboolean playlist;
 
     gboolean deinterlace;
     gboolean debug;
@@ -299,6 +301,7 @@ struct _GmtkMediaPlayer {
 struct _GmtkMediaPlayerClass {
     GtkEventBoxClass parent_class;
     void (*position_changed) (GmtkMediaPlayer * player);
+    void (*cache_percent_changed) (GmtkMediaPlayer * player);
     void (*attribute_changed) (GmtkMediaPlayer * player);
     void (*player_state_changed) (GmtkMediaPlayer * player);
     void (*media_state_changed) (GmtkMediaPlayer * player);
