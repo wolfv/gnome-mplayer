@@ -859,76 +859,6 @@ gboolean set_update_gui(void *data)
     return FALSE;
 }
 
-gboolean set_gui_state(void *data)
-{
-    gchar *tip_text = NULL;
-
-    if (lastguistate != guistate) {
-        if (guistate == PLAYING) {
-            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PAUSE, button_size);
-#ifdef GTK2_12_ENABLED
-            tip_text = gtk_widget_get_tooltip_text(play_event_box);
-            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Pause")) != 0)
-                gtk_widget_set_tooltip_text(play_event_box, _("Pause"));
-            g_free(tip_text);
-#else
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
-#endif
-            gtk_widget_set_sensitive(ff_event_box, TRUE);
-            gtk_widget_set_sensitive(rew_event_box, TRUE);
-            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
-            menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
-            g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_pause_callback), NULL);
-            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
-            gtk_widget_show(GTK_WIDGET(menuitem_play));
-            if (idledata->videopresent)
-                dbus_disable_screensaver();
-        }
-
-        if (guistate == PAUSED) {
-            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
-#ifdef GTK2_12_ENABLED
-            tip_text = gtk_widget_get_tooltip_text(play_event_box);
-            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
-                gtk_widget_set_tooltip_text(play_event_box, _("Play"));
-            g_free(tip_text);
-#else
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
-#endif
-            gtk_widget_set_sensitive(ff_event_box, FALSE);
-            gtk_widget_set_sensitive(rew_event_box, FALSE);
-            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
-            menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
-            g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_play_callback), NULL);
-            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
-            gtk_widget_show(GTK_WIDGET(menuitem_play));
-            dbus_enable_screensaver();
-        }
-
-        if (guistate == STOPPED) {
-            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
-#ifdef GTK2_12_ENABLED
-            tip_text = gtk_widget_get_tooltip_text(play_event_box);
-            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
-                gtk_widget_set_tooltip_text(play_event_box, _("Play"));
-            g_free(tip_text);
-#else
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
-#endif
-            gtk_widget_set_sensitive(ff_event_box, FALSE);
-            gtk_widget_set_sensitive(rew_event_box, FALSE);
-            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
-            menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
-            g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_play_callback), NULL);
-            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
-            gtk_widget_show(GTK_WIDGET(menuitem_play));
-            dbus_enable_screensaver();
-        }
-        lastguistate = guistate;
-    }
-    return FALSE;
-}
-
 gboolean set_metadata(gpointer data)
 {
     MetaData *mdata = (MetaData *) data;
@@ -6249,7 +6179,10 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
 
 void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMediaState state, gpointer data)
 {
-
+#ifdef GTK2_12_ENABLED
+	gchar *tip_text = NULL;
+#endif
+	
     switch (state) {
         // mplayer is dead, need the next item off the playlist
     case MEDIA_STATE_QUIT:
@@ -6291,21 +6224,75 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
             }
         }
 
-        break;
+        // break purposely not put here, so gui is properly updated
 
+    case MEDIA_STATE_STOP:
+            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#ifdef GTK2_12_ENABLED
+            tip_text = gtk_widget_get_tooltip_text(play_event_box);
+            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
+                gtk_widget_set_tooltip_text(play_event_box, _("Play"));
+            g_free(tip_text);
+#else
+            gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+#endif
+            gtk_widget_set_sensitive(ff_event_box, FALSE);
+            gtk_widget_set_sensitive(rew_event_box, FALSE);
+            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+            menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
+            g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_play_callback), NULL);
+            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
+            gtk_widget_show(GTK_WIDGET(menuitem_play));
+            dbus_enable_screensaver();
+        break;
+			
     case MEDIA_STATE_PLAY:
         if (idledata->mapped_af_export == NULL)
             map_af_export_file(idledata);
 
+            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PAUSE, button_size);
+#ifdef GTK2_12_ENABLED
+            tip_text = gtk_widget_get_tooltip_text(play_event_box);
+            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Pause")) != 0)
+                gtk_widget_set_tooltip_text(play_event_box, _("Pause"));
+            g_free(tip_text);
+#else
+            gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
+#endif
+            gtk_widget_set_sensitive(ff_event_box, TRUE);
+            gtk_widget_set_sensitive(rew_event_box, TRUE);
+            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+            menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
+            g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_pause_callback), NULL);
+            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
+            gtk_widget_show(GTK_WIDGET(menuitem_play));
+            if (idledata->videopresent)
+                dbus_disable_screensaver();
+
+			
         break;
 
     case MEDIA_STATE_PAUSE:
-
+            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#ifdef GTK2_12_ENABLED
+            tip_text = gtk_widget_get_tooltip_text(play_event_box);
+            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
+                gtk_widget_set_tooltip_text(play_event_box, _("Play"));
+            g_free(tip_text);
+#else
+            gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
+#endif
+            gtk_widget_set_sensitive(ff_event_box, FALSE);
+            gtk_widget_set_sensitive(rew_event_box, FALSE);
+            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+            menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
+            g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_play_callback), NULL);
+            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
+            gtk_widget_show(GTK_WIDGET(menuitem_play));
+            dbus_enable_screensaver();
         break;
 
-    case MEDIA_STATE_STOP:
 
-        break;
 
     default:
         break;
