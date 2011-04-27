@@ -23,6 +23,7 @@
 
 
 Development
+    Fix resize issues with normal, double and half sizes
     Move menu updates from resize_window, make the gui change based on media state
     Move GUI updates from set_gui_state, make the gui change based on media state
     Fix state tracking
