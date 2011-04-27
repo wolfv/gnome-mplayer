@@ -2053,15 +2053,11 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                     // subtitle?
                     if (g_strrstr(list[i], ".ass") != NULL || g_strrstr(list[i], ".ssa") != NULL
                         || g_strrstr(list[i], ".srt") != NULL) {
-                        send_command("sub_remove\n", TRUE);
                         filename = g_filename_from_uri(list[i], NULL, NULL);
                         if (filename != NULL) {
-                            cmd = g_strdup_printf("sub_load '%s'\n", filename);
-                            send_command(cmd, TRUE);
-                            g_free(cmd);
                             gtk_list_store_set(playliststore, &iter, SUBTITLE_COLUMN, filename, -1);
-                            // FIXME
-                            //menuitem_lang_callback(menuitem_lang, GINT_TO_POINTER(9000));
+                            gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_FILE,
+                                                                   filename);
                             g_free(filename);
                         }
                     } else {
@@ -3428,6 +3424,7 @@ void menuitem_edit_set_audiofile_callback(GtkMenuItem * menuitem, void *data)
         if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
             audiofile = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
             gtk_list_store_set(playliststore, &iter, AUDIOFILE_COLUMN, audiofile, -1);
+            gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_TRACK_FILE, audiofile);
         }
         gtk_widget_destroy(dialog);
 
@@ -3437,7 +3434,7 @@ void menuitem_edit_set_audiofile_callback(GtkMenuItem * menuitem, void *data)
             if (idledata->streaming)
                 play_iter(&iter, 0);
             else
-                play_iter(&iter, idledata->position);
+                gmtk_media_player_restart(GMTK_MEDIA_PLAYER(media));
         }
     }
 }
@@ -3473,16 +3470,7 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
         gtk_widget_destroy(dialog);
 
         if (subtitle != NULL) {
-            cmd = g_strdup_printf("sub_remove\n");
-            send_command(cmd, TRUE);
-            g_free(cmd);
-            cmd = g_strdup_printf("sub_load \"%s\"\n", subtitle);
-            send_command(cmd, TRUE);
-            g_free(cmd);
-            cmd = g_strdup_printf("sub_file 0");
-            send_command(cmd, TRUE);
-            g_free(cmd);
-            g_free(subtitle);
+            gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_FILE, subtitle);
         }
     }
 }
@@ -5849,7 +5837,6 @@ gboolean tracker_callback(GtkWidget * widget, gint percent, void *data)
 
 void subtitle_select_callback(GtkMenuItem * menu, gpointer data)
 {
-    gint id = GPOINTER_TO_INT(data);
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu)))
         gmtk_media_player_select_subtitle(GMTK_MEDIA_PLAYER(media), gtk_menu_item_get_label(menu));
 }
@@ -5886,7 +5873,6 @@ void player_subtitle_callback(GmtkMediaPlayer * player, int count, gpointer data
 
 void audio_track_select_callback(GtkMenuItem * menu, gpointer data)
 {
-    gint id = GPOINTER_TO_INT(data);
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu)))
         gmtk_media_player_select_audio_track(GMTK_MEDIA_PLAYER(media), gtk_menu_item_get_label(menu));
 }
@@ -6597,17 +6583,17 @@ GtkWidget *create_window(gint windowid)
     menuitem_file_open_sep1 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_sep1));
 
-    menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
+    //menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
+    //gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
     menuitem_file_open_dvdnav = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD with _Menus")));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvdnav));
-    menuitem_file_open_dvd_folder = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from _Folder")));
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd_folder));
+    //menuitem_file_open_dvd_folder = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from _Folder")));
+    //gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd_folder));
     menuitem_file_open_dvdnav_folder =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from Folder with M_enus")));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvdnav_folder));
-    menuitem_file_open_dvd_iso = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from _ISO")));
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd_iso));
+    //menuitem_file_open_dvd_iso = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from _ISO")));
+    //gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd_iso));
     menuitem_file_open_dvdnav_iso =
         GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open DVD from ISO with Me_nus")));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvdnav_iso));
@@ -6662,14 +6648,14 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(add_folder_to_playlist), menuitem_file_open_folder);
     g_signal_connect(G_OBJECT(menuitem_file_open_location), "activate",
                      G_CALLBACK(menuitem_open_location_callback), NULL);
-    g_signal_connect(G_OBJECT(menuitem_file_open_dvd), "activate", G_CALLBACK(menuitem_open_dvd_callback), NULL);
+    //g_signal_connect(G_OBJECT(menuitem_file_open_dvd), "activate", G_CALLBACK(menuitem_open_dvd_callback), NULL);
     g_signal_connect(G_OBJECT(menuitem_file_open_dvdnav), "activate", G_CALLBACK(menuitem_open_dvdnav_callback), NULL);
-    g_signal_connect(G_OBJECT(menuitem_file_open_dvd_folder), "activate",
-                     G_CALLBACK(menuitem_open_dvd_folder_callback), NULL);
+    //g_signal_connect(G_OBJECT(menuitem_file_open_dvd_folder), "activate",
+    //                 G_CALLBACK(menuitem_open_dvd_folder_callback), NULL);
     g_signal_connect(G_OBJECT(menuitem_file_open_dvdnav_folder), "activate",
                      G_CALLBACK(menuitem_open_dvdnav_folder_callback), NULL);
-    g_signal_connect(G_OBJECT(menuitem_file_open_dvd_iso), "activate",
-                     G_CALLBACK(menuitem_open_dvd_iso_callback), NULL);
+    //g_signal_connect(G_OBJECT(menuitem_file_open_dvd_iso), "activate",
+    //                 G_CALLBACK(menuitem_open_dvd_iso_callback), NULL);
     g_signal_connect(G_OBJECT(menuitem_file_open_dvdnav_iso), "activate",
                      G_CALLBACK(menuitem_open_dvdnav_iso_callback), NULL);
     g_signal_connect(G_OBJECT(menuitem_file_open_acd), "activate", G_CALLBACK(menuitem_open_acd_callback), NULL);

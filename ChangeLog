@@ -13,11 +13,14 @@
     
     Keyboard shortcuts
     
+    Preferences screen, doesn't set the preferences on gmtk_media_player
 
 ******
 
 
 Development
+    Fix memory leak in gmtk_media_player set_attribute_string
+    More subtitle work
     Make audio track and subtitle selection menus work
     Activate/Deactivate subtitle visibility,delay,size menus based on if subs exist or not
     Fix resize issues with normal, double and half sizes
