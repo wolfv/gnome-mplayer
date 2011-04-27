@@ -8,9 +8,6 @@
     DVD w/o menu playback
     TV playback
     
-    Audio Track Selection
-    Subtitle Selection
-    
     Details
     Audio Meter
     
@@ -21,6 +18,7 @@
 
 
 Development
+    Make audio track and subtitle selection menus work
     Activate/Deactivate subtitle visibility,delay,size menus based on if subs exist or not
     Fix resize issues with normal, double and half sizes
     Move menu updates from resize_window, make the gui change based on media state

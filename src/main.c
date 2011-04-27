@@ -420,9 +420,9 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
     }
 
-    gtk_container_forall(GTK_CONTAINER(menu_edit_sub_langs), remove_langs, NULL);
+    gtk_container_forall(GTK_CONTAINER(subtitles), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
-    gtk_container_forall(GTK_CONTAINER(menu_edit_audio_langs), remove_langs, NULL);
+    gtk_container_forall(GTK_CONTAINER(tracks), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
     lang_group = NULL;
     audio_group = NULL;
