@@ -88,10 +88,15 @@ typedef enum {
     ATTRIBUTE_SIZE,
     ATTRIBUTE_WIDTH,
     ATTRIBUTE_HEIGHT,
+    ATTRIBUTE_VIDEO_PRESENT,
     ATTRIBUTE_VO,
     ATTRIBUTE_AO,
+    ATTRIBUTE_ALSA_MIXER,
+    ATTRIBUTE_HARDWARE_AC3,
     ATTRIBUTE_SOFTVOL,
+    ATTRIBUTE_MUTED,
     ATTRIBUTE_CACHE_SIZE,
+    ATTRIBUTE_FORCE_CACHE,
     ATTRIBUTE_SUB_VISIBLE,
     ATTRIBUTE_SUBS_EXIST,
     ATTRIBUTE_SUB_COUNT,
@@ -104,6 +109,7 @@ typedef enum {
     ATTRIBUTE_SATURATION,
     ATTRIBUTE_SEEKABLE,
     ATTRIBUTE_HAS_CHAPTERS,
+    ATTRIBUTE_TITLE_IS_MENU,
     ATTRIBUTE_AUDIO_TRACK,
     ATTRIBUTE_SUBTITLE,
     ATTRIBUTE_VIDEO_FORMAT,
@@ -117,7 +123,23 @@ typedef enum {
     ATTRIBUTE_AUDIO_NCH,
     ATTRIBUTE_DISABLE_UPSCALING,
     ATTRIBUTE_MPLAYER_BINARY,
-    ATTRIBUTE_ZOOM
+    ATTRIBUTE_ZOOM,
+    ATTRIBUTE_SPEED_MULTIPLIER,
+    ATTRIBUTE_DEINTERLACE,
+    ATTRIBUTE_OSDLEVEL,
+    ATTRIBUTE_AUDIO_TRACK_FILE,
+    ATTRIBUTE_SUBTITLE_FILE,
+    ATTRIBUTE_ENABLE_ADVANCED_SUBTITLES,
+    ATTRIBUTE_SUBTITLE_MARGIN,
+    ATTRIBUTE_ENABLE_EMBEDDED_FONTS,
+    ATTRIBUTE_SUBTITLE_FONT,
+    ATTRIBUTE_SUBTITLE_OUTLINE,
+    ATTRIBUTE_SUBTITLE_SHADOW,
+    ATTRIBUTE_SUBTITLE_SCALE,
+    ATTRIBUTE_SUBTITLE_COLOR,
+    ATTRIBUTE_SUBTITLE_CODEPAGE,
+    ATTRIBUTE_PLAYLIST,
+    ATTRIBUTE_ENABLE_DEBUG,
 } GmtkMediaPlayerMediaAttributes;
 
 typedef enum {
@@ -173,17 +195,22 @@ struct _GmtkMediaPlayer {
     gdouble position;
     gint video_width;
     gint video_height;
+    gboolean video_present;
     gint top, left;
     gdouble length;
     gdouble start_time;
     gdouble run_time;
     gdouble volume;
+    gboolean muted;
     gchar *media_device;
     gboolean title_is_menu;
     gchar *vo;
     gchar *ao;
+    gchar *alsa_mixer;
+    gint audio_channels;
     gboolean softvol;
     gdouble cache_size;
+    gboolean force_cache;
     gboolean sub_visible;
     GList *subtitles;
     GList *audio_tracks;
@@ -192,11 +219,15 @@ struct _GmtkMediaPlayer {
     gint subtitle_id;
     gint subtitle_is_file;
     gchar *af_export_filename;
+    gchar *audio_track_file;
+    gchar *subtitle_file;
     gint brightness;
     gint contrast;
     gint hue;
     gint gamma;
     gint saturation;
+    gint osdlevel;
+    gint post_processing_level;
     gboolean seekable;
     gboolean has_chapters;
     gchar *video_format;
@@ -210,6 +241,29 @@ struct _GmtkMediaPlayer {
     gint audio_nch;
     gboolean disable_upscaling;
     gdouble zoom;
+    gdouble speed_multiplier;
+
+    gboolean deinterlace;
+    gboolean debug;
+    gboolean hardware_ac3;
+
+    gboolean enable_advanced_subtitles;
+    gboolean subtitle_outline;
+    gboolean subtitle_shadow;
+    gboolean enable_embedded_fonts;
+    gdouble subtitle_scale;
+    gint subtitle_margin;
+    gchar *subtitle_color;
+    gchar *subtitle_codepage;
+    gchar *subtitle_font;
+
+    gchar *tv_device;
+    gchar *tv_driver;
+    gchar *tv_input;
+    gint tv_width;
+    gint tv_height;
+    gint tv_fps;
+
 
     GmtkMediaPlayerPlayerState player_state;
     GmtkMediaPlayerMediaState media_state;
@@ -281,6 +335,7 @@ void gmtk_media_player_set_attribute_integer_delta(GmtkMediaPlayer * player, Gmt
 gint gmtk_media_player_get_attribute_integer(GmtkMediaPlayer * player, GmtkMediaPlayerMediaAttributes attribute);
 
 void gmtk_media_player_seek(GmtkMediaPlayer * player, gdouble value, GmtkMediaPlayerSeekType seek_type);
+void gmtk_media_player_seek_chapter(GmtkMediaPlayer * player, int value, GmtkMediaPlayerSeekType seek_type);
 
 void gmtk_media_player_set_volume(GmtkMediaPlayer * player, gdouble value);
 gdouble gmtk_media_player_get_volume(GmtkMediaPlayer * player);
@@ -297,6 +352,12 @@ void gmtk_media_player_select_subtitle_by_id(GmtkMediaPlayer * player, gint id);
 void gmtk_media_player_select_audio_track_by_id(GmtkMediaPlayer * player, gint id);
 
 void gmtk_media_player_restart(GmtkMediaPlayer * player);
+void gmtk_media_player_show_dvd_menu(GmtkMediaPlayer * player);
+void gmtk_media_player_take_screenshot(GmtkMediaPlayer * player);
+
+void gmtk_media_player_set_aspect(GmtkMediaPlayer * player, GmtkMediaPlayerAspectRatio aspect);
+GmtkMediaPlayerAspectRatio gmtk_media_player_get_aspect(GmtkMediaPlayer * player);
+
 
 G_END_DECLS
 #endif

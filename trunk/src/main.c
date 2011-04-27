@@ -43,9 +43,6 @@
 #include "common.h"
 #include "support.h"
 #include "dbus-interface.h"
-#include "thread.h"
-
-GMutex *thread_running = NULL;
 
 
 static GOptionEntry entries[] = {
@@ -148,7 +145,23 @@ static GOptionEntry entries[] = {
     {NULL}
 };
 
-gboolean play(void *data);
+gboolean play(void *data)
+{
+    PlayData *p = (PlayData *) data;
+
+    if (ok_to_play && p != NULL) {
+        if (!gtk_list_store_iter_is_valid(playliststore, &iter)) {
+            // printf("iter is not valid, getting first one\n");
+            gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+        }
+        gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri, -1);
+        play_iter(&iter, 0);
+    }
+    g_free(p);
+
+    return FALSE;
+}
+
 
 void play_next()
 {
@@ -198,7 +211,6 @@ void play_next()
 gint play_iter(GtkTreeIter * playiter, gint restart_second)
 {
 
-    ThreadData *thread_data = (ThreadData *) g_new0(ThreadData, 1);
     GtkWidget *dialog;
     gchar *error_msg = NULL;
     gchar *subtitle = NULL;
@@ -260,8 +272,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     } else {
         if (verbose > 1)
             printf("iter is invalid, nothing to play\n");
-        g_free(thread_data);
-        thread_data = NULL;
         return 0;
     }
 
@@ -270,9 +280,9 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         printf("is playlist %i\n", playlist);
     }
 
-    mplayer_shutdown();
+    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
 
-    while (state != QUIT) {
+    while (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
         gtk_main_iteration();
     }
 
@@ -417,38 +427,32 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     lang_group = NULL;
     audio_group = NULL;
 
-    local_file = get_localfile_from_uri(uri);
-    if (local_file == NULL)
-        return 0;
-
-    g_strlcpy(thread_data->uri, uri, 2048);
-    g_strlcpy(thread_data->filename, local_file, 1024);
-    g_free(local_file);
-    thread_data->done = FALSE;
 
     if (subtitle != NULL) {
-        g_strlcpy(thread_data->subtitle, subtitle, 1024);
+        //g_strlcpy(thread_data->subtitle, subtitle, 1024);
         g_free(subtitle);
     }
     if (audiofile != NULL) {
-        g_strlcpy(thread_data->audiofile, audiofile, 1024);
+        //g_strlcpy(thread_data->audiofile, audiofile, 1024);
         g_free(audiofile);
     }
 
-    if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
-        if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
-            if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
-                error_msg = g_strdup_printf("%s not found\n", thread_data->filename);
-                dialog =
-                    gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT,
-                                           GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, "%s", error_msg);
-                gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
-                gtk_dialog_run(GTK_DIALOG(dialog));
-                gtk_widget_destroy(dialog);
-                return 1;
-            }
-        }
-    }
+    /*
+       if (g_ascii_strcasecmp(thread_data->filename, "") != 0) {
+       if (!device_name(thread_data->filename) && !streaming_media(thread_data->filename)) {
+       if (!g_file_test(thread_data->filename, G_FILE_TEST_EXISTS)) {
+       error_msg = g_strdup_printf("%s not found\n", thread_data->filename);
+       dialog =
+       gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT,
+       GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, "%s", error_msg);
+       gtk_window_set_title(GTK_WINDOW(dialog), "GNOME MPlayer Error");
+       gtk_dialog_run(GTK_DIALOG(dialog));
+       gtk_widget_destroy(dialog);
+       return 1;
+       }
+       }
+       }
+     */
 #ifdef GTK2_12_ENABLED
 #ifdef GIO_ENABLED
     // don't put it on the recent list, if it is running in plugin mode
@@ -512,8 +516,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         g_free(lastfile);
         lastfile = NULL;
     }
-
-    lastfile = g_strdup(thread_data->filename);
+    //lastfile = g_strdup(thread_data->filename);
 
     last_x = 0;
     last_y = 0;
@@ -546,52 +549,22 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
     gm_pref_store_free(gm_store);
 
-    if (thread_data->filename != NULL && strlen(thread_data->filename) != 0) {
-        thread_data->player_window = 0;
-        thread_data->playlist = playlist;
-        thread_data->restart_second = restart_second;
-        thread_data->start_second = start_second;
-        thread_data->play_length = play_length;
-        thread_data->streaming = streaming_media(thread_data->uri);
-        idledata->streaming = thread_data->streaming;
-        streaming = thread_data->streaming;
-        g_strlcpy(idledata->video_format, "", 64);
-        g_strlcpy(idledata->video_fps, "", 16);
-        g_strlcpy(idledata->video_bitrate, "", 16);
-        g_strlcpy(idledata->audio_bitrate, "", 16);
-        g_strlcpy(idledata->audio_samplerate, "", 16);
-        g_strlcpy(idledata->audio_channels, "", 16);
-        idledata->has_chapters = FALSE;
-        idledata->windowid = get_player_window();
-        // these next 3 lines are here to make sure the window is available for mplayer to draw to
-        // for some vo's (like xv) if the window is not visible and big enough the vo setup fails
-        if (thread_data->streaming || thread_data->playlist) {
-            idledata->videopresent = 1;
-            gtk_widget_set_size_request(drawing_area, 16, 16);
-            gtk_widget_show_all(fixed);
-        } else {
-            g_idle_add(resize_window, idledata);
-        }
 
-        if (g_ascii_strcasecmp(uri, "dvdnav://") == 0) {
-            gtk_widget_show(menu_event_box);
-        } else {
-            gtk_widget_hide(menu_event_box);
-        }
-        while (gtk_events_pending())
-            gtk_main_iteration();
-
-        if (autostart) {
-            g_idle_add(hide_buttons, idledata);
-            js_state = STATE_PLAYING;
-            while (gtk_events_pending())
-                gtk_main_iteration();
-            thread = g_thread_create(launch_player, thread_data, TRUE, NULL);
-            if (thread == NULL)
-                printf("Unable to launch player thread\n");
-        }
-        autostart = 1;
+    if (g_ascii_strcasecmp(uri, "dvdnav://") == 0) {
+        gtk_widget_show(menu_event_box);
+    } else {
+        gtk_widget_hide(menu_event_box);
     }
+
+    if (autostart) {
+        g_idle_add(hide_buttons, idledata);
+        js_state = STATE_PLAYING;
+        gmtk_media_player_set_uri(GMTK_MEDIA_PLAYER(media), uri);
+        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
+
+    }
+    autostart = 1;
+
 
     return 0;
 }
@@ -646,7 +619,6 @@ int main(int argc, char *argv[])
     dontplaynext = FALSE;
     idledata = (IdleData *) g_new0(IdleData, 1);
     idledata->videopresent = FALSE;
-    idledata->mute = FALSE;
     idledata->length = 0.0;
     idledata->brightness = 0;
     idledata->contrast = 0;
@@ -668,7 +640,6 @@ int main(int argc, char *argv[])
     js_state = STATE_UNDEFINED;
     control_instance = TRUE;
     playlistname = NULL;
-    thread = NULL;
     rpconsole = NULL;
     subtitle = NULL;
     tv_device = NULL;
@@ -777,11 +748,6 @@ int main(int argc, char *argv[])
 
     // call g_type_init or otherwise we can crash
     g_type_init();
-
-    g_value_init(&ALLOW_SHRINK_TRUE, G_TYPE_BOOLEAN);
-    g_value_init(&ALLOW_SHRINK_FALSE, G_TYPE_BOOLEAN);
-    g_value_set_boolean(&ALLOW_SHRINK_FALSE, FALSE);
-    g_value_set_boolean(&ALLOW_SHRINK_TRUE, TRUE);
 
     uri = g_strdup_printf("%s/gnome-mplayer/cover_art", g_get_user_config_dir());
     if (!g_file_test(uri, G_FILE_TEST_IS_DIR)) {
@@ -997,12 +963,6 @@ int main(int argc, char *argv[])
     create_window(embed_window);
 
     autopause = FALSE;
-    state = QUIT;
-    channel_in = NULL;
-    channel_out = NULL;
-    channel_err = NULL;
-
-    thread_running = g_mutex_new();
     slide_away = g_mutex_new();
     mplayer_complete_cond = g_cond_new();
 #ifdef GIO_ENABLED
@@ -1177,6 +1137,10 @@ int main(int argc, char *argv[])
     gm_audio_update_device(&audio_device);
     gm_audio_get_volume(&audio_device);
     gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
+    gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AO, audio_device.mplayer_ao);
+    gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SOFTVOL,
+                                            audio_device.type == AUDIO_TYPE_SOFTVOL);
+
     if (!softvol) {
         if (pref_volume != -1) {
             audio_device.volume = (gdouble) pref_volume / 100.0;

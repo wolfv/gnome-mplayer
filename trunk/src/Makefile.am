@@ -48,8 +48,6 @@ gnome_mplayer_SOURCES = \
 	main.c \
 	dbus-interface.c \
 	dbus-interface.h \
-	thread.h \
-	thread.c \
 	common.h \
 	../pixmaps/gnome_mplayer.xpm \
 	../pixmaps/media-playback-pause.xpm \

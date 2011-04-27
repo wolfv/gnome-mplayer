@@ -61,7 +61,7 @@ gboolean playlist_popup_handler(GtkWidget * widget, GdkEvent * event, void *data
 
 
     menu = GTK_MENU(widget);
-    gtk_widget_grab_focus(fixed);
+    gtk_widget_grab_focus(media);
     if (event->type == GDK_BUTTON_PRESS) {
 
         event_button = (GdkEventButton *) event;
@@ -690,7 +690,7 @@ void clear_playlist(GtkWidget * widget, void *data)
 {
 
     dontplaynext = TRUE;
-    mplayer_shutdown();
+    //mplayer_shutdown();
     gtk_list_store_clear(playliststore);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_random), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
@@ -777,7 +777,7 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path, GtkTre
 
     if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
         dontplaynext = TRUE;
-        mplayer_shutdown();
+        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         play_iter(&iter, 0);
         dontplaynext = FALSE;
     }

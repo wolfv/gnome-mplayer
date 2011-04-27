@@ -155,7 +155,7 @@ GtkWidget *vbox;
 GtkWidget *hbox;
 GtkWidget *controls_box;
 
-GtkWidget *fixed;
+GtkWidget *media;
 GtkWidget *media_hbox;
 GtkWidget *media_label;
 GtkWidget *cover_art;
@@ -174,7 +174,6 @@ GtkWidget *details_audio_channels;
 GtkWidget *details_audio_bitrate;
 GtkWidget *details_audio_samplerate;
 
-GtkWidget *drawing_area;
 GdkPixbuf *pb_icon;
 GdkPixbuf *pb_button;
 

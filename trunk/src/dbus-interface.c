@@ -417,7 +417,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->progress_text, s, 1024);
-                        if (state != PLAYING)
+                        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY)
                             g_idle_add(set_progress_text, idledata);
                     } else {
                         dbus_error_free(&error);
