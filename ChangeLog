@@ -19,6 +19,7 @@
 
 
 Development
+    Make Advanced video settings work
     Disable DVD w/o menu disabled for now. 
     Playlist and Cache Percentage changes
     Fix memory leak in gmtk_media_player set_attribute_string

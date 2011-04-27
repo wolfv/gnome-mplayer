@@ -2022,7 +2022,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
     gint playlist;
     gint itemcount;
     gboolean added_single = FALSE;
-    gchar *cmd;
     gchar *filename;
     /* Important, check if we actually got data.  Sometimes errors
      * occure and selection_data will be NULL.
@@ -3454,7 +3453,6 @@ void menuitem_edit_set_audiofile_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
 {
-    gchar *cmd;
     gchar *subtitle = NULL;
     GtkWidget *dialog;
     gchar *path;
@@ -4010,72 +4008,42 @@ void config_close(GtkWidget * widget, void *data)
 
 void brightness_callback(GtkRange * range, gpointer data)
 {
-    gint brightness;
-    gchar *cmd;
     IdleData *idle = (IdleData *) data;
 
-    brightness = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("brightness %i 1\n", brightness);
-    send_command(cmd, TRUE);
-    g_free(cmd);
-    send_command("get_property brightness\n", TRUE);
-    idle->brightness = brightness;
+    idle->brightness = (gint) gtk_range_get_value(range);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_BRIGHTNESS, idle->brightness);
 }
 
 void contrast_callback(GtkRange * range, gpointer data)
 {
-    gint contrast;
-    gchar *cmd;
     IdleData *idle = (IdleData *) data;
 
-    contrast = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("contrast %i 1\n", contrast);
-    send_command(cmd, TRUE);
-    g_free(cmd);
-    send_command("get_property contrast\n", TRUE);
-    idle->contrast = contrast;
+    idle->contrast = (gint) gtk_range_get_value(range);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CONTRAST, idle->contrast);
 }
 
 void gamma_callback(GtkRange * range, gpointer data)
 {
-    gint gamma;
-    gchar *cmd;
     IdleData *idle = (IdleData *) data;
 
-    gamma = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("gamma %i 1\n", gamma);
-    send_command(cmd, TRUE);
-    g_free(cmd);
-    send_command("get_property gamma\n", TRUE);
-    idle->gamma = gamma;
+    idle->gamma = (gint) gtk_range_get_value(range);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_GAMMA, idle->gamma);
 }
 
 void hue_callback(GtkRange * range, gpointer data)
 {
-    gint hue;
-    gchar *cmd;
     IdleData *idle = (IdleData *) data;
 
-    hue = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("hue %i 1\n", hue);
-    send_command(cmd, TRUE);
-    g_free(cmd);
-    send_command("get_property hue\n", TRUE);
-    idle->hue = hue;
+    idle->hue = (gint) gtk_range_get_value(range);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HUE, idle->hue);
 }
 
 void saturation_callback(GtkRange * range, gpointer data)
 {
-    gint saturation;
-    gchar *cmd;
     IdleData *idle = (IdleData *) data;
 
-    saturation = (gint) gtk_range_get_value(range);
-    cmd = g_strdup_printf("saturation %i 1\n", saturation);
-    send_command(cmd, TRUE);
-    g_free(cmd);
-    send_command("get_property saturation\n", TRUE);
-    idle->saturation = saturation;
+    idle->saturation = (gint) gtk_range_get_value(range);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SATURATION, idle->saturation);
 }
 
 void menuitem_meter_callback(GtkMenuItem * menuitem, void *data)
@@ -6911,6 +6879,8 @@ GtkWidget *create_window(gint windowid)
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_COLOR, subtitle_color);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_CODEPAGE, subtitle_codepage);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_FONT, subtitlefont);
+
+    gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DEINTERLACE, !disable_deinterlace);
 
     g_signal_connect_swapped(G_OBJECT(media), "media_state_changed", G_CALLBACK(player_media_state_changed_callback),
                              NULL);
