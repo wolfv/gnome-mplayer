@@ -1752,6 +1752,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
             }
 
+			gmtk_media_player_size_allocate(GTK_WIDGET(player), &allocation);
+
             player->video_present = TRUE;
             style = gtk_widget_get_style(GTK_WIDGET(player));
             gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, &(style->black));

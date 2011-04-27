@@ -1264,36 +1264,6 @@ gboolean resize_window(void *data)
             }
             // adjust_layout();
         }
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_audiofile), idle->videopresent);
-        if (vo == NULL
-            || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
-                 || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
-            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), idle->videopresent);
-        } else {
-            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
-        }
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_default), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_four_three), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_follow_window), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_smaller_subtitle), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_larger_subtitle), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_increase_subtitle_delay), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idle->videopresent);
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), TRUE);
     }
     if (idle != NULL)
         idle->window_resized = TRUE;
@@ -6137,6 +6107,41 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     if (attribute == ATTRIBUTE_VIDEO_PRESENT) {
         idledata->videopresent =
             gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VIDEO_PRESENT);
+
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_fullscreen), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_audiofile), idledata->videopresent);
+        if (vo == NULL
+            || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
+                 || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), idledata->videopresent);
+        } else {
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
+        }
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_default), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_four_three), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_nine), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_sixteen_ten), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_follow_window), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_smaller_subtitle), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_larger_subtitle), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_increase_subtitle_delay), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), TRUE);
+
+
+
+		
         printf("video present = %i\n", idledata->videopresent);
         g_idle_add(resize_window, idledata);
     }
