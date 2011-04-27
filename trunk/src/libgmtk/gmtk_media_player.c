@@ -71,6 +71,12 @@ static void gmtk_media_player_class_init(GmtkMediaPlayerClass * class)
                  G_STRUCT_OFFSET(GmtkMediaPlayerClass, position_changed),
                  NULL, NULL, g_cclosure_marshal_VOID__DOUBLE, G_TYPE_NONE, 1, G_TYPE_DOUBLE);
 
+    g_signal_new("cache-percent-changed",
+                 G_OBJECT_CLASS_TYPE(object_class),
+                 G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+                 G_STRUCT_OFFSET(GmtkMediaPlayerClass, cache_percent_changed),
+                 NULL, NULL, g_cclosure_marshal_VOID__DOUBLE, G_TYPE_NONE, 1, G_TYPE_DOUBLE);
+
     g_signal_new("attribute-changed",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
@@ -476,7 +482,7 @@ static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player
     player->restart = FALSE;
     if (player->debug)
         printf("restart complete\n");
-	g_signal_emit_by_name(player, "media-state-changed", player->restart_state);
+    g_signal_emit_by_name(player, "media-state-changed", player->restart_state);
 }
 
 void gmtk_media_player_restart(GmtkMediaPlayer * player)
@@ -627,6 +633,10 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
         }
         break;
 
+    case ATTRIBUTE_PLAYLIST:
+        player->playlist = value;
+        break;
+
     case ATTRIBUTE_DISABLE_UPSCALING:
         player->disable_upscaling = value;
         break;
@@ -687,6 +697,10 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkM
 
     case ATTRIBUTE_SOFTVOL:
         ret = player->softvol;
+        break;
+
+    case ATTRIBUTE_PLAYLIST:
+        ret = player->playlist;
         break;
 
     case ATTRIBUTE_SEEKABLE:
@@ -831,8 +845,8 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
 void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
                                             GmtkMediaPlayerMediaAttributes attribute, const gchar * value)
 {
-	gchar *cmd;
-	
+    gchar *cmd;
+
     switch (attribute) {
     case ATTRIBUTE_VO:
         if (player->vo != NULL) {
@@ -861,7 +875,7 @@ void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
             g_free(player->mplayer_binary);
         }
         if (value == NULL || strlen(value) == 0) {
-			player->mplayer_binary = NULL;
+            player->mplayer_binary = NULL;
         } else {
             player->mplayer_binary = g_strdup(value);
         }
@@ -873,26 +887,26 @@ void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
             g_free(player->audio_track_file);
         }
         if (value == NULL || strlen(value) == 0) {
-			player->audio_track_file = NULL;
+            player->audio_track_file = NULL;
         } else {
             player->audio_track_file = g_strdup(value);
         }
         break;
-			
+
     case ATTRIBUTE_SUBTITLE_FILE:
         if (player->subtitle_file != NULL) {
             g_free(player->subtitle_file);
         }
         if (value == NULL || strlen(value) == 0) {
-			player->subtitle_file = NULL;
+            player->subtitle_file = NULL;
         } else {
             player->subtitle_file = g_strdup(value);
-			if (player->player_state == PLAYER_STATE_RUNNING) {
-				write_to_mplayer(player, "sub_remove\n");
-		        cmd = g_strdup_printf("sub_load \"%s\" 1\n", player->subtitle_file);
-		        write_to_mplayer(player, cmd);
-		        g_free(cmd);
-		    }			
+            if (player->player_state == PLAYER_STATE_RUNNING) {
+                write_to_mplayer(player, "sub_remove\n");
+                cmd = g_strdup_printf("sub_load \"%s\" 1\n", player->subtitle_file);
+                write_to_mplayer(player, cmd);
+                g_free(cmd);
+            }
         }
         break;
 
@@ -1334,6 +1348,8 @@ gpointer launch_mplayer(gpointer data)
     player->seekable = FALSE;
     player->has_chapters = FALSE;
     player->video_present = FALSE;
+    player->position = 0.0;
+    player->cache_percent = -1.0;
 
     gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
     gtk_widget_show(GTK_WIDGET(player->socket));
@@ -1352,8 +1368,8 @@ gpointer launch_mplayer(gpointer data)
     }
 
     // use the profile to set up some default values
-    //argv[argn++] = g_strdup_printf("-profile");
-    //argv[argn++] = g_strdup_printf("gnome-mplayer");
+    argv[argn++] = g_strdup_printf("-profile");
+    argv[argn++] = g_strdup_printf("gnome-mplayer");
 
     if (player->vo != NULL) {
         argv[argn++] = g_strdup_printf("-vo");
@@ -1555,9 +1571,12 @@ gpointer launch_mplayer(gpointer data)
             argv[argn++] = g_strdup_printf("-user-agent");
             argv[argn++] = g_strdup_printf("QuickTime/7.6.4");
         }
-        if (player->force_cache) {
+        if (player->force_cache && player->cache_size >= 32) {
             argv[argn++] = g_strdup_printf("-cache");
             argv[argn++] = g_strdup_printf("%i", player->cache_size);
+        }
+        if (player->playlist) {
+            argv[argn++] = g_strdup_printf("-playlist");
         }
         argv[argn++] = g_strdup_printf("%s", filename);
         break;
@@ -1573,8 +1592,14 @@ gpointer launch_mplayer(gpointer data)
         break;
 
     case TYPE_NETWORK:
-        argv[argn++] = g_strdup_printf("-cache");
-        argv[argn++] = g_strdup_printf("%i", player->cache_size);
+        if (player->cache_size >= 32) {
+            argv[argn++] = g_strdup_printf("-cache");
+            argv[argn++] = g_strdup_printf("%i", (gint) player->cache_size);
+        }
+        if (player->playlist) {
+            argv[argn++] = g_strdup_printf("-playlist");
+        }
+        argv[argn++] = g_strdup_printf("%s", player->uri);
         break;
 
     case TYPE_TV:
@@ -1602,6 +1627,8 @@ gpointer launch_mplayer(gpointer data)
             argv[argn++] = g_strdup_printf("-tv:fps");
             argv[argn++] = g_strdup_printf("%i", player->tv_fps);
         }
+        argv[argn++] = g_strdup_printf("-nocache");
+        argv[argn++] = g_strdup_printf("%s", filename);
 
 
     default:
@@ -1628,7 +1655,6 @@ gpointer launch_mplayer(gpointer data)
         error = NULL;
     }
 
-    printf("spawn = %i\n", spawn);
     if (spawn) {
         player->player_state = PLAYER_STATE_RUNNING;
         player->channel_in = g_io_channel_unix_new(player->std_in);
@@ -1732,6 +1758,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GError *error = NULL;
     gchar *buf;
     gint w, h;
+    gfloat percent;
     gchar vm[10];
     gint id;
     GtkAllocation allocation;
@@ -1769,6 +1796,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     } else {
         if (player->debug)
             printf("%s", mplayer_output->str);
+
+        if (strstr(mplayer_output->str, "Cache fill") != 0) {
+            buf = strstr(mplayer_output->str, "Cache fill");
+            sscanf(buf, "Cache fill: %f%%", &percent);
+            buf = g_strdup_printf(_("Cache fill: %2.2f%%"), percent);
+            player->cache_percent = percent / 100.0;
+            g_signal_emit_by_name(player, "position-changed", player->cache_percent);
+        }
+
         if (strstr(mplayer_output->str, "AO:") != NULL) {
             write_to_mplayer(player, "get_property switch_audio\n");
         }
@@ -1783,7 +1819,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
             }
 
-			gmtk_media_player_size_allocate(GTK_WIDGET(player), &allocation);
+            gmtk_media_player_size_allocate(GTK_WIDGET(player), &allocation);
 
             player->video_present = TRUE;
             style = gtk_widget_get_style(GTK_WIDGET(player));
@@ -1956,7 +1992,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             subtitle->is_file = TRUE;
             subtitle->label = g_strdup_printf(_("External Subtitle #%i"), id + 1);
             player->subtitles = g_list_append(player->subtitles, subtitle);
-			g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));			
+            g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_ID=") != 0) {

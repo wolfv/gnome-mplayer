@@ -19,6 +19,8 @@
 
 
 Development
+    Disable DVD w/o menu disabled for now. 
+    Playlist and Cache Percentage changes
     Fix memory leak in gmtk_media_player set_attribute_string
     More subtitle work
     Make audio track and subtitle selection menus work

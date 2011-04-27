@@ -563,6 +563,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     if (autostart) {
         g_idle_add(hide_buttons, idledata);
         js_state = STATE_PLAYING;
+        gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_PLAYLIST, playlist);
         gmtk_media_player_set_uri(GMTK_MEDIA_PLAYER(media), uri);
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
 
