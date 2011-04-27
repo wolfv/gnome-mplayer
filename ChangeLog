@@ -19,11 +19,14 @@
 
 
 Development
+    Screenshot capture notification
+    Make setting the media attributes a common function
+    Enable deinterlacing
     Make disable upscaling work
     Fix Cancel/Close button layout in pref and adv dialog
     Make Pref/Next buttons appear when file has chapters
     Make Advanced video settings work
-    Disable DVD w/o menu disabled for now. 
+    Disable DVD w/o menu for now. 
     Playlist and Cache Percentage changes
     Fix memory leak in gmtk_media_player set_attribute_string
     More subtitle work
