@@ -1,4 +1,39 @@
+******
+
+    gnome-mplayer is currently in a heavy state of changes 
+    
+    Known broken items
+    
+    Website Playback
+    DVD w/o menu playback
+    TV playback
+    
+    Audio Track Selection
+    Subtitle Selection
+    
+    Details
+    Audio Meter
+    
+    Window Resizing
+    
+    Keyboard shortcuts
+    
+
+******
+
+
 Development
+    Fix DVD menu selection
+    Make playlists work
+    Make enhanced subtitles work
+    Add many attributes to gmtk_media_player
+    Replace send_command with dummy function, until conversion is complete
+    Replace mplayer_shutdown with gmtk version
+    Add more attributes and methods to libgmtk - gmtk_media_player, still more to add
+    Remove mute and other values from idledata
+    Remove ThreadData type
+    Remove thread.[c|h]
+    Start conversion to libgmtk - gmtk_media_player
     libgmtk - gmtk_media_player, convert from GtkFixed layout to GtkAlignment layout, allows window to shrink in GTK3
     Allow code to compile when --enable-gtk3 is used
     More configure macros

@@ -814,7 +814,6 @@ with_libnotify
 with_libgpod
 with_libmusicbrainz3
 enable_nautilus
-enable_panscan
 enable_gseal
 with_gpm_new_method
 with_gpm_old_method
@@ -1505,8 +1504,6 @@ Optional Features:
   --disable-schemas-install
                           Disable the schemas installation
   --enable-nautilus       compile the nautilus plugin
-  --enable-panscan        Enable panscan functionality (requires mplayer svn
-                          r29565 or higher)
   --enable-gseal          Enable flag for testing
   --disable-schemas-compile
                           Disable regeneration of gschemas.compiled on install
@@ -2909,7 +2906,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gnome-mplayer
- VERSION=1.0.3
+ VERSION=1.0.4beta
 
 
 cat >>confdefs.h <<_ACEOF
@@ -9749,23 +9746,6 @@ else
   HAVE_NAUTILUS_FALSE=
 fi
 
-
-# Check whether --enable-panscan was given.
-if test "${enable_panscan+set}" = set; then :
-  enableval=$enable_panscan; case "${enableval}" in
-        yes) ENABLE_PANSCAN=yes ;;
-        no) ENABLE_PANSCAN=no ;;
-        *) as_fn_error $? "bad value ${enableval} for --enable-panscan" "$LINENO" 5 ;;
-        esac
-else
-  ENABLE_PANSCAN=no
-fi
-
-if test x$ENABLE_PANSCAN = "xyes"; then
-
-$as_echo "#define ENABLE_PANSCAN 1" >>confdefs.h
-
-fi
 
 # Check whether --enable-gseal was given.
 if test "${enable_gseal+set}" = set; then :

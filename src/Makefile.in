@@ -48,7 +48,7 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(nautilusdir)"
 PROGRAMS = $(bin_PROGRAMS) $(nautilus_PROGRAMS)
 am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
 	support.$(OBJEXT) mntent_compat.$(OBJEXT) main.$(OBJEXT) \
-	dbus-interface.$(OBJEXT) thread.$(OBJEXT)
+	dbus-interface.$(OBJEXT)
 gnome_mplayer_OBJECTS = $(am_gnome_mplayer_OBJECTS)
 am__DEPENDENCIES_1 =
 gnome_mplayer_DEPENDENCIES = libgmtk/libgmtk.a libgmlib/libgmlib.a \
@@ -369,8 +369,6 @@ gnome_mplayer_SOURCES = \
 	main.c \
 	dbus-interface.c \
 	dbus-interface.h \
-	thread.h \
-	thread.c \
 	common.h \
 	../pixmaps/gnome_mplayer.xpm \
 	../pixmaps/media-playback-pause.xpm \
@@ -547,7 +545,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mntent_compat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/playlist.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/support.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/thread.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

@@ -24,6 +24,13 @@
 
 #include "support.h"
 
+gboolean send_command(gchar * command, gboolean retain_pause)
+{
+    printf("SEND COMMAND: %s\n", command);
+    return TRUE;
+}
+
+
 gint detect_playlist(gchar * uri)
 {
 
@@ -2834,7 +2841,9 @@ gboolean map_af_export_file(gpointer data)
         return TRUE;
 
     if (data != NULL) {
-        idle->mapped_af_export = g_mapped_file_new((gchar *) idle->af_export, FALSE, NULL);
+        idle->mapped_af_export =
+            g_mapped_file_new(gmtk_media_player_get_attribute_string
+                              (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AF_EXPORT_FILENAME), FALSE, NULL);
     }
     return FALSE;
 }

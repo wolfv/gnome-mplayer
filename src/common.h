@@ -137,7 +137,6 @@ typedef enum {
     ERROR_RETRY_WITH_MMSHTTP
 } PLAYBACK_ERROR;
 
-PLAYSTATE state;
 PLAYSTATE guistate;
 PLAYSTATE lastguistate;
 PLAYBACK_ERROR playback_error;
@@ -157,7 +156,6 @@ typedef struct _IdleData {
     gint streaming;
     gboolean seekable;
     gchar progress_text[1024];
-    gboolean mute;
     gchar vol_tooltip[128];
     gint x;
     gint y;
@@ -193,7 +191,6 @@ typedef struct _IdleData {
     gchar metadata[1024];
     gboolean fromdbus;
     gboolean window_resized;
-    gboolean has_chapters;
     gboolean tmpfile;
     gboolean sub_visible;
     gint sub_demux;
@@ -208,22 +205,13 @@ typedef struct _IdleData {
 #endif
 } IdleData;
 
-IdleData *idledata;
-
-
-typedef struct _ThreadData {
-    gchar uri[2048];
-    gchar filename[1024];
-    gchar subtitle[1024];
-    gchar audiofile[1024];
-    gint streaming;
-    gint player_window;
+typedef struct _PlayData {
+    gchar uri[4096];
     gint playlist;
-    gint restart_second;
-    gint start_second;
-    gint play_length;
-    gboolean done;
-} ThreadData;
+} PlayData;
+
+
+IdleData *idledata;
 
 enum {
     ITEM_COLUMN,
@@ -422,7 +410,6 @@ gint tv_width;
 gint tv_height;
 gint tv_fps;
 
-GThread *thread;
 GMutex *slide_away;
 GCond *mplayer_complete_cond;
 
@@ -540,8 +527,5 @@ gint pref_volume;
 GtkRecentManager *recent_manager;
 void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer data);
 #endif
-
-GValue ALLOW_SHRINK_TRUE;
-GValue ALLOW_SHRINK_FALSE;
 
 #endif                          /* _COMMON_H */
