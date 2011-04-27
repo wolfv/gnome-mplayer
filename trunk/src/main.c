@@ -420,21 +420,25 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
     }
 
-    gtk_container_forall(GTK_CONTAINER(subtitles), remove_langs, NULL);
+    if (subtitles)
+        gtk_container_forall(GTK_CONTAINER(subtitles), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_sub_lang), FALSE);
-    gtk_container_forall(GTK_CONTAINER(tracks), remove_langs, NULL);
+    if (tracks)
+        gtk_container_forall(GTK_CONTAINER(tracks), remove_langs, NULL);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_select_audio_lang), FALSE);
     lang_group = NULL;
     audio_group = NULL;
 
 
     if (subtitle != NULL) {
-        //g_strlcpy(thread_data->subtitle, subtitle, 1024);
+        gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_FILE, subtitle);
         g_free(subtitle);
+        subtitle = NULL;
     }
     if (audiofile != NULL) {
-        //g_strlcpy(thread_data->audiofile, audiofile, 1024);
+        gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_TRACK_FILE, audiofile);
         g_free(audiofile);
+        audiofile = NULL;
     }
 
     /*

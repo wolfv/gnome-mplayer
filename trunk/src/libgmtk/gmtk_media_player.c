@@ -476,6 +476,7 @@ static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player
     player->restart = FALSE;
     if (player->debug)
         printf("restart complete\n");
+	g_signal_emit_by_name(player, "media-state-changed", player->restart_state);
 }
 
 void gmtk_media_player_restart(GmtkMediaPlayer * player)
@@ -830,69 +831,99 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
 void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
                                             GmtkMediaPlayerMediaAttributes attribute, const gchar * value)
 {
+	gchar *cmd;
+	
     switch (attribute) {
     case ATTRIBUTE_VO:
+        if (player->vo != NULL) {
+            g_free(player->vo);
+        }
         if (value == NULL || strlen(value) == 0) {
-            if (player->vo != NULL) {
-                g_free(player->vo);
-                player->vo = NULL;
-            }
+            player->vo = NULL;
         } else {
             player->vo = g_strdup(value);
         }
         break;
 
     case ATTRIBUTE_AO:
+        if (player->ao != NULL) {
+            g_free(player->ao);
+        }
         if (value == NULL || strlen(value) == 0) {
-            if (player->ao != NULL) {
-                g_free(player->ao);
-                player->ao = NULL;
-            }
+            player->ao = NULL;
         } else {
             player->ao = g_strdup(value);
         }
         break;
 
     case ATTRIBUTE_MPLAYER_BINARY:
+        if (player->mplayer_binary != NULL) {
+            g_free(player->mplayer_binary);
+        }
         if (value == NULL || strlen(value) == 0) {
-            if (player->mplayer_binary != NULL) {
-                g_free(player->mplayer_binary);
-                player->mplayer_binary = NULL;
-            }
+			player->mplayer_binary = NULL;
         } else {
             player->mplayer_binary = g_strdup(value);
         }
         player->features_detected = FALSE;
         break;
 
-    case ATTRIBUTE_SUBTITLE_COLOR:
+    case ATTRIBUTE_AUDIO_TRACK_FILE:
+        if (player->audio_track_file != NULL) {
+            g_free(player->audio_track_file);
+        }
         if (value == NULL || strlen(value) == 0) {
-            if (player->subtitle_color != NULL) {
-                g_free(player->subtitle_color);
-                player->subtitle_color = NULL;
-            }
+			player->audio_track_file = NULL;
+        } else {
+            player->audio_track_file = g_strdup(value);
+        }
+        break;
+			
+    case ATTRIBUTE_SUBTITLE_FILE:
+        if (player->subtitle_file != NULL) {
+            g_free(player->subtitle_file);
+        }
+        if (value == NULL || strlen(value) == 0) {
+			player->subtitle_file = NULL;
+        } else {
+            player->subtitle_file = g_strdup(value);
+			if (player->player_state == PLAYER_STATE_RUNNING) {
+				write_to_mplayer(player, "sub_remove\n");
+		        cmd = g_strdup_printf("sub_load \"%s\" 1\n", player->subtitle_file);
+		        write_to_mplayer(player, cmd);
+		        g_free(cmd);
+		    }			
+        }
+        break;
+
+    case ATTRIBUTE_SUBTITLE_COLOR:
+        if (player->subtitle_color != NULL) {
+            g_free(player->subtitle_color);
+        }
+        if (value == NULL || strlen(value) == 0) {
+            player->subtitle_color = NULL;
         } else {
             player->subtitle_color = g_strdup(value);
         }
         break;
 
     case ATTRIBUTE_SUBTITLE_CODEPAGE:
+        if (player->subtitle_codepage != NULL) {
+            g_free(player->subtitle_codepage);
+        }
         if (value == NULL || strlen(value) == 0) {
-            if (player->subtitle_codepage != NULL) {
-                g_free(player->subtitle_codepage);
-                player->subtitle_codepage = NULL;
-            }
+            player->subtitle_codepage = NULL;
         } else {
             player->subtitle_codepage = g_strdup(value);
         }
         break;
 
     case ATTRIBUTE_SUBTITLE_FONT:
+        if (player->subtitle_font != NULL) {
+            g_free(player->subtitle_font);
+        }
         if (value == NULL || strlen(value) == 0) {
-            if (player->subtitle_font != NULL) {
-                g_free(player->subtitle_font);
-                player->subtitle_font = NULL;
-            }
+            player->subtitle_font = NULL;
         } else {
             player->subtitle_font = g_strdup(value);
         }
@@ -1925,6 +1956,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             subtitle->is_file = TRUE;
             subtitle->label = g_strdup_printf(_("External Subtitle #%i"), id + 1);
             player->subtitles = g_list_append(player->subtitles, subtitle);
+			g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));			
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_ID=") != 0) {
