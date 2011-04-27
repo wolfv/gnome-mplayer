@@ -516,7 +516,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetGUIState") == 0) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &guistate, DBUS_TYPE_INVALID)) {
-                        g_idle_add(set_gui_state, NULL);
+                        //g_idle_add(set_gui_state, NULL);
                     } else {
                         dbus_error_free(&error);
                     }
@@ -529,7 +529,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                         (message, &error, DBUS_TYPE_INT32, &guistate, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
-                            g_idle_add(set_gui_state, NULL);
+                            //g_idle_add(set_gui_state, NULL);
                         }
                     } else {
                         dbus_error_free(&error);

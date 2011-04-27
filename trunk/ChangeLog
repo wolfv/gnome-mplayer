@@ -23,6 +23,8 @@
 
 
 Development
+    Move GUI updates from set_gui_state, make the gui change based on media state
+    Fix state tracking
     Fix DVD menu selection
     Make playlists work
     Make enhanced subtitles work
