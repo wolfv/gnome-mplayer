@@ -14,8 +14,6 @@
     Details
     Audio Meter
     
-    Window Resizing
-    
     Keyboard shortcuts
     
 
@@ -23,6 +21,7 @@
 
 
 Development
+    Activate/Deactivate subtitle visibility,delay,size menus based on if subs exist or not
     Fix resize issues with normal, double and half sizes
     Move menu updates from resize_window, make the gui change based on media state
     Move GUI updates from set_gui_state, make the gui change based on media state
