@@ -1142,9 +1142,7 @@ int main(int argc, char *argv[])
     gm_audio_update_device(&audio_device);
     gm_audio_get_volume(&audio_device);
     gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
-    gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AO, audio_device.mplayer_ao);
-    gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SOFTVOL,
-                                            audio_device.type == AUDIO_TYPE_SOFTVOL);
+    set_media_player_attributes(media);
 
     if (!softvol) {
         if (pref_volume != -1) {

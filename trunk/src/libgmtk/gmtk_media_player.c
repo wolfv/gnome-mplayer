@@ -672,6 +672,10 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
         player->subtitle_shadow = value;
         break;
 
+    case ATTRIBUTE_DEINTERLACE:
+        player->deinterlace = value;
+        break;
+
     case ATTRIBUTE_ENABLE_DEBUG:
         player->debug = value;
         break;
@@ -743,6 +747,10 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkM
 
     case ATTRIBUTE_SUBTITLE_SHADOW:
         ret = player->subtitle_shadow;
+        break;
+
+    case ATTRIBUTE_DEINTERLACE:
+        ret = player->deinterlace;
         break;
 
     case ATTRIBUTE_ENABLE_DEBUG:
@@ -1758,8 +1766,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GString *mplayer_output;
     GIOStatus status;
     GError *error = NULL;
-    gchar *buf;
-    gint w, h;
+    gchar *buf, *message = NULL, *icy = NULL;
+    gint w, h, i;
     gfloat percent;
     gchar vm[10];
     gint id;
@@ -1768,6 +1776,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GmtkMediaPlayerAudioTrack *audio_track;
     GList *iter;
     GtkStyle *style;
+    GtkWidget *dialog;
 
     if (player == NULL) {
         printf("player is NULL\n");
@@ -2153,7 +2162,52 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             sscanf(buf, "ID_AUDIO_NCH=%i", &player->audio_nch);
         }
 
+        if (strstr(mplayer_output->str, "*** screenshot") != 0) {
+            buf = strstr(mplayer_output->str, "'") + 1;
+            buf[12] = '\0';
+            message = g_strdup_printf(_("Screenshot saved to '%s'"), buf);
+            dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
+                                            GTK_BUTTONS_OK, "%s", message);
+            gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Notification"));
+            gtk_dialog_run(GTK_DIALOG(dialog));
+            gtk_widget_destroy(dialog);
+            g_free(message);
+            message = NULL;
+        }
 
+        if (strstr(mplayer_output->str, "ICY Info") != NULL) {
+            buf = strstr(mplayer_output->str, "'");
+            if (message) {
+                g_free(message);
+                message = NULL;
+            }
+            if (buf != NULL) {
+                for (i = 1; i < (int) strlen(buf) - 1; i++) {
+                    if (!strncmp(&buf[i], "\';", 2)) {
+                        buf[i] = '\0';
+                        break;
+                    }
+                }
+                if (g_ascii_strcasecmp(buf + 1, " - ") != 0) {
+                    if (g_utf8_validate(buf + 1, strlen(buf + 1), 0))
+                        message = g_markup_printf_escaped("<small>\n\t<big><b>%s</b></big>\n</small>", buf + 1);
+                }
+            }
+            if (message) {
+                // reset max values in audio meter
+                g_free(message);
+                message = g_markup_printf_escaped("\n\t<b>%s</b>\n", buf + 1);
+                icy = g_strdup(buf + 1);
+                if ((buf = strstr(icy, " - ")) != NULL) {
+                    //metadata->title = g_strdup(buf + 3);
+                    //buf[0] = '\0';
+                    //metadata->artist = g_strdup(icy);
+                }
+                g_free(icy);
+                g_free(message);
+                message = NULL;
+            }
+        }
     }
 
     g_string_free(mplayer_output, TRUE);

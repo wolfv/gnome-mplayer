@@ -508,8 +508,7 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data);
 
 gboolean update_audio_meter(gpointer data);
 
-void mplayer_shutdown();
-gpointer launch_player(gpointer data);
+void set_media_player_attributes(GtkWidget * widget);
 
 gboolean update_mplayer_config();
 gboolean read_mplayer_config();
