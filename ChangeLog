@@ -19,6 +19,7 @@
 
 
 Development
+    Make disable upscaling work
     Fix Cancel/Close button layout in pref and adv dialog
     Make Pref/Next buttons appear when file has chapters
     Make Advanced video settings work

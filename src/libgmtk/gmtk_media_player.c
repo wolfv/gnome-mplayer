@@ -449,7 +449,9 @@ static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * 
         if (player->disable_upscaling && allocation->width > player->video_width
             && allocation->height > player->video_height) {
 
-            // todo
+            gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.5, 0.5,
+                              (gdouble) player->video_width / (gdouble) allocation->width,
+                              (gdouble) player->video_height / (gdouble) allocation->height);
 
         } else {
             if (video_aspect > widget_aspect) {
@@ -2078,7 +2080,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if ((strstr(mplayer_output->str, "ID_CHAPTERS=") != NULL)
             && !(strstr(mplayer_output->str, "ID_CHAPTERS=0") != NULL)) {
             player->has_chapters = TRUE;
-			g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_HAS_CHAPTERS);	
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_HAS_CHAPTERS);
         }
 
         if ((strstr(mplayer_output->str, "ID_SEEKABLE=") != NULL)
