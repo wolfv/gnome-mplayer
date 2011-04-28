@@ -66,6 +66,13 @@ G_BEGIN_DECLS
 } GmtkMediaPlayerPlayerState;
 
 typedef enum {
+    NO_ERROR,
+    ERROR_RETRY_WITH_PLAYLIST,
+    ERROR_RETRY_WITH_HTTP,
+    ERROR_RETRY_WITH_MMSHTTP
+} GmtkMediaPlayerPlaybackError;
+
+typedef enum {
     MEDIA_STATE_UNKNOWN,
     MEDIA_STATE_PLAY,
     MEDIA_STATE_PAUSE,
@@ -274,7 +281,7 @@ struct _GmtkMediaPlayer {
     gint tv_height;
     gint tv_fps;
 
-
+    GmtkMediaPlayerPlaybackError playback_error;
     GmtkMediaPlayerPlayerState player_state;
     GmtkMediaPlayerMediaState media_state;
     GThread *mplayer_thread;

@@ -130,16 +130,8 @@ typedef enum {
     QUIT
 } PLAYSTATE;
 
-typedef enum {
-    NO_ERROR,
-    ERROR_RETRY_WITH_PLAYLIST,
-    ERROR_RETRY_WITH_HTTP,
-    ERROR_RETRY_WITH_MMSHTTP
-} PLAYBACK_ERROR;
-
 PLAYSTATE guistate;
 PLAYSTATE lastguistate;
-PLAYBACK_ERROR playback_error;
 
 typedef struct _IdleData {
     gchar info[1024];

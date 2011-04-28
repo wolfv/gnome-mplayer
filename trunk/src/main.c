@@ -535,6 +535,24 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     if (autostart) {
         g_idle_add(hide_buttons, idledata);
         js_state = STATE_PLAYING;
+
+        if (g_str_has_prefix(uri, "mmshttp") || g_str_has_prefix(uri, "http") || g_str_has_prefix(uri, "mms")) {
+            gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_NETWORK);
+        } else if (g_str_has_prefix(uri, "dvd") || g_str_has_prefix(uri, "dvdnav")) {
+            gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
+        } else if (g_str_has_prefix(uri, "cdda")) {
+            gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_CD);
+        } else if (g_str_has_prefix(uri, "vcd")) {
+            gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_VCD);
+        } else if (g_str_has_prefix(uri, "tv")) {
+            gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_TV);
+        } else if (g_str_has_prefix(uri, "file")) {
+            gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
+        } else {
+            // if all else fails it must be a network type
+            gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_NETWORK);
+        }
+
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_PLAYLIST, playlist);
         gmtk_media_player_set_uri(GMTK_MEDIA_PLAYER(media), uri);
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
