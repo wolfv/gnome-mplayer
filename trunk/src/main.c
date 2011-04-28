@@ -145,6 +145,13 @@ static GOptionEntry entries[] = {
     {NULL}
 };
 
+gboolean async_play_iter(void *data)
+{
+    GtkTreeIter *thisiter = (GtkTreeIter *) (data);
+    play_iter(thisiter, 0);
+    return FALSE;
+}
+
 gboolean play(void *data)
 {
     PlayData *p = (PlayData *) data;
