@@ -455,6 +455,7 @@ void adjust_layout();
 gboolean hide_buttons(void *data);
 gboolean show_copyurl(void *data);
 
+gboolean set_gui_state(void *data);
 gboolean set_media_info(void *data);
 gboolean set_media_label(void *data);
 gboolean set_cover_art(gpointer pixbuf);

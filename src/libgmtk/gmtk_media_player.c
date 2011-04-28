@@ -880,6 +880,17 @@ void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
         }
         break;
 
+    case ATTRIBUTE_MEDIA_DEVICE:
+        if (player->media_device != NULL) {
+            g_free(player->media_device);
+        }
+        if (value == NULL || strlen(value) == 0) {
+            player->media_device = NULL;
+        } else {
+            player->media_device = g_strdup(value);
+        }
+        break;
+
     case ATTRIBUTE_MPLAYER_BINARY:
         if (player->mplayer_binary != NULL) {
             g_free(player->mplayer_binary);
@@ -971,6 +982,10 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
         value = player->af_export_filename;
         break;
 
+    case ATTRIBUTE_MEDIA_DEVICE:
+        value = player->media_device;
+        break;
+
     case ATTRIBUTE_AUDIO_TRACK:
         iter = player->audio_tracks;
         while (iter) {
@@ -980,7 +995,6 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
             iter = iter->next;
         }
         break;
-
 
     case ATTRIBUTE_SUBTITLE:
         iter = player->subtitles;
@@ -1003,6 +1017,7 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
     case ATTRIBUTE_SUBTITLE_FONT:
         value = player->subtitle_font;
         break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -1591,10 +1606,28 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("%s", filename);
         break;
 
+    case TYPE_CD:
+        argv[argn++] = g_strdup_printf("-nocache");
+        argv[argn++] = g_strdup_printf("%s", player->uri);
+        if (player->media_device != NULL) {
+            argv[argn++] = g_strdup_printf("-dvd-device");
+            argv[argn++] = g_strdup_printf("%s", player->media_device);
+        }
+        break;
+
     case TYPE_DVD:
         argv[argn++] = g_strdup_printf("-mouse-movements");
         argv[argn++] = g_strdup_printf("-nocache");
         argv[argn++] = g_strdup_printf("dvdnav://");
+        if (player->media_device != NULL) {
+            argv[argn++] = g_strdup_printf("-dvd-device");
+            argv[argn++] = g_strdup_printf("%s", player->media_device);
+        }
+        break;
+
+    case TYPE_VCD:
+        argv[argn++] = g_strdup_printf("-nocache");
+        argv[argn++] = g_strdup_printf("vcd://");
         if (player->media_device != NULL) {
             argv[argn++] = g_strdup_printf("-dvd-device");
             argv[argn++] = g_strdup_printf("%s", player->media_device);
@@ -1638,7 +1671,7 @@ gpointer launch_mplayer(gpointer data)
             argv[argn++] = g_strdup_printf("%i", player->tv_fps);
         }
         argv[argn++] = g_strdup_printf("-nocache");
-        argv[argn++] = g_strdup_printf("%s", filename);
+        argv[argn++] = g_strdup_printf("%s", player->uri);
 
 
     default:

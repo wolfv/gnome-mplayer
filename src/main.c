@@ -211,12 +211,9 @@ void play_next()
 gint play_iter(GtkTreeIter * playiter, gint restart_second)
 {
 
-    GtkWidget *dialog;
-    gchar *error_msg = NULL;
     gchar *subtitle = NULL;
     gchar *audiofile = NULL;
     GtkTreePath *path;
-    gchar *local_file = NULL;
     gchar *uri = NULL;
     gint count;
     gint playlist;
