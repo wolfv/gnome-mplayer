@@ -2262,7 +2262,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
-        play_iter(&iter, 0);
+        g_idle_add(async_play_iter, &iter);
         if (autopause) {
             autopause = FALSE;
             gtk_widget_set_sensitive(play_event_box, TRUE);
@@ -2274,11 +2274,13 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (GTK_IS_TREE_SELECTION(selection)) {
-        path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-        gtk_tree_selection_select_path(selection, path);
-        if (GTK_IS_WIDGET(list))
-            gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
-        gtk_tree_path_free(path);
+        if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+            path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+            gtk_tree_selection_select_path(selection, path);
+            if (GTK_IS_WIDGET(list))
+                gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
+            gtk_tree_path_free(path);
+        }
     }
 
     return FALSE;
@@ -2305,7 +2307,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
-        play_iter(&iter, 0);
+        g_idle_add(async_play_iter, &iter);
         if (autopause) {
             autopause = FALSE;
             gtk_widget_set_sensitive(play_event_box, TRUE);
@@ -2317,11 +2319,13 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (GTK_IS_TREE_SELECTION(selection)) {
-        path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
-        gtk_tree_selection_select_path(selection, path);
-        if (GTK_IS_WIDGET(list))
-            gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
-        gtk_tree_path_free(path);
+        if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+            path = gtk_tree_model_get_path(GTK_TREE_MODEL(playliststore), &iter);
+            gtk_tree_selection_select_path(selection, path);
+            if (GTK_IS_WIDGET(list))
+                gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(list), path, NULL, FALSE, 0, 0);
+            gtk_tree_path_free(path);
+        }
     }
 
     return FALSE;
@@ -5916,8 +5920,14 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         break;
 
     case ATTRIBUTE_HAS_CHAPTERS:
-        gtk_widget_show_all(prev_event_box);
-        gtk_widget_show_all(next_event_box);
+        if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HAS_CHAPTERS) ||
+            gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 1) {
+            gtk_widget_show_all(prev_event_box);
+            gtk_widget_show_all(next_event_box);
+        } else {
+            gtk_widget_hide(prev_event_box);
+            gtk_widget_hide(next_event_box);
+        }
         break;
 
     case ATTRIBUTE_MESSAGE:
@@ -6018,7 +6028,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #ifdef GTK2_12_ENABLED
     gchar *tip_text = NULL;
 #endif
-
+    printf("in media state change with state = %i\n", state);
     switch (state) {
         // mplayer is dead, need the next item off the playlist
     case MEDIA_STATE_QUIT:
@@ -6032,12 +6042,13 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         }
         if (dontplaynext == FALSE) {
             if (next_item_in_playlist(&iter)) {
-                play_iter(&iter, 0);
+                g_idle_add(async_play_iter, &iter);
+                //play_iter(&iter, 0);
             } else {
                 // printf("end of thread playlist is empty\n");
                 if (loop) {
                     if (first_item_in_playlist(&iter)) {
-                        play_iter(&iter, 0);
+                        g_idle_add(async_play_iter, &iter);
                     }
                 } else {
                     idledata->fullscreen = 0;
@@ -6073,7 +6084,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #endif
         gtk_widget_set_sensitive(ff_event_box, FALSE);
         gtk_widget_set_sensitive(rew_event_box, FALSE);
-        gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+        if (GTK_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))) == GTK_WIDGET(popup_menu))
+            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
         menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
         g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_play_callback), NULL);
         gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
@@ -6096,7 +6108,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #endif
         gtk_widget_set_sensitive(ff_event_box, TRUE);
         gtk_widget_set_sensitive(rew_event_box, TRUE);
-        gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+        if (GTK_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))) == GTK_WIDGET(popup_menu))
+            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
         menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
         g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_pause_callback), NULL);
         gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
@@ -6119,7 +6132,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #endif
         gtk_widget_set_sensitive(ff_event_box, FALSE);
         gtk_widget_set_sensitive(rew_event_box, FALSE);
-        if (GTK_IS_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))))
+        if (GTK_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))) == GTK_WIDGET(popup_menu))
             gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
         menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
         g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_play_callback), NULL);
@@ -6176,7 +6189,7 @@ void player_position_changed_callback(GmtkMediaTracker * tracker, gdouble positi
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), text);
         g_free(text);
         update_status_icon();
-
+        g_idle_add(make_panel_and_mouse_invisible, NULL);
         dbus_send_event("TimeChanged", 0);
 
     }

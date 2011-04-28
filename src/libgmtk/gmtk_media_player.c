@@ -1279,6 +1279,7 @@ void gmtk_media_player_seek_chapter(GmtkMediaPlayer * player, gint value, GmtkMe
         seek_type = 1;
 
     cmd = g_strdup_printf("seek_chapter %i %i\n", value, seek_type);
+	printf("%s",cmd);
     write_to_mplayer(player, cmd);
     g_free(cmd);
 }

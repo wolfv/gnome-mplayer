@@ -8,11 +8,13 @@
     TV playback
     
     Keyboard shortcuts
+    Playlists have issues
 
 ******
 
 
 Development
+    Start work on playlist issues
     Add gmtk_media_player_switch_angle
     When restarting player, do not emit events
     Fix fallback to alternate protocols on error, fixes web playback

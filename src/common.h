@@ -501,7 +501,7 @@ gchar *default_playlist;
 gboolean safe_to_save_default_playlist;
 
 gint pref_volume;
-
+gboolean async_play_iter(void *data);
 
 #ifdef GTK2_12_ENABLED
 GtkRecentManager *recent_manager;
