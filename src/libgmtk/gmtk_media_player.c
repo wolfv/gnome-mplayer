@@ -627,9 +627,9 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
                 while (gtk_events_pending())
                     gtk_main_iteration();
             }
-            player->media_state = MEDIA_STATE_QUIT;
-            if (!player->restart)
-                g_signal_emit_by_name(player, "media-state-changed", player->media_state);
+            //player->media_state = MEDIA_STATE_QUIT;
+            //if (!player->restart)
+            //    g_signal_emit_by_name(player, "media-state-changed", player->media_state);
         }
     }
 
