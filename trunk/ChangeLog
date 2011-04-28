@@ -12,13 +12,13 @@
     Audio Meter
     
     Keyboard shortcuts
-    
-    Preferences screen, doesn't set the preferences on gmtk_media_player
 
 ******
 
 
 Development
+    Make extra opts work
+    Fix preference setting
     Make DVD playback from ISO and Folders work
     Bring set_gui_state back, as it is needed for RealPlayer emulation
     Output notification when using old Mplayer on every startup

@@ -108,6 +108,7 @@ void set_media_player_attributes(GtkWidget * widget)
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ENABLE_DEBUG, verbose);
     gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CACHE_SIZE, cache_size);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VO, vo);
+    gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_EXTRA_OPTS, extraopts);
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ENABLE_ADVANCED_SUBTITLES,
                                             !disable_ass);
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_OUTLINE, subtitle_outline);
@@ -3992,6 +3993,7 @@ void config_apply(GtkWidget * widget, void *data)
     }
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
 
+    set_media_player_attributes(media);
     update_mplayer_config();
 
     gm_store = gm_pref_store_new("gnome-mplayer");
@@ -4074,8 +4076,6 @@ void config_apply(GtkWidget * widget, void *data)
     // don't reload plugins when running in plugin mode
     if (embed_window == 0 && control_id == 0)
         dbus_reload_plugins();
-
-    dontplaynext = TRUE;
 
     gmtk_media_player_restart(GMTK_MEDIA_PLAYER(media));
     gtk_widget_destroy(widget);
