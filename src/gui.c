@@ -1557,7 +1557,9 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     }
 
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
-
+    while (gtk_events_pending()) {
+        gtk_main_iteration();
+    }
 
     if (control_id == 0) {
         g_thread_pool_stop_unused_threads();
@@ -6029,13 +6031,11 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         if (idledata->mapped_af_export != NULL)
             unmap_af_export_file(idledata);
 
-        if (dontplaynext) {
-            if (embed_window != 0 || control_id != 0) {
-                dbus_send_event("MediaComplete", 0);
-                dbus_open_next();
-            }
-            dontplaynext = FALSE;
-        } else {
+        if (embed_window != 0 || control_id != 0) {
+            dbus_send_event("MediaComplete", 0);
+            dbus_open_next();
+        }
+        if (dontplaynext == FALSE) {
             if (next_item_in_playlist(&iter)) {
                 play_iter(&iter, 0);
             } else {
@@ -6062,6 +6062,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
                 }
             }
         }
+        dontplaynext = FALSE;
 
         // break purposely not put here, so gui is properly updated
 
@@ -6123,7 +6124,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #endif
         gtk_widget_set_sensitive(ff_event_box, FALSE);
         gtk_widget_set_sensitive(rew_event_box, FALSE);
-        gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+		if (GTK_IS_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))))
+    		gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
         menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
         g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_play_callback), NULL);
         gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
