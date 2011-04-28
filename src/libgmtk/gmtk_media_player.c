@@ -855,6 +855,10 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
         ret = player->subtitle_scale;
         break;
 
+    case ATTRIBUTE_VIDEO_FPS:
+        ret = player->video_fps;
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -1047,10 +1051,25 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
         value = player->subtitle_font;
         break;
 
+    case ATTRIBUTE_VIDEO_FORMAT:
+        value = player->video_format;
+        break;
+
+    case ATTRIBUTE_VIDEO_CODEC:
+        value = player->video_codec;
+        break;
+
+    case ATTRIBUTE_AUDIO_FORMAT:
+        value = player->audio_format;
+        break;
+
+    case ATTRIBUTE_AUDIO_CODEC:
+        value = player->audio_codec;
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
-
     }
 
     return value;
@@ -1189,6 +1208,26 @@ gint gmtk_media_player_get_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
 
     case ATTRIBUTE_SUBTITLE_MARGIN:
         ret = player->subtitle_margin;
+        break;
+
+    case ATTRIBUTE_CHAPTERS:
+        ret = player->chapters;
+        break;
+
+    case ATTRIBUTE_VIDEO_BITRATE:
+        ret = player->video_bitrate;
+        break;
+
+    case ATTRIBUTE_AUDIO_BITRATE:
+        ret = player->audio_bitrate;
+        break;
+
+    case ATTRIBUTE_AUDIO_RATE:
+        ret = player->audio_rate;
+        break;
+
+    case ATTRIBUTE_AUDIO_NCH:
+        ret = player->audio_nch;
         break;
 
     default:
@@ -2157,15 +2196,22 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
         }
 
-        if ((strstr(mplayer_output->str, "ID_CHAPTERS=") != NULL)
-            && !(strstr(mplayer_output->str, "ID_CHAPTERS=0") != NULL)) {
-            player->has_chapters = TRUE;
+        if ((strstr(mplayer_output->str, "ID_CHAPTERS=") != NULL)) {
+            buf = strstr(mplayer_output->str, "ID_CHAPTERS");
+            sscanf(buf, "ID_CHAPTERS=%i", &player->chapters);
+            if (player->chapters > 0) {
+                player->has_chapters = TRUE;
+            } else {
+                player->has_chapters = FALSE;
+            }
             g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_HAS_CHAPTERS);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_CHAPTERS);
         }
 
         if ((strstr(mplayer_output->str, "ID_SEEKABLE=") != NULL)
             && !(strstr(mplayer_output->str, "ID_SEEKABLE=0") != NULL)) {
             player->seekable = TRUE;
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SEEKABLE);
         }
 
         if (strstr(mplayer_output->str, "ID_VIDEO_FORMAT") != 0) {
@@ -2176,6 +2222,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->video_format = NULL;
             }
             player->video_format = g_strdup(buf);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_FORMAT);
         }
 
         if (strstr(mplayer_output->str, "ID_VIDEO_CODEC") != 0) {
@@ -2186,16 +2233,19 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->video_codec = NULL;
             }
             player->video_codec = g_strdup(buf);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_CODEC);
         }
 
         if (strstr(mplayer_output->str, "ID_VIDEO_FPS") != 0) {
             buf = strstr(mplayer_output->str, "ID_VIDEO_FPS");
             sscanf(buf, "ID_VIDEO_FPS=%lf", &player->video_fps);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_FPS);
         }
 
         if (strstr(mplayer_output->str, "ID_VIDEO_BITRATE") != 0) {
             buf = strstr(mplayer_output->str, "ID_VIDEO_BITRATE");
             sscanf(buf, "ID_VIDEO_BITRATE=%i", &player->video_bitrate);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_BITRATE);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_FORMAT") != 0) {
@@ -2206,6 +2256,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->audio_format = NULL;
             }
             player->audio_format = g_strdup(buf);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_FORMAT);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_CODEC") != 0) {
@@ -2216,21 +2267,25 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->audio_codec = NULL;
             }
             player->audio_codec = g_strdup(buf);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_CODEC);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_BITRATE") != 0) {
             buf = strstr(mplayer_output->str, "ID_AUDIO_BITRATE");
             sscanf(buf, "ID_AUDIO_BITRATE=%i", &player->audio_bitrate);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_BITRATE);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_RATE") != 0) {
             buf = strstr(mplayer_output->str, "ID_AUDIO_RATE");
             sscanf(buf, "ID_AUDIO_RATE=%i", &player->audio_rate);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_RATE);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_NCH") != 0) {
             buf = strstr(mplayer_output->str, "ID_AUDIO_NCH");
             sscanf(buf, "ID_AUDIO_NCH=%i", &player->audio_nch);
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_NCH);
         }
 
         if (strstr(mplayer_output->str, "*** screenshot") != 0) {

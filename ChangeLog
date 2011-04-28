@@ -8,7 +8,6 @@
     DVD w/o menu playback
     TV playback
     
-    Details
     Audio Meter
     
     Keyboard shortcuts
@@ -17,6 +16,7 @@
 
 
 Development
+    Make Details display correct data
     Update tracker label on media change
     Remove allocate_fixed_callback
     Fix crash when setting preferences when no file is loaded

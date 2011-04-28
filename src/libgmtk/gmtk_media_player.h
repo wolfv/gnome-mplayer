@@ -110,6 +110,7 @@ typedef enum {
     ATTRIBUTE_HUE,
     ATTRIBUTE_SATURATION,
     ATTRIBUTE_SEEKABLE,
+    ATTRIBUTE_CHAPTERS,
     ATTRIBUTE_HAS_CHAPTERS,
     ATTRIBUTE_TITLE_IS_MENU,
     ATTRIBUTE_AUDIO_TRACK,
@@ -236,6 +237,7 @@ struct _GmtkMediaPlayer {
     gint osdlevel;
     gint post_processing_level;
     gboolean seekable;
+    gint chapters;
     gboolean has_chapters;
     gchar *video_format;
     gchar *video_codec;
