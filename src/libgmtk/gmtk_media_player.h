@@ -141,6 +141,7 @@ typedef enum {
     ATTRIBUTE_SUBTITLE_COLOR,
     ATTRIBUTE_SUBTITLE_CODEPAGE,
     ATTRIBUTE_PLAYLIST,
+    ATTRIBUTE_MESSAGE,
     ATTRIBUTE_ENABLE_DEBUG,
 } GmtkMediaPlayerMediaAttributes;
 
@@ -195,6 +196,7 @@ struct _GmtkMediaPlayer {
     GtkWidget *alignment;
     GtkWidget *socket;
     gchar *uri;
+    gchar *message;
     gdouble position;
     gint video_width;
     gint video_height;
