@@ -209,8 +209,10 @@ void view_option_size_allocate_callback(GtkWidget * widget, GtkAllocation * allo
 
 void player_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocation)
 {
-    non_fs_width = allocation->width;
-    non_fs_height = allocation->height;
+    if (idledata->videopresent) {
+        non_fs_width = allocation->width;
+        non_fs_height = allocation->height;
+    }
     // printf("media size = %i x %i\n", non_fs_width, non_fs_height);
 }
 
