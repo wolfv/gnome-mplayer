@@ -312,7 +312,6 @@ glong last_movement_time;
 gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data);
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data);
 void config_close(GtkWidget * widget, void *data);
-gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation, gpointer data);
 
 gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data);
 gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data);

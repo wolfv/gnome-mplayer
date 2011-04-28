@@ -127,6 +127,13 @@ void set_media_player_attributes(GtkWidget * widget)
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SOFTVOL,
                                             audio_device.type == AUDIO_TYPE_SOFTVOL);
 
+    if (embed_window != 0 && disable_embedded_scaling) {
+        gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DISABLE_UPSCALING,
+                                                disable_embedded_scaling);
+    } else {
+        gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DISABLE_UPSCALING, FALSE);
+    }
+
 }
 
 
@@ -1656,147 +1663,6 @@ gboolean configure_callback(GtkWidget * widget, GdkEventConfigure * event, gpoin
         // this might be useful
     }
     return FALSE;
-}
-
-gboolean allocate_fixed_callback(GtkWidget * widget, GtkAllocation * allocation, gpointer data)
-{
-    gdouble movie_ratio, window_ratio;
-    gint new_width = 0, new_height;
-
-    //printf("allocate_fixed_callback %i\n", skip_fixed_allocation_on_show);
-    if (skip_fixed_allocation_on_show == TRUE) {
-        skip_fixed_allocation_on_show = FALSE;
-        return TRUE;
-    }
-    if (skip_fixed_allocation_on_hide == TRUE) {
-        skip_fixed_allocation_on_hide = FALSE;
-        return TRUE;
-    }
-
-    if (verbose > 1) {
-        printf("video present = %i\n", idledata->videopresent);
-        printf("movie size = %i x %i\n", non_fs_width, non_fs_height);
-        printf("movie allocation new_width %i new_height %i\n", allocation->width, allocation->height);
-        printf("actual movie new_width %i new_height %i\n", actual_x, actual_y);
-        printf("original movie width %i height %i\n", idledata->original_w, idledata->original_h);
-        printf("fullscreen = %i\n", fullscreen);
-    }
-    if (actual_x == 0 && actual_y == 0) {
-        actual_x = allocation->width;
-        actual_y = allocation->height;
-    }
-
-    if (actual_x > 0 && actual_y > 0) {
-
-
-        movie_ratio = (gdouble) idledata->original_w / (gdouble) idledata->original_h;
-        movie_ratio = (gdouble) actual_x / (gdouble) actual_y;
-        // printf("movie new_width %i new_height %i\n", actual_x, actual_y);
-        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))
-            movie_ratio = 4.0 / 3.0;
-        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine)))
-            movie_ratio = 16.0 / 9.0;
-        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten)))
-            movie_ratio = 16.0 / 10.0;
-        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window)))
-            movie_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
-
-        window_ratio = (gdouble) allocation->width / (gdouble) allocation->height;
-        // printf("window new_width %i new_height %i\n", allocation->width,allocation->height);
-
-        if (allocation->width == idledata->width && allocation->height == idledata->height) {
-            new_width = allocation->width;
-            new_height = allocation->height;
-        } else {
-
-            if (embed_window != 0 && disable_embedded_scaling && allocation->width >= idledata->width
-                && allocation->height >= idledata->height) {
-                new_width = idledata->width;
-                new_height = idledata->height;
-            } else {
-
-                // printf("last %i x %i\n",last_window_width,last_window_height);
-                if (movie_ratio > window_ratio) {
-                    // printf("movie %lf > window %lf\n",movie_ratio,window_ratio);
-                    new_width = allocation->width;
-                    new_height = floorf((allocation->width / movie_ratio) + 0.5);
-                } else {
-                    // printf("movie %lf < window %lf\n",movie_ratio,window_ratio);
-                    new_height = allocation->height;
-                    new_width = floorf((allocation->height * movie_ratio) + 0.5);
-                }
-
-            }
-        }
-
-        // printf("pre align new_width %i new_height %i\n",new_width, new_height);
-        // adjust video to be aligned when playing on video on a smaller screen
-        if (new_height < idledata->height || new_width < idledata->width) {
-            new_width = new_width - (new_width % 16);
-            new_height = new_height - (new_height % 16);
-        }
-        if (verbose > 1)
-            printf("new_width %i new_height %i\n", new_width, new_height);
-
-    }
-
-    if (idledata->videopresent) {
-        gtk_widget_set_size_request(media_label, allocation->width * 0.8, -1);
-    } else {
-        gtk_widget_set_size_request(media_label, 300, -1);
-    }
-
-    if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen))) {
-//      if (!fullscreen) {
-        if (idledata->videopresent) {
-            //printf("Adjusting = %i\n",adjusting);
-            //printf("fixed resized to %i x %i\n",allocation->width,allocation->height);
-            if (!adjusting) {
-                non_fs_width = allocation->width;
-                non_fs_height = allocation->height;
-            }
-        } else {
-            non_fs_width = 0;
-            non_fs_height = 0;
-        }
-    }
-
-    if (non_fs_width > 0) {
-        if (non_fs_width < 250) {
-            gtk_widget_hide(rew_event_box);
-            gtk_widget_hide(ff_event_box);
-            gtk_widget_hide(fs_event_box);
-        } else {
-            gtk_widget_show(rew_event_box);
-            gtk_widget_show(ff_event_box);
-            gtk_widget_show(fs_event_box);
-        }
-        if (non_fs_width < 170) {
-            gtk_widget_hide(GTK_WIDGET(tracker));
-        } else {
-            gtk_widget_show(GTK_WIDGET(tracker));
-        }
-    }
-
-    /*
-       if (GDK_IS_DRAWABLE(fixed->window)) {
-       if (videopresent || embed_window != 0) {
-       // printf("drawing box %i x %i at %i x %i \n",event->area.width,event->area.height, event->area.x, event->area.y );
-       gdk_draw_rectangle(fixed->window, window->style->black_gc, TRUE, allocation->x,
-       allocation->y, allocation->width, allocation->height);
-       }
-       }
-     */
-    if (update_control_flag && restore_controls == showcontrols) {
-        idledata->showcontrols = !showcontrols;
-        set_show_controls(idledata);
-        idledata->showcontrols = restore_controls;
-        set_show_controls(idledata);
-        update_control_flag = FALSE;
-    }
-
-    return FALSE;
-
 }
 
 gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer user_data)
@@ -6084,6 +5950,11 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_widget_show_all(next_event_box);
     }
 
+    if (attribute == ATTRIBUTE_MESSAGE) {
+        gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker),
+                                    gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media),
+                                                                           ATTRIBUTE_MESSAGE));
+    }
 
 }
 
@@ -6211,13 +6082,24 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 
 void player_cache_percent_changed_callback(GmtkMediaTracker * tracker, gdouble percentage)
 {
+    gchar *text;
+
     if (GTK_IS_WIDGET(tracker)) {
-        gmtk_media_tracker_set_cache_percentage(tracker, percentage);
+        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY) {
+            gmtk_media_tracker_set_cache_percentage(tracker, percentage);
+            text = g_strdup_printf("%2i%% \342\226\274", (int) (percentage * 100));
+            gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), text);
+            g_free(text);
+        } else {
+            gmtk_media_tracker_set_cache_percentage(tracker, 0.0);
+        }
     }
 }
 
 void player_position_changed_callback(GmtkMediaTracker * tracker, gdouble position)
 {
+    gchar *text;
+
     if (GTK_IS_WIDGET(tracker)) {
         gmtk_media_tracker_set_percentage(tracker,
                                           (position -
@@ -6228,6 +6110,20 @@ void player_position_changed_callback(GmtkMediaTracker * tracker, gdouble positi
         gmtk_media_tracker_set_position(tracker,
                                         position - gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
                                                                                           ATTRIBUTE_START_TIME));
+
+        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
+            text = g_strdup_printf(_("Playing"));
+        } else if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+            text = g_strdup_printf(_("Paused"));
+        } else {
+            text = g_strdup_printf(_("Idle"));
+        }
+        gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), text);
+        g_free(text);
+        update_status_icon();
+
+        dbus_send_event("TimeChanged", 0);
+
     }
 }
 

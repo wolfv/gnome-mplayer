@@ -162,6 +162,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->player_state = PLAYER_STATE_DEAD;
     player->media_state = MEDIA_STATE_UNKNOWN;
     player->uri = NULL;
+    player->message = NULL;
     player->mplayer_thread = NULL;
     player->aspect_ratio = ASPECT_DEFAULT;
     player->mplayer_complete_cond = g_cond_new();
@@ -555,6 +556,12 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
             // launch player
             player->mplayer_thread = g_thread_create(launch_mplayer, player, TRUE, NULL);
             if (player->mplayer_thread != NULL) {
+                if (player->message != NULL) {
+                    g_free(player->message);
+                    player->message = NULL;
+                }
+                player->message = g_strdup_printf(_("Loading..."));
+                g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_MESSAGE);
                 player->player_state = PLAYER_STATE_RUNNING;
                 g_signal_emit_by_name(player, "player-state-changed", player->player_state);
                 player->media_state = MEDIA_STATE_PLAY;
@@ -1002,6 +1009,10 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
 
     case ATTRIBUTE_EXTRA_OPTS:
         value = player->extra_opts;
+        break;
+
+    case ATTRIBUTE_MESSAGE:
+        value = player->message;
         break;
 
     case ATTRIBUTE_AUDIO_TRACK:

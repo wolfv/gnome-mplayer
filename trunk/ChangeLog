@@ -17,6 +17,8 @@
 
 
 Development
+    Update tracker label on media change
+    Remove allocate_fixed_callback
     Fix crash when setting preferences when no file is loaded
     Make extra opts work
     Fix preference setting
