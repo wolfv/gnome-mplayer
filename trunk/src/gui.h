@@ -170,6 +170,7 @@ GtkWidget *details_video_codec;
 GtkWidget *details_video_fps;
 GtkWidget *details_video_bitrate;
 GtkWidget *details_video_chapters;
+GtkWidget *details_audio_format;
 GtkWidget *details_audio_codec;
 GtkWidget *details_audio_channels;
 GtkWidget *details_audio_bitrate;
@@ -344,7 +345,6 @@ void create_folder_progress_window();
 void destroy_folder_progress_window();
 void update_status_icon();
 void setup_accelerators();
-void update_details_table();
 gboolean set_software_volume(gdouble * data);
 gboolean set_adjust_layout(gpointer data);
 

@@ -1227,9 +1227,6 @@ gboolean resize_window(void *data)
     if (idle != NULL)
         idle->window_resized = TRUE;
 
-    update_details_table();
-
-
     return FALSE;
 }
 
@@ -4011,58 +4008,8 @@ void menuitem_meter_callback(GtkMenuItem * menuitem, void *data)
     //adjust_layout();
 }
 
-void update_details_table()
-{
-    gchar *buf;
-    IdleData *idle = idledata;
-
-    if (idle->videopresent) {
-        buf = g_strdup_printf("%i x %i", idle->width, idle->height);
-    } else {
-        buf = g_strdup_printf("0 x 0");
-    }
-    gtk_label_set_text(GTK_LABEL(details_video_size), buf);
-    g_free(buf);
-
-    buf = g_ascii_strup(idle->video_format, -1);
-    gtk_label_set_text(GTK_LABEL(details_video_format), buf);
-    g_free(buf);
-
-    buf = g_ascii_strup(idle->video_codec, -1);
-    gtk_label_set_text(GTK_LABEL(details_video_codec), buf);
-    g_free(buf);
-
-    gtk_label_set_text(GTK_LABEL(details_video_fps), idle->video_fps);
-
-    buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->video_bitrate, NULL) / 1000));
-    gtk_label_set_text(GTK_LABEL(details_video_bitrate), buf);
-    g_free(buf);
-
-    buf = g_strdup_printf("%i", idle->chapters);
-    gtk_label_set_text(GTK_LABEL(details_video_chapters), buf);
-    g_free(buf);
-
-    buf = g_ascii_strup(idle->audio_codec, -1);
-    gtk_label_set_text(GTK_LABEL(details_audio_codec), buf);
-    g_free(buf);
-
-    buf = g_ascii_strup(idle->audio_channels, -1);
-    gtk_label_set_text(GTK_LABEL(details_audio_channels), buf);
-    g_free(buf);
-
-    buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->audio_bitrate, NULL) / 1000));
-    gtk_label_set_text(GTK_LABEL(details_audio_bitrate), buf);
-    g_free(buf);
-
-    buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->audio_samplerate, NULL) / 1000));
-    gtk_label_set_text(GTK_LABEL(details_audio_samplerate), buf);
-    g_free(buf);
-}
-
-
 void menuitem_details_callback(GtkMenuItem * menuitem, void *data)
 {
-    update_details_table();
     g_idle_add(set_adjust_layout, NULL);
 
 }
@@ -4140,7 +4087,7 @@ void create_details_table()
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-    buf = g_strdup_printf("%i", idle->chapters);
+    buf = g_strdup_printf("None");      // g_strdup_printf("%i", idle->chapters);
     details_video_chapters = gtk_label_new(buf);
     g_free(buf);
     gtk_misc_set_alignment(GTK_MISC(details_video_chapters), 0.0, 0.0);
@@ -4157,6 +4104,19 @@ void create_details_table()
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 0, 6);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+    i++;
+
+    label = gtk_label_new(_("Audio Format:"));
+    gtk_widget_set_size_request(label, 150, -1);
+    gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+    gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+    gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+    buf = g_ascii_strup(_("Unknown"), -1);
+    details_audio_format = gtk_label_new(buf);
+    g_free(buf);
+    gtk_widget_set_size_request(details_audio_format, 100, -1);
+    gtk_misc_set_alignment(GTK_MISC(details_audio_format), 0.0, 0.0);
+    gtk_table_attach_defaults(GTK_TABLE(details_table), details_audio_format, 1, 2, i, i + 1);
     i++;
 
     label = gtk_label_new(_("Audio Codec:"));
@@ -5848,26 +5808,31 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     const gchar *name;
     GList *list;
     GtkMenuItem *item;
+    gchar *text;
 
-    if (attribute == ATTRIBUTE_LENGTH) {
+    switch (attribute) {
+    case ATTRIBUTE_LENGTH:
         if (GTK_IS_WIDGET(tracker)) {
             gmtk_media_tracker_set_length(GMTK_MEDIA_TRACKER(tracker),
                                           gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), attribute));
         }
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_SIZE) {
+    case ATTRIBUTE_SIZE:
         idledata->width = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_WIDTH);
         idledata->height = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HEIGHT);
-        printf("video present = %i new size %i x %i\n", idledata->videopresent, idledata->width, idledata->height);
+        // printf("video present = %i new size %i x %i\n", idledata->videopresent, idledata->width, idledata->height);
+        text = g_strdup_printf("%i x %i", idledata->width, idledata->height);
+        gtk_label_set_text(GTK_LABEL(details_video_size), text);
+        g_free(text);
         if (resize_on_new_media || idledata->videopresent == FALSE) {
             if (idledata->width > 0 && idledata->height > 1)
                 idledata->videopresent = TRUE;
             g_idle_add(resize_window, idledata);
         }
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_VIDEO_PRESENT) {
+    case ATTRIBUTE_VIDEO_PRESENT:
         idledata->videopresent =
             gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VIDEO_PRESENT);
 
@@ -5910,10 +5875,9 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), TRUE);
 
-    }
+        break;
 
-
-    if (attribute == ATTRIBUTE_AUDIO_TRACK) {
+    case ATTRIBUTE_AUDIO_TRACK:
         name = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_TRACK);
         //printf("track name = %s\n", track_name);
         if (name != NULL && GTK_IS_WIDGET(tracks)) {
@@ -5927,9 +5891,9 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
                 list = list->next;
             }
         }
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_SUBTITLE) {
+    case ATTRIBUTE_SUBTITLE:
         name = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE);
 
         if (name != NULL && GTK_IS_WIDGET(subtitles)) {
@@ -5943,19 +5907,104 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
                 list = list->next;
             }
         }
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_HAS_CHAPTERS) {
+    case ATTRIBUTE_HAS_CHAPTERS:
         gtk_widget_show_all(prev_event_box);
         gtk_widget_show_all(next_event_box);
-    }
+        break;
 
-    if (attribute == ATTRIBUTE_MESSAGE) {
+    case ATTRIBUTE_MESSAGE:
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker),
                                     gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media),
                                                                            ATTRIBUTE_MESSAGE));
-    }
+        break;
 
+    case ATTRIBUTE_VIDEO_FORMAT:
+        text =
+            g_ascii_strup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VIDEO_FORMAT), -1);
+        gtk_label_set_text(GTK_LABEL(details_video_format), text);
+        g_free(text);
+        break;
+
+    case ATTRIBUTE_VIDEO_CODEC:
+        text =
+            g_ascii_strup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VIDEO_CODEC), -1);
+        gtk_label_set_text(GTK_LABEL(details_video_codec), text);
+        g_free(text);
+        break;
+
+    case ATTRIBUTE_VIDEO_FPS:
+        text =
+            g_strdup_printf("%2.1lf",
+                            gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VIDEO_FPS));
+        gtk_label_set_text(GTK_LABEL(details_video_fps), text);
+        g_free(text);
+        break;
+
+    case ATTRIBUTE_AUDIO_FORMAT:
+        text =
+            g_ascii_strup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_FORMAT), -1);
+        gtk_label_set_text(GTK_LABEL(details_audio_format), text);
+        g_free(text);
+        break;
+
+    case ATTRIBUTE_AUDIO_CODEC:
+        text =
+            g_ascii_strup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_CODEC), -1);
+        gtk_label_set_text(GTK_LABEL(details_audio_codec), text);
+        g_free(text);
+        break;
+
+    case ATTRIBUTE_VIDEO_BITRATE:
+        text =
+            g_strdup_printf("%i Kb/s",
+                            gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
+                                                                    ATTRIBUTE_VIDEO_BITRATE) / 1000);
+        gtk_label_set_text(GTK_LABEL(details_video_bitrate), text);
+        g_free(text);
+        break;
+
+    case ATTRIBUTE_AUDIO_BITRATE:
+        text =
+            g_strdup_printf("%i Kb/s",
+                            gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
+                                                                    ATTRIBUTE_AUDIO_BITRATE) / 1000);
+        gtk_label_set_text(GTK_LABEL(details_audio_bitrate), text);
+        g_free(text);
+        break;
+
+    case ATTRIBUTE_AUDIO_RATE:
+        text =
+            g_strdup_printf("%i Kb/s",
+                            gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
+                                                                    ATTRIBUTE_AUDIO_RATE) / 1000);
+        gtk_label_set_text(GTK_LABEL(details_audio_samplerate), text);
+        g_free(text);
+        break;
+
+    case ATTRIBUTE_AUDIO_NCH:
+        text =
+            g_strdup_printf("%i",
+                            gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_NCH));
+        gtk_label_set_text(GTK_LABEL(details_audio_channels), text);
+        g_free(text);
+        break;
+
+    case ATTRIBUTE_CHAPTERS:
+        text =
+            g_strdup_printf("%i",
+                            gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CHAPTERS));
+        gtk_label_set_text(GTK_LABEL(details_video_chapters), text);
+        g_free(text);
+        break;
+
+
+    default:
+        if (verbose) {
+            printf("Unhandled attribute change %i\n", attribute);
+        }
+    }
 }
 
 void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMediaState state, gpointer data)
