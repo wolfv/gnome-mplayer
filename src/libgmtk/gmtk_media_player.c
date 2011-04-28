@@ -1369,7 +1369,7 @@ gpointer launch_mplayer(gpointer data)
         filename = g_filename_from_uri(player->uri, NULL, NULL);
     }
 
-    detect_mplayer_features(player);
+    player->minimum_mplayer = detect_mplayer_features(player);
 
     if (player->mplayer_binary == NULL || !g_file_test(player->mplayer_binary, G_FILE_TEST_EXISTS)) {
         argv[argn++] = g_strdup_printf("mplayer");
@@ -2175,6 +2175,18 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             message = NULL;
         }
 
+        if (player->minimum_mplayer == FALSE) {
+            message = g_strdup_printf(_("MPlayer should be Upgraded to a Newer Version"));
+            dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
+                                            GTK_BUTTONS_OK, "%s", message);
+            gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Notification"));
+            gtk_dialog_run(GTK_DIALOG(dialog));
+            gtk_widget_destroy(dialog);
+            g_free(message);
+            message = NULL;
+            player->minimum_mplayer = TRUE;
+        }
+
         if (strstr(mplayer_output->str, "ICY Info") != NULL) {
             buf = strstr(mplayer_output->str, "'");
             if (message) {
@@ -2306,6 +2318,12 @@ gboolean detect_mplayer_features(GmtkMediaPlayer * player)
     }
     av[ac++] = g_strdup_printf("-noidle");
     av[ac++] = g_strdup_printf("-softvol");
+    av[ac++] = g_strdup_printf("-volume");
+    av[ac++] = g_strdup_printf("100");
+    // enable these lines to force newer mplayer
+    //av[ac++] = g_strdup_printf("-gamma");
+    //av[ac++] = g_strdup_printf("0");
+
     av[ac] = NULL;
 
     error = NULL;
@@ -2342,7 +2360,8 @@ gboolean detect_mplayer_features(GmtkMediaPlayer * player)
     g_free(err);
 
     player->features_detected = TRUE;
-    if (!ret)
+    if (!ret) {
         printf(_("You might want to consider upgrading mplayer to a newer version\n"));
+    }
     return ret;
 }
