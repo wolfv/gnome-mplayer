@@ -19,6 +19,8 @@
 
 
 Development
+    Make DVD playback from ISO and Folders work
+    Bring set_gui_state back, as it is needed for RealPlayer emulation
     Output notification when using old Mplayer on every startup
     Screenshot capture notification
     Make setting the media attributes a common function

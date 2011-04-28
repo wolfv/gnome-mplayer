@@ -91,6 +91,7 @@ typedef enum {
     ATTRIBUTE_VIDEO_PRESENT,
     ATTRIBUTE_VO,
     ATTRIBUTE_AO,
+    ATTRIBUTE_MEDIA_DEVICE,
     ATTRIBUTE_ALSA_MIXER,
     ATTRIBUTE_HARDWARE_AC3,
     ATTRIBUTE_SOFTVOL,
@@ -150,6 +151,7 @@ typedef enum {
 
 typedef enum {
     TYPE_FILE,
+    TYPE_CD,
     TYPE_DVD,
     TYPE_VCD,
     TYPE_TV,
