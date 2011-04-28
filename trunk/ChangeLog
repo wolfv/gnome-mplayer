@@ -8,14 +8,13 @@
     DVD w/o menu playback
     TV playback
     
-    Audio Meter
-    
     Keyboard shortcuts
 
 ******
 
 
 Development
+    Make audio meter work in GTK3 mode
     Make audio meter work in GTK2 mode
     Remove some IdleData properties
     Make Details display correct data

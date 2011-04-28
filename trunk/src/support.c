@@ -2858,7 +2858,6 @@ gboolean unmap_af_export_file(gpointer data)
     if (idle->mapped_af_export) {
         g_mapped_file_free(idle->mapped_af_export);
         idle->mapped_af_export = NULL;
-        g_unlink((gchar *) idle->af_export);
     }
 
     gmtk_audio_meter_set_data(GMTK_AUDIO_METER(audio_meter), NULL);

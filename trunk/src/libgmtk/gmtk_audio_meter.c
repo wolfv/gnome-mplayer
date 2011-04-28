@@ -27,6 +27,10 @@
 G_DEFINE_TYPE(GmtkAudioMeter, gmtk_audio_meter, GTK_TYPE_DRAWING_AREA);
 static GObjectClass *parent_class = NULL;
 
+#ifdef GTK3_ENABLED
+static gboolean gmtk_audio_meter_draw(GtkWidget * meter, cairo_t * cr);
+#endif
+
 static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * event);
 static void gmtk_audio_meter_dispose(GObject * object);
 extern GdkWindow *get_window(GtkWidget * widget);
@@ -62,6 +66,7 @@ static void gmtk_audio_meter_class_init(GmtkAudioMeterClass * class)
 
     parent_class = g_type_class_peek_parent(class);
 #ifdef GTK3_ENABLED
+    widget_class->draw = gmtk_audio_meter_draw;
 #else
     widget_class->expose_event = gmtk_audio_meter_expose;
 #endif
@@ -123,7 +128,11 @@ static void draw(GtkWidget * meter)
     if (GMTK_AUDIO_METER(meter)->max_division_width > 0 && division_width > GMTK_AUDIO_METER(meter)->max_division_width)
         division_width = GMTK_AUDIO_METER(meter)->max_division_width;
 
-    GMTK_AUDIO_METER(meter)->cr = gdk_cairo_create(get_window(GTK_WIDGET(meter)));
+    cairo_set_source_rgb(GMTK_AUDIO_METER(meter)->cr, style->bg[0].red / 65535.0, style->bg[0].green / 65535.0,
+                         style->bg[0].blue / 65535.0);
+    cairo_rectangle(GMTK_AUDIO_METER(meter)->cr, 0, 0, alloc.width, alloc.height);
+    cairo_fill(GMTK_AUDIO_METER(meter)->cr);
+    cairo_stroke(GMTK_AUDIO_METER(meter)->cr);
 
     cairo_surface_flush(cairo_get_target(GMTK_AUDIO_METER(meter)->cr));
 
@@ -195,9 +204,19 @@ static void draw(GtkWidget * meter)
     cairo_line_to(GMTK_AUDIO_METER(meter)->cr, alloc.width - 1, alloc.height - 1);
 
     cairo_surface_mark_dirty(cairo_get_target(GMTK_AUDIO_METER(meter)->cr));
-    cairo_destroy(GMTK_AUDIO_METER(meter)->cr);
 
 }
+
+#ifdef GTK3_ENABLED
+static gboolean gmtk_audio_meter_draw(GtkWidget * meter, cairo_t * cr)
+{
+    if (GMTK_AUDIO_METER(meter)->data_valid) {
+        GMTK_AUDIO_METER(meter)->cr = cr;
+        draw(meter);
+    }
+    return FALSE;
+}
+#endif
 
 static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * event)
 {
@@ -205,7 +224,10 @@ static gboolean gmtk_audio_meter_expose(GtkWidget * meter, GdkEventExpose * even
 
     gdk_window_begin_paint_region(get_window(meter), event->region);
     if (GMTK_AUDIO_METER(meter)->data_valid) {
+        GMTK_AUDIO_METER(meter)->cr = gdk_cairo_create(get_window(GTK_WIDGET(meter)));
         draw(meter);
+        cairo_destroy(GMTK_AUDIO_METER(meter)->cr);
+
     } else {
         p = gtk_widget_create_pango_layout(meter, "No Data");
 #ifdef GTK3_ENABLED
