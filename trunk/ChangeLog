@@ -19,6 +19,7 @@
 
 
 Development
+    Output notification when using old Mplayer on every startup
     Screenshot capture notification
     Make setting the media attributes a common function
     Enable deinterlacing
