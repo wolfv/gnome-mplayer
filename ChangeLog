@@ -14,6 +14,7 @@
 
 
 Development
+    Fix window size issue when opening details with non-standard window size
     Make audio meter work in GTK3 mode
     Make audio meter work in GTK2 mode
     Remove some IdleData properties

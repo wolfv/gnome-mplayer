@@ -207,6 +207,13 @@ void view_option_size_allocate_callback(GtkWidget * widget, GtkAllocation * allo
     g_idle_add(set_adjust_layout, NULL);
 }
 
+void player_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocation)
+{
+    non_fs_width = allocation->width;
+    non_fs_height = allocation->height;
+    // printf("media size = %i x %i\n", non_fs_width, non_fs_height);
+}
+
 gboolean set_adjust_layout(gpointer data)
 {
     adjusting = FALSE;
@@ -221,15 +228,10 @@ void adjust_layout()
     gint handle_size;
     GtkAllocation alloc;
 
-    //while (gtk_events_pending())
-    //      gtk_main_iteration(); 
-
     //printf("media size = %i x %i\n", non_fs_width, non_fs_height);
-    //printf("fixed = %i x %i\n", fixed->allocation.width, fixed->allocation.height);
-
-
     total_height = non_fs_height;
     total_width = non_fs_width;
+    //printf("total = %i x %i\n", total_width, total_height);
 
     if (playlist_visible && remember_loc && !vertical_layout) {
         total_width = gtk_paned_get_position(GTK_PANED(pane));
@@ -260,7 +262,8 @@ void adjust_layout()
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
         if (get_visible(media_hbox) == 0) {
             gtk_widget_show_all(media_hbox);
-            return;
+            while (gtk_events_pending())
+                gtk_main_iteration();
         }
         get_allocation(media_hbox, &alloc);
         total_height += alloc.height;
@@ -272,7 +275,7 @@ void adjust_layout()
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
         if (get_visible(details_vbox) == 0) {
             gtk_widget_show_all(details_vbox);
-            return;
+            //return;
         }
         get_allocation(details_vbox, &alloc);
         total_height += alloc.height;
@@ -284,7 +287,7 @@ void adjust_layout()
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter))) {
         if (get_visible(audio_meter) == 0) {
             gtk_widget_show_all(audio_meter);
-            return;
+            //return;
         }
         get_allocation(audio_meter, &alloc);
         total_height += alloc.height;
@@ -296,7 +299,7 @@ void adjust_layout()
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
         if (get_visible(plvbox) == 0) {
             gtk_widget_show_all(plvbox);
-            return;
+            //return;
         }
         gtk_widget_grab_focus(play_event_box);
         gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
@@ -329,7 +332,7 @@ void adjust_layout()
         gtk_paned_set_position(GTK_PANED(pane), -1);
         if (get_visible(plvbox) == 1) {
             gtk_widget_hide(plvbox);
-            return;
+            //return;
         }
     }
 
@@ -6916,6 +6919,7 @@ GtkWidget *create_window(gint windowid)
                      menuitem_edit_select_audio_lang);
     g_signal_connect(G_OBJECT(media), "subtitles-changed", G_CALLBACK(player_subtitle_callback),
                      menuitem_edit_select_sub_lang);
+    g_signal_connect(G_OBJECT(media), "size_allocate", G_CALLBACK(player_size_allocate_callback), NULL);
 
     cover_art = gtk_image_new();
     media_label = gtk_label_new("");
