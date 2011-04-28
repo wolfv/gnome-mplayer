@@ -500,18 +500,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     } else {
         g_strlcpy(idledata->demuxer, "", 64);
     }
-    if (audio_codec != NULL) {
-        g_strlcpy(idledata->audio_codec, audio_codec, 64);
-        g_free(audio_codec);
-    } else {
-        g_strlcpy(idledata->audio_codec, "", 64);
-    }
-    if (video_codec != NULL) {
-        g_strlcpy(idledata->video_codec, video_codec, 64);
-        g_free(video_codec);
-    } else {
-        g_strlcpy(idledata->video_codec, "", 64);
-    }
 
     if (lastfile != NULL) {
         g_free(lastfile);
@@ -523,12 +511,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     last_y = 0;
     idledata->width = width;
     idledata->height = height;
-
-    if (idledata->audio_codec != NULL && strlen(idledata->audio_codec) > 0) {
-        idledata->audiopresent = 1;
-    } else {
-        idledata->audiopresent = 0;
-    }
 
     idledata->x = 0;
     idledata->y = 0;
@@ -622,13 +604,6 @@ int main(int argc, char *argv[])
     idledata->saturation = 0;
     idledata->device = NULL;
     idledata->cachepercent = -1.0;
-    g_strlcpy(idledata->video_format, "", 64);
-    g_strlcpy(idledata->video_codec, "", 64);
-    g_strlcpy(idledata->video_fps, "", 64);
-    g_strlcpy(idledata->video_bitrate, "", 64);
-    g_strlcpy(idledata->audio_codec, "", 64);
-    g_strlcpy(idledata->audio_bitrate, "", 64);
-    g_strlcpy(idledata->audio_samplerate, "", 64);
     selection = NULL;
     lastfile = NULL;
     path = NULL;

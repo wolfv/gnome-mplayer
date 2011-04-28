@@ -177,14 +177,6 @@ typedef struct _IdleData {
     gint hue;
     gint saturation;
     gchar demuxer[64];
-    gchar video_format[64];
-    gchar video_codec[16];
-    gchar video_fps[16];
-    gchar video_bitrate[16];
-    gchar audio_codec[16];
-    gchar audio_bitrate[16];
-    gchar audio_samplerate[16];
-    gchar audio_channels[16];
     gchar metadata[1024];
     gboolean fromdbus;
     gboolean window_resized;

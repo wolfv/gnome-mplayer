@@ -4045,7 +4045,7 @@ void create_details_table()
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-    buf = g_ascii_strup(idle->video_format, -1);
+    buf = g_strdup_printf(_("Unknown"));
     details_video_format = gtk_label_new(buf);
     g_free(buf);
     gtk_misc_set_alignment(GTK_MISC(details_video_format), 0.0, 0.0);
@@ -4056,7 +4056,7 @@ void create_details_table()
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-    buf = g_ascii_strup(idle->video_codec, -1);
+    buf = g_strdup_printf(_("Unknown"));
     details_video_codec = gtk_label_new(buf);
     g_free(buf);
     gtk_misc_set_alignment(GTK_MISC(details_video_codec), 0.0, 0.0);
@@ -4067,7 +4067,7 @@ void create_details_table()
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-    details_video_fps = gtk_label_new(idle->video_fps);
+    details_video_fps = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(details_video_fps), 0.0, 0.0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), details_video_fps, 1, 2, i, i + 1);
     i++;
@@ -4076,7 +4076,7 @@ void create_details_table()
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-    buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->video_bitrate, NULL) / 1000));
+    buf = g_strdup_printf("0 Kb/s");
     details_video_bitrate = gtk_label_new(buf);
     g_free(buf);
     gtk_misc_set_alignment(GTK_MISC(details_video_bitrate), 0.0, 0.0);
@@ -4087,7 +4087,7 @@ void create_details_table()
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-    buf = g_strdup_printf("None");      // g_strdup_printf("%i", idle->chapters);
+    buf = g_strdup_printf(_("Unknown"));
     details_video_chapters = gtk_label_new(buf);
     g_free(buf);
     gtk_misc_set_alignment(GTK_MISC(details_video_chapters), 0.0, 0.0);
@@ -4111,7 +4111,7 @@ void create_details_table()
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-    buf = g_ascii_strup(_("Unknown"), -1);
+    buf = g_strdup_printf(_("Unknown"));
     details_audio_format = gtk_label_new(buf);
     g_free(buf);
     gtk_widget_set_size_request(details_audio_format, 100, -1);
@@ -4124,7 +4124,7 @@ void create_details_table()
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-    buf = g_ascii_strup(idle->audio_codec, -1);
+    buf = g_strdup_printf(_("Unknown"));
     details_audio_codec = gtk_label_new(buf);
     g_free(buf);
     gtk_widget_set_size_request(details_audio_codec, 100, -1);
@@ -4137,7 +4137,7 @@ void create_details_table()
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
     if (idle != NULL) {
-        buf = g_ascii_strup(idle->audio_channels, -1);
+        buf = g_strdup_printf(_("Unknown"));
         details_audio_channels = gtk_label_new(buf);
         g_free(buf);
         gtk_misc_set_alignment(GTK_MISC(details_audio_channels), 0.0, 0.0);
@@ -4150,7 +4150,7 @@ void create_details_table()
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
     if (idle != NULL) {
-        buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(idle->audio_bitrate, NULL) / 1000));
+        buf = g_strdup_printf("0 Kb/s");
         details_audio_bitrate = gtk_label_new(buf);
         g_free(buf);
         gtk_misc_set_alignment(GTK_MISC(details_audio_bitrate), 0.0, 0.0);
@@ -4163,7 +4163,7 @@ void create_details_table()
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
     if (idle != NULL) {
-        buf = g_strdup_printf("%i KHz", (gint) (g_strtod(idle->audio_samplerate, NULL) / 1000));
+        buf = g_strdup_printf("0 KHz");
         details_audio_samplerate = gtk_label_new(buf);
         g_free(buf);
         gtk_misc_set_alignment(GTK_MISC(details_audio_samplerate), 0.0, 0.0);
@@ -5976,7 +5976,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
 
     case ATTRIBUTE_AUDIO_RATE:
         text =
-            g_strdup_printf("%i Kb/s",
+            g_strdup_printf("%i KHz",
                             gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
                                                                     ATTRIBUTE_AUDIO_RATE) / 1000);
         gtk_label_set_text(GTK_LABEL(details_audio_samplerate), text);
