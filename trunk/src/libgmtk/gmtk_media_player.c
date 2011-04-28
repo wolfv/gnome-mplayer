@@ -1928,6 +1928,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
         if (strstr(mplayer_output->str, "AO:") != NULL) {
             write_to_mplayer(player, "get_property switch_audio\n");
+            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
         }
 
         if (strstr(mplayer_output->str, "VO:") != NULL) {

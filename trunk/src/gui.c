@@ -5893,6 +5893,12 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         }
         break;
 
+    case ATTRIBUTE_AF_EXPORT_FILENAME:
+        unmap_af_export_file(idledata);
+        map_af_export_file(idledata);
+
+        break;
+
     case ATTRIBUTE_SUBTITLE:
         name = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE);
 

@@ -16,6 +16,7 @@
 
 
 Development
+    Make audio meter work in GTK2 mode
     Remove some IdleData properties
     Make Details display correct data
     Update tracker label on media change
