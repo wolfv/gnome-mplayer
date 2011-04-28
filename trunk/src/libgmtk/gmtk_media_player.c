@@ -212,7 +212,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->zoom = 1.0;
     player->speed_multiplier = 1.0;
     player->subtitle_scale = 1.0;
-	player->restart = FALSE;
+    player->restart = FALSE;
     player->debug = 1;
 }
 
@@ -576,10 +576,10 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
                 player->message = g_strdup_printf(_("Loading..."));
                 g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_MESSAGE);
                 player->player_state = PLAYER_STATE_RUNNING;
-				if (!player->restart)	
+                if (!player->restart)
                     g_signal_emit_by_name(player, "player-state-changed", player->player_state);
-                    player->media_state = MEDIA_STATE_PLAY;
-				if (!player->restart)
+                player->media_state = MEDIA_STATE_PLAY;
+                if (!player->restart)
                     g_signal_emit_by_name(player, "media-state-changed", player->media_state);
             }
         }
@@ -648,6 +648,11 @@ void gmtk_media_player_show_dvd_menu(GmtkMediaPlayer * player)
 void gmtk_media_player_take_screenshot(GmtkMediaPlayer * player)
 {
     write_to_mplayer(player, "screenshot 0\n");
+}
+
+void gmtk_media_player_switch_angle(GmtkMediaPlayer * player)
+{
+    write_to_mplayer(player, "switch_angle\n");
 }
 
 void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
@@ -1875,7 +1880,7 @@ gpointer launch_mplayer(gpointer data)
     if (!player->restart) {
         g_signal_emit_by_name(player, "position-changed", 0.0);
         g_signal_emit_by_name(player, "player-state-changed", player->player_state);
-	    g_signal_emit_by_name(player, "media-state-changed", player->media_state);
+        g_signal_emit_by_name(player, "media-state-changed", player->media_state);
     }
 
     return NULL;

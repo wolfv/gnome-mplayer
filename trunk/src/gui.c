@@ -4285,12 +4285,7 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_view_angle_callback(GtkMenuItem * menuitem, gpointer data)
 {
-    gchar *cmd;
-
-    cmd = g_strdup_printf("switch_angle\n");
-    send_command(cmd, TRUE);
-    g_free(cmd);
-
+    gmtk_media_player_switch_angle(GMTK_MEDIA_PLAYER(media));
     return;
 }
 
@@ -6124,8 +6119,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #endif
         gtk_widget_set_sensitive(ff_event_box, FALSE);
         gtk_widget_set_sensitive(rew_event_box, FALSE);
-		if (GTK_IS_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))))
-    		gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+        if (GTK_IS_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))))
+            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
         menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
         g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_play_callback), NULL);
         gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
