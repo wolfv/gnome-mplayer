@@ -192,6 +192,8 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->audio_codec = NULL;
     player->disable_upscaling = FALSE;
     player->mplayer_binary = NULL;
+    player->media_device = NULL;
+    player->extra_opts = NULL;
     player->use_mplayer2 = FALSE;
     player->features_detected = FALSE;
     player->zoom = 1.0;
@@ -891,6 +893,17 @@ void gmtk_media_player_set_attribute_string(GmtkMediaPlayer * player,
         }
         break;
 
+    case ATTRIBUTE_EXTRA_OPTS:
+        if (player->extra_opts != NULL) {
+            g_free(player->extra_opts);
+        }
+        if (value == NULL || strlen(value) == 0) {
+            player->extra_opts = NULL;
+        } else {
+            player->extra_opts = g_strdup(value);
+        }
+        break;
+
     case ATTRIBUTE_MPLAYER_BINARY:
         if (player->mplayer_binary != NULL) {
             g_free(player->mplayer_binary);
@@ -984,6 +997,10 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
 
     case ATTRIBUTE_MEDIA_DEVICE:
         value = player->media_device;
+        break;
+
+    case ATTRIBUTE_EXTRA_OPTS:
+        value = player->extra_opts;
         break;
 
     case ATTRIBUTE_AUDIO_TRACK:
@@ -1588,6 +1605,14 @@ gpointer launch_mplayer(gpointer data)
     if (player->subtitle_codepage != NULL && strlen(player->subtitle_codepage) > 0) {
         argv[argn++] = g_strdup_printf("-subcp");
         argv[argn++] = g_strdup_printf("%s", player->subtitle_codepage);
+    }
+
+    if (player->extra_opts != NULL) {
+        char **opts = g_strsplit(player->extra_opts, " ", -1);
+        int i;
+        for (i = 0; opts[i] != NULL; i++)
+            argv[argn++] = g_strdup(opts[i]);
+        g_strfreev(opts);
     }
 
     switch (player->type) {

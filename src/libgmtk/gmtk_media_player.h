@@ -92,6 +92,7 @@ typedef enum {
     ATTRIBUTE_VO,
     ATTRIBUTE_AO,
     ATTRIBUTE_MEDIA_DEVICE,
+    ATTRIBUTE_EXTRA_OPTS,
     ATTRIBUTE_ALSA_MIXER,
     ATTRIBUTE_HARDWARE_AC3,
     ATTRIBUTE_SOFTVOL,
@@ -205,6 +206,7 @@ struct _GmtkMediaPlayer {
     gdouble volume;
     gboolean muted;
     gchar *media_device;
+    gchar *extra_opts;
     gboolean title_is_menu;
     gchar *vo;
     gchar *ao;
