@@ -16,6 +16,7 @@
 
 
 Development
+    Remove some IdleData properties
     Make Details display correct data
     Update tracker label on media change
     Remove allocate_fixed_callback
