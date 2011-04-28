@@ -1758,10 +1758,16 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         data = (MetaData *) g_new0(MetaData, 1);
         data->title = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
     } else if (device_name(local_uri)) {
-        if (g_ascii_strncasecmp(uri, "dvdnav://", strlen("dvdnav://") == 0)) {
+        if (g_ascii_strncasecmp(uri, "dvdnav://", strlen("dvdnav://")) == 0) {
             loop = 1;
         }
         retrieve = TRUE;
+        if (g_ascii_strncasecmp(uri, "dvb://", strlen("dvb://")) == 0) {
+            retrieve = FALSE;
+        }
+        if (g_ascii_strncasecmp(uri, "tv://", strlen("tv://")) == 0) {
+            retrieve = FALSE;
+        }
         data = get_basic_metadata(local_uri);
 
     } else {
