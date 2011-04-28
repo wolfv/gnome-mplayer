@@ -109,6 +109,7 @@ void set_media_player_attributes(GtkWidget * widget)
     gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CACHE_SIZE, cache_size);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VO, vo);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_EXTRA_OPTS, extraopts);
+    gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MPLAYER_BINARY, mplayer_bin);
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ENABLE_ADVANCED_SUBTITLES,
                                             !disable_ass);
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_OUTLINE, subtitle_outline);
@@ -6049,7 +6050,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     if (attribute == ATTRIBUTE_AUDIO_TRACK) {
         name = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_TRACK);
         //printf("track name = %s\n", track_name);
-        if (name != NULL) {
+        if (name != NULL && GTK_IS_WIDGET(tracks)) {
             list = gtk_container_get_children(GTK_CONTAINER(tracks));
             while (list) {
                 item = GTK_MENU_ITEM(list->data);
@@ -6065,7 +6066,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     if (attribute == ATTRIBUTE_SUBTITLE) {
         name = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE);
 
-        if (name != NULL) {
+        if (name != NULL && GTK_IS_WIDGET(subtitles)) {
             list = gtk_container_get_children(GTK_CONTAINER(subtitles));
             while (list) {
                 item = GTK_MENU_ITEM(list->data);

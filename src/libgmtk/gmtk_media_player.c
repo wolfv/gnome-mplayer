@@ -491,13 +491,14 @@ static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player
 
 void gmtk_media_player_restart(GmtkMediaPlayer * player)
 {
-    player->restart = TRUE;
-    player->restart_state = gmtk_media_player_get_state(player);
-    gmtk_media_player_set_state(player, MEDIA_STATE_PAUSE);
-    player->restart_position = player->position;
-    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_QUIT);
-    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_PLAY);
-
+    if (player->player_state == PLAYER_STATE_RUNNING) {
+        player->restart = TRUE;
+        player->restart_state = gmtk_media_player_get_state(player);
+        gmtk_media_player_set_state(player, MEDIA_STATE_PAUSE);
+        player->restart_position = player->position;
+        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_QUIT);
+        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_PLAY);
+    }
 }
 
 
@@ -1617,20 +1618,21 @@ gpointer launch_mplayer(gpointer data)
 
     switch (player->type) {
     case TYPE_FILE:
-        if (g_strrstr(filename, "apple.com")) {
-            argv[argn++] = g_strdup_printf("-user-agent");
-            argv[argn++] = g_strdup_printf("QuickTime/7.6.4");
+        if (filename != NULL) {
+            if (g_strrstr(filename, "apple.com")) {
+                argv[argn++] = g_strdup_printf("-user-agent");
+                argv[argn++] = g_strdup_printf("QuickTime/7.6.4");
+            }
+            if (player->force_cache && player->cache_size >= 32) {
+                argv[argn++] = g_strdup_printf("-cache");
+                argv[argn++] = g_strdup_printf("%i", player->cache_size);
+            }
+            if (player->playlist) {
+                argv[argn++] = g_strdup_printf("-playlist");
+            }
+            argv[argn++] = g_strdup_printf("%s", filename);
+            break;
         }
-        if (player->force_cache && player->cache_size >= 32) {
-            argv[argn++] = g_strdup_printf("-cache");
-            argv[argn++] = g_strdup_printf("%i", player->cache_size);
-        }
-        if (player->playlist) {
-            argv[argn++] = g_strdup_printf("-playlist");
-        }
-        argv[argn++] = g_strdup_printf("%s", filename);
-        break;
-
     case TYPE_CD:
         argv[argn++] = g_strdup_printf("-nocache");
         argv[argn++] = g_strdup_printf("%s", player->uri);
