@@ -373,6 +373,7 @@ void gmtk_media_player_select_audio_track_by_id(GmtkMediaPlayer * player, gint i
 void gmtk_media_player_restart(GmtkMediaPlayer * player);
 void gmtk_media_player_show_dvd_menu(GmtkMediaPlayer * player);
 void gmtk_media_player_take_screenshot(GmtkMediaPlayer * player);
+void gmtk_media_player_switch_angle(GmtkMediaPlayer * player);
 
 void gmtk_media_player_set_aspect(GmtkMediaPlayer * player, GmtkMediaPlayerAspectRatio aspect);
 GmtkMediaPlayerAspectRatio gmtk_media_player_get_aspect(GmtkMediaPlayer * player);

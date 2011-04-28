@@ -13,6 +13,7 @@
 
 
 Development
+    Add gmtk_media_player_switch_angle
     When restarting player, do not emit events
     Fix fallback to alternate protocols on error, fixes web playback
     Fix window size issue when opening details with non-standard window size
