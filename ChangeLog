@@ -13,6 +13,7 @@
 
 
 Development
+    Fix environment detection issues
     Fix known memory leak in gmtk_media_player
     Remove uri, windowid variables from idledata
     Remove seekable, x, y, last_x, last_y, sub_visible, sub_demux, switch_audio variables from idledata

@@ -651,6 +651,8 @@ GIO_CFLAGS
 GLIB2_14_DEFINES
 GLIB2_14_LIBS
 GLIB2_14_CFLAGS
+GTK2_24_LIBS
+GTK2_24_CFLAGS
 GTK2_22_LIBS
 GTK2_22_CFLAGS
 GTK2_20_LIBS
@@ -854,6 +856,8 @@ GTK2_20_CFLAGS
 GTK2_20_LIBS
 GTK2_22_CFLAGS
 GTK2_22_LIBS
+GTK2_24_CFLAGS
+GTK2_24_LIBS
 GLIB2_14_CFLAGS
 GLIB2_14_LIBS
 GIO_CFLAGS
@@ -1580,6 +1584,10 @@ Some influential environment variables:
               C compiler flags for GTK2_22, overriding pkg-config
   GTK2_22_LIBS
               linker flags for GTK2_22, overriding pkg-config
+  GTK2_24_CFLAGS
+              C compiler flags for GTK2_24, overriding pkg-config
+  GTK2_24_LIBS
+              linker flags for GTK2_24, overriding pkg-config
   GLIB2_14_CFLAGS
               C compiler flags for GLIB2_14, overriding pkg-config
   GLIB2_14_LIBS
@@ -8321,11 +8329,11 @@ fi
 
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GTK2_22" >&5
-$as_echo_n "checking for GTK2_22... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GTK2_24" >&5
+$as_echo_n "checking for GTK2_24... " >&6; }
 
-if test -n "$GTK2_22_CFLAGS"; then
-    pkg_cv_GTK2_22_CFLAGS="$GTK2_22_CFLAGS"
+if test -n "$GTK2_24_CFLAGS"; then
+    pkg_cv_GTK2_24_CFLAGS="$GTK2_24_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.24.0\""; } >&5
@@ -8333,15 +8341,15 @@ if test -n "$GTK2_22_CFLAGS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK2_22_CFLAGS=`$PKG_CONFIG --cflags "gtk+-2.0 >= 2.24.0" 2>/dev/null`
+  pkg_cv_GTK2_24_CFLAGS=`$PKG_CONFIG --cflags "gtk+-2.0 >= 2.24.0" 2>/dev/null`
 else
   pkg_failed=yes
 fi
  else
     pkg_failed=untried
 fi
-if test -n "$GTK2_22_LIBS"; then
-    pkg_cv_GTK2_22_LIBS="$GTK2_22_LIBS"
+if test -n "$GTK2_24_LIBS"; then
+    pkg_cv_GTK2_24_LIBS="$GTK2_24_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.24.0\""; } >&5
@@ -8349,7 +8357,7 @@ if test -n "$GTK2_22_LIBS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK2_22_LIBS=`$PKG_CONFIG --libs "gtk+-2.0 >= 2.24.0" 2>/dev/null`
+  pkg_cv_GTK2_24_LIBS=`$PKG_CONFIG --libs "gtk+-2.0 >= 2.24.0" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -8369,12 +8377,12 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        GTK2_22_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "gtk+-2.0 >= 2.24.0" 2>&1`
+	        GTK2_24_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "gtk+-2.0 >= 2.24.0" 2>&1`
         else
-	        GTK2_22_PKG_ERRORS=`$PKG_CONFIG --print-errors "gtk+-2.0 >= 2.24.0" 2>&1`
+	        GTK2_24_PKG_ERRORS=`$PKG_CONFIG --print-errors "gtk+-2.0 >= 2.24.0" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$GTK2_22_PKG_ERRORS" >&5
+	echo "$GTK2_24_PKG_ERRORS" >&5
 
 	{ $as_echo "$as_me:${as_lineno-$LINENO}: Disabling Depreciated GTK Functions" >&5
 $as_echo "$as_me: Disabling Depreciated GTK Functions" >&6;}
@@ -8384,11 +8392,11 @@ $as_echo "no" >&6; }
 	{ $as_echo "$as_me:${as_lineno-$LINENO}: Disabling Depreciated GTK Functions" >&5
 $as_echo "$as_me: Disabling Depreciated GTK Functions" >&6;}
 else
-	GTK2_22_CFLAGS=$pkg_cv_GTK2_22_CFLAGS
-	GTK2_22_LIBS=$pkg_cv_GTK2_22_LIBS
+	GTK2_24_CFLAGS=$pkg_cv_GTK2_24_CFLAGS
+	GTK2_24_LIBS=$pkg_cv_GTK2_24_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
-	GTK2_22_DEFINES="-DGTK2_24_ENABLED -DGTK_DISABLE_DEPRECATED"
+	GTK2_24_DEFINES="-DGTK2_24_ENABLED -DGTK_DISABLE_DEPRECATED"
 $as_echo "#define GTK2_24_ENABLED 1" >>confdefs.h
 
 fi

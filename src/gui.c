@@ -3452,7 +3452,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             if (GTK_WIDGET_MAPPED(window))
                 gtk_widget_unmap(window);
 #endif
-#ifdef GLIB2_24_ENABLED
+#ifdef GTK2_24_ENABLED
             gdk_window_reparent(get_window(window),
                                 gdk_x11_window_lookup_for_display(gdk_display_get_default(), embed_window), 0, 0);
 #else
@@ -7196,7 +7196,7 @@ void show_window(gint windowid)
     if (windowid != 0 && embedding_disabled == FALSE) {
         while (gtk_events_pending())
             gtk_main_iteration();
-#ifdef GLIB2_24_ENABLED
+#ifdef GTK2_24_ENABLED
         window_container = gdk_x11_window_foreign_new_for_display(gdk_display_get_default(), windowid);
 #else
         window_container = gdk_window_foreign_new(windowid);
