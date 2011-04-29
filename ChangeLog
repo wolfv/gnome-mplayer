@@ -12,6 +12,7 @@
 
 
 Development
+    Only emit the position-changed signal when position actually changes, lowers CPU usage 
     Keyboard shortcuts should work now
     Complete send_command removal
     More features for gmtk_media_player
