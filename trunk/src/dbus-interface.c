@@ -481,7 +481,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetURL") == 0) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-                        g_strlcpy(idledata->url, s, 1024);
+                        gmtk_media_player_set_uri(GMTK_MEDIA_PLAYER(media), s);
                         g_idle_add(show_copyurl, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -1179,6 +1179,7 @@ void dbus_disable_screensaver()
     const gchar *app;
     const gchar *reason;
     gint flags;
+    gint windowid;
 #endif
 #endif
 
@@ -1224,8 +1225,9 @@ void dbus_disable_screensaver()
                 app = g_strdup_printf("gnome-mplayer");
                 reason = g_strdup_printf("playback");
                 flags = 8;
+                windowid = GDK_WINDOW_XID(get_window(window));
                 dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32,
-                                         &(idledata->windowid), DBUS_TYPE_STRING, &reason,
+                                         &windowid, DBUS_TYPE_STRING, &reason,
                                          DBUS_TYPE_UINT32, &flags, DBUS_TYPE_INVALID);
                 reply_message = dbus_connection_send_with_reply_and_block(connection, message, 200, &error);
 

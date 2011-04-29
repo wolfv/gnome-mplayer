@@ -8,12 +8,16 @@
     TV playback
     
     Keyboard shortcuts
-    Playlists have issues
-
+    Media Info - Artist, Title, Album, etc...
 ******
 
 
 Development
+    Fix known memory leak in gmtk_media_player
+    Remove uri, windowid variables from idledata
+    Remove seekable, x, y, last_x, last_y, sub_visible, sub_demux, switch_audio variables from idledata
+    Remove video properties from idledata
+    Remove global variable dvd_title_is_menu
     Fix problem with dvb/tv parser Issue #508
     Fix window size issue when no media is loaded
     Start work on playlist issues

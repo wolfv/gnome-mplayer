@@ -417,12 +417,11 @@ gboolean hide_buttons(void *data)
 
 gboolean show_copyurl(void *data)
 {
-    IdleData *idle = (IdleData *) data;
     gchar *buf;
 
     gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
     if (control_id == 0) {
-        buf = g_strdup_printf(_("%s - GNOME MPlayer"), idle->url);
+        buf = g_strdup_printf(_("%s - GNOME MPlayer"), gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
         gtk_window_set_title(GTK_WINDOW(window), buf);
         g_free(buf);
     }
@@ -806,10 +805,8 @@ gboolean set_subtitle_visibility(void *data)
     if (GTK_IS_WIDGET(menuitem_view_subtitles)) {
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles))) {
             gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE, TRUE);
-            idledata->sub_visible = TRUE;
         } else {
             gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE, FALSE);
-            idledata->sub_visible = FALSE;
         }
     }
     return FALSE;
@@ -820,8 +817,6 @@ gboolean set_update_gui(void *data)
     GtkTreeViewColumn *column;
     gchar *coltitle;
     gint count;
-    GList *langs;
-    GList *item;
     gchar **split;
     gchar *joined;
 
@@ -844,41 +839,6 @@ gboolean set_update_gui(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), TRUE);
     } else {
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
-    }
-
-/*
-	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles)) !=
-        idledata->sub_visible) {
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles),
-                                       idledata->sub_visible);
-    }
-*/
-
-    if (GTK_IS_WIDGET(subtitles)) {
-        langs = gtk_container_get_children(GTK_CONTAINER(subtitles));
-        if (sub_source_file)
-            item = g_list_last(langs);
-        else
-            item = g_list_nth(langs, idledata->sub_demux);
-        if (item && GTK_IS_WIDGET(item->data))
-            gtk_menu_shell_activate_item(GTK_MENU_SHELL(subtitles), (GtkWidget *) item->data, FALSE);
-    }
-
-    if (idledata->switch_audio >= 0) {
-        if (GTK_IS_WIDGET(tracks)) {
-            langs = gtk_container_get_children(GTK_CONTAINER(tracks));
-            if (g_list_length(langs) > 1) {
-                gtk_widget_show(GTK_WIDGET(menuitem_edit_switch_audio));
-            } else {
-                gtk_widget_hide(GTK_WIDGET(menuitem_edit_switch_audio));
-            }
-            item = g_list_nth(langs, idledata->switch_audio);
-            if (item && GTK_IS_WIDGET(item->data))
-                gtk_menu_shell_activate_item(GTK_MENU_SHELL(tracks), (GtkWidget *) item->data, FALSE);
-        }
-    } else {
-        if (verbose)
-            printf("ANS_switch_audio is invalid %i\n", idledata->switch_audio);
     }
 
     if (GTK_IS_WIDGET(list)) {
@@ -1030,9 +990,7 @@ gboolean set_metadata(gpointer data)
 
 gboolean set_show_seek_buttons(gpointer data)
 {
-    IdleData *idle = (IdleData *) data;
-
-    if (idle->seekable) {
+    if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SEEKABLE)) {
         gtk_widget_show_all(ff_event_box);
         gtk_widget_show_all(rew_event_box);
     }
@@ -1673,6 +1631,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 {
     GTimeVal currenttime;
     gchar *cmd;
+    gboolean title_is_menu;
 
     // printf("key = %i\n",event->keyval);
     // printf("state = %i\n",event->state);
@@ -1689,15 +1648,16 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         g_get_current_time(&currenttime);
         last_movement_time = currenttime.tv_sec;
 
+        title_is_menu = gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE_IS_MENU);
+
         g_idle_add(make_panel_and_mouse_visible, NULL);
         switch (event->keyval) {
         case GDK_ISO_Next_Group:
             setup_accelerators();
             return FALSE;
         case GDK_Right:
-            if (lastfile != NULL && dvdnav_title_is_menu) {
-                send_command("dvdnav 4\n", FALSE);
-                return FALSE;
+            if (title_is_menu) {
+                return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             } else {
                 if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
@@ -1705,9 +1665,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             break;
         case GDK_Left:
-            if (lastfile != NULL && dvdnav_title_is_menu) {
-                send_command("dvdnav 3\n", FALSE);
-                return FALSE;
+            if (title_is_menu) {
+                return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             } else {
                 if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
@@ -1744,8 +1703,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             return FALSE;
         case GDK_Up:
-            if (lastfile != NULL && dvdnav_title_is_menu) {
-                send_command("dvdnav 1\n", FALSE);
+            if (title_is_menu) {
+                return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             } else {
                 if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
@@ -1763,8 +1722,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 
             return FALSE;
         case GDK_Down:
-            if (lastfile != NULL && dvdnav_title_is_menu) {
-                send_command("dvdnav 2\n", FALSE);
+            if (title_is_menu) {
+                return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             } else {
                 if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
@@ -1781,8 +1740,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             return FALSE;
         case GDK_Return:
-            if (lastfile != NULL && dvdnav_title_is_menu) {
-                send_command("dvdnav 6\n", FALSE);
+            if (title_is_menu) {
+                return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             }
             return FALSE;
         case GDK_less:
@@ -2809,7 +2768,6 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
         g_free(idledata->device);
         idledata->device = NULL;
     }
-    dvdnav_title_is_menu = TRUE;
     add_item_to_playlist("dvdnav://", 0);
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
@@ -2842,7 +2800,6 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
         gtk_list_store_clear(playliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
-        dvdnav_title_is_menu = TRUE;
         add_item_to_playlist("dvdnav://", 0);
         gtk_widget_show(menu_event_box);
 
@@ -2888,7 +2845,6 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
         gtk_list_store_clear(playliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
-        dvdnav_title_is_menu = TRUE;
         add_item_to_playlist("dvdnav://", 0);
         gtk_widget_show(menu_event_box);
 
@@ -3106,6 +3062,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
     char buffer[1000];
     gint count;
     gchar *default_name;
+    gchar *uri;
     GtkWidget *dialog;
     gchar *msg;
 
@@ -3115,9 +3072,10 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                                     GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
 
-    default_name = g_strrstr(idledata->url, "/");
+    uri = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+    default_name = g_strrstr(uri, "/");
     if (default_name == NULL) {
-        default_name = idledata->url;
+        default_name = uri;
     } else {
         default_name += sizeof(gchar);
     }
@@ -3126,6 +3084,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
         default_name = g_strrstr(buffer, "&");
         default_name[0] = '\0';
     }
+    g_free(uri);
 
     gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(file_chooser_save), buffer);
 
@@ -3638,7 +3597,7 @@ void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
     GtkClipboard *clipboard;
     gchar *url;
 
-    url = g_strdup(idledata->url);
+    url = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
     if (strlen(url) == 0) {
         g_free(url);
         url = g_strdup(lastfile);
@@ -3975,42 +3934,31 @@ void config_close(GtkWidget * widget, void *data)
 
 void brightness_callback(GtkRange * range, gpointer data)
 {
-    IdleData *idle = (IdleData *) data;
-
-    idle->brightness = (gint) gtk_range_get_value(range);
-    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_BRIGHTNESS, idle->brightness);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_BRIGHTNESS,
+                                            (gint) gtk_range_get_value(range));
 }
 
 void contrast_callback(GtkRange * range, gpointer data)
 {
-    IdleData *idle = (IdleData *) data;
-
-    idle->contrast = (gint) gtk_range_get_value(range);
-    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CONTRAST, idle->contrast);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CONTRAST,
+                                            (gint) gtk_range_get_value(range));
 }
 
 void gamma_callback(GtkRange * range, gpointer data)
 {
-    IdleData *idle = (IdleData *) data;
-
-    idle->gamma = (gint) gtk_range_get_value(range);
-    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_GAMMA, idle->gamma);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_GAMMA,
+                                            (gint) gtk_range_get_value(range));
 }
 
 void hue_callback(GtkRange * range, gpointer data)
 {
-    IdleData *idle = (IdleData *) data;
-
-    idle->hue = (gint) gtk_range_get_value(range);
-    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HUE, idle->hue);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HUE, (gint) gtk_range_get_value(range));
 }
 
 void saturation_callback(GtkRange * range, gpointer data)
 {
-    IdleData *idle = (IdleData *) data;
-
-    idle->saturation = (gint) gtk_range_get_value(range);
-    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SATURATION, idle->saturation);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SATURATION,
+                                            (gint) gtk_range_get_value(range));
 }
 
 void menuitem_meter_callback(GtkMenuItem * menuitem, void *data)
@@ -4222,7 +4170,8 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     label = gtk_label_new(_("Brightness"));
     adv_brightness = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
     gtk_widget_set_size_request(adv_brightness, 200, -1);
-    gtk_range_set_value(GTK_RANGE(adv_brightness), idledata->brightness);
+    gtk_range_set_value(GTK_RANGE(adv_brightness),
+                        gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_BRIGHTNESS));
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
@@ -4232,7 +4181,8 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     label = gtk_label_new(_("Contrast"));
     adv_contrast = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
     gtk_widget_set_size_request(adv_contrast, 200, -1);
-    gtk_range_set_value(GTK_RANGE(adv_contrast), idledata->contrast);
+    gtk_range_set_value(GTK_RANGE(adv_contrast),
+                        gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CONTRAST));
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
@@ -4242,7 +4192,8 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     label = gtk_label_new(_("Gamma"));
     adv_gamma = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
     gtk_widget_set_size_request(adv_gamma, 200, -1);
-    gtk_range_set_value(GTK_RANGE(adv_gamma), idledata->gamma);
+    gtk_range_set_value(GTK_RANGE(adv_gamma),
+                        gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_GAMMA));
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
@@ -4252,7 +4203,8 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     label = gtk_label_new(_("Hue"));
     adv_hue = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
     gtk_widget_set_size_request(adv_hue, 200, -1);
-    gtk_range_set_value(GTK_RANGE(adv_hue), idledata->hue);
+    gtk_range_set_value(GTK_RANGE(adv_hue),
+                        gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HUE));
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
@@ -4262,7 +4214,8 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     label = gtk_label_new(_("Saturation"));
     adv_saturation = gtk_hscale_new_with_range(-100.0, 100.0, 1.0);
     gtk_widget_set_size_request(adv_saturation, 200, -1);
-    gtk_range_set_value(GTK_RANGE(adv_saturation), idledata->saturation);
+    gtk_range_set_value(GTK_RANGE(adv_saturation),
+                        gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SATURATION));
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 1.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
     gtk_table_attach_defaults(GTK_TABLE(adv_table), label, 0, 1, i, i + 1);
@@ -6200,7 +6153,7 @@ void player_position_changed_callback(GmtkMediaTracker * tracker, gdouble positi
 gboolean tracker_difference_callback(GtkWidget * widget, gdouble difference, void *data)
 {
 
-    if (!idledata->streaming || idledata->seekable == TRUE) {
+    if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SEEKABLE)) {
         if (!autopause) {
             if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), difference, SEEK_RELATIVE);
