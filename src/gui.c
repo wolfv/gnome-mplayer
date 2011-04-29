@@ -1818,15 +1818,14 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 #endif
             return FALSE;
         case GDK_numbersign:
-            gmtk_media_player_switch_audio(GMTK_MEDIA_PLAYER(media));
+            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SWITCH_AUDIO);
             return FALSE;
         case GDK_period:
             if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE)
-                send_command("frame_step\n", FALSE);
+                gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_FRAME_STEP);
             return FALSE;
         case GDK_j:
-            send_command("sub_select\n", TRUE);
-            send_command("get_property sub_demux\n", TRUE);
+            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SUBTITLE_SELECT);
             return FALSE;
         case GDK_q:
             delete_callback(NULL, NULL, NULL);
@@ -1885,7 +1884,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three), TRUE);
             return FALSE;
         case GDK_d:
-            send_command("frame_drop\nosd_show_property_text \"framedropping: ${framedropping}\"\n", TRUE);
+            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SWITCH_FRAME_DROP);
             return FALSE;
         case GDK_i:
             if (fullscreen) {
@@ -1895,16 +1894,20 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             return FALSE;
         case GDK_b:
-            send_command("sub_pos -1 0\n", TRUE);
+            gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_POSITION,
+                                                    gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
+                                                                                             ATTRIBUTE_SUBTITLE_POSITION)
+                                                    - 1);
             return FALSE;
         case GDK_B:
-            send_command("sub_pos 1 0\n", TRUE);
+            gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_POSITION,
+                                                    gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
+                                                                                             ATTRIBUTE_SUBTITLE_POSITION)
+                                                    + 1);
             return FALSE;
         case GDK_s:
         case GDK_S:
-            cmd = g_strdup_printf("screenshot 0\n");
-            send_command(cmd, TRUE);
-            g_free(cmd);
+            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_TAKE_SCREENSHOT);
             return FALSE;
 
         default:
@@ -2287,7 +2290,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean menu_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    gmtk_media_player_show_dvd_menu(GMTK_MEDIA_PLAYER(media));
+    gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SHOW_DVD_MENU);
     return FALSE;
 }
 
@@ -3327,7 +3330,7 @@ void menuitem_view_subtitles_callback(GtkMenuItem * menuitem, void *data)
 //      Switch Audio Streams
 void menuitem_edit_switch_audio_callback(GtkMenuItem * menuitem, void *data)
 {
-    gmtk_media_player_switch_audio(GMTK_MEDIA_PLAYER(media));
+    gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SWITCH_AUDIO);
 }
 
 void menuitem_edit_set_audiofile_callback(GtkMenuItem * menuitem, void *data)
@@ -3406,7 +3409,7 @@ void menuitem_edit_set_subtitle_callback(GtkMenuItem * menuitem, void *data)
 //      Take Screenshot
 void menuitem_edit_take_screenshot_callback(GtkMenuItem * menuitem, void *data)
 {
-    gmtk_media_player_take_screenshot(GMTK_MEDIA_PLAYER(media));
+    gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_TAKE_SCREENSHOT);
 }
 
 void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
@@ -4225,7 +4228,7 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_view_angle_callback(GtkMenuItem * menuitem, gpointer data)
 {
-    gmtk_media_player_switch_angle(GMTK_MEDIA_PLAYER(media));
+    gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SWITCH_ANGLE);
     return;
 }
 

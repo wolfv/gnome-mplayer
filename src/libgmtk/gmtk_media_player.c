@@ -214,6 +214,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->speed_multiplier = 1.0;
     player->subtitle_scale = 1.0;
     player->subtitle_delay = 0.0;
+    player->subtitle_position = 0;
     player->audio_delay = 0.0;
     player->restart = FALSE;
     player->debug = 1;
@@ -640,24 +641,45 @@ GmtkMediaPlayerMediaState gmtk_media_player_get_state(GmtkMediaPlayer * player)
     return player->media_state;
 }
 
-void gmtk_media_player_show_dvd_menu(GmtkMediaPlayer * player)
+void gmtk_media_player_send_command(GmtkMediaPlayer * player, GmtkMediaPlayerCommand command)
 {
-    write_to_mplayer(player, "dvdnav 5\n");
-}
+    if (player->player_state == PLAYER_STATE_RUNNING) {
+        switch (command) {
+        case COMMAND_SHOW_DVD_MENU:
+            write_to_mplayer(player, "dvdnav 5\n");
+            break;
 
-void gmtk_media_player_take_screenshot(GmtkMediaPlayer * player)
-{
-    write_to_mplayer(player, "screenshot 0\n");
-}
+        case COMMAND_TAKE_SCREENSHOT:
+            write_to_mplayer(player, "screenshot 0\n");
+            break;
 
-void gmtk_media_player_switch_angle(GmtkMediaPlayer * player)
-{
-    write_to_mplayer(player, "switch_angle\n");
-}
+        case COMMAND_SWITCH_ANGLE:
+            write_to_mplayer(player, "switch_angle\n");
+            break;
 
-void gmtk_media_player_switch_audio(GmtkMediaPlayer * player)
-{
-    write_to_mplayer(player, "switch_audio\n");
+        case COMMAND_SWITCH_AUDIO:
+            write_to_mplayer(player, "switch_audio\n");
+            break;
+
+        case COMMAND_FRAME_STEP:
+            if (player->media_state == MEDIA_STATE_PAUSE)
+                write_to_mplayer(player, "frame_step\n");
+            break;
+
+        case COMMAND_SUBTITLE_SELECT:
+            write_to_mplayer(player, "sub_select\n");
+            break;
+
+        case COMMAND_SWITCH_FRAME_DROP:
+            write_to_mplayer(player, "frame_drop\n");
+            write_to_mplayer(player, "osd_show_property_text \"framedropping: ${framedropping}\"\n");
+            break;
+
+        default:
+            if (player->debug)
+                printf("Unknown command\n");
+        }
+    }
 }
 
 void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
@@ -1199,6 +1221,15 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
         player->subtitle_margin = CLAMP(value, 0.0, 200.0);
         break;
 
+    case ATTRIBUTE_SUBTITLE_POSITION:
+        player->subtitle_position = CLAMP(value, 0, 100);
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("set_property sub_pos %i\n", player->subtitle_position);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+        break;
+
     case ATTRIBUTE_OSDLEVEL:
         player->osdlevel = CLAMP(value, 0, 3);
         if (player->player_state == PLAYER_STATE_RUNNING) {
@@ -1286,6 +1317,10 @@ gint gmtk_media_player_get_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
 
     case ATTRIBUTE_SUBTITLE_MARGIN:
         ret = player->subtitle_margin;
+        break;
+
+    case ATTRIBUTE_SUBTITLE_POSITION:
+        ret = player->subtitle_position;
         break;
 
     case ATTRIBUTE_CHAPTERS:
@@ -1689,6 +1724,9 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("-subdelay");
         argv[argn++] = g_strdup_printf("%f", player->subtitle_delay);
 
+        argv[argn++] = g_strdup_printf("-subpos");
+        argv[argn++] = g_strdup_printf("%i", player->subtitle_position);
+
         argv[argn++] = g_strdup_printf("-wid");
         gtk_widget_realize(player->socket);
         argv[argn++] = g_strdup_printf("0x%x", gtk_socket_get_id(GTK_SOCKET(player->socket)));
@@ -1703,8 +1741,6 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("%i", player->hue);
         argv[argn++] = g_strdup_printf("-saturation");
         argv[argn++] = g_strdup_printf("%i", player->saturation);
-        argv[argn++] = g_strdup_printf("-osdlevel");
-        argv[argn++] = g_strdup_printf("%i", player->osdlevel);
 
         /* disable msg stuff to make sure extra console characters don't mess around */
         argv[argn++] = g_strdup_printf("-nomsgcolor");

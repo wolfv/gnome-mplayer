@@ -150,6 +150,7 @@ typedef enum {
     ATTRIBUTE_SUBTITLE_COLOR,
     ATTRIBUTE_SUBTITLE_CODEPAGE,
     ATTRIBUTE_SUBTITLE_DELAY,
+    ATTRIBUTE_SUBTITLE_POSITION,
     ATTRIBUTE_PLAYLIST,
     ATTRIBUTE_MESSAGE,
     ATTRIBUTE_ENABLE_DEBUG,
@@ -174,6 +175,16 @@ typedef enum {
     TYPE_NETWORK
 } GmtkMediaPlayerMediaType;
 
+typedef enum {
+    COMMAND_SHOW_DVD_MENU,
+    COMMAND_TAKE_SCREENSHOT,
+    COMMAND_SWITCH_ANGLE,
+    COMMAND_SWITCH_AUDIO,
+    COMMAND_FRAME_STEP,
+    COMMAND_SUBTITLE_SELECT,
+    COMMAND_SWITCH_FRAME_DROP
+} GmtkMediaPlayerCommand;
+
 typedef struct _GmtkMediaPlayer GmtkMediaPlayer;
 typedef struct _GmtkMediaPlayerClass GmtkMediaPlayerClass;
 
@@ -192,7 +203,6 @@ typedef struct _GmtkMediaPlayerAudioTrack {
     gchar *name;
     gchar *label;
 } GmtkMediaPlayerAudioTrack;
-
 
 struct _GmtkMediaPlayer {
     GtkEventBox parent;
@@ -276,6 +286,7 @@ struct _GmtkMediaPlayer {
     gdouble subtitle_scale;
     gdouble subtitle_delay;
     gint subtitle_margin;
+    gint subtitle_position;
     gchar *subtitle_color;
     gchar *subtitle_codepage;
     gchar *subtitle_font;
@@ -377,10 +388,7 @@ void gmtk_media_player_select_subtitle_by_id(GmtkMediaPlayer * player, gint id);
 void gmtk_media_player_select_audio_track_by_id(GmtkMediaPlayer * player, gint id);
 
 void gmtk_media_player_restart(GmtkMediaPlayer * player);
-void gmtk_media_player_show_dvd_menu(GmtkMediaPlayer * player);
-void gmtk_media_player_take_screenshot(GmtkMediaPlayer * player);
-void gmtk_media_player_switch_angle(GmtkMediaPlayer * player);
-void gmtk_media_player_switch_audio(GmtkMediaPlayer * player);
+void gmtk_media_player_send_command(GmtkMediaPlayer * player, GmtkMediaPlayerCommand command);
 
 void gmtk_media_player_set_aspect(GmtkMediaPlayer * player, GmtkMediaPlayerAspectRatio aspect);
 GmtkMediaPlayerAspectRatio gmtk_media_player_get_aspect(GmtkMediaPlayer * player);
