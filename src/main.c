@@ -519,8 +519,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     idledata->width = width;
     idledata->height = height;
 
-    idledata->x = 0;
-    idledata->y = 0;
     idledata->cachepercent = -1.0;
     g_strlcpy(idledata->info, uri, 1024);
     set_media_info(idledata);
@@ -553,6 +551,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_VCD);
         } else if (g_str_has_prefix(uri, "tv")) {
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_TV);
+        } else if (g_str_has_prefix(uri, "dvb")) {
+            gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVB);
         } else if (g_str_has_prefix(uri, "file")) {
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
         } else {
@@ -622,11 +622,6 @@ int main(int argc, char *argv[])
     idledata = (IdleData *) g_new0(IdleData, 1);
     idledata->videopresent = FALSE;
     idledata->length = 0.0;
-    idledata->brightness = 0;
-    idledata->contrast = 0;
-    idledata->gamma = 0;
-    idledata->hue = 0;
-    idledata->saturation = 0;
     idledata->device = NULL;
     idledata->cachepercent = -1.0;
     selection = NULL;
@@ -698,7 +693,6 @@ int main(int argc, char *argv[])
     disable_cover_art_fetch = FALSE;
     fullscreen = 0;
     vo = NULL;
-    dvdnav_title_is_menu = FALSE;
     data = NULL;
     max_data = NULL;
     details_table = NULL;

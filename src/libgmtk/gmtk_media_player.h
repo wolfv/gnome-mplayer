@@ -330,7 +330,7 @@ GType gmtk_media_player_get_type(void);
 GtkWidget *gmtk_media_player_new();
 
 void gmtk_media_player_set_uri(GmtkMediaPlayer * player, const gchar * uri);
-gchar *gmtk_media_player_get_uri(GmtkMediaPlayer * player);
+const gchar *gmtk_media_player_get_uri(GmtkMediaPlayer * player);
 
 void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayerMediaState new_state);
 GmtkMediaPlayerMediaState gmtk_media_player_get_state(GmtkMediaPlayer * player);

@@ -544,9 +544,9 @@ void gmtk_media_player_set_uri(GmtkMediaPlayer * player, const gchar * uri)
 
 }
 
-gchar *gmtk_media_player_get_uri(GmtkMediaPlayer * player)
+const gchar *gmtk_media_player_get_uri(GmtkMediaPlayer * player)
 {
-    return g_strdup(player->uri);
+    return player->uri;
 }
 
 void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayerMediaState new_state)
@@ -627,9 +627,6 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
                 while (gtk_events_pending())
                     gtk_main_iteration();
             }
-            //player->media_state = MEDIA_STATE_QUIT;
-            //if (!player->restart)
-            //    g_signal_emit_by_name(player, "media-state-changed", player->media_state);
         }
     }
 
@@ -1279,7 +1276,7 @@ void gmtk_media_player_seek_chapter(GmtkMediaPlayer * player, gint value, GmtkMe
         seek_type = 1;
 
     cmd = g_strdup_printf("seek_chapter %i %i\n", value, seek_type);
-	printf("%s",cmd);
+    printf("%s", cmd);
     write_to_mplayer(player, cmd);
     g_free(cmd);
 }
@@ -1460,24 +1457,50 @@ gpointer launch_mplayer(gpointer data)
     gchar *fontname;
     gchar *size;
     gchar *tmp;
+    GList *list;
+    GmtkMediaPlayerSubtitle *subtitle;
+    GmtkMediaPlayerAudioTrack *track;
 
-    // TODO: Fix memory leak
-    player->subtitles = NULL;
-    player->audio_tracks = NULL;
 
     player->seekable = FALSE;
     player->has_chapters = FALSE;
     player->video_present = FALSE;
     player->position = 0.0;
     player->cache_percent = -1.0;
+    player->title_is_menu = FALSE;
 
     gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
+    gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
     gtk_widget_show(GTK_WIDGET(player->socket));
+    while (gtk_events_pending())
+        gtk_main_iteration();
 
     g_mutex_lock(player->thread_running);
 
     do {
-        printf("setting up mplayer\n");
+        if (player->debug)
+            printf("setting up mplayer\n");
+
+        list = player->subtitles;
+        while (list) {
+            subtitle = (GmtkMediaPlayerSubtitle *) list->data;
+            g_free(subtitle->lang);
+            g_free(subtitle->name);
+            g_free(subtitle->label);
+            list = g_list_remove(list, subtitle);
+        }
+        player->subtitles = NULL;
+
+        list = player->audio_tracks;
+        while (list) {
+            track = (GmtkMediaPlayerAudioTrack *) list->data;
+            g_free(track->lang);
+            g_free(track->name);
+            g_free(track->label);
+            list = g_list_remove(list, track);
+        }
+        player->audio_tracks = NULL;
+
         argn = 0;
         player->playback_error = NO_ERROR;
         if (player->uri != NULL) {
@@ -1754,6 +1777,7 @@ gpointer launch_mplayer(gpointer data)
             argv[argn++] = g_strdup_printf("%s", player->uri);
             break;
 
+        case TYPE_DVB:
         case TYPE_TV:
             if (player->tv_device != NULL) {
                 argv[argn++] = g_strdup_printf("-tv:device");
@@ -1786,9 +1810,8 @@ gpointer launch_mplayer(gpointer data)
         default:
             break;
         }
-        //argv[argn++] = g_strdup_printf("-v");
-
         argv[argn] = NULL;
+
         if (player->debug) {
             for (i = 0; i < argn; i++) {
                 printf("%s ", argv[i]);
@@ -1882,6 +1905,8 @@ gpointer launch_mplayer(gpointer data)
         g_signal_emit_by_name(player, "position-changed", 0.0);
         g_signal_emit_by_name(player, "player-state-changed", player->player_state);
         g_signal_emit_by_name(player, "media-state-changed", player->media_state);
+        gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
+        gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
     }
 
     return NULL;
@@ -1901,7 +1926,8 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
     g_cond_signal(player->mplayer_complete_cond);
     g_unlink(player->af_export_filename);
     gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
-    //gtk_widget_hide(GTK_WIDGET(player->socket));
+    gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
+    gtk_widget_hide(GTK_WIDGET(player->socket));
 
     return FALSE;
 }
