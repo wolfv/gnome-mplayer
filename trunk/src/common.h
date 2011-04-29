@@ -327,7 +327,6 @@ gboolean always_hide_after_timeout;
 gboolean mouse_over_controls;
 gchar *subtitlefont;
 gdouble subtitle_scale;
-gdouble subtitle_delay;
 gchar *subtitle_codepage;
 gchar *subtitle_color;
 gboolean subtitle_outline;

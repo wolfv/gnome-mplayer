@@ -524,7 +524,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     set_media_info(idledata);
 
     streaming = 0;
-    subtitle_delay = 0.0;
 
     gm_store = gm_pref_store_new("gnome-mplayer");
     forcecache = gm_pref_store_get_boolean(gm_store, FORCECACHE);
