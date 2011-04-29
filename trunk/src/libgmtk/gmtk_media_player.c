@@ -2153,7 +2153,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GError *error = NULL;
     gchar *buf, *message = NULL, *icy = NULL;
     gint w, h, i;
-    gfloat percent;
+    gfloat percent, oldposition;
     gchar vm[10];
     gint id;
     GtkAllocation allocation;
@@ -2249,8 +2249,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
         if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {
             buf = strstr(mplayer_output->str, "ANS_TIME_POSITION");
+            oldposition = player->position;
             sscanf(buf, "ANS_TIME_POSITION=%lf", &player->position);
-            g_signal_emit_by_name(player, "position-changed", player->position);
+            if (oldposition != player->position)
+                g_signal_emit_by_name(player, "position-changed", player->position);
         }
 
         if (strstr(mplayer_output->str, "ID_START_TIME") != 0) {
