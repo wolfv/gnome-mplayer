@@ -1630,7 +1630,6 @@ gboolean configure_callback(GtkWidget * widget, GdkEventConfigure * event, gpoin
 gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer user_data)
 {
     GTimeVal currenttime;
-    gchar *cmd;
     gboolean title_is_menu;
 
     // printf("key = %i\n",event->keyval);
@@ -1888,9 +1887,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_i:
             if (fullscreen) {
-                cmd = g_strdup_printf("osd_show_text '%s' 1500 0\n", idledata->display_name);
-                send_command(cmd, TRUE);
-                g_free(cmd);
+                //cmd = g_strdup_printf("osd_show_text '%s' 1500 0\n", idledata->display_name);
+                //send_command(cmd, TRUE);
+                //g_free(cmd);
             }
             return FALSE;
         case GDK_b:

@@ -24,13 +24,6 @@
 
 #include "support.h"
 
-gboolean send_command(gchar * command, gboolean retain_pause)
-{
-    printf("SEND COMMAND: %s\n", command);
-    return TRUE;
-}
-
-
 gint detect_playlist(gchar * uri)
 {
 
