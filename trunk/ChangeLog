@@ -13,6 +13,8 @@
 
 
 Development
+    More features for gmtk_media_player
+    Switch from specific API call for mplayer commands to generic command submission
     Keep purging send_command
     Enable more features in gmtk_media_player: frame_drop, audio_delay, and sub_delay
     Fix environment detection issues
