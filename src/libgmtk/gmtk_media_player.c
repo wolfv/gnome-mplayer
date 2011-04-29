@@ -197,6 +197,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->contrast = 0;
     player->gamma = 0;
     player->hue = 0;
+    player->osdlevel = 0;
     player->saturation = 0;
     player->restart = FALSE;
     player->video_format = NULL;
@@ -212,6 +213,8 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->zoom = 1.0;
     player->speed_multiplier = 1.0;
     player->subtitle_scale = 1.0;
+    player->subtitle_delay = 0.0;
+    player->audio_delay = 0.0;
     player->restart = FALSE;
     player->debug = 1;
 }
@@ -652,6 +655,11 @@ void gmtk_media_player_switch_angle(GmtkMediaPlayer * player)
     write_to_mplayer(player, "switch_angle\n");
 }
 
+void gmtk_media_player_switch_audio(GmtkMediaPlayer * player)
+{
+    write_to_mplayer(player, "switch_audio\n");
+}
+
 void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
                                              GmtkMediaPlayerMediaAttributes attribute, gboolean value)
 {
@@ -662,6 +670,15 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
         player->sub_visible = value;
         if (player->player_state == PLAYER_STATE_RUNNING) {
             cmd = g_strdup_printf("set_property sub_visibility %i\n", value);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+        break;
+
+    case ATTRIBUTE_ENABLE_FRAME_DROP:
+        player->frame_drop = value;
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("frame_drop %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
@@ -727,6 +744,10 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkM
     switch (attribute) {
     case ATTRIBUTE_SUB_VISIBLE:
         ret = player->sub_visible;
+        break;
+
+    case ATTRIBUTE_ENABLE_FRAME_DROP:
+        ret = player->frame_drop;
         break;
 
     case ATTRIBUTE_SUBS_EXIST:
@@ -828,6 +849,24 @@ void gmtk_media_player_set_attribute_double(GmtkMediaPlayer * player,
         }
         break;
 
+    case ATTRIBUTE_SUBTITLE_DELAY:
+        player->subtitle_delay = value;
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("set_property sub_delay %f 1\n", player->subtitle_delay);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+        break;
+
+    case ATTRIBUTE_AUDIO_DELAY:
+        player->audio_delay = CLAMP(value, -100.0, 100.0);
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("set_property audio_delay %f 1\n", player->audio_delay);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -875,6 +914,14 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
 
     case ATTRIBUTE_SUBTITLE_SCALE:
         ret = player->subtitle_scale;
+        break;
+
+    case ATTRIBUTE_SUBTITLE_DELAY:
+        ret = player->subtitle_delay;
+        break;
+
+    case ATTRIBUTE_AUDIO_DELAY:
+        ret = player->audio_delay;
         break;
 
     case ATTRIBUTE_VIDEO_FPS:
@@ -1152,6 +1199,15 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
         player->subtitle_margin = CLAMP(value, 0.0, 200.0);
         break;
 
+    case ATTRIBUTE_OSDLEVEL:
+        player->osdlevel = CLAMP(value, 0, 3);
+        if (player->player_state == PLAYER_STATE_RUNNING) {
+            cmd = g_strdup_printf("set_property osdlevel %i\n", player->osdlevel);
+            write_to_mplayer(player, cmd);
+            g_free(cmd);
+        }
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -1250,6 +1306,10 @@ gint gmtk_media_player_get_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
 
     case ATTRIBUTE_AUDIO_NCH:
         ret = player->audio_nch;
+        break;
+
+    case ATTRIBUTE_OSDLEVEL:
+        ret = player->osdlevel;
         break;
 
     default:
@@ -1616,6 +1676,18 @@ gpointer launch_mplayer(gpointer data)
             argv[argn++] = g_strdup_printf("-endpos");
             argv[argn++] = g_strdup_printf("%f", player->run_time);
         }
+
+        if (player->frame_drop)
+            argv[argn++] = g_strdup_printf("-framedrop");
+
+        argv[argn++] = g_strdup_printf("-osdlevel");
+        argv[argn++] = g_strdup_printf("%i", player->osdlevel);
+
+        argv[argn++] = g_strdup_printf("-delay");
+        argv[argn++] = g_strdup_printf("%f", player->audio_delay);
+
+        argv[argn++] = g_strdup_printf("-subdelay");
+        argv[argn++] = g_strdup_printf("%f", player->subtitle_delay);
 
         argv[argn++] = g_strdup_printf("-wid");
         gtk_widget_realize(player->socket);

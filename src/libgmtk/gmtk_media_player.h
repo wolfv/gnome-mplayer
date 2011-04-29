@@ -131,6 +131,7 @@ typedef enum {
     ATTRIBUTE_AUDIO_BITRATE,
     ATTRIBUTE_AUDIO_RATE,
     ATTRIBUTE_AUDIO_NCH,
+    ATTRIBUTE_AUDIO_DELAY,
     ATTRIBUTE_DISABLE_UPSCALING,
     ATTRIBUTE_MPLAYER_BINARY,
     ATTRIBUTE_ZOOM,
@@ -148,9 +149,11 @@ typedef enum {
     ATTRIBUTE_SUBTITLE_SCALE,
     ATTRIBUTE_SUBTITLE_COLOR,
     ATTRIBUTE_SUBTITLE_CODEPAGE,
+    ATTRIBUTE_SUBTITLE_DELAY,
     ATTRIBUTE_PLAYLIST,
     ATTRIBUTE_MESSAGE,
     ATTRIBUTE_ENABLE_DEBUG,
+    ATTRIBUTE_ENABLE_FRAME_DROP
 } GmtkMediaPlayerMediaAttributes;
 
 typedef enum {
@@ -255,12 +258,14 @@ struct _GmtkMediaPlayer {
     gint audio_bitrate;
     gint audio_rate;
     gint audio_nch;
+    gdouble audio_delay;
     gboolean disable_upscaling;
     gdouble zoom;
     gdouble speed_multiplier;
     gboolean playlist;
 
     gboolean deinterlace;
+    gboolean frame_drop;
     gboolean debug;
     gboolean hardware_ac3;
 
@@ -269,6 +274,7 @@ struct _GmtkMediaPlayer {
     gboolean subtitle_shadow;
     gboolean enable_embedded_fonts;
     gdouble subtitle_scale;
+    gdouble subtitle_delay;
     gint subtitle_margin;
     gchar *subtitle_color;
     gchar *subtitle_codepage;
@@ -374,6 +380,7 @@ void gmtk_media_player_restart(GmtkMediaPlayer * player);
 void gmtk_media_player_show_dvd_menu(GmtkMediaPlayer * player);
 void gmtk_media_player_take_screenshot(GmtkMediaPlayer * player);
 void gmtk_media_player_switch_angle(GmtkMediaPlayer * player);
+void gmtk_media_player_switch_audio(GmtkMediaPlayer * player);
 
 void gmtk_media_player_set_aspect(GmtkMediaPlayer * player, GmtkMediaPlayerAspectRatio aspect);
 GmtkMediaPlayerAspectRatio gmtk_media_player_get_aspect(GmtkMediaPlayer * player);
