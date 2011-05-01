@@ -732,7 +732,9 @@ int main(int argc, char *argv[])
 #endif
 
     // call g_type_init or otherwise we can crash
-    g_type_init();
+    gtk_init(&argc, &argv);
+    if (!g_thread_supported())
+        g_thread_init(NULL);
 
     uri = g_strdup_printf("%s/gnome-mplayer/cover_art", g_get_user_config_dir());
     if (!g_file_test(uri, G_FILE_TEST_IS_DIR)) {
@@ -927,9 +929,6 @@ int main(int argc, char *argv[])
         printf(_("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
         return 1;
     }
-
-    if (!g_thread_supported())
-        g_thread_init(NULL);
 
     // if (verbose)
     //      printf("Threading support enabled = %i\n",g_thread_supported());

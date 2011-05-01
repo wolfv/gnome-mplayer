@@ -543,7 +543,6 @@ void gmtk_media_player_set_uri(GmtkMediaPlayer * player, const gchar * uri)
     player->video_width = 0;
     player->video_height = 0;
     player->length = 0;
-    player->start_time = 0;
 
     if (player->player_state == PLAYER_STATE_RUNNING) {
         if (player->uri != NULL) {
@@ -863,6 +862,10 @@ void gmtk_media_player_set_attribute_double(GmtkMediaPlayer * player,
     switch (attribute) {
     case ATTRIBUTE_CACHE_SIZE:
         player->cache_size = value;
+        break;
+
+    case ATTRIBUTE_START_TIME:
+        player->start_time = value;
         break;
 
     case ATTRIBUTE_ZOOM:
@@ -1719,7 +1722,7 @@ gpointer launch_mplayer(gpointer data)
 
         if ((gint) (player->start_time) > 0) {
             argv[argn++] = g_strdup_printf("-ss");
-            argv[argn++] = g_strdup_printf("%f", player->start_time);
+            argv[argn++] = g_strdup_printf("%i", (gint) player->start_time);
         }
 
         if ((gint) (player->run_time) > 0) {
@@ -1946,11 +1949,12 @@ gpointer launch_mplayer(gpointer data)
         player->std_in = -1;
         player->std_out = -1;
         player->std_err = -1;
+        spawn = FALSE;
         spawn =
             g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &pid,
                                      &(player->std_in), &(player->std_out), &(player->std_err), &error);
         if (player->debug)
-            printf("files in %i out %i err %i \n", player->std_in, player->std_out, player->std_err);
+            printf("spawn = %i files in %i out %i err %i \n", spawn, player->std_in, player->std_out, player->std_err);
 
         if (error != NULL) {
             if (player->debug)
@@ -1967,6 +1971,9 @@ gpointer launch_mplayer(gpointer data)
         }
 
         if (spawn) {
+            if (player->debug)
+                printf("spawn succeeded, settup up channels\n");
+
             player->player_state = PLAYER_STATE_RUNNING;
             if (player->channel_in != NULL) {
                 g_io_channel_unref(player->channel_in);
@@ -1983,7 +1990,7 @@ gpointer launch_mplayer(gpointer data)
                 player->channel_err = NULL;
             }
 
-            player->channel_in = g_io_channel_unix_new(player->std_in);
+			player->channel_in = g_io_channel_unix_new(player->std_in);
             player->channel_out = g_io_channel_unix_new(player->std_out);
             player->channel_err = g_io_channel_unix_new(player->std_err);
 
@@ -1998,12 +2005,17 @@ gpointer launch_mplayer(gpointer data)
             player->watch_in_hup_id =
                 g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_HUP, thread_complete, player, NULL);
 
+
 #ifdef GLIB2_14_ENABLED
             g_timeout_add_seconds(1, thread_query, player);
 #else
             g_timeout_add(1000, thread_query, player);
 #endif
+            if (player->debug)
+                printf("waiting for mplayer_complete_cond\n");
             g_cond_wait(player->mplayer_complete_cond, player->thread_running);
+            if (player->debug)
+                printf("mplayer_complete_cond was signalled\n");
 
             g_source_remove(player->watch_in_id);
             g_source_remove(player->watch_err_id);
@@ -2704,7 +2716,7 @@ gboolean thread_query(gpointer data)
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(data);
     gint written;
 
-    //printf("in thread_query, data = %p\n", data);
+    printf("in thread_query, data = %p\n", data);
     if (player == NULL) {
         printf("thread_query called with player == NULL\n");
         return FALSE;
