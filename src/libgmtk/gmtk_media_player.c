@@ -597,9 +597,10 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
                 player->player_state = PLAYER_STATE_RUNNING;
                 if (!player->restart)
                     g_signal_emit_by_name(player, "player-state-changed", player->player_state);
-                player->media_state = MEDIA_STATE_PLAY;
-                if (!player->restart)
-                    g_signal_emit_by_name(player, "media-state-changed", player->media_state);
+                //player->media_state = MEDIA_STATE_PLAY;
+                //if (!player->restart)
+                //    g_signal_emit_by_name(player, "media-state-changed", player->media_state);
+                return;
             }
         }
 
@@ -2233,6 +2234,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             if (player->restart) {
                 g_signal_emit_by_name(player, "restart-complete", NULL);
             } else {
+                player->media_state = MEDIA_STATE_PLAY;
+                g_signal_emit_by_name(player, "media-state-changed", player->media_state);
                 g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
             }
 
@@ -2257,6 +2260,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             if (player->restart) {
                 g_signal_emit_by_name(player, "restart-complete", NULL);
             } else {
+                player->media_state = MEDIA_STATE_PLAY;
+                g_signal_emit_by_name(player, "media-state-changed", player->media_state);
                 g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
             }
 

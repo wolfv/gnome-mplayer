@@ -12,6 +12,7 @@
 
 
 Development
+    Fix problem with media player state event triggering before the state was true
     Remove event flushing where possible
     Fix initial OSD Level setting
     Rework gnome-mplayer restart, should work better now

@@ -119,8 +119,6 @@ static void draw(GtkWidget * meter)
     get_allocation(meter, &alloc);
     style = gtk_widget_get_style(meter);
 
-    if (GMTK_AUDIO_METER(meter)->data == NULL)
-        return;
 
     division_width = alloc.width / GMTK_AUDIO_METER(meter)->divisions;
     if (division_width < 2)
@@ -135,6 +133,12 @@ static void draw(GtkWidget * meter)
     cairo_stroke(GMTK_AUDIO_METER(meter)->cr);
 
     cairo_surface_flush(cairo_get_target(GMTK_AUDIO_METER(meter)->cr));
+
+    if (!GMTK_AUDIO_METER(meter)->data_valid)
+        return;
+
+    if (GMTK_AUDIO_METER(meter)->data == NULL)
+        return;
 
     cairo_set_antialias(GMTK_AUDIO_METER(meter)->cr, CAIRO_ANTIALIAS_NONE);
     cairo_set_line_width(GMTK_AUDIO_METER(meter)->cr, 2.0);
@@ -210,10 +214,9 @@ static void draw(GtkWidget * meter)
 #ifdef GTK3_ENABLED
 static gboolean gmtk_audio_meter_draw(GtkWidget * meter, cairo_t * cr)
 {
-    if (GMTK_AUDIO_METER(meter)->data_valid) {
-        GMTK_AUDIO_METER(meter)->cr = cr;
-        draw(meter);
-    }
+    GMTK_AUDIO_METER(meter)->cr = cr;
+    draw(meter);
+
     return FALSE;
 }
 #endif
