@@ -12,6 +12,7 @@
 
 
 Development
+    Initialize file descripters and alter the channel creation settings
     Don't cancel mplayer monitoring on read error, just try again
     More debugging information
     Fix problem loading DVD after loading file
