@@ -128,6 +128,7 @@ void set_media_player_attributes(GtkWidget * widget)
                                             audio_device.type == AUDIO_TYPE_SOFTVOL);
 
     gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_OSDLEVEL, osdlevel);
+    gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_START_TIME, (gdouble) start_second);
 
     if (embed_window != 0 && disable_embedded_scaling) {
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DISABLE_UPSCALING,
@@ -3763,9 +3764,9 @@ void config_apply(GtkWidget * widget, void *data)
             g_signal_connect(status_icon, "popup_menu", G_CALLBACK(status_icon_context_callback), NULL);
 
         } else {
-			if (GTK_IS_STATUS_ICON(status_icon)) {
-        		gtk_status_icon_set_visible(status_icon, show_status_icon);
-			}
+            if (GTK_IS_STATUS_ICON(status_icon)) {
+                gtk_status_icon_set_visible(status_icon, show_status_icon);
+            }
         }
     }
 
