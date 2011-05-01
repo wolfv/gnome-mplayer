@@ -2005,7 +2005,9 @@ gpointer launch_mplayer(gpointer data)
             player->watch_in_hup_id =
                 g_io_add_watch_full(player->channel_out, G_PRIORITY_HIGH_IDLE, G_IO_HUP, thread_complete, player, NULL);
 
-
+			while (gtk_events_pending ())
+				gtk_main_iteration ();
+			
 #ifdef GLIB2_14_ENABLED
             g_timeout_add_seconds(1, thread_query, player);
 #else
@@ -2716,7 +2718,7 @@ gboolean thread_query(gpointer data)
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(data);
     gint written;
 
-    printf("in thread_query, data = %p\n", data);
+    //printf("in thread_query, data = %p\n", data);
     if (player == NULL) {
         printf("thread_query called with player == NULL\n");
         return FALSE;

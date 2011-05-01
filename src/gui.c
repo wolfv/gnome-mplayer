@@ -5961,6 +5961,10 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     gchar *tip_text = NULL;
 #endif
     printf("in media state change with state = %i\n", state);
+	while (gtk_events_pending ())
+		gtk_main_iteration ();
+
+	
     switch (state) {
         // mplayer is dead, need the next item off the playlist
     case MEDIA_STATE_QUIT:
