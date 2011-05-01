@@ -1943,9 +1943,15 @@ gpointer launch_mplayer(gpointer data)
         }
 
         error = NULL;
+        player->std_in = -1;
+        player->std_out = -1;
+        player->std_err = -1;
         spawn =
             g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &pid,
                                      &(player->std_in), &(player->std_out), &(player->std_err), &error);
+        if (player->debug)
+            printf("files in %i out %i err %i \n", player->std_in, player->std_out, player->std_err);
+
         if (error != NULL) {
             if (player->debug)
                 printf("error code = %i - %s\n", error->code, error->message);
@@ -1962,6 +1968,21 @@ gpointer launch_mplayer(gpointer data)
 
         if (spawn) {
             player->player_state = PLAYER_STATE_RUNNING;
+            if (player->channel_in != NULL) {
+                g_io_channel_unref(player->channel_in);
+                player->channel_in = NULL;
+            }
+
+            if (player->channel_out != NULL) {
+                g_io_channel_unref(player->channel_out);
+                player->channel_out = NULL;
+            }
+
+            if (player->channel_err != NULL) {
+                g_io_channel_unref(player->channel_err);
+                player->channel_err = NULL;
+            }
+
             player->channel_in = g_io_channel_unix_new(player->std_in);
             player->channel_out = g_io_channel_unix_new(player->std_out);
             player->channel_err = g_io_channel_unix_new(player->std_err);
@@ -1969,15 +1990,13 @@ gpointer launch_mplayer(gpointer data)
             g_io_channel_set_close_on_unref(player->channel_in, TRUE);
             g_io_channel_set_close_on_unref(player->channel_out, TRUE);
             g_io_channel_set_close_on_unref(player->channel_err, TRUE);
+
             player->watch_in_id =
-                g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_IN | G_IO_HUP, thread_reader, player,
-                                    NULL);
+                g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_IN, thread_reader, player, NULL);
             player->watch_err_id =
-                g_io_add_watch_full(player->channel_err, G_PRIORITY_LOW, G_IO_IN | G_IO_ERR | G_IO_HUP,
-                                    thread_reader_error, player, NULL);
+                g_io_add_watch_full(player->channel_err, G_PRIORITY_LOW, G_IO_IN, thread_reader_error, player, NULL);
             player->watch_in_hup_id =
-                g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_ERR | G_IO_HUP, thread_complete, player,
-                                    NULL);
+                g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_HUP, thread_complete, player, NULL);
 
 #ifdef GLIB2_14_ENABLED
             g_timeout_add_seconds(1, thread_query, player);
@@ -1985,6 +2004,31 @@ gpointer launch_mplayer(gpointer data)
             g_timeout_add(1000, thread_query, player);
 #endif
             g_cond_wait(player->mplayer_complete_cond, player->thread_running);
+
+            g_source_remove(player->watch_in_id);
+            g_source_remove(player->watch_err_id);
+            g_source_remove(player->watch_in_hup_id);
+            if (player->channel_in != NULL) {
+                g_io_channel_shutdown(player->channel_in, FALSE, NULL);
+                g_io_channel_unref(player->channel_in);
+                player->channel_in = NULL;
+            }
+
+            if (player->channel_out != NULL) {
+                g_io_channel_shutdown(player->channel_out, FALSE, NULL);
+                g_io_channel_unref(player->channel_out);
+                player->channel_out = NULL;
+            }
+
+            if (player->channel_err != NULL) {
+                g_io_channel_shutdown(player->channel_err, FALSE, NULL);
+                g_io_channel_unref(player->channel_err);
+                player->channel_err = NULL;
+            }
+            close(player->std_in);
+            player->std_in = -1;
+            g_spawn_close_pid(pid);
+
         }
 
         if (player->cache_percent < 0.0 && g_str_has_prefix(player->uri, "mms"))
