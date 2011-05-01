@@ -3763,7 +3763,9 @@ void config_apply(GtkWidget * widget, void *data)
             g_signal_connect(status_icon, "popup_menu", G_CALLBACK(status_icon_context_callback), NULL);
 
         } else {
-            gtk_status_icon_set_visible(status_icon, show_status_icon);
+			if (GTK_IS_STATUS_ICON(status_icon)) {
+        		gtk_status_icon_set_visible(status_icon, show_status_icon);
+			}
         }
     }
 
