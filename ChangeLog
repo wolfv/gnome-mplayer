@@ -12,6 +12,8 @@
 
 
 Development
+    Fix problem loading DVD after loading file
+    Fix problem with position not updating due to state issue
     Fix problem with media player state event triggering before the state was true
     Remove event flushing where possible
     Fix initial OSD Level setting

@@ -2683,11 +2683,7 @@ gboolean thread_query(gpointer data)
                 return TRUE;
             }
         } else {
-            if (player->media_state == MEDIA_STATE_UNKNOWN || player->media_state == MEDIA_STATE_QUIT) {
-                return FALSE;
-            } else {
-                return TRUE;
-            }
+            return TRUE;
         }
     } else {
         return FALSE;
