@@ -128,7 +128,7 @@ void set_media_player_attributes(GtkWidget * widget)
                                             audio_device.type == AUDIO_TYPE_SOFTVOL);
 
     gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_OSDLEVEL, osdlevel);
-	
+
     if (embed_window != 0 && disable_embedded_scaling) {
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DISABLE_UPSCALING,
                                                 disable_embedded_scaling);
@@ -266,8 +266,8 @@ void adjust_layout()
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
         if (get_visible(media_hbox) == 0) {
             gtk_widget_show_all(media_hbox);
-            while (gtk_events_pending())
-                gtk_main_iteration();
+            //while (gtk_events_pending())
+            //    gtk_main_iteration();
         }
         get_allocation(media_hbox, &alloc);
         total_height += alloc.height;
@@ -1066,8 +1066,8 @@ gboolean set_item_add_info(void *data)
         gtk_label_set_text(GTK_LABEL(folder_progress_label), message);
         gtk_progress_bar_pulse(GTK_PROGRESS_BAR(folder_progress_bar));
         g_free(message);
-        while (gtk_events_pending())
-            gtk_main_iteration();
+        //while (gtk_events_pending())
+        //    gtk_main_iteration();
     }
 
     return FALSE;
@@ -1897,13 +1897,13 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_b:
             gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_POSITION,
                                                     gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
-                                                                                             ATTRIBUTE_SUBTITLE_POSITION)
+                                                                                            ATTRIBUTE_SUBTITLE_POSITION)
                                                     - 1);
             return FALSE;
         case GDK_B:
             gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_POSITION,
                                                     gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
-                                                                                             ATTRIBUTE_SUBTITLE_POSITION)
+                                                                                            ATTRIBUTE_SUBTITLE_POSITION)
                                                     + 1);
             return FALSE;
         case GDK_s:
