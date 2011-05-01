@@ -164,7 +164,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     //                      GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
     //                      GDK_POINTER_MOTION_MASK | 
     //                      GDK_LEAVE_NOTIFY_MASK | GDK_ENTER_NOTIFY_MASK);
-    gtk_widget_set_size_request(player->socket, 16, 8);
+    //gtk_widget_set_size_request(player->socket, 16, 8);
     gtk_widget_set_has_window(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_focus(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_default(GTK_WIDGET(player->socket), TRUE);
@@ -1386,7 +1386,6 @@ void gmtk_media_player_seek_chapter(GmtkMediaPlayer * player, gint value, GmtkMe
         seek_type = 1;
 
     cmd = g_strdup_printf("seek_chapter %i %i\n", value, seek_type);
-    printf("%s", cmd);
     write_to_mplayer(player, cmd);
     g_free(cmd);
 }

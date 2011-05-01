@@ -12,6 +12,7 @@
 
 
 Development
+    Remove event flushing where possible
     Fix initial OSD Level setting
     Rework gnome-mplayer restart, should work better now
     Only emit the position-changed signal when position actually changes, lowers CPU usage 

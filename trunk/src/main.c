@@ -247,6 +247,13 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 #endif
 #endif
 
+    if (!(gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN ||
+          gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_QUIT)) {
+        while (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
+            gtk_main_iteration();
+        }
+    }
+
     if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, ITEM_COLUMN, &uri,
                            DESCRIPTION_COLUMN, &title,
@@ -283,16 +290,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         printf("playing - %s\n", uri);
         printf("is playlist %i\n", playlist);
     }
-
-    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
-
-    while (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
-        gtk_main_iteration();
-    }
-
-    while (gtk_events_pending())
-        gtk_main_iteration();
-
     // wait for metadata to be available on this item
     if (!streaming_media(uri) && !device_name(uri)) {
         i = 0;
