@@ -2207,7 +2207,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (status == G_IO_STATUS_ERROR) {
         if (player->debug)
             printf("GIO IO Error\n");
-        return FALSE;
+        return TRUE;
     } else {
         if (player->debug) {
             if (g_strrstr(mplayer_output->str, "ANS") == NULL)
@@ -2662,6 +2662,7 @@ gboolean thread_query(gpointer data)
 
     //printf("in thread_query, data = %p\n", data);
     if (player == NULL) {
+        printf("thread_query called with player == NULL\n");
         return FALSE;
     }
 
@@ -2678,6 +2679,8 @@ gboolean thread_query(gpointer data)
             //printf("written = %i\n", written);
             if (written == -1) {
                 //return TRUE;
+                if (player->debug)
+                    printf("thread_query, write failed\n");
                 return FALSE;
             } else {
                 return TRUE;
@@ -2686,6 +2689,8 @@ gboolean thread_query(gpointer data)
             return TRUE;
         }
     } else {
+        if (player->debug)
+            printf("thread_query, player is dead\n");
         return FALSE;
     }
 }
