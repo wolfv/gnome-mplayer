@@ -12,6 +12,8 @@
 
 
 Development
+    Don't cancel mplayer monitoring on read error, just try again
+    More debugging information
     Fix problem loading DVD after loading file
     Fix problem with position not updating due to state issue
     Fix problem with media player state event triggering before the state was true
