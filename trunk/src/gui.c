@@ -127,6 +127,8 @@ void set_media_player_attributes(GtkWidget * widget)
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SOFTVOL,
                                             audio_device.type == AUDIO_TYPE_SOFTVOL);
 
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_OSDLEVEL, osdlevel);
+	
     if (embed_window != 0 && disable_embedded_scaling) {
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DISABLE_UPSCALING,
                                                 disable_embedded_scaling);

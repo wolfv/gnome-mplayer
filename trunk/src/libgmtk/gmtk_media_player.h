@@ -340,6 +340,7 @@ struct _GmtkMediaPlayerClass {
     void (*media_state_changed) (GmtkMediaPlayer * player);
     void (*subtitles_changed) (GmtkMediaPlayer * player);
     void (*audio_tracks_changed) (GmtkMediaPlayer * player);
+    void (*restart_shutdown_complete) (GmtkMediaPlayer * player);
     void (*restart_complete) (GmtkMediaPlayer * player);
 };
 
