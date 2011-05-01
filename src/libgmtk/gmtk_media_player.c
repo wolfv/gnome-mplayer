@@ -35,6 +35,7 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
 static gboolean player_button_press_event_callback(GtkWidget * widget, GdkEventButton * event, gpointer data);
 static gboolean player_motion_notify_event_callback(GtkWidget * widget, GdkEventMotion * event, gpointer data);
 static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player, gpointer data);
+static void gmtk_media_player_restart_shutdown_complete_callback(GmtkMediaPlayer * player, gpointer data);
 
 // monitoring functions
 gpointer launch_mplayer(gpointer data);
@@ -119,6 +120,12 @@ static void gmtk_media_player_class_init(GmtkMediaPlayerClass * class)
                  G_STRUCT_OFFSET(GmtkMediaPlayerClass, audio_tracks_changed),
                  NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
 
+    g_signal_new("restart-shutdown-complete",
+                 G_OBJECT_CLASS_TYPE(object_class),
+                 G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+                 G_STRUCT_OFFSET(GmtkMediaPlayerClass, restart_shutdown_complete),
+                 NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
     g_signal_new("restart-complete",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
@@ -157,7 +164,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     //                      GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
     //                      GDK_POINTER_MOTION_MASK | 
     //                      GDK_LEAVE_NOTIFY_MASK | GDK_ENTER_NOTIFY_MASK);
-    //gtk_widget_set_size_request(player->socket, 16, 16);
+    gtk_widget_set_size_request(player->socket, 16, 8);
     gtk_widget_set_has_window(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_focus(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_default(GTK_WIDGET(player->socket), TRUE);
@@ -165,6 +172,8 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
 
     g_signal_connect(player->socket, "key_press_event", G_CALLBACK(player_key_press_event_callback), player);
 
+    g_signal_connect(player, "restart-shutdown-complete",
+                     G_CALLBACK(gmtk_media_player_restart_shutdown_complete_callback), NULL);
     g_signal_connect(player, "restart-complete", G_CALLBACK(gmtk_media_player_restart_complete_callback), NULL);
     gtk_widget_pop_composite_child();
 
@@ -499,12 +508,18 @@ GtkWidget *gmtk_media_player_new()
 static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player, gpointer data)
 {
     gmtk_media_player_seek(player, player->restart_position, SEEK_ABSOLUTE);
-    g_signal_emit_by_name(player, "position-changed", player->restart_position);
+    // g_signal_emit_by_name(player, "position-changed", player->restart_position);
+    if (player->restart_state != gmtk_media_player_get_state(player))
+        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), player->restart_state);
     player->restart = FALSE;
-    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), player->restart_state);
     if (player->debug)
         printf("restart complete\n");
-    //g_signal_emit_by_name(player, "media-state-changed", player->restart_state);
+}
+
+static void gmtk_media_player_restart_shutdown_complete_callback(GmtkMediaPlayer * player, gpointer data)
+{
+    if (player->restart)
+        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_PLAY);
 }
 
 void gmtk_media_player_restart(GmtkMediaPlayer * player)
@@ -515,7 +530,6 @@ void gmtk_media_player_restart(GmtkMediaPlayer * player)
         gmtk_media_player_set_state(player, MEDIA_STATE_PAUSE);
         player->restart_position = player->position;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_QUIT);
-        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_PLAY);
     }
 }
 
@@ -578,7 +592,8 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
                     player->message = NULL;
                 }
                 player->message = g_strdup_printf(_("Loading..."));
-                g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_MESSAGE);
+                if (!player->restart)
+                    g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_MESSAGE);
                 player->player_state = PLAYER_STATE_RUNNING;
                 if (!player->restart)
                     g_signal_emit_by_name(player, "player-state-changed", player->player_state);
@@ -627,10 +642,10 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
 
         if (new_state == MEDIA_STATE_QUIT) {
             write_to_mplayer(player, "quit\n");
-            while (player->player_state != PLAYER_STATE_DEAD) {
-                while (gtk_events_pending())
-                    gtk_main_iteration();
-            }
+            //while (player->player_state != PLAYER_STATE_DEAD) {
+            //    while (gtk_events_pending())
+            //        gtk_main_iteration();
+            //}
         }
     }
 
@@ -1567,8 +1582,8 @@ gpointer launch_mplayer(gpointer data)
     gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
     gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
     gtk_widget_show(GTK_WIDGET(player->socket));
-    while (gtk_events_pending())
-        gtk_main_iteration();
+    //while (gtk_events_pending())
+    //    gtk_main_iteration();
 
     g_mutex_lock(player->thread_running);
 
@@ -2009,7 +2024,9 @@ gpointer launch_mplayer(gpointer data)
     player->mplayer_thread = NULL;
     player->start_time = 0.0;
     player->run_time = 0.0;
-    if (!player->restart) {
+    if (player->restart) {
+        g_signal_emit_by_name(player, "restart-shutdown-complete", NULL);
+    } else {
         g_signal_emit_by_name(player, "position-changed", 0.0);
         g_signal_emit_by_name(player, "player-state-changed", player->player_state);
         g_signal_emit_by_name(player, "media-state-changed", player->media_state);
@@ -2071,8 +2088,10 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     mplayer_output = g_string_new("");
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, NULL);
 
-    if (player->debug)
-        printf("ERROR: %s", mplayer_output->str);
+    if (player->debug) {
+        if (g_strrstr(mplayer_output->str, "ANS") == NULL)
+            printf("ERROR: %s", mplayer_output->str);
+    }
 
     if (strstr(mplayer_output->str, "Couldn't open DVD device") != 0) {
         error_msg = g_strdup(mplayer_output->str);
@@ -2190,8 +2209,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             printf("GIO IO Error\n");
         return FALSE;
     } else {
-        if (player->debug)
-            printf("%s", mplayer_output->str);
+        if (player->debug) {
+            if (g_strrstr(mplayer_output->str, "ANS") == NULL)
+                printf("%s", mplayer_output->str);
+        }
 
         if (strstr(mplayer_output->str, "Cache fill") != 0) {
             buf = strstr(mplayer_output->str, "Cache fill");

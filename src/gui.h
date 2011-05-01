@@ -225,6 +225,8 @@ GtkTooltips *tooltip;
 GtkTooltips *volume_tip;
 #endif
 
+GtkWidget *config_window;
+
 GtkWidget *config_vo;
 GtkWidget *config_ao;
 GtkWidget *config_mixer;
