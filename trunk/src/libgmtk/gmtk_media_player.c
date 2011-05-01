@@ -1999,11 +1999,11 @@ gpointer launch_mplayer(gpointer data)
             g_io_channel_set_close_on_unref(player->channel_err, TRUE);
 
             player->watch_in_id =
-                g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_IN, thread_reader, player, NULL);
+                g_io_add_watch_full(player->channel_out, G_PRIORITY_HIGH_IDLE, G_IO_IN, thread_reader, player, NULL);
             player->watch_err_id =
-                g_io_add_watch_full(player->channel_err, G_PRIORITY_LOW, G_IO_IN, thread_reader_error, player, NULL);
+                g_io_add_watch_full(player->channel_err, G_PRIORITY_HIGH_IDLE, G_IO_IN, thread_reader_error, player, NULL);
             player->watch_in_hup_id =
-                g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_HUP, thread_complete, player, NULL);
+                g_io_add_watch_full(player->channel_out, G_PRIORITY_HIGH_IDLE, G_IO_HUP, thread_complete, player, NULL);
 
 
 #ifdef GLIB2_14_ENABLED
