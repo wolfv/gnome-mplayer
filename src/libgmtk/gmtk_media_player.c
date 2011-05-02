@@ -79,7 +79,7 @@ gboolean signal_event(gpointer data)
     }
     if (event)
         g_free(event);
-
+	
     return FALSE;
 }
 
@@ -2063,12 +2063,12 @@ gpointer launch_mplayer(gpointer data)
             g_io_channel_set_close_on_unref(player->channel_err, TRUE);
 
             player->watch_in_id =
-                g_io_add_watch_full(player->channel_out, G_PRIORITY_HIGH_IDLE, G_IO_IN, thread_reader, player, NULL);
+                g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_IN, thread_reader, player, NULL);
             player->watch_err_id =
-                g_io_add_watch_full(player->channel_err, G_PRIORITY_HIGH_IDLE, G_IO_IN, thread_reader_error, player,
+                g_io_add_watch_full(player->channel_err, G_PRIORITY_LOW, G_IO_IN, thread_reader_error, player,
                                     NULL);
             player->watch_in_hup_id =
-                g_io_add_watch_full(player->channel_out, G_PRIORITY_HIGH_IDLE, G_IO_HUP, thread_complete, player, NULL);
+                g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_HUP, thread_complete, player, NULL);
 
 #ifdef GLIB2_14_ENABLED
             g_timeout_add_seconds(1, thread_query, player);
@@ -2365,6 +2365,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
             create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
             create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
+            create_event_double(player, "cache-percent-changed", 0.0);
         }
 
         if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -2384,6 +2385,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
             create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
             create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
+            create_event_double(player, "cache-percent-changed", 0.0);
         }
 
         if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {
