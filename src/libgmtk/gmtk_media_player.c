@@ -54,7 +54,6 @@ static void socket_realized(GtkWidget * widget, gpointer data)
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(data);
     GtkStyle *style;
 
-    printf("socket realized\n");
     player->socket_id = gtk_socket_get_id(GTK_SOCKET(widget));
     style = gtk_widget_get_style(GTK_WIDGET(player));
     gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, &(style->black));
@@ -116,7 +115,6 @@ void create_event_allocation(GmtkMediaPlayer * player, const gchar * name, GtkAl
     event = g_new0(GmtkMediaPlayerEvent, 1);
     event->player = player;
     event->event_name = g_strdup(name);
-    printf("allocation = %p\n", allocation);
     event->event_allocation = allocation;
     g_idle_add(signal_event, event);
 
@@ -623,9 +621,10 @@ GtkWidget *gmtk_media_player_new()
 static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player, gpointer data)
 {
     gmtk_media_player_seek(player, player->restart_position, SEEK_ABSOLUTE);
+    player->restart = FALSE;
+	//printf("restart state = %i, current state = %i\n", player->restart_state, gmtk_media_player_get_state(player));
     if (player->restart_state != gmtk_media_player_get_state(player))
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), player->restart_state);
-    player->restart = FALSE;
     if (player->debug)
         printf("restart complete\n");
 }
@@ -1825,7 +1824,6 @@ gpointer launch_mplayer(gpointer data)
         if (player->softvol) {
             if ((gint) (player->volume * 100) != 0) {
                 argv[argn++] = g_strdup_printf("-volume");
-                printf("volume = %f\n", player->volume);
                 argv[argn++] = g_strdup_printf("%i", (gint) (player->volume * 100));
             }
 
@@ -2205,9 +2203,6 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
 {
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(data);
 
-    if (player->debug)
-        printf("mplayer exiting\n");
-
     player->player_state = PLAYER_STATE_DEAD;
     player->media_state = MEDIA_STATE_UNKNOWN;
     g_source_remove(player->watch_in_id);
@@ -2228,7 +2223,6 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     GtkWidget *dialog;
 
     if (player == NULL) {
-        printf("player is NULL\n");
         return FALSE;
     }
 
@@ -2241,8 +2235,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     }
 
     if (player->player_state == PLAYER_STATE_DEAD) {
-        if (player->debug)
-            printf("player is dead\n");
+        //if (player->debug)
+        //    printf("player is dead\n");
         return FALSE;
     }
 
@@ -2391,27 +2385,20 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             buf = strstr(mplayer_output->str, "VO:");
             sscanf(buf, "VO: [%9[^]]] %ix%i => %ix%i", vm, &w, &h, &(player->video_width), &(player->video_height));
             get_allocation(GTK_WIDGET(player), &allocation);
+            player->media_state = MEDIA_STATE_PLAY;
             if (player->restart) {
                 g_signal_emit_by_name(player, "restart-complete", NULL);
             } else {
-                player->media_state = MEDIA_STATE_PLAY;
                 create_event_int(player, "media-state-changed", player->media_state);
                 create_event_allocation(player, "size_allocate", &allocation);
-            }
-
-            //gmtk_media_player_size_allocate(GTK_WIDGET(player), &allocation);
-
-            player->video_present = TRUE;
-            //style = gtk_widget_get_style(GTK_WIDGET(player));
-            //gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, &(style->black));
-            //gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
-            //gtk_widget_show(GTK_WIDGET(player->socket));
-            write_to_mplayer(player, "get_property sub_source\n");
-            create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
-            create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
-            create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
-            create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
-            create_event_double(player, "cache-percent-changed", 0.0);
+		        player->video_present = TRUE;
+		        write_to_mplayer(player, "get_property sub_source\n");
+		        create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
+		        create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
+		        create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
+		        create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
+		        create_event_double(player, "cache-percent-changed", 0.0);
+			}
         }
 
         if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -2424,14 +2411,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->media_state = MEDIA_STATE_PLAY;
                 create_event_int(player, "media-state-changed", player->media_state);
                 create_event_allocation(player, "size_allocate", &allocation);
-            }
-
-            player->video_present = FALSE;
-            create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
-            create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
-            create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
-            create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
-            create_event_double(player, "cache-percent-changed", 0.0);
+		        player->video_present = FALSE;
+		        create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
+		        create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
+		        create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
+		        create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
+		        create_event_double(player, "cache-percent-changed", 0.0);
+			}
         }
 
         if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {
@@ -2832,7 +2818,7 @@ gboolean thread_query(gpointer data)
 
     //printf("in thread_query, data = %p\n", data);
     if (player == NULL) {
-        printf("thread_query called with player == NULL\n");
+        //printf("thread_query called with player == NULL\n");
         return FALSE;
     }
 
@@ -2859,8 +2845,8 @@ gboolean thread_query(gpointer data)
             return TRUE;
         }
     } else {
-        if (player->debug)
-            printf("thread_query, player is dead\n");
+        //if (player->debug)
+        //    printf("thread_query, player is dead\n");
         return FALSE;
     }
 }

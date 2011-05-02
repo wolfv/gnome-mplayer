@@ -11,6 +11,8 @@
 
 
 Development
+    Cleanup some debug messages
+    Fix restart in paused state
     Hook up scroll event for volue change or seeking
     Update media info from ICY stream data
     Fix TYPE_NETWORK for apple.com correctly
