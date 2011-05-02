@@ -49,6 +49,13 @@ gboolean write_to_mplayer(GmtkMediaPlayer * player, const gchar * cmd);
 extern void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
 gboolean detect_mplayer_features(GmtkMediaPlayer * player);
 
+static void socket_realized(GtkWidget * widget, gpointer data)
+{
+    GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(data);
+
+    printf("socket realized\n");
+    player->socket_id = gtk_socket_get_id(GTK_SOCKET(widget));
+}
 
 gboolean signal_event(gpointer data)
 {
@@ -214,6 +221,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
 
     player->alignment = gtk_alignment_new(0.0, 0.0, 1.0, 1.0);
     player->socket = gtk_socket_new();
+    g_signal_connect(G_OBJECT(player->socket), "realize", G_CALLBACK(socket_realized), player);
     gtk_container_add(GTK_CONTAINER(player), player->alignment);
     gtk_container_add(GTK_CONTAINER(player->alignment), player->socket);
     //gtk_widget_add_events(GTK_WIDGET(player->socket),
@@ -284,9 +292,9 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->audio_delay = 0.0;
     player->restart = FALSE;
     player->debug = 1;
-	player->channel_in = NULL;
-	player->channel_out = NULL;
-	player->channel_err = NULL;
+    player->channel_in = NULL;
+    player->channel_out = NULL;
+    player->channel_err = NULL;
 }
 
 static void gmtk_media_player_dispose(GObject * object)
@@ -628,6 +636,8 @@ const gchar *gmtk_media_player_get_uri(GmtkMediaPlayer * player)
 
 void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayerMediaState new_state)
 {
+    GtkStyle *style;
+
     if (player->player_state == PLAYER_STATE_DEAD) {
 
         if (new_state == MEDIA_STATE_QUIT) {
@@ -678,6 +688,11 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
         }
 
         if (new_state == MEDIA_STATE_PLAY) {
+            style = gtk_widget_get_style(GTK_WIDGET(player));
+            gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, &(style->black));
+            gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
+            gtk_widget_show(GTK_WIDGET(player->socket));
+
             if (player->media_state == MEDIA_STATE_PAUSE || player->media_state == MEDIA_STATE_STOP) {
                 write_to_mplayer(player, "pause\n");
                 player->media_state = MEDIA_STATE_PLAY;
@@ -706,6 +721,9 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
             //    while (gtk_events_pending())
             //        gtk_main_iteration();
             //}
+            gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
+            gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
+
         }
     }
 
@@ -1642,9 +1660,6 @@ gpointer launch_mplayer(gpointer data)
     player->cache_percent = -1.0;
     player->title_is_menu = FALSE;
 
-    gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
-    gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
-    gtk_widget_show(GTK_WIDGET(player->socket));
 
     g_mutex_lock(player->thread_running);
 
@@ -1804,8 +1819,7 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("%i", player->subtitle_position);
 
         argv[argn++] = g_strdup_printf("-wid");
-        gtk_widget_realize(player->socket);
-        argv[argn++] = g_strdup_printf("0x%x", gtk_socket_get_id(GTK_SOCKET(player->socket)));
+        argv[argn++] = g_strdup_printf("0x%x", player->socket_id);
 
         argv[argn++] = g_strdup_printf("-brightness");
         argv[argn++] = g_strdup_printf("%i", player->brightness);
@@ -2144,8 +2158,6 @@ gpointer launch_mplayer(gpointer data)
         create_event_double(player, "position-changed", 0.0);
         create_event_int(player, "player-state-changed", player->player_state);
         create_event_int(player, "media-state-changed", player->media_state);
-        gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
-        gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
     }
 
     return NULL;
@@ -2293,7 +2305,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GmtkMediaPlayerSubtitle *subtitle;
     GmtkMediaPlayerAudioTrack *audio_track;
     GList *iter;
-    GtkStyle *style;
     GtkWidget *dialog;
 
     if (player == NULL) {
@@ -2356,10 +2367,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             //gmtk_media_player_size_allocate(GTK_WIDGET(player), &allocation);
 
             player->video_present = TRUE;
-            style = gtk_widget_get_style(GTK_WIDGET(player));
-            gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, &(style->black));
-            gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
-            gtk_widget_show(GTK_WIDGET(player->socket));
+            //style = gtk_widget_get_style(GTK_WIDGET(player));
+            //gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, &(style->black));
+            //gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
+            //gtk_widget_show(GTK_WIDGET(player->socket));
             write_to_mplayer(player, "get_property sub_source\n");
             create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
             create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
