@@ -403,6 +403,7 @@ gint non_fs_height;
 // playlist stuff
 GtkListStore *playliststore;
 GtkTreeIter iter;
+GtkTreeIter *next_iter;
 GtkTreeSelection *selection;
 GtkWidget *list;
 

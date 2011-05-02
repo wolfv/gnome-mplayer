@@ -50,6 +50,63 @@ extern void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
 gboolean detect_mplayer_features(GmtkMediaPlayer * player);
 
 
+gboolean signal_event(gpointer data)
+{
+    GmtkMediaPlayerEvent *event = (GmtkMediaPlayerEvent *) data;
+
+    if (event->event_name != NULL) {
+        if (g_strcasecmp(event->event_name, "position-changed") == 0 ||
+            g_strcasecmp(event->event_name, "cache-percent-changed") == 0) {
+            g_signal_emit_by_name(event->player, event->event_name, event->event_data_double);
+        } else if (g_strcasecmp(event->event_name, "size_allocate") == 0) {
+            g_signal_emit_by_name(event->player, event->event_name, event->event_allocation);
+        } else {
+            g_signal_emit_by_name(event->player, event->event_name, event->event_data_int);
+        }
+
+        g_free(event->event_name);
+    }
+    if (event)
+        g_free(event);
+
+    return FALSE;
+}
+
+void create_event_int(GmtkMediaPlayer * player, const gchar * name, gint value)
+{
+    GmtkMediaPlayerEvent *event;
+
+    event = g_new0(GmtkMediaPlayerEvent, 1);
+    event->player = player;
+    event->event_name = g_strdup(name);
+    event->event_data_int = value;
+    g_idle_add(signal_event, event);
+}
+
+void create_event_double(GmtkMediaPlayer * player, const gchar * name, gdouble value)
+{
+    GmtkMediaPlayerEvent *event;
+
+    event = g_new0(GmtkMediaPlayerEvent, 1);
+    event->player = player;
+    event->event_name = g_strdup(name);
+    event->event_data_double = value;
+    g_idle_add(signal_event, event);
+}
+
+void create_event_allocation(GmtkMediaPlayer * player, const gchar * name, GtkAllocation * allocation)
+{
+    GmtkMediaPlayerEvent *event;
+
+    event = g_new0(GmtkMediaPlayerEvent, 1);
+    event->player = player;
+    event->event_name = g_strdup(name);
+    printf("allocation = %p\n", allocation);
+    event->event_allocation = allocation;
+    g_idle_add(signal_event, event);
+
+}
+
 gchar *gmtk_media_player_switch_protocol(const gchar * uri, gchar * new_protocol)
 {
     gchar *p;
@@ -1573,7 +1630,7 @@ gpointer launch_mplayer(gpointer data)
     GList *list;
     GmtkMediaPlayerSubtitle *subtitle;
     GmtkMediaPlayerAudioTrack *track;
-
+    GmtkMediaPlayerEvent *event;
 
     player->seekable = FALSE;
     player->has_chapters = FALSE;
@@ -1990,7 +2047,7 @@ gpointer launch_mplayer(gpointer data)
                 player->channel_err = NULL;
             }
 
-			player->channel_in = g_io_channel_unix_new(player->std_in);
+            player->channel_in = g_io_channel_unix_new(player->std_in);
             player->channel_out = g_io_channel_unix_new(player->std_out);
             player->channel_err = g_io_channel_unix_new(player->std_err);
 
@@ -2001,13 +2058,11 @@ gpointer launch_mplayer(gpointer data)
             player->watch_in_id =
                 g_io_add_watch_full(player->channel_out, G_PRIORITY_HIGH_IDLE, G_IO_IN, thread_reader, player, NULL);
             player->watch_err_id =
-                g_io_add_watch_full(player->channel_err, G_PRIORITY_HIGH_IDLE, G_IO_IN, thread_reader_error, player, NULL);
+                g_io_add_watch_full(player->channel_err, G_PRIORITY_HIGH_IDLE, G_IO_IN, thread_reader_error, player,
+                                    NULL);
             player->watch_in_hup_id =
                 g_io_add_watch_full(player->channel_out, G_PRIORITY_HIGH_IDLE, G_IO_HUP, thread_complete, player, NULL);
 
-			while (gtk_events_pending ())
-				gtk_main_iteration ();
-			
 #ifdef GLIB2_14_ENABLED
             g_timeout_add_seconds(1, thread_query, player);
 #else
@@ -2085,9 +2140,9 @@ gpointer launch_mplayer(gpointer data)
     if (player->restart) {
         g_signal_emit_by_name(player, "restart-shutdown-complete", NULL);
     } else {
-        g_signal_emit_by_name(player, "position-changed", 0.0);
-        g_signal_emit_by_name(player, "player-state-changed", player->player_state);
-        g_signal_emit_by_name(player, "media-state-changed", player->media_state);
+        create_event_double(player, "position-changed", 0.0);
+        create_event_int(player, "player-state-changed", player->player_state);
+        create_event_int(player, "media-state-changed", player->media_state);
         gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
         gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
     }
@@ -2156,7 +2211,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     }
 
     if (strstr(mplayer_output->str, "X11 error") != 0) {
-        g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
+        create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
     }
 
     if (strstr(mplayer_output->str, "signal") != NULL) {
@@ -2168,7 +2223,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
             strstr(mplayer_output->str, "VDPAU") == NULL && strstr(mplayer_output->str, "registry file") == NULL) {
             if (strstr(mplayer_output->str, "<") == NULL && strstr(mplayer_output->str, ">") == NULL
-                && player->type != TYPE_NETWORK) {
+                && player->type == TYPE_FILE) {
                 error_msg = g_strdup_printf(_("Failed to open %s"), mplayer_output->str + strlen("Failed to open "));
             }
 
@@ -2277,12 +2332,12 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             sscanf(buf, "Cache fill: %f%%", &percent);
             buf = g_strdup_printf(_("Cache fill: %2.2f%%"), percent);
             player->cache_percent = percent / 100.0;
-            g_signal_emit_by_name(player, "position-changed", player->cache_percent);
+            create_event_double(player, "cache-percent-changed", player->cache_percent);
         }
 
         if (strstr(mplayer_output->str, "AO:") != NULL) {
             write_to_mplayer(player, "get_property switch_audio\n");
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
         }
 
         if (strstr(mplayer_output->str, "VO:") != NULL) {
@@ -2293,11 +2348,11 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_signal_emit_by_name(player, "restart-complete", NULL);
             } else {
                 player->media_state = MEDIA_STATE_PLAY;
-                g_signal_emit_by_name(player, "media-state-changed", player->media_state);
-                g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
+                create_event_int(player, "media-state-changed", player->media_state);
+                create_event_allocation(player, "size_allocate", &allocation);
             }
 
-            gmtk_media_player_size_allocate(GTK_WIDGET(player), &allocation);
+            //gmtk_media_player_size_allocate(GTK_WIDGET(player), &allocation);
 
             player->video_present = TRUE;
             style = gtk_widget_get_style(GTK_WIDGET(player));
@@ -2305,10 +2360,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
             gtk_widget_show(GTK_WIDGET(player->socket));
             write_to_mplayer(player, "get_property sub_source\n");
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
-            g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));
-            g_signal_emit_by_name(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
+            create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
+            create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
+            create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
         }
 
         if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -2319,15 +2374,15 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_signal_emit_by_name(player, "restart-complete", NULL);
             } else {
                 player->media_state = MEDIA_STATE_PLAY;
-                g_signal_emit_by_name(player, "media-state-changed", player->media_state);
-                g_signal_emit_by_name(player->socket, "size_allocate", &allocation);
+                create_event_int(player, "media-state-changed", player->media_state);
+                create_event_allocation(player, "size_allocate", &allocation);
             }
 
             player->video_present = FALSE;
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SIZE);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
-            g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));
-            g_signal_emit_by_name(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
+            create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
+            create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
+            create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
         }
 
         if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {
@@ -2335,37 +2390,37 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             oldposition = player->position;
             sscanf(buf, "ANS_TIME_POSITION=%lf", &player->position);
             if (oldposition != player->position)
-                g_signal_emit_by_name(player, "position-changed", player->position);
+                create_event_double(player, "position-changed", player->position);
         }
 
         if (strstr(mplayer_output->str, "ID_START_TIME") != 0) {
             buf = strstr(mplayer_output->str, "ID_START_TIME");
             sscanf(buf, "ID_START_TIME=%lf", &player->start_time);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_START_TIME);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_START_TIME);
         }
 
         if (strstr(mplayer_output->str, "ID_LENGTH") != 0) {
             buf = strstr(mplayer_output->str, "ID_LENGTH");
             sscanf(buf, "ID_LENGTH=%lf", &player->length);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_LENGTH);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_LENGTH);
         }
 
         if (strstr(mplayer_output->str, "ANS_LENGTH") != 0) {
             buf = strstr(mplayer_output->str, "ANS_LENGTH");
             sscanf(buf, "ANS_LENGTH=%lf", &player->length);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_LENGTH);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_LENGTH);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_TRACK") != 0) {
             buf = strstr(mplayer_output->str, "ID_AUDIO_TRACK");
             sscanf(buf, "ID_AUDIO_TRACK=%i", &player->audio_track_id);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
         }
 
         if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
             buf = strstr(mplayer_output->str, "ANS_switch_audio");
             sscanf(buf, "ANS_switch_audio=%i", &player->audio_track_id);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
         }
 
         if (strstr(mplayer_output->str, "ANS_sub_source") != 0) {
@@ -2390,13 +2445,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (strstr(mplayer_output->str, "ANS_sub_file") != 0) {
             buf = strstr(mplayer_output->str, "ANS_sub_file");
             sscanf(buf, "ANS_sub_file=%i", &player->subtitle_id);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SUBTITLE);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_SUBTITLE);
         }
 
         if (strstr(mplayer_output->str, "ANS_sub_demux") != 0) {
             buf = strstr(mplayer_output->str, "ANS_sub_demux");
             sscanf(buf, "ANS_sub_demux=%i", &player->subtitle_id);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SUBTITLE);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_SUBTITLE);
         }
 
 
@@ -2474,7 +2529,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             subtitle->is_file = TRUE;
             subtitle->label = g_strdup_printf(_("External Subtitle #%i"), id + 1);
             player->subtitles = g_list_append(player->subtitles, subtitle);
-            g_signal_emit_by_name(player, "subtitles-changed", g_list_length(player->subtitles));
+            create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_ID=") != 0) {
@@ -2528,7 +2583,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     audio_track->name = g_strdup_printf(_("Unknown"));
                     audio_track->label = g_strdup_printf("%s (%s)", audio_track->name, audio_track->lang);
                     player->audio_tracks = g_list_append(player->audio_tracks, audio_track);
-                    g_signal_emit_by_name(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
+                    create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
                 }
             }
             buf = strstr(mplayer_output->str, "_NAME=");
@@ -2565,14 +2620,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             } else {
                 player->has_chapters = FALSE;
             }
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_HAS_CHAPTERS);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_CHAPTERS);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_HAS_CHAPTERS);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_CHAPTERS);
         }
 
         if ((strstr(mplayer_output->str, "ID_SEEKABLE=") != NULL)
             && !(strstr(mplayer_output->str, "ID_SEEKABLE=0") != NULL)) {
             player->seekable = TRUE;
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_SEEKABLE);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_SEEKABLE);
         }
 
         if (strstr(mplayer_output->str, "ID_VIDEO_FORMAT") != 0) {
@@ -2583,7 +2638,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->video_format = NULL;
             }
             player->video_format = g_strdup(buf);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_FORMAT);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_FORMAT);
         }
 
         if (strstr(mplayer_output->str, "ID_VIDEO_CODEC") != 0) {
@@ -2594,19 +2649,19 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->video_codec = NULL;
             }
             player->video_codec = g_strdup(buf);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_CODEC);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_CODEC);
         }
 
         if (strstr(mplayer_output->str, "ID_VIDEO_FPS") != 0) {
             buf = strstr(mplayer_output->str, "ID_VIDEO_FPS");
             sscanf(buf, "ID_VIDEO_FPS=%lf", &player->video_fps);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_FPS);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_FPS);
         }
 
         if (strstr(mplayer_output->str, "ID_VIDEO_BITRATE") != 0) {
             buf = strstr(mplayer_output->str, "ID_VIDEO_BITRATE");
             sscanf(buf, "ID_VIDEO_BITRATE=%i", &player->video_bitrate);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_VIDEO_BITRATE);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_BITRATE);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_FORMAT") != 0) {
@@ -2617,7 +2672,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->audio_format = NULL;
             }
             player->audio_format = g_strdup(buf);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_FORMAT);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_AUDIO_FORMAT);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_CODEC") != 0) {
@@ -2628,13 +2683,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->audio_codec = NULL;
             }
             player->audio_codec = g_strdup(buf);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_CODEC);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_AUDIO_CODEC);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_BITRATE") != 0) {
             buf = strstr(mplayer_output->str, "ID_AUDIO_BITRATE");
             sscanf(buf, "ID_AUDIO_BITRATE=%i", &player->audio_bitrate);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_BITRATE);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_AUDIO_BITRATE);
         }
 
         if (strstr(mplayer_output->str, "ID_AUDIO_RATE") != 0) {
@@ -2646,7 +2701,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (strstr(mplayer_output->str, "ID_AUDIO_NCH") != 0) {
             buf = strstr(mplayer_output->str, "ID_AUDIO_NCH");
             sscanf(buf, "ID_AUDIO_NCH=%i", &player->audio_nch);
-            g_signal_emit_by_name(player, "attribute-changed", ATTRIBUTE_AUDIO_NCH);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_AUDIO_NCH);
         }
 
         if (strstr(mplayer_output->str, "*** screenshot") != 0) {

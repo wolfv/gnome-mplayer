@@ -204,6 +204,14 @@ typedef struct _GmtkMediaPlayerAudioTrack {
     gchar *label;
 } GmtkMediaPlayerAudioTrack;
 
+typedef struct _GmtkMediaPlayerEvent {
+    GmtkMediaPlayer *player;
+    gchar *event_name;
+    gint event_data_int;
+    gdouble event_data_double;
+    GtkAllocation *event_allocation;
+} GmtkMediaPlayerEvent;
+
 struct _GmtkMediaPlayer {
     GtkEventBox parent;
 
