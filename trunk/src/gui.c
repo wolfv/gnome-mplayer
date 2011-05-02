@@ -169,7 +169,7 @@ gboolean add_to_playlist_and_play(gpointer data)
             dontplaynext = TRUE;
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
-            play_iter(&iter, 0);
+            g_idle_add(async_play_iter, &iter);
             if (embed_window == 0 && bring_to_front)
                 present_main_window();
         }
@@ -2015,7 +2015,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
-            play_iter(&iter, 0);
+            g_idle_add(async_play_iter, &iter);
             dontplaynext = FALSE;
         }
 
@@ -2084,11 +2084,11 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
         if (next_item_in_playlist(&iter)) {
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
-            play_iter(&iter, 0);
+            g_idle_add(async_play_iter, &iter);
         } else {
             if (first_item_in_playlist(&iter)) {
                 gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
-                play_iter(&iter, 0);
+                g_idle_add(async_play_iter, &iter);
             }
         }
     }
@@ -2567,7 +2567,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
 
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
-            play_iter(&iter, 0);
+            g_idle_add(async_play_iter, &iter);
             dontplaynext = FALSE;
         }
     }
@@ -2611,7 +2611,7 @@ void open_location_callback(GtkWidget * widget, void *data)
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_NETWORK);
-            play_iter(&iter, 0);
+            g_idle_add(async_play_iter, &iter);
             dontplaynext = FALSE;
         }
     }
@@ -2772,7 +2772,7 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE, mplayer_dvd_device);
-    play_iter(&iter, 0);
+    g_idle_add(async_play_iter, &iter);
     gtk_widget_show(menu_event_box);
 }
 
@@ -2807,7 +2807,7 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
             gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE, idledata->device);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
-            play_iter(&iter, 0);
+            g_idle_add(async_play_iter, &iter);
         }
     }
     if (GTK_IS_WIDGET(dialog))
@@ -2852,7 +2852,7 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
             gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE, idledata->device);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
-            play_iter(&iter, 0);
+            g_idle_add(async_play_iter, &iter);
         }
     }
     if (GTK_IS_WIDGET(dialog))
@@ -2871,7 +2871,7 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE, mplayer_dvd_device);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_CD);
-        play_iter(&iter, 0);
+        g_idle_add(async_play_iter, &iter);
     }
 
 }
@@ -2887,7 +2887,7 @@ void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE, mplayer_dvd_device);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_VCD);
-        play_iter(&iter, 0);
+        g_idle_add(async_play_iter, &iter);
     }
 
 }
@@ -2902,7 +2902,7 @@ void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_TV);
-        play_iter(&iter, 0);
+        g_idle_add(async_play_iter, &iter);
     }
 }
 
@@ -2938,8 +2938,7 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
         dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
-        play_iter(&iter, 0);
-        dontplaynext = FALSE;
+        g_idle_add(async_play_iter, &iter);
     }
 
     if (GTK_IS_WIDGET(list)) {
@@ -3034,7 +3033,7 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_TV);
-        play_iter(&iter, 0);
+        g_idle_add(async_play_iter, &iter);
         dontplaynext = FALSE;
     }
 }
@@ -5961,10 +5960,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     gchar *tip_text = NULL;
 #endif
     printf("in media state change with state = %i\n", state);
-	while (gtk_events_pending ())
-		gtk_main_iteration ();
 
-	
     switch (state) {
         // mplayer is dead, need the next item off the playlist
     case MEDIA_STATE_QUIT:
@@ -6002,6 +5998,11 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
                 if (quit_on_complete) {
                     g_idle_add(set_quit, idledata);
                 }
+            }
+        } else {
+            if (next_iter != NULL) {
+                g_idle_add(async_play_iter, next_iter);
+                next_iter = NULL;
             }
         }
         dontplaynext = FALSE;

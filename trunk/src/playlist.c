@@ -778,8 +778,7 @@ gboolean playlist_select_callback(GtkTreeView * view, GtkTreePath * path, GtkTre
     if (gtk_tree_model_get_iter(GTK_TREE_MODEL(playliststore), &iter, path)) {
         dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
-        play_iter(&iter, 0);
-        dontplaynext = FALSE;
+        g_idle_add(async_play_iter, &iter);
     }
     return FALSE;
 }

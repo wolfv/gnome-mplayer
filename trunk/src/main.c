@@ -147,8 +147,11 @@ static GOptionEntry entries[] = {
 
 gboolean async_play_iter(void *data)
 {
-    GtkTreeIter *thisiter = (GtkTreeIter *) (data);
-    play_iter(thisiter, 0);
+    next_iter = (GtkTreeIter *) (data);
+    printf("state = %i\n", gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)));
+    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN)
+        play_iter(next_iter, 0);
+
     return FALSE;
 }
 
@@ -247,12 +250,14 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 #endif
 #endif
 
-    if (!(gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN ||
-          gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_QUIT)) {
-        while (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
-            gtk_main_iteration();
-        }
-    }
+    /*
+       if (!(gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN ||
+       gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_QUIT)) {
+       while (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
+       gtk_main_iteration();
+       }
+       }
+     */
 
     if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, ITEM_COLUMN, &uri,
@@ -929,7 +934,6 @@ int main(int argc, char *argv[])
         printf(_("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
         return 1;
     }
-
     // if (verbose)
     //      printf("Threading support enabled = %i\n",g_thread_supported());
 
