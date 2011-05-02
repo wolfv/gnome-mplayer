@@ -5996,10 +5996,10 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
                 }
             }
         } else {
-		    if (embed_window != 0 || control_id != 0) {
-		        dbus_send_event("MediaComplete", 0);
-		        dbus_open_next();
-		    }
+            if (embed_window != 0 || control_id != 0) {
+                dbus_send_event("MediaComplete", 0);
+                dbus_open_next();
+            }
             if (next_iter != NULL) {
                 g_idle_add(async_play_iter, next_iter);
                 next_iter = NULL;

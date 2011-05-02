@@ -224,6 +224,7 @@ struct _GmtkMediaPlayer {
      */
     GtkWidget *alignment;
     GtkWidget *socket;
+    gint socket_id;
     gchar *uri;
     gchar *message;
     gdouble position;

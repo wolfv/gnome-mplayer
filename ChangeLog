@@ -12,6 +12,7 @@
 
 
 Development
+    Never, ever call a GTK function that changes something from a thread, reading is ok
     Remove config.h from SVN
     Apply patch to gmtk_media_player from Byeongsik Jeon
     Apply patch to gm_audio from Byeongsik Jeon
