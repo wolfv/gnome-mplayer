@@ -284,6 +284,9 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->audio_delay = 0.0;
     player->restart = FALSE;
     player->debug = 1;
+	player->channel_in = NULL;
+	player->channel_out = NULL;
+	player->channel_err = NULL;
 }
 
 static void gmtk_media_player_dispose(GObject * object)
@@ -1642,8 +1645,6 @@ gpointer launch_mplayer(gpointer data)
     gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
     gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
     gtk_widget_show(GTK_WIDGET(player->socket));
-    //while (gtk_events_pending())
-    //    gtk_main_iteration();
 
     g_mutex_lock(player->thread_running);
 
@@ -1907,10 +1908,6 @@ gpointer launch_mplayer(gpointer data)
         switch (player->type) {
         case TYPE_FILE:
             if (filename != NULL) {
-                if (g_strrstr(filename, "apple.com")) {
-                    argv[argn++] = g_strdup_printf("-user-agent");
-                    argv[argn++] = g_strdup_printf("QuickTime/7.6.4");
-                }
                 if (player->force_cache && player->cache_size >= 32) {
                     argv[argn++] = g_strdup_printf("-cache");
                     argv[argn++] = g_strdup_printf("%i", player->cache_size);
@@ -1950,6 +1947,10 @@ gpointer launch_mplayer(gpointer data)
             break;
 
         case TYPE_NETWORK:
+            if (g_strrstr(filename, "apple.com")) {
+                argv[argn++] = g_strdup_printf("-user-agent");
+                argv[argn++] = g_strdup_printf("QuickTime/7.6.4");
+            }
             if (player->cache_size >= 32) {
                 argv[argn++] = g_strdup_printf("-cache");
                 argv[argn++] = g_strdup_printf("%i", (gint) player->cache_size);

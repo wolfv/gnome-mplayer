@@ -5968,10 +5968,6 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         if (idledata->mapped_af_export != NULL)
             unmap_af_export_file(idledata);
 
-        if (embed_window != 0 || control_id != 0) {
-            dbus_send_event("MediaComplete", 0);
-            dbus_open_next();
-        }
         if (dontplaynext == FALSE) {
             if (next_item_in_playlist(&iter)) {
                 g_idle_add(async_play_iter, &iter);
@@ -6000,6 +5996,10 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
                 }
             }
         } else {
+		    if (embed_window != 0 || control_id != 0) {
+		        dbus_send_event("MediaComplete", 0);
+		        dbus_open_next();
+		    }
             if (next_iter != NULL) {
                 g_idle_add(async_play_iter, next_iter);
                 next_iter = NULL;
@@ -6083,6 +6083,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     default:
         break;
     }
+
 }
 
 void player_cache_percent_changed_callback(GmtkMediaTracker * tracker, gdouble percentage)
