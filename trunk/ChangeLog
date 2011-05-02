@@ -12,6 +12,7 @@
 
 
 Development
+    Apply patch to gm_audio from Byeongsik Jeon
     Convert all events to be signalled in the main loop vs from the thread
     Change g_type_init to gtk_init
     Initialize file descripters and alter the channel creation settings
