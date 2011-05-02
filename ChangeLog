@@ -12,6 +12,8 @@
 
 
 Development
+    Only show video window when we have video
+    Set the background color (black), on initialization
     Never, ever call a GTK function that changes something from a thread, reading is ok
     Remove config.h from SVN
     Apply patch to gmtk_media_player from Byeongsik Jeon
