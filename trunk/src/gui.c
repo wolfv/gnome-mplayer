@@ -5952,6 +5952,13 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         break;
 
 
+	case ATTRIBUTE_SEEKABLE:
+		gtk_widget_set_sensitive(GTK_WIDGET(tracker), gmtk_media_player_get_attribute_boolean (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SEEKABLE));
+		break;
+			
+	case ATTRIBUTE_START_TIME:
+		break;
+			
     default:
         if (verbose) {
             printf("Unhandled attribute change %i\n", attribute);
@@ -6098,7 +6105,7 @@ void player_cache_percent_changed_callback(GmtkMediaTracker * tracker, gdouble p
     if (GTK_IS_WIDGET(tracker)) {
         if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY) {
             gmtk_media_tracker_set_cache_percentage(tracker, percentage);
-            text = g_strdup_printf("%2i%% \342\226\274", (int) (percentage * 100));
+            text = g_strdup_printf("Caching %2i%% \342\226\274", (int) (percentage * 100));
             gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), text);
             g_free(text);
         } else {

@@ -149,8 +149,10 @@ gboolean async_play_iter(void *data)
 {
     next_iter = (GtkTreeIter *) (data);
     printf("state = %i\n", gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)));
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN)
+    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
         play_iter(next_iter, 0);
+		next_iter = NULL;
+	}
 
     return FALSE;
 }

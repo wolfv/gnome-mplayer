@@ -12,6 +12,9 @@
 
 
 Development
+    Set tracker sensitivity based on seekability of content
+    Reset cache percent to 0 once media starts playing
+    Change channel reader priority so cache updates work
     Only show video window when we have video
     Set the background color (black), on initialization
     Never, ever call a GTK function that changes something from a thread, reading is ok
