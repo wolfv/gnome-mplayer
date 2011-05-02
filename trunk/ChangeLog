@@ -12,6 +12,8 @@
 
 
 Development
+    Remove config.h from SVN
+    Apply patch to gmtk_media_player from Byeongsik Jeon
     Apply patch to gm_audio from Byeongsik Jeon
     Convert all events to be signalled in the main loop vs from the thread
     Change g_type_init to gtk_init
