@@ -237,7 +237,7 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1) {
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-            play_iter(&iter, 0);
+            g_idle_add(async_play_iter, &iter);
 
         } else {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
@@ -651,8 +651,7 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
 
     if (count == 0 && filecount > 0) {
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-        play_iter(&iter, 0);
-        dontplaynext = FALSE;
+        g_idle_add(async_play_iter, &iter);
     }
 }
 
