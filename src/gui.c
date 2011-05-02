@@ -2568,7 +2568,6 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
             g_idle_add(async_play_iter, &iter);
-            dontplaynext = FALSE;
         }
     }
 
