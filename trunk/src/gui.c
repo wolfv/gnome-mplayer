@@ -2044,47 +2044,9 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_STOP ||
         gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
-        gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 0.0, SEEK_RELATIVE);
-        js_state = STATE_PLAYING;
-        gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PAUSE, button_size);
-#ifdef GTK2_12_ENABLED
-        gtk_widget_set_tooltip_text(play_event_box, _("Pause"));
-#else
-        gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
-#endif
-        g_strlcpy(idledata->progress_text, _("Playing"), 1024);
-        g_idle_add(set_progress_text, idledata);
-        gtk_widget_set_sensitive(ff_event_box, TRUE);
-        gtk_widget_set_sensitive(rew_event_box, TRUE);
-        gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
-        menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
-        gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
-        gtk_widget_show(GTK_WIDGET(menuitem_play));
-        g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_pause_callback), NULL);
-
-        if (idle && idle->videopresent)
-            dbus_disable_screensaver();
 
     } else if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PAUSE);
-        js_state = STATE_PAUSED;
-        gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
-#ifdef GTK2_12_ENABLED
-        gtk_widget_set_tooltip_text(play_event_box, _("Play"));
-#else
-        gtk_tooltips_set_tip(tooltip, play_event_box, _("Play"), NULL);
-#endif
-        g_strlcpy(idledata->progress_text, _("Paused"), 1024);
-        g_idle_add(set_progress_text, idledata);
-        gtk_widget_set_sensitive(ff_event_box, FALSE);
-        gtk_widget_set_sensitive(rew_event_box, FALSE);
-        gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
-        menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
-        gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
-        gtk_widget_show(GTK_WIDGET(menuitem_play));
-        g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_pause_callback), NULL);
-        if (idledata->videopresent)
-            dbus_enable_screensaver();
     }
 
     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
