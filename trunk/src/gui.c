@@ -1459,7 +1459,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
     return FALSE;
 }
 
-gboolean drawing_area_scroll_event_callback(GtkWidget * widget, GdkEventScroll * event, gpointer data)
+gboolean media_scroll_event_callback(GtkWidget * widget, GdkEventScroll * event, gpointer data)
 {
 
     if (mouse_wheel_changes_volume == FALSE) {
@@ -6917,6 +6917,7 @@ GtkWidget *create_window(gint windowid)
     g_signal_connect(G_OBJECT(media), "subtitles-changed", G_CALLBACK(player_subtitle_callback),
                      menuitem_edit_select_sub_lang);
     g_signal_connect(G_OBJECT(media), "size_allocate", G_CALLBACK(player_size_allocate_callback), NULL);
+    g_signal_connect(G_OBJECT(media), "scroll_event", G_CALLBACK(media_scroll_event_callback), NULL);
 
     cover_art = gtk_image_new();
     media_label = gtk_label_new("");
