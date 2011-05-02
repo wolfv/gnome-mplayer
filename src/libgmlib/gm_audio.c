@@ -623,9 +623,9 @@ gboolean set_alsa_volume(gchar * device, gchar * mixer, gdouble volume)
             f_multi = ((float) (pmax - pmin));
             if (snd_mixer_selem_has_playback_switch(elem)) {
                 if (volume == 0) {
-                    snd_mixer_selem_set_playback_switch(elem, 0, 0);
+                    snd_mixer_selem_set_playback_switch_all(elem, 0);
                 } else {
-                    snd_mixer_selem_set_playback_switch(elem, 0, 1);
+                    snd_mixer_selem_set_playback_switch_all(elem, 1);
                 }
                 snd_mixer_selem_get_playback_switch(elem, 0, &playback);
             } else {
@@ -633,7 +633,7 @@ gboolean set_alsa_volume(gchar * device, gchar * mixer, gdouble volume)
             }
             if (playback == 1) {
                 set_vol = (gdouble) ((volume) * f_multi) + pmin;
-                snd_mixer_selem_set_playback_volume(elem, 0, set_vol);
+                snd_mixer_selem_set_playback_volume_all(elem, set_vol);
             }
             if (gm_audio_debug) {
                 printf("Setting Volume\n");
