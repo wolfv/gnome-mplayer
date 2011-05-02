@@ -11,6 +11,7 @@
 
 
 Development
+    Hook up scroll event for volue change or seeking
     Update media info from ICY stream data
     Fix TYPE_NETWORK for apple.com correctly
     Set tracker sensitivity based on seekability of content
