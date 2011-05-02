@@ -5749,6 +5749,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     GList *list;
     GtkMenuItem *item;
     gchar *text;
+    gchar *buffer;
+    MetaData *metadata;
 
     switch (attribute) {
     case ATTRIBUTE_LENGTH:
@@ -5952,13 +5954,48 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         break;
 
 
-	case ATTRIBUTE_SEEKABLE:
-		gtk_widget_set_sensitive(GTK_WIDGET(tracker), gmtk_media_player_get_attribute_boolean (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SEEKABLE));
-		break;
-			
-	case ATTRIBUTE_START_TIME:
-		break;
-			
+    case ATTRIBUTE_SEEKABLE:
+        gtk_widget_set_sensitive(GTK_WIDGET(tracker),
+                                 gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SEEKABLE));
+        break;
+
+    case ATTRIBUTE_START_TIME:
+        break;
+
+    case ATTRIBUTE_TITLE:
+    case ATTRIBUTE_ARTIST:
+
+        metadata = (MetaData *) g_new0(MetaData, 1);
+        text = g_strdup_printf("<small>\n");
+        if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE)) {
+            buffer =
+                g_markup_printf_escaped("\t<big><b>%s</b></big>\n",
+                                        gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media),
+                                                                               ATTRIBUTE_TITLE));
+            text = g_strconcat(text, buffer, NULL);
+            g_free(buffer);
+            metadata->title =
+                g_strstrip(g_strdup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE)));
+        }
+
+        if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST)) {
+            buffer =
+                g_markup_printf_escaped("\t<i>%s</i>\n",
+                                        gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media),
+                                                                               ATTRIBUTE_ARTIST));
+            text = g_strconcat(text, buffer, NULL);
+            g_free(buffer);
+            metadata->artist =
+                g_strstrip(g_strdup
+                           (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST)));
+        }
+
+        text = g_strconcat(text, "</small>", NULL);
+        gtk_label_set_markup(GTK_LABEL(media_label), text);
+        g_strlcpy(idledata->media_info, text, 1024);
+        g_thread_create(get_cover_art, metadata, FALSE, NULL);
+        break;
+
     default:
         if (verbose) {
             printf("Unhandled attribute change %i\n", attribute);

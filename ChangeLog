@@ -7,11 +7,12 @@
     DVD w/o menu playback
     TV playback
     
-    Media Info - Artist, Title, Album, etc...
 ******
 
 
 Development
+    Update media info from ICY stream data
+    Fix TYPE_NETWORK for apple.com correctly
     Set tracker sensitivity based on seekability of content
     Reset cache percent to 0 once media starts playing
     Change channel reader priority so cache updates work

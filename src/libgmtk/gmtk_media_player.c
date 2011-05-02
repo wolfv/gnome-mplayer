@@ -79,7 +79,7 @@ gboolean signal_event(gpointer data)
     }
     if (event)
         g_free(event);
-	
+
     return FALSE;
 }
 
@@ -1247,6 +1247,14 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
         value = player->audio_codec;
         break;
 
+    case ATTRIBUTE_ARTIST:
+        value = player->artist;
+        break;
+
+    case ATTRIBUTE_TITLE:
+        value = player->title;
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -1953,7 +1961,7 @@ gpointer launch_mplayer(gpointer data)
             break;
 
         case TYPE_NETWORK:
-            if (g_strrstr(filename, "apple.com")) {
+            if (g_strrstr(player->uri, "apple.com")) {
                 argv[argn++] = g_strdup_printf("-user-agent");
                 argv[argn++] = g_strdup_printf("QuickTime/7.6.4");
             }
@@ -2065,8 +2073,7 @@ gpointer launch_mplayer(gpointer data)
             player->watch_in_id =
                 g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_IN, thread_reader, player, NULL);
             player->watch_err_id =
-                g_io_add_watch_full(player->channel_err, G_PRIORITY_LOW, G_IO_IN, thread_reader_error, player,
-                                    NULL);
+                g_io_add_watch_full(player->channel_err, G_PRIORITY_LOW, G_IO_IN, thread_reader_error, player, NULL);
             player->watch_in_hup_id =
                 g_io_add_watch_full(player->channel_out, G_PRIORITY_LOW, G_IO_HUP, thread_complete, player, NULL);
 
@@ -2320,7 +2327,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     status = g_io_channel_read_line_string(source, mplayer_output, NULL, &error);
     if (status == G_IO_STATUS_ERROR) {
         if (player->debug)
-            printf("GIO IO Error\n");
+            printf("GIO IO Error: %s\n", mplayer_output->str);
         return TRUE;
     } else {
         if (player->debug) {
@@ -2756,9 +2763,17 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 message = g_markup_printf_escaped("\n\t<b>%s</b>\n", buf + 1);
                 icy = g_strdup(buf + 1);
                 if ((buf = strstr(icy, " - ")) != NULL) {
-                    //metadata->title = g_strdup(buf + 3);
-                    //buf[0] = '\0';
-                    //metadata->artist = g_strdup(icy);
+
+                    if (player->title)
+                        g_free(player->title);
+                    player->title = g_strdup(buf + 3);
+                    create_event_int(player, "attribute-changed", ATTRIBUTE_TITLE);
+                    buf[0] = '\0';
+                    if (player->artist)
+                        g_free(player->artist);
+                    player->artist = g_strdup(icy);
+                    create_event_int(player, "attribute-changed", ATTRIBUTE_ARTIST);
+
                 }
                 g_free(icy);
                 g_free(message);
