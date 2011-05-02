@@ -238,6 +238,12 @@ void adjust_layout()
     total_width = non_fs_width;
     //printf("total = %i x %i\n", total_width, total_height);
 
+    if (idledata->videopresent) {
+        gtk_widget_show(media);
+    } else {
+        gtk_widget_hide(media);
+    }
+
     if (playlist_visible && remember_loc && !vertical_layout) {
         total_width = gtk_paned_get_position(GTK_PANED(pane));
     }

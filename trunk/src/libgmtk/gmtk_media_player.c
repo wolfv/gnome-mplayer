@@ -52,9 +52,13 @@ gboolean detect_mplayer_features(GmtkMediaPlayer * player);
 static void socket_realized(GtkWidget * widget, gpointer data)
 {
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(data);
+    GtkStyle *style;
 
     printf("socket realized\n");
     player->socket_id = gtk_socket_get_id(GTK_SOCKET(widget));
+    style = gtk_widget_get_style(GTK_WIDGET(player));
+    gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, &(style->black));
+    gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
 }
 
 gboolean signal_event(gpointer data)
@@ -636,8 +640,6 @@ const gchar *gmtk_media_player_get_uri(GmtkMediaPlayer * player)
 
 void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayerMediaState new_state)
 {
-    GtkStyle *style;
-
     if (player->player_state == PLAYER_STATE_DEAD) {
 
         if (new_state == MEDIA_STATE_QUIT) {
@@ -688,9 +690,6 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
         }
 
         if (new_state == MEDIA_STATE_PLAY) {
-            style = gtk_widget_get_style(GTK_WIDGET(player));
-            gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, &(style->black));
-            gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
             gtk_widget_show(GTK_WIDGET(player->socket));
 
             if (player->media_state == MEDIA_STATE_PAUSE || player->media_state == MEDIA_STATE_STOP) {
@@ -717,13 +716,6 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
 
         if (new_state == MEDIA_STATE_QUIT) {
             write_to_mplayer(player, "quit\n");
-            //while (player->player_state != PLAYER_STATE_DEAD) {
-            //    while (gtk_events_pending())
-            //        gtk_main_iteration();
-            //}
-            gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
-            gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
-
         }
     }
 
@@ -2176,9 +2168,6 @@ gboolean thread_complete(GIOChannel * source, GIOCondition condition, gpointer d
     g_source_remove(player->watch_err_id);
     g_cond_signal(player->mplayer_complete_cond);
     g_unlink(player->af_export_filename);
-    gtk_widget_modify_bg(GTK_WIDGET(player), GTK_STATE_NORMAL, player->default_background);
-    gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, player->default_background);
-    gtk_widget_hide(GTK_WIDGET(player->socket));
 
     return FALSE;
 }
