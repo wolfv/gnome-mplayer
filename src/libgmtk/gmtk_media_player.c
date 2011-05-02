@@ -61,6 +61,9 @@ static void socket_realized(GtkWidget * widget, gpointer data)
     gtk_widget_modify_bg(GTK_WIDGET(player->socket), GTK_STATE_NORMAL, &(style->black));
 }
 
+
+// use g_idle_add to emit the signals outside of the thread, makes them be emitted in the main loop
+// this is done so that thread_enter/thread_leave is not needed
 gboolean signal_event(gpointer data)
 {
     GmtkMediaPlayerEvent *event = (GmtkMediaPlayerEvent *) data;
@@ -83,6 +86,7 @@ gboolean signal_event(gpointer data)
     return FALSE;
 }
 
+// build the events we are going to signal
 void create_event_int(GmtkMediaPlayer * player, const gchar * name, gint value)
 {
     GmtkMediaPlayerEvent *event;
@@ -118,6 +122,7 @@ void create_event_allocation(GmtkMediaPlayer * player, const gchar * name, GtkAl
 
 }
 
+// helper function to assist retry/fallback
 gchar *gmtk_media_player_switch_protocol(const gchar * uri, gchar * new_protocol)
 {
     gchar *p;
@@ -204,19 +209,16 @@ static void gmtk_media_player_class_init(GmtkMediaPlayerClass * class)
 
 static void gmtk_media_player_init(GmtkMediaPlayer * player)
 {
-
     GtkStyle *style;
 
+	// player is an GtkEventBox that holds a GtkAlignment that holds a GtkSocket
+	// mplayer uses the xwindow id from the socket to display media
+	
     gtk_widget_add_events(GTK_WIDGET(player),
                           GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK |
                           GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
                           GDK_POINTER_MOTION_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_ENTER_NOTIFY_MASK);
 
-
-    //gtk_widget_set_size_request(GTK_WIDGET(player), 320, 200);
-    //gtk_widget_set_has_window(GTK_WIDGET(player), TRUE);
-    //gtk_widget_set_can_focus(GTK_WIDGET(player), TRUE);
-    //gtk_widget_set_can_default(GTK_WIDGET(player), TRUE);
 
     g_signal_connect(player, "key_press_event", G_CALLBACK(player_key_press_event_callback), NULL);
     g_signal_connect(player, "motion_notify_event", G_CALLBACK(player_motion_notify_event_callback), NULL);
@@ -228,12 +230,6 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     g_signal_connect(G_OBJECT(player->socket), "realize", G_CALLBACK(socket_realized), player);
     gtk_container_add(GTK_CONTAINER(player), player->alignment);
     gtk_container_add(GTK_CONTAINER(player->alignment), player->socket);
-    //gtk_widget_add_events(GTK_WIDGET(player->socket),
-    //                      GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK |
-    //                      GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-    //                      GDK_POINTER_MOTION_MASK | 
-    //                      GDK_LEAVE_NOTIFY_MASK | GDK_ENTER_NOTIFY_MASK);
-    //gtk_widget_set_size_request(player->socket, 16, 8);
     gtk_widget_set_has_window(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_focus(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_default(GTK_WIDGET(player->socket), TRUE);
@@ -306,6 +302,8 @@ static void gmtk_media_player_dispose(GObject * object)
 
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(object);
 
+	// cleanup the memory used
+	
     if (player->uri != NULL) {
         g_free(player->uri);
         player->uri = NULL;
@@ -323,7 +321,52 @@ static void gmtk_media_player_dispose(GObject * object)
         player->ao = NULL;
     }
 
-    if (player->af_export_filename != NULL) {
+    if (player->artist != NULL) {
+        g_free(player->artist);
+        player->artist = NULL;
+    }
+
+    if (player->title != NULL) {
+        g_free(player->title);
+        player->title = NULL;
+    }
+
+    if (player->message != NULL) {
+        g_free(player->message);
+        player->message = NULL;
+    }
+
+    if (player->media_device != NULL) {
+        g_free(player->media_device);
+        player->media_device = NULL;
+    }
+
+    if (player->extra_opts != NULL) {
+        g_free(player->extra_opts);
+        player->extra_opts = NULL;
+    }
+
+    if (player->video_format != NULL) {
+        g_free(player->video_format);
+        player->video_format = NULL;
+    }
+
+    if (player->video_codec != NULL) {
+        g_free(player->video_codec);
+        player->video_codec = NULL;
+    }
+
+    if (player->audio_format != NULL) {
+        g_free(player->audio_format);
+        player->audio_format = NULL;
+    }
+
+    if (player->audio_codec != NULL) {
+        g_free(player->audio_codec);
+        player->audio_codec = NULL;
+    }
+
+	if (player->af_export_filename != NULL) {
         g_free(player->af_export_filename);
         player->af_export_filename = NULL;
     }
@@ -580,7 +623,6 @@ GtkWidget *gmtk_media_player_new()
 static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player, gpointer data)
 {
     gmtk_media_player_seek(player, player->restart_position, SEEK_ABSOLUTE);
-    // g_signal_emit_by_name(player, "position-changed", player->restart_position);
     if (player->restart_state != gmtk_media_player_get_state(player))
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), player->restart_state);
     player->restart = FALSE;
@@ -605,7 +647,7 @@ void gmtk_media_player_restart(GmtkMediaPlayer * player)
     }
 }
 
-
+// this will take a new URI, but better to shut it down and start a new instance
 void gmtk_media_player_set_uri(GmtkMediaPlayer * player, const gchar * uri)
 {
     gchar *cmd;
@@ -668,9 +710,6 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
                 player->player_state = PLAYER_STATE_RUNNING;
                 if (!player->restart)
                     g_signal_emit_by_name(player, "player-state-changed", player->player_state);
-                //player->media_state = MEDIA_STATE_PLAY;
-                //if (!player->restart)
-                //    g_signal_emit_by_name(player, "media-state-changed", player->media_state);
                 return;
             }
         }
