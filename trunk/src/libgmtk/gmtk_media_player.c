@@ -2127,8 +2127,11 @@ gpointer launch_mplayer(gpointer data)
             }
 
             player->channel_in = g_io_channel_unix_new(player->std_in);
+			g_io_channel_set_encoding (player->channel_in, NULL, NULL);
             player->channel_out = g_io_channel_unix_new(player->std_out);
+			g_io_channel_set_encoding (player->channel_out, NULL, NULL);
             player->channel_err = g_io_channel_unix_new(player->std_err);
+			g_io_channel_set_encoding (player->channel_err, NULL, NULL);
 
             g_io_channel_set_close_on_unref(player->channel_in, TRUE);
             g_io_channel_set_close_on_unref(player->channel_out, TRUE);
@@ -2388,7 +2391,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (status == G_IO_STATUS_ERROR) {
         if (player->debug)
             printf("GIO IO Error: %s\n", mplayer_output->str);
-        return FALSE;
+        return TRUE;
     } else {
         if (player->debug) {
             if (g_strrstr(mplayer_output->str, "ANS") == NULL)
