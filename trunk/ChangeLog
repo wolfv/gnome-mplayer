@@ -11,6 +11,8 @@
 
 
 Development
+    Fix software volume not being set properly
+    Make volume gain and post processing work
     Fix fullscreen mode when run as a plugin (X11 only)
     Set runtime in gmtk_media_player
     Cleanup some debug messages

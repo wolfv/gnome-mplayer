@@ -103,6 +103,7 @@ typedef enum {
     ATTRIBUTE_ALSA_MIXER,
     ATTRIBUTE_HARDWARE_AC3,
     ATTRIBUTE_SOFTVOL,
+    ATTRIBUTE_VOLUME_GAIN,
     ATTRIBUTE_MUTED,
     ATTRIBUTE_CACHE_SIZE,
     ATTRIBUTE_FORCE_CACHE,
@@ -138,6 +139,7 @@ typedef enum {
     ATTRIBUTE_SPEED_MULTIPLIER,
     ATTRIBUTE_DEINTERLACE,
     ATTRIBUTE_OSDLEVEL,
+    ATTRIBUTE_POST_PROCESSING_LEVEL,
     ATTRIBUTE_AUDIO_TRACK_FILE,
     ATTRIBUTE_SUBTITLE_FILE,
     ATTRIBUTE_ENABLE_ADVANCED_SUBTITLES,
@@ -247,6 +249,7 @@ struct _GmtkMediaPlayer {
     gchar *alsa_mixer;
     gint audio_channels;
     gboolean softvol;
+    gdouble volume_gain;
     gdouble cache_size;
     gdouble cache_percent;
     gboolean force_cache;
