@@ -1305,6 +1305,10 @@ const gchar *gmtk_media_player_get_attribute_string(GmtkMediaPlayer * player, Gm
         value = player->title;
         break;
 
+    case ATTRIBUTE_ALBUM:
+        value = player->album;
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -2127,11 +2131,11 @@ gpointer launch_mplayer(gpointer data)
             }
 
             player->channel_in = g_io_channel_unix_new(player->std_in);
-			g_io_channel_set_encoding (player->channel_in, NULL, NULL);
+            g_io_channel_set_encoding(player->channel_in, NULL, NULL);
             player->channel_out = g_io_channel_unix_new(player->std_out);
-			g_io_channel_set_encoding (player->channel_out, NULL, NULL);
+            g_io_channel_set_encoding(player->channel_out, NULL, NULL);
             player->channel_err = g_io_channel_unix_new(player->std_err);
-			g_io_channel_set_encoding (player->channel_err, NULL, NULL);
+            g_io_channel_set_encoding(player->channel_err, NULL, NULL);
 
             g_io_channel_set_close_on_unref(player->channel_in, TRUE);
             g_io_channel_set_close_on_unref(player->channel_out, TRUE);
@@ -2780,6 +2784,57 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             gtk_widget_destroy(dialog);
             g_free(message);
             message = NULL;
+        }
+
+        if (strstr(mplayer_output->str, "Title: ") != 0) {
+            buf = strstr(mplayer_output->str, "Title:");
+            buf = strstr(mplayer_output->str, "Title: ") + strlen("Title: ");
+            buf = g_strchomp(buf);
+            if (player->title != NULL) {
+                g_free(player->title);
+                player->title = NULL;
+            }
+
+            player->title = g_locale_to_utf8(buf, -1, NULL, NULL, NULL);
+            if (player->title == NULL) {
+                player->title = g_strdup(buf);
+                gm_str_strip_unicode(player->title, strlen(player->title));
+            }
+            create_event_int(player, "attribute-changed", ATTRIBUTE_TITLE);
+        }
+
+        if (strstr(mplayer_output->str, "Artist: ") != 0) {
+            buf = strstr(mplayer_output->str, "Artist:");
+            buf = strstr(mplayer_output->str, "Artist: ") + strlen("Artist: ");
+            buf = g_strchomp(buf);
+            if (player->artist != NULL) {
+                g_free(player->artist);
+                player->artist = NULL;
+            }
+
+            player->artist = g_locale_to_utf8(buf, -1, NULL, NULL, NULL);
+            if (player->artist == NULL) {
+                player->artist = g_strdup(buf);
+                gm_str_strip_unicode(player->artist, strlen(player->artist));
+            }
+            create_event_int(player, "attribute-changed", ATTRIBUTE_ARTIST);
+        }
+
+        if (strstr(mplayer_output->str, "Album: ") != 0) {
+            buf = strstr(mplayer_output->str, "Album:");
+            buf = strstr(mplayer_output->str, "Album: ") + strlen("Album: ");
+            buf = g_strchomp(buf);
+            if (player->album != NULL) {
+                g_free(player->album);
+                player->album = NULL;
+            }
+
+            player->album = g_locale_to_utf8(buf, -1, NULL, NULL, NULL);
+            if (player->album == NULL) {
+                player->album = g_strdup(buf);
+                gm_str_strip_unicode(player->album, strlen(player->album));
+            }
+            create_event_int(player, "attribute-changed", ATTRIBUTE_ALBUM);
         }
 
         if (player->minimum_mplayer == FALSE) {

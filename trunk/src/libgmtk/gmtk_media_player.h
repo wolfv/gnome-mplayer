@@ -158,7 +158,8 @@ typedef enum {
     ATTRIBUTE_ENABLE_DEBUG,
     ATTRIBUTE_ENABLE_FRAME_DROP,
     ATTRIBUTE_TITLE,
-    ATTRIBUTE_ARTIST
+    ATTRIBUTE_ARTIST,
+    ATTRIBUTE_ALBUM
 } GmtkMediaPlayerMediaAttributes;
 
 typedef enum {
@@ -289,6 +290,7 @@ struct _GmtkMediaPlayer {
     gboolean playlist;
     gchar *artist;
     gchar *title;
+    gchar *album;
 
     gboolean deinterlace;
     gboolean frame_drop;

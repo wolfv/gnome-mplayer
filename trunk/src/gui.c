@@ -5932,6 +5932,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
 
     case ATTRIBUTE_TITLE:
     case ATTRIBUTE_ARTIST:
+    case ATTRIBUTE_ALBUM:
 
         metadata = (MetaData *) g_new0(MetaData, 1);
         text = g_strdup_printf("<small>\n");
@@ -5956,6 +5957,17 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
             metadata->artist =
                 g_strstrip(g_strdup
                            (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST)));
+        }
+
+        if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ALBUM)) {
+            buffer =
+                g_markup_printf_escaped("\t%s\n",
+                                        gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media),
+                                                                               ATTRIBUTE_ALBUM));
+            text = g_strconcat(text, buffer, NULL);
+            g_free(buffer);
+            metadata->album =
+                g_strstrip(g_strdup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ALBUM)));
         }
 
         text = g_strconcat(text, "</small>", NULL);

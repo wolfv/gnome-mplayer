@@ -11,6 +11,7 @@
 
 
 Development
+    Capture Artist, Title, and Album metadata
     Set channel encoding to binary, solves problems with metadata
     Fix software volume not being set properly
     Make volume gain and post processing work

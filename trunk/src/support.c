@@ -2655,7 +2655,7 @@ gpointer get_cover_art(gpointer data)
                     url = get_cover_art_url(NULL, NULL, metadata->album);
             }
             if (url == NULL) {
-                if ((p = strstr(metadata->title, " - ")) != NULL) {
+                if (metadata->title != NULL && (p = strstr(metadata->title, " - ")) != NULL) {
                     p[0] = '\0';
                     g_free(path);
                     path = g_strdup_printf("%s/gnome-mplayer/cover_art/Unknown", g_get_user_cache_dir());
