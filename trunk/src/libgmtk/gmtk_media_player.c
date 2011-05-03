@@ -2000,7 +2000,7 @@ gpointer launch_mplayer(gpointer data)
         case TYPE_NETWORK:
             if (g_strrstr(player->uri, "apple.com")) {
                 argv[argn++] = g_strdup_printf("-user-agent");
-                argv[argn++] = g_strdup_printf("QuickTime/7.6.4");
+                argv[argn++] = g_strdup_printf("QuickTime/7.6.9");
             }
             if (player->cache_size >= 32) {
                 argv[argn++] = g_strdup_printf("-cache");
@@ -2361,7 +2361,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     if (status == G_IO_STATUS_ERROR) {
         if (player->debug)
             printf("GIO IO Error: %s\n", mplayer_output->str);
-        return TRUE;
+        return FALSE;
     } else {
         if (player->debug) {
             if (g_strrstr(mplayer_output->str, "ANS") == NULL)
