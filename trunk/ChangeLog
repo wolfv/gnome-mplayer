@@ -11,6 +11,7 @@
 
 
 Development
+    Set channel encoding to binary, solves problems with metadata
     Fix software volume not being set properly
     Make volume gain and post processing work
     Fix fullscreen mode when run as a plugin (X11 only)
