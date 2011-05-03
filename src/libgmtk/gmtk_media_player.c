@@ -984,6 +984,10 @@ void gmtk_media_player_set_attribute_double(GmtkMediaPlayer * player,
         player->zoom = CLAMP(value, 0.1, 10.0);
         break;
 
+    case ATTRIBUTE_VOLUME_GAIN:
+        player->volume_gain = CLAMP(value, -200.0, 60.0);
+        break;
+
     case ATTRIBUTE_SPEED_MULTIPLIER:
         player->speed_multiplier = CLAMP(value, 0.1, 10.0);
         if (player->player_state == PLAYER_STATE_RUNNING) {
@@ -1079,6 +1083,10 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
 
     case ATTRIBUTE_VIDEO_FPS:
         ret = player->video_fps;
+        break;
+
+    case ATTRIBUTE_VOLUME_GAIN:
+        ret = player->volume_gain;
         break;
 
     default:
@@ -1378,6 +1386,10 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
         }
         break;
 
+    case ATTRIBUTE_POST_PROCESSING_LEVEL:
+        player->post_processing_level = value;
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -1484,6 +1496,10 @@ gint gmtk_media_player_get_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
 
     case ATTRIBUTE_OSDLEVEL:
         ret = player->osdlevel;
+        break;
+
+    case ATTRIBUTE_POST_PROCESSING_LEVEL:
+        ret = player->post_processing_level;
         break;
 
     default:
@@ -1791,14 +1807,6 @@ gpointer launch_mplayer(gpointer data)
             argv[argn++] = g_strdup_printf("-ao");
             argv[argn++] = g_strdup_printf("%s", player->ao);
 
-            if (player->hardware_ac3) {
-                argv[argn++] = g_strdup_printf("-afm");
-                argv[argn++] = g_strdup_printf("hwac3,");
-            } else {
-                argv[argn++] = g_strdup_printf("-af-add");
-                argv[argn++] = g_strdup_printf("export=%s:512", player->af_export_filename);
-            }
-
             if (player->alsa_mixer != NULL) {
                 argv[argn++] = g_strdup_printf("-mixer-channel");
                 argv[argn++] = g_strdup_printf("%s", player->alsa_mixer);
@@ -1820,6 +1828,15 @@ gpointer launch_mplayer(gpointer data)
                 break;
             }
         }
+
+        if (player->hardware_ac3) {
+            argv[argn++] = g_strdup_printf("-afm");
+            argv[argn++] = g_strdup_printf("hwac3,");
+        } else {
+            argv[argn++] = g_strdup_printf("-af-add");
+            argv[argn++] = g_strdup_printf("export=%s:512", player->af_export_filename);
+        }
+
         argv[argn++] = g_strdup_printf("-quiet");
         argv[argn++] = g_strdup_printf("-slave");
         argv[argn++] = g_strdup_printf("-noidle");
@@ -1830,6 +1847,12 @@ gpointer launch_mplayer(gpointer data)
                 argv[argn++] = g_strdup_printf("-volume");
                 argv[argn++] = g_strdup_printf("%i", (gint) (player->volume * 100));
             }
+
+            if ((gint) (player->volume_gain) != 0) {
+                argv[argn++] = g_strdup_printf("-af-add");
+                argv[argn++] = g_strdup_printf("volume=%lf:0", player->volume_gain);
+            }
+
 
             argv[argn++] = g_strdup_printf("-softvol");
         }
