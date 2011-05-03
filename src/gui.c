@@ -129,6 +129,7 @@ void set_media_player_attributes(GtkWidget * widget)
 
     gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_OSDLEVEL, osdlevel);
     gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_START_TIME, (gdouble) start_second);
+    gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_RUN_TIME, (gdouble) play_length);
 
     if (embed_window != 0 && disable_embedded_scaling) {
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DISABLE_UPSCALING,
@@ -357,7 +358,7 @@ void adjust_layout()
         get_allocation(controls_box, &alloc);
         total_height += alloc.height;
     }
-
+    //printf("total = %i x %i video = %i\n", total_width, total_height, idledata->videopresent);
 
     if (use_remember_loc) {
         // printf("setting size to %i x %i\n", loc_window_width, loc_window_height);
@@ -1146,7 +1147,7 @@ gboolean resize_window(void *data)
                     if (idle->width > 1 && idle->height > 1) {
                         if (verbose) {
                             printf("Changing window size to %i x %i visible = %i\n", idle->width,
-                                   idle->height, get_visible(vbox));
+                                   idle->height, get_visible(media));
                         }
                         last_window_width = idle->width;
                         last_window_height = idle->height;
@@ -3493,15 +3494,6 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_fullscreen(GTK_WINDOW(window));
         } else {
             fs_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-#ifdef GTK2_18_ENABLED
-            gdk_window_ensure_native(gtk_widget_get_window(fs_window));
-#else
-#ifdef GTK2_14_ENABLED
-#ifdef X11_ENABLED
-            GDK_WINDOW_XID(get_window(GTK_WIDGET(fs_window)));
-#endif
-#endif
-#endif
             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
             gtk_widget_add_events(fs_window, GDK_BUTTON_PRESS_MASK);
             gtk_widget_add_events(fs_window, GDK_BUTTON_RELEASE_MASK);
@@ -3515,6 +3507,16 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_widget_add_events(fs_window, GDK_POINTER_MOTION_MASK);
             g_signal_connect(G_OBJECT(fs_window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
             g_signal_connect(G_OBJECT(fs_window), "motion_notify_event", G_CALLBACK(motion_notify_callback), NULL);
+            gtk_widget_realize(fs_window);
+#ifdef GTK2_18_ENABLED
+            gdk_window_ensure_native(gtk_widget_get_window(fs_window));
+#else
+#ifdef GTK2_14_ENABLED
+#ifdef X11_ENABLED
+            GDK_WINDOW_XID(get_window(GTK_WIDGET(fs_window)));
+#endif
+#endif
+#endif
 
             screen = gtk_window_get_screen(GTK_WINDOW(window));
             gtk_window_set_screen(GTK_WINDOW(fs_window), screen);
@@ -3522,15 +3524,13 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gdk_screen_get_monitor_geometry(screen,
                                             gdk_screen_get_monitor_at_window(screen, get_window(window)), &rect);
 
-            gtk_widget_realize(fs_window);
-
             gdk_window_get_root_origin(get_window(window), &wx, &wy);
             gtk_window_move(GTK_WINDOW(fs_window), wx, wy);
 
             gtk_widget_show(fs_window);
-#if X11_ENABLED && !GTK3_ENABLED
+#if X11_ENABLED
             XReparentWindow(GDK_WINDOW_XDISPLAY(get_window(window)),
-                            GDK_WINDOW_XWINDOW(get_window(window)), GDK_WINDOW_XWINDOW(get_window(fs_window)), 0, 0);
+                            GDK_WINDOW_XID(get_window(window)), GDK_WINDOW_XID(get_window(fs_window)), 0, 0);
 #else
             gdk_window_reparent(get_window(window), get_window(fs_window), 0, 0);
 #endif
@@ -5725,12 +5725,12 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     case ATTRIBUTE_SIZE:
         idledata->width = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_WIDTH);
         idledata->height = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HEIGHT);
-        // printf("video present = %i new size %i x %i\n", idledata->videopresent, idledata->width, idledata->height);
+        //printf("video present = %i new size %i x %i\n", idledata->videopresent, idledata->width, idledata->height);
         text = g_strdup_printf("%i x %i", idledata->width, idledata->height);
         gtk_label_set_text(GTK_LABEL(details_video_size), text);
         g_free(text);
         if (resize_on_new_media || idledata->videopresent == FALSE) {
-            if (idledata->width > 0 && idledata->height > 1)
+            if (idledata->width > 0 && idledata->height > 0)
                 idledata->videopresent = TRUE;
             g_idle_add(resize_window, idledata);
         }

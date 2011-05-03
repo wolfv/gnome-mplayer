@@ -209,9 +209,9 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
 {
     GtkStyle *style;
 
-	// player is an GtkEventBox that holds a GtkAlignment that holds a GtkSocket
-	// mplayer uses the xwindow id from the socket to display media
-	
+    // player is an GtkEventBox that holds a GtkAlignment that holds a GtkSocket
+    // mplayer uses the xwindow id from the socket to display media
+
     gtk_widget_add_events(GTK_WIDGET(player),
                           GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK |
                           GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
@@ -300,8 +300,8 @@ static void gmtk_media_player_dispose(GObject * object)
 
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(object);
 
-	// cleanup the memory used
-	
+    // cleanup the memory used
+
     if (player->uri != NULL) {
         g_free(player->uri);
         player->uri = NULL;
@@ -364,7 +364,7 @@ static void gmtk_media_player_dispose(GObject * object)
         player->audio_codec = NULL;
     }
 
-	if (player->af_export_filename != NULL) {
+    if (player->af_export_filename != NULL) {
         g_free(player->af_export_filename);
         player->af_export_filename = NULL;
     }
@@ -622,7 +622,7 @@ static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player
 {
     gmtk_media_player_seek(player, player->restart_position, SEEK_ABSOLUTE);
     player->restart = FALSE;
-	//printf("restart state = %i, current state = %i\n", player->restart_state, gmtk_media_player_get_state(player));
+    //printf("restart state = %i, current state = %i\n", player->restart_state, gmtk_media_player_get_state(player));
     if (player->restart_state != gmtk_media_player_get_state(player))
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), player->restart_state);
     if (player->debug)
@@ -974,6 +974,10 @@ void gmtk_media_player_set_attribute_double(GmtkMediaPlayer * player,
 
     case ATTRIBUTE_START_TIME:
         player->start_time = value;
+        break;
+
+    case ATTRIBUTE_RUN_TIME:
+        player->run_time = value;
         break;
 
     case ATTRIBUTE_ZOOM:
@@ -1832,7 +1836,7 @@ gpointer launch_mplayer(gpointer data)
 
         if ((gint) (player->start_time) > 0) {
             argv[argn++] = g_strdup_printf("-ss");
-            argv[argn++] = g_strdup_printf("%i", (gint) player->start_time);
+            argv[argn++] = g_strdup_printf("%f", player->start_time);
         }
 
         if ((gint) (player->run_time) > 0) {
@@ -2391,14 +2395,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             } else {
                 create_event_int(player, "media-state-changed", player->media_state);
                 create_event_allocation(player, "size_allocate", &allocation);
-		        player->video_present = TRUE;
-		        write_to_mplayer(player, "get_property sub_source\n");
-		        create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
-		        create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
-		        create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
-		        create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
-		        create_event_double(player, "cache-percent-changed", 0.0);
-			}
+                player->video_present = TRUE;
+                write_to_mplayer(player, "get_property sub_source\n");
+                create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
+                create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
+                create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
+                create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
+                create_event_double(player, "cache-percent-changed", 0.0);
+            }
         }
 
         if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -2411,13 +2415,13 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 player->media_state = MEDIA_STATE_PLAY;
                 create_event_int(player, "media-state-changed", player->media_state);
                 create_event_allocation(player, "size_allocate", &allocation);
-		        player->video_present = FALSE;
-		        create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
-		        create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
-		        create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
-		        create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
-		        create_event_double(player, "cache-percent-changed", 0.0);
-			}
+                player->video_present = FALSE;
+                create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
+                create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
+                create_event_int(player, "subtitles-changed", g_list_length(player->subtitles));
+                create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
+                create_event_double(player, "cache-percent-changed", 0.0);
+            }
         }
 
         if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {
