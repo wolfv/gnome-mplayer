@@ -11,6 +11,8 @@
 
 
 Development
+    Fix fullscreen mode when run as a plugin (X11 only)
+    Set runtime in gmtk_media_player
     Cleanup some debug messages
     Fix restart in paused state
     Hook up scroll event for volume change or seeking
