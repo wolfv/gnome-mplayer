@@ -586,6 +586,7 @@ static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * 
             video_aspect = (gdouble) player->video_width / (gdouble) player->video_height;
             break;
         }
+
         widget_aspect = (gdouble) allocation->width / (gdouble) allocation->height;
 
         if (player->disable_upscaling && allocation->width > player->video_width
@@ -1904,6 +1905,9 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("-nomsgcolor");
         argv[argn++] = g_strdup_printf("-nomsgmodule");
 
+        if (player->use_mplayer2)
+            argv[argn++] = g_strdup_printf("-nokeepaspect");
+
         if (player->audio_track_file != NULL && strlen(player->audio_track_file) > 0) {
             argv[argn++] = g_strdup_printf("-audiofile");
             argv[argn++] = g_strdup_printf("%s", player->audio_track_file);
@@ -3015,7 +3019,7 @@ gboolean detect_mplayer_features(GmtkMediaPlayer * player)
             g_free(err);
         return FALSE;
     }
-    output = g_strsplit(err, "\n", 0);
+    output = g_strsplit(out, "\n", 0);
     ac = 0;
     while (output[ac] != NULL) {
         if (g_ascii_strncasecmp(output[ac], "Unknown option", strlen("Unknown option")) == 0) {

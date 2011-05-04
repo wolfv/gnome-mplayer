@@ -11,6 +11,7 @@
 
 
 Development
+    Use --nokeepaspect when detecting mplayer2
     Don't fail on longer vo names, ie matrixview
     Capture Artist, Title, and Album metadata
     Set channel encoding to binary, solves problems with metadata
