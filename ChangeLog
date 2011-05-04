@@ -11,6 +11,8 @@
 
 
 Development
+    Fix mute toggle from keyboard key 'm'
+    Fix keyboard volume adjustment with 9 and 0
     Use --nokeepaspect when detecting mplayer2
     Don't fail on longer vo names, ie matrixview
     Capture Artist, Title, and Album metadata

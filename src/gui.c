@@ -1764,15 +1764,19 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_m:
 #ifdef GTK2_12_ENABLED
             if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED)) {
-                gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
+                gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED, FALSE);
+                //gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
             } else {
-                gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), 0.0);
+                gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED, TRUE);
+                //gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), 0.0);
             }
 #else
             if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED)) {
-                gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume);
+                gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED, FALSE);
+                // gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume);
             } else {
-                gtk_range_set_value(GTK_RANGE(vol_slider), 0.0);
+                gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED, TRUE);
+                //gtk_range_set_value(GTK_RANGE(vol_slider), 0.0);
             }
 #endif
             return FALSE;
@@ -1819,17 +1823,17 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_9:
 #ifdef GTK2_12_ENABLED
             gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),
-                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) - 10);
+                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) - 0.10);
 #else
-            gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider)) - 10);
+            gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider)) - 0.10);
 #endif
             return FALSE;
         case GDK_0:
 #ifdef GTK2_12_ENABLED
             gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),
-                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) + 10);
+                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) + 0.10);
 #else
-            gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider)) + 10);
+            gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider)) + 0.10);
 #endif
             return FALSE;
         case GDK_numbersign:
@@ -2290,7 +2294,8 @@ void vol_slider_callback(GtkRange * range, gpointer user_data)
             set_software_volume(&volume_softvol);
         }
     } else {
-        gm_audio_set_volume(&audio_device, gtk_range_get_value(range));
+        if (!gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED))
+            gm_audio_set_volume(&audio_device, gtk_range_get_value(range));
     }
 
     dbus_send_rpsignal_with_double("RP_Volume", gtk_range_get_value(GTK_RANGE(vol_slider)));
@@ -2317,7 +2322,8 @@ void vol_button_value_changed_callback(GtkScaleButton * volume, gdouble value, g
         }
 
     } else {
-        gm_audio_set_volume(&audio_device, value);
+        if (!gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED))
+            gm_audio_set_volume(&audio_device, value);
     }
 
     dbus_send_rpsignal_with_double("RP_Volume", value * 100.0);
