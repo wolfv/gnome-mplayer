@@ -845,7 +845,7 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
     case ATTRIBUTE_MUTED:
         player->muted = value;
         if (player->player_state == PLAYER_STATE_RUNNING) {
-            cmd = g_strdup_printf("muted %i\n", value);
+            cmd = g_strdup_printf("mute %i\n", value);
             write_to_mplayer(player, cmd);
             g_free(cmd);
         }
