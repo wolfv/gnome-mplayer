@@ -1765,18 +1765,18 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 #ifdef GTK2_12_ENABLED
             if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED)) {
                 gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED, FALSE);
-                //gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
+                gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
             } else {
                 gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED, TRUE);
-                //gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), 0.0);
+                gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), 0.0);
             }
 #else
             if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED)) {
                 gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED, FALSE);
-                // gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume);
+                gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume);
             } else {
                 gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED, TRUE);
-                //gtk_range_set_value(GTK_RANGE(vol_slider), 0.0);
+                gtk_range_set_value(GTK_RANGE(vol_slider), 0.0);
             }
 #endif
             return FALSE;
