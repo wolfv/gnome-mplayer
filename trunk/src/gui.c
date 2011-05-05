@@ -2033,7 +2033,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
             g_idle_add(async_play_iter, &iter);
-            dontplaynext = FALSE;
         }
 
         g_strfreev(list);
@@ -2592,7 +2591,6 @@ void open_location_callback(GtkWidget * widget, void *data)
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_NETWORK);
             g_idle_add(async_play_iter, &iter);
-            dontplaynext = FALSE;
         }
     }
     if (GTK_IS_WIDGET(widget))
@@ -3014,7 +3012,6 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_TV);
         g_idle_add(async_play_iter, &iter);
-        dontplaynext = FALSE;
     }
 }
 
