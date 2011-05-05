@@ -6904,7 +6904,7 @@ GtkWidget *create_window(gint windowid)
 
     cover_art = gtk_image_new();
     media_label = gtk_label_new("");
-    gtk_widget_set_size_request(media_label, 300, -1);
+    gtk_widget_set_size_request(media_label, 300, 100);
     gtk_label_set_ellipsize(GTK_LABEL(media_label), PANGO_ELLIPSIZE_END);
     media_hbox = gtk_hbox_new(FALSE, 10);
     g_signal_connect(media_hbox, "show", G_CALLBACK(view_option_show_callback), NULL);
