@@ -11,6 +11,7 @@
 
 
 Development
+    Remove dontplaynext = FALSE settings where incorrect
     Update the volume icon on mute
     Fix mute toggle from keyboard key 'm'
     Fix keyboard volume adjustment with 9 and 0
