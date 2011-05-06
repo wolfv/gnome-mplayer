@@ -141,7 +141,6 @@ typedef struct _IdleData {
     gchar af_export[1024];
     GMappedFile *mapped_af_export;
     gchar *device;
-    gdouble percent;
     gdouble cachepercent;
     gint streaming;
     gchar progress_text[1024];

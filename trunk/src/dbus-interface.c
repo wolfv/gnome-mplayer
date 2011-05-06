@@ -70,6 +70,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
     gint bitrate;
     ButtonDef *b;
     gdouble volume;
+    gdouble percent;
 
     message_type = dbus_message_get_type(message);
     //sender = dbus_message_get_sender(message);
@@ -372,8 +373,11 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetPercent") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
-                    if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->percent), DBUS_TYPE_INVALID)) {
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_DOUBLE, &percent, DBUS_TYPE_INVALID)) {
+                        gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media),
+                                               gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
+                                                                                      ATTRIBUTE_LENGTH) * percent,
+                                               SEEK_ABSOLUTE);
                         g_idle_add(set_progress_value, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -384,11 +388,13 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "RP_SetPercent") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args
-                        (message, &error, DBUS_TYPE_DOUBLE, &(idledata->percent), DBUS_TYPE_INT32,
-                         &source_id, DBUS_TYPE_INVALID)) {
+                        (message, &error, DBUS_TYPE_DOUBLE, &percent, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
-                            g_idle_add(set_progress_value, idledata);
+                            gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media),
+                                                   gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
+                                                                                          ATTRIBUTE_LENGTH) * percent,
+                                                   SEEK_ABSOLUTE);
                         }
                     } else {
                         dbus_error_free(&error);
@@ -693,7 +699,9 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetPercent")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->percent, DBUS_TYPE_INVALID);
+                    percent =
+                        gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION_PERCENT);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &percent, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;

@@ -618,8 +618,7 @@ gboolean set_progress_value(void *data)
             g_free(text);
             gtk_widget_set_sensitive(play_event_box, FALSE);
         } else {
-            if (idle->percent >= 0.0 && idle->percent <= 1.0) {
-                gmtk_media_tracker_set_percentage(tracker, idle->percent);
+            if (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION_PERCENT) > 0.0) {
                 if (autopause == FALSE)
                     gtk_widget_set_sensitive(play_event_box, TRUE);
             }
@@ -650,7 +649,9 @@ gboolean set_progress_value(void *data)
                     if (verbose > 1) {
                         printf("filename = %s\ndisk size = %li, byte pos = %li\n", iterfilename,
                                (glong) buf.st_size, idle->byte_pos);
-                        printf("cachesize = %f, percent = %f\n", idle->cachepercent, idle->percent);
+                        printf("cachesize = %f, percent = %f\n", idle->cachepercent,
+                               gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
+                                                                      ATTRIBUTE_POSITION_PERCENT));
                         printf("will pause = %i\n", ((idle->byte_pos + (cache_size * 512)) > buf.st_size)
                                && !(playlist));
                     }
@@ -666,7 +667,9 @@ gboolean set_progress_value(void *data)
                 }
             }
         } else if (autopause == TRUE && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
-            if (idle->cachepercent > (idle->percent + 0.20) || idle->cachepercent >= 0.99) {
+            if (idle->cachepercent >
+                (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION_PERCENT) + 0.20)
+                || idle->cachepercent >= 0.99) {
                 play_callback(NULL, NULL, NULL);
                 gtk_widget_set_sensitive(play_event_box, TRUE);
                 autopause = FALSE;
@@ -695,7 +698,9 @@ gboolean set_progress_value(void *data)
     update_status_icon();
 
     if (idle->fromdbus == FALSE) {
-        dbus_send_rpsignal_with_double("RP_SetPercent", idle->percent);
+        dbus_send_rpsignal_with_double("RP_SetPercent",
+                                       gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
+                                                                              ATTRIBUTE_POSITION_PERCENT));
         dbus_send_rpsignal_with_int("RP_SetGUIState",
                                     media_state_to_playstate(gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))));
     }
@@ -2108,7 +2113,6 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 #endif
     }
 
-    idledata->percent = 0;
     g_idle_add(set_progress_value, idledata);
     g_strlcpy(idledata->progress_text, _("Stopped"), 1024);
     g_idle_add(set_progress_text, idledata);
@@ -3069,8 +3073,8 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser_save));
 
         srcfilename = g_filename_from_uri(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), NULL, NULL);
-		if (verbose)
-    		printf("Copy %s to %s\n", srcfilename, filename);
+        if (verbose)
+            printf("Copy %s to %s\n", srcfilename, filename);
 
         fin = g_fopen(srcfilename, "rb");
         fout = g_fopen(filename, "wb");
@@ -3093,7 +3097,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
         }
 
         g_free(filename);
-		g_free(srcfilename);
+        g_free(srcfilename);
     }
 
     gtk_widget_destroy(file_chooser_save);

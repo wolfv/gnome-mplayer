@@ -1042,6 +1042,18 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
         ret = player->length;
         break;
 
+    case ATTRIBUTE_POSITION:
+        ret = player->position;
+        break;
+
+	case ATTRIBUTE_POSITION_PERCENT:
+		if (player->length != 0) {
+			ret = (player->position - player->start_time) / player->length;
+		} else {
+			ret = 0.0;
+		}
+		break;
+
     case ATTRIBUTE_START_TIME:
         ret = player->start_time;
         break;
