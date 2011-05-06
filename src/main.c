@@ -512,12 +512,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         g_strlcpy(idledata->demuxer, "", 64);
     }
 
-    if (lastfile != NULL) {
-        g_free(lastfile);
-        lastfile = NULL;
-    }
-    //lastfile = g_strdup(thread_data->filename);
-
     last_x = 0;
     last_y = 0;
     idledata->width = width;
@@ -628,7 +622,6 @@ int main(int argc, char *argv[])
     idledata->device = NULL;
     idledata->cachepercent = -1.0;
     selection = NULL;
-    lastfile = NULL;
     path = NULL;
     js_state = STATE_UNDEFINED;
     control_instance = TRUE;
