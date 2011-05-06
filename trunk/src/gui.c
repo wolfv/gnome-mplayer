@@ -5646,7 +5646,9 @@ gboolean tracker_callback(GtkWidget * widget, gint percent, void *data)
 void subtitle_select_callback(GtkMenuItem * menu, gpointer data)
 {
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu)))
-        gmtk_media_player_select_subtitle(GMTK_MEDIA_PLAYER(media), gtk_menu_item_get_label(menu));
+        gmtk_media_player_select_subtitle_by_id(GMTK_MEDIA_PLAYER(media), GPOINTER_TO_INT(data));
+		// use the id instead of the name
+        //gmtk_media_player_select_subtitle(GMTK_MEDIA_PLAYER(media), gtk_menu_item_get_label(menu));
 }
 
 void player_subtitle_callback(GmtkMediaPlayer * player, int count, gpointer data)
