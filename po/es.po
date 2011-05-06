@@ -555,7 +555,7 @@ msgstr "Reproductor"
 
 #: src/gui.c:5296
 msgid "Language Settings"
-msgstr "Confuguración de Idioma"
+msgstr "Configuración de Idioma"
 
 #: src/gui.c:5298
 msgid "Subtitles"
