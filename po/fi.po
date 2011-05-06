@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-21 08:56-0600\n"
+"POT-Creation-Date: 2011-05-06 10:19-0600\n"
 "PO-Revision-Date: 2010-09-20 21:33+0000\n"
 "Last-Translator: Tuomas Lähteenmäki <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -20,224 +20,224 @@ msgstr ""
 "X-Generator: Launchpad (build 12792)\n"
 "X-Poedit-Bookmarks: 7,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
-#: src/main.c:52
+#: src/main.c:49
 msgid "Window to embed in"
 msgstr "Upotettu ikkuna"
 
-#: src/main.c:53
+#: src/main.c:50
 msgid "Width of window to embed in"
 msgstr "Upotetun ikkunan leveys"
 
-#: src/main.c:54
+#: src/main.c:51
 msgid "Height of window to embed in"
 msgstr "Upotetun ikkunan korkeus"
 
-#: src/main.c:55
+#: src/main.c:52
 msgid "Unique DBUS controller id"
 msgstr "Dbus-ohjaimen id"
 
-#: src/main.c:56
+#: src/main.c:53
 msgid "File Argument is a playlist"
 msgstr "Kohdetiedosto soittolistalla"
 
-#: src/main.c:57
+#: src/main.c:54
 msgid "Show more output on the console"
 msgstr "Näytä lisää ulostuloja konsolissa"
 
-#: src/main.c:59
+#: src/main.c:56
 msgid "Show even more output on the console"
 msgstr "Näytä kaikki ulostulot konsolissa"
 
-#: src/main.c:60
+#: src/main.c:57
 msgid "Start in fullscreen mode"
 msgstr "Käynnistä kokonäyttö tilassa"
 
-#: src/main.c:61
+#: src/main.c:58
 msgid "Use mplayer software volume control"
 msgstr "Käytä MPlayer ohjelman äänenvoimakkuutta"
 
-#: src/main.c:63
+#: src/main.c:60
 msgid "When set to TRUE the last volume level is set as the default"
 msgstr ""
 
-#: src/main.c:65
+#: src/main.c:62
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
 msgstr ""
 
-#: src/main.c:67
+#: src/main.c:64
 msgid "Mixer to use"
 msgstr "Mikseri käytössä"
 
-#: src/main.c:68
+#: src/main.c:65
 msgid "Set initial volume percentage"
 msgstr "Aseta alkuperäinen määrä prosentteina"
 
-#: src/main.c:69
+#: src/main.c:66
 msgid "Show the controls in window"
 msgstr "Näytä ohjaimet ikkunassa"
 
-#: src/main.c:71
+#: src/main.c:68
 msgid "Show the subtitles if available"
 msgstr "Näytä tekstitys, jos saatavissa"
 
-#: src/main.c:74
+#: src/main.c:71
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
 msgstr ""
 "Median automaattinen aloitus oletuksena 1, asetus 0 lataa, mutta ei soita"
 
-#: src/main.c:76
+#: src/main.c:73
 msgid "Disable popup menu on right click"
 msgstr "Poista popup-valikko oikealla napsautuksella"
 
-#: src/main.c:78
+#: src/main.c:75
 msgid "Disable fullscreen options in browser mode"
 msgstr "Poista kokonäyttö vaihtoehto selaintilasta"
 
-#: src/main.c:79
+#: src/main.c:76
 msgid "Play all files on the playlist forever"
 msgstr "Toista kaikkia tiedostoja soittolistalta ikuisesti"
 
-#: src/main.c:81
+#: src/main.c:78
 msgid "Quit application when last file on playlist is played"
 msgstr "Lopeta ohjelma kun viimeinen tiedosto on soittolistalta soitettu"
 
-#: src/main.c:82
+#: src/main.c:79
 msgid "Play items on playlist in random order"
 msgstr "Soita soittolistan kohteita satunnaisessa järjestyksessä"
 
-#: src/main.c:84
+#: src/main.c:81
 msgid "Set cache size"
 msgstr "Aseta välimuistin koko"
 
-#: src/main.c:86
+#: src/main.c:83
 msgid "Start Second (default to 0)"
 msgstr "Aloita sekunnissa (oletus on 0)"
 
-#: src/main.c:89
+#: src/main.c:86
 msgid "Length of media to play from start second"
 msgstr ""
 
-#: src/main.c:91
+#: src/main.c:88
 msgid "Force cache usage on streaming sites"
 msgstr "Pakota välimuisti käyttöön streaming-sivustoilla"
 
-#: src/main.c:94
+#: src/main.c:91
 msgid "Disable the deinterlace filter"
 msgstr "Poista deinterlace-suodatin"
 
-#: src/main.c:97
+#: src/main.c:94
 msgid "Don't skip drawing frames to better keep sync"
 msgstr ""
 
-#: src/main.c:100
+#: src/main.c:97
 msgid "Use the old subtitle rendering system"
 msgstr "Käytä vanhaa tekstityksien renderointijärjestelmää"
 
-#: src/main.c:103
+#: src/main.c:100
 msgid "Don't use fonts embedded on matroska files"
 msgstr "Älä käytä upotettuja fontteja matroska tiedostoissa"
 
-#: src/main.c:105
+#: src/main.c:102
 msgid "Use Vertical Layout"
 msgstr "Käytä pystysuoraa asetelmaa"
 
-#: src/main.c:107
+#: src/main.c:104
 msgid "Start with playlist open"
 msgstr "Aloita soittolista avoimena"
 
-#: src/main.c:109 src/gui.c:5944
+#: src/main.c:106 src/gui.c:5339
 msgid "Start with details visible"
 msgstr "Aloita yksityiskohdat näkyvissä"
 
-#: src/main.c:111
+#: src/main.c:108
 msgid "Real Player Name"
 msgstr "Real Player Nimi"
 
-#: src/main.c:112
+#: src/main.c:109
 msgid "Real Player Console ID"
 msgstr "Real Player Konsolin ID"
 
-#: src/main.c:113
+#: src/main.c:110
 msgid "Real Player Console Controls"
 msgstr "Real Playerin Konsolin ohjaimet"
 
-#: src/main.c:115
+#: src/main.c:112
 msgid "Subtitle file for first media file"
 msgstr "Tekstitystiedosto ensimmäiselle mediatiedostolle"
 
-#: src/main.c:117
+#: src/main.c:114
 msgid "TV device name"
 msgstr "TV-laitteen nimi"
 
-#: src/main.c:118
+#: src/main.c:115
 msgid "TV driver name (v4l|v4l2)"
 msgstr "TV ajurin nimi (v4l|v4l2)"
 
-#: src/main.c:119
+#: src/main.c:116
 msgid "TV input name"
 msgstr "TV-sisääntulon nimi"
 
-#: src/main.c:120
+#: src/main.c:117
 msgid "Width of TV input"
 msgstr "TV-sisääntulon leveys"
 
-#: src/main.c:121
+#: src/main.c:118
 msgid "Height of TV input"
 msgstr "TV-sisääntulon korkeus"
 
-#: src/main.c:122
+#: src/main.c:119
 msgid "Frames per second from TV input"
 msgstr "TV-sisääntulon kuva sekunnissa"
 
-#: src/main.c:123
+#: src/main.c:120
 msgid "Only allow one instance"
 msgstr "Sallia vain yksi instanssi"
 
-#: src/main.c:126
+#: src/main.c:123
 msgid "Put single instance mode into replace and play mode"
 msgstr ""
 
-#: src/main.c:129
+#: src/main.c:126
 msgid "Use large control buttons"
 msgstr "Käytä suuria ohjauspainikkeita"
 
-#: src/main.c:132
+#: src/main.c:129
 msgid "Hide control panel when mouse is not moving"
 msgstr "Piilota ohjauspaneeli kun hiiri ei liiku"
 
-#: src/main.c:135
+#: src/main.c:132
 msgid "Ignore single instance preference for this instance"
 msgstr ""
 
-#: src/main.c:138
+#: src/main.c:135
 msgid "Keep window on top"
 msgstr "Pidä ikkuna päällä"
 
-#: src/main.c:142
+#: src/main.c:139
 msgid "Load all tracks from media player using gpod"
 msgstr "Lataa kaikki kappaleet kun mediasoitin käyttää gpodia."
 
-#: src/main.c:146
+#: src/main.c:143
 msgid "Don't fetch new cover art images"
 msgstr "Älä nouda uuden kansikuvan kuvia"
 
-#: src/main.c:335 src/gui.c:712 src/gui.c:2480
+#: src/main.c:353 src/gui.c:731 src/gui.c:6154
 #, c-format
 msgid "Playing"
 msgstr "Toistaa"
 
-#: src/main.c:891
+#: src/main.c:844
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[TIEDOSTOT...] - GNOME Media player perustuu MPlayeriin"
 
-#: src/main.c:911
+#: src/main.c:864
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:976
+#: src/main.c:929
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -246,52 +246,52 @@ msgstr ""
 "Käynnistä komentoriviltä 'gnome-mplayer --help' näet täyden saatavissa "
 "olevan listan asetuksista.\n"
 
-#: src/gui.c:422 src/gui.c:465
+#: src/gui.c:440 src/gui.c:483
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
 
-#: src/gui.c:457
+#: src/gui.c:475
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:459
+#: src/gui.c:477
 #, c-format
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr ""
 
-#: src/gui.c:463 src/gui.c:3580 src/gui.c:6553
+#: src/gui.c:481 src/gui.c:3141 src/gui.c:6456
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:598
+#: src/gui.c:616
 #, c-format
 msgid "Buffering: %2i%%"
 msgstr "Puskurointi: %2i%%"
 
-#: src/gui.c:610
+#: src/gui.c:628
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Tauko | %2i%% ▼"
 
-#: src/gui.c:714 src/gui.c:2503
+#: src/gui.c:733 src/gui.c:6156
 #, c-format
 msgid "Paused"
 msgstr "Tauko"
 
-#: src/gui.c:716 src/gui.c:1129
+#: src/gui.c:735 src/gui.c:1106 src/gui.c:6158
 #, c-format
 msgid "Idle"
 msgstr "Vapaa"
 
-#: src/gui.c:885 src/support.c:248 src/playlist.c:584 src/playlist.c:904
+#: src/gui.c:864 src/support.c:248 src/playlist.c:584 src/playlist.c:902
 #, c-format
 msgid "%s items"
 msgstr "%s kohdetta"
 
-#: src/gui.c:887 src/gui.c:3025 src/gui.c:3375 src/support.c:197
+#: src/gui.c:866 src/gui.c:2557 src/gui.c:2925 src/support.c:197
 #: src/support.c:263 src/playlist.c:586
 #, c-format
 msgid "Item to Play"
@@ -299,82 +299,85 @@ msgid_plural "Items to Play"
 msgstr[0] "Tiedosto"
 msgstr[1] "Tiedostot"
 
-#: src/gui.c:909 src/gui.c:910 src/gui.c:913 src/gui.c:2476 src/gui.c:2478
+#: src/gui.c:888 src/gui.c:889 src/gui.c:892 src/gui.c:6073 src/gui.c:6074
+#: src/gui.c:6077
 msgid "Pause"
 msgstr "Tauko"
 
-#: src/gui.c:930 src/gui.c:931 src/gui.c:934 src/gui.c:950 src/gui.c:951
-#: src/gui.c:954 src/gui.c:2499 src/gui.c:2501 src/gui.c:2560 src/gui.c:2562
-#: src/gui.c:2570 src/gui.c:2572 src/gui.c:7183 src/gui.c:7186
+#: src/gui.c:909 src/gui.c:910 src/gui.c:913 src/gui.c:929 src/gui.c:930
+#: src/gui.c:933 src/gui.c:2095 src/gui.c:2097 src/gui.c:2105 src/gui.c:2107
+#: src/gui.c:6049 src/gui.c:6050 src/gui.c:6053 src/gui.c:6097 src/gui.c:6098
+#: src/gui.c:6101 src/gui.c:7073 src/gui.c:7076
 msgid "Play"
 msgstr "Toista"
 
-#: src/gui.c:1102
+#: src/gui.c:1079
 #, c-format
 msgid "Adding %s to playlist"
 msgstr "Lisätään %s soittolistaan"
 
-#: src/gui.c:1125
+#: src/gui.c:1102
 #, c-format
 msgid "Playing %s"
 msgstr "Soittaa  %s"
 
-#: src/gui.c:1127
+#: src/gui.c:1104
 #, c-format
 msgid "Paused %s"
 msgstr "Keskeytetty %s"
 
-#: src/gui.c:1540 src/gui.c:1549
+#: src/gui.c:1329 src/gui.c:1338
 #, c-format
 msgid "Volume %i%%"
 msgstr "Ääni %i%%"
 
-#: src/gui.c:2579
+#: src/gui.c:2113
 msgid "Stopped"
 msgstr "Pysäytetty"
 
-#: src/gui.c:2977 src/playlist.c:548
+#: src/gui.c:2509 src/playlist.c:548
 msgid "Open File"
 msgstr "Avaa Tiedosto"
 
-#: src/gui.c:3081
+#: src/gui.c:2614
 msgid "Open Location"
 msgstr "Avaa Sijainti"
 
-#: src/gui.c:3083
+#: src/gui.c:2616
 msgid "Location:"
 msgstr "Sijainti:"
 
-#: src/gui.c:3136 src/gui.c:3226
+#: src/gui.c:2670 src/gui.c:2762
 msgid "Choose Disk Directory"
 msgstr "Valitse Levyn Hakemisto"
 
-#: src/gui.c:3172 src/gui.c:3264
+#: src/gui.c:2706 src/gui.c:2802
 msgid "Choose Disk Image"
 msgstr "Valitse Levykuva"
 
-#: src/gui.c:3186 src/gui.c:3278
+#: src/gui.c:2720 src/gui.c:2816
 msgid "Disk Image (*.iso)"
 msgstr "Levykuva (*.iso)"
 
-#: src/gui.c:3493
+#: src/gui.c:3046
 msgid "Save As..."
 msgstr "Tallenna nimellä..."
 
-#: src/gui.c:3528
+#: src/gui.c:3086
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "Ei voitu tallentaa '%s'"
 
-#: src/gui.c:3531 src/support.c:798 src/support.c:889 src/thread.c:284
+#: src/gui.c:3089 src/support.c:798 src/support.c:889
+#: src/libgmtk/gmtk_media_player.c:2349
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer Virhe"
 
-#: src/gui.c:3582
+#: src/gui.c:3143
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "Mediasoitin GNOMELLE joka käyttää MPlayeriä"
 
-#: src/gui.c:3585
+#: src/gui.c:3146
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -397,160 +400,174 @@ msgid ""
 "Boston, MA 02110-1301 USA"
 msgstr ""
 
-#: src/gui.c:3896
+#: src/gui.c:3337
 msgid "Set AudioFile"
 msgstr ""
 
-#: src/gui.c:3937 src/playlist.c:136
+#: src/gui.c:3375 src/playlist.c:136
 msgid "Set Subtitle"
 msgstr "Aseta tekstitys"
 
-#: src/gui.c:4112
+#: src/gui.c:3537
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Gnome MPlayer Kokonäytölle"
 
-#: src/gui.c:4629 src/nautilus_property_page.c:341
+#: src/gui.c:3949 src/nautilus_property_page.c:341
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">Videon Yksityiskohdat</span>"
 
-#: src/gui.c:4636 src/nautilus_property_page.c:348
+#: src/gui.c:3956 src/nautilus_property_page.c:348
 msgid "Video Size:"
 msgstr "Videon Koko:"
 
-#: src/gui.c:4649
+#: src/gui.c:3969
 msgid "Video Format:"
 msgstr "Formaatti:"
 
-#: src/gui.c:4660 src/nautilus_property_page.c:359
+#: src/gui.c:3973 src/gui.c:3984 src/gui.c:4015 src/gui.c:4039 src/gui.c:4052
+#: src/gui.c:4065 src/libgmtk/gmtk_media_player.c:2546
+#: src/libgmtk/gmtk_media_player.c:2547 src/libgmtk/gmtk_media_player.c:2594
+#: src/libgmtk/gmtk_media_player.c:2624 src/libgmtk/gmtk_media_player.c:2625
+#: src/libgmtk/gmtk_media_player.c:2656 src/libgmtk/gmtk_media_player.c:2684
+#, c-format
+msgid "Unknown"
+msgstr ""
+
+#: src/gui.c:3980 src/nautilus_property_page.c:359
 msgid "Video Codec:"
 msgstr "Koodekki:"
 
-#: src/gui.c:4671
+#: src/gui.c:3991
 msgid "Video FPS:"
 msgstr "Videon FPS:"
 
-#: src/gui.c:4680 src/nautilus_property_page.c:370
+#: src/gui.c:4000 src/nautilus_property_page.c:370
 msgid "Video Bitrate:"
 msgstr "Bittinopeus:"
 
-#: src/gui.c:4691
+#: src/gui.c:4011
 msgid "Video Chapters:"
 msgstr "Kappaleet:"
 
-#: src/gui.c:4707 src/nautilus_property_page.c:395
+#: src/gui.c:4027 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Äänen Yksityiskohdat</span>"
 
-#: src/gui.c:4714 src/nautilus_property_page.c:402
+#: src/gui.c:4034
+#, fuzzy
+msgid "Audio Format:"
+msgstr "Formaatti:"
+
+#: src/gui.c:4047 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
 msgstr "Koodekki:"
 
-#: src/gui.c:4727 src/nautilus_property_page.c:425
+#: src/gui.c:4060 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
 msgstr "Kanavat:"
 
-#: src/gui.c:4740 src/nautilus_property_page.c:413
+#: src/gui.c:4073 src/nautilus_property_page.c:413
 msgid "Audio Bitrate:"
 msgstr "Bittinopeus:"
 
-#: src/gui.c:4753
+#: src/gui.c:4086
 msgid "Audio Sample Rate:"
 msgstr "Näytteenottotaajuus:"
 
-#: src/gui.c:4783
+#: src/gui.c:4116
 msgid "Video Picture Adjustments"
 msgstr "Videon Kuvasäädöt"
 
-#: src/gui.c:4796
+#: src/gui.c:4129
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">Videon Kuvasäädöt</span>"
 
-#: src/gui.c:4803
+#: src/gui.c:4136
 msgid "Brightness"
 msgstr "Kirkkaus"
 
-#: src/gui.c:4813
+#: src/gui.c:4147
 msgid "Contrast"
 msgstr "Kontrasti"
 
-#: src/gui.c:4823
+#: src/gui.c:4158
 msgid "Gamma"
 msgstr ""
 
-#: src/gui.c:4833
+#: src/gui.c:4169
 msgid "Hue"
 msgstr "Värisävy"
 
-#: src/gui.c:4843
+#: src/gui.c:4180
 msgid "Saturation"
 msgstr ""
 
-#: src/gui.c:4859
+#: src/gui.c:4197
 msgid "_Reset"
 msgstr "_Resetoi"
 
-#: src/gui.c:5033
+#: src/gui.c:4320
 msgid "No Display"
 msgstr "Ei näyttöä"
 
-#: src/gui.c:5036
+#: src/gui.c:4323
 msgid "Minimal"
 msgstr "Minimaalinen"
 
-#: src/gui.c:5039
+#: src/gui.c:4326
 msgid "Timer"
 msgstr "Ajastin"
 
-#: src/gui.c:5042
+#: src/gui.c:4329
 msgid "Timer/Total"
 msgstr "Ajastin/Koko"
 
-#: src/gui.c:5058
+#: src/gui.c:4345
 msgid "No Postprocessing"
 msgstr "Ei Jälkikäsittelyä"
 
-#: src/gui.c:5062
+#: src/gui.c:4349
 msgid "Minimal Postprocessing"
 msgstr "Minimaalinen jälkikäsittely"
 
-#: src/gui.c:5066
+#: src/gui.c:4353
 msgid "More Postprocessing"
 msgstr "Lisää jälkikäsittelyä"
 
-#: src/gui.c:5070
+#: src/gui.c:4357
 msgid "Maximum Postprocessing"
 msgstr "Maksimi jälkikäsittely"
 
-#: src/gui.c:5294
+#: src/gui.c:4580
 msgid "Player"
 msgstr "Soitin"
 
-#: src/gui.c:5296
+#: src/gui.c:4582
 msgid "Language Settings"
 msgstr "Kieliasetukset"
 
-#: src/gui.c:5298
+#: src/gui.c:4584
 msgid "Subtitles"
 msgstr "Tekstitys"
 
 # rajapinta tai liitäntä
-#: src/gui.c:5300
+#: src/gui.c:4586
 msgid "Interface"
 msgstr "Rajapinta"
 
-#: src/gui.c:5302
+#: src/gui.c:4588
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:5304
+#: src/gui.c:4590
 msgid "Plugin"
 msgstr "Liitännäinen"
 
-#: src/gui.c:5310
+#: src/gui.c:4596
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME MPlayer Asetukset"
 
-#: src/gui.c:5323 src/gui.c:5329
+#: src/gui.c:4614 src/gui.c:4620
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
@@ -558,63 +575,63 @@ msgstr ""
 "mplayer video ulostulon laite\n"
 "x11 pitäisi aina toimia, kokeile xv tai gl suorituskyvyn parantamiseksi"
 
-#: src/gui.c:5365
+#: src/gui.c:4673
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "Salli AC3/DTS siirrä S/PDIF  läpi"
 
-#: src/gui.c:5369
+#: src/gui.c:4682
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Mplayer ohjelman äänenvoimakkuuden säätö käytössä"
 
-#: src/gui.c:5388 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
+#: src/gui.c:4701 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
 #: src/libgmtk/gmtk_output_combo_box.c:148
 msgid "Default"
 msgstr ""
 
-#: src/gui.c:5528
+#: src/gui.c:4919
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Säädä Ulostulo asetuksia</span>"
 
-#: src/gui.c:5535
+#: src/gui.c:4926
 msgid "Video Output:"
 msgstr "Videon Ulostulo:"
 
-#: src/gui.c:5544
+#: src/gui.c:4935
 msgid "Audio Output:"
 msgstr "Äänen Ulostulo:"
 
-#: src/gui.c:5555
+#: src/gui.c:4946
 msgid "Default Mixer:"
 msgstr "Oletus Mikseri:"
 
-#: src/gui.c:5565
+#: src/gui.c:4956
 msgid "Audio Channels to Output"
 msgstr "Äänikanavat ulostuloon"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:5593
+#: src/gui.c:4984
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">Säädä Asetuksia</span>"
 
-#: src/gui.c:5601
+#: src/gui.c:4992
 msgid "Default Volume Level:"
 msgstr "Äänitaso (oletus):"
 
-#: src/gui.c:5608 src/gui.c:5611
+#: src/gui.c:4999 src/gui.c:5002
 msgid "Default volume for playback"
 msgstr "Oletus äänenvoimakkuus toistoa varten"
 
-#: src/gui.c:5625
+#: src/gui.c:5016
 msgid "On Screen Display Level:"
 msgstr "Kuvaruudun taso:"
 
-#: src/gui.c:5637
+#: src/gui.c:5028
 msgid "Post-processing level:"
 msgstr "Jälkikäsittelyn taso:"
 
-#: src/gui.c:5651
+#: src/gui.c:5042
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -630,39 +647,39 @@ msgstr ""
 "mediasoittimia ja mahdollistaa toiston eri NPRuntime yhteensopivien\n"
 "selaimien verkkosisältöjen sisällä (Firefox, Konqueror, jne)."
 
-#: src/gui.c:5662
+#: src/gui.c:5053
 msgid "QuickTime Emulation"
 msgstr "QuickTime Emulaatio"
 
-#: src/gui.c:5667
+#: src/gui.c:5058
 msgid "RealPlayer Emulation"
 msgstr "RealPlayer Emulaatio"
 
-#: src/gui.c:5672
+#: src/gui.c:5063
 msgid "Windows Media Player Emulation"
 msgstr "Windows Media Player Emulaatio"
 
-#: src/gui.c:5677
+#: src/gui.c:5068
 msgid "DiVX Player Emulation"
 msgstr "DiVX Soitin Emulaatio"
 
-#: src/gui.c:5682
+#: src/gui.c:5073
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "MIDI Tuki (vaatii MPlayerin tuen)"
 
-#: src/gui.c:5687
+#: src/gui.c:5078
 msgid "Disable Player Embedding"
 msgstr "Poista Soitinupotus"
 
-#: src/gui.c:5692
+#: src/gui.c:5083
 msgid "Disable Embedded Player Scaling"
 msgstr ""
 
-#: src/gui.c:5697
+#: src/gui.c:5088
 msgid "Audio Cache Size (KB):"
 msgstr "Äänen välimuistin koko (KB)"
 
-#: src/gui.c:5707 src/gui.c:5710 src/gui.c:5716 src/gui.c:5721
+#: src/gui.c:5098 src/gui.c:5101 src/gui.c:5107 src/gui.c:5112
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -670,152 +687,152 @@ msgstr ""
 "Suuri määrä tietoa välimuistissa kun mediaa soitetaan verkosta, käytä "
 "korkeampia arvoja hidastaaksesi verkkoa."
 
-#: src/gui.c:5735
+#: src/gui.c:5128
 msgid "Video Cache Size (KB):"
 msgstr "Videon välimuistin koko (KB)"
 
-#: src/gui.c:5755
+#: src/gui.c:5150
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">Säädä Kieliasetuksia</span>"
 
-#: src/gui.c:5762
+#: src/gui.c:5157
 msgid "Default Audio Language"
 msgstr "Äänen kieli (oletus)"
 
-#: src/gui.c:5771
+#: src/gui.c:5166
 msgid "Default Subtitle Language:"
 msgstr "Tekstityksen kieli (oletus):"
 
-#: src/gui.c:5781
+#: src/gui.c:5176
 msgid "File Metadata Encoding:"
 msgstr "Tiedoston Koodaus:"
 
-#: src/gui.c:5797
+#: src/gui.c:5192
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">Tekstityksen Asetukset</span>"
 
-#: src/gui.c:5804
+#: src/gui.c:5199
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Salli _Kehittynyt Substation Alpha (ASS) Tekstityksen tuki"
 
-#: src/gui.c:5811
+#: src/gui.c:5206
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "Käytä upotettuja kirjaimia (ainoastaan MKV)"
 
-#: src/gui.c:5820
+#: src/gui.c:5215
 msgid "Subtitle Font:"
 msgstr "Tekstityksen kirjaisin:"
 
-#: src/gui.c:5838
+#: src/gui.c:5233
 msgid "Subtitle Font Selection"
 msgstr "Tekstityksen kirjaisinvalitsin"
 
-#: src/gui.c:5843
+#: src/gui.c:5238
 msgid "Subtitle Color:"
 msgstr "Tekstityksen väri:"
 
-#: src/gui.c:5867
+#: src/gui.c:5262
 msgid "Subtitle Color Selection"
 msgstr "Tekstityksen värivalitsin"
 
-#: src/gui.c:5873
+#: src/gui.c:5268
 msgid "Outline Subtitle Font"
 msgstr "Tekstityksen ääriviivat"
 
-#: src/gui.c:5879
+#: src/gui.c:5274
 msgid "Shadow Subtitle Font"
 msgstr "Varjosta tekstityksen kirjaisinta"
 
-#: src/gui.c:5885
+#: src/gui.c:5280
 msgid "Subtitle Font Scaling:"
 msgstr "Skaalaa tekstityksen kirjaisinta"
 
-#: src/gui.c:5898
+#: src/gui.c:5293
 msgid "Subtitle File Encoding:"
 msgstr "Tekstitys tiedoston koodaus"
 
-#: src/gui.c:5910
+#: src/gui.c:5305
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr "Tekstitys pienemmällä marginaalilla (X11/XV ainoastaan):"
 
-#: src/gui.c:5923
+#: src/gui.c:5318
 msgid "Show Subtitles by Default"
 msgstr "Näytä tekstitykset oletuksena"
 
-#: src/gui.c:5932
+#: src/gui.c:5327
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Sovelluksen Asetukset</span>"
 
-#: src/gui.c:5939
+#: src/gui.c:5334
 msgid "Start with playlist visible"
 msgstr "Aloita soittolista näkyvänä"
 
-#: src/gui.c:5949
+#: src/gui.c:5344
 msgid "Respond to Keyboard Media Keys"
 msgstr "Vastaa näppäimistön musiikkinäppäimiä"
 
-#: src/gui.c:5954
+#: src/gui.c:5349
 msgid "Use default playlist"
 msgstr "Käytä oletus soittolistaa"
 
-#: src/gui.c:5960
+#: src/gui.c:5355
 msgid "Show notification popup"
 msgstr "Näytä popup-ilmoitus"
 
-#: src/gui.c:5967
+#: src/gui.c:5362
 msgid "Show status icon"
 msgstr "Näytä tilakuvake"
 
-#: src/gui.c:5973
+#: src/gui.c:5368
 msgid "Use X Screen Saver control over Gnome Power Manager"
 msgstr "Käytä X näytönsäästäjää valvoaksesi Gnomen Virranhallintaa"
 
-#: src/gui.c:5979
+#: src/gui.c:5374
 msgid "Place playlist below media (requires application restart)"
 msgstr ""
 "Aseta soittolista median alle (vaatii sovelluksen uudelleenkäynnistyksen)"
 
-#: src/gui.c:5984
+#: src/gui.c:5379
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Salli vain yksi Gnome MPlayer"
 
-#: src/gui.c:5994
+#: src/gui.c:5389
 msgid "When opening in single instance mode, replace existing file"
 msgstr ""
 
-#: src/gui.c:6003
+#: src/gui.c:5398
 msgid "When opening file, bring main window to front"
 msgstr "Kun tiedosto avataan, tuo pääikkuna näkyviin"
 
-#: src/gui.c:6010
+#: src/gui.c:5405
 msgid "Remember Window Location and Size"
 msgstr "Muista ikkunan paikka ja koko"
 
-#: src/gui.c:6015
+#: src/gui.c:5410
 msgid "Resize window when new video is loaded"
 msgstr "Muuta ikkunan kokoa kun uusi video ladataan"
 
-#: src/gui.c:6020
+#: src/gui.c:5415
 msgid "Keep window above other windows"
 msgstr "Pidä ikkuna muiden ikkunoiden edessä"
 
-#: src/gui.c:6025
+#: src/gui.c:5420
 msgid "Pause playback on mouse click"
 msgstr "Taota soitto hiiren klikkauksella"
 
-#: src/gui.c:6030
+#: src/gui.c:5425
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr "Poista kokonäytön työkalurivin animaatio"
 
-#: src/gui.c:6035
+#: src/gui.c:5430
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr ""
 
-#: src/gui.c:6040
+#: src/gui.c:5435
 msgid "Verbose Debug Enabled"
 msgstr "Sanallinen Debug käytössä"
 
-#: src/gui.c:6044 src/gui.c:6049
+#: src/gui.c:5439 src/gui.c:5444
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
@@ -823,55 +840,55 @@ msgstr ""
 "Kun tämä vaihtoehto on valittu, extra debug tiedot lähetetään terminaaliin "
 "tai osaksi ~/.Xsession-errors"
 
-#: src/gui.c:6060
+#: src/gui.c:5455
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Kehittyneet Asetukset Mplayrille</span>"
 
-#: src/gui.c:6069 src/gui.c:6073
+#: src/gui.c:5464 src/gui.c:5468
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
 "Aseta tämä vaihtoehto, jos Gnome MPlayer haluaa muuttaa pää äänenvoimakkuutta"
 
-#: src/gui.c:6083
+#: src/gui.c:5478
 msgid "Remember last software volume level"
 msgstr "Muista äänenvoimakkuus taso"
 
-#: src/gui.c:6086 src/gui.c:6090
+#: src/gui.c:5481 src/gui.c:5485
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Aseta tämä valinta, jos haluat ohjelmiston äänenvoimakkuuden muistettavan"
 
-#: src/gui.c:6097
+#: src/gui.c:5492
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "Pää äänenvoimakkuus (-200dB +60dB)"
 
-#: src/gui.c:6109
+#: src/gui.c:5504
 msgid "De_interlace Video"
 msgstr "Videon limitys"
 
-#: src/gui.c:6111 src/gui.c:6114
+#: src/gui.c:5506 src/gui.c:5509
 msgid "Set this option if video looks striped"
 msgstr "Aseta tämä vaihtoehto, jos video näyttää raidalliselta"
 
-#: src/gui.c:6120
+#: src/gui.c:5515
 msgid "_Drop frames"
 msgstr "_Pudota ruutunopeutta"
 
-#: src/gui.c:6122 src/gui.c:6125
+#: src/gui.c:5517 src/gui.c:5520
 msgid "Set this option if video is well behind the audio"
 msgstr "Aseta tämä vaihtoehto, jos video on selvästi ääntä jäljessä"
 
-#: src/gui.c:6131
+#: src/gui.c:5526
 msgid "Enable mplayer cache"
 msgstr "Salli MPlayerin välimuisti"
 
-#: src/gui.c:6137
+#: src/gui.c:5532
 msgid "Cache Size (KB):"
 msgstr "Välimuistin koko (KB)"
 
-#: src/gui.c:6145 src/gui.c:6149
+#: src/gui.c:5540 src/gui.c:5544
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
@@ -879,276 +896,266 @@ msgstr ""
 "Suuri tietojen määrä välimuistissa median toistossa, käytä korkeita arvoja "
 "hidastaaksesi laitteita ja sivuja."
 
-#: src/gui.c:6167
+#: src/gui.c:5564
 msgid "MPlayer Executable:"
 msgstr "MPlayerin polku:"
 
-#: src/gui.c:6171 src/gui.c:6175
+#: src/gui.c:5568 src/gui.c:5572
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr "Käytä tätä asetusta määrittämään mplayer sovellus, joka ei ole polussa"
 
-#: src/gui.c:6191
+#: src/gui.c:5588
 msgid "Extra Options to MPlayer:"
 msgstr "Erikoisasetukset Mplayerille:"
 
-#: src/gui.c:6194 src/gui.c:6197
+#: src/gui.c:5591 src/gui.c:5594
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "Lisää muut mplayerin erikoisasetukset tänne (filtterit jne.)"
 
-#: src/gui.c:6208
+#: src/gui.c:5605
 msgid "MPlayer Default Optical Device"
 msgstr "MPlayerin optinen laite (oletus)"
 
-#: src/gui.c:6608
+#: src/gui.c:6508
 msgid "S_how Controls"
 msgstr "Nä_ytä saatimet"
 
-#: src/gui.c:6612 src/gui.c:6873
+#: src/gui.c:6512 src/gui.c:6766
 msgid "_Full Screen"
 msgstr "_Kokonäyttö"
 
-#: src/gui.c:6617
+#: src/gui.c:6517
 msgid "_Copy Location"
 msgstr "_Kopioi sijainnista"
 
 #. File Menu
-#: src/gui.c:6669
+#: src/gui.c:6567
 msgid "_File"
 msgstr "_Tiedosto"
 
-#: src/gui.c:6676
+#: src/gui.c:6574
 msgid "Open _Folder"
 msgstr "Avaa kansiosta"
 
-#: src/gui.c:6681
+#: src/gui.c:6579
 msgid "Open _Location"
 msgstr "Avaa sijainnista"
 
-#: src/gui.c:6687
+#: src/gui.c:6585
 msgid "_Disc"
 msgstr "_Levy"
 
-#: src/gui.c:6695
+#: src/gui.c:6593
 msgid "Open _Audio CD"
 msgstr "Avaa _Ääni-CD"
 
-#: src/gui.c:6700
-msgid "Open _DVD"
-msgstr "Avaa _DVD"
-
-#: src/gui.c:6702
+#. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
+#. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
+#: src/gui.c:6600
 msgid "Open DVD with _Menus"
 msgstr "Avaa DVD Valikoilla"
 
-#: src/gui.c:6704
-msgid "Open DVD from _Folder"
-msgstr "Avaa DVD kansiosta"
-
-#: src/gui.c:6707
+#: src/gui.c:6605
 msgid "Open DVD from Folder with M_enus"
 msgstr "Avaa DVD kansiosta valikoilla"
 
-#: src/gui.c:6709
-msgid "Open DVD from _ISO"
-msgstr "Avaa DVD _ISO"
-
-#: src/gui.c:6712
+#: src/gui.c:6610
 msgid "Open DVD from ISO with Me_nus"
 msgstr "Avaa DVD ISO Valikoilla"
 
-#: src/gui.c:6717
+#: src/gui.c:6615
 msgid "Open _VCD"
 msgstr "Avaa _VCD"
 
-#: src/gui.c:6720
+#: src/gui.c:6618
 msgid "_TV"
 msgstr "_TV"
 
-#: src/gui.c:6726
+#: src/gui.c:6624
 msgid "Open _Analog TV"
 msgstr "Avaa _Analoginen TV"
 
-#: src/gui.c:6728
+#: src/gui.c:6626
 msgid "Open _Digital TV"
 msgstr "Avaa _Digitaalinen TV"
 
-#: src/gui.c:6731
+#: src/gui.c:6629
 msgid "Open _iPod™"
 msgstr "Avaa _iPod™"
 
-#: src/gui.c:6740
+#: src/gui.c:6638
 msgid "Open _Recent"
 msgstr "Avaa _Edellinen"
 
 #. Edit Menu
-#: src/gui.c:6791
+#: src/gui.c:6688
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: src/gui.c:6797
+#: src/gui.c:6694
 msgid "_Shuffle Playlist"
 msgstr "_Satunnaistoista"
 
-#: src/gui.c:6801
+#: src/gui.c:6698
 msgid "_Loop Playlist"
 msgstr "_Kertaa soittolistaa"
 
-#: src/gui.c:6805
+#: src/gui.c:6702
 msgid "S_witch Audio Track"
 msgstr "V_aihda ääniraitaa"
 
-#: src/gui.c:6808 src/playlist.c:1155
+#: src/gui.c:6705 src/playlist.c:1153
 msgid "Set Audi_o"
 msgstr ""
 
-#: src/gui.c:6811
+#: src/gui.c:6708
 msgid "Select _Audio Language"
 msgstr "Valitse _äänen kieli"
 
-#: src/gui.c:6817
+#: src/gui.c:6712
 msgid "Set Sub_title"
 msgstr "Aseta tek_stitys"
 
-#: src/gui.c:6820
+#: src/gui.c:6715
 msgid "S_elect Subtitle Language"
 msgstr "V_alitse tekstityksen kieli"
 
-#: src/gui.c:6826
+#: src/gui.c:6719
 msgid "_Take Screenshot"
 msgstr "_Ota Kuvaruutukaappaus"
 
-#: src/gui.c:6830 src/gui.c:6834
+#: src/gui.c:6723 src/gui.c:6727
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "Tiedosto nimetty 'shotNNNN.png' nimellä ja tallennettu työhakemistoon"
 
 #. View Menu
-#: src/gui.c:6856
+#: src/gui.c:6749
 msgid "_View"
 msgstr "_Näytä"
 
-#: src/gui.c:6861
+#: src/gui.c:6754
 msgid "_Playlist"
 msgstr "_Soittolista"
 
-#: src/gui.c:6864
+#: src/gui.c:6757
 msgid "Media _Info"
 msgstr "Kappaleen _nimi"
 
-#: src/gui.c:6866
+#: src/gui.c:6759
 msgid "D_etails"
 msgstr "Y_ksityiskohdat"
 
-#: src/gui.c:6868
+#: src/gui.c:6761
 msgid "Audio _Meter"
 msgstr "Ekvalisaattori"
 
-#: src/gui.c:6879
+#: src/gui.c:6772
 msgid "_Normal (1:1)"
 msgstr "_Normaali (1:1)"
 
-#: src/gui.c:6881
+#: src/gui.c:6774
 msgid "_Double Size (2:1)"
 msgstr "_Kaksinkertainen koko (2:1)"
 
-#: src/gui.c:6883
+#: src/gui.c:6776
 msgid "_Half Size (1:2)"
 msgstr "_Puolikkaan kokoinen (1:2)"
 
-#: src/gui.c:6886
+#: src/gui.c:6779
 msgid "_Aspect"
 msgstr "_Kuvasuhde"
 
-#: src/gui.c:6892
+#: src/gui.c:6785
 msgid "D_efault Aspect"
 msgstr "Kuvasuhteen oletus"
 
-#: src/gui.c:6894
+#: src/gui.c:6787
 msgid "_4:3 Aspect"
 msgstr "_4:3 Tv Kuvasuhde"
 
-#: src/gui.c:6896
+#: src/gui.c:6789
 msgid "_16:9 Aspect"
 msgstr "_16:9 Laaja Kuvasuhde"
 
-#: src/gui.c:6898
+#: src/gui.c:6791
 msgid "1_6:10 Aspect"
 msgstr "1_6:10 Kuvasuhde"
 
-#: src/gui.c:6900
+#: src/gui.c:6793
 msgid "_Follow Window"
 msgstr "_Seuraa ikkunaa"
 
-#: src/gui.c:6906
+#: src/gui.c:6799
 msgid "Show _Subtitles"
 msgstr "Näytä _tekstitykset"
 
-#: src/gui.c:6908
+#: src/gui.c:6801
 msgid "Decrease Subtitle Size"
 msgstr "Pienennä tekstitystä"
 
-#: src/gui.c:6909
+#: src/gui.c:6802
 msgid "Increase Subtitle Size"
 msgstr "Suurenna tekstitystä"
 
-#: src/gui.c:6911
+#: src/gui.c:6804
 msgid "Decrease Subtitle Delay"
 msgstr "Pienennä tekstityksen viivettä"
 
-#: src/gui.c:6913
+#: src/gui.c:6806
 msgid "Increase Subtitle Delay"
 msgstr "Suurenna tekstityksen viivettä"
 
-#: src/gui.c:6914
+#: src/gui.c:6807
 msgid "Switch An_gle"
 msgstr "Käännä ku_lmaa"
 
-#: src/gui.c:6915
+#: src/gui.c:6808
 msgid "_Controls"
 msgstr "_Säätimet"
 
-#: src/gui.c:6928
+#: src/gui.c:6821
 msgid "_Video Picture Adjustments"
 msgstr "_Videon kuvasäädöt"
 
 #. Help Menu
-#: src/gui.c:6967
+#: src/gui.c:6859
 msgid "_Help"
 msgstr "_Apua"
 
-#: src/gui.c:7136 src/gui.c:7139
+#: src/gui.c:7026 src/gui.c:7029
 msgid "Menu"
 msgstr "Valikko"
 
-#: src/gui.c:7152 src/gui.c:7155
+#: src/gui.c:7042 src/gui.c:7045
 msgid "Previous"
 msgstr "Edellinen kappale"
 
-#: src/gui.c:7168 src/gui.c:7171
+#: src/gui.c:7058 src/gui.c:7061
 msgid "Rewind"
 msgstr "Taaksepäin"
 
-#: src/gui.c:7198 src/gui.c:7201
+#: src/gui.c:7088 src/gui.c:7091
 msgid "Stop"
 msgstr "Pysäytä"
 
-#: src/gui.c:7213 src/gui.c:7216
+#: src/gui.c:7103 src/gui.c:7106
 msgid "Fast Forward"
 msgstr "Nopeasti eteenpäin"
 
-#: src/gui.c:7228 src/gui.c:7231
+#: src/gui.c:7118 src/gui.c:7121
 msgid "Next"
 msgstr "Seuraava"
 
-#: src/gui.c:7252 src/gui.c:7255
+#: src/gui.c:7147 src/gui.c:7150
 msgid "Full Screen"
 msgstr "Kokoruutu"
 
-#: src/gui.c:7298
+#: src/gui.c:7193
 msgid "Volume 100%"
 msgstr "Ääni 100%"
 
-#: src/support.c:779 src/thread.c:243
+#: src/support.c:779
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "DVD laitetta ei voitu avata: %s"
@@ -1158,23 +1165,23 @@ msgstr "DVD laitetta ei voitu avata: %s"
 msgid "Couldn't open VCD device: %s"
 msgstr "VCD laitetta ei voitu avata: %s"
 
-#: src/support.c:1978 src/support.c:2008 src/support.c:2051 src/support.c:2079
+#: src/support.c:1984 src/support.c:2014 src/support.c:2057 src/support.c:2085
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Soittolistaa ei voida tallentaa. Tiedostoa ei voida avata kirjoittamista "
 "varten"
 
-#: src/support.c:2200
+#: src/support.c:2206
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2202
+#: src/support.c:2208
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/support.c:2813
+#: src/support.c:2819
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1182,44 +1189,6 @@ msgid ""
 msgstr ""
 "Haluat ehkä harkita mplayerin  päivittämistä uudempaan versioon, -volume "
 "vaihtoehtoa ei tueta\n"
-
-#: src/thread.c:209
-#, c-format
-msgid "Failed to open %s"
-msgstr "Avaaminen epäonnistui %s"
-
-#: src/thread.c:249
-#, c-format
-msgid "Cannot load subtitles: %s"
-msgstr "Tekstitystä ei voida avata: %s"
-
-#: src/thread.c:264
-msgid "Delaying start until cache is full"
-msgstr ""
-
-#: src/thread.c:270
-#, c-format
-msgid "Compressed SWF format not supported"
-msgstr "Pakkaaminen SWF formaattiin ei ole tuettu"
-
-#: src/thread.c:635
-#, c-format
-msgid "Cache fill: %2.2f%%"
-msgstr "Välimuisti käyttää: %2.2f%%"
-
-#: src/thread.c:644
-#, c-format
-msgid "Connecting"
-msgstr "Yhdistää"
-
-#: src/thread.c:800
-#, c-format
-msgid "Screenshot saved to '%s'"
-msgstr "Ruutukaappaus tallennettu '%s'"
-
-#: src/thread.c:803
-msgid "GNOME MPlayer Notification"
-msgstr "GNOME MPlayer Ilmoitus"
 
 #: src/playlist.c:173
 msgid "Set Audio"
@@ -1234,7 +1203,7 @@ msgstr ""
 "Tiedostonimi: %s\n"
 "Tekstitys: %s"
 
-#: src/playlist.c:317 src/playlist.c:1001 src/playlist.c:1004
+#: src/playlist.c:317 src/playlist.c:999 src/playlist.c:1002
 msgid "Save Playlist"
 msgstr "Tallenna soittolista"
 
@@ -1246,7 +1215,7 @@ msgstr "Soittolista (*.pls)"
 msgid "MP3 Playlist (*.m3u)"
 msgstr "Mp3 soittolista (*.m3u)"
 
-#: src/playlist.c:376 src/playlist.c:990 src/playlist.c:993
+#: src/playlist.c:376 src/playlist.c:988 src/playlist.c:991
 msgid "Open Playlist"
 msgstr "Avaa soittolista"
 
@@ -1277,73 +1246,73 @@ msgstr[1] ""
 "\n"
 "\tLöytyi %i tiedostoja\n"
 
-#: src/playlist.c:901
+#: src/playlist.c:899
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Tiedosto soi"
 msgstr[1] "Tiedostot soivat"
 
-#: src/playlist.c:922 src/nautilus_property_page.c:293
+#: src/playlist.c:920 src/nautilus_property_page.c:293
 msgid "Artist"
 msgstr "Esittäjä"
 
-#: src/playlist.c:933 src/nautilus_property_page.c:305
+#: src/playlist.c:931 src/nautilus_property_page.c:305
 msgid "Album"
 msgstr "Albumi"
 
-#: src/playlist.c:945 src/nautilus_property_page.c:317
+#: src/playlist.c:943 src/nautilus_property_page.c:317
 msgid "Length"
 msgstr "Pituus"
 
-#: src/playlist.c:956
+#: src/playlist.c:954
 msgid "Count"
 msgstr "Määrä"
 
-#: src/playlist.c:965
+#: src/playlist.c:963
 msgid "Order"
 msgstr "Järjestys"
 
-#: src/playlist.c:976 src/playlist.c:979
+#: src/playlist.c:974 src/playlist.c:977
 msgid "Close Playlist View"
 msgstr "Sulje soittolista näkymä"
 
-#: src/playlist.c:1012 src/playlist.c:1015
+#: src/playlist.c:1010 src/playlist.c:1013
 msgid "Add Item to Playlist"
 msgstr "Lisää tiedosto soittolistaan"
 
-#: src/playlist.c:1023 src/playlist.c:1026
+#: src/playlist.c:1021 src/playlist.c:1024
 msgid "Remove Item from Playlist"
 msgstr "Poista tiedosto soittolistasta"
 
-#: src/playlist.c:1034 src/playlist.c:1037
+#: src/playlist.c:1032 src/playlist.c:1035
 msgid "Add Items in Folder to Playlist"
 msgstr "Lisää hakemiston tiedostot soittolistaan"
 
-#: src/playlist.c:1045 src/playlist.c:1048
+#: src/playlist.c:1043 src/playlist.c:1046
 msgid "Clear Playlist"
 msgstr "Sulje soittolista"
 
-#: src/playlist.c:1056 src/playlist.c:1059
+#: src/playlist.c:1054 src/playlist.c:1057
 msgid "Move Item Up"
 msgstr "Siirrä ylös"
 
-#: src/playlist.c:1068 src/playlist.c:1071
+#: src/playlist.c:1066 src/playlist.c:1069
 msgid "Move Item Down"
 msgstr "Siirrä alas"
 
-#: src/playlist.c:1081 src/playlist.c:1084
+#: src/playlist.c:1079 src/playlist.c:1082
 msgid "UnSort List"
 msgstr "Järjestelemätön lista"
 
-#: src/playlist.c:1098 src/playlist.c:1101
+#: src/playlist.c:1096 src/playlist.c:1099
 msgid "Loop Playlist"
 msgstr "Kertaa soittolistaa"
 
-#: src/playlist.c:1114 src/playlist.c:1117
+#: src/playlist.c:1112 src/playlist.c:1115
 msgid "Shuffle Playlist"
 msgstr "Satunnaistoista"
 
-#: src/playlist.c:1151
+#: src/playlist.c:1149
 msgid "_Set Subtitle"
 msgstr "_Aseta tekstitys"
 
@@ -1381,6 +1350,71 @@ msgstr "Ääni/Video"
 #: src/libgmtk/gmtk_media_tracker.c:201
 msgid "No Information"
 msgstr "Ei informaatiota"
+
+#: src/libgmtk/gmtk_media_player.c:503
+msgid "framedropping"
+msgstr ""
+
+#: src/libgmtk/gmtk_media_player.c:707
+#, c-format
+msgid "Loading..."
+msgstr ""
+
+#: src/libgmtk/gmtk_media_player.c:2307
+#, c-format
+msgid "Failed to open %s"
+msgstr "Avaaminen epäonnistui %s"
+
+#: src/libgmtk/gmtk_media_player.c:2343
+#, c-format
+msgid "Compressed SWF format not supported"
+msgstr "Pakkaaminen SWF formaattiin ei ole tuettu"
+
+#: src/libgmtk/gmtk_media_player.c:2412
+#, c-format
+msgid "Cache fill: %2.2f%%"
+msgstr "Välimuisti käyttää: %2.2f%%"
+
+#: src/libgmtk/gmtk_media_player.c:2603
+#, fuzzy, c-format
+msgid "External Subtitle #%i"
+msgstr "Pienennä tekstitystä"
+
+#: src/libgmtk/gmtk_media_player.c:2783
+#, c-format
+msgid "Screenshot saved to '%s'"
+msgstr "Ruutukaappaus tallennettu '%s'"
+
+#: src/libgmtk/gmtk_media_player.c:2786 src/libgmtk/gmtk_media_player.c:2848
+msgid "GNOME MPlayer Notification"
+msgstr "GNOME MPlayer Ilmoitus"
+
+#: src/libgmtk/gmtk_media_player.c:2845
+#, c-format
+msgid "MPlayer should be Upgraded to a Newer Version"
+msgstr ""
+
+#: src/libgmtk/gmtk_media_player.c:3039
+#, fuzzy, c-format
+msgid "You might want to consider upgrading mplayer to a newer version\n"
+msgstr ""
+"Haluat ehkä harkita mplayerin  päivittämistä uudempaan versioon, -volume "
+"vaihtoehtoa ei tueta\n"
+
+#~ msgid "Open _DVD"
+#~ msgstr "Avaa _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Avaa DVD kansiosta"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Avaa DVD _ISO"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Tekstitystä ei voida avata: %s"
+
+#~ msgid "Connecting"
+#~ msgstr "Yhdistää"
 
 #~ msgid ""
 #~ "mplayer audio output device\n"

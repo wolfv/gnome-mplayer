@@ -11,6 +11,7 @@
 
 
 Development
+    Update translation files with updated file listings
     Remove global variable 'lastfile', and fix code that uses it, fixes issue #514
     Give the media_hbox a default height, makes media_info display work better when showing a video
     Remove dontplaynext = FALSE settings where incorrect
