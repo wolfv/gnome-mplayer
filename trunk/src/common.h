@@ -248,7 +248,6 @@ gint max_buckets[METER_BARS];
 #define DRAG_NAME_2		"STRING"
 #define DRAG_INFO_2		2
 
-gchar *lastfile;
 gint cache_size;
 gint plugin_audio_cache_size;
 gint plugin_video_cache_size;

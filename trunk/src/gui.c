@@ -3033,6 +3033,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
     // save dialog
     GtkWidget *file_chooser_save;
     gchar *filename;
+    gchar *srcfilename;
     FILE *fin;
     FILE *fout;
     char buffer[1000];
@@ -3067,10 +3068,13 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
     if (gtk_dialog_run(GTK_DIALOG(file_chooser_save)) == GTK_RESPONSE_ACCEPT) {
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser_save));
 
-        printf("Copy %s to %s\n", lastfile, filename);
+        srcfilename = g_filename_from_uri(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), NULL, NULL);
+		if (verbose)
+    		printf("Copy %s to %s\n", srcfilename, filename);
 
-        fin = g_fopen(lastfile, "rb");
+        fin = g_fopen(srcfilename, "rb");
         fout = g_fopen(filename, "wb");
+
         if (fin != NULL && fout != NULL) {
             while (!feof(fin)) {
                 count = fread(buffer, 1, 1000, fin);
@@ -3089,6 +3093,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
         }
 
         g_free(filename);
+		g_free(srcfilename);
     }
 
     gtk_widget_destroy(file_chooser_save);
@@ -3565,10 +3570,6 @@ void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
     gchar *url;
 
     url = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
-    if (strlen(url) == 0) {
-        g_free(url);
-        url = g_strdup(lastfile);
-    }
     clipboard = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
     gtk_clipboard_set_text(clipboard, url, -1);
     clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -7231,7 +7232,7 @@ void show_window(gint windowid)
         if (windowid != -1)
             gtk_widget_show_all(window);
         gtk_widget_hide(media_hbox);
-        if (lastfile != NULL && g_ascii_strcasecmp(lastfile, "dvdnav://") == 0) {
+        if (gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) == TYPE_DVD) {
             gtk_widget_show(menu_event_box);
         } else {
             gtk_widget_hide(menu_event_box);
