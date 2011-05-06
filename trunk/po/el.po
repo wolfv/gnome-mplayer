@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-21 08:56-0600\n"
+"POT-Creation-Date: 2011-05-06 10:19-0600\n"
 "PO-Revision-Date: 2010-12-25 23:41+0000\n"
 "Last-Translator: Kyriakos Kartas <kartas.kyriakos@gmail.com>\n"
 "Language-Team: \n"
@@ -22,49 +22,49 @@ msgstr ""
 "X-Poedit-Country: Greece\n"
 "X-Poedit-Language: Greek\n"
 
-#: src/main.c:52
+#: src/main.c:49
 msgid "Window to embed in"
 msgstr "Ενσωμάτωση Παραθύρου"
 
-#: src/main.c:53
+#: src/main.c:50
 msgid "Width of window to embed in"
 msgstr "Πλάτος ενσωματωμένου παραθύρου"
 
-#: src/main.c:54
+#: src/main.c:51
 msgid "Height of window to embed in"
 msgstr "Ύψος ενσωματωμένου παραθύρου"
 
-#: src/main.c:55
+#: src/main.c:52
 msgid "Unique DBUS controller id"
 msgstr "Μοναδικό αναγνωριστικό ελεγκτή DBUS"
 
-#: src/main.c:56
+#: src/main.c:53
 msgid "File Argument is a playlist"
 msgstr "Το Οριζόμενο Αρχείο είναι Λίστα Αναπαραγωγής"
 
-#: src/main.c:57
+#: src/main.c:54
 msgid "Show more output on the console"
 msgstr "Εμφάνιση περισσότερων δεδομένων στην κονσόλα"
 
-#: src/main.c:59
+#: src/main.c:56
 msgid "Show even more output on the console"
 msgstr "Εμφάνιση ακόμα περισσότερων δεδομένων στην κονσόλα"
 
-#: src/main.c:60
+#: src/main.c:57
 msgid "Start in fullscreen mode"
 msgstr "Εκκίνηση σε λειτουργία 'Πλήρους Οθόνης'"
 
-#: src/main.c:61
+#: src/main.c:58
 msgid "Use mplayer software volume control"
 msgstr "Χρήση ελέγχου έντασης ήχου mplayer"
 
-#: src/main.c:63
+#: src/main.c:60
 msgid "When set to TRUE the last volume level is set as the default"
 msgstr ""
 "Όταν οριστεί σε TRUE το τελευταίο επίπεδο του όγκου έχει οριστεί ως "
 "προεπιλογή"
 
-#: src/main.c:65
+#: src/main.c:62
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
@@ -72,181 +72,181 @@ msgstr ""
 "Η τελευταία ρύθμιση λογισμικού του όγκου  εφαρμόζεται μόνο όταν το "
 "remember_softvol έχει οριστεί σε TRUE"
 
-#: src/main.c:67
+#: src/main.c:64
 msgid "Mixer to use"
 msgstr "Χρήση Μίκτη"
 
-#: src/main.c:68
+#: src/main.c:65
 msgid "Set initial volume percentage"
 msgstr "Αρχικό ποσοστό έντασης ήχου"
 
-#: src/main.c:69
+#: src/main.c:66
 msgid "Show the controls in window"
 msgstr "Εμφάνιση ελέγχων στο παράθυρο"
 
-#: src/main.c:71
+#: src/main.c:68
 msgid "Show the subtitles if available"
 msgstr "Εμφάνιση υποτίτλων εφόσον υπάρχουν"
 
-#: src/main.c:74
+#: src/main.c:71
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
 msgstr ""
 "Αυτόματη εκκίνηση μέσου στην επιλογή 1, θέσε 0 για φόρτωμα αλλά όχι "
 "αναπαραγωγή"
 
-#: src/main.c:76
+#: src/main.c:73
 msgid "Disable popup menu on right click"
 msgstr "Απενεργοποίηση αναδυομένου μενού στο δεξί κλικ"
 
-#: src/main.c:78
+#: src/main.c:75
 msgid "Disable fullscreen options in browser mode"
 msgstr "Απενεργοποίηση πλήρους οθόνης στην κατάσταση αναζήτησης"
 
-#: src/main.c:79
+#: src/main.c:76
 msgid "Play all files on the playlist forever"
 msgstr "Μόνιμη αναπαραγωγή αρχείων λίστας"
 
-#: src/main.c:81
+#: src/main.c:78
 msgid "Quit application when last file on playlist is played"
 msgstr "Κλείσιμο εφαρμογής μετά την αναπαραγωγή του τελευταίου κομματιού"
 
-#: src/main.c:82
+#: src/main.c:79
 msgid "Play items on playlist in random order"
 msgstr "Αναπαραγωγή κομματιών σε τυχαία σειρά"
 
-#: src/main.c:84
+#: src/main.c:81
 msgid "Set cache size"
 msgstr "Θέσε μέγεθος λανθάνουσας μνήμης"
 
-#: src/main.c:86
+#: src/main.c:83
 msgid "Start Second (default to 0)"
 msgstr "δευτερόλεπτο εκκίνησης (προεπιλογή από το 0)"
 
-#: src/main.c:89
+#: src/main.c:86
 msgid "Length of media to play from start second"
 msgstr "Μήκος αναπαραγωγής πολυμέσου απο το αρχικό δευτερόλεπτο"
 
-#: src/main.c:91
+#: src/main.c:88
 msgid "Force cache usage on streaming sites"
 msgstr "Εξαναγκασμός χρήσης λανθάνουσας μνήμης σε ιστοσελίδες"
 
-#: src/main.c:94
+#: src/main.c:91
 msgid "Disable the deinterlace filter"
 msgstr "Απενεργοποίηση φίλτρου απόπλεξης"
 
-#: src/main.c:97
+#: src/main.c:94
 msgid "Don't skip drawing frames to better keep sync"
 msgstr "Μην καταργείς καρέ για βελτιστοποίηση συγχρονισμού"
 
-#: src/main.c:100
+#: src/main.c:97
 msgid "Use the old subtitle rendering system"
 msgstr "Χρήση παλιού συστήματος απόδοσης υποτίτλων"
 
-#: src/main.c:103
+#: src/main.c:100
 msgid "Don't use fonts embedded on matroska files"
 msgstr ""
 "Να μην χρησιμοποιηθούν οι ενσωματωμένες γραμματοσειρές των αρχείων matroska"
 
-#: src/main.c:105
+#: src/main.c:102
 msgid "Use Vertical Layout"
 msgstr "Χρήση κάθετης διάταξης"
 
-#: src/main.c:107
+#: src/main.c:104
 msgid "Start with playlist open"
 msgstr "Εκίνηση με ορατή λίστα αναπαραγωγής"
 
-#: src/main.c:109 src/gui.c:5944
+#: src/main.c:106 src/gui.c:5339
 msgid "Start with details visible"
 msgstr "Εκκίνηση με λεπτομέρειες ορατές"
 
-#: src/main.c:111
+#: src/main.c:108
 msgid "Real Player Name"
 msgstr "Όνομα Real Player"
 
-#: src/main.c:112
+#: src/main.c:109
 msgid "Real Player Console ID"
 msgstr "Ταυτότητα Κονσόλας Real Player"
 
-#: src/main.c:113
+#: src/main.c:110
 msgid "Real Player Console Controls"
 msgstr "Έλεγχοι Κονσόλας Real Player"
 
-#: src/main.c:115
+#: src/main.c:112
 msgid "Subtitle file for first media file"
 msgstr "Αρχείο υποτίτλων για το πρώτο αρχείου του μέσου"
 
-#: src/main.c:117
+#: src/main.c:114
 msgid "TV device name"
 msgstr "Όνομα συσκευής TV"
 
-#: src/main.c:118
+#: src/main.c:115
 msgid "TV driver name (v4l|v4l2)"
 msgstr "Όνομα οδηγού TV (v4l|v4l2)"
 
-#: src/main.c:119
+#: src/main.c:116
 msgid "TV input name"
 msgstr "Όνομα εισόδου TV"
 
-#: src/main.c:120
+#: src/main.c:117
 msgid "Width of TV input"
 msgstr "Πλάτος εισόδου TV"
 
-#: src/main.c:121
+#: src/main.c:118
 msgid "Height of TV input"
 msgstr "Ύψος εισόδου TV"
 
-#: src/main.c:122
+#: src/main.c:119
 msgid "Frames per second from TV input"
 msgstr "Ρυθμός αναπαραγωγής καρέ από είσοδο TV"
 
-#: src/main.c:123
+#: src/main.c:120
 msgid "Only allow one instance"
 msgstr "Επέτρεψε μοναδική προβολή"
 
-#: src/main.c:126
+#: src/main.c:123
 msgid "Put single instance mode into replace and play mode"
 msgstr "Αντικατάσταση λειτουργίας (SIM)"
 
-#: src/main.c:129
+#: src/main.c:126
 msgid "Use large control buttons"
 msgstr "Χρήση ελέγχων με μεγάλα εικονίδια"
 
-#: src/main.c:132
+#: src/main.c:129
 msgid "Hide control panel when mouse is not moving"
 msgstr "Απόκρυψη κέντρου ελέγχου όταν το ποντίκι μένει ακίνητο"
 
-#: src/main.c:135
+#: src/main.c:132
 msgid "Ignore single instance preference for this instance"
 msgstr "Αγνόηση λειτουργίας (SIM) προς το παρόν"
 
-#: src/main.c:138
+#: src/main.c:135
 msgid "Keep window on top"
 msgstr "Παράθυρο σε επικάλυψη"
 
-#: src/main.c:142
+#: src/main.c:139
 msgid "Load all tracks from media player using gpod"
 msgstr "Φόρτωμα όλων των κομματιών από τον αναπαραγωγέα με χρήση gpod"
 
-#: src/main.c:146
+#: src/main.c:143
 msgid "Don't fetch new cover art images"
 msgstr "Όχι μεταφόρτωση νέων εικόνων εξωφύλλων"
 
-#: src/main.c:335 src/gui.c:712 src/gui.c:2480
+#: src/main.c:353 src/gui.c:731 src/gui.c:6154
 #, c-format
 msgid "Playing"
 msgstr "Αναπαράγεται"
 
-#: src/main.c:891
+#: src/main.c:844
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr ""
 "[FILES...] - Αναπαραγωγέας Πολυμέσων για GNOME, βασισμένος στον MPlayer"
 
-#: src/main.c:911
+#: src/main.c:864
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:976
+#: src/main.c:929
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -254,52 +254,52 @@ msgid ""
 msgstr ""
 "Τρέξε 'gnome-mplayer --help' για εμφάνιση πλήρης λίστας εντολών κονσόλας.\n"
 
-#: src/gui.c:422 src/gui.c:465
+#: src/gui.c:440 src/gui.c:483
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
 
-#: src/gui.c:457
+#: src/gui.c:475
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:459
+#: src/gui.c:477
 #, c-format
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "(%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:463 src/gui.c:3580 src/gui.c:6553
+#: src/gui.c:481 src/gui.c:3141 src/gui.c:6456
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:598
+#: src/gui.c:616
 #, c-format
 msgid "Buffering: %2i%%"
 msgstr "Φόρτωμα: %2i%%"
 
-#: src/gui.c:610
+#: src/gui.c:628
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Παύθηκε | %2i%% ▼"
 
-#: src/gui.c:714 src/gui.c:2503
+#: src/gui.c:733 src/gui.c:6156
 #, c-format
 msgid "Paused"
 msgstr "Παύθηκε"
 
-#: src/gui.c:716 src/gui.c:1129
+#: src/gui.c:735 src/gui.c:1106 src/gui.c:6158
 #, c-format
 msgid "Idle"
 msgstr "Αδρανές"
 
-#: src/gui.c:885 src/support.c:248 src/playlist.c:584 src/playlist.c:904
+#: src/gui.c:864 src/support.c:248 src/playlist.c:584 src/playlist.c:902
 #, c-format
 msgid "%s items"
 msgstr "%s αντικείμενα"
 
-#: src/gui.c:887 src/gui.c:3025 src/gui.c:3375 src/support.c:197
+#: src/gui.c:866 src/gui.c:2557 src/gui.c:2925 src/support.c:197
 #: src/support.c:263 src/playlist.c:586
 #, c-format
 msgid "Item to Play"
@@ -307,82 +307,85 @@ msgid_plural "Items to Play"
 msgstr[0] "Αντικείμενο προς Αναπαραγωγή"
 msgstr[1] "Αντικείμενα προς Αναπαραγωγή"
 
-#: src/gui.c:909 src/gui.c:910 src/gui.c:913 src/gui.c:2476 src/gui.c:2478
+#: src/gui.c:888 src/gui.c:889 src/gui.c:892 src/gui.c:6073 src/gui.c:6074
+#: src/gui.c:6077
 msgid "Pause"
 msgstr "Παύση"
 
-#: src/gui.c:930 src/gui.c:931 src/gui.c:934 src/gui.c:950 src/gui.c:951
-#: src/gui.c:954 src/gui.c:2499 src/gui.c:2501 src/gui.c:2560 src/gui.c:2562
-#: src/gui.c:2570 src/gui.c:2572 src/gui.c:7183 src/gui.c:7186
+#: src/gui.c:909 src/gui.c:910 src/gui.c:913 src/gui.c:929 src/gui.c:930
+#: src/gui.c:933 src/gui.c:2095 src/gui.c:2097 src/gui.c:2105 src/gui.c:2107
+#: src/gui.c:6049 src/gui.c:6050 src/gui.c:6053 src/gui.c:6097 src/gui.c:6098
+#: src/gui.c:6101 src/gui.c:7073 src/gui.c:7076
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
-#: src/gui.c:1102
+#: src/gui.c:1079
 #, c-format
 msgid "Adding %s to playlist"
 msgstr "Προσθήκη %s στη λίστα"
 
-#: src/gui.c:1125
+#: src/gui.c:1102
 #, c-format
 msgid "Playing %s"
 msgstr "Αναπαραγωγή %s"
 
-#: src/gui.c:1127
+#: src/gui.c:1104
 #, c-format
 msgid "Paused %s"
 msgstr "Παύση %s"
 
-#: src/gui.c:1540 src/gui.c:1549
+#: src/gui.c:1329 src/gui.c:1338
 #, c-format
 msgid "Volume %i%%"
 msgstr "Ένταση %i%%"
 
-#: src/gui.c:2579
+#: src/gui.c:2113
 msgid "Stopped"
 msgstr "Διακόπηκε"
 
-#: src/gui.c:2977 src/playlist.c:548
+#: src/gui.c:2509 src/playlist.c:548
 msgid "Open File"
 msgstr "Άνοιγμα Αρχείου"
 
-#: src/gui.c:3081
+#: src/gui.c:2614
 msgid "Open Location"
 msgstr "Αναπαραγωγή Τοποθεσίας"
 
-#: src/gui.c:3083
+#: src/gui.c:2616
 msgid "Location:"
 msgstr "Τοποθεσία:"
 
-#: src/gui.c:3136 src/gui.c:3226
+#: src/gui.c:2670 src/gui.c:2762
 msgid "Choose Disk Directory"
 msgstr "Επιλογή Καταλόγου"
 
-#: src/gui.c:3172 src/gui.c:3264
+#: src/gui.c:2706 src/gui.c:2802
 msgid "Choose Disk Image"
 msgstr "Επιλογή Απεικόνισης Δίσκου"
 
-#: src/gui.c:3186 src/gui.c:3278
+#: src/gui.c:2720 src/gui.c:2816
 msgid "Disk Image (*.iso)"
 msgstr "Απεικόνιση (*.iso)"
 
-#: src/gui.c:3493
+#: src/gui.c:3046
 msgid "Save As..."
 msgstr "Αποθήκευση Ως"
 
-#: src/gui.c:3528
+#: src/gui.c:3086
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "Αδυναμία αποθήκευσης '%s'"
 
-#: src/gui.c:3531 src/support.c:798 src/support.c:889 src/thread.c:284
+#: src/gui.c:3089 src/support.c:798 src/support.c:889
+#: src/libgmtk/gmtk_media_player.c:2349
 msgid "GNOME MPlayer Error"
 msgstr "Σφάλμα Gnome Mplayer"
 
-#: src/gui.c:3582
+#: src/gui.c:3143
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "Αναπαραγωγέας πολυμέσων για GNOME με χρήση του MPlayer"
 
-#: src/gui.c:3585
+#: src/gui.c:3146
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -421,159 +424,173 @@ msgstr ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 
-#: src/gui.c:3896
+#: src/gui.c:3337
 msgid "Set AudioFile"
 msgstr "Ορισμός Αρχείου Ήχου"
 
-#: src/gui.c:3937 src/playlist.c:136
+#: src/gui.c:3375 src/playlist.c:136
 msgid "Set Subtitle"
 msgstr "Επιλογή Υποτίτλων"
 
-#: src/gui.c:4112
+#: src/gui.c:3537
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Πλήρης Οθόνη Gnome MPlayer"
 
-#: src/gui.c:4629 src/nautilus_property_page.c:341
+#: src/gui.c:3949 src/nautilus_property_page.c:341
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">Λεπτομέρειες Βίντεο</span>"
 
-#: src/gui.c:4636 src/nautilus_property_page.c:348
+#: src/gui.c:3956 src/nautilus_property_page.c:348
 msgid "Video Size:"
 msgstr "Μέγεθος Βίντεο:"
 
-#: src/gui.c:4649
+#: src/gui.c:3969
 msgid "Video Format:"
 msgstr "Μορφή Βίντεο:"
 
-#: src/gui.c:4660 src/nautilus_property_page.c:359
+#: src/gui.c:3973 src/gui.c:3984 src/gui.c:4015 src/gui.c:4039 src/gui.c:4052
+#: src/gui.c:4065 src/libgmtk/gmtk_media_player.c:2546
+#: src/libgmtk/gmtk_media_player.c:2547 src/libgmtk/gmtk_media_player.c:2594
+#: src/libgmtk/gmtk_media_player.c:2624 src/libgmtk/gmtk_media_player.c:2625
+#: src/libgmtk/gmtk_media_player.c:2656 src/libgmtk/gmtk_media_player.c:2684
+#, c-format
+msgid "Unknown"
+msgstr ""
+
+#: src/gui.c:3980 src/nautilus_property_page.c:359
 msgid "Video Codec:"
 msgstr "Κωδικοποίηση Βίντεο:"
 
-#: src/gui.c:4671
+#: src/gui.c:3991
 msgid "Video FPS:"
 msgstr "Ρυθμός Καρέ:"
 
-#: src/gui.c:4680 src/nautilus_property_page.c:370
+#: src/gui.c:4000 src/nautilus_property_page.c:370
 msgid "Video Bitrate:"
 msgstr "Ρυθμός Δεδομένων:"
 
-#: src/gui.c:4691
+#: src/gui.c:4011
 msgid "Video Chapters:"
 msgstr "Κεφάλαια Βίντεο"
 
-#: src/gui.c:4707 src/nautilus_property_page.c:395
+#: src/gui.c:4027 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Λεπτομέρειες Ήχου</span>"
 
-#: src/gui.c:4714 src/nautilus_property_page.c:402
+#: src/gui.c:4034
+#, fuzzy
+msgid "Audio Format:"
+msgstr "Μορφή Βίντεο:"
+
+#: src/gui.c:4047 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
 msgstr "Κωδικοποίηση Ήχου:"
 
-#: src/gui.c:4727 src/nautilus_property_page.c:425
+#: src/gui.c:4060 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
 msgstr "Κανάλια ´Ηχου:"
 
-#: src/gui.c:4740 src/nautilus_property_page.c:413
+#: src/gui.c:4073 src/nautilus_property_page.c:413
 msgid "Audio Bitrate:"
 msgstr "Ρυθμός Δεδομένων:"
 
-#: src/gui.c:4753
+#: src/gui.c:4086
 msgid "Audio Sample Rate:"
 msgstr "Ρυθμός Δειγματοληψίας:"
 
-#: src/gui.c:4783
+#: src/gui.c:4116
 msgid "Video Picture Adjustments"
 msgstr "Προσαρμογή Εικόνας Βίντεο"
 
-#: src/gui.c:4796
+#: src/gui.c:4129
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">Διευθετήσεις Προβολής Βίντεο</span>"
 
-#: src/gui.c:4803
+#: src/gui.c:4136
 msgid "Brightness"
 msgstr "Φωτεινότητα"
 
-#: src/gui.c:4813
+#: src/gui.c:4147
 msgid "Contrast"
 msgstr "Αντίθεση"
 
-#: src/gui.c:4823
+#: src/gui.c:4158
 msgid "Gamma"
 msgstr "Γάμμα"
 
-#: src/gui.c:4833
+#: src/gui.c:4169
 msgid "Hue"
 msgstr "Απόχρωση"
 
-#: src/gui.c:4843
+#: src/gui.c:4180
 msgid "Saturation"
 msgstr "Κορεσμός"
 
-#: src/gui.c:4859
+#: src/gui.c:4197
 msgid "_Reset"
 msgstr "_Επανεκκίνηση"
 
-#: src/gui.c:5033
+#: src/gui.c:4320
 msgid "No Display"
 msgstr "Όχι Απεικόνιση"
 
-#: src/gui.c:5036
+#: src/gui.c:4323
 msgid "Minimal"
 msgstr "Ελάχιστο"
 
-#: src/gui.c:5039
+#: src/gui.c:4326
 msgid "Timer"
 msgstr "Χρονομέτρης"
 
-#: src/gui.c:5042
+#: src/gui.c:4329
 msgid "Timer/Total"
 msgstr "Χρονομέτρης/Συνολικό"
 
-#: src/gui.c:5058
+#: src/gui.c:4345
 msgid "No Postprocessing"
 msgstr "Όχι Προεπεξεργασία"
 
-#: src/gui.c:5062
+#: src/gui.c:4349
 msgid "Minimal Postprocessing"
 msgstr "Ελάχιστη Προεπεξεργασία"
 
-#: src/gui.c:5066
+#: src/gui.c:4353
 msgid "More Postprocessing"
 msgstr "Περισσότερη Προεπεξεργασία"
 
-#: src/gui.c:5070
+#: src/gui.c:4357
 msgid "Maximum Postprocessing"
 msgstr "Μέγιστη Προεπεξεργασία"
 
-#: src/gui.c:5294
+#: src/gui.c:4580
 msgid "Player"
 msgstr "Αναπαραγωγέας"
 
-#: src/gui.c:5296
+#: src/gui.c:4582
 msgid "Language Settings"
 msgstr "Ρυθμίσεις Γλώσσας"
 
-#: src/gui.c:5298
+#: src/gui.c:4584
 msgid "Subtitles"
 msgstr "Υπότιτλοι"
 
-#: src/gui.c:5300
+#: src/gui.c:4586
 msgid "Interface"
 msgstr "Διεπαφή"
 
-#: src/gui.c:5302
+#: src/gui.c:4588
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:5304
+#: src/gui.c:4590
 msgid "Plugin"
 msgstr "Πρόσθετο"
 
-#: src/gui.c:5310
+#: src/gui.c:4596
 msgid "GNOME MPlayer Configuration"
 msgstr "Διαμόρφωση GNOME MPlayer"
 
-#: src/gui.c:5323 src/gui.c:5329
+#: src/gui.c:4614 src/gui.c:4620
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
@@ -581,63 +598,63 @@ msgstr ""
 "έξοδος βίντεο mplayer\n"
 "το x11 θα πρέπει να λειτουργεί πάντα, δοκιμάστε xv ή gl για καλύτερη απόδοση"
 
-#: src/gui.c:5365
+#: src/gui.c:4673
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "Ενεργοποίηση AC3/DTS μέσω του S/PDIF"
 
-#: src/gui.c:5369
+#: src/gui.c:4682
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Ενεργοποίηση software ελέγχου ήχου του Mplayer"
 
-#: src/gui.c:5388 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
+#: src/gui.c:4701 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
 #: src/libgmtk/gmtk_output_combo_box.c:148
 msgid "Default"
 msgstr ""
 
-#: src/gui.c:5528
+#: src/gui.c:4919
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Ρυθμίσεις Εξόδου</span>"
 
-#: src/gui.c:5535
+#: src/gui.c:4926
 msgid "Video Output:"
 msgstr "Έξοδος Βίντεο:"
 
-#: src/gui.c:5544
+#: src/gui.c:4935
 msgid "Audio Output:"
 msgstr "Έξοδος Ήχου:"
 
-#: src/gui.c:5555
+#: src/gui.c:4946
 msgid "Default Mixer:"
 msgstr "Προεπιλεγμένος Μίκτης"
 
-#: src/gui.c:5565
+#: src/gui.c:4956
 msgid "Audio Channels to Output"
 msgstr "Κανάλια Ήχου προς Έξοδο"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:5593
+#: src/gui.c:4984
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">Adjust Configuration Settings</span>"
 
-#: src/gui.c:5601
+#: src/gui.c:4992
 msgid "Default Volume Level:"
 msgstr "Προεπιλεγμένο επίπεδο έντασης"
 
-#: src/gui.c:5608 src/gui.c:5611
+#: src/gui.c:4999 src/gui.c:5002
 msgid "Default volume for playback"
 msgstr "Προεπιλεγμένη ένταση για αναπαραγωγή"
 
-#: src/gui.c:5625
+#: src/gui.c:5016
 msgid "On Screen Display Level:"
 msgstr "Επίπεδο OSD"
 
-#: src/gui.c:5637
+#: src/gui.c:5028
 msgid "Post-processing level:"
 msgstr "Επίπεδο Προεπεξεργασίας"
 
-#: src/gui.c:5651
+#: src/gui.c:5042
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -653,39 +670,39 @@ msgstr ""
 "διάφορους αναπαραγωγείς πολυμέσων επιτρέποντας έτσι, την αναπαραγωγή\n"
 "διαδικτυακού υλικού μέσω συμβατών φυλλομετρητών (Firefox, Konqueror κλπ)."
 
-#: src/gui.c:5662
+#: src/gui.c:5053
 msgid "QuickTime Emulation"
 msgstr "Εξομοίωση QuickTime"
 
-#: src/gui.c:5667
+#: src/gui.c:5058
 msgid "RealPlayer Emulation"
 msgstr "Εξομοίωση RealPlayer"
 
-#: src/gui.c:5672
+#: src/gui.c:5063
 msgid "Windows Media Player Emulation"
 msgstr "Εξομοίωση Windows Media Player"
 
-#: src/gui.c:5677
+#: src/gui.c:5068
 msgid "DiVX Player Emulation"
 msgstr "Εξομοίωση DiVX Player"
 
-#: src/gui.c:5682
+#: src/gui.c:5073
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "Υποστήριξη MIDI (προυποθέτει υποστήριξη από τον MPlayer)"
 
-#: src/gui.c:5687
+#: src/gui.c:5078
 msgid "Disable Player Embedding"
 msgstr "Απενεργοποίηση Ενσωμάτωσης Αναπαραγωγέα"
 
-#: src/gui.c:5692
+#: src/gui.c:5083
 msgid "Disable Embedded Player Scaling"
 msgstr ""
 
-#: src/gui.c:5697
+#: src/gui.c:5088
 msgid "Audio Cache Size (KB):"
 msgstr "Μέγεθος της Audio Cache (KB)"
 
-#: src/gui.c:5707 src/gui.c:5710 src/gui.c:5716 src/gui.c:5721
+#: src/gui.c:5098 src/gui.c:5101 src/gui.c:5107 src/gui.c:5112
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -693,153 +710,153 @@ msgstr ""
 "Ποσότητα δεδομένων προς αποθήκευση κατά την αναπαραγωγή μέσω δικτύου."
 "Χρησιμοποιείστε υψηλότερες ρυθμίσεις για αργά δίκτυα"
 
-#: src/gui.c:5735
+#: src/gui.c:5128
 msgid "Video Cache Size (KB):"
 msgstr "Μέγεθος της Video Cache (KB)"
 
-#: src/gui.c:5755
+#: src/gui.c:5150
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">Ρυθμίσεις Γλώσσας</span>"
 
-#: src/gui.c:5762
+#: src/gui.c:5157
 msgid "Default Audio Language"
 msgstr "Προεπιλεγμένη Γλώσσα Ήχου"
 
-#: src/gui.c:5771
+#: src/gui.c:5166
 msgid "Default Subtitle Language:"
 msgstr "Προεπιλεγμένη Γλώσσα Υποτίτλων"
 
-#: src/gui.c:5781
+#: src/gui.c:5176
 msgid "File Metadata Encoding:"
 msgstr "Κωδικοποίηση Μεταδεδομένων Αρχείου"
 
-#: src/gui.c:5797
+#: src/gui.c:5192
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">Ρυθμίσεις Υποτίτλων</span>"
 
-#: src/gui.c:5804
+#: src/gui.c:5199
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Ενεργοποίηση Υποστήριξης Υποτίτλων ASS (_Έγχρωμοι Υπότιτλοι)"
 
-#: src/gui.c:5811
+#: src/gui.c:5206
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "Χρήση _Ενσωματωμένων Γραμματοσειρών (μόνο για αρχεία MKV)"
 
-#: src/gui.c:5820
+#: src/gui.c:5215
 msgid "Subtitle Font:"
 msgstr "Γραμματοσειρά Υποτίτλων"
 
-#: src/gui.c:5838
+#: src/gui.c:5233
 msgid "Subtitle Font Selection"
 msgstr "Επιλογή Γραμ/ράς Υποτίτλων"
 
-#: src/gui.c:5843
+#: src/gui.c:5238
 msgid "Subtitle Color:"
 msgstr "Χρώμα Υποτίτλων"
 
-#: src/gui.c:5867
+#: src/gui.c:5262
 msgid "Subtitle Color Selection"
 msgstr "Επιλογή Χρώματος Υποτίτλων"
 
-#: src/gui.c:5873
+#: src/gui.c:5268
 msgid "Outline Subtitle Font"
 msgstr "Περίγραμμα Υποτίτλων"
 
-#: src/gui.c:5879
+#: src/gui.c:5274
 msgid "Shadow Subtitle Font"
 msgstr "Σκιά Υποτίτλων"
 
-#: src/gui.c:5885
+#: src/gui.c:5280
 msgid "Subtitle Font Scaling:"
 msgstr "Κλιμάκωση Υποτίτλων"
 
-#: src/gui.c:5898
+#: src/gui.c:5293
 msgid "Subtitle File Encoding:"
 msgstr "Κωδικοποίηση Υποτίτλων"
 
-#: src/gui.c:5910
+#: src/gui.c:5305
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr "Θέση Υποτίτλων (μόνο X11/XV):"
 
-#: src/gui.c:5923
+#: src/gui.c:5318
 msgid "Show Subtitles by Default"
 msgstr "Εμφάνιση Υποτίτλων"
 
-#: src/gui.c:5932
+#: src/gui.c:5327
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Προτιμήσεις Εφαρμογής</span>"
 
-#: src/gui.c:5939
+#: src/gui.c:5334
 msgid "Start with playlist visible"
 msgstr "Εκκίνηση με ορατή λίστα αναπαραγωγής"
 
-#: src/gui.c:5949
+#: src/gui.c:5344
 msgid "Respond to Keyboard Media Keys"
 msgstr "Ανταπόκριση στα πλήκτρα του πληκτρολογίου"
 
-#: src/gui.c:5954
+#: src/gui.c:5349
 msgid "Use default playlist"
 msgstr "Χρήση καθεαυτού λίστας λεπτομερειών"
 
-#: src/gui.c:5960
+#: src/gui.c:5355
 msgid "Show notification popup"
 msgstr "Προβολή αναδυόμενης υπενθύμισης"
 
-#: src/gui.c:5967
+#: src/gui.c:5362
 msgid "Show status icon"
 msgstr "Προβολή εικονιδίου κατάστασης"
 
-#: src/gui.c:5973
+#: src/gui.c:5368
 msgid "Use X Screen Saver control over Gnome Power Manager"
 msgstr ""
 "Χρησιμοποιήστε τον έλεγχο της προφύλαξη οθόνης X του  Gnome Power Manager"
 
-#: src/gui.c:5979
+#: src/gui.c:5374
 msgid "Place playlist below media (requires application restart)"
 msgstr ""
 "Τοποθέτηση λίστας κάτω από το βίντεο (απαιτείται επανεκκίνηση εφαρμογής)"
 
-#: src/gui.c:5984
+#: src/gui.c:5379
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Επέτρεψε μοναδική εκτέλεση του MPlayer (SIM)"
 
-#: src/gui.c:5994
+#: src/gui.c:5389
 msgid "When opening in single instance mode, replace existing file"
 msgstr "Κατά το άνοιγμα σε λειτουργία (SIM), αντικατάσταση υπάρχοντος αρχείου"
 
-#: src/gui.c:6003
+#: src/gui.c:5398
 msgid "When opening file, bring main window to front"
 msgstr "Κατά το άνοιγμα αρχείου, προβολή του κυρίως παραθύρου στο προσκήνιο"
 
-#: src/gui.c:6010
+#: src/gui.c:5405
 msgid "Remember Window Location and Size"
 msgstr "Απομνημόνευση Τοποθέτησης & Μεγέθους Παραθύρου"
 
-#: src/gui.c:6015
+#: src/gui.c:5410
 msgid "Resize window when new video is loaded"
 msgstr "Αλλαγή μεγέθους παραθύρου μετά τη φόρτωση νέου βίντεο"
 
-#: src/gui.c:6020
+#: src/gui.c:5415
 msgid "Keep window above other windows"
 msgstr "Παράθυρο πάντα σε επικάλυψη"
 
-#: src/gui.c:6025
+#: src/gui.c:5420
 msgid "Pause playback on mouse click"
 msgstr "Παύση αναπαραγωγής στο αριστερό κλικ"
 
-#: src/gui.c:6030
+#: src/gui.c:5425
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr "Απενεργοποίηση εφέ μπάρας πλήρους οθόνης"
 
-#: src/gui.c:6035
+#: src/gui.c:5430
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr "Χρησιμοποίησε τη ροδέλα για να αλλάξεις την ένταση του ήχου"
 
-#: src/gui.c:6040
+#: src/gui.c:5435
 msgid "Verbose Debug Enabled"
 msgstr "Ενεργοποίηση Ορατής Αποσφαλμάτωσης"
 
-#: src/gui.c:6044 src/gui.c:6049
+#: src/gui.c:5439 src/gui.c:5444
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
@@ -848,11 +865,11 @@ msgstr ""
 "αποσφαλμάτωσης\n"
 "αποστέλλονται στο τερματικό ή στο ~/.xsession-errors"
 
-#: src/gui.c:6060
+#: src/gui.c:5455
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Εξειδικευμένες ρυθμίσεις MPlayer</span>"
 
-#: src/gui.c:6069 src/gui.c:6073
+#: src/gui.c:5464 src/gui.c:5468
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
@@ -860,45 +877,45 @@ msgstr ""
 "Επιλέξτε εδώ αν η αλλάχη της έντασης ήχου στον Gnome Mplayer αλλάζει το "
 "master volume"
 
-#: src/gui.c:6083
+#: src/gui.c:5478
 msgid "Remember last software volume level"
 msgstr "Θυμήσου το τελευταίο επίπεδο έντασης του λογισμικού"
 
-#: src/gui.c:6086 src/gui.c:6090
+#: src/gui.c:5481 src/gui.c:5485
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Ορίστε αυτή την επιλογή αν θέλετε το επίπεδο της έντασης λογισμικού να "
 "αποθηκευτεί"
 
-#: src/gui.c:6097
+#: src/gui.c:5492
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "Αύξηση Όγκου (-200dB to +60dB)"
 
-#: src/gui.c:6109
+#: src/gui.c:5504
 msgid "De_interlace Video"
 msgstr "Από_πλεξη Βίντεο"
 
-#: src/gui.c:6111 src/gui.c:6114
+#: src/gui.c:5506 src/gui.c:5509
 msgid "Set this option if video looks striped"
 msgstr "Επιλέξτε εδώ αν το βίντεο παρουσιάζει γραμμές"
 
-#: src/gui.c:6120
+#: src/gui.c:5515
 msgid "_Drop frames"
 msgstr "_Κατάργηση Καρέ"
 
-#: src/gui.c:6122 src/gui.c:6125
+#: src/gui.c:5517 src/gui.c:5520
 msgid "Set this option if video is well behind the audio"
 msgstr "Επιλέξτε εδώ αν το βίντεο καθυστερεί σε σχέση με τον ήχο"
 
-#: src/gui.c:6131
+#: src/gui.c:5526
 msgid "Enable mplayer cache"
 msgstr "Ενεργοποίηση λανθάνουσας μνήμης mplayer"
 
-#: src/gui.c:6137
+#: src/gui.c:5532
 msgid "Cache Size (KB):"
 msgstr "Μέγεθος Λανθάνουσας Μνήμης (KB)"
 
-#: src/gui.c:6145 src/gui.c:6149
+#: src/gui.c:5540 src/gui.c:5544
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
@@ -906,278 +923,268 @@ msgstr ""
 "Μέγεθος δεδομένων προς προσωρινή αποθήκευση κατά την αναπαραγωγή. "
 "Χρησιμοποιήστε μεγαλύτερες τιμές για αργές συσκευές και ιστοσελίδες."
 
-#: src/gui.c:6167
+#: src/gui.c:5564
 msgid "MPlayer Executable:"
 msgstr "Εκτελέσιμο Mplayer"
 
-#: src/gui.c:6171 src/gui.c:6175
+#: src/gui.c:5568 src/gui.c:5572
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Χρησιμοποίηση αυτής της επιλογής για επισήμανση εφαρμογής που δε βρίσκεται "
 "στο path"
 
-#: src/gui.c:6191
+#: src/gui.c:5588
 msgid "Extra Options to MPlayer:"
 msgstr "Επιπλέον Επιλογές Mplayer"
 
-#: src/gui.c:6194 src/gui.c:6197
+#: src/gui.c:5591 src/gui.c:5594
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "Προσθήκη επιπλέον επιλογών mplayer (φίλτρα κλπ)"
 
-#: src/gui.c:6208
+#: src/gui.c:5605
 msgid "MPlayer Default Optical Device"
 msgstr "Προεπιλεγμένη οπτική συσκευή του MPlayer"
 
-#: src/gui.c:6608
+#: src/gui.c:6508
 msgid "S_how Controls"
 msgstr "Εμ_φάνιση Ελέγχων"
 
-#: src/gui.c:6612 src/gui.c:6873
+#: src/gui.c:6512 src/gui.c:6766
 msgid "_Full Screen"
 msgstr "_Πλήρης Οθόνη"
 
-#: src/gui.c:6617
+#: src/gui.c:6517
 msgid "_Copy Location"
 msgstr "_Αντιγραφή Τοποθεσίας"
 
 #. File Menu
-#: src/gui.c:6669
+#: src/gui.c:6567
 msgid "_File"
 msgstr "_Αρχείο"
 
-#: src/gui.c:6676
+#: src/gui.c:6574
 msgid "Open _Folder"
 msgstr "Άνοιγμα _φακέλου"
 
-#: src/gui.c:6681
+#: src/gui.c:6579
 msgid "Open _Location"
 msgstr "Αναπαραγωγή _Τοποθεσίας"
 
-#: src/gui.c:6687
+#: src/gui.c:6585
 msgid "_Disc"
 msgstr "_Δίσκος"
 
-#: src/gui.c:6695
+#: src/gui.c:6593
 msgid "Open _Audio CD"
 msgstr "Αναπαραγωγή _Audio CD"
 
-#: src/gui.c:6700
-msgid "Open _DVD"
-msgstr "Αναπαραγωγή _DVD"
-
-#: src/gui.c:6702
+#. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
+#. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
+#: src/gui.c:6600
 msgid "Open DVD with _Menus"
 msgstr "Αναπαραγωγή DVD με _Μενού"
 
-#: src/gui.c:6704
-msgid "Open DVD from _Folder"
-msgstr "Αναπαραγωγή DVD από _Φάκελο"
-
-#: src/gui.c:6707
+#: src/gui.c:6605
 msgid "Open DVD from Folder with M_enus"
 msgstr "Αναπαραγωγή DVD από Φάκελο με Μ_ενού"
 
-#: src/gui.c:6709
-msgid "Open DVD from _ISO"
-msgstr "Αναπαραγωγή DVD από _ISO"
-
-#: src/gui.c:6712
+#: src/gui.c:6610
 msgid "Open DVD from ISO with Me_nus"
 msgstr "Αναπαραγωγή DVD από ISO με Με_νού"
 
-#: src/gui.c:6717
+#: src/gui.c:6615
 msgid "Open _VCD"
 msgstr "Αναπαραγωγή _VCD"
 
-#: src/gui.c:6720
+#: src/gui.c:6618
 msgid "_TV"
 msgstr "_Τηλεόραση"
 
-#: src/gui.c:6726
+#: src/gui.c:6624
 msgid "Open _Analog TV"
 msgstr "Αναπαραγωγή _Αναλογικής Τηλεόρασης"
 
-#: src/gui.c:6728
+#: src/gui.c:6626
 msgid "Open _Digital TV"
 msgstr "Αναπαραγωγή _Ψηφιακής Τηλεόρασης"
 
-#: src/gui.c:6731
+#: src/gui.c:6629
 msgid "Open _iPod™"
 msgstr "Αναπαραγωγή _iPod™"
 
-#: src/gui.c:6740
+#: src/gui.c:6638
 msgid "Open _Recent"
 msgstr "Αναπαραγωγή _Πρόσφατων"
 
 #. Edit Menu
-#: src/gui.c:6791
+#: src/gui.c:6688
 msgid "_Edit"
 msgstr "_Επεξεργασία"
 
-#: src/gui.c:6797
+#: src/gui.c:6694
 msgid "_Shuffle Playlist"
 msgstr "_Ανακάτεμα Λίστας Αναπαραγωγής"
 
-#: src/gui.c:6801
+#: src/gui.c:6698
 msgid "_Loop Playlist"
 msgstr "_Επανάληψη Λίστας Αναπαραγωγής"
 
-#: src/gui.c:6805
+#: src/gui.c:6702
 msgid "S_witch Audio Track"
 msgstr "Α_λλαγή Κομματιού Ήχου"
 
-#: src/gui.c:6808 src/playlist.c:1155
+#: src/gui.c:6705 src/playlist.c:1153
 msgid "Set Audi_o"
 msgstr "Ορισμός Ήχου"
 
-#: src/gui.c:6811
+#: src/gui.c:6708
 msgid "Select _Audio Language"
 msgstr "Επιλογή Γλώσσας _Ήχου"
 
-#: src/gui.c:6817
+#: src/gui.c:6712
 msgid "Set Sub_title"
 msgstr "Επιλογή Υπο_τίτλου"
 
-#: src/gui.c:6820
+#: src/gui.c:6715
 msgid "S_elect Subtitle Language"
 msgstr "Ε_πιλογή Γλώσσας Υποτίτλων"
 
-#: src/gui.c:6826
+#: src/gui.c:6719
 msgid "_Take Screenshot"
 msgstr "_Λήψη Στιγμιοτύπου"
 
-#: src/gui.c:6830 src/gui.c:6834
+#: src/gui.c:6723 src/gui.c:6727
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "Αρχεία με όνομα ’shotNNNN.png’ θα αποθηκεύονται στο φάκελο εργασίας"
 
 #. View Menu
-#: src/gui.c:6856
+#: src/gui.c:6749
 msgid "_View"
 msgstr "Προβολή"
 
-#: src/gui.c:6861
+#: src/gui.c:6754
 msgid "_Playlist"
 msgstr "_Λίστα Αναπαραγωγής"
 
-#: src/gui.c:6864
+#: src/gui.c:6757
 msgid "Media _Info"
 msgstr "_Πληροφορίες Αρχείου"
 
-#: src/gui.c:6866
+#: src/gui.c:6759
 msgid "D_etails"
 msgstr "Λ_επτομέρειες"
 
-#: src/gui.c:6868
+#: src/gui.c:6761
 msgid "Audio _Meter"
 msgstr "Μετρητής Ήχου"
 
-#: src/gui.c:6879
+#: src/gui.c:6772
 msgid "_Normal (1:1)"
 msgstr "_Κανονικό (1:1)"
 
-#: src/gui.c:6881
+#: src/gui.c:6774
 msgid "_Double Size (2:1)"
 msgstr "_Διπλάσιο Μέγεθος (2:1)"
 
-#: src/gui.c:6883
+#: src/gui.c:6776
 msgid "_Half Size (1:2)"
 msgstr "_Μισό Μέγεθος (1:2)"
 
-#: src/gui.c:6886
+#: src/gui.c:6779
 msgid "_Aspect"
 msgstr "_Συντελεστής Αναλογίας"
 
-#: src/gui.c:6892
+#: src/gui.c:6785
 msgid "D_efault Aspect"
 msgstr "_Αυτόματο"
 
-#: src/gui.c:6894
+#: src/gui.c:6787
 msgid "_4:3 Aspect"
 msgstr "_4:3 (Τηλεόραση)"
 
-#: src/gui.c:6896
+#: src/gui.c:6789
 msgid "_16:9 Aspect"
 msgstr "_16:9 (Ευρεία Οθόνη)"
 
-#: src/gui.c:6898
+#: src/gui.c:6791
 msgid "1_6:10 Aspect"
 msgstr "1_6:10 (Ευρεία Οθόνη)"
 
-#: src/gui.c:6900
+#: src/gui.c:6793
 msgid "_Follow Window"
 msgstr "_Παρακολούθηση Παραθύρου"
 
-#: src/gui.c:6906
+#: src/gui.c:6799
 msgid "Show _Subtitles"
 msgstr "Προβολή _Υποτίτλων"
 
-#: src/gui.c:6908
+#: src/gui.c:6801
 msgid "Decrease Subtitle Size"
 msgstr "Μείωση Μεγέθους Υποτίτλων"
 
-#: src/gui.c:6909
+#: src/gui.c:6802
 msgid "Increase Subtitle Size"
 msgstr "Αύξηση Μεγέθους Υποτίτλων"
 
-#: src/gui.c:6911
+#: src/gui.c:6804
 msgid "Decrease Subtitle Delay"
 msgstr "Μείωση Καθυστέρησης Υποτίτλων"
 
-#: src/gui.c:6913
+#: src/gui.c:6806
 msgid "Increase Subtitle Delay"
 msgstr "Αύξηση Καθυστέρησης Υποτίτλων"
 
-#: src/gui.c:6914
+#: src/gui.c:6807
 msgid "Switch An_gle"
 msgstr "Αλλαγή Γω_νίας"
 
-#: src/gui.c:6915
+#: src/gui.c:6808
 msgid "_Controls"
 msgstr "_Έλεγχοι"
 
-#: src/gui.c:6928
+#: src/gui.c:6821
 msgid "_Video Picture Adjustments"
 msgstr "_Διευθετήσεις Εικόνας Βίντεο"
 
 #. Help Menu
-#: src/gui.c:6967
+#: src/gui.c:6859
 msgid "_Help"
 msgstr "_Βοήθεια"
 
-#: src/gui.c:7136 src/gui.c:7139
+#: src/gui.c:7026 src/gui.c:7029
 msgid "Menu"
 msgstr "Μενού"
 
-#: src/gui.c:7152 src/gui.c:7155
+#: src/gui.c:7042 src/gui.c:7045
 msgid "Previous"
 msgstr "Προηγούμενο"
 
-#: src/gui.c:7168 src/gui.c:7171
+#: src/gui.c:7058 src/gui.c:7061
 msgid "Rewind"
 msgstr "Οπισθοδρόμηση"
 
-#: src/gui.c:7198 src/gui.c:7201
+#: src/gui.c:7088 src/gui.c:7091
 msgid "Stop"
 msgstr "Διακοπή"
 
-#: src/gui.c:7213 src/gui.c:7216
+#: src/gui.c:7103 src/gui.c:7106
 msgid "Fast Forward"
 msgstr "Γρήγορη Αναπαραγωγή"
 
-#: src/gui.c:7228 src/gui.c:7231
+#: src/gui.c:7118 src/gui.c:7121
 msgid "Next"
 msgstr "Επόμενο"
 
-#: src/gui.c:7252 src/gui.c:7255
+#: src/gui.c:7147 src/gui.c:7150
 msgid "Full Screen"
 msgstr "Πλήρης Οθόνη"
 
-#: src/gui.c:7298
+#: src/gui.c:7193
 msgid "Volume 100%"
 msgstr "Ένταση 100%"
 
-#: src/support.c:779 src/thread.c:243
+#: src/support.c:779
 #, c-format
 msgid "Couldn't open DVD device: %s"
 msgstr "Αδυναμία αναπαραγωγής συσκευής DVD: %s"
@@ -1187,23 +1194,23 @@ msgstr "Αδυναμία αναπαραγωγής συσκευής DVD: %s"
 msgid "Couldn't open VCD device: %s"
 msgstr "Αδυναμία αναπαραγωγής συσκευής VCD: %s"
 
-#: src/support.c:1978 src/support.c:2008 src/support.c:2051 src/support.c:2079
+#: src/support.c:1984 src/support.c:2014 src/support.c:2057 src/support.c:2085
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 "Αδυναμία αποθήκευσης λίστας αναπαραγωγής.\n"
 "Δεν είναι δυνατό το άνοιγμα του προς εγγραφή αρχείου"
 
-#: src/support.c:2200
+#: src/support.c:2206
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2202
+#: src/support.c:2208
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/support.c:2813
+#: src/support.c:2819
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1211,44 +1218,6 @@ msgid ""
 msgstr ""
 "Ίσως είναι προτιμότερη η αναβάθμιση του Mplayer σε νεότερη έκδοση, -Η "
 "επιλογή δεν υποστηρίζεται\n"
-
-#: src/thread.c:209
-#, c-format
-msgid "Failed to open %s"
-msgstr "Αδυναμία αναπαραγωγής %s"
-
-#: src/thread.c:249
-#, c-format
-msgid "Cannot load subtitles: %s"
-msgstr "Αδυναμία φόρτωσης υποτίτλων: %s"
-
-#: src/thread.c:264
-msgid "Delaying start until cache is full"
-msgstr "Καθυστέρηση εκκίνησης ωσότου γεμίσει η λανθάνουσα μνήμη"
-
-#: src/thread.c:270
-#, c-format
-msgid "Compressed SWF format not supported"
-msgstr "Δεν υποστηρίζεται η μορφή συμπιεσμένου SWF"
-
-#: src/thread.c:635
-#, c-format
-msgid "Cache fill: %2.2f%%"
-msgstr "Γέμισμα λανθάνουσας μνήμης: %2.2f%%"
-
-#: src/thread.c:644
-#, c-format
-msgid "Connecting"
-msgstr "Σύνδεση"
-
-#: src/thread.c:800
-#, c-format
-msgid "Screenshot saved to '%s'"
-msgstr "Το στιγμιότυπο αποθηκέυτηκε στο '%s'"
-
-#: src/thread.c:803
-msgid "GNOME MPlayer Notification"
-msgstr "Ειδοποίηση GNOME MPlayer"
 
 #: src/playlist.c:173
 msgid "Set Audio"
@@ -1263,7 +1232,7 @@ msgstr ""
 "Όνομα Αρχείου: %s\n"
 "Υπότιτλοι: %s"
 
-#: src/playlist.c:317 src/playlist.c:1001 src/playlist.c:1004
+#: src/playlist.c:317 src/playlist.c:999 src/playlist.c:1002
 msgid "Save Playlist"
 msgstr "Αποθήκευση Λίστας Αναπαραγωγής"
 
@@ -1275,7 +1244,7 @@ msgstr "Λίστα (*.pls)"
 msgid "MP3 Playlist (*.m3u)"
 msgstr "Λίστα MP3 (*.m3u)"
 
-#: src/playlist.c:376 src/playlist.c:990 src/playlist.c:993
+#: src/playlist.c:376 src/playlist.c:988 src/playlist.c:991
 msgid "Open Playlist"
 msgstr "Άνοιγμα Λίστας Αναπαραγωγής"
 
@@ -1306,73 +1275,73 @@ msgstr[1] ""
 "\n"
 "\tΒρέθηκαν %i αρχεία\n"
 
-#: src/playlist.c:901
+#: src/playlist.c:899
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Αρχείο προς αναπαραγωγή"
 msgstr[1] "Αρχεία προς αναπαραγωγή"
 
-#: src/playlist.c:922 src/nautilus_property_page.c:293
+#: src/playlist.c:920 src/nautilus_property_page.c:293
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
-#: src/playlist.c:933 src/nautilus_property_page.c:305
+#: src/playlist.c:931 src/nautilus_property_page.c:305
 msgid "Album"
 msgstr "Άλμπουμ"
 
-#: src/playlist.c:945 src/nautilus_property_page.c:317
+#: src/playlist.c:943 src/nautilus_property_page.c:317
 msgid "Length"
 msgstr "Διάρκεια"
 
-#: src/playlist.c:956
+#: src/playlist.c:954
 msgid "Count"
 msgstr "Καταμέτρηση"
 
-#: src/playlist.c:965
+#: src/playlist.c:963
 msgid "Order"
 msgstr "Διάταξη"
 
-#: src/playlist.c:976 src/playlist.c:979
+#: src/playlist.c:974 src/playlist.c:977
 msgid "Close Playlist View"
 msgstr "Κλείσιμο Προβολής Λίστας Αναπαραγωγής"
 
-#: src/playlist.c:1012 src/playlist.c:1015
+#: src/playlist.c:1010 src/playlist.c:1013
 msgid "Add Item to Playlist"
 msgstr "Προσθήκη Αντικειμένου στη Λίστα Αναπαραγωγής"
 
-#: src/playlist.c:1023 src/playlist.c:1026
+#: src/playlist.c:1021 src/playlist.c:1024
 msgid "Remove Item from Playlist"
 msgstr "Αφαίρεση Αντικειμένου από τη Λίστα Αναπαραγωγής"
 
-#: src/playlist.c:1034 src/playlist.c:1037
+#: src/playlist.c:1032 src/playlist.c:1035
 msgid "Add Items in Folder to Playlist"
 msgstr "Προσθήκη Αντικειμένων Φακέλου στη Λίστα Αναπαραγωγής"
 
-#: src/playlist.c:1045 src/playlist.c:1048
+#: src/playlist.c:1043 src/playlist.c:1046
 msgid "Clear Playlist"
 msgstr "Καθαρισμός Λίστας Αναπαραγωγής"
 
-#: src/playlist.c:1056 src/playlist.c:1059
+#: src/playlist.c:1054 src/playlist.c:1057
 msgid "Move Item Up"
 msgstr "Μετακίνηση Πάνω"
 
-#: src/playlist.c:1068 src/playlist.c:1071
+#: src/playlist.c:1066 src/playlist.c:1069
 msgid "Move Item Down"
 msgstr "Μετακίνηση Κάτω"
 
-#: src/playlist.c:1081 src/playlist.c:1084
+#: src/playlist.c:1079 src/playlist.c:1082
 msgid "UnSort List"
 msgstr "Αναταξινόμηση Λίστας"
 
-#: src/playlist.c:1098 src/playlist.c:1101
+#: src/playlist.c:1096 src/playlist.c:1099
 msgid "Loop Playlist"
 msgstr "Επανάληψη λίστας αναπαραγωγής"
 
-#: src/playlist.c:1114 src/playlist.c:1117
+#: src/playlist.c:1112 src/playlist.c:1115
 msgid "Shuffle Playlist"
 msgstr "Ανακάτεμα λίστας αναπαραγωγής"
 
-#: src/playlist.c:1151
+#: src/playlist.c:1149
 msgid "_Set Subtitle"
 msgstr "_Επιλογή Υποτίτλου"
 
@@ -1410,6 +1379,74 @@ msgstr "Ήχος/Βίντεο"
 #: src/libgmtk/gmtk_media_tracker.c:201
 msgid "No Information"
 msgstr "Χωρίς Πληροφορίες"
+
+#: src/libgmtk/gmtk_media_player.c:503
+msgid "framedropping"
+msgstr ""
+
+#: src/libgmtk/gmtk_media_player.c:707
+#, c-format
+msgid "Loading..."
+msgstr ""
+
+#: src/libgmtk/gmtk_media_player.c:2307
+#, c-format
+msgid "Failed to open %s"
+msgstr "Αδυναμία αναπαραγωγής %s"
+
+#: src/libgmtk/gmtk_media_player.c:2343
+#, c-format
+msgid "Compressed SWF format not supported"
+msgstr "Δεν υποστηρίζεται η μορφή συμπιεσμένου SWF"
+
+#: src/libgmtk/gmtk_media_player.c:2412
+#, c-format
+msgid "Cache fill: %2.2f%%"
+msgstr "Γέμισμα λανθάνουσας μνήμης: %2.2f%%"
+
+#: src/libgmtk/gmtk_media_player.c:2603
+#, fuzzy, c-format
+msgid "External Subtitle #%i"
+msgstr "Μείωση Μεγέθους Υποτίτλων"
+
+#: src/libgmtk/gmtk_media_player.c:2783
+#, c-format
+msgid "Screenshot saved to '%s'"
+msgstr "Το στιγμιότυπο αποθηκέυτηκε στο '%s'"
+
+#: src/libgmtk/gmtk_media_player.c:2786 src/libgmtk/gmtk_media_player.c:2848
+msgid "GNOME MPlayer Notification"
+msgstr "Ειδοποίηση GNOME MPlayer"
+
+#: src/libgmtk/gmtk_media_player.c:2845
+#, c-format
+msgid "MPlayer should be Upgraded to a Newer Version"
+msgstr ""
+
+#: src/libgmtk/gmtk_media_player.c:3039
+#, fuzzy, c-format
+msgid "You might want to consider upgrading mplayer to a newer version\n"
+msgstr ""
+"Ίσως είναι προτιμότερη η αναβάθμιση του Mplayer σε νεότερη έκδοση, -Η "
+"επιλογή δεν υποστηρίζεται\n"
+
+#~ msgid "Open _DVD"
+#~ msgstr "Αναπαραγωγή _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Αναπαραγωγή DVD από _Φάκελο"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Αναπαραγωγή DVD από _ISO"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Αδυναμία φόρτωσης υποτίτλων: %s"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Καθυστέρηση εκκίνησης ωσότου γεμίσει η λανθάνουσα μνήμη"
+
+#~ msgid "Connecting"
+#~ msgstr "Σύνδεση"
 
 #~ msgid "Media Change"
 #~ msgstr "Αλλαγή Μέσου"
