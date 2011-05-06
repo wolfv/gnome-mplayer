@@ -11,6 +11,7 @@
 
 
 Development
+    Select Subtitle by ID rather than by description + name
     Fix Issue #514
     Remove "percent" from idledata
     Update translation files with updated file listings
