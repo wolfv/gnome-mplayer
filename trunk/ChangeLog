@@ -1,15 +1,3 @@
-******
-
-    gnome-mplayer is currently in a heavy state of changes 
-    
-    Known broken items
-    
-    DVD w/o menu playback
-    TV playback
-    
-******
-
-
 Development
     Select Subtitle by ID rather than by description + name
     Fix Issue #514
