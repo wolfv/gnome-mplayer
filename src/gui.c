@@ -2382,9 +2382,12 @@ gboolean slide_panel_away(gpointer data)
 gboolean make_panel_and_mouse_invisible(gpointer data)
 {
     GTimeVal currenttime;
-#ifndef GTK3_ENABLED
-    GdkColor cursor_color = { 0, 0, 0, 0 };
     GdkCursor *cursor;
+#ifdef GTK3_ENABLED
+    cairo_surface_t *s;
+    GdkPixbuf *cursor_pixbuf;
+#else
+    GdkColor cursor_color = { 0, 0, 0, 0 };
     GdkPixmap *cursor_source;
 #endif
     if ((fullscreen || always_hide_after_timeout) && auto_hide_timeout > 0
@@ -2423,7 +2426,15 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     } else {
 
         if (last_movement_time > 0 && currenttime.tv_sec > last_movement_time) {
-#ifndef GTK3_ENABLED
+#ifdef GTK3_ENABLED
+            s = cairo_image_surface_create(CAIRO_FORMAT_A1, 1, 1);
+            cursor_pixbuf = gdk_pixbuf_get_from_surface(s, 0, 0, 1, 1);
+            cairo_surface_destroy(s);
+            cursor = gdk_cursor_new_from_pixbuf(gdk_display_get_default(), cursor_pixbuf, 0, 0);
+            g_object_unref(cursor_pixbuf);
+            gdk_window_set_cursor(get_window(window), cursor);
+            gdk_cursor_unref(cursor);
+#else
             cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
             cursor = gdk_cursor_new_from_pixmap(cursor_source, cursor_source, &cursor_color, &cursor_color, 0, 0);
             gdk_pixmap_unref(cursor_source);
@@ -5647,8 +5658,8 @@ void subtitle_select_callback(GtkMenuItem * menu, gpointer data)
 {
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu)))
         gmtk_media_player_select_subtitle_by_id(GMTK_MEDIA_PLAYER(media), GPOINTER_TO_INT(data));
-		// use the id instead of the name
-        //gmtk_media_player_select_subtitle(GMTK_MEDIA_PLAYER(media), gtk_menu_item_get_label(menu));
+    // use the id instead of the name
+    //gmtk_media_player_select_subtitle(GMTK_MEDIA_PLAYER(media), gtk_menu_item_get_label(menu));
 }
 
 void player_subtitle_callback(GmtkMediaPlayer * player, int count, gpointer data)
