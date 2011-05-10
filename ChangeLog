@@ -1,4 +1,5 @@
 Development
+    Set the allocation to the height and width desired
     Make cursor hiding work in GTK3
     Select Subtitle by ID rather than by description + name
     Fix Issue #514
