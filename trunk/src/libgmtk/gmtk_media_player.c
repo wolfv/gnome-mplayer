@@ -1735,6 +1735,7 @@ gpointer launch_mplayer(gpointer data)
     player->cache_percent = -1.0;
     player->title_is_menu = FALSE;
     player->enable_divx = TRUE;
+    player->disable_xvmc = FALSE;
 
     g_mutex_lock(player->thread_running);
 
@@ -1784,6 +1785,7 @@ gpointer launch_mplayer(gpointer data)
             argv[argn++] = g_strdup_printf("-vo");
 
             if (g_ascii_strncasecmp(player->vo, "vdpau", strlen("vdpau")) == 0) {
+
                 if (player->deinterlace) {
                     argv[argn++] = g_strdup_printf("vdpau:deint=2,", player->vo);
                 } else {
@@ -1801,13 +1803,15 @@ gpointer launch_mplayer(gpointer data)
                 argv[argn++] = g_strdup_printf("%s,", player->vo);
 
             } else if (g_ascii_strncasecmp(player->vo, "xvmc", strlen("xvmc")) == 0) {
-                argv[argn++] = g_strdup_printf("%s,", player->vo);
 
-				// this codec doesn't work 
-                //argv[argn++] = g_strdup_printf("-vc");
-                //argv[argn++] = g_strdup_printf("ffmpeg12,");
+                if (player->disable_xvmc) {
+                    argv[argn++] = g_strdup_printf("xv,");
+                } else {
+                    argv[argn++] = g_strdup_printf("%s,xv,", player->vo);
+                }
 
             } else if (g_ascii_strncasecmp(player->vo, "crystalhd", strlen("crystalhd")) == 0) {
+
                 argv[argn++] = g_strdup_printf("%s,", player->vo);
 
                 argv[argn++] = g_strdup_printf("-vc");
@@ -1816,6 +1820,7 @@ gpointer launch_mplayer(gpointer data)
                     ("ffmpeg2crystalhd,ffdivxcrystalhd,ffwmv3crystalhd,ffvc1crystalhd,ffh264crystalhd,ffodivxcrystalhd,");
 
             } else {
+
                 argv[argn++] = g_strdup_printf("%s", player->vo);
                 if (player->deinterlace) {
                     argv[argn++] = g_strdup_printf("-vf-pre");
@@ -1831,9 +1836,11 @@ gpointer launch_mplayer(gpointer data)
 
                 argv[argn++] = g_strdup_printf("-vf-add");
                 argv[argn++] = g_strdup_printf("screenshot");
+
             }
         }
         if (player->ao != NULL) {
+
             argv[argn++] = g_strdup_printf("-ao");
             argv[argn++] = g_strdup_printf("%s", player->ao);
 
@@ -1857,6 +1864,7 @@ gpointer launch_mplayer(gpointer data)
                 argv[argn++] = g_strdup_printf("2");
                 break;
             }
+
         }
 
         if (player->hardware_ac3) {
@@ -2241,6 +2249,10 @@ gpointer launch_mplayer(gpointer data)
             player->enable_divx = FALSE;
             break;
 
+        case ERROR_RETRY_WITHOUT_XVMC:
+            player->disable_xvmc = TRUE;
+            break;
+
         default:
             break;
         }
@@ -2331,6 +2343,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (strstr(mplayer_output->str, "Failed creating VDPAU decoder") != NULL) {
         if (player->enable_divx)
             player->playback_error = ERROR_RETRY_WITHOUT_DIVX_VDPAU;
+    }
+
+    if (strstr(mplayer_output->str, "The selected video_out device is incompatible with this codec") != NULL) {
+        if (!player->disable_xvmc)
+            player->playback_error = ERROR_RETRY_WITHOUT_XVMC;
     }
 
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
