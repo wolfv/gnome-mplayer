@@ -1046,13 +1046,13 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
         ret = player->position;
         break;
 
-	case ATTRIBUTE_POSITION_PERCENT:
-		if (player->length != 0) {
-			ret = (player->position - player->start_time) / player->length;
-		} else {
-			ret = 0.0;
-		}
-		break;
+    case ATTRIBUTE_POSITION_PERCENT:
+        if (player->length != 0) {
+            ret = (player->position - player->start_time) / player->length;
+        } else {
+            ret = 0.0;
+        }
+        break;
 
     case ATTRIBUTE_START_TIME:
         ret = player->start_time;
@@ -2440,6 +2440,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_signal_emit_by_name(player, "restart-complete", NULL);
             } else {
                 create_event_int(player, "media-state-changed", player->media_state);
+                allocation.width = player->video_width;
+                allocation.height = player->video_height;
                 create_event_allocation(player, "size_allocate", &allocation);
                 player->video_present = TRUE;
                 write_to_mplayer(player, "get_property sub_source\n");
