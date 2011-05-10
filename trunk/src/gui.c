@@ -1150,13 +1150,14 @@ gboolean resize_window(void *data)
             }
             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
             gtk_widget_show_all(GTK_WIDGET(media));
-			while(gtk_events_pending ())
-				gtk_main_iteration ();
+            while (gtk_events_pending())
+                gtk_main_iteration();
 
             if (window_x == 0 && window_y == 0) {
                 if (verbose)
                     printf("current size = %i x %i \n", non_fs_width, non_fs_height);
-                if ((non_fs_width < 16 || non_fs_height < 16) || resize_on_new_media == TRUE || idle->streaming) {
+                if (resize_on_new_media == TRUE || gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)
+                    || idle->streaming) {
                     if (idle->width > 1 && idle->height > 1) {
                         if (verbose) {
                             printf("Changing window size to %i x %i visible = %i\n", idle->width,

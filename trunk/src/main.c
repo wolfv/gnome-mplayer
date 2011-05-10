@@ -1005,7 +1005,7 @@ int main(int argc, char *argv[])
                     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
                     gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
                     //play_iter(&iter, 0);
-	                playiter = TRUE;
+                    playiter = TRUE;
                 } else {
                     uri = g_strdup_printf("file://%s", mnt->mnt_dir);
                     create_folder_progress_window();
