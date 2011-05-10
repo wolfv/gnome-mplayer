@@ -1734,7 +1734,7 @@ gpointer launch_mplayer(gpointer data)
     player->position = 0.0;
     player->cache_percent = -1.0;
     player->title_is_menu = FALSE;
-
+    player->enable_divx = TRUE;
 
     g_mutex_lock(player->thread_running);
 
@@ -1787,11 +1787,15 @@ gpointer launch_mplayer(gpointer data)
                 if (player->deinterlace) {
                     argv[argn++] = g_strdup_printf("vdpau:deint=2,", player->vo);
                 } else {
-                    argv[argn++] = g_strdup_printf("%s,vdpau,", player->vo);
+                    argv[argn++] = g_strdup_printf("%s,", player->vo);
                 }
 
                 argv[argn++] = g_strdup_printf("-vc");
-                argv[argn++] = g_strdup_printf("ffmpeg12vdpau,ffh264vdpau,ffwmv3vdpau,ffvc1vdpau,ffodivxvdpau,");
+                if (player->enable_divx) {
+                    argv[argn++] = g_strdup_printf("ffmpeg12vdpau,ffh264vdpau,ffwmv3vdpau,ffvc1vdpau,ffodivxvdpau,");
+                } else {
+                    argv[argn++] = g_strdup_printf("ffmpeg12vdpau,ffh264vdpau,ffwmv3vdpau,ffvc1vdpau,");
+                }
 
             } else if (g_ascii_strncasecmp(player->vo, "vvapi", strlen("vvapi")) == 0) {
                 argv[argn++] = g_strdup_printf("%s,", player->vo);
@@ -2232,6 +2236,10 @@ gpointer launch_mplayer(gpointer data)
             player->uri = tmp;
             break;
 
+        case ERROR_RETRY_WITHOUT_DIVX_VDPAU:
+            player->enable_divx = FALSE;
+            break;
+
         default:
             break;
         }
@@ -2317,6 +2325,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
     if (strstr(mplayer_output->str, "signal") != NULL) {
         error_msg = g_strdup(mplayer_output->str);
+    }
+
+    if (strstr(mplayer_output->str, "Failed creating VDPAU decoder") != NULL) {
+        if (player->enable_divx)
+            player->playback_error = ERROR_RETRY_WITHOUT_DIVX_VDPAU;
     }
 
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
