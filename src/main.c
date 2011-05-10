@@ -1004,7 +1004,8 @@ int main(int argc, char *argv[])
                     add_item_to_playlist("dvdnav://", 0);
                     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
                     gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
-                    play_iter(&iter, 0);
+                    //play_iter(&iter, 0);
+	                playiter = TRUE;
                 } else {
                     uri = g_strdup_printf("file://%s", mnt->mnt_dir);
                     create_folder_progress_window();
@@ -1033,29 +1034,39 @@ int main(int argc, char *argv[])
                 }
             }
         } else if (S_ISDIR(buf.st_mode)) {
-            create_folder_progress_window();
-            uri = NULL;
-#ifdef GIO_ENABLED
-            file = g_file_new_for_commandline_arg(argv[fileindex]);
-            if (file != NULL) {
-                uri = g_file_get_uri(file);
-                g_object_unref(file);
-            }
-#else
-            uri = g_filename_to_uri(argv[fileindex], NULL, NULL);
-#endif
-            add_folder_to_playlist_callback(uri, NULL);
+            uri = g_strdup_printf("%s/VIDEO_TS", argv[fileindex]);
+            stat(uri, &buf);
             g_free(uri);
-            destroy_folder_progress_window();
-            if (random_order) {
+            if (S_ISDIR(buf.st_mode)) {
+                add_item_to_playlist("dvdnav://", 0);
                 gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
-                randomize_playlist(playliststore);
-            }
-            if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+                gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
                 //play_iter(&iter, 0);
                 playiter = TRUE;
+            } else {
+                create_folder_progress_window();
+                uri = NULL;
+#ifdef GIO_ENABLED
+                file = g_file_new_for_commandline_arg(argv[fileindex]);
+                if (file != NULL) {
+                    uri = g_file_get_uri(file);
+                    g_object_unref(file);
+                }
+#else
+                uri = g_filename_to_uri(argv[fileindex], NULL, NULL);
+#endif
+                add_folder_to_playlist_callback(uri, NULL);
+                g_free(uri);
+                destroy_folder_progress_window();
+                if (random_order) {
+                    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+                    randomize_playlist(playliststore);
+                }
+                if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+                    //play_iter(&iter, 0);
+                    playiter = TRUE;
+                }
             }
-
         } else {
             // local file
             // detect if playlist here, so even if not specified it can be picked up
