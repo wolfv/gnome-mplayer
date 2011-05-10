@@ -1803,8 +1803,9 @@ gpointer launch_mplayer(gpointer data)
             } else if (g_ascii_strncasecmp(player->vo, "xvmc", strlen("xvmc")) == 0) {
                 argv[argn++] = g_strdup_printf("%s,", player->vo);
 
-                argv[argn++] = g_strdup_printf("-vc");
-                argv[argn++] = g_strdup_printf("ffmpeg12,");
+				// this codec doesn't work 
+                //argv[argn++] = g_strdup_printf("-vc");
+                //argv[argn++] = g_strdup_printf("ffmpeg12,");
 
             } else if (g_ascii_strncasecmp(player->vo, "crystalhd", strlen("crystalhd")) == 0) {
                 argv[argn++] = g_strdup_printf("%s,", player->vo);
