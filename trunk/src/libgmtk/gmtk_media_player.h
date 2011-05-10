@@ -69,7 +69,8 @@ typedef enum {
     NO_ERROR,
     ERROR_RETRY_WITH_PLAYLIST,
     ERROR_RETRY_WITH_HTTP,
-    ERROR_RETRY_WITH_MMSHTTP
+    ERROR_RETRY_WITH_MMSHTTP,
+    ERROR_RETRY_WITHOUT_DIVX_VDPAU
 } GmtkMediaPlayerPlaybackError;
 
 typedef enum {
@@ -293,6 +294,7 @@ struct _GmtkMediaPlayer {
     gchar *artist;
     gchar *title;
     gchar *album;
+    gboolean enable_divx;
 
     gboolean deinterlace;
     gboolean frame_drop;

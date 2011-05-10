@@ -1,4 +1,5 @@
 Development
+    Retry playback without accelerated divx if using vdpau and vdpau error 
     Properly display DVD Title in playlist and on window title
     Add support for crystalhd vo, untested as I don't have the hardware.
     Set the allocation to the height and width desired
