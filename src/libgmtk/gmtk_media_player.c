@@ -72,6 +72,7 @@ gboolean signal_event(gpointer data)
             g_strcasecmp(event->event_name, "cache-percent-changed") == 0) {
             g_signal_emit_by_name(event->player, event->event_name, event->event_data_double);
         } else if (g_strcasecmp(event->event_name, "size_allocate") == 0) {
+            gtk_widget_show_all(GTK_WIDGET(event->player));
             g_signal_emit_by_name(event->player, event->event_name, event->event_allocation);
         } else {
             g_signal_emit_by_name(event->player, event->event_name, event->event_data_int);
@@ -1920,6 +1921,8 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("-subpos");
         argv[argn++] = g_strdup_printf("%i", player->subtitle_position);
 
+        while (player->socket_id == 0)
+            g_usleep(100);
         argv[argn++] = g_strdup_printf("-wid");
         argv[argn++] = g_strdup_printf("0x%x", player->socket_id);
 
@@ -2557,8 +2560,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
         if (strstr(mplayer_output->str, "ID_AUDIO_TRACK") != 0) {
             buf = strstr(mplayer_output->str, "ID_AUDIO_TRACK");
+            id = player->audio_track_id;
             sscanf(buf, "ID_AUDIO_TRACK=%i", &player->audio_track_id);
-            create_event_int(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
+            if (id != player->audio_track_id)
+                create_event_int(player, "attribute-changed", ATTRIBUTE_AUDIO_TRACK);
         }
 
         if (strstr(mplayer_output->str, "ANS_switch_audio") != 0) {
