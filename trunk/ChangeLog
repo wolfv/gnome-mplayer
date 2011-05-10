@@ -1,4 +1,5 @@
 Development
+    When initially loading a folder, check to see if it is a DVD 
     Ensure that the window id is not 0, before using it
     Fix crash when giving a device name that does not exist
     Disable xvmc if mplayer reports video_out incompatibility with codec
