@@ -1150,6 +1150,8 @@ gboolean resize_window(void *data)
             }
             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
             gtk_widget_show_all(GTK_WIDGET(media));
+			while(gtk_events_pending ())
+				gtk_main_iteration ();
 
             if (window_x == 0 && window_y == 0) {
                 if (verbose)
