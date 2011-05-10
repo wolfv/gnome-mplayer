@@ -1806,7 +1806,9 @@ gpointer launch_mplayer(gpointer data)
                 argv[argn++] = g_strdup_printf("%s,", player->vo);
 
                 argv[argn++] = g_strdup_printf("-vc");
-                argv[argn++] = g_strdup_printf("ffmpeg2crystalhd,ffdivxcrystalhd,ffwmv3crystalhd,ffvc1crystalhd,ffh264crystalhd,ffodivxcrystalhd,");
+                argv[argn++] =
+                    g_strdup_printf
+                    ("ffmpeg2crystalhd,ffdivxcrystalhd,ffwmv3crystalhd,ffvc1crystalhd,ffh264crystalhd,ffodivxcrystalhd,");
 
             } else {
                 argv[argn++] = g_strdup_printf("%s", player->vo);
@@ -2277,6 +2279,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     GError *error = NULL;
     gchar *error_msg = NULL;
     GtkWidget *dialog;
+    gchar *buf;
 
     if (player == NULL) {
         return FALSE;
@@ -2359,6 +2362,23 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
 
     if (strstr(mplayer_output->str, "Compressed SWF format not supported") != NULL) {
         error_msg = g_strdup_printf(_("Compressed SWF format not supported"));
+    }
+
+    if (strstr(mplayer_output->str, "Title: ") != 0) {
+        buf = strstr(mplayer_output->str, "Title:");
+        buf = strstr(mplayer_output->str, "Title: ") + strlen("Title: ");
+        buf = g_strchomp(buf);
+        if (player->title != NULL) {
+            g_free(player->title);
+            player->title = NULL;
+        }
+
+        player->title = g_locale_to_utf8(buf, -1, NULL, NULL, NULL);
+        if (player->title == NULL) {
+            player->title = g_strdup(buf);
+            gm_str_strip_unicode(player->title, strlen(player->title));
+        }
+        create_event_int(player, "attribute-changed", ATTRIBUTE_TITLE);
     }
 
     if (error_msg != NULL) {

@@ -1497,9 +1497,21 @@ MetaData *get_metadata(gchar * uri)
     while (output != NULL && output[ac] != NULL) {
         if (verbose > 1)
             printf("METADATA:%s\n", output[ac]);
+
         if (strstr(output[ac], "MOV: missing header (moov/cmov) chunk") != NULL) {
             missing_header = TRUE;
         }
+
+        if (strstr(output[ac], "Title: ") != 0) {
+            localtitle = strstr(output[ac], "Title: ") + strlen("Title: ");
+            localtitle = g_strchomp(localtitle);
+            if (title != NULL) {
+                g_free(title);
+                title = NULL;
+            }
+            title = g_strdup(localtitle);
+        }
+
         ac++;
     }
 

@@ -5740,6 +5740,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     GList *list;
     GtkMenuItem *item;
     gchar *text;
+    gchar *title;
     gchar *buffer;
     MetaData *metadata;
 
@@ -5968,6 +5969,11 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
             g_free(buffer);
             metadata->title =
                 g_strstrip(g_strdup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE)));
+            if (metadata->title != NULL && strlen(metadata->title) > 0) {
+                title = g_strdup_printf(_("%s - GNOME MPlayer"), metadata->title);
+                gtk_window_set_title(GTK_WINDOW(window), title);
+                g_free(title);
+            }
         }
 
         if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST)) {
