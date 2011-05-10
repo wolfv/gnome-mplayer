@@ -986,23 +986,24 @@ int main(int argc, char *argv[])
             do {
                 mnt = getmntent(fp);
                 if (mnt)
-                    //printf("%s is at %s\n",mnt->mnt_fsname,mnt->mnt_dir);
-                    if (argv[fileindex] != NULL && mnt->mnt_fsname != NULL) {
-                        if (strcmp(argv[fileindex], mnt->mnt_fsname) == 0)
-                            break;
-                    }
+                    printf("%s is at %s\n", mnt->mnt_fsname, mnt->mnt_dir);
+                if (argv[fileindex] != NULL && mnt && mnt->mnt_fsname != NULL) {
+                    if (strcmp(argv[fileindex], mnt->mnt_fsname) == 0)
+                        break;
+                }
             }
             while (mnt);
             endmntent(fp);
 #endif
-            if (mnt) {
+            if (mnt && mnt->mnt_dir) {
                 printf("%s is mounted on %s\n", argv[fileindex], mnt->mnt_dir);
                 uri = g_strdup_printf("%s/VIDEO_TS", mnt->mnt_dir);
                 stat(uri, &buf);
                 g_free(uri);
                 if (S_ISDIR(buf.st_mode)) {
-                    add_item_to_playlist("dvd://", 0);
+                    add_item_to_playlist("dvdnav://", 0);
                     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
+                    gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
                     play_iter(&iter, 0);
                 } else {
                     uri = g_strdup_printf("file://%s", mnt->mnt_dir);
