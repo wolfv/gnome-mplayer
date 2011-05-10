@@ -4645,6 +4645,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #ifndef __OpenBSD__
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "vaapi");
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "vdpau");
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "crystalhd");
 #endif
 #else
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "gl");
@@ -4655,6 +4656,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #ifndef __OpenBSD__
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vaapi");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vdpau");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "crystalhd");
 #endif
 #endif
 

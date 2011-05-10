@@ -1802,6 +1802,12 @@ gpointer launch_mplayer(gpointer data)
                 argv[argn++] = g_strdup_printf("-vc");
                 argv[argn++] = g_strdup_printf("ffmpeg12,");
 
+            } else if (g_ascii_strncasecmp(player->vo, "crystalhd", strlen("crystalhd")) == 0) {
+                argv[argn++] = g_strdup_printf("%s,", player->vo);
+
+                argv[argn++] = g_strdup_printf("-vc");
+                argv[argn++] = g_strdup_printf("ffmpeg2crystalhd,ffdivxcrystalhd,ffwmv3crystalhd,ffvc1crystalhd,ffh264crystalhd,ffodivxcrystalhd,");
+
             } else {
                 argv[argn++] = g_strdup_printf("%s", player->vo);
                 if (player->deinterlace) {
