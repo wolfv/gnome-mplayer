@@ -1,4 +1,5 @@
 Development
+    Disable xvmc if mplayer reports video_out incompatibility with codec
     Don't force ffmpeg12 codec with xvmc vo 
     Retry playback without accelerated divx if using vdpau and vdpau error 
     Properly display DVD Title in playlist and on window title
