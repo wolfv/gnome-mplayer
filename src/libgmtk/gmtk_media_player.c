@@ -595,22 +595,30 @@ static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * 
             && allocation->height > player->video_height) {
 
             gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.5, 0.5,
-                              (gdouble) player->video_width / (gdouble) allocation->width,
-                              (gdouble) player->video_height / (gdouble) allocation->height);
+                              CLAMP((gdouble) player->video_width / (gdouble) allocation->width, 0.1, 1.0),
+                              CLAMP((gdouble) player->video_height / (gdouble) allocation->height, 0.1, 1.0));
 
         } else {
             if (video_aspect > widget_aspect) {
-                yscale = ((gdouble)allocation->width / video_aspect) / (gdouble)allocation->height;
+                yscale = ((gdouble) allocation->width / video_aspect) / (gdouble) allocation->height;
 
-				if (player->debug)
-					printf("yscale = %lf\n",yscale);
-                gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0, 0.5, 1, yscale);
+                //if (player->debug)
+                //      printf("yscale = %lf\n",yscale);
+                if (yscale > 0.0) {
+                    gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.0, 0.5, 1.0, CLAMP(yscale, 0.1, 1.0));
+                } else {
+                    gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.0, 0.5, 1.0, 1.0);
+                }
             } else {
-                xscale = ((gdouble)allocation->height * video_aspect) / (gdouble)allocation->width;
+                xscale = ((gdouble) allocation->height * video_aspect) / (gdouble) allocation->width;
 
-				if (player->debug)
-					printf("xscale = %lf\n",xscale);
-                gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.5, 0, xscale, 1);
+                //if (player->debug)
+                //      printf("xscale = %lf\n",xscale);
+                if (xscale > 0.0) {
+                    gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.5, 0.0, CLAMP(xscale, 0.1, 1.0), 1.0);
+                } else {
+                    gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.5, 0.0, 1.0, 1.0);
+                }
             }
         }
     }
@@ -1957,7 +1965,7 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("-nomsgcolor");
         argv[argn++] = g_strdup_printf("-nomsgmodule");
 
-		// mplayer says that nokeepaspect isn't supported by all vo's but it seems to work
+        // mplayer says that nokeepaspect isn't supported by all vo's but it seems to work
         //if (player->use_mplayer2)
         argv[argn++] = g_strdup_printf("-nokeepaspect");
 
