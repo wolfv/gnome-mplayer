@@ -2522,7 +2522,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             } else {
                 player->media_state = MEDIA_STATE_PLAY;
                 create_event_int(player, "media-state-changed", player->media_state);
-                create_event_allocation(player, "size_allocate", &allocation);
                 player->video_present = FALSE;
                 create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
                 create_event_int(player, "attribute-changed", ATTRIBUTE_VIDEO_PRESENT);
