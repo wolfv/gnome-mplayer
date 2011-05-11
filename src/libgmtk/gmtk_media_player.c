@@ -600,12 +600,16 @@ static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * 
 
         } else {
             if (video_aspect > widget_aspect) {
-                yscale = (allocation->width / video_aspect) / allocation->height;
+                yscale = ((gdouble)allocation->width / video_aspect) / (gdouble)allocation->height;
 
+				if (player->debug)
+					printf("yscale = %lf\n",yscale);
                 gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0, 0.5, 1, yscale);
             } else {
-                xscale = (allocation->height * video_aspect) / allocation->width;
+                xscale = ((gdouble)allocation->height * video_aspect) / (gdouble)allocation->width;
 
+				if (player->debug)
+					printf("xscale = %lf\n",xscale);
                 gtk_alignment_set(GTK_ALIGNMENT(player->alignment), 0.5, 0, xscale, 1);
             }
         }
