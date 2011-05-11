@@ -1,4 +1,5 @@
 Development
+    Add gconf/dconf key 'enable-global-menu' distros should set this to TRUE when using gnome global menu
     Remove GTK allocation warning caused by audio file, due to uninitialized values
     Flush GTK Events in resize window
     When initially loading a folder, check to see if it is a DVD 

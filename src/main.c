@@ -709,6 +709,7 @@ int main(int argc, char *argv[])
     skip_fixed_allocation_on_hide = FALSE;
     pref_volume = -1;
     use_mplayer2 = FALSE;
+	enable_global_menu = FALSE;
 
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;
@@ -814,6 +815,7 @@ int main(int argc, char *argv[])
             bring_to_front = gm_pref_store_get_boolean(gm_store, BRING_TO_FRONT);
         }
     }
+	enable_global_menu = gm_pref_store_get_boolean(gm_store, ENABLE_GLOBAL_MENU);                                    
 
     mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {

@@ -108,6 +108,9 @@
 #define DISABLE_EMBEDDING	"disable-embedding"
 #define DISABLE_EMBEDDED_SCALING "disable-embedded-scaling"
 
+// set this to true in gconf/dconf when using with gnome global menus
+#define ENABLE_GLOBAL_MENU  "enable-global-menu"
+
 // JavaScript Playstates
 #define STATE_UNDEFINED     0
 #define STATE_STOPPED       1
@@ -288,6 +291,7 @@ gboolean disable_framedrop;
 gboolean disable_context_menu;
 gboolean disable_fullscreen;
 gboolean disable_pause_on_click;
+gboolean enable_global_menu;
 gint loop;
 gint start_second;
 gint play_length;

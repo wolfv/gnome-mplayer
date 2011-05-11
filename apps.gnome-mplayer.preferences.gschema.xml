@@ -315,6 +315,11 @@
       <summary>Set to true to change volume with wheel</summary>
       <description>Set to true to change volume with mouse wheel</description>
     </key>
+    <key name="enable-global-menu" type="b">
+      <default>false</default>
+      <summary>Set to true when global menus are being used</summary>
+      <description>Set to true when global menus are being used</description>
+    </key>
     
   </schema>
 </schemalist>
