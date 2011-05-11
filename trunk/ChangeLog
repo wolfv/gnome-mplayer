@@ -1,4 +1,5 @@
 Development
+    Remove GTK allocation warning caused by audio file, due to uninitialized values
     Flush GTK Events in resize window
     When initially loading a folder, check to see if it is a DVD 
     Ensure that the window id is not 0, before using it
