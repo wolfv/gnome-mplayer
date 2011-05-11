@@ -355,9 +355,11 @@ void adjust_layout()
     }
 
     if (!fullscreen) {
-        //printf("menubar = %i\n",menubar->allocation.height);
-        get_allocation(menubar, &alloc);
-        total_height += alloc.height;
+		if (!enable_global_menu) {
+		    //printf("menubar = %i\n",menubar->allocation.height);
+		    get_allocation(menubar, &alloc);
+		    total_height += alloc.height;
+		}
     }
 
     if (showcontrols) {
