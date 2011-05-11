@@ -288,6 +288,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->subtitle_scale = 1.0;
     player->subtitle_delay = 0.0;
     player->subtitle_position = 0;
+    player->subtitle_fuzziness = 0;
     player->audio_delay = 0.0;
     player->restart = FALSE;
     player->debug = 1;
@@ -1408,6 +1409,10 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
         player->post_processing_level = value;
         break;
 
+    case ATTRIBUTE_SUBTITLE_FUZZINESS:
+        player->subtitle_fuzziness = CLAMP(value, 0, 2);
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -1518,6 +1523,10 @@ gint gmtk_media_player_get_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
 
     case ATTRIBUTE_POST_PROCESSING_LEVEL:
         ret = player->post_processing_level;
+        break;
+
+    case ATTRIBUTE_SUBTITLE_FUZZINESS:
+        ret = player->subtitle_fuzziness;
         break;
 
     default:
@@ -1920,6 +1929,9 @@ gpointer launch_mplayer(gpointer data)
 
         argv[argn++] = g_strdup_printf("-subpos");
         argv[argn++] = g_strdup_printf("%i", player->subtitle_position);
+
+        argv[argn++] = g_strdup_printf("-sub-fuzziness");
+        argv[argn++] = g_strdup_printf("%i", player->subtitle_fuzziness);
 
         while (player->socket_id == 0)
             g_usleep(100);

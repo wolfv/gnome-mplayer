@@ -290,6 +290,11 @@
       <summary>Extra space for subtitle</summary>
       <description>Extra space for subtitle</description>
     </key>
+    <key name="subtitle-fuzziness" type="i">
+      <default>0</default>
+      <summary>How to load subtitles</summary>
+      <description>Subtitle loading</description>
+    </key>
     <key name="mplayer-bin" type="s">
       <default>''</default>
       <summary>Location of mplayer binary if not in path</summary>

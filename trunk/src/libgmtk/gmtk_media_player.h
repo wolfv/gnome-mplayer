@@ -157,6 +157,7 @@ typedef enum {
     ATTRIBUTE_SUBTITLE_CODEPAGE,
     ATTRIBUTE_SUBTITLE_DELAY,
     ATTRIBUTE_SUBTITLE_POSITION,
+    ATTRIBUTE_SUBTITLE_FUZZINESS,
     ATTRIBUTE_PLAYLIST,
     ATTRIBUTE_MESSAGE,
     ATTRIBUTE_ENABLE_DEBUG,
@@ -314,6 +315,7 @@ struct _GmtkMediaPlayer {
     gchar *subtitle_color;
     gchar *subtitle_codepage;
     gchar *subtitle_font;
+    gint subtitle_fuzziness;
 
     gchar *tv_device;
     gchar *tv_driver;

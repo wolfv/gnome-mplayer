@@ -76,6 +76,7 @@
 #define SUBTITLEOUTLINE		"subtitle-outline"
 #define SUBTITLESHADOW		"subtitle-shadow"
 #define SUBTITLE_MARGIN		"subtitle-margin"
+#define SUBTITLE_FUZZINESS  "subtitle-fuzziness"
 
 #define MOUSE_WHEEL_CHANGES_VOLUME "mouse-wheel-changes-volume"
 #define USE_MEDIAKEYS		"use-mediakeys"
@@ -334,6 +335,7 @@ gchar *subtitle_color;
 gboolean subtitle_outline;
 gboolean subtitle_shadow;
 gint subtitle_margin;
+gint subtitle_fuzziness;
 gboolean quit_on_complete;
 gchar *mplayer_bin;
 gchar *mplayer_dvd_device;
