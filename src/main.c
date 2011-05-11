@@ -658,6 +658,7 @@ int main(int argc, char *argv[])
     subtitle_color = NULL;
     subtitle_outline = FALSE;
     subtitle_shadow = FALSE;
+    subtitle_fuzziness = 0;
     disable_embeddedfonts = FALSE;
     quit_on_complete = FALSE;
     slide_away = NULL;
@@ -709,7 +710,7 @@ int main(int argc, char *argv[])
     skip_fixed_allocation_on_hide = FALSE;
     pref_volume = -1;
     use_mplayer2 = FALSE;
-	enable_global_menu = FALSE;
+    enable_global_menu = FALSE;
 
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;
@@ -799,6 +800,7 @@ int main(int argc, char *argv[])
     subtitle_outline = gm_pref_store_get_boolean(gm_store, SUBTITLEOUTLINE);
     subtitle_shadow = gm_pref_store_get_boolean(gm_store, SUBTITLESHADOW);
     subtitle_margin = gm_pref_store_get_int(gm_store, SUBTITLE_MARGIN);
+    subtitle_fuzziness = gm_pref_store_get_int(gm_store, SUBTITLE_FUZZINESS);
     showsubtitles = gm_pref_store_get_boolean_with_default(gm_store, SHOW_SUBTITLES, TRUE);
 
     qt_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_QT);
@@ -815,7 +817,7 @@ int main(int argc, char *argv[])
             bring_to_front = gm_pref_store_get_boolean(gm_store, BRING_TO_FRONT);
         }
     }
-	enable_global_menu = gm_pref_store_get_boolean(gm_store, ENABLE_GLOBAL_MENU);                                    
+    enable_global_menu = gm_pref_store_get_boolean(gm_store, ENABLE_GLOBAL_MENU);
 
     mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {

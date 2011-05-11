@@ -121,6 +121,7 @@ void set_media_player_attributes(GtkWidget * widget)
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_COLOR, subtitle_color);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_CODEPAGE, subtitle_codepage);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_FONT, subtitlefont);
+    gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_FUZZINESS, subtitle_fuzziness);
 
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DEINTERLACE, !disable_deinterlace);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AO, audio_device.mplayer_ao);
@@ -355,11 +356,11 @@ void adjust_layout()
     }
 
     if (!fullscreen) {
-		if (!enable_global_menu) {
-		    //printf("menubar = %i\n",menubar->allocation.height);
-		    get_allocation(menubar, &alloc);
-		    total_height += alloc.height;
-		}
+        if (!enable_global_menu) {
+            //printf("menubar = %i\n",menubar->allocation.height);
+            get_allocation(menubar, &alloc);
+            total_height += alloc.height;
+        }
     }
 
     if (showcontrols) {
@@ -3788,6 +3789,7 @@ void config_apply(GtkWidget * widget, void *data)
     subtitle_outline = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_outline));
     subtitle_shadow = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_subtitle_shadow));
     subtitle_margin = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_subtitle_margin));
+    subtitle_fuzziness = (gint) gtk_range_get_value(GTK_RANGE(config_subtitle_fuzziness));
     showsubtitles = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_subtitles));
 
     if (old_disable_framedrop != disable_framedrop) {
@@ -4375,6 +4377,28 @@ gchar *pplevel_format_callback(GtkScale * scale, gdouble value)
     case 5:
     case 6:
         text = g_strdup(_("Maximum Postprocessing"));
+        break;
+    default:
+        text = g_strdup("How did we get here?");
+    }
+
+    return text;
+}
+
+gchar *subtitle_fuzziness_format_callback(GtkScale * scale, gdouble value)
+{
+    gchar *text;
+
+    switch ((gint) value) {
+
+    case 0:
+        text = g_strdup(_("Exact Match"));
+        break;
+    case 1:
+        text = g_strdup(_("Load all subtitles containing movie name"));
+        break;
+    case 2:
+        text = g_strdup(_("Load all subtitles in the same folder"));
         break;
     default:
         text = g_strdup("How did we get here?");
@@ -5341,6 +5365,20 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_show_subtitles), showsubtitles);
     gtk_table_attach(GTK_TABLE(conf_table), config_show_subtitles, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
+
+    conf_label = gtk_label_new(_("Post-processing level:"));
+    config_subtitle_fuzziness = gtk_hscale_new_with_range(0.0, 2.0, 1.0);
+    g_signal_connect(G_OBJECT(config_subtitle_fuzziness), "format-value",
+                     G_CALLBACK(subtitle_fuzziness_format_callback), NULL);
+    gtk_widget_set_size_request(config_subtitle_fuzziness, 150, -1);
+    gtk_range_set_value(GTK_RANGE(config_subtitle_fuzziness), subtitle_fuzziness);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 1.0);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), config_subtitle_fuzziness, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND,
+                     GTK_SHRINK, 0, 0);
+    i++;
+
 
     // Page 5
     conf_table = gtk_table_new(20, 2, FALSE);

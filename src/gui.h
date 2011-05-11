@@ -274,6 +274,7 @@ GtkWidget *config_subtitle_color;
 GtkWidget *config_subtitle_outline;
 GtkWidget *config_subtitle_shadow;
 GtkWidget *config_subtitle_margin;
+GtkWidget *config_subtitle_fuzziness;
 GtkWidget *config_show_subtitles;
 
 GtkWidget *config_qt;
