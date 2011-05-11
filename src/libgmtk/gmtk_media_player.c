@@ -1953,8 +1953,9 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("-nomsgcolor");
         argv[argn++] = g_strdup_printf("-nomsgmodule");
 
-        if (player->use_mplayer2)
-            argv[argn++] = g_strdup_printf("-nokeepaspect");
+		// mplayer says that nokeepaspect isn't supported by all vo's but it seems to work
+        //if (player->use_mplayer2)
+        argv[argn++] = g_strdup_printf("-nokeepaspect");
 
         if (player->audio_track_file != NULL && strlen(player->audio_track_file) > 0) {
             argv[argn++] = g_strdup_printf("-audiofile");
