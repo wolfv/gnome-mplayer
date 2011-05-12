@@ -1,4 +1,5 @@
 Development
+    Correct GTK warning on gmtk_media_player allocation event
     Code fixes for older machines
     libgmtk - gmtk_media_player, Clamp the values in the alignment
     Implement subtitle fuzziness selection, Issue #474
