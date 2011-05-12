@@ -229,9 +229,14 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     g_signal_connect(G_OBJECT(player->socket), "realize", G_CALLBACK(socket_realized), player);
     gtk_container_add(GTK_CONTAINER(player), player->alignment);
     gtk_container_add(GTK_CONTAINER(player->alignment), player->socket);
+#ifdef GTK2_18_ENABLED	
     gtk_widget_set_has_window(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_focus(GTK_WIDGET(player->socket), TRUE);
     gtk_widget_set_can_default(GTK_WIDGET(player->socket), TRUE);
+#else
+	GTK_WIDGET_SET_FLAGS(GTK_WIDGET(player->socket), GTK_CAN_FOCUS);
+	GTK_WIDGET_SET_FLAGS(GTK_WIDGET(player->socket), GTK_CAN_DEFAULT);	
+#endif
     gtk_widget_activate(GTK_WIDGET(player->socket));
 
     g_signal_connect(player->socket, "key_press_event", G_CALLBACK(player_key_press_event_callback), player);
@@ -2541,7 +2546,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if (strstr(mplayer_output->str, "Video: no video") != NULL) {
             player->video_width = 0;
             player->video_height = 0;
-            gtk_widget_get_allocation(GTK_WIDGET(player), &allocation);
+            get_allocation(GTK_WIDGET(player), &allocation);
             if (player->restart) {
                 g_signal_emit_by_name(player, "restart-complete", NULL);
             } else {

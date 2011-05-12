@@ -1,4 +1,5 @@
 Development
+    Code fixes for older machines
     libgmtk - gmtk_media_player, Clamp the values in the alignment
     Implement subtitle fuzziness selection, Issue #474
     Add gconf/dconf key 'enable-global-menu' distros should set this to TRUE when using gnome global menu
