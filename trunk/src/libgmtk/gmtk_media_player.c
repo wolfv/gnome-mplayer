@@ -444,6 +444,8 @@ static gboolean player_key_press_event_callback(GtkWidget * widget, GdkEventKey 
             case MEDIA_STATE_PLAY:
                 gmtk_media_player_set_state(player, MEDIA_STATE_PAUSE);
                 break;
+            default:
+                break;
             }
             break;
         case GDK_1:
@@ -568,7 +570,6 @@ static void gmtk_media_player_size_allocate(GtkWidget * widget, GtkAllocation * 
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(widget);
     gdouble video_aspect;
     gdouble widget_aspect;
-    gint da_width, da_height;
     gfloat xscale, yscale;
 
     if (player->video_width == 0 || player->video_height == 0) {
@@ -1752,7 +1753,6 @@ gpointer launch_mplayer(gpointer data)
     GList *list;
     GmtkMediaPlayerSubtitle *subtitle;
     GmtkMediaPlayerAudioTrack *track;
-    GmtkMediaPlayerEvent *event;
 
     player->seekable = FALSE;
     player->has_chapters = FALSE;
@@ -1813,7 +1813,7 @@ gpointer launch_mplayer(gpointer data)
             if (g_ascii_strncasecmp(player->vo, "vdpau", strlen("vdpau")) == 0) {
 
                 if (player->deinterlace) {
-                    argv[argn++] = g_strdup_printf("vdpau:deint=2,", player->vo);
+                    argv[argn++] = g_strdup_printf("vdpau:deint=2,%s", player->vo);
                 } else {
                     argv[argn++] = g_strdup_printf("%s,", player->vo);
                 }
@@ -2061,7 +2061,7 @@ gpointer launch_mplayer(gpointer data)
             if (filename != NULL) {
                 if (player->force_cache && player->cache_size >= 32) {
                     argv[argn++] = g_strdup_printf("-cache");
-                    argv[argn++] = g_strdup_printf("%i", player->cache_size);
+                    argv[argn++] = g_strdup_printf("%i", (gint) player->cache_size);
                 }
                 if (player->playlist) {
                     argv[argn++] = g_strdup_printf("-playlist");
@@ -2329,7 +2329,6 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     GmtkMediaPlayer *player = GMTK_MEDIA_PLAYER(data);
     GString *mplayer_output;
     GIOStatus status;
-    GError *error = NULL;
     gchar *error_msg = NULL;
     GtkWidget *dialog;
     gchar *buf;
@@ -2690,12 +2689,14 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     iter = iter->next;
                 }
             }
-            if (subtitle->label != NULL) {
-                g_free(subtitle->label);
-                subtitle->label = NULL;
+            if (subtitle) {
+                if (subtitle->label != NULL) {
+                    g_free(subtitle->label);
+                    subtitle->label = NULL;
+                }
+                subtitle->label =
+                    g_strdup_printf("%s (%s)", (subtitle->name) ? subtitle->name : _("Unknown"), subtitle->lang);
             }
-            subtitle->label =
-                g_strdup_printf("%s (%s)", (subtitle->name) ? subtitle->name : _("Unknown"), subtitle->lang);
         }
 
         if (strstr(mplayer_output->str, "ID_FILE_SUB_ID=") != 0) {
@@ -2780,13 +2781,16 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 }
             }
 
-            if (audio_track->label != NULL) {
-                g_free(audio_track->label);
-                audio_track->label = NULL;
-            }
-            audio_track->label =
-                g_strdup_printf("%s (%s)", (audio_track->name) ? audio_track->name : _("Unknown"), audio_track->lang);
+            if (audio_track) {
+                if (audio_track->label != NULL) {
+                    g_free(audio_track->label);
+                    audio_track->label = NULL;
+                }
 
+                audio_track->label =
+                    g_strdup_printf("%s (%s)", (audio_track->name) ? audio_track->name : _("Unknown"),
+                                    audio_track->lang);
+            }
         }
 
         if ((strstr(mplayer_output->str, "ID_CHAPTERS=") != NULL)) {

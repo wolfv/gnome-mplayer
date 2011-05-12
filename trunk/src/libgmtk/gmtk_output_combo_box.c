@@ -29,7 +29,7 @@ static GObjectClass *parent_class = NULL;
 gint sort_iter_compare_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gpointer data)
 {
     gint sortcol = GPOINTER_TO_INT(data);
-    gint ret;
+    gint ret = 0;
     gchar *a_desc;
     gchar *b_desc;
 
@@ -122,7 +122,6 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     GtkCellRenderer *renderer;
     GtkTreeSortable *sortable;
 
-    void **hints;
     gint card, err, dev;
     gchar *name = NULL;
     gchar *menu;
