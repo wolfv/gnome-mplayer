@@ -1,4 +1,5 @@
 Development
+    Updated Polish translation
     Fix up some compiler warnings
     Correct GTK warning on gmtk_media_player allocation event
     Code fixes for older machines

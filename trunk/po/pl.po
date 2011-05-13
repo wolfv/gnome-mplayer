@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-06 10:19-0600\n"
-"PO-Revision-Date: 2011-04-13 23:32+0200\n"
+"PO-Revision-Date: 2011-05-13 21:21+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -478,9 +478,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Szczegóły dźwięku</span>"
 
 #: src/gui.c:4034
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Format:"
+msgstr "Format dźwięku:"
 
 #: src/gui.c:4047 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -1053,7 +1052,7 @@ msgstr "Języ_k napisów"
 
 #: src/gui.c:6719
 msgid "_Take Screenshot"
-msgstr "Pobierz zrzut _ekranutt"
+msgstr "Pobierz zrzut _ekranu"
 
 #: src/gui.c:6723 src/gui.c:6727
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
@@ -1386,12 +1385,12 @@ msgstr "Brak informacji"
 
 #: src/libgmtk/gmtk_media_player.c:503
 msgid "framedropping"
-msgstr ""
+msgstr "porzucanie klatek"
 
 #: src/libgmtk/gmtk_media_player.c:707
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "Wczytywanie..."
 
 #: src/libgmtk/gmtk_media_player.c:2307
 #, c-format
@@ -1409,9 +1408,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Zapełnienie bufora: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2603
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Zmniejsz rozmiar napisów"
+msgstr "Napisy zewnętrzne #%i"
 
 #: src/libgmtk/gmtk_media_player.c:2783
 #, c-format
@@ -1425,14 +1424,12 @@ msgstr "Powiadomienie"
 #: src/libgmtk/gmtk_media_player.c:2845
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
-msgstr ""
+msgstr "MPlayer powinien zostać zaktualizowany do nowszej wersji"
 
 #: src/libgmtk/gmtk_media_player.c:3039
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
-msgstr ""
-"Proszę rozważyć aktualizację do nowszej wersji mplayera, opcja -volume jest "
-"nieobsługiwana\n"
+msgstr "Proszę rozważyć aktualizację do nowszej wersji mplayera\n"
 
 #~ msgid "Open _DVD"
 #~ msgstr "Otwórz _DVD"
