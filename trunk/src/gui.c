@@ -661,7 +661,7 @@ gboolean set_progress_value(void *data)
                     // if ((idle->percent + 0.10) > idle->cachepercent && ((idle->byte_pos + (512 * 1024)) > buf.st_size)) {
                     // if ((buf.st_size > 0) && (idle->byte_pos + (cache_size * 512)) > buf.st_size) {
                     if (((idle->byte_pos + (cache_size * 1024)) > buf.st_size) && !(playlist)) {
-                        pause_callback(NULL, NULL, NULL);
+                        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PAUSE);
                         gtk_widget_set_sensitive(play_event_box, FALSE);
                         autopause = TRUE;
                     }
@@ -673,7 +673,7 @@ gboolean set_progress_value(void *data)
             if (idle->cachepercent >
                 (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION_PERCENT) + 0.20)
                 || idle->cachepercent >= 0.99) {
-                play_callback(NULL, NULL, NULL);
+                gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
                 gtk_widget_set_sensitive(play_event_box, TRUE);
                 autopause = FALSE;
             }
@@ -682,7 +682,7 @@ gboolean set_progress_value(void *data)
 
     if (idle->cachepercent > 0.95) {
         if (autopause == TRUE && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
-            play_callback(NULL, NULL, NULL);
+            gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
             gtk_widget_set_sensitive(play_event_box, TRUE);
             autopause = FALSE;
         }
@@ -888,26 +888,41 @@ gboolean set_gui_state(void *data)
 {
     gchar *tip_text = NULL;
 
+    printf("setting state to %i\n", guistate);
+
     if (lastguistate != guistate) {
         if (guistate == PLAYING) {
-            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PAUSE, button_size);
+            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
+
+                if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
+                    dontplaynext = TRUE;
+                    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
+                    gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
+                    g_idle_add(async_play_iter, &iter);
+                    if (embed_window == 0 && bring_to_front)
+                        present_main_window();
+                }
+
+            } else {
+                gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PAUSE, button_size);
 #ifdef GTK2_12_ENABLED
-            tip_text = gtk_widget_get_tooltip_text(play_event_box);
-            if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Pause")) != 0)
-                gtk_widget_set_tooltip_text(play_event_box, _("Pause"));
-            g_free(tip_text);
+                tip_text = gtk_widget_get_tooltip_text(play_event_box);
+                if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Pause")) != 0)
+                    gtk_widget_set_tooltip_text(play_event_box, _("Pause"));
+                g_free(tip_text);
 #else
-            gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
+                gtk_tooltips_set_tip(tooltip, play_event_box, _("Pause"), NULL);
 #endif
-            gtk_widget_set_sensitive(ff_event_box, TRUE);
-            gtk_widget_set_sensitive(rew_event_box, TRUE);
-            gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
-            menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
-            g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_pause_callback), NULL);
-            gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
-            gtk_widget_show(GTK_WIDGET(menuitem_play));
-            if (idledata->videopresent)
-                dbus_disable_screensaver();
+                gtk_widget_set_sensitive(ff_event_box, TRUE);
+                gtk_widget_set_sensitive(rew_event_box, TRUE);
+                gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
+                menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
+                g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_pause_callback), NULL);
+                gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
+                gtk_widget_show(GTK_WIDGET(menuitem_play));
+                if (idledata->videopresent)
+                    dbus_disable_screensaver();
+            }
         }
 
         if (guistate == PAUSED) {
@@ -928,6 +943,7 @@ gboolean set_gui_state(void *data)
             gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
             gtk_widget_show(GTK_WIDGET(menuitem_play));
             dbus_enable_screensaver();
+            //gmtk_media_player_set_state (GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PAUSE);
         }
 
         if (guistate == STOPPED) {
@@ -948,6 +964,7 @@ gboolean set_gui_state(void *data)
             gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
             gtk_widget_show(GTK_WIDGET(menuitem_play));
             dbus_enable_screensaver();
+            //gmtk_media_player_set_state (GMTK_MEDIA_PLAYER(media), MEDIA_STATE_STOP);
         }
         lastguistate = guistate;
     }

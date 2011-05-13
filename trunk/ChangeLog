@@ -1,4 +1,5 @@
 Development
+    Fix up some problems with apple trailers, still may have problems
     Updated Polish translation
     Fix up some compiler warnings
     Correct GTK warning on gmtk_media_player allocation event
