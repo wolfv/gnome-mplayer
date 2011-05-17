@@ -2995,6 +2995,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                         g_free(player->artist);
                     player->artist = g_strdup(icy);
                     create_event_int(player, "attribute-changed", ATTRIBUTE_ARTIST);
+                    if (player->album)
+                        g_free(player->album);
+                    player->album = NULL;
+                    create_event_int(player, "attribute-changed", ATTRIBUTE_ALBUM);
 
                 }
                 g_free(icy);

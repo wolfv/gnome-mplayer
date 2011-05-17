@@ -1,4 +1,7 @@
 Development
+    Try and solve the apple trailer issues, still may have issues
+    When playing an ICY stream, clear the album metadata fixes problem when switching from MP3 to stream
+    When playlist is open, don't resize the media window
     Fix up some problems with apple trailers, still may have problems
     Updated Polish translation
     Fix up some compiler warnings

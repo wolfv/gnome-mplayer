@@ -263,7 +263,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 
     if (gtk_list_store_iter_is_valid(playliststore, playiter)) {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), playiter, ITEM_COLUMN, &uri,
-                           DESCRIPTION_COLUMN, &title,
+                           DESCRIPTION_COLUMN, &title, LENGTH_VALUE_COLUMN, &length_value,
                            ARTIST_COLUMN, &artist,
                            ALBUM_COLUMN, &album,
                            AUDIO_CODEC_COLUMN, &audio_codec,
@@ -297,6 +297,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         printf("playing - %s\n", uri);
         printf("is playlist %i\n", playlist);
     }
+	/*
     // wait for metadata to be available on this item
     if (!streaming_media(uri) && !device_name(uri)) {
         i = 0;
@@ -344,6 +345,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         }
 
     }
+	*/
     // reset audio meter
     for (i = 0; i < METER_BARS; i++) {
         buckets[i] = 0;
