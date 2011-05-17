@@ -2162,8 +2162,8 @@ gpointer launch_mplayer(gpointer data)
         spawn =
             g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &pid,
                                      &(player->std_in), &(player->std_out), &(player->std_err), &error);
-        if (player->debug)
-            printf("spawn = %i files in %i out %i err %i \n", spawn, player->std_in, player->std_out, player->std_err);
+        //if (player->debug)
+        //    printf("spawn = %i files in %i out %i err %i \n", spawn, player->std_in, player->std_out, player->std_err);
 
         if (error != NULL) {
             if (player->debug)
@@ -2180,8 +2180,8 @@ gpointer launch_mplayer(gpointer data)
         }
 
         if (spawn) {
-            if (player->debug)
-                printf("spawn succeeded, settup up channels\n");
+            //if (player->debug)
+            //    printf("spawn succeeded, setup up channels\n");
 
             player->player_state = PLAYER_STATE_RUNNING;
             if (player->channel_in != NULL) {
@@ -2222,11 +2222,11 @@ gpointer launch_mplayer(gpointer data)
 #else
             g_timeout_add(1000, thread_query, player);
 #endif
-            if (player->debug)
-                printf("waiting for mplayer_complete_cond\n");
+            //if (player->debug)
+            //    printf("waiting for mplayer_complete_cond\n");
             g_cond_wait(player->mplayer_complete_cond, player->thread_running);
-            if (player->debug)
-                printf("mplayer_complete_cond was signalled\n");
+            //if (player->debug)
+            //    printf("mplayer_complete_cond was signalled\n");
 
             g_source_remove(player->watch_in_id);
             g_source_remove(player->watch_err_id);
@@ -2291,8 +2291,8 @@ gpointer launch_mplayer(gpointer data)
 
     } while (player->playback_error != NO_ERROR);
 
-    if (player->debug)
-        printf("marking playback complete\n");
+    //if (player->debug)
+    //    printf("marking playback complete\n");
     player->player_state = PLAYER_STATE_DEAD;
     player->media_state = MEDIA_STATE_UNKNOWN;
     g_mutex_unlock(player->thread_running);
@@ -2338,8 +2338,8 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     }
 
     if (source == NULL) {
-        if (player->debug)
-            printf("source is null\n");
+        //if (player->debug)
+        //    printf("source is null\n");
         g_source_remove(player->watch_in_id);
         g_source_remove(player->watch_in_hup_id);
         return FALSE;
