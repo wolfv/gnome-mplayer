@@ -737,14 +737,18 @@ void gmtk_media_player_set_state(GmtkMediaPlayer * player, const GmtkMediaPlayer
 
     if (player->player_state == PLAYER_STATE_RUNNING) {
         if (new_state == MEDIA_STATE_STOP) {
-            write_to_mplayer(player, "seek 0 2\n");
-            if (player->media_state == MEDIA_STATE_PLAY) {
-                write_to_mplayer(player, "pause\n");
+            if (player->type == TYPE_NETWORK) {
+                write_to_mplayer(player, "quit\n");
+            } else {
+                write_to_mplayer(player, "seek 0 2\n");
+                if (player->media_state == MEDIA_STATE_PLAY) {
+                    write_to_mplayer(player, "pause\n");
+                }
+                player->media_state = MEDIA_STATE_STOP;
+                g_signal_emit_by_name(player, "position-changed", 0.0);
+                if (!player->restart)
+                    g_signal_emit_by_name(player, "media-state-changed", player->media_state);
             }
-            player->media_state = MEDIA_STATE_STOP;
-            g_signal_emit_by_name(player, "position-changed", 0.0);
-            if (!player->restart)
-                g_signal_emit_by_name(player, "media-state-changed", player->media_state);
         }
 
         if (new_state == MEDIA_STATE_PLAY) {
