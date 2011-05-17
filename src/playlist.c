@@ -800,9 +800,18 @@ void shuffle_callback(GtkWidget * widget, void *data)
 
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 {
+	static gboolean old_resize_on_new_media;
+	
     playlist_visible = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem));
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list), playlist_visible);
-    if (remember_loc)
+	if (playlist_visible) {
+		old_resize_on_new_media = resize_on_new_media;
+		resize_on_new_media = FALSE;
+	} else {
+		resize_on_new_media = old_resize_on_new_media;
+	}
+
+	if (remember_loc)
         use_remember_loc = TRUE;
     adjust_layout();
 }
