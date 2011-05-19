@@ -1,4 +1,5 @@
 Development
+    Fix problem when chapters = 1, media really doesn't have chapters
     Fix stop in network/streaming mode
     Make sure mplayer is dead before quitting
     Try and solve the apple trailer issues, still may have issues

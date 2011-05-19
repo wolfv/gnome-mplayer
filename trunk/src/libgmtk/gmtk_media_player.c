@@ -2800,7 +2800,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         if ((strstr(mplayer_output->str, "ID_CHAPTERS=") != NULL)) {
             buf = strstr(mplayer_output->str, "ID_CHAPTERS");
             sscanf(buf, "ID_CHAPTERS=%i", &player->chapters);
-            if (player->chapters > 0) {
+            if (player->chapters > 1) {
                 player->has_chapters = TRUE;
             } else {
                 player->has_chapters = FALSE;
