@@ -1,4 +1,5 @@
 Development
+    Disable button focus on control bar
     Fix problem when chapters = 1, media really doesn't have chapters
     Fix stop in network/streaming mode
     Make sure mplayer is dead before quitting
