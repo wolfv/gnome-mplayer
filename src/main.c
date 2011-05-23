@@ -820,6 +820,9 @@ int main(int argc, char *argv[])
         }
     }
     enable_global_menu = gm_pref_store_get_boolean(gm_store, ENABLE_GLOBAL_MENU);
+    if (!enable_global_menu) {
+        enable_global_menu = (g_getenv("UBUNTU_MENUPROXY") == NULL ? FALSE : TRUE);
+    }
 
     mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
