@@ -1,4 +1,5 @@
 Development
+    Update tracker status message when pausing
     Disable tracker focus
     Fix minor issue with vcd://
     Detect UBUNTU_MENUPROXY and enable_global_menu = TRUE when not NULL
