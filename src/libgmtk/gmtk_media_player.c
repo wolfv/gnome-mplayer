@@ -2094,7 +2094,7 @@ gpointer launch_mplayer(gpointer data)
 
         case TYPE_VCD:
             argv[argn++] = g_strdup_printf("-nocache");
-            argv[argn++] = g_strdup_printf("vcd://");
+            argv[argn++] = g_strdup_printf("%s", player->uri);
             if (player->media_device != NULL) {
                 argv[argn++] = g_strdup_printf("-dvd-device");
                 argv[argn++] = g_strdup_printf("%s", player->media_device);
