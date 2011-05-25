@@ -1,4 +1,6 @@
 Development
+    Disable tracker focus
+    Fix minor issue with vcd://
     Detect UBUNTU_MENUPROXY and enable_global_menu = TRUE when not NULL
     Disable button focus on control bar
     Fix problem when chapters = 1, media really doesn't have chapters
