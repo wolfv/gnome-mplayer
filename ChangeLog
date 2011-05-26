@@ -1,4 +1,5 @@
 Development
+    libgmtk - gmtk_media_player set attribute for audio_channels
     Update tracker status message when pausing
     Disable tracker focus
     Fix minor issue with vcd://
