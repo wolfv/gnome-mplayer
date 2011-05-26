@@ -651,8 +651,13 @@ static void gmtk_media_player_restart_complete_callback(GmtkMediaPlayer * player
 
 static void gmtk_media_player_restart_shutdown_complete_callback(GmtkMediaPlayer * player, gpointer data)
 {
-    if (player->restart)
-        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_PLAY);
+    if (player->restart) {
+        if (player->restart_state != MEDIA_STATE_STOP) {
+            gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(player), MEDIA_STATE_PLAY);
+        } else {
+            player->restart = FALSE;
+        }
+    }
 }
 
 void gmtk_media_player_restart(GmtkMediaPlayer * player)
@@ -1432,6 +1437,10 @@ void gmtk_media_player_set_attribute_integer(GmtkMediaPlayer * player, GmtkMedia
 
     case ATTRIBUTE_SUBTITLE_FUZZINESS:
         player->subtitle_fuzziness = CLAMP(value, 0, 2);
+        break;
+
+    case ATTRIBUTE_AUDIO_CHANNELS:
+        player->audio_channels = CLAMP(value, 0, 3);
         break;
 
     default:
