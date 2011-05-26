@@ -2298,6 +2298,9 @@ gpointer launch_mplayer(gpointer data)
             player->disable_xvmc = TRUE;
             break;
 
+		case ERROR_RETRY_ALSA_BUSY:
+			break;
+				
         default:
             break;
         }
@@ -2394,6 +2397,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
             player->playback_error = ERROR_RETRY_WITHOUT_XVMC;
     }
 
+    if (strstr(mplayer_output->str, "[AO_ALSA] Playback open error: Device or resource busy") != NULL) {
+        if (!player->disable_xvmc)
+            player->playback_error = ERROR_RETRY_ALSA_BUSY;
+    }
+		
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
