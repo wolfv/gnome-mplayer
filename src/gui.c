@@ -675,7 +675,7 @@ gboolean set_progress_value(void *data)
         } else if (autopause == TRUE && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
             if (idle->cachepercent >
                 (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION_PERCENT) + 0.20)
-                || idle->cachepercent >= 0.99) {
+                || (idle->cachepercent >= 0.99 || idle->cachepercent == 0.0)) {
                 gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
                 gtk_widget_set_sensitive(play_event_box, TRUE);
                 autopause = FALSE;
@@ -683,7 +683,7 @@ gboolean set_progress_value(void *data)
         }
     }
 
-    if (idle->cachepercent > 0.95) {
+    if (idle->cachepercent > 0.95 || idle->cachepercent == 0.0) {
         if (autopause == TRUE && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
             gtk_widget_set_sensitive(play_event_box, TRUE);
@@ -6098,6 +6098,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         // break purposely not put here, so gui is properly updated
     case MEDIA_STATE_STOP:
         gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+		gmtk_media_tracker_set_position (GMTK_MEDIA_TRACKER(tracker), 0.0);
 #ifdef GTK2_12_ENABLED
         tip_text = gtk_widget_get_tooltip_text(play_event_box);
         if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
