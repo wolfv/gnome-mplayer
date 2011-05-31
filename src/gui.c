@@ -6098,7 +6098,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         // break purposely not put here, so gui is properly updated
     case MEDIA_STATE_STOP:
         gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
-		gmtk_media_tracker_set_position (GMTK_MEDIA_TRACKER(tracker), 0.0);
+        gmtk_media_tracker_set_position(GMTK_MEDIA_TRACKER(tracker), 0.0);
 #ifdef GTK2_12_ENABLED
         tip_text = gtk_widget_get_tooltip_text(play_event_box);
         if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)

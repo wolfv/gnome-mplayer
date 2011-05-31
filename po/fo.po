@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-06 10:19-0600\n"
+"POT-Creation-Date: 2011-05-31 10:03-0600\n"
 "PO-Revision-Date: 2011-03-03 18:09+0000\n"
 "Last-Translator: Kevin DeKorte <kdekorte@gmail.com>\n"
 "Language-Team: Faroese <fo@li.org>\n"
@@ -145,7 +145,7 @@ msgstr "Nýt loddrætta uppseting"
 msgid "Start with playlist open"
 msgstr "Byrja við upplætnum avspælingarlista"
 
-#: src/main.c:106 src/gui.c:5339
+#: src/main.c:106 src/gui.c:5406
 msgid "Start with details visible"
 msgstr ""
 
@@ -221,73 +221,73 @@ msgstr ""
 msgid "Don't fetch new cover art images"
 msgstr ""
 
-#: src/main.c:353 src/gui.c:731 src/gui.c:6154
+#: src/main.c:355 src/gui.c:742 src/gui.c:6142 src/gui.c:6202
 #, c-format
 msgid "Playing"
 msgstr "Spæli av"
 
-#: src/main.c:844
+#: src/main.c:853
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[FÍLUR...] - GNOME Media player byggdur á MPlayer"
 
-#: src/main.c:864
+#: src/main.c:873
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:929
+#: src/main.c:938
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr ""
 
-#: src/gui.c:440 src/gui.c:483
+#: src/gui.c:446 src/gui.c:489 src/gui.c:6008
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
 
-#: src/gui.c:475
+#: src/gui.c:481
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:477
+#: src/gui.c:483
 #, c-format
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "(%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:481 src/gui.c:3141 src/gui.c:6456
+#: src/gui.c:487 src/gui.c:3169 src/gui.c:6482
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:616
+#: src/gui.c:622
 #, c-format
 msgid "Buffering: %2i%%"
 msgstr "Løði tippið: %2i%%"
 
-#: src/gui.c:628
+#: src/gui.c:633
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Steðgað | %2i%% ▼"
 
-#: src/gui.c:733 src/gui.c:6156
+#: src/gui.c:744 src/gui.c:6163 src/gui.c:6204
 #, c-format
 msgid "Paused"
 msgstr "Steðga"
 
-#: src/gui.c:735 src/gui.c:1106 src/gui.c:6158
+#: src/gui.c:746 src/gui.c:1121 src/gui.c:6206
 #, c-format
 msgid "Idle"
 msgstr "Óvirkin"
 
-#: src/gui.c:864 src/support.c:248 src/playlist.c:584 src/playlist.c:902
+#: src/gui.c:875 src/support.c:248 src/playlist.c:584 src/playlist.c:911
 #, c-format
 msgid "%s items"
 msgstr "%s liðir"
 
-#: src/gui.c:866 src/gui.c:2557 src/gui.c:2925 src/support.c:197
+#: src/gui.c:877 src/gui.c:2585 src/gui.c:2953 src/support.c:197
 #: src/support.c:263 src/playlist.c:586
 #, c-format
 msgid "Item to Play"
@@ -295,85 +295,85 @@ msgid_plural "Items to Play"
 msgstr[0] "Liðir til avspælingar"
 msgstr[1] "Liðir til avspælingar"
 
-#: src/gui.c:888 src/gui.c:889 src/gui.c:892 src/gui.c:6073 src/gui.c:6074
-#: src/gui.c:6077
+#: src/gui.c:901 src/gui.c:902 src/gui.c:905 src/gui.c:6126 src/gui.c:6127
+#: src/gui.c:6130
 msgid "Pause"
 msgstr "Steðga"
 
-#: src/gui.c:909 src/gui.c:910 src/gui.c:913 src/gui.c:929 src/gui.c:930
-#: src/gui.c:933 src/gui.c:2095 src/gui.c:2097 src/gui.c:2105 src/gui.c:2107
-#: src/gui.c:6049 src/gui.c:6050 src/gui.c:6053 src/gui.c:6097 src/gui.c:6098
-#: src/gui.c:6101 src/gui.c:7073 src/gui.c:7076
+#: src/gui.c:922 src/gui.c:923 src/gui.c:926 src/gui.c:943 src/gui.c:944
+#: src/gui.c:947 src/gui.c:2113 src/gui.c:2115 src/gui.c:2123 src/gui.c:2125
+#: src/gui.c:6104 src/gui.c:6105 src/gui.c:6108 src/gui.c:6148 src/gui.c:6149
+#: src/gui.c:6152 src/gui.c:7053 src/gui.c:7056
 msgid "Play"
 msgstr "Spæl"
 
-#: src/gui.c:1079
+#: src/gui.c:1094
 #, c-format
 msgid "Adding %s to playlist"
 msgstr "Legg %s til avspælingarlistan"
 
-#: src/gui.c:1102
+#: src/gui.c:1117
 #, c-format
 msgid "Playing %s"
 msgstr "Avspæli %s"
 
-#: src/gui.c:1104
+#: src/gui.c:1119
 #, c-format
 msgid "Paused %s"
 msgstr "Steðgað %s"
 
-#: src/gui.c:1329 src/gui.c:1338
+#: src/gui.c:1347 src/gui.c:1356
 #, c-format
 msgid "Volume %i%%"
 msgstr "Ljóðstyrki %i%%"
 
-#: src/gui.c:2113
+#: src/gui.c:2130
 msgid "Stopped"
 msgstr "Stoppað"
 
-#: src/gui.c:2509 src/playlist.c:548
+#: src/gui.c:2537 src/playlist.c:548
 msgid "Open File"
 msgstr "Lat upp fílu"
 
-#: src/gui.c:2614
+#: src/gui.c:2642
 msgid "Open Location"
 msgstr "Lat upp stað"
 
-#: src/gui.c:2616
+#: src/gui.c:2644
 msgid "Location:"
 msgstr "Stað:"
 
-#: src/gui.c:2670 src/gui.c:2762
+#: src/gui.c:2698 src/gui.c:2790
 msgid "Choose Disk Directory"
 msgstr "Vel diskafílukrá"
 
-#: src/gui.c:2706 src/gui.c:2802
+#: src/gui.c:2734 src/gui.c:2830
 msgid "Choose Disk Image"
 msgstr "Vel diskamynd"
 
-#: src/gui.c:2720 src/gui.c:2816
+#: src/gui.c:2748 src/gui.c:2844
 msgid "Disk Image (*.iso)"
 msgstr "Diskamynd (*.iso)"
 
-#: src/gui.c:3046
+#: src/gui.c:3074
 msgid "Save As..."
 msgstr "Goym sum..."
 
-#: src/gui.c:3086
+#: src/gui.c:3114
 #, c-format
 msgid "Unable to save '%s'"
 msgstr ""
 
-#: src/gui.c:3089 src/support.c:798 src/support.c:889
-#: src/libgmtk/gmtk_media_player.c:2349
+#: src/gui.c:3117 src/support.c:798 src/support.c:889
+#: src/libgmtk/gmtk_media_player.c:2470
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer villa"
 
-#: src/gui.c:3143
+#: src/gui.c:3171
 msgid "A media player for GNOME that uses MPlayer"
 msgstr ""
 
-#: src/gui.c:3146
+#: src/gui.c:3174
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -396,235 +396,247 @@ msgid ""
 "Boston, MA 02110-1301 USA"
 msgstr ""
 
-#: src/gui.c:3337
+#: src/gui.c:3365
 msgid "Set AudioFile"
 msgstr ""
 
-#: src/gui.c:3375 src/playlist.c:136
+#: src/gui.c:3403 src/playlist.c:136
 msgid "Set Subtitle"
 msgstr "Vel undirtekstir"
 
-#: src/gui.c:3537
+#: src/gui.c:3565
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Gnome MPlayer Fullskggji"
 
-#: src/gui.c:3949 src/nautilus_property_page.c:341
+#: src/gui.c:3978 src/nautilus_property_page.c:341
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr ""
 
-#: src/gui.c:3956 src/nautilus_property_page.c:348
+#: src/gui.c:3985 src/nautilus_property_page.c:348
 msgid "Video Size:"
 msgstr "Video stødd:"
 
-#: src/gui.c:3969
+#: src/gui.c:3998
 msgid "Video Format:"
 msgstr "Video snið:"
 
-#: src/gui.c:3973 src/gui.c:3984 src/gui.c:4015 src/gui.c:4039 src/gui.c:4052
-#: src/gui.c:4065 src/libgmtk/gmtk_media_player.c:2546
-#: src/libgmtk/gmtk_media_player.c:2547 src/libgmtk/gmtk_media_player.c:2594
-#: src/libgmtk/gmtk_media_player.c:2624 src/libgmtk/gmtk_media_player.c:2625
-#: src/libgmtk/gmtk_media_player.c:2656 src/libgmtk/gmtk_media_player.c:2684
+#: src/gui.c:4002 src/gui.c:4013 src/gui.c:4044 src/gui.c:4068 src/gui.c:4081
+#: src/gui.c:4094 src/libgmtk/gmtk_media_player.c:2670
+#: src/libgmtk/gmtk_media_player.c:2671 src/libgmtk/gmtk_media_player.c:2719
+#: src/libgmtk/gmtk_media_player.c:2750 src/libgmtk/gmtk_media_player.c:2751
+#: src/libgmtk/gmtk_media_player.c:2782 src/libgmtk/gmtk_media_player.c:2812
 #, c-format
 msgid "Unknown"
 msgstr ""
 
-#: src/gui.c:3980 src/nautilus_property_page.c:359
+#: src/gui.c:4009 src/nautilus_property_page.c:359
 msgid "Video Codec:"
 msgstr "Video kotek:"
 
-#: src/gui.c:3991
+#: src/gui.c:4020
 msgid "Video FPS:"
 msgstr ""
 
-#: src/gui.c:4000 src/nautilus_property_page.c:370
+#: src/gui.c:4029 src/nautilus_property_page.c:370
 msgid "Video Bitrate:"
 msgstr "Video Bitferð:"
 
-#: src/gui.c:4011
+#: src/gui.c:4040
 msgid "Video Chapters:"
 msgstr "Videokapitlar:"
 
-#: src/gui.c:4027 src/nautilus_property_page.c:395
+#: src/gui.c:4056 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr ""
 
-#: src/gui.c:4034
+#: src/gui.c:4063
 #, fuzzy
 msgid "Audio Format:"
 msgstr "Video snið:"
 
-#: src/gui.c:4047 src/nautilus_property_page.c:402
+#: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
 msgstr "Ljóð kotek"
 
-#: src/gui.c:4060 src/nautilus_property_page.c:425
+#: src/gui.c:4089 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
 msgstr "Ljóð kanalir:"
 
-#: src/gui.c:4073 src/nautilus_property_page.c:413
+#: src/gui.c:4102 src/nautilus_property_page.c:413
 msgid "Audio Bitrate:"
 msgstr "Ljóð bitferð:"
 
-#: src/gui.c:4086
+#: src/gui.c:4115
 msgid "Audio Sample Rate:"
 msgstr "Ljóð úrskurðarferð:"
 
-#: src/gui.c:4116
+#: src/gui.c:4145
 msgid "Video Picture Adjustments"
 msgstr "Innstillingar á videomynd"
 
-#: src/gui.c:4129
+#: src/gui.c:4158
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr ""
 
-#: src/gui.c:4136
+#: src/gui.c:4165
 msgid "Brightness"
 msgstr "Ljósstyrki"
 
-#: src/gui.c:4147
+#: src/gui.c:4176
 msgid "Contrast"
 msgstr "Kontrastur"
 
-#: src/gui.c:4158
+#: src/gui.c:4187
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/gui.c:4169
+#: src/gui.c:4198
 msgid "Hue"
 msgstr "Littóni"
 
-#: src/gui.c:4180
+#: src/gui.c:4209
 msgid "Saturation"
 msgstr ""
 
-#: src/gui.c:4197
+#: src/gui.c:4226
 msgid "_Reset"
 msgstr "_Endurstilla"
 
-#: src/gui.c:4320
+#: src/gui.c:4349
 msgid "No Display"
 msgstr "Eingin sýning"
 
-#: src/gui.c:4323
+#: src/gui.c:4352
 msgid "Minimal"
 msgstr "Minsta"
 
-#: src/gui.c:4326
+#: src/gui.c:4355
 msgid "Timer"
 msgstr "Tíðarvørður"
 
-#: src/gui.c:4329
+#: src/gui.c:4358
 msgid "Timer/Total"
 msgstr ""
 
-#: src/gui.c:4345
+#: src/gui.c:4374
 msgid "No Postprocessing"
 msgstr ""
 
-#: src/gui.c:4349
+#: src/gui.c:4378
 msgid "Minimal Postprocessing"
 msgstr ""
 
-#: src/gui.c:4353
+#: src/gui.c:4382
 msgid "More Postprocessing"
 msgstr ""
 
-#: src/gui.c:4357
+#: src/gui.c:4386
 msgid "Maximum Postprocessing"
 msgstr ""
 
-#: src/gui.c:4580
+#: src/gui.c:4402
+msgid "Exact Match"
+msgstr ""
+
+#: src/gui.c:4405
+msgid "Load all subtitles containing movie name"
+msgstr ""
+
+#: src/gui.c:4408
+msgid "Load all subtitles in the same folder"
+msgstr ""
+
+#: src/gui.c:4631
 msgid "Player"
 msgstr "Vspælari"
 
-#: src/gui.c:4582
+#: src/gui.c:4633
 msgid "Language Settings"
 msgstr "Tungumáls innstillingar"
 
-#: src/gui.c:4584
+#: src/gui.c:4635
 msgid "Subtitles"
 msgstr "Undirtekstir"
 
-#: src/gui.c:4586
+#: src/gui.c:4637
 msgid "Interface"
 msgstr "Markamót"
 
-#: src/gui.c:4588
+#: src/gui.c:4639
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:4590
+#: src/gui.c:4641
 msgid "Plugin"
 msgstr "Ískoytisforrit"
 
-#: src/gui.c:4596
+#: src/gui.c:4647
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME MPlayer samanseting"
 
-#: src/gui.c:4614 src/gui.c:4620
+#: src/gui.c:4665 src/gui.c:4671
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
 msgstr ""
 
-#: src/gui.c:4673
+#: src/gui.c:4726
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "Gilda AC3/DTS gjøgnumgongd til S/PDIF"
 
-#: src/gui.c:4682
+#: src/gui.c:4735
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Mplayer ritbúnaðar ljóðstyrki er virkjað"
 
-#: src/gui.c:4701 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
-#: src/libgmtk/gmtk_output_combo_box.c:148
+#: src/gui.c:4754 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
+#: src/libgmtk/gmtk_output_combo_box.c:147
 msgid "Default"
 msgstr ""
 
-#: src/gui.c:4919
+#: src/gui.c:4972
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr ""
 
-#: src/gui.c:4926
+#: src/gui.c:4979
 msgid "Video Output:"
 msgstr "Video útgangur:"
 
-#: src/gui.c:4935
+#: src/gui.c:4988
 msgid "Audio Output:"
 msgstr "Ljóð útgangur:"
 
-#: src/gui.c:4946
+#: src/gui.c:4999
 msgid "Default Mixer:"
 msgstr "Forsettur ljóðmiksari:"
 
-#: src/gui.c:4956
+#: src/gui.c:5009
 msgid "Audio Channels to Output"
 msgstr "Ljóðkanalir til útgang"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:4984
+#: src/gui.c:5037
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr ""
 
-#: src/gui.c:4992
+#: src/gui.c:5045
 msgid "Default Volume Level:"
 msgstr "Forsett ljóðstyrkustig:"
 
-#: src/gui.c:4999 src/gui.c:5002
+#: src/gui.c:5052 src/gui.c:5055
 msgid "Default volume for playback"
 msgstr "Forsett ljóðstyrkja til avspæling"
 
-#: src/gui.c:5016
+#: src/gui.c:5069
 msgid "On Screen Display Level:"
 msgstr ""
 
-#: src/gui.c:5028
+#: src/gui.c:5081 src/gui.c:5376
 msgid "Post-processing level:"
 msgstr ""
 
-#: src/gui.c:5042
+#: src/gui.c:5095
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -634,241 +646,241 @@ msgid ""
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
 
-#: src/gui.c:5053
+#: src/gui.c:5106
 msgid "QuickTime Emulation"
 msgstr "QuickTime herman"
 
-#: src/gui.c:5058
+#: src/gui.c:5111
 msgid "RealPlayer Emulation"
 msgstr "RealPlayer herman"
 
-#: src/gui.c:5063
+#: src/gui.c:5116
 msgid "Windows Media Player Emulation"
 msgstr "Windows Media Player herman"
 
-#: src/gui.c:5068
+#: src/gui.c:5121
 msgid "DiVX Player Emulation"
 msgstr "DiVX Player herman"
 
-#: src/gui.c:5073
+#: src/gui.c:5126
 msgid "MIDI Support (requires MPlayer support)"
 msgstr ""
 
-#: src/gui.c:5078
+#: src/gui.c:5131
 msgid "Disable Player Embedding"
 msgstr ""
 
-#: src/gui.c:5083
+#: src/gui.c:5136
 msgid "Disable Embedded Player Scaling"
 msgstr ""
 
-#: src/gui.c:5088
+#: src/gui.c:5141
 msgid "Audio Cache Size (KB):"
 msgstr ""
 
-#: src/gui.c:5098 src/gui.c:5101 src/gui.c:5107 src/gui.c:5112
+#: src/gui.c:5151 src/gui.c:5154 src/gui.c:5160 src/gui.c:5165
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
 msgstr ""
 
-#: src/gui.c:5128
+#: src/gui.c:5181
 msgid "Video Cache Size (KB):"
 msgstr ""
 
-#: src/gui.c:5150
+#: src/gui.c:5203
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr ""
 
-#: src/gui.c:5157
+#: src/gui.c:5210
 msgid "Default Audio Language"
 msgstr "Forsett ljóðmál"
 
-#: src/gui.c:5166
+#: src/gui.c:5219
 msgid "Default Subtitle Language:"
 msgstr "Forsett undirtekstamál:"
 
-#: src/gui.c:5176
+#: src/gui.c:5229
 msgid "File Metadata Encoding:"
 msgstr ""
 
-#: src/gui.c:5192
+#: src/gui.c:5245
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">Undirteksta innstillingar</span>"
 
-#: src/gui.c:5199
+#: src/gui.c:5252
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Gilda _Advanced Substation Alpha (ASS) undirteksta stuðul"
 
-#: src/gui.c:5206
+#: src/gui.c:5259
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr ""
 
-#: src/gui.c:5215
+#: src/gui.c:5268
 msgid "Subtitle Font:"
 msgstr "Undirteksta stavasnið"
 
-#: src/gui.c:5233
+#: src/gui.c:5286
 msgid "Subtitle Font Selection"
 msgstr "Undirteksta stavasniðs úrval"
 
-#: src/gui.c:5238
+#: src/gui.c:5291
 msgid "Subtitle Color:"
 msgstr "Undirtekstalitur:"
 
-#: src/gui.c:5262
+#: src/gui.c:5315
 msgid "Subtitle Color Selection"
 msgstr "Úrval av litum til undirtekstir"
 
-#: src/gui.c:5268
+#: src/gui.c:5321
 msgid "Outline Subtitle Font"
 msgstr ""
 
-#: src/gui.c:5274
+#: src/gui.c:5327
 msgid "Shadow Subtitle Font"
 msgstr "Skuggi á stavasniði til undirtekstir"
 
-#: src/gui.c:5280
+#: src/gui.c:5333
 msgid "Subtitle Font Scaling:"
 msgstr ""
 
-#: src/gui.c:5293
+#: src/gui.c:5346
 msgid "Subtitle File Encoding:"
 msgstr ""
 
-#: src/gui.c:5305
+#: src/gui.c:5358
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr ""
 
-#: src/gui.c:5318
+#: src/gui.c:5371
 msgid "Show Subtitles by Default"
 msgstr "Vís undirtekstir sum forsetta atgerð"
 
-#: src/gui.c:5327
+#: src/gui.c:5394
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Nýtsluskipanar innstillingar</span>"
 
-#: src/gui.c:5334
+#: src/gui.c:5401
 msgid "Start with playlist visible"
 msgstr "Byrja við sjónligum avspælingarlista"
 
-#: src/gui.c:5344
+#: src/gui.c:5411
 msgid "Respond to Keyboard Media Keys"
 msgstr "Gilda nýtsluna av miðlaknappum á knappaborðinum"
 
-#: src/gui.c:5349
+#: src/gui.c:5416
 msgid "Use default playlist"
 msgstr "Nýt forsettan avspælingarlista"
 
-#: src/gui.c:5355
+#: src/gui.c:5422
 msgid "Show notification popup"
 msgstr "Sýn kunningar støkkmynd"
 
-#: src/gui.c:5362
+#: src/gui.c:5429
 msgid "Show status icon"
 msgstr "Sýn standsímynd"
 
-#: src/gui.c:5368
+#: src/gui.c:5435
 msgid "Use X Screen Saver control over Gnome Power Manager"
 msgstr ""
 
-#: src/gui.c:5374
+#: src/gui.c:5441
 msgid "Place playlist below media (requires application restart)"
 msgstr ""
 
-#: src/gui.c:5379
+#: src/gui.c:5446
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Loyv einans ein tilburði av Gnome MPlayer"
 
-#: src/gui.c:5389
+#: src/gui.c:5456
 msgid "When opening in single instance mode, replace existing file"
 msgstr ""
 
-#: src/gui.c:5398
+#: src/gui.c:5465
 msgid "When opening file, bring main window to front"
 msgstr "Hevja høvuðsgluggan, tá ið fíla verður latin upp"
 
-#: src/gui.c:5405
+#: src/gui.c:5472
 msgid "Remember Window Location and Size"
 msgstr "Minnst til gluggastað og stødd"
 
-#: src/gui.c:5410
+#: src/gui.c:5477
 msgid "Resize window when new video is loaded"
 msgstr "Endurstødda glugga tá ið nýggj video verður lødd"
 
-#: src/gui.c:5415
+#: src/gui.c:5482
 msgid "Keep window above other windows"
 msgstr "Halt høvuðsgluggan ovast"
 
-#: src/gui.c:5420
+#: src/gui.c:5487
 msgid "Pause playback on mouse click"
 msgstr "Steðga avspæling við músaklikki"
 
-#: src/gui.c:5425
+#: src/gui.c:5492
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr ""
 
-#: src/gui.c:5430
+#: src/gui.c:5497
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr ""
 
-#: src/gui.c:5435
+#: src/gui.c:5502
 msgid "Verbose Debug Enabled"
 msgstr ""
 
-#: src/gui.c:5439 src/gui.c:5444
+#: src/gui.c:5506 src/gui.c:5511
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
 msgstr ""
 
-#: src/gui.c:5455
+#: src/gui.c:5522
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Framkomnar innstillingar á MPlayer</span>"
 
-#: src/gui.c:5464 src/gui.c:5468
+#: src/gui.c:5531 src/gui.c:5535
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
 
-#: src/gui.c:5478
+#: src/gui.c:5545
 msgid "Remember last software volume level"
 msgstr "Minnst til seinasta ritbúnaðar ljóðstyrkistig"
 
-#: src/gui.c:5481 src/gui.c:5485
+#: src/gui.c:5548 src/gui.c:5552
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr "Vel henda kostin , um tú vil at ritbúnaðar ljóðstyrkin skal minnast"
 
-#: src/gui.c:5492
+#: src/gui.c:5559
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "Ljóðstyrki økjan (-200dB to +60dB)"
 
-#: src/gui.c:5504
+#: src/gui.c:5571
 msgid "De_interlace Video"
 msgstr ""
 
-#: src/gui.c:5506 src/gui.c:5509
+#: src/gui.c:5573 src/gui.c:5576
 msgid "Set this option if video looks striped"
 msgstr "Vel hendan kostin um video sær stríput út"
 
-#: src/gui.c:5515
+#: src/gui.c:5582
 msgid "_Drop frames"
 msgstr ""
 
-#: src/gui.c:5517 src/gui.c:5520
+#: src/gui.c:5584 src/gui.c:5587
 msgid "Set this option if video is well behind the audio"
 msgstr "Vel hendan kostin, um video er afturúr samnborði við ljóðinum"
 
-#: src/gui.c:5526
+#: src/gui.c:5593
 msgid "Enable mplayer cache"
 msgstr "Gilda mplayer kova"
 
-#: src/gui.c:5532
+#: src/gui.c:5599
 msgid "Cache Size (KB):"
 msgstr "Kovastødd (KB):"
 
-#: src/gui.c:5540 src/gui.c:5544
+#: src/gui.c:5607 src/gui.c:5611
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
@@ -876,120 +888,120 @@ msgstr ""
 "Stødd á kova til miðla-avspæling, nýt hægri virði til seinar tóleindir og "
 "heimasíður"
 
-#: src/gui.c:5564
+#: src/gui.c:5631
 msgid "MPlayer Executable:"
 msgstr ""
 
-#: src/gui.c:5568 src/gui.c:5572
+#: src/gui.c:5635 src/gui.c:5639
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 
-#: src/gui.c:5588
+#: src/gui.c:5655
 msgid "Extra Options to MPlayer:"
 msgstr "Eykakostir til MPlayer"
 
-#: src/gui.c:5591 src/gui.c:5594
+#: src/gui.c:5658 src/gui.c:5661
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr ""
 
-#: src/gui.c:5605
+#: src/gui.c:5672
 msgid "MPlayer Default Optical Device"
 msgstr "Forsett MPlayer ljósdiska tóleind"
 
-#: src/gui.c:6508
+#: src/gui.c:6529
 msgid "S_how Controls"
 msgstr ""
 
-#: src/gui.c:6512 src/gui.c:6766
+#: src/gui.c:6533 src/gui.c:6761
 msgid "_Full Screen"
 msgstr "_Fullskíggja"
 
-#: src/gui.c:6517
+#: src/gui.c:6538
 msgid "_Copy Location"
 msgstr "_Avita stað"
 
 #. File Menu
-#: src/gui.c:6567
+#: src/gui.c:6581
 msgid "_File"
 msgstr "_Fíla"
 
-#: src/gui.c:6574
+#: src/gui.c:6588
 msgid "Open _Folder"
 msgstr "Lat upp _skjáttu"
 
-#: src/gui.c:6579
+#: src/gui.c:6593
 msgid "Open _Location"
 msgstr "_Lat upp atað"
 
-#: src/gui.c:6585
+#: src/gui.c:6598
 msgid "_Disc"
 msgstr "_Fløga"
 
-#: src/gui.c:6593
+#: src/gui.c:6606
 msgid "Open _Audio CD"
 msgstr ""
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
-#: src/gui.c:6600
+#: src/gui.c:6612
 msgid "Open DVD with _Menus"
 msgstr "Lat DVD upp við _valmyndum"
 
-#: src/gui.c:6605
+#: src/gui.c:6617
 msgid "Open DVD from Folder with M_enus"
 msgstr "Lat DVD upp úr skjáttu við v_almyndum"
 
-#: src/gui.c:6610
+#: src/gui.c:6622
 msgid "Open DVD from ISO with Me_nus"
 msgstr "Lat DVD upp úr ISO við valmy_ndum"
 
-#: src/gui.c:6615
+#: src/gui.c:6626
 msgid "Open _VCD"
 msgstr "LAt _VCD upp"
 
-#: src/gui.c:6618
+#: src/gui.c:6628
 msgid "_TV"
 msgstr "_Sjóvnarp"
 
-#: src/gui.c:6624
+#: src/gui.c:6633
 msgid "Open _Analog TV"
 msgstr "Lat upp s_amgilt sjónvarp"
 
-#: src/gui.c:6626
+#: src/gui.c:6635
 msgid "Open _Digital TV"
 msgstr "Lat upp _talgilt sjónvarp"
 
-#: src/gui.c:6629
+#: src/gui.c:6638
 msgid "Open _iPod™"
 msgstr "Lat upp _iPod™"
 
-#: src/gui.c:6638
+#: src/gui.c:6647
 msgid "Open _Recent"
 msgstr ""
 
 #. Edit Menu
-#: src/gui.c:6688
+#: src/gui.c:6694
 msgid "_Edit"
 msgstr "_Ritstjórna"
 
-#: src/gui.c:6694
+#: src/gui.c:6699
 msgid "_Shuffle Playlist"
 msgstr "_Blanda avspælingarlistan"
 
-#: src/gui.c:6698
+#: src/gui.c:6702
 msgid "_Loop Playlist"
 msgstr "_Endurtak avspælingarlistan"
 
-#: src/gui.c:6702
+#: src/gui.c:6705
 msgid "S_witch Audio Track"
 msgstr "S_kift ljóðspor"
 
-#: src/gui.c:6705 src/playlist.c:1153
+#: src/gui.c:6707 src/playlist.c:1162
 msgid "Set Audi_o"
 msgstr ""
 
-#: src/gui.c:6708
+#: src/gui.c:6709
 msgid "Select _Audio Language"
 msgstr "Vel _ljóðmál"
 
@@ -997,141 +1009,141 @@ msgstr "Vel _ljóðmál"
 msgid "Set Sub_title"
 msgstr "Vel undir_tekstir"
 
-#: src/gui.c:6715
+#: src/gui.c:6714
 msgid "S_elect Subtitle Language"
 msgstr ""
 
-#: src/gui.c:6719
+#: src/gui.c:6717
 msgid "_Take Screenshot"
 msgstr "_Tak skíggjamynd"
 
-#: src/gui.c:6723 src/gui.c:6727
+#: src/gui.c:6722 src/gui.c:6727
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr ""
 
 #. View Menu
-#: src/gui.c:6749
+#: src/gui.c:6745
 msgid "_View"
 msgstr "_Sýn"
 
-#: src/gui.c:6754
+#: src/gui.c:6750
 msgid "_Playlist"
 msgstr "_Avspælingarlisti"
 
-#: src/gui.c:6757
+#: src/gui.c:6753
 msgid "Media _Info"
 msgstr "Miðla _kunning"
 
-#: src/gui.c:6759
+#: src/gui.c:6755
 msgid "D_etails"
 msgstr ""
 
-#: src/gui.c:6761
+#: src/gui.c:6757
 msgid "Audio _Meter"
 msgstr ""
 
-#: src/gui.c:6772
+#: src/gui.c:6767
 msgid "_Normal (1:1)"
 msgstr "_Vanligt (1:1)"
 
-#: src/gui.c:6774
+#: src/gui.c:6769
 msgid "_Double Size (2:1)"
 msgstr ""
 
-#: src/gui.c:6776
+#: src/gui.c:6771
 msgid "_Half Size (1:2)"
 msgstr "_Hálv stødd (1:2)"
 
-#: src/gui.c:6779
+#: src/gui.c:6773
 msgid "_Aspect"
 msgstr "Støddlutf_all"
 
-#: src/gui.c:6785
+#: src/gui.c:6778
 msgid "D_efault Aspect"
 msgstr "Forse_tt støddlutfall"
 
-#: src/gui.c:6787
+#: src/gui.c:6780
 msgid "_4:3 Aspect"
 msgstr "_4:3 støddlutfall"
 
-#: src/gui.c:6789
+#: src/gui.c:6782
 msgid "_16:9 Aspect"
 msgstr "_16:9 støddlutfall"
 
-#: src/gui.c:6791
+#: src/gui.c:6784
 msgid "1_6:10 Aspect"
 msgstr "1_6:10 støddlutfall"
 
-#: src/gui.c:6793
+#: src/gui.c:6786
 msgid "_Follow Window"
 msgstr "_Fylg glugga"
 
-#: src/gui.c:6799
+#: src/gui.c:6791
 msgid "Show _Subtitles"
 msgstr "Ví_s undirtekstir"
 
-#: src/gui.c:6801
+#: src/gui.c:6793
 msgid "Decrease Subtitle Size"
 msgstr "Minka um undirteksta-støddina"
 
-#: src/gui.c:6802
+#: src/gui.c:6794
 msgid "Increase Subtitle Size"
 msgstr "Øk um undirteksta-støddina"
 
-#: src/gui.c:6804
+#: src/gui.c:6796
 msgid "Decrease Subtitle Delay"
 msgstr "Minka um undirteksta-seinkanina"
 
-#: src/gui.c:6806
+#: src/gui.c:6798
 msgid "Increase Subtitle Delay"
 msgstr "Øk um undirteksta-seinkanina"
 
-#: src/gui.c:6807
+#: src/gui.c:6799
 msgid "Switch An_gle"
 msgstr "Skift vi_nkul"
 
-#: src/gui.c:6808
+#: src/gui.c:6800
 msgid "_Controls"
 msgstr ""
 
-#: src/gui.c:6821
+#: src/gui.c:6813
 msgid "_Video Picture Adjustments"
 msgstr ""
 
 #. Help Menu
-#: src/gui.c:6859
+#: src/gui.c:6849
 msgid "_Help"
 msgstr "_Hjálp"
 
-#: src/gui.c:7026 src/gui.c:7029
+#: src/gui.c:6993 src/gui.c:6996
 msgid "Menu"
 msgstr "Valmynd"
 
-#: src/gui.c:7042 src/gui.c:7045
+#: src/gui.c:7013 src/gui.c:7016
 msgid "Previous"
 msgstr "Fyrru"
 
-#: src/gui.c:7058 src/gui.c:7061
+#: src/gui.c:7033 src/gui.c:7036
 msgid "Rewind"
 msgstr "Spola aftur"
 
-#: src/gui.c:7088 src/gui.c:7091
+#: src/gui.c:7073 src/gui.c:7076
 msgid "Stop"
 msgstr "Stoppa"
 
-#: src/gui.c:7103 src/gui.c:7106
+#: src/gui.c:7093 src/gui.c:7096
 msgid "Fast Forward"
 msgstr "Spola framm"
 
-#: src/gui.c:7118 src/gui.c:7121
+#: src/gui.c:7113 src/gui.c:7116
 msgid "Next"
 msgstr "Næsta"
 
-#: src/gui.c:7147 src/gui.c:7150
+#: src/gui.c:7146 src/gui.c:7149
 msgid "Full Screen"
 msgstr "Heilskígga"
 
-#: src/gui.c:7193
+#: src/gui.c:7194
 msgid "Volume 100%"
 msgstr "Ljóðstyrki 100%"
 
@@ -1145,21 +1157,21 @@ msgstr "Kundi ikki lata upp DVD tóleind: %s"
 msgid "Couldn't open VCD device: %s"
 msgstr "Kundi ikki lata upp VCD tóleind: %s"
 
-#: src/support.c:1984 src/support.c:2014 src/support.c:2057 src/support.c:2085
+#: src/support.c:1996 src/support.c:2026 src/support.c:2069 src/support.c:2097
 msgid "Unable to save playlist, cannot open file for writing"
 msgstr ""
 
-#: src/support.c:2206
+#: src/support.c:2218
 #, c-format
 msgid "%2i:%02i"
 msgstr "%2i:%02i"
 
-#: src/support.c:2208
+#: src/support.c:2220
 #, c-format
 msgid "%i:%02i:%02i"
 msgstr "%i:%02i:%02i"
 
-#: src/support.c:2819
+#: src/support.c:2831
 #, c-format
 msgid ""
 "You might want to consider upgrading mplayer to a newer version, -volume "
@@ -1181,7 +1193,7 @@ msgstr ""
 "Fílunavn: %s\n"
 "Undirtekstir: %s"
 
-#: src/playlist.c:317 src/playlist.c:999 src/playlist.c:1002
+#: src/playlist.c:317 src/playlist.c:1008 src/playlist.c:1011
 msgid "Save Playlist"
 msgstr "Goym avspælingarlistan"
 
@@ -1193,7 +1205,7 @@ msgstr "Avspælingarlisti (*.pls)"
 msgid "MP3 Playlist (*.m3u)"
 msgstr "MP3 Avspælingarlisti (*.m3u)"
 
-#: src/playlist.c:376 src/playlist.c:988 src/playlist.c:991
+#: src/playlist.c:376 src/playlist.c:997 src/playlist.c:1000
 msgid "Open Playlist"
 msgstr "Lat upp avspælingarlista"
 
@@ -1224,73 +1236,73 @@ msgstr[1] ""
 "\n"
 "\tFann %i fílur\n"
 
-#: src/playlist.c:899
+#: src/playlist.c:908
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Liður til avspælingar"
 msgstr[1] "Liðir til avspælingar"
 
-#: src/playlist.c:920 src/nautilus_property_page.c:293
+#: src/playlist.c:929 src/nautilus_property_page.c:293
 msgid "Artist"
 msgstr "Listarfólk"
 
-#: src/playlist.c:931 src/nautilus_property_page.c:305
+#: src/playlist.c:940 src/nautilus_property_page.c:305
 msgid "Album"
 msgstr "Album"
 
-#: src/playlist.c:943 src/nautilus_property_page.c:317
+#: src/playlist.c:952 src/nautilus_property_page.c:317
 msgid "Length"
 msgstr "Longd"
 
-#: src/playlist.c:954
+#: src/playlist.c:963
 msgid "Count"
 msgstr "Tal"
 
-#: src/playlist.c:963
+#: src/playlist.c:972
 msgid "Order"
 msgstr "Raðfylgja"
 
-#: src/playlist.c:974 src/playlist.c:977
+#: src/playlist.c:983 src/playlist.c:986
 msgid "Close Playlist View"
 msgstr "Lat sýning av avspælingarlista aftur"
 
-#: src/playlist.c:1010 src/playlist.c:1013
+#: src/playlist.c:1019 src/playlist.c:1022
 msgid "Add Item to Playlist"
 msgstr "Legg lið til avspælingarlista"
 
-#: src/playlist.c:1021 src/playlist.c:1024
+#: src/playlist.c:1030 src/playlist.c:1033
 msgid "Remove Item from Playlist"
 msgstr "Tak lið burtur úr avspælingarlista"
 
-#: src/playlist.c:1032 src/playlist.c:1035
+#: src/playlist.c:1041 src/playlist.c:1044
 msgid "Add Items in Folder to Playlist"
 msgstr "Legg liðir í skjáttu til avspælingar"
 
-#: src/playlist.c:1043 src/playlist.c:1046
+#: src/playlist.c:1052 src/playlist.c:1055
 msgid "Clear Playlist"
 msgstr "Rudda avspælingarlistan"
 
-#: src/playlist.c:1054 src/playlist.c:1057
+#: src/playlist.c:1063 src/playlist.c:1066
 msgid "Move Item Up"
 msgstr "Flyt liðin upp"
 
-#: src/playlist.c:1066 src/playlist.c:1069
+#: src/playlist.c:1075 src/playlist.c:1078
 msgid "Move Item Down"
 msgstr "Flyt liðin niður"
 
-#: src/playlist.c:1079 src/playlist.c:1082
+#: src/playlist.c:1088 src/playlist.c:1091
 msgid "UnSort List"
 msgstr ""
 
-#: src/playlist.c:1096 src/playlist.c:1099
+#: src/playlist.c:1105 src/playlist.c:1108
 msgid "Loop Playlist"
 msgstr ""
 
-#: src/playlist.c:1112 src/playlist.c:1115
+#: src/playlist.c:1121 src/playlist.c:1124
 msgid "Shuffle Playlist"
 msgstr ""
 
-#: src/playlist.c:1149
+#: src/playlist.c:1158
 msgid "_Set Subtitle"
 msgstr "_Vel undirtekstir"
 
@@ -1324,56 +1336,56 @@ msgstr ""
 msgid "Audio/Video"
 msgstr "Ljóð/video"
 
-#: src/libgmtk/gmtk_media_tracker.c:92 src/libgmtk/gmtk_media_tracker.c:95
-#: src/libgmtk/gmtk_media_tracker.c:201
+#: src/libgmtk/gmtk_media_tracker.c:97 src/libgmtk/gmtk_media_tracker.c:100
+#: src/libgmtk/gmtk_media_tracker.c:206
 msgid "No Information"
 msgstr "Eingin upplýsing"
 
-#: src/libgmtk/gmtk_media_player.c:503
+#: src/libgmtk/gmtk_media_player.c:511
 msgid "framedropping"
 msgstr ""
 
-#: src/libgmtk/gmtk_media_player.c:707
+#: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
 msgstr ""
 
-#: src/libgmtk/gmtk_media_player.c:2307
+#: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
 msgid "Failed to open %s"
 msgstr "Kundi ikki lata upp %s"
 
-#: src/libgmtk/gmtk_media_player.c:2343
+#: src/libgmtk/gmtk_media_player.c:2447
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "Stappa SWF-snið er ikki stuðla"
 
-#: src/libgmtk/gmtk_media_player.c:2412
+#: src/libgmtk/gmtk_media_player.c:2533
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Kova fylli: %2.2f%%"
 
-#: src/libgmtk/gmtk_media_player.c:2603
+#: src/libgmtk/gmtk_media_player.c:2729
 #, fuzzy, c-format
 msgid "External Subtitle #%i"
 msgstr "Minka um undirteksta-støddina"
 
-#: src/libgmtk/gmtk_media_player.c:2783
+#: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Skíggjamynd goymd til '%s'"
 
-#: src/libgmtk/gmtk_media_player.c:2786 src/libgmtk/gmtk_media_player.c:2848
+#: src/libgmtk/gmtk_media_player.c:2915 src/libgmtk/gmtk_media_player.c:2977
 #, fuzzy
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer samanseting"
 
-#: src/libgmtk/gmtk_media_player.c:2845
+#: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
-#: src/libgmtk/gmtk_media_player.c:3039
+#: src/libgmtk/gmtk_media_player.c:3172
 #, fuzzy, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""

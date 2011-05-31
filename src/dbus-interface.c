@@ -71,6 +71,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
     ButtonDef *b;
     gdouble volume;
     gdouble percent;
+    gdouble duration;
 
     message_type = dbus_message_get_type(message);
     //sender = dbus_message_get_sender(message);
@@ -686,14 +687,16 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetTime")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->position, DBUS_TYPE_INVALID);
+                    duration = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &duration, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetDuration")) {
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &idledata->length, DBUS_TYPE_INVALID);
+                    duration = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_LENGTH);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &duration, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
