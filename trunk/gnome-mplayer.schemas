@@ -422,6 +422,18 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-fuzziness</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitle-fuzziness</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Subtitle Loading</short>
+        <long>Technique for loading external subtitle files</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/audio-channels</key>
       <applyto>/apps/gnome-mplayer/preferences/audio-channels</applyto>
       <owner>gnome-mplayer</owner>
@@ -563,6 +575,18 @@
       <locale name="C">
         <short>Show controls</short>
         <long>Show controls</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/enable-global-menu</key>
+      <applyto>/apps/gnome-mplayer/preferences/enable-global-menu</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Set to true when global menus are being used</short>
+        <long>Set to true when global menus are being used</long>
       </locale>
     </schema>
 
