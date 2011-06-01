@@ -627,6 +627,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                                           "    </method>\n"
                                           "    <method name=\"GetURI\">\n"
                                           "    </method>\n"
+                                          "    <method name=\"GetTitle\">\n"
+                                          "    </method>\n"
                                           "    <signal name=\"Open\">\n"
                                           "        <arg name=\"url\" type=\"s\" />\n"
                                           "    </signal>\n"
@@ -750,7 +752,12 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                         bitrate = get_bitrate(s);
                     } else {
                         dbus_error_free(&error);
-                        bitrate = 0;
+                        bitrate =
+                            gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VIDEO_BITRATE);
+                        if (bitrate == 0)
+                            bitrate =
+                                gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
+                                                                        ATTRIBUTE_AUDIO_BITRATE);
                     }
                     reply_message = dbus_message_new_method_return(message);
                     dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &bitrate, DBUS_TYPE_INVALID);
@@ -761,6 +768,18 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetURI")) {
                     reply_message = dbus_message_new_method_return(message);
                     s = g_strdup(idledata->info);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID);
+                    dbus_connection_send(connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetTitle")) {
+                    reply_message = dbus_message_new_method_return(message);
+                    if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE) == NULL) {
+                        s = g_strdup(idledata->display_name);
+                    } else {
+                        s = g_strdup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE));
+                    }
                     dbus_message_append_args(reply_message, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
