@@ -3069,6 +3069,44 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 message = NULL;
             }
         }
+
+        if (strstr(mplayer_output->str, "ID_FILENAME") != NULL) {
+			buf = g_strrstr(mplayer_output->str, ".");
+			if (buf)
+				buf[0] = '\0';
+			
+            buf = g_strrstr(mplayer_output->str, "/");
+            icy = g_strdup(buf + 1);
+            buf = strstr(icy, " - ");
+            title = buf + 3;
+
+            if (buf == NULL) {
+                buf = strstr(icy, ":");
+                title = buf + 1;
+            }
+
+            if (buf != NULL) {
+
+                if (player->title)
+                    g_free(player->title);
+                player->title = g_strdup(title);
+                create_event_int(player, "attribute-changed", ATTRIBUTE_TITLE);
+                buf[0] = '\0';
+                if (player->artist)
+                    g_free(player->artist);
+                player->artist = g_strdup(icy);
+                create_event_int(player, "attribute-changed", ATTRIBUTE_ARTIST);
+                if (player->album)
+                    g_free(player->album);
+                player->album = NULL;
+                create_event_int(player, "attribute-changed", ATTRIBUTE_ALBUM);
+
+            }
+            g_free(icy);
+            g_free(message);
+            message = NULL;
+        }
+		
     }
 
     g_string_free(mplayer_output, TRUE);

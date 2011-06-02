@@ -101,8 +101,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
             // printf("Path matched %s\n", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Open") == 0) {
-                    if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
-						dontplaynext = TRUE;
+                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+                        dontplaynext = TRUE;
                     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
@@ -311,8 +311,8 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
 					dbus_unhook();
                     gtk_main_quit();
 */
-                    if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
-						dontplaynext = TRUE;
+                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+                        dontplaynext = TRUE;
                     g_idle_add(set_quit, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
