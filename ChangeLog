@@ -1,4 +1,5 @@
 Development
+    Make cover art lookup with filenames in the form of "Artist - Title.xxx" where xxx can be any extension
     Only set don't play next if we are playing something, fixes playlist problem.
     Improvements to shoutcast media/station info
     Add GetTitle to dbus methods
