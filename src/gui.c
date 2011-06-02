@@ -177,7 +177,8 @@ gboolean add_to_playlist_and_play(gpointer data)
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1
         || !gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-            dontplaynext = TRUE;
+            if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+				dontplaynext = TRUE;
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
             g_idle_add(async_play_iter, &iter);
@@ -2019,7 +2020,8 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
                         if (!playlist) {
                             if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-                                dontplaynext = TRUE;
+                                if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+									dontplaynext = TRUE;
                                 gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
                                 set_media_label(NULL);
                                 gtk_list_store_clear(playliststore);
@@ -2030,7 +2032,8 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                         } else {
                             if (!parse_playlist(list[i])) {
                                 if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-                                    dontplaynext = TRUE;
+                                    if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+										dontplaynext = TRUE;
                                     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
                                     set_media_label(NULL);
                                     gtk_list_store_clear(playliststore);
@@ -2213,7 +2216,8 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (valid) {
-        dontplaynext = TRUE;
+        if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+			dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
         g_idle_add(async_play_iter, &iter);
@@ -2258,7 +2262,8 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (valid) {
-        dontplaynext = TRUE;
+        if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+			dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
         g_idle_add(async_play_iter, &iter);
@@ -2565,7 +2570,8 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
             g_free(last_dir);
         }
 
-        dontplaynext = TRUE;
+		if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+    		dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gtk_list_store_clear(playliststore);
 
@@ -2597,7 +2603,8 @@ void open_location_callback(GtkWidget * widget, void *data)
     filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(open_location)));
 
     if (filename != NULL && strlen(filename) > 0) {
-        dontplaynext = TRUE;
+        if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+			dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gtk_list_store_clear(playliststore);
 
@@ -2868,7 +2875,8 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 {
-    dontplaynext = TRUE;
+    if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+		dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
     parse_playlist("cdda://");
@@ -2884,7 +2892,8 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
 {
-    dontplaynext = TRUE;
+    if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+		dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
     parse_playlist("vcd://");
@@ -2900,7 +2909,8 @@ void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
 {
-    dontplaynext = TRUE;
+    if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+		dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
     add_item_to_playlist("tv://", 0);
@@ -2920,7 +2930,8 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
     GtkTreeViewColumn *column;
     gchar *coltitle;
 
-    dontplaynext = TRUE;
+    if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+		dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
 
@@ -2941,7 +2952,8 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-        dontplaynext = TRUE;
+        if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+			dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
         g_idle_add(async_play_iter, &iter);
@@ -3020,7 +3032,8 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
     FILE *fi;                   // FILE pointer to use to open the conf file
     gchar *mpconf;
 
-    dontplaynext = TRUE;
+    if (gmtk_media_player_get_state (GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) 
+		dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
 
@@ -3377,8 +3390,6 @@ void menuitem_edit_set_audiofile_callback(GtkMenuItem * menuitem, void *data)
         gtk_widget_destroy(dialog);
 
         if (audiofile != NULL) {
-            dontplaynext = TRUE;
-
             gmtk_media_player_restart(GMTK_MEDIA_PLAYER(media));
         }
     }
