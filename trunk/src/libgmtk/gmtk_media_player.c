@@ -2298,9 +2298,9 @@ gpointer launch_mplayer(gpointer data)
             player->disable_xvmc = TRUE;
             break;
 
-		case ERROR_RETRY_ALSA_BUSY:
-			break;
-				
+        case ERROR_RETRY_ALSA_BUSY:
+            break;
+
         default:
             break;
         }
@@ -2401,7 +2401,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         if (!player->disable_xvmc)
             player->playback_error = ERROR_RETRY_ALSA_BUSY;
     }
-		
+
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
@@ -2484,7 +2484,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
     GString *mplayer_output;
     GIOStatus status;
     GError *error = NULL;
-    gchar *buf, *message = NULL, *icy = NULL;
+    gchar *buf, *title, *message = NULL, *icy = NULL;
     gint w, h, i;
     gfloat percent, oldposition;
     gchar vm[10];
@@ -2919,6 +2919,40 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             message = NULL;
         }
 
+        if (strstr(mplayer_output->str, "Name   : ") != 0) {
+            buf = strstr(mplayer_output->str, "Name   : ");
+            buf = strstr(mplayer_output->str, "Name   : ") + strlen("Name   : ");
+            buf = g_strchomp(buf);
+            if (player->title != NULL) {
+                g_free(player->title);
+                player->title = NULL;
+            }
+
+            player->title = g_locale_to_utf8(buf, -1, NULL, NULL, NULL);
+            if (player->title == NULL) {
+                player->title = g_strdup(buf);
+                gm_str_strip_unicode(player->title, strlen(player->title));
+            }
+            create_event_int(player, "attribute-changed", ATTRIBUTE_TITLE);
+        }
+
+        if (strstr(mplayer_output->str, "Genre  : ") != 0) {
+            buf = strstr(mplayer_output->str, "Genre  : ");
+            buf = strstr(mplayer_output->str, "Genre  : ") + strlen("Genre  : ");
+            buf = g_strchomp(buf);
+            if (player->artist != NULL) {
+                g_free(player->artist);
+                player->artist = NULL;
+            }
+
+            player->artist = g_locale_to_utf8(buf, -1, NULL, NULL, NULL);
+            if (player->artist == NULL) {
+                player->artist = g_strdup(buf);
+                gm_str_strip_unicode(player->artist, strlen(player->artist));
+            }
+            create_event_int(player, "attribute-changed", ATTRIBUTE_ARTIST);
+        }
+
         if (strstr(mplayer_output->str, "Title: ") != 0) {
             buf = strstr(mplayer_output->str, "Title:");
             buf = strstr(mplayer_output->str, "Title: ") + strlen("Title: ");
@@ -3005,11 +3039,19 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 g_free(message);
                 message = g_markup_printf_escaped("\n\t<b>%s</b>\n", buf + 1);
                 icy = g_strdup(buf + 1);
-                if ((buf = strstr(icy, " - ")) != NULL) {
+                buf = strstr(icy, " - ");
+                title = buf + 3;
+
+                if (buf == NULL) {
+                    buf = strstr(icy, ":");
+                    title = buf + 1;
+                }
+
+                if (buf != NULL) {
 
                     if (player->title)
                         g_free(player->title);
-                    player->title = g_strdup(buf + 3);
+                    player->title = g_strdup(title);
                     create_event_int(player, "attribute-changed", ATTRIBUTE_TITLE);
                     buf[0] = '\0';
                     if (player->artist)

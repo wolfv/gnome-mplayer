@@ -72,7 +72,7 @@ typedef enum {
     ERROR_RETRY_WITH_MMSHTTP,
     ERROR_RETRY_WITHOUT_DIVX_VDPAU,
     ERROR_RETRY_WITHOUT_XVMC,
-	ERROR_RETRY_ALSA_BUSY
+    ERROR_RETRY_ALSA_BUSY
 } GmtkMediaPlayerPlaybackError;
 
 typedef enum {
