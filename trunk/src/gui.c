@@ -6127,6 +6127,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gtk_menu_shell_insert(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_play), 0);
         gtk_widget_show(GTK_WIDGET(menuitem_play));
         dbus_enable_screensaver();
+        dbus_send_event("MediaStopped", 0);
         break;
     case MEDIA_STATE_PLAY:
         if (idledata->mapped_af_export == NULL)
@@ -6151,6 +6152,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         if (idledata->videopresent)
             dbus_disable_screensaver();
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), _("Playing"));
+        dbus_send_event("MediaPlaying", 0);
         break;
     case MEDIA_STATE_PAUSE:
         gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
@@ -6172,6 +6174,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gtk_widget_show(GTK_WIDGET(menuitem_play));
         dbus_enable_screensaver();
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), _("Paused"));
+        dbus_send_event("MediaPaused", 0);
         break;
     default:
         break;
