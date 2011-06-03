@@ -109,6 +109,21 @@ gboolean gm_audio_query_devices()
     device->volume = 1.0;
     gm_audio_devices = g_list_append(gm_audio_devices, device);
 
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("ALSA");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->alsa_device_name = g_strdup("default");
+    device->mplayer_ao = g_strdup("alsa");
+    device->volume = 1.0;
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
+
+    device = g_new0(AudioDevice, 1);
+    device->description = g_strdup("PulseAudio");
+    device->type = AUDIO_TYPE_SOFTVOL;
+    device->mplayer_ao = g_strdup("pulse");
+    device->volume = 1.0;
+    gm_audio_devices = g_list_append(gm_audio_devices, device);
+
 #ifdef __OpenBSD__
     device = g_new0(AudioDevice, 1);
     device->description = g_strdup("SNDIO");
@@ -188,21 +203,12 @@ gboolean gm_audio_query_devices()
 
     }
 
-#else
-
-    device = g_new0(AudioDevice, 1);
-    device->description = g_strdup("ALSA");
-    device->type = AUDIO_TYPE_SOFTVOL;
-    device->alsa_device_name = g_strdup("default");
-    device->mplayer_ao = g_strdup("alsa");
-    device->volume = 1.0;
-    gm_audio_devices = g_list_append(gm_audio_devices, device);
-
 #endif
+
 
 #ifdef HAVE_PULSEAUDIO
 
-    pa_glib_mainloop *loop = pa_glib_mainloop_new(g_main_context_default());
+	pa_glib_mainloop *loop = pa_glib_mainloop_new(g_main_context_default());
     gm_audio_context = pa_context_new(pa_glib_mainloop_get_api(loop), "gm_audio_context");
     if (gm_audio_context) {
         pa_context_connect(gm_audio_context, NULL, 0, NULL);
@@ -211,15 +217,6 @@ gboolean gm_audio_query_devices()
     // make sure the pulse events are done before we exit this function
     while (gtk_events_pending())
         gtk_main_iteration();
-
-#else
-
-    device = g_new0(AudioDevice, 1);
-    device->description = g_strdup("PulseAudio");
-    device->type = AUDIO_TYPE_SOFTVOL;
-    device->mplayer_ao = g_strdup("pulse");
-    device->volume = 1.0;
-    gm_audio_devices = g_list_append(gm_audio_devices, device);
 
 #endif
 
@@ -377,9 +374,6 @@ void gm_audio_set_server_volume_update_callback(AudioDevice * device, void *call
         g_timeout_add(100, gm_audio_alsa_monitor, device);
     }
 }
-
-
-
 
 #ifdef HAVE_PULSEAUDIO
 
