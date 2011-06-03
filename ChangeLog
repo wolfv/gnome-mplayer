@@ -1,4 +1,5 @@
 Development
+    Emit dbus events on media state changes, useful for gecko-mediaplayer
     libgmtk - gmtk_media_player, block all event emissions when in restart mode
     Make cover art lookup with filenames in the form of "Artist - Title.xxx" where xxx can be any extension
     Only set don't play next if we are playing something, fixes playlist problem.
