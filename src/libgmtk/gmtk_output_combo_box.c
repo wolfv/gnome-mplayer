@@ -162,6 +162,14 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
                        OUTPUT_DESCRIPTION_COLUMN, "OSS", OUTPUT_CARD_COLUMN, -1,
                        OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "oss", -1);
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
+                       OUTPUT_DESCRIPTION_COLUMN, "ALSA", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "alsa", -1);
+    gtk_list_store_append(output->list, &iter);
+    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
+                       OUTPUT_DESCRIPTION_COLUMN, "PulseAudio", OUTPUT_CARD_COLUMN, -1,
+                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
 
 #ifdef HAVE_ASOUNDLIB
     snd_ctl_card_info_alloca(&info);
@@ -217,8 +225,8 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
 
 #else
 
-    gtk_list_store_append(output->list, &iter);
 #ifdef __OpenBSD__
+    gtk_list_store_append(output->list, &iter);
     gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
                        OUTPUT_DESCRIPTION_COLUMN, "SNDIO", OUTPUT_CARD_COLUMN, -1,
                        OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "sndio", -1);
@@ -226,11 +234,7 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
                        OUTPUT_DESCRIPTION_COLUMN, "RTunes", OUTPUT_CARD_COLUMN, -1,
                        OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "rtunes", -1);
-    gtk_list_store_append(output->list, &iter);
 #endif
-    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
-                       OUTPUT_DESCRIPTION_COLUMN, "ALSA", OUTPUT_CARD_COLUMN, -1,
-                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "alsa", -1);
 
 #endif
 
@@ -246,12 +250,6 @@ static void gmtk_output_combo_box_init(GmtkOutputComboBox * output)
     while (gtk_events_pending())
         gtk_main_iteration();
 
-#else
-
-    gtk_list_store_append(output->list, &iter);
-    gtk_list_store_set(output->list, &iter, OUTPUT_TYPE_COLUMN, OUTPUT_TYPE_SOFTVOL,
-                       OUTPUT_DESCRIPTION_COLUMN, "PulseAudio", OUTPUT_CARD_COLUMN, -1,
-                       OUTPUT_DEVICE_COLUMN, -1, OUTPUT_INDEX_COLUMN, -1, OUTPUT_MPLAYER_DEVICE_COLUMN, "pulse", -1);
 
 #endif
 
