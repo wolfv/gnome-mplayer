@@ -1,4 +1,5 @@
 Development
+    Make audio track and subtitle selection work correctly even when metadata is missing
     Add in generic ALSA and PulseAudio devices to the output selections even if we have ALSA and PulseSupport
     Emit dbus events on media state changes, useful for gecko-mediaplayer
     libgmtk - gmtk_media_player, block all event emissions when in restart mode
