@@ -2669,7 +2669,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             subtitle->id = id;
             subtitle->lang = g_strdup_printf(_("Unknown"));
             subtitle->name = g_strdup_printf(_("Unknown"));
-            subtitle->label = g_strdup_printf("%s (%s)", subtitle->name, subtitle->lang);
+            subtitle->label = g_strdup_printf("%s (%s) - %i", subtitle->name, subtitle->lang, subtitle->id);
             player->subtitles = g_list_append(player->subtitles, subtitle);
 
         }
@@ -2716,7 +2716,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     subtitle->label = NULL;
                 }
                 subtitle->label =
-                    g_strdup_printf("%s (%s)", (subtitle->name) ? subtitle->name : _("Unknown"), subtitle->lang);
+                    g_strdup_printf("%s (%s) - %i", (subtitle->name) ? subtitle->name : _("Unknown"), subtitle->lang,
+                                    subtitle->id);
             }
         }
 
@@ -2749,7 +2750,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 audio_track->id = id;
                 audio_track->lang = g_strdup_printf(_("Unknown"));
                 audio_track->name = g_strdup_printf(_("Unknown"));
-                audio_track->label = g_strdup_printf("%s (%s)", audio_track->name, audio_track->lang);
+                audio_track->label = g_strdup_printf("%s (%s) - %i", audio_track->name, audio_track->lang, 
+                                                     audio_track->id);
                 player->audio_tracks = g_list_append(player->audio_tracks, audio_track);
             }
         }
@@ -2780,7 +2782,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                     audio_track->id = id;
                     audio_track->lang = g_strdup_printf("%s", buf);
                     audio_track->name = g_strdup_printf(_("Unknown"));
-                    audio_track->label = g_strdup_printf("%s (%s)", audio_track->name, audio_track->lang);
+                    audio_track->label = g_strdup_printf("%s (%s) - %i", audio_track->name, audio_track->lang,
+                                                         audio_track->id);
                     player->audio_tracks = g_list_append(player->audio_tracks, audio_track);
                     create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
                 }
@@ -2809,8 +2812,8 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 }
 
                 audio_track->label =
-                    g_strdup_printf("%s (%s)", (audio_track->name) ? audio_track->name : _("Unknown"),
-                                    audio_track->lang);
+                    g_strdup_printf("%s (%s) - %i", (audio_track->name) ? audio_track->name : _("Unknown"),
+                                    audio_track->lang, audio_track->id);
             }
         }
 
