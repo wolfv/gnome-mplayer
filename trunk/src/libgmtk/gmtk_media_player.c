@@ -1918,6 +1918,7 @@ gpointer launch_mplayer(gpointer data)
         argv[argn++] = g_strdup_printf("-slave");
         argv[argn++] = g_strdup_printf("-noidle");
         argv[argn++] = g_strdup_printf("-noconsolecontrols");
+        argv[argn++] = g_strdup_printf("-nostop-xscreensaver");
         argv[argn++] = g_strdup_printf("-identify");
         if (player->softvol) {
             if ((gint) (player->volume * 100) != 0) {
@@ -3211,6 +3212,8 @@ gboolean detect_mplayer_features(GmtkMediaPlayer * player)
     av[ac++] = g_strdup_printf("-softvol");
     av[ac++] = g_strdup_printf("-volume");
     av[ac++] = g_strdup_printf("100");
+    av[ac++] = g_strdup_printf("-nostop-xscreensaver");
+	
     // enable these lines to force newer mplayer
     //av[ac++] = g_strdup_printf("-gamma");
     //av[ac++] = g_strdup_printf("0");
