@@ -1130,6 +1130,10 @@ gdouble gmtk_media_player_get_attribute_double(GmtkMediaPlayer * player, GmtkMed
         ret = player->volume_gain;
         break;
 
+    case ATTRIBUTE_CACHE_PERCENT:
+        ret = player->cache_percent;
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
