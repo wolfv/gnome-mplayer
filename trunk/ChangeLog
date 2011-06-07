@@ -1,4 +1,7 @@
 Development
+    dbus - fixup GetPlayState to give more correct values
+    dbus - add GetCachePercent method
+    libgmtk - gmtk_media_player add ATTRIBUTE_CACHE_PERCENT
     Tell mplayer to ignore the xscreensaver, as gnome-mplayer controls it
     Make audio track and subtitle selection work correctly even when metadata is missing
     Add in generic ALSA and PulseAudio devices to the output selections even if we have ALSA and PulseSupport

@@ -743,6 +743,29 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetPlayState")) {
                     reply_message = dbus_message_new_method_return(message);
+                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+                        js_state = STATE_PAUSED;
+                    }
+
+                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_STOP) {
+                        js_state = STATE_STOPPED;
+                    }
+
+                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
+                        js_state = STATE_PLAYING;
+                        if (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION) == 0) {
+                            if (gmtk_media_player_get_attribute_double
+                                (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CACHE_PERCENT) > 0.0) {
+                                js_state = STATE_BUFFERING;
+                            }
+                        }
+
+                    }
+
+                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
+                        js_state = STATE_UNDEFINED;
+                    }
+
                     dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &js_state, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
@@ -783,6 +806,14 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                         s = g_strdup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE));
                     }
                     dbus_message_append_args(reply_message, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID);
+                    dbus_connection_send(connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetCachePercent")) {
+                    reply_message = dbus_message_new_method_return(message);
+                    percent = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CACHE_PERCENT);
+                    dbus_message_append_args(reply_message, DBUS_TYPE_DOUBLE, &percent, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
