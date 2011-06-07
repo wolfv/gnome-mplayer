@@ -753,16 +753,17 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
 
                     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
                         js_state = STATE_PLAYING;
-                        if (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION) == 0) {
-                            if (gmtk_media_player_get_attribute_double
-                                (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CACHE_PERCENT) > 0.0) {
-                                js_state = STATE_BUFFERING;
-                            }
-                        }
                     }
 
-                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
-                        js_state = STATE_UNDEFINED;
+                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_BUFFERING) {
+                        js_state = STATE_BUFFERING;
+                    }
+
+                    if (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION) == 0) {
+                        if (gmtk_media_player_get_attribute_double
+                            (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CACHE_PERCENT) > 0.0) {
+                            js_state = STATE_BUFFERING;
+                        }
                     }
 
                     dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &js_state, DBUS_TYPE_INVALID);
