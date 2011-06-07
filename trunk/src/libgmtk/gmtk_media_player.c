@@ -2202,6 +2202,7 @@ gpointer launch_mplayer(gpointer data)
             //    printf("spawn succeeded, setup up channels\n");
 
             player->player_state = PLAYER_STATE_RUNNING;
+            player->media_state = MEDIA_STATE_BUFFERING;
             if (player->channel_in != NULL) {
                 g_io_channel_unref(player->channel_in);
                 player->channel_in = NULL;
@@ -2287,6 +2288,13 @@ gpointer launch_mplayer(gpointer data)
             tmp = gmtk_media_player_switch_protocol(player->uri, "http");
             g_free(player->uri);
             player->uri = tmp;
+            break;
+
+        case ERROR_RETRY_WITH_HTTP_AND_PLAYLIST:
+            tmp = gmtk_media_player_switch_protocol(player->uri, "http");
+            g_free(player->uri);
+            player->uri = tmp;
+            player->playlist = TRUE;
             break;
 
         case ERROR_RETRY_WITH_MMSHTTP:
@@ -2437,7 +2445,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     }
 
     if (strstr(mplayer_output->str, "Error while parsing chunk header") != NULL) {
-        player->playback_error = ERROR_RETRY_WITH_HTTP;
+        player->playback_error = ERROR_RETRY_WITH_HTTP_AND_PLAYLIST;
     }
 
     if (strstr(mplayer_output->str, "Failed to initiate \"video/X-ASF-PF\" RTP subsession") != NULL) {
@@ -2755,7 +2763,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 audio_track->id = id;
                 audio_track->lang = g_strdup_printf(_("Unknown"));
                 audio_track->name = g_strdup_printf(_("Unknown"));
-                audio_track->label = g_strdup_printf("%s (%s) - %i", audio_track->name, audio_track->lang, 
+                audio_track->label = g_strdup_printf("%s (%s) - %i", audio_track->name, audio_track->lang,
                                                      audio_track->id);
                 player->audio_tracks = g_list_append(player->audio_tracks, audio_track);
             }
@@ -3079,10 +3087,10 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
         }
 
         if (strstr(mplayer_output->str, "ID_FILENAME") != NULL) {
-			buf = g_strrstr(mplayer_output->str, ".");
-			if (buf)
-				buf[0] = '\0';
-			
+            buf = g_strrstr(mplayer_output->str, ".");
+            if (buf)
+                buf[0] = '\0';
+
             buf = g_strrstr(mplayer_output->str, "/");
             icy = g_strdup(buf + 1);
             buf = strstr(icy, " - ");
@@ -3114,7 +3122,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
             g_free(message);
             message = NULL;
         }
-		
+
     }
 
     g_string_free(mplayer_output, TRUE);
@@ -3217,7 +3225,7 @@ gboolean detect_mplayer_features(GmtkMediaPlayer * player)
     av[ac++] = g_strdup_printf("-volume");
     av[ac++] = g_strdup_printf("100");
     av[ac++] = g_strdup_printf("-nostop-xscreensaver");
-	
+
     // enable these lines to force newer mplayer
     //av[ac++] = g_strdup_printf("-gamma");
     //av[ac++] = g_strdup_printf("0");
