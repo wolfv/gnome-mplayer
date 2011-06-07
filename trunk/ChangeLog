@@ -1,4 +1,5 @@
 Development
+    Updated Japanese Translation
     dbus - fixup GetPlayState to give more correct values
     dbus - add GetCachePercent method
     libgmtk - gmtk_media_player add ATTRIBUTE_CACHE_PERCENT

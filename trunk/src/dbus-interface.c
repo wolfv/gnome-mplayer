@@ -759,7 +759,6 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                                 js_state = STATE_BUFFERING;
                             }
                         }
-
                     }
 
                     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
