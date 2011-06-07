@@ -1820,11 +1820,11 @@ gpointer launch_mplayer(gpointer data)
             argv[argn++] = g_strdup_printf("%s", player->mplayer_binary);
         }
 
-        // use the profile to set up some default values
-        argv[argn++] = g_strdup_printf("-profile");
-        argv[argn++] = g_strdup_printf("gnome-mplayer");
 
         if (player->vo != NULL) {
+		    // use the profile to set up some default values
+		    argv[argn++] = g_strdup_printf("-profile");
+		    argv[argn++] = g_strdup_printf("gnome-mplayer");
             argv[argn++] = g_strdup_printf("-vo");
 
             if (g_ascii_strncasecmp(player->vo, "vdpau", strlen("vdpau")) == 0) {

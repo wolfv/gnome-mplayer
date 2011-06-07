@@ -1,4 +1,5 @@
 Development
+    Move -profile gnome-mplayer into the vo setting area, allows gnome-mplayer to work without preferences set
     Add in new media state, MEDIA_STATE_BUFFERING
     Updated Japanese Translation
     dbus - fixup GetPlayState to give more correct values
