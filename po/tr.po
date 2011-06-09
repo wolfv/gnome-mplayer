@@ -300,6 +300,7 @@ msgstr "%s parça"
 msgid "Item to Play"
 msgid_plural "Items to Play"
 msgstr[0] "Öğeyi Oynat"
+msgstr[1] "Öğeyi Oynat"
 
 #: src/gui.c:901 src/gui.c:902 src/gui.c:905 src/gui.c:6126 src/gui.c:6127
 #: src/gui.c:6130
@@ -1261,11 +1262,15 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "\t%i dosya bulundu\n"
+msgstr[1] ""
+"\n"
+"\t%i dosya bulundu\n"
 
 #: src/playlist.c:908
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Oynatılacak öğe"
+msgstr[1] "Oynatılacak öğe"
 
 #: src/playlist.c:929 src/nautilus_property_page.c:293
 msgid "Artist"
