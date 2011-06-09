@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -452,9 +452,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Detil-detil Audio</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Format Video"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -1368,9 +1367,8 @@ msgid "Screenshot saved to '%s'"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2915 src/libgmtk/gmtk_media_player.c:2977
-#, fuzzy
 msgid "GNOME MPlayer Notification"
-msgstr "Galat GNOME MPlayer"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format

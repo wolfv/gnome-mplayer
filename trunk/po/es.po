@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: GNOME MPlayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-03-19 05:35+0000\n"
+"PO-Revision-Date: 2011-05-07 04:46+0000\n"
 "Last-Translator: Fitoschido <fitoschido@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 "X-Poedit-Country: SPAIN\n"
 "X-Poedit-Language: Spanish\n"
 
@@ -482,9 +482,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Detalles de audio</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Formato de vídeo:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -575,9 +574,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Reproducir todos los archivos para siempre"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1423,9 +1421,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Almacenando en el cache: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Disminuir tamaño del subtítulo"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1442,11 +1440,18 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Debería considerar actualizar el mplayer a una versión más actual, la "
-"versión instalada no soporta el parámetro -volume\n"
+
+#~ msgid "Media Change"
+#~ msgstr "Cambio de medio"
+
+#~ msgid "Minimum Cache Size (KB):"
+#~ msgstr "Tamaño mínimo del cache (KB):"
+
+#~ msgid "Force the use of cache setting on streaming media"
+#~ msgstr "Forzar el uso del cache en medios de streaming"
 
 #~ msgid "Open _DVD"
 #~ msgstr "Abrir DVD"
@@ -1465,15 +1470,6 @@ msgstr ""
 
 #~ msgid "Connecting"
 #~ msgstr "Conectando"
-
-#~ msgid "Media Change"
-#~ msgstr "Cambio de medio"
-
-#~ msgid "Minimum Cache Size (KB):"
-#~ msgstr "Tamaño mínimo del cache (KB):"
-
-#~ msgid "Force the use of cache setting on streaming media"
-#~ msgstr "Forzar el uso del cache en medios de streaming"
 
 #~ msgid "Hidden"
 #~ msgstr "Oculto"

@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -450,9 +450,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr ""
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Video snið:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -1366,9 +1365,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Kova fylli: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Minka um undirteksta-støddina"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1376,9 +1375,8 @@ msgid "Screenshot saved to '%s'"
 msgstr "Skíggjamynd goymd til '%s'"
 
 #: src/libgmtk/gmtk_media_player.c:2915 src/libgmtk/gmtk_media_player.c:2977
-#, fuzzy
 msgid "GNOME MPlayer Notification"
-msgstr "GNOME MPlayer samanseting"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
@@ -1386,11 +1384,9 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Tú átti at umhugsa eina uppstigan av mplayer til eina nýggjari útgávu, -"
-"ljóðstyrki kosturin er eikki stðlaður\n"
 
 #~ msgid "Open _DVD"
 #~ msgstr "Lat upp _DVD"
@@ -1404,8 +1400,8 @@ msgstr ""
 #~ msgid "Cannot load subtitles: %s"
 #~ msgstr "Kundi ikki løða undirtekstir: %s"
 
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Seinki byrjanina til at kovin er fylltur"
-
 #~ msgid "Connecting"
 #~ msgstr "Sambindi"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Seinki byrjanina til at kovin er fylltur"

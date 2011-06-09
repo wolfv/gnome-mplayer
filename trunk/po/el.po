@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 "X-Poedit-Country: Greece\n"
 "X-Poedit-Language: Greek\n"
 
@@ -478,9 +478,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Λεπτομέρειες Ήχου</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Μορφή Βίντεο:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -571,9 +570,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Μόνιμη αναπαραγωγή αρχείων λίστας"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1418,9 +1416,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Γέμισμα λανθάνουσας μνήμης: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Μείωση Μεγέθους Υποτίτλων"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1437,29 +1435,9 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Ίσως είναι προτιμότερη η αναβάθμιση του Mplayer σε νεότερη έκδοση, -Η "
-"επιλογή δεν υποστηρίζεται\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "Αναπαραγωγή _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Αναπαραγωγή DVD από _Φάκελο"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Αναπαραγωγή DVD από _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Αδυναμία φόρτωσης υποτίτλων: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Καθυστέρηση εκκίνησης ωσότου γεμίσει η λανθάνουσα μνήμη"
-
-#~ msgid "Connecting"
-#~ msgstr "Σύνδεση"
 
 #~ msgid "Media Change"
 #~ msgstr "Αλλαγή Μέσου"
@@ -1479,6 +1457,15 @@ msgstr ""
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Εξαναγκασμός χρήσης λανθάνουσας μνήμης σε πολυμέσα μέσω δικτύου"
 
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Αδυναμία φόρτωσης υποτίτλων: %s"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Καθυστέρηση εκκίνησης ωσότου γεμίσει η λανθάνουσα μνήμη"
+
+#~ msgid "Connecting"
+#~ msgstr "Σύνδεση"
+
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "ΘέσηTracker Thumb"
 
@@ -1496,3 +1483,12 @@ msgstr ""
 
 #~ msgid "Seeking to %s"
 #~ msgstr "Ψάξιμο στο %s"
+
+#~ msgid "Open _DVD"
+#~ msgstr "Αναπαραγωγή _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Αναπαραγωγή DVD από _Φάκελο"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Αναπαραγωγή DVD από _ISO"

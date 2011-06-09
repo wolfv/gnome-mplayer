@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-04-09 06:33+0000\n"
+"PO-Revision-Date: 2011-05-11 19:07+0000\n"
 "Last-Translator: Konki <pavel.konkol@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -453,7 +453,7 @@ msgstr "Formát videa:"
 #: src/libgmtk/gmtk_media_player.c:2782 src/libgmtk/gmtk_media_player.c:2812
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Neznámý"
 
 #: src/gui.c:4009 src/nautilus_property_page.c:359
 msgid "Video Codec:"
@@ -476,9 +476,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Podrobnosti o zvuku</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Formát videa:"
+msgstr "Formát zvuku:"
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -569,9 +568,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Přehrávat soubory ze seznamu skladeb dokola"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1396,7 +1394,7 @@ msgstr ""
 #: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "Načítá se…"
 
 #: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
@@ -1414,9 +1412,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Naplnění vyrovnávací paměti: %2.2f %%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Zmenšit titulky"
+msgstr "Externí titulky #%i"
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1430,32 +1428,12 @@ msgstr "Upozorněni GNOME MPlayeru"
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
-msgstr ""
+msgstr "MPlayer může být povýšen na novější verzi"
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
-msgstr ""
-"Měli byste zvážit instalaci nové verze MPlayeru, volba -volume není "
-"podporována.\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "Otevřít _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Otevřít DVD ze _složky"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Otevřít DVD z _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Titulky nelze načíst: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Přehrávání odloženo do naplnění vyrovnávací paměti"
-
-#~ msgid "Connecting"
-#~ msgstr "Navazuje se spojení"
+msgstr "Možná budete chtít zvážit přechod na novější verzi mplayeru\n"
 
 #~ msgid "Media Change"
 #~ msgstr "Změna média"
@@ -1475,6 +1453,24 @@ msgstr ""
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr ""
 #~ "Vynutit použití vyrovnávací paměti při přehrávání proudovaných médií"
+
+#~ msgid "Open _DVD"
+#~ msgstr "Otevřít _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Otevřít DVD ze _složky"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Otevřít DVD z _ISO"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Titulky nelze načíst: %s"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Přehrávání odloženo do naplnění vyrovnávací paměti"
+
+#~ msgid "Connecting"
+#~ msgstr "Navazuje se spojení"
 
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "Umístění táhla pozice ve stopě"

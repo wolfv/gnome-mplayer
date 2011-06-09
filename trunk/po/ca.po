@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -480,9 +480,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Detalls del àudio</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Format de vídeo:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -573,9 +572,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Reprodueix els fitxers de la llista de reproducció repetidament"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1424,9 +1422,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Ompliment de la memòria cau: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Disminueix la mida dels subtítols"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1443,29 +1441,9 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Hauries de considerar l'actualització de mplayer a una nova versió, l'opció "
-"de volum no és suportada\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "Obre _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Obre el DVD del _Directori"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Obre el DVD des de la _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "No s'han pogut carregar els subtítols: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Retarda l'inici fins que la memòria cau sigui plena"
-
-#~ msgid "Connecting"
-#~ msgstr "Connectant-se"
 
 #~ msgid "Media Change"
 #~ msgstr "Canvi de suport"
@@ -1478,3 +1456,21 @@ msgstr ""
 #~ "dispositiu de sortida mplayer per al àudio\n"
 #~ "alsa o oss sempre hauria de funcionar, prova esd en el Gnome, arts en el "
 #~ "Kde, o pulse a les noves distribucions"
+
+#~ msgid "Open _DVD"
+#~ msgstr "Obre _DVD"
+
+#~ msgid "Connecting"
+#~ msgstr "Connectant-se"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Obre el DVD del _Directori"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Obre el DVD des de la _ISO"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Retarda l'inici fins que la memòria cau sigui plena"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "No s'han pogut carregar els subtítols: %s"

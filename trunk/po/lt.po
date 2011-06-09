@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -453,9 +453,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\"> Garso savybės</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Vaizdo formatas:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -546,9 +545,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Nuolat groti visas grojaraščio rinkmenas"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1371,9 +1369,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Podėlio užpildymas: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Sumažinti subtitrus"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1390,28 +1388,9 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Mėginkite atnaujinti „mplayer“ programą, -volume parinktis nepalaikoma\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "Atverti _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Atverti DVD iš _aplanko"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Atverti DVD iš _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Nepavyksta įkelti subtitrų: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Groti tik užpildžius podėlį"
-
-#~ msgid "Connecting"
-#~ msgstr "Jungiamasi"
 
 #~ msgid ""
 #~ "mplayer audio output device\n"
@@ -1425,6 +1404,21 @@ msgstr ""
 #~ msgid "Minimum Cache Size (KB):"
 #~ msgstr "Minimalus podėlio dydis (KB)"
 
+#~ msgid "Open _DVD"
+#~ msgstr "Atverti _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Atverti DVD iš _aplanko"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Atverti DVD iš _ISO"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Nepavyksta įkelti subtitrų: %s"
+
+#~ msgid "Connecting"
+#~ msgstr "Jungiamasi"
+
 #~ msgid "Hidden"
 #~ msgstr "Paslėpta"
 
@@ -1433,3 +1427,6 @@ msgstr ""
 
 #~ msgid "Top"
 #~ msgstr "Viršuje"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Groti tik užpildžius podėlį"

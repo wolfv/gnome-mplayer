@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-03-04 18:04+0000\n"
+"PO-Revision-Date: 2011-06-06 19:52+0000\n"
 "Last-Translator: Martino Barbon <Unknown>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -451,7 +451,7 @@ msgstr "Formato Video:"
 #: src/libgmtk/gmtk_media_player.c:2782 src/libgmtk/gmtk_media_player.c:2812
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Sconosciuto"
 
 #: src/gui.c:4009 src/nautilus_property_page.c:359
 msgid "Video Codec:"
@@ -474,9 +474,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Dettagli Audio</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Formato Video:"
+msgstr "Formato audio"
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -560,16 +559,15 @@ msgstr "Massimo"
 
 #: src/gui.c:4402
 msgid "Exact Match"
-msgstr ""
+msgstr "Corrispondenza esatta"
 
 #: src/gui.c:4405
 msgid "Load all subtitles containing movie name"
-msgstr ""
+msgstr "Carica tutti i sottotitoli che contengono il nome del film"
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Ripeti tutti i file della scaletta per sempre"
+msgstr "Carica tutti i sottotitoli nella stessa cartella"
 
 #: src/gui.c:4631
 msgid "Player"
@@ -707,7 +705,7 @@ msgstr "Disabilita l'embedding del lettore"
 
 #: src/gui.c:5136
 msgid "Disable Embedded Player Scaling"
-msgstr ""
+msgstr "Disabilita lo scaling del riproduttore incorporato"
 
 #: src/gui.c:5141
 msgid "Audio Cache Size (KB):"
@@ -1394,7 +1392,7 @@ msgstr ""
 #: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "Caricamento in corso..."
 
 #: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
@@ -1412,9 +1410,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Utilizzo Memoria Tampone: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Decrementa la Grandezza dei Sottotitoli"
+msgstr "Sottotitoli esterni #%i"
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1428,32 +1426,14 @@ msgstr "Notificazione Gnome MPlayer"
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
-msgstr ""
+msgstr "Mplayer dovrebbe essere aggiornato ad una nuova versione"
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Dovresti aggiornare mplayer ad una versione più recente, l'opzione-volume "
-"non è valida per la versione che stai usando\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "Apri _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Apri DVD dal _Folder"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Apri DVD da _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Impossibile caricare sottotitoli %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Ritarda l'avvio fino a che la memoria tampone non sia piena"
-
-#~ msgid "Connecting"
-#~ msgstr "In Connessione"
+"Dovresti prendere in considerazione l'aggiornamento di Mplayer ad una nuova "
+"versione\n"
 
 #~ msgid "Media Change"
 #~ msgstr "Cambio media"
@@ -1472,6 +1452,24 @@ msgstr ""
 
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Forza l'utilizzo della memoria tampone per media streaming"
+
+#~ msgid "Open _DVD"
+#~ msgstr "Apri _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Apri DVD dal _Folder"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Apri DVD da _ISO"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Impossibile caricare sottotitoli %s"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Ritarda l'avvio fino a che la memoria tampone non sia piena"
+
+#~ msgid "Connecting"
+#~ msgstr "In Connessione"
 
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "Posizione Tracker Thumb:"

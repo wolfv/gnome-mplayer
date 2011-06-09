@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-03-03 14:17+0000\n"
-"Last-Translator: Masternoob <Unknown>\n"
+"PO-Revision-Date: 2011-06-01 17:33+0000\n"
+"Last-Translator: Dominik Dehning <Unknown>\n"
 "Language-Team: tim__b <timbuening@uni-muenster.de>, Wolfgang Knauf <his-"
 "metality@freenet.de>, MixCool <lars.thoms@mixcool.de>\n"
 "Language: \n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -457,7 +457,7 @@ msgstr "Video-Format:"
 #: src/libgmtk/gmtk_media_player.c:2782 src/libgmtk/gmtk_media_player.c:2812
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: src/gui.c:4009 src/nautilus_property_page.c:359
 msgid "Video Codec:"
@@ -480,9 +480,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Audio-Details</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Video-Format:"
+msgstr "Audioformat"
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -566,16 +565,15 @@ msgstr "Maximale Nachbearbeitung"
 
 #: src/gui.c:4402
 msgid "Exact Match"
-msgstr ""
+msgstr "Genaue Übereinstimmung"
 
 #: src/gui.c:4405
 msgid "Load all subtitles containing movie name"
-msgstr ""
+msgstr "Alle Untertitel Laden, die den Filmnamen enthalten"
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Spiele alle Dateien in der Wiedergabeliste für immer"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1401,7 +1399,7 @@ msgstr ""
 #: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "Ladevorgang läuft ..."
 
 #: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
@@ -1419,9 +1417,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Zwischenspeichernutzung: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Verringere Untertitelgröße"
+msgstr "Externer Untertitel #%i"
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1435,32 +1433,12 @@ msgstr "GNOME MPlayer Benachrichtigung"
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
-msgstr ""
+msgstr "MPlayer sollte auf eine neue Version aktualisiert werden"
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Sie sollten mplayer auf eine neuere Version aktualisieren, die -volume "
-"Option ist nicht unterstützt\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "Öffne _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Öffne _DVD aus Ordner"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Öffne DVD von _ISO-Abbild"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Konnte Untertitel nicht laden: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Verzögere Start bis Zwischenspeicher gefüllt ist"
-
-#~ msgid "Connecting"
-#~ msgstr "Verbinde"
 
 #~ msgid "Media Change"
 #~ msgstr "Media _Informationen"
@@ -1470,6 +1448,21 @@ msgstr ""
 
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Erzwinge die Benutzung des Zwischenspeichers bei Streaming Dateien"
+
+#~ msgid "Open _DVD"
+#~ msgstr "Öffne _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Öffne _DVD aus Ordner"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Konnte Untertitel nicht laden: %s"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Verzögere Start bis Zwischenspeicher gefüllt ist"
+
+#~ msgid "Connecting"
+#~ msgstr "Verbinde"
 
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "Lage des 'Tracker' zum Einstellen der aktuellen Wiedergabe-Position"
@@ -1488,6 +1481,9 @@ msgstr ""
 
 #~ msgid "Seeking to %s"
 #~ msgstr "Spule zu %s"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Öffne DVD von _ISO-Abbild"
 
 #~ msgid ""
 #~ "mplayer audio output device\n"

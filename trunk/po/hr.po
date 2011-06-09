@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-03-13 09:57+0000\n"
+"PO-Revision-Date: 2011-05-23 01:11+0000\n"
 "Last-Translator: zvacet <ikoli@yahoo.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -59,6 +59,7 @@ msgstr ""
 #: src/main.c:60
 msgid "When set to TRUE the last volume level is set as the default"
 msgstr ""
+"Kad je postavljeno kao TRUE zadnja razina glasnoće jr postavljena kao zadana"
 
 #: src/main.c:62
 msgid ""
@@ -85,6 +86,8 @@ msgstr "Pokaži podnatpise ako su dostupni"
 #: src/main.c:71
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
 msgstr ""
+"Samopokretanje medija je zadano na 1.postavite na 0 za učitavanje ali ne i "
+"izvođenje"
 
 #: src/main.c:73
 msgid "Disable popup menu on right click"
@@ -172,7 +175,7 @@ msgstr "Ime TV uređaja"
 
 #: src/main.c:115
 msgid "TV driver name (v4l|v4l2)"
-msgstr ""
+msgstr "Ime upravljačkog programa TV-a (v4l|v4l2)"
 
 #: src/main.c:116
 msgid "TV input name"
@@ -200,7 +203,7 @@ msgstr ""
 
 #: src/main.c:126
 msgid "Use large control buttons"
-msgstr ""
+msgstr "Koristi veliku kontrolnu dugmad"
 
 #: src/main.c:129
 msgid "Hide control panel when mouse is not moving"
@@ -216,7 +219,7 @@ msgstr "Drži prozor na vrhu"
 
 #: src/main.c:139
 msgid "Load all tracks from media player using gpod"
-msgstr ""
+msgstr "Učitaj sve zapise iz svirača medija koristeći gpod"
 
 #: src/main.c:143
 msgid "Don't fetch new cover art images"
@@ -295,8 +298,9 @@ msgstr "%s stavke"
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Stavka za izvođenje"
+msgstr[1] "Stavke za izvođenje"
+msgstr[2] "Stavki za izvođenje"
 
 #: src/gui.c:901 src/gui.c:902 src/gui.c:905 src/gui.c:6126 src/gui.c:6127
 #: src/gui.c:6130
@@ -453,9 +457,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Audio detalji</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Audio izlaz"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -546,9 +549,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Izvodi sve datoteke na listi izvođenja zauvijek"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1345,9 +1347,9 @@ msgid "Loading..."
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2411
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to open %s"
-msgstr "Nije moguće spremiti '%s'"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2447
 #, c-format
@@ -1360,9 +1362,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Postavi podnatpis"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1370,9 +1372,8 @@ msgid "Screenshot saved to '%s'"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2915 src/libgmtk/gmtk_media_player.c:2977
-#, fuzzy
 msgid "GNOME MPlayer Notification"
-msgstr "GNOME MPlayer konfiguracija"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
