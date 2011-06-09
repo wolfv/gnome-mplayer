@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-04-11 08:44-0700\n"
-"Last-Translator: Kevin DeKorte <kdekorte@gmail.com>\n"
+"PO-Revision-Date: 2011-03-19 22:14+0000\n"
+"Last-Translator: Mehmet Berkil <Unknown>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -300,7 +300,6 @@ msgstr "%s parça"
 msgid "Item to Play"
 msgid_plural "Items to Play"
 msgstr[0] "Öğeyi Oynat"
-msgstr[1] "Öğeyi Oynat"
 
 #: src/gui.c:901 src/gui.c:902 src/gui.c:905 src/gui.c:6126 src/gui.c:6127
 #: src/gui.c:6130
@@ -462,9 +461,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Ses Detayları</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Video Formatı:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -555,9 +553,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Oynatma listesindeki dosyaları sürekli oynat"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1264,15 +1261,11 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "\t%i dosya bulundu\n"
-msgstr[1] ""
-"\n"
-"\t%i dosya bulundu\n"
 
 #: src/playlist.c:908
 msgid "Item to play"
 msgid_plural "Items to Play"
 msgstr[0] "Oynatılacak öğe"
-msgstr[1] "Oynatılacak öğe"
 
 #: src/playlist.c:929 src/nautilus_property_page.c:293
 msgid "Artist"
@@ -1398,9 +1391,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Önbellek: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Altyazı Boyutunu Azalt"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1417,29 +1410,9 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"MPlayer sürümünüzde \"-volume\" parametresi desteklenmiyor, daha güncel bir "
-"sürüme geçmenizi tavsiye ederiz\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "DVD _Aç"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Di_zinden DVD Aç"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Kalı_ptan DVD Aç"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Altyazı yüklenemedi: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Önbellek dolana kadar başlatma bekletiliyor"
-
-#~ msgid "Connecting"
-#~ msgstr "Bağlanıyor"
 
 #~ msgid "Media Change"
 #~ msgstr "Medya Değişikliği"
@@ -1458,6 +1431,24 @@ msgstr ""
 
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Yayınlarda önbellek kullanımını zorla"
+
+#~ msgid "Open _DVD"
+#~ msgstr "DVD _Aç"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Di_zinden DVD Aç"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Kalı_ptan DVD Aç"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Altyazı yüklenemedi: %s"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Önbellek dolana kadar başlatma bekletiliyor"
+
+#~ msgid "Connecting"
+#~ msgstr "Bağlanıyor"
 
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "İşaretçi Parmak Konumu:"

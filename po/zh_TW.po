@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2010-02-10 21:45+0000\n"
-"Last-Translator: Woodman Tuen <wmtuen@gmail.com>\n"
+"PO-Revision-Date: 2011-06-06 12:13+0000\n"
+"Last-Translator: Pin-hsien Li <pspeter9931@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -57,13 +57,13 @@ msgstr "使用 Mplayer 軟體音量控制"
 
 #: src/main.c:60
 msgid "When set to TRUE the last volume level is set as the default"
-msgstr ""
+msgstr "當設為真(TRUE)，最後的音量大小將會設定為預設值"
 
 #: src/main.c:62
 msgid ""
 "Last software volume percentage- only applied when remember_softvol is set "
 "to TRUE"
-msgstr ""
+msgstr "最後的軟體音量百分比 - 只會在remember_softvol設為真 (TRUE) 時啟用。"
 
 #: src/main.c:64
 msgid "Mixer to use"
@@ -255,7 +255,7 @@ msgstr "%s - (%i/%i) - GNOME MPlayer"
 #: src/gui.c:483
 #, c-format
 msgid "(%i/%i) - GNOME MPlayer"
-msgstr ""
+msgstr "(%i/%i) - GNOME MPlayer"
 
 #: src/gui.c:487 src/gui.c:3169 src/gui.c:6482
 #, c-format
@@ -408,7 +408,7 @@ msgstr ""
 
 #: src/gui.c:3365
 msgid "Set AudioFile"
-msgstr ""
+msgstr "設定音訊檔案"
 
 #: src/gui.c:3403 src/playlist.c:136
 msgid "Set Subtitle"
@@ -460,9 +460,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">音訊詳細資料</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "視訊格式："
+msgstr "音訊格式："
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -546,16 +545,15 @@ msgstr "大量後處理"
 
 #: src/gui.c:4402
 msgid "Exact Match"
-msgstr ""
+msgstr "完全符合"
 
 #: src/gui.c:4405
 msgid "Load all subtitles containing movie name"
-msgstr ""
+msgstr "載入所有包含電影名稱的字幕"
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "總是播放清單中的所有檔案"
+msgstr "載入所有在相同資料夾內的字幕"
 
 #: src/gui.c:4631
 msgid "Player"
@@ -604,7 +602,7 @@ msgstr "啟用 Mplayer 軟體音量控制"
 #: src/gui.c:4754 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
 #: src/libgmtk/gmtk_output_combo_box.c:147
 msgid "Default"
-msgstr ""
+msgstr "預設"
 
 #: src/gui.c:4972
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -691,11 +689,11 @@ msgstr "停用嵌入式播放器"
 
 #: src/gui.c:5136
 msgid "Disable Embedded Player Scaling"
-msgstr ""
+msgstr "停用嵌入式播放器縮放"
 
 #: src/gui.c:5141
 msgid "Audio Cache Size (KB):"
-msgstr ""
+msgstr "音訊快取大小 (KB)："
 
 #: src/gui.c:5151 src/gui.c:5154 src/gui.c:5160 src/gui.c:5165
 msgid ""
@@ -705,7 +703,7 @@ msgstr "播放網路媒體時快取的大小，較慢的網路應使用較大的
 
 #: src/gui.c:5181
 msgid "Video Cache Size (KB):"
-msgstr ""
+msgstr "視訊快取大小 (KB)："
 
 #: src/gui.c:5203
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -801,7 +799,7 @@ msgstr "顯示狀態圖示"
 
 #: src/gui.c:5435
 msgid "Use X Screen Saver control over Gnome Power Manager"
-msgstr ""
+msgstr "使用「X 螢幕保護程式」取代「Gnome 電源管理程式」"
 
 #: src/gui.c:5441
 msgid "Place playlist below media (requires application restart)"
@@ -841,7 +839,7 @@ msgstr "停用螢幕控制列動畫"
 
 #: src/gui.c:5497
 msgid "Use Mouse Wheel to change volume, instead of seeking"
-msgstr ""
+msgstr "將滑鼠滾輪用於改變音量而非尋找"
 
 #: src/gui.c:5502
 msgid "Verbose Debug Enabled"
@@ -865,15 +863,15 @@ msgstr "設定此項則調整 Gnome Mplayer 的音量會改更主音量"
 
 #: src/gui.c:5545
 msgid "Remember last software volume level"
-msgstr ""
+msgstr "記住最後的軟體音量大小"
 
 #: src/gui.c:5548 src/gui.c:5552
 msgid "Set this option if you want the software volume level to be remembered"
-msgstr ""
+msgstr "當您想讓軟體記住最後使用的音量大小，選取本項。"
 
 #: src/gui.c:5559
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr ""
+msgstr "音量增幅 (-200dB to +60dB)"
 
 #: src/gui.c:5571
 msgid "De_interlace Video"
@@ -924,7 +922,7 @@ msgstr "在這裡加入額外的 mplayer 選項（如過濾器）"
 
 #: src/gui.c:5672
 msgid "MPlayer Default Optical Device"
-msgstr ""
+msgstr "MPlayer 預設的光學設備"
 
 #: src/gui.c:6529
 msgid "S_how Controls"
@@ -945,7 +943,7 @@ msgstr "檔案(_F)"
 
 #: src/gui.c:6588
 msgid "Open _Folder"
-msgstr ""
+msgstr "開啟資料夾(_F)"
 
 #: src/gui.c:6593
 msgid "Open _Location"
@@ -1016,7 +1014,7 @@ msgstr "切換音軌(_W)"
 
 #: src/gui.c:6707 src/playlist.c:1162
 msgid "Set Audi_o"
-msgstr ""
+msgstr "設定音訊(_O)"
 
 #: src/gui.c:6709
 msgid "Select _Audio Language"
@@ -1197,7 +1195,7 @@ msgstr "請考慮更新 mplayer 至較新的版本，-volume 選項不被支援\
 
 #: src/playlist.c:173
 msgid "Set Audio"
-msgstr ""
+msgstr "設定音訊"
 
 #: src/playlist.c:275
 #, c-format
@@ -1230,7 +1228,7 @@ msgstr "Reference Playlist (*.ref)"
 
 #: src/playlist.c:403
 msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
-msgstr ""
+msgstr "MPEG 播放清單 (*.mxu,*.m1u,*.m4u)"
 
 #: src/playlist.c:610
 msgid "Choose Directory"
@@ -1307,11 +1305,11 @@ msgstr "沒排序清單"
 
 #: src/playlist.c:1105 src/playlist.c:1108
 msgid "Loop Playlist"
-msgstr ""
+msgstr "播放清單循環播放"
 
 #: src/playlist.c:1121 src/playlist.c:1124
 msgid "Shuffle Playlist"
-msgstr ""
+msgstr "播放清單隨機播放"
 
 #: src/playlist.c:1158
 msgid "_Set Subtitle"
@@ -1354,12 +1352,12 @@ msgstr "沒有資訊"
 
 #: src/libgmtk/gmtk_media_player.c:511
 msgid "framedropping"
-msgstr ""
+msgstr "掉格"
 
 #: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "載入中…"
 
 #: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
@@ -1377,9 +1375,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "填滿快取：%2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "縮小字幕字型"
+msgstr "外部字幕 #%i"
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1393,33 +1391,21 @@ msgstr "GNOME MPlayer 通知"
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
-msgstr ""
+msgstr "MPlayer 必須升級至新的版本"
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
-msgstr "請考慮更新 mplayer 至較新的版本，-volume 選項不被支援\n"
+msgstr "您可以考慮將 mplayer 升級至新的版本\n"
 
-#~ msgid "Open _DVD"
-#~ msgstr "開啟 _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "從資料夾中開啟 DVD (_F)"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "從 _ISO檔中開啟 DVD"
+#~ msgid "Minimum Cache Size (KB):"
+#~ msgstr "最小快取大小(KB)："
 
 #~ msgid "Cannot load subtitles: %s"
 #~ msgstr "無法讀取字幕：%s"
 
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "延遲播放直至快取填滿"
-
 #~ msgid "Connecting"
 #~ msgstr "正在連接"
-
-#~ msgid "Minimum Cache Size (KB):"
-#~ msgstr "最小快取大小(KB)："
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">調整外掛程式模擬設定</span>"
@@ -1475,6 +1461,18 @@ msgstr "請考慮更新 mplayer 至較新的版本，-volume 選項不被支援\
 #~ "mplayer 音效輸出裝置\n"
 #~ "alsa 或 oss 通常都能夠運作，在 gnome 可試用 esd, kde 到試用 arts，較新的分"
 #~ "發版本可使用 pulse"
+
+#~ msgid "Open _DVD"
+#~ msgstr "開啟 _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "從資料夾中開啟 DVD (_F)"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "從 _ISO檔中開啟 DVD"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "延遲播放直至快取填滿"
 
 #~ msgid "Media Change"
 #~ msgstr "媒體變更"

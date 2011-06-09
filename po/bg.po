@@ -11,8 +11,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -467,9 +467,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Аудио детайли</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Видео формат:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -560,9 +559,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Повтарящо изпълнение на файловете от списъка"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1402,9 +1400,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Запълване на кеша: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Намали размера на субтитрите"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1421,29 +1419,9 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Може би искаш да обновиш mplayer до по-нова версия, -volume опцията не се "
-"поддържа\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "Отвори _DVD _диск"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Отвори DVD от д_иректория"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Отвори DVD от _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Немога да заредя субтитрите: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Забави пускането, докато кеша е пълен"
-
-#~ msgid "Connecting"
-#~ msgstr "Свързване"
 
 #~ msgid "Media Change"
 #~ msgstr "Смяна на медия"
@@ -1462,6 +1440,24 @@ msgstr ""
 
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Засили използването на кеша за излъчващите медии"
+
+#~ msgid "Open _DVD"
+#~ msgstr "Отвори _DVD _диск"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Отвори DVD от д_иректория"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Отвори DVD от _ISO"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Немога да заредя субтитрите: %s"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Забави пускането, докато кеша е пълен"
+
+#~ msgid "Connecting"
+#~ msgstr "Свързване"
 
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "Маркирай с стрелки позицията:"

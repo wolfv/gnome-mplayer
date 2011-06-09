@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2010-11-05 00:28+0000\n"
+"PO-Revision-Date: 2011-05-22 23:32+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <marcoslansgarza@gmail.com>\n"
 "Language: gl\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 "X-Poedit-Language: Galician\n"
 
 #: src/main.c:49
@@ -263,7 +263,7 @@ msgstr "%s - (%i/%i) - GNOME MPlayer"
 #: src/gui.c:483
 #, c-format
 msgid "(%i/%i) - GNOME MPlayer"
-msgstr ""
+msgstr "(%i/%i) - GNOME MPlayer"
 
 #: src/gui.c:487 src/gui.c:3169 src/gui.c:6482
 #, c-format
@@ -451,7 +451,7 @@ msgstr "Formato do vídeo:"
 #: src/libgmtk/gmtk_media_player.c:2782 src/libgmtk/gmtk_media_player.c:2812
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Descoñecido"
 
 #: src/gui.c:4009 src/nautilus_property_page.c:359
 msgid "Video Codec:"
@@ -474,9 +474,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Detalles do son</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Formato do vídeo:"
+msgstr "Formato do son:"
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -567,9 +566,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Reproducir a lista indefinidamente"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -618,7 +616,7 @@ msgstr "O control do volume do Mplayer está activado"
 #: src/gui.c:4754 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
 #: src/libgmtk/gmtk_output_combo_box.c:147
 msgid "Default"
-msgstr ""
+msgstr "Predeterminado"
 
 #: src/gui.c:4972
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -1397,7 +1395,7 @@ msgstr ""
 #: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "Cargando…"
 
 #: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
@@ -1415,9 +1413,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Precargando: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Diminuír o tamaño dos subtítulos"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1434,11 +1432,9 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Debería actualizar o MPlayer a unha versión máis recente, a opción de volume "
-"non está admitida\n"
 
 #~ msgid "Open _DVD"
 #~ msgstr "Abrir un _DVD"
@@ -1449,14 +1445,8 @@ msgstr ""
 #~ msgid "Open DVD from _ISO"
 #~ msgstr "Abrir un DVD desde unha _ISO"
 
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Non se puideron cargar os subtítulos: %s"
-
 #~ msgid "Delaying start until cache is full"
 #~ msgstr "O inicio estase a atrasar até que se encha a caché"
-
-#~ msgid "Connecting"
-#~ msgstr "Conectando"
 
 #~ msgid "Media Change"
 #~ msgstr "Cambio de medio"
@@ -1469,3 +1459,9 @@ msgstr ""
 #~ "O dispositivo de saída de son ALSA ou OSS  para MPlayer\n"
 #~ "debería funcionar. En Gnome probe esd, en KDE probe arts ou probe pulse "
 #~ "en distribucións máis recentes."
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Non se puideron cargar os subtítulos: %s"
+
+#~ msgid "Connecting"
+#~ msgstr "Conectando"

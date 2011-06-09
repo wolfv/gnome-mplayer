@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-04-08 01:47+0000\n"
+"PO-Revision-Date: 2011-05-12 00:51+0000\n"
 "Last-Translator: Edvaldo de Souza Cruz <edvaldoscruz@hotmail.com>\n"
 "Language-Team: Portugese <LL@li.org>\n"
 "Language: \n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -475,9 +475,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Detalhes do Áudio</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Formato do Vídeo:"
+msgstr "Formato de Áudio:"
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -568,9 +567,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Repetir lista de reprodução indefinidamente"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1390,12 +1388,12 @@ msgstr "Sem Informações"
 
 #: src/libgmtk/gmtk_media_player.c:511
 msgid "framedropping"
-msgstr ""
+msgstr "Soltando a moldura"
 
 #: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "Carregando..."
 
 #: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
@@ -1413,9 +1411,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Armazenando Cache: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Diminuir Tamanho da Legenda"
+msgstr "Legenda Externa #%i"
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1429,38 +1427,26 @@ msgstr "Notificação GNOME MPlayer"
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
-msgstr ""
+msgstr "O MPlayer deve ser Atualizado para uma Versão Mais Recente"
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Talvez você deva considerar atualizar o mplayer para uma versão mais "
-"recente, a opção -volume não é suportada\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "Abrir _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Abrir DVD a partir de _Pasta"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Abrir DVD a partir de _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Erro ao carregar legendas: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Atrasar reprodução até o cache estar cheio"
-
-#~ msgid "Connecting"
-#~ msgstr "Conectando"
+"Você talvez devesse considerar uma atualização do mplayer para uma versão "
+"mais recente\n"
 
 #~ msgid "Minimum Cache Size (KB):"
 #~ msgstr "Tamanho Mínimo de Cache (KB):"
 
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Forçar uso das configurações de cache em arquivos streaming"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Erro ao carregar legendas: %s"
+
+#~ msgid "Connecting"
+#~ msgstr "Conectando"
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">Configurações do Plug-in de Emulação</span>"
@@ -1511,8 +1497,20 @@ msgstr ""
 #~ msgid "_Copy URL"
 #~ msgstr "_Copiar URL"
 
+#~ msgid "Open _DVD"
+#~ msgstr "Abrir _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Abrir DVD a partir de _Pasta"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Abrir DVD a partir de _ISO"
+
 #~ msgid "Media Change"
 #~ msgstr "Trocar Mídia"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Atrasar reprodução até o cache estar cheio"
 
 #~ msgid ""
 #~ "mplayer audio output device\n"

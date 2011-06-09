@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-03-11 14:11+0000\n"
-"Last-Translator: R@xXx <Unknown>\n"
+"PO-Revision-Date: 2011-05-29 14:57+0000\n"
+"Last-Translator: Rax <Unknown>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -455,9 +455,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Деталі аудіо</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Формат відео:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -548,9 +547,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Повторювати весь список відтворення"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -600,7 +598,7 @@ msgstr "Увімкнути програмне керування гучніст�
 #: src/gui.c:4754 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
 #: src/libgmtk/gmtk_output_combo_box.c:147
 msgid "Default"
-msgstr ""
+msgstr "Типово"
 
 #: src/gui.c:4972
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -612,7 +610,7 @@ msgstr "Відеовивід:"
 
 #: src/gui.c:4988
 msgid "Audio Output:"
-msgstr "Ауліовивід:"
+msgstr "Аудіовивід:"
 
 #: src/gui.c:4999
 msgid "Default Mixer:"
@@ -631,11 +629,11 @@ msgstr "<span weight=\"bold\">Інше</span>"
 
 #: src/gui.c:5045
 msgid "Default Volume Level:"
-msgstr ""
+msgstr "Типова гучність"
 
 #: src/gui.c:5052 src/gui.c:5055
 msgid "Default volume for playback"
-msgstr ""
+msgstr "Гучність відтворення за замовчуванням"
 
 #: src/gui.c:5069
 msgid "On Screen Display Level:"
@@ -812,11 +810,11 @@ msgstr "Тільки одна копія Gnome MPlayer"
 
 #: src/gui.c:5456
 msgid "When opening in single instance mode, replace existing file"
-msgstr "При відкриванні замінити поточний файл"
+msgstr "Відтворити новий файл замість поточного"
 
 #: src/gui.c:5465
 msgid "When opening file, bring main window to front"
-msgstr ""
+msgstr "При відкриванні надати фокус вікну програвача"
 
 #: src/gui.c:5472
 msgid "Remember Window Location and Size"
@@ -840,17 +838,19 @@ msgstr "Вимкнути анімацію панелі у повноекранн
 
 #: src/gui.c:5497
 msgid "Use Mouse Wheel to change volume, instead of seeking"
-msgstr ""
+msgstr "Коліщатко миші: регулювати гучність замість пошуку"
 
 #: src/gui.c:5502
 msgid "Verbose Debug Enabled"
-msgstr ""
+msgstr "Поширене налагодження"
 
 #: src/gui.c:5506 src/gui.c:5511
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
 msgstr ""
+"Надсилати додаткову налагоджувальну інформацію до терміналу чи до ~/."
+"xsession-errors"
 
 #: src/gui.c:5522
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
@@ -1020,7 +1020,7 @@ msgstr ""
 
 #: src/gui.c:6707 src/playlist.c:1162
 msgid "Set Audi_o"
-msgstr ""
+msgstr "Вказати _аудіо"
 
 #: src/gui.c:6709
 msgid "Select _Audio Language"
@@ -1053,7 +1053,7 @@ msgstr "_Список програвання"
 
 #: src/gui.c:6753
 msgid "Media _Info"
-msgstr ""
+msgstr "Інформація про _носій"
 
 #: src/gui.c:6755
 msgid "D_etails"
@@ -1383,9 +1383,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Кеш заповнено: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Зменшити розмір субтитрів"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1406,14 +1406,14 @@ msgstr ""
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
 
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Відкрити _образ DVD"
+
 #~ msgid "Open _DVD"
 #~ msgstr "Відкрити _DVD"
 
 #~ msgid "Open DVD from _Folder"
 #~ msgstr "Відкрити DVD з _директорії"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Відкрити _образ DVD"
 
 #~ msgid "Cannot load subtitles: %s"
 #~ msgstr "Не вдалося підключити субтитри: %s"

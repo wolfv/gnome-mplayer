@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.9.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-03-18 20:06+0000\n"
+"PO-Revision-Date: 2011-06-03 12:23+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Mark Huijgen <mark.sf.net@huijgen.tk>\n"
 "Language: \n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -210,7 +210,7 @@ msgstr "Grote besturingsknoppen gebruiken"
 
 #: src/main.c:129
 msgid "Hide control panel when mouse is not moving"
-msgstr "Bbesturingspaneel verbergen als muis niet beweegt"
+msgstr "Verberg besturingspaneel wanneer muis niet beweegt"
 
 #: src/main.c:132
 msgid "Ignore single instance preference for this instance"
@@ -456,7 +456,7 @@ msgstr "Videoformaat:"
 #: src/libgmtk/gmtk_media_player.c:2782 src/libgmtk/gmtk_media_player.c:2812
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekend"
 
 #: src/gui.c:4009 src/nautilus_property_page.c:359
 msgid "Video Codec:"
@@ -479,9 +479,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Audiodetails</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Videoformaat:"
+msgstr "Audioformaat:"
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -565,16 +564,15 @@ msgstr "Maximale nabewerking"
 
 #: src/gui.c:4402
 msgid "Exact Match"
-msgstr ""
+msgstr "Exacte overeenkomst"
 
 #: src/gui.c:4405
 msgid "Load all subtitles containing movie name"
-msgstr ""
+msgstr "Laad alle ondertitels met de filmnaam"
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Alle bestanden in de afspeellijst continue afspelen"
+msgstr "Laad alle ondertitels in dezelfde map"
 
 #: src/gui.c:4631
 msgid "Player"
@@ -864,7 +862,7 @@ msgstr "Volledig scherm-bedieningsbalkanimatie uitschakelen"
 
 #: src/gui.c:5497
 msgid "Use Mouse Wheel to change volume, instead of seeking"
-msgstr "Gebruik Muiswiel om geluidsvolme te veranderen in plaats van zoeken"
+msgstr "Gebruik muiswiel om geluidsvolume te veranderen in plaats van zoeken"
 
 #: src/gui.c:5502
 msgid "Verbose Debug Enabled"
@@ -901,7 +899,7 @@ msgstr ""
 
 #: src/gui.c:5559
 msgid "Volume Gain (-200dB to +60dB)"
-msgstr "Volumetoename (-200dB to +60dB)"
+msgstr "Volume-aanpassing (-200dB to +60dB)"
 
 #: src/gui.c:5571
 msgid "De_interlace Video"
@@ -913,7 +911,7 @@ msgstr "Gebruik deze optie als de video er gestreept uitziet"
 
 #: src/gui.c:5582
 msgid "_Drop frames"
-msgstr "Beelden _overslaan"
+msgstr "Beelden _weglaten"
 
 #: src/gui.c:5584 src/gui.c:5587
 msgid "Set this option if video is well behind the audio"
@@ -1394,12 +1392,12 @@ msgstr "Geen informatie"
 
 #: src/libgmtk/gmtk_media_player.c:511
 msgid "framedropping"
-msgstr ""
+msgstr "Beelden weglaten"
 
 #: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "Laden…"
 
 #: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
@@ -1417,9 +1415,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Bufferniveau: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Ondertiteling verkleinen"
+msgstr "Externe ondertiteling #%i"
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1433,32 +1431,12 @@ msgstr "GNOME MPlayer-notificatie"
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
-msgstr ""
+msgstr "MPlayer zou opgewaardeerd moeten worden naar een nieuwere versie"
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
-msgstr ""
-"U kunt misschien overwegen om een recentere versie van mplayer te "
-"installeren, omdat de -volume-optie niet wordt ondersteund\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "_Dvd openen"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Dvd openen vanuit _map"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Dvd openen vanuit _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Kon ondertiteling niet laden: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Start wordt vertraagd totdat buffer vol zit"
-
-#~ msgid "Connecting"
-#~ msgstr "Verbinding maken"
+msgstr "U kunt overwegen om mplayer op te waarderen naar een nieuwere versie\n"
 
 #~ msgid "Media Change"
 #~ msgstr "Verandering media"
@@ -1478,6 +1456,9 @@ msgstr ""
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr "Forceer het gebruik van de buffer bij streaming media"
 
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Start wordt vertraagd totdat buffer vol zit"
+
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "Positie voortgangsindicator:"
 
@@ -1495,3 +1476,18 @@ msgstr ""
 
 #~ msgid "Seeking to %s"
 #~ msgstr "Zoeken naar %s"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Kon ondertiteling niet laden: %s"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Dvd openen vanuit _ISO"
+
+#~ msgid "Open _DVD"
+#~ msgstr "_Dvd openen"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Dvd openen vanuit _map"
+
+#~ msgid "Connecting"
+#~ msgstr "Verbinding maken"

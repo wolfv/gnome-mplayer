@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2010-09-20 21:33+0000\n"
-"Last-Translator: Tuomas Lähteenmäki <Unknown>\n"
+"PO-Revision-Date: 2011-05-10 08:47+0000\n"
+"Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 "X-Poedit-Bookmarks: 7,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: src/main.c:49
@@ -259,7 +259,7 @@ msgstr "%s - (%i/%i) - GNOME MPlayer"
 #: src/gui.c:483
 #, c-format
 msgid "(%i/%i) - GNOME MPlayer"
-msgstr ""
+msgstr "(%i/%i) - GNOME MPlayer"
 
 #: src/gui.c:487 src/gui.c:3169 src/gui.c:6482
 #, c-format
@@ -431,7 +431,7 @@ msgstr "Formaatti:"
 #: src/libgmtk/gmtk_media_player.c:2782 src/libgmtk/gmtk_media_player.c:2812
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Tuntematon"
 
 #: src/gui.c:4009 src/nautilus_property_page.c:359
 msgid "Video Codec:"
@@ -454,9 +454,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Äänen Yksityiskohdat</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Formaatti:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -547,9 +546,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Toista kaikkia tiedostoja soittolistalta ikuisesti"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -599,7 +597,7 @@ msgstr "Mplayer ohjelman äänenvoimakkuuden säätö käytössä"
 #: src/gui.c:4754 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
 #: src/libgmtk/gmtk_output_combo_box.c:147
 msgid "Default"
-msgstr ""
+msgstr "Oletus"
 
 #: src/gui.c:4972
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -1238,7 +1236,7 @@ msgstr "Viite soittolista (*.ref)"
 
 #: src/playlist.c:403
 msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
-msgstr ""
+msgstr "MPEG-soittolista (*.mxu,*.m1u,*.m4u)"
 
 #: src/playlist.c:610
 msgid "Choose Directory"
@@ -1371,7 +1369,7 @@ msgstr ""
 #: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "Ladataan..."
 
 #: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
@@ -1389,9 +1387,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Välimuisti käyttää: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Pienennä tekstitystä"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1405,14 +1403,21 @@ msgstr "GNOME MPlayer Ilmoitus"
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
-msgstr ""
+msgstr "MPlayer tulisi päivittää uudempaan versioon"
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Haluat ehkä harkita mplayerin  päivittämistä uudempaan versioon, -volume "
-"vaihtoehtoa ei tueta\n"
+
+#~ msgid ""
+#~ "mplayer audio output device\n"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
+#~ "on newer distributions"
+#~ msgstr ""
+#~ "mplayer äänentoisto laitteen ulostulo\n"
+#~ "alsa tai oss pitäisi aina toimia, kokeile esd gnome:ssa, arts kde:ssä tai "
+#~ "pulse uudemmissa jakeluissa"
 
 #~ msgid "Open _DVD"
 #~ msgstr "Avaa _DVD"
@@ -1428,12 +1433,3 @@ msgstr ""
 
 #~ msgid "Connecting"
 #~ msgstr "Yhdistää"
-
-#~ msgid ""
-#~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
-#~ msgstr ""
-#~ "mplayer äänentoisto laitteen ulostulo\n"
-#~ "alsa tai oss pitäisi aina toimia, kokeile esd gnome:ssa, arts kde:ssä tai "
-#~ "pulse uudemmissa jakeluissa"

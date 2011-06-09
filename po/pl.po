@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-05-13 21:21+0200\n"
-"Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
+"PO-Revision-Date: 2011-05-14 19:33+0000\n"
+"Last-Translator: Julian Sikorski <Unknown>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -430,7 +430,7 @@ msgstr "Ustaw plik ścieżki dźwiękowej"
 
 #: src/gui.c:3403 src/playlist.c:136
 msgid "Set Subtitle"
-msgstr "Ustaw napisy"
+msgstr "Wczytaj napisy"
 
 #: src/gui.c:3565
 msgid "Gnome MPlayer Fullscreen"
@@ -570,9 +570,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Odtwarzaj wszystkie pliki listy odtwarzania w nieskończoność"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -580,7 +579,7 @@ msgstr "Odtwarzacz"
 
 #: src/gui.c:4633
 msgid "Language Settings"
-msgstr "Ustawienia języka"
+msgstr "Język"
 
 #: src/gui.c:4635
 msgid "Subtitles"
@@ -880,7 +879,7 @@ msgstr ""
 
 #: src/gui.c:5522
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
-msgstr "<span weight=\"bold\">Zaawansowane ustawienia MPlayera</span>"
+msgstr "<span weight=\"bold\">Zaawansowane</span>"
 
 #: src/gui.c:5531 src/gui.c:5535
 msgid ""
@@ -1444,24 +1443,6 @@ msgstr "MPlayer powinien zostać zaktualizowany do nowszej wersji"
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr "Proszę rozważyć aktualizację do nowszej wersji mplayera\n"
 
-#~ msgid "Open _DVD"
-#~ msgstr "Otwórz _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Otwórz DVD z _katalogu"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Otwórz DVD z _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Nie można wczytać napisów: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Opóźnianie startu do czasu zapełnienia bufora"
-
-#~ msgid "Connecting"
-#~ msgstr "Łączenie"
-
 #~ msgid "Media Change"
 #~ msgstr "Zmiana mediów"
 
@@ -1480,6 +1461,21 @@ msgstr "Proszę rozważyć aktualizację do nowszej wersji mplayera\n"
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr ""
 #~ "Wymuś użycie ustawionego bufora na multimediach przesyłanych strumieniowo"
+
+#~ msgid "Open _DVD"
+#~ msgstr "Otwórz _DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Otwórz DVD z _katalogu"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Otwórz DVD z _ISO"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Opóźnianie startu do czasu zapełnienia bufora"
+
+#~ msgid "Connecting"
+#~ msgstr "Łączenie"
 
 #~ msgid "Tracker Thumb Position:"
 #~ msgstr "Położenie kursora śledzącego"
@@ -1557,3 +1553,6 @@ msgstr "Proszę rozważyć aktualizację do nowszej wersji mplayera\n"
 
 #~ msgid "_Copy URL"
 #~ msgstr "S_kopiuj URL"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Nie można wczytać napisów: %s"

@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -449,9 +449,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">音訊細節</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "視訊格式："
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -542,9 +541,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "永遠播放清單中的所有檔案"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1358,11 +1356,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "填滿快取：%2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
 msgstr ""
-"檔案名稱： %s\n"
-"字幕： %s"
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1370,9 +1366,8 @@ msgid "Screenshot saved to '%s'"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2915 src/libgmtk/gmtk_media_player.c:2977
-#, fuzzy
 msgid "GNOME MPlayer Notification"
-msgstr "GNOME MPlayer 設定"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
@@ -1384,14 +1379,14 @@ msgstr ""
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
 
+#~ msgid "Minimum Cache Size (KB):"
+#~ msgstr "最小快取大小(KB)："
+
 #~ msgid "Cannot load subtitles: %s"
 #~ msgstr "無法讀取字幕：%s"
 
 #~ msgid "Connecting"
 #~ msgstr "正在連接"
-
-#~ msgid "Minimum Cache Size (KB):"
-#~ msgstr "最小快取大小(KB)："
 
 #~ msgid "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>"
 #~ msgstr "<span weight=\"bold\">調整外掛程式模擬設定</span>"

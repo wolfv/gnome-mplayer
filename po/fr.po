@@ -18,8 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -484,9 +484,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Détails audio</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Format vidéo :"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -577,9 +576,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Lecture en boucle de tous les fichiers de la liste de lecture"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1441,9 +1439,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Mise en mémoire tampon : %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Réduire la taille des sous-titres"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1460,29 +1458,9 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"L'option -volume n'est pas supportée, peut être devriez vous considérer une "
-"mise à jour de mplayer pour une version plus récente.\n"
-
-#~ msgid "Open _DVD"
-#~ msgstr "_DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "DVD depuis un d_ossier"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "DVD depuis un _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Impossible de charger les sous-titres : %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Départ différé jusqu'à ce que la mémoire tampon soit remplie"
-
-#~ msgid "Connecting"
-#~ msgstr "Connexion en cours"
 
 #~ msgid "Media Change"
 #~ msgstr "Changement de média"
@@ -1502,3 +1480,21 @@ msgstr ""
 #~ msgid "Force the use of cache setting on streaming media"
 #~ msgstr ""
 #~ "Forcer l'utilisation des paramètres de la mémoire tampon pour les flux"
+
+#~ msgid "Open _DVD"
+#~ msgstr "_DVD"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "DVD depuis un d_ossier"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "DVD depuis un _ISO"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Impossible de charger les sous-titres : %s"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Départ différé jusqu'à ce que la mémoire tampon soit remplie"
+
+#~ msgid "Connecting"
+#~ msgstr "Connexion en cours"

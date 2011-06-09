@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-04-02 00:46+0000\n"
+"PO-Revision-Date: 2011-05-21 10:23+0000\n"
 "Last-Translator: Sérgio Marques <Unknown>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "Language: pt\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -450,7 +450,7 @@ msgstr "Formato do Vídeo:"
 #: src/libgmtk/gmtk_media_player.c:2782 src/libgmtk/gmtk_media_player.c:2812
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecido"
 
 #: src/gui.c:4009 src/nautilus_property_page.c:359
 msgid "Video Codec:"
@@ -473,9 +473,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Detalhes do Áudio</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Formato do Vídeo:"
+msgstr "Formato áudio:"
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -566,9 +565,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Reproduzir eternamente todos os ficheiros na lista de reprodução"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1388,12 +1386,12 @@ msgstr "Sem Informações"
 
 #: src/libgmtk/gmtk_media_player.c:511
 msgid "framedropping"
-msgstr ""
+msgstr "framedropping"
 
 #: src/libgmtk/gmtk_media_player.c:731
 #, c-format
 msgid "Loading..."
-msgstr ""
+msgstr "A carregar..."
 
 #: src/libgmtk/gmtk_media_player.c:2411
 #, c-format
@@ -1411,9 +1409,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Cache a: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Diminuir o Tamanho das Legendas"
+msgstr "Legenda externa #%i"
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1427,35 +1425,28 @@ msgstr "Notificação do GNOME MPlayer"
 #: src/libgmtk/gmtk_media_player.c:2974
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
-msgstr ""
+msgstr "Deve atualizar o MPlayer para uma versão mais recente"
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Devia actualizar o mplayer para uma versão mais recente, porque a opção -"
-"volume não é suportada\n"
+"Considere a hipótese de atualizar o mPlayer para uma versão mais recente\n"
 
 #~ msgid "Open _DVD"
 #~ msgstr "Abrir _DVD"
-
-#~ msgid "Open DVD from _Folder"
-#~ msgstr "Abrir DVD a partir da _Pasta"
-
-#~ msgid "Open DVD from _ISO"
-#~ msgstr "Abrir DVD a partir de _ISO"
-
-#~ msgid "Cannot load subtitles: %s"
-#~ msgstr "Não foi possível carregar as legendas: %s"
-
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Atrasando o início até preencher a cache"
 
 #~ msgid "Connecting"
 #~ msgstr "A ligar"
 
 #~ msgid "Media Change"
 #~ msgstr "Trocar ficheiro multimédia"
+
+#~ msgid "Open DVD from _ISO"
+#~ msgstr "Abrir DVD a partir de _ISO"
+
+#~ msgid "Cannot load subtitles: %s"
+#~ msgstr "Não foi possível carregar as legendas: %s"
 
 #~ msgid ""
 #~ "mplayer audio output device\n"
@@ -1465,3 +1456,9 @@ msgstr ""
 #~ "dispositivo de saída de vídeo do mplayer\n"
 #~ "alsa ou oss deverão funcionar bem, senão tente o esd no Gnome, o arts no "
 #~ "Kde, ou o pulse nas distribuições mais recentes"
+
+#~ msgid "Open DVD from _Folder"
+#~ msgstr "Abrir DVD a partir da _Pasta"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Atrasando o início até preencher a cache"

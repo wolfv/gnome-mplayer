@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 "X-Poedit-Country: HUNGARY\n"
 "X-Poedit-Language: Hungarian\n"
 
@@ -480,9 +480,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Hang beállítások</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Videó formátum"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -573,9 +572,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Játssza le folyamatosan a lejátszólista tartalmát"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -1415,9 +1413,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Gyorstár %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Felirat méretének növelése"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1434,11 +1432,18 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Lehet hogy frissíteni kell az MPlayer-t egy újabb verzióra, a -volume "
-"paraméter nem támogatott\n"
+
+#~ msgid ""
+#~ "mplayer audio output device\n"
+#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
+#~ "on newer distributions"
+#~ msgstr ""
+#~ "mplayer hang kimeneti eszköz\n"
+#~ "az alsa vagy oss legtöbb esetben működik, próbálja az esd-t gnome, az "
+#~ "arts-ot kde, vagy a pulse kimenetet újabb disztribúciókon"
 
 #~ msgid "Open _DVD"
 #~ msgstr "_DVD megnyitása"
@@ -1457,15 +1462,6 @@ msgstr ""
 
 #~ msgid "Connecting"
 #~ msgstr "Kapcsolódás"
-
-#~ msgid ""
-#~ "mplayer audio output device\n"
-#~ "alsa or oss should always work, try esd in gnome, arts in kde, or pulse "
-#~ "on newer distributions"
-#~ msgstr ""
-#~ "mplayer hang kimeneti eszköz\n"
-#~ "az alsa vagy oss legtöbb esetben működik, próbálja az esd-t gnome, az "
-#~ "arts-ot kde, vagy a pulse kimenetet újabb disztribúciókon"
 
 #~ msgid "Media Change"
 #~ msgstr "Média változás"

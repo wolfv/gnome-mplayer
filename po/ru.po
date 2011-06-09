@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-31 10:03-0600\n"
-"PO-Revision-Date: 2011-03-24 18:02+0000\n"
-"Last-Translator: Stanislav Hanzhin <Unknown>\n"
+"PO-Revision-Date: 2011-05-26 14:14+0000\n"
+"Last-Translator: Chubakur <Unknown>\n"
 "Language-Team: Russian\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2011-04-11 14:32+0000\n"
-"X-Generator: Launchpad (build 12792)\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
 
 #: src/main.c:49
 msgid "Window to embed in"
@@ -477,9 +477,8 @@ msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Информация об аудио</span>"
 
 #: src/gui.c:4063
-#, fuzzy
 msgid "Audio Format:"
-msgstr "Формат видео:"
+msgstr ""
 
 #: src/gui.c:4076 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
@@ -570,9 +569,8 @@ msgid "Load all subtitles containing movie name"
 msgstr ""
 
 #: src/gui.c:4408
-#, fuzzy
 msgid "Load all subtitles in the same folder"
-msgstr "Повторять список воспроизведения"
+msgstr ""
 
 #: src/gui.c:4631
 msgid "Player"
@@ -714,7 +712,7 @@ msgstr "Отключить интеграцию проигрывателя с и
 
 #: src/gui.c:5136
 msgid "Disable Embedded Player Scaling"
-msgstr ""
+msgstr "Отключить встроенное масштабирование"
 
 #: src/gui.c:5141
 msgid "Audio Cache Size (KB):"
@@ -1050,7 +1048,7 @@ msgstr "Переключить аудио _дорожку"
 
 #: src/gui.c:6707 src/playlist.c:1162
 msgid "Set Audi_o"
-msgstr ""
+msgstr "Настроить звук"
 
 #: src/gui.c:6709
 msgid "Select _Audio Language"
@@ -1268,7 +1266,7 @@ msgstr "Ссылочный список воспроизведения (*.ref)"
 
 #: src/playlist.c:403
 msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
-msgstr ""
+msgstr "MPEG плейлист (*.mxu,*.m1u,*.m4u)"
 
 #: src/playlist.c:610
 msgid "Choose Directory"
@@ -1423,9 +1421,9 @@ msgid "Cache fill: %2.2f%%"
 msgstr "Кэширование: %2.2f%%"
 
 #: src/libgmtk/gmtk_media_player.c:2729
-#, fuzzy, c-format
+#, c-format
 msgid "External Subtitle #%i"
-msgstr "Уменьшить размер субтитров"
+msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:2912
 #, c-format
@@ -1442,11 +1440,15 @@ msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
 #: src/libgmtk/gmtk_media_player.c:3172
-#, fuzzy, c-format
+#, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
-"Поддержка опции '-volume' отсутствует. Возможно, вам потребуется обновить "
-"MPlayer до новой версии.\n"
+
+#~ msgid "Minimum Cache Size (KB):"
+#~ msgstr "Минимальный размер кэша (КБ):"
+
+#~ msgid "Force the use of cache setting on streaming media"
+#~ msgstr "Принудительно кэшировать потоковое видео"
 
 #~ msgid "Open _DVD"
 #~ msgstr "О_ткрыть DVD"
@@ -1460,17 +1462,8 @@ msgstr ""
 #~ msgid "Cannot load subtitles: %s"
 #~ msgstr "Не удалось загрузить субтитры %s"
 
-#~ msgid "Delaying start until cache is full"
-#~ msgstr "Задержка перед стартом до заполнения кэша"
-
 #~ msgid "Connecting"
 #~ msgstr "Соединяюсь"
-
-#~ msgid "Minimum Cache Size (KB):"
-#~ msgstr "Минимальный размер кэша (КБ):"
-
-#~ msgid "Force the use of cache setting on streaming media"
-#~ msgstr "Принудительно кэшировать потоковое видео"
 
 #~ msgid "Seeking to %s"
 #~ msgstr "Перейти к %s"
@@ -1501,3 +1494,6 @@ msgstr ""
 #~ "Устройство вывода звука mplayer\n"
 #~ "Обычно подходят обработчики alsa или oss, попробуйте esd для Gnome, arts "
 #~ "для KDE, или pulse для новых дистрибутивов"
+
+#~ msgid "Delaying start until cache is full"
+#~ msgstr "Задержка перед стартом до заполнения кэша"
