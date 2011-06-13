@@ -67,7 +67,8 @@ gboolean signal_event(gpointer data)
 {
     GmtkMediaPlayerEvent *event = (GmtkMediaPlayerEvent *) data;
 
-    if (event->event_name != NULL && event->player->restart == FALSE) {
+    if (event && event->event_name != NULL 
+        && (event->player->restart == FALSE || event->event_data_int == ATTRIBUTE_AF_EXPORT_FILENAME)) {
         if (g_strcasecmp(event->event_name, "position-changed") == 0 ||
             g_strcasecmp(event->event_name, "cache-percent-changed") == 0) {
             g_signal_emit_by_name(event->player, event->event_name, event->event_data_double);
