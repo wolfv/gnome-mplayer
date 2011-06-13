@@ -2551,7 +2551,6 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
 
         if (strstr(mplayer_output->str, "AO:") != NULL) {
             write_to_mplayer(player, "get_property switch_audio\n");
-            create_event_int(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
         }
 
         if (strstr(mplayer_output->str, "VO:") != NULL) {
@@ -2574,6 +2573,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
                 create_event_double(player, "cache-percent-changed", 0.0);
             }
+			create_event_int(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
         }
 
         if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -2592,6 +2592,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
                 create_event_double(player, "cache-percent-changed", 0.0);
             }
+			create_event_int(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
         }
 
         if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {
