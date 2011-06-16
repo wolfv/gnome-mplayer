@@ -5385,7 +5385,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_show_subtitles, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
-    conf_label = gtk_label_new(_("Post-processing level:"));
+    conf_label = gtk_label_new(_("Subtitle Load Fuzziness:"));
     config_subtitle_fuzziness = gtk_hscale_new_with_range(0.0, 2.0, 1.0);
     g_signal_connect(G_OBJECT(config_subtitle_fuzziness), "format-value",
                      G_CALLBACK(subtitle_fuzziness_format_callback), NULL);
