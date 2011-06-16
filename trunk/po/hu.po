@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-31 10:03-0600\n"
+"POT-Creation-Date: 2011-06-16 09:49-0600\n"
 "PO-Revision-Date: 2011-03-19 15:28+0000\n"
 "Last-Translator: Krasznecz Zoltán <zoltan.krasznecz@gmail.com>\n"
 "Language-Team: Angelique OS <info@angelique.hu>\n"
@@ -152,7 +152,7 @@ msgstr "Függőleges felosztás használata"
 msgid "Start with playlist open"
 msgstr "Lejátszólista látszik megnyitáskor"
 
-#: src/main.c:106 src/gui.c:5406
+#: src/main.c:106 src/gui.c:5418
 msgid "Start with details visible"
 msgstr "Részletek látszanak megnyitáskor"
 
@@ -230,7 +230,7 @@ msgstr "Sávok importálása a médialejátszóból gpod használatával"
 msgid "Don't fetch new cover art images"
 msgstr "Ne töltse le a borító képeket"
 
-#: src/main.c:355 src/gui.c:742 src/gui.c:6142 src/gui.c:6202
+#: src/main.c:355 src/gui.c:743 src/gui.c:6155 src/gui.c:6217
 #, c-format
 msgid "Playing"
 msgstr "Lejátszás"
@@ -253,52 +253,52 @@ msgstr ""
 "Futtassa a 'gnome-mplayer --help' parancsot az összes elérhető parancssori "
 "paraméter megjelenítéséhez.\n"
 
-#: src/gui.c:446 src/gui.c:489 src/gui.c:6008
+#: src/gui.c:447 src/gui.c:490 src/gui.c:6020
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
 
-#: src/gui.c:481
+#: src/gui.c:482
 #, c-format
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:483
+#: src/gui.c:484
 #, c-format
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "(%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:487 src/gui.c:3169 src/gui.c:6482
+#: src/gui.c:488 src/gui.c:3182 src/gui.c:6497
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
 
-#: src/gui.c:622
+#: src/gui.c:623
 #, c-format
 msgid "Buffering: %2i%%"
 msgstr "Előtöltés: %2i%%"
 
-#: src/gui.c:633
+#: src/gui.c:634
 #, c-format
 msgid "Paused | %2i%% ▼"
 msgstr "Megállítva | %2i%%"
 
-#: src/gui.c:744 src/gui.c:6163 src/gui.c:6204
+#: src/gui.c:745 src/gui.c:6177 src/gui.c:6219
 #, c-format
 msgid "Paused"
 msgstr "Megállítva"
 
-#: src/gui.c:746 src/gui.c:1121 src/gui.c:6206
+#: src/gui.c:747 src/gui.c:1122 src/gui.c:6221
 #, c-format
 msgid "Idle"
 msgstr "Üresjárat"
 
-#: src/gui.c:875 src/support.c:248 src/playlist.c:584 src/playlist.c:911
+#: src/gui.c:876 src/support.c:248 src/playlist.c:584 src/playlist.c:911
 #, c-format
 msgid "%s items"
 msgstr "%s elem"
 
-#: src/gui.c:877 src/gui.c:2585 src/gui.c:2953 src/support.c:197
+#: src/gui.c:878 src/gui.c:2591 src/gui.c:2965 src/support.c:197
 #: src/support.c:263 src/playlist.c:586
 #, c-format
 msgid "Item to Play"
@@ -306,85 +306,85 @@ msgid_plural "Items to Play"
 msgstr[0] "Lejátszandó elem"
 msgstr[1] "Lejátszandó elemek"
 
-#: src/gui.c:901 src/gui.c:902 src/gui.c:905 src/gui.c:6126 src/gui.c:6127
-#: src/gui.c:6130
+#: src/gui.c:902 src/gui.c:903 src/gui.c:906 src/gui.c:6139 src/gui.c:6140
+#: src/gui.c:6143
 msgid "Pause"
 msgstr "Szünet"
 
-#: src/gui.c:922 src/gui.c:923 src/gui.c:926 src/gui.c:943 src/gui.c:944
-#: src/gui.c:947 src/gui.c:2113 src/gui.c:2115 src/gui.c:2123 src/gui.c:2125
-#: src/gui.c:6104 src/gui.c:6105 src/gui.c:6108 src/gui.c:6148 src/gui.c:6149
-#: src/gui.c:6152 src/gui.c:7053 src/gui.c:7056
+#: src/gui.c:923 src/gui.c:924 src/gui.c:927 src/gui.c:944 src/gui.c:945
+#: src/gui.c:948 src/gui.c:2116 src/gui.c:2118 src/gui.c:2126 src/gui.c:2128
+#: src/gui.c:6116 src/gui.c:6117 src/gui.c:6120 src/gui.c:6162 src/gui.c:6163
+#: src/gui.c:6166 src/gui.c:7068 src/gui.c:7071
 msgid "Play"
 msgstr "Lejátszás"
 
-#: src/gui.c:1094
+#: src/gui.c:1095
 #, c-format
 msgid "Adding %s to playlist"
 msgstr "%s hozzáadása a lejátszólistához"
 
-#: src/gui.c:1117
+#: src/gui.c:1118
 #, c-format
 msgid "Playing %s"
 msgstr "%s lejátszása"
 
-#: src/gui.c:1119
+#: src/gui.c:1120
 #, c-format
 msgid "Paused %s"
 msgstr "%s megállítva"
 
-#: src/gui.c:1347 src/gui.c:1356
+#: src/gui.c:1348 src/gui.c:1357
 #, c-format
 msgid "Volume %i%%"
 msgstr "Hangerő %i%%"
 
-#: src/gui.c:2130
+#: src/gui.c:2133
 msgid "Stopped"
 msgstr "Megállítva"
 
-#: src/gui.c:2537 src/playlist.c:548
+#: src/gui.c:2542 src/playlist.c:548
 msgid "Open File"
 msgstr "Fájl megnyitása"
 
-#: src/gui.c:2642
+#: src/gui.c:2649
 msgid "Open Location"
 msgstr "Hely megnyitása"
 
-#: src/gui.c:2644
+#: src/gui.c:2651
 msgid "Location:"
 msgstr "Hely:"
 
-#: src/gui.c:2698 src/gui.c:2790
+#: src/gui.c:2705 src/gui.c:2797
 msgid "Choose Disk Directory"
 msgstr "Lemez könyvtár választás"
 
-#: src/gui.c:2734 src/gui.c:2830
+#: src/gui.c:2741 src/gui.c:2837
 msgid "Choose Disk Image"
 msgstr "Lemezkép választás"
 
-#: src/gui.c:2748 src/gui.c:2844
+#: src/gui.c:2755 src/gui.c:2851
 msgid "Disk Image (*.iso)"
 msgstr "Lemezkép (*.iso)"
 
-#: src/gui.c:3074
+#: src/gui.c:3087
 msgid "Save As..."
 msgstr "Mentés másként..."
 
-#: src/gui.c:3114
+#: src/gui.c:3127
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "Nem lehet menteni: '%s'"
 
-#: src/gui.c:3117 src/support.c:798 src/support.c:889
-#: src/libgmtk/gmtk_media_player.c:2470
+#: src/gui.c:3130 src/support.c:798 src/support.c:889
+#: src/libgmtk/gmtk_media_player.c:2484
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer hiba"
 
-#: src/gui.c:3171
+#: src/gui.c:3184
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "Egy GNOME médialejátszó MPlayer alapokon"
 
-#: src/gui.c:3174
+#: src/gui.c:3187
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -426,184 +426,184 @@ msgstr ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 
-#: src/gui.c:3365
+#: src/gui.c:3378
 msgid "Set AudioFile"
 msgstr ""
 
-#: src/gui.c:3403 src/playlist.c:136
+#: src/gui.c:3414 src/playlist.c:136
 msgid "Set Subtitle"
 msgstr "Felirat beállítása"
 
-#: src/gui.c:3565
+#: src/gui.c:3576
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Teljes képernyős Gnome MPlayer"
 
-#: src/gui.c:3978 src/nautilus_property_page.c:341
+#: src/gui.c:3989 src/nautilus_property_page.c:341
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">Videó beállítások</span>"
 
-#: src/gui.c:3985 src/nautilus_property_page.c:348
+#: src/gui.c:3996 src/nautilus_property_page.c:348
 msgid "Video Size:"
 msgstr "Képméret"
 
-#: src/gui.c:3998
+#: src/gui.c:4009
 msgid "Video Format:"
 msgstr "Videó formátum"
 
-#: src/gui.c:4002 src/gui.c:4013 src/gui.c:4044 src/gui.c:4068 src/gui.c:4081
-#: src/gui.c:4094 src/libgmtk/gmtk_media_player.c:2670
-#: src/libgmtk/gmtk_media_player.c:2671 src/libgmtk/gmtk_media_player.c:2719
-#: src/libgmtk/gmtk_media_player.c:2750 src/libgmtk/gmtk_media_player.c:2751
-#: src/libgmtk/gmtk_media_player.c:2782 src/libgmtk/gmtk_media_player.c:2812
+#: src/gui.c:4013 src/gui.c:4024 src/gui.c:4055 src/gui.c:4079 src/gui.c:4092
+#: src/gui.c:4105 src/libgmtk/gmtk_media_player.c:2685
+#: src/libgmtk/gmtk_media_player.c:2686 src/libgmtk/gmtk_media_player.c:2734
+#: src/libgmtk/gmtk_media_player.c:2766 src/libgmtk/gmtk_media_player.c:2767
+#: src/libgmtk/gmtk_media_player.c:2799 src/libgmtk/gmtk_media_player.c:2830
 #, c-format
 msgid "Unknown"
 msgstr ""
 
-#: src/gui.c:4009 src/nautilus_property_page.c:359
+#: src/gui.c:4020 src/nautilus_property_page.c:359
 msgid "Video Codec:"
 msgstr "Videó kodek"
 
-#: src/gui.c:4020
+#: src/gui.c:4031
 msgid "Video FPS:"
 msgstr "Videó FPS"
 
-#: src/gui.c:4029 src/nautilus_property_page.c:370
+#: src/gui.c:4040 src/nautilus_property_page.c:370
 msgid "Video Bitrate:"
 msgstr "Videó bitráta"
 
-#: src/gui.c:4040
+#: src/gui.c:4051
 msgid "Video Chapters:"
 msgstr "Videó fejezetek"
 
-#: src/gui.c:4056 src/nautilus_property_page.c:395
+#: src/gui.c:4067 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Hang beállítások</span>"
 
-#: src/gui.c:4063
+#: src/gui.c:4074
 msgid "Audio Format:"
 msgstr ""
 
-#: src/gui.c:4076 src/nautilus_property_page.c:402
+#: src/gui.c:4087 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
 msgstr "Hang kodek"
 
-#: src/gui.c:4089 src/nautilus_property_page.c:425
+#: src/gui.c:4100 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
 msgstr "Hangcsatornák"
 
-#: src/gui.c:4102 src/nautilus_property_page.c:413
+#: src/gui.c:4113 src/nautilus_property_page.c:413
 msgid "Audio Bitrate:"
 msgstr "Hang bitráta"
 
-#: src/gui.c:4115
+#: src/gui.c:4126
 msgid "Audio Sample Rate:"
 msgstr "Hang mintavételi frekvencia"
 
-#: src/gui.c:4145
+#: src/gui.c:4156
 msgid "Video Picture Adjustments"
 msgstr "Kép beállítások"
 
-#: src/gui.c:4158
+#: src/gui.c:4169
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">Video Details</span>"
 
-#: src/gui.c:4165
+#: src/gui.c:4176
 msgid "Brightness"
 msgstr "Fényerő"
 
-#: src/gui.c:4176
+#: src/gui.c:4187
 msgid "Contrast"
 msgstr "Kontraszt"
 
-#: src/gui.c:4187
+#: src/gui.c:4198
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/gui.c:4198
+#: src/gui.c:4209
 msgid "Hue"
 msgstr "Színezet"
 
-#: src/gui.c:4209
+#: src/gui.c:4220
 msgid "Saturation"
 msgstr "Telítettség"
 
-#: src/gui.c:4226
+#: src/gui.c:4237
 msgid "_Reset"
 msgstr "_Visszaállítás"
 
-#: src/gui.c:4349
+#: src/gui.c:4360
 msgid "No Display"
 msgstr "Semmi"
 
-#: src/gui.c:4352
+#: src/gui.c:4363
 msgid "Minimal"
 msgstr "Minimális"
 
-#: src/gui.c:4355
+#: src/gui.c:4366
 msgid "Timer"
 msgstr "Idő"
 
-#: src/gui.c:4358
+#: src/gui.c:4369
 msgid "Timer/Total"
 msgstr "Idő/teljes idő"
 
-#: src/gui.c:4374
+#: src/gui.c:4385
 msgid "No Postprocessing"
 msgstr "Ne legyen utófeldolgozás"
 
-#: src/gui.c:4378
+#: src/gui.c:4389
 msgid "Minimal Postprocessing"
 msgstr "Minimális utófeldolgozás"
 
-#: src/gui.c:4382
+#: src/gui.c:4393
 msgid "More Postprocessing"
 msgstr "Közepes utófeldolgozás"
 
-#: src/gui.c:4386
+#: src/gui.c:4397
 msgid "Maximum Postprocessing"
 msgstr "Maximális utófeldolgozás"
 
-#: src/gui.c:4402
+#: src/gui.c:4413
 msgid "Exact Match"
 msgstr ""
 
-#: src/gui.c:4405
+#: src/gui.c:4416
 msgid "Load all subtitles containing movie name"
 msgstr ""
 
-#: src/gui.c:4408
+#: src/gui.c:4419
 msgid "Load all subtitles in the same folder"
 msgstr ""
 
-#: src/gui.c:4631
+#: src/gui.c:4642
 msgid "Player"
 msgstr "Lejátszó"
 
-#: src/gui.c:4633
+#: src/gui.c:4644
 msgid "Language Settings"
 msgstr "Nyelvi beállítások"
 
-#: src/gui.c:4635
+#: src/gui.c:4646
 msgid "Subtitles"
 msgstr "Felirat"
 
-#: src/gui.c:4637
+#: src/gui.c:4648
 msgid "Interface"
 msgstr "Felület"
 
-#: src/gui.c:4639
+#: src/gui.c:4650
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:4641
+#: src/gui.c:4652
 msgid "Plugin"
 msgstr "Beépülő"
 
-#: src/gui.c:4647
+#: src/gui.c:4658
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME MPlayer beállítások"
 
-#: src/gui.c:4665 src/gui.c:4671
+#: src/gui.c:4676 src/gui.c:4682
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv or gl for better performance"
@@ -612,63 +612,63 @@ msgstr ""
 "az x11-nek mindig működnie kell, próbálja az xv vagy gl kimenetet jobb "
 "teljesítményhez"
 
-#: src/gui.c:4726
+#: src/gui.c:4737
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "AC3/DTS átjátszás S/PDIF-re"
 
-#: src/gui.c:4735
+#: src/gui.c:4746
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "Mplayer szoftveres hangerőszabályozó"
 
-#: src/gui.c:4754 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:256
+#: src/gui.c:4766 src/libgmlib/gm_audio.c:78 src/libgmlib/gm_audio.c:253
 #: src/libgmtk/gmtk_output_combo_box.c:147
 msgid "Default"
 msgstr "Alapértelmezett"
 
-#: src/gui.c:4972
+#: src/gui.c:4984
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">Kimenet beállítások</span>"
 
-#: src/gui.c:4979
+#: src/gui.c:4991
 msgid "Video Output:"
 msgstr "Video kimenet"
 
-#: src/gui.c:4988
+#: src/gui.c:5000
 msgid "Audio Output:"
 msgstr "Hang kimenet"
 
-#: src/gui.c:4999
+#: src/gui.c:5011
 msgid "Default Mixer:"
 msgstr "Alapértelmezett keverő"
 
-#: src/gui.c:5009
+#: src/gui.c:5021
 msgid "Audio Channels to Output"
 msgstr "Hang kimenet csatornák"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:5037
+#: src/gui.c:5049
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">Megjelenés beállítások</span>"
 
-#: src/gui.c:5045
+#: src/gui.c:5057
 msgid "Default Volume Level:"
 msgstr "Alapértelmezett hangerő"
 
-#: src/gui.c:5052 src/gui.c:5055
+#: src/gui.c:5064 src/gui.c:5067
 msgid "Default volume for playback"
 msgstr "Alapértelmezett lejátszási hangerő"
 
-#: src/gui.c:5069
+#: src/gui.c:5081
 msgid "On Screen Display Level:"
 msgstr "Képernyőn megjelenő információk"
 
-#: src/gui.c:5081 src/gui.c:5376
+#: src/gui.c:5093
 msgid "Post-processing level:"
 msgstr "Utófeldolgozási szint"
 
-#: src/gui.c:5095
+#: src/gui.c:5107
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -685,39 +685,39 @@ msgstr ""
 "lejátszását\n"
 "NPRuntime kompatibilis böngészőkben (Firefox, Konqueror, stb)."
 
-#: src/gui.c:5106
+#: src/gui.c:5118
 msgid "QuickTime Emulation"
 msgstr "QuickTime helyettesítés"
 
-#: src/gui.c:5111
+#: src/gui.c:5123
 msgid "RealPlayer Emulation"
 msgstr "RealPlayer helyettesítés"
 
-#: src/gui.c:5116
+#: src/gui.c:5128
 msgid "Windows Media Player Emulation"
 msgstr "Windows Media Player helyettesítés"
 
-#: src/gui.c:5121
+#: src/gui.c:5133
 msgid "DiVX Player Emulation"
 msgstr "DiVX Player helyettesítés"
 
-#: src/gui.c:5126
+#: src/gui.c:5138
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "MIDI támogatás (MPlayer támogatást igényel)"
 
-#: src/gui.c:5131
+#: src/gui.c:5143
 msgid "Disable Player Embedding"
 msgstr "Lejátszó beépülés tiltása"
 
-#: src/gui.c:5136
+#: src/gui.c:5148
 msgid "Disable Embedded Player Scaling"
 msgstr ""
 
-#: src/gui.c:5141
+#: src/gui.c:5153
 msgid "Audio Cache Size (KB):"
 msgstr "Hang gyorsítótár mérete (KB):"
 
-#: src/gui.c:5151 src/gui.c:5154 src/gui.c:5160 src/gui.c:5165
+#: src/gui.c:5163 src/gui.c:5166 src/gui.c:5172 src/gui.c:5177
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -725,151 +725,156 @@ msgstr ""
 "Gyorsítótárnak használt memóriamennyiség, használjon nagyobb értékeket lassú "
 "hálózatokhoz."
 
-#: src/gui.c:5181
+#: src/gui.c:5193
 msgid "Video Cache Size (KB):"
 msgstr "Videó gyorsítótár mérete (KB)"
 
-#: src/gui.c:5203
+#: src/gui.c:5215
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">Nyelvi beállítások</span>"
 
-#: src/gui.c:5210
+#: src/gui.c:5222
 msgid "Default Audio Language"
 msgstr "Hang alapértelmezett nyelve"
 
-#: src/gui.c:5219
+#: src/gui.c:5231
 msgid "Default Subtitle Language:"
 msgstr "Felirat alapértelmezett nyelve"
 
-#: src/gui.c:5229
+#: src/gui.c:5241
 msgid "File Metadata Encoding:"
 msgstr "Fájl nyelvi kódolása"
 
-#: src/gui.c:5245
+#: src/gui.c:5257
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">Felirat beállítások</span>"
 
-#: src/gui.c:5252
+#: src/gui.c:5264
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "_Advanced Substation Alpha (ASS) felirat támogatása"
 
-#: src/gui.c:5259
+#: src/gui.c:5271
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "_Beágyazott betűk támogatása (csak MKV)"
 
-#: src/gui.c:5268
+#: src/gui.c:5280
 msgid "Subtitle Font:"
 msgstr "Felirat betűtípus"
 
-#: src/gui.c:5286
+#: src/gui.c:5298
 msgid "Subtitle Font Selection"
 msgstr "Felirat betűtípus választás"
 
-#: src/gui.c:5291
+#: src/gui.c:5303
 msgid "Subtitle Color:"
 msgstr "Felirat szín"
 
-#: src/gui.c:5315
+#: src/gui.c:5327
 msgid "Subtitle Color Selection"
 msgstr "Felirat szín választás"
 
-#: src/gui.c:5321
+#: src/gui.c:5333
 msgid "Outline Subtitle Font"
 msgstr "Körvonalas felirat betű"
 
-#: src/gui.c:5327
+#: src/gui.c:5339
 msgid "Shadow Subtitle Font"
 msgstr "Árnyékolt felirat betű"
 
-#: src/gui.c:5333
+#: src/gui.c:5345
 msgid "Subtitle Font Scaling:"
 msgstr "Felirat betű nagyítás"
 
-#: src/gui.c:5346
+#: src/gui.c:5358
 msgid "Subtitle File Encoding:"
 msgstr "Felirat fájl kódolás"
 
-#: src/gui.c:5358
+#: src/gui.c:5370
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr "Felirat alsó margó (X11/XV)"
 
-#: src/gui.c:5371
+#: src/gui.c:5383
 msgid "Show Subtitles by Default"
 msgstr "Alapértelmezetten jelenítse meg a feliratokat"
 
-#: src/gui.c:5394
+#: src/gui.c:5388
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Felirat betűtípus"
+
+#: src/gui.c:5406
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Alkalmazás beállítások</span>"
 
-#: src/gui.c:5401
+#: src/gui.c:5413
 msgid "Start with playlist visible"
 msgstr "Lejátszólista látszik megnyitáskor"
 
-#: src/gui.c:5411
+#: src/gui.c:5423
 msgid "Respond to Keyboard Media Keys"
 msgstr "Billentyűzet médiavezérlőinek használata"
 
-#: src/gui.c:5416
+#: src/gui.c:5428
 msgid "Use default playlist"
 msgstr "Alapértelmezett lejátszólista használata"
 
-#: src/gui.c:5422
+#: src/gui.c:5434
 msgid "Show notification popup"
 msgstr "Figyelmeztető felugróablakok megjelenítése"
 
-#: src/gui.c:5429
+#: src/gui.c:5441
 msgid "Show status icon"
 msgstr "Tálcaikon megjelenítése"
 
-#: src/gui.c:5435
+#: src/gui.c:5447
 msgid "Use X Screen Saver control over Gnome Power Manager"
 msgstr "X Képernyővédő vezérlés használata Gnome Power Manager felett"
 
-#: src/gui.c:5441
+#: src/gui.c:5453
 msgid "Place playlist below media (requires application restart)"
 msgstr "Lejátszólista a főablak alatt (újraindítást igényel)"
 
-#: src/gui.c:5446
+#: src/gui.c:5458
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Csak egy Gnome MPlayer példány futhat"
 
-#: src/gui.c:5456
+#: src/gui.c:5468
 msgid "When opening in single instance mode, replace existing file"
 msgstr "Fájl megnyitásakor cserélje az aktuális lejátszott fájlt"
 
-#: src/gui.c:5465
+#: src/gui.c:5477
 msgid "When opening file, bring main window to front"
 msgstr "Fájl megnyitásakor hozza előtérbe az ablakot"
 
-#: src/gui.c:5472
+#: src/gui.c:5484
 msgid "Remember Window Location and Size"
 msgstr "Ablak pozíció és méret megjegyzése"
 
-#: src/gui.c:5477
+#: src/gui.c:5489
 msgid "Resize window when new video is loaded"
 msgstr "Ablak átméretezése új videó betöltésekor"
 
-#: src/gui.c:5482
+#: src/gui.c:5494
 msgid "Keep window above other windows"
 msgstr "A lejátszóablak mindig legfelül"
 
-#: src/gui.c:5487
+#: src/gui.c:5499
 msgid "Pause playback on mouse click"
 msgstr "Pillanat állj kattintáskor"
 
-#: src/gui.c:5492
+#: src/gui.c:5504
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr "Teljesképernyős vezérlősáv animálásának kikapcsolása"
 
-#: src/gui.c:5497
+#: src/gui.c:5509
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr ""
 
-#: src/gui.c:5502
+#: src/gui.c:5514
 msgid "Verbose Debug Enabled"
 msgstr "Részletes hibakeresés"
 
-#: src/gui.c:5506 src/gui.c:5511
+#: src/gui.c:5518 src/gui.c:5523
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
@@ -877,55 +882,55 @@ msgstr ""
 "Ha ez a lehetőség be van állítva, extra hibakereső információ kerül a "
 "terminál kimenetére vagy a ~/.xsession-errors-ba"
 
-#: src/gui.c:5522
+#: src/gui.c:5534
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Advanced Settings</span>"
 
-#: src/gui.c:5531 src/gui.c:5535
+#: src/gui.c:5543 src/gui.c:5547
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr "Ezzel az opcióval a Gnome MPlayer változtathat a fő hangerőn"
 
-#: src/gui.c:5545
+#: src/gui.c:5557
 msgid "Remember last software volume level"
 msgstr "Emlékezzen az utolsó hangerő-értékre"
 
-#: src/gui.c:5548 src/gui.c:5552
+#: src/gui.c:5560 src/gui.c:5564
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr ""
 "Kapcsolja be ezt az opciót, ha szeretné, hogy a szoftveres hangerő-érték "
 "megjegyzésre kerüljön."
 
-#: src/gui.c:5559
+#: src/gui.c:5571
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "Hangerősítő (- 200dB-től +60dB-ig)"
 
-#: src/gui.c:5571
+#: src/gui.c:5583
 msgid "De_interlace Video"
 msgstr "_Váltottsoros képszűrő"
 
-#: src/gui.c:5573 src/gui.c:5576
+#: src/gui.c:5585 src/gui.c:5588
 msgid "Set this option if video looks striped"
 msgstr "Ezzel az opcióval szüntethető meg a váltottsoros videók csíkozottsága"
 
-#: src/gui.c:5582
+#: src/gui.c:5594
 msgid "_Drop frames"
 msgstr "_Képkockák eldobása"
 
-#: src/gui.c:5584 src/gui.c:5587
+#: src/gui.c:5596 src/gui.c:5599
 msgid "Set this option if video is well behind the audio"
 msgstr "Ezzel az opcióval a kép késése csökkenthető képkockaeldobások árán"
 
-#: src/gui.c:5593
+#: src/gui.c:5605
 msgid "Enable mplayer cache"
 msgstr "Mplayer gyorsítótár engedélyezése"
 
-#: src/gui.c:5599
+#: src/gui.c:5611
 msgid "Cache Size (KB):"
 msgstr "Gyorsítótár méret (KB)"
 
-#: src/gui.c:5607 src/gui.c:5611
+#: src/gui.c:5619 src/gui.c:5623
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
@@ -933,264 +938,264 @@ msgstr ""
 "Az a memóriamennyiség amit gyorsítótárként használhat a lejátszó, lassú "
 "eszközökhöz és helyekhez ajánlott nagyobb értéket haszálni"
 
-#: src/gui.c:5631
+#: src/gui.c:5643
 msgid "MPlayer Executable:"
 msgstr "MPlayer bináris fájl"
 
-#: src/gui.c:5635 src/gui.c:5639
+#: src/gui.c:5647 src/gui.c:5651
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Ezzel a beállítással határozható meg az mplayer alkalmazás pontos helye ha "
 "nincs az elérési útban"
 
-#: src/gui.c:5655
+#: src/gui.c:5667
 msgid "Extra Options to MPlayer:"
 msgstr "Extra paraméterek az MPlayernek"
 
-#: src/gui.c:5658 src/gui.c:5661
+#: src/gui.c:5670 src/gui.c:5673
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "Extra mplayer paraméterek (szűrők stb.) megadása"
 
-#: src/gui.c:5672
+#: src/gui.c:5684
 msgid "MPlayer Default Optical Device"
 msgstr "MPlayer alapértelmezett optikai eszköz"
 
-#: src/gui.c:6529
+#: src/gui.c:6544
 msgid "S_how Controls"
 msgstr "_Vezérlők megjelenítése"
 
-#: src/gui.c:6533 src/gui.c:6761
+#: src/gui.c:6548 src/gui.c:6776
 msgid "_Full Screen"
 msgstr "_Teljes képernyő"
 
-#: src/gui.c:6538
+#: src/gui.c:6553
 msgid "_Copy Location"
 msgstr "Hely _másolása"
 
 #. File Menu
-#: src/gui.c:6581
+#: src/gui.c:6596
 msgid "_File"
 msgstr "_Fájl"
 
-#: src/gui.c:6588
+#: src/gui.c:6603
 msgid "Open _Folder"
 msgstr "Mappa _Megnyitása"
 
-#: src/gui.c:6593
+#: src/gui.c:6608
 msgid "Open _Location"
 msgstr "_Hely megnyitása"
 
-#: src/gui.c:6598
+#: src/gui.c:6613
 msgid "_Disc"
 msgstr "_Lemez"
 
-#: src/gui.c:6606
+#: src/gui.c:6621
 msgid "Open _Audio CD"
 msgstr "_Audio CD megnyitása"
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
-#: src/gui.c:6612
+#: src/gui.c:6627
 msgid "Open DVD with _Menus"
 msgstr "DVD megnyitása _menükkel"
 
-#: src/gui.c:6617
+#: src/gui.c:6632
 msgid "Open DVD from Folder with M_enus"
 msgstr "DVD megnyitása könyvtárból m_enükkel"
 
-#: src/gui.c:6622
+#: src/gui.c:6637
 msgid "Open DVD from ISO with Me_nus"
 msgstr "DVD megnyitása ISO-ból me_nükkel"
 
-#: src/gui.c:6626
+#: src/gui.c:6641
 msgid "Open _VCD"
 msgstr "_Video CD megnyitása"
 
-#: src/gui.c:6628
+#: src/gui.c:6643
 msgid "_TV"
 msgstr "_TV"
 
-#: src/gui.c:6633
+#: src/gui.c:6648
 msgid "Open _Analog TV"
 msgstr "_Analóg TV megnyitása"
 
-#: src/gui.c:6635
+#: src/gui.c:6650
 msgid "Open _Digital TV"
 msgstr "_Digitális TV megnyitása"
 
-#: src/gui.c:6638
+#: src/gui.c:6653
 msgid "Open _iPod™"
 msgstr "_iPod™ megnyitása"
 
-#: src/gui.c:6647
+#: src/gui.c:6662
 msgid "Open _Recent"
 msgstr "_Legutóbbi megnyitása"
 
 #. Edit Menu
-#: src/gui.c:6694
+#: src/gui.c:6709
 msgid "_Edit"
 msgstr "_Szerkesztés"
 
-#: src/gui.c:6699
+#: src/gui.c:6714
 msgid "_Shuffle Playlist"
 msgstr "_Véletlenszerű lejátszólista"
 
-#: src/gui.c:6702
+#: src/gui.c:6717
 msgid "_Loop Playlist"
 msgstr "_Lejátszólista végtelenítés"
 
-#: src/gui.c:6705
+#: src/gui.c:6720
 msgid "S_witch Audio Track"
 msgstr "_Hangsáv váltás"
 
-#: src/gui.c:6707 src/playlist.c:1162
+#: src/gui.c:6722 src/playlist.c:1162
 msgid "Set Audi_o"
 msgstr ""
 
-#: src/gui.c:6709
+#: src/gui.c:6724
 msgid "Select _Audio Language"
 msgstr "Hang nyelvének kiválasztása"
 
-#: src/gui.c:6712
+#: src/gui.c:6727
 msgid "Set Sub_title"
 msgstr "_Felirat beállítás"
 
-#: src/gui.c:6714
+#: src/gui.c:6729
 msgid "S_elect Subtitle Language"
 msgstr "Felirat _nyelvválasztás"
 
-#: src/gui.c:6717
+#: src/gui.c:6732
 msgid "_Take Screenshot"
 msgstr "_Pillanatkép készítés"
 
-#: src/gui.c:6722 src/gui.c:6727
+#: src/gui.c:6737 src/gui.c:6742
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "Egy ’shotNNNN.png’ nevű kép kerül mentésre a munkakönyvtárba"
 
 #. View Menu
-#: src/gui.c:6745
+#: src/gui.c:6760
 msgid "_View"
 msgstr "_Nézet"
 
-#: src/gui.c:6750
+#: src/gui.c:6765
 msgid "_Playlist"
 msgstr "_Lejátszólista"
 
-#: src/gui.c:6753
+#: src/gui.c:6768
 msgid "Media _Info"
 msgstr "Média infó"
 
-#: src/gui.c:6755
+#: src/gui.c:6770
 msgid "D_etails"
 msgstr "_Részletek"
 
-#: src/gui.c:6757
+#: src/gui.c:6772
 msgid "Audio _Meter"
 msgstr "Hang _képi megjelenítés"
 
-#: src/gui.c:6767
+#: src/gui.c:6782
 msgid "_Normal (1:1)"
 msgstr "_Eredeti méret·(1:1)"
 
-#: src/gui.c:6769
+#: src/gui.c:6784
 msgid "_Double Size (2:1)"
 msgstr "_Dupla méret·(2:1)"
 
-#: src/gui.c:6771
+#: src/gui.c:6786
 msgid "_Half Size (1:2)"
 msgstr "_Fele méret·(1:2)"
 
-#: src/gui.c:6773
+#: src/gui.c:6788
 msgid "_Aspect"
 msgstr "_Képarány"
 
-#: src/gui.c:6778
+#: src/gui.c:6793
 msgid "D_efault Aspect"
 msgstr "_Eredeti képarány"
 
-#: src/gui.c:6780
+#: src/gui.c:6795
 msgid "_4:3 Aspect"
 msgstr "_4:3 arány"
 
-#: src/gui.c:6782
+#: src/gui.c:6797
 msgid "_16:9 Aspect"
 msgstr "_16:9 arány"
 
-#: src/gui.c:6784
+#: src/gui.c:6799
 msgid "1_6:10 Aspect"
 msgstr "1_6:10 arány"
 
-#: src/gui.c:6786
+#: src/gui.c:6801
 msgid "_Follow Window"
 msgstr "_Ablakhoz méretez"
 
-#: src/gui.c:6791
+#: src/gui.c:6806
 msgid "Show _Subtitles"
 msgstr "_Feliratok megjelenítése"
 
-#: src/gui.c:6793
+#: src/gui.c:6808
 msgid "Decrease Subtitle Size"
 msgstr "Felirat méretének növelése"
 
-#: src/gui.c:6794
+#: src/gui.c:6809
 msgid "Increase Subtitle Size"
 msgstr "Felirat méretének csökkentése"
 
-#: src/gui.c:6796
+#: src/gui.c:6811
 msgid "Decrease Subtitle Delay"
 msgstr "Felirat késleltetése"
 
-#: src/gui.c:6798
+#: src/gui.c:6813
 msgid "Increase Subtitle Delay"
 msgstr "Felirat siettetése"
 
-#: src/gui.c:6799
+#: src/gui.c:6814
 msgid "Switch An_gle"
 msgstr "Nézőszög változtatása"
 
-#: src/gui.c:6800
+#: src/gui.c:6815
 msgid "_Controls"
 msgstr "_Vezérlők"
 
-#: src/gui.c:6813
+#: src/gui.c:6828
 msgid "_Video Picture Adjustments"
 msgstr "_Videó kép beállítások"
 
 #. Help Menu
-#: src/gui.c:6849
+#: src/gui.c:6864
 msgid "_Help"
 msgstr "_Súgó"
 
-#: src/gui.c:6993 src/gui.c:6996
+#: src/gui.c:7008 src/gui.c:7011
 msgid "Menu"
 msgstr "Menü"
 
-#: src/gui.c:7013 src/gui.c:7016
+#: src/gui.c:7028 src/gui.c:7031
 msgid "Previous"
 msgstr "Előző"
 
-#: src/gui.c:7033 src/gui.c:7036
+#: src/gui.c:7048 src/gui.c:7051
 msgid "Rewind"
 msgstr "Visszatekerés"
 
-#: src/gui.c:7073 src/gui.c:7076
+#: src/gui.c:7088 src/gui.c:7091
 msgid "Stop"
 msgstr "Leállítás"
 
-#: src/gui.c:7093 src/gui.c:7096
+#: src/gui.c:7108 src/gui.c:7111
 msgid "Fast Forward"
 msgstr "Előretekerés"
 
-#: src/gui.c:7113 src/gui.c:7116
+#: src/gui.c:7128 src/gui.c:7131
 msgid "Next"
 msgstr "Következő"
 
-#: src/gui.c:7146 src/gui.c:7149
+#: src/gui.c:7161 src/gui.c:7164
 msgid "Full Screen"
 msgstr "Teljes képernyő"
 
-#: src/gui.c:7194
+#: src/gui.c:7209
 msgid "Volume 100%"
 msgstr "Hangerő 100%"
 
@@ -1388,50 +1393,50 @@ msgstr "Audio/Video"
 msgid "No Information"
 msgstr "Nincsenek információk"
 
-#: src/libgmtk/gmtk_media_player.c:511
+#: src/libgmtk/gmtk_media_player.c:512
 msgid "framedropping"
 msgstr ""
 
-#: src/libgmtk/gmtk_media_player.c:731
+#: src/libgmtk/gmtk_media_player.c:732
 #, c-format
 msgid "Loading..."
 msgstr ""
 
-#: src/libgmtk/gmtk_media_player.c:2411
+#: src/libgmtk/gmtk_media_player.c:2425
 #, c-format
 msgid "Failed to open %s"
 msgstr "Nem lehet megnyitni: %s"
 
-#: src/libgmtk/gmtk_media_player.c:2447
+#: src/libgmtk/gmtk_media_player.c:2461
 #, c-format
 msgid "Compressed SWF format not supported"
 msgstr "A tömörített SWF formátum nem támogatott"
 
-#: src/libgmtk/gmtk_media_player.c:2533
+#: src/libgmtk/gmtk_media_player.c:2547
 #, c-format
 msgid "Cache fill: %2.2f%%"
 msgstr "Gyorstár %2.2f%%"
 
-#: src/libgmtk/gmtk_media_player.c:2729
+#: src/libgmtk/gmtk_media_player.c:2745
 #, c-format
 msgid "External Subtitle #%i"
 msgstr ""
 
-#: src/libgmtk/gmtk_media_player.c:2912
+#: src/libgmtk/gmtk_media_player.c:2930
 #, c-format
 msgid "Screenshot saved to '%s'"
 msgstr "Képernyőkép mentve a '%s' fájlba"
 
-#: src/libgmtk/gmtk_media_player.c:2915 src/libgmtk/gmtk_media_player.c:2977
+#: src/libgmtk/gmtk_media_player.c:2933 src/libgmtk/gmtk_media_player.c:3029
 msgid "GNOME MPlayer Notification"
 msgstr "GNOME MPlayer figyelmeztetés"
 
-#: src/libgmtk/gmtk_media_player.c:2974
+#: src/libgmtk/gmtk_media_player.c:3026
 #, c-format
 msgid "MPlayer should be Upgraded to a Newer Version"
 msgstr ""
 
-#: src/libgmtk/gmtk_media_player.c:3172
+#: src/libgmtk/gmtk_media_player.c:3272
 #, c-format
 msgid "You might want to consider upgrading mplayer to a newer version\n"
 msgstr ""
