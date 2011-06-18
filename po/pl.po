@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-06-16 09:49-0600\n"
-"PO-Revision-Date: 2011-06-15 21:53+0200\n"
+"PO-Revision-Date: 2011-06-18 11:14+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -796,9 +796,8 @@ msgid "Show Subtitles by Default"
 msgstr "Automatyczne wczytywanie"
 
 #: src/gui.c:5388
-#, fuzzy
 msgid "Subtitle Load Fuzziness:"
-msgstr "Czcionka:"
+msgstr "Niedokładność wczytywania napisów:"
 
 #: src/gui.c:5406
 msgid "<span weight=\"bold\">Application Preferences</span>"

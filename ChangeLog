@@ -1,4 +1,5 @@
 Development
+    Added a missing string to the Polish translation
     Correct invalid label, and update po files
     Updated Polish translation
     Move notification of export filename to occur later
