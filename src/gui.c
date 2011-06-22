@@ -6567,7 +6567,8 @@ GtkWidget *create_window(gint windowid)
     if (control_id != 0) {
         gtk_widget_show(GTK_WIDGET(menuitem_sep4));
         gtk_widget_show(GTK_WIDGET(menuitem_save));
-        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save), FALSE);
+		if (embed_window != 0)
+    		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save), FALSE);
     }
 
     menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
