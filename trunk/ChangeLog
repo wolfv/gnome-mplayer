@@ -1,4 +1,5 @@
 Development
+    Enable Save in popup menu with control id is specified but not window, useful for scripting
     Updated Portuguese translation
     Added a missing string to the Polish translation
     Correct invalid label, and update po files
