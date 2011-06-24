@@ -492,6 +492,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         gmtk_media_player_set_uri(GMTK_MEDIA_PLAYER(media), s);
+                        g_strlcpy(idledata->url, s, 2048);
                         g_idle_add(show_copyurl, idledata);
                     } else {
                         dbus_error_free(&error);

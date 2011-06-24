@@ -1,4 +1,5 @@
 Development
+    Fix default filename in context menu. Issue #531
     Enable Save in popup menu with control id is specified but not window, useful for scripting
     Updated Portuguese translation
     Added a missing string to the Polish translation

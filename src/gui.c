@@ -692,7 +692,7 @@ gboolean set_progress_value(void *data)
         }
     }
 
-    if (idle->cachepercent >= 1.0) {
+    if (idle->cachepercent >= 1.0 || idle->cachepercent == 0.0) {
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save), TRUE);
     } else {
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save), FALSE);
@@ -3090,7 +3090,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                                     GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
 
-    uri = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+    uri = g_strdup(idledata->url);
     default_name = g_strrstr(uri, "/");
     if (default_name == NULL) {
         default_name = uri;
@@ -4755,7 +4755,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_tree_model_get(gmtk_output_combo_box_get_tree_model
                                    (GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter, OUTPUT_DESCRIPTION_COLUMN, &desc, -1);
 
-				//printf("audio_device_name = %s, desc = %s\n",audio_device_name, desc);
+                //printf("audio_device_name = %s, desc = %s\n",audio_device_name, desc);
                 if (audio_device_name != NULL && strcmp(audio_device_name, desc) == 0) {
                     gtk_combo_box_set_active_iter(GTK_COMBO_BOX(config_ao), &ao_iter);
                     g_free(desc);
@@ -6567,8 +6567,8 @@ GtkWidget *create_window(gint windowid)
     if (control_id != 0) {
         gtk_widget_show(GTK_WIDGET(menuitem_sep4));
         gtk_widget_show(GTK_WIDGET(menuitem_save));
-		if (embed_window != 0)
-    		gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save), FALSE);
+        if (embed_window != 0)
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save), FALSE);
     }
 
     menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());

@@ -143,6 +143,7 @@ typedef struct _IdleData {
     gchar media_info[2048];
     gchar media_notification[2048];
     gchar af_export[1024];
+    gchar url[2048];
     GMappedFile *mapped_af_export;
     gchar *device;
     gdouble cachepercent;
