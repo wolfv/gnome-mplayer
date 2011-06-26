@@ -904,6 +904,10 @@ void gmtk_media_player_set_attribute_boolean(GmtkMediaPlayer * player,
         player->debug = value;
         break;
 
+    case ATTRIBUTE_HARDWARE_AC3:
+        player->hardware_ac3 = value;
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -983,6 +987,10 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkM
 
     case ATTRIBUTE_ENABLE_DEBUG:
         ret = player->debug;
+        break;
+
+    case ATTRIBUTE_HARDWARE_AC3:
+        ret = player->hardware_ac3;
         break;
 
     default:

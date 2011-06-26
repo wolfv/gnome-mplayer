@@ -133,6 +133,7 @@ void set_media_player_attributes(GtkWidget * widget)
                                                 audio_device.type == AUDIO_TYPE_SOFTVOL);
     }
     gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_CHANNELS, audio_channels);
+    gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HARDWARE_AC3, use_hw_audio);
 
     gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_OSDLEVEL, osdlevel);
     gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POST_PROCESSING_LEVEL, pplevel);
