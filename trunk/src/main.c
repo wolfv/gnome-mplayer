@@ -234,6 +234,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     gchar *album = NULL;
     gchar *audio_codec;
     gchar *video_codec = NULL;
+    GtkAllocation alloc;
     gchar *demuxer = NULL;
     gboolean playable = TRUE;
     gint width;
@@ -297,6 +298,20 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         printf("playing - %s\n", uri);
         printf("is playlist %i\n", playlist);
     }
+
+    get_allocation(GTK_WIDGET(media), &alloc);
+    if (width == 0 || height == 0) {
+        alloc.width = 16;
+        alloc.height = 16;
+    } else {
+        alloc.width = width;
+        alloc.height = height;
+    }
+    //printf("setting window size to %i x %i\n", alloc.width, alloc.height);
+    gtk_widget_size_allocate(GTK_WIDGET(media), &alloc);
+    while (gtk_events_pending())
+        gtk_main_iteration();
+
     /*
        // wait for metadata to be available on this item
        if (!streaming_media(uri) && !device_name(uri)) {
