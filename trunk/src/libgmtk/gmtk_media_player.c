@@ -1839,9 +1839,9 @@ gpointer launch_mplayer(gpointer data)
             if (g_ascii_strncasecmp(player->vo, "vdpau", strlen("vdpau")) == 0) {
 
                 if (player->deinterlace) {
-                    argv[argn++] = g_strdup_printf("vdpau:deint=2,%s", player->vo);
+                    argv[argn++] = g_strdup_printf("vdpau:deint=2,%s,gl,x11", player->vo);
                 } else {
-                    argv[argn++] = g_strdup_printf("%s,", player->vo);
+                    argv[argn++] = g_strdup_printf("%s,gl,x11", player->vo);
                 }
 
                 argv[argn++] = g_strdup_printf("-vc");
@@ -2424,11 +2424,13 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         player->playback_error = ERROR_RETRY_ALSA_BUSY;
     }
 
+	/*
     if (strstr(mplayer_output->str, "Error when calling vdp_output_surface_create") != NULL) {
 		create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
         player->playback_error = ERROR_RETRY_VDPAU;
 		write_to_mplayer(player, "quit\n");
     }
+	*/
 	
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
