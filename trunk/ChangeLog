@@ -1,4 +1,5 @@
 Development
+    Quit mplayer on vdpau restart, mplayer doesn't want to die
     Restart mplayer on vdpau create error
     Try and set the initial window size prior to loading the media, may fix vdpau issues
     Fix AC3 passthru, option was not being set, Issue #533
