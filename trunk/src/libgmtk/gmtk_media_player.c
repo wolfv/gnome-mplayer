@@ -2321,6 +2321,7 @@ gpointer launch_mplayer(gpointer data)
             break;
 
         case ERROR_RETRY_ALSA_BUSY:
+		case ERROR_RETRY_VDPAU:
             break;
 
         default:
@@ -2424,6 +2425,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
             player->playback_error = ERROR_RETRY_ALSA_BUSY;
     }
 
+    if (strstr(mplayer_output->str, "Error when calling vdp_output_surface_create") != NULL) {
+        if (!player->disable_xvmc)
+            player->playback_error = ERROR_RETRY_VDPAU;
+    }
+	
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
