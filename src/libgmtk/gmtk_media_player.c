@@ -2427,7 +2427,7 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
     if (strstr(mplayer_output->str, "Error when calling vdp_output_surface_create") != NULL) {
 		create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
         player->playback_error = ERROR_RETRY_VDPAU;
-		return FALSE;
+		write_to_mplayer(player, "quit\n");
     }
 	
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
