@@ -1,4 +1,4 @@
-Development
+1.0.4
     Remove vdpau failure detection as it doesn't work
     Quit mplayer on vdpau restart, mplayer doesn't want to die
     Restart mplayer on vdpau create error
