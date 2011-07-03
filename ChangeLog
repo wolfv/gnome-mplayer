@@ -1,3 +1,5 @@
+Development
+    Fix compile issue with alsa is not being used
 1.0.4
     Remove vdpau failure detection as it doesn't work
     Quit mplayer on vdpau restart, mplayer doesn't want to die
