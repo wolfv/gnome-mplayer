@@ -6052,6 +6052,11 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         g_strlcpy(idledata->media_info, text, 1024);
         g_thread_create(get_cover_art, metadata, FALSE, NULL);
         break;
+
+	case ATTRIBUTE_RETRY_ON_FULL_CACHE:
+		idledata->retry_on_full_cache = gmtk_media_player_get_attribute_boolean (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_RETRY_ON_FULL_CACHE);
+		break;		
+			
     default:
         if (verbose) {
             printf("Unhandled attribute change %i\n", attribute);

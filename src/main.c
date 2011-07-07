@@ -534,6 +534,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     idledata->width = width;
     idledata->height = height;
 
+	idledata->retry_on_full_cache = FALSE;
     idledata->cachepercent = -1.0;
     g_strlcpy(idledata->info, uri, 1024);
     set_media_info(idledata);

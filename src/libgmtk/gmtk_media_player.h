@@ -170,7 +170,8 @@ typedef enum {
     ATTRIBUTE_ENABLE_FRAME_DROP,
     ATTRIBUTE_TITLE,
     ATTRIBUTE_ARTIST,
-    ATTRIBUTE_ALBUM
+    ATTRIBUTE_ALBUM,
+	ATTRIBUTE_RETRY_ON_FULL_CACHE
 } GmtkMediaPlayerMediaAttributes;
 
 typedef enum {
@@ -201,6 +202,13 @@ typedef enum {
     COMMAND_SWITCH_FRAME_DROP
 } GmtkMediaPlayerCommand;
 
+typedef enum {
+	EVENT_TYPE_INT,
+	EVENT_TYPE_DOUBLE,
+	EVENT_TYPE_BOOLEAN,
+	EVENT_TYPE_ALLOCATION
+} GmtkMediaPlayerEventType;
+
 typedef struct _GmtkMediaPlayer GmtkMediaPlayer;
 typedef struct _GmtkMediaPlayerClass GmtkMediaPlayerClass;
 
@@ -222,9 +230,11 @@ typedef struct _GmtkMediaPlayerAudioTrack {
 
 typedef struct _GmtkMediaPlayerEvent {
     GmtkMediaPlayer *player;
+	GmtkMediaPlayerEventType type;
     gchar *event_name;
     gint event_data_int;
     gdouble event_data_double;
+	gboolean event_data_boolean;
     GtkAllocation *event_allocation;
 } GmtkMediaPlayerEvent;
 
@@ -304,6 +314,7 @@ struct _GmtkMediaPlayer {
     gchar *album;
     gboolean enable_divx;
     gboolean disable_xvmc;
+	gboolean retry_on_full_cache;
 
     gboolean deinterlace;
     gboolean frame_drop;
