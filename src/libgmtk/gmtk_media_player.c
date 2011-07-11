@@ -67,29 +67,29 @@ gboolean signal_event(gpointer data)
 {
     GmtkMediaPlayerEvent *event = (GmtkMediaPlayerEvent *) data;
 
-    if (event && event->event_name != NULL 
+    if (event && event->event_name != NULL
         && (event->player->restart == FALSE || event->event_data_int == ATTRIBUTE_AF_EXPORT_FILENAME)) {
 
-		switch (event->type) {
-			case EVENT_TYPE_INT:
-	            g_signal_emit_by_name(event->player, event->event_name, event->event_data_int);
-				break;
+        switch (event->type) {
+        case EVENT_TYPE_INT:
+            g_signal_emit_by_name(event->player, event->event_name, event->event_data_int);
+            break;
 
-			case EVENT_TYPE_DOUBLE:
-	            g_signal_emit_by_name(event->player, event->event_name, event->event_data_double);
-				break;
+        case EVENT_TYPE_DOUBLE:
+            g_signal_emit_by_name(event->player, event->event_name, event->event_data_double);
+            break;
 
-			case EVENT_TYPE_BOOLEAN:
-	            g_signal_emit_by_name(event->player, event->event_name, event->event_data_boolean);
-				break;
-				
-			case EVENT_TYPE_ALLOCATION:
-    		    g_signal_emit_by_name(event->player, event->event_name, event->event_allocation);
-				break;
-				
-			default:
-				printf("undefined event %s\n", event->event_name);
-		}
+        case EVENT_TYPE_BOOLEAN:
+            g_signal_emit_by_name(event->player, event->event_name, event->event_data_boolean);
+            break;
+
+        case EVENT_TYPE_ALLOCATION:
+            g_signal_emit_by_name(event->player, event->event_name, event->event_allocation);
+            break;
+
+        default:
+            printf("undefined event %s\n", event->event_name);
+        }
         g_free(event->event_name);
     }
     if (event)
@@ -105,7 +105,7 @@ void create_event_int(GmtkMediaPlayer * player, const gchar * name, gint value)
 
     event = g_new0(GmtkMediaPlayerEvent, 1);
     event->player = player;
-	event->type = EVENT_TYPE_INT;
+    event->type = EVENT_TYPE_INT;
     event->event_name = g_strdup(name);
     event->event_data_int = value;
     g_idle_add(signal_event, event);
@@ -117,7 +117,7 @@ void create_event_double(GmtkMediaPlayer * player, const gchar * name, gdouble v
 
     event = g_new0(GmtkMediaPlayerEvent, 1);
     event->player = player;
-	event->type = EVENT_TYPE_DOUBLE;
+    event->type = EVENT_TYPE_DOUBLE;
     event->event_name = g_strdup(name);
     event->event_data_double = value;
     g_idle_add(signal_event, event);
@@ -129,7 +129,7 @@ void create_event_boolean(GmtkMediaPlayer * player, const gchar * name, gboolean
 
     event = g_new0(GmtkMediaPlayerEvent, 1);
     event->player = player;
-	event->type = EVENT_TYPE_BOOLEAN;
+    event->type = EVENT_TYPE_BOOLEAN;
     event->event_name = g_strdup(name);
     event->event_data_boolean = value;
     g_idle_add(signal_event, event);
@@ -141,7 +141,7 @@ void create_event_allocation(GmtkMediaPlayer * player, const gchar * name, GtkAl
 
     event = g_new0(GmtkMediaPlayerEvent, 1);
     event->player = player;
-	event->type = EVENT_TYPE_ALLOCATION;
+    event->type = EVENT_TYPE_ALLOCATION;
     event->event_name = g_strdup(name);
     event->event_allocation = allocation;
     g_idle_add(signal_event, event);
@@ -327,7 +327,7 @@ static void gmtk_media_player_init(GmtkMediaPlayer * player)
     player->channel_in = NULL;
     player->channel_out = NULL;
     player->channel_err = NULL;
-	player->retry_on_full_cache = FALSE;
+    player->retry_on_full_cache = FALSE;
 }
 
 static void gmtk_media_player_dispose(GObject * object)
@@ -1021,10 +1021,10 @@ gboolean gmtk_media_player_get_attribute_boolean(GmtkMediaPlayer * player, GmtkM
         ret = player->hardware_ac3;
         break;
 
-	case ATTRIBUTE_RETRY_ON_FULL_CACHE:
-		ret = player->retry_on_full_cache;
-		break;
-			
+    case ATTRIBUTE_RETRY_ON_FULL_CACHE:
+        ret = player->retry_on_full_cache;
+        break;
+
     default:
         if (player->debug)
             printf("Unsupported Attribute\n");
@@ -1820,7 +1820,7 @@ gpointer launch_mplayer(gpointer data)
     player->title_is_menu = FALSE;
     player->enable_divx = TRUE;
     player->disable_xvmc = FALSE;
-	player->retry_on_full_cache = FALSE;
+    player->retry_on_full_cache = FALSE;
 
     g_mutex_lock(player->thread_running);
 
@@ -1864,9 +1864,9 @@ gpointer launch_mplayer(gpointer data)
 
 
         if (player->vo != NULL) {
-		    // use the profile to set up some default values
-		    argv[argn++] = g_strdup_printf("-profile");
-		    argv[argn++] = g_strdup_printf("gnome-mplayer");
+            // use the profile to set up some default values
+            argv[argn++] = g_strdup_printf("-profile");
+            argv[argn++] = g_strdup_printf("gnome-mplayer");
             argv[argn++] = g_strdup_printf("-vo");
 
             if (g_ascii_strncasecmp(player->vo, "vdpau", strlen("vdpau")) == 0) {
@@ -2354,7 +2354,7 @@ gpointer launch_mplayer(gpointer data)
             break;
 
         case ERROR_RETRY_ALSA_BUSY:
-		case ERROR_RETRY_VDPAU:
+        case ERROR_RETRY_VDPAU:
             break;
 
         default:
@@ -2457,14 +2457,14 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         player->playback_error = ERROR_RETRY_ALSA_BUSY;
     }
 
-	/*
-    if (strstr(mplayer_output->str, "Error when calling vdp_output_surface_create") != NULL) {
-		create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
-        player->playback_error = ERROR_RETRY_VDPAU;
-		write_to_mplayer(player, "quit\n");
-    }
-	*/
-	
+    /*
+       if (strstr(mplayer_output->str, "Error when calling vdp_output_surface_create") != NULL) {
+       create_event_int(player, "attribute-changed", ATTRIBUTE_SIZE);
+       player->playback_error = ERROR_RETRY_VDPAU;
+       write_to_mplayer(player, "quit\n");
+       }
+     */
+
     if (strstr(mplayer_output->str, "Failed to open") != NULL) {
         if (strstr(mplayer_output->str, "LIRC") == NULL &&
             strstr(mplayer_output->str, "/dev/rtc") == NULL &&
@@ -2510,11 +2510,11 @@ gboolean thread_reader_error(GIOChannel * source, GIOCondition condition, gpoint
         error_msg = g_strdup_printf(_("Compressed SWF format not supported"));
     }
 
-	if (strstr(mplayer_output->str, "MOV: missing header (moov/cmov) chunk") != NULL) {
+    if (strstr(mplayer_output->str, "MOV: missing header (moov/cmov) chunk") != NULL) {
         player->retry_on_full_cache = TRUE;
-		create_event_boolean(player, "attribute-changed", ATTRIBUTE_RETRY_ON_FULL_CACHE);
+        create_event_boolean(player, "attribute-changed", ATTRIBUTE_RETRY_ON_FULL_CACHE);
     }
-	
+
     if (strstr(mplayer_output->str, "Title: ") != 0) {
         buf = strstr(mplayer_output->str, "Title:");
         buf = strstr(mplayer_output->str, "Title: ") + strlen("Title: ");
@@ -2627,7 +2627,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
                 create_event_double(player, "cache-percent-changed", 0.0);
             }
-			create_event_int(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
         }
 
         if (strstr(mplayer_output->str, "Video: no video") != NULL) {
@@ -2646,7 +2646,7 @@ gboolean thread_reader(GIOChannel * source, GIOCondition condition, gpointer dat
                 create_event_int(player, "audio-tracks-changed", g_list_length(player->audio_tracks));
                 create_event_double(player, "cache-percent-changed", 0.0);
             }
-			create_event_int(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
+            create_event_int(player, "attribute-changed", ATTRIBUTE_AF_EXPORT_FILENAME);
         }
 
         if (strstr(mplayer_output->str, "ANS_TIME_POSITION") != 0) {
