@@ -74,7 +74,7 @@ typedef enum {
     ERROR_RETRY_WITHOUT_DIVX_VDPAU,
     ERROR_RETRY_WITHOUT_XVMC,
     ERROR_RETRY_ALSA_BUSY,
-	ERROR_RETRY_VDPAU
+    ERROR_RETRY_VDPAU
 } GmtkMediaPlayerPlaybackError;
 
 typedef enum {
@@ -171,7 +171,7 @@ typedef enum {
     ATTRIBUTE_TITLE,
     ATTRIBUTE_ARTIST,
     ATTRIBUTE_ALBUM,
-	ATTRIBUTE_RETRY_ON_FULL_CACHE
+    ATTRIBUTE_RETRY_ON_FULL_CACHE
 } GmtkMediaPlayerMediaAttributes;
 
 typedef enum {
@@ -203,10 +203,10 @@ typedef enum {
 } GmtkMediaPlayerCommand;
 
 typedef enum {
-	EVENT_TYPE_INT,
-	EVENT_TYPE_DOUBLE,
-	EVENT_TYPE_BOOLEAN,
-	EVENT_TYPE_ALLOCATION
+    EVENT_TYPE_INT,
+    EVENT_TYPE_DOUBLE,
+    EVENT_TYPE_BOOLEAN,
+    EVENT_TYPE_ALLOCATION
 } GmtkMediaPlayerEventType;
 
 typedef struct _GmtkMediaPlayer GmtkMediaPlayer;
@@ -230,11 +230,11 @@ typedef struct _GmtkMediaPlayerAudioTrack {
 
 typedef struct _GmtkMediaPlayerEvent {
     GmtkMediaPlayer *player;
-	GmtkMediaPlayerEventType type;
+    GmtkMediaPlayerEventType type;
     gchar *event_name;
     gint event_data_int;
     gdouble event_data_double;
-	gboolean event_data_boolean;
+    gboolean event_data_boolean;
     GtkAllocation *event_allocation;
 } GmtkMediaPlayerEvent;
 
@@ -314,7 +314,7 @@ struct _GmtkMediaPlayer {
     gchar *album;
     gboolean enable_divx;
     gboolean disable_xvmc;
-	gboolean retry_on_full_cache;
+    gboolean retry_on_full_cache;
 
     gboolean deinterlace;
     gboolean frame_drop;
