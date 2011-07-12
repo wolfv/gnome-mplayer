@@ -62,12 +62,12 @@ AC_ARG_ENABLE(gtk3,
     esac], 
     [ENABLE_GTK3=check])
 
-AS_IF([test "x$ENABLE_GTK3" == xcheck],        
+AS_IF([test "x$ENABLE_GTK3" = xcheck],        
         [ENABLE_GTK3=no
         PKG_CHECK_MODULES(GTK,[gtk+-3.0 >= 3 glib-2.0 gthread-2.0],[ENABLE_GTK3=yes])
         ])    
     
-AS_IF([test "x$ENABLE_GTK3" == "xyes"],   
+AS_IF([test "x$ENABLE_GTK3" = "xyes"],   
     [
     
     PKG_CHECK_MODULES(GTK, [gtk+-3.0 glib-2.0 gthread-2.0]) 

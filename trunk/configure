@@ -7471,7 +7471,7 @@ else
 fi
 
 
-if test "x$ENABLE_GTK3" == xcheck; then :
+if test "x$ENABLE_GTK3" = xcheck; then :
   ENABLE_GTK3=no
 
 pkg_failed=no
@@ -7567,7 +7567,7 @@ fi
 
 fi
 
-if test "x$ENABLE_GTK3" == "xyes"; then :
+if test "x$ENABLE_GTK3" = "xyes"; then :
 
 
 

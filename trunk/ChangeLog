@@ -1,4 +1,5 @@
 Development
+    Fix Issue #538
     Autodetect gtk3 at configure time
     Raise event on incomplete QuickTime file, and mark it for retry
     Fix compile issue with alsa is not being used
