@@ -534,7 +534,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     idledata->width = width;
     idledata->height = height;
 
-	idledata->retry_on_full_cache = FALSE;
+    idledata->retry_on_full_cache = FALSE;
     idledata->cachepercent = -1.0;
     g_strlcpy(idledata->info, uri, 1024);
     set_media_info(idledata);
@@ -775,6 +775,8 @@ int main(int argc, char *argv[])
     gm_store = gm_pref_store_new("gnome-mplayer");
     gmp_store = gm_pref_store_new("gecko-mediaplayer");
     audio_device.alsa_mixer = gm_pref_store_get_string(gm_store, ALSA_MIXER);
+    use_hardware_codecs = gm_pref_store_get_boolean(gm_store, USE_HARDWARE_CODECS);
+    use_crystalhd_codecs = gm_pref_store_get_boolean(gm_store, USE_CRYSTALHD_CODECS);
     osdlevel = gm_pref_store_get_int(gm_store, OSDLEVEL);
     pplevel = gm_pref_store_get_int(gm_store, PPLEVEL);
 #ifndef HAVE_ASOUNDLIB

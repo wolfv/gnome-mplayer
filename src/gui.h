@@ -31,8 +31,8 @@
 #ifdef X11_ENABLED
 #include <gdk/gdkx.h>
 #endif
-#include "libgmlib/gmlib.h"
-#include "libgmtk/gmtk.h"
+#include <gmlib.h>
+#include <gmtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib.h>
 #include <glib/gstdio.h>
@@ -228,6 +228,8 @@ GtkTooltips *volume_tip;
 GtkWidget *config_window;
 
 GtkWidget *config_vo;
+GtkWidget *config_hardware_codecs;
+GtkWidget *config_crystalhd_codecs;
 GtkWidget *config_ao;
 GtkWidget *config_mixer;
 GtkWidget *config_audio_channels;

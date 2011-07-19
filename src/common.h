@@ -23,7 +23,7 @@
  */
 
 #include <gtk/gtk.h>
-#include "libgmlib/gmlib.h"
+#include <gmlib.h>
 
 #ifdef GIO_ENABLED
 #include <gio/gio.h>
@@ -36,6 +36,8 @@
 #define ALSA_MIXER			"alsa-mixer"
 #define VOLUME				"volume"
 #define AUDIO_CHANNELS		"audio-channels"
+#define USE_HARDWARE_CODECS "use-hardware-codecs"
+#define USE_CRYSTALHD_CODECS "use-crystalhd-codecs"
 #define USE_HW_AUDIO		"use-hw-audio"
 #define SOFTVOL				"softvol"
 #define VOLUME_GAIN			"volume-gain"
@@ -284,6 +286,8 @@ gint stored_window_width, stored_window_height;
 gboolean adjusting;
 gchar vm[10];
 gchar *vo;
+gboolean use_hardware_codecs;
+gboolean use_crystalhd_codecs;
 AudioDevice audio_device;
 gchar *audio_device_name;
 gint audio_channels;

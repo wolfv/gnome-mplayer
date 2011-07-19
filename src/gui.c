@@ -108,6 +108,10 @@ void set_media_player_attributes(GtkWidget * widget)
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ENABLE_DEBUG, verbose);
     gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_CACHE_SIZE, cache_size);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VO, vo);
+    gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ENABLE_HARDWARE_CODECS,
+                                            use_hardware_codecs);
+    gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ENABLE_CRYSTALHD_CODECS,
+                                            use_crystalhd_codecs);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_EXTRA_OPTS, extraopts);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MPLAYER_BINARY, mplayer_bin);
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ENABLE_ADVANCED_SUBTITLES,
@@ -3733,6 +3737,8 @@ void config_apply(GtkWidget * widget, void *data)
 
     audio_channels = gtk_combo_box_get_active(GTK_COMBO_BOX(config_audio_channels));
     use_hw_audio = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_hw_audio));
+    use_hardware_codecs = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_hardware_codecs));
+    use_crystalhd_codecs = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_crystalhd_codecs));
     cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_cachesize));
     plugin_audio_cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_plugin_audio_cache_size));
     plugin_video_cache_size = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_plugin_video_cache_size));
@@ -3846,6 +3852,8 @@ void config_apply(GtkWidget * widget, void *data)
 #endif
     gm_pref_store_set_int(gm_store, AUDIO_CHANNELS, audio_channels);
     gm_pref_store_set_boolean(gm_store, USE_HW_AUDIO, use_hw_audio);
+    gm_pref_store_set_boolean(gm_store, USE_HARDWARE_CODECS, use_hardware_codecs);
+    gm_pref_store_set_boolean(gm_store, USE_CRYSTALHD_CODECS, use_crystalhd_codecs);
     gm_pref_store_set_int(gm_store, CACHE_SIZE, cache_size);
     gm_pref_store_set_int(gm_store, PLUGIN_AUDIO_CACHE_SIZE, plugin_audio_cache_size);
     gm_pref_store_set_int(gm_store, PLUGIN_VIDEO_CACHE_SIZE, plugin_video_cache_size);
@@ -4615,6 +4623,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *conf_page4;
     GtkWidget *conf_page5;
     GtkWidget *conf_page6;
+    GtkWidget *conf_page7;
     GtkWidget *notebook;
     GdkColor sub_color;
     gint i = 0;
@@ -4635,6 +4644,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     conf_page4 = gtk_vbox_new(FALSE, 10);
     conf_page5 = gtk_vbox_new(FALSE, 10);
     conf_page6 = gtk_vbox_new(FALSE, 10);
+    conf_page7 = gtk_vbox_new(FALSE, 10);
     conf_hbutton_box = gtk_hbutton_box_new();
     gtk_button_box_set_layout(GTK_BUTTON_BOX(conf_hbutton_box), GTK_BUTTONBOX_END);
     conf_table = gtk_table_new(20, 2, FALSE);
@@ -4648,6 +4658,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page4, conf_label);
     conf_label = gtk_label_new(_("Interface"));
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page5, conf_label);
+    conf_label = gtk_label_new(_("Keyboard Shortcuts"));
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page7, conf_label);
     conf_label = gtk_label_new(_("MPlayer"));
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), conf_page6, conf_label);
     conf_label = gtk_label_new(_("Plugin"));
@@ -4674,13 +4686,13 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #ifdef GTK2_12_ENABLED
     gtk_widget_set_tooltip_text(config_vo,
                                 _
-                                ("mplayer video output device\nx11 should always work, try xv or gl for better performance"));
+                                ("mplayer video output device\nx11 should always work, try xv, gl or vdpau for better performance and enhanced features"));
 
 #else
     tooltip = gtk_tooltips_new();
     gtk_tooltips_set_tip(tooltip, config_vo,
                          _
-                         ("mplayer video output device\nx11 should always work, try xv or gl for better performance"),
+                         ("mplayer video output device\nx11 should always work, try xv, gl or vdpau for better performance and enhanced features"),
                          NULL);
 #endif
     if (config_vo != NULL) {
@@ -4693,7 +4705,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #ifndef __OpenBSD__
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "vaapi");
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "vdpau");
-        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "crystalhd");
 #endif
 #else
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "gl");
@@ -4704,7 +4715,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #ifndef __OpenBSD__
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vaapi");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "vdpau");
-        gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "crystalhd");
 #endif
 #endif
 
@@ -4996,6 +5006,20 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(conf_label);
     gtk_widget_set_size_request(GTK_WIDGET(config_vo), 200, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_vo, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
+    i++;
+
+    config_hardware_codecs = gtk_check_button_new_with_label(_("Enable Video Hardware Support"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_hardware_codecs), use_hardware_codecs);
+    gtk_widget_set_size_request(GTK_WIDGET(config_hardware_codecs), 200, -1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_hardware_codecs, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK,
+                     0, 0);
+    i++;
+
+    config_crystalhd_codecs = gtk_check_button_new_with_label(_("Enable CrystalHD Hardware Support"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_crystalhd_codecs), use_crystalhd_codecs);
+    gtk_widget_set_size_request(GTK_WIDGET(config_crystalhd_codecs), 200, -1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_crystalhd_codecs, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK,
+                     0, 0);
     i++;
 
     conf_label = gtk_label_new(_("Audio Output:"));
@@ -6053,10 +6077,11 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         g_thread_create(get_cover_art, metadata, FALSE, NULL);
         break;
 
-	case ATTRIBUTE_RETRY_ON_FULL_CACHE:
-		idledata->retry_on_full_cache = gmtk_media_player_get_attribute_boolean (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_RETRY_ON_FULL_CACHE);
-		break;		
-			
+    case ATTRIBUTE_RETRY_ON_FULL_CACHE:
+        idledata->retry_on_full_cache =
+            gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_RETRY_ON_FULL_CACHE);
+        break;
+
     default:
         if (verbose) {
             printf("Unhandled attribute change %i\n", attribute);
@@ -6899,6 +6924,7 @@ GtkWidget *create_window(gint windowid)
     hbox = gtk_hbox_new(FALSE, 0);
     controls_box = gtk_vbox_new(FALSE, 0);
     media = gmtk_media_player_new();
+	gmtk_media_player_set_attribute_string (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_PROFILE, "gnome-mplayer");
     g_signal_connect_swapped(G_OBJECT(media), "media_state_changed",
                              G_CALLBACK(player_media_state_changed_callback), NULL);
     g_signal_connect_swapped(G_OBJECT(media), "button_press_event", G_CALLBACK(popup_handler), G_OBJECT(popup_menu));

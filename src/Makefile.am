@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 ## Created by Anjuta
-SUBDIRS = libgmtk libgmlib
+SUBDIRS = 
 
 INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
@@ -9,6 +9,7 @@ INCLUDES = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-I../pixmaps \
 	$(GTK_CFLAGS) \
+	$(GMTK_CFLAGS) \
     $(GIO_CFLAGS) \
 	$(DBUS_CFLAGS) \
 	$(GCONF_CFLAGS) \
@@ -64,11 +65,10 @@ gnome_mplayer_SOURCES = \
 gnome_mplayer_LDFLAGS = 
 
 gnome_mplayer_LDADD = \
-    libgmtk/libgmtk.a \
-    libgmlib/libgmlib.a \
     -lm \
     $(X11_LIBS) \
     $(GTK_LIBS) \
+    $(GMTK_LIBS) \
     $(GIO_LIBS) \
     $(DBUS_LIBS) \
     $(GCONF_LIBS) \
