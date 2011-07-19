@@ -40,6 +40,16 @@
       <summary>Use hardware audio</summary>
       <description>Set to TRUE for AC3 passthru</description>
     </key>
+    <key name="use-hardware-codecs" type="b">
+      <default>false</default>
+      <summary>Use hardware video</summary>
+      <description>Set to TRUE for hardware video support</description>
+    </key>
+    <key name="use-crystalhd-codecs" type="b">
+      <default>false</default>
+      <summary>Enable crystalhd support</summary>
+      <description>Set to TRUE to enable crystalhd codecs</description>
+    </key>
     <key name="verbose" type="i">
       <default>0</default>
       <summary>Verbose Messages</summary>
@@ -180,11 +190,6 @@
       <summary>Default Volume</summary>
       <description>Default volume to use for mplayer, values of 0 or 100 allow usage of setting from ALSA</description>
     </key>
-    <key name="audio-channles" type="i">
-      <default>0</default>
-      <summary>Default Audio Channels (internal value)</summary>
-      <description>Default Audio Channels to output, this is an internal value to the application</description>
-    </key>
     <key name="window-x" type="i">
       <default>0</default>
       <summary>Window top corner (x)</summary>
@@ -256,7 +261,7 @@
       <description>Show controls</description>
     </key>
     <key name="audio-channels" type="i">
-      <default>2</default>
+      <default>0</default>
       <summary>Number of audio channels to output</summary>
       <description>Configuration value for mplayer to control the number of audio channels</description>
     </key>

@@ -1,4 +1,6 @@
 Development
+    Add checkboxes for hardware and crystalhd codec support
+    Conversion to using libgmtk as separate library
     Fix Issue #538
     Autodetect gtk3 at configure time
     Raise event on incomplete QuickTime file, and mark it for retry

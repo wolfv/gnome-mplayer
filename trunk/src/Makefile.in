@@ -51,13 +51,12 @@ am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
 	dbus-interface.$(OBJEXT)
 gnome_mplayer_OBJECTS = $(am_gnome_mplayer_OBJECTS)
 am__DEPENDENCIES_1 =
-gnome_mplayer_DEPENDENCIES = libgmtk/libgmtk.a libgmlib/libgmlib.a \
+gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 gnome_mplayer_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(gnome_mplayer_LDFLAGS) $(LDFLAGS) -o $@
 am__libgnome_mplayer_properties_page_so_SOURCES_DIST = ../config.h \
@@ -173,9 +172,6 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
-GCONF_CFLAGS = @GCONF_CFLAGS@
-GCONF_DEFINES = @GCONF_DEFINES@
-GCONF_LIBS = @GCONF_LIBS@
 GCONF_SCHEMA_CONFIG_SOURCE = @GCONF_SCHEMA_CONFIG_SOURCE@
 GCONF_SCHEMA_FILE_DIR = @GCONF_SCHEMA_FILE_DIR@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
@@ -188,14 +184,13 @@ GLIB2_14_LIBS = @GLIB2_14_LIBS@
 GLIB2_24_CFLAGS = @GLIB2_24_CFLAGS@
 GLIB2_24_DEFINES = @GLIB2_24_DEFINES@
 GLIB2_24_LIBS = @GLIB2_24_LIBS@
-GLIB2_26_CFLAGS = @GLIB2_26_CFLAGS@
-GLIB2_26_DEFINES = @GLIB2_26_DEFINES@
-GLIB2_26_LIBS = @GLIB2_26_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+GMTK_CFLAGS = @GMTK_CFLAGS@
+GMTK_LIBS = @GMTK_LIBS@
 GPOD06_CFLAGS = @GPOD06_CFLAGS@
 GPOD06_LIBS = @GPOD06_LIBS@
 GPOD07_CFLAGS = @GPOD07_CFLAGS@
@@ -329,13 +324,14 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = libgmtk libgmlib
+SUBDIRS = 
 INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-I../pixmaps \
 	$(GTK_CFLAGS) \
+	$(GMTK_CFLAGS) \
     $(GIO_CFLAGS) \
 	$(DBUS_CFLAGS) \
 	$(GCONF_CFLAGS) \
@@ -385,11 +381,10 @@ gnome_mplayer_SOURCES = \
 
 gnome_mplayer_LDFLAGS = 
 gnome_mplayer_LDADD = \
-    libgmtk/libgmtk.a \
-    libgmlib/libgmlib.a \
     -lm \
     $(X11_LIBS) \
     $(GTK_LIBS) \
+    $(GMTK_LIBS) \
     $(GIO_LIBS) \
     $(DBUS_LIBS) \
     $(GCONF_LIBS) \
