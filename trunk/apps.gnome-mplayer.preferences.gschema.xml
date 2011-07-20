@@ -330,6 +330,11 @@
       <summary>Set to true when global menus are being used</summary>
       <description>Set to true when global menus are being used</description>
     </key>
+    <key name="accelerator-keys" type="s">
+      <default>''</default>
+      <summary>Default Key Bindings</summary>
+      <description>Default Key Bindings</description>
+    </key>
     
   </schema>
 </schemalist>

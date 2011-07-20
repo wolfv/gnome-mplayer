@@ -1,4 +1,5 @@
 Development
+    Build foundation for customized hotkeys
     Add checkboxes for hardware and crystalhd codec support
     Conversion to using libgmtk as separate library
     Fix Issue #538

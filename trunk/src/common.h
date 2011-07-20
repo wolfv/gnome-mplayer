@@ -111,6 +111,8 @@
 #define DISABLE_EMBEDDING	"disable-embedding"
 #define DISABLE_EMBEDDED_SCALING "disable-embedded-scaling"
 
+#define ACCELERATOR_KEYS	"accelerator-keys"
+
 // set this to true in gconf/dconf when using with gnome global menus
 #define ENABLE_GLOBAL_MENU  "enable-global-menu"
 
@@ -209,6 +211,39 @@ enum {
     N_COLUMNS
 };
 
+typedef enum {
+    FILE_OPEN_LOCATION,
+    EDIT_SCREENSHOT,
+    EDIT_PREFERENCES,
+    VIEW_PLAYLIST,
+    VIEW_INFO,
+    VIEW_DETAILS,
+    VIEW_METER,
+    VIEW_FULLSCREEN,
+    VIEW_ASPECT,
+    VIEW_SUBTITLES,
+    VIEW_DECREASE_SIZE,
+    VIEW_INCREASE_SIZE,
+    VIEW_ANGLE,
+    VIEW_CONTROLS,
+    KEY_COUNT
+} AcceleratorKeys;
+
+#define ACCEL_PATH_OPEN_LOCATION "<GNOME MPlayer>/File/Open Location"
+#define ACCEL_PATH_EDIT_SCREENSHOT "<GNOME MPlayer>/Edit/Screenshot"
+#define ACCEL_PATH_EDIT_PREFERENCES "<GNOME MPlayer>/Edit/Preferences"
+#define ACCEL_PATH_VIEW_PLAYLIST "<GNOME MPlayer>/View/Playlist"
+#define ACCEL_PATH_VIEW_INFO "<GNOME MPlayer>/View/Info"
+#define ACCEL_PATH_VIEW_DETAILS "<GNOME MPlayer>/View/Details"
+#define ACCEL_PATH_VIEW_METER "<GNOME MPlayer>/View/Meter"
+#define ACCEL_PATH_VIEW_FULLSCREEN "<GNOME MPlayer>/View/Fullscreen"
+#define ACCEL_PATH_VIEW_ASPECT "<GNOME MPlayer>/View/Aspect"
+#define ACCEL_PATH_VIEW_SUBTITLES "<GNOME MPlayer>/View/Subtitles"
+#define ACCEL_PATH_VIEW_DECREASE_SIZE "<GNOME MPlayer>/View/Decrease Size"
+#define ACCEL_PATH_VIEW_INCREASE_SIZE "<GNOME MPlayer>/View/Increase Size"
+#define ACCEL_PATH_VIEW_ANGLE "<GNOME MPlayer>/View/Angle"
+#define ACCEL_PATH_VIEW_CONTROLS "<GNOME MPlayer>/View/Controls"
+
 typedef struct _MetaData {
     gchar *uri;
     gchar *title;
@@ -245,6 +280,7 @@ typedef struct _ButtonDef {
 #define METER_BARS 		40
 gint buckets[METER_BARS];
 gint max_buckets[METER_BARS];
+gchar **accel_keys;
 
 //Define MIME for DnD
 #define DRAG_NAME_0		"text/plain"
