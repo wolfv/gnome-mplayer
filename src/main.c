@@ -594,6 +594,52 @@ static void hup_handler(int signum)
 }
 #endif
 
+void assign_default_keys()
+{
+    if (!accel_keys[FILE_OPEN_LOCATION]) {
+        accel_keys[FILE_OPEN_LOCATION] = g_strdup("4+l");
+    }
+    if (!accel_keys[EDIT_SCREENSHOT]) {
+        accel_keys[EDIT_SCREENSHOT] = g_strdup("4+t");
+    }
+    if (!accel_keys[EDIT_PREFERENCES]) {
+        accel_keys[EDIT_PREFERENCES] = g_strdup("4+p");
+    }
+    if (!accel_keys[VIEW_PLAYLIST]) {
+        accel_keys[VIEW_PLAYLIST] = g_strdup("F9");
+    }
+    if (!accel_keys[VIEW_INFO]) {
+        accel_keys[VIEW_INFO] = g_strdup("i");
+    }
+    if (!accel_keys[VIEW_DETAILS]) {
+        accel_keys[VIEW_DETAILS] = g_strdup("4+d");
+    }
+    if (!accel_keys[VIEW_METER]) {
+        accel_keys[VIEW_METER] = g_strdup("4+m");
+    }
+    if (!accel_keys[VIEW_FULLSCREEN]) {
+        accel_keys[VIEW_FULLSCREEN] = g_strdup("4+f");
+    }
+    if (!accel_keys[VIEW_ASPECT]) {
+        accel_keys[VIEW_ASPECT] = g_strdup("a");
+    }
+    if (!accel_keys[VIEW_SUBTITLES]) {
+        accel_keys[VIEW_SUBTITLES] = g_strdup("v");
+    }
+    if (!accel_keys[VIEW_DECREASE_SIZE]) {
+        accel_keys[VIEW_DECREASE_SIZE] = g_strdup("1+R");
+    }
+    if (!accel_keys[VIEW_INCREASE_SIZE]) {
+        accel_keys[VIEW_INCREASE_SIZE] = g_strdup("1+T");
+    }
+    if (!accel_keys[VIEW_ANGLE]) {
+        accel_keys[VIEW_ANGLE] = g_strdup("4+a");
+    }
+    if (!accel_keys[VIEW_CONTROLS]) {
+        accel_keys[VIEW_CONTROLS] = g_strdup("c");
+    }
+}
+
 int main(int argc, char *argv[])
 {
     struct stat buf;
@@ -605,6 +651,8 @@ int main(int argc, char *argv[])
     GOptionContext *context;
     gint i;
     gdouble volume = 100.0;
+    gchar *accelerator_keys;
+    gchar **parse;
 
 #ifndef OS_WIN32
     struct sigaction sa;
@@ -850,6 +898,16 @@ int main(int argc, char *argv[])
     mplayer_dvd_device = gm_pref_store_get_string(gm_store, MPLAYER_DVD_DEVICE);
     extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
     use_xscrnsaver = gm_pref_store_get_boolean_with_default(gm_store, USE_XSCRNSAVER, use_xscrnsaver);
+
+    accelerator_keys = gm_pref_store_get_string(gm_store, ACCELERATOR_KEYS);
+    accel_keys = g_strv_new(KEY_COUNT);
+    parse = g_strsplit(accelerator_keys, " ", KEY_COUNT);
+    for (i = 0; i < g_strv_length(parse); i++) {
+        accel_keys[i] = g_strdup(parse[i]);
+    }
+    g_free(accelerator_keys);
+    g_strfreev(parse);
+    assign_default_keys();
 
     remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
     loc_window_x = gm_pref_store_get_int(gm_store, WINDOW_X);
