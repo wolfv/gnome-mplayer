@@ -1,4 +1,6 @@
 Development
+    Allow customization of some of the keyboard hotkeys, more to be done
+    Replace get_window, get_visible, and get_allocation with gmtk versions
     Build foundation for customized hotkeys
     Add checkboxes for hardware and crystalhd codec support
     Conversion to using libgmtk as separate library

@@ -299,7 +299,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         printf("is playlist %i\n", playlist);
     }
 
-    get_allocation(GTK_WIDGET(media), &alloc);
+    gmtk_get_allocation(GTK_WIDGET(media), &alloc);
     if (width == 0 || height == 0) {
         alloc.width = 16;
         alloc.height = 16;
@@ -901,6 +901,7 @@ int main(int argc, char *argv[])
 
     accelerator_keys = gm_pref_store_get_string(gm_store, ACCELERATOR_KEYS);
     accel_keys = g_strv_new(KEY_COUNT);
+    accel_keys_description = g_strv_new(KEY_COUNT);
     parse = g_strsplit(accelerator_keys, " ", KEY_COUNT);
     for (i = 0; i < g_strv_length(parse); i++) {
         accel_keys[i] = g_strdup(parse[i]);
@@ -908,6 +909,20 @@ int main(int argc, char *argv[])
     g_free(accelerator_keys);
     g_strfreev(parse);
     assign_default_keys();
+    accel_keys_description[FILE_OPEN_LOCATION] = g_strdup(_("Open Location"));
+    accel_keys_description[EDIT_SCREENSHOT] = g_strdup(_("Take Screenshot"));
+    accel_keys_description[EDIT_PREFERENCES] = g_strdup(_("Preferences"));
+    accel_keys_description[VIEW_PLAYLIST] = g_strdup(_("Playlist"));
+    accel_keys_description[VIEW_INFO] = g_strdup(_("Media Info"));
+    accel_keys_description[VIEW_DETAILS] = g_strdup(_("Details"));
+    accel_keys_description[VIEW_METER] = g_strdup(_("Audio Meter"));
+    accel_keys_description[VIEW_FULLSCREEN] = g_strdup(_("Full Screen"));
+    accel_keys_description[VIEW_ASPECT] = g_strdup(_("Aspect"));
+    accel_keys_description[VIEW_SUBTITLES] = g_strdup(_("Subtitles"));
+    accel_keys_description[VIEW_DECREASE_SIZE] = g_strdup(_("Decrease Subtitle Size"));
+    accel_keys_description[VIEW_INCREASE_SIZE] = g_strdup(_("Increase Subtitle Size"));
+    accel_keys_description[VIEW_ANGLE] = g_strdup(_("Switch Angle"));
+    accel_keys_description[VIEW_CONTROLS] = g_strdup(_("Controls"));
 
     remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
     loc_window_x = gm_pref_store_get_int(gm_store, WINDOW_X);

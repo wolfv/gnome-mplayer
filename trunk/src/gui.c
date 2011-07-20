@@ -46,32 +46,6 @@
 #include <libnotify/notification.h>
 #endif
 
-void get_allocation(GtkWidget * widget, GtkAllocation * allocation)
-{
-#ifdef GTK2_18_ENABLED
-    gtk_widget_get_allocation(widget, allocation);
-#else
-    allocation = &(widget->allocation);
-#endif
-}
-
-GdkWindow *get_window(GtkWidget * widget)
-{
-#ifdef GTK2_14_ENABLED
-    return gtk_widget_get_window(widget);
-#else
-    return widget->window;
-#endif
-}
-
-gboolean get_visible(GtkWidget * widget)
-{
-#ifdef GTK2_18_ENABLED
-    return gtk_widget_get_visible(widget);
-#else
-    return GTK_WIDGET_VISIBLE(widget);
-#endif
-}
 
 PLAYSTATE media_state_to_playstate(GmtkMediaPlayerMediaState state)
 {
@@ -274,7 +248,7 @@ void adjust_layout()
             total_width = gtk_paned_get_position(GTK_PANED(pane));
         } else {
             if (showcontrols) {
-                get_allocation(controls_box, &alloc);
+                gmtk_get_allocation(controls_box, &alloc);
                 total_width = alloc.width;
             }
         }
@@ -288,12 +262,12 @@ void adjust_layout()
 
     if (GTK_IS_WIDGET(media_hbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
-        if (get_visible(media_hbox) == 0) {
+        if (gmtk_get_visible(media_hbox) == 0) {
             gtk_widget_show_all(media_hbox);
             //while (gtk_events_pending())
             //    gtk_main_iteration();
         }
-        get_allocation(media_hbox, &alloc);
+        gmtk_get_allocation(media_hbox, &alloc);
         total_height += alloc.height;
     } else {
         gtk_widget_hide(media_hbox);
@@ -301,11 +275,11 @@ void adjust_layout()
 
     if (GTK_IS_WIDGET(details_table)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_details))) {
-        if (get_visible(details_vbox) == 0) {
+        if (gmtk_get_visible(details_vbox) == 0) {
             gtk_widget_show_all(details_vbox);
             //return;
         }
-        get_allocation(details_vbox, &alloc);
+        gmtk_get_allocation(details_vbox, &alloc);
         total_height += alloc.height;
     } else {
         gtk_widget_hide(details_vbox);
@@ -313,11 +287,11 @@ void adjust_layout()
 
     if (GTK_IS_WIDGET(audio_meter)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter))) {
-        if (get_visible(audio_meter) == 0) {
+        if (gmtk_get_visible(audio_meter) == 0) {
             gtk_widget_show_all(audio_meter);
             //return;
         }
-        get_allocation(audio_meter, &alloc);
+        gmtk_get_allocation(audio_meter, &alloc);
         total_height += alloc.height;
     } else {
         gtk_widget_hide(audio_meter);
@@ -325,7 +299,7 @@ void adjust_layout()
 
     if (GTK_IS_WIDGET(plvbox)
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-        if (get_visible(plvbox) == 0) {
+        if (gmtk_get_visible(plvbox) == 0) {
             gtk_widget_show_all(plvbox);
             //return;
         }
@@ -334,7 +308,7 @@ void adjust_layout()
         gtk_widget_grab_default(plclose);
         gtk_widget_style_get(pane, "handle-size", &handle_size, NULL);
 
-        get_allocation(plvbox, &alloc);
+        gmtk_get_allocation(plvbox, &alloc);
         if (vertical_layout) {
             // printf("totals = %i x %i\n",total_width,total_height);
             //gtk_paned_set_position(GTK_PANED(pane), total_height);
@@ -358,7 +332,7 @@ void adjust_layout()
             gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
         }
         gtk_paned_set_position(GTK_PANED(pane), -1);
-        if (get_visible(plvbox) == 1) {
+        if (gmtk_get_visible(plvbox) == 1) {
             gtk_widget_hide(plvbox);
             //return;
         }
@@ -367,13 +341,13 @@ void adjust_layout()
     if (!fullscreen) {
         if (!enable_global_menu) {
             //printf("menubar = %i\n",menubar->allocation.height);
-            get_allocation(menubar, &alloc);
+            gmtk_get_allocation(menubar, &alloc);
             total_height += alloc.height;
         }
     }
 
     if (showcontrols) {
-        get_allocation(controls_box, &alloc);
+        gmtk_get_allocation(controls_box, &alloc);
         total_height += alloc.height;
     }
     //printf("total = %i x %i video = %i\n", total_width, total_height, idledata->videopresent);
@@ -1177,7 +1151,7 @@ gboolean resize_window(void *data)
                     if (idle->width > 1 && idle->height > 1) {
                         if (verbose) {
                             printf("Changing window size to %i x %i visible = %i\n", idle->width,
-                                   idle->height, get_visible(media));
+                                   idle->height, gmtk_get_visible(media));
                         }
                         last_window_width = idle->width;
                         last_window_height = idle->height;
@@ -1394,7 +1368,7 @@ gboolean set_show_controls(void *data)
 
     showcontrols = (gint) idle->showcontrols;
 
-    if (get_visible(GTK_WIDGET(menuitem_view_controls))) {
+    if (gmtk_get_visible(GTK_WIDGET(menuitem_view_controls))) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), showcontrols);
     } else {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
@@ -1470,7 +1444,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
     if (event->type == GDK_2BUTTON_PRESS) {
         event_button = (GdkEventButton *) event;
         if (event_button->button == 1 && idledata->videopresent == TRUE) {
-            get_allocation(media, &alloc);
+            gmtk_get_allocation(media, &alloc);
             if (event_button->x > alloc.x
                 && event_button->y > alloc.y
                 && event_button->x < alloc.x + alloc.width && event_button->y < alloc.y + alloc.height) {
@@ -1589,7 +1563,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 gboolean status_icon_callback(GtkStatusIcon * icon, gpointer data)
 {
 
-    if (get_visible(window)) {
+    if (gmtk_get_visible(window)) {
         gtk_window_get_position(GTK_WINDOW(window), &loc_window_x, &loc_window_y);
         gtk_window_iconify(GTK_WINDOW(window));
         gtk_widget_hide(GTK_WIDGET(window));
@@ -1679,7 +1653,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     // printf("key name=%s\n", gdk_keyval_name(event->keyval));
     // We don't want to handle CTRL accelerators here
     // if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
-    if (get_visible(plvbox) && gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)))
+    if (gmtk_get_visible(plvbox) && gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)))
         return FALSE;
 
     if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
@@ -2378,7 +2352,7 @@ gboolean slide_panel_away(gpointer data)
     }
     // mutex was already locked, this is good since we only want to do the animation if locked
 
-    if (GTK_IS_WIDGET(fs_controls) && get_visible(fs_controls) && mouse_over_controls == FALSE) {
+    if (GTK_IS_WIDGET(fs_controls) && gmtk_get_visible(fs_controls) && mouse_over_controls == FALSE) {
         gtk_widget_hide(fs_controls);
         g_mutex_unlock(slide_away);
         return FALSE;
@@ -2414,7 +2388,7 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
     GdkPixmap *cursor_source;
 #endif
     if ((fullscreen || always_hide_after_timeout) && auto_hide_timeout > 0
-        && (get_visible(controls_box) || fs_controls != NULL)
+        && (gmtk_get_visible(controls_box) || fs_controls != NULL)
         && mouse_over_controls == FALSE) {
         g_get_current_time(&currenttime);
         g_time_val_add(&currenttime, -auto_hide_timeout * G_USEC_PER_SEC);
@@ -2438,13 +2412,13 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
        get_visible(menu_help),
        gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)));
      */
-    if (get_visible(GTK_WIDGET(menu_file))
-        || get_visible(GTK_WIDGET(menu_edit))
-        || get_visible(GTK_WIDGET(menu_view))
-        || get_visible(GTK_WIDGET(menu_help))
+    if (gmtk_get_visible(GTK_WIDGET(menu_file))
+        || gmtk_get_visible(GTK_WIDGET(menu_edit))
+        || gmtk_get_visible(GTK_WIDGET(menu_view))
+        || gmtk_get_visible(GTK_WIDGET(menu_help))
         || gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list))) {
 
-        gdk_window_set_cursor(get_window(window), NULL);
+        gdk_window_set_cursor(gmtk_get_window(window), NULL);
 
     } else {
 
@@ -2455,13 +2429,13 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
             cairo_surface_destroy(s);
             cursor = gdk_cursor_new_from_pixbuf(gdk_display_get_default(), cursor_pixbuf, 0, 0);
             g_object_unref(cursor_pixbuf);
-            gdk_window_set_cursor(get_window(window), cursor);
+            gdk_window_set_cursor(gmtk_get_window(window), cursor);
             gdk_cursor_unref(cursor);
 #else
             cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
             cursor = gdk_cursor_new_from_pixmap(cursor_source, cursor_source, &cursor_color, &cursor_color, 0, 0);
             gdk_pixmap_unref(cursor_source);
-            gdk_window_set_cursor(get_window(window), cursor);
+            gdk_window_set_cursor(gmtk_get_window(window), cursor);
             gdk_cursor_unref(cursor);
 #endif
         }
@@ -2480,7 +2454,7 @@ gboolean make_panel_and_mouse_visible(gpointer data)
         show_fs_controls();
 
     }
-    gdk_window_set_cursor(get_window(window), NULL);
+    gdk_window_set_cursor(gmtk_get_window(window), NULL);
 
     return FALSE;
 }
@@ -2496,11 +2470,11 @@ gboolean enter_button_callback(GtkWidget * widget, GdkEventCrossing * event, gpo
 {
     GtkAllocation alloc;
 
-    get_allocation(widget, &alloc);
+    gmtk_get_allocation(widget, &alloc);
 
 #ifdef GTK3_ENABLED
 #else
-    gdk_draw_rectangle(get_window(widget), gtk_widget_get_style(widget)->fg_gc[GTK_STATE_NORMAL],
+    gdk_draw_rectangle(gmtk_get_window(widget), gtk_widget_get_style(widget)->fg_gc[GTK_STATE_NORMAL],
                        FALSE, 0, 0, alloc.width - 1, alloc.height - 1);
 #endif
     in_button = TRUE;
@@ -2511,10 +2485,10 @@ gboolean leave_button_callback(GtkWidget * widget, GdkEventCrossing * event, gpo
 {
     GtkAllocation alloc;
 
-    get_allocation(widget, &alloc);
+    gmtk_get_allocation(widget, &alloc);
 #ifdef GTK3_ENABLED
 #else
-    gdk_draw_rectangle(get_window(widget), gtk_widget_get_style(widget)->bg_gc[GTK_STATE_NORMAL],
+    gdk_draw_rectangle(gmtk_get_window(widget), gtk_widget_get_style(widget)->bg_gc[GTK_STATE_NORMAL],
                        FALSE, 0, 0, alloc.width - 1, alloc.height - 1);
 #endif
     in_button = FALSE;
@@ -3475,14 +3449,14 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
                 gtk_widget_unmap(window);
 #endif
 #ifdef GTK2_24_ENABLED
-            gdk_window_reparent(get_window(window),
+            gdk_window_reparent(gmtk_get_window(window),
                                 gdk_x11_window_lookup_for_display(gdk_display_get_default(), embed_window), 0, 0);
 #else
-            gdk_window_reparent(get_window(window), gdk_window_lookup(embed_window), 0, 0);
+            gdk_window_reparent(gmtk_get_window(window), gdk_window_lookup(embed_window), 0, 0);
 #endif
             gtk_widget_map(window);
             gtk_window_move(GTK_WINDOW(window), 0, 0);
-            gdk_window_resize(get_window(window), window_x, window_y - 1);
+            gdk_window_resize(gmtk_get_window(window), window_x, window_y - 1);
             if (window_x > 0 && window_y > 0)
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
             if (window_x < 250) {
@@ -3571,7 +3545,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 #else
 #ifdef GTK2_14_ENABLED
 #ifdef X11_ENABLED
-            GDK_WINDOW_XID(get_window(GTK_WIDGET(fs_window)));
+            GDK_WINDOW_XID(gmtk_get_window(GTK_WIDGET(fs_window)));
 #endif
 #endif
 #endif
@@ -3580,17 +3554,17 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             gtk_window_set_screen(GTK_WINDOW(fs_window), screen);
             gtk_window_set_title(GTK_WINDOW(fs_window), _("Gnome MPlayer Fullscreen"));
             gdk_screen_get_monitor_geometry(screen,
-                                            gdk_screen_get_monitor_at_window(screen, get_window(window)), &rect);
+                                            gdk_screen_get_monitor_at_window(screen, gmtk_get_window(window)), &rect);
 
-            gdk_window_get_root_origin(get_window(window), &wx, &wy);
+            gdk_window_get_root_origin(gmtk_get_window(window), &wx, &wy);
             gtk_window_move(GTK_WINDOW(fs_window), wx, wy);
 
             gtk_widget_show(fs_window);
 #if X11_ENABLED
-            XReparentWindow(GDK_WINDOW_XDISPLAY(get_window(window)),
-                            GDK_WINDOW_XID(get_window(window)), GDK_WINDOW_XID(get_window(fs_window)), 0, 0);
+            XReparentWindow(GDK_WINDOW_XDISPLAY(gmtk_get_window(window)),
+                            GDK_WINDOW_XID(gmtk_get_window(window)), GDK_WINDOW_XID(gmtk_get_window(fs_window)), 0, 0);
 #else
-            gdk_window_reparent(get_window(window), get_window(fs_window), 0, 0);
+            gdk_window_reparent(gmtk_get_window(window), gmtk_get_window(fs_window), 0, 0);
 #endif
             gtk_widget_map(window);
             gtk_window_fullscreen(GTK_WINDOW(fs_window));
@@ -3648,7 +3622,7 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
             gtk_widget_show(controls_box);
             if (!fullscreen && embed_window == 0) {
                 gtk_window_get_size(GTK_WINDOW(window), &width, &height);
-                get_allocation(controls_box, &alloc);
+                gmtk_get_allocation(controls_box, &alloc);
                 gtk_window_resize(GTK_WINDOW(window), width, height + alloc.height);
             }
         }
@@ -3661,7 +3635,7 @@ void menuitem_showcontrols_callback(GtkCheckMenuItem * menuitem, void *data)
             gtk_widget_hide(controls_box);
             if (!fullscreen && embed_window == 0) {
                 gtk_window_get_size(GTK_WINDOW(window), &width, &height);
-                get_allocation(controls_box, &alloc);
+                gmtk_get_allocation(controls_box, &alloc);
                 gtk_window_resize(GTK_WINDOW(window), width, height - alloc.height);
             }
         }
@@ -3899,6 +3873,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_string(gm_store, MPLAYER_BIN, mplayer_bin);
     gm_pref_store_set_string(gm_store, MPLAYER_DVD_DEVICE, mplayer_dvd_device);
     gm_pref_store_set_string(gm_store, EXTRAOPTS, extraopts);
+    gm_pref_store_set_string(gm_store, ACCELERATOR_KEYS, g_strjoinv(" ", accel_keys));
     gm_pref_store_free(gm_store);
 
     gmp_store = gm_pref_store_new("gecko-mediaplayer");
@@ -4630,6 +4605,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gint j = -1;
     GtkTreeIter ao_iter;
     gchar *desc;
+    guint key;
+    GdkModifierType modifier;
 
     read_mplayer_config();
 
@@ -5716,6 +5693,48 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                      GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
+
+    // Page 7 - Keyboard Shortcuts
+    conf_table = gtk_table_new(KEY_COUNT + 5, 3, FALSE);
+    gtk_container_add(GTK_CONTAINER(conf_page7), conf_table);
+    i = 0;
+    conf_label = gtk_label_new(_("<span weight=\"bold\">Keyboard Shortcuts</span>\n\n"
+                                 "Place the cursor in the box next to the shortcut you want to modify\n"
+                                 "Then press the keys would would like for the shortcut"));
+    gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 3, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
+    i++;
+
+    for (j = 0; j < KEY_COUNT; j++) {
+        conf_label = gtk_label_new(accel_keys_description[j]);
+        gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+        gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+        gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+        gtk_widget_show(conf_label);
+
+        config_accel_keys[j] = gtk_entry_new();
+
+        if (get_key_and_modifier(accel_keys[j], &key, &modifier)) {
+            gtk_entry_set_text(GTK_ENTRY(config_accel_keys[j]),
+                               g_strdup_printf("%s%s%s%s", (modifier & GDK_CONTROL_MASK) ? "Control-" : "",
+                                               (modifier & GDK_MOD1_MASK) ? "Alt-" : "",
+                                               (modifier & GDK_SHIFT_MASK) ? "Shift-" : "", gdk_keyval_name(key)));
+        }
+        g_signal_connect(G_OBJECT(config_accel_keys[j]), "key_press_event", G_CALLBACK(accel_key_key_press_event),
+                         GINT_TO_POINTER(j));
+        gtk_widget_set_size_request(GTK_WIDGET(config_accel_keys[j]), 200, -1);
+        gtk_table_attach(GTK_TABLE(conf_table), config_accel_keys[j], 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK,
+                         0, 0);
+
+        i++;
+    }
+    conf_label = gtk_button_new_with_label(_("Reset Keys"));
+    g_signal_connect(G_OBJECT(conf_label), "clicked", G_CALLBACK(reset_keys_callback), NULL);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 3, 4, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    i++;
+
     gtk_container_add(GTK_CONTAINER(conf_hbutton_box), conf_cancel);
     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
 
@@ -5728,6 +5747,61 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_window_reshow_with_initial_size(GTK_WINDOW(config_window));
 #endif
 }
+
+void reset_keys_callback(GtkButton * button, gpointer data)
+{
+    gint j;
+    guint key;
+    GdkModifierType modifier;
+
+    for (j = 0; j < KEY_COUNT; j++) {
+        g_free(accel_keys[j]);
+        accel_keys[j] = NULL;
+    }
+
+    assign_default_keys();
+
+    for (j = 0; j < KEY_COUNT; j++) {
+        if (get_key_and_modifier(accel_keys[j], &key, &modifier)) {
+            gtk_entry_set_text(GTK_ENTRY(config_accel_keys[j]),
+                               g_strdup_printf("%s%s%s%s", (modifier & GDK_CONTROL_MASK) ? "Control-" : "",
+                                               (modifier & GDK_MOD1_MASK) ? "Alt-" : "",
+                                               (modifier & GDK_SHIFT_MASK) ? "Shift-" : "", gdk_keyval_name(key)));
+        }
+    }
+}
+
+gboolean accel_key_key_press_event(GtkWidget * widget, GdkEventKey * event, gpointer data)
+{
+
+    gint index = GPOINTER_TO_INT(data);
+
+    /*
+       printf("key press %s shift: %i, ctrl: %i, alt: %i modifier: %i\n",gdk_keyval_name (event->keyval), 
+       event->state & GDK_SHIFT_MASK,
+       event->state & GDK_CONTROL_MASK,
+       event->state & GDK_MOD1_MASK,
+       event->is_modifier
+       );
+     */
+
+    if (event->is_modifier)
+        return TRUE;
+
+    gtk_entry_set_text(GTK_ENTRY(widget),
+                       g_strdup_printf("%s%s%s%s", (event->state & GDK_CONTROL_MASK) ? "Control-" : "",
+                                       (event->state & GDK_MOD1_MASK) ? "Alt-" : "",
+                                       (event->state & GDK_SHIFT_MASK) ? "Shift-" : "",
+                                       gdk_keyval_name(event->keyval)));
+
+    g_free(accel_keys[index]);
+    accel_keys[index] = g_strdup_printf("%i+%s", event->state, gdk_keyval_name(event->keyval));
+    setup_accelerators();
+
+
+    return TRUE;
+}
+
 
 gboolean tracker_callback(GtkWidget * widget, gint percent, void *data)
 {
@@ -6436,8 +6510,7 @@ gboolean get_key_and_modifier(gchar * keyval, guint * key, GdkModifierType * mod
         *modifier = 0;
         return FALSE;
     }
-
-    printf("keyval = %s\n", keyval);
+    //printf("keyval = %s\n", keyval);
     parse = g_strsplit(keyval, "+", -1);
     if (g_strv_length(parse) == 1) {
         *modifier = 0;
@@ -6446,8 +6519,8 @@ gboolean get_key_and_modifier(gchar * keyval, guint * key, GdkModifierType * mod
         *modifier = (guint) g_strtod(parse[0], NULL);
         *key = gdk_keyval_from_name(parse[1]);
     }
-
-    printf("key = %i, modifier = %i\n", *key, *modifier);
+    g_strfreev(parse);
+    //printf("key = %i, modifier = %i\n", *key, *modifier);
     return TRUE;
 }
 
@@ -6561,6 +6634,8 @@ void setup_accelerators(gboolean enable)
         if (get_key_and_modifier(accel_keys[VIEW_FULLSCREEN], &key, &modifier))
             gtk_accel_map_change_entry(ACCEL_PATH_VIEW_FULLSCREEN, key, modifier, TRUE);
     }
+    if (get_key_and_modifier(accel_keys[VIEW_ASPECT], &key, &modifier))
+        gtk_accel_map_change_entry(ACCEL_PATH_VIEW_ASPECT, key, modifier, TRUE);
     if (get_key_and_modifier(accel_keys[VIEW_SUBTITLES], &key, &modifier))
         gtk_accel_map_change_entry(ACCEL_PATH_VIEW_SUBTITLES, key, modifier, TRUE);
     if (get_key_and_modifier(accel_keys[VIEW_DECREASE_SIZE], &key, &modifier))
@@ -7349,7 +7424,7 @@ void show_window(gint windowid)
         if (GTK_WIDGET_MAPPED(window))
             gtk_widget_unmap(window);
 #endif
-        gdk_window_reparent(get_window(window), window_container, 0, 0);
+        gdk_window_reparent(gmtk_get_window(window), window_container, 0, 0);
     }
 
     if (rpcontrols == NULL || (rpcontrols != NULL && g_strcasecmp(rpcontrols, "all") == 0)) {
@@ -7544,7 +7619,7 @@ gboolean update_audio_meter(gpointer data)
         return TRUE;
     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY)
         return TRUE;
-    if (audio_meter != NULL && get_visible(audio_meter)) {
+    if (audio_meter != NULL && gmtk_get_visible(audio_meter)) {
 
         if (data)
             g_array_free(data, TRUE);
@@ -7691,8 +7766,9 @@ void show_fs_controls()
         // center fs_controls
         screen = gtk_window_get_screen(GTK_WINDOW(window));
         gtk_window_set_screen(GTK_WINDOW(fs_controls), screen);
-        gdk_screen_get_monitor_geometry(screen, gdk_screen_get_monitor_at_window(screen, get_window(window)), &rect);
-        get_allocation(fs_controls, &alloc);
+        gdk_screen_get_monitor_geometry(screen, gdk_screen_get_monitor_at_window(screen, gmtk_get_window(window)),
+                                        &rect);
+        gmtk_get_allocation(fs_controls, &alloc);
         gtk_widget_set_size_request(fs_controls, rect.width / 2, alloc.height);
         x = rect.x + (rect.width / 4);
         y = rect.y + rect.height - alloc.height;
