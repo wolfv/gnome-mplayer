@@ -1205,7 +1205,7 @@ void dbus_enable_screensaver()
 
         if (use_xscrnsaver) {
 #ifdef XSCRNSAVER_ENABLED
-            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(get_window(window)), FALSE);
+            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(gmtk_get_window(window)), FALSE);
 #endif
 
         } else {
@@ -1252,7 +1252,7 @@ void dbus_disable_screensaver()
         if (use_xscrnsaver) {
 
 #ifdef XSCRNSAVER_ENABLED
-            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(get_window(window)), TRUE);
+            XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(gmtk_get_window(window)), TRUE);
 #endif
 
         } else {
@@ -1274,7 +1274,7 @@ void dbus_disable_screensaver()
                 }
                 if (error.message != NULL) {
 #ifdef XSCRNSAVER_ENABLED
-                    XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(get_window(window)), TRUE);
+                    XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(gmtk_get_window(window)), TRUE);
                     use_xscrnsaver = TRUE;
 #endif
                 }
@@ -1290,7 +1290,7 @@ void dbus_disable_screensaver()
                 app = g_strdup_printf("gnome-mplayer");
                 reason = g_strdup_printf("playback");
                 flags = 8;
-                windowid = GDK_WINDOW_XID(get_window(window));
+                windowid = GDK_WINDOW_XID(gmtk_get_window(window));
                 dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32,
                                          &windowid, DBUS_TYPE_STRING, &reason,
                                          DBUS_TYPE_UINT32, &flags, DBUS_TYPE_INVALID);
@@ -1303,7 +1303,7 @@ void dbus_disable_screensaver()
 
                 if (error.message != NULL) {
 #ifdef XSCRNSAVER_ENABLED
-                    XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(get_window(window)), TRUE);
+                    XScreenSaverSuspend(GDK_WINDOW_XDISPLAY(gmtk_get_window(window)), TRUE);
                     use_xscrnsaver = TRUE;
 #endif
                 }

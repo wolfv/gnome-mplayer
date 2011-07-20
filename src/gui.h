@@ -352,10 +352,10 @@ void update_status_icon();
 void setup_accelerators();
 gboolean set_software_volume(gdouble * data);
 gboolean set_adjust_layout(gpointer data);
+gboolean get_key_and_modifier(gchar * keyval, guint * key, GdkModifierType * modifier);
+gboolean accel_key_key_press_event(GtkWidget * widget, GdkEventKey * event, gpointer data);
+void assign_default_keys();
+void reset_keys_callback(GtkButton * button, gpointer data);
 
 void show_fs_controls();
 void hide_fs_controls();
-
-// GSEAL accessors
-void get_allocation(GtkWidget * widget, GtkAllocation * allocation);
-GdkWindow *get_window(GtkWidget * widget);
