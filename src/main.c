@@ -858,6 +858,10 @@ int main(int argc, char *argv[])
     use_mediakeys = gm_pref_store_get_boolean_with_default(gm_store, USE_MEDIAKEYS, use_mediakeys);
     use_defaultpl = gm_pref_store_get_boolean_with_default(gm_store, USE_DEFAULTPL, use_defaultpl);
     metadata_codepage = gm_pref_store_get_string(gm_store, METADATACODEPAGE);
+
+    alang = gm_pref_store_get_string(gm_store, AUDIO_LANG);
+    slang = gm_pref_store_get_string(gm_store, SUBTITLE_LANG);
+
     subtitlefont = gm_pref_store_get_string(gm_store, SUBTITLEFONT);
     subtitle_scale = gm_pref_store_get_float(gm_store, SUBTITLESCALE);
     if (subtitle_scale < 0.25) {
@@ -938,9 +942,6 @@ int main(int argc, char *argv[])
     audio_device_name = gm_pref_store_get_string(gm_store, AUDIO_DEVICE_NAME);
     audio_device.description = g_strdup(audio_device_name);
 
-
-    read_mplayer_config();
-
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
 #ifdef GTK2_12_ENABLED
     g_option_context_set_translation_domain(context, "UTF-8");
@@ -981,8 +982,6 @@ int main(int argc, char *argv[])
 
     gm_pref_store_free(gm_store);
     gm_pref_store_free(gmp_store);
-
-    read_mplayer_config();
 
     if (verbose && embed_window) {
         printf("embedded in window id 0x%x\n", embed_window);

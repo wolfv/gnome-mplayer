@@ -87,6 +87,8 @@ void set_media_player_attributes(GtkWidget * widget)
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ENABLE_CRYSTALHD_CODECS,
                                             use_crystalhd_codecs);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_EXTRA_OPTS, extraopts);
+    gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_PREFERRED_AUDIO_LANGUAGE, alang);
+    gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_PREFERRED_SUBTITLE_LANGUAGE, slang);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MPLAYER_BINARY, mplayer_bin);
     gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ENABLE_ADVANCED_SUBTITLES,
                                             !disable_ass);
@@ -1655,6 +1657,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     // if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
     if (gmtk_get_visible(plvbox) && gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)))
         return FALSE;
+
+    //printf("index = %i\n", get_index_from_key_and_modifier (event->keyval, event->state));
+
 
     if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
 
@@ -3815,7 +3820,6 @@ void config_apply(GtkWidget * widget, void *data)
     extraopts = g_strdup(gtk_entry_get_text(GTK_ENTRY(config_extraopts)));
 
     set_media_player_attributes(media);
-    update_mplayer_config();
 
     gm_store = gm_pref_store_new("gnome-mplayer");
 
@@ -3869,6 +3873,9 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, SUBTITLESHADOW, subtitle_shadow);
     gm_pref_store_set_int(gm_store, SUBTITLE_MARGIN, subtitle_margin);
     gm_pref_store_set_boolean(gm_store, SHOW_SUBTITLES, showsubtitles);
+
+    gm_pref_store_set_string(gm_store, AUDIO_LANG, alang);
+    gm_pref_store_set_string(gm_store, SUBTITLE_LANG, slang);
 
     gm_pref_store_set_string(gm_store, MPLAYER_BIN, mplayer_bin);
     gm_pref_store_set_string(gm_store, MPLAYER_DVD_DEVICE, mplayer_dvd_device);
@@ -4607,8 +4614,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gchar *desc;
     guint key;
     GdkModifierType modifier;
-
-    read_mplayer_config();
 
     config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_icon(GTK_WINDOW(config_window), pb_icon);
@@ -6524,6 +6529,34 @@ gboolean get_key_and_modifier(gchar * keyval, guint * key, GdkModifierType * mod
     return TRUE;
 }
 
+gint get_index_from_key_and_modifier(guint key, GdkModifierType modifier)
+{
+    gint i;
+    gchar **parse;
+    gint index = -1;
+    guint local_key;
+    GdkModifierType local_modifier;
+
+    for (i = 0; i < KEY_COUNT; i++) {
+        parse = g_strsplit(accel_keys[i], "+", -1);
+        if (g_strv_length(parse) == 1) {
+            local_modifier = 0;
+            local_key = gdk_keyval_from_name(parse[0]);
+        } else {
+            local_modifier = (guint) g_strtod(parse[0], NULL);
+            local_key = gdk_keyval_from_name(parse[1]);
+        }
+        g_strfreev(parse);
+
+        if (local_modifier == modifier && local_key == key) {
+            index = i;
+            break;
+        }
+    }
+
+    return index;
+}
+
 void setup_accelerators(gboolean enable)
 {
     /*
@@ -7077,7 +7110,6 @@ GtkWidget *create_window(gint windowid)
     hbox = gtk_hbox_new(FALSE, 0);
     controls_box = gtk_vbox_new(FALSE, 0);
     media = gmtk_media_player_new();
-    gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_PROFILE, "gnome-mplayer");
     g_signal_connect_swapped(G_OBJECT(media), "media_state_changed",
                              G_CALLBACK(player_media_state_changed_callback), NULL);
     g_signal_connect_swapped(G_OBJECT(media), "button_press_event", G_CALLBACK(popup_handler), G_OBJECT(popup_menu));
