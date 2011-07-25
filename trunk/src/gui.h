@@ -356,6 +356,7 @@ gboolean get_key_and_modifier(gchar * keyval, guint * key, GdkModifierType * mod
 gboolean accel_key_key_press_event(GtkWidget * widget, GdkEventKey * event, gpointer data);
 void assign_default_keys();
 void reset_keys_callback(GtkButton * button, gpointer data);
+gint get_index_from_key_and_modifier(guint key, GdkModifierType modifier);
 
 void show_fs_controls();
 void hide_fs_controls();

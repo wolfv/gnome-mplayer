@@ -335,6 +335,16 @@
       <summary>Default Key Bindings</summary>
       <description>Default Key Bindings</description>
     </key>
+    <key name="audio-lang" type="s">
+      <default>''</default>
+      <summary>Preferred Audio Language</summary>
+      <description>Preferred Audio Language</description>
+    </key>
+    <key name="subtitle-lang" type="s">
+      <default>''</default>
+      <summary>Preferred Subtitle Language</summary>
+      <description>Preferred Subtitle Language</description>
+    </key>
     
   </schema>
 </schemalist>

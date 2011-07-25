@@ -1,4 +1,6 @@
 Development
+    Remove the use of mplayer profiles, as they are no longer needed
+    Fix Issue 544, minor spelling issue
     Allow customization of some of the keyboard hotkeys, more to be done
     Replace get_window, get_visible, and get_allocation with gmtk versions
     Build foundation for customized hotkeys

@@ -68,7 +68,6 @@ gint parse_vcd(gchar * filename);
 gboolean save_playlist_pls(gchar * filename);
 gboolean save_playlist_m3u(gchar * filename);
 gchar *get_path(gchar * filename);
-gboolean update_mplayer_config();
 gboolean streaming_media(gchar * filename);
 gboolean device_name(gchar * filename);
 gboolean add_item_to_playlist(const gchar * uri, gint playlist);

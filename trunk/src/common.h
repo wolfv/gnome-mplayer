@@ -57,6 +57,9 @@
 #define SHOWDETAILS				"show-details"
 #define SHOW_CONTROLS			"show-controls"
 
+#define AUDIO_LANG				"audio-lang"
+#define SUBTITLE_LANG			"subtitle-lang"
+
 #define DISABLEASS      		"disable-ass"
 #define DISABLEEMBEDDEDFONTS    "disable-embeddedfonts"
 #define DISABLEDEINTERLACE		"disable-deinterlace"
@@ -521,9 +524,6 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data);
 gboolean update_audio_meter(gpointer data);
 
 void set_media_player_attributes(GtkWidget * widget);
-
-gboolean update_mplayer_config();
-gboolean read_mplayer_config();
 
 void retrieve_metadata(gpointer data, gpointer user_data);
 
