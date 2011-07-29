@@ -1,5 +1,10 @@
 <schemalist>
   <schema id="apps.gnome-mplayer.preferences" path="/apps/gnome-mplayer/preferences/">
+    <key name="vo" type="s">
+      <default>''</default>
+      <summary>Default video output</summary>
+      <description>Default video output</description>
+    </key>
     <key name="cache-size" type="i">
       <default>2000</default>
       <summary>Cache size</summary>

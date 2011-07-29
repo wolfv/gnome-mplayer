@@ -1,4 +1,5 @@
 Development
+    Fix saving and loading of preferred VO
     Fix 'f' not going to/returning from fullscreen
     Remove the use of mplayer profiles, as they are no longer needed
     Fix Issue 544, minor spelling issue

@@ -3832,6 +3832,7 @@ void config_apply(GtkWidget * widget, void *data)
 #ifndef HAVE_ASOUNDLIB
     gm_pref_store_set_int(gm_store, VOLUME, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));
 #endif
+	gm_pref_store_set_string(gm_store, VO, vo);
     gm_pref_store_set_int(gm_store, AUDIO_CHANNELS, audio_channels);
     gm_pref_store_set_boolean(gm_store, USE_HW_AUDIO, use_hw_audio);
     gm_pref_store_set_boolean(gm_store, USE_HARDWARE_CODECS, use_hardware_codecs);
