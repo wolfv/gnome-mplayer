@@ -247,6 +247,8 @@ typedef enum {
 #define ACCEL_PATH_VIEW_INCREASE_SIZE "<GNOME MPlayer>/View/Increase Size"
 #define ACCEL_PATH_VIEW_ANGLE "<GNOME MPlayer>/View/Angle"
 #define ACCEL_PATH_VIEW_CONTROLS "<GNOME MPlayer>/View/Controls"
+#define ACCEL_PATH_VIEW_NORMAL "<GNOME MPlayer>/View/Normal"
+#define ACCEL_PATH_VIEW_DOUBLE "<GNOME MPlayer>/View/Double"
 
 typedef struct _MetaData {
     gchar *uri;
