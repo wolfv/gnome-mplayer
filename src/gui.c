@@ -6684,6 +6684,9 @@ void setup_accelerators(gboolean enable)
         gtk_accel_map_change_entry(ACCEL_PATH_VIEW_ANGLE, key, modifier, TRUE);
     if (get_key_and_modifier(accel_keys[VIEW_CONTROLS], &key, &modifier))
         gtk_accel_map_change_entry(ACCEL_PATH_VIEW_CONTROLS, key, modifier, TRUE);
+
+	gtk_accel_map_change_entry(ACCEL_PATH_VIEW_NORMAL, GDK_1, GDK_CONTROL_MASK, TRUE);
+	gtk_accel_map_change_entry(ACCEL_PATH_VIEW_DOUBLE, GDK_2, GDK_CONTROL_MASK, TRUE);
 }
 
 GtkWidget *create_window(gint windowid)
@@ -6997,8 +7000,10 @@ GtkWidget *create_window(gint windowid)
         gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_sep1));
     }
     menuitem_view_onetoone = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Normal (1:1)")));
+    gtk_menu_item_set_accel_path(menuitem_view_onetoone, ACCEL_PATH_VIEW_NORMAL);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_onetoone));
     menuitem_view_twotoone = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Double Size (2:1)")));
+    gtk_menu_item_set_accel_path(menuitem_view_twotoone, ACCEL_PATH_VIEW_DOUBLE);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_twotoone));
     menuitem_view_onetotwo = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_onetotwo));
