@@ -32,6 +32,7 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
+#define VO					"vo"
 #define AUDIO_DEVICE_NAME   "audio-device-name"
 #define ALSA_MIXER			"alsa-mixer"
 #define VOLUME				"volume"
