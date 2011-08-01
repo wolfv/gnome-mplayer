@@ -223,6 +223,10 @@ dist distdir: update-po $(DISTFILES)
 no-fuzzy:
 	for f in `ls *.po`; do msgattrib --no-fuzzy -o $$f $$f; done
 
+no-obsolete:
+	for f in `ls *.po`; do msgattrib --no-obsolete -o $$f $$f; done
+
+
 update-po: Makefile
 	$(MAKE) $(GETTEXT_PACKAGE).pot
 	tmpdir=`pwd`; \
