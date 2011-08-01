@@ -1,4 +1,5 @@
 Development
+    Remove fuzzy and obsolete translations from po files
     Make Normal and Double size hotkeys work
     Fix saving and loading of preferred VO
     Fix 'f' not going to/returning from fullscreen
