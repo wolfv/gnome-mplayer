@@ -126,6 +126,7 @@ void set_media_player_attributes(GtkWidget * widget)
     } else {
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DISABLE_UPSCALING, FALSE);
     }
+    gmtk_media_player_set_media_device(GMTK_MEDIA_PLAYER(media), idledata->device);
 
 }
 
@@ -3832,7 +3833,7 @@ void config_apply(GtkWidget * widget, void *data)
 #ifndef HAVE_ASOUNDLIB
     gm_pref_store_set_int(gm_store, VOLUME, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume)));
 #endif
-	gm_pref_store_set_string(gm_store, VO, vo);
+    gm_pref_store_set_string(gm_store, VO, vo);
     gm_pref_store_set_int(gm_store, AUDIO_CHANNELS, audio_channels);
     gm_pref_store_set_boolean(gm_store, USE_HW_AUDIO, use_hw_audio);
     gm_pref_store_set_boolean(gm_store, USE_HARDWARE_CODECS, use_hardware_codecs);
@@ -4997,6 +4998,17 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     config_hardware_codecs = gtk_check_button_new_with_label(_("Enable Video Hardware Support"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_hardware_codecs), use_hardware_codecs);
+#ifdef GTK2_12_ENABLED
+    gtk_widget_set_tooltip_text(config_hardware_codecs,
+                                _
+                                ("When this option is enabled, codecs or options will be enabled to accelerate video processing. These options may cause playback to fail in some cases."));
+#else
+    tooltip = gtk_tooltips_new();
+    gtk_tooltips_set_tip(tooltip, config_hardware_codecs,
+                         _
+                         ("When this option is enabled, codecs or options will be enabled to accelerate video processing. These options may cause playback to fail in some cases."),
+                         NULL);
+#endif
     gtk_widget_set_size_request(GTK_WIDGET(config_hardware_codecs), 200, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_hardware_codecs, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK,
                      0, 0);
@@ -5710,7 +5722,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     i = 0;
     conf_label = gtk_label_new(_("<span weight=\"bold\">Keyboard Shortcuts</span>\n\n"
                                  "Place the cursor in the box next to the shortcut you want to modify\n"
-                                 "Then press the keys would would like for the shortcut"));
+                                 "Then press the keys you would like for the shortcut"));
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
@@ -6685,8 +6697,8 @@ void setup_accelerators(gboolean enable)
     if (get_key_and_modifier(accel_keys[VIEW_CONTROLS], &key, &modifier))
         gtk_accel_map_change_entry(ACCEL_PATH_VIEW_CONTROLS, key, modifier, TRUE);
 
-	gtk_accel_map_change_entry(ACCEL_PATH_VIEW_NORMAL, GDK_1, GDK_CONTROL_MASK, TRUE);
-	gtk_accel_map_change_entry(ACCEL_PATH_VIEW_DOUBLE, GDK_2, GDK_CONTROL_MASK, TRUE);
+    gtk_accel_map_change_entry(ACCEL_PATH_VIEW_NORMAL, GDK_1, GDK_CONTROL_MASK, TRUE);
+    gtk_accel_map_change_entry(ACCEL_PATH_VIEW_DOUBLE, GDK_2, GDK_CONTROL_MASK, TRUE);
 }
 
 GtkWidget *create_window(gint windowid)

@@ -1,4 +1,7 @@
 Development
+    Set CDDB to TYPE CD
+    Fix typo on keyscreen
+    Add tooltop for "Enable Video Hardware"
     Remove fuzzy and obsolete translations from po files
     Make Normal and Double size hotkeys work
     Fix saving and loading of preferred VO

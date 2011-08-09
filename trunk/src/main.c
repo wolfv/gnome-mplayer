@@ -562,6 +562,8 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
         } else if (g_str_has_prefix(uri, "cdda")) {
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_CD);
+        } else if (g_str_has_prefix(uri, "cddb")) {
+            gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_CD);
         } else if (g_str_has_prefix(uri, "vcd")) {
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_VCD);
         } else if (g_str_has_prefix(uri, "tv")) {
