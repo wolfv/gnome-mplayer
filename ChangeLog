@@ -1,4 +1,5 @@
 Development
+    Fix keyboard shortcut capture to only detect CTRL, ALT or SHIFT modifiers
     Set CDDB to TYPE CD
     Fix typo on keyscreen
     Add tooltop for "Enable Video Hardware"
