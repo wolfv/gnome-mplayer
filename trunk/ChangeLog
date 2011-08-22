@@ -1,4 +1,5 @@
 Development
+    Only make the fullscreen controls reappear when the mouse is at the bottom of the screen
     Fix keyboard shortcut capture to only detect CTRL, ALT or SHIFT modifiers
     Set CDDB to TYPE CD
     Fix typo on keyscreen
