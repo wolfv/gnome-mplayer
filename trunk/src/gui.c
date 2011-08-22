@@ -5810,6 +5810,7 @@ gboolean accel_key_key_press_event(GtkWidget * widget, GdkEventKey * event, gpoi
     if (event->is_modifier)
         return TRUE;
 
+    event->state = event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SHIFT_MASK);
     gtk_entry_set_text(GTK_ENTRY(widget),
                        g_strdup_printf("%s%s%s%s", (event->state & GDK_CONTROL_MASK) ? "Control-" : "",
                                        (event->state & GDK_MOD1_MASK) ? "Alt-" : "",
