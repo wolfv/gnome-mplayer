@@ -1603,8 +1603,11 @@ gboolean motion_notify_callback(GtkWidget * widget, GdkEventMotion * event, gpoi
     if (fullscreen) {
         gmtk_get_allocation(window, &fs_allocation);
         gmtk_get_allocation(controls_box, &fs_controls_allocation);
-        if (event->y > (fs_allocation.height - fs_controls_allocation.height))
+        if (event->y > (fs_allocation.height - fs_controls_allocation.height)) {
             g_idle_add(make_panel_and_mouse_visible, NULL);
+        } else {
+            hide_fs_controls();
+        }
     }
     return FALSE;
 }
