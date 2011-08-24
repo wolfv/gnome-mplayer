@@ -1608,6 +1608,8 @@ gboolean motion_notify_callback(GtkWidget * widget, GdkEventMotion * event, gpoi
         } else {
             hide_fs_controls();
         }
+    } else {
+        g_idle_add(make_panel_and_mouse_visible, NULL);
     }
     return FALSE;
 }
