@@ -43,6 +43,7 @@
 #include "common.h"
 #include "support.h"
 #include "dbus-interface.h"
+#include "gmtk.h"
 
 
 static GOptionEntry entries[] = {
@@ -964,9 +965,11 @@ int main(int argc, char *argv[])
     if (reallyverbose)
         verbose = 2;
 
-    if (verbose)
+    if (verbose) {
         printf(_("GNOME MPlayer v%s\n"), VERSION);
-
+        printf(_("gmtk v%s\n"), gmtk_version());
+	}
+                                       
     if (cache_size == 0)
         cache_size = gm_pref_store_get_int(gm_store, CACHE_SIZE);
     if (cache_size == 0)
