@@ -1,4 +1,5 @@
 Development
+    Fix Issue #560, ATTRIBUTE_FORCE_CACHE not being processed
     Printout gmtk version in verbose mode
     Switch from AM_MAINTAINER_MODE to AM_MAINTAINER_MODE([enable]) in configure.in
     Make cursor reappear when not in fullscreen mode
@@ -22,7 +23,7 @@ Development
     Fix Issue #538
     Autodetect gtk3 at configure time
     Raise event on incomplete QuickTime file, and mark it for retry
-    Fix compile issue with alsa is not being used
+    Fix compile issue when alsa is not being used
 1.0.4
     Remove vdpau failure detection as it doesn't work
     Quit mplayer on vdpau restart, mplayer doesn't want to die
