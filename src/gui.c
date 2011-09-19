@@ -127,7 +127,11 @@ void set_media_player_attributes(GtkWidget * widget)
     } else {
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_DISABLE_UPSCALING, FALSE);
     }
-    gmtk_media_player_set_media_device(GMTK_MEDIA_PLAYER(media), idledata->device);
+    if (option_dvd_device == NULL) {
+        gmtk_media_player_set_media_device(GMTK_MEDIA_PLAYER(media), idledata->device);
+    } else {
+        gmtk_media_player_set_media_device(GMTK_MEDIA_PLAYER(media), option_dvd_device);
+    }
 
 }
 

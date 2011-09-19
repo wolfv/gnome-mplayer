@@ -1,4 +1,5 @@
 Development
+    Add in command line option --dvd_device
     Fix Issue #560, ATTRIBUTE_FORCE_CACHE not being processed
     Printout gmtk version in verbose mode
     Switch from AM_MAINTAINER_MODE to AM_MAINTAINER_MODE([enable]) in configure.in
