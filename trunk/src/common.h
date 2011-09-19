@@ -388,6 +388,7 @@ gint subtitle_fuzziness;
 gboolean quit_on_complete;
 gchar *mplayer_bin;
 gchar *mplayer_dvd_device;
+gchar *option_dvd_device;
 gchar *extraopts;
 gboolean resize_on_new_media;
 gboolean single_instance;

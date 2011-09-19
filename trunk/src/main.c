@@ -143,6 +143,7 @@ static GOptionEntry entries[] = {
     {"disable_cover_art_fetch", 0, 0, G_OPTION_ARG_NONE, &disable_cover_art_fetch,
      N_("Don't fetch new cover art images"),
      NULL},
+    {"dvd_device", 0, 0, G_OPTION_ARG_STRING, &option_dvd_device, N_("DVD Device Name"), "Path to device or folder"},
     {NULL}
 };
 
@@ -968,8 +969,8 @@ int main(int argc, char *argv[])
     if (verbose) {
         printf(_("GNOME MPlayer v%s\n"), VERSION);
         printf(_("gmtk v%s\n"), gmtk_version());
-	}
-                                       
+    }
+
     if (cache_size == 0)
         cache_size = gm_pref_store_get_int(gm_store, CACHE_SIZE);
     if (cache_size == 0)
