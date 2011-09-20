@@ -1,4 +1,5 @@
 Development
+    Add in command line option --vo (this disables hardware codecs as a safety measure)
     Add in command line option --dvd_device
     Fix Issue #560, ATTRIBUTE_FORCE_CACHE not being processed
     Printout gmtk version in verbose mode
