@@ -330,6 +330,7 @@ gint stored_window_width, stored_window_height;
 gboolean adjusting;
 gchar vm[10];
 gchar *vo;
+gchar *option_vo;
 gboolean use_hardware_codecs;
 gboolean use_crystalhd_codecs;
 AudioDevice audio_device;

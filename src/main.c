@@ -144,6 +144,7 @@ static GOptionEntry entries[] = {
      N_("Don't fetch new cover art images"),
      NULL},
     {"dvd_device", 0, 0, G_OPTION_ARG_STRING, &option_dvd_device, N_("DVD Device Name"), "Path to device or folder"},
+    {"vo", 0, 0, G_OPTION_ARG_STRING, &option_vo, N_("Video Output Device Name"), "mplayer vo name"},
     {NULL}
 };
 
