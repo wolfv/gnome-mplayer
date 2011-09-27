@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-09-27 09:50-0600\n"
-"PO-Revision-Date: 2011-06-18 11:14+0200\n"
+"PO-Revision-Date: 2011-09-27 21:21+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -229,14 +229,12 @@ msgid "Don't fetch new cover art images"
 msgstr "Nie pobieraj nowych obrazów okładek"
 
 #: src/main.c:146
-#, fuzzy
 msgid "DVD Device Name"
-msgstr "Nazwa urządzenia TV"
+msgstr "Nazwa urządzenia DVD"
 
 #: src/main.c:147
-#, fuzzy
 msgid "Video Output Device Name"
-msgstr "Obraz:"
+msgstr "Nazwa urządzenia wyjścia obrazu"
 
 #: src/main.c:373 src/gui.c:735 src/gui.c:6305 src/gui.c:6367
 #, c-format
@@ -248,42 +246,36 @@ msgid "Open Location"
 msgstr "Otwieranie położenia"
 
 #: src/main.c:923
-#, fuzzy
 msgid "Take Screenshot"
-msgstr "Pobierz zrzut _ekranu"
+msgstr "Pobierz zrzut ekranu"
 
 #: src/main.c:924
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencje"
 
 #: src/main.c:925
-#, fuzzy
 msgid "Playlist"
-msgstr "_Lista odtwarzania"
+msgstr "Lista odtwarzania"
 
 #: src/main.c:926
-#, fuzzy
 msgid "Media Info"
-msgstr "_Informacje"
+msgstr "Informacje"
 
 #: src/main.c:927
-#, fuzzy
 msgid "Details"
-msgstr "_Szczegóły"
+msgstr "Szczegóły"
 
 #: src/main.c:928
-#, fuzzy
 msgid "Audio Meter"
-msgstr "_Wskaźnik wysterowania"
+msgstr "Wskaźnik wysterowania"
 
 #: src/main.c:929 src/gui.c:7424 src/gui.c:7427
 msgid "Full Screen"
 msgstr "Przełącza wyświetlanie w trybie pełnoekranowym"
 
 #: src/main.c:930
-#, fuzzy
 msgid "Aspect"
-msgstr "P_roporcje obrazu"
+msgstr "Proporcje obrazu"
 
 #: src/main.c:931 src/gui.c:4667
 msgid "Subtitles"
@@ -298,14 +290,12 @@ msgid "Increase Subtitle Size"
 msgstr "Zwiększ rozmiar napisów"
 
 #: src/main.c:934
-#, fuzzy
 msgid "Switch Angle"
-msgstr "Zmień ką_t"
+msgstr "Zmień kąt"
 
 #: src/main.c:935
-#, fuzzy
 msgid "Controls"
-msgstr "_Elementy sterujące"
+msgstr "Elementy sterujące"
 
 #: src/main.c:951
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -319,7 +309,7 @@ msgstr "GNOME MPlayer v%s\n"
 #: src/main.c:972
 #, c-format
 msgid "gmtk v%s\n"
-msgstr ""
+msgstr "gmtk v%s\n"
 
 #: src/main.c:1036
 #, c-format
@@ -658,7 +648,7 @@ msgstr "Interfejs"
 
 #: src/gui.c:4671
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Skróty klawiaturowe"
 
 #: src/gui.c:4673
 msgid "MPlayer"
@@ -678,6 +668,10 @@ msgid ""
 "x11 should always work, try xv, gl or vdpau for better performance and "
 "enhanced features"
 msgstr ""
+"urządzenie wyjścia obrazu mplayera\n"
+"x11 powinno zawsze działać, proszę wypróbować xv, gl lub vdpau dla lepszej "
+"wydajności "
+"i dodatkowych funkcji"
 
 #: src/gui.c:4758
 msgid "Enable AC3/DTS pass-through to S/PDIF"
@@ -701,17 +695,21 @@ msgstr "Obraz:"
 
 #: src/gui.c:5021
 msgid "Enable Video Hardware Support"
-msgstr ""
+msgstr "Włącz sprzętową obsługę wideo"
 
 #: src/gui.c:5026 src/gui.c:5031
 msgid ""
 "When this option is enabled, codecs or options will be enabled to accelerate "
 "video processing. These options may cause playback to fail in some cases."
 msgstr ""
+"Kiedy ta opcja jest włączona, zostaną włączone kodeki lub opcje "
+"przyspieszające obróbkę\n"
+"obrazu. Opcje te mogą spowodować, iż w pewnych przypadkach odtwarzanie nie "
+"uda się."
 
 #: src/gui.c:5039
 msgid "Enable CrystalHD Hardware Support"
-msgstr ""
+msgstr "Włącz obsługę sprzętu CrystalHD"
 
 #: src/gui.c:5046
 msgid "Audio Output:"
@@ -1052,11 +1050,14 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+"<span weight=\"bold\">Skróty klawiaturowe</span>\n"
+"\n"
+"Proszę umieścić kursor w polu obok skrótu który ma być zmodyfikowany,\n"
+"a następnie nacisnąć żądane klawisze skrótu"
 
 #: src/gui.c:5777
-#, fuzzy
 msgid "Reset Keys"
-msgstr "Przywróć _domyślne"
+msgstr "Przywróć domyślne klawisze"
 
 #: src/gui.c:6786
 msgid "S_how Controls"
@@ -1477,3 +1478,4 @@ msgstr "Tempo wyświetlania:"
 #: src/nautilus_property_page.c:482
 msgid "Audio/Video"
 msgstr "Dźwięk/Obraz:"
+
