@@ -6378,6 +6378,18 @@ void player_position_changed_callback(GmtkMediaTracker * tracker, gdouble positi
     }
 }
 
+gboolean tracker_value_changed_callback(GtkWidget * widget, gint value, gpointer data)
+{
+    if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SEEKABLE)) {
+        if (!autopause) {
+            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
+                gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), value * 1.0, SEEK_PERCENT);
+            }
+        }
+    }
+    return FALSE;
+}
+
 gboolean tracker_difference_callback(GtkWidget * widget, gdouble difference, void *data)
 {
 
@@ -7407,6 +7419,7 @@ GtkWidget *create_window(gint windowid)
     tracker = GMTK_MEDIA_TRACKER(gmtk_media_tracker_new());
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(tracker), TRUE, TRUE, 2);
     g_signal_connect(G_OBJECT(tracker), "difference-changed", G_CALLBACK(tracker_difference_callback), NULL);
+    g_signal_connect(G_OBJECT(tracker), "value-changed", G_CALLBACK(tracker_value_changed_callback), NULL);
     g_signal_connect(G_OBJECT(tracker), "button_press_event", G_CALLBACK(progress_callback), NULL);
     g_signal_connect_swapped(G_OBJECT(media), "position_changed",
                              G_CALLBACK(player_position_changed_callback), tracker);
