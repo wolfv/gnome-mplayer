@@ -1,4 +1,5 @@
 Development
+    Updated Portuguese translation
     Updated Polish translation
     Fix problem with visual seeking while using the tracker, requires gmtk svn r48 
     Add in command line option --vo (this disables hardware codecs as a safety measure)
