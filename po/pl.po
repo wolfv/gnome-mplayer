@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-09-27 09:50-0600\n"
-"PO-Revision-Date: 2011-09-27 21:21+0200\n"
+"PO-Revision-Date: 2011-09-28 21:14+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -247,7 +247,7 @@ msgstr "Otwieranie położenia"
 
 #: src/main.c:923
 msgid "Take Screenshot"
-msgstr "Pobierz zrzut ekranu"
+msgstr "Zrzut ekranu"
 
 #: src/main.c:924
 msgid "Preferences"
@@ -271,7 +271,7 @@ msgstr "Wskaźnik wysterowania"
 
 #: src/main.c:929 src/gui.c:7424 src/gui.c:7427
 msgid "Full Screen"
-msgstr "Przełącza wyświetlanie w trybie pełnoekranowym"
+msgstr "Tryb pełnoekranowy"
 
 #: src/main.c:930
 msgid "Aspect"
@@ -283,15 +283,15 @@ msgstr "Napisy"
 
 #: src/main.c:932 src/gui.c:7067
 msgid "Decrease Subtitle Size"
-msgstr "Zmniejsz rozmiar napisów"
+msgstr "Zmniejszenie napisów"
 
 #: src/main.c:933 src/gui.c:7069
 msgid "Increase Subtitle Size"
-msgstr "Zwiększ rozmiar napisów"
+msgstr "Powiększenie napisów"
 
 #: src/main.c:934
 msgid "Switch Angle"
-msgstr "Zmień kąt"
+msgstr "Zmiana kąta"
 
 #: src/main.c:935
 msgid "Controls"
@@ -695,7 +695,7 @@ msgstr "Obraz:"
 
 #: src/gui.c:5021
 msgid "Enable Video Hardware Support"
-msgstr "Włącz sprzętową obsługę wideo"
+msgstr "Sprzętowa obsługa wideo"
 
 #: src/gui.c:5026 src/gui.c:5031
 msgid ""
@@ -709,7 +709,7 @@ msgstr ""
 
 #: src/gui.c:5039
 msgid "Enable CrystalHD Hardware Support"
-msgstr "Włącz obsługę sprzętu CrystalHD"
+msgstr "Obsługa sprzętu CrystalHD"
 
 #: src/gui.c:5046
 msgid "Audio Output:"
@@ -910,7 +910,7 @@ msgstr "Wstrzymywanie wygaszacza ekranu i ustawień zasilania GNOME"
 
 #: src/gui.c:5499
 msgid "Place playlist below media (requires application restart)"
-msgstr "Umieść listę odtwarzania pod medium (wymaga restartu aplikacji)"
+msgstr "Lista odtwarzania pod medium (wymaga restartu aplikacji)"
 
 #: src/gui.c:5504
 msgid "Only allow one instance of Gnome MPlayer"
@@ -976,7 +976,7 @@ msgstr ""
 
 #: src/gui.c:5603
 msgid "Remember last software volume level"
-msgstr "Pamiętaj ostatnią głośność (programową)"
+msgstr "Pamiętanie ostatniej głośności (programowej)"
 
 #: src/gui.c:5606 src/gui.c:5610
 msgid "Set this option if you want the software volume level to be remembered"
@@ -1478,4 +1478,5 @@ msgstr "Tempo wyświetlania:"
 #: src/nautilus_property_page.c:482
 msgid "Audio/Video"
 msgstr "Dźwięk/Obraz:"
+
 

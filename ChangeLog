@@ -1,4 +1,5 @@
 Development
+    Rephrased some strings in Polish translation
     Updated Portuguese translation
     Updated Polish translation
     Fix problem with visual seeking while using the tracker, requires gmtk svn r48 
