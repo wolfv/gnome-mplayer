@@ -3219,7 +3219,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
                           "Korean - ByeongSik Jeon\n"
                           "Lithuanian - Mindaugas B.\n"
                           "Polish - Julian Sikorski\n"
-                          "Portugese - LL\n"
+                          "Portugese - LL and Sérgio Marques\n"
                           "Russian - Dmitry Stropaloff and Denis Koryavov\n"
                           "Serbian - Милош Поповић\n"
                           "Spanish - Festor Wailon Dacoba\n"
