@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-27 09:50-0600\n"
+"POT-Creation-Date: 2011-10-03 10:55-0600\n"
 "PO-Revision-Date: 2011-06-13 13:41+0300\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -274,7 +274,7 @@ msgstr "D_etaylar"
 msgid "Audio Meter"
 msgstr "Ses Se_viyesi Gösterici"
 
-#: src/main.c:929 src/gui.c:7424 src/gui.c:7427
+#: src/main.c:929 src/gui.c:7437 src/gui.c:7440
 msgid "Full Screen"
 msgstr "Tam Ekran"
 
@@ -287,11 +287,11 @@ msgstr "Ya_tay Dikey Oranı"
 msgid "Subtitles"
 msgstr "Altyazı"
 
-#: src/main.c:932 src/gui.c:7067
+#: src/main.c:932 src/gui.c:7079
 msgid "Decrease Subtitle Size"
 msgstr "Altyazı Boyutunu Azalt"
 
-#: src/main.c:933 src/gui.c:7069
+#: src/main.c:933 src/gui.c:7081
 msgid "Increase Subtitle Size"
 msgstr "Altyazı Boyutunu Arttır"
 
@@ -343,7 +343,7 @@ msgstr "%s - (%i/%i) GNOME MPlayer"
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "(%i/%i) GNOME MPlayer"
 
-#: src/gui.c:480 src/gui.c:3193 src/gui.c:6739
+#: src/gui.c:480 src/gui.c:3193 src/gui.c:6751
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
@@ -389,7 +389,7 @@ msgstr "Durakla"
 #: src/gui.c:915 src/gui.c:916 src/gui.c:919 src/gui.c:936 src/gui.c:937
 #: src/gui.c:940 src/gui.c:2127 src/gui.c:2129 src/gui.c:2137 src/gui.c:2139
 #: src/gui.c:6266 src/gui.c:6267 src/gui.c:6270 src/gui.c:6312 src/gui.c:6313
-#: src/gui.c:6316 src/gui.c:7331 src/gui.c:7334
+#: src/gui.c:6316 src/gui.c:7343 src/gui.c:7346
 msgid "Play"
 msgstr "Oynat"
 
@@ -1033,230 +1033,230 @@ msgstr ""
 msgid "Reset Keys"
 msgstr "Sı_fırla"
 
-#: src/gui.c:6786
+#: src/gui.c:6798
 msgid "S_how Controls"
 msgstr "Kontrolleri _Göster"
 
-#: src/gui.c:6790 src/gui.c:7030
+#: src/gui.c:6802 src/gui.c:7042
 msgid "_Full Screen"
 msgstr "T_am Ekran"
 
-#: src/gui.c:6795
+#: src/gui.c:6807
 msgid "_Copy Location"
 msgstr "Konumu K_opyala"
 
 #. File Menu
-#: src/gui.c:6839
+#: src/gui.c:6851
 msgid "_File"
 msgstr "_Dosya"
 
-#: src/gui.c:6847
+#: src/gui.c:6859
 msgid "Open _Folder"
 msgstr "Di_zin Aç"
 
-#: src/gui.c:6852
+#: src/gui.c:6864
 msgid "Open _Location"
 msgstr "A_dresi Aç"
 
-#: src/gui.c:6858
+#: src/gui.c:6870
 msgid "_Disc"
 msgstr "Dis_k"
 
-#: src/gui.c:6866
+#: src/gui.c:6878
 msgid "Open _Audio CD"
 msgstr "Ses _CD'si Aç"
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
-#: src/gui.c:6872
+#: src/gui.c:6884
 msgid "Open DVD with _Menus"
 msgstr "DVD'yi _Menü ile Aç"
 
-#: src/gui.c:6877
+#: src/gui.c:6889
 msgid "Open DVD from Folder with M_enus"
 msgstr "Dizinden DVD'yi M_enü ile Aç"
 
-#: src/gui.c:6882
+#: src/gui.c:6894
 msgid "Open DVD from ISO with Me_nus"
 msgstr "_Kalıptan DVD'yi Menü ile Aç"
 
-#: src/gui.c:6886
+#: src/gui.c:6898
 msgid "Open _VCD"
 msgstr "VCD _Aç"
 
-#: src/gui.c:6888
+#: src/gui.c:6900
 msgid "_TV"
 msgstr "_TV"
 
-#: src/gui.c:6893
+#: src/gui.c:6905
 msgid "Open _Analog TV"
 msgstr "_Analog TV Aç"
 
-#: src/gui.c:6895
+#: src/gui.c:6907
 msgid "Open _Digital TV"
 msgstr "_Dijital TV Aç"
 
-#: src/gui.c:6898
+#: src/gui.c:6910
 msgid "Open _iPod™"
 msgstr "_İpod Aç"
 
-#: src/gui.c:6907
+#: src/gui.c:6919
 msgid "Open _Recent"
 msgstr "_Son Kullanılanı Aç"
 
 #. Edit Menu
-#: src/gui.c:6954
+#: src/gui.c:6966
 msgid "_Edit"
 msgstr "Dü_zen"
 
-#: src/gui.c:6960
+#: src/gui.c:6972
 msgid "_Shuffle Playlist"
 msgstr "Oynatma Listesini _Karıştır"
 
-#: src/gui.c:6963
+#: src/gui.c:6975
 msgid "_Loop Playlist"
 msgstr "Oynatma Listesini _Yinele"
 
-#: src/gui.c:6966
+#: src/gui.c:6978
 msgid "S_witch Audio Track"
 msgstr "Ses _İzini Değiştir"
 
-#: src/gui.c:6968 src/playlist.c:1162
+#: src/gui.c:6980 src/playlist.c:1162
 msgid "Set Audi_o"
 msgstr "Sesi S_eç"
 
-#: src/gui.c:6970
+#: src/gui.c:6982
 msgid "Select _Audio Language"
 msgstr "Öntanımlı _Ses Dili"
 
-#: src/gui.c:6973
+#: src/gui.c:6985
 msgid "Set Sub_title"
 msgstr "Alt_yazı Seç"
 
-#: src/gui.c:6975
+#: src/gui.c:6987
 msgid "S_elect Subtitle Language"
 msgstr "Öntanımlı _Altyazı Dili"
 
-#: src/gui.c:6978
+#: src/gui.c:6990
 msgid "_Take Screenshot"
 msgstr "_Ekran Görüntüsü Yakala"
 
-#: src/gui.c:6984 src/gui.c:6989
+#: src/gui.c:6996 src/gui.c:7001
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr ""
 "Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
 
 #. View Menu
-#: src/gui.c:7009
+#: src/gui.c:7021
 msgid "_View"
 msgstr "_Göster"
 
-#: src/gui.c:7015
+#: src/gui.c:7027
 msgid "_Playlist"
 msgstr "_Oynatma Listesi"
 
-#: src/gui.c:7019
+#: src/gui.c:7031
 msgid "Media _Info"
 msgstr "Medya _Bilgisi"
 
-#: src/gui.c:7022
+#: src/gui.c:7034
 msgid "D_etails"
 msgstr "D_etaylar"
 
-#: src/gui.c:7025
+#: src/gui.c:7037
 msgid "Audio _Meter"
 msgstr "Ses Se_viyesi Gösterici"
 
-#: src/gui.c:7037
+#: src/gui.c:7049
 msgid "_Normal (1:1)"
 msgstr "_Normal (1:1)"
 
-#: src/gui.c:7040
+#: src/gui.c:7052
 msgid "_Double Size (2:1)"
 msgstr "_İki Katı Boyut (2:1)"
 
-#: src/gui.c:7043
+#: src/gui.c:7055
 msgid "_Half Size (1:2)"
 msgstr "_Yarım Boyut (1:2)"
 
-#: src/gui.c:7045
+#: src/gui.c:7057
 msgid "_Aspect"
 msgstr "Ya_tay Dikey Oranı"
 
-#: src/gui.c:7051
+#: src/gui.c:7063
 msgid "D_efault Aspect"
 msgstr "_Öntanımlı Yatay Dikey Oranı"
 
-#: src/gui.c:7053
+#: src/gui.c:7065
 msgid "_4:3 Aspect"
 msgstr "_4:3 Yatay Dikey Oranı"
 
-#: src/gui.c:7055
+#: src/gui.c:7067
 msgid "_16:9 Aspect"
 msgstr "_16:9 Yatay Dikey Oranı"
 
-#: src/gui.c:7057
+#: src/gui.c:7069
 msgid "1_6:10 Aspect"
 msgstr "1_6:10 Yatay Dikey Oranı"
 
-#: src/gui.c:7059
+#: src/gui.c:7071
 msgid "_Follow Window"
 msgstr "_Pencereyi Takip Et"
 
-#: src/gui.c:7064
+#: src/gui.c:7076
 msgid "Show _Subtitles"
 msgstr "_Altyazıları Göster"
 
-#: src/gui.c:7072
+#: src/gui.c:7084
 msgid "Decrease Subtitle Delay"
 msgstr "Altyazı Gecikmesini Azalt"
 
-#: src/gui.c:7074
+#: src/gui.c:7086
 msgid "Increase Subtitle Delay"
 msgstr "Altyazı Gecikmesini Arttır"
 
-#: src/gui.c:7075
+#: src/gui.c:7087
 msgid "Switch An_gle"
 msgstr "A_çı Değiştir"
 
-#: src/gui.c:7077
+#: src/gui.c:7089
 msgid "_Controls"
 msgstr "_Kontroller"
 
-#: src/gui.c:7091
+#: src/gui.c:7103
 msgid "_Video Picture Adjustments"
 msgstr "_Video İnce Ayarları"
 
 #. Help Menu
-#: src/gui.c:7127
+#: src/gui.c:7139
 msgid "_Help"
 msgstr "_Yardım"
 
-#: src/gui.c:7271 src/gui.c:7274
+#: src/gui.c:7283 src/gui.c:7286
 msgid "Menu"
 msgstr "Menü"
 
-#: src/gui.c:7291 src/gui.c:7294
+#: src/gui.c:7303 src/gui.c:7306
 msgid "Previous"
 msgstr "Önceki"
 
-#: src/gui.c:7311 src/gui.c:7314
+#: src/gui.c:7323 src/gui.c:7326
 msgid "Rewind"
 msgstr "Geri Sar"
 
-#: src/gui.c:7351 src/gui.c:7354
+#: src/gui.c:7363 src/gui.c:7366
 msgid "Stop"
 msgstr "Dur"
 
-#: src/gui.c:7371 src/gui.c:7374
+#: src/gui.c:7383 src/gui.c:7386
 msgid "Fast Forward"
 msgstr "Hızlı İlerlet"
 
-#: src/gui.c:7391 src/gui.c:7394
+#: src/gui.c:7403 src/gui.c:7406
 msgid "Next"
 msgstr "Sonraki"
 
-#: src/gui.c:7472
+#: src/gui.c:7485
 msgid "Volume 100%"
 msgstr "Ses 100%"
 

@@ -1832,7 +1832,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             gmtk_media_player_set_attribute_integer_delta(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SATURATION, 5);
             return FALSE;
         case GDK_bracketleft:
-            gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SPEED_MULTIPLIER, 0.90);
+            gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SPEED_MULTIPLIER, 0.9091);
             return FALSE;
         case GDK_bracketright:
             gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SPEED_MULTIPLIER, 1.10);
@@ -1844,7 +1844,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SPEED_MULTIPLIER, 2.0);
             return FALSE;
         case GDK_BackSpace:
-            gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SPEED_MULTIPLIER, 1.0);
+            gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SPEED_SET, 1.0);
             return FALSE;
         case GDK_9:
 #ifdef GTK2_12_ENABLED

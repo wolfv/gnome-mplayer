@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-27 09:50-0600\n"
+"POT-Creation-Date: 2011-10-03 10:55-0600\n"
 "PO-Revision-Date: 2011-06-05 09:26+0000\n"
 "Last-Translator: Arve Eriksson <Unknown>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -274,7 +274,7 @@ msgstr "D_etaljer"
 msgid "Audio Meter"
 msgstr "Ljud_mätare"
 
-#: src/main.c:929 src/gui.c:7424 src/gui.c:7427
+#: src/main.c:929 src/gui.c:7437 src/gui.c:7440
 msgid "Full Screen"
 msgstr "Helskärm"
 
@@ -287,11 +287,11 @@ msgstr "_Bildförhållande"
 msgid "Subtitles"
 msgstr "Undertexter"
 
-#: src/main.c:932 src/gui.c:7067
+#: src/main.c:932 src/gui.c:7079
 msgid "Decrease Subtitle Size"
 msgstr "Minska textremsans storlek"
 
-#: src/main.c:933 src/gui.c:7069
+#: src/main.c:933 src/gui.c:7081
 msgid "Increase Subtitle Size"
 msgstr "Öka textremsans storlek"
 
@@ -343,7 +343,7 @@ msgstr "%s - (%i/%i) - GNOME MPlayer"
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "(%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:480 src/gui.c:3193 src/gui.c:6739
+#: src/gui.c:480 src/gui.c:3193 src/gui.c:6751
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
@@ -389,7 +389,7 @@ msgstr "Paus"
 #: src/gui.c:915 src/gui.c:916 src/gui.c:919 src/gui.c:936 src/gui.c:937
 #: src/gui.c:940 src/gui.c:2127 src/gui.c:2129 src/gui.c:2137 src/gui.c:2139
 #: src/gui.c:6266 src/gui.c:6267 src/gui.c:6270 src/gui.c:6312 src/gui.c:6313
-#: src/gui.c:6316 src/gui.c:7331 src/gui.c:7334
+#: src/gui.c:6316 src/gui.c:7343 src/gui.c:7346
 msgid "Play"
 msgstr "Spela"
 
@@ -1052,229 +1052,229 @@ msgstr ""
 msgid "Reset Keys"
 msgstr "Åt_erställ"
 
-#: src/gui.c:6786
+#: src/gui.c:6798
 msgid "S_how Controls"
 msgstr "V_isa kontroller"
 
-#: src/gui.c:6790 src/gui.c:7030
+#: src/gui.c:6802 src/gui.c:7042
 msgid "_Full Screen"
 msgstr "_Helskärm"
 
-#: src/gui.c:6795
+#: src/gui.c:6807
 msgid "_Copy Location"
 msgstr "_Kopiera plats"
 
 #. File Menu
-#: src/gui.c:6839
+#: src/gui.c:6851
 msgid "_File"
 msgstr "_Arkiv"
 
-#: src/gui.c:6847
+#: src/gui.c:6859
 msgid "Open _Folder"
 msgstr "Öppna _mapp"
 
-#: src/gui.c:6852
+#: src/gui.c:6864
 msgid "Open _Location"
 msgstr "Öppna _plats"
 
-#: src/gui.c:6858
+#: src/gui.c:6870
 msgid "_Disc"
 msgstr "_Skiva"
 
-#: src/gui.c:6866
+#: src/gui.c:6878
 msgid "Open _Audio CD"
 msgstr "Öppn_a musik-CD"
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
-#: src/gui.c:6872
+#: src/gui.c:6884
 msgid "Open DVD with _Menus"
 msgstr "Öppna DVD med _menyer"
 
-#: src/gui.c:6877
+#: src/gui.c:6889
 msgid "Open DVD from Folder with M_enus"
 msgstr "Öppna DVD från mapp med m_enyer"
 
-#: src/gui.c:6882
+#: src/gui.c:6894
 msgid "Open DVD from ISO with Me_nus"
 msgstr "Öppna DVD från ISO med me_nyer"
 
-#: src/gui.c:6886
+#: src/gui.c:6898
 msgid "Open _VCD"
 msgstr "Öppna _VCD"
 
-#: src/gui.c:6888
+#: src/gui.c:6900
 msgid "_TV"
 msgstr "_TV"
 
-#: src/gui.c:6893
+#: src/gui.c:6905
 msgid "Open _Analog TV"
 msgstr "Öppna _analog TV"
 
-#: src/gui.c:6895
+#: src/gui.c:6907
 msgid "Open _Digital TV"
 msgstr "Öppna _digital TV"
 
-#: src/gui.c:6898
+#: src/gui.c:6910
 msgid "Open _iPod™"
 msgstr "Öppna _iPod™"
 
-#: src/gui.c:6907
+#: src/gui.c:6919
 msgid "Open _Recent"
 msgstr "Öppna _tidigare"
 
 #. Edit Menu
-#: src/gui.c:6954
+#: src/gui.c:6966
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: src/gui.c:6960
+#: src/gui.c:6972
 msgid "_Shuffle Playlist"
 msgstr "_Blanda spellista"
 
-#: src/gui.c:6963
+#: src/gui.c:6975
 msgid "_Loop Playlist"
 msgstr "_Upprepa spellista"
 
-#: src/gui.c:6966
+#: src/gui.c:6978
 msgid "S_witch Audio Track"
 msgstr "Ä_ndra musikspår"
 
-#: src/gui.c:6968 src/playlist.c:1162
+#: src/gui.c:6980 src/playlist.c:1162
 msgid "Set Audi_o"
 msgstr "Ställ in _ljud"
 
-#: src/gui.c:6970
+#: src/gui.c:6982
 msgid "Select _Audio Language"
 msgstr "Välj _språk för ljud"
 
-#: src/gui.c:6973
+#: src/gui.c:6985
 msgid "Set Sub_title"
 msgstr "Ställ in _textremsa"
 
-#: src/gui.c:6975
+#: src/gui.c:6987
 msgid "S_elect Subtitle Language"
 msgstr "V_älj språk för textremsan"
 
-#: src/gui.c:6978
+#: src/gui.c:6990
 msgid "_Take Screenshot"
 msgstr "_Ta skärmdump"
 
-#: src/gui.c:6984 src/gui.c:6989
+#: src/gui.c:6996 src/gui.c:7001
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "Filer med namnet 'shotNNNN.png kommer sparas i arbetskatalogen"
 
 #. View Menu
-#: src/gui.c:7009
+#: src/gui.c:7021
 msgid "_View"
 msgstr "_Visa"
 
-#: src/gui.c:7015
+#: src/gui.c:7027
 msgid "_Playlist"
 msgstr "_Spellista"
 
-#: src/gui.c:7019
+#: src/gui.c:7031
 msgid "Media _Info"
 msgstr "Media_information"
 
-#: src/gui.c:7022
+#: src/gui.c:7034
 msgid "D_etails"
 msgstr "D_etaljer"
 
-#: src/gui.c:7025
+#: src/gui.c:7037
 msgid "Audio _Meter"
 msgstr "Ljud_mätare"
 
-#: src/gui.c:7037
+#: src/gui.c:7049
 msgid "_Normal (1:1)"
 msgstr "_Normal (1:1)"
 
-#: src/gui.c:7040
+#: src/gui.c:7052
 msgid "_Double Size (2:1)"
 msgstr "_Dubbel storlek (2:1)"
 
-#: src/gui.c:7043
+#: src/gui.c:7055
 msgid "_Half Size (1:2)"
 msgstr "_Halv storlek (1:2)"
 
-#: src/gui.c:7045
+#: src/gui.c:7057
 msgid "_Aspect"
 msgstr "_Bildförhållande"
 
-#: src/gui.c:7051
+#: src/gui.c:7063
 msgid "D_efault Aspect"
 msgstr "S_tandardbildförhållande"
 
-#: src/gui.c:7053
+#: src/gui.c:7065
 msgid "_4:3 Aspect"
 msgstr "_4:3-förhållande"
 
-#: src/gui.c:7055
+#: src/gui.c:7067
 msgid "_16:9 Aspect"
 msgstr "_16:9-förhållande"
 
-#: src/gui.c:7057
+#: src/gui.c:7069
 msgid "1_6:10 Aspect"
 msgstr "1_6:10-förhållande"
 
-#: src/gui.c:7059
+#: src/gui.c:7071
 msgid "_Follow Window"
 msgstr "_Följ fönstret"
 
-#: src/gui.c:7064
+#: src/gui.c:7076
 msgid "Show _Subtitles"
 msgstr "Visa _textremsor"
 
-#: src/gui.c:7072
+#: src/gui.c:7084
 msgid "Decrease Subtitle Delay"
 msgstr "Minska textremsans fördröjning"
 
-#: src/gui.c:7074
+#: src/gui.c:7086
 msgid "Increase Subtitle Delay"
 msgstr "Öka textremsans fördröjning"
 
-#: src/gui.c:7075
+#: src/gui.c:7087
 msgid "Switch An_gle"
 msgstr "Byt vin_kel"
 
-#: src/gui.c:7077
+#: src/gui.c:7089
 msgid "_Controls"
 msgstr "_Kontroller"
 
-#: src/gui.c:7091
+#: src/gui.c:7103
 msgid "_Video Picture Adjustments"
 msgstr "Bildjusteringar för _videon"
 
 #. Help Menu
-#: src/gui.c:7127
+#: src/gui.c:7139
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: src/gui.c:7271 src/gui.c:7274
+#: src/gui.c:7283 src/gui.c:7286
 msgid "Menu"
 msgstr "Meny"
 
-#: src/gui.c:7291 src/gui.c:7294
+#: src/gui.c:7303 src/gui.c:7306
 msgid "Previous"
 msgstr "Föregående"
 
-#: src/gui.c:7311 src/gui.c:7314
+#: src/gui.c:7323 src/gui.c:7326
 msgid "Rewind"
 msgstr "Tillbaka"
 
-#: src/gui.c:7351 src/gui.c:7354
+#: src/gui.c:7363 src/gui.c:7366
 msgid "Stop"
 msgstr "Stoppa"
 
-#: src/gui.c:7371 src/gui.c:7374
+#: src/gui.c:7383 src/gui.c:7386
 msgid "Fast Forward"
 msgstr "Snabbspola"
 
-#: src/gui.c:7391 src/gui.c:7394
+#: src/gui.c:7403 src/gui.c:7406
 msgid "Next"
 msgstr "Nästa"
 
-#: src/gui.c:7472
+#: src/gui.c:7485
 msgid "Volume 100%"
 msgstr "Volym 100%"
 

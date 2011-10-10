@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-27 09:50-0600\n"
+"POT-Creation-Date: 2011-10-03 10:55-0600\n"
 "PO-Revision-Date: 2011-06-06 12:13+0000\n"
 "Last-Translator: Pin-hsien Li <pspeter9931@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
@@ -269,7 +269,7 @@ msgstr "詳細資料(_E)"
 msgid "Audio Meter"
 msgstr "聽力計(_M)"
 
-#: src/main.c:929 src/gui.c:7424 src/gui.c:7427
+#: src/main.c:929 src/gui.c:7437 src/gui.c:7440
 msgid "Full Screen"
 msgstr "全螢幕"
 
@@ -282,11 +282,11 @@ msgstr "長寬比(_A)"
 msgid "Subtitles"
 msgstr "字幕"
 
-#: src/main.c:932 src/gui.c:7067
+#: src/main.c:932 src/gui.c:7079
 msgid "Decrease Subtitle Size"
 msgstr "縮小字幕字型"
 
-#: src/main.c:933 src/gui.c:7069
+#: src/main.c:933 src/gui.c:7081
 msgid "Increase Subtitle Size"
 msgstr "放大字幕字型"
 
@@ -336,7 +336,7 @@ msgstr "%s - (%i/%i) - GNOME MPlayer"
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "(%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:480 src/gui.c:3193 src/gui.c:6739
+#: src/gui.c:480 src/gui.c:3193 src/gui.c:6751
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
@@ -381,7 +381,7 @@ msgstr "暫停"
 #: src/gui.c:915 src/gui.c:916 src/gui.c:919 src/gui.c:936 src/gui.c:937
 #: src/gui.c:940 src/gui.c:2127 src/gui.c:2129 src/gui.c:2137 src/gui.c:2139
 #: src/gui.c:6266 src/gui.c:6267 src/gui.c:6270 src/gui.c:6312 src/gui.c:6313
-#: src/gui.c:6316 src/gui.c:7331 src/gui.c:7334
+#: src/gui.c:6316 src/gui.c:7343 src/gui.c:7346
 msgid "Play"
 msgstr "播放"
 
@@ -1025,229 +1025,229 @@ msgstr ""
 msgid "Reset Keys"
 msgstr "重設(_R)"
 
-#: src/gui.c:6786
+#: src/gui.c:6798
 msgid "S_how Controls"
 msgstr "顯示控制列(_H)"
 
-#: src/gui.c:6790 src/gui.c:7030
+#: src/gui.c:6802 src/gui.c:7042
 msgid "_Full Screen"
 msgstr "全螢幕(_F)"
 
-#: src/gui.c:6795
+#: src/gui.c:6807
 msgid "_Copy Location"
 msgstr "複製位置(_C)"
 
 #. File Menu
-#: src/gui.c:6839
+#: src/gui.c:6851
 msgid "_File"
 msgstr "檔案(_F)"
 
-#: src/gui.c:6847
+#: src/gui.c:6859
 msgid "Open _Folder"
 msgstr "開啟資料夾(_F)"
 
-#: src/gui.c:6852
+#: src/gui.c:6864
 msgid "Open _Location"
 msgstr "開啟位置(_L)"
 
-#: src/gui.c:6858
+#: src/gui.c:6870
 msgid "_Disc"
 msgstr "光碟(_D)"
 
-#: src/gui.c:6866
+#: src/gui.c:6878
 msgid "Open _Audio CD"
 msgstr "開啟音樂光碟 (_A)"
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
-#: src/gui.c:6872
+#: src/gui.c:6884
 msgid "Open DVD with _Menus"
 msgstr "開啟 DVD 及其選單(_M)"
 
-#: src/gui.c:6877
+#: src/gui.c:6889
 msgid "Open DVD from Folder with M_enus"
 msgstr "從資料夾中開啟 DVD 及其選單 (_E)"
 
-#: src/gui.c:6882
+#: src/gui.c:6894
 msgid "Open DVD from ISO with Me_nus"
 msgstr "從 ISO檔中開啟 DVD 及其選單 (_N)"
 
-#: src/gui.c:6886
+#: src/gui.c:6898
 msgid "Open _VCD"
 msgstr "開啟 _VCD"
 
-#: src/gui.c:6888
+#: src/gui.c:6900
 msgid "_TV"
 msgstr "電視(_T)"
 
-#: src/gui.c:6893
+#: src/gui.c:6905
 msgid "Open _Analog TV"
 msgstr "開啟類比電視(_A)"
 
-#: src/gui.c:6895
+#: src/gui.c:6907
 msgid "Open _Digital TV"
 msgstr "開啟數位電視(_D)"
 
-#: src/gui.c:6898
+#: src/gui.c:6910
 msgid "Open _iPod™"
 msgstr "開啟 _iPod™"
 
-#: src/gui.c:6907
+#: src/gui.c:6919
 msgid "Open _Recent"
 msgstr "最近開啟(_R)"
 
 #. Edit Menu
-#: src/gui.c:6954
+#: src/gui.c:6966
 msgid "_Edit"
 msgstr "編輯(_E)"
 
-#: src/gui.c:6960
+#: src/gui.c:6972
 msgid "_Shuffle Playlist"
 msgstr "隨機播放(_S)"
 
-#: src/gui.c:6963
+#: src/gui.c:6975
 msgid "_Loop Playlist"
 msgstr "重複播放(_L)"
 
-#: src/gui.c:6966
+#: src/gui.c:6978
 msgid "S_witch Audio Track"
 msgstr "切換音軌(_W)"
 
-#: src/gui.c:6968 src/playlist.c:1162
+#: src/gui.c:6980 src/playlist.c:1162
 msgid "Set Audi_o"
 msgstr "設定音訊(_O)"
 
-#: src/gui.c:6970
+#: src/gui.c:6982
 msgid "Select _Audio Language"
 msgstr "選擇音訊語言(_A)"
 
-#: src/gui.c:6973
+#: src/gui.c:6985
 msgid "Set Sub_title"
 msgstr "設定字幕(_T)"
 
-#: src/gui.c:6975
+#: src/gui.c:6987
 msgid "S_elect Subtitle Language"
 msgstr "選擇字幕語言(_S)"
 
-#: src/gui.c:6978
+#: src/gui.c:6990
 msgid "_Take Screenshot"
 msgstr "拍下畫面快照(_T)"
 
-#: src/gui.c:6984 src/gui.c:6989
+#: src/gui.c:6996 src/gui.c:7001
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "檔案 ’shotNNNN.png’ 會儲存在工作目錄"
 
 #. View Menu
-#: src/gui.c:7009
+#: src/gui.c:7021
 msgid "_View"
 msgstr "檢視(_V)"
 
-#: src/gui.c:7015
+#: src/gui.c:7027
 msgid "_Playlist"
 msgstr "播放清單(_P)"
 
-#: src/gui.c:7019
+#: src/gui.c:7031
 msgid "Media _Info"
 msgstr "媒體資訊(_I)"
 
-#: src/gui.c:7022
+#: src/gui.c:7034
 msgid "D_etails"
 msgstr "詳細資料(_E)"
 
-#: src/gui.c:7025
+#: src/gui.c:7037
 msgid "Audio _Meter"
 msgstr "聽力計(_M)"
 
-#: src/gui.c:7037
+#: src/gui.c:7049
 msgid "_Normal (1:1)"
 msgstr "一般大小[1:1](_N)"
 
-#: src/gui.c:7040
+#: src/gui.c:7052
 msgid "_Double Size (2:1)"
 msgstr "兩倍大小[2:1](_D)"
 
-#: src/gui.c:7043
+#: src/gui.c:7055
 msgid "_Half Size (1:2)"
 msgstr "一半大小[1:2](_H)"
 
-#: src/gui.c:7045
+#: src/gui.c:7057
 msgid "_Aspect"
 msgstr "長寬比(_A)"
 
-#: src/gui.c:7051
+#: src/gui.c:7063
 msgid "D_efault Aspect"
 msgstr "預設長寬比(_E)"
 
-#: src/gui.c:7053
+#: src/gui.c:7065
 msgid "_4:3 Aspect"
 msgstr "_4:3 長寬比"
 
-#: src/gui.c:7055
+#: src/gui.c:7067
 msgid "_16:9 Aspect"
 msgstr "_16:9 長寬比"
 
-#: src/gui.c:7057
+#: src/gui.c:7069
 msgid "1_6:10 Aspect"
 msgstr "1_6:10 長寬比"
 
-#: src/gui.c:7059
+#: src/gui.c:7071
 msgid "_Follow Window"
 msgstr "跟隨視窗(_F)"
 
-#: src/gui.c:7064
+#: src/gui.c:7076
 msgid "Show _Subtitles"
 msgstr "顯示字幕(_S)"
 
-#: src/gui.c:7072
+#: src/gui.c:7084
 msgid "Decrease Subtitle Delay"
 msgstr "減少字幕延時"
 
-#: src/gui.c:7074
+#: src/gui.c:7086
 msgid "Increase Subtitle Delay"
 msgstr "增加字幕延時"
 
-#: src/gui.c:7075
+#: src/gui.c:7087
 msgid "Switch An_gle"
 msgstr "切換角度(_G)"
 
-#: src/gui.c:7077
+#: src/gui.c:7089
 msgid "_Controls"
 msgstr "控制列(_C)"
 
-#: src/gui.c:7091
+#: src/gui.c:7103
 msgid "_Video Picture Adjustments"
 msgstr "視訊畫面調整(_V)"
 
 #. Help Menu
-#: src/gui.c:7127
+#: src/gui.c:7139
 msgid "_Help"
 msgstr "求助(_H)"
 
-#: src/gui.c:7271 src/gui.c:7274
+#: src/gui.c:7283 src/gui.c:7286
 msgid "Menu"
 msgstr "選單"
 
-#: src/gui.c:7291 src/gui.c:7294
+#: src/gui.c:7303 src/gui.c:7306
 msgid "Previous"
 msgstr "上一個"
 
-#: src/gui.c:7311 src/gui.c:7314
+#: src/gui.c:7323 src/gui.c:7326
 msgid "Rewind"
 msgstr "往後"
 
-#: src/gui.c:7351 src/gui.c:7354
+#: src/gui.c:7363 src/gui.c:7366
 msgid "Stop"
 msgstr "停止"
 
-#: src/gui.c:7371 src/gui.c:7374
+#: src/gui.c:7383 src/gui.c:7386
 msgid "Fast Forward"
 msgstr "往前"
 
-#: src/gui.c:7391 src/gui.c:7394
+#: src/gui.c:7403 src/gui.c:7406
 msgid "Next"
 msgstr "下一個"
 
-#: src/gui.c:7472
+#: src/gui.c:7485
 msgid "Volume 100%"
 msgstr "音量 100%"
 
