@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-10-03 10:55-0600\n"
-"PO-Revision-Date: 2011-06-08 08:48+0000\n"
-"Last-Translator: Kevin DeKorte <kdekorte@gmail.com>\n"
+"PO-Revision-Date: 2011-10-15 18:28+0900\n"
+"Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -22,15 +22,15 @@ msgstr ""
 
 #: src/main.c:50
 msgid "Window to embed in"
-msgstr "Window to embed in"
+msgstr ""
 
 #: src/main.c:51
 msgid "Width of window to embed in"
-msgstr "Width of window to embed in"
+msgstr ""
 
 #: src/main.c:52
 msgid "Height of window to embed in"
-msgstr "Height of window to embed in"
+msgstr ""
 
 #: src/main.c:53
 msgid "Unique DBUS controller id"
@@ -38,15 +38,15 @@ msgstr "一意な DBUS コントーラID"
 
 #: src/main.c:54
 msgid "File Argument is a playlist"
-msgstr "File Argument is a playlist"
+msgstr ""
 
 #: src/main.c:55
 msgid "Show more output on the console"
-msgstr "Show more output on the console"
+msgstr ""
 
 #: src/main.c:57
 msgid "Show even more output on the console"
-msgstr "Show even more output on the console"
+msgstr ""
 
 #: src/main.c:58
 msgid "Start in fullscreen mode"
@@ -116,7 +116,7 @@ msgstr "キャッシュサイズを設定する"
 
 #: src/main.c:84
 msgid "Start Second (default to 0)"
-msgstr ""
+msgstr "開始する秒（デフォルト：0 秒）"
 
 #: src/main.c:87
 msgid "Length of media to play from start second"
@@ -192,7 +192,7 @@ msgstr "TV入力の高さ"
 
 #: src/main.c:120
 msgid "Frames per second from TV input"
-msgstr ""
+msgstr "TV入力からのFPS（1秒あたりのフレーム数）"
 
 #: src/main.c:121
 msgid "Only allow one instance"
@@ -227,14 +227,12 @@ msgid "Don't fetch new cover art images"
 msgstr "新しいカバーアートイメージを取ってこない"
 
 #: src/main.c:146
-#, fuzzy
 msgid "DVD Device Name"
-msgstr "TVデバイス名"
+msgstr "DVD デバイス名"
 
 #: src/main.c:147
-#, fuzzy
 msgid "Video Output Device Name"
-msgstr "ビデオの出力:"
+msgstr "ビデオの出力デバイス名:"
 
 #: src/main.c:373 src/gui.c:735 src/gui.c:6305 src/gui.c:6367
 #, c-format
@@ -246,42 +244,36 @@ msgid "Open Location"
 msgstr "指定した場所を開く"
 
 #: src/main.c:923
-#, fuzzy
 msgid "Take Screenshot"
-msgstr "スクリーンショットを撮る(_T)"
+msgstr "スクリーンショットを撮る"
 
 #: src/main.c:924
 msgid "Preferences"
-msgstr ""
+msgstr "設定"
 
 #: src/main.c:925
-#, fuzzy
 msgid "Playlist"
-msgstr "プレイリスト(_P)"
+msgstr "プレイリスト"
 
 #: src/main.c:926
-#, fuzzy
 msgid "Media Info"
-msgstr "メディア情報(_M)"
+msgstr "メディア情報"
 
 #: src/main.c:927
-#, fuzzy
 msgid "Details"
-msgstr "詳細(_E)"
+msgstr "詳細"
 
 #: src/main.c:928
-#, fuzzy
 msgid "Audio Meter"
-msgstr "オーディオメータ (_M):"
+msgstr "オーディオメータ"
 
 #: src/main.c:929 src/gui.c:7437 src/gui.c:7440
 msgid "Full Screen"
 msgstr "全画面"
 
 #: src/main.c:930
-#, fuzzy
 msgid "Aspect"
-msgstr "アスペクト(_A)"
+msgstr "アスペクト"
 
 #: src/main.c:931 src/gui.c:4667
 msgid "Subtitles"
@@ -296,14 +288,12 @@ msgid "Increase Subtitle Size"
 msgstr "字幕サイズを大きくする"
 
 #: src/main.c:934
-#, fuzzy
 msgid "Switch Angle"
-msgstr "アングルを切り替える(_G)"
+msgstr "アングルを切り替える"
 
 #: src/main.c:935
-#, fuzzy
 msgid "Controls"
-msgstr "操作パネルを表示する(_C)"
+msgstr "操作パネルを表示する"
 
 #: src/main.c:951
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -317,16 +307,14 @@ msgstr "GNOME MPlayer v%s\n"
 #: src/main.c:972
 #, c-format
 msgid "gmtk v%s\n"
-msgstr ""
+msgstr "gmtk v%s\n"
 
 #: src/main.c:1036
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
-msgstr ""
-"利用可能なコマンドラインオプションの完全なリストを表示するために、'gnome-"
-"mplayer --help' を実行してください。\n"
+msgstr "利用可能なコマンドラインオプションを表示するために、'gnome-mplayer --help' を実行してください。\n"
 
 #: src/gui.c:439 src/gui.c:482 src/gui.c:6164
 #, c-format
@@ -356,7 +344,7 @@ msgstr "バッファ中: %2i%%"
 #: src/gui.c:626
 #, c-format
 msgid "Paused | %2i%% ▼"
-msgstr "停止しています | %2i%% ▼"
+msgstr "一時停止しています | %2i%% ▼"
 
 #: src/gui.c:737 src/gui.c:6327 src/gui.c:6369
 #, c-format
@@ -475,23 +463,21 @@ msgid ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 msgstr ""
-"Gnome MPlayer はフリーソフトウェアです。あなたはそれを\\n\n"
-"フリーソフトウェア財団により発行された GNU 一般公衆利用許諾契約書\\n\n"
-"（バージョン2か、希望によってはそれ以降のバージョンのうちどれか）の\\n\n"
-"定める条件の下で再頒布または改変することができます。\\n\n"
-"\\n\n"
-"Gnome MPlayer は有用であることを願って頒布されますが、*全くの無保証* で"
-"す。\\n\n"
-"商業可能性の保証や特定の目的への適合性は、言外に示されたものも含め\\n\n"
-"全く存在しません。詳しくはGNU 一般公衆利用許諾契約書をご覧ください。\\n\n"
-"\\n\n"
-"あなたは Gnome MPlayer と共に、GNU 一般公衆利用許諾契約書の複製物を\\n\n"
-"一部受け取ったはずです。もし受け取っていなければ、フリーソフトウェア財団まで"
-"\\n\n"
-"請求してください。\\n\n"
-"\\n\n"
-"Free Software Foundation, Inc.,\\n\n"
-"51 Franklin St, Fifth Floor\\n\n"
+"Gnome MPlayer はフリーソフトウェアです。あなたはそれを\n"
+"フリーソフトウェア財団により発行された GNU 一般公衆利用許諾契約書\n"
+"（バージョン2か、希望によってはそれ以降のバージョンのうちどれか）の\n"
+"定める条件の下で再頒布または改変することができます。\n"
+"\n"
+"Gnome MPlayer は有用であることを願って頒布されますが、*全くの無保証* です。\n"
+"商業可能性の保証や特定の目的への適合性は、言外に示されたものも含め\n"
+"全く存在しません。詳しくはGNU 一般公衆利用許諾契約書をご覧ください。\n"
+"\n"
+"あなたは Gnome MPlayer と共に、GNU 一般公衆利用許諾契約書の複製物を\n"
+"一部受け取ったはずです。もし受け取っていなければ、フリーソフトウェア財団まで\n"
+"請求してください。\n"
+"\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 
 #: src/gui.c:3389
@@ -522,7 +508,7 @@ msgstr "フォーマット:"
 #: src/gui.c:4124
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "不明"
 
 #: src/gui.c:4039 src/nautilus_property_page.c:359
 msgid "Video Codec:"
@@ -630,15 +616,15 @@ msgstr "最大の後処理"
 
 #: src/gui.c:4432
 msgid "Exact Match"
-msgstr ""
+msgstr "完全一致"
 
 #: src/gui.c:4435
 msgid "Load all subtitles containing movie name"
-msgstr ""
+msgstr "ビデオ名を含んでいる字幕をすべて読み込む"
 
 #: src/gui.c:4438
 msgid "Load all subtitles in the same folder"
-msgstr ""
+msgstr "同じフォルダ内の字幕をすべて読み込む"
 
 #: src/gui.c:4663
 msgid "Player"
@@ -654,7 +640,7 @@ msgstr "インターフェース"
 
 #: src/gui.c:4671
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "キーボードショートカット"
 
 #: src/gui.c:4673
 msgid "MPlayer"
@@ -673,7 +659,7 @@ msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv, gl or vdpau for better performance and "
 "enhanced features"
-msgstr ""
+msgstr "たいていの場合、x11 は動作するでしょう。よりよいパフォーマンスやすぐれた機能を利用する場合、xv や gl、vdpau などを試してください。"
 
 #: src/gui.c:4758
 msgid "Enable AC3/DTS pass-through to S/PDIF"
@@ -697,17 +683,17 @@ msgstr "ビデオの出力:"
 
 #: src/gui.c:5021
 msgid "Enable Video Hardware Support"
-msgstr ""
+msgstr "動画再生支援機能を有効にする"
 
 #: src/gui.c:5026 src/gui.c:5031
 msgid ""
 "When this option is enabled, codecs or options will be enabled to accelerate "
 "video processing. These options may cause playback to fail in some cases."
-msgstr ""
+msgstr "このオプションを有効にすると、動画再生支援機能（ハードウェアアクセラレーション）を有効にして、コーデックやオプションを利用します。場合によって、再生に失敗する場合もありえます。"
 
 #: src/gui.c:5039
 msgid "Enable CrystalHD Hardware Support"
-msgstr ""
+msgstr "Crystal HD 動画再生支援を有効にする"
 
 #: src/gui.c:5046
 msgid "Audio Output:"
@@ -876,13 +862,12 @@ msgid "Show Subtitles by Default"
 msgstr "字幕を表示する"
 
 #: src/gui.c:5434
-#, fuzzy
 msgid "Subtitle Load Fuzziness:"
-msgstr "フォント:"
+msgstr "字幕読み込みのあいまいさ"
 
 #: src/gui.c:5452
 msgid "<span weight=\"bold\">Application Preferences</span>"
-msgstr "<span weight=\"bold\">オーディオの詳細</span>"
+msgstr "<span weight=\"bold\">アプリケーションの設定</span>"
 
 #: src/gui.c:5459
 msgid "Start with playlist visible"
@@ -1027,9 +1012,7 @@ msgstr "MPlayer の実行可能なバイナリ:"
 #: src/gui.c:5693 src/gui.c:5697
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
-msgstr ""
-"パスに含まれない MPlayer バイナリへのパスを指定するために、このオプションを使"
-"います。"
+msgstr "このオプションを使うと、パス（環境変数 $PATH）に含まれない MPlayer バイナリへのパスを指定できます。"
 
 #: src/gui.c:5713
 msgid "Extra Options to MPlayer:"
@@ -1037,7 +1020,7 @@ msgstr "MPlayer へのその他のオプション:"
 
 #: src/gui.c:5716 src/gui.c:5719
 msgid "Add any extra mplayer options here (filters etc)"
-msgstr "ここに（フィルタ等）余分な MPlayer へのオプションを追加"
+msgstr "このオプションを使うと、MPlayer へのほかのオプション（フィルタなど）を追加できます。"
 
 #: src/gui.c:5730
 msgid "MPlayer Default Optical Device"
@@ -1050,11 +1033,14 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+"<span weight=\"bold\">キーボードショートカット</span>\n"
+"\n"
+"まず、変更したい項目の右側にあるボックスをマウスで選択します。\n"
+"つぎに、希望のショートカットキーを入力します。"
 
 #: src/gui.c:5777
-#, fuzzy
 msgid "Reset Keys"
-msgstr "リセット(_R)"
+msgstr "デフォルトに戻す"
 
 #: src/gui.c:6798
 msgid "S_how Controls"
