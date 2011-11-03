@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-10-03 10:55-0600\n"
-"PO-Revision-Date: 2011-06-01 17:33+0000\n"
+"PO-Revision-Date: 2011-10-19 21:33+0000\n"
 "Last-Translator: Dominik Dehning <Unknown>\n"
 "Language-Team: tim__b <timbuening@uni-muenster.de>, Wolfgang Knauf <his-"
 "metality@freenet.de>, MixCool <lars.thoms@mixcool.de>\n"
@@ -116,7 +116,7 @@ msgstr "Setze die Größe des Zwischenspeichers"
 
 #: src/main.c:84
 msgid "Start Second (default to 0)"
-msgstr "Starsekunde (Standard: 0)"
+msgstr "Startsekunde (Standard: 0)"
 
 #: src/main.c:87
 msgid "Length of media to play from start second"
@@ -246,42 +246,36 @@ msgid "Open Location"
 msgstr "Öffne Ort"
 
 #: src/main.c:923
-#, fuzzy
 msgid "Take Screenshot"
-msgstr "_Schnappschuss nehmen"
+msgstr "Schnappschuss nehmen"
 
 #: src/main.c:924
 msgid "Preferences"
-msgstr ""
+msgstr "Einstellungen"
 
 #: src/main.c:925
-#, fuzzy
 msgid "Playlist"
-msgstr "_Wiedergabeliste"
+msgstr "Wiedergabeliste"
 
 #: src/main.c:926
-#, fuzzy
 msgid "Media Info"
-msgstr "Media-_Informationen"
+msgstr "Media-Informationen"
 
 #: src/main.c:927
-#, fuzzy
 msgid "Details"
-msgstr "D_etails"
+msgstr "Details"
 
 #: src/main.c:928
-#, fuzzy
 msgid "Audio Meter"
-msgstr "Spektru_manalysator"
+msgstr "Spektrumanalysator"
 
 #: src/main.c:929 src/gui.c:7437 src/gui.c:7440
 msgid "Full Screen"
 msgstr "Vollbild"
 
 #: src/main.c:930
-#, fuzzy
 msgid "Aspect"
-msgstr "_Seitenverhältnis"
+msgstr "Seitenverhältnis"
 
 #: src/main.c:931 src/gui.c:4667
 msgid "Subtitles"
@@ -296,18 +290,16 @@ msgid "Increase Subtitle Size"
 msgstr "Erhöhe Untertitelgröße"
 
 #: src/main.c:934
-#, fuzzy
 msgid "Switch Angle"
 msgstr "Blickwinkel wechseln"
 
 #: src/main.c:935
-#, fuzzy
 msgid "Controls"
-msgstr "_Bedienelemente"
+msgstr "Bedienelemente"
 
 #: src/main.c:951
 msgid "[FILES...] - GNOME Media player based on MPlayer"
-msgstr "[Dateien...] - GNOME Media player based on MPlayer"
+msgstr "[Dateien...] - GNOME Media player basierend auf MPlayer"
 
 #: src/main.c:971
 #, c-format
@@ -317,7 +309,7 @@ msgstr "GNOME MPlayer v%s\n"
 #: src/main.c:972
 #, c-format
 msgid "gmtk v%s\n"
-msgstr ""
+msgstr "gmtk v%s\n"
 
 #: src/main.c:1036
 #, c-format
@@ -640,11 +632,11 @@ msgstr "Genaue Übereinstimmung"
 
 #: src/gui.c:4435
 msgid "Load all subtitles containing movie name"
-msgstr "Alle Untertitel Laden, die den Filmnamen enthalten"
+msgstr "Alle Untertitel laden, die den Filmnamen enthalten"
 
 #: src/gui.c:4438
 msgid "Load all subtitles in the same folder"
-msgstr ""
+msgstr "Alle Untertitel im gleichen Verzeichnis laden"
 
 #: src/gui.c:4663
 msgid "Player"
@@ -660,7 +652,7 @@ msgstr "Benutzeroberfläche"
 
 #: src/gui.c:4671
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Tastaturkürzel"
 
 #: src/gui.c:4673
 msgid "MPlayer"
@@ -759,7 +751,7 @@ msgid ""
 "media players and allow playback of various web content within\n"
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
-"<span weight=\"bold\">Konfiguriere Plugin-Emulatioseinstellungen</span>\n"
+"<span weight=\"bold\">Konfiguriere Plugin-Emulationseinstellungen</span>\n"
 "\n"
 "Diese Optionen wirken sich auf den gecko-mediaplayer-Plugin aus, wenn "
 "vorhanden.\n"
@@ -793,7 +785,7 @@ msgstr "Deaktiviere Player-Einbettung"
 
 #: src/gui.c:5194
 msgid "Disable Embedded Player Scaling"
-msgstr ""
+msgstr "Deaktiviere die Skalierung des eingebetteten Player"
 
 #: src/gui.c:5199
 msgid "Audio Cache Size (KB):"
@@ -880,9 +872,8 @@ msgid "Show Subtitles by Default"
 msgstr "Zeige Untertitel an"
 
 #: src/gui.c:5434
-#, fuzzy
 msgid "Subtitle Load Fuzziness:"
-msgstr "Untertitelschriftart"
+msgstr "Unschärfe beim Untertitel-Laden"
 
 #: src/gui.c:5452
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -1029,7 +1020,7 @@ msgstr ""
 
 #: src/gui.c:5689
 msgid "MPlayer Executable:"
-msgstr "Ausfühbare Datei von MPlayer"
+msgstr "Ausführbare Datei von MPlayer"
 
 #: src/gui.c:5693 src/gui.c:5697
 msgid ""
@@ -1055,11 +1046,14 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+"<span weight=\"bold\">Tastaturkürzel</span>\n"
+"\n"
+"Platzieren Sie den Cursor in dem Feld neben dem Befehl, den Sie ändern wollen\n"
+"Drücken Sie anschließend die Taste, die Sie als Kürzel benutzen wollen"
 
 #: src/gui.c:5777
-#, fuzzy
 msgid "Reset Keys"
-msgstr "Zu_rücksetzen"
+msgstr "Zurücksetzen"
 
 #: src/gui.c:6798
 msgid "S_how Controls"
@@ -1396,7 +1390,7 @@ msgstr "Länge"
 
 #: src/playlist.c:963
 msgid "Count"
-msgstr "Zähler"
+msgstr "Anzahl"
 
 #: src/playlist.c:972
 msgid "Order"
