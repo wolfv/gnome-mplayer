@@ -912,12 +912,14 @@ int main(int argc, char *argv[])
     accelerator_keys = gm_pref_store_get_string(gm_store, ACCELERATOR_KEYS);
     accel_keys = g_strv_new(KEY_COUNT);
     accel_keys_description = g_strv_new(KEY_COUNT);
-    parse = g_strsplit(accelerator_keys, " ", KEY_COUNT);
-    for (i = 0; i < g_strv_length(parse); i++) {
-        accel_keys[i] = g_strdup(parse[i]);
-    }
-    g_free(accelerator_keys);
-    g_strfreev(parse);
+	if (accelerator_keys != NULL) {                                       
+		parse = g_strsplit(accelerator_keys, " ", KEY_COUNT);
+		for (i = 0; i < g_strv_length(parse); i++) {
+		    accel_keys[i] = g_strdup(parse[i]);
+		}
+		g_free(accelerator_keys);
+		g_strfreev(parse);
+	}
     assign_default_keys();
     accel_keys_description[FILE_OPEN_LOCATION] = g_strdup(_("Open Location"));
     accel_keys_description[EDIT_SCREENSHOT] = g_strdup(_("Take Screenshot"));
