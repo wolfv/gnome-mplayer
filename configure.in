@@ -273,11 +273,6 @@ CHECK_GPM=yes
 AC_DEFINE(SM_INHIBIT, 0, [Disabled])
 AC_DEFINE(SS_INHIBIT, 0, [Disabled])
 
-AC_ARG_WITH([gpm-new-method],
-        [AS_HELP_STRING([--with-gpm-new-method],
-        [Use gnome-power-manager 2.26 or higher inhibit methods (Autodetected)])],
-        [CHECK_GPM=no AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])],
-        [])
 AC_ARG_WITH([gpm-old-method],
         [AS_HELP_STRING([--with-gpm-old-method],
         [Use gnome-power-manager below 2.26 inhibit methods (Autodetected)])],
@@ -285,25 +280,7 @@ AC_ARG_WITH([gpm-old-method],
         [])
 
 if test x$CHECK_GPM = "xyes"; then
-	GPM=`which gnome-power-manager`
-    if test "$GPM" != ""; then
-            AC_MSG_NOTICE([Checking for gnome-power-manager support])
-            GPMVER=`$GPM --version | sed -e 's/.* 2.//' | cut -b1-2`
-            if test -n $GPMVER; then
-                AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
-            else
-                if test $GPMVER -ge 26; then
-                    AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
-                fi
-                if test $GPMVER -lt 26; then
-                    AC_DEFINE(SS_INHIBIT, 1, [Defined if you are using gnome-power-manager below 2.26 ])
-                fi
-            fi
-    else
-        if test -x "${libexecdir}/gnome-settings-daemon"; then
-                AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
-        fi           
-    fi
+    AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
 fi
 
 BACKEND=`pkg-config --variable=preference_backend gmlib`

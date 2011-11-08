@@ -1,4 +1,7 @@
 Development
+    Remove configure option --with-gpm-new-method as this is default now
+        if you have an old gnome-power-manager < 2.26 add the configure flag
+        --with-gpm-old-method
     Try to detect the right screensaver api to use in Gnome 3.2 (Fedora 16)
     Updated German translation
     Fix warning when accelerator keys have not been set
