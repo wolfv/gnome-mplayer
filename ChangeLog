@@ -1,4 +1,5 @@
 Development
+    Try to detect the right screensaver api to use in Gnome 3.2 (Fedora 16)
     Updated German translation
     Fix warning when accelerator keys have not been set
     Updated Japanese translation

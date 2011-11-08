@@ -9633,6 +9633,12 @@ $as_echo "#define SS_INHIBIT 1" >>confdefs.h
 
                 fi
             fi
+    else
+        if test -x "${libexecdir}/gnome-settings-daemon"; then
+
+$as_echo "#define SM_INHIBIT 1" >>confdefs.h
+
+        fi
     fi
 fi
 
