@@ -298,7 +298,11 @@ if test x$CHECK_GPM = "xyes"; then
                 if test $GPMVER -lt 26; then
                     AC_DEFINE(SS_INHIBIT, 1, [Defined if you are using gnome-power-manager below 2.26 ])
                 fi
-            fi            
+            fi
+    else
+        if test -x "${libexecdir}/gnome-settings-daemon"; then
+                AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
+        fi           
     fi
 fi
 
