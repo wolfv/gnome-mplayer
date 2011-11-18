@@ -7261,7 +7261,9 @@ GtkWidget *create_window(gint windowid)
     gtk_window_set_icon_list(GTK_WINDOW(window), icon_list);
 #ifdef GTK2_12_ENABLED
     if (control_id == 0 && show_status_icon) {
-        if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
+        if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer-panel")) {
+            status_icon = gtk_status_icon_new_from_icon_name("gnome-mplayer-panel");
+		} else if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
             status_icon = gtk_status_icon_new_from_icon_name("gnome-mplayer");
         } else {
             status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
