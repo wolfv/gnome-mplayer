@@ -109,6 +109,7 @@ GtkMenuItem *menuitem_view_sep1;
 GtkMenuItem *menuitem_view_onetoone;
 GtkMenuItem *menuitem_view_twotoone;
 GtkMenuItem *menuitem_view_onetotwo;
+GtkMenuItem *menuitem_view_onetoonepointfive;
 GtkMenuItem *menuitem_view_sep4;
 GtkMenuItem *menuitem_view_aspect;
 GtkMenu *menu_view_aspect;
