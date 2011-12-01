@@ -1,4 +1,5 @@
 Development
+    Add 150% display of video
     Use icon named gnome-mplayer-panel for status icon if present in theme
     Remove configure option --with-gpm-new-method as this is default now
         if you have an old gnome-power-manager < 2.26 add the configure flag

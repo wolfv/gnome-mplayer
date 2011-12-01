@@ -3336,6 +3336,17 @@ void menuitem_view_twotoone_callback(GtkMenuItem * menuitem, void *data)
     resize_window(idle);
 }
 
+void menuitem_view_onetoonepointfive_callback(GtkMenuItem * menuitem, void *data)
+{
+    IdleData *idle = (IdleData *) data;
+
+    idle->width = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_WIDTH) * 1.5;
+    idle->height = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HEIGHT) * 1.5;
+    non_fs_width = 0;
+    non_fs_height = 0;
+    resize_window(idle);
+}
+
 void menuitem_view_onetotwo_callback(GtkMenuItem * menuitem, void *data)
 {
     IdleData *idle = (IdleData *) data;
@@ -5988,6 +5999,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), idledata->videopresent);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoonepointfive), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_default), idledata->videopresent);
@@ -7054,6 +7066,8 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_twotoone));
     menuitem_view_onetotwo = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_onetotwo));
+    menuitem_view_onetoonepointfive = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_50% larger (1.5:1)")));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_onetoonepointfive));
     menuitem_view_aspect = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Aspect")));
     gtk_menu_item_set_accel_path(menuitem_view_aspect, ACCEL_PATH_VIEW_ASPECT);
     menu_view_aspect = GTK_MENU(gtk_menu_new());
@@ -7113,6 +7127,8 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(menuitem_view_twotoone_callback), idledata);
     g_signal_connect(G_OBJECT(menuitem_view_onetotwo), "activate",
                      G_CALLBACK(menuitem_view_onetotwo_callback), idledata);
+    g_signal_connect(G_OBJECT(menuitem_view_onetoonepointfive), "activate",
+                     G_CALLBACK(menuitem_view_onetoonepointfive_callback), idledata);
     g_signal_connect(G_OBJECT(menuitem_view_aspect_default),
                      "activate", G_CALLBACK(menuitem_view_aspect_callback), NULL);
     g_signal_connect(G_OBJECT(menuitem_view_aspect_four_three),
@@ -7648,7 +7664,7 @@ void show_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetotwo), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), FALSE);
-    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_twotoone), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoonepointfive), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_default), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_aspect_four_three), FALSE);

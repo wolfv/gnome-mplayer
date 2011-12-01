@@ -1026,7 +1026,6 @@ int main(int argc, char *argv[])
         }
     }
 
-
     if (large_buttons)
         button_size = GTK_ICON_SIZE_DIALOG;
 
