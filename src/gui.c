@@ -7066,7 +7066,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_twotoone));
     menuitem_view_onetotwo = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_Half Size (1:2)")));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_onetotwo));
-    menuitem_view_onetoonepointfive = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("_50% larger (1.5:1)")));
+    menuitem_view_onetoonepointfive = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Half _Larger (1.5:1)")));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_view), GTK_WIDGET(menuitem_view_onetoonepointfive));
     menuitem_view_aspect = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Aspect")));
     gtk_menu_item_set_accel_path(menuitem_view_aspect, ACCEL_PATH_VIEW_ASPECT);

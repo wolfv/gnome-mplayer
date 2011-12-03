@@ -1,4 +1,5 @@
 Development
+    Reword 50% larger as gettext is stupid about the % sign
     Translated the missing string into Polish
 1.0.5b2
     Add 150% display of video

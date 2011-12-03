@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-01 16:16-0700\n"
+"POT-Creation-Date: 2011-12-03 08:55-0700\n"
 "PO-Revision-Date: 2011-06-13 13:41+0300\n"
 "Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -1180,9 +1180,9 @@ msgid "_Half Size (1:2)"
 msgstr "_Yarım Boyut (1:2)"
 
 #: src/gui.c:7069
-#, c-format
-msgid "_50% larger (1.5:1)"
-msgstr ""
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
+msgstr "_Yarım Boyut (1:2)"
 
 #: src/gui.c:7071
 msgid "_Aspect"
