@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-01 16:16-0700\n"
-"PO-Revision-Date: 2011-09-28 21:14+0200\n"
+"PO-Revision-Date: 2011-12-03 11:39+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -1206,7 +1206,7 @@ msgstr "P_ołowa rozmiaru (1:2)"
 #: src/gui.c:7069
 #, c-format
 msgid "_50% larger (1.5:1)"
-msgstr ""
+msgstr "Większy o _50% (1.5:1)"
 
 #: src/gui.c:7071
 msgid "_Aspect"
@@ -1482,3 +1482,4 @@ msgstr "Tempo wyświetlania:"
 #: src/nautilus_property_page.c:482
 msgid "Audio/Video"
 msgstr "Dźwięk/Obraz:"
+
