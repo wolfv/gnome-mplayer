@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-01 16:16-0700\n"
+"POT-Creation-Date: 2011-12-03 08:55-0700\n"
 "PO-Revision-Date: 2010-08-20 22:14+0000\n"
 "Last-Translator: Daniel Șerbănescu <cyber19rider@gmail.com>\n"
 "Language-Team: \n"
@@ -1181,9 +1181,9 @@ msgid "_Half Size (1:2)"
 msgstr "Dimensiune jumătate·(1:2)"
 
 #: src/gui.c:7069
-#, c-format
-msgid "_50% larger (1.5:1)"
-msgstr ""
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
+msgstr "Dimensiune jumătate·(1:2)"
 
 #: src/gui.c:7071
 msgid "_Aspect"

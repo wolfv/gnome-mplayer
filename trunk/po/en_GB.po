@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-01 16:16-0700\n"
+"POT-Creation-Date: 2011-12-03 08:55-0700\n"
 "PO-Revision-Date: 2011-06-05 06:07+0000\n"
 "Last-Translator: Arve Eriksson <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
@@ -1193,9 +1193,9 @@ msgid "_Half Size (1:2)"
 msgstr "_Half Size (1:2)"
 
 #: src/gui.c:7069
-#, c-format
-msgid "_50% larger (1.5:1)"
-msgstr ""
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
+msgstr "_Half Size (1:2)"
 
 #: src/gui.c:7071
 msgid "_Aspect"

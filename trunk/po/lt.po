@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-01 16:16-0700\n"
+"POT-Creation-Date: 2011-12-03 08:55-0700\n"
 "PO-Revision-Date: 2010-11-29 21:17+0000\n"
 "Last-Translator: Mindaugas Baranauskas <Unknown>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -1158,9 +1158,9 @@ msgid "_Half Size (1:2)"
 msgstr "_Pusė dydžio (1:2)"
 
 #: src/gui.c:7069
-#, c-format
-msgid "_50% larger (1.5:1)"
-msgstr ""
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
+msgstr "_Pusė dydžio (1:2)"
 
 #: src/gui.c:7071
 msgid "_Aspect"

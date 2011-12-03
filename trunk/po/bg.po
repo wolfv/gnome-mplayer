@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-01 16:16-0700\n"
+"POT-Creation-Date: 2011-12-03 08:55-0700\n"
 "PO-Revision-Date: 2011-03-03 17:38+0000\n"
 "Last-Translator: Adrian Dimitrov <Enzo_01@abv.bg>\n"
 "Language-Team: \n"
@@ -1192,9 +1192,9 @@ msgid "_Half Size (1:2)"
 msgstr "_Половин размер (1:2)"
 
 #: src/gui.c:7069
-#, c-format
-msgid "_50% larger (1.5:1)"
-msgstr ""
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
+msgstr "_Половин размер (1:2)"
 
 #: src/gui.c:7071
 msgid "_Aspect"
