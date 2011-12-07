@@ -1,4 +1,5 @@
 Development
+    Only use dark theme if not embedded, otherwise use the default theme
     Prefer the dark theme when running on gnome 3.2, similar to totem
     Updated Polish translation to match the reworded source text
     Reword 50% larger as gettext is stupid about the % sign
