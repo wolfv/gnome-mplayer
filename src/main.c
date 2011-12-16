@@ -658,7 +658,7 @@ int main(int argc, char *argv[])
     gdouble volume = 100.0;
     gchar *accelerator_keys;
     gchar **parse;
-	GtkSettings *gtk_settings;
+    GtkSettings *gtk_settings;
 
 #ifndef OS_WIN32
     struct sigaction sa;
@@ -913,14 +913,14 @@ int main(int argc, char *argv[])
     accelerator_keys = gm_pref_store_get_string(gm_store, ACCELERATOR_KEYS);
     accel_keys = g_strv_new(KEY_COUNT);
     accel_keys_description = g_strv_new(KEY_COUNT);
-	if (accelerator_keys != NULL) {                                       
-		parse = g_strsplit(accelerator_keys, " ", KEY_COUNT);
-		for (i = 0; i < g_strv_length(parse); i++) {
-		    accel_keys[i] = g_strdup(parse[i]);
-		}
-		g_free(accelerator_keys);
-		g_strfreev(parse);
-	}
+    if (accelerator_keys != NULL) {
+        parse = g_strsplit(accelerator_keys, " ", KEY_COUNT);
+        for (i = 0; i < g_strv_length(parse); i++) {
+            accel_keys[i] = g_strdup(parse[i]);
+        }
+        g_free(accelerator_keys);
+        g_strfreev(parse);
+    }
     assign_default_keys();
     accel_keys_description[FILE_OPEN_LOCATION] = g_strdup(_("Open Location"));
     accel_keys_description[EDIT_SCREENSHOT] = g_strdup(_("Take Screenshot"));
@@ -1052,11 +1052,11 @@ int main(int argc, char *argv[])
                            G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_BOOLEAN);
 
-	// only use dark theme if not embedded, otherwise use the default theme                                       
-	if (embed_window <= 0) {
-		gtk_settings = gtk_settings_get_default ();
-		g_object_set (G_OBJECT (gtk_settings), "gtk-application-prefer-dark-theme", TRUE, NULL);
-	}
+    // only use dark theme if not embedded, otherwise use the default theme                                       
+    if (embed_window <= 0) {
+        gtk_settings = gtk_settings_get_default();
+        g_object_set(G_OBJECT(gtk_settings), "gtk-application-prefer-dark-theme", TRUE, NULL);
+    }
 
     create_window(embed_window);
 

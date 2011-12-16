@@ -1,4 +1,5 @@
 Development
+    Rework key handler to be more correct with respect to shift/ctrl/alt modifiers
     Only use dark theme if not embedded, otherwise use the default theme
     Prefer the dark theme when running on gnome 3.2, similar to totem
     Updated Polish translation to match the reworded source text
