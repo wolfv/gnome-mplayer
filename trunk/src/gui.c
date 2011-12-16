@@ -1684,7 +1684,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     //printf("index = %i\n", get_index_from_key_and_modifier (event->keyval, event->state));
 
 
-    if (event->state == (event->state & (~GDK_CONTROL_MASK))) {
+    if (!event->is_modifier && (event->state & GDK_SHIFT_MASK) == 0 && (event->state & GDK_CONTROL_MASK) == 0
+        && (event->state & GDK_MOD1_MASK) == 0) {
 
         g_get_current_time(&currenttime);
         last_movement_time = currenttime.tv_sec;
@@ -1948,24 +1949,43 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                                                                                             ATTRIBUTE_SUBTITLE_POSITION)
                                                     - 1);
             return FALSE;
-        case GDK_B:
-            gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_POSITION,
-                                                    gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
-                                                                                            ATTRIBUTE_SUBTITLE_POSITION)
-                                                    + 1);
-            return FALSE;
         case GDK_s:
-        case GDK_S:
             gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_TAKE_SCREENSHOT);
             return FALSE;
-
         default:
             gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             return FALSE;
         }
     }
 
-    if ((fullscreen == 1) && (event->state & GDK_CONTROL_MASK)) {
+    if (!event->is_modifier && (event->state & GDK_SHIFT_MASK) == 1 && (event->state & GDK_CONTROL_MASK) == 0
+        && (event->state & GDK_MOD1_MASK) == 0) {
+        g_get_current_time(&currenttime);
+        last_movement_time = currenttime.tv_sec;
+
+        title_is_menu = gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE_IS_MENU);
+
+        g_idle_add(make_panel_and_mouse_visible, NULL);
+        switch (event->keyval) {
+        case GDK_B:
+            gmtk_media_player_set_attribute_integer(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUBTITLE_POSITION,
+                                                    gmtk_media_player_get_attribute_integer(GMTK_MEDIA_PLAYER(media),
+                                                                                            ATTRIBUTE_SUBTITLE_POSITION)
+                                                    + 1);
+            return FALSE;
+        case GDK_S:
+            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_TAKE_SCREENSHOT);
+            return FALSE;
+        default:
+            gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
+            return FALSE;
+        }
+
+    }
+
+    if ((fullscreen == 1)
+        && (!event->is_modifier && (event->state & GDK_SHIFT_MASK) == 0 && (event->state & GDK_CONTROL_MASK) == 0
+            && (event->state & GDK_MOD1_MASK) == 0)) {
         switch (event->keyval) {
         case GDK_f:
             idledata->fullscreen = FALSE;
@@ -7279,7 +7299,7 @@ GtkWidget *create_window(gint windowid)
     if (control_id == 0 && show_status_icon) {
         if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer-panel")) {
             status_icon = gtk_status_icon_new_from_icon_name("gnome-mplayer-panel");
-		} else if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
+        } else if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
             status_icon = gtk_status_icon_new_from_icon_name("gnome-mplayer");
         } else {
             status_icon = gtk_status_icon_new_from_pixbuf(pb_icon);
