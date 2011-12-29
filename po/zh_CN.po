@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 08:55-0700\n"
+"POT-Creation-Date: 2011-12-29 07:31-0700\n"
 "PO-Revision-Date: 2011-03-30 14:32+0000\n"
 "Last-Translator: Lele Long <schemacs@gmail.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
@@ -145,7 +145,7 @@ msgstr "使用竖直布局"
 msgid "Start with playlist open"
 msgstr "程序开启时打开播放列表栏"
 
-#: src/main.c:107 src/gui.c:5475
+#: src/main.c:107 src/gui.c:5495
 msgid "Start with details visible"
 msgstr "程序开启时显示详细信息栏"
 
@@ -231,97 +231,97 @@ msgstr "TV设备名称"
 msgid "Video Output Device Name"
 msgstr "视频输出:"
 
-#: src/main.c:373 src/gui.c:735 src/gui.c:6317 src/gui.c:6379
+#: src/main.c:373 src/gui.c:735 src/gui.c:6337 src/gui.c:6399
 #, c-format
 msgid "Playing"
 msgstr "正在播放"
 
-#: src/main.c:924 src/gui.c:2660
+#: src/main.c:925 src/gui.c:2680
 msgid "Open Location"
 msgstr "打开位置"
 
-#: src/main.c:925
+#: src/main.c:926
 #, fuzzy
 msgid "Take Screenshot"
 msgstr "截屏(_T)"
 
-#: src/main.c:926
+#: src/main.c:927
 msgid "Preferences"
 msgstr ""
 
-#: src/main.c:927
+#: src/main.c:928
 #, fuzzy
 msgid "Playlist"
 msgstr "播放列表(_P)"
 
-#: src/main.c:928
+#: src/main.c:929
 #, fuzzy
 msgid "Media Info"
 msgstr "媒体信息(_I)"
 
-#: src/main.c:929
+#: src/main.c:930
 #, fuzzy
 msgid "Details"
 msgstr "细节(_E)"
 
-#: src/main.c:930
+#: src/main.c:931
 #, fuzzy
 msgid "Audio Meter"
 msgstr "音频柱形图(_M)"
 
-#: src/main.c:931 src/gui.c:7455 src/gui.c:7458
+#: src/main.c:932 src/gui.c:7475 src/gui.c:7478
 msgid "Full Screen"
 msgstr "全屏幕"
 
-#: src/main.c:932
+#: src/main.c:933
 #, fuzzy
 msgid "Aspect"
 msgstr "宽高比(_A)"
 
-#: src/main.c:933 src/gui.c:4678
+#: src/main.c:934 src/gui.c:4698
 msgid "Subtitles"
 msgstr "字幕"
 
-#: src/main.c:934 src/gui.c:7093
+#: src/main.c:935 src/gui.c:7113
 msgid "Decrease Subtitle Size"
 msgstr "减小字幕大小"
 
-#: src/main.c:935 src/gui.c:7095
+#: src/main.c:936 src/gui.c:7115
 msgid "Increase Subtitle Size"
 msgstr "增加字幕大小"
 
-#: src/main.c:936
+#: src/main.c:937
 #, fuzzy
 msgid "Switch Angle"
 msgstr "变换角度(_G)"
 
-#: src/main.c:937
+#: src/main.c:938
 #, fuzzy
 msgid "Controls"
 msgstr "控制条(_C)"
 
-#: src/main.c:953
+#: src/main.c:954
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[FILES...] - 基于Mplayer的Gnome媒体播放器"
 
-#: src/main.c:973
+#: src/main.c:974
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:974
+#: src/main.c:975
 #, c-format
 msgid "gmtk v%s\n"
 msgstr ""
 
-#: src/main.c:1037
+#: src/main.c:1038
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr "运行'gnome-mplayer --help'查看完整的可用命令参数。\n"
 
-#: src/gui.c:439 src/gui.c:482 src/gui.c:6176
+#: src/gui.c:439 src/gui.c:482 src/gui.c:6196
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
@@ -336,7 +336,7 @@ msgstr "%s - (%i/%i) - GNOME MPlayer"
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "(%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:480 src/gui.c:3193 src/gui.c:6763
+#: src/gui.c:480 src/gui.c:3213 src/gui.c:6783
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
@@ -351,12 +351,12 @@ msgstr "缓冲: %2i%%"
 msgid "Paused | %2i%% ▼"
 msgstr "暂停 | %2i%% ▼"
 
-#: src/gui.c:737 src/gui.c:6339 src/gui.c:6381
+#: src/gui.c:737 src/gui.c:6359 src/gui.c:6401
 #, c-format
 msgid "Paused"
 msgstr "已暂停"
 
-#: src/gui.c:739 src/gui.c:1114 src/gui.c:6383
+#: src/gui.c:739 src/gui.c:1114 src/gui.c:6403
 #, c-format
 msgid "Idle"
 msgstr "空闲"
@@ -366,22 +366,22 @@ msgstr "空闲"
 msgid "%s items"
 msgstr "%s个项目"
 
-#: src/gui.c:870 src/gui.c:2602 src/gui.c:2976 src/support.c:197
+#: src/gui.c:870 src/gui.c:2622 src/gui.c:2996 src/support.c:197
 #: src/support.c:263 src/playlist.c:586
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
 msgstr[0] "播放项目"
 
-#: src/gui.c:894 src/gui.c:895 src/gui.c:898 src/gui.c:6301 src/gui.c:6302
-#: src/gui.c:6305
+#: src/gui.c:894 src/gui.c:895 src/gui.c:898 src/gui.c:6321 src/gui.c:6322
+#: src/gui.c:6325
 msgid "Pause"
 msgstr "暂停"
 
 #: src/gui.c:915 src/gui.c:916 src/gui.c:919 src/gui.c:936 src/gui.c:937
-#: src/gui.c:940 src/gui.c:2127 src/gui.c:2129 src/gui.c:2137 src/gui.c:2139
-#: src/gui.c:6278 src/gui.c:6279 src/gui.c:6282 src/gui.c:6324 src/gui.c:6325
-#: src/gui.c:6328 src/gui.c:7361 src/gui.c:7364
+#: src/gui.c:940 src/gui.c:2147 src/gui.c:2149 src/gui.c:2157 src/gui.c:2159
+#: src/gui.c:6298 src/gui.c:6299 src/gui.c:6302 src/gui.c:6344 src/gui.c:6345
+#: src/gui.c:6348 src/gui.c:7381 src/gui.c:7384
 msgid "Play"
 msgstr "播放"
 
@@ -405,48 +405,48 @@ msgstr "暂停%s"
 msgid "Volume %i%%"
 msgstr "音量 %i%%"
 
-#: src/gui.c:2144
+#: src/gui.c:2164
 msgid "Stopped"
 msgstr "已停止"
 
-#: src/gui.c:2553 src/playlist.c:548
+#: src/gui.c:2573 src/playlist.c:548
 msgid "Open File"
 msgstr "打开文件"
 
-#: src/gui.c:2662
+#: src/gui.c:2682
 msgid "Location:"
 msgstr "位置："
 
-#: src/gui.c:2716 src/gui.c:2808
+#: src/gui.c:2736 src/gui.c:2828
 msgid "Choose Disk Directory"
 msgstr "选择目录"
 
-#: src/gui.c:2752 src/gui.c:2848
+#: src/gui.c:2772 src/gui.c:2868
 msgid "Choose Disk Image"
 msgstr "选择镜像文件"
 
-#: src/gui.c:2766 src/gui.c:2862
+#: src/gui.c:2786 src/gui.c:2882
 msgid "Disk Image (*.iso)"
 msgstr "光盘镜像(*.iso)"
 
-#: src/gui.c:3098
+#: src/gui.c:3118
 msgid "Save As..."
 msgstr "另存为…"
 
-#: src/gui.c:3138
+#: src/gui.c:3158
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "无法保存 '%s'"
 
-#: src/gui.c:3141 src/support.c:798 src/support.c:889
+#: src/gui.c:3161 src/support.c:798 src/support.c:889
 msgid "GNOME MPlayer Error"
 msgstr "GNOME MPlayer 错误"
 
-#: src/gui.c:3195
+#: src/gui.c:3215
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "基于MPlayer的Gnome媒体播放器"
 
-#: src/gui.c:3198
+#: src/gui.c:3218
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -483,257 +483,257 @@ msgstr ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 
-#: src/gui.c:3400
+#: src/gui.c:3420
 msgid "Set AudioFile"
 msgstr "设置音频文件"
 
-#: src/gui.c:3436 src/playlist.c:136
+#: src/gui.c:3456 src/playlist.c:136
 msgid "Set Subtitle"
 msgstr "设置字幕"
 
-#: src/gui.c:3598
+#: src/gui.c:3618
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Gnome MPlayer 全屏幕"
 
-#: src/gui.c:4019 src/nautilus_property_page.c:341
+#: src/gui.c:4039 src/nautilus_property_page.c:341
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">视频详细信息</span>"
 
-#: src/gui.c:4026 src/nautilus_property_page.c:348
+#: src/gui.c:4046 src/nautilus_property_page.c:348
 msgid "Video Size:"
 msgstr "视频尺寸："
 
-#: src/gui.c:4039
+#: src/gui.c:4059
 msgid "Video Format:"
 msgstr "视频格式："
 
-#: src/gui.c:4043 src/gui.c:4054 src/gui.c:4085 src/gui.c:4109 src/gui.c:4122
-#: src/gui.c:4135
+#: src/gui.c:4063 src/gui.c:4074 src/gui.c:4105 src/gui.c:4129 src/gui.c:4142
+#: src/gui.c:4155
 #, c-format
 msgid "Unknown"
 msgstr ""
 
-#: src/gui.c:4050 src/nautilus_property_page.c:359
+#: src/gui.c:4070 src/nautilus_property_page.c:359
 msgid "Video Codec:"
 msgstr "视频编解码器："
 
-#: src/gui.c:4061
+#: src/gui.c:4081
 msgid "Video FPS:"
 msgstr "视频帧数:"
 
-#: src/gui.c:4070 src/nautilus_property_page.c:370
+#: src/gui.c:4090 src/nautilus_property_page.c:370
 msgid "Video Bitrate:"
 msgstr "视频比特率:"
 
-#: src/gui.c:4081
+#: src/gui.c:4101
 msgid "Video Chapters:"
 msgstr "视频速率:"
 
-#: src/gui.c:4097 src/nautilus_property_page.c:395
+#: src/gui.c:4117 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">音频详细信息</span>"
 
-#: src/gui.c:4104
+#: src/gui.c:4124
 msgid "Audio Format:"
 msgstr ""
 
-#: src/gui.c:4117 src/nautilus_property_page.c:402
+#: src/gui.c:4137 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
 msgstr "音频编解码器："
 
-#: src/gui.c:4130 src/nautilus_property_page.c:425
+#: src/gui.c:4150 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
 msgstr "音频声道:"
 
-#: src/gui.c:4143 src/nautilus_property_page.c:413
+#: src/gui.c:4163 src/nautilus_property_page.c:413
 msgid "Audio Bitrate:"
 msgstr "音频比特率:"
 
-#: src/gui.c:4156
+#: src/gui.c:4176
 msgid "Audio Sample Rate:"
 msgstr "音频采样率:"
 
-#: src/gui.c:4186
+#: src/gui.c:4206
 msgid "Video Picture Adjustments"
 msgstr "视频画面校正"
 
-#: src/gui.c:4199
+#: src/gui.c:4219
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">视频画面校正</span>"
 
-#: src/gui.c:4206
+#: src/gui.c:4226
 msgid "Brightness"
 msgstr "亮度"
 
-#: src/gui.c:4217
+#: src/gui.c:4237
 msgid "Contrast"
 msgstr "对比度"
 
-#: src/gui.c:4228
+#: src/gui.c:4248
 msgid "Gamma"
 msgstr "伽玛"
 
-#: src/gui.c:4239
+#: src/gui.c:4259
 msgid "Hue"
 msgstr "色调"
 
-#: src/gui.c:4250
+#: src/gui.c:4270
 msgid "Saturation"
 msgstr "饱和度"
 
-#: src/gui.c:4267
+#: src/gui.c:4287
 msgid "_Reset"
 msgstr "重置(_R)"
 
-#: src/gui.c:4390
+#: src/gui.c:4410
 msgid "No Display"
 msgstr "无画面"
 
-#: src/gui.c:4393
+#: src/gui.c:4413
 msgid "Minimal"
 msgstr "最小模式"
 
-#: src/gui.c:4396
+#: src/gui.c:4416
 msgid "Timer"
 msgstr "播放时间"
 
-#: src/gui.c:4399
+#: src/gui.c:4419
 msgid "Timer/Total"
 msgstr "播放时间/总时间"
 
-#: src/gui.c:4415
+#: src/gui.c:4435
 msgid "No Postprocessing"
 msgstr "不进行后期处理"
 
-#: src/gui.c:4419
+#: src/gui.c:4439
 msgid "Minimal Postprocessing"
 msgstr "最小后期处理"
 
-#: src/gui.c:4423
+#: src/gui.c:4443
 msgid "More Postprocessing"
 msgstr "多后期处理"
 
-#: src/gui.c:4427
+#: src/gui.c:4447
 msgid "Maximum Postprocessing"
 msgstr "最大后期处理"
 
-#: src/gui.c:4443
+#: src/gui.c:4463
 msgid "Exact Match"
 msgstr ""
 
-#: src/gui.c:4446
+#: src/gui.c:4466
 msgid "Load all subtitles containing movie name"
 msgstr ""
 
-#: src/gui.c:4449
+#: src/gui.c:4469
 msgid "Load all subtitles in the same folder"
 msgstr ""
 
-#: src/gui.c:4674
+#: src/gui.c:4694
 msgid "Player"
 msgstr "播放器"
 
-#: src/gui.c:4676
+#: src/gui.c:4696
 msgid "Language Settings"
 msgstr "语言设置"
 
-#: src/gui.c:4680
+#: src/gui.c:4700
 msgid "Interface"
 msgstr "界面"
 
-#: src/gui.c:4682
+#: src/gui.c:4702
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: src/gui.c:4684
+#: src/gui.c:4704
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:4686
+#: src/gui.c:4706
 msgid "Plugin"
 msgstr "插件"
 
-#: src/gui.c:4692
+#: src/gui.c:4712
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME MPlayer 设置"
 
-#: src/gui.c:4710 src/gui.c:4716
+#: src/gui.c:4730 src/gui.c:4736
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv, gl or vdpau for better performance and "
 "enhanced features"
 msgstr ""
 
-#: src/gui.c:4769
+#: src/gui.c:4789
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "通过S/PDIF启用AC3/DTS"
 
-#: src/gui.c:4778
+#: src/gui.c:4798
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "使用mplayer的软件混音音量控制"
 
-#: src/gui.c:4798
+#: src/gui.c:4818
 msgid "Default"
 msgstr "默认值"
 
-#: src/gui.c:5016
+#: src/gui.c:5036
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">调整输出选项</span>"
 
-#: src/gui.c:5023
+#: src/gui.c:5043
 msgid "Video Output:"
 msgstr "视频输出:"
 
-#: src/gui.c:5032
+#: src/gui.c:5052
 msgid "Enable Video Hardware Support"
 msgstr ""
 
-#: src/gui.c:5037 src/gui.c:5042
+#: src/gui.c:5057 src/gui.c:5062
 msgid ""
 "When this option is enabled, codecs or options will be enabled to accelerate "
 "video processing. These options may cause playback to fail in some cases."
 msgstr ""
 
-#: src/gui.c:5050
+#: src/gui.c:5070
 msgid "Enable CrystalHD Hardware Support"
 msgstr ""
 
-#: src/gui.c:5057
+#: src/gui.c:5077
 msgid "Audio Output:"
 msgstr "音频输出:"
 
-#: src/gui.c:5068
+#: src/gui.c:5088
 msgid "Default Mixer:"
 msgstr "默认混音器:"
 
-#: src/gui.c:5078
+#: src/gui.c:5098
 msgid "Audio Channels to Output"
 msgstr "输出音频声道数"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:5106
+#: src/gui.c:5126
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">调整设置选项</span>"
 
-#: src/gui.c:5114
+#: src/gui.c:5134
 msgid "Default Volume Level:"
 msgstr "默认音量:"
 
-#: src/gui.c:5121 src/gui.c:5124
+#: src/gui.c:5141 src/gui.c:5144
 msgid "Default volume for playback"
 msgstr "默认播放时使用的音量"
 
-#: src/gui.c:5138
+#: src/gui.c:5158
 msgid "On Screen Display Level:"
 msgstr "屏显(OSD)等级:"
 
-#: src/gui.c:5150
+#: src/gui.c:5170
 msgid "Post-processing level:"
 msgstr "后期处理等级:"
 
-#: src/gui.c:5164
+#: src/gui.c:5184
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -749,274 +749,274 @@ msgstr ""
 "Gecko-mediaplayer是一个火狐的插件，可以用来在浏览器里面虚拟多种\n"
 "播放器，可以用在兼容NPRuntime的浏览器内(Firefox,Konqueror, 等等)."
 
-#: src/gui.c:5175
+#: src/gui.c:5195
 msgid "QuickTime Emulation"
 msgstr "QuickTime模拟"
 
-#: src/gui.c:5180
+#: src/gui.c:5200
 msgid "RealPlayer Emulation"
 msgstr "RealPlayer模拟"
 
-#: src/gui.c:5185
+#: src/gui.c:5205
 msgid "Windows Media Player Emulation"
 msgstr "Windows Media Player模拟"
 
-#: src/gui.c:5190
+#: src/gui.c:5210
 msgid "DiVX Player Emulation"
 msgstr "DiVX Player模拟"
 
-#: src/gui.c:5195
+#: src/gui.c:5215
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "MIDI支持(需要Mplayer本身支持)"
 
-#: src/gui.c:5200
+#: src/gui.c:5220
 msgid "Disable Player Embedding"
 msgstr "禁用播放器嵌入"
 
-#: src/gui.c:5205
+#: src/gui.c:5225
 msgid "Disable Embedded Player Scaling"
 msgstr ""
 
-#: src/gui.c:5210
+#: src/gui.c:5230
 msgid "Audio Cache Size (KB):"
 msgstr "音频缓存大小 (KB) ："
 
-#: src/gui.c:5220 src/gui.c:5223 src/gui.c:5229 src/gui.c:5234
+#: src/gui.c:5240 src/gui.c:5243 src/gui.c:5249 src/gui.c:5254
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
 msgstr "当播放网络媒体文件时使用大一点的缓存，如果网络慢，需要更大的缓存。"
 
-#: src/gui.c:5250
+#: src/gui.c:5270
 msgid "Video Cache Size (KB):"
 msgstr "音频缓存大小 (KB) ："
 
-#: src/gui.c:5272
+#: src/gui.c:5292
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">调整语言选项</span>"
 
-#: src/gui.c:5279
+#: src/gui.c:5299
 msgid "Default Audio Language"
 msgstr "默认音频语言"
 
-#: src/gui.c:5288
+#: src/gui.c:5308
 msgid "Default Subtitle Language:"
 msgstr "默认字幕语言:"
 
-#: src/gui.c:5298
+#: src/gui.c:5318
 msgid "File Metadata Encoding:"
 msgstr "文件编码:"
 
-#: src/gui.c:5314
+#: src/gui.c:5334
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">字幕设置</span>"
 
-#: src/gui.c:5321
+#: src/gui.c:5341
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "启用高级转换透明(ASS)字幕渲染支持(_A)"
 
-#: src/gui.c:5328
+#: src/gui.c:5348
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "使用内嵌字体(仅限于MKV)(_E)"
 
-#: src/gui.c:5337
+#: src/gui.c:5357
 msgid "Subtitle Font:"
 msgstr "字幕字体:"
 
-#: src/gui.c:5355
+#: src/gui.c:5375
 msgid "Subtitle Font Selection"
 msgstr "字幕字体选择"
 
-#: src/gui.c:5360
+#: src/gui.c:5380
 msgid "Subtitle Color:"
 msgstr "字幕颜色:"
 
-#: src/gui.c:5384
+#: src/gui.c:5404
 msgid "Subtitle Color Selection"
 msgstr "字幕颜色选择"
 
-#: src/gui.c:5390
+#: src/gui.c:5410
 msgid "Outline Subtitle Font"
 msgstr "字幕字体加边"
 
-#: src/gui.c:5396
+#: src/gui.c:5416
 msgid "Shadow Subtitle Font"
 msgstr "字幕字体加阴影"
 
-#: src/gui.c:5402
+#: src/gui.c:5422
 msgid "Subtitle Font Scaling:"
 msgstr "字幕缩放:"
 
-#: src/gui.c:5415
+#: src/gui.c:5435
 msgid "Subtitle File Encoding:"
 msgstr "字幕文件编码:"
 
-#: src/gui.c:5427
+#: src/gui.c:5447
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr "字幕低填充(仅适合X11/XV):"
 
-#: src/gui.c:5440
+#: src/gui.c:5460
 msgid "Show Subtitles by Default"
 msgstr "默认显示字幕"
 
-#: src/gui.c:5445
+#: src/gui.c:5465
 #, fuzzy
 msgid "Subtitle Load Fuzziness:"
 msgstr "字幕字体:"
 
-#: src/gui.c:5463
+#: src/gui.c:5483
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">外观设置</span>"
 
-#: src/gui.c:5470
+#: src/gui.c:5490
 msgid "Start with playlist visible"
 msgstr "程序开启时显示播放列表"
 
-#: src/gui.c:5480
+#: src/gui.c:5500
 msgid "Respond to Keyboard Media Keys"
 msgstr "回应键盘多媒体键"
 
-#: src/gui.c:5485
+#: src/gui.c:5505
 msgid "Use default playlist"
 msgstr "使用默认播放列表"
 
-#: src/gui.c:5491
+#: src/gui.c:5511
 msgid "Show notification popup"
 msgstr "显示弹出提示"
 
-#: src/gui.c:5498
+#: src/gui.c:5518
 msgid "Show status icon"
 msgstr "显示系统托盘图标"
 
-#: src/gui.c:5504
+#: src/gui.c:5524
 msgid "Use X Screen Saver control over Gnome Power Manager"
 msgstr "使用 X 屏保控制代替 Gnome 电源管理器"
 
-#: src/gui.c:5510
+#: src/gui.c:5530
 msgid "Place playlist below media (requires application restart)"
 msgstr "将播放列表放在下方(下次启动程序生效)"
 
-#: src/gui.c:5515
+#: src/gui.c:5535
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "只允许运行一个Gnome Mplayer实例"
 
-#: src/gui.c:5525
+#: src/gui.c:5545
 msgid "When opening in single instance mode, replace existing file"
 msgstr "在当前播放器打开新文件"
 
-#: src/gui.c:5534
+#: src/gui.c:5554
 msgid "When opening file, bring main window to front"
 msgstr "打开文件后，将主窗口提到最前"
 
-#: src/gui.c:5541
+#: src/gui.c:5561
 msgid "Remember Window Location and Size"
 msgstr "记住窗口位置和大小"
 
-#: src/gui.c:5546
+#: src/gui.c:5566
 msgid "Resize window when new video is loaded"
 msgstr "新视频加载后重新加载窗口大小"
 
-#: src/gui.c:5551
+#: src/gui.c:5571
 msgid "Keep window above other windows"
 msgstr "保持播放窗口在最上层"
 
-#: src/gui.c:5556
+#: src/gui.c:5576
 msgid "Pause playback on mouse click"
 msgstr "鼠标左键点击画面后暂停"
 
-#: src/gui.c:5561
+#: src/gui.c:5581
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr "禁用全屏时的控制条动态过渡"
 
-#: src/gui.c:5566
+#: src/gui.c:5586
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr "使用鼠标滚轮更改音量，而不是搜索"
 
-#: src/gui.c:5571
+#: src/gui.c:5591
 msgid "Verbose Debug Enabled"
 msgstr "输出详细Debug信息"
 
-#: src/gui.c:5575 src/gui.c:5580
+#: src/gui.c:5595 src/gui.c:5600
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
 msgstr ""
 "当这个选中后，额外的debug信息将会显示在终端或者输出到~/.xsession-errors"
 
-#: src/gui.c:5591
+#: src/gui.c:5611
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">MPlayer高级设置</span>"
 
-#: src/gui.c:5600 src/gui.c:5604
+#: src/gui.c:5620 src/gui.c:5624
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr "启用这个选项将会使用软件混音，改变音量大小不会改变全局音量"
 
-#: src/gui.c:5614
+#: src/gui.c:5634
 msgid "Remember last software volume level"
 msgstr "记住最后的软件音量"
 
-#: src/gui.c:5617 src/gui.c:5621
+#: src/gui.c:5637 src/gui.c:5641
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr "如果你想软件音量被记住，设置本选项"
 
-#: src/gui.c:5628
+#: src/gui.c:5648
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "音量增益 (-200dB 到 +60dB)"
 
-#: src/gui.c:5640
+#: src/gui.c:5660
 msgid "De_interlace Video"
 msgstr "视频反交错(_I)"
 
-#: src/gui.c:5642 src/gui.c:5645
+#: src/gui.c:5662 src/gui.c:5665
 msgid "Set this option if video looks striped"
 msgstr "如果视频看起来很糟糕就启用这个选项"
 
-#: src/gui.c:5651
+#: src/gui.c:5671
 msgid "_Drop frames"
 msgstr "允许丢帧(_D)"
 
-#: src/gui.c:5653 src/gui.c:5656
+#: src/gui.c:5673 src/gui.c:5676
 msgid "Set this option if video is well behind the audio"
 msgstr "如果视频始终落后于音频，请尝试启用"
 
-#: src/gui.c:5662
+#: src/gui.c:5682
 msgid "Enable mplayer cache"
 msgstr "开启mplayer缓存"
 
-#: src/gui.c:5668
+#: src/gui.c:5688
 msgid "Cache Size (KB):"
 msgstr "缓存大小(KB)"
 
-#: src/gui.c:5676 src/gui.c:5680
+#: src/gui.c:5696 src/gui.c:5700
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
 msgstr "播放媒体文件时进行缓冲，请在慢设备和网络上设置更高的值"
 
-#: src/gui.c:5700
+#: src/gui.c:5720
 msgid "MPlayer Executable:"
 msgstr "MPlayer可执行文件:"
 
-#: src/gui.c:5704 src/gui.c:5708
+#: src/gui.c:5724 src/gui.c:5728
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr "如果默认路径找不到mplayer就需要在这里自定义"
 
-#: src/gui.c:5724
+#: src/gui.c:5744
 msgid "Extra Options to MPlayer:"
 msgstr "MPlayer的额外选项:"
 
-#: src/gui.c:5727 src/gui.c:5730
+#: src/gui.c:5747 src/gui.c:5750
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "在此添加额外的mplayer选项(比如过滤器)"
 
-#: src/gui.c:5741
+#: src/gui.c:5761
 msgid "MPlayer Default Optical Device"
 msgstr "MPlayer 默认光驱"
 
-#: src/gui.c:5756
+#: src/gui.c:5776
 msgid ""
 "<span weight=\"bold\">Keyboard Shortcuts</span>\n"
 "\n"
@@ -1024,239 +1024,239 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
-#: src/gui.c:5788
+#: src/gui.c:5808
 #, fuzzy
 msgid "Reset Keys"
 msgstr "重置(_R)"
 
-#: src/gui.c:6810
+#: src/gui.c:6830
 msgid "S_how Controls"
 msgstr "显示控制条(_H)"
 
-#: src/gui.c:6814 src/gui.c:7054
+#: src/gui.c:6834 src/gui.c:7074
 msgid "_Full Screen"
 msgstr "全屏(_F)"
 
-#: src/gui.c:6819
+#: src/gui.c:6839
 msgid "_Copy Location"
 msgstr "复制地址(_C)"
 
 #. File Menu
-#: src/gui.c:6863
+#: src/gui.c:6883
 msgid "_File"
 msgstr "文件(_F)"
 
-#: src/gui.c:6871
+#: src/gui.c:6891
 msgid "Open _Folder"
 msgstr "打开文件夹( _F)"
 
-#: src/gui.c:6876
+#: src/gui.c:6896
 msgid "Open _Location"
 msgstr "打开位置(_L)"
 
-#: src/gui.c:6882
+#: src/gui.c:6902
 msgid "_Disc"
 msgstr "光盘(_D)"
 
-#: src/gui.c:6890
+#: src/gui.c:6910
 msgid "Open _Audio CD"
 msgstr "打开音频CD(_A)"
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
-#: src/gui.c:6896
+#: src/gui.c:6916
 msgid "Open DVD with _Menus"
 msgstr "打开DVD和菜单(_M)"
 
-#: src/gui.c:6901
+#: src/gui.c:6921
 msgid "Open DVD from Folder with M_enus"
 msgstr "从文件夹打开DVD和菜单(_E)"
 
-#: src/gui.c:6906
+#: src/gui.c:6926
 msgid "Open DVD from ISO with Me_nus"
 msgstr "从ISO镜像中打开DVD和菜单(_N)"
 
-#: src/gui.c:6910
+#: src/gui.c:6930
 msgid "Open _VCD"
 msgstr "打开VCD(_V)"
 
-#: src/gui.c:6912
+#: src/gui.c:6932
 msgid "_TV"
 msgstr "_TV"
 
-#: src/gui.c:6917
+#: src/gui.c:6937
 msgid "Open _Analog TV"
 msgstr "打开模拟TV(_A)"
 
-#: src/gui.c:6919
+#: src/gui.c:6939
 msgid "Open _Digital TV"
 msgstr "打开数字TV(_D)"
 
-#: src/gui.c:6922
+#: src/gui.c:6942
 msgid "Open _iPod™"
 msgstr "打开IPod™(_I)"
 
-#: src/gui.c:6931
+#: src/gui.c:6951
 msgid "Open _Recent"
 msgstr "最近打开(_R)"
 
 #. Edit Menu
-#: src/gui.c:6978
+#: src/gui.c:6998
 msgid "_Edit"
 msgstr "编辑(_E)"
 
-#: src/gui.c:6984
+#: src/gui.c:7004
 msgid "_Shuffle Playlist"
 msgstr "播放列表乱序(_S)"
 
-#: src/gui.c:6987
+#: src/gui.c:7007
 msgid "_Loop Playlist"
 msgstr "播放列表循环(_L)"
 
-#: src/gui.c:6990
+#: src/gui.c:7010
 msgid "S_witch Audio Track"
 msgstr "选择音轨(_W)"
 
-#: src/gui.c:6992 src/playlist.c:1162
+#: src/gui.c:7012 src/playlist.c:1162
 msgid "Set Audi_o"
 msgstr "设置音频(_O)"
 
-#: src/gui.c:6994
+#: src/gui.c:7014
 msgid "Select _Audio Language"
 msgstr "选择音频语言(_A)"
 
-#: src/gui.c:6997
+#: src/gui.c:7017
 msgid "Set Sub_title"
 msgstr "设置字幕(_T)"
 
-#: src/gui.c:6999
+#: src/gui.c:7019
 msgid "S_elect Subtitle Language"
 msgstr "设置字幕语言(_E)"
 
-#: src/gui.c:7002
+#: src/gui.c:7022
 msgid "_Take Screenshot"
 msgstr "截屏(_T)"
 
-#: src/gui.c:7008 src/gui.c:7013
+#: src/gui.c:7028 src/gui.c:7033
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "截屏将会以’shotNNNN.png’命名并且保存在视频所在目录"
 
 #. View Menu
-#: src/gui.c:7033
+#: src/gui.c:7053
 msgid "_View"
 msgstr "查看(_V)"
 
-#: src/gui.c:7039
+#: src/gui.c:7059
 msgid "_Playlist"
 msgstr "播放列表(_P)"
 
-#: src/gui.c:7043
+#: src/gui.c:7063
 msgid "Media _Info"
 msgstr "媒体信息(_I)"
 
-#: src/gui.c:7046
+#: src/gui.c:7066
 msgid "D_etails"
 msgstr "细节(_E)"
 
-#: src/gui.c:7049
+#: src/gui.c:7069
 msgid "Audio _Meter"
 msgstr "音频柱形图(_M)"
 
-#: src/gui.c:7061
+#: src/gui.c:7081
 msgid "_Normal (1:1)"
 msgstr "普通大小(1:1)(_N)"
 
-#: src/gui.c:7064
+#: src/gui.c:7084
 msgid "_Double Size (2:1)"
 msgstr "双倍大小(2:1)(_D"
 
-#: src/gui.c:7067
+#: src/gui.c:7087
 msgid "_Half Size (1:2)"
 msgstr "一半大小(1:2)(_H)"
 
-#: src/gui.c:7069
+#: src/gui.c:7089
 #, fuzzy
 msgid "Half _Larger (1.5:1)"
 msgstr "一半大小(1:2)(_H)"
 
-#: src/gui.c:7071
+#: src/gui.c:7091
 msgid "_Aspect"
 msgstr "宽高比(_A)"
 
-#: src/gui.c:7077
+#: src/gui.c:7097
 msgid "D_efault Aspect"
 msgstr "默认(_E)"
 
-#: src/gui.c:7079
+#: src/gui.c:7099
 msgid "_4:3 Aspect"
 msgstr "_4:3"
 
-#: src/gui.c:7081
+#: src/gui.c:7101
 msgid "_16:9 Aspect"
 msgstr "_16：9"
 
-#: src/gui.c:7083
+#: src/gui.c:7103
 msgid "1_6:10 Aspect"
 msgstr "1_6:10"
 
-#: src/gui.c:7085
+#: src/gui.c:7105
 msgid "_Follow Window"
 msgstr "跟随窗口(_F)"
 
-#: src/gui.c:7090
+#: src/gui.c:7110
 msgid "Show _Subtitles"
 msgstr "显示字幕(_S)"
 
-#: src/gui.c:7098
+#: src/gui.c:7118
 msgid "Decrease Subtitle Delay"
 msgstr "减小字幕延迟"
 
-#: src/gui.c:7100
+#: src/gui.c:7120
 msgid "Increase Subtitle Delay"
 msgstr "增加字幕延迟"
 
-#: src/gui.c:7101
+#: src/gui.c:7121
 msgid "Switch An_gle"
 msgstr "变换角度(_G)"
 
-#: src/gui.c:7103
+#: src/gui.c:7123
 msgid "_Controls"
 msgstr "控制条(_C)"
 
-#: src/gui.c:7117
+#: src/gui.c:7137
 msgid "_Video Picture Adjustments"
 msgstr "调整图像(_V)"
 
 #. Help Menu
-#: src/gui.c:7155
+#: src/gui.c:7175
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: src/gui.c:7301 src/gui.c:7304
+#: src/gui.c:7321 src/gui.c:7324
 msgid "Menu"
 msgstr "菜单"
 
-#: src/gui.c:7321 src/gui.c:7324
+#: src/gui.c:7341 src/gui.c:7344
 msgid "Previous"
 msgstr "前一个"
 
-#: src/gui.c:7341 src/gui.c:7344
+#: src/gui.c:7361 src/gui.c:7364
 msgid "Rewind"
 msgstr "从头开始"
 
-#: src/gui.c:7381 src/gui.c:7384
+#: src/gui.c:7401 src/gui.c:7404
 msgid "Stop"
 msgstr "停止"
 
-#: src/gui.c:7401 src/gui.c:7404
+#: src/gui.c:7421 src/gui.c:7424
 msgid "Fast Forward"
 msgstr "快进"
 
-#: src/gui.c:7421 src/gui.c:7424
+#: src/gui.c:7441 src/gui.c:7444
 msgid "Next"
 msgstr "下一个"
 
-#: src/gui.c:7503
+#: src/gui.c:7523
 msgid "Volume 100%"
 msgstr "音量100%"
 
