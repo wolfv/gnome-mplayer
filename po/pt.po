@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-29 07:31-0700\n"
-"PO-Revision-Date: 2011-09-27 23:13-0000\n"
+"PO-Revision-Date: 2011-12-29 22:26-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "Language: pt\n"
@@ -58,7 +58,7 @@ msgstr "Utilizar controlo de volume do mplayer"
 #: src/main.c:61
 msgid "When set to TRUE the last volume level is set as the default"
 msgstr ""
-"Se definido como TRUE, o último nível de volume é utilizado como omissão"
+"Se definido como TRUE, o último nível de volume é utilizado como padrão"
 
 #: src/main.c:63
 msgid ""
@@ -107,7 +107,7 @@ msgstr "Fechar aplicação ao terminar o último ficheiro da lista de reproduç�
 
 #: src/main.c:80
 msgid "Play items on playlist in random order"
-msgstr "Reproduzir itens da lista de reprodução aleatoriamente"
+msgstr "Reproduzir aleatoriamente os itens da lista de reprodução"
 
 #: src/main.c:82
 msgid "Set cache size"
@@ -115,7 +115,7 @@ msgstr "Definir tamanho de cache"
 
 #: src/main.c:84
 msgid "Start Second (default to 0)"
-msgstr "Iniciar a seguir (omissão com 0)"
+msgstr "Iniciar a seguir (padrão = 0)"
 
 #: src/main.c:87
 msgid "Length of media to play from start second"
@@ -127,7 +127,7 @@ msgstr "Utilizar cache em sítios de emissão (streams)"
 
 #: src/main.c:92
 msgid "Disable the deinterlace filter"
-msgstr "Desativar o filtro de desentrelaçamento"
+msgstr "Desativar filtro de desentrelaçamento"
 
 #: src/main.c:95
 msgid "Don't skip drawing frames to better keep sync"
@@ -191,7 +191,7 @@ msgstr "Altura da entrada de TV"
 
 #: src/main.c:120
 msgid "Frames per second from TV input"
-msgstr "\"Frames\" por segundo (FPS) da entrada de TV"
+msgstr "\"Frames\" por segundo da entrada de TV"
 
 #: src/main.c:121
 msgid "Only allow one instance"
@@ -669,15 +669,15 @@ msgstr ""
 
 #: src/gui.c:4789
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr "Ativar a passagem de sinal AC3/DTS para a saída S/PDIF"
+msgstr "Ativar passagem de sinal AC3/DTS para a saída S/PDIF"
 
 #: src/gui.c:4798
 msgid "Mplayer Software Volume Control Enabled"
-msgstr "Ativado o controlo de volume do Mplayer"
+msgstr "Ativar controlo de volume do Mplayer"
 
 #: src/gui.c:4818
 msgid "Default"
-msgstr "Omissões"
+msgstr "Padrão"
 
 #: src/gui.c:5036
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -709,7 +709,7 @@ msgstr "Áudio:"
 
 #: src/gui.c:5088
 msgid "Default Mixer:"
-msgstr "Gestor de som por omissão:"
+msgstr "Gestor de som padrão:"
 
 #: src/gui.c:5098
 msgid "Audio Channels to Output"
@@ -728,7 +728,7 @@ msgstr "Nível inicial de volume:"
 
 #: src/gui.c:5141 src/gui.c:5144
 msgid "Default volume for playback"
-msgstr "Volume por omissão para reprodução"
+msgstr "Volume padrão da reprodução"
 
 #: src/gui.c:5158
 msgid "On Screen Display Level:"
@@ -864,7 +864,7 @@ msgstr "Margem inferior das legendas (só X11/XV):"
 
 #: src/gui.c:5460
 msgid "Show Subtitles by Default"
-msgstr "Mostrar legendas por omissão"
+msgstr "Mostrar legendas como padrão"
 
 #: src/gui.c:5465
 msgid "Subtitle Load Fuzziness:"
@@ -884,7 +884,7 @@ msgstr "Utilizar teclas multimédia"
 
 #: src/gui.c:5505
 msgid "Use default playlist"
-msgstr "Usar lista de reprodução omissa"
+msgstr "Usar lista de reprodução padrão"
 
 #: src/gui.c:5511
 msgid "Show notification popup"
@@ -941,7 +941,7 @@ msgstr "Utilizar roda do rato para alterar o volume ao invés de procurar"
 
 #: src/gui.c:5591
 msgid "Verbose Debug Enabled"
-msgstr "Ativada a depuração detalhada"
+msgstr "Ativar depuração detalhada"
 
 #: src/gui.c:5595 src/gui.c:5600
 msgid ""
@@ -1028,7 +1028,7 @@ msgstr "Adicione aqui as opções extra do mplayer (filtros, etc)"
 
 #: src/gui.c:5761
 msgid "MPlayer Default Optical Device"
-msgstr "Dispositivo ótico por omissão do MPlayer"
+msgstr "Dispositivo ótico padrão do MPlayer"
 
 #: src/gui.c:5776
 msgid ""
@@ -1193,9 +1193,8 @@ msgid "_Half Size (1:2)"
 msgstr "Metade do taman_ho (1:2)"
 
 #: src/gui.c:7089
-#, fuzzy
 msgid "Half _Larger (1.5:1)"
-msgstr "Metade do taman_ho (1:2)"
+msgstr "Metade da _largura (1.5:1)"
 
 #: src/gui.c:7091
 msgid "_Aspect"
@@ -1203,7 +1202,7 @@ msgstr "_Aspeto"
 
 #: src/gui.c:7097
 msgid "D_efault Aspect"
-msgstr "Asp_eto por omissão"
+msgstr "Asp_eto padrão"
 
 #: src/gui.c:7099
 msgid "_4:3 Aspect"
