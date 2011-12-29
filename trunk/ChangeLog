@@ -1,4 +1,5 @@
 Development
+    Updated Portugeuse translation
 1.0.5
     Rework key handler to be more correct with respect to shift/ctrl/alt modifiers
     Only use dark theme if not embedded, otherwise use the default theme
