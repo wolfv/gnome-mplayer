@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 08:55-0700\n"
+"POT-Creation-Date: 2011-12-29 07:31-0700\n"
 "PO-Revision-Date: 2011-02-23 07:39+0000\n"
 "Last-Translator: Byeongsik Jeon <Unknown>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
@@ -147,7 +147,7 @@ msgstr "수직 레이아웃 사용"
 msgid "Start with playlist open"
 msgstr "시작할 때 재생목록 표시하기"
 
-#: src/main.c:107 src/gui.c:5475
+#: src/main.c:107 src/gui.c:5495
 msgid "Start with details visible"
 msgstr "시작할 때 상세 정보 표시"
 
@@ -233,90 +233,90 @@ msgstr "TV 장치 이름"
 msgid "Video Output Device Name"
 msgstr "비디오 출력:"
 
-#: src/main.c:373 src/gui.c:735 src/gui.c:6317 src/gui.c:6379
+#: src/main.c:373 src/gui.c:735 src/gui.c:6337 src/gui.c:6399
 #, c-format
 msgid "Playing"
 msgstr "재생중"
 
-#: src/main.c:924 src/gui.c:2660
+#: src/main.c:925 src/gui.c:2680
 msgid "Open Location"
 msgstr "주소 열기"
 
-#: src/main.c:925
+#: src/main.c:926
 #, fuzzy
 msgid "Take Screenshot"
 msgstr "스크린샷 찍기(_T)"
 
-#: src/main.c:926
+#: src/main.c:927
 msgid "Preferences"
 msgstr ""
 
-#: src/main.c:927
+#: src/main.c:928
 #, fuzzy
 msgid "Playlist"
 msgstr "재생 목록(_P)"
 
-#: src/main.c:928
+#: src/main.c:929
 #, fuzzy
 msgid "Media Info"
 msgstr "미디어 정보(_I)"
 
-#: src/main.c:929
+#: src/main.c:930
 #, fuzzy
 msgid "Details"
 msgstr "상세 정보 보기(_E)"
 
-#: src/main.c:930
+#: src/main.c:931
 #, fuzzy
 msgid "Audio Meter"
 msgstr "오디오 미터(_M)"
 
-#: src/main.c:931 src/gui.c:7455 src/gui.c:7458
+#: src/main.c:932 src/gui.c:7475 src/gui.c:7478
 msgid "Full Screen"
 msgstr "전체 화면"
 
-#: src/main.c:932
+#: src/main.c:933
 #, fuzzy
 msgid "Aspect"
 msgstr "화면 비율(_A)"
 
-#: src/main.c:933 src/gui.c:4678
+#: src/main.c:934 src/gui.c:4698
 msgid "Subtitles"
 msgstr "자막"
 
-#: src/main.c:934 src/gui.c:7093
+#: src/main.c:935 src/gui.c:7113
 msgid "Decrease Subtitle Size"
 msgstr "자막 크기 줄이기"
 
-#: src/main.c:935 src/gui.c:7095
+#: src/main.c:936 src/gui.c:7115
 msgid "Increase Subtitle Size"
 msgstr "자막 크기 늘리기"
 
-#: src/main.c:936
+#: src/main.c:937
 #, fuzzy
 msgid "Switch Angle"
 msgstr "화면 시점 바꾸기(_G)"
 
-#: src/main.c:937
+#: src/main.c:938
 #, fuzzy
 msgid "Controls"
 msgstr "컨트롤(_C)"
 
-#: src/main.c:953
+#: src/main.c:954
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[파일...] - mplayer를 기반으로 하는 GNOME 미디어 재생기"
 
-#: src/main.c:973
+#: src/main.c:974
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME Mplayer v%s\n"
 
-#: src/main.c:974
+#: src/main.c:975
 #, c-format
 msgid "gmtk v%s\n"
 msgstr ""
 
-#: src/main.c:1037
+#: src/main.c:1038
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
@@ -324,7 +324,7 @@ msgid ""
 msgstr ""
 "명령행 옵션의 전체 목록을 보려면 'gnome-mplayer --help'를 실행하십시오.\n"
 
-#: src/gui.c:439 src/gui.c:482 src/gui.c:6176
+#: src/gui.c:439 src/gui.c:482 src/gui.c:6196
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME Mplayer"
@@ -339,7 +339,7 @@ msgstr "%s - (%i/%i) - GNOME Mplayer"
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "(%i/%i) - GNOME Mplayer"
 
-#: src/gui.c:480 src/gui.c:3193 src/gui.c:6763
+#: src/gui.c:480 src/gui.c:3213 src/gui.c:6783
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME Mplayer"
@@ -354,12 +354,12 @@ msgstr "버퍼링: %2i%%"
 msgid "Paused | %2i%% ▼"
 msgstr "일시 정지됨 | %2i%% ▼"
 
-#: src/gui.c:737 src/gui.c:6339 src/gui.c:6381
+#: src/gui.c:737 src/gui.c:6359 src/gui.c:6401
 #, c-format
 msgid "Paused"
 msgstr "일시정지됨"
 
-#: src/gui.c:739 src/gui.c:1114 src/gui.c:6383
+#: src/gui.c:739 src/gui.c:1114 src/gui.c:6403
 #, c-format
 msgid "Idle"
 msgstr "아이들(Idle) 상태"
@@ -369,22 +369,22 @@ msgstr "아이들(Idle) 상태"
 msgid "%s items"
 msgstr "%s 목록"
 
-#: src/gui.c:870 src/gui.c:2602 src/gui.c:2976 src/support.c:197
+#: src/gui.c:870 src/gui.c:2622 src/gui.c:2996 src/support.c:197
 #: src/support.c:263 src/playlist.c:586
 #, c-format
 msgid "Item to Play"
 msgid_plural "Items to Play"
 msgstr[0] "재생할 항목"
 
-#: src/gui.c:894 src/gui.c:895 src/gui.c:898 src/gui.c:6301 src/gui.c:6302
-#: src/gui.c:6305
+#: src/gui.c:894 src/gui.c:895 src/gui.c:898 src/gui.c:6321 src/gui.c:6322
+#: src/gui.c:6325
 msgid "Pause"
 msgstr "일시 정지"
 
 #: src/gui.c:915 src/gui.c:916 src/gui.c:919 src/gui.c:936 src/gui.c:937
-#: src/gui.c:940 src/gui.c:2127 src/gui.c:2129 src/gui.c:2137 src/gui.c:2139
-#: src/gui.c:6278 src/gui.c:6279 src/gui.c:6282 src/gui.c:6324 src/gui.c:6325
-#: src/gui.c:6328 src/gui.c:7361 src/gui.c:7364
+#: src/gui.c:940 src/gui.c:2147 src/gui.c:2149 src/gui.c:2157 src/gui.c:2159
+#: src/gui.c:6298 src/gui.c:6299 src/gui.c:6302 src/gui.c:6344 src/gui.c:6345
+#: src/gui.c:6348 src/gui.c:7381 src/gui.c:7384
 msgid "Play"
 msgstr "재생"
 
@@ -408,48 +408,48 @@ msgstr "%s 일시정지됨"
 msgid "Volume %i%%"
 msgstr "볼륨 %i%%"
 
-#: src/gui.c:2144
+#: src/gui.c:2164
 msgid "Stopped"
 msgstr "정지됨"
 
-#: src/gui.c:2553 src/playlist.c:548
+#: src/gui.c:2573 src/playlist.c:548
 msgid "Open File"
 msgstr "파일 열기"
 
-#: src/gui.c:2662
+#: src/gui.c:2682
 msgid "Location:"
 msgstr "주소:"
 
-#: src/gui.c:2716 src/gui.c:2808
+#: src/gui.c:2736 src/gui.c:2828
 msgid "Choose Disk Directory"
 msgstr "디스크 디렉터리 선택"
 
-#: src/gui.c:2752 src/gui.c:2848
+#: src/gui.c:2772 src/gui.c:2868
 msgid "Choose Disk Image"
 msgstr "디스크 이미지 선택"
 
-#: src/gui.c:2766 src/gui.c:2862
+#: src/gui.c:2786 src/gui.c:2882
 msgid "Disk Image (*.iso)"
 msgstr "디스크 이미지 (*.iso)"
 
-#: src/gui.c:3098
+#: src/gui.c:3118
 msgid "Save As..."
 msgstr "다른 이름으로 저장..."
 
-#: src/gui.c:3138
+#: src/gui.c:3158
 #, c-format
 msgid "Unable to save '%s'"
 msgstr "%s 저장 실패"
 
-#: src/gui.c:3141 src/support.c:798 src/support.c:889
+#: src/gui.c:3161 src/support.c:798 src/support.c:889
 msgid "GNOME MPlayer Error"
 msgstr "GNOME Mplayer 오류"
 
-#: src/gui.c:3195
+#: src/gui.c:3215
 msgid "A media player for GNOME that uses MPlayer"
 msgstr "mplayer를 사용하는 GNOME용 미디어 재생기"
 
-#: src/gui.c:3198
+#: src/gui.c:3218
 msgid ""
 "Gnome MPlayer is free software; you can redistribute it and/or modify it "
 "under\n"
@@ -491,257 +491,257 @@ msgstr ""
 "51 Franklin St, Fifth Floor\n"
 "Boston, MA 02110-1301 USA"
 
-#: src/gui.c:3400
+#: src/gui.c:3420
 msgid "Set AudioFile"
 msgstr "오디오 파일 지정"
 
-#: src/gui.c:3436 src/playlist.c:136
+#: src/gui.c:3456 src/playlist.c:136
 msgid "Set Subtitle"
 msgstr "자막 지정"
 
-#: src/gui.c:3598
+#: src/gui.c:3618
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Gnome Mplayer 전체화면"
 
-#: src/gui.c:4019 src/nautilus_property_page.c:341
+#: src/gui.c:4039 src/nautilus_property_page.c:341
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">비디오 상세 정보</span>"
 
-#: src/gui.c:4026 src/nautilus_property_page.c:348
+#: src/gui.c:4046 src/nautilus_property_page.c:348
 msgid "Video Size:"
 msgstr "비디오 크기:"
 
-#: src/gui.c:4039
+#: src/gui.c:4059
 msgid "Video Format:"
 msgstr "비디오 형식:"
 
-#: src/gui.c:4043 src/gui.c:4054 src/gui.c:4085 src/gui.c:4109 src/gui.c:4122
-#: src/gui.c:4135
+#: src/gui.c:4063 src/gui.c:4074 src/gui.c:4105 src/gui.c:4129 src/gui.c:4142
+#: src/gui.c:4155
 #, c-format
 msgid "Unknown"
 msgstr ""
 
-#: src/gui.c:4050 src/nautilus_property_page.c:359
+#: src/gui.c:4070 src/nautilus_property_page.c:359
 msgid "Video Codec:"
 msgstr "비디오 코덱:"
 
-#: src/gui.c:4061
+#: src/gui.c:4081
 msgid "Video FPS:"
 msgstr "비디오 프레임/초:"
 
-#: src/gui.c:4070 src/nautilus_property_page.c:370
+#: src/gui.c:4090 src/nautilus_property_page.c:370
 msgid "Video Bitrate:"
 msgstr "비디오 비트레이트:"
 
-#: src/gui.c:4081
+#: src/gui.c:4101
 msgid "Video Chapters:"
 msgstr "비디오 챕터:"
 
-#: src/gui.c:4097 src/nautilus_property_page.c:395
+#: src/gui.c:4117 src/nautilus_property_page.c:395
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">오디오 상세 정보</span>"
 
-#: src/gui.c:4104
+#: src/gui.c:4124
 msgid "Audio Format:"
 msgstr ""
 
-#: src/gui.c:4117 src/nautilus_property_page.c:402
+#: src/gui.c:4137 src/nautilus_property_page.c:402
 msgid "Audio Codec:"
 msgstr "오디오 코덱:"
 
-#: src/gui.c:4130 src/nautilus_property_page.c:425
+#: src/gui.c:4150 src/nautilus_property_page.c:425
 msgid "Audio Channels:"
 msgstr "오디오 채널:"
 
-#: src/gui.c:4143 src/nautilus_property_page.c:413
+#: src/gui.c:4163 src/nautilus_property_page.c:413
 msgid "Audio Bitrate:"
 msgstr "오디오 비트레이트:"
 
-#: src/gui.c:4156
+#: src/gui.c:4176
 msgid "Audio Sample Rate:"
 msgstr "오디오 샘플레이트:"
 
-#: src/gui.c:4186
+#: src/gui.c:4206
 msgid "Video Picture Adjustments"
 msgstr "영상 세부 조절"
 
-#: src/gui.c:4199
+#: src/gui.c:4219
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">영상 세부 조절</span>"
 
-#: src/gui.c:4206
+#: src/gui.c:4226
 msgid "Brightness"
 msgstr "명도"
 
-#: src/gui.c:4217
+#: src/gui.c:4237
 msgid "Contrast"
 msgstr "대비"
 
-#: src/gui.c:4228
+#: src/gui.c:4248
 msgid "Gamma"
 msgstr "감마"
 
-#: src/gui.c:4239
+#: src/gui.c:4259
 msgid "Hue"
 msgstr "색상"
 
-#: src/gui.c:4250
+#: src/gui.c:4270
 msgid "Saturation"
 msgstr "채도"
 
-#: src/gui.c:4267
+#: src/gui.c:4287
 msgid "_Reset"
 msgstr "기본값으로(_R)"
 
-#: src/gui.c:4390
+#: src/gui.c:4410
 msgid "No Display"
 msgstr "보여주지 않기"
 
-#: src/gui.c:4393
+#: src/gui.c:4413
 msgid "Minimal"
 msgstr "간단히"
 
-#: src/gui.c:4396
+#: src/gui.c:4416
 msgid "Timer"
 msgstr "현재시간"
 
-#: src/gui.c:4399
+#: src/gui.c:4419
 msgid "Timer/Total"
 msgstr "현재시간/전체시간"
 
-#: src/gui.c:4415
+#: src/gui.c:4435
 msgid "No Postprocessing"
 msgstr "하지 않기"
 
-#: src/gui.c:4419
+#: src/gui.c:4439
 msgid "Minimal Postprocessing"
 msgstr "최소"
 
-#: src/gui.c:4423
+#: src/gui.c:4443
 msgid "More Postprocessing"
 msgstr "중간"
 
-#: src/gui.c:4427
+#: src/gui.c:4447
 msgid "Maximum Postprocessing"
 msgstr "최대"
 
-#: src/gui.c:4443
+#: src/gui.c:4463
 msgid "Exact Match"
 msgstr ""
 
-#: src/gui.c:4446
+#: src/gui.c:4466
 msgid "Load all subtitles containing movie name"
 msgstr ""
 
-#: src/gui.c:4449
+#: src/gui.c:4469
 msgid "Load all subtitles in the same folder"
 msgstr ""
 
-#: src/gui.c:4674
+#: src/gui.c:4694
 msgid "Player"
 msgstr "재생기"
 
-#: src/gui.c:4676
+#: src/gui.c:4696
 msgid "Language Settings"
 msgstr "언어"
 
-#: src/gui.c:4680
+#: src/gui.c:4700
 msgid "Interface"
 msgstr "인터페이스"
 
-#: src/gui.c:4682
+#: src/gui.c:4702
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: src/gui.c:4684
+#: src/gui.c:4704
 msgid "MPlayer"
 msgstr "Mplayer"
 
-#: src/gui.c:4686
+#: src/gui.c:4706
 msgid "Plugin"
 msgstr "플러그인"
 
-#: src/gui.c:4692
+#: src/gui.c:4712
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME Mplayer 설정"
 
-#: src/gui.c:4710 src/gui.c:4716
+#: src/gui.c:4730 src/gui.c:4736
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv, gl or vdpau for better performance and "
 "enhanced features"
 msgstr ""
 
-#: src/gui.c:4769
+#: src/gui.c:4789
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "AC3/DTS 오디오 신호를 S/PDIF 출력으로 내보내기"
 
-#: src/gui.c:4778
+#: src/gui.c:4798
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "소프트웨어 볼륨 조절 기능 사용"
 
-#: src/gui.c:4798
+#: src/gui.c:4818
 msgid "Default"
 msgstr "Default"
 
-#: src/gui.c:5016
+#: src/gui.c:5036
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">출력 장치 설정 조절</span>"
 
-#: src/gui.c:5023
+#: src/gui.c:5043
 msgid "Video Output:"
 msgstr "비디오 출력:"
 
-#: src/gui.c:5032
+#: src/gui.c:5052
 msgid "Enable Video Hardware Support"
 msgstr ""
 
-#: src/gui.c:5037 src/gui.c:5042
+#: src/gui.c:5057 src/gui.c:5062
 msgid ""
 "When this option is enabled, codecs or options will be enabled to accelerate "
 "video processing. These options may cause playback to fail in some cases."
 msgstr ""
 
-#: src/gui.c:5050
+#: src/gui.c:5070
 msgid "Enable CrystalHD Hardware Support"
 msgstr ""
 
-#: src/gui.c:5057
+#: src/gui.c:5077
 msgid "Audio Output:"
 msgstr "오디오 출력:"
 
-#: src/gui.c:5068
+#: src/gui.c:5088
 msgid "Default Mixer:"
 msgstr "기본 믹서:"
 
-#: src/gui.c:5078
+#: src/gui.c:5098
 msgid "Audio Channels to Output"
 msgstr "오디오 출력 채널:"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:5106
+#: src/gui.c:5126
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">기타 재생기 설정 조절</span>"
 
-#: src/gui.c:5114
+#: src/gui.c:5134
 msgid "Default Volume Level:"
 msgstr "기본 볼륨 크기:"
 
-#: src/gui.c:5121 src/gui.c:5124
+#: src/gui.c:5141 src/gui.c:5144
 msgid "Default volume for playback"
 msgstr "재생시 기본 볼륨 크기:"
 
-#: src/gui.c:5138
+#: src/gui.c:5158
 msgid "On Screen Display Level:"
 msgstr "OSD 보기 방법:"
 
-#: src/gui.c:5150
+#: src/gui.c:5170
 msgid "Post-processing level:"
 msgstr "후처리 단계:"
 
-#: src/gui.c:5164
+#: src/gui.c:5184
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -757,39 +757,39 @@ msgstr ""
 "다양한 웹 컨텐츠를 재생하는 플러그인입니다. gecko-mediaplayer는\n"
 "다양한 종류의 미디어 플레이어 플러그인을 흉내낼 수 있습니다."
 
-#: src/gui.c:5175
+#: src/gui.c:5195
 msgid "QuickTime Emulation"
 msgstr "퀵타임 플레이어 흉내내기"
 
-#: src/gui.c:5180
+#: src/gui.c:5200
 msgid "RealPlayer Emulation"
 msgstr "리얼플레이어 흉내내기"
 
-#: src/gui.c:5185
+#: src/gui.c:5205
 msgid "Windows Media Player Emulation"
 msgstr "윈도우 미디어 플레이어 흉내내기"
 
-#: src/gui.c:5190
+#: src/gui.c:5210
 msgid "DiVX Player Emulation"
 msgstr "DiVX 플레이어 흉내내기"
 
-#: src/gui.c:5195
+#: src/gui.c:5215
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "미디 지원 (Mplayer에서 지원해야 합니다)"
 
-#: src/gui.c:5200
+#: src/gui.c:5220
 msgid "Disable Player Embedding"
 msgstr "브라우저 창 안에 내장하지 않기"
 
-#: src/gui.c:5205
+#: src/gui.c:5225
 msgid "Disable Embedded Player Scaling"
 msgstr ""
 
-#: src/gui.c:5210
+#: src/gui.c:5230
 msgid "Audio Cache Size (KB):"
 msgstr "오디오 캐쉬 크기 (KB):"
 
-#: src/gui.c:5220 src/gui.c:5223 src/gui.c:5229 src/gui.c:5234
+#: src/gui.c:5240 src/gui.c:5243 src/gui.c:5249 src/gui.c:5254
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -797,156 +797,156 @@ msgstr ""
 "네트워트를 통해서 재생할 때 캐쉬할 데이터 크기입니다. 느린 네트워크에서는좀 "
 "더 큰 값을 사용하십시오."
 
-#: src/gui.c:5250
+#: src/gui.c:5270
 msgid "Video Cache Size (KB):"
 msgstr "비디오 캐쉬 크기 (KB):"
 
-#: src/gui.c:5272
+#: src/gui.c:5292
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">언어 설정</span>"
 
-#: src/gui.c:5279
+#: src/gui.c:5299
 msgid "Default Audio Language"
 msgstr "기본 오디오 언어:"
 
-#: src/gui.c:5288
+#: src/gui.c:5308
 msgid "Default Subtitle Language:"
 msgstr "기본 자막 언어:"
 
-#: src/gui.c:5298
+#: src/gui.c:5318
 msgid "File Metadata Encoding:"
 msgstr "파일 메타데이터 인코딩:"
 
-#: src/gui.c:5314
+#: src/gui.c:5334
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">자막 설정</span>"
 
-#: src/gui.c:5321
+#: src/gui.c:5341
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "자막을 보기 위해서 _Advanced Substation Alpha (ASS) 사용하기"
 
-#: src/gui.c:5328
+#: src/gui.c:5348
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "내장된 글꼴 사용(MKV 전용)(_E)"
 
-#: src/gui.c:5337
+#: src/gui.c:5357
 msgid "Subtitle Font:"
 msgstr "자막 글꼴:"
 
-#: src/gui.c:5355
+#: src/gui.c:5375
 msgid "Subtitle Font Selection"
 msgstr "자막 글꼴 선택하기"
 
-#: src/gui.c:5360
+#: src/gui.c:5380
 msgid "Subtitle Color:"
 msgstr "자막 색깔:"
 
-#: src/gui.c:5384
+#: src/gui.c:5404
 msgid "Subtitle Color Selection"
 msgstr "자막 색깔 선택하기"
 
-#: src/gui.c:5390
+#: src/gui.c:5410
 msgid "Outline Subtitle Font"
 msgstr "자막에 아웃라인 효과 주기"
 
-#: src/gui.c:5396
+#: src/gui.c:5416
 msgid "Shadow Subtitle Font"
 msgstr "자막에 그림자 효과 주기"
 
-#: src/gui.c:5402
+#: src/gui.c:5422
 msgid "Subtitle Font Scaling:"
 msgstr "자막 글꼴 스케일링:"
 
-#: src/gui.c:5415
+#: src/gui.c:5435
 msgid "Subtitle File Encoding:"
 msgstr "자막 파일 인코딩:"
 
-#: src/gui.c:5427
+#: src/gui.c:5447
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr "자막 아래쪽 여백 (X11/XV 전용):"
 
-#: src/gui.c:5440
+#: src/gui.c:5460
 msgid "Show Subtitles by Default"
 msgstr "자막 보기를 기본값으로 설정"
 
-#: src/gui.c:5445
+#: src/gui.c:5465
 #, fuzzy
 msgid "Subtitle Load Fuzziness:"
 msgstr "자막 글꼴:"
 
-#: src/gui.c:5463
+#: src/gui.c:5483
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">프로그램 기본 설정</span>"
 
-#: src/gui.c:5470
+#: src/gui.c:5490
 msgid "Start with playlist visible"
 msgstr "시작할 때 재생목록 표시하기"
 
-#: src/gui.c:5480
+#: src/gui.c:5500
 msgid "Respond to Keyboard Media Keys"
 msgstr "키보드 미디어 키입력에 반응하기"
 
-#: src/gui.c:5485
+#: src/gui.c:5505
 msgid "Use default playlist"
 msgstr "재생목록 기본값을 사용하기"
 
-#: src/gui.c:5491
+#: src/gui.c:5511
 msgid "Show notification popup"
 msgstr "알림 메시지 표시하기"
 
-#: src/gui.c:5498
+#: src/gui.c:5518
 msgid "Show status icon"
 msgstr "알림 영역에 아이콘 표시하기"
 
-#: src/gui.c:5504
+#: src/gui.c:5524
 msgid "Use X Screen Saver control over Gnome Power Manager"
 msgstr "재생 상황에 맞추어 X 스크린세이버를 제어하기"
 
-#: src/gui.c:5510
+#: src/gui.c:5530
 msgid "Place playlist below media (requires application restart)"
 msgstr "재생목록 영역 세로로 배치하기(프로그램 다시 시작 필요)"
 
-#: src/gui.c:5515
+#: src/gui.c:5535
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Gnome Mplayer를 하나만 실행하기(싱글 인스턴스 모드)"
 
-#: src/gui.c:5525
+#: src/gui.c:5545
 msgid "When opening in single instance mode, replace existing file"
 msgstr "새 재생 명령에 대해서, 기존 재생기의 재생 목록을 교체하기"
 
-#: src/gui.c:5534
+#: src/gui.c:5554
 msgid "When opening file, bring main window to front"
 msgstr "새 재생 명령에 대해서, 기존 재생기의 창을 위로 올리기"
 
-#: src/gui.c:5541
+#: src/gui.c:5561
 msgid "Remember Window Location and Size"
 msgstr "창 위치, 크기 정보 저장하기"
 
-#: src/gui.c:5546
+#: src/gui.c:5566
 msgid "Resize window when new video is loaded"
 msgstr "새 비디오를 불러왔을 때, 창 크기 재설정하기"
 
-#: src/gui.c:5551
+#: src/gui.c:5571
 msgid "Keep window above other windows"
 msgstr "다른 창 위에 창 놓기"
 
-#: src/gui.c:5556
+#: src/gui.c:5576
 msgid "Pause playback on mouse click"
 msgstr "마우스로 클릭했을 때 재생 일시중지"
 
-#: src/gui.c:5561
+#: src/gui.c:5581
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr "전체화면 모드일 때, 컨트롤 바 에니메이션 효과 사용하기 않기"
 
-#: src/gui.c:5566
+#: src/gui.c:5586
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr "마우스 휠 버튼 입력을 탐색 용도 대신에 볼륨 조절로 사용하기"
 
-#: src/gui.c:5571
+#: src/gui.c:5591
 msgid "Verbose Debug Enabled"
 msgstr "디버그 정보 출력하기"
 
-#: src/gui.c:5575 src/gui.c:5580
+#: src/gui.c:5595 src/gui.c:5600
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
@@ -954,11 +954,11 @@ msgstr ""
 "이 옵션을 설정하게 되면, 외부 디버그 정보가 터미널이나  ~/.xsession-errors 파"
 "일에 보내집니다."
 
-#: src/gui.c:5591
+#: src/gui.c:5611
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">Mplayer 상세 설정</span>"
 
-#: src/gui.c:5600 src/gui.c:5604
+#: src/gui.c:5620 src/gui.c:5624
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
@@ -966,43 +966,43 @@ msgstr ""
 "Gnome Mplayer에서 시스템 볼륨을 수정하는 것을 피하고 싶다면, 이 옵션을 설정합"
 "니다."
 
-#: src/gui.c:5614
+#: src/gui.c:5634
 msgid "Remember last software volume level"
 msgstr "소프트웨어 볼륨 크기 기억하기"
 
-#: src/gui.c:5617 src/gui.c:5621
+#: src/gui.c:5637 src/gui.c:5641
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr "소프트웨어 볼륨 레벨을 기억하려면 이 옵션을 설정합니다."
 
-#: src/gui.c:5628
+#: src/gui.c:5648
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "볼륨 이득 (-200dB부터 +60dB까지)"
 
-#: src/gui.c:5640
+#: src/gui.c:5660
 msgid "De_interlace Video"
 msgstr "비디오 디인터레이스(_I)"
 
-#: src/gui.c:5642 src/gui.c:5645
+#: src/gui.c:5662 src/gui.c:5665
 msgid "Set this option if video looks striped"
 msgstr "화면에 스트립이 생긴다면 이 옵션을 선택하십시오"
 
-#: src/gui.c:5651
+#: src/gui.c:5671
 msgid "_Drop frames"
 msgstr "프레임 드롭(_D)"
 
-#: src/gui.c:5653 src/gui.c:5656
+#: src/gui.c:5673 src/gui.c:5676
 msgid "Set this option if video is well behind the audio"
 msgstr "비디오가 오디오에 비해 늦어진다면 이 옵션을 선택하십시오"
 
-#: src/gui.c:5662
+#: src/gui.c:5682
 msgid "Enable mplayer cache"
 msgstr "캐쉬 사용하기"
 
-#: src/gui.c:5668
+#: src/gui.c:5688
 msgid "Cache Size (KB):"
 msgstr "캐쉬 크기 (KB):"
 
-#: src/gui.c:5676 src/gui.c:5680
+#: src/gui.c:5696 src/gui.c:5700
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
@@ -1010,29 +1010,29 @@ msgstr ""
 "재생할 때 캐쉬 데이터 크기입니다. 느린 장치나 사이트에서는좀 더 큰 값을 사용"
 "하십시오."
 
-#: src/gui.c:5700
+#: src/gui.c:5720
 msgid "MPlayer Executable:"
 msgstr "mplayer 실행 파일 위치:"
 
-#: src/gui.c:5704 src/gui.c:5708
+#: src/gui.c:5724 src/gui.c:5728
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "Mplayer 실행 파일이 PATH 안에 없을 경우 여기에 정확한 경로를 적어줍니다."
 
-#: src/gui.c:5724
+#: src/gui.c:5744
 msgid "Extra Options to MPlayer:"
 msgstr "mplayer 추가 옵션:"
 
-#: src/gui.c:5727 src/gui.c:5730
+#: src/gui.c:5747 src/gui.c:5750
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr "기타 다른 mplayer 옵션(필터 설정 등)을 여기에 추가할 수 있습니다."
 
-#: src/gui.c:5741
+#: src/gui.c:5761
 msgid "MPlayer Default Optical Device"
 msgstr "Mplayer가 사용할 CD/DVD 장치"
 
-#: src/gui.c:5756
+#: src/gui.c:5776
 msgid ""
 "<span weight=\"bold\">Keyboard Shortcuts</span>\n"
 "\n"
@@ -1040,239 +1040,239 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
-#: src/gui.c:5788
+#: src/gui.c:5808
 #, fuzzy
 msgid "Reset Keys"
 msgstr "기본값으로(_R)"
 
-#: src/gui.c:6810
+#: src/gui.c:6830
 msgid "S_how Controls"
 msgstr "컨트롤 표시(_H)"
 
-#: src/gui.c:6814 src/gui.c:7054
+#: src/gui.c:6834 src/gui.c:7074
 msgid "_Full Screen"
 msgstr "전체 화면(_F)"
 
-#: src/gui.c:6819
+#: src/gui.c:6839
 msgid "_Copy Location"
 msgstr "주소 열기(_C)"
 
 #. File Menu
-#: src/gui.c:6863
+#: src/gui.c:6883
 msgid "_File"
 msgstr "파일(_F)"
 
-#: src/gui.c:6871
+#: src/gui.c:6891
 msgid "Open _Folder"
 msgstr "폴더 열기(_F)"
 
-#: src/gui.c:6876
+#: src/gui.c:6896
 msgid "Open _Location"
 msgstr "주소 열기(_L)"
 
-#: src/gui.c:6882
+#: src/gui.c:6902
 msgid "_Disc"
 msgstr "디스크(_D)"
 
-#: src/gui.c:6890
+#: src/gui.c:6910
 msgid "Open _Audio CD"
 msgstr "음악 CD 열기(_A)"
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
-#: src/gui.c:6896
+#: src/gui.c:6916
 msgid "Open DVD with _Menus"
 msgstr "DVD 장치 열기 -- 메뉴(_M)"
 
-#: src/gui.c:6901
+#: src/gui.c:6921
 msgid "Open DVD from Folder with M_enus"
 msgstr "DVD 폴더 열기 -- 메뉴(_E)"
 
-#: src/gui.c:6906
+#: src/gui.c:6926
 msgid "Open DVD from ISO with Me_nus"
 msgstr "DVD ISO 파일 열기 -- 메뉴(_N)"
 
-#: src/gui.c:6910
+#: src/gui.c:6930
 msgid "Open _VCD"
 msgstr "VCD 열기(_V)"
 
-#: src/gui.c:6912
+#: src/gui.c:6932
 msgid "_TV"
 msgstr "_TV"
 
-#: src/gui.c:6917
+#: src/gui.c:6937
 msgid "Open _Analog TV"
 msgstr "아날로그 TV 열기(_A)"
 
-#: src/gui.c:6919
+#: src/gui.c:6939
 msgid "Open _Digital TV"
 msgstr "디지탈 TV 열기(_D)"
 
-#: src/gui.c:6922
+#: src/gui.c:6942
 msgid "Open _iPod™"
 msgstr "iPod 열기(_I)"
 
-#: src/gui.c:6931
+#: src/gui.c:6951
 msgid "Open _Recent"
 msgstr "최근 파일 열기(_R)"
 
 #. Edit Menu
-#: src/gui.c:6978
+#: src/gui.c:6998
 msgid "_Edit"
 msgstr "편집(_E)"
 
-#: src/gui.c:6984
+#: src/gui.c:7004
 msgid "_Shuffle Playlist"
 msgstr "목록 랜덤 재생(_S)"
 
-#: src/gui.c:6987
+#: src/gui.c:7007
 msgid "_Loop Playlist"
 msgstr "목록 반복 재생(_L)"
 
-#: src/gui.c:6990
+#: src/gui.c:7010
 msgid "S_witch Audio Track"
 msgstr "오디오 트랙 변경(_W)"
 
-#: src/gui.c:6992 src/playlist.c:1162
+#: src/gui.c:7012 src/playlist.c:1162
 msgid "Set Audi_o"
 msgstr "오디오 지정(_O)"
 
-#: src/gui.c:6994
+#: src/gui.c:7014
 msgid "Select _Audio Language"
 msgstr "오디오 언어 선택(_A)"
 
-#: src/gui.c:6997
+#: src/gui.c:7017
 msgid "Set Sub_title"
 msgstr "자막 지정(_T)"
 
-#: src/gui.c:6999
+#: src/gui.c:7019
 msgid "S_elect Subtitle Language"
 msgstr "자막 언어 선택(_E)"
 
-#: src/gui.c:7002
+#: src/gui.c:7022
 msgid "_Take Screenshot"
 msgstr "스크린샷 찍기(_T)"
 
-#: src/gui.c:7008 src/gui.c:7013
+#: src/gui.c:7028 src/gui.c:7033
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "작업 디렉터리 안에 'shotNNNN.png' 형태의 파일로 저장합니다."
 
 #. View Menu
-#: src/gui.c:7033
+#: src/gui.c:7053
 msgid "_View"
 msgstr "보기(_V)"
 
-#: src/gui.c:7039
+#: src/gui.c:7059
 msgid "_Playlist"
 msgstr "재생 목록(_P)"
 
-#: src/gui.c:7043
+#: src/gui.c:7063
 msgid "Media _Info"
 msgstr "미디어 정보(_I)"
 
-#: src/gui.c:7046
+#: src/gui.c:7066
 msgid "D_etails"
 msgstr "상세 정보 보기(_E)"
 
-#: src/gui.c:7049
+#: src/gui.c:7069
 msgid "Audio _Meter"
 msgstr "오디오 미터(_M)"
 
-#: src/gui.c:7061
+#: src/gui.c:7081
 msgid "_Normal (1:1)"
 msgstr "원래(1:1) 크기(_N)"
 
-#: src/gui.c:7064
+#: src/gui.c:7084
 msgid "_Double Size (2:1)"
 msgstr "두배(2:1) 크기(_D)"
 
-#: src/gui.c:7067
+#: src/gui.c:7087
 msgid "_Half Size (1:2)"
 msgstr "절반(1:2) 크기(_H)"
 
-#: src/gui.c:7069
+#: src/gui.c:7089
 #, fuzzy
 msgid "Half _Larger (1.5:1)"
 msgstr "절반(1:2) 크기(_H)"
 
-#: src/gui.c:7071
+#: src/gui.c:7091
 msgid "_Aspect"
 msgstr "화면 비율(_A)"
 
-#: src/gui.c:7077
+#: src/gui.c:7097
 msgid "D_efault Aspect"
 msgstr "기본 비율(_E)"
 
-#: src/gui.c:7079
+#: src/gui.c:7099
 msgid "_4:3 Aspect"
 msgstr "4:3 비율(_4)"
 
-#: src/gui.c:7081
+#: src/gui.c:7101
 msgid "_16:9 Aspect"
 msgstr "16:9 비율(_1)"
 
-#: src/gui.c:7083
+#: src/gui.c:7103
 msgid "1_6:10 Aspect"
 msgstr "16:10 비율(_6)"
 
-#: src/gui.c:7085
+#: src/gui.c:7105
 msgid "_Follow Window"
 msgstr "창 크기에 영상 크기 맞추기(_F)"
 
-#: src/gui.c:7090
+#: src/gui.c:7110
 msgid "Show _Subtitles"
 msgstr "자막 표시(_S)"
 
-#: src/gui.c:7098
+#: src/gui.c:7118
 msgid "Decrease Subtitle Delay"
 msgstr "자막 지연 줄이기"
 
-#: src/gui.c:7100
+#: src/gui.c:7120
 msgid "Increase Subtitle Delay"
 msgstr "자막 지연 늘리기"
 
-#: src/gui.c:7101
+#: src/gui.c:7121
 msgid "Switch An_gle"
 msgstr "화면 시점 바꾸기(_G)"
 
-#: src/gui.c:7103
+#: src/gui.c:7123
 msgid "_Controls"
 msgstr "컨트롤(_C)"
 
-#: src/gui.c:7117
+#: src/gui.c:7137
 msgid "_Video Picture Adjustments"
 msgstr "영상 세부 조절(_V)"
 
 #. Help Menu
-#: src/gui.c:7155
+#: src/gui.c:7175
 msgid "_Help"
 msgstr "도움말(_H)"
 
-#: src/gui.c:7301 src/gui.c:7304
+#: src/gui.c:7321 src/gui.c:7324
 msgid "Menu"
 msgstr "메뉴"
 
-#: src/gui.c:7321 src/gui.c:7324
+#: src/gui.c:7341 src/gui.c:7344
 msgid "Previous"
 msgstr "이전"
 
-#: src/gui.c:7341 src/gui.c:7344
+#: src/gui.c:7361 src/gui.c:7364
 msgid "Rewind"
 msgstr "되감기"
 
-#: src/gui.c:7381 src/gui.c:7384
+#: src/gui.c:7401 src/gui.c:7404
 msgid "Stop"
 msgstr "멈춤"
 
-#: src/gui.c:7401 src/gui.c:7404
+#: src/gui.c:7421 src/gui.c:7424
 msgid "Fast Forward"
 msgstr "앞으로 감기"
 
-#: src/gui.c:7421 src/gui.c:7424
+#: src/gui.c:7441 src/gui.c:7444
 msgid "Next"
 msgstr "다음"
 
-#: src/gui.c:7503
+#: src/gui.c:7523
 msgid "Volume 100%"
 msgstr "볼륨 100%"
 
