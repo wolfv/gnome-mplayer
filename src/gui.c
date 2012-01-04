@@ -3803,6 +3803,7 @@ void config_apply(GtkWidget * widget, void *data)
     single_instance = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance));
     replace_and_play = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_replace_and_play));
     bring_to_front = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_bring_to_front));
+    enable_nautilus_plugin = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_enable_nautilus_plugin));
 #ifdef NOTIFY_ENABLED
     show_notification = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_show_notification));
 #endif
@@ -3921,6 +3922,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, BRING_TO_FRONT, bring_to_front);
     gm_pref_store_set_boolean(gm_store, REMEMBER_LOC, remember_loc);
     gm_pref_store_set_boolean(gm_store, KEEP_ON_TOP, keep_on_top);
+    gm_pref_store_set_boolean(gm_store, ENABLE_NAUTILUS_PLUGIN, enable_nautilus_plugin);
     gm_pref_store_set_boolean(gm_store, RESIZE_ON_NEW_MEDIA, resize_on_new_media);
     gm_pref_store_set_int(gm_store, VERBOSE, verbose);
     gm_pref_store_set_string(gm_store, METADATACODEPAGE, metadata_codepage);
@@ -5586,6 +5588,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_mouse_wheel = gtk_check_button_new_with_label(_("Use Mouse Wheel to change volume, instead of seeking"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_mouse_wheel), mouse_wheel_changes_volume);
     gtk_table_attach(GTK_TABLE(conf_table), config_mouse_wheel, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    i++;
+
+    config_enable_nautilus_plugin = gtk_check_button_new_with_label(_("Enable Nautilus Plugin"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_enable_nautilus_plugin), enable_nautilus_plugin);
+    gtk_table_attach(GTK_TABLE(conf_table), config_enable_nautilus_plugin, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_verbose = gtk_check_button_new_with_label(_("Verbose Debug Enabled"));

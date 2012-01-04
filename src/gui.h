@@ -263,6 +263,7 @@ GtkWidget *config_use_mediakeys;
 GtkWidget *config_use_defaultpl;
 GtkWidget *config_disable_animation;
 GtkWidget *config_mouse_wheel;
+GtkWidget *config_enable_nautilus_plugin;
 
 GtkWidget *config_alang;
 GtkWidget *config_slang;
