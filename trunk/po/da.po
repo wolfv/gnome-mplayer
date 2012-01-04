@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-29 07:31-0700\n"
+"POT-Creation-Date: 2012-01-04 13:32-0700\n"
 "PO-Revision-Date: 2011-03-03 18:17+0000\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -145,7 +145,7 @@ msgstr "Brug vertikalt layout"
 msgid "Start with playlist open"
 msgstr "Start med afspilningslisten åben"
 
-#: src/main.c:107 src/gui.c:5495
+#: src/main.c:107 src/gui.c:5497
 msgid "Start with details visible"
 msgstr "Start med synlige detaljer"
 
@@ -221,107 +221,57 @@ msgstr "Indlæs alle spor fra medieafspiller ved brug af gpod"
 msgid "Don't fetch new cover art images"
 msgstr ""
 
-#: src/main.c:146
-#, fuzzy
-msgid "DVD Device Name"
-msgstr "TV enhed navn"
-
-#: src/main.c:147
-#, fuzzy
-msgid "Video Output Device Name"
-msgstr "Videoudgang:"
-
-#: src/main.c:373 src/gui.c:735 src/gui.c:6337 src/gui.c:6399
+#: src/main.c:373 src/gui.c:735 src/gui.c:6344 src/gui.c:6406
 #, c-format
 msgid "Playing"
 msgstr "Afspiller"
 
-#: src/main.c:925 src/gui.c:2680
+#: src/main.c:927 src/gui.c:2680
 msgid "Open Location"
 msgstr "Åbn placering"
 
-#: src/main.c:926
-#, fuzzy
-msgid "Take Screenshot"
-msgstr "_Tag skærmbillede"
-
-#: src/main.c:927
+#: src/main.c:929
 msgid "Preferences"
 msgstr ""
 
-#: src/main.c:928
-#, fuzzy
-msgid "Playlist"
-msgstr "_Afspilningsliste"
-
-#: src/main.c:929
-#, fuzzy
-msgid "Media Info"
-msgstr "Medie _Info"
-
-#: src/main.c:930
-#, fuzzy
-msgid "Details"
-msgstr "D_etaljer"
-
-#: src/main.c:931
-#, fuzzy
-msgid "Audio Meter"
-msgstr "Lyd_meter"
-
-#: src/main.c:932 src/gui.c:7475 src/gui.c:7478
+#: src/main.c:934 src/gui.c:7482 src/gui.c:7485
 msgid "Full Screen"
 msgstr "Fuldskærm"
 
-#: src/main.c:933
-#, fuzzy
-msgid "Aspect"
-msgstr "_Aspekt"
-
-#: src/main.c:934 src/gui.c:4698
+#: src/main.c:936 src/gui.c:4700
 msgid "Subtitles"
 msgstr "Undertekster"
 
-#: src/main.c:935 src/gui.c:7113
+#: src/main.c:937 src/gui.c:7120
 msgid "Decrease Subtitle Size"
 msgstr "Formindsk undertekststørrelse"
 
-#: src/main.c:936 src/gui.c:7115
+#: src/main.c:938 src/gui.c:7122
 msgid "Increase Subtitle Size"
 msgstr "Forøg undertekststørrelse"
 
-#: src/main.c:937
-#, fuzzy
-msgid "Switch Angle"
-msgstr "Skift vi_nkle"
-
-#: src/main.c:938
-#, fuzzy
-msgid "Controls"
-msgstr "_Kontroller"
-
-#: src/main.c:954
+#: src/main.c:956
 msgid "[FILES...] - GNOME Media player based on MPlayer"
 msgstr "[FILER...] - GNOME Medieafspiller baseret på MPlayer"
 
-#: src/main.c:974
+#: src/main.c:976
 #, c-format
 msgid "GNOME MPlayer v%s\n"
 msgstr "GNOME MPlayer v%s\n"
 
-#: src/main.c:975
+#: src/main.c:977
 #, c-format
 msgid "gmtk v%s\n"
 msgstr ""
 
-#: src/main.c:1038
+#: src/main.c:1040
 #, c-format
 msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr ""
 
-#: src/gui.c:439 src/gui.c:482 src/gui.c:6196
+#: src/gui.c:439 src/gui.c:482 src/gui.c:6203
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
@@ -336,7 +286,7 @@ msgstr "%s - (%i/%i) - GNOME MPlayer"
 msgid "(%i/%i) - GNOME MPlayer"
 msgstr "(%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:480 src/gui.c:3213 src/gui.c:6783
+#: src/gui.c:480 src/gui.c:3213 src/gui.c:6790
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
@@ -351,12 +301,12 @@ msgstr ""
 msgid "Paused | %2i%% ▼"
 msgstr "På pause | %2i%% ▼"
 
-#: src/gui.c:737 src/gui.c:6359 src/gui.c:6401
+#: src/gui.c:737 src/gui.c:6366 src/gui.c:6408
 #, c-format
 msgid "Paused"
 msgstr "På pause"
 
-#: src/gui.c:739 src/gui.c:1114 src/gui.c:6403
+#: src/gui.c:739 src/gui.c:1114 src/gui.c:6410
 #, c-format
 msgid "Idle"
 msgstr "Inaktiv"
@@ -374,15 +324,15 @@ msgid_plural "Items to Play"
 msgstr[0] "Genstand til afspilning"
 msgstr[1] "Genstande til afspilning"
 
-#: src/gui.c:894 src/gui.c:895 src/gui.c:898 src/gui.c:6321 src/gui.c:6322
-#: src/gui.c:6325
+#: src/gui.c:894 src/gui.c:895 src/gui.c:898 src/gui.c:6328 src/gui.c:6329
+#: src/gui.c:6332
 msgid "Pause"
 msgstr "Pause"
 
 #: src/gui.c:915 src/gui.c:916 src/gui.c:919 src/gui.c:936 src/gui.c:937
 #: src/gui.c:940 src/gui.c:2147 src/gui.c:2149 src/gui.c:2157 src/gui.c:2159
-#: src/gui.c:6298 src/gui.c:6299 src/gui.c:6302 src/gui.c:6344 src/gui.c:6345
-#: src/gui.c:6348 src/gui.c:7381 src/gui.c:7384
+#: src/gui.c:6305 src/gui.c:6306 src/gui.c:6309 src/gui.c:6351 src/gui.c:6352
+#: src/gui.c:6355 src/gui.c:7388 src/gui.c:7391
 msgid "Play"
 msgstr "Afspil"
 
@@ -482,245 +432,245 @@ msgstr "Vælg undertekster"
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Gnome MPlayer Fuldskærm"
 
-#: src/gui.c:4039 src/nautilus_property_page.c:341
+#: src/gui.c:4041 src/nautilus_property_page.c:344
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr ""
 
-#: src/gui.c:4046 src/nautilus_property_page.c:348
+#: src/gui.c:4048 src/nautilus_property_page.c:351
 msgid "Video Size:"
 msgstr "Videostørrelse:"
 
-#: src/gui.c:4059
+#: src/gui.c:4061
 msgid "Video Format:"
 msgstr "Video format:"
 
-#: src/gui.c:4063 src/gui.c:4074 src/gui.c:4105 src/gui.c:4129 src/gui.c:4142
-#: src/gui.c:4155
+#: src/gui.c:4065 src/gui.c:4076 src/gui.c:4107 src/gui.c:4131 src/gui.c:4144
+#: src/gui.c:4157
 #, c-format
 msgid "Unknown"
 msgstr ""
 
-#: src/gui.c:4070 src/nautilus_property_page.c:359
+#: src/gui.c:4072 src/nautilus_property_page.c:362
 msgid "Video Codec:"
 msgstr "Videokoder:"
 
-#: src/gui.c:4081
+#: src/gui.c:4083
 msgid "Video FPS:"
 msgstr "Video BPS:"
 
-#: src/gui.c:4090 src/nautilus_property_page.c:370
+#: src/gui.c:4092 src/nautilus_property_page.c:373
 msgid "Video Bitrate:"
 msgstr "Video-bithastighed:"
 
-#: src/gui.c:4101
+#: src/gui.c:4103
 msgid "Video Chapters:"
 msgstr "Videokapitler:"
 
-#: src/gui.c:4117 src/nautilus_property_page.c:395
+#: src/gui.c:4119 src/nautilus_property_page.c:398
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr ""
 
-#: src/gui.c:4124
+#: src/gui.c:4126
 msgid "Audio Format:"
 msgstr ""
 
-#: src/gui.c:4137 src/nautilus_property_page.c:402
+#: src/gui.c:4139 src/nautilus_property_page.c:405
 msgid "Audio Codec:"
 msgstr "Lydkoder:"
 
-#: src/gui.c:4150 src/nautilus_property_page.c:425
+#: src/gui.c:4152 src/nautilus_property_page.c:428
 msgid "Audio Channels:"
 msgstr "Lydkanaler:"
 
-#: src/gui.c:4163 src/nautilus_property_page.c:413
+#: src/gui.c:4165 src/nautilus_property_page.c:416
 msgid "Audio Bitrate:"
 msgstr "Lyd-bithastighed:"
 
-#: src/gui.c:4176
+#: src/gui.c:4178
 msgid "Audio Sample Rate:"
 msgstr "Lyd-samplehastighed:"
 
-#: src/gui.c:4206
+#: src/gui.c:4208
 msgid "Video Picture Adjustments"
 msgstr "Videobilled-indstillinger"
 
-#: src/gui.c:4219
+#: src/gui.c:4221
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr ""
 
-#: src/gui.c:4226
+#: src/gui.c:4228
 msgid "Brightness"
 msgstr "Lysstyrke"
 
-#: src/gui.c:4237
+#: src/gui.c:4239
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: src/gui.c:4248
+#: src/gui.c:4250
 msgid "Gamma"
 msgstr "Gamma"
 
-#: src/gui.c:4259
+#: src/gui.c:4261
 msgid "Hue"
 msgstr "Farvetone"
 
-#: src/gui.c:4270
+#: src/gui.c:4272
 msgid "Saturation"
 msgstr "Mætning"
 
-#: src/gui.c:4287
+#: src/gui.c:4289
 msgid "_Reset"
 msgstr "_Nulstil"
 
-#: src/gui.c:4410
+#: src/gui.c:4412
 msgid "No Display"
 msgstr "Ingen visning"
 
-#: src/gui.c:4413
+#: src/gui.c:4415
 msgid "Minimal"
 msgstr "Minimal"
 
-#: src/gui.c:4416
+#: src/gui.c:4418
 msgid "Timer"
 msgstr "Tidstager"
 
-#: src/gui.c:4419
+#: src/gui.c:4421
 msgid "Timer/Total"
 msgstr "Tidstager/Total"
 
-#: src/gui.c:4435
+#: src/gui.c:4437
 msgid "No Postprocessing"
 msgstr "Ingen efterbehandling"
 
-#: src/gui.c:4439
+#: src/gui.c:4441
 msgid "Minimal Postprocessing"
 msgstr "Minimal efterbehandling"
 
-#: src/gui.c:4443
+#: src/gui.c:4445
 msgid "More Postprocessing"
 msgstr "Mere efterbehandling"
 
-#: src/gui.c:4447
+#: src/gui.c:4449
 msgid "Maximum Postprocessing"
 msgstr "Maksimal efterbehandling"
 
-#: src/gui.c:4463
+#: src/gui.c:4465
 msgid "Exact Match"
 msgstr ""
 
-#: src/gui.c:4466
+#: src/gui.c:4468
 msgid "Load all subtitles containing movie name"
 msgstr ""
 
-#: src/gui.c:4469
+#: src/gui.c:4471
 msgid "Load all subtitles in the same folder"
 msgstr ""
 
-#: src/gui.c:4694
+#: src/gui.c:4696
 msgid "Player"
 msgstr "Afspiller"
 
-#: src/gui.c:4696
+#: src/gui.c:4698
 msgid "Language Settings"
 msgstr "Sprogindstillinger"
 
-#: src/gui.c:4700
+#: src/gui.c:4702
 msgid "Interface"
 msgstr "Brugerflade"
 
-#: src/gui.c:4702
+#: src/gui.c:4704
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: src/gui.c:4704
+#: src/gui.c:4706
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:4706
+#: src/gui.c:4708
 msgid "Plugin"
 msgstr "Udvidelsesmodul"
 
-#: src/gui.c:4712
+#: src/gui.c:4714
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME MPlayer Konfiguration"
 
-#: src/gui.c:4730 src/gui.c:4736
+#: src/gui.c:4732 src/gui.c:4738
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv, gl or vdpau for better performance and "
 "enhanced features"
 msgstr ""
 
-#: src/gui.c:4789
+#: src/gui.c:4791
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "Aktiver AC3/DTS igennem til S/PDIF"
 
-#: src/gui.c:4798
+#: src/gui.c:4800
 msgid "Mplayer Software Volume Control Enabled"
 msgstr ""
 
-#: src/gui.c:4818
+#: src/gui.c:4820
 msgid "Default"
 msgstr ""
 
-#: src/gui.c:5036
+#: src/gui.c:5038
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr ""
 
-#: src/gui.c:5043
+#: src/gui.c:5045
 msgid "Video Output:"
 msgstr "Videoudgang:"
 
-#: src/gui.c:5052
+#: src/gui.c:5054
 msgid "Enable Video Hardware Support"
 msgstr ""
 
-#: src/gui.c:5057 src/gui.c:5062
+#: src/gui.c:5059 src/gui.c:5064
 msgid ""
 "When this option is enabled, codecs or options will be enabled to accelerate "
 "video processing. These options may cause playback to fail in some cases."
 msgstr ""
 
-#: src/gui.c:5070
+#: src/gui.c:5072
 msgid "Enable CrystalHD Hardware Support"
 msgstr ""
 
-#: src/gui.c:5077
+#: src/gui.c:5079
 msgid "Audio Output:"
 msgstr "Lydudgang:"
 
-#: src/gui.c:5088
+#: src/gui.c:5090
 msgid "Default Mixer:"
 msgstr "Standard lydmikser:"
 
-#: src/gui.c:5098
+#: src/gui.c:5100
 msgid "Audio Channels to Output"
 msgstr "Lydkanaler til udgang"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:5126
+#: src/gui.c:5128
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr ""
 
-#: src/gui.c:5134
+#: src/gui.c:5136
 msgid "Default Volume Level:"
 msgstr "Standard lydstyrkeniveau:"
 
-#: src/gui.c:5141 src/gui.c:5144
+#: src/gui.c:5143 src/gui.c:5146
 msgid "Default volume for playback"
 msgstr "Standard lydstyrkeniveau for afspilning"
 
-#: src/gui.c:5158
+#: src/gui.c:5160
 msgid "On Screen Display Level:"
 msgstr "On Screen Display niveau:"
 
-#: src/gui.c:5170
+#: src/gui.c:5172
 msgid "Post-processing level:"
 msgstr "Efterbehandlingsniveau:"
 
-#: src/gui.c:5184
+#: src/gui.c:5186
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -730,39 +680,39 @@ msgid ""
 "NPRuntime compatible browsers (Firefox, Konqueror, etc)."
 msgstr ""
 
-#: src/gui.c:5195
+#: src/gui.c:5197
 msgid "QuickTime Emulation"
 msgstr "QuickTime Emulation"
 
-#: src/gui.c:5200
+#: src/gui.c:5202
 msgid "RealPlayer Emulation"
 msgstr "RealPlayer Emulation"
 
-#: src/gui.c:5205
+#: src/gui.c:5207
 msgid "Windows Media Player Emulation"
 msgstr "Windows Media Player Emulation"
 
-#: src/gui.c:5210
+#: src/gui.c:5212
 msgid "DiVX Player Emulation"
 msgstr "DiVX Player Emulation"
 
-#: src/gui.c:5215
+#: src/gui.c:5217
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "MIDI Support (kræver MPlayer understøttelse)"
 
-#: src/gui.c:5220
+#: src/gui.c:5222
 msgid "Disable Player Embedding"
 msgstr ""
 
-#: src/gui.c:5225
+#: src/gui.c:5227
 msgid "Disable Embedded Player Scaling"
 msgstr ""
 
-#: src/gui.c:5230
+#: src/gui.c:5232
 msgid "Audio Cache Size (KB):"
 msgstr ""
 
-#: src/gui.c:5240 src/gui.c:5243 src/gui.c:5249 src/gui.c:5254
+#: src/gui.c:5242 src/gui.c:5245 src/gui.c:5251 src/gui.c:5256
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -770,235 +720,234 @@ msgstr ""
 "Datamængde til gemning når medie fra netværk afspilles, brug højere værdier "
 "for langsomme netværk."
 
-#: src/gui.c:5270
+#: src/gui.c:5272
 msgid "Video Cache Size (KB):"
 msgstr ""
 
-#: src/gui.c:5292
+#: src/gui.c:5294
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr ""
 
-#: src/gui.c:5299
+#: src/gui.c:5301
 msgid "Default Audio Language"
 msgstr "Standard lydsprog"
 
-#: src/gui.c:5308
+#: src/gui.c:5310
 msgid "Default Subtitle Language:"
 msgstr "Standard undertekstsprog"
 
-#: src/gui.c:5318
+#: src/gui.c:5320
 msgid "File Metadata Encoding:"
 msgstr "Kodning af metadata i fil:"
 
-#: src/gui.c:5334
+#: src/gui.c:5336
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr ""
 
-#: src/gui.c:5341
+#: src/gui.c:5343
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Aktiver _Advanced Substation Alpha (ASS) Subtitle understøttelse"
 
-#: src/gui.c:5348
+#: src/gui.c:5350
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "Brug _indbyggede skrifttyper (kun MKV)"
 
-#: src/gui.c:5357
+#: src/gui.c:5359
 msgid "Subtitle Font:"
 msgstr "Skriftype for undertekster:"
 
-#: src/gui.c:5375
+#: src/gui.c:5377
 msgid "Subtitle Font Selection"
 msgstr "Selektion af skriftype for undertekster:"
 
-#: src/gui.c:5380
+#: src/gui.c:5382
 msgid "Subtitle Color:"
 msgstr "Farve for undertekster:"
 
-#: src/gui.c:5404
+#: src/gui.c:5406
 msgid "Subtitle Color Selection"
 msgstr "Selektion af farve for undertekster"
 
-#: src/gui.c:5410
+#: src/gui.c:5412
 msgid "Outline Subtitle Font"
 msgstr "Omtegn skrifttype for undertekster"
 
-#: src/gui.c:5416
+#: src/gui.c:5418
 msgid "Shadow Subtitle Font"
 msgstr "Skygge på skrifttype for undertekster"
 
-#: src/gui.c:5422
+#: src/gui.c:5424
 msgid "Subtitle Font Scaling:"
 msgstr "Skalering af skrifttype for undertekster:"
 
-#: src/gui.c:5435
+#: src/gui.c:5437
 msgid "Subtitle File Encoding:"
 msgstr "Kodning af fil med undertekster:"
 
-#: src/gui.c:5447
+#: src/gui.c:5449
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr ""
 
-#: src/gui.c:5460
+#: src/gui.c:5462
 msgid "Show Subtitles by Default"
 msgstr "Vis undertekster som standard"
 
-#: src/gui.c:5465
-#, fuzzy
-msgid "Subtitle Load Fuzziness:"
-msgstr "Skriftype for undertekster:"
-
-#: src/gui.c:5483
+#: src/gui.c:5485
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr ""
 
-#: src/gui.c:5490
+#: src/gui.c:5492
 msgid "Start with playlist visible"
 msgstr "Start med synlig afspilningsliste"
 
-#: src/gui.c:5500
+#: src/gui.c:5502
 msgid "Respond to Keyboard Media Keys"
 msgstr "Aktiver anvendelse af tastatur mediataster"
 
-#: src/gui.c:5505
+#: src/gui.c:5507
 msgid "Use default playlist"
 msgstr "Brug standard afspilningsliste"
 
-#: src/gui.c:5511
+#: src/gui.c:5513
 msgid "Show notification popup"
 msgstr "Vis notifikationer"
 
-#: src/gui.c:5518
+#: src/gui.c:5520
 msgid "Show status icon"
 msgstr "Vis statusikon"
 
-#: src/gui.c:5524
+#: src/gui.c:5526
 msgid "Use X Screen Saver control over Gnome Power Manager"
 msgstr "Brug X Pauseskærm kontrol over Gnome Strømstyring"
 
-#: src/gui.c:5530
+#: src/gui.c:5532
 msgid "Place playlist below media (requires application restart)"
 msgstr "Placer afspilningsliste under medie (kræver genstart af program)"
 
-#: src/gui.c:5535
+#: src/gui.c:5537
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Tillad kun én tilstand af Gnome MPlayer"
 
-#: src/gui.c:5545
+#: src/gui.c:5547
 msgid "When opening in single instance mode, replace existing file"
 msgstr ""
 
-#: src/gui.c:5554
+#: src/gui.c:5556
 msgid "When opening file, bring main window to front"
 msgstr "Fremhæv hovedvindue når fil åbnes"
 
-#: src/gui.c:5561
+#: src/gui.c:5563
 msgid "Remember Window Location and Size"
 msgstr "Husk vindueplacering og størrelse"
 
-#: src/gui.c:5566
+#: src/gui.c:5568
 msgid "Resize window when new video is loaded"
 msgstr "Ændre vinduestørrelse når ny video er indlæst"
 
-#: src/gui.c:5571
+#: src/gui.c:5573
 msgid "Keep window above other windows"
 msgstr "Bevar hovedvinduet øverst"
 
-#: src/gui.c:5576
+#: src/gui.c:5578
 msgid "Pause playback on mouse click"
 msgstr "Sæt afspilning på pause ved museklik"
 
-#: src/gui.c:5581
+#: src/gui.c:5583
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr "Deaktiver animation af kontroller i fuldskærmtilstand"
 
-#: src/gui.c:5586
+#: src/gui.c:5588
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr ""
 
-#: src/gui.c:5591
+#: src/gui.c:5593
+msgid "Enable Nautilus Plugin"
+msgstr ""
+
+#: src/gui.c:5598
 msgid "Verbose Debug Enabled"
 msgstr ""
 
-#: src/gui.c:5595 src/gui.c:5600
+#: src/gui.c:5602 src/gui.c:5607
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
 msgstr ""
 
-#: src/gui.c:5611
+#: src/gui.c:5618
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr ""
 
-#: src/gui.c:5620 src/gui.c:5624
+#: src/gui.c:5627 src/gui.c:5631
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
 msgstr ""
 
-#: src/gui.c:5634
+#: src/gui.c:5641
 msgid "Remember last software volume level"
 msgstr ""
 
-#: src/gui.c:5637 src/gui.c:5641
+#: src/gui.c:5644 src/gui.c:5648
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr ""
 
-#: src/gui.c:5648
+#: src/gui.c:5655
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "Volumenforøgelse (-200dB to +60dB)"
 
-#: src/gui.c:5660
+#: src/gui.c:5667
 msgid "De_interlace Video"
 msgstr "Ak_tiver fjernelse af linjespring i video"
 
-#: src/gui.c:5662 src/gui.c:5665
+#: src/gui.c:5669 src/gui.c:5672
 msgid "Set this option if video looks striped"
 msgstr ""
 
-#: src/gui.c:5671
+#: src/gui.c:5678
 msgid "_Drop frames"
 msgstr "_Drop billeder"
 
-#: src/gui.c:5673 src/gui.c:5676
+#: src/gui.c:5680 src/gui.c:5683
 msgid "Set this option if video is well behind the audio"
 msgstr "Brug denne mulighed, hvis video er bagud i forhold til lyden"
 
-#: src/gui.c:5682
+#: src/gui.c:5689
 msgid "Enable mplayer cache"
 msgstr "Aktiver mplayer cache"
 
-#: src/gui.c:5688
+#: src/gui.c:5695
 msgid "Cache Size (KB):"
 msgstr "Cache-størrelse (KB):"
 
-#: src/gui.c:5696 src/gui.c:5700
+#: src/gui.c:5703 src/gui.c:5707
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
 msgstr ""
 
-#: src/gui.c:5720
+#: src/gui.c:5727
 msgid "MPlayer Executable:"
 msgstr ""
 
-#: src/gui.c:5724 src/gui.c:5728
+#: src/gui.c:5731 src/gui.c:5735
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 
-#: src/gui.c:5744
+#: src/gui.c:5751
 msgid "Extra Options to MPlayer:"
 msgstr ""
 
-#: src/gui.c:5747 src/gui.c:5750
+#: src/gui.c:5754 src/gui.c:5757
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr ""
 
-#: src/gui.c:5761
+#: src/gui.c:5768
 msgid "MPlayer Default Optical Device"
 msgstr "MPlayer standard optisk enhed"
 
-#: src/gui.c:5776
+#: src/gui.c:5783
 msgid ""
 "<span weight=\"bold\">Keyboard Shortcuts</span>\n"
 "\n"
@@ -1006,239 +955,229 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
-#: src/gui.c:5808
-#, fuzzy
-msgid "Reset Keys"
-msgstr "_Nulstil"
-
-#: src/gui.c:6830
+#: src/gui.c:6837
 msgid "S_how Controls"
 msgstr "V_is kontroller"
 
-#: src/gui.c:6834 src/gui.c:7074
+#: src/gui.c:6841 src/gui.c:7081
 msgid "_Full Screen"
 msgstr "_Fuldskærm"
 
-#: src/gui.c:6839
+#: src/gui.c:6846
 msgid "_Copy Location"
 msgstr "_Kopier placering"
 
 #. File Menu
-#: src/gui.c:6883
+#: src/gui.c:6890
 msgid "_File"
 msgstr "_Fil"
 
-#: src/gui.c:6891
+#: src/gui.c:6898
 msgid "Open _Folder"
 msgstr "Åbn _mappe"
 
-#: src/gui.c:6896
+#: src/gui.c:6903
 msgid "Open _Location"
 msgstr "Åbn _placering"
 
-#: src/gui.c:6902
+#: src/gui.c:6909
 msgid "_Disc"
 msgstr "_Disk"
 
-#: src/gui.c:6910
+#: src/gui.c:6917
 msgid "Open _Audio CD"
 msgstr "Åbn _Lyd CD"
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
-#: src/gui.c:6916
+#: src/gui.c:6923
 msgid "Open DVD with _Menus"
 msgstr "Åbn DVD med _Menuer"
 
-#: src/gui.c:6921
+#: src/gui.c:6928
 msgid "Open DVD from Folder with M_enus"
 msgstr "Åbn DVD fra Mappe med M_enuer"
 
-#: src/gui.c:6926
+#: src/gui.c:6933
 msgid "Open DVD from ISO with Me_nus"
 msgstr "Åbn DVD fra ISO med Me_nuer"
 
-#: src/gui.c:6930
+#: src/gui.c:6937
 msgid "Open _VCD"
 msgstr "Åbn _VCD"
 
-#: src/gui.c:6932
+#: src/gui.c:6939
 msgid "_TV"
 msgstr "_TV"
 
-#: src/gui.c:6937
+#: src/gui.c:6944
 msgid "Open _Analog TV"
 msgstr "Åbn _Analog TV"
 
-#: src/gui.c:6939
+#: src/gui.c:6946
 msgid "Open _Digital TV"
 msgstr "Åbn _Digital TV"
 
-#: src/gui.c:6942
+#: src/gui.c:6949
 msgid "Open _iPod™"
 msgstr "Åbn _iPod™"
 
-#: src/gui.c:6951
+#: src/gui.c:6958
 msgid "Open _Recent"
 msgstr "Åbn _seneste"
 
 #. Edit Menu
-#: src/gui.c:6998
+#: src/gui.c:7005
 msgid "_Edit"
 msgstr "_Redigér"
 
-#: src/gui.c:7004
+#: src/gui.c:7011
 msgid "_Shuffle Playlist"
 msgstr "_Bland afspilningsliste"
 
-#: src/gui.c:7007
+#: src/gui.c:7014
 msgid "_Loop Playlist"
 msgstr "_Gentag afspilningsliste"
 
-#: src/gui.c:7010
+#: src/gui.c:7017
 msgid "S_witch Audio Track"
 msgstr "S_kift lydspor"
 
-#: src/gui.c:7012 src/playlist.c:1162
+#: src/gui.c:7019 src/playlist.c:1162
 msgid "Set Audi_o"
 msgstr ""
 
-#: src/gui.c:7014
+#: src/gui.c:7021
 msgid "Select _Audio Language"
 msgstr "Vælg _lydsprog"
 
-#: src/gui.c:7017
+#: src/gui.c:7024
 msgid "Set Sub_title"
 msgstr "Vælg under_tekster"
 
-#: src/gui.c:7019
+#: src/gui.c:7026
 msgid "S_elect Subtitle Language"
 msgstr "V_ælg sprog for undertekster"
 
-#: src/gui.c:7022
+#: src/gui.c:7029
 msgid "_Take Screenshot"
 msgstr "_Tag skærmbillede"
 
-#: src/gui.c:7028 src/gui.c:7033
+#: src/gui.c:7035 src/gui.c:7040
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "Filer navngivet ’shotNNNN.png’ vil blive gemt i det anvendte bibliotek"
 
 #. View Menu
-#: src/gui.c:7053
+#: src/gui.c:7060
 msgid "_View"
 msgstr "_Vis"
 
-#: src/gui.c:7059
+#: src/gui.c:7066
 msgid "_Playlist"
 msgstr "_Afspilningsliste"
 
-#: src/gui.c:7063
+#: src/gui.c:7070
 msgid "Media _Info"
 msgstr "Medie _Info"
 
-#: src/gui.c:7066
+#: src/gui.c:7073
 msgid "D_etails"
 msgstr "D_etaljer"
 
-#: src/gui.c:7069
+#: src/gui.c:7076
 msgid "Audio _Meter"
 msgstr "Lyd_meter"
 
-#: src/gui.c:7081
+#: src/gui.c:7088
 msgid "_Normal (1:1)"
 msgstr "_Normal (1:1)"
 
-#: src/gui.c:7084
+#: src/gui.c:7091
 msgid "_Double Size (2:1)"
 msgstr "_Dobbelt størrelse (2:1)"
 
-#: src/gui.c:7087
+#: src/gui.c:7094
 msgid "_Half Size (1:2)"
 msgstr "_Halv størrelse (1:2)"
 
-#: src/gui.c:7089
-#, fuzzy
-msgid "Half _Larger (1.5:1)"
-msgstr "_Halv størrelse (1:2)"
-
-#: src/gui.c:7091
+#: src/gui.c:7098
 msgid "_Aspect"
 msgstr "_Aspekt"
 
-#: src/gui.c:7097
+#: src/gui.c:7104
 msgid "D_efault Aspect"
 msgstr "S_tandard Aspekt"
 
-#: src/gui.c:7099
+#: src/gui.c:7106
 msgid "_4:3 Aspect"
 msgstr "_4:3 Aspekt"
 
-#: src/gui.c:7101
+#: src/gui.c:7108
 msgid "_16:9 Aspect"
 msgstr "_16:9 Aspekt"
 
-#: src/gui.c:7103
+#: src/gui.c:7110
 msgid "1_6:10 Aspect"
 msgstr "1_6:10 Aspekt"
 
-#: src/gui.c:7105
+#: src/gui.c:7112
 msgid "_Follow Window"
 msgstr "_Følg vindue"
 
-#: src/gui.c:7110
+#: src/gui.c:7117
 msgid "Show _Subtitles"
 msgstr "Vis _undertekster"
 
-#: src/gui.c:7118
+#: src/gui.c:7125
 msgid "Decrease Subtitle Delay"
 msgstr "Formindsk undertekstforsinkelse"
 
-#: src/gui.c:7120
+#: src/gui.c:7127
 msgid "Increase Subtitle Delay"
 msgstr "Forøg undertekstforsinkelse"
 
-#: src/gui.c:7121
+#: src/gui.c:7128
 msgid "Switch An_gle"
 msgstr "Skift vi_nkle"
 
-#: src/gui.c:7123
+#: src/gui.c:7130
 msgid "_Controls"
 msgstr "_Kontroller"
 
-#: src/gui.c:7137
+#: src/gui.c:7144
 msgid "_Video Picture Adjustments"
 msgstr "_Videobilled-justeringer"
 
 #. Help Menu
-#: src/gui.c:7175
+#: src/gui.c:7182
 msgid "_Help"
 msgstr "_Hjælp"
 
-#: src/gui.c:7321 src/gui.c:7324
+#: src/gui.c:7328 src/gui.c:7331
 msgid "Menu"
 msgstr "Menu"
 
-#: src/gui.c:7341 src/gui.c:7344
+#: src/gui.c:7348 src/gui.c:7351
 msgid "Previous"
 msgstr "Forrige"
 
-#: src/gui.c:7361 src/gui.c:7364
+#: src/gui.c:7368 src/gui.c:7371
 msgid "Rewind"
 msgstr "Spol tilbage"
 
-#: src/gui.c:7401 src/gui.c:7404
+#: src/gui.c:7408 src/gui.c:7411
 msgid "Stop"
 msgstr "Stop"
 
-#: src/gui.c:7421 src/gui.c:7424
+#: src/gui.c:7428 src/gui.c:7431
 msgid "Fast Forward"
 msgstr "Spol frem"
 
-#: src/gui.c:7441 src/gui.c:7444
+#: src/gui.c:7448 src/gui.c:7451
 msgid "Next"
 msgstr "Næste"
 
-#: src/gui.c:7523
+#: src/gui.c:7530
 msgid "Volume 100%"
 msgstr "Lydstyrke 100%"
 
@@ -1337,15 +1276,15 @@ msgid_plural "Items to Play"
 msgstr[0] "Genstand til afspilning"
 msgstr[1] "Genstande til afspilning"
 
-#: src/playlist.c:929 src/nautilus_property_page.c:293
+#: src/playlist.c:929 src/nautilus_property_page.c:296
 msgid "Artist"
 msgstr "Kunstner"
 
-#: src/playlist.c:940 src/nautilus_property_page.c:305
+#: src/playlist.c:940 src/nautilus_property_page.c:308
 msgid "Album"
 msgstr "Album"
 
-#: src/playlist.c:952 src/nautilus_property_page.c:317
+#: src/playlist.c:952 src/nautilus_property_page.c:320
 msgid "Length"
 msgstr "Varighed"
 
@@ -1401,32 +1340,32 @@ msgstr ""
 msgid "_Set Subtitle"
 msgstr "_Vælg undertekster"
 
-#: src/nautilus_property_page.c:87
+#: src/nautilus_property_page.c:90
 #, c-format
 msgid "%2i:%02.0f"
 msgstr ""
 
-#: src/nautilus_property_page.c:89
+#: src/nautilus_property_page.c:92
 #, c-format
 msgid "%i:%02i:%02.0f"
 msgstr ""
 
-#: src/nautilus_property_page.c:273
+#: src/nautilus_property_page.c:276
 msgid "<span weight=\"bold\">Media Details</span>"
 msgstr ""
 
-#: src/nautilus_property_page.c:281
+#: src/nautilus_property_page.c:284
 msgid "Title"
 msgstr "Titel"
 
-#: src/nautilus_property_page.c:329
+#: src/nautilus_property_page.c:332
 msgid "Demuxer"
 msgstr ""
 
-#: src/nautilus_property_page.c:381
+#: src/nautilus_property_page.c:384
 msgid "Video Frame Rate:"
 msgstr "Video billedhastighed:"
 
-#: src/nautilus_property_page.c:482
+#: src/nautilus_property_page.c:485
 msgid "Audio/Video"
 msgstr "Lyd/video"

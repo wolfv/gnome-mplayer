@@ -33,6 +33,9 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 #include <glib/gi18n.h>
+#include <gmlib.h>
+
+#define ENABLE_NAUTILUS_PLUGIN "enable-nautilus-plugin"
 
 static GType pp_type = 0;
 
@@ -527,6 +530,7 @@ static void gnome_mplayer_properties_plugin_register_type(GTypeModule * module)
 /* --- extension interface --- */
 void nautilus_module_initialize(GTypeModule * module)
 {
+    GmPrefStore *gm_store;
 
 #ifdef ENABLE_NLS
     bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -536,7 +540,11 @@ void nautilus_module_initialize(GTypeModule * module)
     // textdomain(GETTEXT_PACKAGE);
 #endif
 
-    gnome_mplayer_properties_plugin_register_type(module);
+    gm_store = gm_pref_store_new("gnome-mplayer");
+    if (gm_pref_store_get_boolean_with_default(gm_store, ENABLE_NAUTILUS_PLUGIN, TRUE)) {
+        gnome_mplayer_properties_plugin_register_type(module);
+    }
+    gm_pref_store_free(gm_store);
 }
 
 void nautilus_module_shutdown(void)

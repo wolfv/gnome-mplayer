@@ -350,6 +350,10 @@
       <summary>Preferred Subtitle Language</summary>
       <description>Preferred Subtitle Language</description>
     </key>
-    
+    <key name="enable-nautilus-plugin" type="b">
+      <default>true</default>
+      <summary>Enable Audio/Video plugin in Nautilus</summary>
+      <description>Enable Audio/Video plugin in Nautilus</description>
+    </key>    
   </schema>
 </schemalist>
