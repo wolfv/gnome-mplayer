@@ -154,7 +154,7 @@ msgstr "Запускати з відображенням деталей"
 
 #: src/main.c:109
 msgid "Real Player Name"
-msgstr ""
+msgstr "Ім'я програвача"
 
 #: src/main.c:110
 msgid "Real Player Console ID"
