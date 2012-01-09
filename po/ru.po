@@ -159,7 +159,7 @@ msgstr "Показывать подробности при запуске"
 
 #: src/main.c:109
 msgid "Real Player Name"
-msgstr "Имя прогрывателя Real Player"
+msgstr "Имя проигрывателя Real Player"
 
 #: src/main.c:110
 msgid "Real Player Console ID"
