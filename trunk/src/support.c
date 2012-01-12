@@ -1096,6 +1096,7 @@ MetaData *get_basic_metadata(gchar * uri)
     }
 
     if (ret != NULL) {
+        ret->uri = g_strdup(uri);
         ret->title = g_strdup(title);
         ret->artist = g_strdup(artist);
         ret->album = g_strdup(album);
@@ -1390,6 +1391,7 @@ MetaData *get_metadata(gchar * uri)
     }
 
     if (ret != NULL) {
+        ret->uri = g_strdup(uri);
         ret->title = g_strdup(title);
         ret->artist = g_strdup(artist);
         ret->album = g_strdup(album);
@@ -2416,6 +2418,8 @@ gpointer get_cover_art(gpointer data)
     gpointer pixbuf;
     MetaData *metadata = (MetaData *) data;
     gboolean art_found = TRUE;
+    gchar *md5;
+    gchar *thumbnail;
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
@@ -2434,7 +2438,7 @@ gpointer get_cover_art(gpointer data)
     }
 
     path = g_strdup(metadata->uri);
-    if (path != NULL) {
+    if (path != NULL && cache_file == NULL) {
         p = g_strrstr(path, "/");
         if (p != NULL) {
             p[0] = '\0';
@@ -2451,10 +2455,10 @@ gpointer get_cover_art(gpointer data)
                 printf("Looking for cover art at %s\n", cache_file);
 
         }
-        g_free(path);
-        path = NULL;
         p = NULL;
     }
+    g_free(path);
+    path = NULL;
 
     if (metadata->uri != NULL && (cache_file == NULL || !g_file_test(cache_file, G_FILE_TEST_EXISTS))) {
         path = g_strdup(metadata->uri);
@@ -2486,6 +2490,10 @@ gpointer get_cover_art(gpointer data)
         cache_file =
             g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(),
                             metadata->artist, metadata->album);
+        if (!g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+            g_free(cache_file);
+            cache_file = NULL;
+        }
     }
 
     if (local_artist) {
@@ -2497,7 +2505,22 @@ gpointer get_cover_art(gpointer data)
         metadata->album = NULL;
     }
 
-    if (!g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+    if (metadata->uri != NULL && cache_file == NULL) {
+        md5 = g_compute_checksum_for_string(G_CHECKSUM_MD5, metadata->uri, -1);
+        thumbnail = g_strdup_printf("%s/.thumbnails/normal/%s.png", g_get_home_dir(), md5);
+
+        if (g_file_test(thumbnail, G_FILE_TEST_EXISTS)) {
+            cache_file = g_strdup(thumbnail);
+            art_found = TRUE;
+            if (verbose) {
+                printf("Using thumbnail %s as image\n", thumbnail);
+            }
+        }
+        g_free(thumbnail);
+        g_free(md5);
+    }
+
+    if (cache_file == NULL) {
         art_found = FALSE;
         if (!disable_cover_art_fetch) {
             url = get_cover_art_url(metadata->artist, metadata->title, metadata->album);

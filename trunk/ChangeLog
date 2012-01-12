@@ -1,4 +1,5 @@
 Development
+    Use nautilus thumbnail for cover art if it exists
     ru.po fix Issue #586
     uk.po fix Issue #585
     Fix problem with directory vs dvd detection Issue #587
