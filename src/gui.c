@@ -974,7 +974,6 @@ gboolean set_metadata(gpointer data)
 
         if (gtk_list_store_iter_is_valid(playliststore, &riter)) {
             if (mdata != NULL) {
-
                 gtk_list_store_set(playliststore, &riter,
                                    DESCRIPTION_COLUMN, mdata->title,
                                    ARTIST_COLUMN, mdata->artist,
@@ -6189,6 +6188,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     case ATTRIBUTE_ALBUM:
 
         metadata = (MetaData *) g_new0(MetaData, 1);
+        metadata->uri = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
         text = g_strdup_printf("<small>\n");
         if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE)) {
             buffer =
