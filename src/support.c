@@ -2417,7 +2417,6 @@ gpointer get_cover_art(gpointer data)
     FILE *art;
     gpointer pixbuf;
     MetaData *metadata = (MetaData *) data;
-    gboolean art_found = TRUE;
     gchar *md5;
     gchar *thumbnail;
 #ifdef GIO_ENABLED
@@ -2505,23 +2504,7 @@ gpointer get_cover_art(gpointer data)
         metadata->album = NULL;
     }
 
-    if (metadata->uri != NULL && cache_file == NULL) {
-        md5 = g_compute_checksum_for_string(G_CHECKSUM_MD5, metadata->uri, -1);
-        thumbnail = g_strdup_printf("%s/.thumbnails/normal/%s.png", g_get_home_dir(), md5);
-
-        if (g_file_test(thumbnail, G_FILE_TEST_EXISTS)) {
-            cache_file = g_strdup(thumbnail);
-            art_found = TRUE;
-            if (verbose) {
-                printf("Using thumbnail %s as image\n", thumbnail);
-            }
-        }
-        g_free(thumbnail);
-        g_free(md5);
-    }
-
     if (cache_file == NULL) {
-        art_found = FALSE;
         if (!disable_cover_art_fetch) {
             url = get_cover_art_url(metadata->artist, metadata->title, metadata->album);
             if (url == NULL && metadata->album != NULL && strlen(metadata->album) > 0) {
@@ -2585,15 +2568,44 @@ gpointer get_cover_art(gpointer data)
                     }
                     // printf("cover art url is %s\n",url);
                     g_free(url);
-                    art_found = TRUE;
                 }
-            } else {
-                art_found = TRUE;
             }
         }
     }
 
-    if (g_file_test(cache_file, G_FILE_TEST_EXISTS) && art_found) {
+    printf("metadata->uri = %s\ncache_file=%s\n", metadata->uri, cache_file);
+
+    if (metadata->uri != NULL && cache_file == NULL) {
+        md5 = g_compute_checksum_for_string(G_CHECKSUM_MD5, metadata->uri, -1);
+        thumbnail = g_strdup_printf("%s/.thumbnails/normal/%s.png", g_get_home_dir(), md5);
+
+        if (g_file_test(thumbnail, G_FILE_TEST_EXISTS)) {
+            if (cache_file)
+                g_free(cache_file);
+            cache_file = g_strdup(thumbnail);
+            if (verbose) {
+                printf("Using thumbnail %s as image\n", thumbnail);
+            }
+        }
+        g_free(thumbnail);
+
+        if (cache_file == NULL) {
+            thumbnail = g_strdup_printf("%s/.thumbnails/large/%s.png", g_get_home_dir(), md5);
+
+            if (g_file_test(thumbnail, G_FILE_TEST_EXISTS)) {
+                if (cache_file)
+                    g_free(cache_file);
+                cache_file = g_strdup(thumbnail);
+                if (verbose) {
+                    printf("Using thumbnail %s as image\n", thumbnail);
+                }
+            }
+            g_free(thumbnail);
+        }
+        g_free(md5);
+    }
+
+    if (cache_file != NULL && g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
         pixbuf = gdk_pixbuf_new_from_file(cache_file, NULL);
         g_idle_add(set_cover_art, pixbuf);
     } else {
