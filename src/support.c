@@ -2573,7 +2573,8 @@ gpointer get_cover_art(gpointer data)
         }
     }
 
-    printf("metadata->uri = %s\ncache_file=%s\n", metadata->uri, cache_file);
+    if (verbose)
+        printf("metadata->uri = %s\ncache_file=%s\n", metadata->uri, cache_file);
 
     if (metadata->uri != NULL && cache_file == NULL) {
         md5 = g_compute_checksum_for_string(G_CHECKSUM_MD5, metadata->uri, -1);
