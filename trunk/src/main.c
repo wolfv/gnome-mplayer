@@ -1055,11 +1055,13 @@ int main(int argc, char *argv[])
                            G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_BOOLEAN);
 
-    // only use dark theme if not embedded, otherwise use the default theme                                       
+    // only use dark theme if not embedded, otherwise use the default theme  
+#ifdef GTK3_ENABLED
     if (embed_window <= 0) {
         gtk_settings = gtk_settings_get_default();
         g_object_set(G_OBJECT(gtk_settings), "gtk-application-prefer-dark-theme", TRUE, NULL);
     }
+#endif
 
     create_window(embed_window);
 

@@ -1,4 +1,6 @@
 Development
+    Only try to enable dark theme in GTK3, Issue #591
+    Hide message in normal mode
     Rework cover art fetch so that Amazon cover art is preferred over local thumbnail
     Use nautilus thumbnail for cover art if it exists
     ru.po fix Issue #586
