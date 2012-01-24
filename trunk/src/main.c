@@ -658,7 +658,9 @@ int main(int argc, char *argv[])
     gdouble volume = 100.0;
     gchar *accelerator_keys;
     gchar **parse;
-    GtkSettings *gtk_settings;
+#ifdef GTK3_ENABLED
+	GtkSettings *gtk_settings;
+#endif
     int stat_result;
 
 #ifndef OS_WIN32
