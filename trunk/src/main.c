@@ -647,7 +647,7 @@ void assign_default_keys()
 
 int main(int argc, char *argv[])
 {
-    struct stat buf = {0};
+    struct stat buf = { 0 };
     struct mntent *mnt = NULL;
     FILE *fp = NULL;
     gchar *uri;
@@ -1080,17 +1080,21 @@ int main(int argc, char *argv[])
     if (argv[fileindex] != NULL) {
 #ifdef GIO_ENABLED
         file = g_file_new_for_commandline_arg(argv[fileindex]);
+        stat_result = -1;
         if (file != NULL) {
-            uri = g_file_get_uri(file);
-            g_object_unref(file);
-        }
-        stat_result = 0;
-        if (uri != NULL) {
-            filename = g_filename_from_uri(uri, NULL, NULL);
-            if (filename != NULL) {
-                stat_result = g_stat(filename, &buf);
-                g_free(filename);
+            GError *error = NULL;
+            GFileInfo *file_info = g_file_query_info(file, G_FILE_ATTRIBUTE_UNIX_MODE, 0, NULL, &error);
+            if (file_info != NULL) {
+                buf.st_mode = g_file_info_get_attribute_uint32(file_info, G_FILE_ATTRIBUTE_UNIX_MODE);
+                stat_result = 0;
+                g_object_unref(file_info);
             }
+            if (error != NULL) {
+                if (verbose)
+                    printf("failed to get mode: %s\n", error->message);
+                g_error_free(error);
+            }
+            g_object_unref(file);
         }
 #else
         stat_result = g_stat(argv[fileindex], &buf);
