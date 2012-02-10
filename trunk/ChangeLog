@@ -1,4 +1,5 @@
 Development
+    Additional NULL check
     Check for NULL values from gvfs, Issue 579
     Only try to enable dark theme in GTK3, Issue #591
     Hide message in normal mode
