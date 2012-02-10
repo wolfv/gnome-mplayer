@@ -1084,12 +1084,13 @@ int main(int argc, char *argv[])
             uri = g_file_get_uri(file);
             g_object_unref(file);
         }
-        filename = g_filename_from_uri(uri, NULL, NULL);
-        if (filename != NULL) {
-            stat_result = g_stat(filename, &buf);
-            g_free(filename);
-        } else {
-            stat_result = 0;
+        stat_result = 0;
+        if (uri != NULL) {
+            filename = g_filename_from_uri(uri, NULL, NULL);
+            if (filename != NULL) {
+                stat_result = g_stat(filename, &buf);
+                g_free(filename);
+            }
         }
 #else
         stat_result = g_stat(argv[fileindex], &buf);
