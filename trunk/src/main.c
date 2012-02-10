@@ -647,7 +647,7 @@ void assign_default_keys()
 
 int main(int argc, char *argv[])
 {
-    struct stat buf;
+    struct stat buf = {0};
     struct mntent *mnt = NULL;
     FILE *fp = NULL;
     gchar *uri;
