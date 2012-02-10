@@ -1,4 +1,5 @@
 Development
+    Check for NULL values from gvfs, Issue 579
     Only try to enable dark theme in GTK3, Issue #591
     Hide message in normal mode
     Rework cover art fetch so that Amazon cover art is preferred over local thumbnail

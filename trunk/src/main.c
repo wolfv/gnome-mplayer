@@ -659,7 +659,7 @@ int main(int argc, char *argv[])
     gchar *accelerator_keys;
     gchar **parse;
 #ifdef GTK3_ENABLED
-	GtkSettings *gtk_settings;
+    GtkSettings *gtk_settings;
 #endif
     int stat_result;
 
@@ -1085,8 +1085,12 @@ int main(int argc, char *argv[])
             g_object_unref(file);
         }
         filename = g_filename_from_uri(uri, NULL, NULL);
-        stat_result = g_stat(filename, &buf);
-        g_free(filename);
+        if (filename != NULL) {
+            stat_result = g_stat(filename, &buf);
+            g_free(filename);
+        } else {
+            stat_result = 0;
+        }
 #else
         stat_result = g_stat(argv[fileindex], &buf);
 #endif
