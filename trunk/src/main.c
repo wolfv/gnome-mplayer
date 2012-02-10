@@ -664,7 +664,7 @@ int main(int argc, char *argv[])
     int stat_result;
 
 #ifndef OS_WIN32
-    struct sigaction sa = {0};
+    struct sigaction sa;
 #endif
     gboolean playiter = FALSE;
 
