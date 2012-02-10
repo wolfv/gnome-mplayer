@@ -602,7 +602,7 @@ gboolean set_progress_value(void *data)
 
     IdleData *idle = (IdleData *) data;
     gchar *text;
-    struct stat buf;
+    struct stat buf = {0};
     gchar *iterfilename;
     gchar *iteruri;
 
