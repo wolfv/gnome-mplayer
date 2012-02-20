@@ -1685,16 +1685,56 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     // printf("index = %i\n",index);
     if (!event->is_modifier && index != -1) {
 
-        if (fullscreen) {
-            switch (index) {
-            case VIEW_FULLSCREEN:
-                if (idledata->videopresent)
-                    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
-                return TRUE;
-            default:
-                printf("Keyboard shortcut index %i, not handled in fullscreen at this time\n", index);
-
+        switch (index) {
+        case FILE_OPEN_LOCATION:
+            break;
+        case EDIT_SCREENSHOT:
+            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_TAKE_SCREENSHOT);
+            return FALSE;
+        case EDIT_PREFERENCES:
+            break;
+        case VIEW_PLAYLIST:
+            break;
+        case VIEW_INFO:
+            break;
+        case VIEW_DETAILS:
+            break;
+        case VIEW_METER:
+            break;
+        case VIEW_FULLSCREEN:
+            if (idledata->videopresent)
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+            return TRUE;
+        case VIEW_ASPECT:
+            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window))) {
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default), TRUE);
+                return FALSE;
             }
+            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten)))
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window), TRUE);
+            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine)))
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten), TRUE);
+            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine), TRUE);
+            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default)))
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three), TRUE);
+            return FALSE;
+        case VIEW_SUBTITLES:
+            if (idledata->videopresent)
+                gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE,
+                                                        !gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER
+                                                                                                 (media),
+                                                                                                 ATTRIBUTE_SUB_VISIBLE));
+
+            return TRUE;
+        case VIEW_DECREASE_SIZE:
+        case VIEW_INCREASE_SIZE:
+        case VIEW_ANGLE:
+        case VIEW_CONTROLS:
+            break;
+        default:
+            printf("Keyboard shortcut index %i, not handled in fullscreen at this time\n", index);
+
         }
     }
 
@@ -1891,12 +1931,14 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             delete_callback(NULL, NULL, NULL);
             return FALSE;
         case GDK_v:
-            if (fullscreen) {
-                gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE,
-                                                        !gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER
-                                                                                                 (media),
-                                                                                                 ATTRIBUTE_SUB_VISIBLE));
-            }
+            /*
+               if (fullscreen) {
+               gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE,
+               !gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER
+               (media),
+               ATTRIBUTE_SUB_VISIBLE));
+               }
+             */
             return FALSE;
         case GDK_plus:
         case GDK_KP_Add:
@@ -1934,18 +1976,20 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
             return FALSE;
         case GDK_a:
-            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window))) {
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default), TRUE);
-                return FALSE;
-            }
-            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten)))
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window), TRUE);
-            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine)))
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten), TRUE);
-            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine), TRUE);
-            if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default)))
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three), TRUE);
+            /*
+               if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window))) {
+               gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default), TRUE);
+               return FALSE;
+               }
+               if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten)))
+               gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window), TRUE);
+               if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine)))
+               gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_ten), TRUE);
+               if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three)))
+               gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_sixteen_nine), TRUE);
+               if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_default)))
+               gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three), TRUE);
+             */
             return FALSE;
         case GDK_d:
             gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SWITCH_FRAME_DROP);
@@ -1964,7 +2008,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                                                     - 1);
             return FALSE;
         case GDK_s:
-            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_TAKE_SCREENSHOT);
+            // gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_TAKE_SCREENSHOT);
             return FALSE;
         default:
             gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
@@ -6107,6 +6151,10 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
                 list = list->next;
             }
         }
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles),
+                                 gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media),
+                                                                         ATTRIBUTE_SUBS_EXIST));
+
         break;
     case ATTRIBUTE_HAS_CHAPTERS:
         if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HAS_CHAPTERS)
