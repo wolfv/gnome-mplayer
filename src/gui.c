@@ -1662,6 +1662,9 @@ gboolean configure_callback(GtkWidget * widget, GdkEventConfigure * event, gpoin
     if (use_remember_loc && event->width == loc_window_width && event->height == loc_window_height) {
         // this might be useful
     }
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles),
+                                   gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media),
+                                                                           ATTRIBUTE_SUB_VISIBLE));
     return FALSE;
 }
 
@@ -1702,8 +1705,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case VIEW_METER:
             break;
         case VIEW_FULLSCREEN:
-            if (idledata->videopresent)
-                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+            if (fullscreen) {
+                if (idledata->videopresent) {
+                    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+                }
+            }
             return TRUE;
         case VIEW_ASPECT:
             if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_follow_window))) {
@@ -1720,13 +1726,14 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_aspect_four_three), TRUE);
             return FALSE;
         case VIEW_SUBTITLES:
-            if (idledata->videopresent)
-                gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE,
-                                                        !gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER
-                                                                                                 (media),
-                                                                                                 ATTRIBUTE_SUB_VISIBLE));
-
-            return TRUE;
+            if (fullscreen) {
+                if (idledata->videopresent)
+                    gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE,
+                                                            !gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER
+                                                                                                     (media),
+                                                                                                     ATTRIBUTE_SUB_VISIBLE));
+            }
+            return FALSE;
         case VIEW_DECREASE_SIZE:
         case VIEW_INCREASE_SIZE:
         case VIEW_ANGLE:
@@ -6154,6 +6161,9 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles),
                                  gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media),
                                                                          ATTRIBUTE_SUBS_EXIST));
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles),
+                                       gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media),
+                                                                               ATTRIBUTE_SUB_VISIBLE));
 
         break;
     case ATTRIBUTE_HAS_CHAPTERS:

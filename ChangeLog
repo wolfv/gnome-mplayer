@@ -1,4 +1,5 @@
 Development
+    Enhance subtitle visibility tracking (requires minor gmtk updates)
     Rework keyhandler to use the custom key mappings
     Make customized keyboard shortcut for "Fullscreen Toggle" work in Fullscreen mode (part of Issue #600)
     Applied dbus.txt patch from Issue #595
