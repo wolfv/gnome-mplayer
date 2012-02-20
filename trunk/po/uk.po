@@ -74,7 +74,7 @@ msgstr "Міксер для використання"
 
 #: src/main.c:66
 msgid "Set initial volume percentage"
-msgstr ""
+msgstr "Початкова гучність"
 
 #: src/main.c:67
 msgid "Show the controls in window"
@@ -86,7 +86,7 @@ msgstr "Показувати субтитри у разі їх присутно�
 
 #: src/main.c:72
 msgid "Autostart the media default to 1, set to 0 to load but don't play"
-msgstr ""
+msgstr "Відтворення при додаванні файлу; 1 - увімкнено, 0 - вимкнено"
 
 #: src/main.c:74
 msgid "Disable popup menu on right click"
@@ -122,15 +122,15 @@ msgstr ""
 
 #: src/main.c:89
 msgid "Force cache usage on streaming sites"
-msgstr ""
+msgstr "Примусово використовувати кеш для сайтів з потоковим відео"
 
 #: src/main.c:92
 msgid "Disable the deinterlace filter"
-msgstr ""
+msgstr "Вимкнути дєїнтерлейсинг"
 
 #: src/main.c:95
 msgid "Don't skip drawing frames to better keep sync"
-msgstr ""
+msgstr "Не пропускати кадри для кращої синхронізації"
 
 #: src/main.c:98
 msgid "Use the old subtitle rendering system"
@@ -154,19 +154,19 @@ msgstr "Запускати з відображенням деталей"
 
 #: src/main.c:109
 msgid "Real Player Name"
-msgstr "Ім'я програвача"
+msgstr "Ім'я програвача Real Player"
 
 #: src/main.c:110
 msgid "Real Player Console ID"
-msgstr ""
+msgstr "Консольний ідентифікатор програвача Real Player"
 
 #: src/main.c:111
 msgid "Real Player Console Controls"
-msgstr ""
+msgstr "Консольні команди для керування програвачем Real Player"
 
 #: src/main.c:113
 msgid "Subtitle file for first media file"
-msgstr ""
+msgstr "Файл субтитрів для першого медіафайлу"
 
 #: src/main.c:115
 msgid "TV device name"
@@ -174,19 +174,19 @@ msgstr "Назва ТБ-приладу"
 
 #: src/main.c:116
 msgid "TV driver name (v4l|v4l2)"
-msgstr ""
+msgstr "Драйвер для пристрою прийому ТБ (v4l | v4l2)"
 
 #: src/main.c:117
 msgid "TV input name"
-msgstr ""
+msgstr "Назва ТБ-потоку"
 
 #: src/main.c:118
 msgid "Width of TV input"
-msgstr ""
+msgstr "Ширина відображення ТБ-потоку"
 
 #: src/main.c:119
 msgid "Height of TV input"
-msgstr ""
+msgstr "Висота відображення ТБ-потоку "
 
 #: src/main.c:120
 msgid "Frames per second from TV input"
@@ -194,35 +194,35 @@ msgstr "Частота кадрів із вводу ТБ"
 
 #: src/main.c:121
 msgid "Only allow one instance"
-msgstr ""
+msgstr "Тільки одна копія програми"
 
 #: src/main.c:124
 msgid "Put single instance mode into replace and play mode"
-msgstr ""
+msgstr "Замінити поточний файл у програвачі на вказаний і програти його"
 
 #: src/main.c:127
 msgid "Use large control buttons"
-msgstr ""
+msgstr "Використовувати великі кнопки управління"
 
 #: src/main.c:130
 msgid "Hide control panel when mouse is not moving"
-msgstr ""
+msgstr "Приховувати панель управління при відсутності руху миші"
 
 #: src/main.c:133
 msgid "Ignore single instance preference for this instance"
-msgstr ""
+msgstr "Ігнорувати єдині налаштування для цього екземпляра програми"
 
 #: src/main.c:136
 msgid "Keep window on top"
-msgstr ""
+msgstr "Поверх всіх вікон"
 
 #: src/main.c:140
 msgid "Load all tracks from media player using gpod"
-msgstr ""
+msgstr "Завантажувати всі доріжки з програвача використовуючи gpod"
 
 #: src/main.c:144
 msgid "Don't fetch new cover art images"
-msgstr ""
+msgstr "Не витягувати обкладинки альбомів"
 
 #: src/main.c:373 src/gui.c:735 src/gui.c:6344 src/gui.c:6406
 #, c-format
@@ -292,7 +292,7 @@ msgstr "%s - (%i/%i) - GNOME MPlayer"
 #: src/gui.c:476
 #, c-format
 msgid "(%i/%i) - GNOME MPlayer"
-msgstr ""
+msgstr "(%i/%i) - GNOME MPlayer"
 
 #: src/gui.c:480 src/gui.c:3213 src/gui.c:6790
 #, c-format
@@ -379,11 +379,11 @@ msgstr "Адреса:"
 
 #: src/gui.c:2736 src/gui.c:2828
 msgid "Choose Disk Directory"
-msgstr ""
+msgstr "Вибрати каталог з диском"
 
 #: src/gui.c:2772 src/gui.c:2868
 msgid "Choose Disk Image"
-msgstr ""
+msgstr "Вибрати образ диска"
 
 #: src/gui.c:2786 src/gui.c:2882
 msgid "Disk Image (*.iso)"
@@ -431,7 +431,7 @@ msgstr ""
 
 #: src/gui.c:3420
 msgid "Set AudioFile"
-msgstr ""
+msgstr "Встановити AudioFile"
 
 #: src/gui.c:3456 src/playlist.c:136
 msgid "Set Subtitle"
@@ -439,7 +439,7 @@ msgstr "Вибрати субтитри"
 
 #: src/gui.c:3618
 msgid "Gnome MPlayer Fullscreen"
-msgstr ""
+msgstr "Повноекранний режим"
 
 #: src/gui.c:4041 src/nautilus_property_page.c:344
 msgid "<span weight=\"bold\">Video Details</span>"
@@ -501,7 +501,7 @@ msgstr ""
 
 #: src/gui.c:4208
 msgid "Video Picture Adjustments"
-msgstr ""
+msgstr "Параметри зображення"
 
 #: src/gui.c:4221
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
@@ -589,7 +589,7 @@ msgstr "Зовнішній вигляд"
 
 #: src/gui.c:4704
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Комбінації клавіш"
 
 #: src/gui.c:4706
 msgid "MPlayer"
