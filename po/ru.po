@@ -203,7 +203,7 @@ msgstr "Только одна копия приложения"
 
 #: src/main.c:124
 msgid "Put single instance mode into replace and play mode"
-msgstr "Заменить текущий файл в прогрывателе на указанный и проиграть его"
+msgstr "Заменить текущий файл в проигрывателе на указанный и проиграть его"
 
 #: src/main.c:127
 msgid "Use large control buttons"
