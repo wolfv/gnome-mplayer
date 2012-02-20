@@ -1669,6 +1669,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 {
     GTimeVal currenttime;
     gboolean title_is_menu;
+    gint index;
 
     // printf("key = %i\n",event->keyval);
     // printf("state = %i\n",event->state);
@@ -1680,8 +1681,22 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     if (gmtk_get_visible(plvbox) && gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)))
         return FALSE;
 
-    //printf("index = %i\n", get_index_from_key_and_modifier (event->keyval, event->state));
+    index = get_index_from_key_and_modifier(event->keyval, event->state);
+    // printf("index = %i\n",index);
+    if (!event->is_modifier && index != -1) {
 
+        if (fullscreen) {
+            switch (index) {
+            case VIEW_FULLSCREEN:
+                if (idledata->videopresent)
+                    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+                return TRUE;
+            default:
+                printf("Keyboard shortcut index %i, not handled in fullscreen at this time\n", index);
+
+            }
+        }
+    }
 
     if (!event->is_modifier && (event->state & GDK_SHIFT_MASK) == 0 && (event->state & GDK_CONTROL_MASK) == 0
         && (event->state & GDK_MOD1_MASK) == 0) {
@@ -6623,27 +6638,25 @@ gboolean get_key_and_modifier(gchar * keyval, guint * key, GdkModifierType * mod
 gint get_index_from_key_and_modifier(guint key, GdkModifierType modifier)
 {
     gint i;
-    gchar **parse;
     gint index = -1;
-    guint local_key;
-    GdkModifierType local_modifier;
+    gchar *keyval = NULL;
+
+    modifier = modifier & (GDK_SHIFT_MASK | GDK_MOD1_MASK | GDK_CONTROL_MASK);
+    if (modifier == 0) {
+        keyval = g_strdup_printf("%s", gdk_keyval_name(key));
+    } else {
+        keyval = g_strdup_printf("%i+%s", modifier, gdk_keyval_name(key));
+    }
 
     for (i = 0; i < KEY_COUNT; i++) {
-        parse = g_strsplit(accel_keys[i], "+", -1);
-        if (g_strv_length(parse) == 1) {
-            local_modifier = 0;
-            local_key = gdk_keyval_from_name(parse[0]);
-        } else {
-            local_modifier = (guint) g_strtod(parse[0], NULL);
-            local_key = gdk_keyval_from_name(parse[1]);
-        }
-        g_strfreev(parse);
-
-        if (local_modifier == modifier && local_key == key) {
+        // printf("%s ?= %s\n", accel_keys[i], keyval);
+        if (g_strcasecmp(accel_keys[i], keyval) == 0) {
             index = i;
             break;
         }
     }
+
+    g_free(keyval);
 
     return index;
 }
