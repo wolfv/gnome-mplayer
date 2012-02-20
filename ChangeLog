@@ -1,4 +1,5 @@
 Development
+    Applied ru.po patch from Issue #592
     Commit gvfs.patch from Issue #579
     Initialize a few more structs to zero
     Initialize buf to all zeros

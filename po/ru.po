@@ -187,7 +187,7 @@ msgstr "Название ТВ-потока"
 
 #: src/main.c:118
 msgid "Width of TV input"
-msgstr "Ширина отоображения ТВ-потока"
+msgstr "Ширина отображения ТВ-потока"
 
 #: src/main.c:119
 msgid "Height of TV input"
