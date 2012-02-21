@@ -1420,6 +1420,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 
         if (event_button->button == 2) {
 
+			// mute on button 2
 #ifdef GTK2_12_ENABLED
             if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED)) {
                 gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
@@ -1453,6 +1454,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 
     }
 
+	// fullscreen on double click of button 1
     if (event->type == GDK_2BUTTON_PRESS) {
         event_button = (GdkEventButton *) event;
         if (event_button->button == 1 && idledata->videopresent == TRUE) {
@@ -1835,8 +1837,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             return FALSE;
         case GDK_Return:
+        case GDK_KP_Enter:
             if (title_is_menu) {
                 return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
+            } else if (idledata->videopresent) {
+                gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
             }
             return FALSE;
         case GDK_less:
@@ -1911,17 +1916,17 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_9:
 #ifdef GTK2_12_ENABLED
             gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),
-                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) - 0.10);
+                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) - 0.01);
 #else
-            gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider)) - 0.10);
+            gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider)) - 0.01);
 #endif
             return FALSE;
         case GDK_0:
 #ifdef GTK2_12_ENABLED
             gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider),
-                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) + 0.10);
+                                       gtk_scale_button_get_value(GTK_SCALE_BUTTON(vol_slider)) + 0.01);
 #else
-            gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider)) + 0.10);
+            gtk_range_set_value(GTK_RANGE(vol_slider), gtk_range_get_value(GTK_RANGE(vol_slider)) + 0.01);
 #endif
             return FALSE;
         case GDK_numbersign:
