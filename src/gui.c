@@ -1420,7 +1420,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 
         if (event_button->button == 2) {
 
-			// mute on button 2
+            // mute on button 2
 #ifdef GTK2_12_ENABLED
             if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED)) {
                 gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
@@ -1453,8 +1453,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
 
 
     }
-
-	// fullscreen on double click of button 1
+    // fullscreen on double click of button 1
     if (event->type == GDK_2BUTTON_PRESS) {
         event_button = (GdkEventButton *) event;
         if (event_button->button == 1 && idledata->videopresent == TRUE) {

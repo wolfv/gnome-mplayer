@@ -1,4 +1,5 @@
 Development
+    Add Kazakh translation, issue #601
     Take the KP_Enter patch, the volume adjustment values for keys GDK_9 & GDK_0 from Issue #598
     Enhance subtitle visibility tracking (requires minor gmtk updates)
     Rework keyhandler to use the custom key mappings
