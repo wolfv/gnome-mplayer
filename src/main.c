@@ -585,8 +585,6 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
 
     }
-    autostart = 1;
-
 
     return 0;
 }
