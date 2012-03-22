@@ -3719,7 +3719,11 @@ void menuitem_copyurl_callback(GtkMenuItem * menuitem, void *data)
     GtkClipboard *clipboard;
     gchar *url;
 
-    url = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+    if (idledata->url) {
+        url = g_strdup(idledata->url);
+    } else {
+        url = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+    }
     clipboard = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
     gtk_clipboard_set_text(clipboard, url, -1);
     clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
