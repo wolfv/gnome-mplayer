@@ -1,5 +1,6 @@
 Development
-    Fix gecko-mediaplayer issue #167
+    Fix gecko-mediaplayer Issue #106
+    Fix gecko-mediaplayer Issue #167
     Add Kazakh translation, issue #601
     Take the KP_Enter patch, the volume adjustment values for keys GDK_9 & GDK_0 from Issue #598
     Enhance subtitle visibility tracking (requires minor gmtk updates)
