@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-04 13:32-0700\n"
-"PO-Revision-Date: 2011-06-13 13:41+0300\n"
-"Last-Translator: Onur Küçük <onur@pardus.org.tr>\n"
+"PO-Revision-Date: 2012-03-26 01:04+0300\n"
+"Last-Translator: Onur Küçük <onur@ozguryazilim.com.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=1;\n"
 "X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: src/main.c:50
 msgid "Window to embed in"
@@ -237,7 +237,7 @@ msgstr "Konumu Aç"
 
 #: src/main.c:929
 msgid "Preferences"
-msgstr ""
+msgstr "Tercihler"
 
 #: src/main.c:934 src/gui.c:7482 src/gui.c:7485
 msgid "Full Screen"
@@ -267,7 +267,7 @@ msgstr "GNOME MPlayer %s\n"
 #: src/main.c:977
 #, c-format
 msgid "gmtk v%s\n"
-msgstr ""
+msgstr "gmtkv%s\n"
 
 #: src/main.c:1040
 #, c-format
@@ -587,7 +587,7 @@ msgstr "Arabirim"
 
 #: src/gui.c:4704
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Klavye Kısayolları"
 
 #: src/gui.c:4706
 msgid "MPlayer"
@@ -607,6 +607,10 @@ msgid ""
 "x11 should always work, try xv, gl or vdpau for better performance and "
 "enhanced features"
 msgstr ""
+"mplayer görüntü çıktı aygıtı\n"
+"x11'in her zaman çalışması beklenir, daha verimli çıktı ve farklı yetenekler "
+"için "
+"xv, gl ya da vdpau deneyebilirsiniz"
 
 #: src/gui.c:4791
 msgid "Enable AC3/DTS pass-through to S/PDIF"
@@ -630,17 +634,20 @@ msgstr "Video Çıktısı:"
 
 #: src/gui.c:5054
 msgid "Enable Video Hardware Support"
-msgstr ""
+msgstr "Donanım Video Hızlandırmayı Etkinleştir"
 
 #: src/gui.c:5059 src/gui.c:5064
 msgid ""
 "When this option is enabled, codecs or options will be enabled to accelerate "
 "video processing. These options may cause playback to fail in some cases."
 msgstr ""
+"Bu seçenek seçildiğinde video işleme süreci için çeşitli ayar ve seçenkler "
+"açılacaktır. "
+"Bu seçenekler bazı dosyaların oynatılmasında sorun oluşturabilir."
 
 #: src/gui.c:5072
 msgid "Enable CrystalHD Hardware Support"
-msgstr ""
+msgstr "CrystalDD Donanım Hızlandırmasını Etkinleştir"
 
 #: src/gui.c:5079
 msgid "Audio Output:"
@@ -875,7 +882,7 @@ msgstr "Fare tekerleğini ileri/geri gitmek yerine ses seviyesini değiştirsin"
 
 #: src/gui.c:5593
 msgid "Enable Nautilus Plugin"
-msgstr ""
+msgstr "Nautilus Eklentisini Etkinleştir"
 
 #: src/gui.c:5598
 msgid "Verbose Debug Enabled"
@@ -976,6 +983,10 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+"<span weight=\"bold\">Klavye Kısayolları</span>\n"
+"\n"
+"Fare imlecini değiştirmek istediğiniz kısayolun yanındaki kutucuğa getirin\n"
+"Kısayol için kullanmak istediğiniz tuşları girin"
 
 #: src/gui.c:6837
 msgid "S_how Controls"
@@ -1392,3 +1403,4 @@ msgstr "Video Çerçeve Hızı:"
 #: src/nautilus_property_page.c:485
 msgid "Audio/Video"
 msgstr "Ses/Görüntü:"
+
