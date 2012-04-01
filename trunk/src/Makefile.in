@@ -56,7 +56,8 @@ gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
 gnome_mplayer_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(gnome_mplayer_LDFLAGS) $(LDFLAGS) -o $@
 am__libgnome_mplayer_properties_page_so_SOURCES_DIST = ../config.h \
@@ -334,6 +335,7 @@ INCLUDES = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-I../pixmaps \
 	$(GTK_CFLAGS) \
+	$(GMLIB_CFLAGS) \
 	$(GMTK_CFLAGS) \
     $(GIO_CFLAGS) \
 	$(DBUS_CFLAGS) \
@@ -387,6 +389,7 @@ gnome_mplayer_LDADD = \
     -lm \
     $(X11_LIBS) \
     $(GTK_LIBS) \
+    $(GMLIB_LIBS) \
     $(GMTK_LIBS) \
     $(GIO_LIBS) \
     $(DBUS_LIBS) \

@@ -1,5 +1,6 @@
 Development
-	Updated Turkish translation
+    Fix gmlib includes due to change in gmtk .pc file
+    Updated Turkish translation
 1.0.6b1
     Updated Polish translation
     Fix gecko-mediaplayer Issue #106
