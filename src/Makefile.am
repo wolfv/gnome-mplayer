@@ -9,6 +9,7 @@ INCLUDES = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
 	-I../pixmaps \
 	$(GTK_CFLAGS) \
+	$(GMLIB_CFLAGS) \
 	$(GMTK_CFLAGS) \
     $(GIO_CFLAGS) \
 	$(DBUS_CFLAGS) \
@@ -68,6 +69,7 @@ gnome_mplayer_LDADD = \
     -lm \
     $(X11_LIBS) \
     $(GTK_LIBS) \
+    $(GMLIB_LIBS) \
     $(GMTK_LIBS) \
     $(GIO_LIBS) \
     $(DBUS_LIBS) \
