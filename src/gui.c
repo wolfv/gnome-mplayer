@@ -2469,6 +2469,7 @@ gboolean slide_panel_away(gpointer data)
 
     if (g_mutex_trylock(slide_away)) {
         // mutex is locked now, unlock it and exit function
+        g_cond_wait(slide_away_cond, slide_away);
         g_mutex_unlock(slide_away);
         return FALSE;
     }
@@ -2476,11 +2477,13 @@ gboolean slide_panel_away(gpointer data)
 
     if (GTK_IS_WIDGET(fs_controls) && gmtk_get_visible(fs_controls) && mouse_over_controls == FALSE) {
         gtk_widget_hide(fs_controls);
+        g_cond_wait(slide_away_cond, slide_away);
         g_mutex_unlock(slide_away);
         return FALSE;
         /*
            if (fs_controls->allocation.height <= 1) {
            gtk_widget_hide(fs_controls);
+           g_cond_wait(slide_away_cond, slide_away);
            g_mutex_unlock(slide_away);
            return FALSE;
            } else {
@@ -2494,6 +2497,7 @@ gboolean slide_panel_away(gpointer data)
            }
          */
     }
+    g_cond_wait(slide_away_cond, slide_away);
     g_mutex_unlock(slide_away);
     return FALSE;
 }
@@ -2569,6 +2573,8 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
 gboolean make_panel_and_mouse_visible(gpointer data)
 {
 
+    g_mutex_lock(slide_away);
+    g_cond_signal(slide_away_cond);
     g_mutex_unlock(slide_away);
     if (showcontrols && GTK_IS_WIDGET(controls_box)) {
         //gtk_widget_set_size_request(controls_box, -1, -1);

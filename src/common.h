@@ -433,7 +433,7 @@ gint tv_height;
 gint tv_fps;
 
 GMutex *slide_away;
-GCond *mplayer_complete_cond;
+GCond *slide_away_cond;
 
 GThreadPool *retrieve_metadata_pool;
 
