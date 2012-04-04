@@ -1067,7 +1067,7 @@ int main(int argc, char *argv[])
 
     autopause = FALSE;
     slide_away = g_mutex_new();
-    mplayer_complete_cond = g_cond_new();
+    slide_away_cond = g_cond_new();
 #ifdef GIO_ENABLED
     idledata->caching = g_mutex_new();
     idledata->caching_complete = g_cond_new();
