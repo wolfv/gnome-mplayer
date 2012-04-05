@@ -735,7 +735,6 @@ int main(int argc, char *argv[])
     subtitle_fuzziness = 0;
     disable_embeddedfonts = FALSE;
     quit_on_complete = FALSE;
-    slide_away = NULL;
     verbose = 0;
     reallyverbose = 0;
     embedding_disabled = FALSE;
@@ -1067,8 +1066,6 @@ int main(int argc, char *argv[])
     create_window(embed_window);
 
     autopause = FALSE;
-    slide_away = g_mutex_new();
-    slide_away_cond = g_cond_new();
 #ifdef GIO_ENABLED
     idledata->caching = g_mutex_new();
     idledata->caching_complete = g_cond_new();

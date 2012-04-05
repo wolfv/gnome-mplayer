@@ -1,4 +1,5 @@
 Development
+	Apply patch from David Coppa that removes the depreciated slide away code
 	Separate delete and destroy events
 	Updated Portuguese translation
 	Updated Japanese translation
