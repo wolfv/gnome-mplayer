@@ -432,9 +432,6 @@ gint tv_width;
 gint tv_height;
 gint tv_fps;
 
-GMutex *slide_away;
-GCond *slide_away_cond;
-
 GThreadPool *retrieve_metadata_pool;
 
 gboolean use_mediakeys;
