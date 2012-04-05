@@ -594,6 +594,7 @@ static void hup_handler(int signum)
 {
     // printf("handling signal %i\n",signum);
     delete_callback(NULL, NULL, NULL);
+    g_idle_add(set_destroy, NULL);
 }
 #endif
 
