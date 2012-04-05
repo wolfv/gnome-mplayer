@@ -15,7 +15,7 @@ GenericName[fi]=Multimediasoitin
 GenericName[fr]=Lecteur multimédia
 GenericName[ja]=メディアプレイヤー
 GenericName[pl]=Odtwarzacz multimediów
-GenericName[tr]=Çokluortam Oynatıcı
+GenericName[pt]=Reprodutor multimédia
 GenericName[ru]=Мультимедийный проигрыватель
 GenericName[zh_CN]=媒体播放器
 GenericName[zh_TW]=媒體播放器
@@ -26,6 +26,7 @@ Comment[fi]=Toista multimediatiedostoja
 Comment[fr]=Lire vos média
 Comment[ja]=動画や楽曲のメディアファイルを再生します
 Comment[pl]=Odtwarzaj swoje multimedia
+Comment[pt]=Reprodução de ficheiros de vídeo e áudioGenericName[tr]=Çokluortam Oynatıcı
 Comment[sr]=Пуштање мултимедијалних датотека
 Comment[sr@latin]=Puštanje multimedijalnih datoteka
 Comment[tr]=Ses ve görüntü oynatıcı
