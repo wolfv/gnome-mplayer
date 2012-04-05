@@ -3268,7 +3268,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_quit_callback(GtkMenuItem * menuitem, void *data)
 {
     delete_callback(NULL, NULL, NULL);
-    g_idle_add(set_destroy, NULL);
+    gtk_widget_destroy(window);
 }
 
 void menuitem_prev_callback(GtkMenuItem * menuitem, void *data)
