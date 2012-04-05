@@ -1274,6 +1274,7 @@ gboolean set_quit(void *data)
 {
 
     delete_callback(NULL, NULL, NULL);
+    g_idle_add(set_destroy, NULL);
     return FALSE;
 }
 
@@ -1516,6 +1517,18 @@ gboolean notification_handler(GtkWidget * widget, GdkEventCrossing * event, void
     return FALSE;
 }
 
+gboolean set_destroy(gpointer data)
+{
+    gtk_widget_destroy(window);
+    return FALSE;
+}
+
+
+static void destroy_callback(GtkWidget * widget, gpointer data)
+{
+    gtk_main_quit();
+}
+
 gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 {
     loop = 0;
@@ -1568,7 +1581,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     if (use_defaultpl && embed_window == 0)
         save_playlist_pls(default_playlist);
 
-    gtk_main_quit();
+    //gtk_main_quit();
     return FALSE;
 }
 
@@ -1940,6 +1953,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_q:
             delete_callback(NULL, NULL, NULL);
+            g_idle_add(set_destroy, NULL);
             return FALSE;
         case GDK_v:
             /*
@@ -1980,6 +1994,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
                     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
             } else {
                 delete_callback(NULL, NULL, NULL);
+                g_idle_add(set_destroy, NULL);
             }
             return FALSE;
         case GDK_f:
@@ -3253,6 +3268,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_quit_callback(GtkMenuItem * menuitem, void *data)
 {
     delete_callback(NULL, NULL, NULL);
+    g_idle_add(set_destroy, NULL);
 }
 
 void menuitem_prev_callback(GtkMenuItem * menuitem, void *data)
@@ -6894,6 +6910,7 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_add_events(window, GDK_STRUCTURE_MASK);
     gtk_widget_add_events(window, GDK_POINTER_MOTION_MASK);
     delete_signal_id = g_signal_connect(G_OBJECT(window), "delete_event", G_CALLBACK(delete_callback), NULL);
+    g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(destroy_callback), NULL);
     g_signal_connect(G_OBJECT(window), "motion_notify_event", G_CALLBACK(motion_notify_callback), NULL);
     g_signal_connect(G_OBJECT(window), "window_state_event", G_CALLBACK(window_state_callback), NULL);
     g_signal_connect(G_OBJECT(window), "configure_event", G_CALLBACK(configure_callback), NULL);

@@ -1,4 +1,5 @@
 Development
+	Separate delete and destroy events
 	Updated Portuguese translation
 	Updated Japanese translation
 	Apply fix from David Coppa to fix problem with glib 2.32

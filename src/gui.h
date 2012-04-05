@@ -362,3 +362,4 @@ gint get_index_from_key_and_modifier(guint key, GdkModifierType modifier);
 
 void show_fs_controls();
 void hide_fs_controls();
+gboolean set_destroy(gpointer data);
