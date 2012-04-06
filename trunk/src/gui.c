@@ -888,7 +888,12 @@ gboolean set_gui_state(void *data)
 
     if (lastguistate != guistate) {
         if (guistate == PLAYING) {
+#ifdef GTK3_ENABLED
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-pause-symbolic", button_size);
+#else
             gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PAUSE, button_size);
+#endif
+
 #ifdef GTK2_12_ENABLED
             tip_text = gtk_widget_get_tooltip_text(play_event_box);
             if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Pause")) != 0)
@@ -909,7 +914,11 @@ gboolean set_gui_state(void *data)
         }
 
         if (guistate == PAUSED) {
+#ifdef GTK3_ENABLED
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+#else
             gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#endif
 #ifdef GTK2_12_ENABLED
             tip_text = gtk_widget_get_tooltip_text(play_event_box);
             if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
@@ -930,7 +939,11 @@ gboolean set_gui_state(void *data)
         }
 
         if (guistate == STOPPED) {
+#ifdef GTK3_ENABLED
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+#else
             gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#endif
 #ifdef GTK2_12_ENABLED
             tip_text = gtk_widget_get_tooltip_text(play_event_box);
             if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
@@ -2227,7 +2240,11 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         autopause = FALSE;
         gmtk_media_tracker_set_percentage(tracker, 0.0);
         gtk_widget_set_sensitive(play_event_box, TRUE);
+#ifdef GTK3_ENABLED
+        gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+#else
         gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#endif
 #ifdef GTK2_12_ENABLED
         gtk_widget_set_tooltip_text(play_event_box, _("Play"));
 #else
@@ -2237,7 +2254,11 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_QUIT) {
         gmtk_media_tracker_set_percentage(tracker, 0.0);
+#ifdef GTK3_ENABLED
+        gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+#else
         gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#endif
 #ifdef GTK2_12_ENABLED
         gtk_widget_set_tooltip_text(play_event_box, _("Play"));
 #else
@@ -2340,7 +2361,11 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (autopause) {
             autopause = FALSE;
             gtk_widget_set_sensitive(play_event_box, TRUE);
+#ifdef GTK3_ENABLED
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+#else
             gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#endif
         }
         gtk_widget_set_sensitive(ff_event_box, TRUE);
         gtk_widget_set_sensitive(rew_event_box, TRUE);
@@ -2386,7 +2411,11 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         if (autopause) {
             autopause = FALSE;
             gtk_widget_set_sensitive(play_event_box, TRUE);
+#ifdef GTK3_ENABLED
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+#else
             gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#endif
         }
         gtk_widget_set_sensitive(ff_event_box, TRUE);
         gtk_widget_set_sensitive(rew_event_box, TRUE);
@@ -6346,7 +6375,11 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         dontplaynext = FALSE;
         // break purposely not put here, so gui is properly updated
     case MEDIA_STATE_STOP:
+#ifdef GTK3_ENABLED
+        gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+#else
         gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#endif
         gmtk_media_tracker_set_position(GMTK_MEDIA_TRACKER(tracker), 0.0);
 #ifdef GTK2_12_ENABLED
         tip_text = gtk_widget_get_tooltip_text(play_event_box);
@@ -6370,7 +6403,11 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     case MEDIA_STATE_PLAY:
         if (idledata->mapped_af_export == NULL)
             map_af_export_file(idledata);
+#ifdef GTK3_ENABLED
+        gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-pause-symbolic", button_size);
+#else
         gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PAUSE, button_size);
+#endif
 #ifdef GTK2_12_ENABLED
         tip_text = gtk_widget_get_tooltip_text(play_event_box);
         if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Pause")) != 0)
@@ -6393,7 +6430,11 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         dbus_send_event("MediaPlaying", 0);
         break;
     case MEDIA_STATE_PAUSE:
+#ifdef GTK3_ENABLED
+        gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+#else
         gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
+#endif
 #ifdef GTK2_12_ENABLED
         tip_text = gtk_widget_get_tooltip_text(play_event_box);
         if (tip_text == NULL || g_ascii_strcasecmp(tip_text, _("Play")) != 0)
