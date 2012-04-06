@@ -1,9 +1,11 @@
 Development
-	Apply patch from David Coppa that removes the depreciated slide away code
-	Separate delete and destroy events
-	Updated Portuguese translation
-	Updated Japanese translation
-	Apply fix from David Coppa to fix problem with glib 2.32
+    Use the GTK3 symbolic icons when running in GTK3 mode
+1.0.6
+    Apply patch from David Coppa that removes the depreciated slide away code
+    Separate delete and destroy events
+    Updated Portuguese translation
+    Updated Japanese translation
+    Apply fix from David Coppa to fix problem with glib 2.32
     Fix gmlib includes due to change in gmtk .pc file
     Updated Turkish translation
 1.0.6b1

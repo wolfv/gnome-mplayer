@@ -7313,6 +7313,17 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(vbox_master), controls_box, FALSE, FALSE, 0);
     gtk_container_add(GTK_CONTAINER(window), vbox_master);
     icon_theme = gtk_icon_theme_get_default();
+#ifdef GTK3_ENABLED
+    image_play = gtk_image_new_from_icon_name("media-playback-start-symbolic", button_size);
+    image_stop = gtk_image_new_from_icon_name("media-playback-stop-symbolic", button_size);
+    image_pause = gtk_image_new_from_icon_name("media-playback-pause-symbolic", button_size);
+    image_ff = gtk_image_new_from_icon_name("media-seek-forward-symbolic", button_size);
+    image_rew = gtk_image_new_from_icon_name("media-seek-backward-symbolic", button_size);
+    image_prev = gtk_image_new_from_icon_name("media-skip-backward-symbolic", button_size);
+    image_next = gtk_image_new_from_icon_name("media-skip-forward-symbolic", button_size);
+    image_menu = gtk_image_new_from_icon_name("view-sidebar-symbolic", button_size);
+    image_fs = gtk_image_new_from_icon_name("view-fullscreen-symbolic", button_size);
+#else
     image_play = gtk_image_new_from_stock(GTK_STOCK_MEDIA_PLAY, button_size);
     image_stop = gtk_image_new_from_stock(GTK_STOCK_MEDIA_STOP, button_size);
     image_pause = gtk_image_new_from_stock(GTK_STOCK_MEDIA_PAUSE, button_size);
@@ -7322,6 +7333,8 @@ GtkWidget *create_window(gint windowid)
     image_next = gtk_image_new_from_stock(GTK_STOCK_MEDIA_NEXT, button_size);
     image_menu = gtk_image_new_from_stock(GTK_STOCK_INDEX, button_size);
     image_fs = gtk_image_new_from_stock(GTK_STOCK_FULLSCREEN, button_size);
+#endif
+
     icon_list = NULL;
     if (gtk_icon_theme_has_icon(icon_theme, "gnome-mplayer")) {
         pb_icon = gtk_icon_theme_load_icon(icon_theme, "gnome-mplayer", 128, 0, NULL);
@@ -7934,7 +7947,11 @@ void show_fs_controls()
         g_signal_connect(G_OBJECT(fs_controls), "enter_notify_event", G_CALLBACK(fs_controls_entered), NULL);
         g_signal_connect(G_OBJECT(fs_controls), "leave_notify_event", G_CALLBACK(fs_controls_left), NULL);
         g_object_ref(hbox);
+#ifdef GTK3_ENABLED
+        gtk_image_set_from_icon_name(GTK_IMAGE(image_fs), "view-restore-symbolic", button_size);
+#else
         gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_LEAVE_FULLSCREEN, button_size);
+#endif
         gtk_container_remove(GTK_CONTAINER(controls_box), hbox);
         gtk_container_add(GTK_CONTAINER(fs_controls), hbox);
         gtk_window_set_transient_for(GTK_WINDOW(fs_controls), GTK_WINDOW(fs_window));
@@ -7963,7 +7980,11 @@ void hide_fs_controls()
 
     if (fs_controls != NULL) {
         g_object_ref(hbox);
+#ifdef GTK3_ENABLED
+        gtk_image_set_from_icon_name(GTK_IMAGE(image_fs), "view-fullscreen-symbolic", button_size);
+#else
         gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_FULLSCREEN, button_size);
+#endif
         gtk_container_remove(GTK_CONTAINER(fs_controls), hbox);
         gtk_container_add(GTK_CONTAINER(controls_box), hbox);
         g_object_unref(hbox);
