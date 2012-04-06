@@ -1,4 +1,5 @@
 Development
+    Fix button sensitivity based on state
     More symbolic icon fixes
     Use the GTK3 symbolic icons when running in GTK3 mode
 1.0.6
