@@ -6394,7 +6394,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gtk_widget_set_sensitive(prev_event_box, FALSE);
         gtk_widget_set_sensitive(next_event_box, FALSE);
         gtk_widget_set_sensitive(stop_event_box, FALSE);
-			
+
         if (GTK_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))) == GTK_WIDGET(popup_menu))
             gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
         menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
@@ -6425,7 +6425,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gtk_widget_set_sensitive(prev_event_box, TRUE);
         gtk_widget_set_sensitive(next_event_box, TRUE);
         gtk_widget_set_sensitive(stop_event_box, TRUE);
-			
+
         if (GTK_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))) == GTK_WIDGET(popup_menu))
             gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
         menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PAUSE, NULL));
@@ -6456,7 +6456,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gtk_widget_set_sensitive(prev_event_box, FALSE);
         gtk_widget_set_sensitive(next_event_box, FALSE);
         gtk_widget_set_sensitive(stop_event_box, FALSE);
-			
+
         if (GTK_WIDGET(gtk_widget_get_parent(GTK_WIDGET(menuitem_play))) == GTK_WIDGET(popup_menu))
             gtk_container_remove(GTK_CONTAINER(popup_menu), GTK_WIDGET(menuitem_play));
         menuitem_play = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY, NULL));
@@ -7473,7 +7473,7 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(hbox), prev_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_prev);
     gtk_widget_show(prev_event_box);
-	gtk_widget_set_sensitive (prev_event_box, FALSE);
+    gtk_widget_set_sensitive(prev_event_box, FALSE);
 
     rew_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(rew_event_box), image_rew);
@@ -7494,7 +7494,7 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(hbox), rew_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_rew);
     gtk_widget_show(rew_event_box);
-	gtk_widget_set_sensitive (rew_event_box, FALSE);
+    gtk_widget_set_sensitive(rew_event_box, FALSE);
 
     play_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(play_event_box), image_play);
@@ -7535,7 +7535,7 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(hbox), stop_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_stop);
     gtk_widget_show(stop_event_box);
-	gtk_widget_set_sensitive (stop_event_box, FALSE);
+    gtk_widget_set_sensitive(stop_event_box, FALSE);
 
     ff_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(ff_event_box), image_ff);
@@ -7556,7 +7556,7 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(hbox), ff_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_ff);
     gtk_widget_show(ff_event_box);
-	gtk_widget_set_sensitive (ff_event_box, FALSE);
+    gtk_widget_set_sensitive(ff_event_box, FALSE);
 
     next_event_box = gtk_button_new();
     gtk_button_set_image(GTK_BUTTON(next_event_box), image_next);
@@ -7577,8 +7577,8 @@ GtkWidget *create_window(gint windowid)
     gtk_box_pack_start(GTK_BOX(hbox), next_event_box, FALSE, FALSE, 0);
     gtk_widget_show(image_next);
     gtk_widget_show(next_event_box);
-	gtk_widget_set_sensitive (next_event_box, FALSE);
-	
+    gtk_widget_set_sensitive(next_event_box, FALSE);
+
     // progress bar
     tracker = GMTK_MEDIA_TRACKER(gmtk_media_tracker_new());
     gtk_box_pack_start(GTK_BOX(hbox), GTK_WIDGET(tracker), TRUE, TRUE, 2);
@@ -7623,6 +7623,9 @@ GtkWidget *create_window(gint windowid)
     } else {
 #ifdef GTK2_12_ENABLED
         vol_slider = gtk_volume_button_new();
+#ifdef GTK3_ENABLED
+        g_object_set(G_OBJECT(vol_slider), "use-symbolic", TRUE, NULL);
+#endif
         adj = gtk_scale_button_get_adjustment(GTK_SCALE_BUTTON(vol_slider));
         gtk_scale_button_set_adjustment(GTK_SCALE_BUTTON(vol_slider), adj);
         gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
