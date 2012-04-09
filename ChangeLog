@@ -1,4 +1,5 @@
 Development
+    Don't update cover art when URL call fails
     Set the use-symbolic property on the GtkVolumeButton in GTK3
     Fix button sensitivity based on state
     More symbolic icon fixes
