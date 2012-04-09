@@ -2414,6 +2414,7 @@ gpointer get_cover_art(gpointer data)
     gboolean local_artist = FALSE;
     gboolean local_album = FALSE;
     CURL *curl;
+    CURLcode result;
     FILE *art;
     gpointer pixbuf;
     MetaData *metadata = (MetaData *) data;
@@ -2555,19 +2556,24 @@ gpointer get_cover_art(gpointer data)
                         g_mkdir_with_parents(path, 0775);
                     }
 
+                    result = 0;
                     art = fopen(cache_file, "wb");
                     if (art) {
                         curl = curl_easy_init();
                         if (curl) {
                             curl_easy_setopt(curl, CURLOPT_URL, url);
                             curl_easy_setopt(curl, CURLOPT_WRITEDATA, art);
-                            curl_easy_perform(curl);
+                            result = curl_easy_perform(curl);
                             curl_easy_cleanup(curl);
                         }
                         fclose(art);
                     }
                     // printf("cover art url is %s\n",url);
                     g_free(url);
+                    if (result != 0) {
+                        g_free(cache_file);
+                        cache_file = NULL;
+                    }
                 }
             }
         }
