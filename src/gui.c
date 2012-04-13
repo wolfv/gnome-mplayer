@@ -604,7 +604,7 @@ gboolean set_progress_value(void *data)
     gchar *text;
     struct stat buf = { 0 };
     gchar *iterfilename;
-    gchar *iteruri;
+    gchar *iteruri = NULL;
 
     if (idle == NULL)
         return FALSE;

@@ -1,4 +1,5 @@
 Development
+	Initialize a variable to NULL
     Globally initialize libCURL
     Don't update cover art when URL call fails
     Set the use-symbolic property on the GtkVolumeButton in GTK3
