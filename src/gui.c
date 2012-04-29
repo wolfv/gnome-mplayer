@@ -1465,7 +1465,6 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
             }
         }
 
-
     }
     // fullscreen on double click of button 1
     if (event->type == GDK_2BUTTON_PRESS) {
@@ -7315,6 +7314,9 @@ GtkWidget *create_window(gint windowid)
     hbox = gtk_hbox_new(FALSE, 0);
     controls_box = gtk_vbox_new(FALSE, 0);
     media = gmtk_media_player_new();
+    gtk_widget_set_events(media, GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK |
+                          GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
+                          GDK_POINTER_MOTION_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_ENTER_NOTIFY_MASK);
     g_signal_connect_swapped(G_OBJECT(media), "media_state_changed",
                              G_CALLBACK(player_media_state_changed_callback), NULL);
     g_signal_connect_swapped(G_OBJECT(media), "button_press_event", G_CALLBACK(popup_handler), G_OBJECT(popup_menu));
