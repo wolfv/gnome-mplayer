@@ -1,4 +1,5 @@
 Development
+    Fix a couple of keyboard shortcuts as they were in the wrong shift state #,+,{,}
 	Fix usage of NULL pointer in nautilus property page
 	Initialize a variable to NULL
     Globally initialize libCURL
