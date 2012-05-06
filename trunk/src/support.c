@@ -1510,62 +1510,64 @@ gint get_bitrate(gchar * name)
         endpos = 1;
     }
 
-    ac = 0;
-    av[ac++] = g_strdup_printf("mencoder");
-    av[ac++] = g_strdup_printf("-ovc");
-    av[ac++] = g_strdup_printf("copy");
-    av[ac++] = g_strdup_printf("-oac");
-    av[ac++] = g_strdup_printf("copy");
-    av[ac++] = g_strdup_printf("-o");
-    av[ac++] = g_strdup_printf("/dev/null");
-    av[ac++] = g_strdup_printf("-quiet");
-    av[ac++] = g_strdup_printf("-ss");
-    av[ac++] = g_strdup_printf("%i", startsec);
-    av[ac++] = g_strdup_printf("-endpos");
-    av[ac++] = g_strdup_printf("%i", endpos);
-    av[ac++] = g_strdup_printf("%s", name);
-    av[ac] = NULL;
+    if (control_id != 0) {
+        ac = 0;
+        av[ac++] = g_strdup_printf("mencoder");
+        av[ac++] = g_strdup_printf("-ovc");
+        av[ac++] = g_strdup_printf("copy");
+        av[ac++] = g_strdup_printf("-oac");
+        av[ac++] = g_strdup_printf("copy");
+        av[ac++] = g_strdup_printf("-o");
+        av[ac++] = g_strdup_printf("/dev/null");
+        av[ac++] = g_strdup_printf("-quiet");
+        av[ac++] = g_strdup_printf("-ss");
+        av[ac++] = g_strdup_printf("%i", startsec);
+        av[ac++] = g_strdup_printf("-endpos");
+        av[ac++] = g_strdup_printf("%i", endpos);
+        av[ac++] = g_strdup_printf("%s", name);
+        av[ac] = NULL;
 
-    error = NULL;
+        error = NULL;
 
-    g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
-    for (i = 0; i < ac; i++) {
-        g_free(av[i]);
-    }
-    if (error != NULL) {
-        printf("Error when running: %s\n", error->message);
-        g_error_free(error);
+        g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
+        for (i = 0; i < ac; i++) {
+            g_free(av[i]);
+        }
+        if (error != NULL) {
+            printf("Error when running: %s\n", error->message);
+            g_error_free(error);
+            if (out != NULL)
+                g_free(out);
+            if (err != NULL)
+                g_free(err);
+            error = NULL;
+            return 0;
+        }
+        output = g_strsplit(out, "\n", 0);
+        ac = 0;
+        while (output[ac] != NULL) {
+            if (strstr(output[ac], "Video stream") != 0) {
+                buf = g_strrstr(output[ac], "(");
+                if (buf != NULL) {
+                    vbitrate = (gint) g_strtod(buf + sizeof(gchar), NULL);
+                }
+            }
+            if (strstr(output[ac], "Audio stream") != 0) {
+                buf = g_strrstr(output[ac], "(");
+                if (buf != NULL) {
+                    abitrate = (gint) g_strtod(buf + sizeof(gchar), NULL);
+                }
+            }
+            ac++;
+
+        }
+
+        g_strfreev(output);
         if (out != NULL)
             g_free(out);
         if (err != NULL)
             g_free(err);
-        error = NULL;
-        return 0;
     }
-    output = g_strsplit(out, "\n", 0);
-    ac = 0;
-    while (output[ac] != NULL) {
-        if (strstr(output[ac], "Video stream") != 0) {
-            buf = g_strrstr(output[ac], "(");
-            if (buf != NULL) {
-                vbitrate = (gint) g_strtod(buf + sizeof(gchar), NULL);
-            }
-        }
-        if (strstr(output[ac], "Audio stream") != 0) {
-            buf = g_strrstr(output[ac], "(");
-            if (buf != NULL) {
-                abitrate = (gint) g_strtod(buf + sizeof(gchar), NULL);
-            }
-        }
-        ac++;
-
-    }
-
-    g_strfreev(output);
-    if (out != NULL)
-        g_free(out);
-    if (err != NULL)
-        g_free(err);
 
     if (vbitrate <= 0 && abitrate <= 0) {
         bitrate = 0;
