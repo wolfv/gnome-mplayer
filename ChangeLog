@@ -1,4 +1,5 @@
 Development
+    Monitor sub visiblity better gnome-mplayer Issue #615, requires gmtk SVN r112 or higher to work correctly
     Add mouse events to capture over the media window, should fix Issue #611
     Fix Issue #613
     Fix a couple of keyboard shortcuts as they were in the wrong shift state #,+,{,}

@@ -6169,10 +6169,12 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_subtitles),
                                  gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media),
                                                                          ATTRIBUTE_SUBS_EXIST));
+
+        break;
+    case ATTRIBUTE_SUB_VISIBLE:
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_subtitles),
                                        gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media),
                                                                                ATTRIBUTE_SUB_VISIBLE));
-
         break;
     case ATTRIBUTE_HAS_CHAPTERS:
         if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HAS_CHAPTERS)
