@@ -1,4 +1,5 @@
 Development
+	Change controlid logic
     Do not run mencoder when being called by plugin
     Monitor sub visiblity better gnome-mplayer Issue #615, requires gmtk SVN r112 or higher to work correctly
     Add mouse events to capture over the media window, should fix Issue #611
