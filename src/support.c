@@ -1510,7 +1510,7 @@ gint get_bitrate(gchar * name)
         endpos = 1;
     }
 
-    if (control_id != 0) {
+    if (control_id == 0) {
         ac = 0;
         av[ac++] = g_strdup_printf("mencoder");
         av[ac++] = g_strdup_printf("-ovc");
