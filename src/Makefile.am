@@ -60,7 +60,9 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/media-skip-backward.xpm \
 	../pixmaps/media-skip-forward.xpm \
 	../pixmaps/view-fullscreen.xpm \
-	langlist.h
+	langlist.h \
+	mpris-interface.c \
+	mpris-interface.h
 
 
 gnome_mplayer_LDFLAGS = 
