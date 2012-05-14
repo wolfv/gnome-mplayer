@@ -48,7 +48,7 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(nautilusdir)"
 PROGRAMS = $(bin_PROGRAMS) $(nautilus_PROGRAMS)
 am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
 	support.$(OBJEXT) mntent_compat.$(OBJEXT) main.$(OBJEXT) \
-	dbus-interface.$(OBJEXT)
+	dbus-interface.$(OBJEXT) mpris-interface.$(OBJEXT)
 gnome_mplayer_OBJECTS = $(am_gnome_mplayer_OBJECTS)
 am__DEPENDENCIES_1 =
 gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
@@ -382,7 +382,9 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/media-skip-backward.xpm \
 	../pixmaps/media-skip-forward.xpm \
 	../pixmaps/view-fullscreen.xpm \
-	langlist.h
+	langlist.h \
+	mpris-interface.c \
+	mpris-interface.h
 
 gnome_mplayer_LDFLAGS = 
 gnome_mplayer_LDADD = \
@@ -547,6 +549,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mntent_compat.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpris-interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/playlist.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/support.Po@am__quote@
 

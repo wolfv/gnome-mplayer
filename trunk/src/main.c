@@ -43,6 +43,7 @@
 #include "common.h"
 #include "support.h"
 #include "dbus-interface.h"
+#include "mpris-interface.h"
 #include "gmtk.h"
 
 
@@ -1284,6 +1285,7 @@ int main(int argc, char *argv[])
     use_volume_option = detect_volume_option();
 
     dbus_hookup(embed_window, control_id);
+    mpris_hookup(control_id);
     show_window(embed_window);
 
     if (playiter)
