@@ -1,4 +1,5 @@
 Development
+    Implement MPRIS2 events Raise, Quit, Set (Fullscreen)
     Fix error spotted by clang
     Start work on MPRIS dbus interface http://specifications.freedesktop.org/mpris-spec/latest/
 	Change controlid logic

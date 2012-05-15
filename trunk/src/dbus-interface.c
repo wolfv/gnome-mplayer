@@ -517,7 +517,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_INT32, &window_x, DBUS_TYPE_INT32, &window_y, DBUS_TYPE_INVALID)) {
                         if (window_x > 0 && window_y > 0)
-                    		g_idle_add(resize_window, idledata);
+                            g_idle_add(resize_window, idledata);
                     } else {
                         dbus_error_free(&error);
                     }
