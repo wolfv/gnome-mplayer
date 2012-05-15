@@ -45,6 +45,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
     gchar *property;
     gboolean b_val;
     gchar *s_val;
+    gdouble d_val;
     gint i;
 
     message_type = dbus_message_get_type(message);
@@ -79,35 +80,32 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                 }
 
             } else if (message_type == DBUS_MESSAGE_TYPE_METHOD_CALL) {
-                printf("Got interface: %s member: %s\n", dbus_message_get_interface(message),
-                       dbus_message_get_member(message));
                 if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Introspectable", "Introspect")) {
 
                     xml =
                         g_string_new
-                        ("<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection 1.0//EN\"\n"
-                         "\"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd\">\n"
-                         "<node>\n" "  <interface name=\"org.freedesktop.DBus.Introspectable\">\n"
-                         "    <method name=\"Introspect\">\n"
-                         "      <arg name=\"data\" direction=\"out\" type=\"s\"/>\n"
-                         "    </method>\n" "  </interface>\n");
+                        ("<!DOCTYPE node PUBLIC '-//freedesktop//DTD D-BUS Object Introspection 1.0//EN'\n"
+                         "'http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd'>\n"
+                         "<node>\n" "  <interface name='org.freedesktop.DBus.Introspectable'>\n"
+                         "    <method name='Introspect'>\n"
+                         "      <arg name='data' direction='out' type='s'/>\n" "    </method>\n" "  </interface>\n");
 
                     xml = g_string_append(xml,
-                                          " <interface name=\"org.freedesktop.DBus.Properties\">"
-                                          "  <method name=\"Get\">"
-                                          "   <arg name=\"interface\" direction=\"in\" type=\"s\"/>"
-                                          "   <arg name=\"property\" direction=\"in\" type=\"s\"/>"
-                                          "   <arg name=\"value\" direction=\"out\" type=\"v\"/>"
+                                          " <interface name='org.freedesktop.DBus.Properties'>"
+                                          "  <method name='Get'>"
+                                          "   <arg name='interface' direction='in' type='s'/>"
+                                          "   <arg name='property' direction='in' type='s'/>"
+                                          "   <arg name='value' direction='out' type='v'/>"
                                           "  </method>"
-                                          "  <method name=\"GetAll\">"
-                                          "   <arg name=\"interface\" direction=\"in\" type=\"s\"/>"
-                                          "   <arg name=\"properties\" direction=\"out\" type=\"a{sv}\"/>"
+                                          "  <method name='GetAll'>"
+                                          "   <arg name='interface' direction='in' type='s'/>"
+                                          "   <arg name='properties' direction='out' type='a{sv}'/>"
                                           "  </method>"
                                           "</interface>"
-                                          "<interface name=\"org.mpris.MediaPlayer2\">\n"
-                                          "    <method name=\"Raise\">\n"
+                                          "<interface name='org.mpris.MediaPlayer2'>\n"
+                                          "    <method name='Raise'>\n"
                                           "    </method>\n"
-                                          "    <method name=\"Quit\">\n"
+                                          "    <method name='Quit'>\n"
                                           "    </method>\n"
                                           "    <property name='CanQuit' type='b' access='read' />"
                                           "    <property name='Fullscreen' type='b' access='readwrite' />"
@@ -117,6 +115,43 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                           "    <property name='DesktopEntry' type='s' access='read'/>"
                                           "    <property name='SupportedUriSchemes' type='as' access='read'/>"
                                           "    <property name='SupportedMimeTypes' type='as' access='read'/>"
+                                          "</interface>\n"
+                                          "<interface name='org.mpris.MediaPlayer2.Player'>\n"
+                                          "    <method name='Next'/>\n"
+                                          "    <method name='Previous'/>\n"
+                                          "    <method name='Pause'/>\n"
+                                          "    <method name='PlayPause'/>\n"
+                                          "    <method name='Stop'/>\n"
+                                          "    <method name='Play'/>\n"
+                                          "    <method name='Seek'>\n"
+                                          "        <arg direction='in' name='Offset' type='x'/>\n"
+                                          "    </method>\n"
+                                          "    <method name='SetPosition'>\n"
+                                          "        <arg direction='in' name='TrackId' type='o'/>\n"
+                                          "        <arg direction='in' name='Position' type='x'/>\n"
+                                          "    </method>\n"
+                                          "    <method name='OpenUri'>\n"
+                                          "        <arg direction='in' name='Uri' type='s'/>\n"
+                                          "    </method>\n"
+                                          "    <signal name='Seeked'>\n"
+                                          "        <arg name='Position' type='x'/>\n"
+                                          "    </signal>\n"
+                                          "    <property name='PlaybackStatus' type='s' access='read'/>\n"
+                                          "    <property name='LoopStatus' type='s' access='readwrite'/>\n"
+                                          "    <property name='Rate' type='d' access='readwrite'/>\n"
+                                          "    <property name='Shuffle' type='b' access='readwrite'/>\n"
+                                          "    <property name='Metadata' type='a{sv}' access='read'>\n"
+                                          "    </property>\n"
+                                          "    <property name='Volume' type='d' access='readwrite'/>\n"
+                                          "    <property name='Position' type='x' access='read'/>\n"
+                                          "    <property name='MinimumRate' type='d' access='read'/>\n"
+                                          "    <property name='MaximumRate' type='d' access='read'/>\n"
+                                          "    <property name='CanGoNext' type='b' access='read'/>\n"
+                                          "    <property name='CanGoPrevious' type='b' access='read'/>\n"
+                                          "    <property name='CanPlay' type='b' access='read'/>\n"
+                                          "    <property name='CanPause' type='b' access='read'/>\n"
+                                          "    <property name='CanSeek' type='b' access='read'/>\n"
+                                          "    <property name='CanControl' type='b' access='read'/>\n"
                                           "</interface>\n");
                     xml = g_string_append(xml, "</node>\n");
 
@@ -135,6 +170,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     dbus_message_iter_init_append(reply_message, &iter);
                     dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "{sv}", &sub1);
 
+                    // org.mpris.MediaPlayer2 properties
                     dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
                     property = g_strdup("CanQuit");
                     b_val = TRUE;
@@ -248,6 +284,101 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     g_free(property);
                     dbus_message_iter_close_container(&sub1, &sub2);
 
+                    // org.mpris.MediaPlayer2.Player properties
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("PlaybackStatus");
+                    switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
+                    case MEDIA_STATE_PLAY:
+                        s_val = g_strdup("Playing");
+                        break;
+                    case MEDIA_STATE_PAUSE:
+                        s_val = g_strdup("Paused");
+                        break;
+                    default:
+                        s_val = g_strdup("Stopped");
+                    }
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "s", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_STRING, &s_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    g_free(s_val);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("Volume");
+                    d_val = audio_device.volume;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "d", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_DOUBLE, &d_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("CanGoNext");
+                    b_val = FALSE;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("CanGoPrevious");
+                    b_val = FALSE;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("CanPlay");
+                    b_val = TRUE;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("CanPause");
+                    b_val = TRUE;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("CanSeek");
+                    b_val = FALSE;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("CanControl");
+                    b_val = TRUE;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+
 
                     dbus_message_iter_close_container(&iter, &sub1);
 
@@ -256,16 +387,9 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     return DBUS_HANDLER_RESULT_HANDLED;
 
                 }
-
-                if (dbus_message_is_method_call(message, "com.gnome.mplayer", "Test")) {
-                    reply_message = dbus_message_new_method_return(message);
-                    dbus_connection_send(mpris_connection, reply_message, NULL);
-                    dbus_message_unref(reply_message);
-                    return DBUS_HANDLER_RESULT_HANDLED;
-                }
+                // org.mpris.MediaPlayer2 Methods
                 if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2", "Raise")) {
-                    gtk_window_present(GTK_WINDOW(window));
-                    gdk_window_raise(gmtk_get_window(window));
+                    g_idle_add(set_raise_window, NULL);
                     reply_message = dbus_message_new_method_return(message);
                     dbus_connection_send(mpris_connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
@@ -281,8 +405,39 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     g_idle_add(set_quit, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
+                // org.mpris.MediaPlayer2.Player Methods
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "Pause")) {
+                    g_idle_add(set_pause, idledata);
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "PlayPause")) {
+                    g_idle_add(set_pause, idledata);
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "Stop")) {
+                    g_idle_add(set_stop, idledata);
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "Play")) {
+                    g_idle_add(set_play, idledata);
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+
+
                 if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Properties", "Set")) {
-                    printf("dbus message signature: %s\n", dbus_message_get_signature(message));
+                    // printf("dbus message signature: %s\n", dbus_message_get_signature(message));
 
                     dbus_message_iter_init(message, &iter);
                     if (dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_STRING) {
@@ -301,6 +456,15 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 g_idle_add(set_fullscreen, idledata);
                             }
 
+                            if (g_ascii_strcasecmp(property, "Volume") == 0) {
+                                dbus_message_iter_next(&iter);
+                                // this is a variant, so we have to open its container
+                                dbus_message_iter_recurse(&iter, &sub1);
+                                dbus_message_iter_get_basic(&sub1, &d_val);
+                                printf("value = %f\n", d_val);
+                                audio_device.volume = d_val;
+                                g_idle_add(set_volume, idledata);
+                            }
                         }
                     } else {
                         printf("get args failed\n");
@@ -311,7 +475,47 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-                printf("Unable to find method call %s\n", dbus_message_get_member(message));
+
+                if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Properties", "Get")) {
+                    printf("dbus message signature: %s\n", dbus_message_get_signature(message));
+
+                    dbus_message_iter_init(message, &iter);
+                    if (dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_STRING) {
+                        dbus_message_iter_get_basic(&iter, &interface);
+                        if (dbus_message_iter_next(&iter) && dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_STRING) {
+                            dbus_message_iter_get_basic(&iter, &property);
+
+                            if (g_strcasecmp(property, "PlaybackStatus") == 0) {
+                                switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
+                                case MEDIA_STATE_PLAY:
+                                    s_val = g_strdup("Playing");
+                                    break;
+                                case MEDIA_STATE_PAUSE:
+                                    s_val = g_strdup("Paused");
+                                    break;
+                                default:
+                                    s_val = g_strdup("Stopped");
+                                }
+
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &iter);
+                                dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, "s", &sub1);
+                                dbus_message_iter_append_basic(&sub1, DBUS_TYPE_STRING, &s_val);
+                                dbus_message_iter_close_container(&iter, &sub1);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
+                        }
+                        printf("GET not implemented for interface: %s property: %s \n", interface, property);
+                        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+                    }
+                }
+
+                printf("No handler implemented for interface: %s member: %s\n", dbus_message_get_interface(message),
+                       dbus_message_get_member(message));
+
             } else {
                 if (verbose)
                     printf("path didn't match - %s\n", dbus_message_get_path(message));
@@ -386,4 +590,52 @@ void mpris_unhook()
         mpris_connection = NULL;
     }
 #endif
+}
+
+void mpris_send_signal_PlaybackStatus()
+{
+    DBusMessage *message;
+    DBusMessageIter iter, dict, dict_entry, dict_val;
+    gchar *path;
+    gchar *interface;
+    gchar *property;
+    gchar *s_val;
+
+    if (mpris_connection != NULL) {
+        path = g_strdup_printf("/org/mpris/MediaPlayer2");
+        interface = g_strdup("org.mpris.MediaPlayer2.Player");
+        message = dbus_message_new_signal(path, "org.freedesktop.DBus.Properties", "PropertiesChanged");
+        dbus_message_iter_init_append(message, &iter);
+        dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &interface);
+        dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "{sv}", &dict);
+        dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
+        property = g_strdup("PlaybackStatus");
+        switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
+        case MEDIA_STATE_PLAY:
+            s_val = g_strdup("Playing");
+            break;
+        case MEDIA_STATE_PAUSE:
+            s_val = g_strdup("Paused");
+            break;
+        default:
+            s_val = g_strdup("Stopped");
+        }
+        dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
+        dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "s", &dict_val);
+        dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_STRING, &s_val);
+        dbus_message_iter_close_container(&dict_entry, &dict_val);
+        g_free(s_val);
+        dbus_message_iter_close_container(&dict, &dict_entry);
+        dbus_message_iter_close_container(&iter, &dict);
+        dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "s", &dict);
+        dbus_message_iter_append_basic(&dict, DBUS_TYPE_STRING, &property);
+        dbus_message_iter_close_container(&iter, &dict);
+
+        g_free(property);
+
+        dbus_connection_send(mpris_connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(interface);
+        g_free(path);
+    }
 }
