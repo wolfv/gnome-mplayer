@@ -504,6 +504,7 @@ gboolean set_subtitle_visibility(void *data);
 gboolean set_item_add_info(void *data);
 gboolean set_metadata(gpointer data);
 gboolean set_pane_position(void *data);
+gboolean set_raise_window(void *data);
 
 void remove_langs(GtkWidget * item, gpointer data);
 gboolean set_new_lang_menu(gpointer data);
@@ -525,6 +526,7 @@ void dbus_unhook();
 void dbus_enable_screensaver();
 void dbus_disable_screensaver();
 void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data);
+void mpris_send_signal_PlaybackStatus();
 
 gboolean update_audio_meter(gpointer data);
 

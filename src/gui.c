@@ -1316,6 +1316,13 @@ gboolean set_position(void *data)
     return FALSE;
 }
 
+gboolean set_raise_window(void *data)
+{
+    gtk_window_present(GTK_WINDOW(window));
+    gdk_window_raise(gmtk_get_window(window));
+    return FALSE;
+}
+
 gboolean set_software_volume(gdouble * data)
 {
     gm_store = gm_pref_store_new("gnome-mplayer");
@@ -6477,6 +6484,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         break;
     }
 
+    mpris_send_signal_PlaybackStatus();
 }
 
 void player_cache_percent_changed_callback(GmtkMediaTracker * tracker, gdouble percentage)
