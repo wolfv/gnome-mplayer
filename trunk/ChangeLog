@@ -1,4 +1,5 @@
 Development
+    Fix error spotted by clang
     Start work on MPRIS dbus interface http://specifications.freedesktop.org/mpris-spec/latest/
 	Change controlid logic
     Do not run mencoder when being called by plugin
