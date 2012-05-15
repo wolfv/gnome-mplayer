@@ -40,8 +40,8 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
     gchar *path1;
     GString *xml;
     gchar *xml_string;
-    gboolean bool_answer;
     DBusMessageIter iter, sub1, sub2, sub3, sub4;
+    gchar *interface;
     gchar *property;
     gboolean b_val;
     gchar *s_val;
@@ -79,7 +79,8 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                 }
 
             } else if (message_type == DBUS_MESSAGE_TYPE_METHOD_CALL) {
-                // printf("Got interface: %s member: %s\n",dbus_message_get_interface(message),dbus_message_get_member(message));
+                printf("Got interface: %s member: %s\n", dbus_message_get_interface(message),
+                       dbus_message_get_member(message));
                 if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Introspectable", "Introspect")) {
 
                     xml =
@@ -156,7 +157,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                     dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
                     property = g_strdup("CanSetFullscreen");
-                    b_val = TRUE;
+                    b_val = TRUE;       // gtk_widget_get_sensitive(fs_event_box);
                     dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
                     dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
                     dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
@@ -262,20 +263,52 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2", "CanQuit")) {
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2", "Raise")) {
+                    gtk_window_present(GTK_WINDOW(window));
+                    gdk_window_raise(gmtk_get_window(window));
                     reply_message = dbus_message_new_method_return(message);
-                    bool_answer = TRUE;
-                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, &bool_answer, DBUS_TYPE_INVALID);
                     dbus_connection_send(mpris_connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
-                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2", "CanRaise")) {
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2", "Quit")) {
                     reply_message = dbus_message_new_method_return(message);
-                    bool_answer = TRUE;
-                    dbus_message_append_args(reply_message, DBUS_TYPE_BOOLEAN, &bool_answer, DBUS_TYPE_INVALID);
                     dbus_connection_send(mpris_connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
+                    g_idle_add(set_kill_mplayer, NULL);
+                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+                        dontplaynext = TRUE;
+                    g_idle_add(set_quit, idledata);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Properties", "Set")) {
+                    printf("dbus message signature: %s\n", dbus_message_get_signature(message));
+
+                    dbus_message_iter_init(message, &iter);
+                    if (dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_STRING) {
+                        dbus_message_iter_get_basic(&iter, &interface);
+                        if (dbus_message_iter_next(&iter) && dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_STRING) {
+                            dbus_message_iter_get_basic(&iter, &property);
+                            printf("interface: %s property: %s \n", interface, property);
+
+                            if (g_ascii_strcasecmp(property, "Fullscreen") == 0) {
+                                dbus_message_iter_next(&iter);
+                                // this is a variant, so we have to open its container
+                                dbus_message_iter_recurse(&iter, &sub1);
+                                dbus_message_iter_get_basic(&sub1, &b_val);
+                                printf("value = %i\n", b_val);
+                                idledata->fullscreen = b_val;
+                                g_idle_add(set_fullscreen, idledata);
+                            }
+
+                        }
+                    } else {
+                        printf("get args failed\n");
+                    }
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
                 printf("Unable to find method call %s\n", dbus_message_get_member(message));
