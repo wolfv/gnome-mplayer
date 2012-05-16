@@ -1,4 +1,5 @@
 Development
+    Implement MPRIS Volume signal
     Implement MPRIS2 CanSeek, CanGoNext, CanGoPrevious, Seek, OpenUri, SetPosition, and more Metadata
     Implement some MPRIS2 metadata attributes
     Implement MPRIS2 events org.mpris.MediaPlayer2.Player, properties Volume, Get (PlaybackStatus), and signal (PlaybackStatus Changed) 
