@@ -53,7 +53,8 @@ void append_metadata_array(DBusMessageIter * messageIter)
     dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
     property = g_strdup("mpris:trackid");
     dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
-    if (gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)) == NULL) {
+    if (gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)) == NULL
+        || !gtk_list_store_iter_is_valid(playliststore, &iter)) {
         s_val = g_strdup("/org/mpris/MediaPlayer2/TrackList/NoTrack");
     } else {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ADD_ORDER_COLUMN, &i, -1);

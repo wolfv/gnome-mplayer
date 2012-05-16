@@ -1,4 +1,5 @@
 Development
+    Fix crash at end of media, due to invalid store iter
     Implement MPRIS Volume signal
     Implement MPRIS2 CanSeek, CanGoNext, CanGoPrevious, Seek, OpenUri, SetPosition, and more Metadata
     Implement some MPRIS2 metadata attributes
