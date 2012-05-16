@@ -6539,6 +6539,7 @@ gboolean tracker_value_changed_callback(GtkWidget * widget, gint value, gpointer
         if (!autopause) {
             if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), value * 1.0, SEEK_PERCENT);
+                mpris_send_signal_Seeked();
             }
         }
     }
@@ -6552,6 +6553,7 @@ gboolean tracker_difference_callback(GtkWidget * widget, gdouble difference, voi
         if (!autopause) {
             if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), difference, SEEK_RELATIVE);
+                mpris_send_signal_Seeked();
             }
         }
     }
