@@ -530,6 +530,7 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data);
 void mpris_send_signal_PlaybackStatus();
 void mpris_send_signal_Updated_Metadata();
 void mpris_send_signal_Seeked();
+void mpris_send_signal_VolumeChanged();
 
 gboolean update_audio_meter(gpointer data);
 
