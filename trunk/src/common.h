@@ -527,6 +527,7 @@ void dbus_enable_screensaver();
 void dbus_disable_screensaver();
 void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data);
 void mpris_send_signal_PlaybackStatus();
+void mpris_send_signal_Updated_Metadata();
 
 gboolean update_audio_meter(gpointer data);
 

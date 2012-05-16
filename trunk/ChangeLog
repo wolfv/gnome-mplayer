@@ -1,4 +1,5 @@
 Development
+    Implement some MPRIS2 metadata attributes
     Implement MPRIS2 events org.mpris.MediaPlayer2.Player, properties Volume, Get (PlaybackStatus), and signal (PlaybackStatus Changed) 
     Implement MPRIS2 events Raise, Quit, Set (Fullscreen)
     Fix error spotted by clang

@@ -6335,6 +6335,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
             printf("Unhandled attribute change %i\n", attribute);
         }
     }
+    mpris_send_signal_Updated_Metadata();
 }
 
 void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMediaState state, gpointer data)
