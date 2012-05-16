@@ -28,22 +28,23 @@
 
 #ifdef DBUS_ENABLED
 
-void append_metadata_array(DBusMessageIter * iter)
+void append_metadata_array(DBusMessageIter * messageIter)
 {
     DBusMessageIter array, dict, dict_entry, dict_val, variant_array;
     gchar *property;
     gint64 i_val;
     gchar *s_val;
+    gint i;
 
 
-    dbus_message_iter_open_container(iter, DBUS_TYPE_VARIANT, "a{sv}", &array);
+    dbus_message_iter_open_container(messageIter, DBUS_TYPE_VARIANT, "a{sv}", &array);
     dbus_message_iter_open_container(&array, DBUS_TYPE_ARRAY, "{sv}", &dict);
 
     dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
     property = g_strdup("mpris:length");
     dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
     dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "x", &dict_val);
-    i_val = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_LENGTH) * 1000;
+    i_val = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_LENGTH) * 1000000;
     dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_INT64, &i_val);
     dbus_message_iter_close_container(&dict_entry, &dict_val);
     dbus_message_iter_close_container(&dict, &dict_entry);
@@ -53,16 +54,30 @@ void append_metadata_array(DBusMessageIter * iter)
     property = g_strdup("mpris:trackid");
     dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
     if (gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)) == NULL) {
-        s_val = g_strdup("None");
+        s_val = g_strdup("/org/mpris/MediaPlayer2/TrackList/NoTrack");
     } else {
-        s_val = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ADD_ORDER_COLUMN, &i, -1);
+        s_val = g_strdup_printf("/org/mpris/MediaPlayer2/TrackList/%i", i);
     }
-    dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "s", &dict_val);
-    dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_STRING, &s_val);
+    dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "o", &dict_val);
+    dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_OBJECT_PATH, &s_val);
     dbus_message_iter_close_container(&dict_entry, &dict_val);
     dbus_message_iter_close_container(&dict, &dict_entry);
     g_free(property);
     g_free(s_val);
+
+    if (gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)) != NULL) {
+        dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
+        property = g_strdup("xesam:url");
+        dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
+        s_val = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+        dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "s", &dict_val);
+        dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_STRING, &s_val);
+        dbus_message_iter_close_container(&dict_entry, &dict_val);
+        dbus_message_iter_close_container(&dict, &dict_entry);
+        g_free(property);
+        g_free(s_val);
+    }
 
     dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
     property = g_strdup("xesam:title");
@@ -97,8 +112,6 @@ void append_metadata_array(DBusMessageIter * iter)
     g_free(property);
     g_free(s_val);
 
-
-
     dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
     property = g_strdup("xesam:album");
     dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
@@ -115,7 +128,7 @@ void append_metadata_array(DBusMessageIter * iter)
     g_free(s_val);
 
     dbus_message_iter_close_container(&array, &dict);
-    dbus_message_iter_close_container(iter, &array);
+    dbus_message_iter_close_container(messageIter, &array);
 }
 
 static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DBusMessage * message, void *user_data)
@@ -130,7 +143,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
     gchar *path1;
     GString *xml;
     gchar *xml_string;
-    DBusMessageIter iter, sub1, sub2, sub3, sub4;
+    DBusMessageIter sub0, sub1, sub2, sub3, sub4;
     gchar *interface;
     gchar *property;
     gboolean b_val;
@@ -258,8 +271,8 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                 if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Properties", "GetAll")) {
 
                     reply_message = dbus_message_new_method_return(message);
-                    dbus_message_iter_init_append(reply_message, &iter);
-                    dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "{sv}", &sub1);
+                    dbus_message_iter_init_append(reply_message, &sub0);
+                    dbus_message_iter_open_container(&sub0, DBUS_TYPE_ARRAY, "{sv}", &sub1);
 
                     // org.mpris.MediaPlayer2 properties
                     dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
@@ -412,7 +425,8 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     property = g_strdup("Position");
                     dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
                     dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "x", &sub3);
-                    x_val = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION) * 1000;
+                    x_val =
+                        gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION) * 1000000;
                     dbus_message_iter_append_basic(&sub3, DBUS_TYPE_INT64, &x_val);
                     dbus_message_iter_close_container(&sub2, &sub3);
                     g_free(property);
@@ -460,7 +474,27 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                     dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
                     property = g_strdup("CanSeek");
-                    b_val = FALSE;
+                    b_val = TRUE;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("CanGoNext");
+                    b_val = (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 1);
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("CanGoPrevious");
+                    b_val = (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 1);
                     dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
                     dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
                     dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
@@ -486,8 +520,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     g_free(property);
                     dbus_message_iter_close_container(&sub1, &sub2);
 
-
-                    dbus_message_iter_close_container(&iter, &sub1);
+                    dbus_message_iter_close_container(&sub0, &sub1);
 
                     dbus_connection_send(mpris_connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
@@ -541,22 +574,91 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     dbus_message_unref(reply_message);
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "Next")) {
+                    g_idle_add(set_next, idledata);
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "Previous")) {
+                    g_idle_add(set_prev, idledata);
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "Seek")) {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_INT64, &x_val, DBUS_TYPE_INVALID)) {
+                        idledata->position = x_val / 1000000.0;
+                        g_idle_add(set_position, idledata);
+                    } else {
+                        dbus_error_free(&error);
+                    }
+                    g_idle_add(set_play, idledata);
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "SetPosition")) {
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args
+                        (message, &error, DBUS_TYPE_OBJECT_PATH, &s_val, DBUS_TYPE_INT64, &x_val, DBUS_TYPE_INVALID)) {
+                        idledata->position = x_val / 1000000.0;
+                        g_idle_add(set_position, idledata);
+                    } else {
+                        dbus_error_free(&error);
+                    }
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
+
+
+
+                if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "OpenUri")) {
+                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+                        dontplaynext = TRUE;
+                    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
+                    dbus_error_init(&error);
+                    if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
+                        if (strlen(s) > 0) {
+                            if (verbose)
+                                printf("opening %s\n", s);
+                            g_idle_add(clear_playlist_and_play, g_strdup(s));
+                        } else {
+                            if (verbose) {
+                                printf("Open requested, but value is blank\n");
+                            }
+                        }
+
+                    } else {
+                        dbus_error_free(&error);
+                    }
+                    reply_message = dbus_message_new_method_return(message);
+                    dbus_connection_send(mpris_connection, reply_message, NULL);
+                    dbus_message_unref(reply_message);
+                    return DBUS_HANDLER_RESULT_HANDLED;
+                }
 
 
                 if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Properties", "Set")) {
                     // printf("dbus message signature: %s\n", dbus_message_get_signature(message));
 
-                    dbus_message_iter_init(message, &iter);
-                    if (dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_STRING) {
-                        dbus_message_iter_get_basic(&iter, &interface);
-                        if (dbus_message_iter_next(&iter) && dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_STRING) {
-                            dbus_message_iter_get_basic(&iter, &property);
+                    dbus_message_iter_init(message, &sub0);
+                    if (dbus_message_iter_get_arg_type(&sub0) == DBUS_TYPE_STRING) {
+                        dbus_message_iter_get_basic(&sub0, &interface);
+                        if (dbus_message_iter_next(&sub0) && dbus_message_iter_get_arg_type(&sub0) == DBUS_TYPE_STRING) {
+                            dbus_message_iter_get_basic(&sub0, &property);
                             printf("interface: %s property: %s \n", interface, property);
 
                             if (g_ascii_strcasecmp(property, "Fullscreen") == 0) {
-                                dbus_message_iter_next(&iter);
+                                dbus_message_iter_next(&sub0);
                                 // this is a variant, so we have to open its container
-                                dbus_message_iter_recurse(&iter, &sub1);
+                                dbus_message_iter_recurse(&sub0, &sub1);
                                 dbus_message_iter_get_basic(&sub1, &b_val);
                                 printf("value = %i\n", b_val);
                                 idledata->fullscreen = b_val;
@@ -564,9 +666,9 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                             }
 
                             if (g_ascii_strcasecmp(property, "Volume") == 0) {
-                                dbus_message_iter_next(&iter);
+                                dbus_message_iter_next(&sub0);
                                 // this is a variant, so we have to open its container
-                                dbus_message_iter_recurse(&iter, &sub1);
+                                dbus_message_iter_recurse(&sub0, &sub1);
                                 dbus_message_iter_get_basic(&sub1, &d_val);
                                 audio_device.volume = d_val;
                                 g_idle_add(set_volume, idledata);
@@ -585,11 +687,11 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                 if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Properties", "Get")) {
                     // printf("dbus message signature: %s\n", dbus_message_get_signature(message));
 
-                    dbus_message_iter_init(message, &iter);
-                    if (dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_STRING) {
-                        dbus_message_iter_get_basic(&iter, &interface);
-                        if (dbus_message_iter_next(&iter) && dbus_message_iter_get_arg_type(&iter) == DBUS_TYPE_STRING) {
-                            dbus_message_iter_get_basic(&iter, &property);
+                    dbus_message_iter_init(message, &sub0);
+                    if (dbus_message_iter_get_arg_type(&sub0) == DBUS_TYPE_STRING) {
+                        dbus_message_iter_get_basic(&sub0, &interface);
+                        if (dbus_message_iter_next(&sub0) && dbus_message_iter_get_arg_type(&sub0) == DBUS_TYPE_STRING) {
+                            dbus_message_iter_get_basic(&sub0, &property);
 
                             if (g_strcasecmp(property, "PlaybackStatus") == 0) {
                                 switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
@@ -604,10 +706,10 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 }
 
                                 reply_message = dbus_message_new_method_return(message);
-                                dbus_message_iter_init_append(reply_message, &iter);
-                                dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, "s", &sub1);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "s", &sub1);
                                 dbus_message_iter_append_basic(&sub1, DBUS_TYPE_STRING, &s_val);
-                                dbus_message_iter_close_container(&iter, &sub1);
+                                dbus_message_iter_close_container(&sub0, &sub1);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
@@ -615,13 +717,13 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                             if (g_strcasecmp(property, "Position") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
-                                dbus_message_iter_init_append(reply_message, &iter);
-                                dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, "x", &sub1);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "x", &sub1);
                                 x_val =
                                     gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
-                                                                           ATTRIBUTE_POSITION) * 1000;
+                                                                           ATTRIBUTE_POSITION) * 1000000;
                                 dbus_message_iter_append_basic(&sub1, DBUS_TYPE_INT64, &x_val);
-                                dbus_message_iter_close_container(&iter, &sub1);
+                                dbus_message_iter_close_container(&sub0, &sub1);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
@@ -629,11 +731,11 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                             if (g_strcasecmp(property, "Volume") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
-                                dbus_message_iter_init_append(reply_message, &iter);
-                                dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, "d", &sub1);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "d", &sub1);
                                 d_val = audio_device.volume;
                                 dbus_message_iter_append_basic(&sub1, DBUS_TYPE_DOUBLE, &d_val);
-                                dbus_message_iter_close_container(&iter, &sub1);
+                                dbus_message_iter_close_container(&sub0, &sub1);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
@@ -641,12 +743,12 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                             if (g_strcasecmp(property, "Identity") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
-                                dbus_message_iter_init_append(reply_message, &iter);
-                                dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, "s", &sub1);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "s", &sub1);
                                 s_val = g_strdup("GNOME MPlayer");
                                 dbus_message_iter_append_basic(&sub1, DBUS_TYPE_STRING, &s_val);
                                 g_free(s_val);
-                                dbus_message_iter_close_container(&iter, &sub1);
+                                dbus_message_iter_close_container(&sub0, &sub1);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
@@ -654,12 +756,12 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                             if (g_strcasecmp(property, "DesktopEntry") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
-                                dbus_message_iter_init_append(reply_message, &iter);
-                                dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, "s", &sub1);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "s", &sub1);
                                 s_val = g_strdup("gnome-mplayer");
                                 dbus_message_iter_append_basic(&sub1, DBUS_TYPE_STRING, &s_val);
                                 g_free(s_val);
-                                dbus_message_iter_close_container(&iter, &sub1);
+                                dbus_message_iter_close_container(&sub0, &sub1);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
@@ -667,11 +769,11 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                             if (g_strcasecmp(property, "CanRaise") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
-                                dbus_message_iter_init_append(reply_message, &iter);
-                                dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, "b", &sub1);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
                                 b_val = TRUE;
                                 dbus_message_iter_append_basic(&sub1, DBUS_TYPE_BOOLEAN, &b_val);
-                                dbus_message_iter_close_container(&iter, &sub1);
+                                dbus_message_iter_close_container(&sub0, &sub1);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
@@ -679,11 +781,47 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                             if (g_strcasecmp(property, "CanQuit") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
-                                dbus_message_iter_init_append(reply_message, &iter);
-                                dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, "b", &sub1);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
                                 b_val = TRUE;
                                 dbus_message_iter_append_basic(&sub1, DBUS_TYPE_BOOLEAN, &b_val);
-                                dbus_message_iter_close_container(&iter, &sub1);
+                                dbus_message_iter_close_container(&sub0, &sub1);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
+                            if (g_strcasecmp(property, "CanSeek") == 0) {
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
+                                b_val = TRUE;
+                                dbus_message_iter_append_basic(&sub1, DBUS_TYPE_BOOLEAN, &b_val);
+                                dbus_message_iter_close_container(&sub0, &sub1);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
+                            if (g_strcasecmp(property, "CanGoNext") == 0) {
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
+                                b_val = (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 1);
+                                dbus_message_iter_append_basic(&sub1, DBUS_TYPE_BOOLEAN, &b_val);
+                                dbus_message_iter_close_container(&sub0, &sub1);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
+                            if (g_strcasecmp(property, "CanGoPrevious") == 0) {
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
+                                b_val = (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 1);
+                                dbus_message_iter_append_basic(&sub1, DBUS_TYPE_BOOLEAN, &b_val);
+                                dbus_message_iter_close_container(&sub0, &sub1);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
@@ -691,8 +829,8 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                             if (g_strcasecmp(property, "Metadata") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
-                                dbus_message_iter_init_append(reply_message, &iter);
-                                append_metadata_array(&iter);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                append_metadata_array(&sub0);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
@@ -860,6 +998,31 @@ void mpris_send_signal_Updated_Metadata()
         dbus_message_iter_close_container(&iter, &dict);
 
         g_free(property);
+
+        dbus_connection_send(mpris_connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(interface);
+        g_free(path);
+    }
+#endif
+}
+
+void mpris_send_signal_Seeked()
+{
+#ifdef DBUS_ENABLED
+    DBusMessageIter iter;
+    DBusMessage *message;
+    gchar *path;
+    gchar *interface;
+    gint64 x_val;
+
+    if (mpris_connection != NULL) {
+        path = g_strdup_printf("/org/mpris/MediaPlayer2");
+        interface = g_strdup("org.mpris.MediaPlayer2.Player");
+        message = dbus_message_new_signal(path, interface, "Seeked");
+        dbus_message_iter_init_append(message, &iter);
+        x_val = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION) * 1000000;
+        dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT64, &x_val);
 
         dbus_connection_send(mpris_connection, message, NULL);
         dbus_message_unref(message);
