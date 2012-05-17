@@ -165,6 +165,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
     gdouble d_val;
     gint i;
     gint64 x_val;
+    GtkTreeIter localiter;
 
     message_type = dbus_message_get_type(message);
     //sender = dbus_message_get_sender(message);
@@ -270,6 +271,43 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                           "    <property name='CanPause' type='b' access='read'/>\n"
                                           "    <property name='CanSeek' type='b' access='read'/>\n"
                                           "    <property name='CanControl' type='b' access='read'/>\n"
+                                          "</interface>\n"
+                                          "<interface name='org.mpris.MediaPlayer2.TrackList'>\n"
+                                          "    <method name='GetTracksMetadata'>\n"
+                                          "        <arg direction='in' name='TrackIds' type='ao'/>\n"
+                                          "	       <arg direction='out' name='Metadata' type='aa{sv}'>\n"
+                                          "	       </arg>\n"
+                                          "    </method>\n"
+                                          "    <method name='AddTrack'>\n"
+                                          "		   <arg direction='in' name='Uri' type='s'/>\n"
+                                          "		   <arg direction='in' name='AfterTrack' type='o'/>\n"
+                                          "		   <arg direction='in' name='SetAsCurrent' type='b'/>\n"
+                                          "    </method>\n"
+                                          "    <method name='RemoveTrack'>\n"
+                                          "		   <arg direction='in' name='TrackId' type='o'/>\n"
+                                          "    </method>\n"
+                                          "    <method name='GoTo'>\n"
+                                          "		   <arg direction='in' name='TrackId' type='o'/>\n"
+                                          "    </method>\n"
+                                          "    <signal name='TrackListReplaced'>\n"
+                                          "		   <arg name='Tracks' type='ao'/>\n"
+                                          "		   <arg name='CurrentTrack' type='o'/>\n"
+                                          "    </signal>\n"
+                                          "    <signal name='TrackAdded'>\n"
+                                          "		   <arg name='Metadata' type='a{sv}'>\n"
+                                          "		   </arg>\n"
+                                          "		   <arg name='AfterTrack' type='o'/>\n"
+                                          "    </signal>\n"
+                                          "    <signal name='TrackRemoved'>\n"
+                                          "		   <arg name='TrackId' type='o'/>\n"
+                                          "    </signal>\n"
+                                          "    <signal name='TrackMetadataChanged'>\n"
+                                          "		   <arg name='TrackId' type='o'/>\n"
+                                          "		   <arg name='Metadata' type='a{sv}'>\n"
+                                          "		   </arg>\n"
+                                          "    </signal>\n"
+                                          "    <property name='Tracks' type='ao' access='read'/>\n"
+                                          "    <property name='CanEditTracks' type='b' access='read'/>\n"
                                           "</interface>\n");
                     xml = g_string_append(xml, "</node>\n");
 
@@ -331,7 +369,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                     dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
                     property = g_strdup("HasTrackList");
-                    b_val = FALSE;      // For now
+                    b_val = TRUE;
                     dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
                     dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
                     dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
@@ -555,6 +593,38 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     dbus_message_iter_close_container(&sub2, &sub3);
                     g_free(property);
                     dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("CanEditTracks");
+                    b_val = FALSE;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("Tracks");
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "ao", &sub3);
+                    dbus_message_iter_open_container(&sub3, DBUS_TYPE_ARRAY, "o", &sub4);
+
+                    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter);
+                    if (gtk_list_store_iter_is_valid(playliststore, &localiter)) {
+                        do {
+                            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ADD_ORDER_COLUMN, &i, -1);
+                            s_val = g_strdup_printf("/org/mpris/MediaPlayer2/TrackList/%i", i);
+                            dbus_message_iter_append_basic(&sub4, DBUS_TYPE_OBJECT_PATH, &s_val);
+                            g_free(s_val);
+                        } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
+                    }
+
+                    dbus_message_iter_close_container(&sub3, &sub4);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
 
                     dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
                     property = g_strdup("Metadata");
@@ -911,6 +981,53 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
+
+                            if (g_strcasecmp(property, "HasTrackList") == 0) {
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
+                                b_val = TRUE;
+                                dbus_message_iter_append_basic(&sub1, DBUS_TYPE_BOOLEAN, &b_val);
+                                dbus_message_iter_close_container(&sub0, &sub1);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
+                            if (g_strcasecmp(property, "CanEditTracks") == 0) {
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
+                                b_val = FALSE;
+                                dbus_message_iter_append_basic(&sub1, DBUS_TYPE_BOOLEAN, &b_val);
+                                dbus_message_iter_close_container(&sub0, &sub1);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
+                            if (g_strcasecmp(property, "Tracks") == 0) {
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                dbus_message_iter_open_container(&sub0, DBUS_TYPE_ARRAY, "o", &sub1);
+
+                                gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &localiter);
+                                if (gtk_list_store_iter_is_valid(playliststore, &localiter)) {
+                                    do {
+                                        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ADD_ORDER_COLUMN,
+                                                           &i, -1);
+                                        s_val = g_strdup_printf("/org/mpris/MediaPlayer2/TrackList/%i", i);
+                                        dbus_message_iter_append_basic(&sub1, DBUS_TYPE_OBJECT_PATH, &s_val);
+                                        g_free(s_val);
+                                    } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
+                                }
+
+                                dbus_message_iter_close_container(&sub0, &sub1);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
 
                             if (g_strcasecmp(property, "Metadata") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
