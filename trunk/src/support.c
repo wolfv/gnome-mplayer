@@ -2566,8 +2566,6 @@ gpointer get_cover_art(gpointer data)
 
         if (verbose) {
             printf("getting cover art from %s\n", url);
-            printf("storing cover art to %s\n", cache_file);
-            printf("cache file exists = %i\n", g_file_test(cache_file, G_FILE_TEST_EXISTS));
         }
 
         if (url != NULL) {
@@ -2578,6 +2576,9 @@ gpointer get_cover_art(gpointer data)
             }
             g_free(path);
             path = g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(), artist, album);
+            if (verbose) {
+                printf("storing cover art to %s\n", path);
+            }
 
             result = 0;
             art = fopen(path, "wb");
@@ -2617,6 +2618,7 @@ gpointer get_cover_art(gpointer data)
         cover_art_uri = g_strdup_printf("file://%s", cache_file);
         pixbuf = gdk_pixbuf_new_from_file(cache_file, NULL);
         g_idle_add(set_cover_art, pixbuf);
+        mpris_send_signal_Updated_Metadata();
     } else {
         pixbuf = NULL;
         g_idle_add(set_cover_art, pixbuf);
