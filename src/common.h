@@ -534,6 +534,7 @@ void mpris_send_signal_PlaybackStatus();
 void mpris_send_signal_Updated_Metadata();
 void mpris_send_signal_Seeked();
 void mpris_send_signal_VolumeChanged();
+void mpris_send_signal_RateChanged();
 
 gboolean update_audio_meter(gpointer data);
 

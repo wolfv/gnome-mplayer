@@ -6330,6 +6330,10 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
             gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_RETRY_ON_FULL_CACHE);
         break;
 
+    case ATTRIBUTE_SPEED_SET:
+        mpris_send_signal_RateChanged();
+        break;
+
     default:
         if (verbose) {
             printf("Unhandled attribute change %i\n", attribute);
