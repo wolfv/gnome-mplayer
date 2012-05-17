@@ -784,6 +784,7 @@ int main(int argc, char *argv[])
     pref_volume = -1;
     use_mplayer2 = FALSE;
     enable_global_menu = FALSE;
+    cover_art_uri = NULL;
 
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;

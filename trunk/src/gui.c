@@ -6074,7 +6074,6 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
             gmtk_media_tracker_set_length(GMTK_MEDIA_TRACKER(tracker),
                                           gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), attribute));
         }
-        mpris_send_signal_Updated_Metadata();
         break;
     case ATTRIBUTE_SIZE:
         idledata->width = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_WIDTH);
@@ -6336,7 +6335,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
             printf("Unhandled attribute change %i\n", attribute);
         }
     }
-    //mpris_send_signal_Updated_Metadata();
+    mpris_send_signal_Updated_Metadata();
 }
 
 void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMediaState state, gpointer data)

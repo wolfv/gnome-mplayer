@@ -466,6 +466,9 @@ GtkWidget *list;
 GmPrefStore *gm_store;
 GmPrefStore *gmp_store;
 
+// cover
+gchar *cover_art_uri;
+
 GtkWidget *create_window(gint windowid);
 void show_window(gint windowid);
 void present_main_window();

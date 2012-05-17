@@ -80,6 +80,19 @@ void append_metadata_array(DBusMessageIter * messageIter)
         g_free(s_val);
     }
 
+    if (cover_art_uri != NULL) {
+        dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
+        property = g_strdup("mpris:artUrl");
+        dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
+        s_val = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+        dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "s", &dict_val);
+        dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_STRING, &cover_art_uri);
+        dbus_message_iter_close_container(&dict_entry, &dict_val);
+        dbus_message_iter_close_container(&dict, &dict_entry);
+        g_free(property);
+        g_free(s_val);
+    }
+
     dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
     property = g_strdup("xesam:title");
     dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);

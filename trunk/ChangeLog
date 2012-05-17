@@ -1,4 +1,5 @@
 Development
+    Rework cover_art fetch process, should work much better now, also make art available over MPRIS
     Fix crash at end of media, due to invalid store iter
     Implement MPRIS Volume signal
     Implement MPRIS2 CanSeek, CanGoNext, CanGoPrevious, Seek, OpenUri, SetPosition, and more Metadata
