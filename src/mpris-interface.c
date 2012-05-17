@@ -58,7 +58,7 @@ void append_metadata_array(DBusMessageIter * messageIter)
         s_val = g_strdup("/org/mpris/MediaPlayer2/TrackList/NoTrack");
     } else {
         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ADD_ORDER_COLUMN, &i, -1);
-        s_val = g_strdup_printf("/org/mpris/MediaPlayer2/TrackList/%i", i);
+        s_val = g_strdup_printf("/org/mpris/MediaPlayer2/Track/%i", i);
     }
     dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "o", &dict_val);
     dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_OBJECT_PATH, &s_val);
@@ -140,6 +140,31 @@ void append_metadata_array(DBusMessageIter * messageIter)
     dbus_message_iter_close_container(&dict, &dict_entry);
     g_free(property);
     g_free(s_val);
+
+    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+        dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
+        property = g_strdup("xesam:trackNumber");
+        dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ADD_ORDER_COLUMN, &i, -1);
+        dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "i", &dict_val);
+        dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_INT32, &i);
+        dbus_message_iter_close_container(&dict_entry, &dict_val);
+        dbus_message_iter_close_container(&dict, &dict_entry);
+        g_free(property);
+    }
+
+    if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
+        dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
+        property = g_strdup("xesam:useCount");
+        dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
+        gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COUNT_COLUMN, &i, -1);
+        dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "i", &dict_val);
+        dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_INT32, &i);
+        dbus_message_iter_close_container(&dict_entry, &dict_val);
+        dbus_message_iter_close_container(&dict, &dict_entry);
+        g_free(property);
+    }
+
 
     dbus_message_iter_close_container(&array, &dict);
     dbus_message_iter_close_container(messageIter, &array);
@@ -556,7 +581,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                     dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
                     property = g_strdup("CanSeek");
-                    b_val = TRUE;
+                    b_val = (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_LENGTH) > 1);
                     dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
                     dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "b", &sub3);
                     dbus_message_iter_append_basic(&sub3, DBUS_TYPE_BOOLEAN, &b_val);
@@ -614,7 +639,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     if (gtk_list_store_iter_is_valid(playliststore, &localiter)) {
                         do {
                             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ADD_ORDER_COLUMN, &i, -1);
-                            s_val = g_strdup_printf("/org/mpris/MediaPlayer2/TrackList/%i", i);
+                            s_val = g_strdup_printf("/org/mpris/MediaPlayer2/Track/%i", i);
                             dbus_message_iter_append_basic(&sub4, DBUS_TYPE_OBJECT_PATH, &s_val);
                             g_free(s_val);
                         } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
@@ -950,7 +975,9 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
-                                b_val = TRUE;
+                                b_val =
+                                    (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_LENGTH)
+                                     > 1);
                                 dbus_message_iter_append_basic(&sub1, DBUS_TYPE_BOOLEAN, &b_val);
                                 dbus_message_iter_close_container(&sub0, &sub1);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
@@ -1016,7 +1043,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                     do {
                                         gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &localiter, ADD_ORDER_COLUMN,
                                                            &i, -1);
-                                        s_val = g_strdup_printf("/org/mpris/MediaPlayer2/TrackList/%i", i);
+                                        s_val = g_strdup_printf("/org/mpris/MediaPlayer2/Track/%i", i);
                                         dbus_message_iter_append_basic(&sub1, DBUS_TYPE_OBJECT_PATH, &s_val);
                                         g_free(s_val);
                                     } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
@@ -1177,10 +1204,12 @@ void mpris_send_signal_Updated_Metadata()
 {
 #ifdef DBUS_ENABLED
     DBusMessage *message;
-    DBusMessageIter iter, dict, dict_entry;
+    DBusMessageIter iter, dict, dict_entry, dict_val;
     gchar *path;
     gchar *interface;
     gchar *property;
+    gboolean b_val;
+    gchar *s_val;
 
     if (mpris_connection != NULL) {
         path = g_strdup_printf("/org/mpris/MediaPlayer2");
@@ -1194,9 +1223,37 @@ void mpris_send_signal_Updated_Metadata()
         dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
         append_metadata_array(&dict_entry);
         dbus_message_iter_close_container(&dict, &dict_entry);
+
+        dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
+        property = g_strdup("CanSeek");
+        dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
+        dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "b", &dict_val);
+        b_val = (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_LENGTH) > 1);
+        dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_BOOLEAN, &b_val);
+        dbus_message_iter_close_container(&dict_entry, &dict_val);
+        dbus_message_iter_close_container(&dict, &dict_entry);
+
+        dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
+        property = g_strdup("PlaybackStatus");
+        switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
+        case MEDIA_STATE_PLAY:
+            s_val = g_strdup("Playing");
+            break;
+        case MEDIA_STATE_PAUSE:
+            s_val = g_strdup("Paused");
+            break;
+        default:
+            s_val = g_strdup("Stopped");
+        }
+        dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
+        dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "s", &dict_val);
+        dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_STRING, &s_val);
+        dbus_message_iter_close_container(&dict_entry, &dict_val);
+        g_free(s_val);
+
+        dbus_message_iter_close_container(&dict, &dict_entry);
         dbus_message_iter_close_container(&iter, &dict);
         dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "s", &dict);
-        // dbus_message_iter_append_basic(&dict, DBUS_TYPE_STRING, &property);
         dbus_message_iter_close_container(&iter, &dict);
 
         g_free(property);
