@@ -2904,7 +2904,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gnome-mplayer
- VERSION=1.0.6
+ VERSION=1.0.7a1
 
 
 cat >>confdefs.h <<_ACEOF
@@ -8636,12 +8636,12 @@ if test -n "$GMTK_CFLAGS"; then
     pkg_cv_GMTK_CFLAGS="$GMTK_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gmtk >= 1.0.6\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gmtk >= 1.0.6") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gmtk >= 1.0.7\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gmtk >= 1.0.7") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GMTK_CFLAGS=`$PKG_CONFIG --cflags "gmtk >= 1.0.6" 2>/dev/null`
+  pkg_cv_GMTK_CFLAGS=`$PKG_CONFIG --cflags "gmtk >= 1.0.7" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -8652,12 +8652,12 @@ if test -n "$GMTK_LIBS"; then
     pkg_cv_GMTK_LIBS="$GMTK_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gmtk >= 1.0.6\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gmtk >= 1.0.6") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gmtk >= 1.0.7\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gmtk >= 1.0.7") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GMTK_LIBS=`$PKG_CONFIG --libs "gmtk >= 1.0.6" 2>/dev/null`
+  pkg_cv_GMTK_LIBS=`$PKG_CONFIG --libs "gmtk >= 1.0.7" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -8677,14 +8677,14 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        GMTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "gmtk >= 1.0.6" 2>&1`
+	        GMTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "gmtk >= 1.0.7" 2>&1`
         else
-	        GMTK_PKG_ERRORS=`$PKG_CONFIG --print-errors "gmtk >= 1.0.6" 2>&1`
+	        GMTK_PKG_ERRORS=`$PKG_CONFIG --print-errors "gmtk >= 1.0.7" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$GMTK_PKG_ERRORS" >&5
 
-	as_fn_error $? "Package requirements (gmtk >= 1.0.6) were not met:
+	as_fn_error $? "Package requirements (gmtk >= 1.0.7) were not met:
 
 $GMTK_PKG_ERRORS
 

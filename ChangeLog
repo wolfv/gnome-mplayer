@@ -1,4 +1,5 @@
 Development
+    Version bump to 1.0.7a1
     Implement MPRIS Rate, MinimumRate and MaximumRate, requires gmtk SVN r115 or higher
     Cleanup some debug messages and send updated Metadata on cover art fetch
     Rework cover_art fetch process, should work much better now, also make art available over MPRIS
