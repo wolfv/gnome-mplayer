@@ -436,6 +436,36 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     dbus_message_iter_close_container(&sub1, &sub2);
 
                     dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("Rate");
+                    d_val = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SPEED_SET);
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "d", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_DOUBLE, &d_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("MinimumRate");
+                    d_val = 0.1;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "d", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_DOUBLE, &d_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
+                    property = g_strdup("MaximumRate");
+                    d_val = 10.0;
+                    dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
+                    dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "d", &sub3);
+                    dbus_message_iter_append_basic(&sub3, DBUS_TYPE_DOUBLE, &d_val);
+                    dbus_message_iter_close_container(&sub2, &sub3);
+                    g_free(property);
+                    dbus_message_iter_close_container(&sub1, &sub2);
+
+                    dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
                     property = g_strdup("Position");
                     dbus_message_iter_append_basic(&sub2, DBUS_TYPE_STRING, &property);
                     dbus_message_iter_open_container(&sub2, DBUS_TYPE_VARIANT, "x", &sub3);
@@ -686,6 +716,16 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 audio_device.volume = d_val;
                                 g_idle_add(set_volume, idledata);
                             }
+
+                            if (g_ascii_strcasecmp(property, "Rate") == 0) {
+                                dbus_message_iter_next(&sub0);
+                                // this is a variant, so we have to open its container
+                                dbus_message_iter_recurse(&sub0, &sub1);
+                                dbus_message_iter_get_basic(&sub1, &d_val);
+                                gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SPEED_SET,
+                                                                       d_val);
+                                g_idle_add(set_volume, idledata);
+                            }
                         }
                     } else {
                         printf("get args failed\n");
@@ -749,6 +789,38 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 d_val = audio_device.volume;
                                 dbus_message_iter_append_basic(&sub0, DBUS_TYPE_DOUBLE, &d_val);
                                 //dbus_message_iter_close_container(&sub0, &sub1);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
+                            if (g_strcasecmp(property, "Rate") == 0) {
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                d_val =
+                                    gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
+                                                                           ATTRIBUTE_SPEED_SET);
+                                dbus_message_iter_append_basic(&sub0, DBUS_TYPE_DOUBLE, &d_val);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
+                            if (g_strcasecmp(property, "MinimumRate") == 0) {
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                d_val = 0.1;
+                                dbus_message_iter_append_basic(&sub0, DBUS_TYPE_DOUBLE, &d_val);
+                                dbus_connection_send(mpris_connection, reply_message, NULL);
+                                dbus_message_unref(reply_message);
+                                return DBUS_HANDLER_RESULT_HANDLED;
+                            }
+
+                            if (g_strcasecmp(property, "MaximumRate") == 0) {
+                                reply_message = dbus_message_new_method_return(message);
+                                dbus_message_iter_init_append(reply_message, &sub0);
+                                d_val = 10.0;
+                                dbus_message_iter_append_basic(&sub0, DBUS_TYPE_DOUBLE, &d_val);
                                 dbus_connection_send(mpris_connection, reply_message, NULL);
                                 dbus_message_unref(reply_message);
                                 return DBUS_HANDLER_RESULT_HANDLED;
@@ -1067,6 +1139,46 @@ void mpris_send_signal_VolumeChanged()
         dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
         dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "d", &dict_val);
         d_val = audio_device.volume;
+        dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_DOUBLE, &d_val);
+        dbus_message_iter_close_container(&dict_entry, &dict_val);
+        dbus_message_iter_close_container(&dict, &dict_entry);
+        dbus_message_iter_close_container(&iter, &dict);
+        dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "s", &dict);
+        // dbus_message_iter_append_basic(&dict, DBUS_TYPE_STRING, &property);
+        dbus_message_iter_close_container(&iter, &dict);
+
+        g_free(property);
+
+        dbus_connection_send(mpris_connection, message, NULL);
+        dbus_message_unref(message);
+        g_free(interface);
+        g_free(path);
+    }
+#endif
+}
+
+void mpris_send_signal_RateChanged()
+{
+#ifdef DBUS_ENABLED
+    DBusMessageIter iter, dict, dict_entry, dict_val;;
+    DBusMessage *message;
+    gchar *path;
+    gchar *interface;
+    gchar *property;
+    gdouble d_val;
+
+    if (mpris_connection != NULL) {
+        path = g_strdup_printf("/org/mpris/MediaPlayer2");
+        interface = g_strdup("org.mpris.MediaPlayer2.Player");
+        message = dbus_message_new_signal(path, "org.freedesktop.DBus.Properties", "PropertiesChanged");
+        dbus_message_iter_init_append(message, &iter);
+        dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &interface);
+        dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "{sv}", &dict);
+        dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
+        property = g_strdup("Rate");
+        dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
+        dbus_message_iter_open_container(&dict_entry, DBUS_TYPE_VARIANT, "d", &dict_val);
+        d_val = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SPEED_SET);
         dbus_message_iter_append_basic(&dict_val, DBUS_TYPE_DOUBLE, &d_val);
         dbus_message_iter_close_container(&dict_entry, &dict_val);
         dbus_message_iter_close_container(&dict, &dict_entry);
