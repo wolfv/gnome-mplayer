@@ -497,10 +497,12 @@ gboolean set_media_label(void *data)
 #ifdef NOTIFY_ENABLED
     NotifyNotification *notification;
 #endif
+
     if (data != NULL && idle != NULL && GTK_IS_WIDGET(media_label)) {
-        if (idle->media_info != NULL && strlen(idle->media_info) > 0)
+        if (idle->media_info != NULL && strlen(idle->media_info) > 0) {
             gtk_label_set_markup(GTK_LABEL(media_label), idle->media_info);
-        gtk_label_set_max_width_chars(GTK_LABEL(media_label), 10);
+            gtk_label_set_max_width_chars(GTK_LABEL(media_label), 10);
+        }
 
         pixbuf = NULL;
         gtk_image_clear(GTK_IMAGE(cover_art));
@@ -2162,7 +2164,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                 if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
                                     dontplaynext = TRUE;
                                 gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
-                                set_media_label(NULL);
                                 gtk_list_store_clear(playliststore);
                                 added_single = add_item_to_playlist(list[i], playlist);
                             } else {
@@ -2174,7 +2175,6 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                                     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
                                         dontplaynext = TRUE;
                                     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
-                                    set_media_label(NULL);
                                     gtk_list_store_clear(playliststore);
                                     added_single = add_item_to_playlist(list[i], playlist);
                                 } else {
@@ -6421,6 +6421,10 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gtk_widget_show(GTK_WIDGET(menuitem_play));
         dbus_enable_screensaver();
         dbus_send_event("MediaStopped", 0);
+        g_strlcpy(idledata->media_info, "", 1024);
+        gtk_widget_hide(media_hbox);
+        g_strlcpy(idledata->display_name, "", 1024);
+        g_idle_add(set_media_info, idledata);
         break;
     case MEDIA_STATE_PLAY:
         if (idledata->mapped_af_export == NULL)
@@ -6454,6 +6458,10 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
             dbus_disable_screensaver();
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), _("Playing"));
         dbus_send_event("MediaPlaying", 0);
+        g_idle_add(set_media_label, idledata);
+        g_strlcpy(idledata->display_name,
+                  gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE), 1024);
+        g_idle_add(set_media_info, idledata);
         break;
     case MEDIA_STATE_PAUSE:
 #ifdef GTK3_ENABLED
