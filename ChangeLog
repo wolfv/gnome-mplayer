@@ -1,4 +1,5 @@
 Development
+    Print GTK and GLIB versions in verbose mode
     Fix stop action on streaming playlist Issue #617
     Update media label on drag and drop, update title bar on stop/play
     Add some more known metadata and make some values more dynamic
