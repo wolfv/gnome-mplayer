@@ -2221,7 +2221,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
-        if (next_item_in_playlist(&iter)) {
+        if (next_item_in_playlist(&iter) && gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) != TYPE_NETWORK) {
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
             g_idle_add(async_play_iter, &iter);
         } else {
@@ -6354,40 +6354,42 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     case MEDIA_STATE_UNKNOWN:
         if (idledata->mapped_af_export != NULL)
             unmap_af_export_file(idledata);
-        if (dontplaynext == FALSE) {
-            if (next_item_in_playlist(&iter)) {
-                g_idle_add(async_play_iter, &iter);
-                //play_iter(&iter, 0);
-            } else {
-                // printf("end of thread playlist is empty\n");
-                if (loop) {
-                    if (first_item_in_playlist(&iter)) {
-                        g_idle_add(async_play_iter, &iter);
-                    }
+        if (gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) != TYPE_NETWORK) {
+            if (dontplaynext == FALSE) {
+                if (next_item_in_playlist(&iter)) {
+                    g_idle_add(async_play_iter, &iter);
+                    //play_iter(&iter, 0);
                 } else {
-                    idledata->fullscreen = 0;
-                    g_idle_add(set_fullscreen, idledata);
-                    g_idle_add(set_stop, idledata);
-                    // nothing is on the playlist and we are not looping so ask plugin for next item
-                    if (embed_window != 0 || control_id != 0) {
-                        js_state = STATE_MEDIAENDED;
-                        dbus_send_event("MediaComplete", 0);
-                        dbus_open_next();
+                    // printf("end of thread playlist is empty\n");
+                    if (loop) {
+                        if (first_item_in_playlist(&iter)) {
+                            g_idle_add(async_play_iter, &iter);
+                        }
+                    } else {
+                        idledata->fullscreen = 0;
+                        g_idle_add(set_fullscreen, idledata);
+                        g_idle_add(set_stop, idledata);
+                        // nothing is on the playlist and we are not looping so ask plugin for next item
+                        if (embed_window != 0 || control_id != 0) {
+                            js_state = STATE_MEDIAENDED;
+                            dbus_send_event("MediaComplete", 0);
+                            dbus_open_next();
+                        }
+                    }
+
+                    if (quit_on_complete) {
+                        g_idle_add(set_quit, idledata);
                     }
                 }
-
-                if (quit_on_complete) {
-                    g_idle_add(set_quit, idledata);
+            } else {
+                if (embed_window != 0 || control_id != 0) {
+                    dbus_send_event("MediaComplete", 0);
+                    dbus_open_next();
                 }
-            }
-        } else {
-            if (embed_window != 0 || control_id != 0) {
-                dbus_send_event("MediaComplete", 0);
-                dbus_open_next();
-            }
-            if (next_iter != NULL) {
-                g_idle_add(async_play_iter, next_iter);
-                next_iter = NULL;
+                if (next_iter != NULL) {
+                    g_idle_add(async_play_iter, next_iter);
+                    next_iter = NULL;
+                }
             }
         }
         dontplaynext = FALSE;

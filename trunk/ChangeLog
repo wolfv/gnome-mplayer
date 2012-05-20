@@ -1,4 +1,5 @@
 Development
+    Fix stop action on streaming playlist Issue #619
     Update media label on drag and drop, update title bar on stop/play
     Add some more known metadata and make some values more dynamic
     Implement org.mpris.MediaPlayer2.TrackList Tracks and CanEditTracks properties
