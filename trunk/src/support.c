@@ -2298,8 +2298,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
                                ALBUM_COLUMN, ((Itdb_Track *) (tracks->data))->album,
                                VIDEO_WIDTH_COLUMN, width,
                                VIDEO_HEIGHT_COLUMN, height,
-                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration, COVERART_COLUMN,
-                               pixbuf,
+                               SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, duration,
                                PLAY_ORDER_COLUMN,
                                gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
                                ADD_ORDER_COLUMN,
@@ -2561,7 +2560,7 @@ gpointer get_cover_art(gpointer data)
         g_free(path);
     }
 
-    if (!disable_cover_art_fetch && artist != NULL && album != NULL && found_cached == FALSE) {
+    if (!found_cached && !disable_cover_art_fetch && artist != NULL && album != NULL) {
         url = get_cover_art_url((gchar *) artist, NULL, (gchar *) album);
 
         if (verbose) {
@@ -2615,6 +2614,7 @@ gpointer get_cover_art(gpointer data)
     }
 
     if (cache_file != NULL && g_file_test(cache_file, G_FILE_TEST_EXISTS)) {
+        gtk_list_store_set(playliststore, &iter, COVERART_COLUMN, cache_file, -1);
         cover_art_uri = g_strdup_printf("file://%s", cache_file);
         pixbuf = gdk_pixbuf_new_from_file(cache_file, NULL);
         g_idle_add(set_cover_art, pixbuf);

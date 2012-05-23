@@ -493,6 +493,7 @@ gboolean set_media_label(void *data)
 {
 
     IdleData *idle = (IdleData *) data;
+    gchar *cover_art_file = NULL;
     gpointer pixbuf;
 #ifdef NOTIFY_ENABLED
     NotifyNotification *notification;
@@ -508,11 +509,14 @@ gboolean set_media_label(void *data)
         gtk_image_clear(GTK_IMAGE(cover_art));
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) > 0
             && gtk_list_store_iter_is_valid(playliststore, &iter)) {
-            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COVERART_COLUMN, &pixbuf, -1);
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, COVERART_COLUMN, &cover_art_file, -1);
         }
-        if (pixbuf != NULL) {
-            gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
-            g_object_unref(pixbuf);
+        if (cover_art_file != NULL) {
+            pixbuf = gdk_pixbuf_new_from_file(cover_art_file, NULL);
+            if (pixbuf != NULL) {
+                gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
+                g_object_unref(pixbuf);
+            }
         }
     } else {
         if (GTK_IS_IMAGE(cover_art))
