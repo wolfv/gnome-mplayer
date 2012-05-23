@@ -245,7 +245,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     gint height;
     gfloat length_value;
     gint i;
-    gpointer pixbuf;
+    gchar *cover_art_file = NULL;
     gchar *buffer = NULL;
     gchar *message = NULL;
     MetaData *metadata;
@@ -276,7 +276,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
                            VIDEO_WIDTH_COLUMN, &width,
                            VIDEO_HEIGHT_COLUMN, &height,
                            DEMUXER_COLUMN, &demuxer,
-                           COVERART_COLUMN, &pixbuf,
+                           COVERART_COLUMN, &cover_art_file,
                            SUBTITLE_COLUMN, &subtitle,
                            AUDIOFILE_COLUMN, &audiofile,
                            COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, PLAYABLE_COLUMN, &playable, -1);
@@ -400,7 +400,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     message = g_strconcat(message, "</small>", NULL);
 
     // probably not much cover art for random video files
-    if (pixbuf == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0 && !playlist) {
+    if (cover_art_file == NULL && video_codec == NULL && !streaming_media(uri) && control_id == 0 && !playlist) {
         metadata = (MetaData *) g_new0(MetaData, 1);
         metadata->uri = g_strdup(uri);
         if (title != NULL)
@@ -1059,7 +1059,7 @@ int main(int argc, char *argv[])
     playliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
-                           G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING,
+                           G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
                            G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_BOOLEAN);
 
