@@ -1,4 +1,5 @@
 Development
+    Fix a potential NULL pointer copy issue
 	Fix some cover art loading issues
     Print GTK and GLIB versions in verbose mode
     Fix stop action on streaming playlist Issue #617

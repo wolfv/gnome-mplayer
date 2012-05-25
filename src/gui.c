@@ -6465,8 +6465,12 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), _("Playing"));
         dbus_send_event("MediaPlaying", 0);
         g_idle_add(set_media_label, idledata);
-        g_strlcpy(idledata->display_name,
-                  gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE), 1024);
+		if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE) != NULL) {
+		    g_strlcpy(idledata->display_name,
+		              gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE), 1024);
+		} else {
+			g_strlcpy(idledata->display_name, "", 1024);
+		}
         g_idle_add(set_media_info, idledata);
         break;
     case MEDIA_STATE_PAUSE:
