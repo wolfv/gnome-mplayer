@@ -1,4 +1,5 @@
 Development
+	Apply patch from Issue #619
     Fix a potential NULL pointer copy issue
 	Fix some cover art loading issues
     Print GTK and GLIB versions in verbose mode

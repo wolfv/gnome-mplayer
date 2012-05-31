@@ -441,9 +441,9 @@ gint parse_basic(gchar * uri)
     g_object_unref(file);
 #else
         }
+        fclose(fp);
     }
     g_free(file);
-    fclose(fp);
 #endif
     g_free(path);
     return ret;
