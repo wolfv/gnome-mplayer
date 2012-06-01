@@ -1,4 +1,6 @@
 Development
+	Fix title display when no metadata is present
+	Potential fix for hang on load when fetching cover art
 	Apply patch from Issue #619
     Fix a potential NULL pointer copy issue
 	Fix some cover art loading issues
