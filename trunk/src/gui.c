@@ -6326,7 +6326,9 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         text = g_strconcat(text, "</small>", NULL);
         gtk_label_set_markup(GTK_LABEL(media_label), text);
         g_strlcpy(idledata->media_info, text, 1024);
-        g_thread_create(get_cover_art, metadata, FALSE, NULL);
+        if (gmtk_get_visible(window)) {
+            g_thread_create(get_cover_art, metadata, FALSE, NULL);
+        }
         break;
 
     case ATTRIBUTE_RETRY_ON_FULL_CACHE:
@@ -6351,6 +6353,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #ifdef GTK2_12_ENABLED
     gchar *tip_text = NULL;
 #endif
+    gchar *short_filename = NULL;
+
     printf("in media state change with state = %i\n", state);
     switch (state) {
         // mplayer is dead, need the next item off the playlist
@@ -6465,12 +6469,17 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), _("Playing"));
         dbus_send_event("MediaPlaying", 0);
         g_idle_add(set_media_label, idledata);
-		if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE) != NULL) {
-		    g_strlcpy(idledata->display_name,
-		              gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE), 1024);
-		} else {
-			g_strlcpy(idledata->display_name, "", 1024);
-		}
+        if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE) != NULL) {
+            g_strlcpy(idledata->display_name,
+                      gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE), 1024);
+        } else {
+            short_filename = g_strrstr(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), "/");
+            if (short_filename != NULL) {
+                g_strlcpy(idledata->display_name, short_filename + sizeof(gchar), 1024);
+            } else {
+                g_strlcpy(idledata->display_name, "", 1024);
+            }
+        }
         g_idle_add(set_media_info, idledata);
         break;
     case MEDIA_STATE_PAUSE:

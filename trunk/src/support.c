@@ -2580,6 +2580,7 @@ gpointer get_cover_art(gpointer data)
             }
 
             result = 0;
+
             art = fopen(path, "wb");
             if (art) {
                 curl = curl_easy_init();
