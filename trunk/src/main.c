@@ -190,7 +190,7 @@ void play_next()
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
                                COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
             g_strlcpy(idledata->info, filename, 4096);
-            g_idle_add(set_media_info, idledata);
+            g_idle_add(set_title_bar, idledata);
             p = (PlayData *) g_malloc(sizeof(PlayData));
             g_strlcpy(p->uri, filename, 4096);
             p->playlist = playlist;
@@ -204,7 +204,7 @@ void play_next()
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
                                    &filename, COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
                 g_strlcpy(idledata->info, filename, 4096);
-                g_idle_add(set_media_info, idledata);
+                g_idle_add(set_title_bar, idledata);
                 p = (PlayData *) g_malloc(sizeof(PlayData));
                 g_strlcpy(p->uri, filename, 4096);
                 p->playlist = playlist;
@@ -541,7 +541,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     idledata->retry_on_full_cache = FALSE;
     idledata->cachepercent = -1.0;
     g_strlcpy(idledata->info, uri, 1024);
-    set_media_info(idledata);
+    set_title_bar(idledata);
 
     streaming = 0;
 

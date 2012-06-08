@@ -481,7 +481,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         g_strlcpy(idledata->info, s, 1024);
-                        g_idle_add(set_media_info, idledata);
+                        g_idle_add(set_title_bar, idledata);
                     } else {
                         dbus_error_free(&error);
                     }

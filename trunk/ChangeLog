@@ -1,4 +1,7 @@
 Development
+    Put the filename in the title bar when it is a video and a local file
+    Change set_media_info to set_title_bar, more accurately reflects the function
+    If the metadata doesn't contain title and artist try and pull it from the filename
 	Fix title display when no metadata is present
 	Potential fix for hang on load when fetching cover art
 	Apply patch from Issue #619

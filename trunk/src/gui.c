@@ -446,7 +446,7 @@ gboolean show_copyurl(void *data)
 }
 
 
-gboolean set_media_info(void *data)
+gboolean set_title_bar(void *data)
 {
 
     IdleData *idle = (IdleData *) data;
@@ -457,7 +457,13 @@ gboolean set_media_info(void *data)
 
 
     if (data != NULL && idle != NULL) {
-        name = g_strdup(idle->display_name);
+        if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VIDEO_PRESENT)
+            && gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) == TYPE_FILE
+            && g_strrstr(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), "/") != NULL) {
+            name = g_strdup(g_strrstr(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), "/") + 1);
+        } else {
+            name = g_strdup(idle->display_name);
+        }
 
         total = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
         if (total > 0 && gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -470,11 +476,11 @@ gboolean set_media_info(void *data)
             }
         }
         if (total > 1) {
-            if (name != NULL)
-                buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
-            else
+            if (name == NULL && strlen(name) < 1) {
                 buf = g_strdup_printf(_("(%i/%i) - GNOME MPlayer"), current + 1, total);
-
+            } else {
+                buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
+            }
         } else {
             if (name == NULL || strlen(name) < 1) {
                 buf = g_strdup_printf(_("GNOME MPlayer"));
@@ -1008,7 +1014,7 @@ gboolean set_metadata(gpointer data)
 
                 if (mdata != NULL && mdata->playable == FALSE) {
                     gtk_list_store_remove(playliststore, &riter);
-                    g_idle_add(set_media_info, idledata);
+                    g_idle_add(set_title_bar, idledata);
                 }
             }
         }
@@ -6434,7 +6440,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         g_strlcpy(idledata->media_info, "", 1024);
         gtk_widget_hide(media_hbox);
         g_strlcpy(idledata->display_name, "", 1024);
-        g_idle_add(set_media_info, idledata);
+        g_idle_add(set_title_bar, idledata);
         break;
     case MEDIA_STATE_PLAY:
         if (idledata->mapped_af_export == NULL)
@@ -6480,7 +6486,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
                 g_strlcpy(idledata->display_name, "", 1024);
             }
         }
-        g_idle_add(set_media_info, idledata);
+        g_idle_add(set_title_bar, idledata);
         break;
     case MEDIA_STATE_PAUSE:
 #ifdef GTK3_ENABLED

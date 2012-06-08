@@ -1037,6 +1037,8 @@ MetaData *get_basic_metadata(gchar * uri)
     gfloat seconds = 0;
     gchar *localtitle = NULL;
     MetaData *ret = NULL;
+    gchar *localuri = NULL;
+    gchar *p = NULL;
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
@@ -1064,6 +1066,23 @@ MetaData *get_basic_metadata(gchar * uri)
         if (ret != NULL)
             g_free(ret);
         return NULL;
+    }
+
+    if (title == NULL || strlen(title) == 0) {
+        localuri = g_strdup(uri);
+        p = g_strrstr(localuri, ".");
+        if (p)
+            p[0] = '\0';
+        p = g_strrstr(localuri, "/");
+        if (p) {
+            artist = g_strdup(p + 1);
+            p = strstr(artist, " - ");
+            if (p) {
+                title = g_strdup(p + 3);
+                p[0] = '\0';
+            }
+        }
+        g_free(localuri);
     }
 
     if (title == NULL || strlen(title) == 0) {
@@ -1147,6 +1166,8 @@ MetaData *get_metadata(gchar * uri)
     gchar *localtitle = NULL;
     MetaData *ret = NULL;
     gboolean missing_header = FALSE;
+    gchar *localuri = NULL;
+    gchar *p = NULL;
 #ifdef GIO_ENABLED
     GFile *file;
 #endif
@@ -1359,6 +1380,24 @@ MetaData *get_metadata(gchar * uri)
         }
 
         ac++;
+    }
+
+
+    if (title == NULL || strlen(title) == 0) {
+        localuri = g_strdup(uri);
+        p = g_strrstr(localuri, ".");
+        if (p)
+            p[0] = '\0';
+        p = g_strrstr(localuri, "/");
+        if (p) {
+            artist = g_strdup(p + 1);
+            p = strstr(artist, " - ");
+            if (p) {
+                title = g_strdup(p + 3);
+                p[0] = '\0';
+            }
+        }
+        g_free(localuri);
     }
 
     if (title == NULL || strlen(title) == 0) {
@@ -1682,7 +1721,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
         g_free(data->video_codec);
         g_free(data);
         g_free(local_uri);
-        g_idle_add(set_media_info, idledata);
+        g_idle_add(set_title_bar, idledata);
 
         return TRUE;
     } else {
@@ -2246,14 +2285,14 @@ gboolean gpod_load_tracks(gchar * mount_point)
     gchar *duration;
     gchar *ipod_path;
     gchar *full_path;
-    gpointer pixbuf;
+    // gpointer pixbuf;
     GtkTreeIter localiter;
 
     db = itdb_parse(mount_point, NULL);
     if (db != NULL) {
         tracks = db->tracks;
         while (tracks) {
-            pixbuf = NULL;
+            // pixbuf = NULL;
             duration = seconds_to_string(((Itdb_Track *) (tracks->data))->tracklen / 1000);
             ipod_path = g_strdup(((Itdb_Track *) (tracks->data))->ipod_path);
             while (g_strrstr(ipod_path, ":")) {
@@ -2275,7 +2314,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
 #endif
 #ifdef GPOD_07
             if (artwork->thumbnail != NULL) {
-                pixbuf = itdb_artwork_get_pixbuf(db->device, artwork, -1, -1);
+                //pixbuf = itdb_artwork_get_pixbuf(db->device, artwork, -1, -1);
                 //printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
             }
 #endif
