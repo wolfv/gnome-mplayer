@@ -2455,7 +2455,6 @@ gpointer get_cover_art(gpointer data)
     gboolean found_cached = FALSE;
     const gchar *artist = NULL;
     const gchar *album = NULL;
-    CURL *curl;
     CURLcode result;
     FILE *art;
     gpointer pixbuf;
@@ -2464,6 +2463,11 @@ gpointer get_cover_art(gpointer data)
     gchar *thumbnail;
 #ifdef GIO_ENABLED
     GFile *file;
+    GInputStream *streamin;
+    gchar buf[2048];
+    gint bytes;
+#else
+    CURL *curl;
 #endif
 
     artist = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST);
@@ -2620,8 +2624,19 @@ gpointer get_cover_art(gpointer data)
 
             result = 0;
 
+
             art = fopen(path, "wb");
             if (art) {
+#ifdef GIO_ENABLED
+                file = g_file_new_for_uri(url);
+                streamin = (GInputStream *) g_file_read(file, NULL, NULL);
+                if (streamin) {
+                    while ((bytes = g_input_stream_read(streamin, buf, 2048, NULL, NULL))) {
+                        fwrite(buf, sizeof(gchar), bytes, art);
+                    }
+                    g_object_unref(streamin);
+                }
+#else
                 curl = curl_easy_init();
                 if (curl) {
                     curl_easy_setopt(curl, CURLOPT_URL, url);
@@ -2629,6 +2644,7 @@ gpointer get_cover_art(gpointer data)
                     result = curl_easy_perform(curl);
                     curl_easy_cleanup(curl);
                 }
+#endif
                 fclose(art);
             }
             // printf("cover art url is %s\n",url);
