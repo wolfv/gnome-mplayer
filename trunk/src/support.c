@@ -2463,9 +2463,10 @@ gpointer get_cover_art(gpointer data)
     gchar *thumbnail;
 #ifdef GIO_ENABLED
     GFile *file;
-    GInputStream *streamin;
+    GInputStream *stream_in;
     gchar buf[2048];
     gint bytes;
+    size_t written;
 #else
     CURL *curl;
 #endif
@@ -2629,12 +2630,19 @@ gpointer get_cover_art(gpointer data)
             if (art) {
 #ifdef GIO_ENABLED
                 file = g_file_new_for_uri(url);
-                streamin = (GInputStream *) g_file_read(file, NULL, NULL);
-                if (streamin) {
-                    while ((bytes = g_input_stream_read(streamin, buf, 2048, NULL, NULL))) {
-                        fwrite(buf, sizeof(gchar), bytes, art);
+                stream_in = (GInputStream *) g_file_read(file, NULL, NULL);
+                if (stream_in) {
+                    result = 0;
+                    while ((bytes = g_input_stream_read(stream_in, buf, 2048, NULL, NULL))) {
+                        written = fwrite(buf, sizeof(gchar), bytes, art);
+                        if (written != bytes) {
+                            result = 1;
+                            break;
+                        }
                     }
-                    g_object_unref(streamin);
+                    g_object_unref(stream_in);
+                } else {
+                    result = 1; // error condition
                 }
 #else
                 curl = curl_easy_init();
