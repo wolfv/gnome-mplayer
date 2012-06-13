@@ -456,7 +456,7 @@ gboolean set_title_bar(void *data)
     gint current = 0, total;
 
 
-    if (data != NULL && idle != NULL) {
+    if (data != NULL && idle != NULL && gmtk_get_visible(window)) {
         if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VIDEO_PRESENT)
             && gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) == TYPE_FILE
             && g_strrstr(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), "/") != NULL) {
