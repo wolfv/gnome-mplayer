@@ -1,4 +1,5 @@
 Development
+	Don't set the title bar when the window is invisible
 	Add some error checking to GIO cover art fetch
 	Use GIO to fetch cover art instead of CURL if we have GIO support
     Put the filename in the title bar when it is a video and a local file
