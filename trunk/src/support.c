@@ -1013,12 +1013,14 @@ void retrieve_metadata(gpointer data, gpointer user_data)
     gchar *uri = (gchar *) data;
     MetaData *mdata = NULL;
 
+    g_mutex_lock(retrieve_mutex);
     mdata = get_metadata(uri);
     if (mdata != NULL) {
         mdata->uri = g_strdup(uri);
         g_idle_add(set_metadata, (gpointer) mdata);
     }
     g_free(data);
+    g_mutex_unlock(retrieve_mutex);
 }
 
 MetaData *get_basic_metadata(gchar * uri)

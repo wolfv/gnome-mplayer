@@ -1080,6 +1080,7 @@ int main(int argc, char *argv[])
 #endif
 
     retrieve_metadata_pool = g_thread_pool_new(retrieve_metadata, NULL, 10, TRUE, NULL);
+    retrieve_mutex = g_mutex_new();
 
     if (argv[fileindex] != NULL) {
 #ifdef GIO_ENABLED
