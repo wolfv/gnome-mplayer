@@ -433,6 +433,7 @@ gint tv_height;
 gint tv_fps;
 
 GThreadPool *retrieve_metadata_pool;
+GMutex *retrieve_mutex;
 
 gboolean use_mediakeys;
 gboolean use_defaultpl;

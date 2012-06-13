@@ -1,4 +1,5 @@
 Development
+	Use mutex lock to prevent thread race
 	Remove the force processing of events from an idle callback
 	Force GTK to process its events when loading a playlist
 	Don't set the title bar when the window is invisible
