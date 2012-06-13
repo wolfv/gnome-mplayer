@@ -985,6 +985,10 @@ gboolean set_metadata(gpointer data)
     gchar *uri;
     GtkTreeIter riter;
 
+    while (gtk_events_pending()) {
+        gtk_main_iteration();
+    }
+
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &riter)) {
         do {
             if (gtk_list_store_iter_is_valid(playliststore, &riter)) {

@@ -1707,6 +1707,9 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
                            gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
                            PLAYABLE_COLUMN, TRUE, -1);
         if (retrieve) {
+            while (gtk_events_pending()) {
+                gtk_main_iteration();
+            }
             g_thread_pool_push(retrieve_metadata_pool, (gpointer) g_strdup(uri), NULL);
         }
 
