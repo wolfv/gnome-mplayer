@@ -42,5 +42,10 @@ DBusConnection *connection;
 #endif
 guint ss_cookie;
 guint sm_cookie;
+guint fd_cookie;
+gboolean ss_cookie_is_valid;
+gboolean sm_cookie_is_valid;
+gboolean fd_cookie_is_valid;
 gboolean screensaver_disabled;
+
 gboolean dbus_hookup(gint windowid, gint controlid);
