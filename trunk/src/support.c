@@ -75,8 +75,7 @@ gint detect_playlist(gchar * uri)
 
 #ifdef GIO_ENABLED
         if (!streaming_media(uri)) {
-            if (verbose)
-                printf("opening playlist\n");
+            gm_log(verbose, G_LOG_LEVEL_INFO, "opening playlist");
             file = g_file_new_for_uri(uri);
             path = gm_get_path(uri);
             input = g_file_read(file, NULL, NULL);
@@ -85,7 +84,7 @@ gint detect_playlist(gchar * uri)
                 g_input_stream_read((GInputStream *) input, buffer, sizeof(buffer), NULL, NULL);
                 output = g_strsplit(buffer, "\n", 0);
                 lower = g_ascii_strdown(buffer, -1);
-                // printf("buffer=%s\n",buffer);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "buffer=%s", buffer);
                 if (strstr(lower, "[playlist]") != 0
                     || strstr(lower, "[reference]") != 0
                     || strstr(lower, "<asx") != 0
@@ -123,7 +122,7 @@ gint detect_playlist(gchar * uri)
         }
 #else
         filename = g_filename_from_uri(uri, NULL, NULL);
-        // printf("filename %s\n",filename);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "filename %s", filename);
         if (filename != NULL) {
             fp = fopen(filename, "r");
             if (path != NULL)
@@ -136,7 +135,7 @@ gint detect_playlist(gchar * uri)
                     size = fread(buffer, 1, sizeof(buffer) - 1, fp);
                     output = g_strsplit(buffer, "\n", 0);
                     lower = g_ascii_strdown(buffer, -1);
-                    //printf("buffer=%s\n",buffer);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "buffer=%s", buffer);
                     if (strstr(lower, "[playlist]") != 0) {
                         playlist = 1;
                     }
@@ -185,8 +184,7 @@ gint detect_playlist(gchar * uri)
         }
 #endif
     }
-    if (verbose)
-        printf("playlist detection = %i\n", playlist);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "playlist detection = %i", playlist);
     if (!playlist) {
         if (playlistname != NULL)
             g_free(playlistname);
@@ -272,8 +270,7 @@ gint parse_playlist(gchar * uri)
         gtk_recent_manager_add_item(recent_manager, uri);
     }
 #endif
-    if (verbose)
-        printf("parse playlist = %i\n", ret);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "parse playlist = %i", ret);
     return ret;
 }
 
@@ -339,10 +336,10 @@ gint parse_basic(gchar * uri)
 #endif
                 continue;
             }
-            //printf("line = %s\n", line);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "line = %s", line);
             newline = g_strdup(line);
             if ((g_ascii_strncasecmp(line, "ref", 3) == 0) || (g_ascii_strncasecmp(line, "file", 4)) == 0) {
-                //printf("ref/file\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "ref/file");
                 parse = g_strsplit(line, "=", 2);
                 if (parse != NULL && parse[1] != NULL) {
                     g_strstrip(parse[1]);
@@ -352,51 +349,51 @@ gint parse_basic(gchar * uri)
                 g_strfreev(parse);
             }
             if (g_ascii_strncasecmp(newline, "[playlist]", strlen("[playlist]")) == 0) {
-                //printf("playlist\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "playlist");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "[reference]", strlen("[reference]")) == 0) {
-                //printf("ref\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "ref");
                 //continue;
                 //playlist = 1;
             } else if (g_ascii_strncasecmp(newline, "<asx", strlen("<asx")) == 0) {
-                //printf("asx\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "asx");
                 //idledata->streaming = TRUE;
                 g_free(newline);
                 break;
             } else if (g_ascii_strncasecmp(newline, "<smil", strlen("<smil")) == 0) {
-                //printf("smil\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "smil");
                 g_free(newline);
                 break;
             } else if (g_strrstr(newline, "<asx") != NULL) {
-                //printf("asx\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "asx");
                 //idledata->streaming = TRUE;
                 g_free(newline);
                 break;
             } else if (g_strrstr(newline, "<smil") != NULL) {
-                //printf("smil\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "smil");
                 g_free(newline);
                 break;
             } else if (g_ascii_strncasecmp(newline, "numberofentries", strlen("numberofentries")) == 0) {
-                //printf("num\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "num");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "version", strlen("version")) == 0) {
-                //printf("ver\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "ver");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "title", strlen("title")) == 0) {
-                //printf("title\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "title");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "length", strlen("length")) == 0) {
-                //printf("len\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "len");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "#extinf", strlen("#extinf")) == 0) {
-                //printf("#extinf\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "#extinf");
                 //continue;
             } else if (g_ascii_strncasecmp(newline, "#", strlen("#")) == 0) {
-                //printf("comment\n");
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "comment");
                 //continue;
             } else {
                 line_uri = g_strdup(newline);
-                //printf("newline = %s\n", newline);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "newline = %s", newline);
                 if (strstr(newline, "://") == NULL) {
                     if (newline[0] != '/') {
                         g_free(line_uri);
@@ -417,7 +414,7 @@ gint parse_basic(gchar * uri)
 
                 } else {
                     if (streaming_media(newline) || device_name(newline)) {
-                        //printf("URL %s\n",newline);
+                        gm_log(verbose, G_LOG_LEVEL_DEBUG, "URL %s", newline);
                         add_item_to_playlist(newline, playlist);
                         ret = 1;
                     } else {
@@ -427,7 +424,7 @@ gint parse_basic(gchar * uri)
                         }
                     }
                 }
-                //printf("line_uri = %s\n", line_uri);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "line_uri = %s", line_uri);
                 g_free(line_uri);
             }
             g_free(newline);
@@ -601,7 +598,7 @@ gint parse_cdda(gchar * filename)
             g_free(av[i]);
         }
         if (error != NULL) {
-            printf("Error when running: %s\n", error->message);
+            gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Error when running: %s", error->message);
             g_error_free(error);
             if (out != NULL)
                 g_free(out);
@@ -649,7 +646,8 @@ gint parse_cdda(gchar * filename)
                 }
 
                 if (ok) {
-                    // printf("track = %s, artist = %s, album = %s, title = %s, length = %s\n",track,artist,playlistname,title,length);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "track = %s, artist = %s, album = %s, title = %s, length = %s",
+                           track, artist, playlistname, title, length);
                     gtk_list_store_append(playliststore, &localiter);
                     gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, track,
                                        DESCRIPTION_COLUMN, title,
@@ -766,7 +764,7 @@ gint parse_dvd(gchar * filename)
             g_free(av[i]);
         }
         if (error != NULL) {
-            printf("Error when running: %s\n", error->message);
+            gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Error when running: %s", error->message);
             g_error_free(error);
             if (out != NULL)
                 g_free(out);
@@ -858,7 +856,7 @@ gint parse_vcd(gchar * filename)
             g_free(av[i]);
         }
         if (error != NULL) {
-            printf("Error when running: %s\n", error->message);
+            gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Error when running: %s", error->message);
             g_error_free(error);
             if (out != NULL)
                 g_free(out);
@@ -875,7 +873,7 @@ gint parse_vcd(gchar * filename)
             if (g_ascii_strncasecmp(output[ac], "ID_VCD_TRACK_", strlen("ID_VCD_TRACK_")) == 0) {
                 sscanf(output[ac], "ID_VCD_TRACK_%i", &num);
                 track = g_strdup_printf("vcd://%i", num);
-                printf("adding track %s\n", track);
+                gm_log(verbose, G_LOG_LEVEL_MESSAGE, "adding track %s", track);
                 add_item_to_playlist(track, 0);
                 g_free(track);
             }
@@ -958,8 +956,7 @@ gboolean streaming_media(gchar * uri)
         }
 #endif
     }
-    if (verbose > 1)
-        printf("Streaming media '%s' = %i\n", uri, ret);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Streaming media '%s' = %i", uri, ret);
     return ret;
 }
 
@@ -986,12 +983,10 @@ gboolean device_name(gchar * filename)
     } else {
         ret = FALSE;
     }
-    if (verbose > 1) {
-        if (ret) {
-            printf("%s is a device name\n", filename);
-        } else {
-            printf("%s is not a device name\n", filename);
-        }
+    if (ret) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s is a device name", filename);
+    } else {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s is not a device name", filename);
     }
     return ret;
 }
@@ -1199,8 +1194,7 @@ MetaData *get_metadata(gchar * uri)
         return NULL;
     }
 
-    if (verbose)
-        printf("getting file metadata for %s\n", name);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "getting file metadata for %s", name);
 
     if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         av[ac++] = g_strdup_printf("mplayer");
@@ -1233,20 +1227,15 @@ MetaData *get_metadata(gchar * uri)
     av[ac++] = g_strdup_printf("%s", name);
     av[ac] = NULL;
 
-    if (verbose) {
-        ac = 0;
-        while (av[ac] != NULL) {
-            printf("%s ", av[ac++]);
-        }
-        printf("\n");
-    }
+    gchar *allargs = g_strjoinv(" ", av);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "%s", allargs);
+    g_free(allargs);
 
     error = NULL;
 
     if (g_ascii_strncasecmp(name, "dvb://", strlen("dvb://")) == 0
         || g_ascii_strncasecmp(name, "tv://", strlen("tv://")) == 0) {
-        if (verbose)
-            printf("Skipping gathering metadata for TV channels\n");
+        gm_log(verbose, G_LOG_LEVEL_INFO, "Skipping gathering metadata for TV channels");
     } else {
         g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
     }
@@ -1256,7 +1245,7 @@ MetaData *get_metadata(gchar * uri)
     }
 
     if (error != NULL) {
-        printf("Error when running: %s\n", error->message);
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Error when running: %s", error->message);
         g_error_free(error);
         error = NULL;
         if (out != NULL)
@@ -1274,8 +1263,7 @@ MetaData *get_metadata(gchar * uri)
     }
     ac = 0;
     while (output != NULL && output[ac] != NULL) {
-        if (verbose > 1)
-            printf("METADATA:%s\n", output[ac]);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "METADATA:%s", output[ac]);
         lower = g_ascii_strdown(output[ac], -1);
         if (strstr(output[ac], "_LENGTH") != NULL
             && (g_ascii_strncasecmp(name, "dvdnav://", strlen("dvdnav://")) != 0
@@ -1364,8 +1352,7 @@ MetaData *get_metadata(gchar * uri)
     }
     ac = 0;
     while (output != NULL && output[ac] != NULL) {
-        if (verbose > 1)
-            printf("METADATA:%s\n", output[ac]);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "METADATA:%s", output[ac]);
 
         if (strstr(output[ac], "MOV: missing header (moov/cmov) chunk") != NULL) {
             missing_header = TRUE;
@@ -1512,7 +1499,7 @@ gint get_bitrate(gchar * name)
         g_free(av[i]);
     }
     if (error != NULL) {
-        printf("Error when running: %s\n", error->message);
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Error when running: %s", error->message);
         g_error_free(error);
         if (out != NULL)
             g_free(out);
@@ -1543,8 +1530,7 @@ gint get_bitrate(gchar * name)
         g_free(err);
         err = NULL;
     }
-    //if (verbose)
-    //    printf("ss=%i, ep = %i\n", startsec, endpos);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "ss=%i, ep = %i", startsec, endpos);
 
     if (endpos == 0) {
         startsec = 0;
@@ -1575,7 +1561,7 @@ gint get_bitrate(gchar * name)
             g_free(av[i]);
         }
         if (error != NULL) {
-            printf("Error when running: %s\n", error->message);
+            gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Error when running: %s", error->message);
             g_error_free(error);
             if (out != NULL)
                 g_free(out);
@@ -1620,8 +1606,7 @@ gint get_bitrate(gchar * name)
         bitrate = vbitrate + abitrate;
     }
 
-    if (verbose)
-        printf("bitrate = %i\n", bitrate);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "bitrate = %i", bitrate);
     return bitrate;
 }
 
@@ -1638,8 +1623,7 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
     if (strlen(uri) < 1)
         return FALSE;
 
-    if (verbose)
-        printf("adding %s to playlist (cancel = %i)\n", uri, cancel_folder_load);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "adding %s to playlist (cancel = %i)", uri, cancel_folder_load);
     local_uri = g_strdup(uri);
     if (!device_name(local_uri) && !streaming_media(local_uri)) {
         if (playlist) {
@@ -1787,7 +1771,7 @@ gint find_closest_to_x_in_playlist(gint x, gint delta)
 
         } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &localiter));
     }
-    // printf("x = %i, delta = %i, return = %i\n",x,delta,k);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "x = %i, delta = %i, return = %i", x, delta, k);
     return k;
 }
 
@@ -2038,7 +2022,7 @@ void randomize_playlist(GtkListStore * store)
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &a);
         do {
             gtk_tree_model_get(GTK_TREE_MODEL(store), &a, ITEM_COLUMN, &localfilename, -1);
-            // printf("iter = %s   local = %s \n",iterfilename,localfilename);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "iter = %s   local = %s", iterfilename, localfilename);
             if (g_ascii_strcasecmp(iterfilename, localfilename) == 0) {
                 // we found the current iter
                 break;
@@ -2080,7 +2064,7 @@ void reset_playlist_order(GtkListStore * store)
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &a);
         do {
             gtk_tree_model_get(GTK_TREE_MODEL(store), &a, ITEM_COLUMN, &localfilename, -1);
-            // printf("iter = %s   local = %s \n",iterfilename,localfilename);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "iter = %s   local = %s", iterfilename, localfilename);
             if (g_ascii_strcasecmp(iterfilename, localfilename) == 0) {
                 // we found the current iter
                 break;
@@ -2118,7 +2102,8 @@ gchar *seconds_to_string(gfloat seconds)
 #ifdef GIO_ENABLED
 void cache_callback(goffset current_num_bytes, goffset total_num_bytes, gpointer data)
 {
-    //printf("downloaded %li of %li bytes\n",(glong)current_num_bytes,(glong)total_num_bytes);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "downloaded %li of %li bytes", (glong) current_num_bytes,
+           (glong) total_num_bytes);
     idledata->cachepercent = (gfloat) current_num_bytes / (gfloat) total_num_bytes;
     g_idle_add(set_progress_value, idledata);
     if (current_num_bytes > (cache_size * 1024))
@@ -2149,8 +2134,7 @@ gchar *get_localfile_from_uri(gchar * uri)
 #ifdef GIO_ENABLED
     idledata->tmpfile = FALSE;
     if (localfile == NULL) {
-        if (verbose)
-            printf("using gio to access file\n");
+        gm_log(verbose, G_LOG_LEVEL_INFO, "using gio to access file");
         tmp = g_strdup_printf("%s/gnome-mplayer", g_get_user_cache_dir());
 
         idledata->src = g_file_new_for_uri(uri);
@@ -2166,8 +2150,7 @@ gchar *get_localfile_from_uri(gchar * uri)
                 idledata->tmp = g_file_new_for_path(localfile);
                 idledata->cancel = g_cancellable_new();
                 g_mutex_lock(idledata->caching);
-                if (verbose)
-                    printf("caching uri to localfile via gio asynchronously\n");
+                gm_log(verbose, G_LOG_LEVEL_INFO, "caching uri to localfile via gio asynchronously");
                 g_file_copy_async(idledata->src, idledata->tmp, G_FILE_COPY_NONE,
                                   G_PRIORITY_DEFAULT, idledata->cancel, cache_callback, NULL, ready_callback, NULL);
                 g_cond_wait(idledata->caching_complete, idledata->caching);
@@ -2175,8 +2158,7 @@ gchar *get_localfile_from_uri(gchar * uri)
                 idledata->tmpfile = TRUE;
             }
         } else {
-            if (verbose)
-                printf("src uri can be accessed via '%s'\n", localfile);
+            gm_log(verbose, G_LOG_LEVEL_INFO, "src uri can be accessed via '%s'", localfile);
         }
         g_free(tmp);
     }
@@ -2265,7 +2247,7 @@ gchar *find_gpod_mount_point()
     do {
         mnt = getmntent(fp);
         if (mnt) {
-            // printf("%s is at %s\n",mnt->mnt_fsname,mnt->mnt_dir);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s is at %s", mnt->mnt_fsname, mnt->mnt_dir);
             pathname = g_strdup_printf("%s/iPod_Control", mnt->mnt_dir);
             if (g_file_test(pathname, G_FILE_TEST_IS_DIR))
                 ret = g_strdup(mnt->mnt_dir);
@@ -2313,17 +2295,18 @@ gboolean gpod_load_tracks(gchar * mount_point)
                 thumb = (Itdb_Thumb *) (artwork->thumbnails->data);
                 if (thumb != NULL) {
                     pixbuf = itdb_thumb_get_gdk_pixbuf(db->device, thumb);
-                    //printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s has a thumbnail", ((Itdb_Track *) (tracks->data))->title);
                 }
             }
 #endif
 #ifdef GPOD_07
             if (artwork->thumbnail != NULL) {
                 //pixbuf = itdb_artwork_get_pixbuf(db->device, artwork, -1, -1);
-                //printf("%s has a thumbnail\n", ((Itdb_Track *) (tracks->data))->title);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s has a thumbnail", ((Itdb_Track *) (tracks->data))->title);
             }
 #endif
-            // printf("%s is movie = %i\n",((Itdb_Track *) (tracks->data))->title,((Itdb_Track *) (tracks->data))->movie_flag);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s is movie = %i", ((Itdb_Track *) (tracks->data))->title,
+                   ((Itdb_Track *) (tracks->data))->movie_flag);
 
             if (((Itdb_Track *) (tracks->data))->movie_flag) {
                 width = 640;
@@ -2355,8 +2338,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
             tracks = g_list_next(tracks);
             i++;
         }
-        if (verbose)
-            printf("found %i tracks\n", i);
+        gm_log(verbose, G_LOG_LEVEL_INFO, "found %i tracks", i);
         if (i > 1) {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), TRUE);
@@ -2409,7 +2391,7 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
     mb_release_filter_free(release_filter);
 
     if (results != NULL) {
-        //printf("items found:  %i\n", mb_result_list_get_size(results));
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "items found:  %i", mb_result_list_get_size(results));
 
         highest_score = -1;
         for (i = 0; i < mb_result_list_get_size(results); i++) {
@@ -2429,7 +2411,7 @@ gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
                 mb_release_get_asin(release, asin, 1024);
                 mb_release_free(release);
                 if (strlen(asin) > 0) {
-                    //printf("asin = %s score = %i\n",asin,score);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "asin = %s score = %i", asin, score);
                     if (score > highest_score) {
                         if (ret != NULL)
                             g_free(ret);
@@ -2483,41 +2465,26 @@ gpointer get_cover_art(gpointer data)
         md5 = g_compute_checksum_for_string(G_CHECKSUM_MD5, metadata->uri, -1);
         thumbnail = g_strdup_printf("%s/.thumbnails/normal/%s.png", g_get_home_dir(), md5);
 
-        if (verbose) {
-            printf("Looking for thumbnail %s ...", thumbnail);
-        }
-
         if (g_file_test(thumbnail, G_FILE_TEST_EXISTS)) {
             if (cache_file)
                 g_free(cache_file);
             cache_file = g_strdup(thumbnail);
-            if (verbose) {
-                printf(" found\n");
-            }
+            gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for thumbnail %s ... found", thumbnail);
         } else {
-            if (verbose) {
-                printf(" not found\n");
-            }
+            gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for thumbnail %s ... not found", thumbnail);
         }
         g_free(thumbnail);
 
         if (cache_file == NULL) {
             thumbnail = g_strdup_printf("%s/.thumbnails/large/%s.png", g_get_home_dir(), md5);
-            if (verbose) {
-                printf("Looking for thumbnail %s ...", thumbnail);
-            }
 
             if (g_file_test(thumbnail, G_FILE_TEST_EXISTS)) {
                 if (cache_file)
                     g_free(cache_file);
                 cache_file = g_strdup(thumbnail);
-                if (verbose) {
-                    printf(" found\n");
-                }
+                gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for thumbnail %s ... found", thumbnail);
             } else {
-                if (verbose) {
-                    printf(" not found\n");
-                }
+                gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for thumbnail %s ... not found", thumbnail);
             }
             g_free(thumbnail);
         }
@@ -2539,18 +2506,15 @@ gpointer get_cover_art(gpointer data)
                 test_file = g_filename_from_uri(p, NULL, NULL);
 #endif
 
-                if (verbose)
-                    printf("Looking for cover art at %s ...", test_file);
                 if (g_file_test(test_file, G_FILE_TEST_EXISTS)) {
-                    if (verbose)
-                        printf(" found\n");
+                    gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for cover art at %s ... found", test_file);
                     if (cache_file != NULL) {
                         g_free(cache_file);
                         cache_file = NULL;
                     }
                     cache_file = g_strdup(test_file);
                 } else {
-                    printf(" not found\n");
+                    gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for cover art at %s ... not found", test_file);
                 }
                 g_free(test_file);
             }
@@ -2575,18 +2539,15 @@ gpointer get_cover_art(gpointer data)
                 test_file = g_filename_from_uri(p, NULL, NULL);
 #endif
 
-                if (verbose)
-                    printf("Looking for cover art at %s ...", test_file);
                 if (g_file_test(test_file, G_FILE_TEST_EXISTS)) {
-                    if (verbose)
-                        printf(" found\n");
+                    gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for cover art at %s ... found", test_file);
                     if (cache_file != NULL) {
                         g_free(cache_file);
                         cache_file = NULL;
                     }
                     cache_file = g_strdup(test_file);
                 } else {
-                    printf(" not found\n");
+                    gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for cover art at %s ... not found", test_file);
                 }
                 g_free(test_file);
             }
@@ -2612,9 +2573,7 @@ gpointer get_cover_art(gpointer data)
     if (!found_cached && !disable_cover_art_fetch && artist != NULL && album != NULL) {
         url = get_cover_art_url((gchar *) artist, NULL, (gchar *) album);
 
-        if (verbose) {
-            printf("getting cover art from %s\n", url);
-        }
+        gm_log(verbose, G_LOG_LEVEL_INFO, "getting cover art from %s", url);
 
         if (url != NULL) {
             path = g_strdup_printf("%s/gnome-mplayer/cover_art/%s", g_get_user_cache_dir(), artist);
@@ -2624,9 +2583,7 @@ gpointer get_cover_art(gpointer data)
             }
             g_free(path);
             path = g_strdup_printf("%s/gnome-mplayer/cover_art/%s/%s.jpeg", g_get_user_cache_dir(), artist, album);
-            if (verbose) {
-                printf("storing cover art to %s\n", path);
-            }
+            gm_log(verbose, G_LOG_LEVEL_INFO, "storing cover art to %s", path);
 
             result = 0;
 
@@ -2660,7 +2617,7 @@ gpointer get_cover_art(gpointer data)
 #endif
                 fclose(art);
             }
-            // printf("cover art url is %s\n",url);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "cover art url is %s", url);
             g_free(url);
             if (result == 0) {
                 if (cache_file != NULL) {
@@ -2674,8 +2631,8 @@ gpointer get_cover_art(gpointer data)
         }
     }
 
-    if (verbose)
-        printf("metadata->uri = %s\ncache_file=%s\n", metadata->uri, cache_file);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "metadata->uri = %s", metadata->uri);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "cache_file=%s", cache_file);
 
     if (cover_art_uri != NULL) {
         g_free(cover_art_uri);
@@ -2706,8 +2663,7 @@ gpointer get_cover_art(gpointer data)
 {
     MetaData *metadata = (MetaData *) data;
 
-    if (verbose)
-        printf("libcurl required for cover art retrieval\n");
+    gm_log(verbose, G_LOG_LEVEL_INFO, "libcurl required for cover art retrieval");
     g_free(metadata->uri);
     g_free(metadata->title);
     g_free(metadata->artist);
@@ -2718,8 +2674,7 @@ gpointer get_cover_art(gpointer data)
 
 gchar *get_cover_art_url(gchar * artist, gchar * title, gchar * album)
 {
-    if (verbose > 1)
-        printf("Running without musicbrainz support, unable to fetch url\n");
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Running without musicbrainz support, unable to fetch url");
     return NULL;
 }
 #endif
@@ -2762,7 +2717,7 @@ gboolean detect_volume_option()
     }
 
     if (error != NULL) {
-        printf("Error when running: %s\n", error->message);
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Error when running: %s", error->message);
         g_error_free(error);
         error = NULL;
         if (out != NULL)

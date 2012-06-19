@@ -152,7 +152,7 @@ static GOptionEntry entries[] = {
 gboolean async_play_iter(void *data)
 {
     next_iter = (GtkTreeIter *) (data);
-    // printf("state = %i\n", gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)));
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "state = %i", gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)));
     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
         play_iter(next_iter, 0);
         next_iter = NULL;
@@ -167,7 +167,7 @@ gboolean play(void *data)
 
     if (ok_to_play && p != NULL) {
         if (!gtk_list_store_iter_is_valid(playliststore, &iter)) {
-            // printf("iter is not valid, getting first one\n");
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "iter is not valid, getting first one");
             gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
         }
         gtk_list_store_set(playliststore, &iter, PLAYLIST_COLUMN, p->playlist, ITEM_COLUMN, p->uri, -1);
@@ -198,7 +198,7 @@ void play_next()
             g_free(filename);
         }
     } else {
-        // printf("end of thread playlist is empty\n");
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "end of thread playlist is empty");
         if (loop) {
             if (first_item_in_playlist(&iter)) {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
@@ -293,15 +293,12 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         }
         gtk_list_store_set(playliststore, playiter, COUNT_COLUMN, count + 1, -1);
     } else {
-        if (verbose > 1)
-            printf("iter is invalid, nothing to play\n");
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "iter is invalid, nothing to play");
         return 0;
     }
 
-    if (verbose) {
-        printf("playing - %s\n", uri);
-        printf("is playlist %i\n", playlist);
-    }
+    gm_log(verbose, G_LOG_LEVEL_INFO, "playing - %s", uri);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "is playlist %i", playlist);
 
     gmtk_get_allocation(GTK_WIDGET(media), &alloc);
     if (width == 0 || height == 0) {
@@ -311,7 +308,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         alloc.width = width;
         alloc.height = height;
     }
-    //printf("setting window size to %i x %i\n", alloc.width, alloc.height);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "setting window size to %i x %i", alloc.width, alloc.height);
     gtk_widget_size_allocate(GTK_WIDGET(media), &alloc);
     while (gtk_events_pending())
         gtk_main_iteration();
@@ -593,7 +590,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 #ifndef OS_WIN32
 static void hup_handler(int signum)
 {
-    // printf("handling signal %i\n",signum);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "handling signal %i", signum);
     delete_callback(NULL, NULL, NULL);
     g_idle_add(set_destroy, NULL);
 }
@@ -795,15 +792,15 @@ int main(int argc, char *argv[])
 #endif
 #ifdef SIGINT
     if (sigaction(SIGINT, &sa, NULL) == -1)
-        printf("SIGINT signal handler not installed\n");
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "SIGINT signal handler not installed");
 #endif
 #ifdef SIGHUP
     if (sigaction(SIGHUP, &sa, NULL) == -1)
-        printf("SIGHUP signal handler not installed\n");
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "SIGHUP signal handler not installed");
 #endif
 #ifdef SIGTERM
     if (sigaction(SIGTERM, &sa, NULL) == -1)
-        printf("SIGTERM signal handler not installed\n");
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "SIGTERM signal handler not installed");
 #endif
 #endif
 
@@ -1000,38 +997,30 @@ int main(int argc, char *argv[])
     gm_pref_store_free(gm_store);
     gm_pref_store_free(gmp_store);
 
-    if (verbose && embed_window) {
-        printf("embedded in window id 0x%x\n", embed_window);
+    if (embed_window) {
+        gm_log(verbose, G_LOG_LEVEL_INFO, "embedded in window id 0x%x", embed_window);
     }
 
-    if (verbose && single_instance) {
-        printf("Running in single instance mode\n");
+    if (single_instance) {
+        gm_log(verbose, G_LOG_LEVEL_INFO, "Running in single instance mode");
     }
 #ifdef GIO_ENABLED
-    if (verbose) {
-        printf("Running with GIO support\n");
-    }
+    gm_log(verbose, G_LOG_LEVEL_INFO, "Running with GIO support");
 #endif
 #ifdef ENABLE_PANSCAN
-    if (verbose) {
-        printf("Running with panscan enabled (mplayer svn r29565 or higher required)\n");
-    }
+    gm_log(verbose, G_LOG_LEVEL_INFO, "Running with panscan enabled (mplayer svn r29565 or higher required)");
 #endif
-    if (verbose) {
-        printf("Using audio device: %s\n", audio_device_name);
-    }
+    gm_log(verbose, G_LOG_LEVEL_INFO, "Using audio device: %s", audio_device_name);
 #ifdef HAVE_MUSICBRAINZ
     if (curl_global_init(CURL_GLOBAL_ALL) != 0) {
-        printf("CURL initialization failed\n");
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "CURL initialization failed");
     }
 #endif
 
     if (softvol) {
-        if (verbose)
-            printf("Using MPlayer Software Volume control\n");
+        gm_log(verbose, G_LOG_LEVEL_INFO, "Using MPlayer Software Volume control");
         if (remember_softvol && volume_softvol != -1) {
-            if (verbose)
-                printf("Using last volume of %f%%\n", volume_softvol * 100.0);
+            gm_log(verbose, G_LOG_LEVEL_INFO, "Using last volume of %f%%", volume_softvol * 100.0);
             volume = (gdouble) volume_softvol *100.0;
         } else {
             volume = 100.0;
@@ -1049,8 +1038,7 @@ int main(int argc, char *argv[])
         printf(_("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
         return 1;
     }
-    // if (verbose)
-    //      printf("Threading support enabled = %i\n",g_thread_supported());
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Threading support enabled = %i", g_thread_supported());
 
     if (rpconsole == NULL)
         rpconsole = g_strdup("NONE");
@@ -1095,8 +1083,7 @@ int main(int argc, char *argv[])
                 g_object_unref(file_info);
             }
             if (error != NULL) {
-                if (verbose)
-                    printf("failed to get mode: %s\n", error->message);
+                gm_log(verbose, G_LOG_LEVEL_INFO, "failed to get mode: %s", error->message);
                 g_error_free(error);
             }
             g_object_unref(file);
@@ -1105,16 +1092,14 @@ int main(int argc, char *argv[])
         stat_result = g_stat(argv[fileindex], &buf);
 #endif
 
-        if (verbose) {
-            printf("opening %s\n", argv[fileindex]);
-            printf("stat_result = %i\n", stat_result);
-            printf("is block %i\n", S_ISBLK(buf.st_mode));
-            printf("is character %i\n", S_ISCHR(buf.st_mode));
-            printf("is reg %i\n", S_ISREG(buf.st_mode));
-            printf("is dir %i\n", S_ISDIR(buf.st_mode));
-            printf("playlist %i\n", playlist);
-            printf("embedded in window id 0x%x\n", embed_window);
-        }
+        gm_log(verbose, G_LOG_LEVEL_INFO, "opening %s", argv[fileindex]);
+        gm_log(verbose, G_LOG_LEVEL_INFO, "stat_result = %i", stat_result);
+        gm_log(verbose, G_LOG_LEVEL_INFO, "is block %i", S_ISBLK(buf.st_mode));
+        gm_log(verbose, G_LOG_LEVEL_INFO, "is character %i", S_ISCHR(buf.st_mode));
+        gm_log(verbose, G_LOG_LEVEL_INFO, "is reg %i", S_ISREG(buf.st_mode));
+        gm_log(verbose, G_LOG_LEVEL_INFO, "is dir %i", S_ISDIR(buf.st_mode));
+        gm_log(verbose, G_LOG_LEVEL_INFO, "playlist %i", playlist);
+        gm_log(verbose, G_LOG_LEVEL_INFO, "embedded in window id 0x%x", embed_window);
         if (stat_result == 0 && S_ISBLK(buf.st_mode)) {
             // might have a block device, so could be a DVD
 
@@ -1123,7 +1108,7 @@ int main(int argc, char *argv[])
             do {
                 mnt = getmntent(fp);
                 if (mnt)
-                    printf("%s is at %s\n", mnt->mnt_fsname, mnt->mnt_dir);
+                    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "%s is at %s", mnt->mnt_fsname, mnt->mnt_dir);
                 if (argv[fileindex] != NULL && mnt && mnt->mnt_fsname != NULL) {
                     if (strcmp(argv[fileindex], mnt->mnt_fsname) == 0)
                         break;
@@ -1133,7 +1118,7 @@ int main(int argc, char *argv[])
             endmntent(fp);
 #endif
             if (mnt && mnt->mnt_dir) {
-                printf("%s is mounted on %s\n", argv[fileindex], mnt->mnt_dir);
+                gm_log(verbose, G_LOG_LEVEL_MESSAGE, "%s is mounted on %s", argv[fileindex], mnt->mnt_dir);
                 uri = g_strdup_printf("%s/VIDEO_TS", mnt->mnt_dir);
                 stat(uri, &buf);
                 g_free(uri);
@@ -1210,8 +1195,7 @@ int main(int argc, char *argv[])
             i = fileindex;
 
             while (argv[i] != NULL) {
-                if (verbose > 1)
-                    printf("Argument %i is %s\n", i, argv[i]);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "Argument %i is %s", i, argv[i]);
 #ifdef GIO_ENABLED
                 if (!device_name(argv[i])) {
                     file = g_file_new_for_commandline_arg(argv[i]);
@@ -1257,11 +1241,11 @@ int main(int argc, char *argv[])
 #ifdef HAVE_GPOD
     if (load_tracks_from_gpod) {
         gpod_mount_point = find_gpod_mount_point();
-        printf("mount point is %s\n", gpod_mount_point);
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "mount point is %s", gpod_mount_point);
         if (gpod_mount_point != NULL) {
             gpod_load_tracks(gpod_mount_point);
         } else {
-            printf("Unable to find gpod mount point\n");
+            gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Unable to find gpod mount point");
         }
     }
 #endif
@@ -1275,8 +1259,7 @@ int main(int argc, char *argv[])
         if (pref_volume != -1) {
             audio_device.volume = (gdouble) pref_volume / 100.0;
         }
-        if (verbose)
-            printf("The volume on '%s' is %f\n", audio_device.description, audio_device.volume);
+        gm_log(verbose, G_LOG_LEVEL_INFO, "The volume on '%s' is %f", audio_device.description, audio_device.volume);
         volume = audio_device.volume * 100;
     } else {
         audio_device.volume = volume / 100.0;

@@ -465,7 +465,7 @@ void add_folder_to_playlist_callback(gpointer data, gpointer user_data)
     file = g_file_new_for_uri(uri);
     dir = g_file_enumerate_children(file, "standard::*", G_FILE_QUERY_INFO_NONE, NULL, &error);
     if (error != NULL)
-        printf("error message = %s\n", error->message);
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "error message = %s", error->message);
 
     if (dir != NULL) {
         info = g_file_enumerator_next_file(dir, NULL, NULL);
