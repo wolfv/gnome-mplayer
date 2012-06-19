@@ -164,7 +164,8 @@ gboolean add_to_playlist_and_play(gpointer data)
         }
         g_free(buf);
     }
-    // printf("children = %i\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL));
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "children = %i",
+           gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL));
 
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1
         || !gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -206,9 +207,9 @@ void view_option_size_allocate_callback(GtkWidget * widget, GtkAllocation * allo
 {
 
     //if (widget == plvbox)
-    //printf("plvbox size_allocate_callback\n");
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "plvbox size_allocate_callback");
     //else
-    //printf("size_allocate_callback\n");
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "size_allocate_callback");
 
 
     g_idle_add(set_adjust_layout, NULL);
@@ -220,7 +221,8 @@ void player_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocatio
         non_fs_width = allocation->width;
         non_fs_height = allocation->height;
     }
-    // printf("video: %i media size = %i x %i\n", idledata->videopresent, non_fs_width, non_fs_height);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "video: %i media size = %i x %i", idledata->videopresent, non_fs_width,
+           non_fs_height);
 }
 
 gboolean set_adjust_layout(gpointer data)
@@ -237,10 +239,10 @@ void adjust_layout()
     gint handle_size;
     GtkAllocation alloc;
 
-    //printf("media size = %i x %i\n", non_fs_width, non_fs_height);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "media size = %i x %i", non_fs_width, non_fs_height);
     total_height = non_fs_height;
     total_width = non_fs_width;
-    //printf("total = %i x %i\n", total_width, total_height);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "total = %i x %i", total_width, total_height);
 
     if (idledata->videopresent) {
         gtk_widget_show(media);
@@ -323,7 +325,7 @@ void adjust_layout()
 
         gmtk_get_allocation(plvbox, &alloc);
         if (vertical_layout) {
-            // printf("totals = %i x %i\n",total_width,total_height);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "totals = %i x %i", total_width, total_height);
             //gtk_paned_set_position(GTK_PANED(pane), total_height);
             total_height += alloc.height + handle_size;
         } else {
@@ -331,13 +333,14 @@ void adjust_layout()
         }
 
         if (non_fs_height == 0) {
-            //printf("height = %i\ntotal_height = %i\n",alloc.height, total_height);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "height = %i", total_height);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "total_height = %i", total_height);
             if (alloc.height < 16) {
                 total_height = 200;
             } else {
                 total_height = MAX(total_height, alloc.height);
             }
-            //printf("total_height = %i\n",total_height);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "total_height = %i", total_height);
         }
 
     } else {
@@ -353,7 +356,7 @@ void adjust_layout()
 
     if (!fullscreen) {
         if (!enable_global_menu) {
-            //printf("menubar = %i\n",menubar->allocation.height);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "menubar = %i", alloc.height);
             gmtk_get_allocation(menubar, &alloc);
             total_height += alloc.height;
         }
@@ -363,10 +366,10 @@ void adjust_layout()
         gmtk_get_allocation(controls_box, &alloc);
         total_height += alloc.height;
     }
-    //printf("total = %i x %i video = %i\n", total_width, total_height, idledata->videopresent);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "total = %i x %i video = %i", total_width, total_height, idledata->videopresent);
 
     if (use_remember_loc) {
-        // printf("setting size to %i x %i\n", loc_window_width, loc_window_height);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "setting size to %i x %i", loc_window_width, loc_window_height);
         gtk_window_resize(GTK_WINDOW(window), loc_window_width, loc_window_height);
         use_remember_loc = FALSE;
     } else {
@@ -657,15 +660,15 @@ gboolean set_progress_value(void *data)
                 if (iteruri != NULL) {
                     iterfilename = g_filename_from_uri(iteruri, NULL, NULL);
                     g_stat(iterfilename, &buf);
-                    if (verbose > 1) {
-                        printf("filename = %s\ndisk size = %li, byte pos = %li\n", iterfilename,
-                               (glong) buf.st_size, idle->byte_pos);
-                        printf("cachesize = %f, percent = %f\n", idle->cachepercent,
-                               gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
-                                                                      ATTRIBUTE_POSITION_PERCENT));
-                        printf("will pause = %i\n", ((idle->byte_pos + (cache_size * 512)) > buf.st_size)
-                               && !(playlist));
-                    }
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "filename = %s", iterfilename);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "disk size = %li, byte pos = %li",
+                           (glong) buf.st_size, idle->byte_pos);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "cachesize = %f, percent = %f", idle->cachepercent,
+                           gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
+                                                                  ATTRIBUTE_POSITION_PERCENT));
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "will pause = %i",
+                           ((idle->byte_pos + (cache_size * 512)) > buf.st_size)
+                           && !(playlist));
                     // if ((idle->percent + 0.10) > idle->cachepercent && ((idle->byte_pos + (512 * 1024)) > buf.st_size)) {
                     // if ((buf.st_size > 0) && (idle->byte_pos + (cache_size * 512)) > buf.st_size) {
                     if (((idle->byte_pos + (cache_size * 1024)) > buf.st_size) && !(playlist)) {
@@ -896,7 +899,7 @@ gboolean set_gui_state(void *data)
 {
     gchar *tip_text = NULL;
 
-    printf("setting state to %i\n", guistate);
+    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "setting state to %i", guistate);
 
     if (lastguistate != guistate) {
         if (guistate == PLAYING) {
@@ -1181,15 +1184,12 @@ gboolean resize_window(void *data)
                 gtk_main_iteration();
 
             if (window_x == 0 && window_y == 0) {
-                if (verbose)
-                    printf("current size = %i x %i \n", non_fs_width, non_fs_height);
+                gm_log(verbose, G_LOG_LEVEL_INFO, "current size = %i x %i", non_fs_width, non_fs_height);
                 if (resize_on_new_media == TRUE || gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)
                     || idle->streaming) {
                     if (idle->width > 1 && idle->height > 1) {
-                        if (verbose) {
-                            printf("Changing window size to %i x %i visible = %i\n", idle->width,
-                                   idle->height, gmtk_get_visible(media));
-                        }
+                        gm_log(verbose, G_LOG_LEVEL_INFO, "Changing window size to %i x %i visible = %i", idle->width,
+                               idle->height, gmtk_get_visible(media));
                         last_window_width = idle->width;
                         last_window_height = idle->height;
                         non_fs_width = idle->width;
@@ -1198,11 +1198,9 @@ gboolean resize_window(void *data)
                         g_idle_add(set_adjust_layout, &adjusting);
                     }
                 } else {
-                    if (verbose) {
-                        printf("old aspect is %f new aspect is %f\n",
-                               (gfloat) non_fs_width / (gfloat) non_fs_height,
-                               (gfloat) (idle->width) / (gfloat) (idle->height));
-                    }
+                    gm_log(verbose, G_LOG_LEVEL_INFO, "old aspect is %f new aspect is %f",
+                           (gfloat) non_fs_width / (gfloat) non_fs_height,
+                           (gfloat) (idle->width) / (gfloat) (idle->height));
                 }
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen), fullscreen);
                 if (init_fullscreen) {
@@ -1349,9 +1347,9 @@ gboolean set_volume(void *data)
     gchar *buf = NULL;
 
     if (data == NULL) {
-        // printf("in set_volume without data\n");
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "in set_volume without data");
         gm_audio_get_volume(&audio_device);
-        // printf("new volume is %f\n",audio_device.volume); 
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "new volume is %f", audio_device.volume);
 #ifdef GTK2_12_ENABLED
         gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
 #else
@@ -1361,7 +1359,7 @@ gboolean set_volume(void *data)
     }
 
     if (GTK_IS_WIDGET(vol_slider) && audio_device.volume >= 0.0 && audio_device.volume <= 1.0) {
-        //printf("setting slider to %f\n", idle->volume);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "setting slider to %f", audio_device.volume);
         if (remember_softvol) {
             volume_softvol = audio_device.volume;
             set_software_volume(&volume_softvol);
@@ -1670,10 +1668,12 @@ gboolean motion_notify_callback(GtkWidget * widget, GdkEventMotion * event, gpoi
 
 gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, gpointer user_data)
 {
-    //printf("fullscreen = %i\nState = %i mask = %i flag = %i\n",(event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN),event->new_window_state, event->changed_mask, GDK_WINDOW_STATE_FULLSCREEN);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "fullscreen = %i", (event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN));
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "State = %i mask = %i flag = %i", event->new_window_state, event->changed_mask,
+           GDK_WINDOW_STATE_FULLSCREEN);
     //if (embed_window == 0) {
     //update_control_flag = TRUE;
-    //printf("restore controls = %i showcontrols = %i\n", restore_controls, showcontrols);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "restore controls = %i showcontrols = %i", restore_controls, showcontrols);
     if (fullscreen == 1 && (event->new_window_state & GDK_WINDOW_STATE_ICONIFIED)) {
         // fullscreen, but window hidden
         hide_fs_controls();
@@ -1719,18 +1719,18 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
     gboolean title_is_menu;
     gint index;
 
-    // printf("key = %i\n",event->keyval);
-    // printf("state = %i\n",event->state);
-    // printf("other = %i\n", event->state & ~GDK_CONTROL_MASK);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "key = %i", event->keyval);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "state = %i", event->state);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "other = %i", event->state & ~GDK_CONTROL_MASK);
 
-    // printf("key name=%s\n", gdk_keyval_name(event->keyval));
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "key name=%s", gdk_keyval_name(event->keyval));
     // We don't want to handle CTRL accelerators here
     // if we pass in items with CTRL then 2 and Ctrl-2 do the same thing
     if (gmtk_get_visible(plvbox) && gtk_tree_view_get_enable_search(GTK_TREE_VIEW(list)))
         return FALSE;
 
     index = get_index_from_key_and_modifier(event->keyval, event->state);
-    // printf("index = %i\n",index);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "index = %i", index);
     if (!event->is_modifier && index != -1) {
 
         switch (index) {
@@ -1785,7 +1785,8 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case VIEW_CONTROLS:
             break;
         default:
-            printf("Keyboard shortcut index %i, not handled in fullscreen at this time\n", index);
+            gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Keyboard shortcut index %i, not handled in fullscreen at this time",
+                   index);
 
         }
     }
@@ -3160,7 +3161,7 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
         parseChannels(fi);
         fclose(fi);
     } else {
-        printf("Unable to open the config file\n");     //can change this to whatever error message system is used
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Unable to open the config file"); //can change this to whatever error message system is used
     }
     g_free(mpconf);
 
@@ -3176,11 +3177,11 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
 void menuitem_open_ipod_callback(GtkMenuItem * menuitem, void *data)
 {
     gpod_mount_point = find_gpod_mount_point();
-    // printf("mount point is %s\n", gpod_mount_point);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "mount point is %s", gpod_mount_point);
     if (gpod_mount_point != NULL) {
         gpod_load_tracks(gpod_mount_point);
     } else {
-        printf("Unable to find gpod mount point\n");
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Unable to find gpod mount point");
     }
 }
 #endif
@@ -3226,8 +3227,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser_save));
 
         srcfilename = g_filename_from_uri(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), NULL, NULL);
-        if (verbose)
-            printf("Copy %s to %s\n", srcfilename, filename);
+        gm_log(verbose, G_LOG_LEVEL_INFO, "Copy %s to %s", srcfilename, filename);
 
         fin = g_fopen(srcfilename, "rb");
         fout = g_fopen(filename, "wb");
@@ -3373,7 +3373,7 @@ void menuitem_edit_random_callback(GtkMenuItem * menuitem, void *data)
             if (iterfilename != NULL) {
                 do {
                     gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &localfilename, -1);
-                    // printf("iter = %s   local = %s \n",iterfilename,localfilename);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "iter = %s   local = %s", iterfilename, localfilename);
                     if (g_ascii_strcasecmp(iterfilename, localfilename) == 0) {
                         // we found the current iter
                         g_free(localfilename);
@@ -4671,23 +4671,19 @@ void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
 #ifdef HAVE_ASOUNDLIB
         if (config_mixer != NULL) {
             if ((err = snd_mixer_open(&mhandle, 0)) < 0) {
-                if (verbose)
-                    printf("Mixer open error %s\n", snd_strerror(err));
+                gm_log(verbose, G_LOG_LEVEL_INFO, "Mixer open error %s", snd_strerror(err));
             }
 
             if ((err = snd_mixer_attach(mhandle, device)) < 0) {
-                if (verbose)
-                    printf("Mixer attach error %s\n", snd_strerror(err));
+                gm_log(verbose, G_LOG_LEVEL_INFO, "Mixer attach error %s", snd_strerror(err));
             }
 
             if ((err = snd_mixer_selem_register(mhandle, NULL, NULL)) < 0) {
-                if (verbose)
-                    printf("Mixer register error %s\n", snd_strerror(err));
+                gm_log(verbose, G_LOG_LEVEL_INFO, "Mixer register error %s", snd_strerror(err));
             }
 
             if ((err = snd_mixer_load(mhandle)) < 0) {
-                if (verbose)
-                    printf("Mixer load error %s\n", snd_strerror(err));
+                gm_log(verbose, G_LOG_LEVEL_INFO, "Mixer load error %s", snd_strerror(err));
             }
             i = 0;
             j = -1;
@@ -4899,7 +4895,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_tree_model_get(gmtk_output_combo_box_get_tree_model
                                    (GMTK_OUTPUT_COMBO_BOX(config_ao)), &ao_iter, OUTPUT_DESCRIPTION_COLUMN, &desc, -1);
 
-                //printf("audio_device_name = %s, desc = %s\n",audio_device_name, desc);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "audio_device_name = %s, desc = %s", audio_device_name, desc);
                 if (audio_device_name != NULL && strcmp(audio_device_name, desc) == 0) {
                     gtk_combo_box_set_active_iter(GTK_COMBO_BOX(config_ao), &ao_iter);
                     g_free(desc);
@@ -5948,14 +5944,10 @@ gboolean accel_key_key_press_event(GtkWidget * widget, GdkEventKey * event, gpoi
 
     gint index = GPOINTER_TO_INT(data);
 
-    /*
-       printf("key press %s shift: %i, ctrl: %i, alt: %i modifier: %i\n",gdk_keyval_name (event->keyval), 
-       event->state & GDK_SHIFT_MASK,
-       event->state & GDK_CONTROL_MASK,
-       event->state & GDK_MOD1_MASK,
-       event->is_modifier
-       );
-     */
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "key press %s shift: %i, ctrl: %i, alt: %i modifier: %i",
+           gdk_keyval_name(event->keyval), event->state & GDK_SHIFT_MASK, event->state & GDK_CONTROL_MASK,
+           event->state & GDK_MOD1_MASK, event->is_modifier);
+
 
     if (event->is_modifier)
         return TRUE;
@@ -6088,7 +6080,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     case ATTRIBUTE_SIZE:
         idledata->width = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_WIDTH);
         idledata->height = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HEIGHT);
-        //printf("video present = %i new size %i x %i\n", idledata->videopresent, idledata->width, idledata->height);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "video present = %i new size %i x %i", idledata->videopresent,
+               idledata->width, idledata->height);
         text = g_strdup_printf("%i x %i", idledata->width, idledata->height);
         gtk_label_set_text(GTK_LABEL(details_video_size), text);
         g_free(text);
@@ -6143,7 +6136,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         break;
     case ATTRIBUTE_AUDIO_TRACK:
         name = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_TRACK);
-        //printf("track name = %s\n", track_name);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "track name = %s", name);
         if (name != NULL && GTK_IS_WIDGET(tracks)) {
             list = gtk_container_get_children(GTK_CONTAINER(tracks));
             while (list) {
@@ -6347,9 +6340,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         break;
 
     default:
-        if (verbose) {
-            printf("Unhandled attribute change %i\n", attribute);
-        }
+        gm_log(verbose, G_LOG_LEVEL_INFO, "Unhandled attribute change %i", attribute);
     }
     mpris_send_signal_Updated_Metadata();
 }
@@ -6361,7 +6352,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #endif
     gchar *short_filename = NULL;
 
-    printf("in media state change with state = %i\n", state);
+    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %i", state);
     switch (state) {
         // mplayer is dead, need the next item off the playlist
     case MEDIA_STATE_QUIT:
@@ -6374,7 +6365,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
                     g_idle_add(async_play_iter, &iter);
                     //play_iter(&iter, 0);
                 } else {
-                    // printf("end of thread playlist is empty\n");
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "end of thread playlist is empty");
                     if (loop) {
                         if (first_item_in_playlist(&iter)) {
                             g_idle_add(async_play_iter, &iter);
@@ -6692,7 +6683,7 @@ void make_button(gchar * src, gchar * hrefid)
         av[ac] = NULL;
         g_spawn_sync(NULL, av, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, &out, &err, &exit_status, &error);
         if (error != NULL) {
-            printf("Error when running: %s\n", error->message);
+            gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Error when running: %s", error->message);
             g_error_free(error);
             error = NULL;
         }
@@ -6700,7 +6691,7 @@ void make_button(gchar * src, gchar * hrefid)
         if (g_file_test(filename, G_FILE_TEST_EXISTS)) {
             pb_button = gdk_pixbuf_new_from_file(filename, &error);
             if (error != NULL) {
-                printf("make_button error: %s\n", error->message);
+                gm_log(verbose, G_LOG_LEVEL_MESSAGE, "make_button error: %s", error->message);
                 g_error_free(error);
                 error = NULL;
             }
@@ -6725,8 +6716,7 @@ void make_button(gchar * src, gchar * hrefid)
         gtk_widget_hide(controls_box);
         gtk_widget_show(vbox);
     } else {
-        if (verbose)
-            printf("unable to make button from media, using default\n");
+        gm_log(verbose, G_LOG_LEVEL_INFO, "unable to make button from media, using default");
         button_event_box = gtk_event_box_new();
         image_button = gtk_image_new_from_pixbuf(pb_icon);
         gtk_container_add(GTK_CONTAINER(button_event_box), image_button);
@@ -6761,7 +6751,7 @@ gboolean get_key_and_modifier(gchar * keyval, guint * key, GdkModifierType * mod
         *modifier = 0;
         return FALSE;
     }
-    //printf("keyval = %s\n", keyval);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "keyval = %s", keyval);
     parse = g_strsplit(keyval, "+", -1);
     if (g_strv_length(parse) == 1) {
         *modifier = 0;
@@ -6771,7 +6761,7 @@ gboolean get_key_and_modifier(gchar * keyval, guint * key, GdkModifierType * mod
         *key = gdk_keyval_from_name(parse[1]);
     }
     g_strfreev(parse);
-    //printf("key = %i, modifier = %i\n", *key, *modifier);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "key = %i, modifier = %i", *key, *modifier);
     return TRUE;
 }
 
@@ -6789,7 +6779,7 @@ gint get_index_from_key_and_modifier(guint key, GdkModifierType modifier)
     }
 
     for (i = 0; i < KEY_COUNT; i++) {
-        // printf("%s ?= %s\n", accel_keys[i], keyval);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s ?= %s", accel_keys[i], keyval);
         if (g_strcasecmp(accel_keys[i], keyval) == 0) {
             index = i;
             break;
@@ -7780,7 +7770,7 @@ void show_window(gint windowid)
         gtk_widget_hide(menu_event_box);
         gtk_widget_hide(audio_meter);
         gtk_widget_hide(controls_box);
-        printf("showing the following controls = %s\n", rpcontrols);
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "showing the following controls = %s", rpcontrols);
         visuals = g_strsplit(rpcontrols, ",", 0);
         i = 0;
         while (visuals[i] != NULL) {

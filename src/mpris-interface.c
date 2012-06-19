@@ -208,7 +208,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
         if (g_ascii_strcasecmp(dbus_message_get_path(message), path1) == 0) {
 
-            // printf("Path matched %s\n", dbus_message_get_path(message));
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "Path matched %s", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Add") == 0) {
@@ -764,13 +764,10 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         if (strlen(s) > 0) {
-                            if (verbose)
-                                printf("opening %s\n", s);
+                            gm_log(verbose, G_LOG_LEVEL_INFO, "opening %s", s);
                             g_idle_add(clear_playlist_and_play, g_strdup(s));
                         } else {
-                            if (verbose) {
-                                printf("Open requested, but value is blank\n");
-                            }
+                            gm_log(verbose, G_LOG_LEVEL_INFO, "Open requested, but value is blank");
                         }
 
                     } else {
@@ -784,21 +781,22 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
 
                 if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Properties", "Set")) {
-                    // printf("dbus message signature: %s\n", dbus_message_get_signature(message));
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "dbus message signature: %s",
+                           dbus_message_get_signature(message));
 
                     dbus_message_iter_init(message, &sub0);
                     if (dbus_message_iter_get_arg_type(&sub0) == DBUS_TYPE_STRING) {
                         dbus_message_iter_get_basic(&sub0, &interface);
                         if (dbus_message_iter_next(&sub0) && dbus_message_iter_get_arg_type(&sub0) == DBUS_TYPE_STRING) {
                             dbus_message_iter_get_basic(&sub0, &property);
-                            printf("interface: %s property: %s \n", interface, property);
+                            gm_log(verbose, G_LOG_LEVEL_MESSAGE, "interface: %s property: %s", interface, property);
 
                             if (g_ascii_strcasecmp(property, "Fullscreen") == 0) {
                                 dbus_message_iter_next(&sub0);
                                 // this is a variant, so we have to open its container
                                 dbus_message_iter_recurse(&sub0, &sub1);
                                 dbus_message_iter_get_basic(&sub1, &b_val);
-                                printf("value = %i\n", b_val);
+                                gm_log(verbose, G_LOG_LEVEL_MESSAGE, "value = %i", b_val);
                                 idledata->fullscreen = b_val;
                                 g_idle_add(set_fullscreen, idledata);
                             }
@@ -823,7 +821,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                             }
                         }
                     } else {
-                        printf("get args failed\n");
+                        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "get args failed");
                     }
                     reply_message = dbus_message_new_method_return(message);
                     dbus_connection_send(mpris_connection, reply_message, NULL);
@@ -833,7 +831,8 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                 }
 
                 if (dbus_message_is_method_call(message, "org.freedesktop.DBus.Properties", "Get")) {
-                    // printf("dbus message signature: %s\n", dbus_message_get_signature(message));
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "dbus message signature: %s",
+                           dbus_message_get_signature(message));
 
                     dbus_message_iter_init(message, &sub0);
                     if (dbus_message_iter_get_arg_type(&sub0) == DBUS_TYPE_STRING) {
@@ -1065,17 +1064,17 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
                         }
-                        printf("GET not implemented for interface: %s property: %s \n", interface, property);
+                        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "GET not implemented for interface: %s property: %s",
+                               interface, property);
                         return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
                     }
                 }
 
-                printf("No handler implemented for interface: %s member: %s\n", dbus_message_get_interface(message),
-                       dbus_message_get_member(message));
+                gm_log(verbose, G_LOG_LEVEL_MESSAGE, "No handler implemented for interface: %s member: %s",
+                       dbus_message_get_interface(message), dbus_message_get_member(message));
 
             } else {
-                if (verbose)
-                    printf("path didn't match - %s\n", dbus_message_get_path(message));
+                gm_log(verbose, G_LOG_LEVEL_INFO, "path didn't match - %s", dbus_message_get_path(message));
             }
 
         }
@@ -1098,7 +1097,7 @@ gboolean mpris_hookup(gint controlid)
     dbus_error_init(&error);
     mpris_connection = dbus_bus_get(type, &error);
     if (mpris_connection == NULL) {
-        printf("Failed to open connection to %s message bus: %s\n",
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Failed to open connection to %s message bus: %s",
                (type == DBUS_BUS_SYSTEM) ? "system" : "session", error.message);
         dbus_error_free(&error);
         return FALSE;
@@ -1107,15 +1106,13 @@ gboolean mpris_hookup(gint controlid)
 
     match = g_strdup_printf("type='signal',interface='org.mpris.MediaPlayer2'");
     dbus_bus_add_match(mpris_connection, match, &error);
-    if (verbose)
-        printf("Using match: %s\n", match);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "Using match: %s", match);
     g_free(match);
     dbus_error_free(&error);
 
     match = g_strdup_printf("type='signal',interface='org.mpris.MediaPlayer2.Player'");
     dbus_bus_add_match(mpris_connection, match, &error);
-    if (verbose)
-        printf("Using match: %s\n", match);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "Using match: %s", match);
     g_free(match);
     dbus_error_free(&error);
 
@@ -1131,8 +1128,7 @@ gboolean mpris_hookup(gint controlid)
         g_free(path);
     }
 
-    if (verbose)
-        printf("Proxy connections and Command connected ret = %i\n", ret);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "Proxy connections and Command connected ret = %i", ret);
 #endif
 
     return TRUE;

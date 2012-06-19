@@ -135,7 +135,7 @@ static MetaData *get_metadata(gchar * filename)
     }
 
     if (error != NULL) {
-        printf("Error when running: %s\n", error->message);
+        gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Error when running: %s", error->message);
         g_error_free(error);
         error = NULL;
         if (out != NULL)
