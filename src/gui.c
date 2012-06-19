@@ -237,7 +237,7 @@ void adjust_layout()
     gint total_height;
     gint total_width;
     gint handle_size;
-    GtkAllocation alloc;
+    GtkAllocation alloc = { 0 };
 
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "media size = %i x %i", non_fs_width, non_fs_height);
     total_height = non_fs_height;
