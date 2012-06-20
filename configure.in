@@ -273,20 +273,6 @@ if test x$ENABLE_GSEAL = "xyes"; then
 		AC_SUBST(GTK_CFLAGS)
 fi
 
-CHECK_GPM=yes
-AC_DEFINE(SM_INHIBIT, 0, [Disabled])
-AC_DEFINE(SS_INHIBIT, 0, [Disabled])
-
-AC_ARG_WITH([gpm-old-method],
-        [AS_HELP_STRING([--with-gpm-old-method],
-        [Use gnome-power-manager below 2.26 inhibit methods (Autodetected)])],
-        [CHECK_GPM=no AC_DEFINE(SS_INHIBIT, 1, [Defined if you are using gnome-power-manager below 2.26])],
-        [])
-
-if test x$CHECK_GPM = "xyes"; then
-    AC_DEFINE(SM_INHIBIT, 1, [Defined if you are using gnome-power-manager 2.26 or higher])
-fi
-
 BACKEND=`pkg-config --variable=preference_backend gmlib`
 
 if test ${BACKEND} = "gsettings"; then
