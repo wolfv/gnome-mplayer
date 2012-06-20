@@ -1198,6 +1198,13 @@ static gboolean switch_screensaver_dbus_gnome_screensaver(gboolean enabled)
     gchar *reason;
     const gchar *busname = "org.gnome.ScreenSaver";
     const gchar *objpath = "/org/gnome/ScreenSaver";
+    dbus_bool_t has_owner;
+    gboolean retval = FALSE;
+
+    if (g_getenv("GM_DISABLE_ORG_GNOME_SCREENSAVER")) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: disabled with env var", busname);
+        return FALSE;
+    }
 
     if (connection == NULL) {
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no connection", busname);
@@ -1206,9 +1213,9 @@ static gboolean switch_screensaver_dbus_gnome_screensaver(gboolean enabled)
 
     dbus_error_init(&error);
 
-    dbus_bool_t ret = dbus_bus_name_has_owner(connection, busname, &error);
+    has_owner = dbus_bus_name_has_owner(connection, busname, &error);
 
-    if (!ret || dbus_error_is_set(&error)) {
+    if (!has_owner || dbus_error_is_set(&error)) {
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no owner", busname);
         dbus_error_free(&error);
         return FALSE;
@@ -1225,10 +1232,9 @@ static gboolean switch_screensaver_dbus_gnome_screensaver(gboolean enabled)
         reply_message =
             dbus_connection_send_with_reply_and_block(connection, message, WAIT_FOR_REPLY_TIMEOUT_MSEC, &error);
         dbus_message_unref(message);
-        gboolean ret = FALSE;
         if (error.message == NULL && reply_message) {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
-            ret = TRUE;
+            retval = TRUE;
         } else {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
         }
@@ -1236,7 +1242,7 @@ static gboolean switch_screensaver_dbus_gnome_screensaver(gboolean enabled)
             dbus_message_unref(reply_message);
         }
         dbus_error_free(&error);
-        return ret;
+        return retval;
     } else {
         message = dbus_message_new_method_call(busname, objpath, busname, "Inhibit");
         app = g_strdup_printf("gnome-mplayer");
@@ -1249,12 +1255,11 @@ static gboolean switch_screensaver_dbus_gnome_screensaver(gboolean enabled)
         g_free(reason);
         g_free(app);
 
-        gboolean ret = FALSE;
         if (error.message == NULL && reply_message
             && dbus_message_get_args(reply_message, &error, DBUS_TYPE_UINT32, &ss_cookie, NULL)) {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
             ss_cookie_is_valid = TRUE;
-            ret = TRUE;
+            retval = TRUE;
         } else {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
         }
@@ -1262,7 +1267,7 @@ static gboolean switch_screensaver_dbus_gnome_screensaver(gboolean enabled)
             dbus_message_unref(reply_message);
         }
         dbus_error_free(&error);
-        return ret;
+        return retval;
     }
 }
 
@@ -1278,6 +1283,13 @@ static gboolean switch_screensaver_dbus_gnome_sessionmanager(gboolean enabled)
     gint windowid;
     const gchar *busname = "org.gnome.SessionManager";
     const gchar *objpath = "/org/gnome/SessionManager";
+    dbus_bool_t has_owner;
+    gboolean retval = FALSE;
+
+    if (g_getenv("GM_DISABLE_ORG_GNOME_SESSIONMANAGER")) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: disabled with env var", busname);
+        return FALSE;
+    }
 
     if (connection == NULL) {
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no connection", busname);
@@ -1285,9 +1297,9 @@ static gboolean switch_screensaver_dbus_gnome_sessionmanager(gboolean enabled)
     }
     dbus_error_init(&error);
 
-    dbus_bool_t ret = dbus_bus_name_has_owner(connection, busname, &error);
+    has_owner = dbus_bus_name_has_owner(connection, busname, &error);
 
-    if (!ret || dbus_error_is_set(&error)) {
+    if (!has_owner || dbus_error_is_set(&error)) {
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no owner", busname);
         dbus_error_free(&error);
         return FALSE;
@@ -1303,10 +1315,9 @@ static gboolean switch_screensaver_dbus_gnome_sessionmanager(gboolean enabled)
         reply_message =
             dbus_connection_send_with_reply_and_block(connection, message, WAIT_FOR_REPLY_TIMEOUT_MSEC, &error);
         dbus_message_unref(message);
-        gboolean ret = FALSE;
         if (error.message == NULL && reply_message) {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
-            ret = TRUE;
+            retval = TRUE;
         } else {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
         }
@@ -1314,7 +1325,7 @@ static gboolean switch_screensaver_dbus_gnome_sessionmanager(gboolean enabled)
             dbus_message_unref(reply_message);
         }
         dbus_error_free(&error);
-        return ret;
+        return retval;
     } else {
         message = dbus_message_new_method_call(busname, objpath, busname, "Inhibit");
         app = g_strdup_printf("gnome-mplayer");
@@ -1330,12 +1341,11 @@ static gboolean switch_screensaver_dbus_gnome_sessionmanager(gboolean enabled)
         g_free(reason);
         g_free(app);
 
-        gboolean ret = FALSE;
         if (error.message == NULL && reply_message
             && dbus_message_get_args(reply_message, &error, DBUS_TYPE_UINT32, &sm_cookie, NULL)) {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
             sm_cookie_is_valid = TRUE;
-            ret = TRUE;
+            retval = TRUE;
         } else {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
         }
@@ -1343,7 +1353,7 @@ static gboolean switch_screensaver_dbus_gnome_sessionmanager(gboolean enabled)
             dbus_message_unref(reply_message);
         }
         dbus_error_free(&error);
-        return ret;
+        return retval;
     }
 }
 
@@ -1356,6 +1366,13 @@ static gboolean switch_screensaver_dbus_freedesktop_screensaver(gboolean enabled
     gchar *reason;
     const gchar *busname = "org.freedesktop.ScreenSaver";
     const gchar *objpath = "/ScreenSaver";
+    dbus_bool_t has_owner;
+    gboolean retval = FALSE;
+
+    if (g_getenv("GM_DISABLE_ORG_FREEDESKTOP_SCREENSAVER")) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: disabled with env var", busname);
+        return FALSE;
+    }
 
     if (connection == NULL) {
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no connection", busname);
@@ -1364,9 +1381,9 @@ static gboolean switch_screensaver_dbus_freedesktop_screensaver(gboolean enabled
 
     dbus_error_init(&error);
 
-    dbus_bool_t ret = dbus_bus_name_has_owner(connection, busname, &error);
+    has_owner = dbus_bus_name_has_owner(connection, busname, &error);
 
-    if (!ret || dbus_error_is_set(&error)) {
+    if (!has_owner || dbus_error_is_set(&error)) {
         dbus_error_free(&error);
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no owner", busname);
         return FALSE;
@@ -1385,10 +1402,9 @@ static gboolean switch_screensaver_dbus_freedesktop_screensaver(gboolean enabled
         reply_message =
             dbus_connection_send_with_reply_and_block(connection, message, WAIT_FOR_REPLY_TIMEOUT_MSEC, &error);
         dbus_message_unref(message);
-        gboolean ret = FALSE;
         if (error.message == NULL && reply_message) {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
-            ret = TRUE;
+            retval = TRUE;
         } else {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
         }
@@ -1396,7 +1412,7 @@ static gboolean switch_screensaver_dbus_freedesktop_screensaver(gboolean enabled
             dbus_message_unref(reply_message);
         }
         dbus_error_free(&error);
-        return ret;
+        return retval;
     } else {
         message = dbus_message_new_method_call(busname, objpath, busname, "Inhibit");
         app = g_strdup_printf("gnome-mplayer");
@@ -1409,11 +1425,10 @@ static gboolean switch_screensaver_dbus_freedesktop_screensaver(gboolean enabled
         g_free(reason);
         g_free(app);
 
-        gboolean ret = FALSE;
         if (error.message == NULL && reply_message
             && dbus_message_get_args(reply_message, &error, DBUS_TYPE_UINT32, &fd_cookie, NULL)) {
             fd_cookie_is_valid = TRUE;
-            ret = TRUE;
+            retval = TRUE;
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
         } else {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
@@ -1422,30 +1437,123 @@ static gboolean switch_screensaver_dbus_freedesktop_screensaver(gboolean enabled
             dbus_message_unref(reply_message);
         }
         dbus_error_free(&error);
-        return ret;
+        return retval;
     }
 }
 #endif                          // DBUS_ENABLED
 
 static gboolean switch_screensaver_xdg_screensaver(gboolean enabled)
 {
-    // FIXME
-    // find the xdg-screensaver executable
-    // call "exe suspend WindowID" to suspend the screensaver
-    // call "exe resume WindowID" to re-enable the screensaver
-    // WindowID can be represented as either a decimal number or as a hexadecimal number
-    //    consisting of the prefix 0x followed by one or more hexadecimal digits.
+    gchar *exe;
+    gint windowid;
+    gchar *windowid_s;
+    gboolean spawn_ret;
+    gchar **argv = NULL;
+    GSpawnFlags flags;
+    gchar *standard_output = NULL;
+    gchar *standard_error = NULL;
+    GError *error = NULL;
+    gint exit_status = 0;
 
-    return FALSE;
+    if (g_getenv("GM_DISABLE_XDG_SCREENSAVER")) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "xdg-screensaver: disabled with env var");
+        return FALSE;
+    }
+
+    exe = g_find_program_in_path("xdg-screensaver");
+    if (exe == NULL) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "xdg-screensaver executable not found");
+        return FALSE;
+    }
+
+    windowid = GDK_WINDOW_XID(gmtk_get_window(window));
+    windowid_s = g_strdup_printf("%d", windowid);
+
+    argv = g_new0(gchar *, 4);
+    argv[0] = exe;
+    argv[1] = g_strdup(enabled ? "resume" : "suspend");
+    argv[2] = windowid_s;
+    argv[3] = NULL;
+
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "executing %s %s %s", argv[0], argv[1], argv[2]);
+
+    flags = 0;
+
+    spawn_ret = g_spawn_sync(NULL,      /* const gchar * working dir */
+                             argv,      /* */
+                             NULL,      /* gchar **envp */
+                             flags,     /* */
+                             NULL,      /* GSpawnChildSetupFunc child_setup */
+                             NULL,      /* gpointer user_data */
+                             &standard_output, &standard_error, &exit_status, &error);
+
+    g_free(argv[1]);
+    g_free(windowid_s);
+    windowid_s = NULL;
+    g_free(exe);
+    exe = NULL;
+    g_free(argv);
+    argv = NULL;
+
+    if (standard_output) {
+        g_strstrip(standard_output);
+        if (standard_output[0] != '\0') {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "xdg-screensaver STDOUT: %s", standard_output);
+        }
+        g_free(standard_output);
+        standard_output = NULL;
+    }
+    if (standard_error) {
+        g_strstrip(standard_error);
+        if (standard_error[0] != '\0') {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "xdg-screensaver STDERR: %s", standard_error);
+        }
+        g_free(standard_error);
+        standard_error = NULL;
+    }
+
+    if (error) {
+        if (error->message) {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "xdg-screensaver error: %s", error->message);
+        }
+        g_error_free(error);
+        error = NULL;
+    }
+
+    if (exit_status) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "xdg-screensaver exit status: %d", WEXITSTATUS(exit_status));
+        if (WIFSIGNALED(exit_status)) {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "xdg-screensaver terminated by signal %d", WTERMSIG(exit_status));
+#ifdef WCOREDUMP
+            if (WCOREDUMP(exit_status)) {
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "xdg-screensaver dumped core");
+            }
+#endif
+        }
+    }
+
+    if (spawn_ret) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+
 }
 
 #ifdef XSCRNSAVER_ENABLED
 static gboolean switch_screensaver_x11(gboolean enabled)
 {
-    Display *dpy = GDK_WINDOW_XDISPLAY(gmtk_get_window(window));
-
+    Display *dpy;
     int event_base_return, error_base_return;
+
+    if (g_getenv("GM_DISABLE_XSCREENSAVERSUSPEND")) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "XScreenSaverSuspend: disabled with env var");
+        return FALSE;
+    }
+
+    dpy = GDK_WINDOW_XDISPLAY(gmtk_get_window(window));
     if (!XScreenSaverQueryExtension(dpy, &event_base_return, &error_base_return)) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "XScreenSaverSuspend: extension not found");
         return FALSE;
     }
     XScreenSaverSuspend(dpy, !enabled);
