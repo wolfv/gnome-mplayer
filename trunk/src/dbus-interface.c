@@ -28,8 +28,7 @@
 
 #define WAIT_FOR_REPLY_TIMEOUT_MSEC 200
 
-// FIXME: remove compile and configure-time SM_INHIBIT and SM_INHIBIT logic
-//        remove use_xscrnsaver variable and related config option
+// FIXME    remove use_xscrnsaver variable and related config option
 
 /*
 

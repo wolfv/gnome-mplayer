@@ -811,7 +811,6 @@ with_libgpod
 with_libmusicbrainz3
 enable_nautilus
 enable_gseal
-with_gpm_old_method
 enable_schemas_compile
 with_gconf_source
 with_gconf_schema_file_dir
@@ -1519,8 +1518,6 @@ Optional Packages:
   --with-libnotify        Send notifications of new media
   --with-libgpod          Add support for libgpod
   --with-libmusicbrainz3  Add support for libmusicbrainz3
-  --with-gpm-old-method   Use gnome-power-manager below 2.26 inhibit methods
-                          (Autodetected)
   --with-gconf-source=sourceaddress
                           Config database for installing schema files.
   --with-gconf-schema-file-dir=dir
@@ -9685,29 +9682,6 @@ fi
 
 if test x$ENABLE_GSEAL = "xyes"; then
 		GTK_CFLAGS="$GTK_CFLAGS -DGSEAL_ENABLE"
-
-fi
-
-CHECK_GPM=yes
-
-$as_echo "#define SM_INHIBIT 0" >>confdefs.h
-
-
-$as_echo "#define SS_INHIBIT 0" >>confdefs.h
-
-
-
-# Check whether --with-gpm-old-method was given.
-if test "${with_gpm_old_method+set}" = set; then :
-  withval=$with_gpm_old_method; CHECK_GPM=no
-$as_echo "#define SS_INHIBIT 1" >>confdefs.h
-
-fi
-
-
-if test x$CHECK_GPM = "xyes"; then
-
-$as_echo "#define SM_INHIBIT 1" >>confdefs.h
 
 fi
 
