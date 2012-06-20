@@ -3888,7 +3888,6 @@ void config_apply(GtkWidget * widget, void *data)
     details_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_details_visible));
     use_mediakeys = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_mediakeys));
     use_defaultpl = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_defaultpl));
-    use_xscrnsaver = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_xscrnsaver));
     vertical_layout = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_vertical_layout));
     single_instance = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance));
     replace_and_play = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_replace_and_play));
@@ -4002,7 +4001,6 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, SHOWDETAILS, details_visible);
     gm_pref_store_set_boolean(gm_store, USE_MEDIAKEYS, use_mediakeys);
     gm_pref_store_set_boolean(gm_store, USE_DEFAULTPL, use_defaultpl);
-    gm_pref_store_set_boolean(gm_store, USE_XSCRNSAVER, use_xscrnsaver);
     gm_pref_store_set_boolean(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, mouse_wheel_changes_volume);
     gm_pref_store_set_boolean(gm_store, SHOW_NOTIFICATION, show_notification);
     gm_pref_store_set_boolean(gm_store, SHOW_STATUS_ICON, show_status_icon);
@@ -5608,11 +5606,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_show_status_icon, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 #endif
-
-    config_use_xscrnsaver = gtk_check_button_new_with_label(_("Use X Screen Saver control over Gnome Power Manager"));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_use_xscrnsaver), use_xscrnsaver);
-    gtk_table_attach(GTK_TABLE(conf_table), config_use_xscrnsaver, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
-    i++;
 
     config_vertical_layout =
         gtk_check_button_new_with_label(_("Place playlist below media (requires application restart)"));

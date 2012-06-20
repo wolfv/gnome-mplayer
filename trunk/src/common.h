@@ -105,7 +105,6 @@
 #define BRING_TO_FRONT		"bring-to-front"
 #define SHOW_NOTIFICATION   "show-notification"
 #define SHOW_STATUS_ICON	"show-status-icon"
-#define USE_XSCRNSAVER		"use-xscrnsaver"
 
 #define DISABLE_QT			"disable-qt"
 #define DISABLE_REAL		"disable-real"
@@ -408,7 +407,6 @@ gboolean disable_cover_art_fetch;
 gboolean updating_recent;
 gboolean large_buttons;
 GtkIconSize button_size;
-gboolean use_xscrnsaver;
 gboolean skip_fixed_allocation_on_show;
 gboolean skip_fixed_allocation_on_hide;
 gboolean mouse_wheel_changes_volume;

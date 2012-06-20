@@ -258,7 +258,6 @@ GtkWidget *config_volume_gain;
 GtkWidget *config_forcecache;
 GtkWidget *config_verbose;
 GtkWidget *config_show_notification;
-GtkWidget *config_use_xscrnsaver;
 GtkWidget *config_use_mediakeys;
 GtkWidget *config_use_defaultpl;
 GtkWidget *config_disable_animation;

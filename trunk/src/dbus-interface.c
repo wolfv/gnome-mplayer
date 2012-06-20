@@ -28,8 +28,6 @@
 
 #define WAIT_FOR_REPLY_TIMEOUT_MSEC 200
 
-// FIXME    remove use_xscrnsaver variable and related config option
-
 /*
 
 To send command to ALL running gnome-mplayers (multihead applications)

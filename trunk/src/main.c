@@ -773,7 +773,6 @@ int main(int argc, char *argv[])
     start_second = 0;
     play_length = 0;
     save_loc = TRUE;
-    use_xscrnsaver = FALSE;
     screensaver_disabled = FALSE;
     update_control_flag = FALSE;
     skip_fixed_allocation_on_show = FALSE;
@@ -909,7 +908,6 @@ int main(int argc, char *argv[])
     }
     mplayer_dvd_device = gm_pref_store_get_string(gm_store, MPLAYER_DVD_DEVICE);
     extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
-    use_xscrnsaver = gm_pref_store_get_boolean_with_default(gm_store, USE_XSCRNSAVER, use_xscrnsaver);
 
     accelerator_keys = gm_pref_store_get_string(gm_store, ACCELERATOR_KEYS);
     accel_keys = g_strv_new(KEY_COUNT);
