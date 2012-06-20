@@ -8950,13 +8950,13 @@ fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$XSCRNSAVER_PKG_ERRORS" >&5
 
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling withou xscrnsaver support" >&5
-$as_echo "$as_me: Compiling withou xscrnsaver support" >&6;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without xscrnsaver support" >&5
+$as_echo "$as_me: Compiling without xscrnsaver support" >&6;}
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling withou xscrnsaver support" >&5
-$as_echo "$as_me: Compiling withou xscrnsaver support" >&6;}
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without xscrnsaver support" >&5
+$as_echo "$as_me: Compiling without xscrnsaver support" >&6;}
 else
 	XSCRNSAVER_CFLAGS=$pkg_cv_XSCRNSAVER_CFLAGS
 	XSCRNSAVER_LIBS=$pkg_cv_XSCRNSAVER_LIBS
