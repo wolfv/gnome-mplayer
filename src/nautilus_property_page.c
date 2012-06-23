@@ -35,6 +35,9 @@
 #include <gmlib.h>
 
 #define ENABLE_NAUTILUS_PLUGIN "enable-nautilus-plugin"
+#define VERBOSE					"verbose"
+
+gint verbose;
 
 static GType pp_type = 0;
 
@@ -541,8 +544,11 @@ void nautilus_module_initialize(GTypeModule * module)
     // textdomain(GETTEXT_PACKAGE);
 #endif
 
+    verbose = 0;
+
     gm_store = gm_pref_store_new("gnome-mplayer");
     if (gm_pref_store_get_boolean_with_default(gm_store, ENABLE_NAUTILUS_PLUGIN, TRUE)) {
+        verbose = gm_pref_store_get_int(gm_store, VERBOSE);
         gnome_mplayer_properties_plugin_register_type(module);
     }
     gm_pref_store_free(gm_store);
