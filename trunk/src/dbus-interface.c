@@ -25,6 +25,7 @@
 #include "dbus-interface.h"
 #include "support.h"
 #include <unistd.h>
+#include <sys/wait.h>
 
 #define WAIT_FOR_REPLY_TIMEOUT_MSEC 200
 
