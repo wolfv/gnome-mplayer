@@ -1,6 +1,15 @@
 Development
     Include wait.h to define some macros so that code will compile on Ubuntu
     Fix compilation issue with nautilus plugin
+    Replace printf()s with calls to new gm_log() function. If you run gnome-mplayer with G_MESSAGES_DEBUG="all" (or ="GMLIB") you will see a lot more messages than with the verbose option enabled
+    Initialize a struct to 0 to remove "branch depends on uninitialized memory" error
+    Finish screensaver rework:
+       * try dbus org.freedesktop.ScreenSaver
+       * then org.gnome.SessionManager
+       * then org.gnome.ScreenSaver
+       * then the xdg-screensaver utility
+       * then the XScreenSaverSuspend() X11 call
+       This removes the SM_INHIBIT and SS_INHIBIT configure options, and the use_xscrnsaver variable and config option
     First cut at screensaver rework: try all known methods and fall through to X11 XScreenSaverSuspend()
 	Use mutex lock to prevent thread race
 	Remove the force processing of events from an idle callback
