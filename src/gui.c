@@ -4940,6 +4940,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #endif
             gtk_combo_box_set_active(GTK_COMBO_BOX(config_alang), i);
         }
+        gtk_widget_set_tooltip_text(config_alang,
+                                    _("Choose one of the languages or type in your own comma-separated selection"));
     }
 #ifdef GTK2_24_ENABLED
     config_slang = gtk_combo_box_text_new_with_entry();
@@ -4968,6 +4970,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #endif
             gtk_combo_box_set_active(GTK_COMBO_BOX(config_slang), i);
         }
+        gtk_widget_set_tooltip_text(config_slang,
+                                    _("Choose one of the languages or type in your own comma-separated selection"));
     }
 #ifdef GTK2_24_ENABLED
     config_metadata_codepage = gtk_combo_box_text_new_with_entry();
@@ -5389,6 +5393,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_widget_show(conf_label);
     gtk_widget_set_size_request(GTK_WIDGET(config_alang), 200, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_alang, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
+    gtk_widget_set_tooltip_text(conf_label,
+                                _("Choose one of the languages or type in your own comma-separated selection"));
     i++;
 
     conf_label = gtk_label_new(_("Default Subtitle Language:"));
@@ -5399,6 +5405,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_widget_set_size_request(GTK_WIDGET(config_slang), 200, -1);
     gtk_table_attach(GTK_TABLE(conf_table), config_slang, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
+    gtk_widget_set_tooltip_text(conf_label,
+                                _("Choose one of the languages or type in your own comma-separated selection"));
     i++;
 
     conf_label = gtk_label_new(_("File Metadata Encoding:"));

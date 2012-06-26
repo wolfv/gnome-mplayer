@@ -1,4 +1,5 @@
 Development
+    Add a tooltip to the "Default Audio/Subtitle Language" config options
     Include wait.h to define some macros so that code will compile on Ubuntu
     Fix compilation issue with nautilus plugin
     Replace printf()s with calls to new gm_log() function. If you run gnome-mplayer with G_MESSAGES_DEBUG="all" (or ="GMLIB") you will see a lot more messages than with the verbose option enabled
