@@ -1,4 +1,6 @@
 Development
+	Added make valgrind and make valgrind-suppress to src/Makefile
+		valgrind-suppress requires this file http://www.gnome.org/~johan/gtk.suppression in your home directory
     remove hardcoded size of langlist and codepagelist in langlist.h
     Add a tooltip to the "Default Audio/Subtitle Language" config options
     Include wait.h to define some macros so that code will compile on Ubuntu
