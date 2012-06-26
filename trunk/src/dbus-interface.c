@@ -303,6 +303,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Terminate") == 0) {
 /*
 					shutdown();
+                                        gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain and thread to become NULL");
 					while(gtk_events_pending() || thread != NULL) {
 						gtk_main_iteration();
 					}					

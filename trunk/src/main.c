@@ -310,6 +310,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     }
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "setting window size to %i x %i", alloc.width, alloc.height);
     gtk_widget_size_allocate(GTK_WIDGET(media), &alloc);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
     while (gtk_events_pending())
         gtk_main_iteration();
 
@@ -406,6 +407,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
             metadata->artist = g_strstrip(g_strdup(artist));
         if (album != NULL)
             metadata->album = g_strstrip(g_strdup(album));
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "starting get_cover_art(%s) thread", metadata->uri);
         g_thread_create(get_cover_art, metadata, FALSE, NULL);
     } else {
         gtk_image_clear(GTK_IMAGE(cover_art));
