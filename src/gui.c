@@ -279,6 +279,7 @@ void adjust_layout()
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
         if (gmtk_get_visible(media_hbox) == 0) {
             gtk_widget_show_all(media_hbox);
+            //gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
             //while (gtk_events_pending())
             //    gtk_main_iteration();
         }
@@ -1086,12 +1087,14 @@ void create_folder_progress_window()
     gtk_container_add(GTK_CONTAINER(folder_progress_window), vbox);
 
     gtk_widget_show_all(folder_progress_window);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
     while (gtk_events_pending())
         gtk_main_iteration();
 }
 
 void destroy_folder_progress_window()
 {
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
     while (gtk_events_pending())
         gtk_main_iteration();
     if (GTK_IS_WIDGET(folder_progress_window))
@@ -1115,6 +1118,7 @@ gboolean set_item_add_info(void *data)
         gtk_label_set_text(GTK_LABEL(folder_progress_label), message);
         gtk_progress_bar_pulse(GTK_PROGRESS_BAR(folder_progress_bar));
         g_free(message);
+        //gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
         //while (gtk_events_pending())
         //    gtk_main_iteration();
     }
@@ -1180,6 +1184,7 @@ gboolean resize_window(void *data)
             }
             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
             gtk_widget_show_all(GTK_WIDGET(media));
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
             while (gtk_events_pending())
                 gtk_main_iteration();
 
@@ -1586,6 +1591,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     }
 
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain or state to become \"unknown\"");
     while (gtk_events_pending() && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
         gtk_main_iteration();
     }
@@ -1593,12 +1599,14 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     if (control_id == 0) {
         g_thread_pool_stop_unused_threads();
         if (retrieve_metadata_pool != NULL) {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain and retrieve_metadata_pool to empty");
             while (gtk_events_pending() || g_thread_pool_unprocessed(retrieve_metadata_pool)) {
                 gtk_main_iteration();
             }
             g_thread_pool_free(retrieve_metadata_pool, TRUE, TRUE);
         }
     } else {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
         while (gtk_events_pending()) {
             gtk_main_iteration();
         }
@@ -3669,6 +3677,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
         }
         if (embed_window == 0) {
             // --fullscreen option doesn't work without this event flush
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
             while (gtk_events_pending())
                 gtk_main_iteration();
 
@@ -6327,6 +6336,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_label_set_markup(GTK_LABEL(media_label), text);
         g_strlcpy(idledata->media_info, text, 1024);
         if (gmtk_get_visible(window)) {
+            gm_log(GMTK_MEDIA_PLAYER(media)->debug, G_LOG_LEVEL_DEBUG, "starting get_cover_art(%s) thread",
+                   metadata->uri);
             g_thread_create(get_cover_art, metadata, FALSE, NULL);
         }
         break;
@@ -7715,6 +7726,7 @@ void show_window(gint windowid)
     gint i;
     gchar **visuals;
     if (windowid != 0 && embedding_disabled == FALSE) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
         while (gtk_events_pending())
             gtk_main_iteration();
 #ifdef GTK2_24_ENABLED
@@ -8070,6 +8082,7 @@ void show_fs_controls()
 #ifdef GTK2_12_ENABLED
         gtk_window_set_opacity(GTK_WINDOW(fs_controls), 0.75);
 #endif
+        //gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
         //while (gtk_events_pending())
         //    gtk_main_iteration();
         // center fs_controls
@@ -8098,6 +8111,7 @@ void hide_fs_controls()
         gtk_container_remove(GTK_CONTAINER(fs_controls), hbox);
         gtk_container_add(GTK_CONTAINER(controls_box), hbox);
         g_object_unref(hbox);
+        //gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
         //while (gtk_events_pending())
         //    gtk_main_iteration();
         gtk_widget_destroy(fs_controls);

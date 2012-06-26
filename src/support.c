@@ -1008,6 +1008,9 @@ void retrieve_metadata(gpointer data, gpointer user_data)
     gchar *uri = (gchar *) data;
     MetaData *mdata = NULL;
 
+    gm_log(FALSE, G_LOG_LEVEL_DEBUG, "retrieve_metadata(%s)", uri);
+
+    gm_log(FALSE, G_LOG_LEVEL_DEBUG, "locking retrieve_mutex");
     g_mutex_lock(retrieve_mutex);
     mdata = get_metadata(uri);
     if (mdata != NULL) {
@@ -1015,6 +1018,7 @@ void retrieve_metadata(gpointer data, gpointer user_data)
         g_idle_add(set_metadata, (gpointer) mdata);
     }
     g_free(data);
+    gm_log(FALSE, G_LOG_LEVEL_DEBUG, "unlocking retrieve_mutex");
     g_mutex_unlock(retrieve_mutex);
 }
 
@@ -1693,9 +1697,11 @@ gboolean add_item_to_playlist(const gchar * uri, gint playlist)
                            gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL),
                            PLAYABLE_COLUMN, TRUE, -1);
         if (retrieve) {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
             while (gtk_events_pending()) {
                 gtk_main_iteration();
             }
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "adding retrieve_metadata(%s) to pool", uri);
             g_thread_pool_push(retrieve_metadata_pool, (gpointer) g_strdup(uri), NULL);
         }
 
@@ -2106,8 +2112,10 @@ void cache_callback(goffset current_num_bytes, goffset total_num_bytes, gpointer
            (glong) total_num_bytes);
     idledata->cachepercent = (gfloat) current_num_bytes / (gfloat) total_num_bytes;
     g_idle_add(set_progress_value, idledata);
-    if (current_num_bytes > (cache_size * 1024))
+    if (current_num_bytes > (cache_size * 1024)) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "cache callback: signaling GCond idledata->caching_complete");
         g_cond_signal(idledata->caching_complete);
+    }
 
 }
 
@@ -2115,6 +2123,7 @@ void ready_callback(GObject * source_object, GAsyncResult * res, gpointer data)
 {
     g_object_unref(idledata->tmp);
     g_object_unref(idledata->src);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "ready callback: signaling GCond idledata->caching_complete");
     g_cond_signal(idledata->caching_complete);
 }
 #endif
@@ -2149,11 +2158,14 @@ gchar *get_localfile_from_uri(gchar * uri)
                 g_free(base);
                 idledata->tmp = g_file_new_for_path(localfile);
                 idledata->cancel = g_cancellable_new();
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "locking idledata->caching");
                 g_mutex_lock(idledata->caching);
                 gm_log(verbose, G_LOG_LEVEL_INFO, "caching uri to localfile via gio asynchronously");
                 g_file_copy_async(idledata->src, idledata->tmp, G_FILE_COPY_NONE,
                                   G_PRIORITY_DEFAULT, idledata->cancel, cache_callback, NULL, ready_callback, NULL);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for idledata->caching_complete");
                 g_cond_wait(idledata->caching_complete, idledata->caching);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "unlocking idledata->caching");
                 g_mutex_unlock(idledata->caching);
                 idledata->tmpfile = TRUE;
             }
@@ -2457,6 +2469,8 @@ gpointer get_cover_art(gpointer data)
 #else
     CURL *curl;
 #endif
+
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "get_cover_art(%s)", metadata->uri);
 
     artist = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST);
     album = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ALBUM);
