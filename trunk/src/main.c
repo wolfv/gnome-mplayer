@@ -805,10 +805,17 @@ int main(int argc, char *argv[])
 #endif
 #endif
 
-    // call g_type_init or otherwise we can crash
-    gtk_init(&argc, &argv);
     if (!g_thread_supported())
         g_thread_init(NULL);
+
+    // All Gtk docs say we need to call g_thread_init() and gdk_threads_init() before gtk_init()
+    //
+    // Why do we not call this? Why does the program seem to deadlock if we enable this call?
+    // I assume once we have truly fixed locking/threading this will work....
+    // gdk_threads_init();
+
+    // call g_type_init or otherwise we can crash
+    gtk_init(&argc, &argv);
 
     uri = g_strdup_printf("%s/gnome-mplayer/cover_art", g_get_user_config_dir());
     if (!g_file_test(uri, G_FILE_TEST_IS_DIR)) {
