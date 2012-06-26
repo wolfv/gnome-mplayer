@@ -4929,7 +4929,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_alang != NULL) {
         i = 0;
         j = -1;
-        while (i < 464) {
+        while (langlist[i] != NULL) {
             if (alang != NULL && g_ascii_strncasecmp(alang, langlist[i], strlen(alang)) == 0)
                 j = i;
 #ifdef GTK2_24_ENABLED
@@ -4960,7 +4960,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_slang != NULL) {
         i = 0;
         j = -1;
-        while (i < 464) {
+        while (langlist[i] != NULL) {
             if (slang != NULL && g_ascii_strncasecmp(slang, langlist[i], strlen(slang)) == 0)
                 j = i;
 #ifdef GTK2_24_ENABLED
@@ -4990,7 +4990,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_metadata_codepage != NULL) {
         i = 0;
         j = -1;
-        while (i < 28) {
+        while (codepagelist[i] != NULL) {
             if (metadata_codepage != NULL && strlen(metadata_codepage) > 1
                 && g_ascii_strncasecmp(metadata_codepage, codepagelist[i], strlen(metadata_codepage)) == 0)
                 j = i;
@@ -5019,7 +5019,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_subtitle_codepage != NULL) {
         i = 0;
         j = -1;
-        while (i < 28) {
+        while (codepagelist[i] != NULL) {
             if (subtitle_codepage != NULL && strlen(subtitle_codepage) > 1
                 && g_ascii_strncasecmp(subtitle_codepage, codepagelist[i], strlen(subtitle_codepage)) == 0)
                 j = i;

@@ -1,4 +1,5 @@
 Development
+    remove hardcoded size of langlist and codepagelist in langlist.h
     Add a tooltip to the "Default Audio/Subtitle Language" config options
     Include wait.h to define some macros so that code will compile on Ubuntu
     Fix compilation issue with nautilus plugin
