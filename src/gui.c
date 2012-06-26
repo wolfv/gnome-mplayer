@@ -1016,7 +1016,7 @@ gboolean set_metadata(gpointer data)
                                    VIDEO_WIDTH_COLUMN, mdata->width, VIDEO_HEIGHT_COLUMN,
                                    mdata->height, PLAYABLE_COLUMN, mdata->playable, -1);
 
-                if (mdata != NULL && mdata->playable == FALSE) {
+                if (mdata->playable == FALSE) {
                     gtk_list_store_remove(playliststore, &riter);
                     g_idle_add(set_title_bar, idledata);
                 }
@@ -4142,19 +4142,21 @@ void create_details_table()
     gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
     i++;
 
-    label = gtk_label_new(_("Video Size:"));
-    gtk_widget_set_size_request(label, 150, -1);
-    gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-    gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-    gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
-    buf = g_strdup_printf("%i x %i", idle->width, idle->height);
-    details_video_size = gtk_label_new(buf);
-    gtk_widget_set_size_request(details_video_size, 100, -1);
-    gtk_misc_set_alignment(GTK_MISC(details_video_size), 0.0, 0.0);
-    gtk_table_attach_defaults(GTK_TABLE(details_table), details_video_size, 1, 2, i, i + 1);
-    g_free(buf);
-    i++;
-
+	if (idle != NULL) {
+		label = gtk_label_new(_("Video Size:"));
+		gtk_widget_set_size_request(label, 150, -1);
+		gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
+		gtk_misc_set_padding(GTK_MISC(label), 12, 0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), label, 0, 1, i, i + 1);
+		buf = g_strdup_printf("%i x %i", idle->width, idle->height);
+		details_video_size = gtk_label_new(buf);
+		gtk_widget_set_size_request(details_video_size, 100, -1);
+		gtk_misc_set_alignment(GTK_MISC(details_video_size), 0.0, 0.0);
+		gtk_table_attach_defaults(GTK_TABLE(details_table), details_video_size, 1, 2, i, i + 1);
+		g_free(buf);
+		i++;
+	}
+	
     label = gtk_label_new(_("Video Format:"));
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
@@ -4737,8 +4739,8 @@ void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
             snd_mixer_close(mhandle);
 
         }
-        g_free(device);
 #endif
+        g_free(device);
     } else {
         gtk_widget_set_sensitive(GTK_WIDGET(config_mixer), FALSE);
     }

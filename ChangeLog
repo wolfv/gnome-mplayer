@@ -1,4 +1,5 @@
 Development
+	Fix a few issues identified by cppcheck
 	Added make valgrind and make valgrind-suppress to src/Makefile
 		valgrind-suppress requires this file http://www.gnome.org/~johan/gtk.suppression in your home directory
     remove hardcoded size of langlist and codepagelist in langlist.h
