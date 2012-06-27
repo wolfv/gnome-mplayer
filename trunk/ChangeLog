@@ -1,4 +1,5 @@
 Development
+	Since we are using gm_log for messages, move the inits above the first message
 	Fix a few issues identified by cppcheck
 	Added make valgrind and make valgrind-suppress to src/Makefile
 		valgrind-suppress requires this file http://www.gnome.org/~johan/gtk.suppression in your home directory
