@@ -1021,6 +1021,7 @@ void retrieve_metadata(gpointer data, gpointer user_data)
     g_free(data);
     gm_log(FALSE, G_LOG_LEVEL_DEBUG, "unlocking retrieve_mutex");
     g_mutex_unlock(retrieve_mutex);
+    gm_log(FALSE, G_LOG_LEVEL_DEBUG, "unlocked retrieve_mutex");
 }
 
 MetaData *get_basic_metadata(gchar * uri)
