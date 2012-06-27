@@ -183,12 +183,6 @@ typedef struct _IdleData {
 #endif
 } IdleData;
 
-typedef struct _PlayData {
-    gchar uri[4096];
-    gint playlist;
-} PlayData;
-
-
 IdleData *idledata;
 
 enum {
@@ -271,13 +265,6 @@ typedef struct _LangMenu {
     gchar *label;
     int value;
 } LangMenu;
-
-typedef struct _Export {
-    int nch;
-    int size;
-    unsigned long long counter;
-    gint16 payload[7][512];
-} Export;
 
 typedef struct _ButtonDef {
     gchar *uri;

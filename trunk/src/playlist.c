@@ -657,7 +657,7 @@ void add_folder_to_playlist(GtkWidget * widget, void *data)
     gm_pref_store_free(gm_store);
     gtk_widget_destroy(dialog);
     message = g_markup_printf_escaped(ngettext("\n\tFound %i file\n", "\n\tFound %i files\n", filecount), filecount);
-    g_strlcpy(idledata->media_info, message, 1024);
+    g_strlcpy(idledata->media_info, message, sizeof(idledata->media_info));
     g_free(message);
     g_idle_add(set_media_label, idledata);
 

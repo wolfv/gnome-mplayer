@@ -66,6 +66,11 @@ static gint tv_height;
 static gint tv_fps;
 static gint pref_volume;
 
+typedef struct _PlayData {
+    gchar uri[4096];
+    gint playlist;
+} PlayData;
+
 static GOptionEntry entries[] = {
     {"window", 0, 0, G_OPTION_ARG_INT, &embed_window, N_("Window to embed in"), "WID"},
     {"width", 'w', 0, G_OPTION_ARG_INT, &window_x, N_("Width of window to embed in"), "X"},
@@ -208,10 +213,10 @@ void play_next()
         if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
             gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &filename,
                                COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-            g_strlcpy(idledata->info, filename, 4096);
+            g_strlcpy(idledata->info, filename, sizeof(idledata->info));
             g_idle_add(set_title_bar, idledata);
             p = (PlayData *) g_malloc(sizeof(PlayData));
-            g_strlcpy(p->uri, filename, 4096);
+            g_strlcpy(p->uri, filename, sizeof(p->uri));
             p->playlist = playlist;
             g_idle_add(play, p);
             g_free(filename);
@@ -222,10 +227,10 @@ void play_next()
             if (first_item_in_playlist(&iter)) {
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN,
                                    &filename, COUNT_COLUMN, &count, PLAYLIST_COLUMN, &playlist, -1);
-                g_strlcpy(idledata->info, filename, 4096);
+                g_strlcpy(idledata->info, filename, sizeof(idledata->info));
                 g_idle_add(set_title_bar, idledata);
                 p = (PlayData *) g_malloc(sizeof(PlayData));
-                g_strlcpy(p->uri, filename, 4096);
+                g_strlcpy(p->uri, filename, sizeof(p->uri));
                 p->playlist = playlist;
                 g_idle_add(play, p);
                 g_free(filename);
@@ -432,12 +437,12 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         gtk_image_clear(GTK_IMAGE(cover_art));
     }
 
-    g_strlcpy(idledata->media_info, message, 1024);
-    g_strlcpy(idledata->display_name, title, 1024);
+    g_strlcpy(idledata->media_info, message, sizeof(idledata->media_info));
+    g_strlcpy(idledata->display_name, title, sizeof(idledata->display_name));
     g_free(message);
 
     message = gm_tempname(NULL, "mplayer-af_exportXXXXXX");
-    g_strlcpy(idledata->af_export, message, 1024);
+    g_strlcpy(idledata->af_export, message, sizeof(idledata->af_export));
     g_free(message);
 
     message = g_strdup("");
@@ -458,7 +463,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         message = g_strconcat(message, buffer, NULL);
         g_free(buffer);
     }
-    g_strlcpy(idledata->media_notification, message, 1024);
+    g_strlcpy(idledata->media_notification, message, sizeof(idledata->media_notification));
     g_free(message);
 
     if (control_id == 0) {
@@ -514,7 +519,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         } else {
             recent_data->display_name = g_strdup(title);
         }
-        g_strlcpy(idledata->display_name, recent_data->display_name, 1024);
+        g_strlcpy(idledata->display_name, recent_data->display_name, sizeof(idledata->display_name));
 
 
         file = g_file_new_for_uri(uri);
@@ -545,10 +550,10 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     g_free(artist);
     g_free(album);
     if (demuxer != NULL) {
-        g_strlcpy(idledata->demuxer, demuxer, 64);
+        g_strlcpy(idledata->demuxer, demuxer, sizeof(idledata->demuxer));
         g_free(demuxer);
     } else {
-        g_strlcpy(idledata->demuxer, "", 64);
+        g_strlcpy(idledata->demuxer, "", sizeof(idledata->demuxer));
     }
 
     last_x = 0;
@@ -558,7 +563,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 
     idledata->retry_on_full_cache = FALSE;
     idledata->cachepercent = -1.0;
-    g_strlcpy(idledata->info, uri, 1024);
+    g_strlcpy(idledata->info, uri, sizeof(idledata->info));
     set_title_bar(idledata);
 
     streaming = 0;

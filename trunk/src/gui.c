@@ -285,6 +285,13 @@ static glong last_movement_time;
 
 static gboolean adjusting;
 
+typedef struct _Export {
+    int nch;
+    int size;
+    unsigned long long counter;
+    gint16 payload[7][512];
+} Export;
+
 PLAYSTATE media_state_to_playstate(GmtkMediaPlayerMediaState state)
 {
     PLAYSTATE ret;
@@ -997,9 +1004,10 @@ gboolean set_progress_time(void *data)
     }
 
     if (idle->cachepercent > 0 && idle->cachepercent < 1.0 && !(playlist) && !forcecache && !idle->streaming) {
-        g_snprintf(idle->progress_text, 128, "%s | %2i%% \342\226\274", text, (int) (idle->cachepercent * 100));
+        g_snprintf(idle->progress_text, sizeof(idle->progress_text), "%s | %2i%% \342\226\274", text,
+                   (int) (idle->cachepercent * 100));
     } else {
-        g_snprintf(idle->progress_text, 128, "%s", text);
+        g_snprintf(idle->progress_text, sizeof(idle->progress_text), "%s", text);
     }
 
     gmtk_media_tracker_set_text(tracker, text);
@@ -1614,7 +1622,7 @@ gboolean set_volume(void *data)
         if (rpcontrols != NULL && g_strcasecmp(rpcontrols, "volumeslider") == 0) {
             gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume);
             buf = g_strdup_printf(_("Volume %i%%"), (gint) (audio_device.volume * 100.0));
-            g_strlcpy(idledata->vol_tooltip, buf, 128);
+            g_strlcpy(idledata->vol_tooltip, buf, sizeof(idledata->vol_tooltip));
             g_free(buf);
         } else {
             gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
@@ -1623,7 +1631,7 @@ gboolean set_volume(void *data)
 #else
         gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume);
         buf = g_strdup_printf(_("Volume %i%%"), (gint) (audio_device.volume * 100.0));
-        g_strlcpy(idledata->vol_tooltip, buf, 128);
+        g_strlcpy(idledata->vol_tooltip, buf, sizeof(idledata->vol_tooltip));
         g_free(buf);
 #endif
         g_idle_add(set_volume_tip, idle);
@@ -2538,7 +2546,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     g_idle_add(set_progress_value, idledata);
-    g_strlcpy(idledata->progress_text, _("Stopped"), 1024);
+    g_strlcpy(idledata->progress_text, _("Stopped"), sizeof(idledata->progress_text));
     g_idle_add(set_progress_text, idledata);
 
     if (idle == NULL) {
@@ -6577,7 +6585,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
 
         text = g_strconcat(text, "</small>", NULL);
         gtk_label_set_markup(GTK_LABEL(media_label), text);
-        g_strlcpy(idledata->media_info, text, 1024);
+        g_strlcpy(idledata->media_info, text, sizeof(idledata->media_info));
         if (gmtk_get_visible(window)) {
             gm_log(GMTK_MEDIA_PLAYER(media)->debug, G_LOG_LEVEL_DEBUG, "starting get_cover_art(%s) thread",
                    metadata->uri);
@@ -6683,9 +6691,9 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gtk_widget_show(GTK_WIDGET(menuitem_play));
         dbus_enable_screensaver();
         dbus_send_event("MediaStopped", 0);
-        g_strlcpy(idledata->media_info, "", 1024);
+        g_strlcpy(idledata->media_info, "", sizeof(idledata->media_info));
         gtk_widget_hide(media_hbox);
-        g_strlcpy(idledata->display_name, "", 1024);
+        g_strlcpy(idledata->display_name, "", sizeof(idledata->display_name));
         g_idle_add(set_title_bar, idledata);
         break;
     case MEDIA_STATE_PLAY:
@@ -6723,13 +6731,14 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         g_idle_add(set_media_label, idledata);
         if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE) != NULL) {
             g_strlcpy(idledata->display_name,
-                      gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE), 1024);
+                      gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE),
+                      sizeof(idledata->display_name));
         } else {
             short_filename = g_strrstr(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), "/");
             if (short_filename != NULL) {
-                g_strlcpy(idledata->display_name, short_filename + sizeof(gchar), 1024);
+                g_strlcpy(idledata->display_name, short_filename + sizeof(gchar), sizeof(idledata->display_name));
             } else {
-                g_strlcpy(idledata->display_name, "", 1024);
+                g_strlcpy(idledata->display_name, "", sizeof(idledata->display_name));
             }
         }
         g_idle_add(set_title_bar, idledata);
@@ -8174,7 +8183,8 @@ gboolean update_audio_meter(gpointer data)
     static gint update_counter = 0;
     static gint export_counter = 0;
     gboolean refresh;
-    long long histogram[65536];
+#define UAM_HISTOGRAM_SIZE 65536
+    long long histogram[UAM_HISTOGRAM_SIZE];
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter)))
         return TRUE;
     if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY)
@@ -8221,7 +8231,7 @@ gboolean update_audio_meter(gpointer data)
                    export_counter = export->counter;
                    refresh = TRUE;
                  */
-                for (j = 0; j < 65336; j++) {
+                for (j = 0; j < UAM_HISTOGRAM_SIZE; j++) {
                     histogram[j] = 0;
                 }
                 for (i = 0; export != NULL && i < (export->size / (export->nch * sizeof(gint16))); i++) {
@@ -8230,7 +8240,7 @@ gboolean update_audio_meter(gpointer data)
                         histogram[(export->payload[j][i]) + 32768]++;
                     }
                 }
-                for (i = 0; i < 65536; i++) {
+                for (i = 0; i < UAM_HISTOGRAM_SIZE; i++) {
                     v = (i - 32768) / 32768.0;
                     buckets[(gint) (logdb(v * v) / 2.0)] += histogram[i];
                 }
