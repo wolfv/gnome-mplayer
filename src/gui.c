@@ -754,6 +754,8 @@ gboolean set_media_label(void *data)
     IdleData *idle = (IdleData *) data;
     gchar *cover_art_file = NULL;
     gpointer pixbuf;
+    GdkPixbuf *scaled;
+    gdouble aspect;
 #ifdef NOTIFY_ENABLED
     NotifyNotification *notification;
 #endif
@@ -773,7 +775,10 @@ gboolean set_media_label(void *data)
         if (cover_art_file != NULL) {
             pixbuf = gdk_pixbuf_new_from_file(cover_art_file, NULL);
             if (pixbuf != NULL) {
-                gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
+                aspect = gdk_pixbuf_get_width(GDK_PIXBUF(pixbuf)) / gdk_pixbuf_get_height(GDK_PIXBUF(pixbuf));
+                scaled = gdk_pixbuf_scale_simple(GDK_PIXBUF(pixbuf), 128, 128 * aspect, GDK_INTERP_BILINEAR);
+                gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), scaled);
+                g_object_unref(scaled);
                 g_object_unref(pixbuf);
             }
         }
@@ -843,9 +848,9 @@ gboolean set_cover_art(gpointer pixbuf)
         width = gdk_pixbuf_get_width(GDK_PIXBUF(pixbuf));
         height = gdk_pixbuf_get_height(GDK_PIXBUF(pixbuf));
 
-        if (width > 200) {
+        if (width > 128) {
             aspect = (gfloat) width / (gfloat) height;
-            scaled = gdk_pixbuf_scale_simple(GDK_PIXBUF(pixbuf), 200, 200 / aspect, GDK_INTERP_BILINEAR);
+            scaled = gdk_pixbuf_scale_simple(GDK_PIXBUF(pixbuf), 128, 128 / aspect, GDK_INTERP_BILINEAR);
             gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(scaled));
             g_object_unref(pixbuf);
             g_object_unref(scaled);
