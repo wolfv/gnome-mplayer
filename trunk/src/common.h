@@ -321,15 +321,11 @@ gboolean remember_softvol;
 gdouble volume_softvol;
 gint volume_gain;
 gint verbose;
-gint reallyverbose;
 gint autostart;
-gint actual_x, actual_y;
-gint play_x, play_y;
-gint last_x, last_y;
+//gint actual_x, actual_y;
+//gint play_x, play_y;
 gint last_window_width, last_window_height;
-gint stored_window_width, stored_window_height;
-gboolean adjusting;
-gchar vm[10];
+//gchar vm[10];
 gchar *vo;
 gchar *option_vo;
 gboolean use_hardware_codecs;
@@ -353,7 +349,6 @@ gboolean dontplaynext;
 gboolean autopause;
 gchar *path;
 gint js_state;
-gchar *rpname;
 gchar *rpconsole;
 gchar *rpcontrols;
 gboolean control_instance;
@@ -363,17 +358,13 @@ gchar *subtitle;
 gchar *alang;
 gchar *slang;
 gchar *metadata_codepage;
-gboolean use_volume_option;
 gboolean use_mplayer2;
 gboolean vertical_layout;
 gboolean playlist_visible;
 gboolean details_visible;
-gboolean restore_playlist;
-gboolean restore_details;
-gboolean restore_info;
 gboolean restore_controls;
 gboolean update_control_flag;
-gint restore_pane;
+//gint restore_pane;
 gboolean disable_ass;
 gboolean disable_embeddedfonts;
 gboolean disable_animation;
@@ -395,16 +386,13 @@ gchar *option_dvd_device;
 gchar *extraopts;
 gboolean resize_on_new_media;
 gboolean single_instance;
-gboolean new_instance;
 gboolean replace_and_play;
 gboolean bring_to_front;
-gboolean use_pausing_keep_force;
 gboolean show_notification;
 gboolean show_status_icon;
-gboolean load_tracks_from_gpod;
 gchar *gpod_mount_point;
 gboolean disable_cover_art_fetch;
-gboolean updating_recent;
+//gboolean updating_recent;
 gboolean large_buttons;
 GtkIconSize button_size;
 gboolean skip_fixed_allocation_on_show;
@@ -422,13 +410,6 @@ gint loc_panel_position;
 gboolean keep_on_top;
 
 gboolean cancel_folder_load;
-// tv stuff
-gchar *tv_device;
-gchar *tv_driver;
-gchar *tv_input;
-gint tv_width;
-gint tv_height;
-gint tv_fps;
 
 GThreadPool *retrieve_metadata_pool;
 GMutex *retrieve_mutex;
@@ -448,7 +429,7 @@ GArray *data;
 GArray *max_data;
 gboolean reading_af_export;
 
-gboolean sub_source_file;
+//gboolean sub_source_file;
 
 // layout variables
 gint non_fs_width;
@@ -544,7 +525,6 @@ void retrieve_metadata(gpointer data, gpointer user_data);
 gchar *default_playlist;
 gboolean safe_to_save_default_playlist;
 
-gint pref_volume;
 gboolean async_play_iter(void *data);
 
 #ifdef GTK2_12_ENABLED
