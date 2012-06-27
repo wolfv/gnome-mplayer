@@ -28,6 +28,8 @@
 
 #ifdef DBUS_ENABLED
 
+static DBusConnection *mpris_connection;
+
 void append_metadata_array(DBusMessageIter * messageIter)
 {
     DBusMessageIter array, dict, dict_entry, dict_val, variant_array;

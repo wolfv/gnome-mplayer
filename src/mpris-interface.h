@@ -34,7 +34,4 @@
 #endif
 #include "support.h"
 
-#ifdef DBUS_ENABLED
-DBusConnection *mpris_connection;
-#endif
 gboolean mpris_hookup(gint controlid);
