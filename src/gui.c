@@ -46,6 +46,243 @@
 #include <libnotify/notification.h>
 #endif
 
+static GdkWindow *window_container;
+static GtkWidget *fs_window;
+static GtkWidget *fs_controls;
+
+static GtkWidget *menubar;
+static GtkMenuItem *menuitem_file;
+static GtkMenu *menu_file;
+static GtkMenuItem *menuitem_file_open;
+static GtkMenuItem *menuitem_file_open_folder;
+static GtkMenuItem *menuitem_file_open_location;
+static GtkMenuItem *menuitem_file_disc;
+static GtkMenu *menu_file_disc;
+static GtkMenuItem *menuitem_file_open_acd;
+static GtkMenuItem *menuitem_file_open_sep1;
+//static GtkMenuItem *menuitem_file_open_dvd;
+static GtkMenuItem *menuitem_file_open_dvdnav;
+//static GtkMenuItem *menuitem_file_open_dvd_folder;
+static GtkMenuItem *menuitem_file_open_dvdnav_folder;
+//static GtkMenuItem *menuitem_file_open_dvd_iso;
+static GtkMenuItem *menuitem_file_open_dvdnav_iso;
+static GtkMenuItem *menuitem_file_open_sep2;
+static GtkMenuItem *menuitem_file_open_vcd;
+
+static GtkMenuItem *menuitem_file_tv;
+static GtkMenu *menu_file_tv;
+static GtkMenuItem *menuitem_file_open_atv;
+static GtkMenuItem *menuitem_file_open_dtv;
+static GtkMenuItem *menuitem_file_open_ipod;
+static GtkMenuItem *menuitem_file_recent;
+static GtkWidget *menuitem_file_recent_items;
+static GtkMenuItem *menuitem_file_sep2;
+static GtkMenuItem *menuitem_file_quit;
+
+static GtkMenuItem *menuitem_edit;
+static GtkMenu *menu_edit;
+static GtkMenuItem *menuitem_edit_switch_audio;
+static GtkMenuItem *menuitem_edit_set_audiofile;
+static GtkMenuItem *menuitem_edit_set_subtitle;
+//static GtkMenuItem *menuitem_lang;
+
+static GtkMenuItem *menuitem_edit_take_screenshot;
+static GtkMenuItem *menuitem_edit_sep1;
+static GtkMenuItem *menuitem_edit_config;
+static GtkMenuItem *menuitem_help;
+static GtkMenuItem *menuitem_view;
+static GtkMenu *menu_view;
+static GtkMenuItem *menuitem_view_details;
+static GtkMenuItem *menuitem_view_meter;
+static GtkMenuItem *menuitem_view_sep0;
+static GtkMenuItem *menuitem_view_fullscreen;
+static GtkMenuItem *menuitem_view_sep1;
+static GtkMenuItem *menuitem_view_onetoone;
+static GtkMenuItem *menuitem_view_twotoone;
+static GtkMenuItem *menuitem_view_onetotwo;
+static GtkMenuItem *menuitem_view_onetoonepointfive;
+//static GtkMenuItem *menuitem_view_sep4;
+static GtkMenuItem *menuitem_view_aspect;
+static GtkMenu *menu_view_aspect;
+static GtkMenuItem *menuitem_view_aspect_default;
+static GtkMenuItem *menuitem_view_aspect_four_three;
+static GtkMenuItem *menuitem_view_aspect_sixteen_nine;
+static GtkMenuItem *menuitem_view_aspect_sixteen_ten;
+static GtkMenuItem *menuitem_view_aspect_follow_window;
+static GtkMenuItem *menuitem_view_sep2;
+static GtkMenuItem *menuitem_view_subtitles;
+static GtkMenuItem *menuitem_view_smaller_subtitle;
+static GtkMenuItem *menuitem_view_larger_subtitle;
+static GtkMenuItem *menuitem_view_decrease_subtitle_delay;
+static GtkMenuItem *menuitem_view_increase_subtitle_delay;
+static GtkMenuItem *menuitem_view_sep5;
+static GtkMenuItem *menuitem_view_angle;
+static GtkMenuItem *menuitem_view_controls;
+static GtkMenuItem *menuitem_view_sep3;
+static GtkMenuItem *menuitem_view_advanced;
+static GtkMenu *menu_help;
+static GtkMenuItem *menuitem_help_about;
+
+static GtkMenu *popup_menu;
+static GtkMenuItem *menuitem_open;
+static GtkMenuItem *menuitem_sep3;
+static GtkMenuItem *menuitem_play;
+static GtkMenuItem *menuitem_stop;
+static GtkMenuItem *menuitem_sep1;
+static GtkMenuItem *menuitem_copyurl;
+static GtkMenuItem *menuitem_sep2;
+static GtkMenuItem *menuitem_sep4;
+static GtkMenuItem *menuitem_save;
+static GtkMenuItem *menuitem_showcontrols;
+static GtkMenuItem *menuitem_fullscreen;
+static GtkMenuItem *menuitem_config;
+static GtkMenuItem *menuitem_quit;
+static gulong delete_signal_id;
+
+static GtkWidget *vbox_master;
+static GtkWidget *vbox;
+static GtkWidget *controls_box;
+
+static GtkWidget *media_hbox;
+static GtkWidget *media_label;
+static GtkWidget *details_vbox;
+
+static GtkWidget *details_video_size;
+static GtkWidget *details_video_format;
+static GtkWidget *details_video_codec;
+static GtkWidget *details_video_fps;
+static GtkWidget *details_video_bitrate;
+static GtkWidget *details_video_chapters;
+static GtkWidget *details_audio_format;
+static GtkWidget *details_audio_codec;
+static GtkWidget *details_audio_channels;
+static GtkWidget *details_audio_bitrate;
+static GtkWidget *details_audio_samplerate;
+
+static GdkPixbuf *pb_icon;
+static GdkPixbuf *pb_button;
+
+static GList *icon_list;
+
+static GtkWidget *button_event_box;
+static GtkWidget *image_button;
+
+//static GtkWidget *play_button;
+//static GtkWidget *stop_button;
+//static GtkWidget *pause_button;
+//static GtkWidget *ff_button;
+//static GtkWidget *rew_button;
+
+//static GtkWidget *pause_event_box;
+static GtkWidget *stop_event_box;
+static GtkWidget *ff_event_box;
+static GtkWidget *rew_event_box;
+
+//static GtkProgressBar *progress;
+
+static gboolean in_button;
+
+static GtkWidget *image_play;
+static GtkWidget *image_pause;
+static GtkWidget *image_stop;
+static GtkWidget *image_ff;
+static GtkWidget *image_rew;
+static GtkWidget *image_next;
+static GtkWidget *image_prev;
+static GtkWidget *image_menu;
+static GtkWidget *image_fs;
+//static GtkWidget *image_icon;
+
+#ifdef GTK2_12_ENABLED
+static GtkStatusIcon *status_icon;
+static GtkWidget *config_show_status_icon;
+#else
+static GtkTooltips *volume_tip;
+#endif
+
+//static GtkWidget *config_window;
+
+static GtkWidget *config_vo;
+static GtkWidget *config_hardware_codecs;
+static GtkWidget *config_crystalhd_codecs;
+static GtkWidget *config_ao;
+static GtkWidget *config_mixer;
+static GtkWidget *config_audio_channels;
+static GtkWidget *config_use_hw_audio;
+//static GtkWidget *config_volume;
+static GtkWidget *config_cachesize;
+static GtkWidget *config_plugin_audio_cache_size;
+static GtkWidget *config_plugin_video_cache_size;
+static GtkWidget *config_osdlevel;
+static GtkWidget *config_deinterlace;
+static GtkWidget *config_framedrop;
+static GtkWidget *config_pplevel;
+
+static GtkWidget *config_playlist_visible;
+static GtkWidget *config_details_visible;
+static GtkWidget *config_vertical_layout;
+static GtkWidget *config_single_instance;
+static GtkWidget *config_replace_and_play;
+static GtkWidget *config_bring_to_front;
+static GtkWidget *config_resize_on_new_media;
+static GtkWidget *config_pause_on_click;
+static GtkWidget *config_softvol;
+static GtkWidget *config_remember_softvol;
+static GtkWidget *config_volume_gain;
+static GtkWidget *config_forcecache;
+static GtkWidget *config_verbose;
+static GtkWidget *config_show_notification;
+static GtkWidget *config_use_mediakeys;
+static GtkWidget *config_use_defaultpl;
+static GtkWidget *config_disable_animation;
+static GtkWidget *config_mouse_wheel;
+static GtkWidget *config_enable_nautilus_plugin;
+
+static GtkWidget *config_alang;
+static GtkWidget *config_slang;
+static GtkWidget *config_metadata_codepage;
+
+static GtkWidget *config_ass;
+static GtkWidget *config_embeddedfonts;
+static GtkWidget *config_subtitle_font;
+static GtkWidget *config_subtitle_scale;
+static GtkWidget *config_subtitle_codepage;
+static GtkWidget *config_subtitle_color;
+static GtkWidget *config_subtitle_outline;
+static GtkWidget *config_subtitle_shadow;
+static GtkWidget *config_subtitle_margin;
+static GtkWidget *config_subtitle_fuzziness;
+static GtkWidget *config_show_subtitles;
+
+static GtkWidget *config_qt;
+static GtkWidget *config_real;
+static GtkWidget *config_wmp;
+static GtkWidget *config_dvx;
+static GtkWidget *config_midi;
+static GtkWidget *config_noembed;
+static GtkWidget *config_noscaling;
+
+static GtkWidget *config_mplayer_bin;
+static GtkWidget *config_mplayer_dvd_device;
+static GtkWidget *config_extraopts;
+static GtkWidget *config_remember_loc;
+static GtkWidget *config_keep_on_top;
+
+static GtkWidget *open_location;
+
+static GtkWidget *folder_progress_window;
+static GtkWidget *folder_progress_label;
+static GtkWidget *folder_progress_bar;
+
+// Video Settings
+static GtkWidget *adv_brightness;
+static GtkWidget *adv_contrast;
+static GtkWidget *adv_gamma;
+static GtkWidget *adv_hue;
+static GtkWidget *adv_saturation;
+
+static glong last_movement_time;
+
 
 PLAYSTATE media_state_to_playstate(GmtkMediaPlayerMediaState state)
 {
