@@ -1,5 +1,6 @@
 Development
-   Move various global variables to file-local (static)
+	Make cover art scaling consistent
+    Move various global variables to file-local (static)
 	Clean up the title bar name display
 	Since we are using gm_log for messages, move the inits above the first message
 	Fix a few issues identified by cppcheck
