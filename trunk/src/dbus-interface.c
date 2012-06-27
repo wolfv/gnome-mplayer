@@ -29,6 +29,16 @@
 
 #define WAIT_FOR_REPLY_TIMEOUT_MSEC 200
 
+#ifdef DBUS_ENABLED
+static DBusConnection *connection;
+#endif
+static guint ss_cookie;
+static guint sm_cookie;
+static guint fd_cookie;
+static gboolean ss_cookie_is_valid;
+static gboolean sm_cookie_is_valid;
+static gboolean fd_cookie_is_valid;
+
 /*
 
 To send command to ALL running gnome-mplayers (multihead applications)
