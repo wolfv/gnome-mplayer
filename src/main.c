@@ -1284,7 +1284,8 @@ int main(int argc, char *argv[])
 #endif
 
     gm_audio_update_device(&audio_device);
-    gm_audio_get_volume(&audio_device);
+    // disabling this line seems to help with hangs on startup when using pulseaudio
+    //gm_audio_get_volume(&audio_device);
     gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
     set_media_player_attributes(media);
 
@@ -1354,6 +1355,8 @@ int main(int argc, char *argv[])
     }
     safe_to_save_default_playlist = TRUE;
 
+    // put the request to update the volume into the list of tasks to complete
+    g_idle_add(set_volume, NULL);
     gtk_main();
 
     return 0;

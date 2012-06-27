@@ -1,4 +1,5 @@
 Development
+	Fix a hang on startup when getting volume from pulseaudio (has something to due with GTK event queue and gtk_main not called
 	Make cover art scaling consistent
     Move various global variables to file-local (static)
 	Clean up the title bar name display
