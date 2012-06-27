@@ -261,11 +261,6 @@ typedef struct _MetaData {
     gboolean playable;
 } MetaData;
 
-typedef struct _LangMenu {
-    gchar *label;
-    int value;
-} LangMenu;
-
 typedef struct _ButtonDef {
     gchar *uri;
     gchar *hrefid;
@@ -276,7 +271,6 @@ gint buckets[METER_BARS];
 gint max_buckets[METER_BARS];
 gchar **accel_keys;
 gchar **accel_keys_description;
-GtkWidget *config_accel_keys[KEY_COUNT];
 
 //Define MIME for DnD
 #define DRAG_NAME_0		"text/plain"

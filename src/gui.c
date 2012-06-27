@@ -284,6 +284,7 @@ static GtkWidget *adv_saturation;
 static glong last_movement_time;
 
 static gboolean adjusting;
+static GtkWidget *config_accel_keys[KEY_COUNT];
 
 typedef struct _Export {
     int nch;
