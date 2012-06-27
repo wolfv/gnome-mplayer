@@ -827,6 +827,8 @@ int main(int argc, char *argv[])
                                    interrupted by handler */
 #endif
 
+   gm_log_name_this_thread("root");
+
 #ifdef SIGINT
     if (sigaction(SIGINT, &sa, NULL) == -1)
         gm_log(verbose, G_LOG_LEVEL_MESSAGE, "SIGINT signal handler not installed");

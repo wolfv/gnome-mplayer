@@ -1008,6 +1008,7 @@ void retrieve_metadata(gpointer data, gpointer user_data)
     gchar *uri = (gchar *) data;
     MetaData *mdata = NULL;
 
+    gm_log_name_this_thread("rm");
     gm_log(FALSE, G_LOG_LEVEL_DEBUG, "retrieve_metadata(%s)", uri);
 
     gm_log(FALSE, G_LOG_LEVEL_DEBUG, "locking retrieve_mutex");
@@ -2470,6 +2471,7 @@ gpointer get_cover_art(gpointer data)
     CURL *curl;
 #endif
 
+    gm_log_name_this_thread("gca");
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "get_cover_art(%s)", metadata->uri);
 
     artist = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST);
