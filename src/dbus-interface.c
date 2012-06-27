@@ -435,7 +435,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetProgressText") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-                        g_strlcpy(idledata->progress_text, s, 1024);
+                        g_strlcpy(idledata->progress_text, s, sizeof(idledata->progress_text));
                         if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY)
                             g_idle_add(set_progress_text, idledata);
                     } else {
@@ -448,7 +448,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
-                        g_strlcpy(idledata->progress_text, s, 1024);
+                        g_strlcpy(idledata->progress_text, s, sizeof(idledata->progress_text));
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_progress_text, idledata);
@@ -463,7 +463,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetMediaLabel") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-                        g_strlcpy(idledata->media_info, s, 1024);
+                        g_strlcpy(idledata->media_info, s, sizeof(idledata->progress_text));
                         g_idle_add(set_media_label, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -475,7 +475,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                     dbus_error_init(&error);
                     if (dbus_message_get_args
                         (message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INT32, &source_id, DBUS_TYPE_INVALID)) {
-                        g_strlcpy(idledata->media_info, s, 1024);
+                        g_strlcpy(idledata->media_info, s, sizeof(idledata->progress_text));
                         if (source_id != control_id) {
                             idledata->fromdbus = TRUE;
                             g_idle_add(set_media_label, idledata);
@@ -489,7 +489,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "SetInfo") == 0 && idledata != NULL) {
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-                        g_strlcpy(idledata->info, s, 1024);
+                        g_strlcpy(idledata->info, s, sizeof(idledata->info));
                         g_idle_add(set_title_bar, idledata);
                     } else {
                         dbus_error_free(&error);
@@ -501,7 +501,7 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
                         gmtk_media_player_set_uri(GMTK_MEDIA_PLAYER(media), s);
-                        g_strlcpy(idledata->url, s, 2048);
+                        g_strlcpy(idledata->url, s, sizeof(idledata->url));
                         g_idle_add(show_copyurl, idledata);
                     } else {
                         dbus_error_free(&error);
