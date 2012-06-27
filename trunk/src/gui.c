@@ -458,13 +458,16 @@ gboolean set_title_bar(void *data)
     gchar *name = NULL;
     GtkTreePath *path;
     gint current = 0, total;
-
+    gchar *filename = NULL;
 
     if (data != NULL && idle != NULL && gmtk_get_visible(window)) {
         if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_VIDEO_PRESENT)
             && gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) == TYPE_FILE
             && g_strrstr(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), "/") != NULL) {
-            name = g_strdup(g_strrstr(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), "/") + 1);
+            filename = g_filename_from_uri(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), NULL, NULL);
+            name = g_strdup(g_strrstr(filename, "/") + 1);
+            g_free(filename);
+            filename = NULL;
         } else {
             name = g_strdup(idle->display_name);
         }
@@ -480,7 +483,7 @@ gboolean set_title_bar(void *data)
             }
         }
         if (total > 1) {
-            if (name == NULL && strlen(name) < 1) {
+            if (name == NULL || strlen(name) < 1) {
                 buf = g_strdup_printf(_("(%i/%i) - GNOME MPlayer"), current + 1, total);
             } else {
                 buf = g_strdup_printf(_("%s - (%i/%i) - GNOME MPlayer"), name, current + 1, total);
