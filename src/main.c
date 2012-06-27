@@ -784,6 +784,17 @@ int main(int argc, char *argv[])
     enable_global_menu = FALSE;
     cover_art_uri = NULL;
 
+
+    // All Gtk docs say we need to call g_thread_init() and gdk_threads_init() before gtk_init()
+    //
+    // Why do we not call this? Why does the program seem to deadlock if we enable this call?
+    // I assume once we have truly fixed locking/threading this will work....
+    // gdk_threads_init();
+    if (!g_thread_supported())
+        g_thread_init(NULL);
+
+    gtk_init(&argc, &argv);
+	
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
@@ -791,6 +802,7 @@ int main(int argc, char *argv[])
     sa.sa_flags = SA_RESTART;   /* Restart functions if
                                    interrupted by handler */
 #endif
+
 #ifdef SIGINT
     if (sigaction(SIGINT, &sa, NULL) == -1)
         gm_log(verbose, G_LOG_LEVEL_MESSAGE, "SIGINT signal handler not installed");
@@ -804,18 +816,6 @@ int main(int argc, char *argv[])
         gm_log(verbose, G_LOG_LEVEL_MESSAGE, "SIGTERM signal handler not installed");
 #endif
 #endif
-
-    if (!g_thread_supported())
-        g_thread_init(NULL);
-
-    // All Gtk docs say we need to call g_thread_init() and gdk_threads_init() before gtk_init()
-    //
-    // Why do we not call this? Why does the program seem to deadlock if we enable this call?
-    // I assume once we have truly fixed locking/threading this will work....
-    // gdk_threads_init();
-
-    // call g_type_init or otherwise we can crash
-    gtk_init(&argc, &argv);
 
     uri = g_strdup_printf("%s/gnome-mplayer/cover_art", g_get_user_config_dir());
     if (!g_file_test(uri, G_FILE_TEST_IS_DIR)) {
