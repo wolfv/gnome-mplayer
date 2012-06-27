@@ -283,6 +283,7 @@ static GtkWidget *adv_saturation;
 
 static glong last_movement_time;
 
+static gboolean adjusting;
 
 PLAYSTATE media_state_to_playstate(GmtkMediaPlayerMediaState state)
 {

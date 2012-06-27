@@ -46,6 +46,25 @@
 #include "mpris-interface.h"
 #include "gmtk.h"
 
+static gint reallyverbose;
+static gint last_x, last_y;
+static gint stored_window_width, stored_window_height;
+static gchar *rpname;
+static gboolean use_volume_option;
+//static gboolean restore_playlist;
+//static gboolean restore_details;
+//static gboolean restore_info;
+static gboolean new_instance;
+static gboolean use_pausing_keep_force;
+static gboolean load_tracks_from_gpod;
+// tv stuff
+static gchar *tv_device;
+static gchar *tv_driver;
+static gchar *tv_input;
+static gint tv_width;
+static gint tv_height;
+static gint tv_fps;
+static gint pref_volume;
 
 static GOptionEntry entries[] = {
     {"window", 0, 0, G_OPTION_ARG_INT, &embed_window, N_("Window to embed in"), "WID"},
