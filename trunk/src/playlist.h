@@ -29,19 +29,8 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#ifdef GTK2_12_ENABLED
-#else
-GtkTooltips *playlisttip;
-#endif
-
-GtkMenu *playlist_popup_menu;
-GtkMenuItem *playlist_set_subtitle;
-GtkMenuItem *playlist_set_audiofile;
-gint window_width, window_height;
-gint filecount;
-GtkWidget *up;
-GtkWidget *down;
 GtkWidget *plclose;
+gint window_width, window_height;
 
 void update_gui();
 void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data);

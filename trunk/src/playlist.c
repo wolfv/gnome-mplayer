@@ -27,6 +27,18 @@
 #include "gui.h"
 #include "support.h"
 
+#ifdef GTK2_12_ENABLED
+#else
+static GtkTooltips *playlisttip;
+#endif
+
+static GtkMenu *playlist_popup_menu;
+static GtkMenuItem *playlist_set_subtitle;
+static GtkMenuItem *playlist_set_audiofile;
+static gint filecount;
+static GtkWidget *up;
+static GtkWidget *down;
+
 void update_gui()
 {
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) < 2) {
