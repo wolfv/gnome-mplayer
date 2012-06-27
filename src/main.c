@@ -794,7 +794,7 @@ int main(int argc, char *argv[])
         g_thread_init(NULL);
 
     gtk_init(&argc, &argv);
-	
+
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
