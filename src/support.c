@@ -270,7 +270,7 @@ gboolean parse_playlist(gchar * uri)
         gtk_recent_manager_add_item(recent_manager, uri);
     }
 #endif
-    gm_log(verbose, G_LOG_LEVEL_INFO, "parse playlist = %i", ret);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "parse playlist = %s", gm_bool_to_string(ret));
     return ret;
 }
 
@@ -956,7 +956,7 @@ gboolean streaming_media(gchar * uri)
         }
 #endif
     }
-    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Streaming media '%s' = %i", uri, ret);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Streaming media '%s' = %s", uri, gm_bool_to_string(ret));
     return ret;
 }
 
@@ -1629,7 +1629,8 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
     if (strlen(uri) < 1)
         return FALSE;
 
-    gm_log(verbose, G_LOG_LEVEL_INFO, "adding %s to playlist (cancel = %i)", uri, cancel_folder_load);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "adding %s to playlist (cancel = %s)", uri,
+           gm_bool_to_string(cancel_folder_load));
     local_uri = g_strdup(uri);
     if (!device_name(local_uri) && !streaming_media(local_uri)) {
         if (playlist) {
@@ -2319,8 +2320,8 @@ gboolean gpod_load_tracks(gchar * mount_point)
                 gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s has a thumbnail", ((Itdb_Track *) (tracks->data))->title);
             }
 #endif
-            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s is movie = %i", ((Itdb_Track *) (tracks->data))->title,
-                   ((Itdb_Track *) (tracks->data))->movie_flag);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s is movie = %s", ((Itdb_Track *) (tracks->data))->title,
+                   gm_bool_to_string(((Itdb_Track *) (tracks->data))->movie_flag));
 
             if (((Itdb_Track *) (tracks->data))->movie_flag) {
                 width = 640;
