@@ -1825,6 +1825,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     dontplaynext = TRUE;
 
     g_idle_remove_by_data(idledata);
+    gm_audio_set_server_volume_update_callback(&audio_device, NULL);
 
     if (remember_loc && !fullscreen && embed_window == 0) {
         gm_store = gm_pref_store_new("gnome-mplayer");
@@ -1847,7 +1848,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain or state to become \"unknown\"");
-    while (gtk_events_pending() && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
+    while (gtk_events_pending() || gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
         gtk_main_iteration();
     }
 
