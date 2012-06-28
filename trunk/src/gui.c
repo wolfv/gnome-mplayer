@@ -1154,11 +1154,27 @@ gboolean set_update_gui(void *data)
     return FALSE;
 }
 
+static const gchar *PLAYSTATE_to_string(const PLAYSTATE pstate)
+{
+    switch (pstate) {
+    case PLAYING:
+        return "playing";
+    case PAUSED:
+        return "paused";
+    case STOPPED:
+        return "stopped";
+    case QUIT:
+        return "quit";
+    default:
+        return "???";
+    }
+}
+
 gboolean set_gui_state(void *data)
 {
     gchar *tip_text = NULL;
 
-    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "setting state to %i", guistate);
+    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "setting gui state to %s", PLAYSTATE_to_string(guistate));
 
     if (lastguistate != guistate) {
         if (guistate == PLAYING) {
