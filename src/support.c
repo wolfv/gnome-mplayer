@@ -24,10 +24,10 @@
 
 #include "support.h"
 
-gint detect_playlist(gchar * uri)
+gboolean detect_playlist(gchar * uri)
 {
 
-    gint playlist = 0;
+    gboolean playlist = FALSE;
     gchar buffer[16 * 1024];
     gchar **output;
     GtkTreeViewColumn *column;
@@ -50,27 +50,27 @@ gint detect_playlist(gchar * uri)
 
     if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
         if (strlen(uri) > strlen("cdda://")) {
-            playlist = 0;
+            playlist = FALSE;
         } else {
-            playlist = 1;
+            playlist = TRUE;
         }
     } else if (g_ascii_strncasecmp(uri, "dvd://", strlen("dvd://")) == 0) {
         if (strlen(uri) > strlen("dvd://")) {
-            playlist = 0;
+            playlist = FALSE;
         } else {
-            playlist = 1;
+            playlist = TRUE;
         }
     } else if (g_ascii_strncasecmp(uri, "vcd://", strlen("vcd://")) == 0) {
         if (strlen(uri) > strlen("vcd://")) {
-            playlist = 0;
+            playlist = FALSE;
         } else {
-            playlist = 1;
+            playlist = TRUE;
         }
     } else if (g_strrstr(uri, ".m3u") != NULL
                || g_strrstr(uri, ".mxu") != NULL || g_strrstr(uri, ".m1u") != NULL || g_strrstr(uri, ".m4u") != NULL) {
-        playlist = 1;
+        playlist = TRUE;
     } else if (device_name(uri)) {
-        playlist = 0;
+        playlist = FALSE;
     } else {
 
 #ifdef GIO_ENABLED
@@ -92,23 +92,23 @@ gint detect_playlist(gchar * uri)
                     || strstr(lower, "#extm3u") != 0
                     || strstr(lower, "#extm4u") != 0
                     || strstr(lower, "http://") != 0 || strstr(lower, "rtsp://") != 0 || strstr(lower, "pnm://") != 0) {
-                    playlist = 1;
+                    playlist = TRUE;
                 }
 
                 if (output[0] != NULL && uri_exists(output[0])) {
-                    playlist = 1;
+                    playlist = TRUE;
                 }
-                if (output[0] != NULL && playlist == 0) {
+                if (output[0] != NULL && playlist == FALSE) {
                     newuri = g_filename_to_uri(output[0], NULL, NULL);
                     if (newuri != NULL && uri_exists(newuri))
-                        playlist = 1;
+                        playlist = TRUE;
                     g_free(newuri);
                 }
 
                 if (output[0] != NULL && strlen(output[0]) > 0) {
                     newuri = g_strdup_printf("%s/%s", path, output[0]);
                     if (uri_exists(newuri)) {
-                        playlist = 1;
+                        playlist = TRUE;
                     }
                     g_free(newuri);
                 }
@@ -137,40 +137,40 @@ gint detect_playlist(gchar * uri)
                     lower = g_ascii_strdown(buffer, -1);
                     gm_log(verbose, G_LOG_LEVEL_DEBUG, "buffer=%s", buffer);
                     if (strstr(lower, "[playlist]") != 0) {
-                        playlist = 1;
+                        playlist = TRUE;
                     }
 
                     if (strstr(lower, "[reference]") != 0) {
-                        playlist = 1;
+                        playlist = TRUE;
                     }
 
                     if (g_ascii_strncasecmp(buffer, "#EXT", strlen("#EXT")) == 0) {
-                        playlist = 1;
+                        playlist = TRUE;
                     }
 
                     if (strstr(lower, "<asx") != 0) {
-                        playlist = 1;
+                        playlist = TRUE;
                     }
 
                     if (strstr(lower, "http://") != 0) {
-                        playlist = 1;
+                        playlist = TRUE;
                     }
 
                     if (strstr(lower, "rtsp://") != 0) {
-                        playlist = 1;
+                        playlist = TRUE;
                     }
 
                     if (strstr(lower, "pnm://") != 0) {
-                        playlist = 1;
+                        playlist = TRUE;
                     }
                     if (output[0] != NULL && g_file_test(output[0], G_FILE_TEST_EXISTS)) {
-                        playlist = 1;
+                        playlist = TRUE;
                     }
 
                     if (output[0] != NULL && strlen(output[0]) > 0) {
                         file = g_strdup_printf("%s/%s", path, output[0]);
                         if (g_file_test(file, G_FILE_TEST_EXISTS)) {
-                            playlist = 1;
+                            playlist = TRUE;
                         }
                         g_free(file);
                     }
@@ -184,7 +184,7 @@ gint detect_playlist(gchar * uri)
         }
 #endif
     }
-    gm_log(verbose, G_LOG_LEVEL_INFO, "playlist detection = %i", playlist);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "playlist detection = %s", gm_bool_to_string(playlist));
     if (!playlist) {
         if (playlistname != NULL)
             g_free(playlistname);
@@ -286,7 +286,7 @@ gint parse_basic(gchar * uri)
     gchar *newline = NULL;
     gchar *line_uri = NULL;
     gchar **parse;
-    gint playlist = 0;
+    gboolean playlist = FALSE;
     gint ret = 0;
 
     if (streaming_media(uri))
@@ -354,7 +354,7 @@ gint parse_basic(gchar * uri)
             } else if (g_ascii_strncasecmp(newline, "[reference]", strlen("[reference]")) == 0) {
                 gm_log(verbose, G_LOG_LEVEL_DEBUG, "ref");
                 //continue;
-                //playlist = 1;
+                //playlist = TRUE;
             } else if (g_ascii_strncasecmp(newline, "<asx", strlen("<asx")) == 0) {
                 gm_log(verbose, G_LOG_LEVEL_DEBUG, "asx");
                 //idledata->streaming = TRUE;
@@ -408,7 +408,7 @@ gint parse_basic(gchar * uri)
                     }
 
                     if (uri_exists(line_uri)) {
-                        add_item_to_playlist(line_uri, 0);
+                        add_item_to_playlist(line_uri, FALSE);
                         ret = 1;
                     }
 
@@ -419,7 +419,7 @@ gint parse_basic(gchar * uri)
                         ret = 1;
                     } else {
                         if (uri_exists(line_uri)) {
-                            add_item_to_playlist(line_uri, 0);
+                            add_item_to_playlist(line_uri, FALSE);
                             ret = 1;
                         }
                     }
@@ -470,10 +470,10 @@ gint parse_ram(gchar * filename)
                     g_strchug(output[ac]);
                     if (g_ascii_strncasecmp(output[ac], "rtsp://", strlen("rtsp://")) == 0) {
                         ret = 1;
-                        add_item_to_playlist(output[ac], 0);
+                        add_item_to_playlist(output[ac], FALSE);
                     } else if (g_ascii_strncasecmp(output[ac], "pnm://", strlen("pnm://")) == 0) {
                         ret = 1;
-                        add_item_to_playlist(output[ac], 0);
+                        add_item_to_playlist(output[ac], FALSE);
                     }
                     ac++;
                 }
@@ -568,7 +568,7 @@ gint parse_cdda(gchar * filename)
     if (g_ascii_strncasecmp(filename, "cdda://", 7) != 0) {
         return 0;
     } else {
-        playlist = 0;
+        playlist = FALSE;
         if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
             av[ac++] = g_strdup_printf("mplayer");
         } else {
@@ -652,7 +652,7 @@ gint parse_cdda(gchar * filename)
                     gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, track,
                                        DESCRIPTION_COLUMN, title,
                                        COUNT_COLUMN, 0,
-                                       PLAYLIST_COLUMN, 0,
+                                       PLAYLIST_COLUMN, FALSE,
                                        ARTIST_COLUMN, artist,
                                        ALBUM_COLUMN, playlistname,
                                        SUBTITLE_COLUMN, NULL, LENGTH_COLUMN, length,
@@ -686,7 +686,7 @@ gint parse_cdda(gchar * filename)
                 if (g_ascii_strncasecmp(output[ac], "ID_CDDA_TRACK__", strlen("ID_CDDA_TRACK_")) == 0) {
                     sscanf(output[ac], "ID_CDDA_TRACK_%i", &num);
                     track = g_strdup_printf("cdda://%i", num);
-                    add_item_to_playlist(track, 0);
+                    add_item_to_playlist(track, FALSE);
                     g_free(track);
                 }
                 ac++;
@@ -729,7 +729,7 @@ gint parse_dvd(gchar * filename)
     GtkWidget *dialog;
 
     if (g_ascii_strncasecmp(filename, "dvd://", strlen("dvd://")) == 0) {       // || g_ascii_strncasecmp(filename,"dvdnav://",strlen("dvdnav://")) == 0) {
-        playlist = 0;
+        playlist = FALSE;
         // run mplayer and try to get the first frame and convert it to a jpeg
         if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
             av[ac++] = g_strdup_printf("mplayer");
@@ -782,7 +782,7 @@ gint parse_dvd(gchar * filename)
                 if (strstr(output[ac], "LENGTH") != NULL) {
                     sscanf(output[ac], "ID_DVD_TITLE_%i", &num);
                     track = g_strdup_printf("dvd://%i", num);
-                    add_item_to_playlist(track, 0);
+                    add_item_to_playlist(track, FALSE);
                     g_free(track);
                 }
             }
@@ -826,7 +826,7 @@ gint parse_vcd(gchar * filename)
     GtkWidget *dialog;
 
     if (g_ascii_strncasecmp(filename, "vcd://", strlen("vcd://")) == 0) {
-        playlist = 0;
+        playlist = FALSE;
 
         if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
             av[ac++] = g_strdup_printf("mplayer");
@@ -874,7 +874,7 @@ gint parse_vcd(gchar * filename)
                 sscanf(output[ac], "ID_VCD_TRACK_%i", &num);
                 track = g_strdup_printf("vcd://%i", num);
                 gm_log(verbose, G_LOG_LEVEL_MESSAGE, "adding track %s", track);
-                add_item_to_playlist(track, 0);
+                add_item_to_playlist(track, FALSE);
                 g_free(track);
             }
             ac++;
@@ -1617,7 +1617,7 @@ gint get_bitrate(gchar * name)
 }
 
 
-gboolean add_item_to_playlist(const gchar * uri, gint playlist)
+gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
 {
     GtkTreeIter localiter;
     gchar *local_uri;
@@ -2334,7 +2334,7 @@ gboolean gpod_load_tracks(gchar * mount_point)
             gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, full_path,
                                DESCRIPTION_COLUMN, ((Itdb_Track *) (tracks->data))->title,
                                COUNT_COLUMN, 0,
-                               PLAYLIST_COLUMN, 0,
+                               PLAYLIST_COLUMN, FALSE,
                                ARTIST_COLUMN, ((Itdb_Track *) (tracks->data))->artist,
                                ALBUM_COLUMN, ((Itdb_Track *) (tracks->data))->album,
                                VIDEO_WIDTH_COLUMN, width,

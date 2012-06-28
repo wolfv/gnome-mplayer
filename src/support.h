@@ -70,7 +70,7 @@ gboolean save_playlist_m3u(gchar * filename);
 gchar *get_path(gchar * filename);
 gboolean streaming_media(gchar * filename);
 gboolean device_name(gchar * filename);
-gboolean add_item_to_playlist(const gchar * uri, gint playlist);
+gboolean add_item_to_playlist(const gchar * uri, gboolean playlist);
 gboolean first_item_in_playlist(GtkTreeIter * iter);
 gboolean prev_item_in_playlist(GtkTreeIter * iter);
 gboolean next_item_in_playlist(GtkTreeIter * iter);

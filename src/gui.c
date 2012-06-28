@@ -469,8 +469,8 @@ void player_size_allocate_callback(GtkWidget * widget, GtkAllocation * allocatio
         non_fs_width = allocation->width;
         non_fs_height = allocation->height;
     }
-    gm_log(verbose, G_LOG_LEVEL_DEBUG, "video: %i media size = %i x %i", idledata->videopresent, non_fs_width,
-           non_fs_height);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "video: %s media size = %i x %i", gm_bool_to_string(idledata->videopresent),
+           non_fs_width, non_fs_height);
 }
 
 gboolean set_adjust_layout(gpointer data)
@@ -615,7 +615,8 @@ void adjust_layout()
         gmtk_get_allocation(controls_box, &alloc);
         total_height += alloc.height;
     }
-    gm_log(verbose, G_LOG_LEVEL_DEBUG, "total = %i x %i video = %i", total_width, total_height, idledata->videopresent);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "total = %i x %i video = %s", total_width, total_height,
+           gm_bool_to_string(idledata->videopresent));
 
     if (use_remember_loc) {
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "setting size to %i x %i", loc_window_width, loc_window_height);
@@ -2408,7 +2409,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 {
     gchar **list;
     gint i = 0;
-    gint playlist;
+    gboolean playlist;
     gint itemcount;
     gboolean added_single = FALSE;
     gchar *filename;
@@ -3182,7 +3183,7 @@ void menuitem_open_dvdnav_callback(GtkMenuItem * menuitem, void *data)
         idledata->device = NULL;
     }
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
-    add_item_to_playlist("dvdnav://", 0);
+    add_item_to_playlist("dvdnav://", FALSE);
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
     gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE, mplayer_dvd_device);
@@ -3214,7 +3215,7 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
         gtk_list_store_clear(playliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
-        add_item_to_playlist("dvdnav://", 0);
+        add_item_to_playlist("dvdnav://", FALSE);
         gtk_widget_show(menu_event_box);
 
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
@@ -3259,7 +3260,7 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
         gtk_list_store_clear(playliststore);
         idledata->device = g_strdup(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
 
-        add_item_to_playlist("dvdnav://", 0);
+        add_item_to_playlist("dvdnav://", FALSE);
         gtk_widget_show(menu_event_box);
 
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
@@ -3314,7 +3315,7 @@ void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
         dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
-    add_item_to_playlist("tv://", 0);
+    add_item_to_playlist("tv://", FALSE);
 
     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
@@ -3325,7 +3326,7 @@ void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
 {
-    gint playlist = 0;
+    gboolean playlist = FALSE;
     gchar *uri;
     gint count;
     GtkTreeViewColumn *column;
@@ -3338,7 +3339,7 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
 
     uri = gtk_recent_chooser_get_current_uri(chooser);
     if (uri != NULL) {
-        if (playlist == 0)
+        if (playlist == FALSE)
             playlist = detect_playlist(uri);
 
         if (!playlist) {
@@ -3412,7 +3413,7 @@ void parseChannels(FILE * f)
                 if ((ch == ':') && (firstP == 0)) {
                     s[i] = '\0';
                     strout = g_strdup_printf("dvb://%s", s);
-                    add_item_to_playlist(strout, 0);    //add to playlist
+                    add_item_to_playlist(strout, FALSE);        //add to playlist
                     g_free(strout);
                     i = 0;
                     firstW++;
@@ -6368,8 +6369,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     case ATTRIBUTE_SIZE:
         idledata->width = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_WIDTH);
         idledata->height = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HEIGHT);
-        gm_log(verbose, G_LOG_LEVEL_DEBUG, "video present = %i new size %i x %i", idledata->videopresent,
-               idledata->width, idledata->height);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "video present = %s new size %i x %i",
+               gm_bool_to_string(idledata->videopresent), idledata->width, idledata->height);
         text = g_strdup_printf("%i x %i", idledata->width, idledata->height);
         gtk_label_set_text(GTK_LABEL(details_video_size), text);
         g_free(text);
