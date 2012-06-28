@@ -127,7 +127,7 @@ AS_IF([test "x$ENABLE_GTK3" != "xyes"],
 
 ])
 
-PKG_CHECK_MODULES(GMLIB, [gmlib >= 1.0.6])
+PKG_CHECK_MODULES(GMLIB, [gmlib >= 1.0.7])
 AC_SUBST(GMLIB_CFLAGS)
 AC_SUBST(GMLIB_LIBS)
 
