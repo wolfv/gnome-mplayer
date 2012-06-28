@@ -827,7 +827,7 @@ int main(int argc, char *argv[])
                                    interrupted by handler */
 #endif
 
-   gm_log_name_this_thread("root");
+    gm_log_name_this_thread("root");
 
 #ifdef SIGINT
     if (sigaction(SIGINT, &sa, NULL) == -1)
