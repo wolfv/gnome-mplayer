@@ -6640,15 +6640,16 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     mpris_send_signal_Updated_Metadata();
 }
 
-void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMediaState state, gpointer data)
+void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMediaState media_state, gpointer data)
 {
 #ifdef GTK2_12_ENABLED
     gchar *tip_text = NULL;
 #endif
     gchar *short_filename = NULL;
 
-    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %s", gmtk_media_state_to_string(state));
-    switch (state) {
+    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %s",
+           gmtk_media_state_to_string(media_state));
+    switch (media_state) {
         // mplayer is dead, need the next item off the playlist
     case MEDIA_STATE_QUIT:
     case MEDIA_STATE_UNKNOWN:
