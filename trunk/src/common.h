@@ -287,7 +287,7 @@ gboolean forcecache;
 gint osdlevel;
 gint pplevel;
 gint streaming;
-gint showcontrols;
+gboolean showcontrols;
 gboolean showsubtitles;
 gint fullscreen;
 gint init_fullscreen;

@@ -1685,7 +1685,7 @@ gboolean set_show_controls(void *data)
     if (idle == NULL)
         return FALSE;
 
-    showcontrols = (gint) idle->showcontrols;
+    showcontrols = idle->showcontrols;
 
     if (gmtk_get_visible(GTK_WIDGET(menuitem_view_controls))) {
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_controls), showcontrols);
@@ -1952,12 +1952,14 @@ gboolean motion_notify_callback(GtkWidget * widget, GdkEventMotion * event, gpoi
 
 gboolean window_state_callback(GtkWidget * widget, GdkEventWindowState * event, gpointer user_data)
 {
-    gm_log(verbose, G_LOG_LEVEL_DEBUG, "fullscreen = %i", (event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN));
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "fullscreen = %s",
+           gm_bool_to_string((event->new_window_state == GDK_WINDOW_STATE_FULLSCREEN)));
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "State = %i mask = %i flag = %i", event->new_window_state, event->changed_mask,
            GDK_WINDOW_STATE_FULLSCREEN);
     //if (embed_window == 0) {
     //update_control_flag = TRUE;
-    gm_log(verbose, G_LOG_LEVEL_DEBUG, "restore controls = %i showcontrols = %i", restore_controls, showcontrols);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "restore controls = %s showcontrols = %s", gm_bool_to_string(restore_controls),
+           gm_bool_to_string(showcontrols));
     if (fullscreen == 1 && (event->new_window_state & GDK_WINDOW_STATE_ICONIFIED)) {
         // fullscreen, but window hidden
         hide_fs_controls();

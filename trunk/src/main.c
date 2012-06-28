@@ -89,6 +89,7 @@ static GOptionEntry entries[] = {
      NULL},
     {"mixer", 0, 0, G_OPTION_ARG_STRING, &(audio_device.alsa_mixer), N_("Mixer to use"), NULL},
     {"volume", 0, 0, G_OPTION_ARG_INT, &(pref_volume), N_("Set initial volume percentage"), NULL},
+    // note that sizeof(gint)==sizeof(gboolean), so we can give &showcontrols here
     {"showcontrols", 0, 0, G_OPTION_ARG_INT, &showcontrols, N_("Show the controls in window"),
      "[0|1]"},
     {"showsubtitles", 0, 0, G_OPTION_ARG_INT, &showsubtitles, N_("Show the subtitles if available"),
@@ -709,7 +710,7 @@ int main(int argc, char *argv[])
     window_y = 0;
     last_window_width = 0;
     last_window_height = 0;
-    showcontrols = 1;
+    showcontrols = TRUE;
     showsubtitles = TRUE;
     autostart = 1;
     videopresent = FALSE;
