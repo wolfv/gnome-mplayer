@@ -847,18 +847,11 @@ gboolean set_cover_art(gpointer pixbuf)
     } else {
         width = gdk_pixbuf_get_width(GDK_PIXBUF(pixbuf));
         height = gdk_pixbuf_get_height(GDK_PIXBUF(pixbuf));
-
-        if (width > 128) {
-            aspect = (gfloat) width / (gfloat) height;
-            scaled = gdk_pixbuf_scale_simple(GDK_PIXBUF(pixbuf), 128, 128 / aspect, GDK_INTERP_BILINEAR);
-            gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(scaled));
-            g_object_unref(pixbuf);
-            g_object_unref(scaled);
-        } else {
-            gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(pixbuf));
-            g_object_unref(pixbuf);
-        }
-        //gtk_widget_show_all(media_hbox);
+        aspect = (gfloat) width / (gfloat) height;
+        scaled = gdk_pixbuf_scale_simple(GDK_PIXBUF(pixbuf), 128, 128 / aspect, GDK_INTERP_BILINEAR);
+        gtk_image_set_from_pixbuf(GTK_IMAGE(cover_art), GDK_PIXBUF(scaled));
+        g_object_unref(pixbuf);
+        g_object_unref(scaled);
     }
 
     g_idle_add(set_adjust_layout, NULL);

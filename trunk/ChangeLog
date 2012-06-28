@@ -1,4 +1,6 @@
 Development
+	Allow musicbrainz to be searched by artist only
+	Bump configure.in to require gmtk 1.0.7 or higher (due to gm_log changes)
 	Change some log levels in get_cover_art
 	Fix logic in shutdown and cancel volume update callback
 	Fix a hang on startup when getting volume from pulseaudio (has something to due with GTK event queue and gtk_main not called
