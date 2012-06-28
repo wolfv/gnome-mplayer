@@ -1563,6 +1563,7 @@ gboolean set_quit(void *data)
 
 gboolean set_kill_mplayer(void *data)
 {
+    gm_log(GMTK_MEDIA_PLAYER(media)->debug, G_LOG_LEVEL_DEBUG, "set_kill_mplayer()");
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
 
     return FALSE;
@@ -1824,6 +1825,8 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     ok_to_play = FALSE;
     dontplaynext = TRUE;
 
+    gm_log(GMTK_MEDIA_PLAYER(media)->debug, G_LOG_LEVEL_DEBUG, "delete_callback()");
+
     g_idle_remove_by_data(idledata);
     gm_audio_set_server_volume_update_callback(&audio_device, NULL);
 
@@ -1847,8 +1850,10 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     }
 
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
-    gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain or state to become \"unknown\"");
-    while (gtk_events_pending() || gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
+    gm_log(verbose, G_LOG_LEVEL_DEBUG,
+           "waiting for all events to drain and state to become \"unknown\" and the mplayer thread to exit");
+    while (gtk_events_pending() || gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN
+           || GMTK_MEDIA_PLAYER(media)->mplayer_thread != NULL) {
         gtk_main_iteration();
     }
 
