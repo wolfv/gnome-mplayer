@@ -1073,7 +1073,7 @@ int main(int argc, char *argv[])
         printf(_("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
         return 1;
     }
-    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Threading support enabled = %i", g_thread_supported());
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Threading support enabled = %s", gm_bool_to_string(g_thread_supported()));
 
     if (rpconsole == NULL)
         rpconsole = g_strdup("NONE");
@@ -1129,10 +1129,10 @@ int main(int argc, char *argv[])
 
         gm_log(verbose, G_LOG_LEVEL_INFO, "opening %s", argv[fileindex]);
         gm_log(verbose, G_LOG_LEVEL_INFO, "stat_result = %i", stat_result);
-        gm_log(verbose, G_LOG_LEVEL_INFO, "is block %i", S_ISBLK(buf.st_mode));
-        gm_log(verbose, G_LOG_LEVEL_INFO, "is character %i", S_ISCHR(buf.st_mode));
-        gm_log(verbose, G_LOG_LEVEL_INFO, "is reg %i", S_ISREG(buf.st_mode));
-        gm_log(verbose, G_LOG_LEVEL_INFO, "is dir %i", S_ISDIR(buf.st_mode));
+        gm_log(verbose, G_LOG_LEVEL_INFO, "is block %s", gm_bool_to_string(S_ISBLK(buf.st_mode)));
+        gm_log(verbose, G_LOG_LEVEL_INFO, "is character %s", gm_bool_to_string(S_ISCHR(buf.st_mode)));
+        gm_log(verbose, G_LOG_LEVEL_INFO, "is reg %s", gm_bool_to_string(S_ISREG(buf.st_mode)));
+        gm_log(verbose, G_LOG_LEVEL_INFO, "is dir %s", gm_bool_to_string(S_ISDIR(buf.st_mode)));
         gm_log(verbose, G_LOG_LEVEL_INFO, "playlist %s", gm_bool_to_string(playlist));
         gm_log(verbose, G_LOG_LEVEL_INFO, "embedded in window id 0x%x", embed_window);
         if (stat_result == 0 && S_ISBLK(buf.st_mode)) {
