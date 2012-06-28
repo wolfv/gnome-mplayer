@@ -286,11 +286,13 @@ static glong last_movement_time;
 static gboolean adjusting;
 static GtkWidget *config_accel_keys[KEY_COUNT];
 
+#define PAYLOADNCH 7
+#define PAYLOADNI 512
 typedef struct _Export {
     int nch;
     int size;
     unsigned long long counter;
-    gint16 payload[7][512];
+    gint16 payload[PAYLOADNCH][PAYLOADNI];
 } Export;
 
 PLAYSTATE media_state_to_playstate(GmtkMediaPlayerMediaState media_state)
@@ -8198,7 +8200,7 @@ static inline double logdb(double v)
 
 gboolean update_audio_meter(gpointer data)
 {
-    gint i, j;
+    gint i, channel;
     gfloat f;
     gint max;
     //gfloat freq;
@@ -8211,6 +8213,11 @@ gboolean update_audio_meter(gpointer data)
     gboolean refresh;
 #define UAM_HISTOGRAM_SIZE 65536
     long long histogram[UAM_HISTOGRAM_SIZE];
+    gint histogramloc;
+    gint thispayloadni;
+    gint thispayloadnch;
+    gint bucketi;
+
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter)))
         return TRUE;
     if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY)
@@ -8257,18 +8264,38 @@ gboolean update_audio_meter(gpointer data)
                    export_counter = export->counter;
                    refresh = TRUE;
                  */
-                for (j = 0; j < UAM_HISTOGRAM_SIZE; j++) {
-                    histogram[j] = 0;
+                for (histogramloc = 0; histogramloc < UAM_HISTOGRAM_SIZE; histogramloc++) {
+                    histogram[histogramloc] = 0;
                 }
-                for (i = 0; export != NULL && i < (export->size / (export->nch * sizeof(gint16))); i++) {
-                    for (j = 0; j < export->nch; j++) {
+                thispayloadni = (export->size / (export->nch * sizeof(gint16)));
+                if (thispayloadni > PAYLOADNI) {
+                    thispayloadni = PAYLOADNI;
+                }
+                if (thispayloadni < 0) {
+                    thispayloadni = 0;
+                }
+                thispayloadnch = export->nch;
+                if (thispayloadnch > PAYLOADNCH) {
+                    thispayloadnch = PAYLOADNCH;
+                }
+                if (thispayloadnch < 0) {
+                    thispayloadnch = 0;
+                }
+                for (i = 0; export != NULL && i < thispayloadni; i++) {
+                    for (channel = 0; channel < thispayloadnch; channel++) {
                         // scale SB16 data to 0 - 22000 range, believe this is Hz now
-                        histogram[(export->payload[j][i]) + 32768]++;
+                        histogramloc = export->payload[channel][i] + 32768;
+                        if (histogramloc >= 0 && histogramloc < UAM_HISTOGRAM_SIZE) {
+                            histogram[histogramloc]++;
+                        }
                     }
                 }
-                for (i = 0; i < UAM_HISTOGRAM_SIZE; i++) {
-                    v = (i - 32768) / 32768.0;
-                    buckets[(gint) (logdb(v * v) / 2.0)] += histogram[i];
+                for (histogramloc = 0; histogramloc < UAM_HISTOGRAM_SIZE; histogramloc++) {
+                    v = (histogramloc - 32768) / 32768.0;
+                    bucketi = (gint) (logdb(v * v) / 2.0);
+                    if (bucketi < METER_BARS) {
+                        buckets[bucketi] += histogram[histogramloc];
+                    }
                 }
                 buckets[0] = buckets[1] - (buckets[2] - buckets[1]);
                 if (buckets[0] < 0)
