@@ -6627,7 +6627,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #endif
     gchar *short_filename = NULL;
 
-    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %i", state);
+    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %s", gmtk_media_state_to_string(state));
     switch (state) {
         // mplayer is dead, need the next item off the playlist
     case MEDIA_STATE_QUIT:
