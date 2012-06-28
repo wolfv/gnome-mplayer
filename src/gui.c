@@ -918,9 +918,9 @@ gboolean set_progress_value(void *data)
                     gm_log(verbose, G_LOG_LEVEL_DEBUG, "cachesize = %f, percent = %f", idle->cachepercent,
                            gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
                                                                   ATTRIBUTE_POSITION_PERCENT));
-                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "will pause = %i",
-                           ((idle->byte_pos + (cache_size * 512)) > buf.st_size)
-                           && !(playlist));
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "will pause = %s",
+                           gm_bool_to_string(((idle->byte_pos + (cache_size * 512)) > buf.st_size)
+                                             && !(playlist)));
                     // if ((idle->percent + 0.10) > idle->cachepercent && ((idle->byte_pos + (512 * 1024)) > buf.st_size)) {
                     // if ((buf.st_size > 0) && (idle->byte_pos + (cache_size * 512)) > buf.st_size) {
                     if (((idle->byte_pos + (cache_size * 1024)) > buf.st_size) && !(playlist)) {
@@ -1463,8 +1463,8 @@ gboolean resize_window(void *data)
                 if (resize_on_new_media == TRUE || gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL)
                     || idle->streaming) {
                     if (idle->width > 1 && idle->height > 1) {
-                        gm_log(verbose, G_LOG_LEVEL_INFO, "Changing window size to %i x %i visible = %i", idle->width,
-                               idle->height, gmtk_get_visible(media));
+                        gm_log(verbose, G_LOG_LEVEL_INFO, "Changing window size to %i x %i visible = %s", idle->width,
+                               idle->height, gm_bool_to_string(gmtk_get_visible(media)));
                         last_window_width = idle->width;
                         last_window_height = idle->height;
                         non_fs_width = idle->width;
@@ -1670,7 +1670,7 @@ gboolean set_fullscreen(void *data)
     // we need to flip the state since the callback reads the value of fullscreen
     // and if fullscreen is 0 it sets it to fullscreen.
     // fullscreen = ! (gint) idle->fullscreen;
-    // printf("calling fs_callback with %i\n",fullscreen);
+    // printf("calling fs_callback with %s\n",gm_bool_to_string(fullscreen));
     // fs_callback(NULL, NULL, NULL); // ok is just not NULL which is what we want
     if (idle != NULL && idle->videopresent)
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), idle->fullscreen);
@@ -6235,9 +6235,10 @@ gboolean accel_key_key_press_event(GtkWidget * widget, GdkEventKey * event, gpoi
 
     gint index = GPOINTER_TO_INT(data);
 
-    gm_log(verbose, G_LOG_LEVEL_DEBUG, "key press %s shift: %i, ctrl: %i, alt: %i modifier: %i",
-           gdk_keyval_name(event->keyval), event->state & GDK_SHIFT_MASK, event->state & GDK_CONTROL_MASK,
-           event->state & GDK_MOD1_MASK, event->is_modifier);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "key press %s shift: %s, ctrl: %s, alt: %s modifier: %s",
+           gdk_keyval_name(event->keyval), gm_bool_to_string(event->state & GDK_SHIFT_MASK),
+           gm_bool_to_string(event->state & GDK_CONTROL_MASK), gm_bool_to_string(event->state & GDK_MOD1_MASK),
+           gm_bool_to_string(event->is_modifier));
 
 
     if (event->is_modifier)
