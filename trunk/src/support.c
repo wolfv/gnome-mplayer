@@ -2486,9 +2486,9 @@ gpointer get_cover_art(gpointer data)
             if (cache_file)
                 g_free(cache_file);
             cache_file = g_strdup(thumbnail);
-            gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for thumbnail %s ... found", thumbnail);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "Looking for thumbnail %s ... found", thumbnail);
         } else {
-            gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for thumbnail %s ... not found", thumbnail);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "Looking for thumbnail %s ... not found", thumbnail);
         }
         g_free(thumbnail);
 
@@ -2499,9 +2499,9 @@ gpointer get_cover_art(gpointer data)
                 if (cache_file)
                     g_free(cache_file);
                 cache_file = g_strdup(thumbnail);
-                gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for thumbnail %s ... found", thumbnail);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "Looking for thumbnail %s ... found", thumbnail);
             } else {
-                gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for thumbnail %s ... not found", thumbnail);
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "Looking for thumbnail %s ... not found", thumbnail);
             }
             g_free(thumbnail);
         }
@@ -2524,14 +2524,14 @@ gpointer get_cover_art(gpointer data)
 #endif
 
                 if (g_file_test(test_file, G_FILE_TEST_EXISTS)) {
-                    gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for cover art at %s ... found", test_file);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Looking for cover art at %s ... found", test_file);
                     if (cache_file != NULL) {
                         g_free(cache_file);
                         cache_file = NULL;
                     }
                     cache_file = g_strdup(test_file);
                 } else {
-                    gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for cover art at %s ... not found", test_file);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Looking for cover art at %s ... not found", test_file);
                 }
                 g_free(test_file);
             }
@@ -2557,14 +2557,14 @@ gpointer get_cover_art(gpointer data)
 #endif
 
                 if (g_file_test(test_file, G_FILE_TEST_EXISTS)) {
-                    gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for cover art at %s ... found", test_file);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Looking for cover art at %s ... found", test_file);
                     if (cache_file != NULL) {
                         g_free(cache_file);
                         cache_file = NULL;
                     }
                     cache_file = g_strdup(test_file);
                 } else {
-                    gm_log(verbose, G_LOG_LEVEL_INFO, "Looking for cover art at %s ... not found", test_file);
+                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Looking for cover art at %s ... not found", test_file);
                 }
                 g_free(test_file);
             }
@@ -2648,8 +2648,8 @@ gpointer get_cover_art(gpointer data)
         }
     }
 
-    gm_log(verbose, G_LOG_LEVEL_INFO, "metadata->uri = %s", metadata->uri);
-    gm_log(verbose, G_LOG_LEVEL_INFO, "cache_file=%s", cache_file);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "metadata->uri = %s", metadata->uri);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "cache_file=%s", cache_file);
 
     if (cover_art_uri != NULL) {
         g_free(cover_art_uri);
