@@ -68,7 +68,7 @@ static gint pref_volume;
 
 typedef struct _PlayData {
     gchar uri[4096];
-    gint playlist;
+    gboolean playlist;
 } PlayData;
 
 static GOptionEntry entries[] = {
@@ -257,7 +257,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     GtkTreePath *path;
     gchar *uri = NULL;
     gint count;
-    gint playlist;
+    gboolean playlist;
     gchar *title = NULL;
     gchar *artist = NULL;
     gchar *album = NULL;
@@ -323,7 +323,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     }
 
     gm_log(verbose, G_LOG_LEVEL_INFO, "playing - %s", uri);
-    gm_log(verbose, G_LOG_LEVEL_INFO, "is playlist %i", playlist);
+    gm_log(verbose, G_LOG_LEVEL_INFO, "is playlist %s", gm_bool_to_string(playlist));
 
     gmtk_get_allocation(GTK_WIDGET(media), &alloc);
     if (width == 0 || height == 0) {
@@ -702,7 +702,7 @@ int main(int argc, char *argv[])
     textdomain(GETTEXT_PACKAGE);
 #endif
 
-    playlist = 0;
+    playlist = FALSE;
     embed_window = 0;
     control_id = 0;
     window_x = 0;
@@ -712,7 +712,7 @@ int main(int argc, char *argv[])
     showcontrols = 1;
     showsubtitles = TRUE;
     autostart = 1;
-    videopresent = 0;
+    videopresent = FALSE;
     disable_context_menu = FALSE;
     dontplaynext = FALSE;
     idledata = (IdleData *) g_new0(IdleData, 1);
@@ -1079,7 +1079,7 @@ int main(int argc, char *argv[])
 
     // setup playliststore
     playliststore =
-        gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT,
+        gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_BOOLEAN,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
                            G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
@@ -1132,7 +1132,7 @@ int main(int argc, char *argv[])
         gm_log(verbose, G_LOG_LEVEL_INFO, "is character %i", S_ISCHR(buf.st_mode));
         gm_log(verbose, G_LOG_LEVEL_INFO, "is reg %i", S_ISREG(buf.st_mode));
         gm_log(verbose, G_LOG_LEVEL_INFO, "is dir %i", S_ISDIR(buf.st_mode));
-        gm_log(verbose, G_LOG_LEVEL_INFO, "playlist %i", playlist);
+        gm_log(verbose, G_LOG_LEVEL_INFO, "playlist %s", gm_bool_to_string(playlist));
         gm_log(verbose, G_LOG_LEVEL_INFO, "embedded in window id 0x%x", embed_window);
         if (stat_result == 0 && S_ISBLK(buf.st_mode)) {
             // might have a block device, so could be a DVD
@@ -1157,7 +1157,7 @@ int main(int argc, char *argv[])
                 stat(uri, &buf);
                 g_free(uri);
                 if (S_ISDIR(buf.st_mode)) {
-                    add_item_to_playlist("dvdnav://", 0);
+                    add_item_to_playlist("dvdnav://", FALSE);
                     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
                     gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
                     //play_iter(&iter, 0);
@@ -1194,7 +1194,7 @@ int main(int argc, char *argv[])
             stat_result = g_stat(uri, &buf);
             g_free(uri);
             if (stat_result == 0 && S_ISDIR(buf.st_mode)) {
-                add_item_to_playlist("dvdnav://", 0);
+                add_item_to_playlist("dvdnav://", FALSE);
                 gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
                 gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
                 //play_iter(&iter, 0);
@@ -1247,7 +1247,7 @@ int main(int argc, char *argv[])
 #endif
 
                 if (uri != NULL) {
-                    if (playlist == 0)
+                    if (playlist == FALSE)
                         playlist = detect_playlist(uri);
                     if (!playlist) {
                         add_item_to_playlist(uri, playlist);

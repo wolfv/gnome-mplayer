@@ -205,7 +205,7 @@ gboolean playlist_drop_callback(GtkWidget * widget, GdkDragContext * dc,
 {
     gchar **list;
     gint i = 0;
-    gint playlist;
+    gboolean playlist;
 
     /* Important, check if we actually got data.  Sometimes errors
      * occure and selection_data will be NULL.
@@ -429,7 +429,7 @@ void load_playlist(GtkWidget * widget, void *data)
 
         create_folder_progress_window();
         if (!parse_playlist(filename)) {
-            add_item_to_playlist(filename, 1);
+            add_item_to_playlist(filename, TRUE);
         }
         destroy_folder_progress_window();
     }
@@ -441,7 +441,7 @@ void load_playlist(GtkWidget * widget, void *data)
 void add_item_to_playlist_callback(gpointer data, gpointer user_data)
 {
     gchar *filename = (gchar *) data;
-    gint playlist;
+    gboolean playlist;
 
     playlist = detect_playlist(filename);
     if (!playlist) {
