@@ -471,7 +471,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
                     dbus_message_iter_open_container(&sub1, DBUS_TYPE_DICT_ENTRY, NULL, &sub2);
                     property = g_strdup("PlaybackStatus");
-                    switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
+                    switch (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media))) {
                     case MEDIA_STATE_PLAY:
                         s_val = g_strdup("Playing");
                         break;
@@ -681,7 +681,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                     dbus_connection_send(mpris_connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
                     g_idle_add(set_kill_mplayer, NULL);
-                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+                    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
                         dontplaynext = TRUE;
                     g_idle_add(set_quit, idledata);
                     return DBUS_HANDLER_RESULT_HANDLED;
@@ -760,7 +760,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
 
 
                 if (dbus_message_is_method_call(message, "org.mpris.MediaPlayer2.Player", "OpenUri")) {
-                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+                    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
                         dontplaynext = TRUE;
                     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
                     dbus_error_init(&error);
@@ -843,7 +843,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                             dbus_message_iter_get_basic(&sub0, &property);
 
                             if (g_strcasecmp(property, "PlaybackStatus") == 0) {
-                                switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
+                                switch (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media))) {
                                 case MEDIA_STATE_PLAY:
                                     s_val = g_strdup("Playing");
                                     break;
@@ -1166,7 +1166,7 @@ void mpris_send_signal_PlaybackStatus()
         dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "{sv}", &dict);
         dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
         property = g_strdup("PlaybackStatus");
-        switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
+        switch (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media))) {
         case MEDIA_STATE_PLAY:
             s_val = g_strdup("Playing");
             break;
@@ -1233,7 +1233,7 @@ void mpris_send_signal_Updated_Metadata()
 
         dbus_message_iter_open_container(&dict, DBUS_TYPE_DICT_ENTRY, NULL, &dict_entry);
         property = g_strdup("PlaybackStatus");
-        switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
+        switch (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media))) {
         case MEDIA_STATE_PLAY:
             s_val = g_strdup("Playing");
             break;

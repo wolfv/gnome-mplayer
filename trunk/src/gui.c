@@ -293,11 +293,11 @@ typedef struct _Export {
     gint16 payload[7][512];
 } Export;
 
-PLAYSTATE media_state_to_playstate(GmtkMediaPlayerMediaState state)
+PLAYSTATE media_state_to_playstate(GmtkMediaPlayerMediaState media_state)
 {
     PLAYSTATE ret;
 
-    switch (state) {
+    switch (media_state) {
     case MEDIA_STATE_PAUSE:
         ret = PAUSED;
         break;
@@ -416,7 +416,7 @@ gboolean add_to_playlist_and_play(gpointer data)
     if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1
         || !gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
-            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+            if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
                 dontplaynext = TRUE;
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
@@ -880,7 +880,7 @@ gboolean set_progress_value(void *data)
         return FALSE;
 
     if (GTK_IS_WIDGET(tracker)) {
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN && rpcontrols == NULL) {
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN && rpcontrols == NULL) {
             js_state = STATE_BUFFERING;
             text = g_strdup_printf(_("Buffering: %2i%%"), (gint) (idle->cachepercent * 100));
             gmtk_media_tracker_set_text(tracker, text);
@@ -892,7 +892,8 @@ gboolean set_progress_value(void *data)
                     gtk_widget_set_sensitive(play_event_box, TRUE);
             }
         }
-        if (idle->cachepercent < 1.0 && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+        if (idle->cachepercent < 1.0
+            && gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
             text = g_strdup_printf(_("Paused | %2i%% \342\226\274"), (gint) (idle->cachepercent * 100));
             gmtk_media_tracker_set_text(tracker, text);
             g_free(text);
@@ -908,7 +909,7 @@ gboolean set_progress_value(void *data)
     }
 
     if (idle->cachepercent > 0.0 && idle->cachepercent < 0.9 && !forcecache && !streaming_media(iteruri)) {
-        if (autopause == FALSE && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
+        if (autopause == FALSE && gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
             if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
                 g_free(iteruri);
                 gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &iter, ITEM_COLUMN, &iteruri, -1);
@@ -935,7 +936,8 @@ gboolean set_progress_value(void *data)
                     g_free(iteruri);
                 }
             }
-        } else if (autopause == TRUE && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+        } else if (autopause == TRUE
+                   && gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
             if (idle->cachepercent >
                 (gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_POSITION_PERCENT) + 0.20)
                 || (idle->cachepercent >= 0.99 || idle->cachepercent == 0.0)) {
@@ -947,7 +949,7 @@ gboolean set_progress_value(void *data)
     }
 
     if (idle->cachepercent > 0.95 || idle->cachepercent == 0.0) {
-        if (autopause == TRUE && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+        if (autopause == TRUE && gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
             gtk_widget_set_sensitive(play_event_box, TRUE);
             autopause = FALSE;
@@ -960,7 +962,7 @@ gboolean set_progress_value(void *data)
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_save), FALSE);
     }
 
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
         gtk_widget_set_sensitive(play_event_box, TRUE);
     }
 
@@ -971,7 +973,8 @@ gboolean set_progress_value(void *data)
                                        gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
                                                                               ATTRIBUTE_POSITION_PERCENT));
         dbus_send_rpsignal_with_int("RP_SetGUIState",
-                                    media_state_to_playstate(gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))));
+                                    media_state_to_playstate(gmtk_media_player_get_media_state
+                                                             (GMTK_MEDIA_PLAYER(media))));
     }
 
     return FALSE;
@@ -1001,9 +1004,9 @@ gboolean set_progress_time(void *data)
     if (idle == NULL)
         return FALSE;
 
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
         text = g_strdup_printf(_("Playing"));
-    } else if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+    } else if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
         text = g_strdup_printf(_("Paused"));
     } else {
         text = g_strdup_printf(_("Idle"));
@@ -1020,12 +1023,12 @@ gboolean set_progress_time(void *data)
     g_free(text);
 
     if (GTK_IS_WIDGET(tracker) && idle->position > 0
-        && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PAUSE) {
+        && gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PAUSE) {
         gmtk_media_tracker_set_length(tracker, idle->length);
         gmtk_media_tracker_set_position(tracker, idle->position);
     }
 
-    if (idle->fromdbus == FALSE && gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PAUSE)
+    if (idle->fromdbus == FALSE && gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PAUSE)
         dbus_send_rpsignal_with_string("RP_SetProgressText", idle->progress_text);
     update_status_icon();
 
@@ -1392,9 +1395,9 @@ void update_status_icon()
 #ifdef GTK2_12_ENABLED
     gchar *text;
 
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
         text = g_strdup_printf(_("Playing %s"), idledata->display_name);
-    } else if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+    } else if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
         text = g_strdup_printf(_("Paused %s"), idledata->display_name);
     } else {
         text = g_strdup_printf(_("Idle"));
@@ -1731,7 +1734,7 @@ gboolean popup_handler(GtkWidget * widget, GdkEvent * event, void *data)
         if (event_button->button == 1 && idledata->videopresent == TRUE && !disable_pause_on_click &&
             !gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE_IS_MENU)) {
 
-            switch (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))) {
+            switch (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media))) {
             case MEDIA_STATE_PLAY:
                 gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PAUSE);
                 break;
@@ -1852,7 +1855,7 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gm_log(verbose, G_LOG_LEVEL_DEBUG,
            "waiting for all events to drain and state to become \"unknown\" and the mplayer thread to exit");
-    while (gtk_events_pending() || gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN
+    while (gtk_events_pending() || gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN
            || GMTK_MEDIA_PLAYER(media)->mplayer_thread != NULL) {
         gtk_main_iteration();
     }
@@ -2077,7 +2080,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             if (title_is_menu) {
                 return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             } else {
-                if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
+                if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     return ff_callback(NULL, NULL, NULL);
             }
@@ -2086,17 +2089,17 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             if (title_is_menu) {
                 return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             } else {
-                if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
+                if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     return rew_callback(NULL, NULL, NULL);
             }
             break;
         case GDK_Page_Up:
-            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
+            if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                 && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 600.0, SEEK_RELATIVE);
 
-            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+            if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 0.0, SEEK_RELATIVE);
                 idledata->position += 600;
                 if (idledata->position > idledata->length)
@@ -2105,10 +2108,10 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             }
             return FALSE;
         case GDK_Page_Down:
-            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
+            if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                 && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), -600.0, SEEK_RELATIVE);
-            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+            if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 0.0, SEEK_RELATIVE);
                 idledata->position -= 600;
                 if (idledata->position < 0)
@@ -2120,10 +2123,10 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             if (title_is_menu) {
                 return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             } else {
-                if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
+                if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 60.0, SEEK_RELATIVE);
-                if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+                if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
                     gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 0.0, SEEK_RELATIVE);
                     idledata->position += 60;
                     if (idledata->position > idledata->length)
@@ -2137,10 +2140,10 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             if (title_is_menu) {
                 return gmtk_media_player_send_key_press_event(GMTK_MEDIA_PLAYER(media), event, data);
             } else {
-                if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
+                if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP
                     && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)))
                     gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), -60.0, SEEK_RELATIVE);
-                if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+                if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
                     gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 0.0, SEEK_RELATIVE);
                     idledata->position -= 60;
                     if (idledata->position < 0)
@@ -2237,7 +2240,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
 #endif
             return FALSE;
         case GDK_period:
-            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE)
+            if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE)
                 gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_FRAME_STEP);
             return FALSE;
         case GDK_j:
@@ -2441,7 +2444,7 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
 
                         if (!playlist) {
                             if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-                                if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+                                if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
                                     dontplaynext = TRUE;
                                 gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
                                 gtk_list_store_clear(playliststore);
@@ -2452,7 +2455,8 @@ gboolean drop_callback(GtkWidget * widget, GdkDragContext * dc,
                         } else {
                             if (!parse_playlist(list[i])) {
                                 if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist))) {
-                                    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+                                    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) !=
+                                        MEDIA_STATE_UNKNOWN)
                                         dontplaynext = TRUE;
                                     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
                                     gtk_list_store_clear(playliststore);
@@ -2492,15 +2496,15 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     IdleData *idle = (IdleData *) data;
 
     autostart = 1;
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_STOP ||
-        gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_STOP ||
+        gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
 
-    } else if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
+    } else if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PAUSE);
     }
 
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
         if (next_item_in_playlist(&iter) && gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) != TYPE_NETWORK) {
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
             g_idle_add(async_play_iter, &iter);
@@ -2516,7 +2520,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         dbus_send_rpsignal("RP_Play");
     }
     dbus_send_rpsignal_with_int("RP_SetGUIState",
-                                media_state_to_playstate(gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))));
+                                media_state_to_playstate(gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media))));
 
     return FALSE;
 }
@@ -2525,8 +2529,8 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     IdleData *idle = (IdleData *) data;
 
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY ||
-        gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY ||
+        gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_STOP);
         autopause = FALSE;
         gmtk_media_tracker_set_percentage(tracker, 0.0);
@@ -2543,7 +2547,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 #endif
     }
 
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_QUIT) {
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_QUIT) {
         gmtk_media_tracker_set_percentage(tracker, 0.0);
 #ifdef GTK3_ENABLED
         gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
@@ -2566,7 +2570,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     dbus_send_rpsignal_with_int("RP_SetGUIState",
-                                media_state_to_playstate(gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media))));
+                                media_state_to_playstate(gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media))));
     dbus_enable_screensaver();
 
     return FALSE;
@@ -2574,10 +2578,10 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
         gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 10.0, SEEK_RELATIVE);
 
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
             gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 0.0, SEEK_RELATIVE);
             idledata->position += 10;
             if (idledata->position > idledata->length)
@@ -2595,9 +2599,9 @@ gboolean ff_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 
 gboolean rew_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
         gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), -10.0, SEEK_RELATIVE);
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
             gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), 0.0, SEEK_RELATIVE);
             idledata->position -= 10;
             if (idledata->position < 0)
@@ -2644,7 +2648,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (valid) {
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
             dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
@@ -2694,7 +2698,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (valid) {
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
             dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
@@ -2956,7 +2960,7 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
             g_free(last_dir);
         }
 
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
             dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gtk_list_store_clear(playliststore);
@@ -2989,7 +2993,7 @@ void open_location_callback(GtkWidget * widget, void *data)
     filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(open_location)));
 
     if (filename != NULL && strlen(filename) > 0) {
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
             dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gtk_list_store_clear(playliststore);
@@ -3261,7 +3265,7 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 {
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
         dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
@@ -3278,7 +3282,7 @@ void menuitem_open_acd_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
 {
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
         dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
@@ -3295,7 +3299,7 @@ void menuitem_open_vcd_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_open_atv_callback(GtkMenuItem * menuitem, void *data)
 {
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
         dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
@@ -3316,7 +3320,7 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
     GtkTreeViewColumn *column;
     gchar *coltitle;
 
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
         dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
@@ -3338,7 +3342,7 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter);
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
             dontplaynext = TRUE;
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
         gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
@@ -3418,7 +3422,7 @@ void menuitem_open_dtv_callback(GtkMenuItem * menuitem, void *data)
     FILE *fi;                   // FILE pointer to use to open the conf file
     gchar *mpconf;
 
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
         dontplaynext = TRUE;
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gtk_list_store_clear(playliststore);
@@ -3603,7 +3607,7 @@ void menuitem_about_callback(GtkMenuItem * menuitem, void *data)
 
 void menuitem_play_callback(GtkMenuItem * menuitem, void *data)
 {
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY)
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY)
         play_callback(GTK_WIDGET(menuitem), NULL, NULL);
 }
 
@@ -6246,7 +6250,7 @@ gboolean tracker_callback(GtkWidget * widget, gint percent, void *data)
 
     if (!idledata->streaming) {
         if (!autopause) {
-            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
+            if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), (gdouble) percent / 100.0, SEEK_PERCENT);
             }
         }
@@ -6796,7 +6800,7 @@ void player_cache_percent_changed_callback(GmtkMediaTracker * tracker, gdouble p
 {
     gchar *text;
     if (GTK_IS_WIDGET(tracker)) {
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY) {
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY) {
             gmtk_media_tracker_set_cache_percentage(tracker, percentage);
             text = g_strdup_printf("Caching %2i%% \342\226\274", (int) (percentage * 100));
             gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), text);
@@ -6822,9 +6826,9 @@ void player_position_changed_callback(GmtkMediaTracker * tracker, gdouble positi
                                         position -
                                         gmtk_media_player_get_attribute_double
                                         (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_START_TIME));
-        if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY) {
             text = g_strdup_printf(_("Playing"));
-        } else if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+        } else if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
             text = g_strdup_printf(_("Paused"));
         } else {
             text = g_strdup_printf(_("Idle"));
@@ -6841,7 +6845,7 @@ gboolean tracker_value_changed_callback(GtkWidget * widget, gint value, gpointer
 {
     if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SEEKABLE)) {
         if (!autopause) {
-            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
+            if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), value * 1.0, SEEK_PERCENT);
                 mpris_send_signal_Seeked();
             }
@@ -6855,7 +6859,7 @@ gboolean tracker_difference_callback(GtkWidget * widget, gdouble difference, voi
 
     if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SEEKABLE)) {
         if (!autopause) {
-            if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
+            if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_STOP) {
                 gmtk_media_player_seek(GMTK_MEDIA_PLAYER(media), difference, SEEK_RELATIVE);
                 mpris_send_signal_Seeked();
             }
@@ -8199,7 +8203,7 @@ gboolean update_audio_meter(gpointer data)
     long long histogram[UAM_HISTOGRAM_SIZE];
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_meter)))
         return TRUE;
-    if (gmtk_media_player_get_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY)
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_PLAY)
         return TRUE;
     if (audio_meter != NULL && gmtk_get_visible(audio_meter)) {
 
