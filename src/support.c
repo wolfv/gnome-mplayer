@@ -201,9 +201,9 @@ gboolean detect_playlist(gchar * uri)
     return playlist;
 }
 
-gint parse_playlist(gchar * uri)
+gboolean parse_playlist(gchar * uri)
 {
-    gint ret = 0;
+    gboolean ret = FALSE;
     GtkTreeViewColumn *column;
     gchar *coltitle;
     gint count = 0;
@@ -212,21 +212,21 @@ gint parse_playlist(gchar * uri)
     gchar *joined;
 
     // try and parse a playlist in various forms
-    // if a parsing does not work then, return 0
+    // if a parsing does not work then, return FALSE
     count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
 
     ret = parse_basic(uri);
-    if (ret != 1)
+    if (!ret)
         ret = parse_ram(uri);
-    if (ret != 1)
+    if (!ret)
         ret = parse_asx(uri);
-    if (ret != 1)
+    if (!ret)
         ret = parse_cdda(uri);
-    if (ret != 1)
+    if (!ret)
         ret = parse_dvd(uri);
-    if (ret != 1)
+    if (!ret)
         ret = parse_vcd(uri);
-    if (ret == 1 && count == 0) {
+    if (ret && count == 0) {
         if (playlistname != NULL) {
             g_free(playlistname);
             playlistname = NULL;
@@ -266,7 +266,7 @@ gint parse_playlist(gchar * uri)
 
 #ifdef GTK2_12_ENABLED
     // don't put it on the recent list, if it is running in plugin mode
-    if (control_id == 0 && ret == 1) {
+    if (control_id == 0 && ret) {
         gtk_recent_manager_add_item(recent_manager, uri);
     }
 #endif
@@ -275,11 +275,11 @@ gint parse_playlist(gchar * uri)
 }
 
 // parse_basic covers .pls, .m3u, mxu and reference playlist types 
-gint parse_basic(gchar * uri)
+gboolean parse_basic(gchar * uri)
 {
 
     if (device_name(uri))
-        return 0;
+        return FALSE;
 
     gchar *path = NULL;
     gchar *line = NULL;
@@ -287,10 +287,10 @@ gint parse_basic(gchar * uri)
     gchar *line_uri = NULL;
     gchar **parse;
     gboolean playlist = FALSE;
-    gint ret = 0;
+    gboolean ret = FALSE;
 
     if (streaming_media(uri))
-        return 0;
+        return FALSE;
 
 #ifdef GIO_ENABLED
     GFile *file;
@@ -312,7 +312,7 @@ gint parse_basic(gchar * uri)
     file = g_strndup(uri, 4);
     if (strcmp(file, "file") != 0) {
         g_free(file);
-        return 0;               // FIXME: remote playlists unsuppored
+        return FALSE;           // FIXME: remote playlists unsuppored
     }
     parse = g_strsplit(uri, "/", 3);
     path = gm_get_path(parse[2]);
@@ -409,18 +409,18 @@ gint parse_basic(gchar * uri)
 
                     if (uri_exists(line_uri)) {
                         add_item_to_playlist(line_uri, FALSE);
-                        ret = 1;
+                        ret = TRUE;
                     }
 
                 } else {
                     if (streaming_media(newline) || device_name(newline)) {
                         gm_log(verbose, G_LOG_LEVEL_DEBUG, "URL %s", newline);
                         add_item_to_playlist(newline, playlist);
-                        ret = 1;
+                        ret = TRUE;
                     } else {
                         if (uri_exists(line_uri)) {
                             add_item_to_playlist(line_uri, FALSE);
-                            ret = 1;
+                            ret = TRUE;
                         }
                     }
                 }
@@ -446,11 +446,11 @@ gint parse_basic(gchar * uri)
     return ret;
 }
 
-gint parse_ram(gchar * filename)
+gboolean parse_ram(gchar * filename)
 {
 
     gint ac = 0;
-    gint ret = 0;
+    gboolean ret = FALSE;
     gchar **output;
     FILE *fp;
     gchar *buffer;
@@ -469,17 +469,17 @@ gint parse_ram(gchar * filename)
                     g_strchomp(output[ac]);
                     g_strchug(output[ac]);
                     if (g_ascii_strncasecmp(output[ac], "rtsp://", strlen("rtsp://")) == 0) {
-                        ret = 1;
+                        ret = TRUE;
                         add_item_to_playlist(output[ac], FALSE);
                     } else if (g_ascii_strncasecmp(output[ac], "pnm://", strlen("pnm://")) == 0) {
-                        ret = 1;
+                        ret = TRUE;
                         add_item_to_playlist(output[ac], FALSE);
                     }
                     ac++;
                 }
                 g_strfreev(output);
             }
-            if (ret != 1)
+            if (!ret)
                 break;
         }
         fclose(fp);
@@ -490,18 +490,18 @@ gint parse_ram(gchar * filename)
     return ret;
 }
 
-gint parse_asx(gchar * uri)
+gboolean parse_asx(gchar * uri)
 {
-    gint ret = 0;
+    gboolean ret = FALSE;
 
     if (device_name(uri))
-        return 0;
+        return FALSE;
 
     if (streaming_media(uri))
-        return 0;
+        return FALSE;
 
     if (gm_parse_asx_is_asx(uri)) {
-        ret = 1;
+        ret = TRUE;
 #ifdef GIO_ENABLED
         gchar *line;
         GFile *file;
@@ -544,7 +544,7 @@ gint parse_asx(gchar * uri)
     return ret;
 }
 
-gint parse_cdda(gchar * filename)
+gboolean parse_cdda(gchar * filename)
 {
 
     GError *error;
@@ -553,7 +553,7 @@ gint parse_cdda(gchar * filename)
     gchar *err = NULL;
     gchar *av[255];
     gint ac = 0, i;
-    gint ret = 0;
+    gboolean ret = FALSE;
     gchar **output;
     gchar *track = NULL;
     gchar *title = NULL;
@@ -566,7 +566,7 @@ gint parse_cdda(gchar * filename)
     gint addcount = 0;
 
     if (g_ascii_strncasecmp(filename, "cdda://", 7) != 0) {
-        return 0;
+        return FALSE;
     } else {
         playlist = FALSE;
         if (mplayer_bin == NULL || !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
@@ -705,14 +705,14 @@ gint parse_cdda(gchar * filename)
         }
 
 
-        ret = 1;
+        ret = TRUE;
     }
 
     return ret;
 }
 
 // This function pulls the playlist for dvd and dvdnav
-gint parse_dvd(gchar * filename)
+gboolean parse_dvd(gchar * filename)
 {
 
     GError *error;
@@ -721,7 +721,7 @@ gint parse_dvd(gchar * filename)
     gchar *err;
     gchar *av[255];
     gint ac = 0, i;
-    gint ret = 0;
+    gboolean ret = FALSE;
     gchar **output;
     gchar *track;
     gint num;
@@ -797,19 +797,19 @@ gint parse_dvd(gchar * filename)
             gtk_dialog_run(GTK_DIALOG(dialog));
             gtk_widget_destroy(dialog);
             g_free(error_msg);
-            ret = 0;
+            ret = FALSE;
         } else {
-            ret = 1;
+            ret = TRUE;
         }
     } else {
-        return 0;
+        return FALSE;
     }
 
     return ret;
 }
 
 // This function pulls the playlist for dvd and dvdnav
-gint parse_vcd(gchar * filename)
+gboolean parse_vcd(gchar * filename)
 {
 
     GError *error;
@@ -818,7 +818,7 @@ gint parse_vcd(gchar * filename)
     gchar *err;
     gchar *av[255];
     gint ac = 0, i;
-    gint ret = 0;
+    gboolean ret = FALSE;
     gchar **output;
     gchar *track;
     gint num;
@@ -888,12 +888,12 @@ gint parse_vcd(gchar * filename)
             gtk_dialog_run(GTK_DIALOG(dialog));
             gtk_widget_destroy(dialog);
             g_free(error_msg);
-            ret = 0;
+            ret = FALSE;
         } else {
-            ret = 1;
+            ret = TRUE;
         }
     } else {
-        return 0;
+        return FALSE;
     }
 
     return ret;
