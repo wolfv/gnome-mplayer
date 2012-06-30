@@ -6812,6 +6812,22 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     mpris_send_signal_PlaybackStatus();
 }
 
+void player_error_message_callback(GmtkMediaPlayer * media, gchar * message)
+{
+    GtkWidget *dialog;
+
+    // log messages to the screen when in normal playback mode, and to the log when in plugin mode
+    if (control_id == 0) {
+        dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                        GTK_BUTTONS_CLOSE, "%s", message);
+        gtk_window_set_title(GTK_WINDOW(dialog), g_dgettext(GETTEXT_PACKAGE, "GNOME MPlayer Error"));
+        gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_widget_destroy(dialog);
+    } else {
+        gm_log(TRUE, G_LOG_LEVEL_MESSAGE, "GNOME MPlayer Error: %s", message);
+    }
+}
+
 void player_cache_percent_changed_callback(GmtkMediaTracker * tracker, gdouble percentage)
 {
     gchar *text;
@@ -7662,6 +7678,7 @@ GtkWidget *create_window(gint windowid)
                      G_CALLBACK(player_subtitle_callback), menuitem_edit_select_sub_lang);
     g_signal_connect(G_OBJECT(media), "size_allocate", G_CALLBACK(player_size_allocate_callback), NULL);
     g_signal_connect(G_OBJECT(media), "scroll_event", G_CALLBACK(media_scroll_event_callback), NULL);
+    g_signal_connect(G_OBJECT(media), "error-message", G_CALLBACK(player_error_message_callback), NULL);
     cover_art = gtk_image_new();
     media_label = gtk_label_new("");
     gtk_widget_set_size_request(media_label, 300, 100);

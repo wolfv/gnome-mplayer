@@ -1,4 +1,5 @@
 Development
+    Handle the new error message from gmtk-media-player
 	Allow musicbrainz to be searched by artist only
 	Bump configure.in to require gmtk 1.0.7 or higher (due to gm_log changes)
 	Change some log levels in get_cover_art
