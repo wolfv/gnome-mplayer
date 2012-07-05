@@ -842,7 +842,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                         if (dbus_message_iter_next(&sub0) && dbus_message_iter_get_arg_type(&sub0) == DBUS_TYPE_STRING) {
                             dbus_message_iter_get_basic(&sub0, &property);
 
-                            if (g_strcasecmp(property, "PlaybackStatus") == 0) {
+                            if (g_ascii_strcasecmp(property, "PlaybackStatus") == 0) {
                                 switch (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media))) {
                                 case MEDIA_STATE_PLAY:
                                     s_val = g_strdup("Playing");
@@ -864,7 +864,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "Position") == 0) {
+                            if (g_ascii_strcasecmp(property, "Position") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 //dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "x", &sub1);
@@ -878,7 +878,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "Volume") == 0) {
+                            if (g_ascii_strcasecmp(property, "Volume") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 //dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "d", &sub1);
@@ -890,7 +890,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "Rate") == 0) {
+                            if (g_ascii_strcasecmp(property, "Rate") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 d_val =
@@ -902,7 +902,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "MinimumRate") == 0) {
+                            if (g_ascii_strcasecmp(property, "MinimumRate") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 d_val = 0.1;
@@ -912,7 +912,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "MaximumRate") == 0) {
+                            if (g_ascii_strcasecmp(property, "MaximumRate") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 d_val = 10.0;
@@ -922,7 +922,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "Identity") == 0) {
+                            if (g_ascii_strcasecmp(property, "Identity") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "s", &sub1);
@@ -935,7 +935,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "DesktopEntry") == 0) {
+                            if (g_ascii_strcasecmp(property, "DesktopEntry") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "s", &sub1);
@@ -948,7 +948,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "CanRaise") == 0) {
+                            if (g_ascii_strcasecmp(property, "CanRaise") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
@@ -960,7 +960,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "CanQuit") == 0) {
+                            if (g_ascii_strcasecmp(property, "CanQuit") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
@@ -972,7 +972,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "CanSeek") == 0) {
+                            if (g_ascii_strcasecmp(property, "CanSeek") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
@@ -986,7 +986,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "CanGoNext") == 0) {
+                            if (g_ascii_strcasecmp(property, "CanGoNext") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
@@ -998,7 +998,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "CanGoPrevious") == 0) {
+                            if (g_ascii_strcasecmp(property, "CanGoPrevious") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
@@ -1010,7 +1010,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "HasTrackList") == 0) {
+                            if (g_ascii_strcasecmp(property, "HasTrackList") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
@@ -1022,7 +1022,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "CanEditTracks") == 0) {
+                            if (g_ascii_strcasecmp(property, "CanEditTracks") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_VARIANT, "b", &sub1);
@@ -1034,7 +1034,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                                 return DBUS_HANDLER_RESULT_HANDLED;
                             }
 
-                            if (g_strcasecmp(property, "Tracks") == 0) {
+                            if (g_ascii_strcasecmp(property, "Tracks") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 dbus_message_iter_open_container(&sub0, DBUS_TYPE_ARRAY, "o", &sub1);
@@ -1057,7 +1057,7 @@ static DBusHandlerResult mpris_filter_func(DBusConnection * mpris_connection, DB
                             }
 
 
-                            if (g_strcasecmp(property, "Metadata") == 0) {
+                            if (g_ascii_strcasecmp(property, "Metadata") == 0) {
                                 reply_message = dbus_message_new_method_return(message);
                                 dbus_message_iter_init_append(reply_message, &sub0);
                                 append_metadata_array(&sub0);

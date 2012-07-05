@@ -638,7 +638,7 @@ gboolean parse_cdda(gchar * filename)
 
                 ok = FALSE;
                 if (strlen(filename) > 7) {
-                    if (g_strcasecmp(filename, track) == 0) {
+                    if (g_ascii_strcasecmp(filename, track) == 0) {
                         ok = TRUE;
                     }
                 } else {

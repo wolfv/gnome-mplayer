@@ -1641,7 +1641,7 @@ gboolean set_volume(void *data)
             set_software_volume(&volume_softvol);
         }
 #ifdef GTK2_12_ENABLED
-        if (rpcontrols != NULL && g_strcasecmp(rpcontrols, "volumeslider") == 0) {
+        if (rpcontrols != NULL && g_ascii_strcasecmp(rpcontrols, "volumeslider") == 0) {
             gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume);
             buf = g_strdup_printf(_("Volume %i%%"), (gint) (audio_device.volume * 100.0));
             g_strlcpy(idledata->vol_tooltip, buf, sizeof(idledata->vol_tooltip));
@@ -7092,7 +7092,7 @@ gint get_index_from_key_and_modifier(guint key, GdkModifierType modifier)
 
     for (i = 0; i < KEY_COUNT; i++) {
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s ?= %s", accel_keys[i], keyval);
-        if (g_strcasecmp(accel_keys[i], keyval) == 0) {
+        if (g_ascii_strcasecmp(accel_keys[i], keyval) == 0) {
             index = i;
             break;
         }
@@ -7976,7 +7976,7 @@ GtkWidget *create_window(gint windowid)
         gtk_widget_show(fs_event_box);
     // volume control
     if ((window_y > window_x)
-        && (rpcontrols != NULL && g_strcasecmp(rpcontrols, "volumeslider") == 0)) {
+        && (rpcontrols != NULL && g_ascii_strcasecmp(rpcontrols, "volumeslider") == 0)) {
         vol_slider = gtk_vscale_new_with_range(0.0, 1.0, 0.20);
         gtk_widget_set_size_request(vol_slider, -1, window_y);
         gtk_range_set_inverted(GTK_RANGE(vol_slider), TRUE);
@@ -8045,7 +8045,7 @@ void show_window(gint windowid)
         gdk_window_reparent(gmtk_get_window(window), window_container, 0, 0);
     }
 
-    if (rpcontrols == NULL || (rpcontrols != NULL && g_strcasecmp(rpcontrols, "all") == 0)) {
+    if (rpcontrols == NULL || (rpcontrols != NULL && g_ascii_strcasecmp(rpcontrols, "all") == 0)) {
         if (windowid != -1)
             gtk_widget_show_all(window);
         gtk_widget_hide(media_hbox);
@@ -8088,9 +8088,10 @@ void show_window(gint windowid)
         visuals = g_strsplit(rpcontrols, ",", 0);
         i = 0;
         while (visuals[i] != NULL) {
-            if (g_strcasecmp(visuals[i], "statusbar") == 0
-                || g_strcasecmp(visuals[i], "statusfield") == 0
-                || g_strcasecmp(visuals[i], "positionfield") == 0 || g_strcasecmp(visuals[i], "positionslider") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "statusbar") == 0
+                || g_ascii_strcasecmp(visuals[i], "statusfield") == 0
+                || g_ascii_strcasecmp(visuals[i], "positionfield") == 0
+                || g_ascii_strcasecmp(visuals[i], "positionslider") == 0) {
                 gtk_widget_show(GTK_WIDGET(tracker));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
@@ -8098,55 +8099,55 @@ void show_window(gint windowid)
                 gtk_widget_hide(media);
                 control_instance = FALSE;
             }
-            if (g_strcasecmp(visuals[i], "infovolumepanel") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "infovolumepanel") == 0) {
                 gtk_widget_show(GTK_WIDGET(vol_slider));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
                 control_instance = FALSE;
             }
-            if (g_strcasecmp(visuals[i], "infopanel") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "infopanel") == 0) {
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), TRUE);
                 control_instance = FALSE;
             }
 
-            if (g_strcasecmp(visuals[i], "volumeslider") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "volumeslider") == 0) {
                 gtk_widget_show(GTK_WIDGET(vol_slider));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
             }
-            if (g_strcasecmp(visuals[i], "playbutton") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "playbutton") == 0) {
                 gtk_widget_show_all(GTK_WIDGET(play_event_box));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
             }
-            if (g_strcasecmp(visuals[i], "stopbutton") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "stopbutton") == 0) {
                 gtk_widget_show_all(GTK_WIDGET(stop_event_box));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
             }
-            if (g_strcasecmp(visuals[i], "pausebutton") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "pausebutton") == 0) {
                 gtk_widget_show_all(GTK_WIDGET(play_event_box));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
             }
-            if (g_strcasecmp(visuals[i], "ffctrl") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "ffctrl") == 0) {
                 gtk_widget_show_all(GTK_WIDGET(ff_event_box));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
             }
-            if (g_strcasecmp(visuals[i], "rwctrl") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "rwctrl") == 0) {
                 gtk_widget_show_all(GTK_WIDGET(rew_event_box));
                 gtk_widget_show(controls_box);
                 gtk_widget_show(hbox);
             }
 
-            if (g_strcasecmp(visuals[i], "imagewindow") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "imagewindow") == 0) {
                 gtk_widget_show_all(GTK_WIDGET(media));
                 control_instance = FALSE;
             }
 
-            if (g_strcasecmp(visuals[i], "controlpanel") == 0) {
+            if (g_ascii_strcasecmp(visuals[i], "controlpanel") == 0) {
                 gtk_widget_show(controls_box);
                 gtk_widget_show_all(hbox);
                 gtk_widget_hide(GTK_WIDGET(tracker));
