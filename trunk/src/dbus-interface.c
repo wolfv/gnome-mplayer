@@ -952,7 +952,7 @@ void dbus_send_rpsignal(gchar * signal)
     DBusMessage *message;
     gint id;
 
-    if (g_strcasecmp(rpconsole, "NONE") == 0)
+    if (g_ascii_strcasecmp(rpconsole, "NONE") == 0)
         return;
 
     id = control_id;
@@ -977,7 +977,7 @@ void dbus_send_rpsignal_with_int(gchar * signal, int value)
     DBusMessage *message;
     gint id;
 
-    if (g_strcasecmp(rpconsole, "NONE") == 0)
+    if (g_ascii_strcasecmp(rpconsole, "NONE") == 0)
         return;
 
     id = control_id;
@@ -1002,7 +1002,7 @@ void dbus_send_rpsignal_with_double(gchar * signal, gdouble value)
     DBusMessage *message;
     gint id;
 
-    if (g_strcasecmp(rpconsole, "NONE") == 0)
+    if (g_ascii_strcasecmp(rpconsole, "NONE") == 0)
         return;
 
     id = control_id;
@@ -1028,7 +1028,7 @@ void dbus_send_rpsignal_with_string(gchar * signal, gchar * value)
     gint id;
     gchar *localstr;
 
-    if (g_strcasecmp(rpconsole, "NONE") == 0)
+    if (g_ascii_strcasecmp(rpconsole, "NONE") == 0)
         return;
 
     id = control_id;
