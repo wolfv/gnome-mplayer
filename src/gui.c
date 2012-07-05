@@ -7248,7 +7248,7 @@ GtkWidget *create_window(gint windowid)
     if (windowid > 0 && embedding_disabled == FALSE) {
         gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
 #ifdef GTK3_ENABLED
-        gtk_window_set_has_resize_grip(GTK_WINDOW(fs_window), FALSE);
+        gtk_window_set_has_resize_grip(GTK_WINDOW(window), FALSE);
 #endif
 #ifdef GTK2_20_ENABLED
         gtk_widget_set_can_focus(window, TRUE);
