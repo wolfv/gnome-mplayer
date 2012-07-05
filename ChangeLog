@@ -1,23 +1,25 @@
 Development
+    Remove resize handle from fullscreen and plugin windows
     Change g_strcasecmp to g_ascii_strcasecmp to clean up complier warnings
     Handle the new error message from gmtk-media-player
-	Allow musicbrainz to be searched by artist only
-	Bump configure.in to require gmtk 1.0.7 or higher (due to gm_log changes)
-	Change some log levels in get_cover_art
-	Fix logic in shutdown and cancel volume update callback
-	Fix a hang on startup when getting volume from pulseaudio (has something to due with GTK event queue and gtk_main not called
-	Make cover art scaling consistent
+    Allow musicbrainz to be searched by artist only
+    Bump configure.in to require gmtk 1.0.7 or higher (due to gm_log changes)
+    Change some log levels in get_cover_art
+    Fix logic in shutdown and cancel volume update callback
+    Fix a hang on startup when getting volume from pulseaudio (has something to due with GTK event queue and gtk_main not called
+    Make cover art scaling consistent
     Move various global variables to file-local (static)
-	Clean up the title bar name display
-	Since we are using gm_log for messages, move the inits above the first message
-	Fix a few issues identified by cppcheck
-	Added make valgrind and make valgrind-suppress to src/Makefile
-		valgrind-suppress requires this file http://www.gnome.org/~johan/gtk.suppression in your home directory
+    Clean up the title bar name display
+    Since we are using gm_log for messages, move the inits above the first message
+    Fix a few issues identified by cppcheck
+    Added make valgrind and make valgrind-suppress to src/Makefile
+    	valgrind-suppress requires this file http://www.gnome.org/~johan/gtk.suppression in your home directory
     remove hardcoded size of langlist and codepagelist in langlist.h
     Add a tooltip to the "Default Audio/Subtitle Language" config options
     Include wait.h to define some macros so that code will compile on Ubuntu
     Fix compilation issue with nautilus plugin
-    Replace printf()s with calls to new gm_log() function. If you run gnome-mplayer with G_MESSAGES_DEBUG="all" (or ="GMLIB") you will see a lot more messages than with the verbose option enabled
+    Replace printf()s with calls to new gm_log() function. If you run gnome-mplayer with G_MESSAGES_DEBUG="all" (or ="GMLIB")
+        you will see a lot more messages than with the verbose option enabled
     Initialize a struct to 0 to remove "branch depends on uninitialized memory" error
     Finish screensaver rework:
        * try dbus org.freedesktop.ScreenSaver
@@ -27,20 +29,20 @@ Development
        * then the XScreenSaverSuspend() X11 call
        This removes the SM_INHIBIT and SS_INHIBIT configure options, and the use_xscrnsaver variable and config option
     First cut at screensaver rework: try all known methods and fall through to X11 XScreenSaverSuspend()
-	Use mutex lock to prevent thread race
-	Remove the force processing of events from an idle callback
-	Force GTK to process its events when loading a playlist
-	Don't set the title bar when the window is invisible
-	Add some error checking to GIO cover art fetch
-	Use GIO to fetch cover art instead of CURL if we have GIO support
+    Use mutex lock to prevent thread race
+    Remove the force processing of events from an idle callback
+    Force GTK to process its events when loading a playlist
+    Don't set the title bar when the window is invisible
+    Add some error checking to GIO cover art fetch
+    Use GIO to fetch cover art instead of CURL if we have GIO support
     Put the filename in the title bar when it is a video and a local file
     Change set_media_info to set_title_bar, more accurately reflects the function
     If the metadata doesn't contain title and artist try and pull it from the filename
-	Fix title display when no metadata is present
-	Potential fix for hang on load when fetching cover art
-	Apply patch from Issue #619
+    Fix title display when no metadata is present
+    Potential fix for hang on load when fetching cover art
+    Apply patch from Issue #619
     Fix a potential NULL pointer copy issue
-	Fix some cover art loading issues
+    Fix some cover art loading issues
     Print GTK and GLIB versions in verbose mode
     Fix stop action on streaming playlist Issue #617
     Update media label on drag and drop, update title bar on stop/play
@@ -58,14 +60,14 @@ Development
     Implement MPRIS2 events Raise, Quit, Set (Fullscreen)
     Fix error spotted by clang
     Start work on MPRIS dbus interface http://specifications.freedesktop.org/mpris-spec/latest/
-	Change controlid logic
+    Change controlid logic
     Do not run mencoder when being called by plugin
     Monitor sub visiblity better gnome-mplayer Issue #615, requires gmtk SVN r112 or higher to work correctly
     Add mouse events to capture over the media window, should fix Issue #611
     Fix Issue #613
     Fix a couple of keyboard shortcuts as they were in the wrong shift state #,+,{,}
-	Fix usage of NULL pointer in nautilus property page
-	Initialize a variable to NULL
+    Fix usage of NULL pointer in nautilus property page
+    Initialize a variable to NULL
     Globally initialize libCURL
     Don't update cover art when URL call fails
     Set the use-symbolic property on the GtkVolumeButton in GTK3
