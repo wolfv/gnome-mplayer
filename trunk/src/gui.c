@@ -3995,7 +3995,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
             gdk_window_get_root_origin(gmtk_get_window(window), &wx, &wy);
             gtk_window_move(GTK_WINDOW(fs_window), wx, wy);
-
+#ifdef GTK3_ENABLED
+            gtk_window_set_has_resize_grip(GTK_WINDOW(fs_window), FALSE);
+#endif
             gtk_widget_show(fs_window);
 #if X11_ENABLED
             XReparentWindow(GDK_WINDOW_XDISPLAY(gmtk_get_window(window)),
@@ -7245,6 +7247,9 @@ GtkWidget *create_window(gint windowid)
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
     if (windowid > 0 && embedding_disabled == FALSE) {
         gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
+#ifdef GTK3_ENABLED
+        gtk_window_set_has_resize_grip(GTK_WINDOW(fs_window), FALSE);
+#endif
 #ifdef GTK2_20_ENABLED
         gtk_widget_set_can_focus(window, TRUE);
 #else
