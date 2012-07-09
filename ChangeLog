@@ -1,4 +1,5 @@
 Development
+	Clean up log message if volume is not updated yet
     Remove resize handle from fullscreen and plugin windows
     Change g_strcasecmp to g_ascii_strcasecmp to clean up complier warnings
     Handle the new error message from gmtk-media-player
