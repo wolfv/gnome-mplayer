@@ -322,9 +322,7 @@ gboolean parse_basic(gchar * uri)
 
     if (fp != NULL) {
         while (!feof(fp)) {
-            memset(line, 0, sizeof(line));
-            line = fgets(line, 1024, fp);
-            if (line == NULL)
+            if (fgets(line, 1024, fp) == NULL)
                 continue;
 #endif
             if (line != NULL)
@@ -460,9 +458,7 @@ gboolean parse_ram(gchar * filename)
 
     if (fp != NULL) {
         while (!feof(fp)) {
-            memset(buffer, 0, sizeof(buffer));
-            buffer = fgets(buffer, 1024, fp);
-            if (buffer != NULL) {
+            if (fgets(buffer, 1024, fp) != NULL) {
                 output = g_strsplit(buffer, "\r", 0);
                 ac = 0;
                 while (output[ac] != NULL) {

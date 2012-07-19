@@ -1,4 +1,5 @@
 Development
+	Clean up Issue #629, warning by cppcheck
 	Fix some German translations by Wolfgang Knauf
 	Fix some compiler errors noticed by Wolfgang Knauf
 	Clean up log message if volume is not updated yet
