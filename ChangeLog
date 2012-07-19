@@ -1,4 +1,5 @@
 Development
+	Fix some German translations by Wolfgang Knauf
 	Fix some compiler errors noticed by Wolfgang Knauf
 	Clean up log message if volume is not updated yet
     Remove resize handle from fullscreen and plugin windows

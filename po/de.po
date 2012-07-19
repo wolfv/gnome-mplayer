@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-04-06 09:48-0600\n"
-"PO-Revision-Date: 2011-12-30 22:00+0000\n"
-"Last-Translator: Dominik Dehning <Unknown>\n"
+"PO-Revision-Date: 2012-07-18 21:30+0000\n"
+"Last-Translator: Wolfgang Knauf <his-metality@freenet.de>\n"
 "Language-Team: tim__b <timbuening@uni-muenster.de>, Wolfgang Knauf <his-"
 "metality@freenet.de>, MixCool <lars.thoms@mixcool.de>\n"
 "Language: \n"
@@ -640,7 +640,7 @@ msgstr "Alle Untertitel im gleichen Verzeichnis laden"
 
 #: src/gui.c:4736
 msgid "Player"
-msgstr "Player"
+msgstr "Wiedergabe"
 
 #: src/gui.c:4738
 msgid "Language Settings"
@@ -953,7 +953,7 @@ msgstr "Mit dem Mausrad die Lautstärke ändern, statt vor-/zurückzuspulen"
 
 #: src/gui.c:5633
 msgid "Enable Nautilus Plugin"
-msgstr ""
+msgstr "Aktiviere Nautilus-Plugin"
 
 #: src/gui.c:5638
 msgid "Verbose Debug Enabled"
