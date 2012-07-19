@@ -73,7 +73,9 @@ static GtkMenuItem *menuitem_file_tv;
 static GtkMenu *menu_file_tv;
 static GtkMenuItem *menuitem_file_open_atv;
 static GtkMenuItem *menuitem_file_open_dtv;
+#ifdef HAVE_GPOD
 static GtkMenuItem *menuitem_file_open_ipod;
+#endif
 static GtkMenuItem *menuitem_file_recent;
 static GtkWidget *menuitem_file_recent_items;
 static GtkMenuItem *menuitem_file_sep2;
@@ -231,7 +233,9 @@ static GtkWidget *config_remember_softvol;
 static GtkWidget *config_volume_gain;
 static GtkWidget *config_forcecache;
 static GtkWidget *config_verbose;
+#ifdef NOTIFY_ENABLED
 static GtkWidget *config_show_notification;
+#endif
 static GtkWidget *config_use_mediakeys;
 static GtkWidget *config_use_defaultpl;
 static GtkWidget *config_disable_animation;
@@ -7105,92 +7109,8 @@ gint get_index_from_key_and_modifier(guint key, GdkModifierType modifier)
     return index;
 }
 
-void setup_accelerators(gboolean enable)
+void setup_accelerators()
 {
-    /*
-       if (gtk_accel_group_query(accel_group, GDK_c, 0, NULL) != NULL) {
-       // printf("flushing accelerators\n");
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_edit_config), accel_group, GDK_p, GDK_CONTROL_MASK);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_edit_take_screenshot), accel_group, GDK_t, GDK_CONTROL_MASK);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_playlist), accel_group, GDK_F9, 0);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_file_open_location), accel_group, GDK_l, GDK_CONTROL_MASK);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_info), accel_group, GDK_i, 0);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_subtitles), accel_group, GDK_v, 0);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_details), accel_group, GDK_d, GDK_CONTROL_MASK);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_meter), accel_group, GDK_m, GDK_CONTROL_MASK);
-       if (!disable_fullscreen) {
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_fullscreen), accel_group, GDK_f, 0);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_fullscreen), accel_group, GDK_f, GDK_CONTROL_MASK);
-       }
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_onetoone), accel_group, GDK_1, GDK_CONTROL_MASK);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_twotoone), accel_group, GDK_2, GDK_CONTROL_MASK);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_showcontrols), accel_group, GDK_c, 0);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_controls), accel_group, GDK_c, 0);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_angle), accel_group, GDK_a, GDK_CONTROL_MASK);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_aspect), accel_group, GDK_a, 0);
-       //gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_decrease_subtitle_delay),
-       //                              accel_group, GDK_z, 0);
-       //gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_increase_subtitle_delay),
-       //                              accel_group, GDK_x, 0);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_smaller_subtitle), accel_group, GDK_r, GDK_SHIFT_MASK);
-       gtk_widget_remove_accelerator(GTK_WIDGET(menuitem_view_larger_subtitle), accel_group, GDK_t, GDK_SHIFT_MASK);
-       }
-
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_edit_config),
-       "activate", accel_group, GDK_p, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET
-       (menuitem_edit_take_screenshot),
-       "activate", accel_group, GDK_t, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_playlist),
-       "activate", accel_group, GDK_F9, 0, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_file_open_location),
-       "activate", accel_group, GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_details),
-       "activate", accel_group, GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_meter),
-       "activate", accel_group, GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-       if (!disable_fullscreen) {
-
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_fullscreen),
-       "activate", accel_group, GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-       }
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_onetoone),
-       "activate", accel_group, GDK_1, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_twotoone),
-       "activate", accel_group, GDK_2, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_angle),
-       "activate", accel_group, GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-       // enable the accelerators without MASKS
-       if (enable) {
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_info),
-       "activate", accel_group, GDK_i, 0, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_subtitles),
-       "activate", accel_group, GDK_v, 0, GTK_ACCEL_VISIBLE);
-       if (!disable_fullscreen) {
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_fullscreen),
-       "activate", accel_group, GDK_f, 0, GTK_ACCEL_VISIBLE);
-       }
-
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_aspect),
-       "activate", accel_group, GDK_a, 0, GTK_ACCEL_VISIBLE);
-       // we want to use "window_key_callback" to handle this, due to GTK keyboard issues.
-       //gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_decrease_subtitle_delay), "activate",
-       //                           accel_group, GDK_z, 0, GTK_ACCEL_VISIBLE);
-       //gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_increase_subtitle_delay), "activate",
-       //                           accel_group, GDK_x, 0, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_showcontrols),
-       "activate", accel_group, GDK_c, 0, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET(menuitem_view_controls),
-       "activate", accel_group, GDK_c, 0, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET
-       (menuitem_view_smaller_subtitle),
-       "activate", accel_group, GDK_r, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
-       gtk_widget_add_accelerator(GTK_WIDGET
-       (menuitem_view_larger_subtitle),
-       "activate", accel_group, GDK_t, GDK_SHIFT_MASK, GTK_ACCEL_VISIBLE);
-       }
-     */
-
     guint key;
     GdkModifierType modifier;
 
@@ -7649,7 +7569,7 @@ GtkWidget *create_window(gint windowid)
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_help), GTK_WIDGET(menuitem_help_about));
     g_signal_connect(G_OBJECT(menuitem_help_about), "activate", G_CALLBACK(menuitem_about_callback), NULL);
     gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
-    setup_accelerators(TRUE);
+    setup_accelerators();
     g_signal_connect(G_OBJECT(window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
     // Give the window the property to accept DnD
     target_entry[i].target = DRAG_NAME_0;

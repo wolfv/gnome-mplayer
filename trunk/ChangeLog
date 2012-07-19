@@ -1,4 +1,5 @@
 Development
+	Fix some compiler errors noticed by Wolfgang Knauf
 	Clean up log message if volume is not updated yet
     Remove resize handle from fullscreen and plugin windows
     Change g_strcasecmp to g_ascii_strcasecmp to clean up complier warnings
