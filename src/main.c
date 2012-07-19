@@ -1293,9 +1293,10 @@ int main(int argc, char *argv[])
     if (!softvol) {
         if (pref_volume != -1) {
             audio_device.volume = (gdouble) pref_volume / 100.0;
-	        gm_log(verbose, G_LOG_LEVEL_INFO, "The volume on '%s' is %f", audio_device.description, audio_device.volume);
-		    volume = audio_device.volume * 100;
-		}
+            gm_log(verbose, G_LOG_LEVEL_INFO, "The volume on '%s' is %f", audio_device.description,
+                   audio_device.volume);
+            volume = audio_device.volume * 100;
+        }
     } else {
         audio_device.volume = volume / 100.0;
     }
