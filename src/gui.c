@@ -1457,6 +1457,9 @@ gboolean resize_window(void *data)
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_showcontrols), showcontrols);
             }
             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+#ifdef GTK3_ENABLED
+			gtk_window_set_has_resize_grip(GTK_WINDOW(window), idledata->videopresent);
+#endif			
             gtk_widget_show_all(GTK_WIDGET(media));
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
             while (gtk_events_pending())
@@ -6396,6 +6399,9 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_audiofile), idledata->videopresent);
+#ifdef GTK3_ENABLED
+		gtk_window_set_has_resize_grip(GTK_WINDOW(window), idledata->videopresent);
+#endif
         if (vo == NULL
             || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
                  || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
@@ -7591,9 +7597,6 @@ GtkWidget *create_window(gint windowid)
     hbox = gtk_hbox_new(FALSE, 0);
     controls_box = gtk_vbox_new(FALSE, 0);
     media = gmtk_media_player_new();
-    gtk_widget_set_events(media, GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK |
-                          GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-                          GDK_POINTER_MOTION_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_ENTER_NOTIFY_MASK);
     g_signal_connect_swapped(G_OBJECT(media), "media_state_changed",
                              G_CALLBACK(player_media_state_changed_callback), NULL);
     g_signal_connect_swapped(G_OBJECT(media), "button_press_event", G_CALLBACK(popup_handler), G_OBJECT(popup_menu));
