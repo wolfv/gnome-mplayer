@@ -818,8 +818,10 @@ int main(int argc, char *argv[])
     // gdk_threads_init();
     if (!g_thread_supported())
         g_thread_init(NULL);
-
+	
+	g_type_init();
     gtk_init(&argc, &argv);
+	g_setenv("PULSE_PROP_media.role", "video", TRUE);
 
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;
