@@ -818,10 +818,10 @@ int main(int argc, char *argv[])
     // gdk_threads_init();
     if (!g_thread_supported())
         g_thread_init(NULL);
-	
-	g_type_init();
+
+    g_type_init();
     gtk_init(&argc, &argv);
-	g_setenv("PULSE_PROP_media.role", "video", TRUE);
+    g_setenv("PULSE_PROP_media.role", "video", TRUE);
 
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;
@@ -1310,7 +1310,10 @@ int main(int argc, char *argv[])
     use_volume_option = detect_volume_option();
 
     dbus_hookup(embed_window, control_id);
-    mpris_hookup(control_id);
+    // don't hook up MPRIS when running in embedded mode
+    if (embed_window == 0) {
+        mpris_hookup(control_id);
+    }
     show_window(embed_window);
 
     if (playiter)

@@ -1458,8 +1458,8 @@ gboolean resize_window(void *data)
             }
             gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
 #ifdef GTK3_ENABLED
-			gtk_window_set_has_resize_grip(GTK_WINDOW(window), idledata->videopresent);
-#endif			
+            gtk_window_set_has_resize_grip(GTK_WINDOW(window), idledata->videopresent);
+#endif
             gtk_widget_show_all(GTK_WIDGET(media));
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
             while (gtk_events_pending())
@@ -6400,7 +6400,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_audiofile), idledata->videopresent);
 #ifdef GTK3_ENABLED
-		gtk_window_set_has_resize_grip(GTK_WINDOW(window), idledata->videopresent);
+        gtk_window_set_has_resize_grip(GTK_WINDOW(window), idledata->videopresent);
 #endif
         if (vo == NULL
             || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
