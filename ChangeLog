@@ -1,4 +1,5 @@
 Development
+    Fix dconf configuration file
     Don't enable MPRIS in plugin mode
     Basic scrolling wheel patch from Issue #621
 	Clean up Issue #629, warning by cppcheck
