@@ -113,6 +113,7 @@
 #define DISABLE_MIDI		"disable-midi"
 #define DISABLE_EMBEDDING	"disable-embedding"
 #define DISABLE_EMBEDDED_SCALING "disable-embedded-scaling"
+#define DEBUG_LEVEL			"debug-level"
 
 #define ACCELERATOR_KEYS	"accelerator-keys"
 

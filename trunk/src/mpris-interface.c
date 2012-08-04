@@ -28,7 +28,7 @@
 
 #ifdef DBUS_ENABLED
 
-static DBusConnection *mpris_connection;
+static DBusConnection *mpris_connection = NULL;
 
 void append_metadata_array(DBusMessageIter * messageIter)
 {

@@ -1,5 +1,5 @@
 <schemalist>
-  <schema id="apps.gecko-mediaplayer.preferences" path="/apps/gnome-mplayer/preferences/">
+  <schema id="apps.gecko-mediaplayer.preferences" path="/apps/gecko-mediaplayer/preferences/">
     <key name="disable-qt" type="b">
       <default>false</default>
       <summary>Disable QuickTime</summary>

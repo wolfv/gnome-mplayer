@@ -4337,6 +4337,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gmp_store, DISABLE_MIDI, midi_disabled);
     gm_pref_store_set_boolean(gmp_store, DISABLE_EMBEDDING, embedding_disabled);
     gm_pref_store_set_boolean(gmp_store, DISABLE_EMBEDDED_SCALING, disable_embedded_scaling);
+    gm_pref_store_set_int(gmp_store, DEBUG_LEVEL, verbose);
 
     gm_pref_store_free(gmp_store);
 
