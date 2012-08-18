@@ -1,4 +1,5 @@
 Development
+    Change idledata->device to mplayer_dvd_device may fix problem with dvd device being forgotten
     Fix dconf configuration file
     Don't enable MPRIS in plugin mode
     Basic scrolling wheel patch from Issue #621
