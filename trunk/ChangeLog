@@ -1,4 +1,5 @@
 Development
+	Fix randomization of first file in playlist
 	Add in y, g, and J hotkeys to match mplayer hotkeys
 	Add stored DVD device to drop down if not detected by gio, workaround RedHat Bug #850402
     Change idledata->device to mplayer_dvd_device may fix problem with dvd device being forgotten
