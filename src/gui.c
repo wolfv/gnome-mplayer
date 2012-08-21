@@ -2545,7 +2545,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
             g_idle_add(async_play_iter, &iter);
         } else {
-            if (first_item_in_playlist(&iter)) {
+            if (is_first_item_in_playlist(&iter)) {
                 gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
                 g_idle_add(async_play_iter, &iter);
             }
@@ -6699,7 +6699,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
                 } else {
                     gm_log(verbose, G_LOG_LEVEL_DEBUG, "end of thread playlist is empty");
                     if (loop) {
-                        if (first_item_in_playlist(&iter)) {
+                        if (is_first_item_in_playlist(&iter)) {
                             g_idle_add(async_play_iter, &iter);
                         }
                     } else {

@@ -1725,7 +1725,7 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
 
 }
 
-gboolean first_item_in_playlist(GtkTreeIter * iter)
+gboolean is_first_item_in_playlist(GtkTreeIter * iter)
 {
     gint i;
 
@@ -1836,6 +1836,29 @@ gboolean next_item_in_playlist(GtkTreeIter * iter)
         }
     }
 }
+
+gboolean first_item_in_playlist(GtkListStore * playliststore, GtkTreeIter * iter)
+{
+
+    gint j;
+
+    if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 0) {
+        return FALSE;
+    } else {
+        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
+        if (gtk_list_store_iter_is_valid(playliststore, iter)) {
+            do {
+                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, PLAY_ORDER_COLUMN, &j, -1);
+                if (j == 1) {
+                    return TRUE;
+                }
+            } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
+        }
+    }
+
+    return FALSE;
+}
+
 
 gboolean save_playlist_pls(gchar * uri)
 {
