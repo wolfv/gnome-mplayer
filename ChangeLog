@@ -1,4 +1,5 @@
 Development
+	Add uk and ru translation patches
 	Fix randomization of first file in playlist
 	Add in y, g, and J hotkeys to match mplayer hotkeys
 	Add stored DVD device to drop down if not detected by gio, workaround RedHat Bug #850402

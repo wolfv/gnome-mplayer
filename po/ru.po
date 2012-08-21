@@ -255,7 +255,7 @@ msgstr "Сделать снимок _экрана"
 
 #: src/main.c:930
 msgid "Preferences"
-msgstr ""
+msgstr "Предпочтения"
 
 #: src/main.c:931
 #, fuzzy
@@ -525,7 +525,7 @@ msgstr "Формат видео:"
 #: src/gui.c:4197
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Неизвестный"
 
 #: src/gui.c:4112 src/nautilus_property_page.c:362
 msgid "Video Codec:"
@@ -549,7 +549,7 @@ msgstr "<span weight=\"bold\">Информация об аудио</span>"
 
 #: src/gui.c:4166
 msgid "Audio Format:"
-msgstr ""
+msgstr "Формат аудио:"
 
 #: src/gui.c:4179 src/nautilus_property_page.c:405
 msgid "Audio Codec:"
@@ -637,11 +637,11 @@ msgstr ""
 
 #: src/gui.c:4508
 msgid "Load all subtitles containing movie name"
-msgstr ""
+msgstr "Загрузить все субтитры, содержащие название фильма"
 
 #: src/gui.c:4511
 msgid "Load all subtitles in the same folder"
-msgstr ""
+msgstr "Загрузить все субтитры в ту же папку"
 
 #: src/gui.c:4736
 msgid "Player"
@@ -657,7 +657,7 @@ msgstr "Интерфейс"
 
 #: src/gui.c:4744
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Сочетания клавиш"
 
 #: src/gui.c:4746
 msgid "MPlayer"
@@ -688,7 +688,7 @@ msgstr "Программное управление громкостью"
 
 #: src/gui.c:4860
 msgid "Default"
-msgstr ""
+msgstr "Умолчание"
 
 #: src/gui.c:5078
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -956,7 +956,7 @@ msgstr "Использовать колесо мыши для изменения
 
 #: src/gui.c:5633
 msgid "Enable Nautilus Plugin"
-msgstr ""
+msgstr "Включить плагин Nautilus"
 
 #: src/gui.c:5638
 msgid "Verbose Debug Enabled"

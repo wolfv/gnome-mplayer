@@ -38,7 +38,7 @@ msgstr "Унікальний індекс контролера DBUS"
 
 #: src/main.c:54
 msgid "File Argument is a playlist"
-msgstr ""
+msgstr "Аргумент - список відтворення"
 
 #: src/main.c:55
 msgid "Show more output on the console"
@@ -118,7 +118,8 @@ msgstr "Відтворення від секунди (0 за замовчува�
 
 #: src/main.c:87
 msgid "Length of media to play from start second"
-msgstr ""
+msgstr "Час, протягом якого слід програвати аудіо/відео зі стартової "
+"секунди"
 
 #: src/main.c:89
 msgid "Force cache usage on streaming sites"
@@ -250,7 +251,7 @@ msgstr "_Зробити знімок"
 
 #: src/main.c:930
 msgid "Preferences"
-msgstr ""
+msgstr "Уподобання"
 
 #: src/main.c:931
 #, fuzzy
@@ -304,7 +305,7 @@ msgstr "_Панель керування"
 
 #: src/main.c:957
 msgid "[FILES...] - GNOME Media player based on MPlayer"
-msgstr ""
+msgstr "[FILES...] - Медіапрогравач на основі MPlayer"
 
 #: src/main.c:977
 #, c-format
@@ -502,7 +503,7 @@ msgstr "Формат відео:"
 #: src/gui.c:4197
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Невідомий"
 
 #: src/gui.c:4112 src/nautilus_property_page.c:362
 msgid "Video Codec:"
@@ -526,7 +527,7 @@ msgstr "<span weight=\"bold\">Деталі аудіо</span>"
 
 #: src/gui.c:4166
 msgid "Audio Format:"
-msgstr ""
+msgstr "Формат аудіо:"
 
 #: src/gui.c:4179 src/nautilus_property_page.c:405
 msgid "Audio Codec:"
@@ -542,7 +543,7 @@ msgstr "Бітрейт аудіо:"
 
 #: src/gui.c:4218
 msgid "Audio Sample Rate:"
-msgstr ""
+msgstr "Частота дискретизації аудіо:"
 
 #: src/gui.c:4248
 msgid "Video Picture Adjustments"
@@ -550,7 +551,7 @@ msgstr "Параметри зображення"
 
 #: src/gui.c:4261
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
-msgstr ""
+msgstr " <span weight=\"bold\">Змінити налаштування зображення</span> "
 
 #: src/gui.c:4268
 msgid "Brightness"
@@ -614,11 +615,11 @@ msgstr ""
 
 #: src/gui.c:4508
 msgid "Load all subtitles containing movie name"
-msgstr ""
+msgstr "Завантажити всі субтитри, що містять назву фільму"
 
 #: src/gui.c:4511
 msgid "Load all subtitles in the same folder"
-msgstr ""
+msgstr "Завантажити всі субтитри в ту ж папку"
 
 #: src/gui.c:4736
 msgid "Player"
@@ -657,7 +658,7 @@ msgstr ""
 
 #: src/gui.c:4831
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr ""
+msgstr "Передавати AC3/DTS по каналу S / PDIF"
 
 #: src/gui.c:4840
 msgid "Mplayer Software Volume Control Enabled"
@@ -777,7 +778,8 @@ msgstr "Розмір кешу аудіо (КБ):"
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
-msgstr ""
+msgstr "Розмір кешу для відтворення потокового відео, для повільних з'єднань"
+"використовуйте великі значення"
 
 #: src/gui.c:5312
 msgid "Video Cache Size (KB):"
@@ -870,7 +872,7 @@ msgstr "Підтримка медіаклавіш клавіатури"
 
 #: src/gui.c:5547
 msgid "Use default playlist"
-msgstr ""
+msgstr "Використовувати замовчуваний список відтворення"
 
 #: src/gui.c:5553
 msgid "Show notification popup"
@@ -928,7 +930,7 @@ msgstr "Коліщатко миші: регулювати гучність за�
 
 #: src/gui.c:5633
 msgid "Enable Nautilus Plugin"
-msgstr ""
+msgstr "Увімкнути плагін Nautilus"
 
 #: src/gui.c:5638
 msgid "Verbose Debug Enabled"
@@ -1213,15 +1215,15 @@ msgstr "_Субтитри"
 
 #: src/gui.c:7172
 msgid "Decrease Subtitle Delay"
-msgstr ""
+msgstr "Зменшити затримку виводу субтитрів"
 
 #: src/gui.c:7174
 msgid "Increase Subtitle Delay"
-msgstr ""
+msgstr "Збільшити затримку виводу субтитрів"
 
 #: src/gui.c:7175
 msgid "Switch An_gle"
-msgstr ""
+msgstr "Переключити кут ог_ляду"
 
 #: src/gui.c:7177
 msgid "_Controls"
@@ -1242,11 +1244,11 @@ msgstr "Меню"
 
 #: src/gui.c:7395 src/gui.c:7398
 msgid "Previous"
-msgstr ""
+msgstr "Назад "
 
 #: src/gui.c:7415 src/gui.c:7418
 msgid "Rewind"
-msgstr "Назад"
+msgstr "Перемотати назад"
 
 #: src/gui.c:7455 src/gui.c:7458
 msgid "Stop"
@@ -1405,7 +1407,7 @@ msgstr "Опустити елемент у черзі"
 
 #: src/playlist.c:1088 src/playlist.c:1091
 msgid "UnSort List"
-msgstr ""
+msgstr "Перемішати список"
 
 #: src/playlist.c:1105 src/playlist.c:1108
 msgid "Loop Playlist"
@@ -1439,7 +1441,7 @@ msgstr "Заголовок"
 
 #: src/nautilus_property_page.c:332
 msgid "Demuxer"
-msgstr ""
+msgstr "Демультиплексор"
 
 #: src/nautilus_property_page.c:384
 msgid "Video Frame Rate:"
