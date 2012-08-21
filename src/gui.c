@@ -400,6 +400,8 @@ gboolean add_to_playlist_and_play(gpointer data)
     gchar *buf = NULL;
 
     selection = NULL;
+
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "adding '%s' to playlist", s);
     if (!uri_exists(s) && !streaming_media(s)) {
         buf = g_filename_to_uri(s, NULL, NULL);
     } else {
@@ -439,7 +441,9 @@ gboolean add_to_playlist_and_play(gpointer data)
 
 gboolean clear_playlist_and_play(gpointer data)
 {
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "clearing playlist");
     gtk_list_store_clear(playliststore);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "adding '%s' to playlist", (gchar *) data);
     add_to_playlist_and_play(data);
     return FALSE;
 }
@@ -718,8 +722,10 @@ gboolean set_title_bar(void *data)
             && gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) == TYPE_FILE
             && g_strrstr(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), "/") != NULL) {
             filename = g_filename_from_uri(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), NULL, NULL);
-            name = g_strdup(g_strrstr(filename, "/") + 1);
-            g_free(filename);
+            if (filename != NULL) {
+                name = g_strdup(g_strrstr(filename, "/") + 1);
+                g_free(filename);
+            }
             filename = NULL;
         } else {
             name = g_strdup(idle->display_name);
@@ -2267,6 +2273,12 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case GDK_j:
             gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SUBTITLE_SELECT);
             return FALSE;
+        case GDK_y:
+            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SUBTITLE_STEP_FORWARD);
+            return FALSE;
+        case GDK_g:
+            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SUBTITLE_STEP_BACKWARD);
+            return FALSE;
         case GDK_q:
             delete_callback(NULL, NULL, NULL);
             g_idle_add(set_destroy, NULL);
@@ -2374,6 +2386,9 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         case GDK_S:
             gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_TAKE_SCREENSHOT);
+            return FALSE;
+        case GDK_J:
+            gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SUBTITLE_SELECT);
             return FALSE;
         case GDK_numbersign:
             gmtk_media_player_send_command(GMTK_MEDIA_PLAYER(media), COMMAND_SWITCH_AUDIO);
@@ -3229,7 +3244,8 @@ void menuitem_open_dvdnav_folder_callback(GtkMenuItem * menuitem, void *data)
 
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
-            gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE, mplayer_dvd_device);
+            gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE,
+                                                   mplayer_dvd_device);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
             g_idle_add(async_play_iter, &iter);
         }
@@ -3274,7 +3290,8 @@ void menuitem_open_dvdnav_iso_callback(GtkMenuItem * menuitem, void *data)
 
         if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &iter)) {
             gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
-            gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE, mplayer_dvd_device);
+            gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MEDIA_DEVICE,
+                                                   mplayer_dvd_device);
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_DVD);
             g_idle_add(async_play_iter, &iter);
         }
@@ -5418,9 +5435,16 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 
     }
 #endif
-    if (j != -1)
+    if (j != -1) {
         gtk_combo_box_set_active(GTK_COMBO_BOX(config_mplayer_dvd_device), j);
-
+    } else {
+#ifdef GTK2_24_ENABLED
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_mplayer_dvd_device), mplayer_dvd_device);
+#else
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_mplayer_dvd_device), mplayer_dvd_device);
+#endif
+        gtk_combo_box_set_active(GTK_COMBO_BOX(config_mplayer_dvd_device), i);
+    }
 
 
     conf_label = gtk_label_new(_("<span weight=\"bold\">Adjust Output Settings</span>"));
@@ -6659,8 +6683,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
 #endif
     gchar *short_filename = NULL;
 
-    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %s",
-           gmtk_media_state_to_string(media_state));
+    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %s dontplaynext = %i",
+           gmtk_media_state_to_string(media_state), dontplaynext);
     switch (media_state) {
         // mplayer is dead, need the next item off the playlist
     case MEDIA_STATE_QUIT:
@@ -6703,6 +6727,11 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
                     g_idle_add(async_play_iter, next_iter);
                     next_iter = NULL;
                 }
+            }
+        } else {
+            if (embed_window != 0 || control_id != 0) {
+                dbus_send_event("MediaComplete", 0);
+                dbus_open_next();
             }
         }
         dontplaynext = FALSE;
