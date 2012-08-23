@@ -1,4 +1,5 @@
 Development
+	Some minor fixes to the dbus interface
 	Add uk and ru translation patches
 	Fix randomization of first file in playlist
 	Add in y, g, and J hotkeys to match mplayer hotkeys

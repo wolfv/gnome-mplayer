@@ -112,19 +112,25 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "Path matched %s", dbus_message_get_path(message));
             if (message_type == DBUS_MESSAGE_TYPE_SIGNAL) {
                 if (g_ascii_strcasecmp(dbus_message_get_member(message), "Open") == 0) {
-                    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
+                    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN) {
                         dontplaynext = TRUE;
-                    gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
+                        gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
+                    }
                     dbus_error_init(&error);
                     if (dbus_message_get_args(message, &error, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID)) {
-                        if (strlen(s) > 0) {
-                            gm_log(verbose, G_LOG_LEVEL_INFO, "opening %s", s);
+                        if (s != NULL && strlen(s) > 0) {
+                            gm_log(verbose, G_LOG_LEVEL_DEBUG, "opening %s", s);
+                            gm_log(verbose, G_LOG_LEVEL_DEBUG, "rpconsole = %s, control_instance=%i", rpconsole,
+                                   control_instance);
                             if ((strcmp(rpconsole, "NONE") == 0 || control_instance == FALSE)
                                 && s != NULL) {
+                                gm_log(verbose, G_LOG_LEVEL_DEBUG,
+                                       "calling clear_playlist_and_play rpconsole = %s, control_instance=%i", rpconsole,
+                                       control_instance);
                                 g_idle_add(clear_playlist_and_play, g_strdup(s));
                             }
                         } else {
-                            gm_log(verbose, G_LOG_LEVEL_INFO, "Open requested, but value is blank");
+                            gm_log(verbose, G_LOG_LEVEL_MESSAGE, "Open requested, but value is blank");
                         }
 
                     } else {
@@ -775,10 +781,10 @@ static DBusHandlerResult filter_func(DBusConnection * connection, DBusMessage * 
                             js_state = STATE_BUFFERING;
                         }
                     }
-
                     dbus_message_append_args(reply_message, DBUS_TYPE_INT32, &js_state, DBUS_TYPE_INVALID);
                     dbus_connection_send(connection, reply_message, NULL);
                     dbus_message_unref(reply_message);
+
                     return DBUS_HANDLER_RESULT_HANDLED;
                 }
                 if (dbus_message_is_method_call(message, "com.gnome.mplayer", "GetBitrate")) {
@@ -871,6 +877,7 @@ void dbus_open_next()
     gchar *path;
     DBusMessage *message;
 
+    gm_log(verbose, G_LOG_LEVEL_INFO, "requesting next item from plugin");
     if (connection != NULL && control_id != 0) {
         path = g_strdup_printf("/control/%i", control_id);
         message = dbus_message_new_signal(path, "com.gecko.mediaplayer", "Next");
