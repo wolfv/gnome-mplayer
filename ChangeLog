@@ -1,4 +1,5 @@
 Development
+    Refresh po files 
     Add in support for the anamorphic aspect ratio (2.39:1)
 	Some minor fixes to the dbus interface
 	Add uk and ru translation patches
