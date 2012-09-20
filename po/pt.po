@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-18 09:58-0600\n"
-"PO-Revision-Date: 2012-04-05 10:55-0000\n"
+"PO-Revision-Date: 2012-09-20 09:45-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: Portuguese\n"
 "Language: pt\n"
@@ -18,8 +18,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
 "X-Generator: Launchpad (build 13175)\n"
-"X-Poedit-Language: Portuguese\n"
-"X-Poedit-Country: PORTUGAL\n"
 
 #: src/main.c:75
 msgid "Window to embed in"
@@ -134,7 +132,7 @@ msgstr "Desativar filtro de desentrelaçamento"
 
 #: src/main.c:121
 msgid "Don't skip drawing frames to better keep sync"
-msgstr "Não ignorar criação de \"frames\" para melhorar a sincronização"
+msgstr "Não ignorar criação de fotogramas para melhorar a sincronização"
 
 #: src/main.c:124
 msgid "Use the old subtitle rendering system"
@@ -194,7 +192,7 @@ msgstr "Altura da entrada de TV"
 
 #: src/main.c:146
 msgid "Frames per second from TV input"
-msgstr "\"Frames\" por segundo da entrada de TV"
+msgstr "Fotogramas por segundo da entrada de TV"
 
 #: src/main.c:147
 msgid "Only allow one instance"
@@ -685,7 +683,7 @@ msgstr "Padrão"
 #: src/gui.c:5288 src/gui.c:5318 src/gui.c:5748 src/gui.c:5760
 msgid ""
 "Choose one of the languages or type in your own comma-separated selection"
-msgstr ""
+msgstr "Escolha um dos idiomas ou tipo da sua seleção (separados por vírgula)"
 
 #: src/gui.c:5477
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -994,7 +992,7 @@ msgstr "Ative esta opção, se lhe aparecerem riscas no vídeo"
 
 #: src/gui.c:6116
 msgid "_Drop frames"
-msgstr "_Deixar cair \"frames\""
+msgstr "_Drop frames"
 
 #: src/gui.c:6118 src/gui.c:6121
 msgid "Set this option if video is well behind the audio"
@@ -1227,7 +1225,7 @@ msgstr "Aspeto 1_6:10"
 
 #: src/gui.c:7558
 msgid "_2.39:1 Aspect (Anamorphic)"
-msgstr ""
+msgstr "_2.39:1 (Anamórfico)"
 
 #: src/gui.c:7560
 msgid "_Follow Window"
@@ -1474,7 +1472,7 @@ msgstr "Demuxer"
 
 #: src/nautilus_property_page.c:387
 msgid "Video Frame Rate:"
-msgstr "Taxa de \"frames\" do vídeo:"
+msgstr "Taxa de fotogramas do vídeo:"
 
 #: src/nautilus_property_page.c:489
 msgid "Audio/Video"
