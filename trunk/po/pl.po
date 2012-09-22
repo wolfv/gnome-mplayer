@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-18 09:58-0600\n"
-"PO-Revision-Date: 2012-03-22 20:41+0100\n"
+"PO-Revision-Date: 2012-09-22 10:44+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -689,6 +689,7 @@ msgstr "Domyślny"
 msgid ""
 "Choose one of the languages or type in your own comma-separated selection"
 msgstr ""
+"Wybierz jeden z języków lub wpisz własny na listę oddzieloną przecinkami"
 
 #: src/gui.c:5477
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -1219,23 +1220,23 @@ msgstr "P_roporcje obrazu"
 
 #: src/gui.c:7549
 msgid "D_efault Aspect"
-msgstr "_Domyślne"
+msgstr "_Domyślna proporcja"
 
 #: src/gui.c:7551
 msgid "_4:3 Aspect"
-msgstr "_4:3"
+msgstr "Proporcja _4:3"
 
 #: src/gui.c:7553
 msgid "_16:9 Aspect"
-msgstr "_16:9"
+msgstr "Proporcja _16:9"
 
 #: src/gui.c:7555
 msgid "1_6:10 Aspect"
-msgstr "1_6:10"
+msgstr "Proporcja 1_6:10"
 
 #: src/gui.c:7558
 msgid "_2.39:1 Aspect (Anamorphic)"
-msgstr ""
+msgstr "Proporcja _2:39:1 (anamorficzny)"
 
 #: src/gui.c:7560
 msgid "_Follow Window"
@@ -1491,3 +1492,4 @@ msgstr "Tempo wyświetlania:"
 #: src/nautilus_property_page.c:489
 msgid "Audio/Video"
 msgstr "Dźwięk/Obraz:"
+
