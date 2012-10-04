@@ -1,4 +1,5 @@
 Development
+	Increase the channel parsing buffer, need to rewrite parseChannels
     Updated Polish translation
     Update Portuguese translation
     Refresh po files 

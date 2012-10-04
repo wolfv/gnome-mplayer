@@ -1608,7 +1608,7 @@ gint get_bitrate(gchar * name)
         bitrate = vbitrate + abitrate;
     }
 
-    gm_log(verbose, G_LOG_LEVEL_INFO, "bitrate = %i", bitrate);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "bitrate = %i", bitrate);
     return bitrate;
 }
 

@@ -3432,7 +3432,7 @@ void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer
 void parseChannels(FILE * f)
 {
     gint parsing = 0, i = 0, firstW = 0, firstP = 0;
-    gchar ch, s[20];
+    gchar ch, s[256];
     gchar *strout;
 
     while (parsing == 0) {
@@ -3443,7 +3443,7 @@ void parseChannels(FILE * f)
                 firstW++;
                 firstP++;
             }
-            if ((ch != ':') && (firstW == 0)) {
+            if ((ch != ':') && (firstW == 0) && i < 255) {
                 s[i] = ch;
                 i++;
             } else {
