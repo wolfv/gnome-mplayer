@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-18 09:58-0600\n"
-"PO-Revision-Date: 2011-05-11 19:07+0000\n"
-"Last-Translator: Konki <pavel.konkol@seznam.cz>\n"
+"PO-Revision-Date: 2012-09-24 22:17+0100\n"
+"Last-Translator: Alois Nešpor <info@aloisnespor.info>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr "Vypisovat na konzoli ještě více výstupu"
 
 #: src/main.c:83
 msgid "Start in fullscreen mode"
-msgstr "Spusti v režimu Celá obrazovka"
+msgstr "Spustit v režimu celé obrazovky"
 
 #: src/main.c:84
 msgid "Use mplayer software volume control"
@@ -226,7 +226,7 @@ msgstr "Načíst všechny stopy z přehrávače médií pomocí gpod"
 
 #: src/main.c:170
 msgid "Don't fetch new cover art images"
-msgstr "Nestahovat nová vyobrazení přebalů"
+msgstr "Nestahovat nové obrázky přebalů"
 
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
@@ -239,7 +239,7 @@ msgstr "Otevřít umístění"
 
 #: src/main.c:965
 msgid "Preferences"
-msgstr ""
+msgstr "Možnosti"
 
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
@@ -269,7 +269,7 @@ msgstr "GNOME MPlayer verze %s\n"
 #: src/main.c:1013
 #, c-format
 msgid "gmtk v%s\n"
-msgstr ""
+msgstr "gmtk v%s\n"
 
 #: src/main.c:1075
 #, c-format
@@ -453,7 +453,7 @@ msgstr "Vybrat zvukový soubor"
 
 #: src/gui.c:3864 src/playlist.c:148
 msgid "Set Subtitle"
-msgstr "Nastavit titulky"
+msgstr "Vybrat soubor s titulky"
 
 #: src/gui.c:4027
 msgid "Gnome MPlayer Fullscreen"
@@ -547,7 +547,7 @@ msgstr "Sytost"
 
 #: src/gui.c:4705
 msgid "_Reset"
-msgstr "V_rátit"
+msgstr "_Vrátit"
 
 #: src/gui.c:4844
 msgid "No Display"
@@ -583,15 +583,15 @@ msgstr "Maximální dodatečné zpracování"
 
 #: src/gui.c:4897
 msgid "Exact Match"
-msgstr ""
+msgstr "Přesná shoda"
 
 #: src/gui.c:4900
 msgid "Load all subtitles containing movie name"
-msgstr ""
+msgstr "Načíst všechny titulky obsahující jméno filmu"
 
 #: src/gui.c:4903
 msgid "Load all subtitles in the same folder"
-msgstr ""
+msgstr "Načíst všechny titulky ze stejné složky"
 
 #: src/gui.c:5124
 msgid "Player"
@@ -607,7 +607,7 @@ msgstr "Rozhraní"
 
 #: src/gui.c:5132
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Klávesové zkratky"
 
 #: src/gui.c:5134
 msgid "MPlayer"
@@ -627,6 +627,9 @@ msgid ""
 "x11 should always work, try xv, gl or vdpau for better performance and "
 "enhanced features"
 msgstr ""
+"mplayer výstup videa\n"
+"x11 by mělo vždy fungovat, zkuste xv, gl nebo vdpau pro lepší výkon a "
+"rozšířené funkce"
 
 #: src/gui.c:5219
 msgid "Enable AC3/DTS pass-through to S/PDIF"
@@ -643,7 +646,7 @@ msgstr "Výchozí"
 #: src/gui.c:5288 src/gui.c:5318 src/gui.c:5748 src/gui.c:5760
 msgid ""
 "Choose one of the languages or type in your own comma-separated selection"
-msgstr ""
+msgstr "Vyberte jeden z jazyků nebo zadejte vlastní, oddělený čárkami"
 
 #: src/gui.c:5477
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -655,17 +658,20 @@ msgstr "Výstup videa:"
 
 #: src/gui.c:5493
 msgid "Enable Video Hardware Support"
-msgstr ""
+msgstr "Zapnout hardwarovou podporu videa"
 
 #: src/gui.c:5498 src/gui.c:5503
 msgid ""
 "When this option is enabled, codecs or options will be enabled to accelerate "
 "video processing. These options may cause playback to fail in some cases."
 msgstr ""
+"Pokud je tato možnost povolena, mohou kodeky nebo možnosti urychlit "
+"zpracování videa. Tyto možnosti mohou v některých případech způsobit "
+"selhání ."
 
 #: src/gui.c:5511
 msgid "Enable CrystalHD Hardware Support"
-msgstr ""
+msgstr "Zapnout hardwarovou podporu pro CrystalHD"
 
 #: src/gui.c:5518
 msgid "Audio Output:"
@@ -896,7 +902,7 @@ msgstr "Pro změnu zvuku použijte kolečko myši"
 
 #: src/gui.c:6031
 msgid "Enable Nautilus Plugin"
-msgstr ""
+msgstr "Povolit Nautilus plugin"
 
 #: src/gui.c:6036
 msgid "Verbose Debug Enabled"
@@ -938,7 +944,7 @@ msgstr "Zesílení přehrávání (−200 dB až +60 dB)"
 
 #: src/gui.c:6105
 msgid "De_interlace Video"
-msgstr "Odstraňovat prokládání v_idea"
+msgstr "Od_straňovat prokládání videa"
 
 #: src/gui.c:6107 src/gui.c:6110
 msgid "Set this option if video looks striped"
@@ -946,7 +952,7 @@ msgstr "Použijte tuto volbu, pokud video vypadá pruhovaně"
 
 #: src/gui.c:6116
 msgid "_Drop frames"
-msgstr "Za_hazovat snímky"
+msgstr "_Zahazovat snímky"
 
 #: src/gui.c:6118 src/gui.c:6121
 msgid "Set this option if video is well behind the audio"
@@ -996,6 +1002,10 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+"<span weight=\"bold\">Klávesové zkratky</span>\n"
+"\n"
+"Umístěte kurzor do pole vedle zástupce, kterého chcete upravit\n"
+"Poté stiskněte klávesyu, kterou chcete nastavit"
 
 #: src/gui.c:7282
 msgid "S_how Controls"
@@ -1038,7 +1048,7 @@ msgstr "Otevřít DVD s na_bídkami"
 
 #: src/gui.c:7373
 msgid "Open DVD from Folder with M_enus"
-msgstr "Ot_evřít DVD ze složky s nabídkami"
+msgstr "Otevřít DVD ze složky s _nabídkami"
 
 #: src/gui.c:7378
 msgid "Open DVD from ISO with Me_nus"
@@ -1071,35 +1081,35 @@ msgstr "Otevřít _nedávné"
 #. Edit Menu
 #: src/gui.c:7450
 msgid "_Edit"
-msgstr "Úpr_avy"
+msgstr "_Úpravy"
 
 #: src/gui.c:7456
 msgid "_Shuffle Playlist"
-msgstr "Zamíchat _seznam skladeb"
+msgstr "_Zamíchat seznam skladeb"
 
 #: src/gui.c:7459
 msgid "_Loop Playlist"
-msgstr "Opakovat seznam sk_ladeb"
+msgstr "_Opakovat seznam skladeb"
 
 #: src/gui.c:7462
 msgid "S_witch Audio Track"
-msgstr "Přepnout zvukovou _stopu"
+msgstr "Pře_pnout zvukovou stopu"
 
 #: src/gui.c:7464 src/playlist.c:1174
 msgid "Set Audi_o"
-msgstr "Vybraz _zvuk"
+msgstr "Vybraz zvu_k"
 
 #: src/gui.c:7466
 msgid "Select _Audio Language"
-msgstr "Vybrat j_azyk zvuku"
+msgstr "Vybrat jazyk _zvuku"
 
 #: src/gui.c:7469
 msgid "Set Sub_title"
-msgstr "Nastavit _titulky"
+msgstr "Nastavit ti_tulky"
 
 #: src/gui.c:7471
 msgid "S_elect Subtitle Language"
-msgstr "_Vybrat jazyk titulků"
+msgstr "V_ybrat jazyk titulků"
 
 #: src/gui.c:7474
 msgid "_Take Screenshot"
@@ -1117,7 +1127,7 @@ msgstr "_Zobrazit"
 
 #: src/gui.c:7511
 msgid "_Playlist"
-msgstr "Seznam sklade_b"
+msgstr "_Seznam skladeb"
 
 #: src/gui.c:7515
 msgid "Media _Info"
@@ -1145,11 +1155,11 @@ msgstr "_Poloviční velikost (1:2)"
 
 #: src/gui.c:7543
 msgid "_Aspect"
-msgstr "Poměr str_an"
+msgstr "_Poměr stran"
 
 #: src/gui.c:7549
 msgid "D_efault Aspect"
-msgstr "_Výchozí poměr"
+msgstr "V_ýchozí poměr stran"
 
 #: src/gui.c:7551
 msgid "_4:3 Aspect"
@@ -1165,7 +1175,7 @@ msgstr "Poměr 1_6:10"
 
 #: src/gui.c:7558
 msgid "_2.39:1 Aspect (Anamorphic)"
-msgstr ""
+msgstr "Poměr _2.39:1 (anamorphický)"
 
 #: src/gui.c:7560
 msgid "_Follow Window"
