@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-02-23 07:39+0000\n"
 "Last-Translator: Byeongsik Jeon <Unknown>\n"
 "Language-Team: Hangul <hangul-hackers@lists.kldp.net>\n"
@@ -224,6 +224,16 @@ msgstr "Gpod을 사용해서 전체 트랙 정보를 불러들입니다"
 msgid "Don't fetch new cover art images"
 msgstr "새 커버 이미지 가져오지 않기"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "TV 장치 이름"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "비디오 출력:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -233,13 +243,43 @@ msgstr "재생중"
 msgid "Open Location"
 msgstr "주소 열기"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "스크린샷 찍기(_T)"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "재생 목록(_P)"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "미디어 정보(_I)"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "상세 정보 보기(_E)"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "오디오 미터(_M)"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "전체 화면"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "화면 비율(_A)"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -252,6 +292,16 @@ msgstr "자막 크기 줄이기"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "자막 크기 늘리기"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "화면 시점 바꾸기(_G)"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "컨트롤(_C)"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -825,6 +875,11 @@ msgstr "자막 아래쪽 여백 (X11/XV 전용):"
 msgid "Show Subtitles by Default"
 msgstr "자막 보기를 기본값으로 설정"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "자막 글꼴:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">프로그램 기본 설정</span>"
@@ -991,6 +1046,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "기본값으로(_R)"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "컨트롤 표시(_H)"
@@ -1134,6 +1194,11 @@ msgstr "두배(2:1) 크기(_D)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "절반(1:2) 크기(_H)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "절반(1:2) 크기(_H)"
 
 #: src/gui.c:7543

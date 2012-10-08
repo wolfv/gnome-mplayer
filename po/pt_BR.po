@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-05-12 00:51+0000\n"
 "Last-Translator: Edvaldo de Souza Cruz <edvaldoscruz@hotmail.com>\n"
 "Language-Team: Portugese <LL@li.org>\n"
@@ -227,6 +227,16 @@ msgstr "Carregar todas as faixas do reprodutor de mídia usando o gpod"
 msgid "Don't fetch new cover art images"
 msgstr "Não buscar novas artes de capa"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Nome do dispositivo de TV"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Saída de Vídeo:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -236,13 +246,43 @@ msgstr "Reproduzindo"
 msgid "Open Location"
 msgstr "Abrir Localização"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "Capturar _Tela"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "Lista de Re_produção"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "_Informações"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "D_etalhes"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "_Medidor de Áudio"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Tela Cheia"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "A_specto"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -255,6 +295,16 @@ msgstr "Diminuir Tamanho da Legenda"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Aumentar Tamanho da Legenda"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "Mudar Ân_gulo"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Controles"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -829,6 +879,11 @@ msgstr "Margem Inferior da Legenda (Somente X11/XV):"
 msgid "Show Subtitles by Default"
 msgstr "Mostrar Legendas por Padrão"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Fonte da Legenda:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Preferências da Aplicação</span>"
@@ -996,6 +1051,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Restaurar"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "Mos_trar Controles"
@@ -1141,6 +1201,11 @@ msgstr "_200% (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_50% (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_50% (1:2)"
 
 #: src/gui.c:7543

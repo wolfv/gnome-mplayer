@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-03-31 10:22+0000\n"
 "Last-Translator: m-abudrais <m.abudrais@yahoo.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -225,6 +225,16 @@ msgstr ""
 msgid "Don't fetch new cover art images"
 msgstr ""
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "إسم جهاز التلفزيون"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "مخرجات الفيديو"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -242,9 +252,24 @@ msgstr ""
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "إحفظ قائمة التّشغيل"
+
 #: src/main.c:967
 msgid "Media Info"
 msgstr ""
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "تفاصيل"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "الترميز الصوتي:"
 
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
@@ -269,6 +294,11 @@ msgstr ""
 #: src/main.c:975
 msgid "Switch Angle"
 msgstr ""
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_ضابط"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -977,6 +1007,11 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "أ_عد الضبط"
 
 #: src/gui.c:7282
 msgid "S_how Controls"

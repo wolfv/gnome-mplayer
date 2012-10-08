@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2010-08-20 22:14+0000\n"
 "Last-Translator: Daniel Șerbănescu <cyber19rider@gmail.com>\n"
 "Language-Team: \n"
@@ -227,6 +227,16 @@ msgstr "Încarcă toate piesele din media player folosind gpod"
 msgid "Don't fetch new cover art images"
 msgstr "Nu descărca coperți de albume noi"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Nume dispozitiv TV"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Ieșire video:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -244,9 +254,34 @@ msgstr ""
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "Listă _redare"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "_Informații media"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "D_etalii"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Rată biți  audio:"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Pe tot ecranul"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "_Aspect"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -263,6 +298,11 @@ msgstr ""
 #: src/main.c:975
 msgid "Switch Angle"
 msgstr ""
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Controale"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -832,6 +872,11 @@ msgstr ""
 msgid "Show Subtitles by Default"
 msgstr "Afișează subtitrările în mod implicit"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Font subtirare:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Preferințele aplicației</span>"
@@ -991,6 +1036,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Resetează"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "A_fișare controale"
@@ -1134,6 +1184,11 @@ msgstr "_Dimensiune dublă·(2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "Dimensiune jumătate·(1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "Dimensiune jumătate·(1:2)"
 
 #: src/gui.c:7543

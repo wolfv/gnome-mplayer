@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2010-08-19 19:29+0000\n"
 "Last-Translator: Kevin DeKorte <kdekorte@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -222,6 +222,11 @@ msgstr "טען את כל הרצועות מנגן המדיה על ידי gpod"
 msgid "Don't fetch new cover art images"
 msgstr "אל תשיג תמונות אומנות דיסק חדשות"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "שם התקן הטלויזיה"
+
 #: src/main.c:173
 msgid "Video Output Device Name"
 msgstr ""
@@ -243,6 +248,11 @@ msgstr ""
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "שמור רשימת השמעה"
+
 #: src/main.c:967
 msgid "Media Info"
 msgstr ""
@@ -250,6 +260,11 @@ msgstr ""
 #: src/main.c:968
 msgid "Details"
 msgstr ""
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "קצב מידע שמע:"
 
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
@@ -274,6 +289,11 @@ msgstr ""
 #: src/main.c:975
 msgid "Switch Angle"
 msgstr ""
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_בקרים"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -984,6 +1004,11 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_איפוס"
 
 #: src/gui.c:7282
 msgid "S_how Controls"

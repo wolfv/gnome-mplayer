@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-06-03 12:23+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Mark Huijgen <mark.sf.net@huijgen.tk>\n"
@@ -229,6 +229,16 @@ msgstr "Alle tracks van mediaspeler laden met gpod"
 msgid "Don't fetch new cover art images"
 msgstr "Geen nieuwe albumhoezen ophalen"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Naam tv-apparaat"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Video-uitvoer:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -238,13 +248,43 @@ msgstr "Afspelen"
 msgid "Open Location"
 msgstr "Locatie openen"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "Schermafdruk _maken"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "Afs_peellijst"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "Media_informatie"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "D_etails"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Audio_meter"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Volledig scherm"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "_Verhouding"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -257,6 +297,16 @@ msgstr "Ondertiteling verkleinen"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Ondertiteling vergroten"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "_Hoek veranderen"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Besturing"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -835,6 +885,11 @@ msgstr "Lage marge ondertiteling (alleen X11/XV):"
 msgid "Show Subtitles by Default"
 msgstr "Ondertiteling standaard tonen"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Lettertype ondertiteling:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Programmavoorkeuren</span>"
@@ -1003,6 +1058,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "He_rstellen"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "Besturing _tonen"
@@ -1147,6 +1207,11 @@ msgstr "_Dubbel formaat (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Half formaat (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Half formaat (1:2)"
 
 #: src/gui.c:7543

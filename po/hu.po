@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-03-19 15:28+0000\n"
 "Last-Translator: Krasznecz Zoltán <zoltan.krasznecz@gmail.com>\n"
 "Language-Team: Angelique OS <info@angelique.hu>\n"
@@ -231,6 +231,16 @@ msgstr "Sávok importálása a médialejátszóból gpod használatával"
 msgid "Don't fetch new cover art images"
 msgstr "Ne töltse le a borító képeket"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "TV eszköz neve"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Video kimenet"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -240,13 +250,43 @@ msgstr "Lejátszás"
 msgid "Open Location"
 msgstr "Hely megnyitása"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "_Pillanatkép készítés"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Lejátszólista"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "Média infó"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "_Részletek"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Hang _képi megjelenítés"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Teljes képernyő"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "_Képarány"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -259,6 +299,16 @@ msgstr "Felirat méretének növelése"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Felirat méretének csökkentése"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "Nézőszög változtatása"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Vezérlők"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -835,6 +885,11 @@ msgstr "Felirat alsó margó (X11/XV)"
 msgid "Show Subtitles by Default"
 msgstr "Alapértelmezetten jelenítse meg a feliratokat"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Felirat betűtípus"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Alkalmazás beállítások</span>"
@@ -1002,6 +1057,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Visszaállítás"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "_Vezérlők megjelenítése"
@@ -1145,6 +1205,11 @@ msgstr "_Dupla méret·(2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Fele méret·(1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Fele méret·(1:2)"
 
 #: src/gui.c:7543

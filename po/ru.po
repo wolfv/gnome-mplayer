@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-05-26 14:14+0000\n"
 "Last-Translator: Chubakur <Unknown>\n"
 "Language-Team: Russian\n"
@@ -230,6 +230,16 @@ msgstr "Загружать все дорожки из проигрывателя
 msgid "Don't fetch new cover art images"
 msgstr "Не извлекать обложки альбомов"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Название устройства для приема ТВ"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Вывод видео:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -239,13 +249,43 @@ msgstr "Воспроизводится"
 msgid "Open Location"
 msgstr "Открыть адрес"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "Сделать снимок _экрана"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr "Предпочтения"
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Список воспроизведения"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "_Информация"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "П_одробности"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Эквалайзер"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Полноэкранный режим"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "Соотношение сторон _экрана"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -258,6 +298,16 @@ msgstr "Уменьшить размер субтитров"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Увеличить размер субтитров"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "Переключить угол об_зора"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "Панель _управления"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -836,6 +886,11 @@ msgstr "Минимальное расстояние между субтитра�
 msgid "Show Subtitles by Default"
 msgstr "Показывать субтитры по умолчанию"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Шрифт субтитров:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Настройки приложения</span>"
@@ -1004,6 +1059,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Сброс"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "Показать панель _управления"
@@ -1147,6 +1207,11 @@ msgstr "_Двойной размер (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Половинный размер (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Половинный размер (1:2)"
 
 #: src/gui.c:7543

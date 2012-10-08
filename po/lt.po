@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2010-11-29 21:17+0000\n"
 "Last-Translator: Mindaugas Baranauskas <Unknown>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -222,6 +222,16 @@ msgstr "Užkrauti visus takelius iš daugialypės terpės grotuvo naudojant gpod
 msgid "Don't fetch new cover art images"
 msgstr "Neįkelti naujų viršelių"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "TV įrenginio pavadinimas"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Vaizdo išvestis:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -231,13 +241,43 @@ msgstr "Grojama"
 msgid "Open Location"
 msgstr "Atverti vietą"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "Padaryti ekrano _nuotrauką"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Grojaraštis"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "Kūrinio _informacija"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "Sa_vybės"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Garso _spektras"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Visas ekranas"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "V_aizdo proporcija"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -250,6 +290,16 @@ msgstr "Sumažinti subtitrus"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Padidinti subtitrus"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "Keisti _kampą"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Valdikliai"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -799,6 +849,11 @@ msgstr ""
 msgid "Show Subtitles by Default"
 msgstr "Rodyti numatytuosius subtitrus"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Subtitrų šriftas:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\"> Programos parinktys</span>"
@@ -958,6 +1013,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Atstatyti"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "_Rodyti valdiklius"
@@ -1101,6 +1161,11 @@ msgstr "_Dvigubas dydis (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Pusė dydžio (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Pusė dydžio (1:2)"
 
 #: src/gui.c:7543

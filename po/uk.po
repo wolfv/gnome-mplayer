@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-05-29 14:57+0000\n"
 "Last-Translator: Rax <Unknown>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -225,6 +225,16 @@ msgstr "Завантажувати всі доріжки з програвача
 msgid "Don't fetch new cover art images"
 msgstr "Не витягувати обкладинки альбомів"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Назва ТБ-приладу"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Відеовивід:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -234,13 +244,43 @@ msgstr "Програється"
 msgid "Open Location"
 msgstr "Відкрити адресу"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "_Зробити знімок"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr "Уподобання"
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Список програвання"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "Інформація про _носій"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "_Інформація про медіафайл"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Аудіо_метр"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "На весь екран"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "Спі_ввідношення сторін"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -257,6 +297,11 @@ msgstr "Збільшити розмір субтитрів"
 #: src/main.c:975
 msgid "Switch Angle"
 msgstr ""
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Панель керування"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -814,6 +859,11 @@ msgstr "Відступ знизу для субтитрів (тільки X11/Xv
 msgid "Show Subtitles by Default"
 msgstr "Показувати субтитри за замовчуванням"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Шрифт субтитрів:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Налаштування застосунка</span>"
@@ -982,6 +1032,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "Від_новити"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "Елементи керування"
@@ -1125,6 +1180,11 @@ msgstr "По_двійний розмір (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Половинний розмір (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Половинний розмір (1:2)"
 
 #: src/gui.c:7543

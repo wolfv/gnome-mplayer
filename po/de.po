@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2012-07-18 21:30+0000\n"
 "Last-Translator: Wolfgang Knauf <his-metality@freenet.de>\n"
 "Language-Team: tim__b <timbuening@uni-muenster.de>, Wolfgang Knauf <his-"
@@ -226,6 +226,16 @@ msgstr "Lade alle Titel vom Media Player mit gpod"
 #: src/main.c:170
 msgid "Don't fetch new cover art images"
 msgstr "Hole keine neuen Cover"
+
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Name des TV-Adapters"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Videoausgabe:"
 
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
@@ -1198,6 +1208,11 @@ msgstr "_Doppelte Größe (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Halbe Größe (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Halbe Größe (1:2)"
 
 #: src/gui.c:7543

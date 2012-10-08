@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2012-03-26 01:04+0300\n"
 "Last-Translator: Onur Küçük <onur@ozguryazilim.com.tr>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -227,6 +227,16 @@ msgstr "Tüm izleri gpod kullanarak medya oynatıcıdan yükle"
 msgid "Don't fetch new cover art images"
 msgstr "Yeni kapak resimlerini indirme"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "TV aygıt adı"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Video Çıktısı:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -236,13 +246,43 @@ msgstr "Oynatılıyor"
 msgid "Open Location"
 msgstr "Konumu Aç"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "_Ekran Görüntüsü Yakala"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr "Tercihler"
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Oynatma Listesi"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "Medya _Bilgisi"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "D_etaylar"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Ses Se_viyesi Gösterici"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Tam Ekran"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "Ya_tay Dikey Oranı"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -255,6 +295,16 @@ msgstr "Altyazı Boyutunu Azalt"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Altyazı Boyutunu Arttır"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "A_çı Değiştir"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Kontroller"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -817,6 +867,11 @@ msgstr "Altyazı Alt Boşluğu (X11/XV için)"
 msgid "Show Subtitles by Default"
 msgstr "Öntanımlı Altyazılar Açık"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Altyazıyı Yazıtipi:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Uygulama Tercihleri</span>"
@@ -989,6 +1044,11 @@ msgstr ""
 "Fare imlecini değiştirmek istediğiniz kısayolun yanındaki kutucuğa getirin\n"
 "Kısayol için kullanmak istediğiniz tuşları girin"
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "Sı_fırla"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "Kontrolleri _Göster"
@@ -1133,6 +1193,11 @@ msgstr "_İki Katı Boyut (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Yarım Boyut (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Yarım Boyut (1:2)"
 
 #: src/gui.c:7543
