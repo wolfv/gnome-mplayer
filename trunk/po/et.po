@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2010-08-31 13:24+0000\n"
 "Last-Translator: bushido <Unknown>\n"
 "Language-Team: Estonian <et@li.org>\n"
@@ -222,6 +222,11 @@ msgstr "Lae kõik lood meediapleierist kasutades gpod´i"
 msgid "Don't fetch new cover art images"
 msgstr ""
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "TV seadmenimi"
+
 #: src/main.c:173
 msgid "Video Output Device Name"
 msgstr ""
@@ -235,13 +240,43 @@ msgstr "Esitab"
 msgid "Open Location"
 msgstr "Ava asukoht"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "_Ekraanipildi salvestamine"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Esitusloend"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "Meedia _Info"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "D_etailid"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Audio bitikiirus:"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Täisekraan"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "_Vaatenurk"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -258,6 +293,11 @@ msgstr "Suurenda subtiitri suurust"
 #: src/main.c:975
 msgid "Switch Angle"
 msgstr ""
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "Kontrast"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -966,6 +1006,11 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Lähtesta"
 
 #: src/gui.c:7282
 msgid "S_how Controls"

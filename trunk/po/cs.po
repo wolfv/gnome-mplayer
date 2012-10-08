@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2012-09-24 22:17+0100\n"
 "Last-Translator: Alois Nešpor <info@aloisnespor.info>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -228,6 +228,16 @@ msgstr "Načíst všechny stopy z přehrávače médií pomocí gpod"
 msgid "Don't fetch new cover art images"
 msgstr "Nestahovat nové obrázky přebalů"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Název televizního zařízení"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Výstup videa:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -237,13 +247,43 @@ msgstr "Přehrává se"
 msgid "Open Location"
 msgstr "Otevřít umístění"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "Vyrobit _snímek"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr "Možnosti"
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Seznam skladeb"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "_Informace o médiích"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "Po_drobnosti"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Spektrální analýza _zvuku"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Přes celou obrazovku"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "_Poměr stran"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -256,6 +296,16 @@ msgstr "Zmenšit titulky"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Zvětšit titulky"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "Přepnout ú_hel"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "Ovládá_cí prvky"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -836,6 +886,11 @@ msgstr "Spodní okraj titulků (jen X11/XV):"
 msgid "Show Subtitles by Default"
 msgstr "Standardně titulky zobrazovat"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Font titulků:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Předvolby aplikace</span>"
@@ -1007,6 +1062,11 @@ msgstr ""
 "Umístěte kurzor do pole vedle zástupce, kterého chcete upravit\n"
 "Poté stiskněte klávesyu, kterou chcete nastavit"
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Vrátit"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "Z_obrazovat ovládací prvky"
@@ -1151,6 +1211,11 @@ msgstr "_Dvojnásobná velikost (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Poloviční velikost (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Poloviční velikost (1:2)"
 
 #: src/gui.c:7543

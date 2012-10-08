@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-05-19 14:09+0000\n"
 "Last-Translator: Lê Trường An <truongan@linuxmail.org>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
@@ -222,6 +222,11 @@ msgstr ""
 msgid "Don't fetch new cover art images"
 msgstr "Không tải ảnh bìa mới"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Tên thiết bị TV"
+
 #: src/main.c:173
 msgid "Video Output Device Name"
 msgstr ""
@@ -242,6 +247,11 @@ msgstr ""
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
+
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Danh sách"
 
 #: src/main.c:967
 msgid "Media Info"
@@ -278,6 +288,11 @@ msgstr "Tăng kích thước phụ đề"
 #: src/main.c:975
 msgid "Switch Angle"
 msgstr ""
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "Tương phản"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -827,6 +842,11 @@ msgstr ""
 msgid "Show Subtitles by Default"
 msgstr ""
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Phông chữ phụ đề:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Tùy chỉnh ứng dụng</span>"
@@ -987,6 +1007,11 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "Đặt _lại"
 
 #: src/gui.c:7282
 msgid "S_how Controls"

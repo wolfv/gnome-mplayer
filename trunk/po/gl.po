@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-05-22 23:32+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <marcoslansgarza@gmail.com>\n"
@@ -228,6 +228,16 @@ msgstr "Cargar todas as pistas do reprodutor multimedia usando o gpod"
 msgid "Don't fetch new cover art images"
 msgstr "Non buscar máis imaxes de cubertas"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Nome do dispositivo de TV"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Saída de vídeo:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -237,13 +247,43 @@ msgstr "Reproducindo"
 msgid "Open Location"
 msgstr "Abrir unha localización"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "Facer unha captura da pan_talla"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Lista de reprodución"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "_Información do medio"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "D_etalles"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "_Medidor de son"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Pantalla completa"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "_Proporción"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -256,6 +296,16 @@ msgstr "Diminuír o tamaño dos subtítulos"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Aumentar o tamaño dos subtítulos"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "Cambiar o án_gulo"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Controis"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -829,6 +879,11 @@ msgstr "Marxe inferior dos subtítulos (só X11/XV):"
 msgid "Show Subtitles by Default"
 msgstr "Mostrar os subtítulos de forma predefinida"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Tipo de letra dos subtítulos:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Preferencias do aplicativo</span>"
@@ -1000,6 +1055,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Restabelecer"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "Mostrar os _controis"
@@ -1144,6 +1204,11 @@ msgstr "_Dobre (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "Me_tade (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "Me_tade (1:2)"
 
 #: src/gui.c:7543

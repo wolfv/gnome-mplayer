@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-04-11 08:42-0700\n"
 "Last-Translator: Kevin DeKorte <kdekorte@gmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
@@ -228,6 +228,16 @@ msgstr "Учитај све нумере са џепне музичке спра
 msgid "Don't fetch new cover art images"
 msgstr "Не преузимај нове омоте за албум"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Назив ТВ уређаја"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Видео излаз:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -237,13 +247,43 @@ msgstr "Пуштено"
 msgid "Open Location"
 msgstr "Отвори путању"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "_Ухвати снимак екрана"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Листа за пуштање"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "Подаци _о медију"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "Осо_бине"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "_Графикон звука"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Цео екран"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "_Размера"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -256,6 +296,16 @@ msgstr "Смањи титл"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Повећај титл"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "Промени у_гао"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Контроле"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -497,6 +547,11 @@ msgstr "Поглавља филма:"
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">Звук</span>"
 
+#: src/gui.c:4542
+#, fuzzy
+msgid "Audio Format:"
+msgstr "Формат:"
+
 #: src/gui.c:4555 src/nautilus_property_page.c:408
 msgid "Audio Codec:"
 msgstr "Кодек:"
@@ -584,6 +639,11 @@ msgstr ""
 #: src/gui.c:4900
 msgid "Load all subtitles containing movie name"
 msgstr ""
+
+#: src/gui.c:4903
+#, fuzzy
+msgid "Load all subtitles in the same folder"
+msgstr "Понавља све датотеке у листи за пуштање"
 
 #: src/gui.c:5124
 msgid "Player"
@@ -823,6 +883,11 @@ msgstr "Доња линија титла (само за X11/XV):"
 msgid "Show Subtitles by Default"
 msgstr "Подразумевано прикажи титлове"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Фонт:"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Поставке програма</span>"
@@ -990,6 +1055,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Врати"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "Прикажи _контроле"
@@ -1134,6 +1204,11 @@ msgstr "_Удвостручено (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Половично (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Половично (1:2)"
 
 #: src/gui.c:7543

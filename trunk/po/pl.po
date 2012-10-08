@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2012-09-22 10:44+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1492,4 +1492,3 @@ msgstr "Tempo wyświetlania:"
 #: src/nautilus_property_page.c:489
 msgid "Audio/Video"
 msgstr "Dźwięk/Obraz:"
-

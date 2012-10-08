@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2010-12-25 23:41+0000\n"
 "Last-Translator: Kyriakos Kartas <kartas.kyriakos@gmail.com>\n"
 "Language-Team: \n"
@@ -232,6 +232,16 @@ msgstr "Φόρτωμα όλων των κομματιών από τον αναπ
 msgid "Don't fetch new cover art images"
 msgstr "Όχι μεταφόρτωση νέων εικόνων εξωφύλλων"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Όνομα συσκευής TV"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Έξοδος Βίντεο:"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -241,13 +251,43 @@ msgstr "Αναπαράγεται"
 msgid "Open Location"
 msgstr "Αναπαραγωγή Τοποθεσίας"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "_Λήψη Στιγμιοτύπου"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "_Λίστα Αναπαραγωγής"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "_Πληροφορίες Αρχείου"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "Λ_επτομέρειες"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Μετρητής Ήχου"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "Πλήρης Οθόνη"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "_Συντελεστής Αναλογίας"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -260,6 +300,16 @@ msgstr "Μείωση Μεγέθους Υποτίτλων"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "Αύξηση Μεγέθους Υποτίτλων"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "Αλλαγή Γω_νίας"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "_Έλεγχοι"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -832,6 +882,11 @@ msgstr "Θέση Υποτίτλων (μόνο X11/XV):"
 msgid "Show Subtitles by Default"
 msgstr "Εμφάνιση Υποτίτλων"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Γραμματοσειρά Υποτίτλων"
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">Προτιμήσεις Εφαρμογής</span>"
@@ -1003,6 +1058,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "_Επανεκκίνηση"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "Εμ_φάνιση Ελέγχων"
@@ -1146,6 +1206,11 @@ msgstr "_Διπλάσιο Μέγεθος (2:1)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "_Μισό Μέγεθος (1:2)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "_Μισό Μέγεθος (1:2)"
 
 #: src/gui.c:7543

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-06-06 12:13+0000\n"
 "Last-Translator: Pin-hsien Li <pspeter9931@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
@@ -222,6 +222,16 @@ msgstr "使用 gpod 載入所有音樂"
 msgid "Don't fetch new cover art images"
 msgstr "不要擷取新的封面圖像"
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "電視裝置名稱"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "影像輸出："
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -231,13 +241,43 @@ msgstr "正在播放"
 msgid "Open Location"
 msgstr "開啟位置"
 
+#: src/main.c:964
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "拍下畫面快照(_T)"
+
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
 
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "播放清單(_P)"
+
+#: src/main.c:967
+#, fuzzy
+msgid "Media Info"
+msgstr "媒體資訊(_I)"
+
+#: src/main.c:968
+#, fuzzy
+msgid "Details"
+msgstr "詳細資料(_E)"
+
+#: src/main.c:969
+#, fuzzy
+msgid "Audio Meter"
+msgstr "聽力計(_M)"
+
 #: src/main.c:970 src/gui.c:7952 src/gui.c:7955
 msgid "Full Screen"
 msgstr "全螢幕"
+
+#: src/main.c:971
+#, fuzzy
+msgid "Aspect"
+msgstr "長寬比(_A)"
 
 #: src/main.c:972 src/gui.c:5128
 msgid "Subtitles"
@@ -250,6 +290,16 @@ msgstr "縮小字幕字型"
 #: src/main.c:974 src/gui.c:7570
 msgid "Increase Subtitle Size"
 msgstr "放大字幕字型"
+
+#: src/main.c:975
+#, fuzzy
+msgid "Switch Angle"
+msgstr "切換角度(_G)"
+
+#: src/main.c:976
+#, fuzzy
+msgid "Controls"
+msgstr "控制列(_C)"
 
 #: src/main.c:992
 msgid "[FILES...] - GNOME Media player based on MPlayer"
@@ -812,6 +862,11 @@ msgstr "較小的字幕邊界（只能在 X11/XV）"
 msgid "Show Subtitles by Default"
 msgstr "預設顯示字幕"
 
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "字幕字型："
+
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">程式設定</span>"
@@ -971,6 +1026,11 @@ msgid ""
 "Then press the keys you would like for the shortcut"
 msgstr ""
 
+#: src/gui.c:6253
+#, fuzzy
+msgid "Reset Keys"
+msgstr "重設(_R)"
+
 #: src/gui.c:7282
 msgid "S_how Controls"
 msgstr "顯示控制列(_H)"
@@ -1114,6 +1174,11 @@ msgstr "兩倍大小[2:1](_D)"
 
 #: src/gui.c:7539
 msgid "_Half Size (1:2)"
+msgstr "一半大小[1:2](_H)"
+
+#: src/gui.c:7541
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
 msgstr "一半大小[1:2](_H)"
 
 #: src/gui.c:7543

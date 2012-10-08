@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 09:58-0600\n"
+"POT-Creation-Date: 2012-10-08 07:18-0600\n"
 "PO-Revision-Date: 2011-05-23 01:11+0000\n"
 "Last-Translator: zvacet <ikoli@yahoo.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
@@ -226,6 +226,16 @@ msgstr "Učitaj sve zapise iz svirača medija koristeći gpod"
 msgid "Don't fetch new cover art images"
 msgstr ""
 
+#: src/main.c:172
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Ime TV uređaja"
+
+#: src/main.c:173
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Video izlaz"
+
 #: src/main.c:398 src/gui.c:1015 src/gui.c:6831 src/gui.c:6932
 #, c-format
 msgid "Playing"
@@ -242,6 +252,11 @@ msgstr ""
 #: src/main.c:965
 msgid "Preferences"
 msgstr ""
+
+#: src/main.c:966
+#, fuzzy
+msgid "Playlist"
+msgstr "Izvodi"
 
 #: src/main.c:967
 msgid "Media Info"
@@ -830,6 +845,11 @@ msgstr ""
 #: src/gui.c:5905
 msgid "Show Subtitles by Default"
 msgstr ""
+
+#: src/gui.c:5910
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Font podnatpisa"
 
 #: src/gui.c:5928
 msgid "<span weight=\"bold\">Application Preferences</span>"
