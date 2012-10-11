@@ -1,4 +1,5 @@
 Development
+	Fix issue #646, media is not positioned and sized correctly when remember preference is set
 1.0.7b
     Updated Czech translation
 	Increase the channel parsing buffer, need to rewrite parseChannels
