@@ -212,7 +212,9 @@ static GtkWidget *config_ao;
 static GtkWidget *config_mixer;
 static GtkWidget *config_audio_channels;
 static GtkWidget *config_use_hw_audio;
-//static GtkWidget *config_volume;
+#ifndef HAVE_ASOUNDLIB
+static GtkWidget *config_volume;
+#endif
 static GtkWidget *config_cachesize;
 static GtkWidget *config_plugin_audio_cache_size;
 static GtkWidget *config_plugin_video_cache_size;
