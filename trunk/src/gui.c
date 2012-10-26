@@ -534,7 +534,7 @@ void adjust_layout()
         }
     }
 
-    if (GTK_IS_WIDGET(media_hbox)
+    if (GTK_IS_WIDGET(media_hbox) && control_id == 0
         && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_info))) {
         if (gmtk_get_visible(media_hbox) == 0) {
             gtk_widget_show_all(media_hbox);
@@ -6433,13 +6433,14 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         }
         break;
     case ATTRIBUTE_SIZE:
-		if (remember_loc) {
-			idledata->width = loc_window_width;
-			idledata->height = loc_window_height;
-		} else {
-		    idledata->width = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_WIDTH);
-		    idledata->height = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HEIGHT);
-		}
+        if (remember_loc) {
+            idledata->width = loc_window_width;
+            idledata->height = loc_window_height;
+        } else {
+            idledata->width = (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_WIDTH);
+            idledata->height =
+                (gint) gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HEIGHT);
+        }
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "video present = %s new size %i x %i",
                gm_bool_to_string(idledata->videopresent), idledata->width, idledata->height);
         text = g_strdup_printf("%i x %i", idledata->width, idledata->height);
