@@ -1,4 +1,5 @@
 Development
+    Fix issue #656, fallback to non-symbolic icons if they don't exist in GTK3 mode
 1.0.7
     Hide media info when running as a plugin, caused problems with plugger testing grounds site
 	Fix issue #647, config_volume not defined when --without-alsa option is used (code may need to be cleaned up)
