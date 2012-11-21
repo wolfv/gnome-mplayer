@@ -26,5 +26,6 @@
 #include <sql-parser/gda-sql-parser.h>
 
 GdaConnection *open_db_connection ();
+void close_db_connection(GdaConnection *conn);
 
 #endif

@@ -46,6 +46,10 @@
 #include <libnotify/notification.h>
 #endif
 
+#ifdef LIBGDA_ENABLED
+#include "database.h"
+#endif 
+
 static GdkWindow *window_container;
 static GtkWidget *fs_window;
 static GtkWidget *fs_controls;
@@ -1909,6 +1913,10 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 
     if (use_defaultpl && embed_window == 0)
         save_playlist_pls(default_playlist);
+
+#ifdef LIBGDA_ENABLED
+	close_db_connection(db_connection);
+#endif	
 
     //gtk_main_quit();
     return FALSE;
