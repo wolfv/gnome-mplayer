@@ -767,6 +767,7 @@ int main(int argc, char *argv[])
     embedding_disabled = FALSE;
     disable_pause_on_click = FALSE;
     disable_animation = FALSE;
+	disable_cover_art_fetch = FALSE;
     auto_hide_timeout = 3;
     mouse_over_controls = FALSE;
     use_mediakeys = TRUE;
@@ -898,6 +899,7 @@ int main(int argc, char *argv[])
     disable_embeddedfonts = gm_pref_store_get_boolean(gm_store, DISABLEEMBEDDEDFONTS);
     disable_pause_on_click = gm_pref_store_get_boolean(gm_store, DISABLEPAUSEONCLICK);
     disable_animation = gm_pref_store_get_boolean(gm_store, DISABLEANIMATION);
+	disable_cover_art_fetch = gm_pref_store_get_boolean_with_default(gm_store, DISABLE_COVER_ART_FETCH, disable_cover_art_fetch); 
     auto_hide_timeout = gm_pref_store_get_int_with_default(gm_store, AUTOHIDETIMEOUT, auto_hide_timeout);
     disable_cover_art_fetch = gm_pref_store_get_boolean(gm_store, DISABLE_COVER_ART_FETCH);
     use_mediakeys = gm_pref_store_get_boolean_with_default(gm_store, USE_MEDIAKEYS, use_mediakeys);
