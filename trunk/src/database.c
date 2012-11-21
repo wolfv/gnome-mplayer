@@ -59,5 +59,8 @@ GdaConnection *open_db_connection () {
     return conn;
 }
     
+void close_db_connection(GdaConnection *conn) {
+    gda_connection_close(conn);
+}
 
 #endif
