@@ -24,6 +24,11 @@
 
 #include <gtk/gtk.h>
 #include <gmlib.h>
+#ifdef LIBGDA_ENABLED
+#include <libgda/libgda.h>
+#endif
+
+
 
 #ifdef GIO_ENABLED
 #include <gio/gio.h>
@@ -512,6 +517,10 @@ gboolean async_play_iter(void *data);
 #ifdef GTK2_12_ENABLED
 GtkRecentManager *recent_manager;
 void recent_manager_changed_callback(GtkRecentManager * recent_manager, gpointer data);
+#endif
+
+#ifdef LIBGDA_ENABLED
+GdaConnection *db_connection;
 #endif
 
 #endif                          /* _COMMON_H */

@@ -162,10 +162,16 @@ PKG_CHECK_MODULES(XSCRNSAVER,[xscrnsaver],[AC_DEFINE([XSCRNSAVER_ENABLED],[1],[W
 AC_SUBST(XSCRNSAVER_CFLAGS)
 AC_SUBST(XSCRNSAVER_LIBS)
 
-PKG_CHECK_MODULES(LIBGDA,[libgda-4.0],[AC_DEFINE([LIBGDA_ENABLED],[1],[When defined database access is enabled])], AC_MSG_NOTICE([Compiling without libgda support]))
-AC_SUBST(LIBGDA_CFLAGS)
-AC_SUBST(LIBGDA_LIBS)
-
+AC_ARG_WITH([libgda],
+    [AS_HELP_STRING([--with-libgda],
+        [Add support for libgda])],
+        [],
+        [with_libgda=check])
+AS_IF([test "x$with_libgda" != xno], 
+    [PKG_CHECK_MODULES(LIBGDA,[libgda-4.0],[AC_DEFINE([LIBGDA_ENABLED],[1],[When defined database access is enabled])], AC_MSG_NOTICE([Compiling without libgda support]))
+    AC_SUBST(LIBGDA_CFLAGS)
+    AC_SUBST(LIBGDA_LIBS)
+    ])
 
 AC_ARG_WITH([alsa],
     [AS_HELP_STRING([--with-alsa],

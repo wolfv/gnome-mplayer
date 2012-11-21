@@ -809,6 +809,7 @@ enable_dependency_tracking
 enable_gtk3
 with_gio
 with_dbus
+with_libgda
 with_alsa
 with_pulseaudio
 with_libnotify
@@ -1520,6 +1521,7 @@ Optional Packages:
   --with-gio              Use GIO for file I/O
   --with-dbus             Enable DBUS support, DBUS is required when using
                           with gecko-mediaplayer
+  --with-libgda           Add support for libgda
   --with-alsa             Read volume from alsa devices
   --with-pulseaudio       PulseAudio device and volume support
   --with-libnotify        Send notifications of new media
@@ -9012,6 +9014,15 @@ fi
 
 
 
+# Check whether --with-libgda was given.
+if test "${with_libgda+set}" = set; then :
+  withval=$with_libgda;
+else
+  with_libgda=check
+fi
+
+if test "x$with_libgda" != xno; then :
+
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBGDA" >&5
 $as_echo_n "checking for LIBGDA... " >&6; }
@@ -9087,6 +9098,7 @@ fi
 
 
 
+fi
 
 
 # Check whether --with-alsa was given.
