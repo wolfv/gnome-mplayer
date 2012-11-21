@@ -246,6 +246,7 @@ static GtkWidget *config_show_notification;
 static GtkWidget *config_use_mediakeys;
 static GtkWidget *config_use_defaultpl;
 static GtkWidget *config_disable_animation;
+static GtkWidget *config_disable_cover_art_fetch;
 static GtkWidget *config_mouse_wheel;
 static GtkWidget *config_enable_nautilus_plugin;
 
@@ -4211,6 +4212,7 @@ void config_apply(GtkWidget * widget, void *data)
     disable_embeddedfonts = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_embeddedfonts));
     disable_pause_on_click = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_pause_on_click));
     disable_animation = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_disable_animation));
+    disable_cover_art_fetch = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_disable_cover_art_fetch));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
     pplevel = (gint) gtk_range_get_value(GTK_RANGE(config_pplevel));
@@ -6031,6 +6033,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_disable_animation = gtk_check_button_new_with_label(_("Disable Fullscreen Control Bar Animation"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_disable_animation), disable_animation);
     gtk_table_attach(GTK_TABLE(conf_table), config_disable_animation, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    i++;
+
+    config_disable_cover_art_fetch = gtk_check_button_new_with_label(_("Disable Cover Art Fetch"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_disable_cover_art_fetch), disable_cover_art_fetch);
+    gtk_table_attach(GTK_TABLE(conf_table), config_disable_cover_art_fetch, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     i++;
 
     config_mouse_wheel = gtk_check_button_new_with_label(_("Use Mouse Wheel to change volume, instead of seeking"));

@@ -1,4 +1,5 @@
 Development
+    Add disable cover art fetch as a interface preference rather than only a command line preference
     Add initial support for playlist database which should result in faster loading of playlists 
         This can be disabled with --with-libgda=no passed to configure
     Fix issue #656, fallback to non-symbolic icons if they don't exist in GTK3 mode
