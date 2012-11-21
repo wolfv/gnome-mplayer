@@ -48,7 +48,7 @@
 
 #ifdef LIBGDA_ENABLED
 #include "database.h"
-#endif 
+#endif
 
 static GdkWindow *window_container;
 static GtkWidget *fs_window;
@@ -1916,8 +1916,8 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
         save_playlist_pls(default_playlist);
 
 #ifdef LIBGDA_ENABLED
-	close_db_connection(db_connection);
-#endif	
+    close_db_connection(db_connection);
+#endif
 
     //gtk_main_quit();
     return FALSE;
@@ -4212,7 +4212,8 @@ void config_apply(GtkWidget * widget, void *data)
     disable_embeddedfonts = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_embeddedfonts));
     disable_pause_on_click = !(gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_pause_on_click));
     disable_animation = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_disable_animation));
-    disable_cover_art_fetch = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_disable_cover_art_fetch));
+    disable_cover_art_fetch =
+        (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_disable_cover_art_fetch));
     oldosd = osdlevel;
     osdlevel = (gint) gtk_range_get_value(GTK_RANGE(config_osdlevel));
     pplevel = (gint) gtk_range_get_value(GTK_RANGE(config_pplevel));

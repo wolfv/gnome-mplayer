@@ -1,4 +1,5 @@
 Development
+    Add create and delete tables code to database.c
     Add disable cover art fetch as a interface preference rather than only a command line preference
     Add initial support for playlist database which should result in faster loading of playlists 
         This can be disabled with --with-libgda=no passed to configure
