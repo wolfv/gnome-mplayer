@@ -639,6 +639,8 @@ PULSE_CFLAGS
 ALSA_DEFINES
 ALSA_LIBS
 ALSA_CFLAGS
+LIBGDA_LIBS
+LIBGDA_CFLAGS
 XSCRNSAVER_LIBS
 XSCRNSAVER_CFLAGS
 DBUS_LIBS
@@ -866,6 +868,8 @@ DBUS_CFLAGS
 DBUS_LIBS
 XSCRNSAVER_CFLAGS
 XSCRNSAVER_LIBS
+LIBGDA_CFLAGS
+LIBGDA_LIBS
 ALSA_CFLAGS
 ALSA_LIBS
 PULSE_CFLAGS
@@ -1593,6 +1597,9 @@ Some influential environment variables:
               C compiler flags for XSCRNSAVER, overriding pkg-config
   XSCRNSAVER_LIBS
               linker flags for XSCRNSAVER, overriding pkg-config
+  LIBGDA_CFLAGS
+              C compiler flags for LIBGDA, overriding pkg-config
+  LIBGDA_LIBS linker flags for LIBGDA, overriding pkg-config
   ALSA_CFLAGS C compiler flags for ALSA, overriding pkg-config
   ALSA_LIBS   linker flags for ALSA, overriding pkg-config
   PULSE_CFLAGS
@@ -2904,7 +2911,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gnome-mplayer
- VERSION=1.0.7
+ VERSION=1.0.8a
 
 
 cat >>confdefs.h <<_ACEOF
@@ -9001,6 +9008,83 @@ $as_echo "yes" >&6; }
 $as_echo "#define XSCRNSAVER_ENABLED 1" >>confdefs.h
 
 fi
+
+
+
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBGDA" >&5
+$as_echo_n "checking for LIBGDA... " >&6; }
+
+if test -n "$LIBGDA_CFLAGS"; then
+    pkg_cv_LIBGDA_CFLAGS="$LIBGDA_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libgda-4.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libgda-4.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_LIBGDA_CFLAGS=`$PKG_CONFIG --cflags "libgda-4.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$LIBGDA_LIBS"; then
+    pkg_cv_LIBGDA_LIBS="$LIBGDA_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libgda-4.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libgda-4.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_LIBGDA_LIBS=`$PKG_CONFIG --libs "libgda-4.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        LIBGDA_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors "libgda-4.0" 2>&1`
+        else
+	        LIBGDA_PKG_ERRORS=`$PKG_CONFIG --print-errors "libgda-4.0" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$LIBGDA_PKG_ERRORS" >&5
+
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libgda support" >&5
+$as_echo "$as_me: Compiling without libgda support" >&6;}
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Compiling without libgda support" >&5
+$as_echo "$as_me: Compiling without libgda support" >&6;}
+else
+	LIBGDA_CFLAGS=$pkg_cv_LIBGDA_CFLAGS
+	LIBGDA_LIBS=$pkg_cv_LIBGDA_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+$as_echo "#define LIBGDA_ENABLED 1" >>confdefs.h
+
+fi
+
 
 
 

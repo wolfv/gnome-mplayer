@@ -19,7 +19,8 @@ INCLUDES = \
     $(NOTIFY_CFLAGS) \
     $(GPOD_CFLAGS) \
     $(MUSICBRAINZ_CFLAGS) \
-	$(XSCRNSAVER_CFLAGS)    
+	$(XSCRNSAVER_CFLAGS) \
+    $(LIBGDA_CFLAGS)   
 
 AM_CFLAGS =\
 	 -Wall\
@@ -62,7 +63,9 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/view-fullscreen.xpm \
 	langlist.h \
 	mpris-interface.c \
-	mpris-interface.h
+	mpris-interface.h \
+	database.c \
+	database.h
 
 
 gnome_mplayer_LDFLAGS = 
@@ -81,7 +84,8 @@ gnome_mplayer_LDADD = \
     $(NOTIFY_LIBS) \
     $(GPOD_LIBS) \
     $(MUSICBRAINZ_LIBS) \
-    $(XSCRNSAVER_LIBS)
+    $(XSCRNSAVER_LIBS) \
+    $(LIBGDA_LIBS)
 
 if HAVE_NAUTILUS
 
