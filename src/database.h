@@ -16,3 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#ifdef LIBGDA_ENABLED
+
+#include <libgda/libgda.h>
+#include <sql-parser/gda-sql-parser.h>
+
+GdaConnection *open_db_connection ();
+
+#endif

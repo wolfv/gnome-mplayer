@@ -16,3 +16,48 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+#include <database.h>
+
+#ifdef LIBGDA_ENABLED
+
+GdaConnection *open_db_connection () {
+
+    GdaConnection *conn;
+    GError *error = NULL;
+	GdaSqlParser *parser;
+
+    gchar *db_location = NULL;
+
+
+    db_location = g_strdup_printf("DB_DIR=%s/gnome-mplayer;DB_NAME=gnome-mplayer",g_get_user_config_dir());
+
+	/* open connection */
+    conn = gda_connection_open_from_string ("SQLite", db_location, NULL,
+				       GDA_CONNECTION_OPTIONS_NONE,
+				       &error);
+
+    g_free(db_location);
+    db_location = NULL;
+    
+    if (!conn) {
+            g_print ("Could not open connection to SQLite database file: %s\n",
+                     error && error->message ? error->message : "No detail");
+            return conn;
+    }
+
+	/* create an SQL parser */
+	parser = gda_connection_create_parser (conn);
+	if (!parser) /* @conn does not provide its own parser => use default one */
+		parser = gda_sql_parser_new ();
+	/* attach the parser object to the connection */
+	g_object_set_data_full (G_OBJECT (conn), "parser", parser, g_object_unref);
+
+    return conn;
+}
+    
+
+#endif

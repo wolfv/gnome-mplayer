@@ -45,6 +45,7 @@
 #include "dbus-interface.h"
 #include "mpris-interface.h"
 #include "gmtk.h"
+#include "database.h"
 
 static gint reallyverbose;
 static gint last_x, last_y;
@@ -1315,6 +1316,10 @@ int main(int argc, char *argv[])
     }
     show_window(embed_window);
 
+#ifdef LIBGDA_ENABLED
+	db_connection = open_db_connection();
+#endif
+	
     if (playiter)
         play_iter(&iter, 0);
 

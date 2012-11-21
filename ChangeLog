@@ -1,4 +1,6 @@
 Development
+    Add initial support for playlist database which should result in faster loading of playlists 
+        This can be disabled with --with-libgda=no passed to configure
     Fix issue #656, fallback to non-symbolic icons if they don't exist in GTK3 mode
 1.0.7
     Hide media info when running as a plugin, caused problems with plugger testing grounds site
