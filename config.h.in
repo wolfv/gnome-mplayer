@@ -108,6 +108,9 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
+/* When defined database access is enabled */
+#undef LIBGDA_ENABLED
+
 /* Define to 1 if you have musicbrainz3 support */
 #undef MUSICBRAINZ_ENABLED
 

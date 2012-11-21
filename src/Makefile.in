@@ -65,7 +65,8 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(nautilusdir)"
 PROGRAMS = $(bin_PROGRAMS) $(nautilus_PROGRAMS)
 am_gnome_mplayer_OBJECTS = gui.$(OBJEXT) playlist.$(OBJEXT) \
 	support.$(OBJEXT) mntent_compat.$(OBJEXT) main.$(OBJEXT) \
-	dbus-interface.$(OBJEXT) mpris-interface.$(OBJEXT)
+	dbus-interface.$(OBJEXT) mpris-interface.$(OBJEXT) \
+	database.$(OBJEXT)
 gnome_mplayer_OBJECTS = $(am_gnome_mplayer_OBJECTS)
 am__DEPENDENCIES_1 =
 gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
@@ -74,7 +75,7 @@ gnome_mplayer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 gnome_mplayer_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(gnome_mplayer_LDFLAGS) $(LDFLAGS) -o $@
 am__libgnome_mplayer_properties_page_so_SOURCES_DIST = ../config.h \
@@ -254,6 +255,8 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLLIBS = @INTLLIBS@
 LDFLAGS = @LDFLAGS@
+LIBGDA_CFLAGS = @LIBGDA_CFLAGS@
+LIBGDA_LIBS = @LIBGDA_LIBS@
 LIBNOTIFY_07_CFLAGS = @LIBNOTIFY_07_CFLAGS@
 LIBNOTIFY_07_LIBS = @LIBNOTIFY_07_LIBS@
 LIBOBJS = @LIBOBJS@
@@ -367,7 +370,8 @@ INCLUDES = \
     $(NOTIFY_CFLAGS) \
     $(GPOD_CFLAGS) \
     $(MUSICBRAINZ_CFLAGS) \
-	$(XSCRNSAVER_CFLAGS)    
+	$(XSCRNSAVER_CFLAGS) \
+    $(LIBGDA_CFLAGS)   
 
 AM_CFLAGS = \
 	 -Wall\
@@ -406,7 +410,9 @@ gnome_mplayer_SOURCES = \
 	../pixmaps/view-fullscreen.xpm \
 	langlist.h \
 	mpris-interface.c \
-	mpris-interface.h
+	mpris-interface.h \
+	database.c \
+	database.h
 
 gnome_mplayer_LDFLAGS = 
 gnome_mplayer_LDADD = \
@@ -423,7 +429,8 @@ gnome_mplayer_LDADD = \
     $(NOTIFY_LIBS) \
     $(GPOD_LIBS) \
     $(MUSICBRAINZ_LIBS) \
-    $(XSCRNSAVER_LIBS)
+    $(XSCRNSAVER_LIBS) \
+    $(LIBGDA_LIBS)
 
 @HAVE_NAUTILUS_TRUE@nautilusdir = $(NAUTILUSDIR)
 @HAVE_NAUTILUS_TRUE@libgnome_mplayer_properties_page_so_SOURCES = \
@@ -572,6 +579,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/database.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus-interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnome_mplayer_properties_page_so-nautilus_property_page.Po@am__quote@
