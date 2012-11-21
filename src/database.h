@@ -25,7 +25,10 @@
 #include <libgda/libgda.h>
 #include <sql-parser/gda-sql-parser.h>
 
-GdaConnection *open_db_connection ();
-void close_db_connection(GdaConnection *conn);
+GdaConnection *open_db_connection();
+void close_db_connection(GdaConnection * conn);
+void create_tables(GdaConnection * conn);
+void delete_tables(GdaConnection * conn);
+void run_sql_non_select(GdaConnection * conn, const gchar * sql);
 
 #endif
