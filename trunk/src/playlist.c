@@ -864,11 +864,22 @@ void create_playlist_widget()
     gchar **split;
     gchar *joined;
 
+#if GTK_MAJOR_VERSION == 3 && GTK_MINOR_VERSION >= 2
+    plvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
+    gtk_box_set_homogeneous(GTK_BOX(plvbox), FALSE);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
+    gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
+    ctrlbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_set_homogeneous(GTK_BOX(ctrlbox), FALSE);
+    closebox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_set_homogeneous(GTK_BOX(closebox), FALSE);
+#else
     plvbox = gtk_vbox_new(FALSE, 12);
     hbox = gtk_hbox_new(FALSE, 12);
     gtk_box_set_homogeneous(GTK_BOX(hbox), FALSE);
     ctrlbox = gtk_hbox_new(FALSE, 0);
     closebox = gtk_hbox_new(FALSE, 0);
+#endif
 
     list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(playliststore));
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(list), FALSE);
