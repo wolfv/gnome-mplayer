@@ -265,6 +265,7 @@ typedef struct _MetaData {
     gint width;
     gint height;
     gboolean playable;
+    gboolean valid;
 } MetaData;
 
 typedef struct _ButtonDef {

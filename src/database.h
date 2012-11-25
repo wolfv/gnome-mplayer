@@ -16,6 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+#ifndef _DATABASE_H
+#define _DATABASE_H
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -24,11 +28,14 @@
 
 #include <libgda/libgda.h>
 #include <sql-parser/gda-sql-parser.h>
+#include "common.h"
 
 GdaConnection *open_db_connection();
 void close_db_connection(GdaConnection * conn);
 void create_tables(GdaConnection * conn);
 void delete_tables(GdaConnection * conn);
 void run_sql_non_select(GdaConnection * conn, const gchar * sql);
+MetaData *get_db_metadata(gchar * uri);
 
+#endif
 #endif

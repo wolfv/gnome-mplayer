@@ -2822,7 +2822,11 @@ gboolean unmap_af_export_file(gpointer data)
         return TRUE;
 
     if (idle->mapped_af_export) {
+#if GLIB_MAJOR_VERSION == 2 && GLIB_MINOR_VERSION >= 22
+        g_mapped_file_unref(idle->mapped_af_export);
+#else
         g_mapped_file_free(idle->mapped_af_export);
+#endif
         idle->mapped_af_export = NULL;
     }
 

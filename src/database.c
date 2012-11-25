@@ -96,5 +96,19 @@ void run_sql_non_select(GdaConnection * conn, const gchar * sql)
     g_object_unref(stmt);
 }
 
+MetaData *get_db_metadata(gchar * uri)
+{
+    MetaData *ret = NULL;
+
+    if (ret == NULL)
+        ret = (MetaData *) g_new0(MetaData, 1);
+
+    ret->uri = g_strdup(uri);
+    ret->valid = FALSE;
+
+
+    return ret;
+}
+
 
 #endif
