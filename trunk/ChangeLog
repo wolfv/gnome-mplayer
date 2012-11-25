@@ -1,4 +1,6 @@
 Development
+    More database foundation code
+    Clean up some more depreciated GTK2 calls in GTK3 mode
     Clean up unused variable messages is GTK2 mode
     Clean up some depreciated GTK2 calls in GTK3 mode
     Wrap some more symbolic icons to fix Issue 656
