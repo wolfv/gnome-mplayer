@@ -1,4 +1,5 @@
 Development
+    Clean up unused variable messages is GTK2 mode
     Clean up some depreciated GTK2 calls in GTK3 mode
     Wrap some more symbolic icons to fix Issue 656
     Add create and delete tables code to database.c

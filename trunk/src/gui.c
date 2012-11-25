@@ -1187,7 +1187,9 @@ static const gchar *PLAYSTATE_to_string(const PLAYSTATE pstate)
 gboolean set_gui_state(void *data)
 {
     gchar *tip_text = NULL;
+#ifdef GTK3_ENABLED
 	GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+#endif
 	
     gm_log(verbose, G_LOG_LEVEL_MESSAGE, "setting gui state to %s", PLAYSTATE_to_string(guistate));
 
@@ -2608,7 +2610,9 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     IdleData *idle = (IdleData *) data;
+#ifdef GTK3_ENABLED
 	GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+#endif
 	
     if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY ||
         gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
@@ -2712,7 +2716,9 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     GtkTreePath *path;
     GtkTreeIter previter;
     GtkTreeIter localiter;
+#ifdef GTK3_ENABLED
 	GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+#endif
 	
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HAS_CHAPTERS)) {
@@ -2778,7 +2784,9 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 {
     gboolean valid = FALSE;
     GtkTreePath *path;
+#ifdef GTK3_ENABLED
 	GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+#endif
 	
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HAS_CHAPTERS)) {
@@ -6835,7 +6843,9 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     gchar *tip_text = NULL;
 #endif
     gchar *short_filename = NULL;
+#ifdef GTK3_ENABLED
 	GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+#endif
 	
     gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %s dontplaynext = %i",
            gmtk_media_state_to_string(media_state), dontplaynext);
@@ -8568,7 +8578,9 @@ void show_fs_controls()
     GdkScreen *screen;
     GdkRectangle rect;
     GtkAllocation alloc;
+#ifdef GTK3_ENABLED
 	GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+#endif
 	
     if (fs_controls == NULL && fullscreen) {
         fs_controls = gtk_window_new(GTK_WINDOW_POPUP);
@@ -8612,7 +8624,9 @@ void show_fs_controls()
 
 void hide_fs_controls()
 {
+#ifdef GTK3_ENABLED
 	GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+#endif
 	
     if (fs_controls != NULL) {
         g_object_ref(hbox);
