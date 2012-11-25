@@ -1,4 +1,6 @@
 Development
+    Clean up some depreciated GTK2 calls in GTK3 mode
+    Wrap some more symbolic icons to fix Issue 656
     Add create and delete tables code to database.c
     Add disable cover art fetch as a interface preference rather than only a command line preference
     Add initial support for playlist database which should result in faster loading of playlists 
