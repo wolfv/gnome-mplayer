@@ -1,4 +1,5 @@
 Development
+    Apply recommended fix from Issue #658
     Prevent crash when loading large playlist the first time
     Handle ' character in metadata
     Allow code to compile without libgda
