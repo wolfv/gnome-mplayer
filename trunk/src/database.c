@@ -67,8 +67,16 @@ void close_db_connection(GdaConnection * conn)
 
 void create_tables(GdaConnection * conn)
 {
-    run_sql_non_select(conn, "create table if not exists media_entries (uri string not null primary key, "
-                       "title string, artist string, album string, cover_art string, resume boolean, position real)");
+    run_sql_non_select(conn, "create table if not exists media_entries ("
+                       "uri string not null primary key, "
+                       "title string, "
+                       "artist string, "
+                       "album string, "
+                       "cover_art string, "
+                       "audio_codec string, "
+                       "video_codec string, "
+                       "demuxer string, "
+                       "video_width int, " "video_height int, " "length real, " "resume boolean, " "position real)");
 }
 
 void delete_tables(GdaConnection * conn)
@@ -92,13 +100,17 @@ void run_sql_non_select(GdaConnection * conn, const gchar * sql)
 
     nrows = gda_connection_statement_execute_non_select(conn, stmt, NULL, NULL, &error);
     if (nrows == -1)
-        g_error("NON SELECT error: %s\n", error && error->message ? error->message : "no detail");
+        g_error("NON SELECT error: %s\nsql = %s\n", error && error->message ? error->message : "no detail", sql);
     g_object_unref(stmt);
 }
 
-MetaData *get_db_metadata(gchar * uri)
+MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
 {
     MetaData *ret = NULL;
+    GdaSqlParser *parser;
+    GdaStatement *stmt;
+    GError *error = NULL;
+    gchar *sql = NULL;
 
     if (ret == NULL)
         ret = (MetaData *) g_new0(MetaData, 1);
@@ -106,8 +118,167 @@ MetaData *get_db_metadata(gchar * uri)
     ret->uri = g_strdup(uri);
     ret->valid = FALSE;
 
+    sql = g_strdup_printf("select * from media_entries where uri = '%s'", uri);
+
+    parser = gda_connection_create_parser(conn);
+    if (!parser) {
+        printf("parser was not found\n");
+        parser = gda_sql_parser_new();
+    }
+
+    stmt = gda_sql_parser_parse_string(parser, sql, NULL, &error);
+    g_object_unref(parser);
+
+    if (!stmt) {
+        /* there was an error while parsing */
+        printf("error parsing statement \"%s\"\n", sql);
+    } else {
+        GdaDataModel *model;
+        model = gda_connection_statement_execute_select(conn, stmt, NULL, &error);
+        if (model) {
+            if (gda_data_model_get_n_rows(model) != 1) {
+                printf("get_db_metadata failed row found = %i\n", gda_data_model_get_n_rows(model));
+            } else {
+                printf("get_db_metadata found 1 row\n");
+            }
+
+            g_object_unref(model);
+        } else {
+            /* there was an error while executing the statement */
+            printf("error executing statement \"%s\"\n", sql);
+        }
+        g_object_unref(stmt);
+    }
+
+    g_free(sql);
 
     return ret;
+}
+
+void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const MetaData * data)
+{
+    gchar *remove = NULL;
+    gchar *insert = NULL;
+    gchar *columns = NULL;
+    gchar *values = NULL;
+    gchar *valuetmp;
+    gchar *oldcolumns;
+    gchar *oldvalues;
+
+    columns = g_strdup_printf("uri");
+    values = g_strdup_printf("'%s'", uri);
+
+    if (data->title != NULL) {
+        oldcolumns = columns;
+        columns = g_strconcat(columns, ",title", NULL);
+        g_free(oldcolumns);
+        valuetmp = g_strdup_printf(",'%s'", data->title);
+        oldvalues = values;
+        values = g_strconcat(values, valuetmp, NULL);
+        g_free(oldvalues);
+        g_free(valuetmp);
+    }
+
+    if (data->artist != NULL) {
+        oldcolumns = columns;
+        columns = g_strconcat(columns, ",artist", NULL);
+        g_free(oldcolumns);
+        valuetmp = g_strdup_printf(",'%s'", data->artist);
+        oldvalues = values;
+        values = g_strconcat(values, valuetmp, NULL);
+        g_free(oldvalues);
+        g_free(valuetmp);
+    }
+
+    if (data->album != NULL) {
+        oldcolumns = columns;
+        columns = g_strconcat(columns, ",album", NULL);
+        g_free(oldcolumns);
+        valuetmp = g_strdup_printf(",'%s'", data->album);
+        oldvalues = values;
+        values = g_strconcat(values, valuetmp, NULL);
+        g_free(oldvalues);
+        g_free(valuetmp);
+    }
+
+    /*
+       if (data->cover_art != NULL) {
+       oldcolumns = columns;
+       columns = g_strconcat(columns, ",cover_art", NULL);
+       g_free(oldcolumns);
+       valuetmp = g_strdup_printf(",'%s'", data->cover_art);
+       oldvalues = values;
+       values = g_strconcat(values, valuetmp, NULL);
+       g_free(oldvalues);
+       g_free(valuetmp);
+       }
+     */
+
+    if (data->title != NULL) {
+        oldcolumns = columns;
+        columns = g_strconcat(columns, ",title", NULL);
+        g_free(oldcolumns);
+        valuetmp = g_strdup_printf(",'%s'", data->title);
+        oldvalues = values;
+        values = g_strconcat(values, valuetmp, NULL);
+        g_free(oldvalues);
+        g_free(valuetmp);
+    }
+
+    if (data->audio_codec != NULL) {
+        oldcolumns = columns;
+        columns = g_strconcat(columns, ",audio_codec", NULL);
+        g_free(oldcolumns);
+        valuetmp = g_strdup_printf(",'%s'", data->audio_codec);
+        oldvalues = values;
+        values = g_strconcat(values, valuetmp, NULL);
+        g_free(oldvalues);
+        g_free(valuetmp);
+    }
+
+    if (data->video_codec != NULL) {
+        oldcolumns = columns;
+        columns = g_strconcat(columns, ",video_codec", NULL);
+        g_free(oldcolumns);
+        valuetmp = g_strdup_printf(",'%s'", data->video_codec);
+        oldvalues = values;
+        values = g_strconcat(values, valuetmp, NULL);
+        g_free(oldvalues);
+        g_free(valuetmp);
+    }
+
+    if (data->demuxer != NULL) {
+        oldcolumns = columns;
+        columns = g_strconcat(columns, ",demuxer", NULL);
+        g_free(oldcolumns);
+        valuetmp = g_strdup_printf(",'%s'", data->demuxer);
+        oldvalues = values;
+        values = g_strconcat(values, valuetmp, NULL);
+        g_free(oldvalues);
+        g_free(valuetmp);
+    }
+
+    oldcolumns = columns;
+    columns = g_strconcat(columns, ",video_width, video_height, length", NULL);
+    g_free(oldcolumns);
+    valuetmp = g_strdup_printf(",%i,%i,%f", data->width, data->height, data->length_value);
+    oldvalues = values;
+    values = g_strconcat(values, valuetmp, NULL);
+    g_free(oldvalues);
+    g_free(valuetmp);
+
+
+    remove = g_strdup_printf("delete from media_entries where uri='%s'", uri);
+    insert = g_strdup_printf("insert into media_entries (%s) values (%s)", columns, values);
+
+    run_sql_non_select(conn, remove);
+    run_sql_non_select(conn, insert);
+
+    g_free(columns);
+    g_free(values);
+    g_free(remove);
+    g_free(insert);
+
 }
 
 

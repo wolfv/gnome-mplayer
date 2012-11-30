@@ -1,4 +1,6 @@
 Development
+    Insert metadata into sqlite database, please delete $HOME/.config/gnome-mplayer/gnome-mplayer.db if you get insert errors
+        as database schema has changed
     More database foundation code
     Clean up some more depreciated GTK2 calls in GTK3 mode
     Clean up unused variable messages is GTK2 mode

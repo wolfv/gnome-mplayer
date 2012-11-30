@@ -1091,6 +1091,10 @@ int main(int argc, char *argv[])
                            G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_BOOLEAN);
 
+#ifdef LIBGDA_ENABLED
+    db_connection = open_db_connection();
+#endif
+
     // only use dark theme if not embedded, otherwise use the default theme  
 #ifdef GTK3_ENABLED
     if (embed_window <= 0) {
@@ -1318,10 +1322,6 @@ int main(int argc, char *argv[])
         mpris_hookup(control_id);
     }
     show_window(embed_window);
-
-#ifdef LIBGDA_ENABLED
-    db_connection = open_db_connection();
-#endif
 
     if (playiter)
         play_iter(&iter, 0);

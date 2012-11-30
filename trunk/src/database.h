@@ -35,7 +35,8 @@ void close_db_connection(GdaConnection * conn);
 void create_tables(GdaConnection * conn);
 void delete_tables(GdaConnection * conn);
 void run_sql_non_select(GdaConnection * conn, const gchar * sql);
-MetaData *get_db_metadata(gchar * uri);
+MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri);
+void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const MetaData * data);
 
 #endif
 #endif
