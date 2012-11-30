@@ -1,4 +1,6 @@
 Development
+    Prevent crash when loading large playlist the first time
+    Handle ' character in metadata
     Allow code to compile without libgda
     Update metadata in playlist as it becomes more precise
     Read metadata from database and use it
