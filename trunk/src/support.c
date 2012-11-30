@@ -1708,7 +1708,9 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "adding retrieve_metadata(%s) to pool", uri);
             g_thread_pool_push(retrieve_metadata_pool, (gpointer) g_strdup(uri), NULL);
         } else {
-            insert_update_db_metadata(db_connection, uri, data);
+            if (!data->valid) {
+                insert_update_db_metadata(db_connection, uri, data);
+            }
         }
 
         set_item_add_info(local_uri);

@@ -111,6 +111,7 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
     GdaStatement *stmt;
     GError *error = NULL;
     gchar *sql = NULL;
+    const GValue *value;
 
     if (ret == NULL)
         ret = (MetaData *) g_new0(MetaData, 1);
@@ -136,10 +137,48 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
         GdaDataModel *model;
         model = gda_connection_statement_execute_select(conn, stmt, NULL, &error);
         if (model) {
-            if (gda_data_model_get_n_rows(model) != 1) {
-                printf("get_db_metadata failed row found = %i\n", gda_data_model_get_n_rows(model));
-            } else {
-                printf("get_db_metadata found 1 row\n");
+            if (gda_data_model_get_n_rows(model) == 1) {
+                value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "title"), 0, &error);
+                if (value != NULL && G_IS_VALUE(value))
+                    ret->title = g_value_dup_string(value);
+                value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "artist"), 0, &error);
+                if (value != NULL && G_IS_VALUE(value))
+                    ret->artist = g_value_dup_string(value);
+                value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "album"), 0, &error);
+                if (value != NULL && G_IS_VALUE(value))
+                    ret->album = g_value_dup_string(value);
+                value =
+                    gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "audio_codec"), 0,
+                                                &error);
+                if (value != NULL && G_IS_VALUE(value))
+                    ret->audio_codec = g_value_dup_string(value);
+                value =
+                    gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "video_codec"), 0,
+                                                &error);
+                if (value != NULL && G_IS_VALUE(value))
+                    ret->video_codec = g_value_dup_string(value);
+                value =
+                    gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "demuxer"), 0, &error);
+                if (value != NULL && G_IS_VALUE(value))
+                    ret->demuxer = g_value_dup_string(value);
+                value =
+                    gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "video_width"), 0,
+                                                &error);
+                if (value != NULL && G_IS_VALUE(value))
+                    ret->width = g_value_get_int(value);
+                value =
+                    gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "video_height"), 0,
+                                                &error);
+                if (value != NULL && G_IS_VALUE(value))
+                    ret->height = g_value_get_int(value);
+                value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "length"), 0, &error);
+                if (value != NULL && G_IS_VALUE(value)) {
+                    ret->length_value = g_value_get_double(value);
+                    ret->length = seconds_to_string(ret->length_value);
+                }
+
+                ret->valid = TRUE;
+
             }
 
             g_object_unref(model);

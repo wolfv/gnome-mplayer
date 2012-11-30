@@ -29,6 +29,7 @@
 #include <libgda/libgda.h>
 #include <sql-parser/gda-sql-parser.h>
 #include "common.h"
+#include "support.h"
 
 GdaConnection *open_db_connection();
 void close_db_connection(GdaConnection * conn);

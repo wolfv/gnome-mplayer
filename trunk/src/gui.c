@@ -6820,6 +6820,10 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
                    metadata->uri);
             g_thread_create(get_cover_art, metadata, FALSE, NULL);
         }
+        insert_update_db_metadata(db_connection, metadata->uri, metadata);
+        gtk_list_store_set(playliststore, &iter,
+                           DESCRIPTION_COLUMN, metadata->title,
+                           ARTIST_COLUMN, metadata->artist, ALBUM_COLUMN, metadata->album, -1);
         break;
 
     case ATTRIBUTE_RETRY_ON_FULL_CACHE:
