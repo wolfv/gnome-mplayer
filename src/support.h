@@ -51,6 +51,8 @@
 #include <curl/curl.h>
 #endif
 
+#include <database.h>
+
 gint get_bitrate(gchar * name);
 MetaData *get_metadata(gchar * uri);
 MetaData *get_basic_metadata(gchar * uri);

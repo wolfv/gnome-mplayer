@@ -1433,6 +1433,7 @@ MetaData *get_metadata(gchar * uri)
         ret->width = width;
         ret->height = height;
         ret->playable = (demuxer == NULL && missing_header == FALSE) ? FALSE : TRUE;
+        insert_update_db_metadata(db_connection, uri, ret);
     }
 
     g_free(title);
@@ -1628,51 +1629,55 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
     gm_log(verbose, G_LOG_LEVEL_INFO, "adding %s to playlist (cancel = %s)", uri,
            gm_bool_to_string(cancel_folder_load));
     local_uri = g_strdup(uri);
-    if (!device_name(local_uri) && !streaming_media(local_uri)) {
-        if (playlist) {
+    data = get_db_metadata(db_connection, uri);
+    if (!data->valid) {
+        gm_log(verbose, G_LOG_LEVEL_INFO, "metadata retrieve from database is not valid, requesting it from media");
+        if (!device_name(local_uri) && !streaming_media(local_uri)) {
+            if (playlist) {
+                data = (MetaData *) g_new0(MetaData, 1);
+                data->title = g_strdup_printf("%s", uri);
+            } else {
+                retrieve = TRUE;
+                data = get_basic_metadata(local_uri);
+            }
+        } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
             data = (MetaData *) g_new0(MetaData, 1);
-            data->title = g_strdup_printf("%s", uri);
-        } else {
+            data->title = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
+        } else if (device_name(local_uri)) {
+            if (g_ascii_strncasecmp(uri, "dvdnav://", strlen("dvdnav://")) == 0) {
+                loop = 1;
+            }
             retrieve = TRUE;
+            if (g_ascii_strncasecmp(uri, "dvb://", strlen("dvb://")) == 0) {
+                retrieve = FALSE;
+            }
+            if (g_ascii_strncasecmp(uri, "tv://", strlen("tv://")) == 0) {
+                retrieve = FALSE;
+            }
             data = get_basic_metadata(local_uri);
-        }
-    } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
-        data = (MetaData *) g_new0(MetaData, 1);
-        data->title = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
-    } else if (device_name(local_uri)) {
-        if (g_ascii_strncasecmp(uri, "dvdnav://", strlen("dvdnav://")) == 0) {
-            loop = 1;
-        }
-        retrieve = TRUE;
-        if (g_ascii_strncasecmp(uri, "dvb://", strlen("dvb://")) == 0) {
-            retrieve = FALSE;
-        }
-        if (g_ascii_strncasecmp(uri, "tv://", strlen("tv://")) == 0) {
-            retrieve = FALSE;
-        }
-        data = get_basic_metadata(local_uri);
 
-    } else {
+        } else {
 
-        if (g_str_has_prefix(uri, "http://")) {
-            unescaped = switch_protocol(uri, "mmshttp");
-            g_free(local_uri);
-            local_uri = g_strdup(unescaped);
+            if (g_str_has_prefix(uri, "http://")) {
+                unescaped = switch_protocol(uri, "mmshttp");
+                g_free(local_uri);
+                local_uri = g_strdup(unescaped);
+                g_free(unescaped);
+            }
+#ifdef GIO_ENABLED
+            unescaped = g_uri_unescape_string(uri, NULL);
+#else
+            unescaped = g_strdup(uri);
+#endif
+            data = (MetaData *) g_new0(MetaData, 1);
+            slash = g_strrstr(unescaped, "/");
+            if (slash != NULL && strlen(slash + sizeof(gchar)) > 0) {
+                data->title = g_strdup_printf("[Stream] %s", slash + sizeof(gchar));
+            } else {
+                data->title = g_strdup_printf("[Stream] %s", unescaped);
+            }
             g_free(unescaped);
         }
-#ifdef GIO_ENABLED
-        unescaped = g_uri_unescape_string(uri, NULL);
-#else
-        unescaped = g_strdup(uri);
-#endif
-        data = (MetaData *) g_new0(MetaData, 1);
-        slash = g_strrstr(unescaped, "/");
-        if (slash != NULL && strlen(slash + sizeof(gchar)) > 0) {
-            data->title = g_strdup_printf("[Stream] %s", slash + sizeof(gchar));
-        } else {
-            data->title = g_strdup_printf("[Stream] %s", unescaped);
-        }
-        g_free(unescaped);
     }
 
     if (data) {
@@ -1702,6 +1707,8 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
             }
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "adding retrieve_metadata(%s) to pool", uri);
             g_thread_pool_push(retrieve_metadata_pool, (gpointer) g_strdup(uri), NULL);
+        } else {
+            insert_update_db_metadata(db_connection, uri, data);
         }
 
         set_item_add_info(local_uri);
