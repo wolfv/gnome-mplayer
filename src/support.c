@@ -2301,6 +2301,10 @@ gchar *find_gpod_mount_point()
             if (g_file_test(pathname, G_FILE_TEST_IS_DIR))
                 ret = g_strdup(mnt->mnt_dir);
             g_free(pathname);
+            pathname = g_strdup_printf("%s/iTunes_Control", mnt->mnt_dir);
+            if (g_file_test(pathname, G_FILE_TEST_IS_DIR))
+                ret = g_strdup(mnt->mnt_dir);
+            g_free(pathname);
         }
     }
     while (mnt);
