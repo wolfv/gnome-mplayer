@@ -24,6 +24,32 @@
 
 #ifdef LIBGDA_ENABLED
 
+gchar *escape_sql(const gchar * input)
+{
+    gchar *local;
+    gchar *pos;
+
+    local = g_strdup(input);
+    pos = g_strrstr(local, "'");
+    while (pos) {
+        pos[0] = '\x01';
+        pos = g_strrstr(local, "'");
+    }
+    return local;
+}
+
+gchar *unescape_sql(char *input)
+{
+    gchar *pos;
+
+    pos = g_strrstr(input, "\x01");
+    while (pos) {
+        pos[0] = '\'';
+        pos = g_strrstr(input, "\x01");
+    }
+    return input;
+}
+
 GdaConnection *open_db_connection()
 {
 
@@ -112,6 +138,7 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
     GError *error = NULL;
     gchar *sql = NULL;
     const GValue *value;
+    gchar *localuri;
 
     if (ret == NULL)
         ret = (MetaData *) g_new0(MetaData, 1);
@@ -119,7 +146,9 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
     ret->uri = g_strdup(uri);
     ret->valid = FALSE;
 
-    sql = g_strdup_printf("select * from media_entries where uri = '%s'", uri);
+    localuri = escape_sql(uri);
+
+    sql = g_strdup_printf("select * from media_entries where uri = '%s'", localuri);
 
     parser = gda_connection_create_parser(conn);
     if (!parser) {
@@ -140,13 +169,13 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
             if (gda_data_model_get_n_rows(model) == 1) {
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "title"), 0, &error);
                 if (value != NULL && G_IS_VALUE(value))
-                    ret->title = g_value_dup_string(value);
+                    ret->title = unescape_sql(g_value_dup_string(value));
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "artist"), 0, &error);
                 if (value != NULL && G_IS_VALUE(value))
-                    ret->artist = g_value_dup_string(value);
+                    ret->artist = unescape_sql(g_value_dup_string(value));
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "album"), 0, &error);
                 if (value != NULL && G_IS_VALUE(value))
-                    ret->album = g_value_dup_string(value);
+                    ret->album = unescape_sql(g_value_dup_string(value));
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "audio_codec"), 0,
                                                 &error);
@@ -190,6 +219,7 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
     }
 
     g_free(sql);
+    g_free(localuri);
 
     return ret;
 }
@@ -203,15 +233,21 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
     gchar *valuetmp;
     gchar *oldcolumns;
     gchar *oldvalues;
+    gchar *localuri;
+    gchar *localvalue;
 
     columns = g_strdup_printf("uri");
-    values = g_strdup_printf("'%s'", uri);
+
+    localuri = escape_sql(uri);
+    values = g_strdup_printf("'%s'", localuri);
 
     if (data->title != NULL) {
         oldcolumns = columns;
         columns = g_strconcat(columns, ",title", NULL);
         g_free(oldcolumns);
-        valuetmp = g_strdup_printf(",'%s'", data->title);
+        localvalue = escape_sql(data->title);
+        valuetmp = g_strdup_printf(",'%s'", localvalue);
+        g_free(localvalue);
         oldvalues = values;
         values = g_strconcat(values, valuetmp, NULL);
         g_free(oldvalues);
@@ -222,7 +258,9 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
         oldcolumns = columns;
         columns = g_strconcat(columns, ",artist", NULL);
         g_free(oldcolumns);
-        valuetmp = g_strdup_printf(",'%s'", data->artist);
+        localvalue = escape_sql(data->artist);
+        valuetmp = g_strdup_printf(",'%s'", localvalue);
+        g_free(localvalue);
         oldvalues = values;
         values = g_strconcat(values, valuetmp, NULL);
         g_free(oldvalues);
@@ -233,7 +271,9 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
         oldcolumns = columns;
         columns = g_strconcat(columns, ",album", NULL);
         g_free(oldcolumns);
-        valuetmp = g_strdup_printf(",'%s'", data->album);
+        localvalue = escape_sql(data->album);
+        valuetmp = g_strdup_printf(",'%s'", localvalue);
+        g_free(localvalue);
         oldvalues = values;
         values = g_strconcat(values, valuetmp, NULL);
         g_free(oldvalues);
@@ -252,17 +292,6 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
        g_free(valuetmp);
        }
      */
-
-    if (data->title != NULL) {
-        oldcolumns = columns;
-        columns = g_strconcat(columns, ",title", NULL);
-        g_free(oldcolumns);
-        valuetmp = g_strdup_printf(",'%s'", data->title);
-        oldvalues = values;
-        values = g_strconcat(values, valuetmp, NULL);
-        g_free(oldvalues);
-        g_free(valuetmp);
-    }
 
     if (data->audio_codec != NULL) {
         oldcolumns = columns;
@@ -307,7 +336,7 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
     g_free(valuetmp);
 
 
-    remove = g_strdup_printf("delete from media_entries where uri='%s'", uri);
+    remove = g_strdup_printf("delete from media_entries where uri='%s'", localuri);
     insert = g_strdup_printf("insert into media_entries (%s) values (%s)", columns, values);
 
     run_sql_non_select(conn, remove);

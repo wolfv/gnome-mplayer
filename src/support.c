@@ -1433,9 +1433,9 @@ MetaData *get_metadata(gchar * uri)
         ret->width = width;
         ret->height = height;
         ret->playable = (demuxer == NULL && missing_header == FALSE) ? FALSE : TRUE;
-#ifdef LIBGDA_ENABLED			
+#ifdef LIBGDA_ENABLED
         insert_update_db_metadata(db_connection, uri, ret);
-#endif		
+#endif
     }
 
     g_free(title);
@@ -1631,7 +1631,7 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
     gm_log(verbose, G_LOG_LEVEL_INFO, "adding %s to playlist (cancel = %s)", uri,
            gm_bool_to_string(cancel_folder_load));
     local_uri = g_strdup(uri);
-#ifdef LIBGDA_ENABLED			
+#ifdef LIBGDA_ENABLED
     data = get_db_metadata(db_connection, uri);
 #endif
     if (data == NULL || !data->valid) {
@@ -1713,7 +1713,7 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
             g_thread_pool_push(retrieve_metadata_pool, (gpointer) g_strdup(uri), NULL);
         } else {
             if (!data->valid) {
-#ifdef LIBGDA_ENABLED			
+#ifdef LIBGDA_ENABLED
                 insert_update_db_metadata(db_connection, uri, data);
 #endif
             }

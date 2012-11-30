@@ -6820,12 +6820,26 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
                    metadata->uri);
             g_thread_create(get_cover_art, metadata, FALSE, NULL);
         }
-#ifdef LIBGDA_ENABLED			
+#ifdef LIBGDA_ENABLED
         insert_update_db_metadata(db_connection, metadata->uri, metadata);
 #endif
-        gtk_list_store_set(playliststore, &iter,
-                           DESCRIPTION_COLUMN, metadata->title,
-                           ARTIST_COLUMN, metadata->artist, ALBUM_COLUMN, metadata->album, -1);
+        if (gtk_list_store_iter_is_valid(playliststore, &iter) && !g_thread_pool_unprocessed(retrieve_metadata_pool)) {
+            switch (attribute) {
+            case ATTRIBUTE_TITLE:
+                if (metadata->title)
+                    gtk_list_store_set(playliststore, &iter, DESCRIPTION_COLUMN, metadata->title, -1);
+                break;
+            case ATTRIBUTE_ARTIST:
+                if (metadata->artist)
+                    gtk_list_store_set(playliststore, &iter, ARTIST_COLUMN, metadata->artist, -1);
+                break;
+
+            case ATTRIBUTE_ALBUM:
+                if (metadata->album)
+                    gtk_list_store_set(playliststore, &iter, ALBUM_COLUMN, metadata->album, -1);
+                break;
+            }
+        }
         break;
 
     case ATTRIBUTE_RETRY_ON_FULL_CACHE:
