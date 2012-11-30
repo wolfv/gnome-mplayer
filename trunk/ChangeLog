@@ -1,4 +1,5 @@
 Development
+    Allow code to compile without libgda
     Update metadata in playlist as it becomes more precise
     Read metadata from database and use it
     Insert metadata into sqlite database, please delete $HOME/.config/gnome-mplayer/gnome-mplayer.db if you get insert errors
