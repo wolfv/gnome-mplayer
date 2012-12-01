@@ -1682,6 +1682,14 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
             }
             g_free(unescaped);
         }
+    } else {
+        idledata->width = data->width;
+        idledata->height = data->height;
+        if (resize_on_new_media || idledata->videopresent == FALSE) {
+            if (idledata->width > 0 && idledata->height > 0)
+                idledata->videopresent = TRUE;
+            g_idle_add(resize_window, idledata);
+        }
     }
 
     if (data) {
