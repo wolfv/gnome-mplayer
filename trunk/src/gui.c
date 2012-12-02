@@ -1908,6 +1908,15 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
         //}
         gm_pref_store_free(gm_store);
     }
+#ifdef LIBGDA_ENABLED
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY
+        || gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+			
+        mark_uri_in_db_as_resumable(db_connection, gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)),
+                                    gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
+                                                                           ATTRIBUTE_POSITION));
+    }
+#endif
 
     gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_QUIT);
     gm_log(verbose, G_LOG_LEVEL_DEBUG,

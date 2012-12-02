@@ -327,9 +327,9 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
     }
 
     oldcolumns = columns;
-    columns = g_strconcat(columns, ",video_width, video_height, length", NULL);
+    columns = g_strconcat(columns, ",video_width, video_height, length, resume", NULL);
     g_free(oldcolumns);
-    valuetmp = g_strdup_printf(",%i,%i,%f", data->width, data->height, data->length_value);
+    valuetmp = g_strdup_printf(",%i,%i,%f,0", data->width, data->height, data->length_value);
     oldvalues = values;
     values = g_strconcat(values, valuetmp, NULL);
     g_free(oldvalues);
@@ -349,5 +349,17 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
 
 }
 
+void mark_uri_in_db_as_resumable(GdaConnection * conn, gchar * uri, gdouble position)
+{
+    gchar *update;
+    gchar *localuri;
+
+    localuri = escape_sql(uri);
+    update = g_strdup_printf("update media_entries set resume=1, position=%lf where uri='%s'", position, localuri);
+
+    run_sql_non_select(conn, update);
+    g_free(update);
+    g_free(localuri);
+}
 
 #endif
