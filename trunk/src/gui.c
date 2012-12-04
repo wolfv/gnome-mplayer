@@ -6847,6 +6847,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
                 if (metadata->album)
                     gtk_list_store_set(playliststore, &iter, ALBUM_COLUMN, metadata->album, -1);
                 break;
+			default:
+				break;
             }
         }
         break;

@@ -349,7 +349,7 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
 
 }
 
-void mark_uri_in_db_as_resumable(GdaConnection * conn, gchar * uri, gdouble position)
+void mark_uri_in_db_as_resumable(GdaConnection * conn, const gchar * uri, gdouble position)
 {
     gchar *update;
     gchar *localuri;
