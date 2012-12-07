@@ -1,4 +1,5 @@
 Development
+	Implement media play resume, from last viewed location
 	Cleanup some minor compiler warnings
     Track resumable media in database
     Force a resize if we know the size from the database when opening a file

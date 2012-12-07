@@ -38,7 +38,7 @@ void delete_tables(GdaConnection * conn);
 void run_sql_non_select(GdaConnection * conn, const gchar * sql);
 MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri);
 void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const MetaData * data);
-void mark_uri_in_db_as_resumable(GdaConnection * conn, const gchar * uri, gdouble position);
-
+void mark_uri_in_db_as_resumable(GdaConnection * conn, const gchar * uri, gboolean resume, gdouble position);
+gboolean is_uri_in_db_resumable(GdaConnection * conn, const gchar * uri);
 #endif
 #endif

@@ -265,6 +265,8 @@ typedef struct _MetaData {
     gint width;
     gint height;
     gboolean playable;
+    gboolean resumable;
+    gfloat position;
     gboolean valid;
 } MetaData;
 
@@ -401,6 +403,7 @@ gboolean cancel_folder_load;
 
 GThreadPool *retrieve_metadata_pool;
 GMutex *retrieve_mutex;
+GMutex *set_mutex;
 
 gboolean use_mediakeys;
 gboolean use_defaultpl;

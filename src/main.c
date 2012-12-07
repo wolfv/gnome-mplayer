@@ -283,6 +283,9 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
     GFileInfo *file_info;
 #endif
 #endif
+#ifdef LIBGDA_ENABLED
+    gchar *position_text;
+#endif
 
     /*
        if (!(gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN ||
@@ -609,6 +612,28 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_PLAYLIST, playlist);
         gmtk_media_player_set_uri(GMTK_MEDIA_PLAYER(media), uri);
+#ifdef LIBGDA_ENABLED
+        metadata = get_db_metadata(db_connection, uri);
+
+        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1 && metadata->resumable) {
+            position_text = seconds_to_string(metadata->position);
+            GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+                                                       GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                       GTK_MESSAGE_QUESTION,
+                                                       GTK_BUTTONS_YES_NO,
+                                                       _("Resume Playback of %s at %s"),
+                                                       metadata->title, position_text);
+            if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES) {
+                gmtk_media_tracker_set_length(tracker, metadata->length_value);
+                gmtk_media_tracker_set_position(tracker, metadata->position);
+                gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_START_TIME,
+                                                       metadata->position);
+            }
+            gtk_widget_destroy(dialog);
+            g_free(position_text);
+        }
+        free_metadata(metadata);
+#endif
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_PLAY);
 
     }
@@ -1113,6 +1138,7 @@ int main(int argc, char *argv[])
 
     retrieve_metadata_pool = g_thread_pool_new(retrieve_metadata, NULL, 10, TRUE, NULL);
     retrieve_mutex = g_mutex_new();
+    set_mutex = g_mutex_new();
 
     if (argv[fileindex] != NULL) {
 #ifdef GIO_ENABLED
