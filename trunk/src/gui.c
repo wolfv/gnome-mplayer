@@ -1289,57 +1289,41 @@ gboolean set_gui_state(void *data)
 gboolean set_metadata(gpointer data)
 {
     MetaData *mdata = (MetaData *) data;
-    gchar *uri;
-    GtkTreeIter riter;
+    GtkTreeIter *riter;
 
-    if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), &riter)) {
-        do {
-            if (gtk_list_store_iter_is_valid(playliststore, &riter)) {
-                gtk_tree_model_get(GTK_TREE_MODEL(playliststore), &riter, ITEM_COLUMN, &uri, -1);
-                if (strcmp(mdata->uri, uri) == 0) {
-                    g_free(uri);
-                    break;
-                }
-                g_free(uri);
-            }
-        } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), &riter));
+    if (mdata == NULL) {
+        return FALSE;
+    }
 
-        if (gtk_list_store_iter_is_valid(playliststore, &riter)) {
-            if (mdata != NULL) {
-                gtk_list_store_set(playliststore, &riter,
-                                   DESCRIPTION_COLUMN, mdata->title,
-                                   ARTIST_COLUMN, mdata->artist,
-                                   ALBUM_COLUMN, mdata->album,
-                                   SUBTITLE_COLUMN, mdata->subtitle,
-                                   AUDIO_CODEC_COLUMN, mdata->audio_codec,
-                                   VIDEO_CODEC_COLUMN, mdata->video_codec,
-                                   LENGTH_COLUMN, mdata->length,
-                                   DEMUXER_COLUMN, mdata->demuxer,
-                                   LENGTH_VALUE_COLUMN, mdata->length_value,
-                                   VIDEO_WIDTH_COLUMN, mdata->width, VIDEO_HEIGHT_COLUMN,
-                                   mdata->height, PLAYABLE_COLUMN, mdata->playable, -1);
+    g_mutex_lock(set_mutex);
+    riter = find_iter_by_uri(mdata->uri);
 
-                if (mdata->playable == FALSE) {
-                    gtk_list_store_remove(playliststore, &riter);
-                    g_idle_add(set_title_bar, idledata);
-                }
+    if (gtk_list_store_iter_is_valid(playliststore, riter)) {
+        if (mdata != NULL) {
+            gtk_list_store_set(playliststore, riter,
+                               DESCRIPTION_COLUMN, mdata->title,
+                               ARTIST_COLUMN, mdata->artist,
+                               ALBUM_COLUMN, mdata->album,
+                               SUBTITLE_COLUMN, mdata->subtitle,
+                               AUDIO_CODEC_COLUMN, mdata->audio_codec,
+                               VIDEO_CODEC_COLUMN, mdata->video_codec,
+                               LENGTH_COLUMN, mdata->length,
+                               DEMUXER_COLUMN, mdata->demuxer,
+                               LENGTH_VALUE_COLUMN, mdata->length_value,
+                               VIDEO_WIDTH_COLUMN, mdata->width, VIDEO_HEIGHT_COLUMN,
+                               mdata->height, PLAYABLE_COLUMN, mdata->playable, -1);
+
+            if (mdata->playable == FALSE) {
+                gtk_list_store_remove(playliststore, riter);
+                g_idle_add(set_title_bar, idledata);
             }
         }
     }
 
-    if (mdata != NULL) {
-        g_free(mdata->uri);
-        g_free(mdata->demuxer);
-        g_free(mdata->title);
-        g_free(mdata->artist);
-        g_free(mdata->album);
-        g_free(mdata->length);
-        g_free(mdata->subtitle);
-        g_free(mdata->audio_codec);
-        g_free(mdata->video_codec);
-        g_free(mdata);
-    }
+    g_free(riter);
+	free_metadata(mdata);
 
+    g_mutex_unlock(set_mutex);
     return FALSE;
 }
 
@@ -1911,10 +1895,15 @@ gboolean delete_callback(GtkWidget * widget, GdkEvent * event, void *data)
 #ifdef LIBGDA_ENABLED
     if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY
         || gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
-			
-        mark_uri_in_db_as_resumable(db_connection, gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)),
+
+        mark_uri_in_db_as_resumable(db_connection, gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), TRUE,
                                     gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
                                                                            ATTRIBUTE_POSITION));
+    } else {
+
+        if (gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)) != NULL) {
+            mark_uri_in_db_as_resumable(db_connection, gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), FALSE, 0.0);
+        }
     }
 #endif
 
@@ -6559,6 +6548,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     gchar *title;
     gchar *buffer;
     MetaData *metadata;
+    GtkTreeIter *citer = NULL;
+
     switch (attribute) {
     case ATTRIBUTE_LENGTH:
         if (GTK_IS_WIDGET(tracker)) {
@@ -6779,7 +6770,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     case ATTRIBUTE_ARTIST:
     case ATTRIBUTE_ALBUM:
 
-        metadata = (MetaData *) g_new0(MetaData, 1);
+        g_mutex_lock(set_mutex);
+        metadata = g_new0(MetaData, 1);
         metadata->uri = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
         text = g_strdup_printf("<small>\n");
         if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE)) {
@@ -6824,33 +6816,33 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         text = g_strconcat(text, "</small>", NULL);
         gtk_label_set_markup(GTK_LABEL(media_label), text);
         g_strlcpy(idledata->media_info, text, sizeof(idledata->media_info));
-        if (gmtk_get_visible(window)) {
-            gm_log(GMTK_MEDIA_PLAYER(media)->debug, G_LOG_LEVEL_DEBUG, "starting get_cover_art(%s) thread",
-                   metadata->uri);
-            g_thread_create(get_cover_art, metadata, FALSE, NULL);
-        }
+
 #ifdef LIBGDA_ENABLED
         insert_update_db_metadata(db_connection, metadata->uri, metadata);
 #endif
-        if (gtk_list_store_iter_is_valid(playliststore, &iter) && !g_thread_pool_unprocessed(retrieve_metadata_pool)) {
+        citer = find_iter_by_uri(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+        if (gtk_list_store_iter_is_valid(playliststore, citer) && !g_thread_pool_unprocessed(retrieve_metadata_pool)) {
             switch (attribute) {
             case ATTRIBUTE_TITLE:
-                if (metadata->title)
-                    gtk_list_store_set(playliststore, &iter, DESCRIPTION_COLUMN, metadata->title, -1);
+                gtk_list_store_set(playliststore, citer, DESCRIPTION_COLUMN, gmtk_media_player_get_attribute_string
+                                   (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE), -1);
                 break;
             case ATTRIBUTE_ARTIST:
-                if (metadata->artist)
-                    gtk_list_store_set(playliststore, &iter, ARTIST_COLUMN, metadata->artist, -1);
+                gtk_list_store_set(playliststore, citer, ARTIST_COLUMN, gmtk_media_player_get_attribute_string
+                                   (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST), -1);
                 break;
 
             case ATTRIBUTE_ALBUM:
-                if (metadata->album)
-                    gtk_list_store_set(playliststore, &iter, ALBUM_COLUMN, metadata->album, -1);
+                gtk_list_store_set(playliststore, citer, ALBUM_COLUMN, gmtk_media_player_get_attribute_string
+                                   (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ALBUM), -1);
                 break;
-			default:
-				break;
+            default:
+                break;
             }
         }
+        g_free(citer);
+        free_metadata(metadata);
+        g_mutex_unlock(set_mutex);
         break;
 
     case ATTRIBUTE_RETRY_ON_FULL_CACHE:

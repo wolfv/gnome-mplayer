@@ -170,43 +170,114 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "title"), 0, &error);
                 if (value != NULL && G_IS_VALUE(value))
                     ret->title = unescape_sql(g_value_dup_string(value));
+
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "artist"), 0, &error);
                 if (value != NULL && G_IS_VALUE(value))
                     ret->artist = unescape_sql(g_value_dup_string(value));
+
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "album"), 0, &error);
                 if (value != NULL && G_IS_VALUE(value))
                     ret->album = unescape_sql(g_value_dup_string(value));
+
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "audio_codec"), 0,
                                                 &error);
                 if (value != NULL && G_IS_VALUE(value))
                     ret->audio_codec = g_value_dup_string(value);
+
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "video_codec"), 0,
                                                 &error);
                 if (value != NULL && G_IS_VALUE(value))
                     ret->video_codec = g_value_dup_string(value);
+
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "demuxer"), 0, &error);
                 if (value != NULL && G_IS_VALUE(value))
                     ret->demuxer = g_value_dup_string(value);
+
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "video_width"), 0,
                                                 &error);
                 if (value != NULL && G_IS_VALUE(value))
                     ret->width = g_value_get_int(value);
+
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "video_height"), 0,
                                                 &error);
                 if (value != NULL && G_IS_VALUE(value))
                     ret->height = g_value_get_int(value);
+
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "length"), 0, &error);
                 if (value != NULL && G_IS_VALUE(value)) {
                     ret->length_value = g_value_get_double(value);
                     ret->length = seconds_to_string(ret->length_value);
                 }
 
+                value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "resume"), 0, &error);
+                if (value != NULL && G_IS_VALUE(value)) {
+                    ret->resumable = g_value_get_boolean(value);
+                }
+
+                value =
+                    gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "position"), 0, &error);
+                if (value != NULL && G_IS_VALUE(value)) {
+                    ret->position = g_value_get_double(value);
+                }
+
                 ret->valid = TRUE;
+
+            }
+
+            g_object_unref(model);
+        } else {
+            /* there was an error while executing the statement */
+            printf("error executing statement \"%s\"\n", sql);
+        }
+        g_object_unref(stmt);
+    }
+
+    g_free(sql);
+    g_free(localuri);
+
+    return ret;
+}
+
+gboolean is_uri_in_db_resumable(GdaConnection * conn, const gchar * uri)
+{
+    GdaSqlParser *parser;
+    GdaStatement *stmt;
+    GError *error = NULL;
+    gchar *sql = NULL;
+    const GValue *value;
+    gchar *localuri;
+    gboolean ret = FALSE;
+
+    localuri = escape_sql(uri);
+
+    sql = g_strdup_printf("select resume from media_entries where uri = '%s'", localuri);
+
+    parser = gda_connection_create_parser(conn);
+    if (!parser) {
+        printf("parser was not found\n");
+        parser = gda_sql_parser_new();
+    }
+
+    stmt = gda_sql_parser_parse_string(parser, sql, NULL, &error);
+    g_object_unref(parser);
+
+    if (!stmt) {
+        /* there was an error while parsing */
+        printf("error parsing statement \"%s\"\n", sql);
+    } else {
+        GdaDataModel *model;
+        model = gda_connection_statement_execute_select(conn, stmt, NULL, &error);
+        if (model) {
+            if (gda_data_model_get_n_rows(model) == 1) {
+                value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "resume"), 0, &error);
+                if (value != NULL && G_IS_VALUE(value)) {
+                    ret = g_value_get_boolean(value);
+                }
 
             }
 
@@ -349,13 +420,14 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
 
 }
 
-void mark_uri_in_db_as_resumable(GdaConnection * conn, const gchar * uri, gdouble position)
+void mark_uri_in_db_as_resumable(GdaConnection * conn, const gchar * uri, gboolean resume, gdouble position)
 {
     gchar *update;
     gchar *localuri;
 
     localuri = escape_sql(uri);
-    update = g_strdup_printf("update media_entries set resume=1, position=%lf where uri='%s'", position, localuri);
+    update =
+        g_strdup_printf("update media_entries set resume=%i, position=%lf where uri='%s'", resume, position, localuri);
 
     run_sql_non_select(conn, update);
     g_free(update);

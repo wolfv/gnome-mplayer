@@ -1140,6 +1140,44 @@ MetaData *get_basic_metadata(gchar * uri)
     return ret;
 }
 
+void free_metadata(MetaData * data)
+{
+
+    if (data == NULL)
+        return;
+
+    if (data->uri)
+        g_free(data->uri);
+
+    if (data->title)
+        g_free(data->title);
+
+    if (data->artist)
+        g_free(data->artist);
+
+    if (data->album)
+        g_free(data->album);
+
+    if (data->length)
+        g_free(data->length);
+
+    if (data->subtitle)
+        g_free(data->subtitle);
+
+    if (data->audio_codec)
+        g_free(data->audio_codec);
+
+    if (data->video_codec)
+        g_free(data->video_codec);
+
+    if (data->demuxer)
+        g_free(data->demuxer);
+
+    g_free(data);
+
+}
+
+
 MetaData *get_metadata(gchar * uri)
 {
     gchar *title = NULL;
@@ -1690,6 +1728,7 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
                 idledata->videopresent = TRUE;
             g_idle_add(resize_window, idledata);
         }
+
     }
 
     if (data) {
@@ -1746,6 +1785,27 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
         return FALSE;
     }
 
+}
+
+GtkTreeIter *find_iter_by_uri(const gchar * uri)
+{
+    GtkTreeIter *iter = NULL;
+    gchar *localuri;
+
+    iter = g_new0(GtkTreeIter, 1);
+    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(playliststore), iter);
+    if (gtk_list_store_iter_is_valid(playliststore, iter)) {
+        do {
+            gtk_tree_model_get(GTK_TREE_MODEL(playliststore), iter, ITEM_COLUMN, &localuri, -1);
+            if (g_ascii_strcasecmp(uri, localuri) == 0) {
+                // we found the current iter
+                break;
+            }
+            g_free(localuri);
+        } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(playliststore), iter));
+    }
+
+    return iter;
 }
 
 gboolean is_first_item_in_playlist(GtkTreeIter * iter)
@@ -2719,11 +2779,7 @@ gpointer get_cover_art(gpointer data)
     }
     g_free(cache_file);
 
-    g_free(metadata->uri);
-    g_free(metadata->title);
-    g_free(metadata->artist);
-    g_free(metadata->album);
-    g_free(metadata);
+    free_metadata(metadata);
     return NULL;
 }
 #else
@@ -2732,11 +2788,7 @@ gpointer get_cover_art(gpointer data)
     MetaData *metadata = (MetaData *) data;
 
     gm_log(verbose, G_LOG_LEVEL_INFO, "libcurl required for cover art retrieval");
-    g_free(metadata->uri);
-    g_free(metadata->title);
-    g_free(metadata->artist);
-    g_free(metadata->album);
-    g_free(metadata);
+    free_metadata(metadata);
     return NULL;
 }
 

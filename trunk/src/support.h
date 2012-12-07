@@ -54,6 +54,7 @@
 #include <database.h>
 
 gint get_bitrate(gchar * name);
+void free_metadata(MetaData * data);
 MetaData *get_metadata(gchar * uri);
 MetaData *get_basic_metadata(gchar * uri);
 void strip_unicode(gchar * data, gsize len);
@@ -73,6 +74,7 @@ gchar *get_path(gchar * filename);
 gboolean streaming_media(gchar * filename);
 gboolean device_name(gchar * filename);
 gboolean add_item_to_playlist(const gchar * uri, gboolean playlist);
+GtkTreeIter *find_iter_by_uri(const gchar * uri);
 gboolean is_first_item_in_playlist(GtkTreeIter * iter);
 gboolean first_item_in_playlist(GtkListStore * playliststore, GtkTreeIter * iter);
 gboolean prev_item_in_playlist(GtkTreeIter * iter);
