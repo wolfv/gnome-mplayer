@@ -1123,6 +1123,7 @@ MetaData *get_basic_metadata(gchar * uri)
         ret->audio_codec = g_strdup(audio_codec);
         ret->video_codec = g_strdup(video_codec);
         ret->demuxer = g_strdup(demuxer);
+		ret->playable = TRUE;
         ret->width = width;
         ret->height = height;
     }
@@ -1731,7 +1732,7 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
 
     }
 
-    if (data) {
+    if (data && data->playable == TRUE) {
         gtk_list_store_append(playliststore, &localiter);
         gtk_list_store_set(playliststore, &localiter, ITEM_COLUMN, local_uri,
                            DESCRIPTION_COLUMN, data->title,

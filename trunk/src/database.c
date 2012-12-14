@@ -144,6 +144,7 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
         ret = (MetaData *) g_new0(MetaData, 1);
 
     ret->uri = g_strdup(uri);
+    ret->playable = FALSE;
     ret->valid = FALSE;
 
     localuri = escape_sql(uri);
@@ -195,6 +196,9 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "demuxer"), 0, &error);
                 if (value != NULL && G_IS_VALUE(value))
                     ret->demuxer = g_value_dup_string(value);
+                if (ret->demuxer != NULL) {
+                    ret->playable = TRUE;
+                }
 
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "video_width"), 0,

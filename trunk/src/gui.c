@@ -1321,7 +1321,7 @@ gboolean set_metadata(gpointer data)
     }
 
     g_free(riter);
-	free_metadata(mdata);
+    free_metadata(mdata);
 
     g_mutex_unlock(set_mutex);
     return FALSE;
@@ -6550,12 +6550,26 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     MetaData *metadata;
     GtkTreeIter *citer = NULL;
 
+    g_mutex_lock(set_mutex);
+#ifdef LIBGDA_ENABLED
+    metadata = get_db_metadata(db_connection, gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+#else
+    metadata = g_new0(MetaData, 1);
+    metadata->uri = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
+#endif
+
     switch (attribute) {
     case ATTRIBUTE_LENGTH:
         if (GTK_IS_WIDGET(tracker)) {
             gmtk_media_tracker_set_length(GMTK_MEDIA_TRACKER(tracker),
                                           gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), attribute));
         }
+        metadata->length_value = gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), attribute);
+        if (metadata->length)
+            g_free(metadata->length);
+        metadata->length =
+            seconds_to_string(gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media), attribute));
+
         break;
     case ATTRIBUTE_SIZE:
         if (remember_loc) {
@@ -6770,9 +6784,6 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     case ATTRIBUTE_ARTIST:
     case ATTRIBUTE_ALBUM:
 
-        g_mutex_lock(set_mutex);
-        metadata = g_new0(MetaData, 1);
-        metadata->uri = g_strdup(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
         text = g_strdup_printf("<small>\n");
         if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE)) {
             buffer =
@@ -6781,6 +6792,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
                                         (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE));
             text = g_strconcat(text, buffer, NULL);
             g_free(buffer);
+            if (metadata->title)
+                g_free(metadata->title);
             metadata->title =
                 g_strstrip(g_strdup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE)));
             if (metadata->title != NULL && strlen(metadata->title) > 0) {
@@ -6797,6 +6810,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
                                         (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST));
             text = g_strconcat(text, buffer, NULL);
             g_free(buffer);
+            if (metadata->artist)
+                g_free(metadata->artist);
             metadata->artist =
                 g_strstrip(g_strdup
                            (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ARTIST)));
@@ -6809,6 +6824,8 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
                                         (GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ALBUM));
             text = g_strconcat(text, buffer, NULL);
             g_free(buffer);
+            if (metadata->album)
+                g_free(metadata->album);
             metadata->album =
                 g_strstrip(g_strdup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_ALBUM)));
         }
@@ -6817,9 +6834,6 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_label_set_markup(GTK_LABEL(media_label), text);
         g_strlcpy(idledata->media_info, text, sizeof(idledata->media_info));
 
-#ifdef LIBGDA_ENABLED
-        insert_update_db_metadata(db_connection, metadata->uri, metadata);
-#endif
         citer = find_iter_by_uri(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)));
         if (gtk_list_store_iter_is_valid(playliststore, citer) && !g_thread_pool_unprocessed(retrieve_metadata_pool)) {
             switch (attribute) {
@@ -6841,8 +6855,6 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
             }
         }
         g_free(citer);
-        free_metadata(metadata);
-        g_mutex_unlock(set_mutex);
         break;
 
     case ATTRIBUTE_RETRY_ON_FULL_CACHE:
@@ -6857,6 +6869,13 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
     default:
         gm_log(verbose, G_LOG_LEVEL_INFO, "Unhandled attribute change %i", attribute);
     }
+
+#ifdef LIBGDA_ENABLED
+    insert_update_db_metadata(db_connection, metadata->uri, metadata);
+#endif
+
+    free_metadata(metadata);
+    g_mutex_unlock(set_mutex);
     mpris_send_signal_Updated_Metadata();
 }
 
