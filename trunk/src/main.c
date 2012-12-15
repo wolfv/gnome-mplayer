@@ -1042,6 +1042,7 @@ int main(int argc, char *argv[])
         printf(_("gmtk v%s\n"), gmtk_version());
         printf("GTK %i.%i.%i\n", GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
         printf("GLIB %i.%i.%i\n", GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION, GLIB_MICRO_VERSION);
+        printf("GDA Enabled\n");
     }
 
     if (cache_size == 0)
@@ -1322,7 +1323,11 @@ int main(int argc, char *argv[])
     gm_audio_update_device(&audio_device);
     // disabling this line seems to help with hangs on startup when using pulseaudio
     //gm_audio_get_volume(&audio_device);
-    gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
+    if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
+        gm_audio_set_server_volume_update_callback(&audio_device, NULL);
+    } else {
+        gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
+    }
     set_media_player_attributes(media);
 
     if (!softvol) {

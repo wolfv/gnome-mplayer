@@ -1,4 +1,5 @@
 Development
+    Don't monitor system volume, when running in softvol mode
 	Update metadata in database as needed
 	Don't reset unchanged values in the database
 	Implement media play resume, from last viewed location

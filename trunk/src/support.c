@@ -1123,7 +1123,7 @@ MetaData *get_basic_metadata(gchar * uri)
         ret->audio_codec = g_strdup(audio_codec);
         ret->video_codec = g_strdup(video_codec);
         ret->demuxer = g_strdup(demuxer);
-		ret->playable = TRUE;
+        ret->playable = TRUE;
         ret->width = width;
         ret->height = height;
     }
