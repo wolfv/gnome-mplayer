@@ -1646,6 +1646,24 @@ gboolean set_software_volume(gdouble * data)
     return FALSE;
 }
 
+gboolean hookup_volume(void *data)
+{
+    static int count = 0;
+    // keep calling this function until we get a valid audio device
+    if (gm_audio_update_device(&audio_device) && count++ < 10) {
+        if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
+            gm_audio_set_server_volume_update_callback(&audio_device, NULL);
+        } else {
+            gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
+        }
+
+        return FALSE;
+    } else {
+        return TRUE;
+    }
+}
+
+
 gboolean set_volume(void *data)
 {
     IdleData *idle = (IdleData *) data;
@@ -4218,13 +4236,13 @@ void config_apply(GtkWidget * widget, void *data)
     gm_audio_get_volume(&audio_device);
     if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
         gm_audio_set_server_volume_update_callback(&audio_device, NULL);
+        gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SOFTVOL, TRUE);
     } else {
         gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
+        gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SOFTVOL, FALSE);
     }
 
     gmtk_media_player_set_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AO, audio_device.mplayer_ao);
-    gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SOFTVOL,
-                                            audio_device.type == AUDIO_TYPE_SOFTVOL);
 
 #ifdef HAVE_ASOUNDLIB
     if (audio_device.alsa_mixer != NULL) {

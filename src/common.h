@@ -468,6 +468,7 @@ gboolean set_next(void *data);
 gboolean set_quit(void *data);
 gboolean set_kill_mplayer(void *data);
 gboolean set_position(void *data);
+gboolean hookup_volume(void *data);
 gboolean set_volume(void *data);
 gboolean set_fullscreen(void *data);
 gboolean set_show_controls(void *data);
