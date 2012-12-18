@@ -229,7 +229,8 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
                     ret->position = g_value_get_double(value);
                 }
 
-                ret->valid = TRUE;
+                if (ret->demuxer != NULL)
+                    ret->valid = TRUE;
 
             }
 

@@ -1,4 +1,6 @@
 Development
+	Only update the database when we really want to change something, speeds things up on load
+	Keep code from infinitly looping if audio device is not found
 	Apply patch to compile with libgda4 or libgda5
     Fix some problems on initial volume setup, when pulseaudio device query is slow
     Don't monitor system volume, when running in softvol mode
