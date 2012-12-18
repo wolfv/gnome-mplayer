@@ -1,4 +1,5 @@
 Development
+	Apply patch to compile with libgda4 or libgda5
     Fix some problems on initial volume setup, when pulseaudio device query is slow
     Don't monitor system volume, when running in softvol mode
 	Update metadata in database as needed
