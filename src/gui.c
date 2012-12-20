@@ -8661,9 +8661,9 @@ void show_fs_controls()
         g_object_ref(hbox);
 #ifdef GTK3_ENABLED
         if (gtk_icon_theme_has_icon(icon_theme, "view-restore-symbolic")) {
-            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "view-restore-symbolic", button_size);
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_fs), "view-restore-symbolic", button_size);
         } else {
-            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_LEAVE_FULLSCREEN, button_size);
+            gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_LEAVE_FULLSCREEN, button_size);
         }
 #else
         gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_LEAVE_FULLSCREEN, button_size);
@@ -8702,9 +8702,9 @@ void hide_fs_controls()
         g_object_ref(hbox);
 #ifdef GTK3_ENABLED
         if (gtk_icon_theme_has_icon(icon_theme, "view-fullscreen-symbolic")) {
-            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "view-fullscreen-symbolic", button_size);
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_fs), "view-fullscreen-symbolic", button_size);
         } else {
-            gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_FULLSCREEN, button_size);
+            gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_FULLSCREEN, button_size);
         }
 #else
         gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_FULLSCREEN, button_size);
