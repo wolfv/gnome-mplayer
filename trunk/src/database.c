@@ -169,32 +169,32 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
         if (model) {
             if (gda_data_model_get_n_rows(model) == 1) {
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "title"), 0, &error);
-                if (value != NULL && G_IS_VALUE(value))
+                if (value != NULL && G_IS_VALUE(value) && G_VALUE_HOLDS_STRING(value))
                     ret->title = unescape_sql(g_value_dup_string(value));
 
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "artist"), 0, &error);
-                if (value != NULL && G_IS_VALUE(value))
+                if (value != NULL && G_IS_VALUE(value) && G_VALUE_HOLDS_STRING(value))
                     ret->artist = unescape_sql(g_value_dup_string(value));
 
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "album"), 0, &error);
-                if (value != NULL && G_IS_VALUE(value))
+                if (value != NULL && G_IS_VALUE(value) && G_VALUE_HOLDS_STRING(value))
                     ret->album = unescape_sql(g_value_dup_string(value));
 
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "audio_codec"), 0,
                                                 &error);
-                if (value != NULL && G_IS_VALUE(value))
+                if (value != NULL && G_IS_VALUE(value) && G_VALUE_HOLDS_STRING(value))
                     ret->audio_codec = g_value_dup_string(value);
 
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "video_codec"), 0,
                                                 &error);
-                if (value != NULL && G_IS_VALUE(value))
+                if (value != NULL && G_IS_VALUE(value) && G_VALUE_HOLDS_STRING(value))
                     ret->video_codec = g_value_dup_string(value);
 
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "demuxer"), 0, &error);
-                if (value != NULL && G_IS_VALUE(value))
+                if (value != NULL && G_IS_VALUE(value) && G_VALUE_HOLDS_STRING(value))
                     ret->demuxer = g_value_dup_string(value);
                 if (ret->demuxer != NULL) {
                     ret->playable = TRUE;
