@@ -548,7 +548,9 @@ void adjust_layout()
             //    gtk_main_iteration();
         }
         gmtk_get_allocation(media_hbox, &alloc);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "media height = %i", alloc.height);
         total_height += alloc.height;
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "total_height = %i", total_height);
     } else {
         gtk_widget_hide(media_hbox);
     }
@@ -560,7 +562,9 @@ void adjust_layout()
             //return;
         }
         gmtk_get_allocation(details_vbox, &alloc);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "detail height = %i", alloc.height);
         total_height += alloc.height;
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "total_height = %i", total_height);
     } else {
         gtk_widget_hide(details_vbox);
     }
@@ -621,15 +625,19 @@ void adjust_layout()
 
     if (!fullscreen) {
         if (!enable_global_menu) {
-            gm_log(verbose, G_LOG_LEVEL_DEBUG, "menubar = %i", alloc.height);
             gmtk_get_allocation(menubar, &alloc);
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "menubar = %i", alloc.height);
             total_height += alloc.height;
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "total_height = %i", total_height);
         }
     }
 
     if (showcontrols) {
         gmtk_get_allocation(controls_box, &alloc);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "controls height = %i", alloc.height);
         total_height += alloc.height;
+		gm_log(verbose, G_LOG_LEVEL_DEBUG, "total_height = %i", total_height);
+
     }
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "total = %i x %i video = %s", total_width, total_height,
            gm_bool_to_string(idledata->videopresent));
@@ -7875,10 +7883,10 @@ GtkWidget *create_window(gint windowid)
     //Connect the signal for DnD
     g_signal_connect(G_OBJECT(window), "drag_data_received", G_CALLBACK(drop_callback), NULL);
 #if GTK_MAJOR_VERSION == 3 && GTK_MINOR_VERSION >= 2
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_set_homogeneous(GTK_BOX(vbox), FALSE);
 #else
-    vbox = gtk_vbox_new(FALSE, 10);
+    vbox = gtk_vbox_new(FALSE, 0);
 #endif
 #if GTK_MAJOR_VERSION == 3 && GTK_MINOR_VERSION >= 2
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
