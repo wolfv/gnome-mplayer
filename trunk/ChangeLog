@@ -1,4 +1,5 @@
 Development
+	Fix cut and paste error with vbox padding
 	Prevent assertion warning in database retrieval code
 	Fix fullscreen icon used in place of play icon, problem caused by symbolic icon fix (Issue #656)
 	Only update the database when we really want to change something, speeds things up on load
