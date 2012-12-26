@@ -636,7 +636,7 @@ void adjust_layout()
         gmtk_get_allocation(controls_box, &alloc);
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "controls height = %i", alloc.height);
         total_height += alloc.height;
-		gm_log(verbose, G_LOG_LEVEL_DEBUG, "total_height = %i", total_height);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "total_height = %i", total_height);
 
     }
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "total = %i x %i video = %s", total_width, total_height,
