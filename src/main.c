@@ -963,12 +963,16 @@ int main(int argc, char *argv[])
         }
     }
     enable_global_menu = gm_pref_store_get_boolean(gm_store, ENABLE_GLOBAL_MENU);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Enable global menu preference value is %s",
+           gm_bool_to_string(enable_global_menu));
     if (!enable_global_menu) {
         enable_global_menu = (g_getenv("UBUNTU_MENUPROXY") == NULL ? FALSE : TRUE);
+        gm_log(verbose, G_LOG_LEVEL_DEBUG,
+               "Enable global menu preference value is %s after checking for UBUNTU_MENUPROXY",
+               gm_bool_to_string(enable_global_menu));
     }
 
     enable_nautilus_plugin = gm_pref_store_get_boolean_with_default(gm_store, ENABLE_NAUTILUS_PLUGIN, TRUE);
-
     mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);
@@ -976,7 +980,6 @@ int main(int argc, char *argv[])
     }
     mplayer_dvd_device = gm_pref_store_get_string(gm_store, MPLAYER_DVD_DEVICE);
     extraopts = gm_pref_store_get_string(gm_store, EXTRAOPTS);
-
     accelerator_keys = gm_pref_store_get_string(gm_store, ACCELERATOR_KEYS);
     accel_keys = g_strv_new(KEY_COUNT);
     accel_keys_description = g_strv_new(KEY_COUNT);
@@ -1003,21 +1006,17 @@ int main(int argc, char *argv[])
     accel_keys_description[VIEW_INCREASE_SIZE] = g_strdup(_("Increase Subtitle Size"));
     accel_keys_description[VIEW_ANGLE] = g_strdup(_("Switch Angle"));
     accel_keys_description[VIEW_CONTROLS] = g_strdup(_("Controls"));
-
     remember_loc = gm_pref_store_get_boolean(gm_store, REMEMBER_LOC);
     loc_window_x = gm_pref_store_get_int(gm_store, WINDOW_X);
     loc_window_y = gm_pref_store_get_int(gm_store, WINDOW_Y);
     loc_window_height = gm_pref_store_get_int(gm_store, WINDOW_HEIGHT);
     loc_window_width = gm_pref_store_get_int(gm_store, WINDOW_WIDTH);
     loc_panel_position = gm_pref_store_get_int(gm_store, PANEL_POSITION);
-
     keep_on_top = gm_pref_store_get_boolean(gm_store, KEEP_ON_TOP);
     resize_on_new_media = gm_pref_store_get_boolean(gm_store, RESIZE_ON_NEW_MEDIA);
     mouse_wheel_changes_volume = gm_pref_store_get_boolean_with_default(gm_store, MOUSE_WHEEL_CHANGES_VOLUME, FALSE);
-
     audio_device_name = gm_pref_store_get_string(gm_store, AUDIO_DEVICE_NAME);
     audio_device.description = g_strdup(audio_device_name);
-
     context = g_option_context_new(_("[FILES...] - GNOME Media player based on MPlayer"));
 #ifdef GTK2_12_ENABLED
     g_option_context_set_translation_domain(context, "UTF-8");
@@ -1027,16 +1026,12 @@ int main(int argc, char *argv[])
     g_option_context_add_group(context, gtk_get_option_group(TRUE));
     g_option_context_parse(context, &argc, &argv, &error);
     g_option_context_free(context);
-
     if (new_instance)
         single_instance = FALSE;
-
     if (verbose == 0)
         verbose = gm_pref_store_get_int(gm_store, VERBOSE);
-
     if (reallyverbose)
         verbose = 2;
-
     if (verbose) {
         printf(_("GNOME MPlayer v%s\n"), VERSION);
         printf(_("gmtk v%s\n"), gmtk_version());
@@ -1049,21 +1044,16 @@ int main(int argc, char *argv[])
         cache_size = gm_pref_store_get_int(gm_store, CACHE_SIZE);
     if (cache_size == 0)
         cache_size = 2000;
-
     plugin_audio_cache_size = gm_pref_store_get_int(gm_store, PLUGIN_AUDIO_CACHE_SIZE);
     if (plugin_audio_cache_size == 0)
         plugin_audio_cache_size = 2000;
-
     plugin_video_cache_size = gm_pref_store_get_int(gm_store, PLUGIN_VIDEO_CACHE_SIZE);
     if (plugin_video_cache_size == 0)
         plugin_video_cache_size = 2000;
-
     if (control_id != 0)
         cache_size = plugin_video_cache_size;
-
     gm_pref_store_free(gm_store);
     gm_pref_store_free(gmp_store);
-
     if (embed_window) {
         gm_log(verbose, G_LOG_LEVEL_INFO, "embedded in window id 0x%x", embed_window);
     }
@@ -1096,10 +1086,8 @@ int main(int argc, char *argv[])
 
     if (large_buttons)
         button_size = GTK_ICON_SIZE_DIALOG;
-
     if (playlist_visible && control_id != 0)
         playlist_visible = FALSE;
-
     if (error != NULL) {
         printf("%s\n", error->message);
         printf(_("Run 'gnome-mplayer --help' to see a full list of available command line options.\n"));
@@ -1108,7 +1096,6 @@ int main(int argc, char *argv[])
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "Threading support enabled = %s", gm_bool_to_string(g_thread_supported()));
     if (rpconsole == NULL)
         rpconsole = g_strdup("NONE");
-
     // setup playliststore
     playliststore =
         gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_BOOLEAN,
@@ -1116,11 +1103,9 @@ int main(int argc, char *argv[])
                            G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
                            G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
                            G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_BOOLEAN);
-
 #ifdef LIBGDA_ENABLED
     db_connection = open_db_connection();
 #endif
-
     // only use dark theme if not embedded, otherwise use the default theme  
 #ifdef GTK3_ENABLED
     if (embed_window <= 0) {
@@ -1130,17 +1115,14 @@ int main(int argc, char *argv[])
 #endif
 
     create_window(embed_window);
-
     autopause = FALSE;
 #ifdef GIO_ENABLED
     idledata->caching = g_mutex_new();
     idledata->caching_complete = g_cond_new();
 #endif
-
     retrieve_metadata_pool = g_thread_pool_new(retrieve_metadata, NULL, 10, TRUE, NULL);
     retrieve_mutex = g_mutex_new();
     set_mutex = g_mutex_new();
-
     if (argv[fileindex] != NULL) {
 #ifdef GIO_ENABLED
         file = g_file_new_for_commandline_arg(argv[fileindex]);
@@ -1162,7 +1144,6 @@ int main(int argc, char *argv[])
 #else
         stat_result = g_stat(argv[fileindex], &buf);
 #endif
-
         gm_log(verbose, G_LOG_LEVEL_INFO, "opening %s", argv[fileindex]);
         gm_log(verbose, G_LOG_LEVEL_INFO, "stat_result = %i", stat_result);
         gm_log(verbose, G_LOG_LEVEL_INFO, "is block %s", gm_bool_to_string(S_ISBLK(buf.st_mode)));
@@ -1264,7 +1245,6 @@ int main(int argc, char *argv[])
             // local file
             // detect if playlist here, so even if not specified it can be picked up
             i = fileindex;
-
             while (argv[i] != NULL) {
                 gm_log(verbose, G_LOG_LEVEL_DEBUG, "Argument %i is %s", i, argv[i]);
 #ifdef GIO_ENABLED
@@ -1282,7 +1262,6 @@ int main(int argc, char *argv[])
 #else
                 uri = g_filename_to_uri(argv[i], NULL, NULL);
 #endif
-
                 if (uri != NULL) {
                     if (playlist == FALSE)
                         playlist = detect_playlist(uri);
@@ -1324,7 +1303,6 @@ int main(int argc, char *argv[])
     // disabling this line seems to help with hangs on startup when using pulseaudio
     //gm_audio_get_volume(&audio_device);
     set_media_player_attributes(media);
-
     if (!softvol) {
         if (pref_volume != -1) {
             audio_device.volume = (gdouble) pref_volume / 100.0;
@@ -1341,17 +1319,14 @@ int main(int argc, char *argv[])
     gtk_range_set_value(GTK_RANGE(vol_slider), audio_device.volume);
 #endif
     use_volume_option = detect_volume_option();
-
     dbus_hookup(embed_window, control_id);
     // don't hook up MPRIS when running in embedded mode
     if (embed_window == 0) {
         mpris_hookup(control_id);
     }
     show_window(embed_window);
-
     if (playiter)
         play_iter(&iter, 0);
-
     if (argv[fileindex] == NULL && embed_window == 0) {
         // When running as apple.com external player, don't load the default playlist
         if (control_id == 0) {
@@ -1383,7 +1358,6 @@ int main(int argc, char *argv[])
         if (remember_loc) {
             gtk_window_move(GTK_WINDOW(window), loc_window_x, loc_window_y);
             g_idle_add(set_pane_position, NULL);
-
         }
     }
 
@@ -1394,11 +1368,9 @@ int main(int argc, char *argv[])
         destroy_folder_progress_window();
     }
     safe_to_save_default_playlist = TRUE;
-
     // put the request to update the volume into the list of tasks to complete
     g_idle_add(hookup_volume, NULL);
     g_idle_add(set_volume, NULL);
     gtk_main();
-
     return 0;
 }
