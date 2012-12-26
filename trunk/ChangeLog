@@ -1,4 +1,5 @@
 Development
+	Rework UBUNTU_MENUPROXY reading
 	Add some extra debug information for enable_global_menu
 	Fix cut and paste error with vbox padding
 	Prevent assertion warning in database retrieval code

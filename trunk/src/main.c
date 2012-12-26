@@ -966,9 +966,14 @@ int main(int argc, char *argv[])
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "Enable global menu preference value is %s",
            gm_bool_to_string(enable_global_menu));
     if (!enable_global_menu) {
-        enable_global_menu = (g_getenv("UBUNTU_MENUPROXY") == NULL ? FALSE : TRUE);
+		if (g_getenv("UBUNTU_MENUPROXY") != NULL) {
+			if (g_ascii_strcasecmp(g_getenv("UBUNTU_MENUPROXY"),"0") == 0)
+				enable_global_menu = FALSE;
+			if (g_ascii_strcasecmp(g_getenv("UBUNTU_MENUPROXY"),"1") == 0)
+				enable_global_menu = TRUE;
+		}    
         gm_log(verbose, G_LOG_LEVEL_DEBUG,
-               "Enable global menu preference value is %s after checking for UBUNTU_MENUPROXY",
+               "Enable global menu preference value is %s after reading UBUNTU_MENUPROXY",
                gm_bool_to_string(enable_global_menu));
     }
 
