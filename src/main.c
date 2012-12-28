@@ -618,7 +618,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1 && metadata->resumable) {
             position_text = seconds_to_string(metadata->position);
             GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
-                                                       GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                        GTK_MESSAGE_QUESTION,
                                                        GTK_BUTTONS_YES_NO,
                                                        _("Resume Playback of %s at %s"),
@@ -966,12 +966,12 @@ int main(int argc, char *argv[])
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "Enable global menu preference value is %s",
            gm_bool_to_string(enable_global_menu));
     if (!enable_global_menu) {
-		if (g_getenv("UBUNTU_MENUPROXY") != NULL) {
-			if (g_ascii_strcasecmp(g_getenv("UBUNTU_MENUPROXY"),"0") == 0)
-				enable_global_menu = FALSE;
-			if (g_ascii_strcasecmp(g_getenv("UBUNTU_MENUPROXY"),"1") == 0)
-				enable_global_menu = TRUE;
-		}    
+        if (g_getenv("UBUNTU_MENUPROXY") != NULL) {
+            if (g_ascii_strcasecmp(g_getenv("UBUNTU_MENUPROXY"), "0") == 0)
+                enable_global_menu = FALSE;
+            if (g_ascii_strcasecmp(g_getenv("UBUNTU_MENUPROXY"), "1") == 0)
+                enable_global_menu = TRUE;
+        }
         gm_log(verbose, G_LOG_LEVEL_DEBUG,
                "Enable global menu preference value is %s after reading UBUNTU_MENUPROXY",
                gm_bool_to_string(enable_global_menu));
