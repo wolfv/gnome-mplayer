@@ -3085,6 +3085,21 @@ void menuitem_open_callback(GtkMenuItem * menuitem, void *data)
             gm_pref_store_free(gm_store);
             g_free(last_dir);
         }
+#ifdef LIBGDA_ENABLED
+        if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY
+            || gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+
+            mark_uri_in_db_as_resumable(db_connection, gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), TRUE,
+                                        gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
+                                                                               ATTRIBUTE_POSITION));
+        } else {
+
+            if (gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)) != NULL) {
+                mark_uri_in_db_as_resumable(db_connection, gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), FALSE,
+                                            0.0);
+            }
+        }
+#endif
 
         if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
             dontplaynext = TRUE;
@@ -3462,6 +3477,21 @@ void menuitem_open_recent_callback(GtkRecentChooser * chooser, gpointer data)
     gint count;
     GtkTreeViewColumn *column;
     gchar *coltitle;
+
+#ifdef LIBGDA_ENABLED
+    if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY
+        || gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
+
+        mark_uri_in_db_as_resumable(db_connection, gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), TRUE,
+                                    gmtk_media_player_get_attribute_double(GMTK_MEDIA_PLAYER(media),
+                                                                           ATTRIBUTE_POSITION));
+    } else {
+
+        if (gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)) != NULL) {
+            mark_uri_in_db_as_resumable(db_connection, gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), FALSE, 0.0);
+        }
+    }
+#endif
 
     if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) != MEDIA_STATE_UNKNOWN)
         dontplaynext = TRUE;

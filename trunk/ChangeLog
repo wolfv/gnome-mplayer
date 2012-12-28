@@ -1,4 +1,5 @@
 Development
+	Save media state in file->open and file->recent selections
 	Rework UBUNTU_MENUPROXY reading
 	Add some extra debug information for enable_global_menu
 	Fix cut and paste error with vbox padding
