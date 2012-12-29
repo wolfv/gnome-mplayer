@@ -1,4 +1,5 @@
 Development
+	Add gl3 to list of available VOs. make sure mplayer2 supports this on your setup before setting
 	Save media state in file->open and file->recent selections
 	Rework UBUNTU_MENUPROXY reading
 	Add some extra debug information for enable_global_menu

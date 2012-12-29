@@ -5345,6 +5345,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #ifdef GTK2_24_ENABLED
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "gl");
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "gl2");
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "gl3");
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "x11");
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "xv");
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_vo), "xvmc");
@@ -5355,6 +5356,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #else
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "gl");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "gl2");
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "gl3");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "x11");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xv");
         gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), "xvmc");
@@ -5369,16 +5371,18 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 0);
             if (strcmp(vo, "gl2") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 1);
-            if (strcmp(vo, "x11") == 0)
+            if (strcmp(vo, "gl3") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 2);
-            if (strcmp(vo, "xv") == 0)
+            if (strcmp(vo, "x11") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 3);
-            if (strcmp(vo, "xvmc") == 0)
+            if (strcmp(vo, "xv") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 4);
-            if (strcmp(vo, "vaapi") == 0)
+            if (strcmp(vo, "xvmc") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 5);
-            if (strcmp(vo, "vdpau") == 0)
+            if (strcmp(vo, "vaapi") == 0)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 6);
+            if (strcmp(vo, "vdpau") == 0)
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 7);
             if (gtk_combo_box_get_active(GTK_COMBO_BOX(config_vo))
                 == -1) {
 #ifdef GTK2_24_ENABLED
@@ -5386,7 +5390,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #else
                 gtk_combo_box_append_text(GTK_COMBO_BOX(config_vo), vo);
 #endif
-                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 7);
+#ifndef __OpenBSD__
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 8);
+#else
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 6);
+#endif				
             }
         }
     }
