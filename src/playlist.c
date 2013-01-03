@@ -926,6 +926,7 @@ void create_playlist_widget()
 
     count = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL);
     renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, "ellipsize-set", TRUE, NULL);
     column =
         gtk_tree_view_column_new_with_attributes(ngettext
                                                  ("Item to play", "Items to Play", count),
@@ -949,6 +950,7 @@ void create_playlist_widget()
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
     renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, "ellipsize-set", TRUE, NULL);
     column = gtk_tree_view_column_new_with_attributes(_("Artist"), renderer, "text", ARTIST_COLUMN, NULL);
     gtk_tree_view_column_set_expand(column, TRUE);
     //gtk_tree_view_column_set_max_width(column, 20);
@@ -960,6 +962,7 @@ void create_playlist_widget()
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
 
     renderer = gtk_cell_renderer_text_new();
+    g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_END, "ellipsize-set", TRUE, NULL);
     column = gtk_tree_view_column_new_with_attributes(_("Album"), renderer, "text", ALBUM_COLUMN, NULL);
     gtk_tree_view_column_set_expand(column, TRUE);
     //gtk_tree_view_column_set_max_width(column, 20);
