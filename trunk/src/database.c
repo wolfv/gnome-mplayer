@@ -213,7 +213,7 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
                     ret->height = g_value_get_int(value);
 
                 value = gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "length"), 0, &error);
-                if (value != NULL && G_IS_VALUE(value)) {
+                if (value != NULL && G_IS_VALUE(value) && G_VALUE_HOLDS_DOUBLE(value)) {
                     ret->length_value = g_value_get_double(value);
                     ret->length = seconds_to_string(ret->length_value);
                 }
@@ -225,7 +225,7 @@ MetaData *get_db_metadata(GdaConnection * conn, const gchar * uri)
 
                 value =
                     gda_data_model_get_value_at(model, gda_data_model_get_column_index(model, "position"), 0, &error);
-                if (value != NULL && G_IS_VALUE(value)) {
+                if (value != NULL && G_IS_VALUE(value) && G_VALUE_HOLDS_DOUBLE(value)) {
                     ret->position = g_value_get_double(value);
                 }
 
