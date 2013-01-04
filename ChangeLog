@@ -1,4 +1,5 @@
 Development
+	Resize player when on video present event
 	Fix some layout issues when playing audio only files
 	Ensure the Gvalue contains a double before trying to use it
 	Ellipsize items on the playlist, so they don't add extra spacing to the list

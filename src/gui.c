@@ -6716,6 +6716,11 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_angle), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_advanced), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), TRUE);
+        if (resize_on_new_media || idledata->videopresent == FALSE) {
+            if (idledata->width > 0 && idledata->height > 0)
+                idledata->videopresent = TRUE;
+            g_idle_add(resize_window, idledata);
+        }
         break;
     case ATTRIBUTE_AUDIO_TRACK:
         name = gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_AUDIO_TRACK);
