@@ -502,6 +502,7 @@ void adjust_layout()
     gint total_width;
     gint handle_size;
     GtkAllocation alloc = { 0 };
+    GtkAllocation alloc2 = { 0 };
 
     gm_log(verbose, G_LOG_LEVEL_DEBUG, "media size = %i x %i", non_fs_width, non_fs_height);
     total_height = non_fs_height;
@@ -595,10 +596,14 @@ void adjust_layout()
         gmtk_get_allocation(plvbox, &alloc);
         if (vertical_layout) {
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "totals = %i x %i", total_width, total_height);
-            //gtk_paned_set_position(GTK_PANED(pane), total_height);
             total_height += alloc.height + handle_size;
         } else {
-            total_width += alloc.width + handle_size;
+            if (gmtk_get_visible(media_hbox) && idledata->videopresent == FALSE) {
+                gmtk_get_allocation(media_hbox, &alloc2);
+                total_width = alloc2.width + handle_size + alloc.width;
+            } else {
+                total_width += handle_size + alloc.width;
+            }
         }
 
         if (non_fs_height == 0) {
@@ -1466,13 +1471,17 @@ gboolean resize_window(void *data)
     IdleData *idle = (IdleData *) data;
     GTimeVal currenttime;
     GValue resize_value = { 0 };
+    GValue shrink_value = { 0 };
 
     g_value_init(&resize_value, G_TYPE_BOOLEAN);
+    g_value_init(&shrink_value, G_TYPE_BOOLEAN);
 
     if (GTK_IS_WIDGET(window)) {
         if (idle->videopresent) {
             g_value_set_boolean(&resize_value, TRUE);
+            g_value_set_boolean(&shrink_value, TRUE);
             gtk_container_child_set_property(GTK_CONTAINER(pane), vbox, "resize", &resize_value);
+            gtk_container_child_set_property(GTK_CONTAINER(pane), vbox, "shrink", &shrink_value);
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_info), FALSE);
             g_get_current_time(&currenttime);
             last_movement_time = currenttime.tv_sec;
@@ -1529,7 +1538,9 @@ gboolean resize_window(void *data)
             // audio only file
 
             g_value_set_boolean(&resize_value, FALSE);
+            g_value_set_boolean(&shrink_value, FALSE);
             gtk_container_child_set_property(GTK_CONTAINER(pane), vbox, "resize", &resize_value);
+            gtk_container_child_set_property(GTK_CONTAINER(pane), vbox, "shrink", &shrink_value);
             non_fs_height = 0;
             non_fs_width = 0;
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_view_fullscreen), FALSE);
@@ -5394,7 +5405,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 8);
 #else
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_vo), 6);
-#endif				
+#endif
             }
         }
     }

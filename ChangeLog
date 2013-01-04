@@ -1,4 +1,5 @@
 Development
+	Fix some layout issues when playing audio only files
 	Ensure the Gvalue contains a double before trying to use it
 	Ellipsize items on the playlist, so they don't add extra spacing to the list
 	Add gl3 to list of available VOs. make sure mplayer2 supports this on your setup before setting

@@ -825,7 +825,7 @@ void menuitem_view_playlist_callback(GtkMenuItem * menuitem, void *data)
 
     if (remember_loc)
         use_remember_loc = TRUE;
-    adjust_layout();
+    g_idle_add(set_adjust_layout, idledata);
 }
 
 void undo_playlist_sort(GtkWidget * widget, void *data)
