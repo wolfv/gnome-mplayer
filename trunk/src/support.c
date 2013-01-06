@@ -1686,6 +1686,7 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
         } else if (g_ascii_strncasecmp(uri, "cdda://", strlen("cdda://")) == 0) {
             data = (MetaData *) g_new0(MetaData, 1);
             data->title = g_strdup_printf("CD Track %s", uri + strlen("cdda://"));
+			data->playable = TRUE;
         } else if (device_name(local_uri)) {
             if (g_ascii_strncasecmp(uri, "dvdnav://", strlen("dvdnav://")) == 0) {
                 loop = 1;
@@ -1713,6 +1714,7 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
             unescaped = g_strdup(uri);
 #endif
             data = (MetaData *) g_new0(MetaData, 1);
+			data->playable = TRUE;
             slash = g_strrstr(unescaped, "/");
             if (slash != NULL && strlen(slash + sizeof(gchar)) > 0) {
                 data->title = g_strdup_printf("[Stream] %s", slash + sizeof(gchar));
