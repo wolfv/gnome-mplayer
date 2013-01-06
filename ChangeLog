@@ -1,4 +1,5 @@
 Development
+	Present a warning message when about to overwrite a file on save
 	Resize player when on video present event
 	Fix some layout issues when playing audio only files
 	Ensure the Gvalue contains a double before trying to use it

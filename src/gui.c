@@ -3647,6 +3647,7 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
 {
     // save dialog
     GtkWidget *file_chooser_save;
+    GtkWidget *dialog;
     gchar *filename;
     gchar *srcfilename;
     FILE *fin;
@@ -3655,8 +3656,8 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
     gint count;
     gchar *default_name;
     gchar *uri;
-    GtkWidget *dialog;
     gchar *msg;
+    gboolean save_file = TRUE;
 
     file_chooser_save = gtk_file_chooser_dialog_new(_("Save As..."),
                                                     GTK_WINDOW(window),
@@ -3686,24 +3687,38 @@ void menuitem_save_callback(GtkMenuItem * menuitem, void *data)
         srcfilename = g_filename_from_uri(gmtk_media_player_get_uri(GMTK_MEDIA_PLAYER(media)), NULL, NULL);
         gm_log(verbose, G_LOG_LEVEL_INFO, "Copy %s to %s", srcfilename, filename);
 
-        fin = g_fopen(srcfilename, "rb");
-        fout = g_fopen(filename, "wb");
+        if (g_file_test(filename, G_FILE_TEST_EXISTS) == TRUE) {
 
-        if (fin != NULL && fout != NULL) {
-            while (!feof(fin)) {
-                count = fread(buffer, 1, 1000, fin);
-                fwrite(buffer, 1, count, fout);
+            dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                            GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, _("Overwrite %s"), filename);
+            if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_NO) {
+                save_file = FALSE;
             }
-            fclose(fout);
-            fclose(fin);
-        } else {
-            msg = g_strdup_printf(_("Unable to save '%s'"), filename);
-            dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
-                                            GTK_BUTTONS_CLOSE, "%s", msg);
-            gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
-            gtk_dialog_run(GTK_DIALOG(dialog));
             gtk_widget_destroy(dialog);
-            g_free(msg);
+        }
+
+        if (save_file) {
+
+            fin = g_fopen(srcfilename, "rb");
+            fout = g_fopen(filename, "wb");
+
+            if (fin != NULL && fout != NULL) {
+                while (!feof(fin)) {
+                    count = fread(buffer, 1, 1000, fin);
+                    fwrite(buffer, 1, count, fout);
+                }
+                fclose(fout);
+                fclose(fin);
+            } else {
+                msg = g_strdup_printf(_("Unable to save ' %s '"), filename);
+                dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
+                                                GTK_BUTTONS_CLOSE, "%s", msg);
+                gtk_window_set_title(GTK_WINDOW(dialog), _("GNOME MPlayer Error"));
+                gtk_dialog_run(GTK_DIALOG(dialog));
+                gtk_widget_destroy(dialog);
+                g_free(msg);
+            }
         }
 
         g_free(filename);
@@ -4125,8 +4140,7 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             restore_playlist = FALSE;
         }
         if (embed_window == 0) {
-            // --fullscreen option doesn't work without this event flush
-            gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
+            // --fullscreen option doesn' t work without this event flush gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
             while (gtk_events_pending())
                 gtk_main_iteration();
 
