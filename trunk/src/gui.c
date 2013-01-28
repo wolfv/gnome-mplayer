@@ -693,12 +693,14 @@ gboolean hide_buttons(void *data)
         gtk_widget_hide(prev_event_box);
         gtk_widget_hide(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_play_single), FALSE);
         gtk_widget_hide(GTK_WIDGET(menuitem_prev));
         gtk_widget_hide(GTK_WIDGET(menuitem_next));
     } else {
         gtk_widget_show_all(prev_event_box);
         gtk_widget_show_all(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_play_single), TRUE);
         gtk_widget_show(GTK_WIDGET(menuitem_prev));
         gtk_widget_show(GTK_WIDGET(menuitem_next));
     }
@@ -1146,12 +1148,14 @@ gboolean set_update_gui(void *data)
         gtk_widget_hide(prev_event_box);
         gtk_widget_hide(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_play_single), FALSE);
         gtk_widget_hide(GTK_WIDGET(menuitem_prev));
         gtk_widget_hide(GTK_WIDGET(menuitem_next));
     } else {
         gtk_widget_show(prev_event_box);
         gtk_widget_show(next_event_box);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_random), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_play_single), TRUE);
         gtk_widget_show(GTK_WIDGET(menuitem_prev));
         gtk_widget_show(GTK_WIDGET(menuitem_next));
     }
@@ -7002,7 +7006,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         if (idledata->mapped_af_export != NULL)
             unmap_af_export_file(idledata);
         if (gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) != TYPE_NETWORK) {
-            if (dontplaynext == FALSE) {
+            if (dontplaynext == FALSE
+                && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_play_single)) == FALSE) {
                 if (next_item_in_playlist(&iter)) {
                     g_idle_add(async_play_iter, &iter);
                     //play_iter(&iter, 0);
@@ -7753,6 +7758,11 @@ GtkWidget *create_window(gint windowid)
     menuitem_edit_loop = GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("_Loop Playlist")));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_edit_loop), loop);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_loop));
+    menuitem_edit_play_single =
+        GTK_MENU_ITEM(gtk_check_menu_item_new_with_mnemonic(_("P_lay Single Track from Playlist")));
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_play_single));
+    menuitem_view_sep0 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_view_sep0));
     menuitem_edit_switch_audio = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("S_witch Audio Track")));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_switch_audio));
     menuitem_edit_set_audiofile = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Audi_o")));
@@ -7760,11 +7770,13 @@ GtkWidget *create_window(gint windowid)
     menuitem_edit_select_audio_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Select _Audio Language")));
     gtk_widget_show(GTK_WIDGET(menuitem_edit_select_audio_lang));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_select_audio_lang));
-    menuitem_edit_set_subtitle = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set Sub_title")));
+    menuitem_edit_set_subtitle = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("Set S_ubtitle")));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_set_subtitle));
     menuitem_edit_select_sub_lang = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("S_elect Subtitle Language")));
     gtk_widget_show(GTK_WIDGET(menuitem_edit_select_sub_lang));
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_select_sub_lang));
+    menuitem_view_sep0 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_view_sep0));
     menuitem_edit_take_screenshot = GTK_MENU_ITEM(gtk_menu_item_new_with_mnemonic(_("_Take Screenshot")));
     gtk_menu_item_set_accel_path(menuitem_edit_take_screenshot, ACCEL_PATH_EDIT_SCREENSHOT);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_edit), GTK_WIDGET(menuitem_edit_take_screenshot));
@@ -8498,6 +8510,7 @@ void show_window(gint windowid)
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_details), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(fs_event_box), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_loop), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_play_single), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_subtitle), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_set_audiofile), FALSE);
     gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
