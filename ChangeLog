@@ -1,4 +1,5 @@
 Development
+	Fix Issue #667 - Subtitles not hidden by default when specified
 	Updated Korean and Portuguese translations
 	Add "Play Single Track from Playlist" under Edit menu
 	Mark streams and CDs as playable when adding to playlist
