@@ -3,13 +3,13 @@
 # Copyright (C) 2007 THE gnome-mplayer'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-mplayer package.
 #
-# Julian Sikorski <belegdol@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012.
+# Julian Sikorski <belegdol@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-28 09:59-0700\n"
-"PO-Revision-Date: 2012-09-22 10:44+0200\n"
+"PO-Revision-Date: 2013-01-30 18:41+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: src/main.c:76
 msgid "Window to embed in"
@@ -245,7 +245,7 @@ msgstr "Odtwarzanie"
 #: src/main.c:624
 #, c-format
 msgid "Resume Playback of %s at %s"
-msgstr ""
+msgstr "Wznawianie odtwarzania %s w %s"
 
 #: src/main.c:1000 src/gui.c:3195
 msgid "Open Location"
@@ -443,12 +443,12 @@ msgstr "Zapisz jako..."
 #: src/gui.c:3698
 #, c-format
 msgid "Overwrite %s"
-msgstr ""
+msgstr "Nadpisz %s"
 
 #: src/gui.c:3718
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save ' %s '"
-msgstr "Nie udało się zapisać „%s”"
+msgstr "Nie udało się zapisać '%s'"
 
 #: src/gui.c:3721 src/support.c:792 src/support.c:883
 msgid "GNOME MPlayer Error"
@@ -960,7 +960,7 @@ msgstr "Wyłączenie animacji paska przycisków w trybie pełnoekranowym"
 
 #: src/gui.c:6238
 msgid "Disable Cover Art Fetch"
-msgstr ""
+msgstr "Wyłączenie pobierania obrazów okładek"
 
 #: src/gui.c:6243
 msgid "Use Mouse Wheel to change volume, instead of seeking"
@@ -1165,7 +1165,7 @@ msgstr "_Powtarzanie listy odtwarzania"
 
 #: src/gui.c:7762
 msgid "P_lay Single Track from Playlist"
-msgstr ""
+msgstr "Odtwórz _jedną ścieżkę z listy"
 
 #: src/gui.c:7766
 msgid "S_witch Audio Track"
@@ -1180,9 +1180,8 @@ msgid "Select _Audio Language"
 msgstr "Jęz_yk ścieżki dźwiękowej"
 
 #: src/gui.c:7773
-#, fuzzy
 msgid "Set S_ubtitle"
-msgstr "Wczytaj napisy"
+msgstr "Ustaw _napisy"
 
 #: src/gui.c:7775
 msgid "S_elect Subtitle Language"
