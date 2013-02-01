@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-28 09:59-0700\n"
-"PO-Revision-Date: 2012-04-05 10:39+0900\n"
+"PO-Revision-Date: 2013-02-01 03:30+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "Language: \n"
@@ -243,7 +243,7 @@ msgstr "再生しています"
 #: src/main.c:624
 #, c-format
 msgid "Resume Playback of %s at %s"
-msgstr ""
+msgstr "%s の停止箇所 %s から再生開始"
 
 #: src/main.c:1000 src/gui.c:3195
 msgid "Open Location"
@@ -439,10 +439,10 @@ msgstr "名前を付けて保存..."
 #: src/gui.c:3698
 #, c-format
 msgid "Overwrite %s"
-msgstr ""
+msgstr "%s を上書きします"
 
 #: src/gui.c:3718
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save ' %s '"
 msgstr "%s を保存することができません"
 
@@ -692,7 +692,7 @@ msgstr "標準"
 #: src/gui.c:5500 src/gui.c:5530 src/gui.c:5960 src/gui.c:5972
 msgid ""
 "Choose one of the languages or type in your own comma-separated selection"
-msgstr ""
+msgstr "言語一覧のうちから一つ選択するか、カンマ（,）区切りで言語を入力してください"
 
 #: src/gui.c:5689
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -951,7 +951,7 @@ msgstr "全画面で操作パネルのアニメーションを無効にする"
 
 #: src/gui.c:6238
 msgid "Disable Cover Art Fetch"
-msgstr ""
+msgstr "ジャケット（カバー）画像の取得を無効にする"
 
 #: src/gui.c:6243
 msgid "Use Mouse Wheel to change volume, instead of seeking"
@@ -1160,7 +1160,7 @@ msgstr "プレイリストを繰り返す(_L)"
 
 #: src/gui.c:7762
 msgid "P_lay Single Track from Playlist"
-msgstr ""
+msgstr "プレイリストから単一トラックを再生する(_P)"
 
 #: src/gui.c:7766
 msgid "S_witch Audio Track"
@@ -1175,9 +1175,8 @@ msgid "Select _Audio Language"
 msgstr "オーディオ言語を選択する(_A)"
 
 #: src/gui.c:7773
-#, fuzzy
 msgid "Set S_ubtitle"
-msgstr "字幕を設定する"
+msgstr "字幕を設定する(_S)"
 
 #: src/gui.c:7775
 msgid "S_elect Subtitle Language"
@@ -1214,7 +1213,7 @@ msgstr "オーディオメータ (_M):"
 
 #: src/gui.c:7839
 msgid "_Normal (1:1)"
-msgstr "ノーマル(1:1) (_N)"
+msgstr "標準サイズ(1:1) (_N)"
 
 #: src/gui.c:7842
 msgid "_Double Size (2:1)"
@@ -1230,11 +1229,11 @@ msgstr "3/2倍サイズ(1.5:1) (_L)"
 
 #: src/gui.c:7849
 msgid "_Aspect"
-msgstr "アスペクト(_A)"
+msgstr "アスペクト比（縦横比）(_A)"
 
 #: src/gui.c:7855
 msgid "D_efault Aspect"
-msgstr "標準 (_E)"
+msgstr "標準(_E)"
 
 #: src/gui.c:7857
 msgid "_4:3 Aspect"
@@ -1250,7 +1249,7 @@ msgstr "16:10 (_6)"
 
 #: src/gui.c:7864
 msgid "_2.39:1 Aspect (Anamorphic)"
-msgstr ""
+msgstr "2.39:1 Aspect (Anamorphic) (_2)"
 
 #: src/gui.c:7866
 msgid "_Follow Window"
