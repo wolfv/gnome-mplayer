@@ -7595,10 +7595,12 @@ GtkWidget *create_window(gint windowid)
     gtk_widget_show(GTK_WIDGET(menuitem_copyurl));
     menuitem_sep2 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_sep2));
-    gtk_widget_show(GTK_WIDGET(menuitem_sep2));
+    if (control_id != 0)
+        gtk_widget_show(GTK_WIDGET(menuitem_sep2));
     menuitem_config = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES, NULL));
     gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_config));
-    gtk_widget_show(GTK_WIDGET(menuitem_config));
+    if (control_id != 0)
+        gtk_widget_show(GTK_WIDGET(menuitem_config));
     menuitem_sep4 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_sep4));
     menuitem_save = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, accel_group));
@@ -7613,10 +7615,13 @@ GtkWidget *create_window(gint windowid)
 
     menuitem_sep3 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_sep3));
-    gtk_widget_show(GTK_WIDGET(menuitem_sep3));
+    if (control_id != 0)
+        gtk_widget_show(GTK_WIDGET(menuitem_sep3));
     menuitem_quit = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group));
     gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_quit));
-    gtk_widget_show(GTK_WIDGET(menuitem_quit));
+    if (control_id != 0)
+        gtk_widget_show(GTK_WIDGET(menuitem_quit));
+
     g_signal_connect(G_OBJECT(menuitem_open), "activate", G_CALLBACK(menuitem_open_callback), NULL);
     g_signal_connect(G_OBJECT(menuitem_play), "activate", G_CALLBACK(menuitem_pause_callback), NULL);
     g_signal_connect(G_OBJECT(menuitem_stop), "activate", G_CALLBACK(menuitem_stop_callback), NULL);
