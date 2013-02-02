@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-28 09:59-0700\n"
-"PO-Revision-Date: 2013-02-01 03:30+0900\n"
+"PO-Revision-Date: 2013-02-02 14:16+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "Language: \n"
@@ -1160,7 +1160,7 @@ msgstr "プレイリストを繰り返す(_L)"
 
 #: src/gui.c:7762
 msgid "P_lay Single Track from Playlist"
-msgstr "プレイリストから単一トラックを再生する(_P)"
+msgstr "プレイリストから単一トラックを再生する(_L)"
 
 #: src/gui.c:7766
 msgid "S_witch Audio Track"
@@ -1176,7 +1176,7 @@ msgstr "オーディオ言語を選択する(_A)"
 
 #: src/gui.c:7773
 msgid "Set S_ubtitle"
-msgstr "字幕を設定する(_S)"
+msgstr "字幕を設定する(_U)"
 
 #: src/gui.c:7775
 msgid "S_elect Subtitle Language"
