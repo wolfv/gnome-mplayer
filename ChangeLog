@@ -1,4 +1,5 @@
 Development
+	Apply patch from Issue #669 to fix network stream regression
 	Hide some items on the context menu, when not under plugin control
 	Additional changes to Japanese translation
 	Updated Japanese translation

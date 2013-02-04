@@ -2621,7 +2621,7 @@ gboolean play_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     }
 
     if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_UNKNOWN) {
-        if (next_item_in_playlist(&iter) && gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) != TYPE_NETWORK) {
+        if (next_item_in_playlist(&iter)) {
             gmtk_media_player_set_media_type(GMTK_MEDIA_PLAYER(media), TYPE_FILE);
             g_idle_add(async_play_iter, &iter);
         } else {
@@ -2652,6 +2652,8 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PAUSE) {
         gmtk_media_player_set_state(GMTK_MEDIA_PLAYER(media), MEDIA_STATE_STOP);
         autopause = FALSE;
+        if (gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) == TYPE_NETWORK)
+            dontplaynext = TRUE;
         gmtk_media_tracker_set_percentage(tracker, 0.0);
         gtk_widget_set_sensitive(play_event_box, TRUE);
 #ifdef GTK3_ENABLED
@@ -7007,48 +7009,41 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     case MEDIA_STATE_UNKNOWN:
         if (idledata->mapped_af_export != NULL)
             unmap_af_export_file(idledata);
-        if (gmtk_media_player_get_media_type(GMTK_MEDIA_PLAYER(media)) != TYPE_NETWORK) {
-            if (dontplaynext == FALSE
-                && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_play_single)) == FALSE) {
-                if (next_item_in_playlist(&iter)) {
-                    g_idle_add(async_play_iter, &iter);
-                    //play_iter(&iter, 0);
-                } else {
-                    gm_log(verbose, G_LOG_LEVEL_DEBUG, "end of thread playlist is empty");
-                    if (loop) {
-                        if (is_first_item_in_playlist(&iter)) {
-                            g_idle_add(async_play_iter, &iter);
-                        }
-                    } else {
-                        idledata->fullscreen = 0;
-                        g_idle_add(set_fullscreen, idledata);
-                        g_idle_add(set_stop, idledata);
-                        // nothing is on the playlist and we are not looping so ask plugin for next item
-                        if (embed_window != 0 || control_id != 0) {
-                            js_state = STATE_MEDIAENDED;
-                            dbus_send_event("MediaComplete", 0);
-                            dbus_open_next();
-                        }
-                    }
-
-                    if (quit_on_complete) {
-                        g_idle_add(set_quit, idledata);
-                    }
-                }
+        if (dontplaynext == FALSE
+            && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_edit_play_single)) == FALSE) {
+            if (next_item_in_playlist(&iter)) {
+                g_idle_add(async_play_iter, &iter);
+                //play_iter(&iter, 0);
             } else {
-                if (embed_window != 0 || control_id != 0) {
-                    dbus_send_event("MediaComplete", 0);
-                    dbus_open_next();
+                gm_log(verbose, G_LOG_LEVEL_DEBUG, "end of thread playlist is empty");
+                if (loop) {
+                    if (is_first_item_in_playlist(&iter)) {
+                        g_idle_add(async_play_iter, &iter);
+                    }
+                } else {
+                    idledata->fullscreen = 0;
+                    g_idle_add(set_fullscreen, idledata);
+                    g_idle_add(set_stop, idledata);
+                    // nothing is on the playlist and we are not looping so ask plugin for next item
+                    if (embed_window != 0 || control_id != 0) {
+                        js_state = STATE_MEDIAENDED;
+                        dbus_send_event("MediaComplete", 0);
+                        dbus_open_next();
+                    }
                 }
-                if (next_iter != NULL) {
-                    g_idle_add(async_play_iter, next_iter);
-                    next_iter = NULL;
+
+                if (quit_on_complete) {
+                    g_idle_add(set_quit, idledata);
                 }
             }
         } else {
             if (embed_window != 0 || control_id != 0) {
                 dbus_send_event("MediaComplete", 0);
                 dbus_open_next();
+            }
+            if (next_iter != NULL) {
+                g_idle_add(async_play_iter, next_iter);
+                next_iter = NULL;
             }
         }
         dontplaynext = FALSE;
