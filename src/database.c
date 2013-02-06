@@ -392,12 +392,20 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
 
     run_sql_non_select(conn, remove);
 
+#ifdef LIBGDA_05
+    res =
+        gda_connection_insert_row_into_table(conn, "media_entries", &error, "uri", uri_value, "title", title, "artist", artist,
+                                  "album", album, "audio_codec", audio_codec, "video_codec", video_codec, "demuxer",
+                                  demuxer, "video_width", video_width, "video_height", video_height, "length", length,
+                                  "resume", resume, NULL);
+
+#else	
     res =
         gda_insert_row_into_table(conn, "media_entries", &error, "uri", uri_value, "title", title, "artist", artist,
                                   "album", album, "audio_codec", audio_codec, "video_codec", video_codec, "demuxer",
                                   demuxer, "video_width", video_width, "video_height", video_height, "length", length,
                                   "resume", resume, NULL);
-
+#endif
     if (!res) {
         g_error("Could not INSERT data into the 'media_entries' table: %s\n",
                 error && error->message ? error->message : "No detail");
