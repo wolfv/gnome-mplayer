@@ -394,12 +394,12 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
 
 #ifdef LIBGDA_05
     res =
-        gda_connection_insert_row_into_table(conn, "media_entries", &error, "uri", uri_value, "title", title, "artist", artist,
-                                  "album", album, "audio_codec", audio_codec, "video_codec", video_codec, "demuxer",
-                                  demuxer, "video_width", video_width, "video_height", video_height, "length", length,
-                                  "resume", resume, NULL);
+        gda_connection_insert_row_into_table(conn, "media_entries", &error, "uri", uri_value, "title", title, "artist",
+                                             artist, "album", album, "audio_codec", audio_codec, "video_codec",
+                                             video_codec, "demuxer", demuxer, "video_width", video_width,
+                                             "video_height", video_height, "length", length, "resume", resume, NULL);
 
-#else	
+#else
     res =
         gda_insert_row_into_table(conn, "media_entries", &error, "uri", uri_value, "title", title, "artist", artist,
                                   "album", album, "audio_codec", audio_codec, "video_codec", video_codec, "demuxer",
@@ -428,16 +428,41 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
 
 void mark_uri_in_db_as_resumable(GdaConnection * conn, const gchar * uri, gboolean resume, gdouble position)
 {
-    gchar *update;
     gchar *localuri;
+    GValue *uri_value;
+    GValue *position_value;
+    GValue *resume_value;
+    GError *error = NULL;
+    gboolean res;
 
     localuri = escape_sql(uri);
-    update =
-        g_strdup_printf("update media_entries set resume=%i, position=%lf where uri='%s'", resume, position, localuri);
+    uri_value = gda_value_new_from_string(localuri, G_TYPE_STRING);
+    resume_value = gda_value_new(G_TYPE_BOOLEAN);
+    g_value_set_boolean(resume_value, TRUE);
+    position_value = gda_value_new(G_TYPE_DOUBLE);
+    g_value_set_double(position_value, position);
 
-    run_sql_non_select(conn, update);
-    g_free(update);
+
+#ifdef LIBGDA_05
+    res =
+        gda_connection_update_row_in_table(conn, "media_entries", "uri", uri_value, &error, "position", position_value,
+                                           "resume", resume_value, NULL);
+
+#else
+    res =
+        gda_update_row_in_table(conn, "media_entries", "uri", uri_value, &error, "position", position_value, "resume",
+                                resume_value, NULL);
+#endif
+    if (!res) {
+        g_error("Could not UPDATE data into the 'media_entries' table: %s\n",
+                error && error->message ? error->message : "No detail");
+    }
+
+
     g_free(localuri);
+    gda_value_free(uri_value);
+    gda_value_free(position_value);
+    gda_value_free(resume_value);
 }
 
 #endif
