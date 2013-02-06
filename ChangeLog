@@ -1,4 +1,5 @@
 Development
+	Fix problem with localized positions in mark_uri_in_db_as_resumable 
 	Fix libgda compile issue
 	Rework database code to use GValues instead of sql commands, should avoid localization issues
 	Apply patch from Issue #669 to fix network stream regression
