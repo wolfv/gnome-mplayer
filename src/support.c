@@ -2566,8 +2566,10 @@ gpointer get_cover_art(gpointer data)
     MetaData *metadata = (MetaData *) data;
     gchar *md5;
     gchar *thumbnail;
-#ifdef GIO_ENABLED
+#ifdef GIO_ENABLED	
     GFile *file;
+#endif	
+#ifdef DISABLED_GIO_ENABLED
     GInputStream *stream_in;
     gchar buf[2048];
     gint bytes;
@@ -2715,7 +2717,7 @@ gpointer get_cover_art(gpointer data)
 
             art = fopen(path, "wb");
             if (art) {
-#ifdef GIO_ENABLED
+#ifdef DISABLED_GIO_ENABLED
                 file = g_file_new_for_uri(url);
                 stream_in = (GInputStream *) g_file_read(file, NULL, NULL);
                 if (stream_in) {
