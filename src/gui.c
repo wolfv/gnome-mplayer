@@ -7598,7 +7598,7 @@ GtkWidget *create_window(gint windowid)
         gtk_widget_show(GTK_WIDGET(menuitem_config));
     menuitem_sep4 = GTK_MENU_ITEM(gtk_separator_menu_item_new());
     gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_sep4));
-    menuitem_save = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, accel_group));
+    menuitem_save = GTK_MENU_ITEM(gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE_AS, accel_group));
     gtk_menu_shell_append(GTK_MENU_SHELL(popup_menu), GTK_WIDGET(menuitem_save));
     // we only want to show the save option when under control of gecko-mediaplayer
     if (control_id != 0) {
