@@ -1,4 +1,5 @@
 Development
+	Switch back to using CURL instead of GIO for cover art retrieval
 	Change "Save" in context menu to "Save As"
 	Fix problem with localized positions in mark_uri_in_db_as_resumable 
 	Fix libgda compile issue
