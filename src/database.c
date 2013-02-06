@@ -303,57 +303,49 @@ gboolean is_uri_in_db_resumable(GdaConnection * conn, const gchar * uri)
 void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const MetaData * data)
 {
     gchar *remove = NULL;
-    gchar *insert = NULL;
-    gchar *columns = NULL;
-    gchar *values = NULL;
-    gchar *valuetmp;
-    gchar *oldcolumns;
-    gchar *oldvalues;
     gchar *localuri;
     gchar *localvalue;
 
-    columns = g_strdup_printf("uri");
+    GValue *uri_value;
+    GValue *title;
+    GValue *artist;
+    GValue *album;
+    GValue *audio_codec;
+    GValue *video_codec;
+    GValue *demuxer;
+    GValue *video_width;
+    GValue *video_height;
+    GValue *length;
+    GValue *resume;
+    GError *error = NULL;
+    gboolean res;
+
 
     localuri = escape_sql(uri);
-    values = g_strdup_printf("'%s'", localuri);
+    uri_value = gda_value_new_from_string(localuri, G_TYPE_STRING);
 
     if (data->title != NULL) {
-        oldcolumns = columns;
-        columns = g_strconcat(columns, ",title", NULL);
-        g_free(oldcolumns);
         localvalue = escape_sql(data->title);
-        valuetmp = g_strdup_printf(",'%s'", localvalue);
+        title = gda_value_new_from_string(localvalue, G_TYPE_STRING);
         g_free(localvalue);
-        oldvalues = values;
-        values = g_strconcat(values, valuetmp, NULL);
-        g_free(oldvalues);
-        g_free(valuetmp);
+    } else {
+        title = gda_value_new_from_string("", G_TYPE_STRING);
     }
 
     if (data->artist != NULL) {
-        oldcolumns = columns;
-        columns = g_strconcat(columns, ",artist", NULL);
-        g_free(oldcolumns);
         localvalue = escape_sql(data->artist);
-        valuetmp = g_strdup_printf(",'%s'", localvalue);
+        artist = gda_value_new_from_string(localvalue, G_TYPE_STRING);
         g_free(localvalue);
-        oldvalues = values;
-        values = g_strconcat(values, valuetmp, NULL);
-        g_free(oldvalues);
-        g_free(valuetmp);
+    } else {
+        artist = gda_value_new_from_string("", G_TYPE_STRING);
     }
 
     if (data->album != NULL) {
-        oldcolumns = columns;
-        columns = g_strconcat(columns, ",album", NULL);
-        g_free(oldcolumns);
         localvalue = escape_sql(data->album);
-        valuetmp = g_strdup_printf(",'%s'", localvalue);
+        album = gda_value_new_from_string(localvalue, G_TYPE_STRING);
         g_free(localvalue);
-        oldvalues = values;
-        values = g_strconcat(values, valuetmp, NULL);
-        g_free(oldvalues);
-        g_free(valuetmp);
+    } else {
+        album = gda_value_new_from_string("", G_TYPE_STRING);
     }
 
     /*
@@ -370,59 +362,60 @@ void insert_update_db_metadata(GdaConnection * conn, const gchar * uri, const Me
      */
 
     if (data->audio_codec != NULL) {
-        oldcolumns = columns;
-        columns = g_strconcat(columns, ",audio_codec", NULL);
-        g_free(oldcolumns);
-        valuetmp = g_strdup_printf(",'%s'", data->audio_codec);
-        oldvalues = values;
-        values = g_strconcat(values, valuetmp, NULL);
-        g_free(oldvalues);
-        g_free(valuetmp);
+        audio_codec = gda_value_new_from_string(data->audio_codec, G_TYPE_STRING);
+    } else {
+        audio_codec = gda_value_new_from_string("", G_TYPE_STRING);
     }
 
     if (data->video_codec != NULL) {
-        oldcolumns = columns;
-        columns = g_strconcat(columns, ",video_codec", NULL);
-        g_free(oldcolumns);
-        valuetmp = g_strdup_printf(",'%s'", data->video_codec);
-        oldvalues = values;
-        values = g_strconcat(values, valuetmp, NULL);
-        g_free(oldvalues);
-        g_free(valuetmp);
+        video_codec = gda_value_new_from_string(data->video_codec, G_TYPE_STRING);
+    } else {
+        video_codec = gda_value_new_from_string("", G_TYPE_STRING);
     }
 
     if (data->demuxer != NULL) {
-        oldcolumns = columns;
-        columns = g_strconcat(columns, ",demuxer", NULL);
-        g_free(oldcolumns);
-        valuetmp = g_strdup_printf(",'%s'", data->demuxer);
-        oldvalues = values;
-        values = g_strconcat(values, valuetmp, NULL);
-        g_free(oldvalues);
-        g_free(valuetmp);
+        demuxer = gda_value_new_from_string(data->demuxer, G_TYPE_STRING);
+    } else {
+        demuxer = gda_value_new_from_string("", G_TYPE_STRING);
     }
 
-    oldcolumns = columns;
-    columns = g_strconcat(columns, ",video_width, video_height, length, resume", NULL);
-    g_free(oldcolumns);
-    valuetmp = g_strdup_printf(",%i,%i,%f,0", data->width, data->height, data->length_value);
-    oldvalues = values;
-    values = g_strconcat(values, valuetmp, NULL);
-    g_free(oldvalues);
-    g_free(valuetmp);
-
+    video_width = gda_value_new(G_TYPE_INT);
+    video_height = gda_value_new(G_TYPE_INT);
+    length = gda_value_new(G_TYPE_DOUBLE);
+    resume = gda_value_new(G_TYPE_BOOLEAN);
+    g_value_set_int(video_width, data->width);
+    g_value_set_int(video_height, data->height);
+    g_value_set_double(length, data->length_value);
+    g_value_set_boolean(resume, FALSE);
 
     remove = g_strdup_printf("delete from media_entries where uri='%s'", localuri);
-    insert = g_strdup_printf("insert into media_entries (%s) values (%s)", columns, values);
 
     run_sql_non_select(conn, remove);
-    run_sql_non_select(conn, insert);
 
-    g_free(columns);
-    g_free(values);
-    g_free(remove);
-    g_free(insert);
+    res =
+        gda_insert_row_into_table(conn, "media_entries", &error, "uri", uri_value, "title", title, "artist", artist,
+                                  "album", album, "audio_codec", audio_codec, "video_codec", video_codec, "demuxer",
+                                  demuxer, "video_width", video_width, "video_height", video_height, "length", length,
+                                  "resume", resume, NULL);
 
+    if (!res) {
+        g_error("Could not INSERT data into the 'media_entries' table: %s\n",
+                error && error->message ? error->message : "No detail");
+    }
+
+
+    g_free(localuri);
+    gda_value_free(uri_value);
+    gda_value_free(title);
+    gda_value_free(artist);
+    gda_value_free(album);
+    gda_value_free(audio_codec);
+    gda_value_free(video_codec);
+    gda_value_free(demuxer);
+    gda_value_free(video_height);
+    gda_value_free(video_width);
+    gda_value_free(length);
+    gda_value_free(resume);
 }
 
 void mark_uri_in_db_as_resumable(GdaConnection * conn, const gchar * uri, gboolean resume, gdouble position)
