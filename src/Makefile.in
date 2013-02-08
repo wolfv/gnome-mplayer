@@ -397,7 +397,8 @@ AM_CFLAGS = \
      $(GCONF_DEFINES) \
      $(NOTIFY_DEFINES) \
      $(GPOD_DEFINES) \
-     $(MUSICBRAINZ_DEFINES)
+     $(MUSICBRAINZ_DEFINES) \
+     $(LIBGDA_DEFINES)
 
 gnome_mplayer_SOURCES = \
 	../config.h \
