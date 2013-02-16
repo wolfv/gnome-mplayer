@@ -1,4 +1,5 @@
 Development
+	Run make update-po
 	Add volume control type display to preference screen
 	Update spec.in file for libgda
 	Switch back to using CURL instead of GIO for cover art retrieval
