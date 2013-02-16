@@ -5129,22 +5129,6 @@ void hw_audio_toggle_callback(GtkToggleButton * source, gpointer user_data)
     }
 }
 
-void ao_change_callback(GtkComboBox widget, gpointer data)
-{
-
-#ifdef HAVE_ASOUNDLIB
-    if (g_ascii_strncasecmp(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(config_ao)))), "alsa", 4) == 0) {
-        gtk_widget_set_sensitive(config_mixer, TRUE);
-        gtk_widget_set_sensitive(config_use_hw_audio, TRUE);
-    } else {
-        gtk_widget_set_sensitive(config_mixer, FALSE);
-        gtk_widget_set_sensitive(config_use_hw_audio, FALSE);
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_use_hw_audio), FALSE);
-    }
-#endif
-
-}
-
 void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
 {
     GtkComboBox *config_mixer = GTK_COMBO_BOX(data);
@@ -5243,6 +5227,16 @@ void output_combobox_changed_callback(GtkComboBox * config_ao, gpointer data)
     } else {
         gtk_widget_set_sensitive(GTK_WIDGET(config_mixer), FALSE);
     }
+
+    if (gmtk_output_combo_box_get_active_type(GMTK_OUTPUT_COMBO_BOX(config_ao)) == OUTPUT_TYPE_ALSA && softvol == FALSE) {
+        gtk_label_set_text(GTK_LABEL(conf_volume_label), _("Direct ALSA Control"));
+    } else if (gmtk_output_combo_box_get_active_type(GMTK_OUTPUT_COMBO_BOX(config_ao)) == OUTPUT_TYPE_PULSE
+               && softvol == FALSE) {
+        gtk_label_set_text(GTK_LABEL(conf_volume_label), _("Direct PulseAudio Control"));
+    } else {
+        gtk_label_set_text(GTK_LABEL(conf_volume_label), _("Software Volume Control"));
+    }
+
 }
 
 void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
@@ -5440,6 +5434,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #endif
 
     config_softvol = gtk_check_button_new_with_label(_("Mplayer Software Volume Control Enabled"));
+    conf_volume_label = gtk_label_new("");
 
     config_ao = gmtk_output_combo_box_new();
     g_signal_connect(GTK_WIDGET(config_ao), "changed", G_CALLBACK(output_combobox_changed_callback), config_mixer);
@@ -5739,6 +5734,17 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_ao, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
+    conf_label = gtk_label_new(_("Audio Volume Type:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_volume_label), 6, 6);
+    gtk_misc_set_alignment(GTK_MISC(conf_volume_label), 0.0, 0.5);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_volume_label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
+    i++;
+
 #ifdef HAVE_ASOUNDLIB
     conf_label = gtk_label_new(_("Default Mixer:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
@@ -5750,7 +5756,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), config_mixer, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 #endif
-    conf_label = gtk_label_new(_("Audio Channels to Output"));
+    conf_label = gtk_label_new(_("Audio Channels to Output:"));
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
     gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
     gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);

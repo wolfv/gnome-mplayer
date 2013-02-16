@@ -2566,9 +2566,9 @@ gpointer get_cover_art(gpointer data)
     MetaData *metadata = (MetaData *) data;
     gchar *md5;
     gchar *thumbnail;
-#ifdef GIO_ENABLED	
+#ifdef GIO_ENABLED
     GFile *file;
-#endif	
+#endif
 #ifdef DISABLED_GIO_ENABLED
     GInputStream *stream_in;
     gchar buf[2048];
