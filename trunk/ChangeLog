@@ -1,4 +1,5 @@
 Development
+	Fix fullscreen activation using defined accelerator key
 1.0.8b
 	Updated Polish translation
 	Run make update-po

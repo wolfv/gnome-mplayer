@@ -2121,7 +2121,11 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
         case VIEW_FULLSCREEN:
             if (fullscreen) {
                 if (idledata->videopresent) {
-                    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), !fullscreen);
+                    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), FALSE);
+                }
+            } else {
+                if (idledata->videopresent) {
+                    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem_fullscreen), TRUE);
                 }
             }
             return TRUE;
@@ -2504,6 +2508,7 @@ gboolean window_key_callback(GtkWidget * widget, GdkEventKey * event, gpointer u
             return FALSE;
         }
     }
+
     return FALSE;
 
 }
