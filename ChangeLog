@@ -1,4 +1,5 @@
 Development
+	Set the subtitle visibility in set_media_player_attributes
 	Fix fullscreen activation using defined accelerator key
 1.0.8b
 	Updated Polish translation
