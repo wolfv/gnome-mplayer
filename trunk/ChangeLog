@@ -1,5 +1,6 @@
 Development
 1.0.8b
+	Updated Polish translation
 	Run make update-po
 	Add volume control type display to preference screen
 	Update spec.in file for libgda

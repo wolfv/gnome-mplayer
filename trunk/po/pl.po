@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-16 10:01-0700\n"
-"PO-Revision-Date: 2013-01-30 18:41+0100\n"
+"PO-Revision-Date: 2013-02-18 13:22+0100\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -647,14 +647,13 @@ msgstr "Wczytywanie wszystkich napisów z katalogu"
 
 #: src/gui.c:5232
 msgid "Direct ALSA Control"
-msgstr ""
+msgstr "Bezpośrednia kontrola ALSA"
 
 #: src/gui.c:5235
 msgid "Direct PulseAudio Control"
-msgstr ""
+msgstr "Bezpośrednia kontrola PulseAudio"
 
 #: src/gui.c:5237
-#, fuzzy
 msgid "Software Volume Control"
 msgstr "Programowa kontrola dźwięku"
 
@@ -745,18 +744,16 @@ msgid "Audio Output:"
 msgstr "Dźwięk:"
 
 #: src/gui.c:5737
-#, fuzzy
 msgid "Audio Volume Type:"
-msgstr "Częstotliwość próbkowania:"
+msgstr "Typ głośności:"
 
 #: src/gui.c:5749
 msgid "Default Mixer:"
 msgstr "Domyślny mikser:"
 
 #: src/gui.c:5759
-#, fuzzy
 msgid "Audio Channels to Output:"
-msgstr "Konfiguracja kanałów:"
+msgstr "Kanały dźwięku wyjścia:"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
