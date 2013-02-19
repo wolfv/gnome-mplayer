@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-16 10:01-0700\n"
-"PO-Revision-Date: 2012-07-18 21:30+0000\n"
+"PO-Revision-Date: 2013-02-19 21:30+0000\n"
 "Last-Translator: Wolfgang Knauf <his-metality@freenet.de>\n"
 "Language-Team: tim__b <timbuening@uni-muenster.de>, Wolfgang Knauf <his-"
 "metality@freenet.de>, MixCool <lars.thoms@mixcool.de>\n"
@@ -245,7 +245,7 @@ msgstr "Wiedergabe"
 #: src/main.c:624
 #, c-format
 msgid "Resume Playback of %s at %s"
-msgstr ""
+msgstr "Wiedergabe von %s an %s fortsetzen"
 
 #: src/main.c:1000 src/gui.c:3197
 msgid "Open Location"
@@ -442,7 +442,7 @@ msgstr "Speichern als..."
 #: src/gui.c:3700
 #, c-format
 msgid "Overwrite %s"
-msgstr ""
+msgstr "%s überschreiben"
 
 #: src/gui.c:3720
 #, fuzzy, c-format
@@ -651,16 +651,15 @@ msgstr "Alle Untertitel im gleichen Verzeichnis laden"
 
 #: src/gui.c:5232
 msgid "Direct ALSA Control"
-msgstr ""
+msgstr "Direkte ALSA-Lautstärkeregelung"
 
 #: src/gui.c:5235
 msgid "Direct PulseAudio Control"
-msgstr ""
+msgstr "Direkte PulseAudio-Lautstärkeregelung"
 
 #: src/gui.c:5237
-#, fuzzy
 msgid "Software Volume Control"
-msgstr "Benutze MPlayer-Software-Lautstärkeregelung"
+msgstr "MPlayer-Software-Lautstärkeregelung"
 
 #: src/gui.c:5324
 msgid "Player"
@@ -744,16 +743,14 @@ msgid "Audio Output:"
 msgstr "Audioausgabe:"
 
 #: src/gui.c:5737
-#, fuzzy
 msgid "Audio Volume Type:"
-msgstr "Sample Rate:"
+msgstr "Typ der Audiolautstärke:"
 
 #: src/gui.c:5749
 msgid "Default Mixer:"
 msgstr "Standardmixer"
 
 #: src/gui.c:5759
-#, fuzzy
 msgid "Audio Channels to Output:"
 msgstr "Audiokanäle für die Ausgabe"
 
@@ -931,7 +928,7 @@ msgstr "Benutze Standard-Wiedergabeliste"
 
 #: src/gui.c:6176
 msgid "Show notification popup"
-msgstr "Zeige Notification Popup"
+msgstr "Zeige Systembenachrichtigung"
 
 #: src/gui.c:6183
 msgid "Show status icon"
@@ -980,7 +977,7 @@ msgstr "Deaktiviere Animation der Kontrollleiste im Vollbildmodus"
 
 #: src/gui.c:6246
 msgid "Disable Cover Art Fetch"
-msgstr ""
+msgstr "Deaktiviere Laden von Covern"
 
 #: src/gui.c:6251
 msgid "Use Mouse Wheel to change volume, instead of seeking"
@@ -1184,7 +1181,7 @@ msgstr "A_lle wiederholen"
 
 #: src/gui.c:7771
 msgid "P_lay Single Track from Playlist"
-msgstr ""
+msgstr "Spiele einzelnen Titel der Wiedergabeliste"
 
 #: src/gui.c:7775
 msgid "S_witch Audio Track"
