@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-16 10:01-0700\n"
-"PO-Revision-Date: 2013-02-02 14:16+0900\n"
+"PO-Revision-Date: 2013-02-17 23:13+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "Language: \n"
@@ -54,7 +54,7 @@ msgstr "全画面モードで開始する"
 
 #: src/main.c:85
 msgid "Use mplayer software volume control"
-msgstr "MPlayer の出力の音量コントロールを使う"
+msgstr "MPlayer のソフトウェア音量制御を使う"
 
 #: src/main.c:87
 msgid "When set to TRUE the last volume level is set as the default"
@@ -233,7 +233,7 @@ msgstr "DVD デバイス名"
 
 #: src/main.c:174
 msgid "Video Output Device Name"
-msgstr "ビデオの出力デバイス名:"
+msgstr "映像の出力デバイス名:"
 
 #: src/main.c:402 src/gui.c:1037 src/gui.c:7129 src/gui.c:7235
 #, c-format
@@ -271,7 +271,7 @@ msgstr "詳細"
 
 #: src/main.c:1006
 msgid "Audio Meter"
-msgstr "オーディオメータ"
+msgstr "音声メータ"
 
 #: src/main.c:1007 src/gui.c:8315 src/gui.c:8318
 msgid "Full Screen"
@@ -496,7 +496,7 @@ msgstr ""
 
 #: src/gui.c:3984
 msgid "Set AudioFile"
-msgstr "オーディオファイルを設定する"
+msgstr "音声ファイルを設定する"
 
 #: src/gui.c:4020 src/playlist.c:148
 msgid "Set Subtitle"
@@ -508,7 +508,7 @@ msgstr "Gnome MPlayer 全画面"
 
 #: src/gui.c:4616 src/nautilus_property_page.c:347
 msgid "<span weight=\"bold\">Video Details</span>"
-msgstr "<span weight=\"bold\">ビデオの詳細</span>"
+msgstr "<span weight=\"bold\">映像の詳細</span>"
 
 #: src/gui.c:4624 src/nautilus_property_page.c:354
 msgid "Video Size:"
@@ -542,7 +542,7 @@ msgstr "チャプター:"
 
 #: src/gui.c:4696 src/nautilus_property_page.c:401
 msgid "<span weight=\"bold\">Audio Details</span>"
-msgstr "<span weight=\"bold\">オーディオの詳細</span>"
+msgstr "<span weight=\"bold\">音声の詳細</span>"
 
 #: src/gui.c:4703
 msgid "Audio Format:"
@@ -566,11 +566,11 @@ msgstr "サンプルレート:"
 
 #: src/gui.c:4785
 msgid "Video Picture Adjustments"
-msgstr "ビデオ画像の調整"
+msgstr "映像画像の調整"
 
 #: src/gui.c:4803
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
-msgstr "<span weight=\"bold\">ビデオ画像の調整</span>"
+msgstr "<span weight=\"bold\">映像画像の調整</span>"
 
 #: src/gui.c:4810
 msgid "Brightness"
@@ -642,16 +642,15 @@ msgstr "同じフォルダ内の字幕をすべて読み込む"
 
 #: src/gui.c:5232
 msgid "Direct ALSA Control"
-msgstr ""
+msgstr "直接ALSA制御"
 
 #: src/gui.c:5235
 msgid "Direct PulseAudio Control"
-msgstr ""
+msgstr "直接PulseAudio制御"
 
 #: src/gui.c:5237
-#, fuzzy
 msgid "Software Volume Control"
-msgstr "MPlayer の音量コントロールを有効にする"
+msgstr "ソフトウェア音量制御"
 
 #: src/gui.c:5324
 msgid "Player"
@@ -696,7 +695,7 @@ msgstr "S/PDIF出力にAC3/DTSパススルーを許可する"
 
 #: src/gui.c:5436
 msgid "Mplayer Software Volume Control Enabled"
-msgstr "MPlayer の音量コントロールを有効にする"
+msgstr "MPlayer のソフトウェア音量制御を有効にする"
 
 #: src/gui.c:5457
 msgid "Default"
@@ -714,7 +713,7 @@ msgstr "<span weight=\"bold\">出力の設定を調整</span>"
 
 #: src/gui.c:5693
 msgid "Video Output:"
-msgstr "ビデオの出力:"
+msgstr "映像出力:"
 
 #: src/gui.c:5702
 msgid "Enable Video Hardware Support"
@@ -735,21 +734,19 @@ msgstr "Crystal HD 動画再生支援を有効にする"
 
 #: src/gui.c:5727
 msgid "Audio Output:"
-msgstr "オーディオの出力:"
+msgstr "音声出力:"
 
 #: src/gui.c:5737
-#, fuzzy
 msgid "Audio Volume Type:"
-msgstr "サンプルレート:"
+msgstr "音声音量タイプ:"
 
 #: src/gui.c:5749
 msgid "Default Mixer:"
 msgstr "標準のミキサー"
 
 #: src/gui.c:5759
-#, fuzzy
 msgid "Audio Channels to Output:"
-msgstr "オーディオチャンネル:"
+msgstr "出力音声チャネル:"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -823,7 +820,7 @@ msgstr "埋めこまれているプレイヤーのスケーリングを無効に
 
 #: src/gui.c:5891
 msgid "Audio Cache Size (KB):"
-msgstr "オーディオキャッシュサイズ(KB)"
+msgstr "音声キャッシュサイズ(KB)"
 
 #: src/gui.c:5901 src/gui.c:5904 src/gui.c:5910 src/gui.c:5915
 msgid ""
@@ -835,7 +832,7 @@ msgstr ""
 
 #: src/gui.c:5931
 msgid "Video Cache Size (KB):"
-msgstr "ビデオキャッシュサイズ(KB)"
+msgstr "映像キャッシュサイズ(KB)"
 
 #: src/gui.c:5953
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
@@ -843,7 +840,7 @@ msgstr "<span weight=\"bold\">言語設定の調整</span>"
 
 #: src/gui.c:5960
 msgid "Default Audio Language"
-msgstr "標準のオーディオ言語"
+msgstr "標準の音声言語"
 
 #: src/gui.c:5971
 msgid "Default Subtitle Language:"
@@ -1025,7 +1022,7 @@ msgstr "非インタレースビデオ(_I)"
 
 #: src/gui.c:6332 src/gui.c:6335
 msgid "Set this option if video looks striped"
-msgstr "ビデオが縞模様に見えるならば、このオプションを設定して下さい。"
+msgstr "映像が縞模様に見えるならば、このオプションを設定して下さい。"
 
 #: src/gui.c:6341
 msgid "_Drop frames"
@@ -1034,7 +1031,7 @@ msgstr "フレームを落す(_D)"
 #: src/gui.c:6343 src/gui.c:6346
 msgid "Set this option if video is well behind the audio"
 msgstr ""
-"ビデオがオーディオよりも遅れているのであれば、このオプションを設定して下さ"
+"映像が音声よりも遅れているのであれば、このオプションを設定して下さ"
 "い。"
 
 #: src/gui.c:6352
@@ -1125,7 +1122,7 @@ msgstr "ディスク(_D)"
 
 #: src/gui.c:7670
 msgid "Open _Audio CD"
-msgstr "オーディオCDを開く(_A)"
+msgstr "音声CDを開く(_A)"
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
@@ -1184,15 +1181,15 @@ msgstr "プレイリストから単一トラックを再生する(_L)"
 
 #: src/gui.c:7775
 msgid "S_witch Audio Track"
-msgstr "オーディオトラックを切り替える(_W)"
+msgstr "音声トラックを切り替える(_W)"
 
 #: src/gui.c:7777 src/playlist.c:1188
 msgid "Set Audi_o"
-msgstr "オーディオを設定する(_O)"
+msgstr "音声を設定する(_O)"
 
 #: src/gui.c:7779
 msgid "Select _Audio Language"
-msgstr "オーディオ言語を選択する(_A)"
+msgstr "音声言語を選択する(_A)"
 
 #: src/gui.c:7782
 msgid "Set S_ubtitle"
@@ -1229,7 +1226,7 @@ msgstr "詳細(_E)"
 
 #: src/gui.c:7836
 msgid "Audio _Meter"
-msgstr "オーディオメータ (_M):"
+msgstr "音声メータ (_M):"
 
 #: src/gui.c:7848
 msgid "_Normal (1:1)"
@@ -1269,7 +1266,7 @@ msgstr "16:10 (_6)"
 
 #: src/gui.c:7873
 msgid "_2.39:1 Aspect (Anamorphic)"
-msgstr "2.39:1 Aspect (Anamorphic) (_2)"
+msgstr "2.39:1 (Anamorphic) (_2)"
 
 #: src/gui.c:7875
 msgid "_Follow Window"
@@ -1297,7 +1294,7 @@ msgstr "操作パネルを表示する(_C)"
 
 #: src/gui.c:7907
 msgid "_Video Picture Adjustments"
-msgstr "ビデオ画像の調整(_V)"
+msgstr "映像画像の調整(_V)"
 
 #. Help Menu
 #: src/gui.c:7947
@@ -1367,7 +1364,7 @@ msgstr ""
 
 #: src/playlist.c:185
 msgid "Set Audio"
-msgstr "オーディオを設定する"
+msgstr "音声を設定する"
 
 #: src/playlist.c:287
 #, c-format
@@ -1515,7 +1512,7 @@ msgstr "フレームレート:"
 
 #: src/nautilus_property_page.c:489
 msgid "Audio/Video"
-msgstr "オーディオ/ビデオ"
+msgstr "音声/映像"
 
 #~ msgid "Set Sub_title"
 #~ msgstr "字幕を設定する(_T)"
