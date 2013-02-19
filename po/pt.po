@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-16 10:01-0700\n"
-"PO-Revision-Date: 2013-01-29 10:42-0000\n"
+"PO-Revision-Date: 2013-02-19 15:02-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: Portuguese\n"
 "Language: pt\n"
@@ -78,7 +78,7 @@ msgstr "Definir nível inicial de volume"
 #. note that sizeof(gint)==sizeof(gboolean), so we can give &showcontrols here
 #: src/main.c:94
 msgid "Show the controls in window"
-msgstr "Mostrar os controlos na janela"
+msgstr "Mostrar controlos na janela"
 
 #: src/main.c:96
 msgid "Show the subtitles if available"
@@ -91,7 +91,7 @@ msgstr ""
 
 #: src/main.c:101
 msgid "Disable popup menu on right click"
-msgstr "Desativar o menu ao clicar com o botão direito"
+msgstr "Desativar menu ao clicar com o botão direito"
 
 #: src/main.c:103
 msgid "Disable fullscreen options in browser mode"
@@ -131,7 +131,7 @@ msgstr "Desativar filtro de desentrelaçamento"
 
 #: src/main.c:122
 msgid "Don't skip drawing frames to better keep sync"
-msgstr "Não ignorar criação de fotogramas para melhorar a sincronização"
+msgstr "Não ignorar criação de imagens para melhorar a sincronização"
 
 #: src/main.c:125
 msgid "Use the old subtitle rendering system"
@@ -191,7 +191,7 @@ msgstr "Altura da entrada de TV"
 
 #: src/main.c:147
 msgid "Frames per second from TV input"
-msgstr "Fotogramas por segundo da entrada de TV"
+msgstr "Imagens por segundo da entrada de TV"
 
 #: src/main.c:148
 msgid "Only allow one instance"
@@ -208,7 +208,7 @@ msgstr "Utlizar botões grandes"
 
 #: src/main.c:157
 msgid "Hide control panel when mouse is not moving"
-msgstr "Ocultar painel de controlo se o rato não está em movimento"
+msgstr "Ocultar painel de controlo se o rato não estiver em movimento"
 
 #: src/main.c:160
 msgid "Ignore single instance preference for this instance"
@@ -216,11 +216,11 @@ msgstr "Ignorar preferência de instância única para esta instância"
 
 #: src/main.c:163
 msgid "Keep window on top"
-msgstr "Manter janela no topo"
+msgstr "Manter janela na frente"
 
 #: src/main.c:167
 msgid "Load all tracks from media player using gpod"
-msgstr "Carregar todas as faixas do reprodutor utilizando o gpod"
+msgstr "Carregar todas as faixas utilizando o gpod"
 
 #: src/main.c:171
 msgid "Don't fetch new cover art images"
@@ -250,7 +250,7 @@ msgstr "Abrir localização"
 
 #: src/main.c:1001
 msgid "Take Screenshot"
-msgstr "Tirar uma captura de ecrã"
+msgstr "Obter captura de ecrã"
 
 #: src/main.c:1002
 msgid "Preferences"
@@ -401,7 +401,7 @@ msgstr "A reproduzir %s"
 #: src/gui.c:1456
 #, c-format
 msgid "Paused %s"
-msgstr "Em pausa %s"
+msgstr "%s em pausa"
 
 #: src/gui.c:1711 src/gui.c:1720
 #, c-format
@@ -529,7 +529,7 @@ msgstr "Codificador:"
 
 #: src/gui.c:4660
 msgid "Video FPS:"
-msgstr "FPS:"
+msgstr "IPS:"
 
 #: src/gui.c:4669 src/nautilus_property_page.c:376
 msgid "Video Bitrate:"
@@ -585,7 +585,7 @@ msgstr "Gama"
 
 #: src/gui.c:4843
 msgid "Hue"
-msgstr "Cor"
+msgstr "Tom"
 
 #: src/gui.c:4854
 msgid "Saturation"
@@ -641,16 +641,15 @@ msgstr "Carregar todas as legendas na pasta"
 
 #: src/gui.c:5232
 msgid "Direct ALSA Control"
-msgstr ""
+msgstr "Controlo direto ALSA"
 
 #: src/gui.c:5235
 msgid "Direct PulseAudio Control"
-msgstr ""
+msgstr "Constrolo direto PulseAudio"
 
 #: src/gui.c:5237
-#, fuzzy
 msgid "Software Volume Control"
-msgstr "Ativar controlo de volume do Mplayer"
+msgstr "Controlo de volume da aplicação"
 
 #: src/gui.c:5324
 msgid "Player"
@@ -674,7 +673,7 @@ msgstr "MPlayer"
 
 #: src/gui.c:5336
 msgid "Plugin"
-msgstr "Suplemento"
+msgstr "Extra"
 
 #: src/gui.c:5342
 msgid "GNOME MPlayer Configuration"
@@ -692,7 +691,7 @@ msgstr ""
 
 #: src/gui.c:5427
 msgid "Enable AC3/DTS pass-through to S/PDIF"
-msgstr "Ativar passagem de sinal AC3/DTS para a saída S/PDIF"
+msgstr "Ativar passagem AC3/DTS para S/PDIF"
 
 #: src/gui.c:5436
 msgid "Mplayer Software Volume Control Enabled"
@@ -736,18 +735,16 @@ msgid "Audio Output:"
 msgstr "Áudio:"
 
 #: src/gui.c:5737
-#, fuzzy
 msgid "Audio Volume Type:"
-msgstr "Frequência:"
+msgstr "Tipo de sistema áudio:"
 
 #: src/gui.c:5749
 msgid "Default Mixer:"
 msgstr "Gestor de som padrão:"
 
 #: src/gui.c:5759
-#, fuzzy
 msgid "Audio Channels to Output:"
-msgstr "Canais áudio"
+msgstr "Canais áudio para saída:"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -807,7 +804,7 @@ msgstr "Emulação do DiVX Player"
 
 #: src/gui.c:5876
 msgid "MIDI Support (requires MPlayer support)"
-msgstr "Suporte de MIDI (requer suporte do MPlayer)"
+msgstr "Suporte MIDI (requer suporte do MPlayer)"
 
 #: src/gui.c:5881
 msgid "Disable Player Embedding"
