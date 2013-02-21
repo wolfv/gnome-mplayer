@@ -599,7 +599,8 @@ void adjust_layout()
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "totals = %i x %i", total_width, total_height);
             total_height += alloc.height + handle_size;
         } else {
-            if (gmtk_get_visible(media_hbox) && idledata->videopresent == FALSE) {
+            if (gmtk_get_visible(media_hbox) && idledata->videopresent == FALSE
+                && gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem_view_playlist)) == FALSE) {
                 gmtk_get_allocation(media_hbox, &alloc2);
                 total_width = alloc2.width + handle_size + alloc.width;
             } else {

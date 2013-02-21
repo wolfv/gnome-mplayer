@@ -1,6 +1,7 @@
-Development
-    Updated German translation
-    Updated Japanese translation
+Development	
+	Apply patch from Issue 673
+    	Updated German translation
+    	Updated Japanese translation
 	Updated Portuguese translation
 	Set the subtitle visibility in set_media_player_attributes
 	Fix fullscreen activation using defined accelerator key
