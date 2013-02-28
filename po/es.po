@@ -10,18 +10,14 @@ msgstr ""
 "Project-Id-Version: GNOME MPlayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-16 10:01-0700\n"
-"PO-Revision-Date: 2011-05-07 04:46+0000\n"
-"Last-Translator: Fitoschido <fitoschido@gmail.com>\n"
+"PO-Revision-Date: 2013-02-21 11:42-0000\n"
+"Last-Translator: AmatCoder\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
-"X-Generator: Launchpad (build 13175)\n"
-"X-Poedit-Country: SPAIN\n"
-"X-Poedit-Language: Spanish\n"
 
 #: src/main.c:76
 msgid "Window to embed in"
@@ -37,7 +33,7 @@ msgstr "Altura de la ventana incrustada"
 
 #: src/main.c:79
 msgid "Unique DBUS controller id"
-msgstr "Identificación única del regulador de DBUS"
+msgstr "Identificación única del controlador de DBUS"
 
 #: src/main.c:80
 msgid "File Argument is a playlist"
@@ -49,7 +45,7 @@ msgstr "Mostrar más salida en la consola"
 
 #: src/main.c:83
 msgid "Show even more output on the console"
-msgstr "Mostrar más salida en la consola"
+msgstr "Mostrar aún más salida en la consola"
 
 #: src/main.c:84
 msgid "Start in fullscreen mode"
@@ -57,7 +53,7 @@ msgstr "Iniciar en modo de pantalla completa"
 
 #: src/main.c:85
 msgid "Use mplayer software volume control"
-msgstr "Usar control de volumen del mplayer"
+msgstr "Usar control de volumen de mplayer"
 
 #: src/main.c:87
 msgid "When set to TRUE the last volume level is set as the default"
@@ -105,7 +101,8 @@ msgstr "Desactivar opciones de pantalla completa en modo exploración"
 
 #: src/main.c:104
 msgid "Play all files on the playlist forever"
-msgstr "Reproducir todos los archivos para siempre"
+msgstr ""
+"Reproducir todos los archivos de la lista de reproducción continuamente"
 
 #: src/main.c:106
 msgid "Quit application when last file on playlist is played"
@@ -131,7 +128,7 @@ msgstr "Duración del medio a reproducir desde el segundo de inicio"
 
 #: src/main.c:116
 msgid "Force cache usage on streaming sites"
-msgstr "Forza a usar el caché en sitio de streaming"
+msgstr "Forzar el uso del caché en los sitios de streaming"
 
 #: src/main.c:119
 msgid "Disable the deinterlace filter"
@@ -139,12 +136,11 @@ msgstr "Desactivar el filtro de desentrelazado"
 
 #: src/main.c:122
 msgid "Don't skip drawing frames to better keep sync"
-msgstr ""
-"No omitir el dibujado de imágenes para mantener una buena sincronización"
+msgstr "No omitir fotogramas para mantener una buena sincronización"
 
 #: src/main.c:125
 msgid "Use the old subtitle rendering system"
-msgstr "Usar el viejo sistema de renderizado de subtitulos"
+msgstr "Usar el viejo sistema de renderizado de subtítulos"
 
 #: src/main.c:128
 msgid "Don't use fonts embedded on matroska files"
@@ -232,17 +228,15 @@ msgstr "Cargar todas las pistas desde el reproductor multimedia usando gpod"
 
 #: src/main.c:171
 msgid "Don't fetch new cover art images"
-msgstr "No obtener nuevas portadas de álbum"
+msgstr "No buscar nuevas imágenes de carátulas"
 
 #: src/main.c:173
-#, fuzzy
 msgid "DVD Device Name"
-msgstr "Nombre del dispositivo de TV"
+msgstr "Nombre del dispositivo de DVD"
 
 #: src/main.c:174
-#, fuzzy
 msgid "Video Output Device Name"
-msgstr "Salida de vídeo:"
+msgstr "Nombre del dispositivo de salida de vídeo"
 
 #: src/main.c:402 src/gui.c:1037 src/gui.c:7129 src/gui.c:7235
 #, c-format
@@ -252,49 +246,43 @@ msgstr "Reproduciendo"
 #: src/main.c:624
 #, c-format
 msgid "Resume Playback of %s at %s"
-msgstr ""
+msgstr "Continuar reproducción de %s en %s"
 
 #: src/main.c:1000 src/gui.c:3197
 msgid "Open Location"
 msgstr "Abrir ubicación"
 
 #: src/main.c:1001
-#, fuzzy
 msgid "Take Screenshot"
-msgstr "Cap_turar pantalla"
+msgstr "Capturar pantalla"
 
 #: src/main.c:1002
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #: src/main.c:1003
-#, fuzzy
 msgid "Playlist"
-msgstr "_Lista de reproducción"
+msgstr "Lista de reproducción"
 
 #: src/main.c:1004
-#, fuzzy
 msgid "Media Info"
-msgstr "_Información multimedia"
+msgstr "Información multimedia"
 
 #: src/main.c:1005
-#, fuzzy
 msgid "Details"
-msgstr "D_etalles"
+msgstr "Detalles"
 
 #: src/main.c:1006
-#, fuzzy
 msgid "Audio Meter"
-msgstr "_Medidor de audio"
+msgstr "Medidor de audio"
 
 #: src/main.c:1007 src/gui.c:8315 src/gui.c:8318
 msgid "Full Screen"
 msgstr "Pantalla Completa"
 
 #: src/main.c:1008
-#, fuzzy
 msgid "Aspect"
-msgstr "_Aspecto"
+msgstr "Aspecto"
 
 #: src/main.c:1009 src/gui.c:5328
 msgid "Subtitles"
@@ -314,13 +302,12 @@ msgid "Switch Angle"
 msgstr "Cambiar el ángulo"
 
 #: src/main.c:1013
-#, fuzzy
 msgid "Controls"
 msgstr "Controles"
 
 #: src/main.c:1025
 msgid "[FILES...] - GNOME Media player based on MPlayer"
-msgstr "[ARCHIVOS...] - GNOME Media Player basado en MPlayer"
+msgstr "[ARCHIVOS...] - Reproductor de medios GNOME basado en MPlayer"
 
 #: src/main.c:1041
 #, c-format
@@ -330,7 +317,7 @@ msgstr "GNOME MPlayer v%s\n"
 #: src/main.c:1042
 #, c-format
 msgid "gmtk v%s\n"
-msgstr ""
+msgstr "gmtk v%s\n"
 
 #: src/main.c:1098
 #, c-format
@@ -338,7 +325,8 @@ msgid ""
 "Run 'gnome-mplayer --help' to see a full list of available command line "
 "options.\n"
 msgstr ""
-"Ejecute «gnome-mplayer --help» para ver una lista completa de las órdenes.\n"
+"Ejecute 'gnome-mplayer --help' para ver una lista completa de las opciones "
+"disponibles.\n"
 
 #: src/gui.c:723 src/gui.c:777 src/gui.c:6918
 #, c-format
@@ -378,7 +366,7 @@ msgstr "En pausa"
 #: src/gui.c:1041 src/gui.c:1458 src/gui.c:7239
 #, c-format
 msgid "Idle"
-msgstr "Detenido"
+msgstr "Sin tarea"
 
 #: src/gui.c:1173 src/support.c:246 src/playlist.c:596 src/playlist.c:935
 #, c-format
@@ -413,12 +401,12 @@ msgstr "Añadiendo %s a la lista de reproducción"
 #: src/gui.c:1454
 #, c-format
 msgid "Playing %s"
-msgstr "Reproduciendo  %s"
+msgstr "Reproduciendo %s"
 
 #: src/gui.c:1456
 #, c-format
 msgid "Paused %s"
-msgstr "Pausado %s"
+msgstr "%s pausado"
 
 #: src/gui.c:1711 src/gui.c:1720
 #, c-format
@@ -456,12 +444,12 @@ msgstr "Guardar como..."
 #: src/gui.c:3700
 #, c-format
 msgid "Overwrite %s"
-msgstr ""
+msgstr "Sobrescribir %s"
 
 #: src/gui.c:3720
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save ' %s '"
-msgstr "No se pudo guardar «%s»"
+msgstr "No se pudo guardar ' %s '"
 
 #: src/gui.c:3723 src/support.c:792 src/support.c:883
 msgid "GNOME MPlayer Error"
@@ -541,7 +529,7 @@ msgstr "Formato de vídeo:"
 #: src/gui.c:4734
 #, c-format
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #: src/gui.c:4649 src/nautilus_property_page.c:365
 msgid "Video Codec:"
@@ -565,7 +553,7 @@ msgstr "<span weight=\"bold\">Detalles de audio</span>"
 
 #: src/gui.c:4703
 msgid "Audio Format:"
-msgstr ""
+msgstr "Formato de audio:"
 
 #: src/gui.c:4716 src/nautilus_property_page.c:408
 msgid "Audio Codec:"
@@ -649,28 +637,27 @@ msgstr "Postprocesado máximo"
 
 #: src/gui.c:5063
 msgid "Exact Match"
-msgstr ""
+msgstr "Correspondencia exacta"
 
 #: src/gui.c:5066
 msgid "Load all subtitles containing movie name"
-msgstr ""
+msgstr "Cargar todos los subtítulos que contengan el nombre de la película"
 
 #: src/gui.c:5069
 msgid "Load all subtitles in the same folder"
-msgstr ""
+msgstr "Cargar todos los subtítulos contenidos en la misma carpeta"
 
 #: src/gui.c:5232
 msgid "Direct ALSA Control"
-msgstr ""
+msgstr "Control directo de ALSA "
 
 #: src/gui.c:5235
 msgid "Direct PulseAudio Control"
-msgstr ""
+msgstr "Control directo de PulseAudio "
 
 #: src/gui.c:5237
-#, fuzzy
 msgid "Software Volume Control"
-msgstr "Control de volumen Mplayer por software habilitado"
+msgstr "Control de volumen por software"
 
 #: src/gui.c:5324
 msgid "Player"
@@ -686,7 +673,7 @@ msgstr "Interfaz"
 
 #: src/gui.c:5332
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Atajos de teclado"
 
 #: src/gui.c:5334
 msgid "MPlayer"
@@ -706,6 +693,9 @@ msgid ""
 "x11 should always work, try xv, gl or vdpau for better performance and "
 "enhanced features"
 msgstr ""
+"dispositivo de salida de video de mplayer\n"
+"x11 debería funcionar siempre, intente xv, gl o vdpau para un mejor "
+"rendimiento y características mejoradas"
 
 #: src/gui.c:5427
 msgid "Enable AC3/DTS pass-through to S/PDIF"
@@ -723,6 +713,7 @@ msgstr "Por defecto"
 msgid ""
 "Choose one of the languages or type in your own comma-separated selection"
 msgstr ""
+"Elija uno de los idiomas o escriba su propia selección separada por comas"
 
 #: src/gui.c:5686
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -734,35 +725,36 @@ msgstr "Salida de vídeo:"
 
 #: src/gui.c:5702
 msgid "Enable Video Hardware Support"
-msgstr ""
+msgstr "Activar soporte de hardware de video"
 
 #: src/gui.c:5707 src/gui.c:5712
 msgid ""
 "When this option is enabled, codecs or options will be enabled to accelerate "
 "video processing. These options may cause playback to fail in some cases."
 msgstr ""
+"Cuando esta opción está activada, los codecs u opciones serán habilitados "
+"para acelerar el procesamiento de video. Estas opciones podrían causar que "
+"la reproducción falle en algunos casos."
 
 #: src/gui.c:5720
 msgid "Enable CrystalHD Hardware Support"
-msgstr ""
+msgstr "Activar soporte de hardware CrystalHD"
 
 #: src/gui.c:5727
 msgid "Audio Output:"
 msgstr "Salida de audio:"
 
 #: src/gui.c:5737
-#, fuzzy
 msgid "Audio Volume Type:"
-msgstr "Frecuencia de muestreo de audio:"
+msgstr "Tipo de volumen de audio:"
 
 #: src/gui.c:5749
 msgid "Default Mixer:"
 msgstr "Mezclador por defecto:"
 
 #: src/gui.c:5759
-#, fuzzy
 msgid "Audio Channels to Output:"
-msgstr "Canales de audio a la salida"
+msgstr "Salida de canales de audio"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
@@ -916,9 +908,8 @@ msgid "Show Subtitles by Default"
 msgstr "Mostrar subtítulos de manera predeterminada"
 
 #: src/gui.c:6130
-#, fuzzy
 msgid "Subtitle Load Fuzziness:"
-msgstr "Tipografía de subtítulos:"
+msgstr "Tolerancia para la carga de subtítulos:"
 
 #: src/gui.c:6148
 msgid "<span weight=\"bold\">Application Preferences</span>"
@@ -984,7 +975,7 @@ msgstr "Desactivar animación de la barra de control en pantalla completa"
 
 #: src/gui.c:6246
 msgid "Disable Cover Art Fetch"
-msgstr ""
+msgstr "Desactivar busqueda de carátulas"
 
 #: src/gui.c:6251
 msgid "Use Mouse Wheel to change volume, instead of seeking"
@@ -992,7 +983,7 @@ msgstr "Usar la rueda del ratón para ajustar el volumen en lugar de buscar"
 
 #: src/gui.c:6256
 msgid "Enable Nautilus Plugin"
-msgstr ""
+msgstr "Activar el plugin Nautilus"
 
 #: src/gui.c:6261
 msgid "Verbose Debug Enabled"
@@ -1094,11 +1085,14 @@ msgid ""
 "Place the cursor in the box next to the shortcut you want to modify\n"
 "Then press the keys you would like for the shortcut"
 msgstr ""
+"<span weight=\"bold\">Atajos de Teclado</span>\n"
+"\n"
+"Coloque el cursor en la casilla situada junto al atajo que desea modificar\n"
+"A continuación, pulse las teclas que desea para el atajo"
 
 #: src/gui.c:6478
-#, fuzzy
 msgid "Reset Keys"
-msgstr "_Restablecer"
+msgstr "Restablecer teclas"
 
 #: src/gui.c:7585
 msgid "S_how Controls"
@@ -1186,7 +1180,7 @@ msgstr "_Repetir lista"
 
 #: src/gui.c:7771
 msgid "P_lay Single Track from Playlist"
-msgstr ""
+msgstr "Reproducir pista individual de lista de reproducción"
 
 #: src/gui.c:7775
 msgid "S_witch Audio Track"
@@ -1201,9 +1195,8 @@ msgid "Select _Audio Language"
 msgstr "Seleccionar idioma de _audio"
 
 #: src/gui.c:7782
-#, fuzzy
 msgid "Set S_ubtitle"
-msgstr "Seleccionar subtítulos"
+msgstr "Seleccionar s_ubtítulo"
 
 #: src/gui.c:7784
 msgid "S_elect Subtitle Language"
@@ -1255,7 +1248,7 @@ msgstr "Tamaño _medio (1:2)"
 #: src/gui.c:7856
 #, fuzzy
 msgid "Half _Larger (1.5:1)"
-msgstr "Tamaño _medio (1:2)"
+msgstr "Tamaño _medio (1.5:1)"
 
 #: src/gui.c:7858
 msgid "_Aspect"
@@ -1279,7 +1272,7 @@ msgstr "Aspecto 1_6:10"
 
 #: src/gui.c:7873
 msgid "_2.39:1 Aspect (Anamorphic)"
-msgstr ""
+msgstr "Aspecto _2.39:1 (Anamorfico)"
 
 #: src/gui.c:7875
 msgid "_Follow Window"
