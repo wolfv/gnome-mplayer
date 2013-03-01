@@ -1,0 +1,1524 @@
+# Swedish translation for gnome-mplayer
+# Copyright (C) 2008 Kevin DeKorte <kdekorte@gmail.com>
+# This file is distributed under the same license as the gnome-mplayer package.
+# Daniel Nylander <po@danielnylander.se>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-mplayer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-01 15:00-0700\n"
+"PO-Revision-Date: 2011-06-05 09:26+0000\n"
+"Last-Translator: Arve Eriksson <Unknown>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
+
+#: src/main.c:76
+msgid "Window to embed in"
+msgstr "Fönster att inbäddas i"
+
+#: src/main.c:77
+msgid "Width of window to embed in"
+msgstr "Bredd på fönster att inbäddas i"
+
+#: src/main.c:78
+msgid "Height of window to embed in"
+msgstr "Höjd på fönster att inbäddas i"
+
+#: src/main.c:79
+msgid "Unique DBUS controller id"
+msgstr "Unikt DBUS-kontroller-id"
+
+#: src/main.c:80
+msgid "File Argument is a playlist"
+msgstr "Filargument är en spellista"
+
+#: src/main.c:81
+msgid "Show more output on the console"
+msgstr "Visa fler meddelanden i konsollen"
+
+#: src/main.c:83
+msgid "Show even more output on the console"
+msgstr "Visa ännu fler meddelanden i konsollen"
+
+#: src/main.c:84
+msgid "Start in fullscreen mode"
+msgstr "Starta i helskärmsläge"
+
+#: src/main.c:85
+msgid "Use mplayer software volume control"
+msgstr "Använd mplayers mjukvaruljudkontroll"
+
+#: src/main.c:87
+msgid "When set to TRUE the last volume level is set as the default"
+msgstr ""
+"När det är satt till TRUE kommer den senaste volymnivån användas som standard"
+
+#: src/main.c:89
+msgid ""
+"Last software volume percentage- only applied when remember_softvol is set "
+"to TRUE"
+msgstr ""
+"Sista mjukvaruvolym-procent - tillämpas bara om remember_softvol är satt "
+"till TRUE"
+
+#: src/main.c:91
+msgid "Mixer to use"
+msgstr "Mixer att använda"
+
+#: src/main.c:92
+msgid "Set initial volume percentage"
+msgstr "Välj standard volym procent"
+
+#. note that sizeof(gint)==sizeof(gboolean), so we can give &showcontrols here
+#: src/main.c:94
+msgid "Show the controls in window"
+msgstr "Visa kontrollerna i fönstret"
+
+#: src/main.c:96
+msgid "Show the subtitles if available"
+msgstr "Visa undertext om tillgänglig"
+
+#: src/main.c:99
+msgid "Autostart the media default to 1, set to 0 to load but don't play"
+msgstr ""
+"Starta mediet automatiskt (1 som standard - 0 innebär ladda men spela inte "
+"upp)"
+
+#: src/main.c:101
+msgid "Disable popup menu on right click"
+msgstr "Stäng av popupmeny vid högerklick"
+
+#: src/main.c:103
+msgid "Disable fullscreen options in browser mode"
+msgstr "Stäng av fullskärmsmöjligheter i webbläsarläge"
+
+#: src/main.c:104
+msgid "Play all files on the playlist forever"
+msgstr "Spela upp alla filer i spelningslistan i oändligt"
+
+#: src/main.c:106
+msgid "Quit application when last file on playlist is played"
+msgstr "Avsluta program när den sista filen i spelingslistan är spelad"
+
+#: src/main.c:107
+msgid "Play items on playlist in random order"
+msgstr "Spela up saker i spelingslistan i slumpvis ordning"
+
+#: src/main.c:109
+msgid "Set cache size"
+msgstr "Sätt cache storlek"
+
+#: src/main.c:111
+msgid "Start Second (default to 0)"
+msgstr "Startsekund (0 som standard)"
+
+#: src/main.c:114
+msgid "Length of media to play from start second"
+msgstr "Längd för media att spela från startsekund"
+
+#: src/main.c:116
+msgid "Force cache usage on streaming sites"
+msgstr "Tvinga mellanlagring för strömsidor"
+
+#: src/main.c:119
+msgid "Disable the deinterlace filter"
+msgstr "Avaktivera avflätningsfilter"
+
+#: src/main.c:122
+msgid "Don't skip drawing frames to better keep sync"
+msgstr "Hoppa inte över ritning av ramar för att förbättra synkroniseringen"
+
+#: src/main.c:125
+msgid "Use the old subtitle rendering system"
+msgstr "Använd det äldre systemet för textremsevisning"
+
+#: src/main.c:128
+msgid "Don't use fonts embedded on matroska files"
+msgstr "Använd inte typsnitt som bäddats in i Matroska-filer"
+
+#: src/main.c:130
+msgid "Use Vertical Layout"
+msgstr "Använd vertikal layout"
+
+#: src/main.c:132
+msgid "Start with playlist open"
+msgstr "Starta med spelingslistan öppen"
+
+#: src/main.c:134 src/gui.c:6167
+msgid "Start with details visible"
+msgstr "Starta med detaljer synbara"
+
+#: src/main.c:136
+msgid "Real Player Name"
+msgstr "Real Player Namn"
+
+#: src/main.c:137
+msgid "Real Player Console ID"
+msgstr "Real Player Konsol ID"
+
+#: src/main.c:138
+msgid "Real Player Console Controls"
+msgstr "Real Player Konsol Kontroller"
+
+#: src/main.c:140
+msgid "Subtitle file for first media file"
+msgstr "Undertextfil för första media fil"
+
+#: src/main.c:142
+msgid "TV device name"
+msgstr "TV enhetsnamn"
+
+#: src/main.c:143
+msgid "TV driver name (v4l|v4l2)"
+msgstr "TV drivrutinsnamn (v4l|v4l2)"
+
+#: src/main.c:144
+msgid "TV input name"
+msgstr "TV inmatningsnamn"
+
+#: src/main.c:145
+msgid "Width of TV input"
+msgstr "Bredd på TV inmatning"
+
+#: src/main.c:146
+msgid "Height of TV input"
+msgstr "Höjd på TV inmatning"
+
+#: src/main.c:147
+msgid "Frames per second from TV input"
+msgstr "Bilder per sekund från TV inmatning"
+
+#: src/main.c:148
+msgid "Only allow one instance"
+msgstr "Tillåt endast en instans"
+
+#: src/main.c:151
+msgid "Put single instance mode into replace and play mode"
+msgstr "Sätt enkelinstansläget till ersätt och spela upp-läget"
+
+#: src/main.c:154
+msgid "Use large control buttons"
+msgstr "Använd stora kontroll knappar"
+
+#: src/main.c:157
+msgid "Hide control panel when mouse is not moving"
+msgstr "Dölj kontrollpanel när musen inte rör sig"
+
+#: src/main.c:160
+msgid "Ignore single instance preference for this instance"
+msgstr "Ignorera enkelinstansinställningar för den här instansen"
+
+#: src/main.c:163
+msgid "Keep window on top"
+msgstr "Fortsätt ha fönstret överst"
+
+#: src/main.c:167
+msgid "Load all tracks from media player using gpod"
+msgstr "Ladda alla spår från mediaspelaren med gpod"
+
+#: src/main.c:171
+msgid "Don't fetch new cover art images"
+msgstr "Hämta inte nya album bilder"
+
+#: src/main.c:173
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "TV enhetsnamn"
+
+#: src/main.c:174
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Videoutmatning:"
+
+#: src/main.c:402 src/gui.c:1039 src/gui.c:7136 src/gui.c:7242
+#, c-format
+msgid "Playing"
+msgstr "Spelar"
+
+#: src/main.c:624
+#, c-format
+msgid "Resume Playback of %s at %s"
+msgstr ""
+
+#: src/main.c:1000 src/gui.c:3204
+msgid "Open Location"
+msgstr "Öppna plats"
+
+#: src/main.c:1001
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "_Ta skärmdump"
+
+#: src/main.c:1002
+msgid "Preferences"
+msgstr ""
+
+#: src/main.c:1003
+#, fuzzy
+msgid "Playlist"
+msgstr "_Spellista"
+
+#: src/main.c:1004
+#, fuzzy
+msgid "Media Info"
+msgstr "Media_information"
+
+#: src/main.c:1005
+#, fuzzy
+msgid "Details"
+msgstr "D_etaljer"
+
+#: src/main.c:1006
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Ljud_mätare"
+
+#: src/main.c:1007 src/gui.c:8322 src/gui.c:8325
+msgid "Full Screen"
+msgstr "Helskärm"
+
+#: src/main.c:1008
+#, fuzzy
+msgid "Aspect"
+msgstr "_Bildförhållande"
+
+#: src/main.c:1009 src/gui.c:5335
+msgid "Subtitles"
+msgstr "Undertexter"
+
+#: src/main.c:1010 src/gui.c:7890
+msgid "Decrease Subtitle Size"
+msgstr "Minska textremsans storlek"
+
+#: src/main.c:1011 src/gui.c:7892
+msgid "Increase Subtitle Size"
+msgstr "Öka textremsans storlek"
+
+#: src/main.c:1012
+#, fuzzy
+msgid "Switch Angle"
+msgstr "Byt vin_kel"
+
+#: src/main.c:1013
+#, fuzzy
+msgid "Controls"
+msgstr "_Kontroller"
+
+#: src/main.c:1025
+msgid "[FILES...] - GNOME Media player based on MPlayer"
+msgstr "[FILES...] - GNOME Media spelare baserat på MPlayer"
+
+#: src/main.c:1041
+#, c-format
+msgid "GNOME MPlayer v%s\n"
+msgstr "GNOME MPlayer v%s\n"
+
+#: src/main.c:1042
+#, c-format
+msgid "gmtk v%s\n"
+msgstr ""
+
+#: src/main.c:1098
+#, c-format
+msgid ""
+"Run 'gnome-mplayer --help' to see a full list of available command line "
+"options.\n"
+msgstr ""
+"Kör \"gnome-mplayer --help\" för att se en komplett lista över tillgängliga "
+"kommandoradsflaggor.\n"
+
+#: src/gui.c:725 src/gui.c:779 src/gui.c:6925
+#, c-format
+msgid "%s - GNOME MPlayer"
+msgstr "%s - GNOME MPlayer"
+
+#: src/gui.c:771
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr "(%i/%i) - GNOME MPlayer"
+
+#: src/gui.c:773
+#, c-format
+msgid "%s - (%i/%i) - GNOME MPlayer"
+msgstr "%s - (%i/%i) - GNOME MPlayer"
+
+#: src/gui.c:777 src/gui.c:3784 src/gui.c:7541
+#, c-format
+msgid "GNOME MPlayer"
+msgstr "GNOME MPlayer"
+
+#: src/gui.c:916
+#, c-format
+msgid "Buffering: %2i%%"
+msgstr "Buffrar: %2i%%"
+
+#: src/gui.c:928
+#, c-format
+msgid "Paused | %2i%% ▼"
+msgstr "Pausad | %2i%% ▼"
+
+#: src/gui.c:1041 src/gui.c:7185 src/gui.c:7244
+#, c-format
+msgid "Paused"
+msgstr "Pausad"
+
+#: src/gui.c:1043 src/gui.c:1460 src/gui.c:7246
+#, c-format
+msgid "Idle"
+msgstr "Overksam"
+
+#: src/gui.c:1175 src/support.c:246 src/playlist.c:596 src/playlist.c:935
+#, c-format
+msgid "%s items"
+msgstr "%s objekt"
+
+#: src/gui.c:1177 src/gui.c:3146 src/gui.c:3552 src/support.c:195
+#: src/support.c:261 src/playlist.c:598
+#, c-format
+msgid "Item to Play"
+msgid_plural "Items to Play"
+msgstr[0] "Sak att spela upp"
+msgstr[1] "Saker att spela upp"
+
+#: src/gui.c:1229 src/gui.c:1230 src/gui.c:1233 src/gui.c:7116 src/gui.c:7117
+#: src/gui.c:7120
+msgid "Pause"
+msgstr "Paus"
+
+#: src/gui.c:1258 src/gui.c:1259 src/gui.c:1262 src/gui.c:1287 src/gui.c:1288
+#: src/gui.c:1291 src/gui.c:2676 src/gui.c:2678 src/gui.c:2694 src/gui.c:2696
+#: src/gui.c:7077 src/gui.c:7078 src/gui.c:7081 src/gui.c:7166 src/gui.c:7167
+#: src/gui.c:7170 src/gui.c:8224 src/gui.c:8227
+msgid "Play"
+msgstr "Spela"
+
+#: src/gui.c:1432
+#, c-format
+msgid "Adding %s to playlist"
+msgstr "Lägger till %s till spelingslistan"
+
+#: src/gui.c:1456
+#, c-format
+msgid "Playing %s"
+msgstr "Spelar upp %s"
+
+#: src/gui.c:1458
+#, c-format
+msgid "Paused %s"
+msgstr "Pausad %s"
+
+#: src/gui.c:1713 src/gui.c:1722
+#, c-format
+msgid "Volume %i%%"
+msgstr "Volym %i%%"
+
+#: src/gui.c:2701
+msgid "Stopped"
+msgstr "Stoppad"
+
+#: src/gui.c:3082 src/playlist.c:560
+msgid "Open File"
+msgstr "Öppna fil"
+
+#: src/gui.c:3211
+msgid "Location:"
+msgstr "Plats:"
+
+#: src/gui.c:3275 src/gui.c:3367
+msgid "Choose Disk Directory"
+msgstr "Välj diskkatalog"
+
+#: src/gui.c:3311 src/gui.c:3408
+msgid "Choose Disk Image"
+msgstr "Välj skivavbildning"
+
+#: src/gui.c:3325 src/gui.c:3422
+msgid "Disk Image (*.iso)"
+msgstr "Skivavbildning (*.iso)"
+
+#: src/gui.c:3675
+msgid "Save As..."
+msgstr "Spara som..."
+
+#: src/gui.c:3707
+#, c-format
+msgid "Overwrite %s"
+msgstr ""
+
+#: src/gui.c:3727
+#, fuzzy, c-format
+msgid "Unable to save ' %s '"
+msgstr "Kunde inte spara \"%s\""
+
+#: src/gui.c:3730 src/support.c:792 src/support.c:883
+msgid "GNOME MPlayer Error"
+msgstr "Fel i GNOME MPlayer"
+
+#: src/gui.c:3786
+msgid "A media player for GNOME that uses MPlayer"
+msgstr "En mediaspelare för GNOME som använder MPlayer"
+
+#: src/gui.c:3789
+msgid ""
+"Gnome MPlayer is free software; you can redistribute it and/or modify it "
+"under\n"
+"the terms of the GNU General Public License as published by the Free\n"
+"Software Foundation; either version 2 of the License, or (at your option)\n"
+"any later version.\n"
+"\n"
+"Gnome MPlayer is distributed in the hope that it will be useful, but "
+"WITHOUT\n"
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\n"
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\n"
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along "
+"with\n"
+"Gnome MPlayer if not, write to the\n"
+"\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin St, Fifth Floor\n"
+"Boston, MA 02110-1301 USA"
+msgstr ""
+"Gnome MPlayer är ett gratis program; du kan distribuera det och/eller andra "
+"det under\n"
+"villkoren i GNU General Public License, publicerad av Free\n"
+"Software Foundation; antingen version 2 av licensen, eller (om du vill)\n"
+"någon senare version.\n"
+"\n"
+"Gnome MPlayer distribueras i hopp om att det ska vara användbart, men UTAN\n"
+"NÅGON SOM HELST GARANTI, även utan underförstådd garanti om SÄLJBARHET "
+"eller\n"
+"LÄMPLIGHET FÖR ETT VISST ÄNDAMÅL. Se GNU General Public License för\n"
+"mer information.\n"
+"Du ska ha hämtat en kopia av GNU General Public License tillsammans med\n"
+"Gnome MPlayer om inte, skriv till (på engelska):\n"
+"\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin St, Fifth Floor\n"
+"Boston, MA 02110-1301 USA"
+
+#: src/gui.c:3991
+msgid "Set AudioFile"
+msgstr "Välj Audiofile"
+
+#: src/gui.c:4027 src/playlist.c:148
+msgid "Set Subtitle"
+msgstr "Sätt undertext"
+
+#: src/gui.c:4189
+msgid "Gnome MPlayer Fullscreen"
+msgstr "Gnome MPlayer Helskärm"
+
+#: src/gui.c:4623 src/nautilus_property_page.c:347
+msgid "<span weight=\"bold\">Video Details</span>"
+msgstr "<span weight=\"bold\">Videodetaljer</span>"
+
+#: src/gui.c:4631 src/nautilus_property_page.c:354
+msgid "Video Size:"
+msgstr "Videostorlek:"
+
+#: src/gui.c:4645
+msgid "Video Format:"
+msgstr "Videoformat:"
+
+#: src/gui.c:4649 src/gui.c:4660 src/gui.c:4691 src/gui.c:4715 src/gui.c:4728
+#: src/gui.c:4741
+#, c-format
+msgid "Unknown"
+msgstr "Okänd"
+
+#: src/gui.c:4656 src/nautilus_property_page.c:365
+msgid "Video Codec:"
+msgstr "Videokodek:"
+
+#: src/gui.c:4667
+msgid "Video FPS:"
+msgstr "Video FPS:"
+
+#: src/gui.c:4676 src/nautilus_property_page.c:376
+msgid "Video Bitrate:"
+msgstr "Video-bithastighet:"
+
+#: src/gui.c:4687
+msgid "Video Chapters:"
+msgstr "Videokapitel:"
+
+#: src/gui.c:4703 src/nautilus_property_page.c:401
+msgid "<span weight=\"bold\">Audio Details</span>"
+msgstr "<span weight=\"bold\">Ljuddetaljer</span>"
+
+#: src/gui.c:4710
+msgid "Audio Format:"
+msgstr "Ljudformat:"
+
+#: src/gui.c:4723 src/nautilus_property_page.c:408
+msgid "Audio Codec:"
+msgstr "Ljudkodek:"
+
+#: src/gui.c:4736 src/nautilus_property_page.c:431
+msgid "Audio Channels:"
+msgstr "Ljudkanaler:"
+
+#: src/gui.c:4749 src/nautilus_property_page.c:419
+msgid "Audio Bitrate:"
+msgstr "Bitfrekvens för ljud:"
+
+#: src/gui.c:4762
+msgid "Audio Sample Rate:"
+msgstr "Ljudsamplingsfrekvens:"
+
+#: src/gui.c:4792
+msgid "Video Picture Adjustments"
+msgstr "Bildjusteringar i videon"
+
+#: src/gui.c:4810
+msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
+msgstr "<span weight=\"bold\">Bildjusteringar i videon</span>"
+
+#: src/gui.c:4817
+msgid "Brightness"
+msgstr "Ljusstyrka"
+
+#: src/gui.c:4828
+msgid "Contrast"
+msgstr "Kontrast"
+
+#: src/gui.c:4839
+msgid "Gamma"
+msgstr "Gamma"
+
+#: src/gui.c:4850
+msgid "Hue"
+msgstr "Nyans"
+
+#: src/gui.c:4861
+msgid "Saturation"
+msgstr "Mättnad"
+
+#: src/gui.c:4878
+msgid "_Reset"
+msgstr "Åt_erställ"
+
+#: src/gui.c:5017
+msgid "No Display"
+msgstr "Ingen skärm"
+
+#: src/gui.c:5020
+msgid "Minimal"
+msgstr "Minimal"
+
+#: src/gui.c:5023
+msgid "Timer"
+msgstr "Timer"
+
+#: src/gui.c:5026
+msgid "Timer/Total"
+msgstr "Tid/Totalt"
+
+#: src/gui.c:5042
+msgid "No Postprocessing"
+msgstr "Ingen efterbehandling"
+
+#: src/gui.c:5046
+msgid "Minimal Postprocessing"
+msgstr "Minimal efterbehandling"
+
+#: src/gui.c:5050
+msgid "More Postprocessing"
+msgstr "Mer efterbehandling"
+
+#: src/gui.c:5054
+msgid "Maximum Postprocessing"
+msgstr "Maximal efterbehandling"
+
+#: src/gui.c:5070
+msgid "Exact Match"
+msgstr "Exakt match"
+
+#: src/gui.c:5073
+msgid "Load all subtitles containing movie name"
+msgstr "Ladda alla textremsor som innehåller filmens namn"
+
+#: src/gui.c:5076
+msgid "Load all subtitles in the same folder"
+msgstr "Ladda alla textremsor i samma katalog"
+
+#: src/gui.c:5239
+msgid "Direct ALSA Control"
+msgstr ""
+
+#: src/gui.c:5242
+msgid "Direct PulseAudio Control"
+msgstr ""
+
+#: src/gui.c:5244
+#, fuzzy
+msgid "Software Volume Control"
+msgstr "Mplayer Software Volym Kontroll Aktiverat"
+
+#: src/gui.c:5331
+msgid "Player"
+msgstr "Uppspelare"
+
+#: src/gui.c:5333
+msgid "Language Settings"
+msgstr "Språkinställningar"
+
+#: src/gui.c:5337
+msgid "Interface"
+msgstr "Gränssnitt"
+
+#: src/gui.c:5339
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: src/gui.c:5341
+msgid "MPlayer"
+msgstr "MPlayer"
+
+#: src/gui.c:5343
+msgid "Plugin"
+msgstr "Insticksmodul"
+
+#: src/gui.c:5349
+msgid "GNOME MPlayer Configuration"
+msgstr "Konfiguration av GNOME MPlayer"
+
+#: src/gui.c:5367 src/gui.c:5373
+msgid ""
+"mplayer video output device\n"
+"x11 should always work, try xv, gl or vdpau for better performance and "
+"enhanced features"
+msgstr ""
+
+#: src/gui.c:5434
+msgid "Enable AC3/DTS pass-through to S/PDIF"
+msgstr "Aktivera AC3/DTS-genomströmning till S/PDIF"
+
+#: src/gui.c:5443
+msgid "Mplayer Software Volume Control Enabled"
+msgstr "Mplayer Software Volym Kontroll Aktiverat"
+
+#: src/gui.c:5464
+msgid "Default"
+msgstr "Standard"
+
+#: src/gui.c:5504 src/gui.c:5534 src/gui.c:5975 src/gui.c:5987
+msgid ""
+"Choose one of the languages or type in your own comma-separated selection"
+msgstr ""
+
+#: src/gui.c:5693
+msgid "<span weight=\"bold\">Adjust Output Settings</span>"
+msgstr "<span weight=\"bold\">Justera utmatningsinställningar</span>"
+
+#: src/gui.c:5700
+msgid "Video Output:"
+msgstr "Videoutmatning:"
+
+#: src/gui.c:5709
+msgid "Enable Video Hardware Support"
+msgstr ""
+
+#: src/gui.c:5714 src/gui.c:5719
+msgid ""
+"When this option is enabled, codecs or options will be enabled to accelerate "
+"video processing. These options may cause playback to fail in some cases."
+msgstr ""
+
+#: src/gui.c:5727
+msgid "Enable CrystalHD Hardware Support"
+msgstr ""
+
+#: src/gui.c:5734
+msgid "Audio Output:"
+msgstr "Ljudutmatning:"
+
+#: src/gui.c:5744
+#, fuzzy
+msgid "Audio Volume Type:"
+msgstr "Ljudsamplingsfrekvens:"
+
+#: src/gui.c:5756
+msgid "Default Mixer:"
+msgstr "Standardmixer:"
+
+#: src/gui.c:5766
+#, fuzzy
+msgid "Audio Channels to Output:"
+msgstr "Ljudkanaler för utmatning"
+
+#. conf_table = gtk_table_new(20, 2, FALSE);
+#. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
+#. i = 0;
+#: src/gui.c:5794
+msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
+msgstr "<span weight=\"bold\">Justera konfigurationsinställningar</span>"
+
+#: src/gui.c:5802
+msgid "Default Volume Level:"
+msgstr "Standardvolymnivå:"
+
+#: src/gui.c:5809 src/gui.c:5812
+msgid "Default volume for playback"
+msgstr "Standardvolym för uppspelning"
+
+#: src/gui.c:5826
+msgid "On Screen Display Level:"
+msgstr "Information på skärmen nivå"
+
+#: src/gui.c:5838
+msgid "Post-processing level:"
+msgstr "Efterbehandlingsnivå:"
+
+#: src/gui.c:5852
+msgid ""
+"<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
+"\n"
+"These options affect the gecko-mediaplayer plugin when it is installed.\n"
+"Gecko-mediaplayer is a Firefox plugin that will emulate various\n"
+"media players and allow playback of various web content within\n"
+"NPRuntime compatible browsers (Firefox, Konqueror, etc)."
+msgstr ""
+"<span wright=\"bold\">Justera instickemuleringsinställningar</span>\n"
+"\n"
+"Dessa alternativ påverkar gecko-mediaplayer-insticket när det är\n"
+"installerat. Gecko-mediaplayer är ett Firefox-instick som kommer\n"
+"emulera diverse mediaspelare och tillåter uppspelning av många\n"
+"olika webbinnehåll inuti NPRuntime-kompatibla webbläsare\n"
+"(Firefox, Konqueror, osv)."
+
+#: src/gui.c:5863
+msgid "QuickTime Emulation"
+msgstr "QuickTime Emulation"
+
+#: src/gui.c:5868
+msgid "RealPlayer Emulation"
+msgstr "RealPlayer Emulation"
+
+#: src/gui.c:5873
+msgid "Windows Media Player Emulation"
+msgstr "Windows Media Player Emulation"
+
+#: src/gui.c:5878
+msgid "DiVX Player Emulation"
+msgstr "DiVX Player Emulation"
+
+#: src/gui.c:5883
+msgid "MIDI Support (requires MPlayer support)"
+msgstr "MIDI-stöd (kräver MPlayer-stöd)"
+
+#: src/gui.c:5888
+msgid "Disable Player Embedding"
+msgstr "Avaktivera spelarinbäddning"
+
+#: src/gui.c:5893
+msgid "Disable Embedded Player Scaling"
+msgstr "Avaktivera inbäddad spelarskalning"
+
+#: src/gui.c:5898
+msgid "Audio Cache Size (KB):"
+msgstr "Ljudmellanlagringsstorlek (Kb)."
+
+#: src/gui.c:5908 src/gui.c:5911 src/gui.c:5917 src/gui.c:5922
+msgid ""
+"Amount of data to cache when playing media from network, use higher values "
+"for slow networks."
+msgstr ""
+"Mängden data att mellanlagra när media spelas via nätverk, använd högre "
+"värden för långsammare nätverk."
+
+#: src/gui.c:5938
+msgid "Video Cache Size (KB):"
+msgstr "Video Cache Storlek (KB):"
+
+#: src/gui.c:5960
+msgid "<span weight=\"bold\">Adjust Language Settings</span>"
+msgstr "<span weight=\"bold\">Justera språkinställningar</span>"
+
+#: src/gui.c:5967
+msgid "Default Audio Language"
+msgstr "Standard Ljud Språk"
+
+#: src/gui.c:5978
+msgid "Default Subtitle Language:"
+msgstr "Standard Undertext Språk"
+
+#: src/gui.c:5990
+msgid "File Metadata Encoding:"
+msgstr "Filmetadata-kodning:"
+
+#: src/gui.c:6006
+msgid "<span weight=\"bold\">Subtitle Settings</span>"
+msgstr "<span weight=\"bold\">Undertextinställningar</span>"
+
+#: src/gui.c:6013
+msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
+msgstr "Aktivera stöd för _Avancerad Substation Alpha-textremsor"
+
+#: src/gui.c:6020
+msgid "Use _Embedded Fonts (MKV only)"
+msgstr "Använd _inbäddade typsnitt (endast MKV)"
+
+#: src/gui.c:6029
+msgid "Subtitle Font:"
+msgstr "Typsnitt för textremsor:"
+
+#: src/gui.c:6047
+msgid "Subtitle Font Selection"
+msgstr "Val av typsnitt för textremsor:"
+
+#: src/gui.c:6052
+msgid "Subtitle Color:"
+msgstr "Undertext färg"
+
+#: src/gui.c:6076
+msgid "Subtitle Color Selection"
+msgstr "Undertext Färg Urval"
+
+#: src/gui.c:6082
+msgid "Outline Subtitle Font"
+msgstr "Kontur för textremsor"
+
+#: src/gui.c:6088
+msgid "Shadow Subtitle Font"
+msgstr "Skugga för textremsor"
+
+#: src/gui.c:6094
+msgid "Subtitle Font Scaling:"
+msgstr "Skalning av typsnitt för textremsor:"
+
+#: src/gui.c:6107
+msgid "Subtitle File Encoding:"
+msgstr "Textremsefilens kodning:"
+
+#: src/gui.c:6119
+msgid "Subtitle Lower Margin (X11/XV Only):"
+msgstr "Textremsans lägre marginal (endast X11/Xv):"
+
+#: src/gui.c:6132
+msgid "Show Subtitles by Default"
+msgstr "Visa undertexter som standard"
+
+#: src/gui.c:6137
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Typsnitt för textremsor:"
+
+#: src/gui.c:6155
+msgid "<span weight=\"bold\">Application Preferences</span>"
+msgstr "<span weight=\"bold\">Programinställningar</span>"
+
+#: src/gui.c:6162
+msgid "Start with playlist visible"
+msgstr "Starta med synlig spellista"
+
+#: src/gui.c:6172
+msgid "Respond to Keyboard Media Keys"
+msgstr "Svara på tangentbordets mediatangenter"
+
+#: src/gui.c:6177
+msgid "Use default playlist"
+msgstr "Använd standardspellistan"
+
+#: src/gui.c:6183
+msgid "Show notification popup"
+msgstr "Visa meddelanden"
+
+#: src/gui.c:6190
+msgid "Show status icon"
+msgstr "Visa statusikon"
+
+#: src/gui.c:6197
+msgid "Place playlist below media (requires application restart)"
+msgstr "Placera spellistan under mediat (kräver att programmet startas om)"
+
+#: src/gui.c:6202
+msgid "Only allow one instance of Gnome MPlayer"
+msgstr "Tillåt bara en instans av Gnome MPlayer"
+
+#: src/gui.c:6212
+msgid "When opening in single instance mode, replace existing file"
+msgstr "Ersätt befintlig fil vid öppning i enkelinstansläget"
+
+#: src/gui.c:6221
+msgid "When opening file, bring main window to front"
+msgstr "När en fil öppnas, visa huvudfönstret överst"
+
+#: src/gui.c:6228
+msgid "Remember Window Location and Size"
+msgstr "Kom ihåg fönstrenas placering och storlek"
+
+#: src/gui.c:6233
+msgid "Resize window when new video is loaded"
+msgstr "Ändra storlek på fönstret när en ny video laddas"
+
+#: src/gui.c:6238
+msgid "Keep window above other windows"
+msgstr "Behåll fönstret ovanför andra fönster"
+
+#: src/gui.c:6243
+msgid "Pause playback on mouse click"
+msgstr "Pausa uppspelningen vid mus-klick"
+
+#: src/gui.c:6248
+msgid "Disable Fullscreen Control Bar Animation"
+msgstr "Avaktivera helskärmslägets kontrollradsanimering"
+
+#: src/gui.c:6253
+msgid "Disable Cover Art Fetch"
+msgstr ""
+
+#: src/gui.c:6258
+msgid "Use Mouse Wheel to change volume, instead of seeking"
+msgstr "Använd mushjulet för att ändra volym istället för att söka"
+
+#: src/gui.c:6263
+msgid "Enable Nautilus Plugin"
+msgstr ""
+
+#: src/gui.c:6268
+msgid "Verbose Debug Enabled"
+msgstr "Utförlig felsökning aktiverad"
+
+#: src/gui.c:6272 src/gui.c:6277
+msgid ""
+"When this option is set, extra debug information is sent to the terminal or "
+"into ~/.xsession-errors"
+msgstr ""
+"När det här alternativet anges skickas extra felsökningsinformation till "
+"terminalen eller till ~/.xsession-errors"
+
+#: src/gui.c:6288
+msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
+msgstr "<span weight=\"bold\">Avancerade inställningar för MPlayer</span>"
+
+#: src/gui.c:6297 src/gui.c:6301
+msgid ""
+"Set this option if changing the volume in Gnome MPlayer changes the master "
+"volume"
+msgstr ""
+"Använd det här alternativet om volymändringar i Gnome MPlayer ändrar "
+"huvudvolymen"
+
+#: src/gui.c:6311
+msgid "Remember last software volume level"
+msgstr "Kom ihåg senaste mjukvaruvolymnivå"
+
+#: src/gui.c:6314 src/gui.c:6318
+msgid "Set this option if you want the software volume level to be remembered"
+msgstr ""
+"Använd det här alternativet om du vill att mjukvarans volymnivå ska kommas "
+"ihåg"
+
+#: src/gui.c:6325
+msgid "Volume Gain (-200dB to +60dB)"
+msgstr "Volymförstärkning (-200dB till +60dB)"
+
+#: src/gui.c:6337
+msgid "De_interlace Video"
+msgstr "Av_fläta video"
+
+#: src/gui.c:6339 src/gui.c:6342
+msgid "Set this option if video looks striped"
+msgstr "Använd det här alternativet om videon är randig"
+
+#: src/gui.c:6348
+msgid "_Drop frames"
+msgstr "_Hoppa över bildrutor"
+
+#: src/gui.c:6350 src/gui.c:6353
+msgid "Set this option if video is well behind the audio"
+msgstr "Använd det här alternativet om videon släpar efter ljudet"
+
+#: src/gui.c:6359
+msgid "Enable mplayer cache"
+msgstr "Aktivera MPlayer-cache"
+
+#: src/gui.c:6365
+msgid "Cache Size (KB):"
+msgstr "Cache-storlek (Kb):"
+
+#: src/gui.c:6373 src/gui.c:6377
+msgid ""
+"Amount of data to cache when playing media, use higher values for slow "
+"devices and sites."
+msgstr ""
+"Mängden data att mellanlagra vid mediauppspelning; använd högre värde för "
+"långsamma enheter och webbsidor."
+
+#: src/gui.c:6397
+msgid "MPlayer Executable:"
+msgstr "MPlayer-körfil:"
+
+#: src/gui.c:6401 src/gui.c:6405
+msgid ""
+"Use this option to specify a mplayer application that is not in the path"
+msgstr ""
+"Använd det här alternativet för att ange ett MPlayer-program som inte finns "
+"i den vanliga sökvägen"
+
+#: src/gui.c:6421
+msgid "Extra Options to MPlayer:"
+msgstr "Ytterligare väljare för MPlayer"
+
+#: src/gui.c:6424 src/gui.c:6427
+msgid "Add any extra mplayer options here (filters etc)"
+msgstr "Lägg till ytterligare väljare för MPlayer här (filter, osv.)"
+
+#: src/gui.c:6438
+msgid "MPlayer Default Optical Device"
+msgstr "MPlayers förvalda optiska enhet"
+
+#: src/gui.c:6453
+msgid ""
+"<span weight=\"bold\">Keyboard Shortcuts</span>\n"
+"\n"
+"Place the cursor in the box next to the shortcut you want to modify\n"
+"Then press the keys you would like for the shortcut"
+msgstr ""
+
+#: src/gui.c:6485
+#, fuzzy
+msgid "Reset Keys"
+msgstr "Åt_erställ"
+
+#: src/gui.c:7592
+msgid "S_how Controls"
+msgstr "V_isa kontroller"
+
+#: src/gui.c:7596 src/gui.c:7848
+msgid "_Full Screen"
+msgstr "_Helskärm"
+
+#: src/gui.c:7601
+msgid "_Copy Location"
+msgstr "_Kopiera plats"
+
+#. File Menu
+#: src/gui.c:7650
+msgid "_File"
+msgstr "_Arkiv"
+
+#: src/gui.c:7658
+msgid "Open _Folder"
+msgstr "Öppna _mapp"
+
+#: src/gui.c:7663
+msgid "Open _Location"
+msgstr "Öppna _plats"
+
+#: src/gui.c:7669
+msgid "_Disc"
+msgstr "_Skiva"
+
+#: src/gui.c:7677
+msgid "Open _Audio CD"
+msgstr "Öppn_a musik-CD"
+
+#. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
+#. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
+#: src/gui.c:7683
+msgid "Open DVD with _Menus"
+msgstr "Öppna DVD med _menyer"
+
+#: src/gui.c:7688
+msgid "Open DVD from Folder with M_enus"
+msgstr "Öppna DVD från mapp med m_enyer"
+
+#: src/gui.c:7693
+msgid "Open DVD from ISO with Me_nus"
+msgstr "Öppna DVD från ISO med me_nyer"
+
+#: src/gui.c:7697
+msgid "Open _VCD"
+msgstr "Öppna _VCD"
+
+#: src/gui.c:7699
+msgid "_TV"
+msgstr "_TV"
+
+#: src/gui.c:7704
+msgid "Open _Analog TV"
+msgstr "Öppna _analog TV"
+
+#: src/gui.c:7706
+msgid "Open _Digital TV"
+msgstr "Öppna _digital TV"
+
+#: src/gui.c:7709
+msgid "Open _iPod™"
+msgstr "Öppna _iPod™"
+
+#: src/gui.c:7718
+msgid "Open _Recent"
+msgstr "Öppna _tidigare"
+
+#. Edit Menu
+#: src/gui.c:7765
+msgid "_Edit"
+msgstr "_Redigera"
+
+#: src/gui.c:7771
+msgid "_Shuffle Playlist"
+msgstr "_Blanda spellista"
+
+#: src/gui.c:7774
+msgid "_Loop Playlist"
+msgstr "_Upprepa spellista"
+
+#: src/gui.c:7778
+msgid "P_lay Single Track from Playlist"
+msgstr ""
+
+#: src/gui.c:7782
+msgid "S_witch Audio Track"
+msgstr "Ä_ndra musikspår"
+
+#: src/gui.c:7784 src/playlist.c:1188
+msgid "Set Audi_o"
+msgstr "Ställ in _ljud"
+
+#: src/gui.c:7786
+msgid "Select _Audio Language"
+msgstr "Välj _språk för ljud"
+
+#: src/gui.c:7789
+#, fuzzy
+msgid "Set S_ubtitle"
+msgstr "Sätt undertext"
+
+#: src/gui.c:7791
+msgid "S_elect Subtitle Language"
+msgstr "V_älj språk för textremsan"
+
+#: src/gui.c:7796
+msgid "_Take Screenshot"
+msgstr "_Ta skärmdump"
+
+#: src/gui.c:7802 src/gui.c:7807
+msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
+msgstr "Filer med namnet 'shotNNNN.png kommer sparas i arbetskatalogen"
+
+#. View Menu
+#: src/gui.c:7827
+msgid "_View"
+msgstr "_Visa"
+
+#: src/gui.c:7833
+msgid "_Playlist"
+msgstr "_Spellista"
+
+#: src/gui.c:7837
+msgid "Media _Info"
+msgstr "Media_information"
+
+#: src/gui.c:7840
+msgid "D_etails"
+msgstr "D_etaljer"
+
+#: src/gui.c:7843
+msgid "Audio _Meter"
+msgstr "Ljud_mätare"
+
+#: src/gui.c:7855
+msgid "_Normal (1:1)"
+msgstr "_Normal (1:1)"
+
+#: src/gui.c:7858
+msgid "_Double Size (2:1)"
+msgstr "_Dubbel storlek (2:1)"
+
+#: src/gui.c:7861
+msgid "_Half Size (1:2)"
+msgstr "_Halv storlek (1:2)"
+
+#: src/gui.c:7863
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
+msgstr "_Halv storlek (1:2)"
+
+#: src/gui.c:7865
+msgid "_Aspect"
+msgstr "_Bildförhållande"
+
+#: src/gui.c:7871
+msgid "D_efault Aspect"
+msgstr "S_tandardbildförhållande"
+
+#: src/gui.c:7873
+msgid "_4:3 Aspect"
+msgstr "_4:3-förhållande"
+
+#: src/gui.c:7875
+msgid "_16:9 Aspect"
+msgstr "_16:9-förhållande"
+
+#: src/gui.c:7877
+msgid "1_6:10 Aspect"
+msgstr "1_6:10-förhållande"
+
+#: src/gui.c:7880
+msgid "_2.39:1 Aspect (Anamorphic)"
+msgstr ""
+
+#: src/gui.c:7882
+msgid "_Follow Window"
+msgstr "_Följ fönstret"
+
+#: src/gui.c:7887
+msgid "Show _Subtitles"
+msgstr "Visa _textremsor"
+
+#: src/gui.c:7895
+msgid "Decrease Subtitle Delay"
+msgstr "Minska textremsans fördröjning"
+
+#: src/gui.c:7897
+msgid "Increase Subtitle Delay"
+msgstr "Öka textremsans fördröjning"
+
+#: src/gui.c:7898
+msgid "Switch An_gle"
+msgstr "Byt vin_kel"
+
+#: src/gui.c:7900
+msgid "_Controls"
+msgstr "_Kontroller"
+
+#: src/gui.c:7914
+msgid "_Video Picture Adjustments"
+msgstr "Bildjusteringar för _videon"
+
+#. Help Menu
+#: src/gui.c:7954
+msgid "_Help"
+msgstr "_Hjälp"
+
+#: src/gui.c:8162 src/gui.c:8165
+msgid "Menu"
+msgstr "Meny"
+
+#: src/gui.c:8182 src/gui.c:8185
+msgid "Previous"
+msgstr "Föregående"
+
+#: src/gui.c:8203 src/gui.c:8206
+msgid "Rewind"
+msgstr "Tillbaka"
+
+#: src/gui.c:8244 src/gui.c:8247
+msgid "Stop"
+msgstr "Stoppa"
+
+#: src/gui.c:8265 src/gui.c:8268
+msgid "Fast Forward"
+msgstr "Snabbspola"
+
+#: src/gui.c:8286 src/gui.c:8289
+msgid "Next"
+msgstr "Nästa"
+
+#: src/gui.c:8373
+msgid "Volume 100%"
+msgstr "Volym 100%"
+
+#: src/support.c:773
+#, c-format
+msgid "Couldn't open DVD device: %s"
+msgstr "Kunde inte öppna DVD-enhet: %s"
+
+#: src/support.c:865
+#, c-format
+msgid "Couldn't open VCD device: %s"
+msgstr "Kunde inte öppna VCD-enhet: %s"
+
+#: src/support.c:1981 src/support.c:2011 src/support.c:2054 src/support.c:2082
+msgid "Unable to save playlist, cannot open file for writing"
+msgstr "Kunde inte spara spellista, kan inte öppna filen för skrivning"
+
+#: src/support.c:2203
+#, c-format
+msgid "%2i:%02i"
+msgstr "%2i:%02i"
+
+#: src/support.c:2205
+#, c-format
+msgid "%i:%02i:%02i"
+msgstr "%i:%02i:%02i"
+
+#: src/support.c:2864
+#, c-format
+msgid ""
+"You might want to consider upgrading mplayer to a newer version, -volume "
+"option not supported\n"
+msgstr ""
+"Du ska kanske överväga att uppgradera MPlayer till en nyare version; "
+"väljaren -volume stöds inte\n"
+
+#: src/playlist.c:185
+msgid "Set Audio"
+msgstr "Ställ in ljud"
+
+#: src/playlist.c:287
+#, c-format
+msgid ""
+"Filename: %s\n"
+"Subtitle: %s"
+msgstr ""
+"Filnamn: %s\n"
+"Textremsa: %s"
+
+#: src/playlist.c:329 src/playlist.c:1034 src/playlist.c:1037
+msgid "Save Playlist"
+msgstr "Spara spellista"
+
+#: src/playlist.c:346 src/playlist.c:400
+msgid "Playlist (*.pls)"
+msgstr "Spellista (*.pls)"
+
+#: src/playlist.c:351 src/playlist.c:410
+msgid "MP3 Playlist (*.m3u)"
+msgstr "MP3-spellista (*.m3u)"
+
+#: src/playlist.c:388 src/playlist.c:1023 src/playlist.c:1026
+msgid "Open Playlist"
+msgstr "Öppna spellista"
+
+#: src/playlist.c:405
+msgid "Reference Playlist (*.ref)"
+msgstr "Referensspellista (*.ref)"
+
+#: src/playlist.c:415
+msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
+msgstr "MPEG-spellista (*.mxu, *.m1u, *.m4u)"
+
+#: src/playlist.c:622
+msgid "Choose Directory"
+msgstr "Välj katalog"
+
+#: src/playlist.c:659
+#, c-format
+msgid ""
+"\n"
+"\tFound %i file\n"
+msgid_plural ""
+"\n"
+"\tFound %i files\n"
+msgstr[0] ""
+"\n"
+"\tHittade %i fil\n"
+msgstr[1] ""
+"\n"
+"\tHittade %i filer\n"
+
+#: src/playlist.c:932
+msgid "Item to play"
+msgid_plural "Items to Play"
+msgstr[0] "Objekt att spela upp"
+msgstr[1] "Objekt att spela upp"
+
+#: src/playlist.c:954 src/nautilus_property_page.c:299
+msgid "Artist"
+msgstr "Artist"
+
+#: src/playlist.c:966 src/nautilus_property_page.c:311
+msgid "Album"
+msgstr "Album"
+
+#: src/playlist.c:978 src/nautilus_property_page.c:323
+msgid "Length"
+msgstr "Längd"
+
+#: src/playlist.c:989
+msgid "Count"
+msgstr "Antal"
+
+#: src/playlist.c:998
+msgid "Order"
+msgstr "Ordning"
+
+#: src/playlist.c:1009 src/playlist.c:1012
+msgid "Close Playlist View"
+msgstr "Stäng spellistevyn"
+
+#: src/playlist.c:1045 src/playlist.c:1048
+msgid "Add Item to Playlist"
+msgstr "Lägg till objekt i spellistan"
+
+#: src/playlist.c:1056 src/playlist.c:1059
+msgid "Remove Item from Playlist"
+msgstr "Ta bort objekt från spellistan"
+
+#: src/playlist.c:1067 src/playlist.c:1070
+msgid "Add Items in Folder to Playlist"
+msgstr "Lägg till objekt i mappen till spellistan"
+
+#: src/playlist.c:1078 src/playlist.c:1081
+msgid "Clear Playlist"
+msgstr "Töm spellista"
+
+#: src/playlist.c:1089 src/playlist.c:1092
+msgid "Move Item Up"
+msgstr "Flytta upp objekt"
+
+#: src/playlist.c:1101 src/playlist.c:1104
+msgid "Move Item Down"
+msgstr "Flytta ner objekt"
+
+#: src/playlist.c:1114 src/playlist.c:1117
+msgid "UnSort List"
+msgstr "Avsortera lista"
+
+#: src/playlist.c:1131 src/playlist.c:1134
+msgid "Loop Playlist"
+msgstr "Upprepa spellista"
+
+#: src/playlist.c:1147 src/playlist.c:1150
+msgid "Shuffle Playlist"
+msgstr "Blanda spellista"
+
+#: src/playlist.c:1184
+msgid "_Set Subtitle"
+msgstr "_Ställ in textremsa"
+
+#: src/nautilus_property_page.c:92
+#, c-format
+msgid "%2i:%02.0f"
+msgstr "%2i:%02.0f"
+
+#: src/nautilus_property_page.c:94
+#, c-format
+msgid "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02.0f"
+
+#: src/nautilus_property_page.c:278
+msgid "<span weight=\"bold\">Media Details</span>"
+msgstr "<span weight=\"bold\">Detaljer om media</span>"
+
+#: src/nautilus_property_page.c:287
+msgid "Title"
+msgstr "Titel"
+
+#: src/nautilus_property_page.c:335
+msgid "Demuxer"
+msgstr "Demuxer"
+
+#: src/nautilus_property_page.c:387
+msgid "Video Frame Rate:"
+msgstr "Videons bildfrekvens:"
+
+#: src/nautilus_property_page.c:489
+msgid "Audio/Video"
+msgstr "Ljud/bild"
+
+#~ msgid "Set Sub_title"
+#~ msgstr "Ställ in _textremsa"
