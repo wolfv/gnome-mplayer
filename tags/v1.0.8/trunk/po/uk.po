@@ -1,0 +1,1499 @@
+# Ukrainian translation for gnome-mplayer
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the gnome-mplayer package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-mplayer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-01 15:00-0700\n"
+"PO-Revision-Date: 2011-05-29 14:57+0000\n"
+"Last-Translator: Rax <Unknown>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Launchpad (build 13175)\n"
+
+#: src/main.c:76
+msgid "Window to embed in"
+msgstr "Вікно, до якого вставити"
+
+#: src/main.c:77
+msgid "Width of window to embed in"
+msgstr "Ширина вікна, до якого вставити"
+
+#: src/main.c:78
+msgid "Height of window to embed in"
+msgstr "Висота вікна, до якого вставити"
+
+#: src/main.c:79
+msgid "Unique DBUS controller id"
+msgstr "Унікальний індекс контролера DBUS"
+
+#: src/main.c:80
+msgid "File Argument is a playlist"
+msgstr "Аргумент - список відтворення"
+
+#: src/main.c:81
+msgid "Show more output on the console"
+msgstr "Виводити більше інформації до консолі"
+
+#: src/main.c:83
+msgid "Show even more output on the console"
+msgstr "Виводити ще більше інформації до консолі"
+
+#: src/main.c:84
+msgid "Start in fullscreen mode"
+msgstr "Запускати в повноекранному режимі"
+
+#: src/main.c:85
+msgid "Use mplayer software volume control"
+msgstr "Використовувати програмне керування гучністю mplayer"
+
+#: src/main.c:87
+msgid "When set to TRUE the last volume level is set as the default"
+msgstr "Коли \"TRUE\", остання гучність задається як \"за замовчуванням\""
+
+#: src/main.c:89
+msgid ""
+"Last software volume percentage- only applied when remember_softvol is set "
+"to TRUE"
+msgstr ""
+"Остання вказана гучність - діє тільки тоді, коли значенням remeber_softvol є "
+"\"TRUE\""
+
+#: src/main.c:91
+msgid "Mixer to use"
+msgstr "Міксер для використання"
+
+#: src/main.c:92
+msgid "Set initial volume percentage"
+msgstr "Початкова гучність"
+
+#. note that sizeof(gint)==sizeof(gboolean), so we can give &showcontrols here
+#: src/main.c:94
+msgid "Show the controls in window"
+msgstr "Відображати кнопки керування у вікні"
+
+#: src/main.c:96
+msgid "Show the subtitles if available"
+msgstr "Показувати субтитри у разі їх присутності"
+
+#: src/main.c:99
+msgid "Autostart the media default to 1, set to 0 to load but don't play"
+msgstr "Відтворення при додаванні файлу; 1 - увімкнено, 0 - вимкнено"
+
+#: src/main.c:101
+msgid "Disable popup menu on right click"
+msgstr "Відключити спливаюче меню при натискані правою кнопкою миші"
+
+#: src/main.c:103
+msgid "Disable fullscreen options in browser mode"
+msgstr "Не використовувати в переглядачі налаштування для повного екрану"
+
+#: src/main.c:104
+msgid "Play all files on the playlist forever"
+msgstr "Повторювати весь список відтворення"
+
+#: src/main.c:106
+msgid "Quit application when last file on playlist is played"
+msgstr "Вимкнути програму після відтворення останнього файлу плейлисту"
+
+#: src/main.c:107
+msgid "Play items on playlist in random order"
+msgstr "Відтворювати елементи списку відтворення у випадковому порядку"
+
+#: src/main.c:109
+msgid "Set cache size"
+msgstr "Встановити розмір кешу"
+
+#: src/main.c:111
+msgid "Start Second (default to 0)"
+msgstr "Відтворення від секунди (0 за замовчуванням)"
+
+#: src/main.c:114
+msgid "Length of media to play from start second"
+msgstr "Час, протягом якого слід програвати аудіо/відео зі стартової секунди"
+
+#: src/main.c:116
+msgid "Force cache usage on streaming sites"
+msgstr "Примусово використовувати кеш для сайтів з потоковим відео"
+
+#: src/main.c:119
+msgid "Disable the deinterlace filter"
+msgstr "Вимкнути дєїнтерлейсинг"
+
+#: src/main.c:122
+msgid "Don't skip drawing frames to better keep sync"
+msgstr "Не пропускати кадри для кращої синхронізації"
+
+#: src/main.c:125
+msgid "Use the old subtitle rendering system"
+msgstr "Використовувати стару систему рендерингу субтитрів"
+
+#: src/main.c:128
+msgid "Don't use fonts embedded on matroska files"
+msgstr "Не використовувати шрифти, вбудовані у файли matroska"
+
+#: src/main.c:130
+msgid "Use Vertical Layout"
+msgstr "Використовувати вертикальну розмітку"
+
+#: src/main.c:132
+msgid "Start with playlist open"
+msgstr "Запускати з відкритим списком програвання"
+
+#: src/main.c:134 src/gui.c:6167
+msgid "Start with details visible"
+msgstr "Запускати з відображенням деталей"
+
+#: src/main.c:136
+msgid "Real Player Name"
+msgstr "Ім'я програвача Real Player"
+
+#: src/main.c:137
+msgid "Real Player Console ID"
+msgstr "Консольний ідентифікатор програвача Real Player"
+
+#: src/main.c:138
+msgid "Real Player Console Controls"
+msgstr "Консольні команди для керування програвачем Real Player"
+
+#: src/main.c:140
+msgid "Subtitle file for first media file"
+msgstr "Файл субтитрів для першого медіафайлу"
+
+#: src/main.c:142
+msgid "TV device name"
+msgstr "Назва ТБ-приладу"
+
+#: src/main.c:143
+msgid "TV driver name (v4l|v4l2)"
+msgstr "Драйвер для пристрою прийому ТБ (v4l | v4l2)"
+
+#: src/main.c:144
+msgid "TV input name"
+msgstr "Назва ТБ-потоку"
+
+#: src/main.c:145
+msgid "Width of TV input"
+msgstr "Ширина відображення ТБ-потоку"
+
+#: src/main.c:146
+msgid "Height of TV input"
+msgstr "Висота відображення ТБ-потоку "
+
+#: src/main.c:147
+msgid "Frames per second from TV input"
+msgstr "Частота кадрів із вводу ТБ"
+
+#: src/main.c:148
+msgid "Only allow one instance"
+msgstr "Тільки одна копія програми"
+
+#: src/main.c:151
+msgid "Put single instance mode into replace and play mode"
+msgstr "Замінити поточний файл у програвачі на вказаний і програти його"
+
+#: src/main.c:154
+msgid "Use large control buttons"
+msgstr "Використовувати великі кнопки управління"
+
+#: src/main.c:157
+msgid "Hide control panel when mouse is not moving"
+msgstr "Приховувати панель управління при відсутності руху миші"
+
+#: src/main.c:160
+msgid "Ignore single instance preference for this instance"
+msgstr "Ігнорувати єдині налаштування для цього екземпляра програми"
+
+#: src/main.c:163
+msgid "Keep window on top"
+msgstr "Поверх всіх вікон"
+
+#: src/main.c:167
+msgid "Load all tracks from media player using gpod"
+msgstr "Завантажувати всі доріжки з програвача використовуючи gpod"
+
+#: src/main.c:171
+msgid "Don't fetch new cover art images"
+msgstr "Не витягувати обкладинки альбомів"
+
+#: src/main.c:173
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "Назва ТБ-приладу"
+
+#: src/main.c:174
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Відеовивід:"
+
+#: src/main.c:402 src/gui.c:1039 src/gui.c:7136 src/gui.c:7242
+#, c-format
+msgid "Playing"
+msgstr "Програється"
+
+#: src/main.c:624
+#, c-format
+msgid "Resume Playback of %s at %s"
+msgstr ""
+
+#: src/main.c:1000 src/gui.c:3204
+msgid "Open Location"
+msgstr "Відкрити адресу"
+
+#: src/main.c:1001
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "_Зробити знімок"
+
+#: src/main.c:1002
+msgid "Preferences"
+msgstr "Уподобання"
+
+#: src/main.c:1003
+#, fuzzy
+msgid "Playlist"
+msgstr "_Список програвання"
+
+#: src/main.c:1004
+#, fuzzy
+msgid "Media Info"
+msgstr "Інформація про _носій"
+
+#: src/main.c:1005
+#, fuzzy
+msgid "Details"
+msgstr "_Інформація про медіафайл"
+
+#: src/main.c:1006
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Аудіо_метр"
+
+#: src/main.c:1007 src/gui.c:8322 src/gui.c:8325
+msgid "Full Screen"
+msgstr "На весь екран"
+
+#: src/main.c:1008
+#, fuzzy
+msgid "Aspect"
+msgstr "Спі_ввідношення сторін"
+
+#: src/main.c:1009 src/gui.c:5335
+msgid "Subtitles"
+msgstr "Субтитри"
+
+#: src/main.c:1010 src/gui.c:7890
+msgid "Decrease Subtitle Size"
+msgstr "Зменшити розмір субтитрів"
+
+#: src/main.c:1011 src/gui.c:7892
+msgid "Increase Subtitle Size"
+msgstr "Збільшити розмір субтитрів"
+
+#: src/main.c:1012
+msgid "Switch Angle"
+msgstr ""
+
+#: src/main.c:1013
+#, fuzzy
+msgid "Controls"
+msgstr "_Панель керування"
+
+#: src/main.c:1025
+msgid "[FILES...] - GNOME Media player based on MPlayer"
+msgstr "[FILES...] - Медіапрогравач на основі MPlayer"
+
+#: src/main.c:1041
+#, c-format
+msgid "GNOME MPlayer v%s\n"
+msgstr "GNOME MPlayer v%s\n"
+
+#: src/main.c:1042
+#, c-format
+msgid "gmtk v%s\n"
+msgstr ""
+
+#: src/main.c:1098
+#, c-format
+msgid ""
+"Run 'gnome-mplayer --help' to see a full list of available command line "
+"options.\n"
+msgstr ""
+"Виконайте команду 'gnome-mplayer --help', щоб отримати повний список опцій.\n"
+
+#: src/gui.c:725 src/gui.c:779 src/gui.c:6925
+#, c-format
+msgid "%s - GNOME MPlayer"
+msgstr "%s - GNOME MPlayer"
+
+#: src/gui.c:771
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr "(%i/%i) - GNOME MPlayer"
+
+#: src/gui.c:773
+#, c-format
+msgid "%s - (%i/%i) - GNOME MPlayer"
+msgstr "%s - (%i/%i) - GNOME MPlayer"
+
+#: src/gui.c:777 src/gui.c:3784 src/gui.c:7541
+#, c-format
+msgid "GNOME MPlayer"
+msgstr "GNOME MPlayer"
+
+#: src/gui.c:916
+#, c-format
+msgid "Buffering: %2i%%"
+msgstr "Буферизація: %2i%%"
+
+#: src/gui.c:928
+#, c-format
+msgid "Paused | %2i%% ▼"
+msgstr "Призупинено | %2i%% ▼"
+
+#: src/gui.c:1041 src/gui.c:7185 src/gui.c:7244
+#, c-format
+msgid "Paused"
+msgstr "Призупинено"
+
+#: src/gui.c:1043 src/gui.c:1460 src/gui.c:7246
+#, c-format
+msgid "Idle"
+msgstr "Очікування"
+
+#: src/gui.c:1175 src/support.c:246 src/playlist.c:596 src/playlist.c:935
+#, c-format
+msgid "%s items"
+msgstr "%s елементів"
+
+#: src/gui.c:1177 src/gui.c:3146 src/gui.c:3552 src/support.c:195
+#: src/support.c:261 src/playlist.c:598
+#, c-format
+msgid "Item to Play"
+msgid_plural "Items to Play"
+msgstr[0] "Трек"
+msgstr[1] "Треки"
+msgstr[2] "найменувань грати"
+
+#: src/gui.c:1229 src/gui.c:1230 src/gui.c:1233 src/gui.c:7116 src/gui.c:7117
+#: src/gui.c:7120
+msgid "Pause"
+msgstr "Призупинити"
+
+#: src/gui.c:1258 src/gui.c:1259 src/gui.c:1262 src/gui.c:1287 src/gui.c:1288
+#: src/gui.c:1291 src/gui.c:2676 src/gui.c:2678 src/gui.c:2694 src/gui.c:2696
+#: src/gui.c:7077 src/gui.c:7078 src/gui.c:7081 src/gui.c:7166 src/gui.c:7167
+#: src/gui.c:7170 src/gui.c:8224 src/gui.c:8227
+msgid "Play"
+msgstr "Грати"
+
+#: src/gui.c:1432
+#, c-format
+msgid "Adding %s to playlist"
+msgstr "Додавання %s до плейлиста"
+
+#: src/gui.c:1456
+#, c-format
+msgid "Playing %s"
+msgstr "Відтворюється %s"
+
+#: src/gui.c:1458
+#, c-format
+msgid "Paused %s"
+msgstr "Призупинено %s"
+
+#: src/gui.c:1713 src/gui.c:1722
+#, c-format
+msgid "Volume %i%%"
+msgstr "Гучність %i%%"
+
+#: src/gui.c:2701
+msgid "Stopped"
+msgstr "Зупинено"
+
+#: src/gui.c:3082 src/playlist.c:560
+msgid "Open File"
+msgstr "Відкрити файл"
+
+#: src/gui.c:3211
+msgid "Location:"
+msgstr "Адреса:"
+
+#: src/gui.c:3275 src/gui.c:3367
+msgid "Choose Disk Directory"
+msgstr "Вибрати каталог з диском"
+
+#: src/gui.c:3311 src/gui.c:3408
+msgid "Choose Disk Image"
+msgstr "Вибрати образ диска"
+
+#: src/gui.c:3325 src/gui.c:3422
+msgid "Disk Image (*.iso)"
+msgstr "Образ диска (*.iso)"
+
+#: src/gui.c:3675
+msgid "Save As..."
+msgstr "Зберегти як…"
+
+#: src/gui.c:3707
+#, c-format
+msgid "Overwrite %s"
+msgstr ""
+
+#: src/gui.c:3727
+#, fuzzy, c-format
+msgid "Unable to save ' %s '"
+msgstr "Не вдається зберегти '%s'"
+
+#: src/gui.c:3730 src/support.c:792 src/support.c:883
+msgid "GNOME MPlayer Error"
+msgstr "Помилка GNOME MPlayer"
+
+#: src/gui.c:3786
+msgid "A media player for GNOME that uses MPlayer"
+msgstr "Програвач мультимедіа для GNOME, який використовує MPlayer"
+
+#: src/gui.c:3789
+msgid ""
+"Gnome MPlayer is free software; you can redistribute it and/or modify it "
+"under\n"
+"the terms of the GNU General Public License as published by the Free\n"
+"Software Foundation; either version 2 of the License, or (at your option)\n"
+"any later version.\n"
+"\n"
+"Gnome MPlayer is distributed in the hope that it will be useful, but "
+"WITHOUT\n"
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\n"
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\n"
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along "
+"with\n"
+"Gnome MPlayer if not, write to the\n"
+"\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin St, Fifth Floor\n"
+"Boston, MA 02110-1301 USA"
+msgstr ""
+
+#: src/gui.c:3991
+msgid "Set AudioFile"
+msgstr "Встановити AudioFile"
+
+#: src/gui.c:4027 src/playlist.c:148
+msgid "Set Subtitle"
+msgstr "Вибрати субтитри"
+
+#: src/gui.c:4189
+msgid "Gnome MPlayer Fullscreen"
+msgstr "Повноекранний режим"
+
+#: src/gui.c:4623 src/nautilus_property_page.c:347
+msgid "<span weight=\"bold\">Video Details</span>"
+msgstr "<span weight=\"bold\">Деталі відео</span>"
+
+#: src/gui.c:4631 src/nautilus_property_page.c:354
+msgid "Video Size:"
+msgstr "Розмір відео:"
+
+#: src/gui.c:4645
+msgid "Video Format:"
+msgstr "Формат відео:"
+
+#: src/gui.c:4649 src/gui.c:4660 src/gui.c:4691 src/gui.c:4715 src/gui.c:4728
+#: src/gui.c:4741
+#, c-format
+msgid "Unknown"
+msgstr "Невідомий"
+
+#: src/gui.c:4656 src/nautilus_property_page.c:365
+msgid "Video Codec:"
+msgstr "Відеокодек:"
+
+#: src/gui.c:4667
+msgid "Video FPS:"
+msgstr "Частота кадрів:"
+
+#: src/gui.c:4676 src/nautilus_property_page.c:376
+msgid "Video Bitrate:"
+msgstr "Бітрейт відео:"
+
+#: src/gui.c:4687
+msgid "Video Chapters:"
+msgstr "Розділи відео:"
+
+#: src/gui.c:4703 src/nautilus_property_page.c:401
+msgid "<span weight=\"bold\">Audio Details</span>"
+msgstr "<span weight=\"bold\">Деталі аудіо</span>"
+
+#: src/gui.c:4710
+msgid "Audio Format:"
+msgstr "Формат аудіо:"
+
+#: src/gui.c:4723 src/nautilus_property_page.c:408
+msgid "Audio Codec:"
+msgstr "Аудіокодек:"
+
+#: src/gui.c:4736 src/nautilus_property_page.c:431
+msgid "Audio Channels:"
+msgstr "Аудіоканали:"
+
+#: src/gui.c:4749 src/nautilus_property_page.c:419
+msgid "Audio Bitrate:"
+msgstr "Бітрейт аудіо:"
+
+#: src/gui.c:4762
+msgid "Audio Sample Rate:"
+msgstr "Частота дискретизації аудіо:"
+
+#: src/gui.c:4792
+msgid "Video Picture Adjustments"
+msgstr "Параметри зображення"
+
+#: src/gui.c:4810
+msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
+msgstr " <span weight=\"bold\">Змінити налаштування зображення</span> "
+
+#: src/gui.c:4817
+msgid "Brightness"
+msgstr "Яскравість"
+
+#: src/gui.c:4828
+msgid "Contrast"
+msgstr "Контрастність"
+
+#: src/gui.c:4839
+msgid "Gamma"
+msgstr "Коефіцієнт контрастності"
+
+#: src/gui.c:4850
+msgid "Hue"
+msgstr "Відтінок"
+
+#: src/gui.c:4861
+msgid "Saturation"
+msgstr "Насиченість"
+
+#: src/gui.c:4878
+msgid "_Reset"
+msgstr "Від_новити"
+
+#: src/gui.c:5017
+msgid "No Display"
+msgstr "Нічого"
+
+#: src/gui.c:5020
+msgid "Minimal"
+msgstr "Мінімально"
+
+#: src/gui.c:5023
+msgid "Timer"
+msgstr "Таймер"
+
+#: src/gui.c:5026
+msgid "Timer/Total"
+msgstr "Таймер/Тривалість"
+
+#: src/gui.c:5042
+msgid "No Postprocessing"
+msgstr "Без пост-обробки"
+
+#: src/gui.c:5046
+msgid "Minimal Postprocessing"
+msgstr "Мінімальна пост-обробка"
+
+#: src/gui.c:5050
+msgid "More Postprocessing"
+msgstr "Багата пост-обробка"
+
+#: src/gui.c:5054
+msgid "Maximum Postprocessing"
+msgstr "Максимальна пост-обробка"
+
+#: src/gui.c:5070
+msgid "Exact Match"
+msgstr ""
+
+#: src/gui.c:5073
+msgid "Load all subtitles containing movie name"
+msgstr "Завантажити всі субтитри, що містять назву фільму"
+
+#: src/gui.c:5076
+msgid "Load all subtitles in the same folder"
+msgstr "Завантажити всі субтитри в ту ж папку"
+
+#: src/gui.c:5239
+msgid "Direct ALSA Control"
+msgstr ""
+
+#: src/gui.c:5242
+msgid "Direct PulseAudio Control"
+msgstr ""
+
+#: src/gui.c:5244
+#, fuzzy
+msgid "Software Volume Control"
+msgstr "Увімкнути програмне керування гучністю MPlayer"
+
+#: src/gui.c:5331
+msgid "Player"
+msgstr "Програвач"
+
+#: src/gui.c:5333
+msgid "Language Settings"
+msgstr "Налаштування мови"
+
+#: src/gui.c:5337
+msgid "Interface"
+msgstr "Зовнішній вигляд"
+
+#: src/gui.c:5339
+msgid "Keyboard Shortcuts"
+msgstr "Комбінації клавіш"
+
+#: src/gui.c:5341
+msgid "MPlayer"
+msgstr "Mplayer"
+
+#: src/gui.c:5343
+msgid "Plugin"
+msgstr "Модуль"
+
+#: src/gui.c:5349
+msgid "GNOME MPlayer Configuration"
+msgstr "Налаштування GNOME MPlayer"
+
+#: src/gui.c:5367 src/gui.c:5373
+msgid ""
+"mplayer video output device\n"
+"x11 should always work, try xv, gl or vdpau for better performance and "
+"enhanced features"
+msgstr ""
+
+#: src/gui.c:5434
+msgid "Enable AC3/DTS pass-through to S/PDIF"
+msgstr "Передавати AC3/DTS по каналу S / PDIF"
+
+#: src/gui.c:5443
+msgid "Mplayer Software Volume Control Enabled"
+msgstr "Увімкнути програмне керування гучністю MPlayer"
+
+#: src/gui.c:5464
+msgid "Default"
+msgstr "Типово"
+
+#: src/gui.c:5504 src/gui.c:5534 src/gui.c:5975 src/gui.c:5987
+msgid ""
+"Choose one of the languages or type in your own comma-separated selection"
+msgstr ""
+
+#: src/gui.c:5693
+msgid "<span weight=\"bold\">Adjust Output Settings</span>"
+msgstr "<span weight=\"bold\">Вивід</span>"
+
+#: src/gui.c:5700
+msgid "Video Output:"
+msgstr "Відеовивід:"
+
+#: src/gui.c:5709
+msgid "Enable Video Hardware Support"
+msgstr ""
+
+#: src/gui.c:5714 src/gui.c:5719
+msgid ""
+"When this option is enabled, codecs or options will be enabled to accelerate "
+"video processing. These options may cause playback to fail in some cases."
+msgstr ""
+
+#: src/gui.c:5727
+msgid "Enable CrystalHD Hardware Support"
+msgstr ""
+
+#: src/gui.c:5734
+msgid "Audio Output:"
+msgstr "Аудіовивід:"
+
+#: src/gui.c:5744
+#, fuzzy
+msgid "Audio Volume Type:"
+msgstr "Частота дискретизації аудіо:"
+
+#: src/gui.c:5756
+msgid "Default Mixer:"
+msgstr "Міксер за замовчуванням:"
+
+#: src/gui.c:5766
+#, fuzzy
+msgid "Audio Channels to Output:"
+msgstr "Аудіоканали для виводу:"
+
+#. conf_table = gtk_table_new(20, 2, FALSE);
+#. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
+#. i = 0;
+#: src/gui.c:5794
+msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
+msgstr "<span weight=\"bold\">Інше</span>"
+
+#: src/gui.c:5802
+msgid "Default Volume Level:"
+msgstr "Типова гучність"
+
+#: src/gui.c:5809 src/gui.c:5812
+msgid "Default volume for playback"
+msgstr "Гучність відтворення за замовчуванням"
+
+#: src/gui.c:5826
+msgid "On Screen Display Level:"
+msgstr "Друкувати інформацію на кадрах:"
+
+#: src/gui.c:5838
+msgid "Post-processing level:"
+msgstr "Рівень пост-обробки:"
+
+#: src/gui.c:5852
+msgid ""
+"<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
+"\n"
+"These options affect the gecko-mediaplayer plugin when it is installed.\n"
+"Gecko-mediaplayer is a Firefox plugin that will emulate various\n"
+"media players and allow playback of various web content within\n"
+"NPRuntime compatible browsers (Firefox, Konqueror, etc)."
+msgstr ""
+"<span weight=\"bold\">Налаштування модуля емуляції</span>\n"
+"\n"
+"Ці налаштування використовуються у модулі gecko-mediaplayer,\n"
+"якщо він встановлений. Gecko-mediaplayer — це модуль Firefox,\n"
+"який емулює різні програвачі і дає можливість програвати\n"
+"мультимедіа-файли просто у вікні NPRuntime-сумісних браузерів\n"
+"(Firefox, Konqueror тощо)."
+
+#: src/gui.c:5863
+msgid "QuickTime Emulation"
+msgstr "Емуляція QuickTime"
+
+#: src/gui.c:5868
+msgid "RealPlayer Emulation"
+msgstr "Емуляція RealPlayer"
+
+#: src/gui.c:5873
+msgid "Windows Media Player Emulation"
+msgstr "Емуляція Windows Media Player"
+
+#: src/gui.c:5878
+msgid "DiVX Player Emulation"
+msgstr "Емуляція DiVX Player"
+
+#: src/gui.c:5883
+msgid "MIDI Support (requires MPlayer support)"
+msgstr "Підтримка MIDI (потрібна підтримка Mplayer)"
+
+#: src/gui.c:5888
+msgid "Disable Player Embedding"
+msgstr "Не дозволяти вбудовувати програвач"
+
+#: src/gui.c:5893
+msgid "Disable Embedded Player Scaling"
+msgstr ""
+
+#: src/gui.c:5898
+msgid "Audio Cache Size (KB):"
+msgstr "Розмір кешу аудіо (КБ):"
+
+#: src/gui.c:5908 src/gui.c:5911 src/gui.c:5917 src/gui.c:5922
+msgid ""
+"Amount of data to cache when playing media from network, use higher values "
+"for slow networks."
+msgstr ""
+"Розмір кешу для відтворення потокового відео, для повільних "
+"з'єднаньвикористовуйте великі значення"
+
+#: src/gui.c:5938
+msgid "Video Cache Size (KB):"
+msgstr "Розмір кешу відео (КБ):"
+
+#: src/gui.c:5960
+msgid "<span weight=\"bold\">Adjust Language Settings</span>"
+msgstr "<span weight=\"bold\">Налаштування мови</span>"
+
+#: src/gui.c:5967
+msgid "Default Audio Language"
+msgstr "Мова за замовчуванням для аудіо:"
+
+#: src/gui.c:5978
+msgid "Default Subtitle Language:"
+msgstr "Мова за замовчуванням для субтитрів:"
+
+#: src/gui.c:5990
+msgid "File Metadata Encoding:"
+msgstr "Кодування файлів метаданих:"
+
+#: src/gui.c:6006
+msgid "<span weight=\"bold\">Subtitle Settings</span>"
+msgstr "<span weight=\"bold\">Налаштування субтитрів</span>"
+
+#: src/gui.c:6013
+msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
+msgstr "Підтримка _Advanced Substation Alpha (ASS)"
+
+#: src/gui.c:6020
+msgid "Use _Embedded Fonts (MKV only)"
+msgstr "Використовувати вбудовані шрифти (тільки MKV)"
+
+#: src/gui.c:6029
+msgid "Subtitle Font:"
+msgstr "Шрифт субтитрів:"
+
+#: src/gui.c:6047
+msgid "Subtitle Font Selection"
+msgstr "Вибір шрифта для субтитрів"
+
+#: src/gui.c:6052
+msgid "Subtitle Color:"
+msgstr "Колір субтитрів:"
+
+#: src/gui.c:6076
+msgid "Subtitle Color Selection"
+msgstr "Вибір кольору для субтитрів"
+
+#: src/gui.c:6082
+msgid "Outline Subtitle Font"
+msgstr "Обводити субтитри"
+
+#: src/gui.c:6088
+msgid "Shadow Subtitle Font"
+msgstr "Малювати тінь"
+
+#: src/gui.c:6094
+msgid "Subtitle Font Scaling:"
+msgstr "Масштабувати субтитри:"
+
+#: src/gui.c:6107
+msgid "Subtitle File Encoding:"
+msgstr "Кодування субтитрів:"
+
+#: src/gui.c:6119
+msgid "Subtitle Lower Margin (X11/XV Only):"
+msgstr "Відступ знизу для субтитрів (тільки X11/Xv)"
+
+#: src/gui.c:6132
+msgid "Show Subtitles by Default"
+msgstr "Показувати субтитри за замовчуванням"
+
+#: src/gui.c:6137
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Шрифт субтитрів:"
+
+#: src/gui.c:6155
+msgid "<span weight=\"bold\">Application Preferences</span>"
+msgstr "<span weight=\"bold\">Налаштування застосунка</span>"
+
+#: src/gui.c:6162
+msgid "Start with playlist visible"
+msgstr "Запускати з відкритим списком програвання"
+
+#: src/gui.c:6172
+msgid "Respond to Keyboard Media Keys"
+msgstr "Підтримка медіаклавіш клавіатури"
+
+#: src/gui.c:6177
+msgid "Use default playlist"
+msgstr "Використовувати замовчуваний список відтворення"
+
+#: src/gui.c:6183
+msgid "Show notification popup"
+msgstr "Показувати повідомлення, що спливають"
+
+#: src/gui.c:6190
+msgid "Show status icon"
+msgstr "Показувати іконку у треї"
+
+#: src/gui.c:6197
+msgid "Place playlist below media (requires application restart)"
+msgstr ""
+"Розмістити список програвання під зображенням (потрібно перезапустити "
+"програму)"
+
+#: src/gui.c:6202
+msgid "Only allow one instance of Gnome MPlayer"
+msgstr "Тільки одна копія Gnome MPlayer"
+
+#: src/gui.c:6212
+msgid "When opening in single instance mode, replace existing file"
+msgstr "Відтворити новий файл замість поточного"
+
+#: src/gui.c:6221
+msgid "When opening file, bring main window to front"
+msgstr "При відкриванні надати фокус вікну програвача"
+
+#: src/gui.c:6228
+msgid "Remember Window Location and Size"
+msgstr "Пам’ятати розміщення і розмір вікна"
+
+#: src/gui.c:6233
+msgid "Resize window when new video is loaded"
+msgstr "Міняти розмір вікна, коли відкривається нове відео"
+
+#: src/gui.c:6238
+msgid "Keep window above other windows"
+msgstr "Завжди тримати вікно над іншими вікнами"
+
+#: src/gui.c:6243
+msgid "Pause playback on mouse click"
+msgstr "Призупинити програвання при клацанні мишею"
+
+#: src/gui.c:6248
+msgid "Disable Fullscreen Control Bar Animation"
+msgstr "Вимкнути анімацію панелі у повноекранному режимі"
+
+#: src/gui.c:6253
+msgid "Disable Cover Art Fetch"
+msgstr ""
+
+#: src/gui.c:6258
+msgid "Use Mouse Wheel to change volume, instead of seeking"
+msgstr "Коліщатко миші: регулювати гучність замість пошуку"
+
+#: src/gui.c:6263
+msgid "Enable Nautilus Plugin"
+msgstr "Увімкнути плагін Nautilus"
+
+#: src/gui.c:6268
+msgid "Verbose Debug Enabled"
+msgstr "Поширене налагодження"
+
+#: src/gui.c:6272 src/gui.c:6277
+msgid ""
+"When this option is set, extra debug information is sent to the terminal or "
+"into ~/.xsession-errors"
+msgstr ""
+"Надсилати додаткову налагоджувальну інформацію до терміналу чи до ~/."
+"xsession-errors"
+
+#: src/gui.c:6288
+msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
+msgstr "<span weight=\"bold\">Розширені налаштування MPlayer</span>"
+
+#: src/gui.c:6297 src/gui.c:6301
+msgid ""
+"Set this option if changing the volume in Gnome MPlayer changes the master "
+"volume"
+msgstr ""
+"Встановіть цю опцію, коли зміна гучності у Gnome MPlayer призводить до зміни "
+"на рівні цілого пристрою"
+
+#: src/gui.c:6311
+msgid "Remember last software volume level"
+msgstr "Пам’ятати рівень звуку"
+
+#: src/gui.c:6314 src/gui.c:6318
+msgid "Set this option if you want the software volume level to be remembered"
+msgstr ""
+"Встановіть цю опцію, щоб запам’ятовувати гучність програмного регулювання"
+
+#: src/gui.c:6325
+msgid "Volume Gain (-200dB to +60dB)"
+msgstr "Відносна гучність (від -200дБ до +60дБ)"
+
+#: src/gui.c:6337
+msgid "De_interlace Video"
+msgstr "Де_інтерлейс відео"
+
+#: src/gui.c:6339 src/gui.c:6342
+msgid "Set this option if video looks striped"
+msgstr "Встановіть цю опцію, якщо відео береться дрібними смужками"
+
+#: src/gui.c:6348
+msgid "_Drop frames"
+msgstr "_Пропускати кадри"
+
+#: src/gui.c:6350 src/gui.c:6353
+msgid "Set this option if video is well behind the audio"
+msgstr "Встановіть цю опцію, якщо відео не встигає за аудіо"
+
+#: src/gui.c:6359
+msgid "Enable mplayer cache"
+msgstr "Увімкнути кеш mplayer"
+
+#: src/gui.c:6365
+msgid "Cache Size (KB):"
+msgstr "Розмір кешу (КБ):"
+
+#: src/gui.c:6373 src/gui.c:6377
+msgid ""
+"Amount of data to cache when playing media, use higher values for slow "
+"devices and sites."
+msgstr "Використовуйте більше кешу для повільних пристроїв і сайтів."
+
+#: src/gui.c:6397
+msgid "MPlayer Executable:"
+msgstr "Шлях до MPlayer:"
+
+#: src/gui.c:6401 src/gui.c:6405
+msgid ""
+"Use this option to specify a mplayer application that is not in the path"
+msgstr ""
+"Використовуйте цю опцію, щоб вказати шлях до нетипового розміщення програми "
+"'mplayer'"
+
+#: src/gui.c:6421
+msgid "Extra Options to MPlayer:"
+msgstr "Додаткові опції до MPlayer:"
+
+#: src/gui.c:6424 src/gui.c:6427
+msgid "Add any extra mplayer options here (filters etc)"
+msgstr "Вказати додаткові опції до mplayer (фільтри тощо)"
+
+#: src/gui.c:6438
+msgid "MPlayer Default Optical Device"
+msgstr "Оптичний диск MPlayer за замовчуванням"
+
+#: src/gui.c:6453
+msgid ""
+"<span weight=\"bold\">Keyboard Shortcuts</span>\n"
+"\n"
+"Place the cursor in the box next to the shortcut you want to modify\n"
+"Then press the keys you would like for the shortcut"
+msgstr ""
+
+#: src/gui.c:6485
+#, fuzzy
+msgid "Reset Keys"
+msgstr "Від_новити"
+
+#: src/gui.c:7592
+msgid "S_how Controls"
+msgstr "Елементи керування"
+
+#: src/gui.c:7596 src/gui.c:7848
+msgid "_Full Screen"
+msgstr "_Повноекранний режим"
+
+#: src/gui.c:7601
+msgid "_Copy Location"
+msgstr "_Копіювати адресу"
+
+#. File Menu
+#: src/gui.c:7650
+msgid "_File"
+msgstr "_Файл"
+
+#: src/gui.c:7658
+msgid "Open _Folder"
+msgstr "Відкрити _директорію"
+
+#: src/gui.c:7663
+msgid "Open _Location"
+msgstr "Відкрити _адресу"
+
+#: src/gui.c:7669
+msgid "_Disc"
+msgstr "_Диск"
+
+#: src/gui.c:7677
+msgid "Open _Audio CD"
+msgstr "Відкрити _аудіо CD"
+
+#. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
+#. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
+#: src/gui.c:7683
+msgid "Open DVD with _Menus"
+msgstr "Відкрити DVD з _меню"
+
+#: src/gui.c:7688
+msgid "Open DVD from Folder with M_enus"
+msgstr "Відкрити DVD з директорії з м_еню"
+
+#: src/gui.c:7693
+msgid "Open DVD from ISO with Me_nus"
+msgstr "Відкрити образ DVD з ме_ню"
+
+#: src/gui.c:7697
+msgid "Open _VCD"
+msgstr "Відкрити _VCD"
+
+#: src/gui.c:7699
+msgid "_TV"
+msgstr "_ТБ"
+
+#: src/gui.c:7704
+msgid "Open _Analog TV"
+msgstr "Відкрити _аналогове ТБ"
+
+#: src/gui.c:7706
+msgid "Open _Digital TV"
+msgstr "Відкрити _цифрове ТБ"
+
+#: src/gui.c:7709
+msgid "Open _iPod™"
+msgstr "Відкрити _iPod™"
+
+#: src/gui.c:7718
+msgid "Open _Recent"
+msgstr "Відкрити _недавні файли"
+
+#. Edit Menu
+#: src/gui.c:7765
+msgid "_Edit"
+msgstr "_Правка"
+
+#: src/gui.c:7771
+msgid "_Shuffle Playlist"
+msgstr "Пере_мішати список програвання"
+
+#: src/gui.c:7774
+msgid "_Loop Playlist"
+msgstr "За_циклити список програвання"
+
+#: src/gui.c:7778
+msgid "P_lay Single Track from Playlist"
+msgstr ""
+
+#: src/gui.c:7782
+msgid "S_witch Audio Track"
+msgstr ""
+
+#: src/gui.c:7784 src/playlist.c:1188
+msgid "Set Audi_o"
+msgstr "Вказати _аудіо"
+
+#: src/gui.c:7786
+msgid "Select _Audio Language"
+msgstr "Вибрати _мову аудіо"
+
+#: src/gui.c:7789
+#, fuzzy
+msgid "Set S_ubtitle"
+msgstr "Вибрати субтитри"
+
+#: src/gui.c:7791
+msgid "S_elect Subtitle Language"
+msgstr "Вибрати м_ову субтитрів"
+
+#: src/gui.c:7796
+msgid "_Take Screenshot"
+msgstr "_Зробити знімок"
+
+#: src/gui.c:7802 src/gui.c:7807
+msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
+msgstr "Файл названий ’shotNNNN.png’ збережено до робочої директорії"
+
+#. View Menu
+#: src/gui.c:7827
+msgid "_View"
+msgstr "_Вигляд"
+
+#: src/gui.c:7833
+msgid "_Playlist"
+msgstr "_Список програвання"
+
+#: src/gui.c:7837
+msgid "Media _Info"
+msgstr "Інформація про _носій"
+
+#: src/gui.c:7840
+msgid "D_etails"
+msgstr "_Інформація про медіафайл"
+
+#: src/gui.c:7843
+msgid "Audio _Meter"
+msgstr "Аудіо_метр"
+
+#: src/gui.c:7855
+msgid "_Normal (1:1)"
+msgstr "_Оригінал (1:1)"
+
+#: src/gui.c:7858
+msgid "_Double Size (2:1)"
+msgstr "По_двійний розмір (2:1)"
+
+#: src/gui.c:7861
+msgid "_Half Size (1:2)"
+msgstr "_Половинний розмір (1:2)"
+
+#: src/gui.c:7863
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
+msgstr "_Половинний розмір (1:2)"
+
+#: src/gui.c:7865
+msgid "_Aspect"
+msgstr "Спі_ввідношення сторін"
+
+#: src/gui.c:7871
+msgid "D_efault Aspect"
+msgstr "_За замовчуванням"
+
+#: src/gui.c:7873
+msgid "_4:3 Aspect"
+msgstr "Відношення _4:3"
+
+#: src/gui.c:7875
+msgid "_16:9 Aspect"
+msgstr "Відношення _16:9"
+
+#: src/gui.c:7877
+msgid "1_6:10 Aspect"
+msgstr "Відношення 1_6:10"
+
+#: src/gui.c:7880
+msgid "_2.39:1 Aspect (Anamorphic)"
+msgstr ""
+
+#: src/gui.c:7882
+msgid "_Follow Window"
+msgstr "Підлаштовуватися до розмірів _вікна"
+
+#: src/gui.c:7887
+msgid "Show _Subtitles"
+msgstr "_Субтитри"
+
+#: src/gui.c:7895
+msgid "Decrease Subtitle Delay"
+msgstr "Зменшити затримку виводу субтитрів"
+
+#: src/gui.c:7897
+msgid "Increase Subtitle Delay"
+msgstr "Збільшити затримку виводу субтитрів"
+
+#: src/gui.c:7898
+msgid "Switch An_gle"
+msgstr "Переключити кут ог_ляду"
+
+#: src/gui.c:7900
+msgid "_Controls"
+msgstr "_Панель керування"
+
+#: src/gui.c:7914
+msgid "_Video Picture Adjustments"
+msgstr "Налаштування зображення відео"
+
+#. Help Menu
+#: src/gui.c:7954
+msgid "_Help"
+msgstr "_Довідка"
+
+#: src/gui.c:8162 src/gui.c:8165
+msgid "Menu"
+msgstr "Меню"
+
+#: src/gui.c:8182 src/gui.c:8185
+msgid "Previous"
+msgstr "Назад "
+
+#: src/gui.c:8203 src/gui.c:8206
+msgid "Rewind"
+msgstr "Перемотати назад"
+
+#: src/gui.c:8244 src/gui.c:8247
+msgid "Stop"
+msgstr "Зупинка"
+
+#: src/gui.c:8265 src/gui.c:8268
+msgid "Fast Forward"
+msgstr "Прокрутити вперед"
+
+#: src/gui.c:8286 src/gui.c:8289
+msgid "Next"
+msgstr "Наступний"
+
+#: src/gui.c:8373
+msgid "Volume 100%"
+msgstr "Гучність 100%"
+
+#: src/support.c:773
+#, c-format
+msgid "Couldn't open DVD device: %s"
+msgstr "Не вдається відкрити пристрій DVD: %s"
+
+#: src/support.c:865
+#, c-format
+msgid "Couldn't open VCD device: %s"
+msgstr "Не вдається відкрити пристрій VCD: %s"
+
+#: src/support.c:1981 src/support.c:2011 src/support.c:2054 src/support.c:2082
+msgid "Unable to save playlist, cannot open file for writing"
+msgstr ""
+"Не вдається зберегти плейлист, тому що не можливо відкрити файл для запису"
+
+#: src/support.c:2203
+#, c-format
+msgid "%2i:%02i"
+msgstr "%2i:%02i"
+
+#: src/support.c:2205
+#, c-format
+msgid "%i:%02i:%02i"
+msgstr "%i:%02i:%02i"
+
+#: src/support.c:2864
+#, c-format
+msgid ""
+"You might want to consider upgrading mplayer to a newer version, -volume "
+"option not supported\n"
+msgstr ""
+
+#: src/playlist.c:185
+msgid "Set Audio"
+msgstr ""
+
+#: src/playlist.c:287
+#, c-format
+msgid ""
+"Filename: %s\n"
+"Subtitle: %s"
+msgstr ""
+"Назва файла: %s\n"
+"Субтитри: %s"
+
+#: src/playlist.c:329 src/playlist.c:1034 src/playlist.c:1037
+msgid "Save Playlist"
+msgstr "Зберегти список програвання"
+
+#: src/playlist.c:346 src/playlist.c:400
+msgid "Playlist (*.pls)"
+msgstr "Список програвання (*.pls)"
+
+#: src/playlist.c:351 src/playlist.c:410
+msgid "MP3 Playlist (*.m3u)"
+msgstr "Список програвання MP3 (*.m3u)"
+
+#: src/playlist.c:388 src/playlist.c:1023 src/playlist.c:1026
+msgid "Open Playlist"
+msgstr "Відкрити список програвання"
+
+#: src/playlist.c:405
+msgid "Reference Playlist (*.ref)"
+msgstr ""
+
+#: src/playlist.c:415
+msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
+msgstr ""
+
+#: src/playlist.c:622
+msgid "Choose Directory"
+msgstr "Виберіть директорію"
+
+#: src/playlist.c:659
+#, c-format
+msgid ""
+"\n"
+"\tFound %i file\n"
+msgid_plural ""
+"\n"
+"\tFound %i files\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/playlist.c:932
+msgid "Item to play"
+msgid_plural "Items to Play"
+msgstr[0] "Елемент"
+msgstr[1] "Елементи"
+msgstr[2] "Елементи"
+
+#: src/playlist.c:954 src/nautilus_property_page.c:299
+msgid "Artist"
+msgstr "Виконавець"
+
+#: src/playlist.c:966 src/nautilus_property_page.c:311
+msgid "Album"
+msgstr "Альбом"
+
+#: src/playlist.c:978 src/nautilus_property_page.c:323
+msgid "Length"
+msgstr "Тривалість"
+
+#: src/playlist.c:989
+msgid "Count"
+msgstr "Рахунок"
+
+#: src/playlist.c:998
+msgid "Order"
+msgstr "Черга"
+
+#: src/playlist.c:1009 src/playlist.c:1012
+msgid "Close Playlist View"
+msgstr "Закрити список програвання"
+
+#: src/playlist.c:1045 src/playlist.c:1048
+msgid "Add Item to Playlist"
+msgstr "Додати елемент до списку програвання"
+
+#: src/playlist.c:1056 src/playlist.c:1059
+msgid "Remove Item from Playlist"
+msgstr "Вилучити елемент зі списку програвання"
+
+#: src/playlist.c:1067 src/playlist.c:1070
+msgid "Add Items in Folder to Playlist"
+msgstr "Додати елементи з директорії до списку програвання"
+
+#: src/playlist.c:1078 src/playlist.c:1081
+msgid "Clear Playlist"
+msgstr "Очистити список програвання"
+
+#: src/playlist.c:1089 src/playlist.c:1092
+msgid "Move Item Up"
+msgstr "Підняти елемент у черзі"
+
+#: src/playlist.c:1101 src/playlist.c:1104
+msgid "Move Item Down"
+msgstr "Опустити елемент у черзі"
+
+#: src/playlist.c:1114 src/playlist.c:1117
+msgid "UnSort List"
+msgstr "Перемішати список"
+
+#: src/playlist.c:1131 src/playlist.c:1134
+msgid "Loop Playlist"
+msgstr "Зациклити список програвання"
+
+#: src/playlist.c:1147 src/playlist.c:1150
+msgid "Shuffle Playlist"
+msgstr "Перемішати список програвання"
+
+#: src/playlist.c:1184
+msgid "_Set Subtitle"
+msgstr "Вибрати _субтитри"
+
+#: src/nautilus_property_page.c:92
+#, c-format
+msgid "%2i:%02.0f"
+msgstr "%2i:%02.0f"
+
+#: src/nautilus_property_page.c:94
+#, c-format
+msgid "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02.0f"
+
+#: src/nautilus_property_page.c:278
+msgid "<span weight=\"bold\">Media Details</span>"
+msgstr "<span weight=\"bold\">Інформація про медіафайл</span>"
+
+#: src/nautilus_property_page.c:287
+msgid "Title"
+msgstr "Заголовок"
+
+#: src/nautilus_property_page.c:335
+msgid "Demuxer"
+msgstr "Демультиплексор"
+
+#: src/nautilus_property_page.c:387
+msgid "Video Frame Rate:"
+msgstr "Частота кадрів:"
+
+#: src/nautilus_property_page.c:489
+msgid "Audio/Video"
+msgstr "Аудіо/Відео"
+
+#~ msgid "Set Sub_title"
+#~ msgstr "Вибрати _субтитри"

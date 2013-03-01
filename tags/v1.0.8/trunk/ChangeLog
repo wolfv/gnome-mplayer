@@ -1,0 +1,1987 @@
+Development
+1.0.8
+	Updated Spanish translation	
+	Apply patch from Issue 673
+    	Updated German translation
+    	Updated Japanese translation
+	Updated Portuguese translation
+	Set the subtitle visibility in set_media_player_attributes
+	Fix fullscreen activation using defined accelerator key
+1.0.8b
+	Updated Polish translation
+	Run make update-po
+	Add volume control type display to preference screen
+	Update spec.in file for libgda
+	Switch back to using CURL instead of GIO for cover art retrieval
+	Change "Save" in context menu to "Save As"
+	Fix problem with localized positions in mark_uri_in_db_as_resumable 
+	Fix libgda compile issue
+	Rework database code to use GValues instead of sql commands, should avoid localization issues
+	Apply patch from Issue #669 to fix network stream regression
+	Hide some items on the context menu, when not under plugin control
+	Additional changes to Japanese translation
+	Updated Japanese translation
+	Updated Polish translation
+	Fix Issue #667 - Subtitles not hidden by default when specified
+	Updated Korean and Portuguese translations
+	Add "Play Single Track from Playlist" under Edit menu
+	Mark streams and CDs as playable when adding to playlist
+	Present a warning message when about to overwrite a file on save
+	Resize player when on video present event
+	Fix some layout issues when playing audio only files
+	Ensure the Gvalue contains a double before trying to use it
+	Ellipsize items on the playlist, so they don't add extra spacing to the list
+	Add gl3 to list of available VOs. make sure mplayer2 supports this on your setup before setting
+	Save media state in file->open and file->recent selections
+	Rework UBUNTU_MENUPROXY reading
+	Add some extra debug information for enable_global_menu
+	Fix cut and paste error with vbox padding
+	Prevent assertion warning in database retrieval code
+	Fix fullscreen icon used in place of play icon, problem caused by symbolic icon fix (Issue #656)
+	Only update the database when we really want to change something, speeds things up on load
+	Keep code from infinitly looping if audio device is not found
+	Apply patch to compile with libgda4 or libgda5
+    Fix some problems on initial volume setup, when pulseaudio device query is slow
+    Don't monitor system volume, when running in softvol mode
+	Update metadata in database as needed
+	Don't reset unchanged values in the database
+	Implement media play resume, from last viewed location
+	Cleanup some minor compiler warnings
+    Track resumable media in database
+    Force a resize if we know the size from the database when opening a file
+    Apply recommended fix from Issue #658
+    Prevent crash when loading large playlist the first time
+    Handle ' character in metadata
+    Allow code to compile without libgda
+    Update metadata in playlist as it becomes more precise
+    Read metadata from database and use it
+    Insert metadata into sqlite database, please delete $HOME/.config/gnome-mplayer/gnome-mplayer.db if you get insert errors
+        as database schema has changed
+    More database foundation code
+    Clean up some more depreciated GTK2 calls in GTK3 mode
+    Clean up unused variable messages is GTK2 mode
+    Clean up some depreciated GTK2 calls in GTK3 mode
+    Wrap some more symbolic icons to fix Issue 656
+    Add create and delete tables code to database.c
+    Add disable cover art fetch as a interface preference rather than only a command line preference
+    Add initial support for playlist database which should result in faster loading of playlists 
+        This can be disabled with --with-libgda=no passed to configure
+    Fix issue #656, fallback to non-symbolic icons if they don't exist in GTK3 mode
+1.0.7
+    Hide media info when running as a plugin, caused problems with plugger testing grounds site
+	Fix issue #647, config_volume not defined when --without-alsa option is used (code may need to be cleaned up)
+	Fix issue #646, media is not positioned and sized correctly when remember preference is set
+1.0.7b
+    Updated Czech translation
+	Increase the channel parsing buffer, need to rewrite parseChannels
+    Updated Polish translation
+    Update Portuguese translation
+    Refresh po files 
+    Add in support for the anamorphic aspect ratio (2.39:1)
+	Some minor fixes to the dbus interface
+	Add uk and ru translation patches
+	Fix randomization of first file in playlist
+	Add in y, g, and J hotkeys to match mplayer hotkeys
+	Add stored DVD device to drop down if not detected by gio, workaround RedHat Bug #850402
+    Change idledata->device to mplayer_dvd_device may fix problem with dvd device being forgotten
+    Fix dconf configuration file
+    Don't enable MPRIS in plugin mode
+    Basic scrolling wheel patch from Issue #621
+	Clean up Issue #629, warning by cppcheck
+	Fix some German translations by Wolfgang Knauf
+	Fix some compiler errors noticed by Wolfgang Knauf
+	Clean up log message if volume is not updated yet
+    Remove resize handle from fullscreen and plugin windows
+    Change g_strcasecmp to g_ascii_strcasecmp to clean up complier warnings
+    Handle the new error message from gmtk-media-player
+    Allow musicbrainz to be searched by artist only
+    Bump configure.in to require gmtk 1.0.7 or higher (due to gm_log changes)
+    Change some log levels in get_cover_art
+    Fix logic in shutdown and cancel volume update callback
+    Fix a hang on startup when getting volume from pulseaudio (has something to due with GTK event queue and gtk_main not called
+    Make cover art scaling consistent
+    Move various global variables to file-local (static)
+    Clean up the title bar name display
+    Since we are using gm_log for messages, move the inits above the first message
+    Fix a few issues identified by cppcheck
+    Added make valgrind and make valgrind-suppress to src/Makefile
+    	valgrind-suppress requires this file http://www.gnome.org/~johan/gtk.suppression in your home directory
+    remove hardcoded size of langlist and codepagelist in langlist.h
+    Add a tooltip to the "Default Audio/Subtitle Language" config options
+    Include wait.h to define some macros so that code will compile on Ubuntu
+    Fix compilation issue with nautilus plugin
+    Replace printf()s with calls to new gm_log() function. If you run gnome-mplayer with G_MESSAGES_DEBUG="all" (or ="GMLIB")
+        you will see a lot more messages than with the verbose option enabled
+    Initialize a struct to 0 to remove "branch depends on uninitialized memory" error
+    Finish screensaver rework:
+       * try dbus org.freedesktop.ScreenSaver
+       * then org.gnome.SessionManager
+       * then org.gnome.ScreenSaver
+       * then the xdg-screensaver utility
+       * then the XScreenSaverSuspend() X11 call
+       This removes the SM_INHIBIT and SS_INHIBIT configure options, and the use_xscrnsaver variable and config option
+    First cut at screensaver rework: try all known methods and fall through to X11 XScreenSaverSuspend()
+    Use mutex lock to prevent thread race
+    Remove the force processing of events from an idle callback
+    Force GTK to process its events when loading a playlist
+    Don't set the title bar when the window is invisible
+    Add some error checking to GIO cover art fetch
+    Use GIO to fetch cover art instead of CURL if we have GIO support
+    Put the filename in the title bar when it is a video and a local file
+    Change set_media_info to set_title_bar, more accurately reflects the function
+    If the metadata doesn't contain title and artist try and pull it from the filename
+    Fix title display when no metadata is present
+    Potential fix for hang on load when fetching cover art
+    Apply patch from Issue #619
+    Fix a potential NULL pointer copy issue
+    Fix some cover art loading issues
+    Print GTK and GLIB versions in verbose mode
+    Fix stop action on streaming playlist Issue #617
+    Update media label on drag and drop, update title bar on stop/play
+    Add some more known metadata and make some values more dynamic
+    Implement org.mpris.MediaPlayer2.TrackList Tracks and CanEditTracks properties
+    Version bump to 1.0.7a1
+    Implement MPRIS Rate, MinimumRate and MaximumRate, requires gmtk SVN r115 or higher
+    Cleanup some debug messages and send updated Metadata on cover art fetch
+    Rework cover_art fetch process, should work much better now, also make art available over MPRIS
+    Fix crash at end of media, due to invalid store iter
+    Implement MPRIS Volume signal
+    Implement MPRIS2 CanSeek, CanGoNext, CanGoPrevious, Seek, OpenUri, SetPosition, and more Metadata
+    Implement some MPRIS2 metadata attributes
+    Implement MPRIS2 events org.mpris.MediaPlayer2.Player, properties Volume, Get (PlaybackStatus), and signal (PlaybackStatus Changed) 
+    Implement MPRIS2 events Raise, Quit, Set (Fullscreen)
+    Fix error spotted by clang
+    Start work on MPRIS dbus interface http://specifications.freedesktop.org/mpris-spec/latest/
+    Change controlid logic
+    Do not run mencoder when being called by plugin
+    Monitor sub visiblity better gnome-mplayer Issue #615, requires gmtk SVN r112 or higher to work correctly
+    Add mouse events to capture over the media window, should fix Issue #611
+    Fix Issue #613
+    Fix a couple of keyboard shortcuts as they were in the wrong shift state #,+,{,}
+    Fix usage of NULL pointer in nautilus property page
+    Initialize a variable to NULL
+    Globally initialize libCURL
+    Don't update cover art when URL call fails
+    Set the use-symbolic property on the GtkVolumeButton in GTK3
+    Fix button sensitivity based on state
+    More symbolic icon fixes
+    Use the GTK3 symbolic icons when running in GTK3 mode
+1.0.6
+    Apply patch from David Coppa that removes the depreciated slide away code
+    Separate delete and destroy events
+    Updated Portuguese translation
+    Updated Japanese translation
+    Apply fix from David Coppa to fix problem with glib 2.32
+    Fix gmlib includes due to change in gmtk .pc file
+    Updated Turkish translation
+1.0.6b1
+    Updated Polish translation
+    Fix gecko-mediaplayer Issue #106
+    Fix gecko-mediaplayer Issue #167
+    Add Kazakh translation, issue #601
+    Take the KP_Enter patch, the volume adjustment values for keys GDK_9 & GDK_0 from Issue #598
+    Enhance subtitle visibility tracking (requires minor gmtk updates)
+    Rework keyhandler to use the custom key mappings
+    Make customized keyboard shortcut for "Fullscreen Toggle" work in Fullscreen mode (part of Issue #600)
+    Applied dbus.txt patch from Issue #595
+    Applied uk.po patch from Issue #594
+    Applied ru.po patch from Issue #593
+    Applied ru.po patch from Issue #592
+    Commit gvfs.patch from Issue #579
+    Initialize a few more structs to zero
+    Initialize buf to all zeros
+    Additional NULL check
+    Check for NULL values from gvfs, Issue #579
+    Only try to enable dark theme in GTK3, Issue #591
+    Hide message in normal mode
+    Rework cover art fetch so that Amazon cover art is preferred over local thumbnail
+    Use nautilus thumbnail for cover art if it exists
+    ru.po fix Issue #586
+    uk.po fix Issue #585
+    Fix problem with directory vs dvd detection Issue #587
+    Set PACKAGE_LOCALE_DIR based on --localedir from configure
+    Add option to enable or disable Nautilus plugin in Edit->Preferences [Interface] tab
+    Updated German translation
+    Updated Portugeuse translation
+1.0.5
+    Rework key handler to be more correct with respect to shift/ctrl/alt modifiers
+    Only use dark theme if not embedded, otherwise use the default theme
+    Prefer the dark theme when running on gnome 3.2, similar to totem
+    Updated Polish translation to match the reworded source text
+    Reword 50% larger as gettext is stupid about the % sign
+    Translated the missing string into Polish
+1.0.5b2
+    Add 150% display of video
+    Use icon named gnome-mplayer-panel for status icon if present in theme
+    Remove configure option --with-gpm-new-method as this is default now
+        if you have an old gnome-power-manager < 2.26 add the configure flag
+        --with-gpm-old-method
+    Try to detect the right screensaver api to use in Gnome 3.2 (Fedora 16)
+    Updated German translation
+    Fix warning when accelerator keys have not been set
+    Updated Japanese translation
+    Fix the speed multipliers and speed reset Issue 566 & 567
+1.0.5b1
+    Rephrased some strings in Polish translation
+    Updated Portuguese translation
+    Updated Polish translation
+    Fix problem with visual seeking while using the tracker, requires gmtk svn r48 
+    Add in command line option --vo (this disables hardware codecs as a safety measure)
+    Add in command line option --dvd_device
+    Fix Issue #560, ATTRIBUTE_FORCE_CACHE not being processed
+    Printout gmtk version in verbose mode
+    Switch from AM_MAINTAINER_MODE to AM_MAINTAINER_MODE([enable]) in configure.in
+    Make cursor reappear when not in fullscreen mode
+    Hide mouse/panel in fullscreen mode when mouse is above the panel area.
+    Only make the fullscreen controls reappear when the mouse is at the bottom of the screen
+    Fix keyboard shortcut capture to only detect CTRL, ALT or SHIFT modifiers
+    Set CDDB to TYPE CD
+    Fix typo on keyscreen
+    Add tooltop for "Enable Video Hardware"
+    Remove fuzzy and obsolete translations from po files
+    Make Normal and Double size hotkeys work
+    Fix saving and loading of preferred VO
+    Fix 'f' not going to/returning from fullscreen
+    Remove the use of mplayer profiles, as they are no longer needed
+    Fix Issue 544, minor spelling issue
+    Allow customization of some of the keyboard hotkeys, more to be done
+    Replace get_window, get_visible, and get_allocation with gmtk versions
+    Build foundation for customized hotkeys
+    Add checkboxes for hardware and crystalhd codec support
+    Conversion to using libgmtk as separate library
+    Fix Issue #538
+    Autodetect gtk3 at configure time
+    Raise event on incomplete QuickTime file, and mark it for retry
+    Fix compile issue when alsa is not being used
+1.0.4
+    Remove vdpau failure detection as it doesn't work
+    Quit mplayer on vdpau restart, mplayer doesn't want to die
+    Restart mplayer on vdpau create error
+    Try and set the initial window size prior to loading the media, may fix vdpau issues
+    Fix AC3 passthru, option was not being set, Issue #533
+    Fix default filename in context menu. Issue #531
+    Enable Save in popup menu with control id is specified but not window, useful for scripting
+    Updated Portuguese translation
+    Added a missing string to the Polish translation
+    Correct invalid label, and update po files
+    Updated Polish translation
+    Move notification of export filename to occur later
+    Track export filename across mplayer restarts
+    Updated Turkish translation
+1.0.4b2
+    Update translations from launchpad
+    Add Vietnamese translation
+    Move -profile gnome-mplayer into the vo setting area, allows gnome-mplayer to work without preferences set
+    Add in new media state, MEDIA_STATE_BUFFERING
+    Updated Japanese Translation
+    dbus - fixup GetPlayState to give more correct values
+    dbus - add GetCachePercent method
+    libgmtk - gmtk_media_player add ATTRIBUTE_CACHE_PERCENT
+    Tell mplayer to ignore the xscreensaver, as gnome-mplayer controls it
+    Make audio track and subtitle selection work correctly even when metadata is missing
+    Add in generic ALSA and PulseAudio devices to the output selections even if we have ALSA and PulseSupport
+    Emit dbus events on media state changes, useful for gecko-mediaplayer
+    libgmtk - gmtk_media_player, block all event emissions when in restart mode
+    Make cover art lookup with filenames in the form of "Artist - Title.xxx" where xxx can be any extension
+    Only set don't play next if we are playing something, fixes playlist problem.
+    Improvements to shoutcast media/station info
+    Add GetTitle to dbus methods
+    Fix GetDuration and GetTime dbus methods
+1.0.4b1
+    Minor tweaks to the autopause code
+    Keep restarting mplayer when ALSA device is busy and AO is alsa, sometimes Pulse is slow to release it
+    libgmtk - gmtk_media_player set attribute for audio_channels
+    Update tracker status message when pausing
+    Disable tracker focus
+    Fix minor issue with vcd://
+    Detect UBUNTU_MENUPROXY and enable_global_menu = TRUE when not NULL
+    Disable button focus on control bar
+    Fix problem when chapters = 1, media really doesn't have chapters
+    Fix stop in network/streaming mode
+    Make sure mplayer is dead before quitting
+    Try and solve the apple trailer issues, still may have issues
+    When playing an ICY stream, clear the album metadata fixes problem when switching from MP3 to stream
+    When playlist is open, don't resize the media window
+    Fix up some problems with apple trailers, still may have problems
+    Updated Polish translation
+    Fix up some compiler warnings
+    Correct GTK warning on gmtk_media_player allocation event
+    Code fixes for older machines
+    libgmtk - gmtk_media_player, Clamp the values in the alignment
+    Implement subtitle fuzziness selection, Issue #474
+    Add gconf/dconf key 'enable-global-menu' distros should set this to TRUE when using gnome global menu
+    Remove GTK allocation warning caused by audio file, due to uninitialized values
+    Flush GTK Events in resize window
+    When initially loading a folder, check to see if it is a DVD 
+    Ensure that the window id is not 0, before using it
+    Fix crash when giving a device name that does not exist
+    Disable xvmc if mplayer reports video_out incompatibility with codec
+    Don't force ffmpeg12 codec with xvmc vo 
+    Retry playback without accelerated divx if using vdpau and vdpau error 
+    Properly display DVD Title in playlist and on window title
+    Add support for crystalhd vo, untested as I don't have the hardware.
+    Set the allocation to the height and width desired
+    Make cursor hiding work in GTK3
+    Select Subtitle by ID rather than by description + name
+    Fix Issue #514
+    Remove "percent" from idledata
+    Update translation files with updated file listings
+    Remove global variable 'lastfile', and fix code that uses it, fixes issue #514
+    Give the media_hbox a default height, makes media_info display work better when showing a video
+    Remove dontplaynext = FALSE settings where incorrect
+    Update the volume icon on mute
+    Fix mute toggle from keyboard key 'm'
+    Fix keyboard volume adjustment with 9 and 0
+    Use --nokeepaspect when detecting mplayer2
+    Don't fail on longer vo names, ie matrixview
+    Capture Artist, Title, and Album metadata
+    Set channel encoding to binary, solves problems with metadata
+    Fix software volume not being set properly
+    Make volume gain and post processing work
+    Fix fullscreen mode when run as a plugin (X11 only)
+    Set runtime in gmtk_media_player
+    Cleanup some debug messages
+    Fix restart in paused state
+    Hook up scroll event for volume change or seeking
+    Update media info from ICY stream data
+    Fix TYPE_NETWORK for apple.com correctly
+    Set tracker sensitivity based on seekability of content
+    Reset cache percent to 0 once media starts playing
+    Change channel reader priority so cache updates work
+    Only show video window when we have video
+    Set the background color (black), on initialization
+    Never, ever call a GTK function that changes something from a thread, reading is ok
+    Remove config.h from SVN
+    Apply patch to gmtk_media_player from Byeongsik Jeon
+    Apply patch to gm_audio from Byeongsik Jeon
+    Convert all events to be signalled in the main loop vs from the thread
+    Change g_type_init to gtk_init
+    Initialize file descripters and alter the channel creation settings
+    Don't cancel mplayer monitoring on read error, just try again
+    More debugging information
+    Fix problem loading DVD after loading file
+    Fix problem with position not updating due to state issue
+    Fix problem with media player state event triggering before the state was true
+    Remove event flushing where possible
+    Fix initial OSD Level setting
+    Rework gnome-mplayer restart, should work better now
+    Only emit the position-changed signal when position actually changes, lowers CPU usage 
+    Keyboard shortcuts should work now
+    Complete send_command removal
+    More features for gmtk_media_player
+    Switch from specific API call for mplayer commands to generic command submission
+    Keep purging send_command
+    Enable more features in gmtk_media_player: frame_drop, audio_delay, and sub_delay
+    Fix environment detection issues
+    Fix known memory leak in gmtk_media_player
+    Remove uri, windowid variables from idledata
+    Remove seekable, x, y, last_x, last_y, sub_visible, sub_demux, switch_audio variables from idledata
+    Remove video properties from idledata
+    Remove global variable dvd_title_is_menu
+    Fix problem with dvb/tv parser Issue #508
+    Fix window size issue when no media is loaded
+    Start work on playlist issues
+    Add gmtk_media_player_switch_angle
+    When restarting player, do not emit events
+    Fix fallback to alternate protocols on error, fixes web playback
+    Fix window size issue when opening details with non-standard window size
+    Make audio meter work in GTK3 mode
+    Make audio meter work in GTK2 mode
+    Remove some IdleData properties
+    Make Details display correct data
+    Update tracker label on media change
+    Remove allocate_fixed_callback
+    Fix crash when setting preferences when no file is loaded
+    Make extra opts work
+    Fix preference setting
+    Make DVD playback from ISO and Folders work
+    Bring set_gui_state back, as it is needed for RealPlayer emulation
+    Output notification when using old Mplayer on every startup
+    Screenshot capture notification
+    Make setting the media attributes a common function
+    Enable deinterlacing
+    Make disable upscaling work
+    Fix Cancel/Close button layout in pref and adv dialog
+    Make Pref/Next buttons appear when file has chapters
+    Make Advanced video settings work
+    Disable DVD w/o menu for now. 
+    Playlist and Cache Percentage changes
+    Fix memory leak in gmtk_media_player set_attribute_string
+    More subtitle work
+    Make audio track and subtitle selection menus work
+    Activate/Deactivate subtitle visibility,delay,size menus based on if subs exist or not
+    Fix resize issues with normal, double and half sizes
+    Move menu updates from resize_window, make the gui change based on media state
+    Move GUI updates from set_gui_state, make the gui change based on media state
+    Fix state tracking
+    Fix DVD menu selection
+    Make playlists work
+    Make enhanced subtitles work
+    Add many attributes to gmtk_media_player
+    Replace send_command with dummy function, until conversion is complete
+    Replace mplayer_shutdown with gmtk version
+    Add more attributes and methods to libgmtk - gmtk_media_player, still more to add
+    Remove mute and other values from idledata
+    Remove ThreadData type
+    Remove thread.[c|h]
+    Start conversion to libgmtk - gmtk_media_player
+    libgmtk - gmtk_media_player, convert from GtkFixed layout to GtkAlignment layout, allows window to shrink in GTK3
+    Allow code to compile when --enable-gtk3 is used
+    More configure macros
+    Add --enable-gtk3 to configure, code does not compile yet in this mode
+    libgmtk - gtk3 prep
+    Convert gtk_menu_append to gtk_menu_shell_append
+1.0.3
+    libgmtk - change GtkObjectClass to GObjectClass
+    Cleanup some compiler warnings
+    Updated Japanese translation
+    Fix black screen issue when loading DVD
+    Fix potential NULL pointer referenced Issue #503
+    Make DVDNAV menu selection with mouse work properly
+    Clean up shell script warning in configure
+    Make configure option --with-gconf=yes override use of gsettings
+    Updated Polish translation
+    Clean up some compiler warnings
+    Run autoreconf with new autoconf tools
+    Removed --avoid-version from nautilus plugin
+1.0.3beta
+    Updated translations from launchpad, added in several new translations
+    libgmtk - gmtk_media_player, better support for mplayer2
+    libgmtk - gmtk_media_player, set default zoom to 1.0
+    libgmtk - gmtk_media_player, clean up some attribute setter/getters
+    libgmtk - gmtk_media_player, implement zoom factor for media, useful for panscan
+    Shutdown mplayer before clearing playlist in open dtv, acd, vcd, and atv
+    libgmtk - detect mplayer2, and allow setting a custom mplayer
+    Convert mute 1\nseek 0 0\n commands to separate commands
+    Add support for MPlayer2 detection
+    Use a file chooser button to pick the mplayer executable rather than typing in the path
+    Fix memory pointer issue that could lead to crash in mplayer thread
+    Rework Next option when caching is enabled (recommend that caching be disabled)
+    Be more specific in SPEC file
+    Fix RPM generation when using GSettings
+    Fix problem with STOP when playing a playlist
+    libgmlib - gm_audio, include math.h, Issue #499
+    libgmtk - gmtk_media_player, fix memory leak with stored color
+    libgmtk - gmtk_media_player, manage widget background color correctly
+    libgmtk - gmtk_audio_meter, move a varible context
+    libgmtk - gmtk_media_player, get_allocation
+    Try out silent make files
+    Run update-po
+    When stopping media, just quit mplayer instead of pausing and seeking to 0
+    Fix resize issue in vertical layout
+    Fix software volume stored value
+    Apply OpenBSD patches 
+    Make playlist columns reorderable with drag and drop
+    libgmtk - gmtk_media_player, add attribute disable_upscaling
+    Add new preference to plugin tab, to disable scaling when video is embedded
+    libgmtk - gmtk_media_player, parse mplayer properties
+    libgmtk - gmtk_media_player, audio track selection fixes
+    libgmtk - gmtk_media_player, initial subtitle and audio track detection
+    libgmtk - gmtk_media_player, more hotkey processing
+    libgmtk - gmtk_media_player, commit correct patch
+    libgmtk - gmtk_media_player, handle +,-,#,., and j hotkeys
+    libgmtk - gmtk_media_player, handle 1-8 keys for contrast, brightness, hue, and saturation
+    libgmtk - gmtk_media_player, handle p and space keys for pausing
+    libgmtk - gmtk_media_player, implement restart method
+    libgmtk - gmtk_media_player, make subtitle selection work, and use better names in label
+    libgmtk - gmtk_media_player, subtitle and audio_track work
+    Fix up some issues with shoutcast stream information display
+    libgmtk - gmtk_media_player, clamp values
+    Fix view info, like view meter and view details
+    Issue #467, playlist and details not disappearing
+    Fix compile failure on fy.po, really dumb failure
+    libgmtk - Dispose widgets properly, should solve memory leak
+    libgmtk - gmtk_media_player, remove usage of GFileMonitor, not needed
+    Fix window resize problem Issue #467 again
+    libgmtk - gmtk_media_player, gamma is not a command line option
+    libgmtk - gmtk_media_player, add video attributes
+    Fix up spec file building
+    When GSettings are available use them over GConf or GKeyStore
+    Remove vdpau and vaapi vo devices on OpenBSD
+    Use correct DVD device name on OpenBSD
+    Add include to gmtk_media_player.h
+    Add sndio and rtunes audio outputs for OpenBSD
+    Add verbose flag to volume display
+    Make volume on commandline work again
+    Change volume range from 0 to 100 to 0.0 to 1.0 internally makes volume widget work
+    Delete global varibles volume and idledata.volume
+1.0.2
+    Version Bump to 1.0.2
+    Apply Patch for MpegURL playlists from Issue #491
+    Apply Patch for NetBSD from Issue #490
+    "fix" purals in Serbian translation. All I did was copy the last one, so probably grammer errors
+    Fix volume problem when softvol and volume gain != 0
+    Added support for 7.1 Surround
+    Fix Software Volume, remembered value not being loaded
+    Updated French translation from Starcrasher
+    Updated English (Great Britian) translation
+    Updated Italian translation
+    Updated Dutch translation
+    Updated French translation
+    Updated Spanish translation
+    Updated Turkish translation
+    Updated Portuguese translation
+    Updated Hungarian translation
+    Updated Serbian translation
+    Updated Czech translation
+    Updated German translation
+    Add Frisian translation from Launchpad
+    Updated Japanese translation
+    Updated Korean translation
+1.0.1b1
+    Updated Polish translation
+    Fix cross compile to Windows
+    libgmlib - gm_audio monitor alsa device volume changes outside of gnome-mplayer
+    Fix default volume on SOFTVOL audio devices
+    libgmlib - gm_audio Reduce load when type is not pulse
+    Process PulseAudio volume changes from PulseAudio server, to keep gui in sync
+    Run make indent on all source files
+    Remove idledata->mplayer_volume tracking as not needed anymore (to be replaced with other code)
+    Rework volume code to control audio device in alsa or pulse mode
+    Rework volume code to push volume to mplayer in softvol mode
+    Move all volume handling to gmlib/gm_audio
+    Enable softvol option when preferred or when audio_device recommends it
+    Change "mixer" preference to "alsa-mixer"
+    Remove global variable use_pulse_flat_volume
+    Remove configure check for PulseAudio flat volume
+    libgmlib - gm_audio, add devices similar to gmtk_output_combo_box
+    libgmtk - gmtk_output_combo_box, change OUTPUT_TYPE_BASIC to OUTPUT_TYPE_SOFTVOL
+    Remove global variable mixer, now handled by audio_device structure
+    Remove global variable ao, now handled by audio_device structure
+    libgmlib - gm_audio list population and update
+    libgmlib - gm_audio skeleton
+    Fix typo in gnome-mplayer.schemas.in
+    libgmtk - gmtk_output_combo_box, fix memory leak
+    Hide fullscreen controls, when active workspace switches Issue #488
+    libgmtk - gmtk_output_combo_box, store pulse audio device index id and add getter
+    Fix Issue 486, set user agent to something other than Mozilla/x
+    Set softvol on by default when not using ALSA Volume
+    Run make indent, after changing indent line length from 100 to 120
+    gui.c - Update mixer selection dialog when output device changes
+    libgmtk - gmtk_output_combo_box, add get_active_card method
+    libgmtk - gmtk_output_combo_box, add get_active_type method
+    libgmtk - add make indent and make cppcheck to the Makefile
+    libgmtk - run make indent
+    libgmtk - gmtk_output_combo_box, use enums instead of hardcoded values
+    libgmtk - gmtk_media_player, add softvol support
+    libgmtk - gmtk_media_player, crash protection fixes
+    libgmtk - gmtk_media_player, wait for mplayer thread to be dead when setting state to quit
+    Add Prev and Next dbus methods Issue #483, using modified patch in Issue
+    Try and account for device names that are not null but zero characters long
+    Fix --fullscreen flag not putting window actually in fullscreen
+    Add ALSA and PulseAudio to output selected when ALSA or Pulse support not enabled
+    Fix crash, coming out of pause state
+    Code cleanups
+    Drop en translation as it is redundant
+    Update translations for new text "Default"
+    Enhance gmtk_output_combo_box to list PulseAudio devices, when PulseAudio support enabled
+    Add in some Generic mplayer AO devices to the selector
+    Fix status icon from showing up multiple times (after config apply)
+    Intergrate gmtk_output_combo_box into preference screen. Allows easy switching between ALSA device
+        will be enhanced to provide pulse devices soon.
+    Allow gmtk_output_combo_box to compile without alsa
+    Fix merged in enums so code compiles
+    Add new widgets to source code, gmtk_media_player and gmtk_output_combo_box
+    Fall back to using XScrnSaverSuspend if the call to Gnome SessionManager/ScreenSaver fails
+    Make sure dbus_disable_screensaver is only called when video is present
+    Apply desktop patch from Issue 481
+    Run make indent
+    Change glib detection back to 2.26
+    When subtitles are hidden, set sub_forced_only to 1
+    Change b/B change raise/lower subtitle position
+    Use b/B to decrease/increase subtitle size while viewing
+    Fix window resize issues with audio files and playlist
+    Change glib 2.26 detection to 2.28 or higher
+    Detect PulseAudio in configure, for future use
+    Detect if we are using glib2 2.26 or higher
+    Change icon from ipod to multimedia-player Issue #476
+    Switch to using stock icons where possible 
+    Add Russian entries to desktop file
+    Set user agent to Mozilla/5.0 unless it is an apple.com site, then set it to the QuickTime value
+    Added Ukranian translation
+    Updated Portugese and Spanish translation
+    Updated Korean translation from Byeongsik Jeon
+    Adjust video and audio cache size minimum and incremental values
+    Correct minor memory leak
+    Bump QuickTime emulated version to 7.6.9
+    Fix crash in File->Open TV->Analog TV when tried multiple times
+    Run make indent
+    Fix crash in File->Open TV->Analog TV
+    My Windows mplayer doesn't have the export filter in it
+    Detect and compile on Windows
+    Code cleanup around optional components
+    Work on tooltip flickering more, seems that when any tooltip is updated, the visible tooltip is
+        redrawn. May be a bug in GTK, but another app I am working on does not have this issue
+    Add configure option --with-dbus/--without-dbus so that gnome-mplayer can be compiled without dbus
+    Added VDPAU to the list of devices that ok to fail 
+        (found on Ubuntu mailing list, but never a bug opened or brought to my attention otherwise)
+    Use keyboard key 'd' to toggle framedropping mode
+    Run make indent on source
+    Enable compile with --enable-gseal (GTK3 prep)
+    Try to prevent and isolate GTK assertions
+    Rework code that ensures that a window id is available for mplayer to use
+    Change warnings to notices in configure
+    Fix detection of PA and GPM so errors are not emitted when not found
+    Set the MEDIAENDED state correctly when running as plugin
+    Disable mplayer softvol when AC3 is enabled Issue #468
+    More window size fixes Issue #467
+    Allow seeking in streaming media when mplayer says it is seekable Issue #443
+    Add option to allow mouse wheel to change volume vs seeking Issue #414 (partial)
+    Change tooltip timeout from default of 500 to 0 (no timeout) should fix Issue #446
+    Remove files from playlist, that are not playable on folder load
+    Only create status icon when needed Issue #465
+    Fix the window filling to the right on playlist reveal Issue #463
+    Better window size allocation when showing optional panes Issue #463
+    Allow loading a separate audio track when playing a video with Edit > Set Audio Issue #423
+    Rework goto/return from fullscreen code 
+    Support LIBNOTIFY 0.7 and higher bug #454
+    Fix compile on GTK 2.12
+    Update Lithuaninan translation bug #458
+    Apply patch from bug #457
+    Make audio meter display db values, based on af_stats plugin from mplayer
+    Revert parts of the update technique, it made the gui crash, cpu usage is still lower
+    Experimental audio meter update technique, should use less CPU and be more interactive
+    Use pretty gradients in the audio meter
+    Use cairo to draw audio meter bars
+    Updated Czech translation
+    Don't hide controls and mouse in fullscreen mode when mouse is over controls
+1.0.0
+    Updated es and pt_BR translations from Launchpad
+    Fix bug #444 - embedded fonts not being used in mkv files
+    Fix case of cache fill display not being reset with remote files
+    Set cache fill graphical display to 0 once streaming media is started
+    Enable screensaver at quit
+    Add cache percentage graphical display to the tracker
+0.9.99.rc3
+    Updated Finnish translation
+    Version bump to 0.9.99rc2
+    Fixed problem with --fullscreen flag not working
+    Updated Polish translation
+    Apply patch found in bug report #431
+    Updated French translation
+    Updated Serbian translations
+    Updated Polish translation
+    Apply corrected patch for brightness, etc in gl2 mode
+    Update copyright date range
+    Apply Patches to Japanese translated values from Munehiro Yamamoto
+    Fix bug #430 - Album art size
+    Updated Turkish translation
+    Updated Danish translation
+    Updated Hungarian translation
+    Updated Catalan translation
+    Updated Czech translation
+    Updated German translation
+    Patch from Onur Küçük to keep desktop gamma from being adjusted when using mplayer gl2 driver
+    Updated Desktop file patch from Onur Küçük
+    Make X11 support optional, slight side effect of weird fullscreen mode when running as plugin
+        appears to be a GTK/GDK issue.
+    Update man page to include keyboard shortcuts
+    Updates Spanish translation
+    Fixed problem with S taking infinite screenshots
+    Enable dbus method to get the current URI, see dbus.txt
+    Set cache size when we detect a playlist
+    Make middle button toggle mute
+    Add buttons to toggle loop and shuffle to the playlist window
+    Correct problem with tracks loaded from an iPod as not being marked playable
+    Updated Japanese translation from Launchpad
+    Fix control panel when working in embedded mode
+    Added UTF-8 to subtitle and metadata possible encodings
+    Updated Spanish, Czech, Galacian, Polish and Russian translations from launchpad
+    Added new translations from launchpad da,et,eu,fi,fo
+    Add webm mimetypes to nautilus plugin
+    Add webm to desktop file, need mplayer svn + libvpx git to make it work.
+    Fix some problems where typed in values to languages were not being displayed properly
+    Add CP1256 to the langlist
+    Allow for separate audio and video plugin cache sizes, plugin will use video cache size
+        unless mimetype has "audio" in it, then it will use the audio cache size
+    Fix problem with proper audio track being selected, mplayer selects them 0 based but reports
+        them one based, so have to make adjustments to the value returned
+    Workaround for media files with non-zero start time, requires mplayer SVN r31346 or greater
+    Fix menu item position change on popup menu due to previous change
+    Move Open on popup menu, below the Play/Pause, Stop, Prev and Next block
+    Fix bug #406 - compile error when new GTK and no libasound
+    Fix video playback problems when loading a folder from playlist screen
+    NULL check on retrieve_metadata_pool clear process
+    Check for block devices better in gio mode
+    Update the subtitle on the current playlist item, when dragging and dropping.
+    Fix minor memory leak in drag and drop for subtitles
+    Added .ssa as a subtitle extension to drag and drop
+    Support drag and drop of subtitle files with .srt or .ass extension. 
+    Make V (show/hide subtitles) work in fullscreen mode
+    More work on making code compile with gseal enabled, still more to do
+    Add configure flag --enable-gseal and start fixing code
+    Code now compiles with -DGTK_DISABLE_DEPRECATED enabled, enabled by default on GTK 2.18 and higher
+    Remove depreciated calls to gtk_window_set_policy
+    Start fixing issues to prepare for GTK 3.0 (DEPRECIATED and GSEAL changes)
+    Fix bug #391 - Change metadata timeout count from 10 to 50
+    Fix bug #355 - Change stream name to only show last part of URL in playlist, tooltip shows full url
+    Fix problem with mouse not disappearing when over letterboxing
+    Fix bug #392 - the panel disappearing/reappearing on window maximize/restore
+    Add some libs to the nautilus plugin compliation process
+    Set default value for embedded fonts
+    Fix bug #381 - Open does not activate on Enter in Open->Location
+    Resize controls slightly in fullscreen mode
+    Fullscreen controls in a floating widget
+    When running mplayer disable pretty printing
+    Fix bug #376 - Rework vdpau codec selection and deinterlace
+    Fix minor memory leak when we have an invalid item to play
+    When dontplaynext is set, request next item on playlist from plugin
+    Add vaapi to list of supported vo's
+    Add a couple of icons to the file menu
+0.9.9.2
+    Fix right click pause/play regression Bug #360
+    Fix assertion in get_cover_art
+    Updated Polish translation (some strings were overlooked in the previous update)
+    Added Arabic, Catalan, Galician, Hebrew, Portuguese translations
+    Handle aspect change during video playback
+    Allow screen saver to activate when videos are paused
+    Set media label width to window size, when embedded
+    Fix fullscreen video size when in plugin mode
+    Map "." to frame step, no backward step due to mplayer limitation
+    Fix set_size_request warning
+    Put make_button processing into the idle loop and ensure the button is always visible
+    Return true in detect playlist on a uri with .m3u in the uri
+    Add -softvol option to -volume detect code to keep from altering master volume
+    Add album art lookup for some shoutcast stations
+    Add melting of max values to audio meter
+    Use patch by Fabio Scavone as a model to implement more accurate seeking from tracker
+    Fix .spec.in file to account for new gnome-mplayer.xml file
+    Fix problem problem with shoutcast playlists not autostarting
+    Fix warning about invalid list iter
+0.9.9
+    Fix --without-gconf case in configure
+    Account for store == NULL case
+    Minor change to gnome-power-manager detection
+    Source in gconf .m4 files only when we are using gconf
+    Fix initial state of play/pause especially when playing shoutcast playlist
+    Fix media_label width, which playing audio only
+    Updated Polish translation
+    Use -playlist fallback when mplayer doesn't
+    Bump QuickTime emulation to 7.6.4
+    Fix some problems with Apple.com HD trailers
+    Fix problem with playstate tracking, observed by using mplayer from git
+    Fix window size when playlist is shown and video not present
+    Update playlist in header when item added to playlist
+    Apply showcontrols default value patch
+    Fix media title trim when long title and window is large bug #336
+    Don't adjust mediasize when in fullscreen mode
+    Keep window from growing when media_detail or info is visible with playlist
+    Don't write NULL data to pref store
+    Allow passing a optical device name with a track from the command line "cdda://5"
+    Add optical device name where needed
+    Patch to fix https://bugs.webkit.org/show_bug.cgi?id=31519 by Tim Yamin
+    Make XScrnSaver usage optional in configure
+    Quicker path for streaming_media, when media appears to be local when using GIO
+    Implement volume gain under software volume control
+    Fix for GTK older thant 2.16
+    Fix window sizeing issue when we show the playlist
+    Version bump to 0.9.9 to start preparing for next release
+    Add open folder to main file menu
+    Implement setting of mplayer dvd device from mplayer preferences page, list is generated from 
+        system pollable device list when gio is enabled. 
+    Update tracker control to update position in timer, when media is paused and position is selected
+    Make config option under interface to choose between X Screen Saver control vs Gnome Power Manager
+    Always try to link with xscreensaver if available (added to .spec file)
+    Drop configure option --with-gpm
+    Add configure option --with-gpm=no to skip gnome-power-manager and use the XScreenSaver api
+    Add %U to the Exec line in the desktop file
+    Mark item as playable if a broken header is detected in a quick time file
+    Tweak the pane child resize properties at runtime, should work better with remember location
+    Remember pane position between audio only files
+    Remove Media Change text and replace it with title in notification popup
+    Add gnome-mplayer to the list of preferred applications
+    Set background of gtk_socket to black, this plus a fix in gtk should fix flickering
+        https://bugzilla.gnome.org/show_bug.cgi?id=598050
+    Remember and restore panel position when playlist is visible on startup
+    Remember softvol option patch by smoohta
+    Updated Czech translation
+    Fix problem with playlist detection on glib < 2.22
+    Add Hungarian translation
+    Add Preference in GUI to disable fullscreen control bar animation, looks crappy on intel+gtk 2.18
+    Add GTK2.14 compile defs to gtk_widget_get_window
+0.9.8
+    Make some events from dbus (separate thread) be processed in the idle loop
+    Prevent next item play when terminating
+    Set tracker default values when playing a new item
+    Don't tell firefox to reload plugins when running in plugin mode
+    When closing preference dialog, set media start position to 0 when streaming
+    Don't restart streaming media when closing preferences
+    Fix problem with gnome-mplayer requesting the next item from gecko-mediaplayer, but
+        gnome-mplayer is in retry mode, so two videos get played over each other
+    Work around roundf compliation errors on non-Fedora Linux machines
+    Prepare for GTK 2.18 Native Client windows, by using a patch from empathy
+    Fix various problems found on mailing list
+    Updated Polish translation
+    Fix situation where mplayer thread being dead is detected in more places
+    Fix problem with DVD video size being incorrect on media load
+    Work on mute not being saved across items in playlist
+    Updated pt_BR translation
+    Add en_GB translation
+    Version bump, debug message
+    Fix prev and next when there are gaps in the playlist order values
+    Delay loading the item to play, until everything is setup and flushed
+    Don't autopause streaming media
+    Pan and Scan functionality causes display issues with old mplayers, --enable-panscan
+    Pan and Scan functionality (with new mplayer)
+    Separate out plugin cache value and gnome-mplayer cacheing (disabled by default in player)
+    Added support for --ss and --endpos command line options, similar to mplayer options
+    Apple HD trailer fixes
+    Don't make the link active in the about dialog if we are using gtk < 2.14
+    Updated zh_CN translation from launchpad
+    Add configure flag for flat volume
+    Fix configure issues with gnome-power-manager and some compiler warnings
+    Fix GTK 2.14 specific code
+    Fix column title in playlist converting _ in playlist filename to underlines in display
+    Add gl2 to the list of possible vo's, my ATI r6xx works well with it, but not gl
+    Change samplerate display from KB/s to KHz
+0.9.7
+    Make sure mouse pointer disappears when over the window and not moving, mplayer didn't always do it.
+    Fix menu button not showing when starting with dvdnav://
+    Fix up/down arrow buttons in playlist view, items were moving by play order was not set right
+    Updated Polish translation
+    Fix condition where in replace and play mode the content is updated rapidly and the app crashes
+    Clean up code with 'make indent'
+    Update po files
+    Ensure that window is resized prior to launching the thread
+    Add on metadata loader change from length to demuxer to determine if metadata is loaded
+    Don't hang if non-media files are in the playlist, like album art
+    Correct display problem where video says it is one size, but plays at another
+    Correct details content
+    Fix Details display, however, content is wrong
+    Make the adjust layout code run in the event queue, rather than direct. However, this breaks details display
+    Don't process keys while over the playlist
+    Now that metadata loading is async, metadata is usually wrong for first item, so wait until it is available 
+        for the playing item, availability is based on "not streaming and length > 0"
+    Allow accelerator keys that are not just letters to work when cursor is over the playlist
+        Allows typeahead to work, but also allows keys like F9 to work
+    Revert pane layout, caused too many issues
+    Rework pane layout, now give more space to the playlist than the video, works better for audio
+    Fix some user interface issues with the new randomization method
+    Remove the need for the nonrandomplaylist, should reduce memory requirements
+        Random playback is a little different now, the items in the playlist don't shift
+    Add config option to enable passthru of AC3/DTS content to s/pdif over alsa (disables audiometer)
+    Move metadata loading into a threadpool, so it is done in the background speeds up playlist loading
+    Handle screensaver disabling a little differently
+    Fix "Save" sensitivity when running in plugin mode
+    Use SessionManager to inhibit idle when gnome-power-manager is >= 2.26, otherwise use ScreenSaver
+    Property gui layout patch by assult64
+    In set_alsa_volume, if not using asound then tell mplayer to do it
+    Retain advanced video settings when switching to new video
+    Apply ICY patches and volume rounding patches from assult64
+    Remove the X and Z accelerator tips off the menus, but they still work, fixes bug 234
+    Enable title searching when mouse is over the playlist, disables accelerators during this.
+    Apply patch for using default playlist from Adrian Dimitrov
+    When working in ALSA or PULSE flat mode, set volume thru alsa and not thru mplayer
+    Rework how the details are shown, when they are requested
+    Stop xscreensaver when media is known to be a video
+    Add man page from Debian/Ubuntu to source
+    Don't mess with the volume when muted in alsamixer
+    Updated media tracker, lots of bugs about the old one being "ugly" and I was "torturing people"
+    Add -noidle to mplayer options, cause people like to add it to the .mplayer/config file
+    Fix some problems with cache flags
+    When GIO is enabled, enable cache if GIO says file is not native
+    Added Czech translation by Petr Pisar
+    Rework subwindow layouts, do all pane allocations now thru adjust_layout
+    Fix X and Z keys not working in fullscreen mode
+    Move subcp out of disable_ass if block
+    Make loading a secondary http:// url via open location work correctly
+    Set media label to be ellipsized on long values
+    If we have an http url and its playback time was very short, retry with the playlist flag
+    Make resizeing on new video media an option under Interface, defaults to false
+    Add in option to add a margin for the subtitles on the lower part of the video
+    Only use embedded fonts when using an MKV container, fallback to specified fonts otherwise
+    Correct some drag and drop mechanics when playlist opened vs closed
+    Fix problems with bring to front and embed mode
+    Playlist colums are now sortable, Title, Artist and Album. New button to unsort list as well.
+    Apply patch "bring_to_front" plus some additional changes
+    Workaround side effect of forcecache option
+    If single instance mode, then always show playlist if start with playlist visible is specified
+    Tell session manager and screen saver to inhibit going idle
+    Add Dutch Translation
+    Restart player at 'close' location when preferences are changed
+        Exact frame is limited by mplayer, so restart may not be in exact location
+    Add option to Edit->Preferences to select the default audio output more Stereo, Surround or 5.1
+    Added Lithuanian translation
+    Fix minor memory leak
+    Have ogv files use the lavf demuxer
+    Fix window inital size when playlist is visible.
+    When running in ALSA or PULSE (flat volume), track the main volume control (unless using softvol)
+    Raise max cache size from 32MB to 256MB
+    Switch audio language properly in multiaudio file when langcodes are present
+    When loading a file that has external subtitles, default to that subtitle mapping
+    Add external subtitles to the subtitle language menu with tag "FILE 0"
+    Icons provided by Victor Castillejo
+    Update icon cache during install
+    Add in menu options for increasing and decreasing subtitle delay
+    Add in new icons, attention packagers: new file locations $datadir/icons
+    Add enca to the list of language codes, use this if mplayer supports enca
+        for even better detection add ":[2 letter lang code]" after enca (ie enca:ru)
+    Set sub_source to 0 (file) when ID_FILE_SUB_ID is found
+    Prepare for multiple icon sizes
+    Replace calls to g_strncasecmp with g_ascii_strncasecmp
+    Fix nautilus property page so that it works correctly
+    Set flat volume flag in schemas depending on version of pulseaudio installed
+    Add "Respond to Keyboard Media keys" option
+    Move some functions to libgmlib
+    Add internal ASX parser
+    Version bump and add -fPIC to gmtk and gmlib
+    Remove need to use libtool
+    Apply patch to fix --as-needed linker flag
+0.9.6
+    Fix volume setting, when passed on command line
+    Updated Turkish and Chinese Translations
+    Some fixes for crap files
+    Slight change to the interface preferences layout screen
+    Fix bug #187 - no video when playlist opened
+    Update several translations Spanish, Chinese, Korean, Greek, Serbian, Japanes
+    Updated Polish translation
+    Allow screenshot to work correctly when paused, although frame is still advanced 1 frame
+    Fix playlist visibility on load when view playlist on load option is set
+    Fix window resize issue when details are shown and second video is loaded
+    Add cancel button to folder load progress bar, clicking cancel clears the playlist
+        and cancels the load
+    Change -af to -af-add when adding in the export audio filter
+    Switch to shared dbus connection, rather that private for faster startup
+    Fix some problems with streaming media
+    Prevent Drag n Drop reordering in playlist view
+    Fix image rescale issue, when mplayer display sizes are different than info values
+    Prevent PostProcessing filters from activating with vdpau or xvmc vo's
+    Fix popout to fullscreen mode when embedded to work under KWin
+    Make ESC take you out of fullscreen mode, but quit when in normal player mode
+    Fix rounding error in seconds calculation, when displaying
+    Add new commandline options --large_buttons and --always_hide_after_timeout
+        --large_buttons - show interface with icons 2.5x biffer, useful for touchscreens
+        --always_hide_after_timeout - control bar will slide away even when
+                    not in fullscreen mode, useful for small screens
+    Some window resize optimizations
+    Rework how the audio meter data is read from mplayer
+    Fix a couple of setting bugs and initialization bugs
+    Fix status icon double click code
+    Add some safety checkes
+    Fix single instance flicker
+    Add new aspect option "Follow Window" allows viewer to tweak the aspect of the video
+    Workaround for opening files on smb shares
+    Apply seek on pause patch from Bug # 171
+    Make a local copy of the data coming from the audio filter so it can't change while processing
+    Add colorization to tracker for progress
+    Add option to adjust tracker thumb visibility and position
+    Fix file open error when last_dir is not set
+    Changed subtitle setup so that when Use Embedded Fonts is chosen, the
+        Options to select a font, outline and shadow is disabled
+    Fix gm_pref_store_get_*_with_defaults to work correctly with gconf
+    Add option, to allow for hiding subtitles by default thru the gui
+    When looking for xvmc or vdpau vo's make sure options passed are ignored
+    Fix compliation issues with --without-gconf bug #170
+    Revert the usage of enca in subtitle detection
+    Prevent adding a "empty" filename to the playlist
+    Add menu items and hotkeys to increase/decrease subtitle scale during playback
+    Add allow_expand option to tracker, should help text display when run as plugin
+    Add options to enable subtitle outlineing and shadowing
+    Add enca to the list of subtitle language codepages
+    Switch audio meter to be non-double buffering to help speed it up
+    Fix the textdomain issue in the nautilus plugin
+    Arrow keys work menu in dvdnav mode, but once movie is playing they revert to normal behavior
+        requires mplayer SVN r29156 to work
+    When we have a video from an iPod, assume size is 640x480, since libgpod doesn't tell us the size
+    Add *.ISO to the *.iso pattern match
+    New preference key "use_pulse_flat_volume", set to true if running with pulseaudio 0.9.15
+        Unless you have set "flat-volumes = no" in /etc/pulse/daemon.conf 
+    Pulse Audio works differently in Fedora 11 (flat volume), so change it to behave like ALSA
+    Convert from internal store to using gm_pref_store
+    Add option to enable/disable midi support in plugin
+    Change display so that media info is always visible when playing audio only files
+    Fix problem with window size being wrong when video started with playlist open
+    Fix VCD loading, parse them as a playlist
+    If cover.jpg or Folder.jpg exist in same folder and song file, load it as cover art
+    Patch from Onur to fix segfault when theme is missing icons
+    Make Bold and Italic work better in Subtitle font
+    Fix problem with default auto_hide value when not using gconf
+    Update the Makefiles to work with the libraries
+    Only load key from key file if it exists already
+    Cleanup display when media is not seekable
+    Have tracker expand when wide text is displayed
+    Corrected crasher in recent menu, however this now requires GIO to work correctly
+    Fixed meter and details display when combined with playlist
+    Hook I key to show display_name when in fullscreen mode
+    Prevent invalid memory accesses
+    Move map/unmap code back to the main thread
+    Add thumb position option to widget
+    Use more bars in meter, fix some drawing issues in the meter
+    Fix some problems with the media tracker drawing code
+    Change audio meter calcs
+    Addition of the new Media Tracker to replace the old progress bar
+    Addition of the Audio Meter Widget
+0.9.5
+    For vdpau, fall back to vdpau, xv or x11 if we can't find the right codec
+    For xvmc, fall back to xv or x11 if we can't find the right codec
+    If we are given an mms:// url and it doesn't work try as mmshttp:// url
+    Try http urls are mmshttp urls and fall back if nothing opens to http urls
+    Patch to fix a site, but code still commented out.
+    Updated Korean, Japanese, Serbian and Turkish translations
+    Updated Polish translation
+    Have < go to the previous item on the playlist and > to the next
+    Removed Roberto's translation due to personality conflicts, reverting
+    New Spanish translation from Roberto DMD
+    Added Polish translation to the .desktop file
+    Speed up channel loading
+    Updated French translation from Starcrasher
+    Change hotkey for Angle from A to Ctrl-A, as conflicts with Aspect
+    Optimize the menu slide away calls
+    Updated Spanish translation by Surfaz Gemon Meme
+    Add number of audio channels and video fps to property plugin
+    Fix crasher if we can't open cover art file for writing
+    Add bitrate to property page in nautilus
+    Initial commit of nautilus property plugin 
+        (enabled by default, use --enable-nautilus=no to disable)
+    In all cases where mplayer is launched, use specified location if available, otherwise
+        search path (which is the default)
+    Try to detect if we can use the -volume option with mplayer
+    Set right click menu preferences option to insensitve when fullscreen
+    Fix volume setting
+    Require mplayer to have the -volume command line option
+    Update some labels on the config screen
+    When selecting an ao other than alsa, disable the mixer selection dialog
+    Rework mute functionality, so the icon is updated correctly
+    When video has an ogm extension, set the demuxer to lavf, fixes audio switching issues
+    Set Ctrl-L to be new hot key for open location (Gnome std)
+    Set F9 to be new hot key for open playlist (Gnome std)
+    Make open location window transient like preferences window
+    Make advanced video window transient like preferences window
+    Make preferences window transient to the main window and keep it above if the main window is
+    Hook 'a' key to cycle thru the aspect ratios
+    Remove disable_auto_hide and change to auto_hide_timeout, set <= 0 to disable, defaults to 3
+    Add new hidden config option 'disable_auto_hide' when set true the controls don't slide away
+    Rework the digital tv loader
+    Updated Chinese (simplified) translation
+    Added Japanese Translation by Munehiro Yamamoto
+0.9.4
+    Fix controls box visibility if exiting fullscreen mode while panel is sliding away
+    Switch GIO async caching to use conditionals instead of locks
+    Change code to use GCond to signal when mplayer is complete rather than depending on locks to block
+    Updated Polish translation
+    Replace usage of stdout/stderr with out/err
+    Unfullscreen on last file
+    Add command line option "--showsubtitles", defaults to '1' or 'on'
+    Make the playlist show up everytime when first visible, go fullscreen and then come out
+    Retain View Subtitle menu selection across files in the playlist
+    Remove write and replace with g_io_channels_write_chars (should be safer)
+    Add spawn pid cleanup
+    Correct another glib assertion
+    Fixed GTK assertion using 'export G_DEBUG=fatal_warnings' and ran gdb
+    Remove need to set playback window to 16x16 since we now know the size of the video and window is properly sized
+    Add some NULL value traps
+    Only set the mixer on mplayer when using alsa as the ao, causes problems in pulse
+    Prevent ao and vo from being improperly cleared
+    Work around API change in libgpod
+    Minor cleanups, when using pulse audio, set volume to max (limited by Master)
+    Try and setup the video window eariler, makes for smoother redraw
+    Usage of NULL protection
+    Fix title display in window border
+    More debugging information
+    Fix problem with resizing when second video is played when first is started with playlist hidden
+    Add non-blocking flag to channel io, may help *BSDs
+    Added Bulgarian translation
+    Updated Russian translation
+    Work around $HOME not being set
+    Change alignment to multiples of 16, but only when window size is smaller than video size
+    Make video size a multiple of 8 in x and y directions
+    Protect GTK assertions in adjust and reset pane operations
+    All fallback when under plugin control to restart playback when cache is filled, if we get a QT file with header at end of file
+    Cleanup some widgets in realplayer mode
+    Fix pane divider position when video is started from playlist screen
+    Remove gconftool --shutdown from makefile
+    Updated Italian translation
+    Use -noidx flag when grabbing metadata
+0.9.3
+    Allow either vo or ao to be NULL but still use the profile
+    Allow SID and AID options to work if mgsmodule is enabled
+    Rework active audio id, selection
+    Protect switch audio from selecting a negative track
+    Protect audio and sub ids from being set to negative values
+    Updated Turkish transation
+    Move window id request out of thread
+    Updated Serbian translations
+    Updated Polish translation
+    Fix Bug #110 - Ugly markup in notification string
+    Updated French Translation
+    Usage of demuxer is incorrect since that specifies the container and not the codec type
+        Rework to use video codec to determine how to accelerate
+    Use demuxer to determine codec to use for vdpau vo
+    Add demuxer to list of stored information on the playlist
+    Add in support vdpau vo when playing dvd 
+    Cleanup gmp_tempname a little
+    Only use xvmc vo for dvd and dvdnav cases, use xv as a fallback when xvmc should not be used
+    Updated Polish translation
+    Add hidden preference 'fullscreen' which does the same as the --fullscreen command line option
+    Add bobdeint and queue options to xvmc when deinterlace is enabled
+    Updated Korean translation
+    Add new commandline option --fullscreen that opens the video in fullscreen mode
+    Rework how accelerators are called, and remap them on keymap change
+    make indent
+    Remove eq filter when using xvmc vo
+    Disable deinterlace filters when xvmc is enabled
+    Added vo of xvmc to the list, the codec is forced to ffmpeg12mc when this option is selected
+    Reference cleanups
+    Updated Turkish translation
+    Fix misplaced ;, was block all art fetches
+    Only create cover art cache path, if we are going to download something
+    Force refresh of GUI at end of refresh_window
+    Fix bug #108, when in shuffle mode, deleted items come back when unshuffled
+    Show remote files on recent list when GIO enabled
+    Rework cover art loading to minimize calls to musicbrainz
+    Updated French translation
+    Added the ability to play a DVD from an ISO image
+    Safety checks for musicbrains3
+    Change cover art cache file when using 'guess' at what we are looking for
+    Capture SIGTERM as well
+    Shutdown mplayer when we get a SIGHUP (example is when X is forced to quit)
+    Allow window decorations when running as a plugin but embedding is disabled
+    Use the cache when streaming, a playlist or when forced, otherwise don't
+    Cleanup media info display and usage of cache
+    Disable the mplayer cache, unless media is streaming
+    Hide media lable when running as plugin
+    Fix bug in dbus open method
+    Detect <smil> files are playlists, but don't parse them
+    Fix drag and drop, so that when playlist is not visible items dropped on start playing
+    Change return type of add_item_to_playlist
+    When running in vertical mode and playing songs, keep pane from bouncing around
+    Fix bug 149 at rpmfusion
+    On fixed allocation, set it to be the new preferred size, fixed playlist popup resize issues
+    Purge usage of GtkRequisition and use GtkAllocation
+    Get the handle size from the style, rather than hardcoded
+    Account for handle size when making playlist visible/hidden
+    If artist + album does not find a match, just search on artist, inaccurate cover in some cases
+    Fix a possible crash in cover art fetch
+    Remove artist + track search as it didn't work right
+    Cover art with highest score does not always have art, so pick the highest with art
+    When fetching cover art try artist + album, if not found try artist + track title
+    Fetch cover art based on score rather than first found
+    Update volume on new media when ao is alsa and not using softvol
+    When softvol is set, set volume to max
+    Change 'Advanced Options' to 'Video Picture Adjustments', disable when no video
+    Reword a couple of labels 
+    Fix window resize issues when details is hidden/shown
+    Start switching from requistion size to allocation size for some widgets
+    Make window resize correctly when playlist is hidden
+    Make notification work again
+0.9.2
+    Updated Polish Translation
+    Updated French Translation
+    If mixer not found, fall back to Master
+    Add the passed in --mixer option to the drop down in preferences and set it to default
+    Add the requirement of playback volume to a possible mixer
+    Add a 'blank' option to the mixer channel, to select no mixer and leave it to the defaults 
+    If we compile with alsa support then exclude default volume code
+    Add support for mixers with and without indexes
+    Add setting of mixer device via the GUI
+    Unset mixer internally if it can't be found.
+    Add command line option --mixer and use that for volume control
+    Fix problem with preferences not being saved due to missing config directory
+    Don't create cover art cache directory when disable fetch is enabled
+    Bump autoplay restart from +10% to +20%.
+    Add -nocache command line option to mplayer when playing from plugin
+    Fix case in autopause code where g_stat was being passed a URI instead of a filename
+    Only show the media_label if there is something to show
+    Switch to playlist view after Loading iPod tracks
+    Rework autopause detection
+    Update Korean Translation
+    When switching subtitles via the J key, update the subtitle menu with the active language
+    When video is displayed, make sure info and detail panels don't shrink the video
+    When switching from audio only to video file, allow screen resize due to video size
+    Save visibility of detail and info panels on go/return from fullscreen
+    Reset chapter flag when switching media
+    Fix playlist parsing for shoutcast files, and speed it up
+    Fix streaming_media detection a little more
+    Updated Turkish translation
+    Rework streaming_media detection, seems to cause problems when using GIO and large http files
+    Fix GTK Assertion in config_apply
+    Set title to DVD when DVD title is not found
+    Get rid of set_media_info_name
+    Convert to XDG .config and .cache file locations
+    Fix details resize issue
+    Load cover art for CDs and also load the album name into the playlist
+    Try to fix the TV issue
+    Try and fix resize issue on new song
+    Updated French translation
+    Updated Polish translation
+    Don't get album art when streaming or device
+    Updated the paned resize and shrinking rules to work better
+    Updated German Translation
+    Copy gio temp file to $HOME/.gnome-mplayer/cache instead of /tmp
+    Fix problems in ICY info display, due to rework of media_label
+    Remove show_media_label
+    Track media info visibility correctly
+    Fix playlist and media info visibility when going fullscreen
+    Fix Audio and Subtitle selection so that if we have a label the id isn't shown as well
+    Changed File->DVD to File->Disc and moved Audio CD and added Video CD to the submenu
+    Improved audio and subtitle selection, will put id in the menu if no label exists
+    Fix missing data in copy_playlist
+    Put media display name on status icon tooltip when playing or paused
+    Add in loop to play_iter to flush all events prior to next file being played
+    When running in verical layout mode, allow the media data to remain visible
+    Read album off the ipod
+    Add album to the playlist
+    Disable cover art fetch command line option
+    Update recent menu and title bar to show artist and title when available
+    Don't lookup coverart if we got it from the ipod
+    Convert tempnam to gmp_tempname
+    Fix memory leak in parse_basic
+    Fix problem with opening a ASF reference playlist
+    Change filtering rules to only use song title when necessary, gives better results
+    In cover art url retrival only add a value to the filter if it is more than 0 characters
+    Added album title to the list store
+    Make album cover loading multithreaded, now it doesn't lag
+    Implement Album Cover downloading using libcurl (new library requirement)
+        Non-threaded so might be slow.
+    Remove metadata parser from thread_reader, we already know all of the info from loading file
+    Consolidate code into play_iter
+    RIP play_file (Nov 25,2006 - Nov 7,2008), replace with play_iter
+    Rework get_metadata, make it more flexible
+    Move gnome-mplayer.conf (when running in non-gconf mode) to .gnome-mplayer from .mplayer
+    Create $HOME/.gnome-mplayer directory for preferences and cache
+    Add some more metadata items to the list store
+    Add in the code to try and fetch the cover art url from musicbrainz
+    Put some fixes in for the thumbnail support
+    Add in support for compiling with libmusicbrainz, is not used yet
+    Add in support for reading in iPod artwork, still not displayed
+    Fix operation of Open Recent Menu
+    Allow user to edit the Audio and Subtitle preferred languages and keep the setting in the gui
+    Updated french translation
+    Don't save the window location and size if window is fullscreen when app quits
+    Add preference key of 'disable_animation' that disables the fullscreen animation
+    Updated serbian translation
+    Rework configure.in to make it work better with optional features
+    Fix playlist load after saving
+    Add Open iPod to file menu when we have libgpod support
+    When playlist is active, wire arrow and page keys to the list and not to mplayer
+    Remember window size, in addition to location when preference set
+    Change column definitions in playlist so that it works a little better
+    Add new command line option --load_tracks_from_gpod, makes loading a track list from ipod super fast
+    Add in support for libgpod-1.0 into autoconf scripts
+    Fix infinite loop when opening garbage file
+    Fix crash when opening a file that is not playable
+0.9.1
+    Fix playlist hide on fullscreen
+    Updated fr translation
+    Fix compile issues on glib < 2.16
+    Fix autoconf for gio
+    Updated po translation
+0.9.0
+    Add preference key (no gui) to disable the processing of the media keys
+    Fix problem with absolute playlist items
+    Fix problem with playlist detection and parsing in non-gio mode
+    Fix problems with patches from MonkeySage
+    Updated patch from MonkeySage
+    Apply support-relative-paths patch from MonkeySage
+    Fix up a couple of crashes when gconf is not enabled
+    Read ALSA volume and use it, only when alsa is the vo, on pulse this patch makes audio very quiet.
+    Rework, volume setting preference
+    Make Switch Audio Menu only appear where there are multiple audio tracks
+    Make Shuffle and Loop menu items become sensitive at the right times
+    Fix bug in write_preference_string when value was null
+    Fix close playlist button
+    Only send notification when window is not active
+    Better handling of device and folder names on the command line
+    Add code to detect media so that only playable media is added to the playlist
+    Make subtitle and audio lists to be radio menus and update them so they show correctly on media load
+    Fix crash on streaming ICY site, should fix Ubuntu bug https://bugs.launchpad.net/ubuntu/+bug/285988
+    Fix up some issues with get_metadata
+    Update status icon visibility on preference close, fix status icon issue when libnotify missing
+    Fix crash on arrow key press when lastfile == NULL
+    Make sure proper item is selected in playlist when list is un/shuffled
+    Fixup metadata parsing
+    Fix problems with gecko-mediaplayer integration and gio mode
+    Make replace and play mode a config option, but only when single instance mode available
+    Cleanup the popup menu and have it work more like the normal control panel
+    Why reinvent status icon menu, when normal popup menu has everything we need
+    Implement simple status icon menu
+    Add #EXTM3U to m3u saved playlists
+    Allow cddb support to be optional in track loading
+    Add tooltip to status icon
+    Remember window location on hide
+    Fix problems with playback when window is hidden
+    Fix problems with streaming media on command line
+    Change icon in tray to work like rhythmbox, always visible and it toggles the visibility of player
+    On window minimise, put icon in tray, window returns on icon click (GTK 2.12 and higher)
+    Update playlist name when items are added
+    Set the playlist name on the master instance when running in replace and play mode
+    Add in work around for gtk crash, when setting the default folder to a non-local uri
+    Better m3u parser, meets specs a little better
+    Handle previously unknown M3U file format
+    Updated pls and m3u playlist saving to GIO support
+    When media doesn't provide a title, fallback to the basename of the uri
+    Rework show playlist patch, it didn't work right
+    Remove the -idx option from mplayer command
+    Make playlist visible on load only if playlist is loaded or if nothing loaded
+    Fix problems with playlist name in playlist view
+    Fix problem with open playlist button
+    Fix problem with gecko-mediaplayer not passing uri, but filename and not adjusting
+    Add in support for libnotify popups
+    Rework the metadata parser to provide more info from the media file
+    Fix some memory leaks
+    Make View Subtitles and View Playlist menu items into checkboxes
+    Move Details from File menu to View menu
+    Rework the preferences dialog a little
+    Make gio optional (useful for debugging)
+    Make playlist processing GIO aware
+    Fix bug in recent item selection
+    Fix bug in streaming detection
+    Make Show Controls and Fullscreen menu items to check boxes and keep in sync with right click menu
+    Fix commandline parser to work with various arguments
+    Fix issue in get_metadata where title was sometimes blank
+    Implement / Fix more GIO stuff, if gvfs-fuse is installed we don't have to copy so try to
+        use that first. Most functionality should be working now for GIO
+    Folder drag and drop should now be working for remote shares, want to do async loading still
+    Some GIO functionality is now working, still problems
+    Start working on gio functionality, probably broken for many things
+    Do much of the filename to uri conversion, gio still not implemented, probably bad bugs lurking
+    Enabled gio-2.0 detection in configure
+    Upgraded to automake 1.10.1
+    Fix make dist so that rpmbuild works again
+    Use the GCONF AutoMake macros
+    Implement detection and usage of mplayer's new slave interface 'pausing_keep_force' which
+        prevents frame advance when media is paused and a command is given.
+    Change interface of send_command to know if we should keep media paused or not
+    Implement phase 3 changes for making GCONF optional (feature should now be complete)
+    Implement phase 2 changes for making GCONF optional
+    Implement phase 1 changes for making GCONF optional
+    Create workaround for MP3 media length bug
+0.8.0
+    Make recent documents menu only show the items gnome-mplayer can open
+    Enable Copy URL menu, since we are in string freeze, I will not update this text until next release
+    Add missing schema key
+    Updated ko, fr and tr translations
+    Updated Polish translation
+    Set Left alignment in Playlist for Artist column
+    Allow drag and drop of folders to main window and playlist and show status properly
+    Add in progress status when adding folder
+    Add ability to pass in directory on commandline, may take a second or two to load
+    Make the minimum value of cache size to be 32, mplayer will crash with values less than 32
+    Get rid of message level warning in config file
+    Updated Polish translation
+    Add --keep_on_top command line option and add preference to advanced page (this page needs some work)
+    Fix minor memory leak in sid and aid menu generation code
+    Cleanup some more seconds_to_string code
+    Show chapters in file details when > 0
+    Don't place files on recent list if running in plugin mode
+    Implement chapter seeking and detection in mkv files, depends on patch submitted to mplayer
+        Patch: http://lists.mplayerhq.hu/pipermail/mplayer-dev-eng/2008-September/058567.html
+    Add recently opened files to the File Menu under Open Recent
+    When running in replace and play mode, replace on first song on playlist and add others
+    Add command line option, --replace_and_play that switches single instance mode into single item mode
+    Updated Turkish translation
+    Keep blank items from appearing in Subtitle and Audio language menus
+    Add new menu Edit->Select Audio Language, should work on DVD and mkv files
+    Add new menu Edit->Select Subtitle Language, this menu is populated with data from the mkv files for subtitle selection
+    New preference in the GUI to set the default startup volume
+    Only allow view angle menu item when video is present
+    Fix bug, where audio file was being parsed as a playlist when running in single instance mode
+    When adding items to the single instance playlist, handle all items passed in, including all items in playlist
+    Ignore single instance preference when running in embedded mode
+    When in single instance mode and you start a second player with a filename, 
+        the filename is added to the playlist of the first instance 
+        so now you can select a bunch of files in Nautilus and say open in gnome-mplayer
+        and all the files are opened in a single instance
+    Added preference --new_instance, to override single_instance
+    Made single instance a new preference on Advanced Tab
+    Made show details a new preference on Advanced Tab
+    Made new option --showdetails
+    Fix resize issues with details and playlist open
+    German translation by 25Hertz
+    When mouse is over progress bar, show tooltip showing media time where the mouse is
+    Menu button being shown in realplayer mode, hide it.
+    Minor cleanups
+    Create tooltips and restruction some code
+    Create function seconds to string (timestamp)
+    Mute during drag seek
+    Select volume button icon size correctly
+    Comment out tight button settings due to icon clipping
+    Tighten up the buttons a little more
+    Change progress bar seeking method to only work in 1% increments
+    Make progress bar function like a slider bar
+    Fix open DVD from folder, it was incorrectly using dvdnav:// instead of dvd://
+    Hard code disable_deinterlace to be TRUE by default
+    Apply dbus patches from Sebastian Reichel
+    Fix single_instance command line flag
+0.7.0
+    Add function to take a screenshot of the playing video
+    Hook scroll wheel to FF and REW controls
+    Updated tr and ko translations
+    Add --single_instance command line option to only allow one instance to run
+    Added menu option and hot key 'A' to switch angles Issue 35
+    Fix Issue 43, audio file after fullscreen video and drag and drop of a folder to the playlist
+    Add tooltips to Preferences screen
+    Make sure that DVD w/o folder options open media from /dev/dvd
+    Add two new DVD opening options, so that DVD files can be opened from a local disk
+    Make dependency on alsa optional, just uses default of 100% when not present
+    Add new requirement of alsa-lib-devel, and then use PCM or Master volume setting for default volume
+    Don't set volume on media start, but set it if adjusted before open or during caching
+    Fix window x and y size issues, from window location patch
+    Workaround for progress bar bug in mplayer
+    Add setting remember window location to be specified in Edit->Preferences [Advanced]
+    Allow mplayer location to be specified in Edit->Preferences [Advanced]
+    Revert change for lirc workaround, since to use lirc, irexec + dbus-send is recommended
+    Add new dbus methods: VolumeUp and VolumeDown
+    .desktop file requested changes
+    Apply volume patch fix for gtk versions
+0.6.3
+    When selecting an item in the playlist, start it playing if media is paused or stopped.
+    Set deinterlace filter to be disabled by default in gconf
+    Fix file details update on new file, also fix resize issues with file details
+    Added Romainian translation
+    Set 'pause on mouse click' to be an Advanced Preference
+    When embedded draw the black background on load
+    Add Preference to plugin option to disable embedding, some people find it useful
+    Make icon look better in avant-window-navigator
+    Disable the setting of -user-agent when playing streaming media, as mplayer may crash when it is set
+    Add Turkish translation by Onur Küçük
+    Rework vf patch a little
+    Add scale video filter when we add yadif video filter
+    Use the video filter yadif by default, but give user the option of disabling it via command line or via preferences
+    For dvdnav:// media, add the -nocache option to the mplayer startup command
+    Add --reallyverbose command line option, to help with debugging
+    Couple of minor cleanups
+    Updated pt_BR translation
+        Added a new config option to the 'Preferences | Language Settings' tab to allow for locale encoding settings for metadata
+        Handle keyboard events when running in DVD w/menu mode to allow arrow and enter key usage
+    Make double clicking on playlist item work a little better
+    Added Cantonise and Taiwanise translations by hailan
+    Make sure DVD chapter length is right in display (makes episode DVDs display better)
+    Use icon from panana as found at
+        http://www.gnome-look.org/content/show.php/Gnome-mplayer+icon?content=77766
+        license is GPL on image
+    Added some sr and sr@latin translations to .desktop file
+    Fix assertion when switching videos
+    Change control bar to use GTK Buttons over custom widgets
+    Allow pause/unpause on single click
+    For the zh_TW locale convert from BIG5 to UTF-8 rather than locale to UTF-8
+0.6.2
+    Updated French translation
+    Updated Polish and Korean translations
+    When playing DVD's with navigation, add menu button to left hand side
+    Only draw black background when we have video present
+    When stopping streaming media, kill the stream when stop clicked rather than pausing it
+    Change menu slide away to a timeout from a loop
+    Added patch for quit on complete option to command line
+    Resize patch from Diogo
+    When hiding controls, keep playback window the same size, when not fullscreen or embedded
+    Fix problem with 'Save As..' where filename started with a /
+    Updated French translation
+    Only show audio channels in file details when not 0
+    Map 'Show/Hide Subtitles' to V hotkey, since that is the mplayer default
+    Add F11 as another way to go fullscreen, think that is 5 ways now... crazy
+    Show error dialog when save fails
+    Apply framedrop setting immediately on Preferences close
+    Add in screenshot filter
+    Pass keys to mplayer, if not handled
+    Add Ctrl-D shortcut for details window
+    J key overloaded incorrectly
+    Add number of audio channels to details display
+    More config options and enhancements from Diogo
+    Fix crash when dragging and dropping multiple files to playlist
+    Some minor GUI changes to preferences dialog
+    Take Diogo's OSD change patch into consideration and only update OSD level on value change
+    Apply framedrop page from Diogo Franco <diogomfranco@gmail.com>
+    Add option to specify subtitle color
+    Update gconf schema for new subtitle stored values
+    Only Inhibit screen save while video media is playing
+    Added support for subtitle code page selection
+    Implement subtitle font selection and font scaling, still to do code pages
+    Adding sr and sr@latin translations by Милош Поповић <gpopac@gmail.com>
+    Minor change to initialization, make sure that window for mplayer is initialized and realized
+        if it is not, sometimes xv output fails
+    Hide the file details area when we go fullscreen
+    Don't hang when mplayer crashes and report error
+    Move File->Details into the main window
+    Break out of drop callback if filename is NULL
+0.6.1
+    Updated Korean translation by ByeongSik Jeon
+    Take off the hint on the File->Details window eventually this data should be moved to the main window
+    Updated Polish and French translations, by the usual suspects
+    After randomizing, select first item on the list
+    When using F to go fullscreen, make sure the control bar knows to disappear
+    Make C return controls panel to proper height
+    Hide playlist if started with controlid
+    New bitrate detector, based on mencoder
+    Show current / total items in title bar when playlist has more than 1 item in it
+    Memleak hunting
+    Enable list reordering with single call, cool
+    Rework drag and drop, when dragging and dropping to window file is played immediately,
+        when dragging and dropping to playlist file is added to playlist. Playlist is never cleared.
+    Implement moving media files up and down the playlist
+    Allow column resize in playlist viewer
+    Updated Korean translation by ByeongSik Jeon
+    In playlist, set subtitles to be loaded from same directory as video file by default.
+    Make control box reappear when going out of fullscreen using only keyboard
+    Make control box slide away when fullscreen.
+    Make "Set Subtitle" option actually work
+    Couple of minor changes to the Set Subtitle code
+    Updated French translation from Starcrasher
+    Make the OSD level change on the fly when selecting it in the preferences page
+    When selecting OSD Level, use words rather than numbers to display level
+    Popup warning if we can't load the subtitle file
+    Add "Edit->Set Subtitle" menu in
+    Update License text on About box
+    Handle "Unable to open DVD" messages and give warning to display
+    Add some stuff to the About dialog
+    Fix some translation items
+    Rework File Menu a little bit
+    Restore playlist visibility when coming out of fullscreen
+    Handle dbus messages from /org/gnome/SettingsDaemon/MediaKeys
+    Switch softvol from gint to gboolean
+    Update schema to provide missing forcecache and softvol options
+    Make File->Details data have only values of active media
+    Make File->Details sensitive when Media Data becomes available
+    Document Keyboard Shortcuts in file DOCS/keyboard_shortcuts.txt
+    Updated French Translation
+    Fix install code so that it works during an rpmbuild
+    Fix install code so that gnome-mplayer.schema is properly installed when installing from source
+    Add gconf key /apps/gnome-mplayer/preferences/disablecontextmenu to set default value of --disablecontextmenu
+    Add gconf key /apps/gnome-mplayer/preferences/disablefullscreen to set default value of --disablefullscreen
+    Add commandline option "--disablefullscreen", which disables all fullscreen options
+    Purge GtkWidget 'song_title', not used anymore
+    Add subtitle delay hotkeys of z & x
+    Fix problem with CD playback where either CDDB can't be reached or CD not found
+    Hopefully fix the code so it can compile on FreeBSD
+    Detect mntent.h in configure process
+    Fix crash when mplayer is not in the path
+    Version bump
+    Updated pt_BR translation
+    Try to prevent crash when viewing file details from a tv input
+    Apply patches from James Carthew for Analog and Digital TV support
+    Implement audio delay changes with +/- keys
+0.6.0
+    Updated Polish and Korean translations
+    Only respect --showplaylist if no files are specified
+    Fix a GTK warning when playlist is not visible
+    Make sure playlist is only shown when not embedded
+    Add some more code for proper handling of plural messages
+    Add Edit->Preferences [Advanced] options for --vertical and --showplaylist
+    Fix problem with fullscreen varible being set to FALSE when it should not be
+    Implemented ngettext support for plural items
+    Keep the selected item in the playlist visible as the playlist progresses
+    Change bitrate calculation when video is present, but mplayer reports the video bitrate as 0
+    Update the metadata when the media is streaming in thread_query
+    Implement get_bitrate dbus method and function
+    Add --showplaylist commandline option
+    Make sure media label is visible on audio only files
+    Couple of playlist window resize changes
+    Add commandline option --vertical, which uses a vertical layout for the video and playlist
+    Fix bug where video window doesn't disappear when playing audio file after video file
+    Fix bug where only first drag and dropped file got metadata
+    Move thread unlock to very end of the thread.
+    Get seconds in playlist to display right
+    GUI Experiment, when playing audio hide the song detail and black area when the playlist is opened
+    Command line option to set preferred volume, will take up to 1 second to apply on first song due to GTK idle event timeout
+    Fix problem where gnome-mplayer uses more and more resources on long playlist
+    Fix segfault when clicking prev or next when nothing has been played
+    When using glib 2.14 or higher use more effiencient timeout method, results in lower X usage
+    Move menubar out of pane
+    Reenable -quiet option when running mplayer, drops gnome-mplayer cpu usage 
+    If title from get_metadata is 0 bytes long, then use the file name
+    Only fullscreen when doubleclick is done on the video
+    Fix Playlist windows resize issues
+    Fix seg fault when clearing randomized playlist
+    Updated Edit->Preferences [Advanced] to have the force cache setting
+    Add --forcecache command line flag, forces cache usage when playing streaming media
+    Add --cache command line option, size of cache in Kbytes
+    Remember window size when showing/hiding playlist
+    When double clicking, only call fullscreen if video present
+    Don't let the media_label get to large when playing audio streams
+    Fix: controls comeback even if hidden after fullscreen being activated/deactivated
+    Move some direct GTK calls out of the thread and into the main loop
+    Fix problem with "Next" item in playlist
+    Fix problems with window_key_callback, as found by Diogo Franco
+    Updated es translation by Festor
+    Fix to allow video window to get small again after playlist visible and then hidden
+    Fix another one of rwf's great dfu tests
+    Make sure media_label doesn't disappear on close playlist
+    Fix crasher when writing playlist to r/o area
+    Fix lost playlistname when using it on CDs (this is the album name)
+    More performance fixes, X usage dropped from 9% to 2% on my machine (1.6Ghz CPU)
+    Performance fix, no need to update the metadata so much, only need to do it once per file
+    Change to GUI layout, with controls and playlist, move playlist into a subpanel
+    After loading the playlist, tell how many files are found
+    Fix crash when you choose to shuffle a playlist when nothing selected in playlist
+    Implement sorting of files on folder playlist load
+    Implement 'Clear Playlist'
+    Apply Audio and Subtitle Language tab under Edit->Preferences based on a patch from James Carthew
+    Implement Edit->Switch Audio Track based on a patch from James Carthew
+    When the playlist is visible there is a new icon (folder). Clicking this allows you to 
+        Select a folder and all the media under that folder is added to the playlist, works recursivly
+    Implement two requested GUI changes, fullscreen on double click and hotkey 'q' to quit
+    Move aspect changes from main view menu to submenu named aspect under view
+    Implement View->Show Subtitles
+    Implement multi-select on File->Open dialog
+    Add 16:10 aspect based on a patch from James Carthew
+    Remove direct gtk call from thread (gtk_main_iteration), bad idea to call this from thread
+    Fix stupid memory free in parse_cdda
+    Fix potential segfault in cdartist/cdname code
+    Apply change to addmulti patch to allow opening playlists in the add to playlist dialog
+    Apply 'addmulti' patch from James Carthew
+    Add softvol option to Edit->Preferences Advanced tab
+    Change mplayer option -softvol to -af volume seems to help (DELETED)
+    Try to eliminate some memory leaks
+    Fix a couple of possible NULL pointer issues
+0.5.4
+    Fix up on GUI issues
+    When playing audio files don't smash window when playlist is hidden and then reopened
+    CDDB support added into the parse cdda code, may need to implement fallback for non-cddb enabled mplayer
+    Handle events from gnome-keybinding-properties, player now listens for dbus messages and handles them
+        events: Play, Previous, Next, Stop
+    Subtitles should now work now, set them with either 
+        --subtitle on the command line 
+        or by right clicking on the playlist panel and adding a subtitle to an item on the playlist
+    Add view menu options for changing the aspect ratio of the media
+    GUI for setting subtitles, but it doesn't actually use the subtitle yet
+    Fix all kinds GTK warnings when a bad commandline option is issued
+    Make mouse disappear when panel disappears
+    Make control panel disappear in FS mode after 5 seconds of no mouse movement
+    More shortcuts
+    Some GUI Polish
+    On Popup->Save As, set default filename to filename from URL
+    Rework how next file is launched,may help CPU usage issues
+    Only update guistate when it has changed
+    Try and fix problem with BBC site
+    Set alignment of length in playlist to be right aligned
+    When loading a dvd w/menus get the dvd title and put it in the playlist
+    When loading a dvd get the track length
+    In metadata capture, use name and author in addition to Title and Artist
+    Add tvfps option (needed for some webcams)
+        my pwc webcam works best with --tvdriver=v4l --tvfps=30
+    Add support for tv:// type devices
+    Update playlist viewer to show metadata (if present) from the files.
+    Add open location to the file menu
+    Improved RealPlayer emulation, the BBC News site works better now
+    Fix remote volume setting, when running in GTK >= 2.12 mode
+0.5.3
+    Fix bug in set_media_info calls, where wrong variable being sent
+    Polish and Korean Translations
+    Acclerator I (show/hide info window)
+    Accelerators Ctrl-P (Preferences) and Ctrl-L (Playlist)
+    Hide Playlist when fullscreen is selected
+    Change Properties to Preferences
+    Removal of dependancies on libgnome and libgnomeui
+    Key j selects visible subtitle
+    Key v toggles subtitle visibility
+    When using dvdnav:// prev and next should do chapter seeks
+    Added pt_BR translation
+    On file open if file does not exi
+    When SetURL is passed in, set the media file in title bar to the URL
+    Fix mplayer not being shutdown on F8
+    When we are on GTK 2.12, use the Volume Button widget
+    Work around bug in g_stat reporting a mms url as a directory.
+    Add pulse to the list of possible AO devices
+    For dvdnav:// urls don't load it as a playlist
+    Add fallback support for playlist media (playlist within playlist)
+0.5.2
+    Minor GUI cleanup
+    Remove extra carrage returns from metadata
+    Fix problem with playlist position after double clicking
+    Fix some problems identified by Starcrasher
+    Updated French translation
+    Try to handle UTF8 title and artist names better
+    When running in RP emulation, update the media label over the bus
+    Fix problem with media info being shown on BBC News site when it should not
+    Fix dragging and dropping of a playlist that is not parsable (ASX for example)
+    Fix for BBC Radio
+    Show the playlist filename in the first column header of the playlist view
+    Don't show the song_title widget, but show the media label widget
+    Show the media media data when video is no present
+    Show 'playback area' as filler when playlist is shown
+    Allow updating of song title and artist from http://www.thedividingline.com
+    Fix crasher in shuffle playlist and also don't allow it when < 2 items on list
+    Allow opening of playlist via File->Open Menu
+    Disable File->Details until first file is loaded
+    Add src/playlist.c to POTFILES.in
+    Fix crasher in parse_basic and then if the itemname is passed in blank, don't add it to the list
+    Enable tooltip showing complete filename when hovering over item in playlist
+    When running in realplayer mode, make sure GUI is properly updated
+    Use the filesize and the stream_pos to help out with the buffering/autopause
+    90% coverage of RealPlayer 'controls'
+    More work on realplayer emulation
+    Playlist tooltips
+    Setup some of the infrastructure for RealPlayer support
+    Move playlist to horizontal pane and redo buttons (shifting between horz and vert could be easy now)
+    Add hotkey "#" to switch audio
+    Add command line options rpname and rptarget, this is for better real player support
+    Fix some resizing issues with new layout
+    Embed playlist in a vertical pane
+    Move playlist from window to panel (still needs cleanup)
+    Handle the resize code differently so that kvbc.com works
+0.5.1
+    Hide total time display on streaming media when total time is greater than 24 hours
+    Implement Copy URL function on right click menu when running in plugin mode
+    On error "Error while decoding frame" rewind 10 seconds to find key frame again
+    Allow CTRL-F to take the display out of fullscreen mode
+    When Paused and the progress bar is clicked, set state back to playing
+    Make FF/REW go insensitve on pause
+    Reset progess bar on stop
+    Fix bug in OpenButton, pointer data was getting over written
+    Fix to allow --random to be set correctly on commandline
+    Fix problem with crashing when switching between random and non-random order
+    Fix problem with parse_basic where buffer is blank and so the path was valid, but filename was not
+        and so the file was thought to be a playlist and garbage was loaded on the list
+    Rework Edit->Preferences dialog
+    Allow input of a URL into the Open dialog
+    Don't resize the video window automatically after first video played
+    Quiet the output from the app when -v option not specified
+    Updated RAM parser
+    Allow enabling and disabling of plugin emulation via the Edit->Preferences (Plugin) tab
+    Reenable play button when autopaused and stop, prev or next is clicked
+    Only disable screen saver when we play a video
+    Implement GetPlayState dbus method
+    DVD and DVD with menu support improved playlist support
+    Redo the randomization backend
+    Add loop control as a menu option Edit->Loop Playlist
+    Use private dbus connection
+0.5.0
+    If filename is not specified on playlist save then assume .pls
+    Redo the path to items on playlist code
+    Fix up playlist loading so it can handle items where the playlist is specified as a fully qualified filename
+        and items in the playlist are not
+    Implement drag and drop of multiple files to the main window, play if only one
+    Implement drag and drop of multiple files to the playlist
+    Autodetection and loading of m3u playlists
+    Implement many of the suggestions from JP at Zenwalk
+    Add verbose flag to edit->preferences dialog
+    Fix app icon selection code, it was not loading it properly from the theme
+    Add directory remembering to Save and Load Playlist dialogs
+    Add Add and Remove buttons to the playlist window
+    Split playlist code into its own module
+    Fix several problems with the GUI crashing and clean up a couple of minor issues
+    Change priority of thread polling to low
+    When given a url to play and under control of gecko-mediaplayer pass -user-agent NSPlayer to mplayer
+    Add support for real media pnm:// urls
+    Make the GUI responsive while caching from a website
+    Enable setting random playback from "Edit" menu
+    Add playlist loading
+    Add playlist saving to .pls file type
+    Fix problem with reference playlist where files had Ref prefix
+    When playlist is dropped on window or playlist viewer, don't autoplay, but setup to start at first item, unless random
+    Load a playlist when dropped on the playlist window or on the player window
+    Enable --random flag (prev item on playlist is still not great here)
+    More GUI work on the playlist
+    Common function to add item to playlist
+    Only let there be one active playlist dialog
+    Better drag and drop support for playlist
+    Add dbus method Add "filename" to append a filename to the playlist
+    Fix up dbus interface to use internal playlist
+    Active selected song in playlist on doubleclick
+    Make selected item on playlist follow active item
+    Implement speed doublt key } and speed half key {
+    Implement BackSpace as return to default speed and fix something dumb
+    Implement speed increase key ] and speed decrease key [
+    Add CDDA parsing. So grab the track list off the CD and make it into a playlist
+    Drag and drop to the playlist works
+    More playlist work. The prev and next media buttons work properly now
+    More playlist work, when opening a file or drag and dropping a file to the player window, clear the list
+        and play the selected file. 
+    If the playlist has more than 1 item in it, show some extra buttons (they don't work yet)
+    Hide fixed drawing_area on startup (hopefully this won't cause mplayer to fail)
+    Don't call gtk directly from a thread
+    Support [playlist] and [reference] playlists
+    Real basic playlist support, pass in multiple filenames on the command line and all will be played in order
+    When receiving "Connecting" message, reset progress bar to 0%
+    Start with playlist support
+    Rather than deactivating the entire view menu only disable the "video" options until a video is present
+    Italian translation by Cesare Tirabassi
+0.4.7
+    Add "-idx" option to mplayer when not running with a control id, -idx is bad for partially downloaded media
+        ie from the plugin
+    Cleanup a couple of garbage messages
+    Fix crash when dbus_send_event is called but connection is not initialized
+    Updated .desktop file from Ubuntu
+    Copyright changes from Ubuntu
+    zn_CH (Chinese Simplified) translation by Lobster DB
+    Add startup flag --disablecontextmenu which blocks the popup menu
+    Send EnterWindow and LeaveWindow events
+    Send MouseUp, MouseDown and MouseClicked events 
+    GUI message improvements
+    Send MediaComplete event to gecko-mediaplayer 
+    More channel io cleanup, make sure that when one channel is closed the others are closed as well
+    Allow updating of downloaded percentage while media is paused
+    French translation by Starcrasher
+    Implement Save As dialog when running under gecko-mediaplayer (feature not finished)
+    Implement drag and drop support patch from Alexandre Damien
+    Scale the button image
+    Hide drawing area on media quit
+    Fix problem with error reader not shutting down correctly.
+    fix invalid error, when no filename is specified
+    Show warning message and don't start mplayer when file is not found.
+    Use of the -quiet option may cause mplayer not to be shutdown
+    Add -framedrop to the list of default options for mplayer
+    When you set the osdlevel, apply it immediately
+    Allow setting osdlevel in Edit->Preferences
+    Set osdlevel to 0 by default (plan to change this in the Preferences eventually)
+    Set vol_slider so that left and right don't activate it and the media forward/rev
+    If embed_window is -1 but then we get a video, show the window
+    If --window=-1 then don't show the window at all, used for background media
+    Fix problem with looping when window_id not specified but control_id is
+    More GUI Changes to Preferences Dialog
+0.4.6
+    Update Spanish translation
+    HIG for Edit -> Preferences
+    "Highlight" buttons on mouse over
+    Clean up dbus_unhook
+    Implement autostart option
+    Make some changes to the preferences dialog
+    debian package fixes, as seen at getdeb.net
+    Version bump
+    Add in support for disabling the screen saver via dbus while we're running
+    Try to keep pause state on video and volume changes
+    Show media in title bar
+    Only show song_title in window when streaming and when no video
+0.4.5
+    Don't allow song_title to obtain focus
+    Updated ru translation
+    More keyboard accelerators Up/Down + PgUp/PgDn
+    Don't map window when it hasn't been shown yet in embed mode
+    When embedded set initial window size without need for resize event
+    Uppercase the codec names
+    Grab a few more items for the Details screen
+    Added Russian translation from Dmitry Stropaloff 
+    Keep Advanced Video Controls insync with value from keyboard
+    Pretty up the dialogs
+    Add in mplayer keyboard controls for brightness, contrast, hue and saturation
+    Change zoom and normal accelerators to Ctrl-2 and Ctrl-1 
+    Implement File->Details dialog
+    When setting vo and ao options via Preferences, add some extra vo flags
+    Implement more Advanced Video Controls
+        Gamma, Hue and Saturation
+            Gamma and Hue only seem to work with a vo of gl:yuv=3 or gl:yuv=4
+            Saturation seems to need a vo of gl to work
+    Implement Advanced Video Controls dialog 
+        Brightness and Contrast are supported at the moment
+    Add 'm' as mute toggle key.
+    Fix crasher when not running under GNOME
+    Error result in send_command
+    GUI enhancements from Dmitry Stropaloff <helions8_AT_gmail.com> 
+        More keyboard accelerators
+        Remembering the last directory opened
+    Change packing order for volume control and FS button so that they are aligned right
+    Make sure proper controls are visible when embedded
+    Make windows keep from popping when embedded
+    Protect gtk_set_size_request calls
+    Create autobuilding spec file
+    Make fullscreen button appear when in fullscreen and hide it when window is small
+    Version bump
+    Try and make keyboard controls work in XEmbed mode
+0.4.4
+    Experamental dvdnav:// support by starting gnome-mplayer 
+        with dvdnav:// as the filename to play
+    Set noconsolecontrols option
+    Fix tooltip on Play/Pause
+    Hook up Normal/2:1/1:2 View menu options
+    Keep F accelerator on right click menu, but add CTRL-F to View->Fullscreen
+    Change accelerator CTRL-F to just F
+    Add accelerator C to show/hide controls.
+    Add some basic error dialogs when something can't be opened
+    Create View Menu, but nothing is hooked up
+    Fix video window size problem when playing a video playlist 
+        (window grew vertically with each successive video)
+    Disable window resize when a video is not loaded and playing
+    Add verbose option so you can see the mplayer output
+    Add Debian directory in
+    Convert Play and Pause Buttons to single Play/Pause Button
+    Fix new problem with audio resize issues
+    Add Open DVD / Open Audio CD to File Menu
+    Fix some audio resize issue
+    Remove hookup_x11_events as it is no longer needed
+    Use allocation method to set media size rather than expose
+    Setup player to protect aspect ratio of media being played
+    Cleanup unused callbacks
+    Cleanup extra pixbufs
+    Try to use icons from theme, but if that fails, use the default set
+    Add default icons to build
+    If playing audio after playing video, shrink window
+    Disable Fullscreen option when no video is present
+    Fix problems with icons not being found in theme
+    Reset error after use in icon loads
+    Fix crash when clicking play when no file is loaded
+    Add accelerators to main menu items and to Show Controls and Fullscreen
+    Add accelerator " " (space) to toggle between playing and paused
+    Add accelerator Ctrl-F (go fullscreen)
+    Suppress GLib-CRITICAL **: g_ascii_strcasecmp: assertion `s1 != NULL' failed message
+    Send 'Cancel' signal to controlid when window closed
+    Updated es translation by Vicente Carro
+    Change exposed dbus name to include control_id when given
+    Cleanup dbus on terminate
+    Swedish translation by Daniel Nylander
+    Sent back Ready signal with control_id attached
+0.4.3    Mar 12, 2007
+    Fix pause problem when volume is changed
+    Switch to using control_id for communication between browser and player
+    Implement DBUS method GetCacheSize
+    Implement DBUS signal SetCachePercent
+    Implement more DBUS methods GetTime, GetDuration, GetPercent
+    Implement more DBUS methods GetFullScreen, GetShowControls
+    Implement DBUS introspection and several method calls.
+    Allow setting cache size using slider bar in preferences dialog
+    Fix update-po process
+    DBus methods FastForward, FastReverse, Seek
+    Update volume control so that we can set it before the media starts playing
+    More GNOMEification
+    Added Quit to the right click menu
+    Changed file selector to GNOME selector (Louis-Francis Ratté-Boulianne)
+0.4.2    Feb 22, 2007
+    When streaming and stopped... kill the thread
+    Only show media length when we know it
+    Implement DBUS Signal    
+        ResizeWindow int32: int32:
+    Emit "Next" signal when thread is complete and embedded
+    Hide ff, rew and fs buttons when width < 250 and embedded
+    Set progress bar value and text correctly at end of stream
+    Implement progress status (time) in progress bar
+    Implement seeking by clicking on progress bar
+    Detect simple playlists of rtsp and http urls 
+    Fix check mark out of sync on Full Screen option
+    Detect [reference] playlists makes deejay.it work
+    Emit "RequestById string:" signal when after OpenButton
+        is clicked and we have to request the id of the href
+    Implement DBUS Signals
+        OpenButton    string:url     string:hrefid to request from caller
+        SetShowControls    boolean:
+    Fix embedding with metacity window manager
+0.4.1     Feb 19, 2007    
+    Fix problem with status info appearing when embedded and video playing
+    When running in embedded mode, emit Ready signal to com.gecko.browser
+    Change versioning scheme to x.y.z
+0.4     Feb 10, 2007
+    Full embeddedable using XEmbed
+    Initial config dialog
+    Support a few more signals
+    Fix up dbus signal handling
+    Hide FF and REW buttons on non-local media
+    Fix fullscreen mode when embedded
+    Added the following commandline options
+        --window, --controlid, --width, --height
+    Started working on menubar
+    Wrote DOCS/tech/dbus.txt
+    Switch to running mplayer inside of a thread, rather than in main loop
+    Implement dbus signal interface
+    Change volume control to a HScale control
+    Use glib command line option parsing
+    Change playlist flag from -playlist to --playlist (see help)
+    Spanish(es) translation by Vicente Carro
+    Start multilingual support (en added)
+    Hide Title when Controls are hid
+0.3        Dec 16,2006
+    Detect PLS files automatically and pass the -playlist arg if needed.
+    Add Entry (RO) to display the media title/ICY info
+    ICY Stream work
+    Put Volume % in tooltip of volume widget
+    Display message when caching, so we know it is doing something
+    Flatten code so that only one play_ command is needed
+    Fix problem with default working directory
+    Reworked the automake files so that 'make dist' works properly.
+    
+0.2        Nov 6,2006
+    Add support for CD Audio playing (no track selection yet, just plays disk)
+    Add support for DVD playing, can hook up to "Removable Devices and Media"
+        and set it to be "gnome-mplayer %d". Replace totem, since it never works
+    Add "Open..." to right click menu. So we can open files from the GUI
+    Fix garbage left on screen after window resize (slight flicker due to this, but minimal)
+
+0.1        Oct 25, 2006 
+    Initial Release

@@ -1,0 +1,339 @@
+dnl Process this file with autoconf to produce a configure script.
+dnl Created by Anjuta application wizard.
+
+AC_INIT(configure.in)
+AM_INIT_AUTOMAKE(gnome-mplayer, 1.0.8)
+AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE([enable])
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
+AC_ISC_POSIX
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+
+
+AC_PROG_CPP
+AC_PROG_CXX
+AM_PROG_CC_C_O
+AC_PROG_RANLIB
+
+dnl Set gettext package name
+GETTEXT_PACKAGE=gnome-mplayer
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+
+dnl Add the languages which your application supports here.
+ALL_LINGUAS="ar bg ca cs da de el en_GB es et eu fi fo fr fy gl he hr hu id it ja kk ko lt nl pl pt pt_BR ro ru si sr sr@latin sv th tr ug uk vi zh_CN zh_HK zh_TW"
+AC_SUBST(ALL_LINGUAS)
+AM_GLIB_GNU_GETTEXT
+
+####################################################################
+# Windows check
+####################################################################
+
+AC_MSG_CHECKING(for WIN32)
+AC_TRY_COMPILE(,
+	[
+	#ifndef WIN32
+	#error
+	#endif
+	],
+	native_win32=yes; AC_MSG_RESULT(yes),
+	native_win32=no; AC_MSG_RESULT(no),
+)
+
+AM_CONDITIONAL(OS_WIN32, test "$native_win32" = "yes")
+
+if test "$native_win32" = "yes" ; then
+   AC_DEFINE(OS_WIN32, 1, [Define if we are on win32])
+fi
+
+
+PKG_CHECK_MODULES([X11], [x11],[AC_DEFINE([X11_ENABLED],[1],[Define to 1 if X11 support is needed])],[AC_MSG_NOTICE([Compiling without X11 support])])
+AC_SUBST(X11_LIBS)
+
+AC_ARG_ENABLE(gtk3,
+    AC_HELP_STRING([--enable-gtk3],[compile using GTK3]),
+    [case "${enableval}" in
+    yes) ENABLE_GTK3=yes ;;
+    no) ENABLE_GTK3=no ;;
+    *) AC_MSG_ERROR(bad value ${enableval} for --enable-gtk3) ;;
+    esac], 
+    [ENABLE_GTK3=check])
+
+AS_IF([test "x$ENABLE_GTK3" = xcheck],        
+        [ENABLE_GTK3=no
+        PKG_CHECK_MODULES(GTK,[gtk+-3.0 >= 3 glib-2.0 gthread-2.0],[ENABLE_GTK3=yes],[ENABLE_GTK3=no])
+        ])    
+    
+AS_IF([test "x$ENABLE_GTK3" = "xyes"],   
+    [
+    
+    PKG_CHECK_MODULES(GTK, [gtk+-3.0 glib-2.0 gthread-2.0]) 
+    AC_DEFINE([GTK3_ENABLED],[1],[Define to 1 if you have GTK 3 or higher])
+    AC_DEFINE([GTK2_12_ENABLED],[1],[Define to 1 if you have GTK 2.12 or higher])
+    AC_SUBST(GTK2_12_DEFINES)    
+    AC_DEFINE([GTK2_14_ENABLED],[1],[Define to 1 if you have GTK 2.14 or higher])
+    AC_SUBST(GTK2_14_DEFINES)    
+    AC_DEFINE([GTK2_18_ENABLED],[1],[Define to 1 if you have GTK 2.18 or higher])
+    AC_SUBST(GTK2_18_DEFINES)    
+    AC_DEFINE([GTK2_20_ENABLED],[1],[Define to 1 if you have GTK 2.20 or higher])
+    AC_SUBST(GTK2_20_DEFINES)    
+    AC_DEFINE([GTK2_22_ENABLED],[1],[Define to 1 if you have GTK 2.22 or higher])
+    AC_SUBST(GTK2_22_DEFINES)    
+    AC_DEFINE([GTK2_24_ENABLED],[1],[Define to 1 if you have GTK 2.24 or higher])
+    AC_SUBST(GTK2_24_DEFINES)    
+    
+    PKG_CHECK_MODULES(GLIB2_24,[glib-2.0 >= 2.24.0],[GLIB2_24_DEFINES="-DGLIB2_24_ENABLED" AC_DEFINE([GLIB2_24_ENABLED],[1],[Define to 1 if you have GLIB 2.24 or higher])],AC_MSG_NOTICE([Using GLIB 2.24 features]))
+    AC_SUBST(GLIB2_24_DEFINES)
+   
+    ])
+
+AS_IF([test "x$ENABLE_GTK3" != "xyes"],   
+    [
+
+    PKG_CHECK_MODULES(GTK, [gtk+-2.0 glib-2.0 gthread-2.0])
+    AC_SUBST(GTK_CFLAGS)
+    AC_SUBST(GTK_LIBS)
+
+    PKG_CHECK_MODULES(GLIB, [glib-2.0])
+    AC_SUBST(GLIB_CFLAGS)
+    AC_SUBST(GLIB_LIBS)
+
+    PKG_CHECK_MODULES(GTK2_12,[gtk+-2.0 >= 2.12.0],[GTK2_12_DEFINES="-DGTK2_12_ENABLED" AC_DEFINE([GTK2_12_ENABLED],[1],[Define to 1 if you have GTK 2.12 or higher])],AC_MSG_NOTICE([Using slider for volume]))
+    AC_SUBST(GTK2_12_DEFINES)
+
+    PKG_CHECK_MODULES(GTK2_14,[gtk+-2.0 >= 2.14.0],[GTK2_14_DEFINES="-DGTK2_14_ENABLED" AC_DEFINE([GTK2_14_ENABLED],[1],[Define to 1 if you have GTK 2.14 or higher])],AC_MSG_NOTICE([gtk_show_uti disabled]))
+    AC_SUBST(GTK2_14_DEFINES)
+
+    PKG_CHECK_MODULES(GTK2_18,[gtk+-2.0 >= 2.18.0],[GTK2_18_DEFINES="-DGTK2_18_ENABLED -DGTK_DISABLE_DEPRECATED" AC_DEFINE([GTK2_18_ENABLED],[1],[Define to 1 if you have GTK 2.18 or higher])],AC_MSG_NOTICE([Disabling Depreciated GTK Functions]))
+    AC_SUBST(GTK2_18_DEFINES)
+
+    PKG_CHECK_MODULES(GTK2_20,[gtk+-2.0 >= 2.20.0],[GTK2_20_DEFINES="-DGTK2_20_ENABLED -DGTK_DISABLE_DEPRECATED" AC_DEFINE([GTK2_20_ENABLED],[1],[Define to 1 if you have GTK 2.20 or higher])],AC_MSG_NOTICE([Disabling Depreciated GTK Functions]))
+    AC_SUBST(GTK2_20_DEFINES)
+
+    PKG_CHECK_MODULES(GTK2_22,[gtk+-2.0 >= 2.22.0],[GTK2_22_DEFINES="-DGTK2_22_ENABLED -DGTK_DISABLE_DEPRECATED" AC_DEFINE([GTK2_22_ENABLED],[1],[Define to 1 if you have GTK 2.22 or higher])],AC_MSG_NOTICE([Disabling Depreciated GTK Functions]))
+    AC_SUBST(GTK2_22_DEFINES)
+
+    PKG_CHECK_MODULES(GTK2_24,[gtk+-2.0 >= 2.24.0],[GTK2_24_DEFINES="-DGTK2_24_ENABLED -DGTK_DISABLE_DEPRECATED" AC_DEFINE([GTK2_24_ENABLED],[1],[Define to 1 if you have GTK 2.24 or higher])],AC_MSG_NOTICE([Disabling Depreciated GTK Functions]))
+    AC_SUBST(GTK2_24_DEFINES)
+
+    PKG_CHECK_MODULES(GLIB2_14,[glib-2.0 >= 2.14.0],[GLIB2_14_DEFINES="-DGLIB2_14_ENABLED" AC_DEFINE([GLIB2_14_ENABLED],[1],[Define to 1 if you have GLIB 2.14 or higher])],AC_MSG_NOTICE([Using slider for volume]))
+    AC_SUBST(GLIB2_14_DEFINES)
+
+    PKG_CHECK_MODULES(GLIB2_24,[glib-2.0 >= 2.24.0],[GLIB2_24_DEFINES="-DGLIB2_24_ENABLED" AC_DEFINE([GLIB2_24_ENABLED],[1],[Define to 1 if you have GLIB 2.24 or higher])],AC_MSG_NOTICE([Using GLIB 2.24 features]))
+    AC_SUBST(GLIB2_24_DEFINES)
+
+])
+
+PKG_CHECK_MODULES(GMLIB, [gmlib >= 1.0.7])
+AC_SUBST(GMLIB_CFLAGS)
+AC_SUBST(GMLIB_LIBS)
+
+PKG_CHECK_MODULES(GMTK, [gmtk >= 1.0.7])
+AC_SUBST(GMTK_CFLAGS)
+AC_SUBST(GMTK_LIBS)
+
+AC_ARG_WITH([gio],
+    [AS_HELP_STRING([--with-gio],
+        [Use GIO for file I/O])],
+        [],
+        [with_gio=check])
+AS_IF([test "x$with_gio" != xno], 
+    [PKG_CHECK_MODULES(GIO,[gio-2.0],[GIO_DEFINES="-DGIO_ENABLED" AC_DEFINE([GIO_ENABLED],[1],[Define to 1 if you have GIO support])],AC_MSG_NOTICE([Compiling without gio support]))
+    AC_SUBST(GIO_DEFINES)
+    AC_SUBST(GIO_CFLAGS)
+    AC_SUBST(GIO_LIBS)
+    ])
+    
+AC_ARG_WITH([dbus],
+    [AS_HELP_STRING([--with-dbus],
+        [Enable DBUS support, DBUS is required when using with gecko-mediaplayer])],
+        [],
+        [with_dbus=check])    
+AS_IF([test "x$with_dbus" != xno], 
+	[PKG_CHECK_MODULES(DBUS, [dbus-1 >= 0.95 dbus-glib-1 >= 0.70],[AC_DEFINE([DBUS_ENABLED],[1],[Define to 1 to enable dbus support])], [AC_MSG_NOTICE([Compiling without dbus support cannot be used with gecko-mediaplayer, may cause cause compile to fail])])
+	AC_SUBST(DBUS_CFLAGS)
+	AC_SUBST(DBUS_LIBS)
+	])
+	
+PKG_CHECK_MODULES(XSCRNSAVER,[xscrnsaver],[AC_DEFINE([XSCRNSAVER_ENABLED],[1],[When defined we have direct XScrnSaver control])], AC_MSG_NOTICE([Compiling without xscrnsaver support]))
+AC_SUBST(XSCRNSAVER_CFLAGS)
+AC_SUBST(XSCRNSAVER_LIBS)
+
+AC_ARG_WITH([libgda],
+    [AS_HELP_STRING([--with-libgda],
+        [Add support for libgda])],
+        [],
+        [with_libgda=check])
+AS_IF([test "x$with_libgda" != xno], 
+    [PKG_CHECK_MODULES(LIBGDA_04,[libgda-4.0],[LIBGDA_DEFINES="-DLIBGDA_04" AC_DEFINE([LIBGDA_ENABLED],[1],[When defined database access is enabled])],AC_MSG_NOTICE([Compiling without libgda 4.0 support]))
+    AC_SUBST(LIBGDA_DEFINES)
+    AC_SUBST(LIBGDA_04_CFLAGS)
+    AC_SUBST(LIBGDA_04_LIBS)
+    ])
+
+AS_IF([test "x$with_libgda" != xno], 
+    [PKG_CHECK_MODULES(LIBGDA_05,[libgda-5.0],[LIBGDA_DEFINES="-DLIBGDA_05" AC_DEFINE([LIBGDA_ENABLED],[1],[When defined database access is enabled])],AC_MSG_NOTICE([Compiling without libgda 5.0 support]))
+    AC_SUBST(LIBGDA_DEFINES)
+    AC_SUBST(LIBGDA_05_CFLAGS)
+    AC_SUBST(LIBGDA_05_LIBS)
+    ])
+    
+LIBGDA_CFLAGS="$LIBGDA_04_CFLAGS $LIBGDA_05_CFLAGS"
+LIBGDA_LIBS="$LIBGDA_04_LIBS $LIBGDA_05_LIBS"    
+AC_SUBST(LIBGDA_CFLAGS)
+AC_SUBST(LIBGDA_LIBS) 
+
+AC_ARG_WITH([alsa],
+    [AS_HELP_STRING([--with-alsa],
+        [Read volume from alsa devices])],
+        [],
+        [with_alsa=check])
+AS_IF([test "x$with_alsa" != xno], 
+    [PKG_CHECK_MODULES(ALSA, [alsa], [ALSA_DEFINES="-DHAVE_ASOUNDLIB" AC_DEFINE([HAVE_ASOUNDLIB],[1],[Define to 1 if you have asoundlib development packages])],AC_MSG_NOTICE([Compiling without asound support]))
+    AC_SUBST(ALSA_DEFINES)
+    AC_SUBST(ALSA_CFLAGS)
+    AC_SUBST(ALSA_LIBS)
+    ])
+    
+AC_ARG_WITH([pulseaudio],
+    [AS_HELP_STRING([--with-pulseaudio],
+        [PulseAudio device and volume support])],
+        [],
+        [with_pulseaudio=check])
+AS_IF([test "x$with_pulseaudio" != xno], 
+	[PKG_CHECK_MODULES(PULSE, [libpulse libpulse-mainloop-glib],[AC_DEFINE([HAVE_PULSEAUDIO],[1],[Define to 1 if you have PulseAudio development packages])],AC_MSG_NOTICE([Compiling without PulseAudio support]))
+	AC_SUBST(PULSE_DEFINES)
+	AC_SUBST(PULSE_CFLAGS)
+	AC_SUBST(PULSE_LIBS)
+	])
+
+AC_ARG_WITH([libnotify],
+    [AS_HELP_STRING([--with-libnotify],
+        [Send notifications of new media])],
+        [],
+        [with_libnotify=check])
+AS_IF([test "x$with_libnotify" != xno], 
+    [PKG_CHECK_MODULES(NOTIFY,[libnotify],[NOTIFY_DEFINES="-DNOTIFY_ENABLED" AC_DEFINE([NOTIFY_ENABLED],[1],[Define to 1 if you have NOTIFY support])],AC_MSG_NOTICE([Compiling without libnotify support]))
+	 # Check for libnotify >= 0.7
+	 PKG_CHECK_MODULES(LIBNOTIFY_07, [libnotify >= 0.7], [AC_DEFINE([NOTIFY0_7_ENABLED],[1],[Define to 1 if you have NOTIFY support])],[AC_MSG_NOTICE([Using older libnotify])])
+     AC_SUBST(NOTIFY_DEFINES)
+     AC_SUBST(NOTIFY_CFLAGS)
+     AC_SUBST(NOTIFY_LIBS)
+    ])
+
+AC_ARG_WITH([libgpod],
+    [AS_HELP_STRING([--with-libgpod],
+        [Add support for libgpod])],
+        [],
+        [with_libgpod=check])
+AS_IF([test "x$with_libgpod" != xno], 
+    [PKG_CHECK_MODULES(GPOD06,[libgpod-1.0 <= 0.6.0],[GPOD_DEFINES="-DHAVE_GPOD -DGPOD_06" AC_DEFINE([GPOD_ENABLED],[1],[Define to 1 if you have gpod support])],AC_MSG_NOTICE([Compiling without libgpod 0.6.0 support]))
+    AC_SUBST(GPOD_DEFINES)
+    AC_SUBST(GPOD06_CFLAGS)
+    AC_SUBST(GPOD06_LIBS)
+    ])
+
+AS_IF([test "x$with_libgpod" != xno], 
+    [PKG_CHECK_MODULES(GPOD07,[libgpod-1.0 >= 0.7.0],[GPOD_DEFINES="-DHAVE_GPOD -DGPOD_07" AC_DEFINE([GPOD_ENABLED],[1],[Define to 1 if you have gpod support])],AC_MSG_NOTICE([Compiling without libgpod 0.7.0 support]))
+    AC_SUBST(GPOD_DEFINES)
+    AC_SUBST(GPOD07_CFLAGS)
+    AC_SUBST(GPOD07_LIBS)
+    ])
+    
+GPOD_CFLAGS="$GPOD06_CFLAGS $GPOD07_CFLAGS"
+GPOD_LIBS="$GPOD06_LIBS $GPOD07_LIBS"    
+AC_SUBST(GPOD_CFLAGS)
+AC_SUBST(GPOD_LIBS)    
+    
+AC_ARG_WITH([libmusicbrainz3],
+    [AS_HELP_STRING([--with-libmusicbrainz3],
+        [Add support for libmusicbrainz3])],
+        [],
+        [with_libmusicbrainz3=check])
+AS_IF([test "x$with_libmusicbrainz3" != xno], 
+    [PKG_CHECK_MODULES(MUSICBRAINZ,[libmusicbrainz3 libcurl],[MUSICBRAINZ_DEFINES="-DHAVE_MUSICBRAINZ" AC_DEFINE([MUSICBRAINZ_ENABLED],[1],[Define to 1 if you have musicbrainz3 support])],AC_MSG_NOTICE([Compiling without libmusicbrainz3 support]))
+    AC_SUBST(MUSICBRAINZ_DEFINES)
+    AC_SUBST(MUSICBRAINZ_CFLAGS)
+    AC_SUBST(MUSICBRAINZ_LIBS)
+    ])    
+
+AC_ARG_ENABLE(nautilus,
+        AC_HELP_STRING([--enable-nautilus],[compile the nautilus plugin]),
+        [case "${enableval}" in
+        yes) ENABLE_NAUTILUS=yes ;;
+        no) ENABLE_NAUTILUS=no ;;
+        *) AC_MSG_ERROR(bad value ${enableval} for --enable-nautilus) ;;
+        esac],
+        [ENABLE_NAUTILUS=yes]) dnl Default value
+
+if test x$ENABLE_NAUTILUS = "xyes" ; then
+        PKG_CHECK_MODULES(NAUTILUS, libnautilus-extension,
+                        [HAVE_NAUTILUS=yes], [HAVE_NAUTILUS=no])
+fi
+
+AC_SUBST(NAUTILUS_CFLAGS)
+AC_SUBST(NAUTILUS_LIBS)
+if test x$HAVE_NAUTILUS = "xyes"; then
+        AC_DEFINE(HAVE_NAUTILUS, 1, [defined if you build the nautilus plugin])
+        NAUTILUSDIR=`pkg-config --variable=extensiondir libnautilus-extension`
+        AC_SUBST(NAUTILUSDIR)
+fi
+AM_CONDITIONAL(HAVE_NAUTILUS, test x$HAVE_NAUTILUS = "xyes")
+
+AC_ARG_ENABLE(gseal,
+		AC_HELP_STRING([--enable-gseal],[Enable flag for testing]),
+        [case "${enableval}" in
+        yes) ENABLE_GSEAL=yes ;;
+        no) ENABLE_GSEAL=no ;;
+        *) AC_MSG_ERROR(bad value ${enableval} for --enable-gseal) ;;
+        esac],
+        [ENABLE_GSEAL=no]) dnl Default value
+
+if test x$ENABLE_GSEAL = "xyes"; then
+		GTK_CFLAGS="$GTK_CFLAGS -DGSEAL_ENABLE"
+		AC_SUBST(GTK_CFLAGS)
+fi
+
+BACKEND=`pkg-config --variable=preference_backend gmlib`
+
+if test ${BACKEND} = "gsettings"; then
+    AC_MSG_NOTICE([gmlib is using ${BACKEND} for preference storage])
+    GLIB_GSETTINGS
+    AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL],[false])
+    USE_GSETTINGS=1
+    AC_SUBST(USE_GSETTINGS)
+elif test ${BACKEND} = "gconf"; then
+    AC_MSG_NOTICE([gmlib is using ${BACKEND} for preference storage])
+    GSETTINGS_RULES=""
+    AC_SUBST(GSETTINGS_RULES)
+    AM_GCONF_SOURCE_2 
+    USE_GCONF=1
+    AC_SUBST(USE_GCONF)    
+elif test ${BACKEND} = "keystore"; then
+    GSETTINGS_RULES=""
+    AC_SUBST(GSETTINGS_RULES)
+    AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL],[false])
+fi
+
+AC_CHECK_HEADERS([mntent.h])
+AC_CHECK_HEADERS([sys/ucred.h])
+AC_CHECK_HEADERS([sys/mount.h])
+AC_CHECK_HEADERS([fstab.h])
+AC_CHECK_HEADERS([signal.h])
+AC_OUTPUT([
+Makefile
+icons/Makefile
+icons/16x16/Makefile
+icons/22x22/Makefile
+icons/24x24/Makefile
+icons/32x32/Makefile
+icons/48x48/Makefile
+icons/scalable/Makefile
+src/Makefile
+po/Makefile.in
+gnome-mplayer.spec
+gnome-mplayer.schemas
+])
