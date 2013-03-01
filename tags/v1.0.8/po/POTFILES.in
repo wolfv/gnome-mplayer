@@ -1,0 +1,7 @@
+# List of source files containing translatable strings.
+src/main.c
+src/gui.c
+src/support.c
+src/dbus-interface.c
+src/playlist.c
+src/nautilus_property_page.c

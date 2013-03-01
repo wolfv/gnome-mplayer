@@ -1,0 +1,606 @@
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/cache-size</key>
+      <applyto>/apps/gnome-mplayer/preferences/cache_size</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>2000</default>
+      <locale name="C">
+        <short>Cache size</short>
+        <long>The memory cache size for playing</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/plugin-audio-cache-size</key>
+      <applyto>/apps/gnome-mplayer/preferences/plugin-audio-cache-size</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>128</default>
+      <locale name="C">
+        <short>Cache size</short>
+        <long>The memory cache size for playing</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/plugin-video-cache-size</key>
+      <applyto>/apps/gnome-mplayer/preferences/plugin-video-cache-size</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>2048</default>
+      <locale name="C">
+        <short>Cache size</short>
+        <long>The memory cache size for playing</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/alsa-mixer</key>
+      <applyto>/apps/gnome-mplayer/preferences/alsa-mixer</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Default mixer to use</short>
+        <long>Default mixer</long>
+      </locale>
+    </schema>
+ 
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/osd-level</key>
+      <applyto>/apps/gnome-mplayer/preferences/osdlevel</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>OSD Level</short>
+        <long>Value for the On Screen Display Setting</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/pp-level</key>
+      <applyto>/apps/gnome-mplayer/preferences/pplevel</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Postprocessing Level</short>
+        <long>Value for the Postprocessing Setting</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/fullscreen</key>
+      <applyto>/apps/gnome-mplayer/preferences/fullscreen</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>start in fullscreen as soon as possible</short>
+        <long>switch to fullscreen mode on video load</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/verbose</key>
+      <applyto>/apps/gnome-mplayer/preferences/verbose</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Verbose Messages</short>
+        <long>Set Verbose debug messages to be default</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/last-dir</key>
+      <applyto>/apps/gnome-mplayer/preferences/last-dir</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Last directory</short>
+        <long>Last visited direcory with open dialog</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/vertical</key>
+      <applyto>/apps/gnome-mplayer/preferences/vertical</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Vertical</short>
+        <long>Use Veritical Layout</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-playlist</key>
+      <applyto>/apps/gnome-mplayer/preferences/showplaylist</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Show Playlist</short>
+        <long>Make the playlist visible when gnome-mplayer is started</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-details</key>
+      <applyto>/apps/gnome-mplayer/preferences/showdetails</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Show Playlist</short>
+        <long>Make the details visible when gnome-mplayer is started</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-fullscreen</key>
+      <applyto>/apps/gnome-mplayer/preferences/disablefullscreen</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Fullscreen Options</short>
+        <long>When set to TRUE all fullscreen menu options and keyboard options are disabled</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-framedrop</key>
+      <applyto>/apps/gnome-mplayer/preferences/disableframedrop</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Mplayer frame drop option</short>
+        <long>When set to TRUE all mplayer is called without the -framedrop option</long>
+      </locale>
+    </schema>
+        
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-contextmenu</key>
+      <applyto>/apps/gnome-mplayer/preferences/disablecontextmenu</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Context Menu</short>
+        <long>When set to TRUE the right-click context menu is disabled</long>
+      </locale>
+    </schema>
+   
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-ass</key>
+      <applyto>/apps/gnome-mplayer/preferences/disableass</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable ASS</short>
+        <long>When set to TRUE the Advanced Substation Alpha (ASS) subtitles are disabled</long>
+      </locale>
+    </schema>
+   
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-embeddedfonts</key>
+      <applyto>/apps/gnome-mplayer/preferences/disableembeddedfonts</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Embedded Fonts</short>
+        <long>When set to TRUE Subtitle Fonts in the media file are disabled</long>
+      </locale>
+    </schema>
+      
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-deinterlace</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable-deinterlace</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Disable Deinterlace filter</short>
+        <long>When set to TRUE the usage of the deinterlace filter is disabled</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-pause-on-click</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable-pause-on-click</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Disable Pause on Click action</short>
+        <long>When set to TRUE the ability to pause on mouse click is disabled</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-animation</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable-animation</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Animation</short>
+        <long>Disable animation of fullscreen control bar sliding away</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/auto-hide-timeout</key>
+      <applyto>/apps/gnome-mplayer/preferences/auto-hide-timeout</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>3</default>
+      <locale name="C">
+        <short>Time in seconds before controls are hidden</short>
+        <long>Time in seconds before controls are hidden when in fullscreen mode values less than 1 disable auto hide</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/disable-cover-art-fetch</key>
+      <applyto>/apps/gnome-mplayer/preferences/disable-cover-art-fetch</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Disable Fetch of Cover Art</short>
+        <long>When set to TRUE cached covers are loaded, but new ones are not retrieved</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/force-cache</key>
+      <applyto>/apps/gnome-mplayer/preferences/forcecache</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Force the cache setting</short>
+        <long>When set to TRUE the cache value is always used, even for streaming media</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/softvol</key>
+      <applyto>/apps/gnome-mplayer/preferences/softvol</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Have mplayer use the softvol option</short>
+        <long>When set to TRUE the softvol option is passed to mplayer, useful for machines without pulseaudio</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/metadata-codepage</key>
+      <applyto>/apps/gnome-mplayer/preferences/metadatacodepage</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Codepage to use when loading the metadata of files</short>
+        <long>Codepage to use when loading the metadata of files</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-codepage</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitlecodepage</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Codepage to use when loading subtitle files</short>
+        <long>Codepage to use when loading subtitle files</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-font</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitlefont</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Default font to use for subtitles</short>
+        <long>Default font to use for subtitles</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-color</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitlecolor</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Default color to use for subtitles</short>
+        <long>Default color to use for subtitles</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-scale</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitlescale</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>float</type>
+      <default>1.0</default>
+      <locale name="C">
+        <short>Default font scaling to use for subtitles</short>
+        <long>Default font scaling to use for subtitles</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/single-instance</key>
+      <applyto>/apps/gnome-mplayer/preferences/single-instance</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Only allow one instance of the player to run</short>
+        <long>Only allow one instance of the player to run</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/replace-and-play</key>
+      <applyto>/apps/gnome-mplayer/preferences/replace-and-play</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Replace currently playing media in single instance mode</short>
+        <long>Replace currently playing media in single instance mode</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/bring-to-front</key>
+      <applyto>/apps/gnome-mplayer/preferences/bring-to-front</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Bring window to front in single instance mode</short>
+        <long>Bting window to front in single instance mode</long>
+      </locale>
+    </schema>
+        
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/extraopts</key>
+      <applyto>/apps/gnome-mplayer/preferences/extraopts</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Extra options to pass to mplayer</short>
+        <long>Extra options to pass to mplayer</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/remember-loc</key>
+      <applyto>/apps/gnome-mplayer/preferences/remember-loc</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Remember location on screen</short>
+        <long>Remember location on screen</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/volume</key>
+      <applyto>/apps/gnome-mplayer/preferences/volume</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>100</default>
+      <locale name="C">
+        <short>Default Volume</short>
+        <long>Default volume to use for mplayer, values of 0 or 100 allow usage of setting from ALSA</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/subtitle-fuzziness</key>
+      <applyto>/apps/gnome-mplayer/preferences/subtitle-fuzziness</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Subtitle Loading</short>
+        <long>Technique for loading external subtitle files</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/audio-channels</key>
+      <applyto>/apps/gnome-mplayer/preferences/audio-channels</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Default Audio Channels (internal value)</short>
+        <long>Default Audio Channels to output, this is an internal value to the application</long>
+      </locale>
+    </schema>
+        
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/window-x</key>
+      <applyto>/apps/gnome-mplayer/preferences/window-x</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Window top corner (x)</short>
+        <long>Window top corner (x)</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/window-y</key>
+      <applyto>/apps/gnome-mplayer/preferences/window-y</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Window top corner (y)</short>
+        <long>Window top corner (y)</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/tracker-position</key>
+      <applyto>/apps/gnome-mplayer/preferences/tracker-position</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>3</default>
+      <locale name="C">
+        <short>Tracker thumb position</short>
+        <long>Setting for tracker thumb position</long>
+      </locale>
+    </schema>    
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/keep-on-top</key>
+      <applyto>/apps/gnome-mplayer/preferences/keep-on-top</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Remember location on screen</short>
+        <long>Remember location on screen</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/use-mediakeys</key>
+      <applyto>/apps/gnome-mplayer/preferences/use-mediakeys</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Use Media Keys</short>
+        <long>Process the media key events from Gnome</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-notification</key>
+      <applyto>/apps/gnome-mplayer/preferences/show-notification</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Show notification via libnotify</short>
+        <long>Show notification via libnotify</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-subtitles</key>
+      <applyto>/apps/gnome-mplayer/preferences/show-subtitles</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Show subtitles by default</short>
+        <long>Load and display subtitles by default when media contains them</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-status-icon</key>
+      <applyto>/apps/gnome-mplayer/preferences/show-status-icon</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Place status icon in the tray</short>
+        <long>Place status icon in the tray</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/use-defaultpl</key>
+      <applyto>/apps/gnome-mplayer/preferences/use-defaultpl</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Set to TRUE if you want to save and load the default playlist</short>
+        <long>Will load and save the playlist when the program runs</long>
+      </locale>
+    </schema>    
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/use-xscrnsaver</key>
+      <applyto>/apps/gnome-mplayer/preferences/use-xscrnsaver</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Set to TRUE if you want to use xscrnsaver controls over gnome-power-manager</short>
+        <long>When enabled directly tells the xscreensaver to inhibit itself, otherwise uses gnome-power-manager</long>
+      </locale>
+    </schema>    
+
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/show-controls</key>
+      <applyto>/apps/gnome-mplayer/preferences/show-controls</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Show controls</short>
+        <long>Show controls</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/enable-global-menu</key>
+      <applyto>/apps/gnome-mplayer/preferences/enable-global-menu</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>Set to true when global menus are being used</short>
+        <long>Set to true when global menus are being used</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/enable-nautilus-plugin</key>
+      <applyto>/apps/gnome-mplayer/preferences/enable-nautilus-plugin</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>bool</type>
+      <default>TRUE</default>
+      <locale name="C">
+        <short>Enable Audio/Video tab in nautilus</short>
+        <long>Enable Audio/Video tab in nautilus</long>
+      </locale>
+    </schema> 
+    
+  </schemalist>
+</gconfschemafile>

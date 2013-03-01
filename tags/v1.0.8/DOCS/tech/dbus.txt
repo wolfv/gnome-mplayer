@@ -1,0 +1,85 @@
+GNOME Mplayer has a dbus interface
+
+Signals it handles
+
+Open			string:
+OpenPlaylist	string:
+OpenButton		string:		string:
+Close
+Play			
+Pause
+Stop
+Prev
+Next
+FastForward
+FastReverse
+Quit
+Terminate
+Seek			double:
+SetFullscreen	boolean:
+SetInfo			string:
+SetPercent		double:
+SetProgressText	string:
+SetShowControls	boolean:
+Volume			double;
+VolumeUp
+VolumeDown
+Ping
+
+
+Methods
+
+GetVolume
+GetFullScreen
+GetShowControls
+GetTime
+GetDuration
+GetPercent
+GetCacheSize
+GetPlayState
+GetBitrate		string:uri
+GetURI
+GetTitle
+Open			string:uri
+Close
+Quit
+ResizeWindow	int:width	 int:height
+
+
+Path controls what items are controlled
+
+Path			What is controlled
+/				All gnome-mplayer windows, good for multihead
+/pid/[pid]		Controls just the instance with pid=[pid]
+/control/[cid]	Controls all instances with control id of [cid] set
+/window/[wid]	Controls instance embedded in window id [wid]
+
+Example dbus-send
+
+Tell all windows to "Play"
+dbus-send / com.gnome.mplayer.Play	
+
+Tell window embedded in window 123 to Pause
+dbus-send /window/123 com.gnome.mplayer.Pause	
+
+Tell player with controlid of 456 to Open and Play /tmp/media.mov
+dbus-send /control/456 com.gnome.mplayer.Open string:'/tmp/media.mov'
+
+Seek to 400 seconds into the media file
+dbus-send  --type=signal / com.gnome.mplayer.Seek double:400.0
+
+Get the current position
+dbus-send --print-reply --type=method_call --dest=com.gnome.mplayer / com.gnome.mplayer.GetTime
+
+Get the currently playing URI
+dbus-send --print-reply --type=method_call --dest=com.gnome.mplayer / com.gnome.mplayer.GetURI
+
+Get the currently playing URI from a player with controlid of 456
+dbus-send --print-reply --type=method_call --dest=com.gnome.mplayer.cid456 / com.gnome.mplayer.GetURI
+
+Get the fullscreen state
+dbus-send --type=method_call --print-reply  --dest=com.gnome.mplayer / com.gnome.mplayer.GetFullScreen
+
+
+MPRIS Property Events can be monitored with this command in a separate window
+dbus-monitor "type='signal',interface='org.freedesktop.DBus.Properties'"

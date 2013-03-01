@@ -1,0 +1,1516 @@
+# translation of tr.po to Turkish
+# Turkish translation of GNOME MPlayer.
+# This file is distributed under the same license as the gnome-mplayer package.
+# Copyright (C) Kevin DeKorte 2006-2008 <kdekorte@gmail.com>
+# Onur Küçük <onur@pardus.org.tr>, 2008, 2009, 2010, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: tr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-01 15:00-0700\n"
+"PO-Revision-Date: 2012-03-26 01:04+0300\n"
+"Last-Translator: Onur Küçük <onur@ozguryazilim.com.tr>\n"
+"Language-Team: Turkish <turkce@pardus.org.tr>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=1;\n"
+"X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: src/main.c:76
+msgid "Window to embed in"
+msgstr "Gömülecek pencere"
+
+#: src/main.c:77
+msgid "Width of window to embed in"
+msgstr "Gömülecek pencerenin genişliği"
+
+#: src/main.c:78
+msgid "Height of window to embed in"
+msgstr "Gömülecek pencerenin yüksekliği"
+
+#: src/main.c:79
+msgid "Unique DBUS controller id"
+msgstr "Özel DBUS denetleyici kimliği"
+
+#: src/main.c:80
+msgid "File Argument is a playlist"
+msgstr "Dosya Argumanı oynatma listesi"
+
+#: src/main.c:81
+msgid "Show more output on the console"
+msgstr "Konsola daha fazla bilgi yaz"
+
+#: src/main.c:83
+msgid "Show even more output on the console"
+msgstr "Konsola en fazla detayla bilgi yaz"
+
+#: src/main.c:84
+msgid "Start in fullscreen mode"
+msgstr "Tam ekran kipinde başla"
+
+#: src/main.c:85
+msgid "Use mplayer software volume control"
+msgstr "MPlayer yazılımsal ses seviyesi ayarı kullan"
+
+#: src/main.c:87
+msgid "When set to TRUE the last volume level is set as the default"
+msgstr ""
+"Seçildiğinde en son ayarlanan ses seviyesi ön tanımlı seviye olarak ayarlanır"
+
+#: src/main.c:89
+msgid ""
+"Last software volume percentage- only applied when remember_softvol is set "
+"to TRUE"
+msgstr ""
+"Son yazılımsal ses seviyesi yüzdesi- sadece remember_softvol seçili ise "
+"uygulanır"
+
+#: src/main.c:91
+msgid "Mixer to use"
+msgstr "Ses seviyesi aracı"
+
+#: src/main.c:92
+msgid "Set initial volume percentage"
+msgstr "Başlangıç ses seviyesi yüzdesini belirle"
+
+#. note that sizeof(gint)==sizeof(gboolean), so we can give &showcontrols here
+#: src/main.c:94
+msgid "Show the controls in window"
+msgstr "Pencerede ayarları göster"
+
+#: src/main.c:96
+msgid "Show the subtitles if available"
+msgstr "Varsa altyazıları göster"
+
+#: src/main.c:99
+msgid "Autostart the media default to 1, set to 0 to load but don't play"
+msgstr ""
+"Medyayı otomatik başlatmak için 1, yükleyip başlatmadan beklemek için 0 "
+"seçiniz"
+
+#: src/main.c:101
+msgid "Disable popup menu on right click"
+msgstr "Sağ tuşla açılan menüyü açma"
+
+#: src/main.c:103
+msgid "Disable fullscreen options in browser mode"
+msgstr "Tarayıcı modunda tamekran seçeneklerini kapat"
+
+#: src/main.c:104
+msgid "Play all files on the playlist forever"
+msgstr "Oynatma listesindeki dosyaları sürekli oynat"
+
+#: src/main.c:106
+msgid "Quit application when last file on playlist is played"
+msgstr "Oynatma listesindeki son dosya oynatılınca uygulamadan çık"
+
+#: src/main.c:107
+msgid "Play items on playlist in random order"
+msgstr "Oynatma listesindeki dosyaları rastgele oynat"
+
+#: src/main.c:109
+msgid "Set cache size"
+msgstr "Önbellek boyutunu ayarla"
+
+#: src/main.c:111
+msgid "Start Second (default to 0)"
+msgstr "Başlangıç Saniyesi (öntanımlı 0)"
+
+#: src/main.c:114
+msgid "Length of media to play from start second"
+msgstr "Başlangıçtan itibaren oynatma süresi"
+
+#: src/main.c:116
+msgid "Force cache usage on streaming sites"
+msgstr "Yayın yapan sitelerde önbellek kullanımına zorla"
+
+#: src/main.c:119
+msgid "Disable the deinterlace filter"
+msgstr "Satır birleştirme (deinterlace) filtresini kapat"
+
+#: src/main.c:122
+msgid "Don't skip drawing frames to better keep sync"
+msgstr "Ses görüntü uyumunu korumak için kare atlaması yapma"
+
+#: src/main.c:125
+msgid "Use the old subtitle rendering system"
+msgstr "Eski altyazı sistemini kullan"
+
+#: src/main.c:128
+msgid "Don't use fonts embedded on matroska files"
+msgstr "Matroska dosyalarında gömülü altyazılayı kullanma"
+
+#: src/main.c:130
+msgid "Use Vertical Layout"
+msgstr "Dikey Görünüm Kullan"
+
+#: src/main.c:132
+msgid "Start with playlist open"
+msgstr "Açılışta oynatma listesini aç"
+
+#: src/main.c:134 src/gui.c:6167
+msgid "Start with details visible"
+msgstr "Açılışta detayları göster"
+
+#: src/main.c:136
+msgid "Real Player Name"
+msgstr "Real Player Adı"
+
+#: src/main.c:137
+msgid "Real Player Console ID"
+msgstr "Real Player Konsolu ID"
+
+#: src/main.c:138
+msgid "Real Player Console Controls"
+msgstr "Real Player Konsolu Ayarları"
+
+#: src/main.c:140
+msgid "Subtitle file for first media file"
+msgstr "İlk medya dosyası için altyazı dosyası"
+
+#: src/main.c:142
+msgid "TV device name"
+msgstr "TV aygıt adı"
+
+#: src/main.c:143
+msgid "TV driver name (v4l|v4l2)"
+msgstr "TV sürücü adı (v4l|v4l2)"
+
+#: src/main.c:144
+msgid "TV input name"
+msgstr "TV girişi"
+
+#: src/main.c:145
+msgid "Width of TV input"
+msgstr "TV girişi genişliği"
+
+#: src/main.c:146
+msgid "Height of TV input"
+msgstr "TV girişi yüksekliği"
+
+#: src/main.c:147
+msgid "Frames per second from TV input"
+msgstr "TV girişi FPS değeri"
+
+#: src/main.c:148
+msgid "Only allow one instance"
+msgstr "Sadece bir program çalışsın"
+
+#: src/main.c:151
+msgid "Put single instance mode into replace and play mode"
+msgstr "Tek oturum modunu değiştir ve oynat moduna yerleştir"
+
+#: src/main.c:154
+msgid "Use large control buttons"
+msgstr "Büyük kontrol düğmeleri kullan"
+
+#: src/main.c:157
+msgid "Hide control panel when mouse is not moving"
+msgstr "Fare sabitken kontrol panelini gizle"
+
+#: src/main.c:160
+msgid "Ignore single instance preference for this instance"
+msgstr "Bu oturum için birden fazla oturumu sıraya almaya izin ver"
+
+#: src/main.c:163
+msgid "Keep window on top"
+msgstr "Pencereyi en üstte tut"
+
+#: src/main.c:167
+msgid "Load all tracks from media player using gpod"
+msgstr "Tüm izleri gpod kullanarak medya oynatıcıdan yükle"
+
+#: src/main.c:171
+msgid "Don't fetch new cover art images"
+msgstr "Yeni kapak resimlerini indirme"
+
+#: src/main.c:173
+#, fuzzy
+msgid "DVD Device Name"
+msgstr "TV aygıt adı"
+
+#: src/main.c:174
+#, fuzzy
+msgid "Video Output Device Name"
+msgstr "Video Çıktısı:"
+
+#: src/main.c:402 src/gui.c:1039 src/gui.c:7136 src/gui.c:7242
+#, c-format
+msgid "Playing"
+msgstr "Oynatılıyor"
+
+#: src/main.c:624
+#, c-format
+msgid "Resume Playback of %s at %s"
+msgstr ""
+
+#: src/main.c:1000 src/gui.c:3204
+msgid "Open Location"
+msgstr "Konumu Aç"
+
+#: src/main.c:1001
+#, fuzzy
+msgid "Take Screenshot"
+msgstr "_Ekran Görüntüsü Yakala"
+
+#: src/main.c:1002
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: src/main.c:1003
+#, fuzzy
+msgid "Playlist"
+msgstr "_Oynatma Listesi"
+
+#: src/main.c:1004
+#, fuzzy
+msgid "Media Info"
+msgstr "Medya _Bilgisi"
+
+#: src/main.c:1005
+#, fuzzy
+msgid "Details"
+msgstr "D_etaylar"
+
+#: src/main.c:1006
+#, fuzzy
+msgid "Audio Meter"
+msgstr "Ses Se_viyesi Gösterici"
+
+#: src/main.c:1007 src/gui.c:8322 src/gui.c:8325
+msgid "Full Screen"
+msgstr "Tam Ekran"
+
+#: src/main.c:1008
+#, fuzzy
+msgid "Aspect"
+msgstr "Ya_tay Dikey Oranı"
+
+#: src/main.c:1009 src/gui.c:5335
+msgid "Subtitles"
+msgstr "Altyazı"
+
+#: src/main.c:1010 src/gui.c:7890
+msgid "Decrease Subtitle Size"
+msgstr "Altyazı Boyutunu Azalt"
+
+#: src/main.c:1011 src/gui.c:7892
+msgid "Increase Subtitle Size"
+msgstr "Altyazı Boyutunu Arttır"
+
+#: src/main.c:1012
+#, fuzzy
+msgid "Switch Angle"
+msgstr "A_çı Değiştir"
+
+#: src/main.c:1013
+#, fuzzy
+msgid "Controls"
+msgstr "_Kontroller"
+
+#: src/main.c:1025
+msgid "[FILES...] - GNOME Media player based on MPlayer"
+msgstr "[FILES...] - MPlayer tabanlı GNOME Medya Oynatıcı"
+
+#: src/main.c:1041
+#, c-format
+msgid "GNOME MPlayer v%s\n"
+msgstr "GNOME MPlayer %s\n"
+
+#: src/main.c:1042
+#, c-format
+msgid "gmtk v%s\n"
+msgstr "gmtkv%s\n"
+
+#: src/main.c:1098
+#, c-format
+msgid ""
+"Run 'gnome-mplayer --help' to see a full list of available command line "
+"options.\n"
+msgstr ""
+"Kullanılabilir komut satırı parametrelerini görmek için 'gnome-mplayer --"
+"help' komutunu kullanabilirsiniz.\n"
+
+#: src/gui.c:725 src/gui.c:779 src/gui.c:6925
+#, c-format
+msgid "%s - GNOME MPlayer"
+msgstr "%s - GNOME MPlayer"
+
+#: src/gui.c:771
+#, c-format
+msgid "(%i/%i) - GNOME MPlayer"
+msgstr "(%i/%i) GNOME MPlayer"
+
+#: src/gui.c:773
+#, c-format
+msgid "%s - (%i/%i) - GNOME MPlayer"
+msgstr "%s - (%i/%i) GNOME MPlayer"
+
+#: src/gui.c:777 src/gui.c:3784 src/gui.c:7541
+#, c-format
+msgid "GNOME MPlayer"
+msgstr "GNOME MPlayer"
+
+#: src/gui.c:916
+#, c-format
+msgid "Buffering: %2i%%"
+msgstr "Önbellek: %2i%%"
+
+#: src/gui.c:928
+#, c-format
+msgid "Paused | %2i%% ▼"
+msgstr "Durakladı | %2i%% ▼"
+
+#: src/gui.c:1041 src/gui.c:7185 src/gui.c:7244
+#, c-format
+msgid "Paused"
+msgstr "Duraklatıldı"
+
+#: src/gui.c:1043 src/gui.c:1460 src/gui.c:7246
+#, c-format
+msgid "Idle"
+msgstr "Durağan"
+
+#: src/gui.c:1175 src/support.c:246 src/playlist.c:596 src/playlist.c:935
+#, c-format
+msgid "%s items"
+msgstr "%s parça"
+
+#: src/gui.c:1177 src/gui.c:3146 src/gui.c:3552 src/support.c:195
+#: src/support.c:261 src/playlist.c:598
+#, c-format
+msgid "Item to Play"
+msgid_plural "Items to Play"
+msgstr[0] "Öğeyi Oynat"
+msgstr[1] "Öğeyi Oynat"
+
+#: src/gui.c:1229 src/gui.c:1230 src/gui.c:1233 src/gui.c:7116 src/gui.c:7117
+#: src/gui.c:7120
+msgid "Pause"
+msgstr "Durakla"
+
+#: src/gui.c:1258 src/gui.c:1259 src/gui.c:1262 src/gui.c:1287 src/gui.c:1288
+#: src/gui.c:1291 src/gui.c:2676 src/gui.c:2678 src/gui.c:2694 src/gui.c:2696
+#: src/gui.c:7077 src/gui.c:7078 src/gui.c:7081 src/gui.c:7166 src/gui.c:7167
+#: src/gui.c:7170 src/gui.c:8224 src/gui.c:8227
+msgid "Play"
+msgstr "Oynat"
+
+#: src/gui.c:1432
+#, c-format
+msgid "Adding %s to playlist"
+msgstr "%s oynatma listesine ekleniyor"
+
+#: src/gui.c:1456
+#, c-format
+msgid "Playing %s"
+msgstr "Oynatılıyor %s"
+
+#: src/gui.c:1458
+#, c-format
+msgid "Paused %s"
+msgstr "Duraklatıldı %s"
+
+#: src/gui.c:1713 src/gui.c:1722
+#, c-format
+msgid "Volume %i%%"
+msgstr "Ses %i%%"
+
+#: src/gui.c:2701
+msgid "Stopped"
+msgstr "Durduruldu"
+
+#: src/gui.c:3082 src/playlist.c:560
+msgid "Open File"
+msgstr "Dosya Aç"
+
+#: src/gui.c:3211
+msgid "Location:"
+msgstr "Konum:"
+
+#: src/gui.c:3275 src/gui.c:3367
+msgid "Choose Disk Directory"
+msgstr "Disk Klasörü Seç"
+
+#: src/gui.c:3311 src/gui.c:3408
+msgid "Choose Disk Image"
+msgstr "Disk Kalıbı Seç"
+
+#: src/gui.c:3325 src/gui.c:3422
+msgid "Disk Image (*.iso)"
+msgstr "Disk Kalıbı (*.iso)"
+
+#: src/gui.c:3675
+msgid "Save As..."
+msgstr "Farklı Kaydet"
+
+#: src/gui.c:3707
+#, c-format
+msgid "Overwrite %s"
+msgstr ""
+
+#: src/gui.c:3727
+#, fuzzy, c-format
+msgid "Unable to save ' %s '"
+msgstr "Kaydetme başarısız '%s'"
+
+#: src/gui.c:3730 src/support.c:792 src/support.c:883
+msgid "GNOME MPlayer Error"
+msgstr "GNOME MPlayer Hatası"
+
+#: src/gui.c:3786
+msgid "A media player for GNOME that uses MPlayer"
+msgstr "MPlayer kullanan GNOME tabanlı çokluortam oynatıcı"
+
+#: src/gui.c:3789
+msgid ""
+"Gnome MPlayer is free software; you can redistribute it and/or modify it "
+"under\n"
+"the terms of the GNU General Public License as published by the Free\n"
+"Software Foundation; either version 2 of the License, or (at your option)\n"
+"any later version.\n"
+"\n"
+"Gnome MPlayer is distributed in the hope that it will be useful, but "
+"WITHOUT\n"
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\n"
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for\n"
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along "
+"with\n"
+"Gnome MPlayer if not, write to the\n"
+"\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin St, Fifth Floor\n"
+"Boston, MA 02110-1301 USA"
+msgstr ""
+
+#: src/gui.c:3991
+msgid "Set AudioFile"
+msgstr "Ses dosyasını seç"
+
+#: src/gui.c:4027 src/playlist.c:148
+msgid "Set Subtitle"
+msgstr "Altyazıyı seç"
+
+#: src/gui.c:4189
+msgid "Gnome MPlayer Fullscreen"
+msgstr "Gnome MPlayer Tam Ekran"
+
+#: src/gui.c:4623 src/nautilus_property_page.c:347
+msgid "<span weight=\"bold\">Video Details</span>"
+msgstr "<span weight=\"bold\">Video Ayrıntıları</span>"
+
+#: src/gui.c:4631 src/nautilus_property_page.c:354
+msgid "Video Size:"
+msgstr "Video Boyutu:"
+
+#: src/gui.c:4645
+msgid "Video Format:"
+msgstr "Video Formatı:"
+
+#: src/gui.c:4649 src/gui.c:4660 src/gui.c:4691 src/gui.c:4715 src/gui.c:4728
+#: src/gui.c:4741
+#, c-format
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: src/gui.c:4656 src/nautilus_property_page.c:365
+msgid "Video Codec:"
+msgstr "Görüntü:"
+
+#: src/gui.c:4667
+msgid "Video FPS:"
+msgstr "Video FPS:"
+
+#: src/gui.c:4676 src/nautilus_property_page.c:376
+msgid "Video Bitrate:"
+msgstr "Video Bitoranı:"
+
+#: src/gui.c:4687
+msgid "Video Chapters:"
+msgstr "Video Başlıkları:"
+
+#: src/gui.c:4703 src/nautilus_property_page.c:401
+msgid "<span weight=\"bold\">Audio Details</span>"
+msgstr "<span weight=\"bold\">Ses Detayları</span>"
+
+#: src/gui.c:4710
+msgid "Audio Format:"
+msgstr "Ses Biçimi:"
+
+#: src/gui.c:4723 src/nautilus_property_page.c:408
+msgid "Audio Codec:"
+msgstr "Ses:"
+
+#: src/gui.c:4736 src/nautilus_property_page.c:431
+msgid "Audio Channels:"
+msgstr "Ses Kanalları:"
+
+#: src/gui.c:4749 src/nautilus_property_page.c:419
+msgid "Audio Bitrate:"
+msgstr "Ses Bitoranı:"
+
+#: src/gui.c:4762
+msgid "Audio Sample Rate:"
+msgstr "Ses Örnekleme Oranı:"
+
+#: src/gui.c:4792
+msgid "Video Picture Adjustments"
+msgstr "Video İnce Ayarları"
+
+#: src/gui.c:4810
+msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
+msgstr "<span weight=\"bold\">Video İnce Ayarları</span>"
+
+#: src/gui.c:4817
+msgid "Brightness"
+msgstr "Parlaklık"
+
+#: src/gui.c:4828
+msgid "Contrast"
+msgstr "Kontrast"
+
+#: src/gui.c:4839
+msgid "Gamma"
+msgstr "Gamma"
+
+#: src/gui.c:4850
+msgid "Hue"
+msgstr "Renk Tonu"
+
+#: src/gui.c:4861
+msgid "Saturation"
+msgstr "Doygunluk"
+
+#: src/gui.c:4878
+msgid "_Reset"
+msgstr "Sı_fırla"
+
+#: src/gui.c:5017
+msgid "No Display"
+msgstr "Görüntü Yok"
+
+#: src/gui.c:5020
+msgid "Minimal"
+msgstr "En Az"
+
+#: src/gui.c:5023
+msgid "Timer"
+msgstr "Zamanlayıcı"
+
+#: src/gui.c:5026
+msgid "Timer/Total"
+msgstr "Zamalayıcı/Toplam"
+
+#: src/gui.c:5042
+msgid "No Postprocessing"
+msgstr "Önişleme Kapalı"
+
+#: src/gui.c:5046
+msgid "Minimal Postprocessing"
+msgstr "Önişleme Minimum"
+
+#: src/gui.c:5050
+msgid "More Postprocessing"
+msgstr "Önişleme Çok"
+
+#: src/gui.c:5054
+msgid "Maximum Postprocessing"
+msgstr "Önişleme Maksimum"
+
+#: src/gui.c:5070
+msgid "Exact Match"
+msgstr "Aynısı"
+
+#: src/gui.c:5073
+msgid "Load all subtitles containing movie name"
+msgstr "Film adını içeren tüm altyazıları yükle"
+
+#: src/gui.c:5076
+msgid "Load all subtitles in the same folder"
+msgstr "Dizin içindeki tüm altyazıları yükle"
+
+#: src/gui.c:5239
+msgid "Direct ALSA Control"
+msgstr ""
+
+#: src/gui.c:5242
+msgid "Direct PulseAudio Control"
+msgstr ""
+
+#: src/gui.c:5244
+#, fuzzy
+msgid "Software Volume Control"
+msgstr "MPlayer Yazılımsal Ses Seviyesi Açık"
+
+#: src/gui.c:5331
+msgid "Player"
+msgstr "Oynatıcı"
+
+#: src/gui.c:5333
+msgid "Language Settings"
+msgstr "Dil Ayarları"
+
+#: src/gui.c:5337
+msgid "Interface"
+msgstr "Arabirim"
+
+#: src/gui.c:5339
+msgid "Keyboard Shortcuts"
+msgstr "Klavye Kısayolları"
+
+#: src/gui.c:5341
+msgid "MPlayer"
+msgstr "MPlayer"
+
+#: src/gui.c:5343
+msgid "Plugin"
+msgstr "Eklenti"
+
+#: src/gui.c:5349
+msgid "GNOME MPlayer Configuration"
+msgstr "GNOME MPlayer Yapılandırması"
+
+#: src/gui.c:5367 src/gui.c:5373
+msgid ""
+"mplayer video output device\n"
+"x11 should always work, try xv, gl or vdpau for better performance and "
+"enhanced features"
+msgstr ""
+"mplayer görüntü çıktı aygıtı\n"
+"x11'in her zaman çalışması beklenir, daha verimli çıktı ve farklı yetenekler "
+"için xv, gl ya da vdpau deneyebilirsiniz"
+
+#: src/gui.c:5434
+msgid "Enable AC3/DTS pass-through to S/PDIF"
+msgstr "AC3/DTS verisini S/PDIF ile çözmeyi aç"
+
+#: src/gui.c:5443
+msgid "Mplayer Software Volume Control Enabled"
+msgstr "MPlayer Yazılımsal Ses Seviyesi Açık"
+
+#: src/gui.c:5464
+msgid "Default"
+msgstr "Öntanımlı"
+
+#: src/gui.c:5504 src/gui.c:5534 src/gui.c:5975 src/gui.c:5987
+msgid ""
+"Choose one of the languages or type in your own comma-separated selection"
+msgstr ""
+
+#: src/gui.c:5693
+msgid "<span weight=\"bold\">Adjust Output Settings</span>"
+msgstr "<span weight=\"bold\">Çıktı Ayarlarını Değiştir</span>"
+
+#: src/gui.c:5700
+msgid "Video Output:"
+msgstr "Video Çıktısı:"
+
+#: src/gui.c:5709
+msgid "Enable Video Hardware Support"
+msgstr "Donanım Video Hızlandırmayı Etkinleştir"
+
+#: src/gui.c:5714 src/gui.c:5719
+msgid ""
+"When this option is enabled, codecs or options will be enabled to accelerate "
+"video processing. These options may cause playback to fail in some cases."
+msgstr ""
+"Bu seçenek seçildiğinde video işleme süreci için çeşitli ayar ve seçenkler "
+"açılacaktır. Bu seçenekler bazı dosyaların oynatılmasında sorun "
+"oluşturabilir."
+
+#: src/gui.c:5727
+msgid "Enable CrystalHD Hardware Support"
+msgstr "CrystalDD Donanım Hızlandırmasını Etkinleştir"
+
+#: src/gui.c:5734
+msgid "Audio Output:"
+msgstr "Ses Çıktısı:"
+
+#: src/gui.c:5744
+#, fuzzy
+msgid "Audio Volume Type:"
+msgstr "Ses Örnekleme Oranı:"
+
+#: src/gui.c:5756
+msgid "Default Mixer:"
+msgstr "Öntanımlı Ses Seviyesi Aracı:"
+
+#: src/gui.c:5766
+#, fuzzy
+msgid "Audio Channels to Output:"
+msgstr "Ses Çıkış Kanalları"
+
+#. conf_table = gtk_table_new(20, 2, FALSE);
+#. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
+#. i = 0;
+#: src/gui.c:5794
+msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
+msgstr "<span weight=\"bold\">Ayarları Değiştir</span>"
+
+#: src/gui.c:5802
+msgid "Default Volume Level:"
+msgstr "Öntanımlı Ses Seviyesi:"
+
+#: src/gui.c:5809 src/gui.c:5812
+msgid "Default volume for playback"
+msgstr "Öntanımlı ses seviyesi"
+
+#: src/gui.c:5826
+msgid "On Screen Display Level:"
+msgstr "OSD Seviyesi:"
+
+#: src/gui.c:5838
+msgid "Post-processing level:"
+msgstr "Önişleme seviyesi:"
+
+#: src/gui.c:5852
+msgid ""
+"<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
+"\n"
+"These options affect the gecko-mediaplayer plugin when it is installed.\n"
+"Gecko-mediaplayer is a Firefox plugin that will emulate various\n"
+"media players and allow playback of various web content within\n"
+"NPRuntime compatible browsers (Firefox, Konqueror, etc)."
+msgstr ""
+"<span weight=\"bold\">Eklenti Taklidi Ayarlarını Değiştir</span>\n"
+"\n"
+"Bu ayarlar yüklü olduğunda gecko-mediaplayer için kullanılır.\n"
+"Gecko-mediaplayer, NPRuntime uyumlu tarayıcılarda (Firefox,\n"
+"Konqueror vs.) çeşitli medya oynatıcıları taklit ederek çeşitli web\n"
+"içeriğini oynatabilen bir Firefox eklentisidir."
+
+#: src/gui.c:5863
+msgid "QuickTime Emulation"
+msgstr "Quicktime Taklidi"
+
+#: src/gui.c:5868
+msgid "RealPlayer Emulation"
+msgstr "RealPlayer Taklidi"
+
+#: src/gui.c:5873
+msgid "Windows Media Player Emulation"
+msgstr "Windows Media Player Taklidi"
+
+#: src/gui.c:5878
+msgid "DiVX Player Emulation"
+msgstr "DIVX Oynatıcı Taklidi"
+
+#: src/gui.c:5883
+msgid "MIDI Support (requires MPlayer support)"
+msgstr "MIDI Desteği (MPlayer destekliyor ise)"
+
+#: src/gui.c:5888
+msgid "Disable Player Embedding"
+msgstr "Oynatıcı Gömülmesini Kapat"
+
+#: src/gui.c:5893
+msgid "Disable Embedded Player Scaling"
+msgstr "Gömülü Çalıcı Ölçeklemeyi Pasifleştir"
+
+#: src/gui.c:5898
+msgid "Audio Cache Size (KB):"
+msgstr "Ses Önbellek Boyutu (KB):"
+
+#: src/gui.c:5908 src/gui.c:5911 src/gui.c:5917 src/gui.c:5922
+msgid ""
+"Amount of data to cache when playing media from network, use higher values "
+"for slow networks."
+msgstr ""
+"Ağ üzerinden oynatmada önbelleklenecek veri miktarı, yavaş ağ "
+"bağlantılarında yüksek değerler kullanınız"
+
+#: src/gui.c:5938
+msgid "Video Cache Size (KB):"
+msgstr "Görüntü Önbellek Boyutu (KB):"
+
+#: src/gui.c:5960
+msgid "<span weight=\"bold\">Adjust Language Settings</span>"
+msgstr "<span weight=\"bold\">Dil Ayarlarını Değiştir</span>"
+
+#: src/gui.c:5967
+msgid "Default Audio Language"
+msgstr "Öntanımlı Ses Dili"
+
+#: src/gui.c:5978
+msgid "Default Subtitle Language:"
+msgstr "Öntanımlı Altyazı Dili:"
+
+#: src/gui.c:5990
+msgid "File Metadata Encoding:"
+msgstr "Dosya Detayları Kodlaması:"
+
+#: src/gui.c:6006
+msgid "<span weight=\"bold\">Subtitle Settings</span>"
+msgstr "<span weight=\"bold\">Altyazı Ayarları</span>"
+
+#: src/gui.c:6013
+msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
+msgstr "_Gelişmiş Alfa Altyazı (ASS) Desteğini Etkinleştir"
+
+#: src/gui.c:6020
+msgid "Use _Embedded Fonts (MKV only)"
+msgstr "Gömülü _Yazıtipleri Kullan (MKV için)"
+
+#: src/gui.c:6029
+msgid "Subtitle Font:"
+msgstr "Altyazıyı Yazıtipi:"
+
+#: src/gui.c:6047
+msgid "Subtitle Font Selection"
+msgstr "Altyazı Yazıtipi Seçimi"
+
+#: src/gui.c:6052
+msgid "Subtitle Color:"
+msgstr "Altyazı Rengi:"
+
+#: src/gui.c:6076
+msgid "Subtitle Color Selection"
+msgstr "Altyazı Rengi Seçimi"
+
+#: src/gui.c:6082
+msgid "Outline Subtitle Font"
+msgstr "Altyazıyı Kalınlaştır"
+
+#: src/gui.c:6088
+msgid "Shadow Subtitle Font"
+msgstr "Altyazıyı Gölgelendir"
+
+#: src/gui.c:6094
+msgid "Subtitle Font Scaling:"
+msgstr "Altyazı Yazıtipi Boyutlandırma:"
+
+#: src/gui.c:6107
+msgid "Subtitle File Encoding:"
+msgstr "Altyazı Dosyası Biçimi:"
+
+#: src/gui.c:6119
+msgid "Subtitle Lower Margin (X11/XV Only):"
+msgstr "Altyazı Alt Boşluğu (X11/XV için)"
+
+#: src/gui.c:6132
+msgid "Show Subtitles by Default"
+msgstr "Öntanımlı Altyazılar Açık"
+
+#: src/gui.c:6137
+#, fuzzy
+msgid "Subtitle Load Fuzziness:"
+msgstr "Altyazıyı Yazıtipi:"
+
+#: src/gui.c:6155
+msgid "<span weight=\"bold\">Application Preferences</span>"
+msgstr "<span weight=\"bold\">Uygulama Tercihleri</span>"
+
+#: src/gui.c:6162
+msgid "Start with playlist visible"
+msgstr "Açılışta oynatma listesini göster"
+
+#: src/gui.c:6172
+msgid "Respond to Keyboard Media Keys"
+msgstr "Klavye Özel Tuşlarını Kullan"
+
+#: src/gui.c:6177
+msgid "Use default playlist"
+msgstr "Öntanımlı oynatma listesini kullan"
+
+#: src/gui.c:6183
+msgid "Show notification popup"
+msgstr "Uyarı penceresi göster"
+
+#: src/gui.c:6190
+msgid "Show status icon"
+msgstr "Durum simgesi göster"
+
+#: src/gui.c:6197
+msgid "Place playlist below media (requires application restart)"
+msgstr "Oynatma listesini aşağı yerleştir (program tekrar başlatılmalı)"
+
+#: src/gui.c:6202
+msgid "Only allow one instance of Gnome MPlayer"
+msgstr "Sadece bir Gnome MPlayer çalışsın"
+
+#: src/gui.c:6212
+msgid "When opening in single instance mode, replace existing file"
+msgstr "Tek oturum modunda açılırken mevcut dosyayı değiştir"
+
+#: src/gui.c:6221
+msgid "When opening file, bring main window to front"
+msgstr "Dosya açarken ana pencereyi en öne getir"
+
+#: src/gui.c:6228
+msgid "Remember Window Location and Size"
+msgstr "Pencere Konumunu ve Boyutunu Hatırla"
+
+#: src/gui.c:6233
+msgid "Resize window when new video is loaded"
+msgstr "Yeni dosya yüklenirken pencere boyutunu değiştir"
+
+#: src/gui.c:6238
+msgid "Keep window above other windows"
+msgstr "Pencereyi diğer pencerelerin üzerinde tut"
+
+#: src/gui.c:6243
+msgid "Pause playback on mouse click"
+msgstr "Fare tıklamasıyla oynatmayı duraklat"
+
+#: src/gui.c:6248
+msgid "Disable Fullscreen Control Bar Animation"
+msgstr "Tarayıcı modunda tamekran seçeneklerini kapat"
+
+#: src/gui.c:6253
+msgid "Disable Cover Art Fetch"
+msgstr ""
+
+#: src/gui.c:6258
+msgid "Use Mouse Wheel to change volume, instead of seeking"
+msgstr "Fare tekerleğini ileri/geri gitmek yerine ses seviyesini değiştirsin"
+
+#: src/gui.c:6263
+msgid "Enable Nautilus Plugin"
+msgstr "Nautilus Eklentisini Etkinleştir"
+
+#: src/gui.c:6268
+msgid "Verbose Debug Enabled"
+msgstr "Detaylı Bilgilendirme Açık"
+
+#: src/gui.c:6272 src/gui.c:6277
+msgid ""
+"When this option is set, extra debug information is sent to the terminal or "
+"into ~/.xsession-errors"
+msgstr ""
+"Bu seçenek seçildiğinde detaylı inceleme bilgileri terminale ya da ~/."
+"xsession-errors dosyasına yönlendirilir"
+
+#: src/gui.c:6288
+msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
+msgstr "<span weight=\"bold\">MPlayer İçin Gelişmiş Ayarlar</span>"
+
+#: src/gui.c:6297 src/gui.c:6301
+msgid ""
+"Set this option if changing the volume in Gnome MPlayer changes the master "
+"volume"
+msgstr ""
+"Gnome MPlayer altında ses seviyesi değiştirilince ana ses seviyesinin "
+"değişmesini istiyorsanız bu seçeneği işaretleyin"
+
+#: src/gui.c:6311
+msgid "Remember last software volume level"
+msgstr "Son yazılımsal ses seviyesini hatırla"
+
+#: src/gui.c:6314 src/gui.c:6318
+msgid "Set this option if you want the software volume level to be remembered"
+msgstr ""
+"Yazılımsal ses seviyesinin hatırlanmasını istiyorsanız bu seçeneği seçiniz"
+
+#: src/gui.c:6325
+msgid "Volume Gain (-200dB to +60dB)"
+msgstr "Ses Kazancı (-200dB ile +60dB arası)"
+
+#: src/gui.c:6337
+msgid "De_interlace Video"
+msgstr "Görün_tü Satırlarını Birleştir (Deinterlace)"
+
+#: src/gui.c:6339 src/gui.c:6342
+msgid "Set this option if video looks striped"
+msgstr "Görüntü tırtıklı görünüyorsa bu seçeneği işaretleyin"
+
+#: src/gui.c:6348
+msgid "_Drop frames"
+msgstr "_Kare atla"
+
+#: src/gui.c:6350 src/gui.c:6353
+msgid "Set this option if video is well behind the audio"
+msgstr "Görüntü sesten çok geride kalıyorsa bu seçeneği işaretleyin"
+
+#: src/gui.c:6359
+msgid "Enable mplayer cache"
+msgstr "MPlayer önbelliğini kullan"
+
+#: src/gui.c:6365
+msgid "Cache Size (KB):"
+msgstr "Önbellek Boyutu (KB):"
+
+#: src/gui.c:6373 src/gui.c:6377
+msgid ""
+"Amount of data to cache when playing media, use higher values for slow "
+"devices and sites."
+msgstr ""
+"Önbelleklenecek veri miktarı, yavaş ağ bağlantılarında ve aygıtlarda yüksek "
+"değerler kullanın."
+
+#: src/gui.c:6397
+msgid "MPlayer Executable:"
+msgstr "MPlayer Çalıştırılabilir Dosyası:"
+
+#: src/gui.c:6401 src/gui.c:6405
+msgid ""
+"Use this option to specify a mplayer application that is not in the path"
+msgstr ""
+"Hızlı erişim yolunda (PATH) olmayan bir mplayer uygulamasını çalıştırmak "
+"için bu seçeneği kullanın"
+
+#: src/gui.c:6421
+msgid "Extra Options to MPlayer:"
+msgstr "MPlayer Ek Parametreleri:"
+
+#: src/gui.c:6424 src/gui.c:6427
+msgid "Add any extra mplayer options here (filters etc)"
+msgstr "Ekstra mplayer seçeneklerini buraya ekleyin (filtre vs.)"
+
+#: src/gui.c:6438
+msgid "MPlayer Default Optical Device"
+msgstr "MPlayer Ön Tanımlı Optik Aygıt"
+
+#: src/gui.c:6453
+msgid ""
+"<span weight=\"bold\">Keyboard Shortcuts</span>\n"
+"\n"
+"Place the cursor in the box next to the shortcut you want to modify\n"
+"Then press the keys you would like for the shortcut"
+msgstr ""
+"<span weight=\"bold\">Klavye Kısayolları</span>\n"
+"\n"
+"Fare imlecini değiştirmek istediğiniz kısayolun yanındaki kutucuğa getirin\n"
+"Kısayol için kullanmak istediğiniz tuşları girin"
+
+#: src/gui.c:6485
+#, fuzzy
+msgid "Reset Keys"
+msgstr "Sı_fırla"
+
+#: src/gui.c:7592
+msgid "S_how Controls"
+msgstr "Kontrolleri _Göster"
+
+#: src/gui.c:7596 src/gui.c:7848
+msgid "_Full Screen"
+msgstr "T_am Ekran"
+
+#: src/gui.c:7601
+msgid "_Copy Location"
+msgstr "Konumu K_opyala"
+
+#. File Menu
+#: src/gui.c:7650
+msgid "_File"
+msgstr "_Dosya"
+
+#: src/gui.c:7658
+msgid "Open _Folder"
+msgstr "Di_zin Aç"
+
+#: src/gui.c:7663
+msgid "Open _Location"
+msgstr "A_dresi Aç"
+
+#: src/gui.c:7669
+msgid "_Disc"
+msgstr "Dis_k"
+
+#: src/gui.c:7677
+msgid "Open _Audio CD"
+msgstr "Ses _CD'si Aç"
+
+#. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
+#. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
+#: src/gui.c:7683
+msgid "Open DVD with _Menus"
+msgstr "DVD'yi _Menü ile Aç"
+
+#: src/gui.c:7688
+msgid "Open DVD from Folder with M_enus"
+msgstr "Dizinden DVD'yi M_enü ile Aç"
+
+#: src/gui.c:7693
+msgid "Open DVD from ISO with Me_nus"
+msgstr "_Kalıptan DVD'yi Menü ile Aç"
+
+#: src/gui.c:7697
+msgid "Open _VCD"
+msgstr "VCD _Aç"
+
+#: src/gui.c:7699
+msgid "_TV"
+msgstr "_TV"
+
+#: src/gui.c:7704
+msgid "Open _Analog TV"
+msgstr "_Analog TV Aç"
+
+#: src/gui.c:7706
+msgid "Open _Digital TV"
+msgstr "_Dijital TV Aç"
+
+#: src/gui.c:7709
+msgid "Open _iPod™"
+msgstr "_İpod Aç"
+
+#: src/gui.c:7718
+msgid "Open _Recent"
+msgstr "_Son Kullanılanı Aç"
+
+#. Edit Menu
+#: src/gui.c:7765
+msgid "_Edit"
+msgstr "Dü_zen"
+
+#: src/gui.c:7771
+msgid "_Shuffle Playlist"
+msgstr "Oynatma Listesini _Karıştır"
+
+#: src/gui.c:7774
+msgid "_Loop Playlist"
+msgstr "Oynatma Listesini _Yinele"
+
+#: src/gui.c:7778
+msgid "P_lay Single Track from Playlist"
+msgstr ""
+
+#: src/gui.c:7782
+msgid "S_witch Audio Track"
+msgstr "Ses _İzini Değiştir"
+
+#: src/gui.c:7784 src/playlist.c:1188
+msgid "Set Audi_o"
+msgstr "Sesi S_eç"
+
+#: src/gui.c:7786
+msgid "Select _Audio Language"
+msgstr "Öntanımlı _Ses Dili"
+
+#: src/gui.c:7789
+#, fuzzy
+msgid "Set S_ubtitle"
+msgstr "Altyazıyı seç"
+
+#: src/gui.c:7791
+msgid "S_elect Subtitle Language"
+msgstr "Öntanımlı _Altyazı Dili"
+
+#: src/gui.c:7796
+msgid "_Take Screenshot"
+msgstr "_Ekran Görüntüsü Yakala"
+
+#: src/gui.c:7802 src/gui.c:7807
+msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
+msgstr ""
+"Dosyalar çalışma dizinine ’shotNNNN.png’ isimlendirmesi ile kaydedilecek"
+
+#. View Menu
+#: src/gui.c:7827
+msgid "_View"
+msgstr "_Göster"
+
+#: src/gui.c:7833
+msgid "_Playlist"
+msgstr "_Oynatma Listesi"
+
+#: src/gui.c:7837
+msgid "Media _Info"
+msgstr "Medya _Bilgisi"
+
+#: src/gui.c:7840
+msgid "D_etails"
+msgstr "D_etaylar"
+
+#: src/gui.c:7843
+msgid "Audio _Meter"
+msgstr "Ses Se_viyesi Gösterici"
+
+#: src/gui.c:7855
+msgid "_Normal (1:1)"
+msgstr "_Normal (1:1)"
+
+#: src/gui.c:7858
+msgid "_Double Size (2:1)"
+msgstr "_İki Katı Boyut (2:1)"
+
+#: src/gui.c:7861
+msgid "_Half Size (1:2)"
+msgstr "_Yarım Boyut (1:2)"
+
+#: src/gui.c:7863
+#, fuzzy
+msgid "Half _Larger (1.5:1)"
+msgstr "_Yarım Boyut (1:2)"
+
+#: src/gui.c:7865
+msgid "_Aspect"
+msgstr "Ya_tay Dikey Oranı"
+
+#: src/gui.c:7871
+msgid "D_efault Aspect"
+msgstr "_Öntanımlı Yatay Dikey Oranı"
+
+#: src/gui.c:7873
+msgid "_4:3 Aspect"
+msgstr "_4:3 Yatay Dikey Oranı"
+
+#: src/gui.c:7875
+msgid "_16:9 Aspect"
+msgstr "_16:9 Yatay Dikey Oranı"
+
+#: src/gui.c:7877
+msgid "1_6:10 Aspect"
+msgstr "1_6:10 Yatay Dikey Oranı"
+
+#: src/gui.c:7880
+msgid "_2.39:1 Aspect (Anamorphic)"
+msgstr ""
+
+#: src/gui.c:7882
+msgid "_Follow Window"
+msgstr "_Pencereyi Takip Et"
+
+#: src/gui.c:7887
+msgid "Show _Subtitles"
+msgstr "_Altyazıları Göster"
+
+#: src/gui.c:7895
+msgid "Decrease Subtitle Delay"
+msgstr "Altyazı Gecikmesini Azalt"
+
+#: src/gui.c:7897
+msgid "Increase Subtitle Delay"
+msgstr "Altyazı Gecikmesini Arttır"
+
+#: src/gui.c:7898
+msgid "Switch An_gle"
+msgstr "A_çı Değiştir"
+
+#: src/gui.c:7900
+msgid "_Controls"
+msgstr "_Kontroller"
+
+#: src/gui.c:7914
+msgid "_Video Picture Adjustments"
+msgstr "_Video İnce Ayarları"
+
+#. Help Menu
+#: src/gui.c:7954
+msgid "_Help"
+msgstr "_Yardım"
+
+#: src/gui.c:8162 src/gui.c:8165
+msgid "Menu"
+msgstr "Menü"
+
+#: src/gui.c:8182 src/gui.c:8185
+msgid "Previous"
+msgstr "Önceki"
+
+#: src/gui.c:8203 src/gui.c:8206
+msgid "Rewind"
+msgstr "Geri Sar"
+
+#: src/gui.c:8244 src/gui.c:8247
+msgid "Stop"
+msgstr "Dur"
+
+#: src/gui.c:8265 src/gui.c:8268
+msgid "Fast Forward"
+msgstr "Hızlı İlerlet"
+
+#: src/gui.c:8286 src/gui.c:8289
+msgid "Next"
+msgstr "Sonraki"
+
+#: src/gui.c:8373
+msgid "Volume 100%"
+msgstr "Ses 100%"
+
+#: src/support.c:773
+#, c-format
+msgid "Couldn't open DVD device: %s"
+msgstr "DVD aygıtı açılamıyor: %s"
+
+#: src/support.c:865
+#, c-format
+msgid "Couldn't open VCD device: %s"
+msgstr "VCD aygıtı açılamıyor: %s"
+
+#: src/support.c:1981 src/support.c:2011 src/support.c:2054 src/support.c:2082
+msgid "Unable to save playlist, cannot open file for writing"
+msgstr "Oynatma listesi kaydedilemiyor, dosya yazılmak için açılamıyor"
+
+#: src/support.c:2203
+#, c-format
+msgid "%2i:%02i"
+msgstr "%2i:%02i"
+
+#: src/support.c:2205
+#, c-format
+msgid "%i:%02i:%02i"
+msgstr "%i:%02i:%02i"
+
+#: src/support.c:2864
+#, c-format
+msgid ""
+"You might want to consider upgrading mplayer to a newer version, -volume "
+"option not supported\n"
+msgstr ""
+"MPlayer sürümünüzde \"-volume\" parametresi desteklenmiyor, daha güncel bir "
+"sürüme geçmenizi tavsiye ederiz\n"
+
+#: src/playlist.c:185
+msgid "Set Audio"
+msgstr "Sesi Seç"
+
+#: src/playlist.c:287
+#, c-format
+msgid ""
+"Filename: %s\n"
+"Subtitle: %s"
+msgstr ""
+"Dosya Adı: %s\n"
+"Altyazı: %s"
+
+#: src/playlist.c:329 src/playlist.c:1034 src/playlist.c:1037
+msgid "Save Playlist"
+msgstr "Oynatma Listesini Kaydet"
+
+#: src/playlist.c:346 src/playlist.c:400
+msgid "Playlist (*.pls)"
+msgstr "Oynatma Listesi (*.pls)"
+
+#: src/playlist.c:351 src/playlist.c:410
+msgid "MP3 Playlist (*.m3u)"
+msgstr "MP3 Oynatma Listesi (*.m3u)"
+
+#: src/playlist.c:388 src/playlist.c:1023 src/playlist.c:1026
+msgid "Open Playlist"
+msgstr "Oynatma Listesi Aç"
+
+#: src/playlist.c:405
+msgid "Reference Playlist (*.ref)"
+msgstr "İlgili Oynatma Listesi (*.ref)"
+
+#: src/playlist.c:415
+msgid "MPEG Playlist (*.mxu,*.m1u,*.m4u)"
+msgstr "MPEG Çalma listesi (*.mxu,*.m1u,*.m4u)"
+
+#: src/playlist.c:622
+msgid "Choose Directory"
+msgstr "Klasör Seç"
+
+#: src/playlist.c:659
+#, c-format
+msgid ""
+"\n"
+"\tFound %i file\n"
+msgid_plural ""
+"\n"
+"\tFound %i files\n"
+msgstr[0] ""
+"\n"
+"\t%i dosya bulundu\n"
+msgstr[1] ""
+"\n"
+"\t%i dosya bulundu\n"
+
+#: src/playlist.c:932
+msgid "Item to play"
+msgid_plural "Items to Play"
+msgstr[0] "Oynatılacak öğe"
+msgstr[1] "Oynatılacak öğe"
+
+#: src/playlist.c:954 src/nautilus_property_page.c:299
+msgid "Artist"
+msgstr "Sanatçı"
+
+#: src/playlist.c:966 src/nautilus_property_page.c:311
+msgid "Album"
+msgstr "Albüm"
+
+#: src/playlist.c:978 src/nautilus_property_page.c:323
+msgid "Length"
+msgstr "Uzunluk"
+
+#: src/playlist.c:989
+msgid "Count"
+msgstr "Sayaç"
+
+#: src/playlist.c:998
+msgid "Order"
+msgstr "Sıra"
+
+#: src/playlist.c:1009 src/playlist.c:1012
+msgid "Close Playlist View"
+msgstr "Oynatma Listesini Kapat"
+
+#: src/playlist.c:1045 src/playlist.c:1048
+msgid "Add Item to Playlist"
+msgstr "Oynatma Listesine Ekle"
+
+#: src/playlist.c:1056 src/playlist.c:1059
+msgid "Remove Item from Playlist"
+msgstr "Oynatma Listesinden Çıkar"
+
+#: src/playlist.c:1067 src/playlist.c:1070
+msgid "Add Items in Folder to Playlist"
+msgstr "Klasörün İçindekileri Oynatma Listesine Ekle"
+
+#: src/playlist.c:1078 src/playlist.c:1081
+msgid "Clear Playlist"
+msgstr "Oynatma Listesini Temizle"
+
+#: src/playlist.c:1089 src/playlist.c:1092
+msgid "Move Item Up"
+msgstr "Öğeyi Yukarı Çıkar"
+
+#: src/playlist.c:1101 src/playlist.c:1104
+msgid "Move Item Down"
+msgstr "Öğeyi Aşağı İndir"
+
+#: src/playlist.c:1114 src/playlist.c:1117
+msgid "UnSort List"
+msgstr "Liste Sıralamasını Kaldır"
+
+#: src/playlist.c:1131 src/playlist.c:1134
+msgid "Loop Playlist"
+msgstr "Oynatma Listesini Yinele"
+
+#: src/playlist.c:1147 src/playlist.c:1150
+msgid "Shuffle Playlist"
+msgstr "Oynatma Listesini Karıştır"
+
+#: src/playlist.c:1184
+msgid "_Set Subtitle"
+msgstr "_Altyazı Ayarla"
+
+#: src/nautilus_property_page.c:92
+#, c-format
+msgid "%2i:%02.0f"
+msgstr "%2i:%02.0f"
+
+#: src/nautilus_property_page.c:94
+#, c-format
+msgid "%i:%02i:%02.0f"
+msgstr "%i:%02i:%02.0f"
+
+#: src/nautilus_property_page.c:278
+msgid "<span weight=\"bold\">Media Details</span>"
+msgstr "<span weight=\"bold\">Medya Detayları</span>"
+
+#: src/nautilus_property_page.c:287
+msgid "Title"
+msgstr "Başlık"
+
+#: src/nautilus_property_page.c:335
+msgid "Demuxer"
+msgstr "Biçim çözücü"
+
+#: src/nautilus_property_page.c:387
+msgid "Video Frame Rate:"
+msgstr "Video Çerçeve Hızı:"
+
+#: src/nautilus_property_page.c:489
+msgid "Audio/Video"
+msgstr "Ses/Görüntü:"
+
+#~ msgid "Set Sub_title"
+#~ msgstr "Alt_yazı Seç"
