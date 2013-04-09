@@ -1084,6 +1084,7 @@ int main(int argc, char *argv[])
         if (remember_softvol && volume_softvol != -1) {
             gm_log(verbose, G_LOG_LEVEL_INFO, "Using last volume of %f%%", volume_softvol * 100.0);
             volume = (gdouble) volume_softvol *100.0;
+            audio_device.volume = volume / 100.0;
         } else {
             volume = 100.0;
         }
@@ -1318,6 +1319,8 @@ int main(int argc, char *argv[])
     } else {
         audio_device.volume = volume / 100.0;
     }
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "Volume is %lf Audio Device Volume = %f", volume, audio_device.volume);
+
 #ifdef GTK2_12_ENABLED
     gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
 #else
