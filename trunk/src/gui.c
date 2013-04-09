@@ -1673,13 +1673,17 @@ gboolean set_software_volume(gdouble * data)
 
 gboolean hookup_volume(void *data)
 {
-    if (gm_audio_update_device(&audio_device)) {
-        if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
-            gm_audio_set_server_volume_update_callback(&audio_device, NULL);
-        } else {
-            gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "hookup_volume is %f", audio_device.volume);
+    if (softvol == FALSE) {
+        if (gm_audio_update_device(&audio_device)) {
+            if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
+                gm_audio_set_server_volume_update_callback(&audio_device, NULL);
+            } else {
+                gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
+            }
         }
     }
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "out hookup_volume is %f", audio_device.volume);
     return FALSE;
 }
 
@@ -1689,10 +1693,13 @@ gboolean set_volume(void *data)
     IdleData *idle = (IdleData *) data;
     gchar *buf = NULL;
 
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "set_volume new volume is %f", audio_device.volume);
     if (data == NULL) {
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "in set_volume without data");
-        gm_audio_get_volume(&audio_device);
-        gm_log(verbose, G_LOG_LEVEL_DEBUG, "new volume is %f", audio_device.volume);
+        if (!(softvol || audio_device.type == AUDIO_TYPE_SOFTVOL)) {
+            gm_audio_get_volume(&audio_device);
+        }
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "data is null new volume is %f", audio_device.volume);
 #ifdef GTK2_12_ENABLED
         gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
 #else
@@ -2889,7 +2896,7 @@ gboolean menu_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
 void vol_slider_callback(GtkRange * range, gpointer user_data)
 {
     gdouble vol = gtk_range_get_value(range);
-
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "vol_slider_callback new volume is %f", audio_device.volume);
     if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
         if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED) && vol > 0) {
             gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED, FALSE);
@@ -4304,11 +4311,11 @@ void config_apply(GtkWidget * widget, void *data)
     }
     audio_device.description = g_strdup(audio_device_name);
     gm_audio_update_device(&audio_device);
-    gm_audio_get_volume(&audio_device);
     if (softvol || audio_device.type == AUDIO_TYPE_SOFTVOL) {
         gm_audio_set_server_volume_update_callback(&audio_device, NULL);
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SOFTVOL, TRUE);
     } else {
+        gm_audio_get_volume(&audio_device);
         gm_audio_set_server_volume_update_callback(&audio_device, set_volume);
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SOFTVOL, FALSE);
     }
