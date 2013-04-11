@@ -1699,6 +1699,10 @@ gboolean set_volume(void *data)
         if (!(softvol || audio_device.type == AUDIO_TYPE_SOFTVOL)) {
             gm_audio_get_volume(&audio_device);
         }
+        if (pref_volume != -1) {
+            audio_device.volume = (gdouble) pref_volume / 100.0;
+            pref_volume = -1;
+        }
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "data is null new volume is %f", audio_device.volume);
 #ifdef GTK2_12_ENABLED
         gtk_scale_button_set_value(GTK_SCALE_BUTTON(vol_slider), audio_device.volume);
