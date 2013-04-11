@@ -899,6 +899,9 @@ int main(int argc, char *argv[])
     pplevel = gm_pref_store_get_int(gm_store, PPLEVEL);
 #ifndef HAVE_ASOUNDLIB
     volume = gm_pref_store_get_int(gm_store, VOLUME);
+	if (pref_volume == -1) {
+		pref_volume = volume;
+	}
 #endif
     audio_channels = gm_pref_store_get_int(gm_store, AUDIO_CHANNELS);
     use_hw_audio = gm_pref_store_get_boolean(gm_store, USE_HW_AUDIO);
