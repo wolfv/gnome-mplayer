@@ -1,4 +1,5 @@
 Development
+	Set pref_volume to stored volume when asound is disabled
 	make --volume work with and without softvol enabled
 	cmd line option --volume should only work with softvol enabled
 	Fix problem with remembered softvol not being loaded Issue #675
