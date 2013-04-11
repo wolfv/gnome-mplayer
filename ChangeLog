@@ -1,4 +1,5 @@
 Development
+	cmd line option --volume should only work with softvol enabled
 	Fix problem with remembered softvol not being loaded Issue #675
 1.0.8
 	Updated Spanish translation	
