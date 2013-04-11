@@ -310,6 +310,7 @@ gboolean softvol;
 gboolean remember_softvol;
 gdouble volume_softvol;
 gint volume_gain;
+gint pref_volume;
 gint verbose;
 gint autostart;
 //gint actual_x, actual_y;
