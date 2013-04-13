@@ -1,4 +1,5 @@
 Development
+	Updated Korean translation
 	Apply patch to make fullscreen work under tiled window managers
 	Set pref_volume to stored volume when asound is disabled
 	make --volume work with and without softvol enabled
