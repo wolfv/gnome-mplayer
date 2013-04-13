@@ -634,7 +634,8 @@ void adjust_layout()
         if (!enable_global_menu) {
             gmtk_get_allocation(menubar, &alloc);
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "menubar = %i", alloc.height);
-            total_height += alloc.height;
+			if (!fullscreen)
+	            total_height += alloc.height;
             gm_log(verbose, G_LOG_LEVEL_DEBUG, "total_height = %i", total_height);
         }
     }
@@ -7147,7 +7148,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), _("Playing"));
         gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE, showsubtitles);
         dbus_send_event("MediaPlaying", 0);
-        g_idle_add(set_media_label, idledata);
+   		g_idle_add(set_media_label, idledata);
         if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE) != NULL) {
             g_strlcpy(idledata->display_name,
                       gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE),
