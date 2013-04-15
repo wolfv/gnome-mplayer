@@ -171,6 +171,7 @@ static GOptionEntry entries[] = {
      NULL},
     {"dvd_device", 0, 0, G_OPTION_ARG_STRING, &option_dvd_device, N_("DVD Device Name"), "Path to device or folder"},
     {"vo", 0, 0, G_OPTION_ARG_STRING, &option_vo, N_("Video Output Device Name"), "mplayer vo name"},
+    {"mplayer", 0, 0, G_OPTION_ARG_STRING, &mplayer_bin, N_("Use specified mplayer"), "Path to mplayer binary"},
     {NULL}
 };
 
@@ -899,9 +900,9 @@ int main(int argc, char *argv[])
     pplevel = gm_pref_store_get_int(gm_store, PPLEVEL);
 #ifndef HAVE_ASOUNDLIB
     volume = gm_pref_store_get_int(gm_store, VOLUME);
-	if (pref_volume == -1) {
-		pref_volume = volume;
-	}
+    if (pref_volume == -1) {
+        pref_volume = volume;
+    }
 #endif
     audio_channels = gm_pref_store_get_int(gm_store, AUDIO_CHANNELS);
     use_hw_audio = gm_pref_store_get_boolean(gm_store, USE_HW_AUDIO);
@@ -980,7 +981,8 @@ int main(int argc, char *argv[])
     }
 
     enable_nautilus_plugin = gm_pref_store_get_boolean_with_default(gm_store, ENABLE_NAUTILUS_PLUGIN, TRUE);
-    mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
+    if (mplayer_bin == NULL)
+        mplayer_bin = gm_pref_store_get_string(gm_store, MPLAYER_BIN);
     if (mplayer_bin != NULL && !g_file_test(mplayer_bin, G_FILE_TEST_EXISTS)) {
         g_free(mplayer_bin);
         mplayer_bin = NULL;
