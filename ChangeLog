@@ -1,4 +1,6 @@
 Development
+	Add ability to specify mplayer binary on command line
+	Fix problem with screenshot being done twice in mplayer2 GMTK Issue #14
 	Updated Korean translation
 	Apply patch to make fullscreen work under tiled window managers
 	Set pref_volume to stored volume when asound is disabled
