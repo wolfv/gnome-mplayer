@@ -6727,11 +6727,11 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
         gtk_window_set_has_resize_grip(GTK_WINDOW(window), idledata->videopresent);
 #endif
         if (vo == NULL
-            || !(g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
-                 || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0)) {
-            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), idledata->videopresent);
-        } else {
+            || (use_hardware_codecs == TRUE && (g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
+                 || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0))) {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
+        } else {
+            gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), idledata->videopresent);
         }
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_fullscreen), idledata->videopresent);
         gtk_widget_set_sensitive(GTK_WIDGET(menuitem_view_onetoone), idledata->videopresent);
