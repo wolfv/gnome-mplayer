@@ -1,4 +1,5 @@
 Development
+	Set initial volume in gmtk_media_player when passed on command line
 	Disable screenshot menu when hardware codec are used with xvmc or vdpau
 	Add ability to specify mplayer binary on command line
 	Fix problem with screenshot being done twice in mplayer2 GMTK Issue #14
