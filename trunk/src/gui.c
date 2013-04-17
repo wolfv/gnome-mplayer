@@ -1080,7 +1080,6 @@ gboolean set_volume_from_slider(gpointer data)
 #endif
     if (!gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_MUTED)) {
         gmtk_media_player_set_volume(GMTK_MEDIA_PLAYER(media), vol);
-
         if (remember_softvol) {
             volume_softvol = vol;
             set_software_volume(&volume_softvol);
@@ -1702,6 +1701,7 @@ gboolean set_volume(void *data)
         }
         if (pref_volume != -1) {
             audio_device.volume = (gdouble) pref_volume / 100.0;
+			gmtk_media_player_set_volume (GMTK_MEDIA_PLAYER(media),audio_device.volume);
             pref_volume = -1;
         }
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "data is null new volume is %f", audio_device.volume);
