@@ -5830,7 +5830,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(config_volume), gm_pref_store_get_int(gm_store, VOLUME));
     gm_pref_store_free(gm_store);
     gtk_entry_set_width_chars(GTK_ENTRY(config_volume), 6);
-    gtk_editable_set_editable(GTK_EDITABLE(config_volume), FALSE);
+    gtk_editable_set_editable(GTK_EDITABLE(config_volume), TRUE);
     gtk_entry_set_alignment(GTK_ENTRY(config_volume), 1);
     gtk_widget_show(config_volume);
     i++;
