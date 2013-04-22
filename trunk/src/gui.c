@@ -227,6 +227,7 @@ static GtkWidget *config_deinterlace;
 static GtkWidget *config_framedrop;
 static GtkWidget *config_pplevel;
 
+static GtkWidget *config_resume_mode;
 static GtkWidget *config_playlist_visible;
 static GtkWidget *config_details_visible;
 static GtkWidget *config_vertical_layout;
@@ -1701,7 +1702,7 @@ gboolean set_volume(void *data)
         }
         if (pref_volume != -1) {
             audio_device.volume = (gdouble) pref_volume / 100.0;
-			gmtk_media_player_set_volume (GMTK_MEDIA_PLAYER(media),audio_device.volume);
+            gmtk_media_player_set_volume(GMTK_MEDIA_PLAYER(media), audio_device.volume);
             pref_volume = -1;
         }
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "data is null new volume is %f", audio_device.volume);
@@ -4390,6 +4391,7 @@ void config_apply(GtkWidget * widget, void *data)
     volume_gain = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(config_volume_gain));
     verbose = (gint) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_verbose));
     mouse_wheel_changes_volume = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_mouse_wheel));
+    resume_mode = gtk_combo_box_get_active(GTK_COMBO_BOX(config_resume_mode));
     playlist_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_playlist_visible));
     details_visible = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_details_visible));
     use_mediakeys = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_use_mediakeys));
@@ -5626,6 +5628,25 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
 #endif
         gtk_combo_box_set_active(GTK_COMBO_BOX(config_audio_channels), audio_channels);
     }
+#ifdef GTK2_24_ENABLED
+    config_resume_mode = gtk_combo_box_text_new_with_entry();
+#else
+    config_resume_mode = gtk_combo_box_new_text();
+#endif
+    if (config_resume_mode != NULL) {
+#ifdef GTK2_24_ENABLED
+
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_resume_mode), _("Always ask"));
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_resume_mode), _("Always resume without asking"));
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_resume_mode), _("Never resume"));
+#else
+
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_resume_mode), _("Always ask"));
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_resume_mode), _("Always resume without asking"));
+        gtk_combo_box_append_text(GTK_COMBO_BOX(config_resume_mode), _("Never resume"));
+#endif
+        gtk_combo_box_set_active(GTK_COMBO_BOX(config_resume_mode), resume_mode);
+    }
 
     i = 0;
     j = -1;
@@ -6169,7 +6190,18 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_label_set_use_markup(GTK_LABEL(conf_label), TRUE);
     gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.0);
     gtk_misc_set_padding(GTK_MISC(conf_label), 0, 6);
-    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
+    i++;
+
+    conf_label = gtk_label_new(_("Media Resume:"));
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_misc_set_padding(GTK_MISC(conf_label), 12, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_widget_show(conf_label);
+    gtk_misc_set_alignment(GTK_MISC(conf_label), 0.0, 0.5);
+    gtk_widget_set_size_request(GTK_WIDGET(config_resume_mode), 200, -1);
+    gtk_table_attach(GTK_TABLE(conf_table), config_resume_mode, 1, 2, i, i + 1,
+                     GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
     i++;
 
     config_playlist_visible = gtk_check_button_new_with_label(_("Start with playlist visible"));
@@ -6224,7 +6256,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_replace_and_play =
         gtk_check_button_new_with_label(_("When opening in single instance mode, replace existing file"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_replace_and_play), replace_and_play);
-    gtk_table_attach(GTK_TABLE(conf_table), config_replace_and_play, 1, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_misc_set_padding(GTK_MISC(config_replace_and_play), 12, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), config_replace_and_play, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_set_sensitive(config_replace_and_play,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance)));
     i++;
@@ -6233,7 +6266,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
     config_bring_to_front = gtk_check_button_new_with_label(_("When opening file, bring main window to front"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_bring_to_front), bring_to_front);
-    gtk_table_attach(GTK_TABLE(conf_table), config_bring_to_front, 1, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
+    gtk_misc_set_padding(GTK_MISC(config_bring_to_front), 12, 0);
+    gtk_table_attach(GTK_TABLE(conf_table), config_bring_to_front, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_set_sensitive(config_bring_to_front,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance)));
 
@@ -6728,7 +6762,7 @@ void player_attribute_changed_callback(GmtkMediaTracker * tracker, GmtkMediaPlay
 #endif
         if (vo == NULL
             || (use_hardware_codecs == TRUE && (g_ascii_strncasecmp(vo, "xvmc", strlen("xvmc")) == 0
-                 || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0))) {
+                                                || g_ascii_strncasecmp(vo, "vdpau", strlen("vdpau")) == 0))) {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), FALSE);
         } else {
             gtk_widget_set_sensitive(GTK_WIDGET(menuitem_edit_take_screenshot), idledata->videopresent);

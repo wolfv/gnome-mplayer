@@ -62,6 +62,7 @@
 #define SHOWPLAYLIST			"show-playlist"
 #define SHOWDETAILS				"show-details"
 #define SHOW_CONTROLS			"show-controls"
+#define RESUME_MODE				"resume-mode"
 
 #define AUDIO_LANG				"audio-lang"
 #define SUBTITLE_LANG			"subtitle-lang"
@@ -234,6 +235,12 @@ typedef enum {
     KEY_COUNT
 } AcceleratorKeys;
 
+typedef enum {
+    RESUME_ALWAYS_ASK,
+    RESUME_BUT_NEVER_ASK,
+    DO_NOT_RESUME
+} ResumeMode;
+
 #define ACCEL_PATH_OPEN_LOCATION "<GNOME MPlayer>/File/Open Location"
 #define ACCEL_PATH_EDIT_SCREENSHOT "<GNOME MPlayer>/Edit/Screenshot"
 #define ACCEL_PATH_EDIT_PREFERENCES "<GNOME MPlayer>/Edit/Preferences"
@@ -389,6 +396,7 @@ GtkIconSize button_size;
 gboolean skip_fixed_allocation_on_show;
 gboolean skip_fixed_allocation_on_hide;
 gboolean mouse_wheel_changes_volume;
+gint resume_mode;
 
 gboolean remember_loc;
 gboolean use_remember_loc;
