@@ -601,6 +601,18 @@
         <long>Enable Audio/Video tab in nautilus</long>
       </locale>
     </schema> 
+
+    <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/resume-mode</key>
+      <applyto>/apps/gnome-mplayer/preferences/resume-mode</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short>What to do when resuming media</short>
+        <long>What to do when resuming media</long>
+      </locale>
+    </schema> 
     
   </schemalist>
 </gconfschemafile>

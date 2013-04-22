@@ -617,20 +617,28 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 
         if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1 && metadata->resumable) {
             position_text = seconds_to_string(metadata->position);
-            GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
-                                                       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                       GTK_MESSAGE_QUESTION,
-                                                       GTK_BUTTONS_YES_NO,
-                                                       _("Resume Playback of %s at %s"),
-                                                       metadata->title, position_text);
-            if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES) {
+            if (resume_mode == RESUME_ALWAYS_ASK) {
+                GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+                                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                           GTK_MESSAGE_QUESTION,
+                                                           GTK_BUTTONS_YES_NO,
+                                                           _("Resume Playback of %s at %s"),
+                                                           metadata->title, position_text);
+                if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES) {
+                    gmtk_media_tracker_set_length(tracker, metadata->length_value);
+                    gmtk_media_tracker_set_position(tracker, metadata->position);
+                    gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_START_TIME,
+                                                           metadata->position);
+                }
+                gtk_widget_destroy(dialog);
+                g_free(position_text);
+            }
+            if (resume_mode == RESUME_BUT_NEVER_ASK) {
                 gmtk_media_tracker_set_length(tracker, metadata->length_value);
                 gmtk_media_tracker_set_position(tracker, metadata->position);
                 gmtk_media_player_set_attribute_double(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_START_TIME,
                                                        metadata->position);
             }
-            gtk_widget_destroy(dialog);
-            g_free(position_text);
         }
         free_metadata(metadata);
 #endif
@@ -836,6 +844,7 @@ int main(int argc, char *argv[])
     use_mplayer2 = FALSE;
     enable_global_menu = FALSE;
     cover_art_uri = NULL;
+    resume_mode = RESUME_ALWAYS_ASK;
 
 
     // All Gtk docs say we need to call g_thread_init() and gdk_threads_init() before gtk_init()
@@ -950,6 +959,8 @@ int main(int argc, char *argv[])
     subtitle_margin = gm_pref_store_get_int(gm_store, SUBTITLE_MARGIN);
     subtitle_fuzziness = gm_pref_store_get_int(gm_store, SUBTITLE_FUZZINESS);
     showsubtitles = gm_pref_store_get_boolean_with_default(gm_store, SHOW_SUBTITLES, TRUE);
+
+    resume_mode = gm_pref_store_get_int(gm_store, RESUME_MODE);
 
     qt_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_QT);
     real_disabled = gm_pref_store_get_boolean(gmp_store, DISABLE_REAL);

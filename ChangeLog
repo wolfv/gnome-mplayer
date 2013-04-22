@@ -1,4 +1,5 @@
 Development
+	Add preference (Interface) Media Resume (Always Ask (default), Always without asking, Never) 
 	Allow "Default Volume" (alsa disabled) to be changed
 	Set initial volume in gmtk_media_player when passed on command line
 	Disable screenshot menu when hardware codec are used with xvmc or vdpau

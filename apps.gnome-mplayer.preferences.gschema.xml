@@ -354,6 +354,11 @@
       <default>true</default>
       <summary>Enable Audio/Video plugin in Nautilus</summary>
       <description>Enable Audio/Video plugin in Nautilus</description>
-    </key>    
+    </key>
+	<key name="resume-mode" enum="apps.gnome-mplayer.preferences.ResumeMode">
+	  <default>'resume-always-ask'</default>
+	  <summary>What to do when resuming media</summary>
+      <description>What to do whem resuming media</description> 
+    </key> 
   </schema>
 </schemalist>
