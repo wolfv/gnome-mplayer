@@ -4520,6 +4520,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, KEEP_ON_TOP, keep_on_top);
     gm_pref_store_set_boolean(gm_store, ENABLE_NAUTILUS_PLUGIN, enable_nautilus_plugin);
     gm_pref_store_set_boolean(gm_store, RESIZE_ON_NEW_MEDIA, resize_on_new_media);
+	gm_pref_store_set_int(gm_store, RESUME_MODE, resume_mode);
     gm_pref_store_set_int(gm_store, VERBOSE, verbose);
     gm_pref_store_set_string(gm_store, METADATACODEPAGE, metadata_codepage);
     gm_pref_store_set_string(gm_store, SUBTITLEFONT, subtitlefont);
