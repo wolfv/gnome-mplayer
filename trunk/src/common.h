@@ -396,7 +396,7 @@ GtkIconSize button_size;
 gboolean skip_fixed_allocation_on_show;
 gboolean skip_fixed_allocation_on_hide;
 gboolean mouse_wheel_changes_volume;
-gint resume_mode;
+ResumeMode resume_mode;
 
 gboolean remember_loc;
 gboolean use_remember_loc;

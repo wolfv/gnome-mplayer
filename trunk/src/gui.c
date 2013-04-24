@@ -6257,7 +6257,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     config_replace_and_play =
         gtk_check_button_new_with_label(_("When opening in single instance mode, replace existing file"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_replace_and_play), replace_and_play);
-    gtk_misc_set_padding(GTK_MISC(config_replace_and_play), 12, 0);
     gtk_table_attach(GTK_TABLE(conf_table), config_replace_and_play, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_set_sensitive(config_replace_and_play,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance)));
@@ -6267,7 +6266,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_table_attach(GTK_TABLE(conf_table), conf_label, 0, 1, i, i + 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
     config_bring_to_front = gtk_check_button_new_with_label(_("When opening file, bring main window to front"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(config_bring_to_front), bring_to_front);
-    gtk_misc_set_padding(GTK_MISC(config_bring_to_front), 12, 0);
     gtk_table_attach(GTK_TABLE(conf_table), config_bring_to_front, 0, 2, i, i + 1, GTK_FILL, GTK_SHRINK, 0, 0);
     gtk_widget_set_sensitive(config_bring_to_front,
                              gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_single_instance)));
