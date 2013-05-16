@@ -1,4 +1,5 @@
 Development
+	Add support for building Nemo plugin
 	Fix GDK Warning
 	Fix error in committed media resume preference
 	Add preference (Interface) Media Resume (Always Ask (default), Always without asking, Never) 

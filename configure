@@ -633,6 +633,11 @@ GSETTINGS_RULES
 GLIB_COMPILE_SCHEMAS
 gsettingsschemadir
 GSETTINGS_DISABLE_SCHEMAS_COMPILE
+HAVE_NEMO_FALSE
+HAVE_NEMO_TRUE
+NEMODIR
+NEMO_LIBS
+NEMO_CFLAGS
 HAVE_NAUTILUS_FALSE
 HAVE_NAUTILUS_TRUE
 NAUTILUSDIR
@@ -841,6 +846,7 @@ with_libnotify
 with_libgpod
 with_libmusicbrainz3
 enable_nautilus
+enable_nemo
 enable_gseal
 enable_schemas_compile
 with_gconf_source
@@ -913,7 +919,9 @@ GPOD07_LIBS
 MUSICBRAINZ_CFLAGS
 MUSICBRAINZ_LIBS
 NAUTILUS_CFLAGS
-NAUTILUS_LIBS'
+NAUTILUS_LIBS
+NEMO_CFLAGS
+NEMO_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1537,6 +1545,7 @@ Optional Features:
                           speeds up one-time build
   --enable-gtk3           compile using GTK3
   --enable-nautilus       compile the nautilus plugin
+  --enable-nemo           compile the nemo plugin
   --enable-gseal          Enable flag for testing
   --disable-schemas-compile
                           Disable regeneration of gschemas.compiled on install
@@ -1661,6 +1670,8 @@ Some influential environment variables:
               C compiler flags for NAUTILUS, overriding pkg-config
   NAUTILUS_LIBS
               linker flags for NAUTILUS, overriding pkg-config
+  NEMO_CFLAGS C compiler flags for NEMO, overriding pkg-config
+  NEMO_LIBS   linker flags for NEMO, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -9981,6 +9992,109 @@ else
 fi
 
 
+# Check whether --enable-nemo was given.
+if test "${enable_nemo+set}" = set; then :
+  enableval=$enable_nemo; case "${enableval}" in
+        yes) ENABLE_NEMO=yes ;;
+        no) ENABLE_NEMO=no ;;
+        *) as_fn_error $? "bad value ${enableval} for --enable-nautilus" "$LINENO" 5 ;;
+        esac
+else
+  ENABLE_NEMO=yes
+fi
+
+if test x$ENABLE_NEMO = "xyes" ; then
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for NEMO" >&5
+$as_echo_n "checking for NEMO... " >&6; }
+
+if test -n "$NEMO_CFLAGS"; then
+    pkg_cv_NEMO_CFLAGS="$NEMO_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libnemo-extension\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libnemo-extension") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_NEMO_CFLAGS=`$PKG_CONFIG --cflags "libnemo-extension" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$NEMO_LIBS"; then
+    pkg_cv_NEMO_LIBS="$NEMO_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libnemo-extension\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libnemo-extension") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_NEMO_LIBS=`$PKG_CONFIG --libs "libnemo-extension" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        NEMO_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libnemo-extension" 2>&1`
+        else
+	        NEMO_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libnemo-extension" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$NEMO_PKG_ERRORS" >&5
+
+	HAVE_NEMO=no
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	HAVE_NEMO=no
+else
+	NEMO_CFLAGS=$pkg_cv_NEMO_CFLAGS
+	NEMO_LIBS=$pkg_cv_NEMO_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	HAVE_NEMO=yes
+fi
+fi
+
+
+
+if test x$HAVE_NEMO = "xyes"; then
+
+$as_echo "#define HAVE_NEMO 1" >>confdefs.h
+
+        NEMODIR=`pkg-config --variable=extensiondir libnemo-extension`
+
+fi
+ if test x$HAVE_NEMO = "xyes"; then
+  HAVE_NEMO_TRUE=
+  HAVE_NEMO_FALSE='#'
+else
+  HAVE_NEMO_TRUE='#'
+  HAVE_NEMO_FALSE=
+fi
+
+
 # Check whether --enable-gseal was given.
 if test "${enable_gseal+set}" = set; then :
   enableval=$enable_gseal; case "${enableval}" in
@@ -10531,6 +10645,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${HAVE_NAUTILUS_TRUE}" && test -z "${HAVE_NAUTILUS_FALSE}"; then
   as_fn_error $? "conditional \"HAVE_NAUTILUS\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HAVE_NEMO_TRUE}" && test -z "${HAVE_NEMO_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_NEMO\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${GCONF_SCHEMAS_INSTALL_TRUE}" && test -z "${GCONF_SCHEMAS_INSTALL_FALSE}"; then
