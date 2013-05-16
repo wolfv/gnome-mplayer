@@ -114,6 +114,33 @@ libgnome_mplayer_properties_page_so_LDADD = \
 
 endif #HAVE_NAUTILUS
 
+if HAVE_NEMO
+
+nemodir = $(NEMODIR)
+nemo_PROGRAMS = libgnome-mplayer-nemo-properties-page.so
+
+libgnome_mplayer_nemo_properties_page_so_SOURCES = \
+    ../config.h \
+    mime_types.h \
+    nemo_property_page.c
+
+libgnome_mplayer_nemo_properties_page_so_CFLAGS = -fPIC \
+    $(NEMO_CFLAGS) \
+	$(GTK_CFLAGS) \
+    $(GIO_CFLAGS) \
+    $(AM_CFLAGS)
+    
+libgnome_mplayer_nemo_properties_page_so_LDFLAGS = -shared
+
+libgnome_mplayer_nemo_properties_page_so_LDADD = \
+	$(NEMO_LIBS) \
+	$(GTK_LIBS) \
+	$(GMLIB_LIBS) \
+	$(GIO_LIBS)
+
+endif #HAVE_NEMO
+
+
 EXTRA_DIST = 
 	
 indent:
