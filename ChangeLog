@@ -1,5 +1,6 @@
 Development
-	Add support for building Nemo plugin
+    Tighten up the display in the nemo/nautilus plugins
+    Add support for building Nemo plugin
 	Fix GDK Warning
 	Fix error in committed media resume preference
 	Add preference (Interface) Media Resume (Always Ask (default), Always without asking, Never) 

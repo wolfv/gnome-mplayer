@@ -279,67 +279,67 @@ static gboolean get_properties(GtkWidget * page, gchar * uri)
         gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
         gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
         gtk_misc_set_padding(GTK_MISC(label), 0, 6);
-        gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+        gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
         i++;
 
         if (data != NULL) {
             if (data->title && strlen(data->title) > 0) {
-                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Title"));
+                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Title:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 label = gtk_label_new(data->title);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
             }
 
             if (data->artist && strlen(data->artist) > 0) {
-                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Artist"));
+                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Artist:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 label = gtk_label_new(data->artist);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
             }
 
             if (data->album && strlen(data->album) > 0) {
-                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Album"));
+                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Album:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 label = gtk_label_new(data->album);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
             }
 
             if (data->length) {
-                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Length"));
+                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Length:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 label = gtk_label_new(data->length);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
             }
 
             if (data->demuxer && strlen(data->demuxer) > 0) {
-                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Demuxer"));
+                label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Demuxer:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 label = gtk_label_new(data->demuxer);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 0, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
             }
 
@@ -348,51 +348,51 @@ static gboolean get_properties(GtkWidget * page, gchar * uri)
                 gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 0, 6);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
 
                 label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Video Size:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 buf = g_strdup_printf("%i x %i", data->width, data->height);
                 label = gtk_label_new(buf);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 g_free(buf);
                 i++;
 
                 label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Video Codec:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 buf = g_ascii_strup(data->video_codec, -1);
                 label = gtk_label_new(buf);
                 g_free(buf);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
 
                 label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Video Bitrate:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(data->video_bitrate, NULL) / 1024));
                 label = gtk_label_new(buf);
                 g_free(buf);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
 
                 label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Video Frame Rate:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 buf = g_strdup_printf("%i fps", (gint) (g_strtod(data->video_fps, NULL)));
                 label = gtk_label_new(buf);
                 g_free(buf);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
 
             }
@@ -402,41 +402,41 @@ static gboolean get_properties(GtkWidget * page, gchar * uri)
                 gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 0, 6);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
 
                 label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Audio Codec:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 buf = g_ascii_strup(data->audio_codec, -1);
                 label = gtk_label_new(buf);
                 g_free(buf);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
 
                 label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Audio Bitrate:"));
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                 gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 buf = g_strdup_printf("%i Kb/s", (gint) (g_strtod(data->audio_bitrate, NULL) / 1024));
                 label = gtk_label_new(buf);
                 g_free(buf);
                 gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-                gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                 i++;
 
                 if (g_strtod(data->audio_nch, NULL) > 0) {
                     label = gtk_label_new(dgettext(GETTEXT_PACKAGE, "Audio Channels:"));
                     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
                     gtk_misc_set_padding(GTK_MISC(label), 12, 0);
-                    gtk_table_attach_defaults(GTK_TABLE(page), label, 0, 1, i, i + 1);
+                    gtk_table_attach(GTK_TABLE(page), label, 0, 1, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                     buf = g_strdup_printf("%i", (gint) g_strtod(data->audio_nch, NULL));
                     label = gtk_label_new(buf);
                     g_free(buf);
                     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-                    gtk_table_attach_defaults(GTK_TABLE(page), label, 1, 2, i, i + 1);
+                    gtk_table_attach(GTK_TABLE(page), label, 1, 2, i, i + 1, GTK_FILL | GTK_EXPAND, GTK_SHRINK, 0, 0);
                     i++;
                 }
             }
