@@ -5,3 +5,4 @@ src/support.c
 src/dbus-interface.c
 src/playlist.c
 src/nautilus_property_page.c
+src/nemo_property_page.c
