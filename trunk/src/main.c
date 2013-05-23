@@ -858,7 +858,7 @@ int main(int argc, char *argv[])
     g_type_init();
     gtk_init(&argc, &argv);
     g_setenv("PULSE_PROP_media.role", "video", TRUE);
-
+    setlocale(LC_NUMERIC, "C");
 #ifndef OS_WIN32
     sa.sa_handler = hup_handler;
     sigemptyset(&sa.sa_mask);
