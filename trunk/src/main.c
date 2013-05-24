@@ -615,7 +615,7 @@ gint play_iter(GtkTreeIter * playiter, gint restart_second)
 #ifdef LIBGDA_ENABLED
         metadata = get_db_metadata(db_connection, uri);
 
-        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1 && metadata->resumable) {
+        if (gtk_tree_model_iter_n_children(GTK_TREE_MODEL(playliststore), NULL) == 1 && metadata->resumable && (int)(metadata->position) > 0) {
             position_text = seconds_to_string(metadata->position);
             if (resume_mode == RESUME_ALWAYS_ASK) {
                 GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
