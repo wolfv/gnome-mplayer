@@ -1,4 +1,5 @@
 Development
+    Escape the name when obtained from the URI
 	Only restart if resume position is > 0
 	Protect for media == null in dbus-interface
     Tighten up the display in the nemo/nautilus plugins
