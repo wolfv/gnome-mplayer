@@ -1079,11 +1079,12 @@ MetaData *get_basic_metadata(gchar * uri)
     }
 
     if (title == NULL || strlen(title) == 0) {
-        localuri = g_strdup(name);
+        localuri = g_uri_unescape_string(uri, NULL);
         p = g_strrstr(localuri, ".");
         if (p)
             p[0] = '\0';
         p = g_strrstr(localuri, "/");
+        p = g_strrstr(p - 1, "/");
         if (p) {
             artist = g_strdup(p + 1);
             p = strstr(artist, " - ");
@@ -1425,11 +1426,12 @@ MetaData *get_metadata(gchar * uri)
 
 
     if (title == NULL || strlen(title) == 0) {
-        localuri = g_strdup(uri);
+        localuri = g_uri_unescape_string(uri, NULL);
         p = g_strrstr(localuri, ".");
         if (p)
             p[0] = '\0';
         p = g_strrstr(localuri, "/");
+        p = g_strrstr(p - 1, "/");
         if (p) {
             artist = g_strdup(p + 1);
             p = strstr(artist, " - ");
@@ -1680,7 +1682,7 @@ gboolean add_item_to_playlist(const gchar * uri, gboolean playlist)
 
     gm_log(verbose, G_LOG_LEVEL_INFO, "adding %s to playlist (cancel = %s)", uri,
            gm_bool_to_string(cancel_folder_load));
-    local_uri = g_strdup(uri);
+    local_uri = g_uri_unescape_string(uri, NULL);
 #ifdef LIBGDA_ENABLED
     data = get_db_metadata(db_connection, uri);
 #endif
