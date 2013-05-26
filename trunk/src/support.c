@@ -1028,6 +1028,8 @@ MetaData *get_basic_metadata(gchar * uri)
     gchar *length = NULL;
     gchar *name = NULL;
     gchar *basename = NULL;
+    gchar *escaped_name = NULL;
+    gchar *escaped_basename = NULL;
     gchar *audio_codec = NULL;
     gchar *video_codec = NULL;
     gchar *demuxer = NULL;
@@ -1051,15 +1053,24 @@ MetaData *get_basic_metadata(gchar * uri)
 #ifdef GIO_ENABLED
         file = g_file_new_for_uri(uri);
         if (file != NULL) {
-            name = g_file_get_path(file);
-            basename = g_file_get_basename(file);
+            escaped_name = g_file_get_path(file);
+            escaped_basename = g_file_get_basename(file);
             g_object_unref(file);
         }
 #else
-        name = g_filename_from_uri(uri, NULL, NULL);
-        basename = g_filename_display_basename(name);
+        escaped_name = g_filename_from_uri(uri, NULL, NULL);
+        escaped_basename = g_filename_display_basename(name);
 #endif
     }
+
+    if (escaped_name == NULL) {
+        if (ret != NULL)
+            g_free(ret);
+        return NULL;
+    }
+
+    name = g_uri_unescape_string(escaped_name, NULL);
+    basename = g_uri_unescape_string(escaped_basename, NULL);
 
     if (name == NULL) {
         if (ret != NULL)
@@ -1068,7 +1079,7 @@ MetaData *get_basic_metadata(gchar * uri)
     }
 
     if (title == NULL || strlen(title) == 0) {
-        localuri = g_strdup(uri);
+        localuri = g_strdup(name);
         p = g_strrstr(localuri, ".");
         if (p)
             p[0] = '\0';
