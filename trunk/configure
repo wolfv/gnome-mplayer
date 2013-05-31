@@ -7734,7 +7734,8 @@ else
 	GTK_LIBS=$pkg_cv_GTK_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
-
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Using GTK3" >&5
+$as_echo "$as_me: Using GTK3" >&6;}
 fi
 
 $as_echo "#define GTK3_ENABLED 1" >>confdefs.h
@@ -7936,7 +7937,8 @@ else
 	GTK_LIBS=$pkg_cv_GTK_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
-
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: Using GTK2" >&5
+$as_echo "$as_me: Using GTK2" >&6;}
 fi
 
 
