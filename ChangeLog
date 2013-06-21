@@ -1,9 +1,10 @@
 Development
-    Escape the name when obtained from the URI
+        Update Korean translation
+        Escape the name when obtained from the URI
 	Only restart if resume position is > 0
 	Protect for media == null in dbus-interface
-    Tighten up the display in the nemo/nautilus plugins
-    Add support for building Nemo plugin
+        Tighten up the display in the nemo/nautilus plugins
+        Add support for building Nemo plugin
 	Fix GDK Warning
 	Fix error in committed media resume preference
 	Add preference (Interface) Media Resume (Always Ask (default), Always without asking, Never) 
