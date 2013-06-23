@@ -1209,6 +1209,12 @@ gboolean set_gui_state(void *data)
     gchar *tip_text = NULL;
 #ifdef GTK3_ENABLED
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+    const gchar *icon_start;
+
+    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+        icon_start = "media-playback-start-rtl-symbolic";
+    else
+        icon_start = "media-playback-start-symbolic";
 #endif
 
     gm_log(verbose, G_LOG_LEVEL_MESSAGE, "setting gui state to %s", PLAYSTATE_to_string(guistate));
@@ -1246,8 +1252,8 @@ gboolean set_gui_state(void *data)
 
         if (guistate == PAUSED) {
 #ifdef GTK3_ENABLED
-            if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start-symbolic")) {
-                gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+            if (gtk_icon_theme_has_icon(icon_theme, icon_start)) {
+                gtk_image_set_from_icon_name(GTK_IMAGE(image_play), icon_start, button_size);
             } else {
                 gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
             }
@@ -1275,8 +1281,8 @@ gboolean set_gui_state(void *data)
 
         if (guistate == STOPPED) {
 #ifdef GTK3_ENABLED
-            if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start-symbolic")) {
-                gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+            if (gtk_icon_theme_has_icon(icon_theme, icon_start)) {
+                gtk_image_set_from_icon_name(GTK_IMAGE(image_play), icon_start, button_size);
             } else {
                 gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
             }
@@ -2667,6 +2673,12 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     IdleData *idle = (IdleData *) data;
 #ifdef GTK3_ENABLED
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+    const gchar *icon_start;
+
+    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+        icon_start = "media-playback-start-rtl-symbolic";
+    else
+        icon_start = "media-playback-start-symbolic";
 #endif
 
     if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_PLAY ||
@@ -2678,8 +2690,8 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
         gmtk_media_tracker_set_percentage(tracker, 0.0);
         gtk_widget_set_sensitive(play_event_box, TRUE);
 #ifdef GTK3_ENABLED
-        if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start-symbolic")) {
-            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+        if (gtk_icon_theme_has_icon(icon_theme, icon_start)) {
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), icon_start, button_size);
         } else {
             gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
         }
@@ -2696,8 +2708,8 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     if (gmtk_media_player_get_media_state(GMTK_MEDIA_PLAYER(media)) == MEDIA_STATE_QUIT) {
         gmtk_media_tracker_set_percentage(tracker, 0.0);
 #ifdef GTK3_ENABLED
-        if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start-symbolic")) {
-            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+        if (gtk_icon_theme_has_icon(icon_theme, icon_start)) {
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), icon_start, button_size);
         } else {
             gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
         }
@@ -2775,6 +2787,12 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     GtkTreeIter localiter;
 #ifdef GTK3_ENABLED
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+    const gchar *icon_start;
+
+    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+        icon_start = "media-playback-start-rtl-symbolic";
+    else
+        icon_start = "media-playback-start-symbolic";
 #endif
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -2810,8 +2828,8 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             autopause = FALSE;
             gtk_widget_set_sensitive(play_event_box, TRUE);
 #ifdef GTK3_ENABLED
-            if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start-symbolic")) {
-                gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+            if (gtk_icon_theme_has_icon(icon_theme, icon_start)) {
+                gtk_image_set_from_icon_name(GTK_IMAGE(image_play), icon_start, button_size);
             } else {
                 gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
             }
@@ -2843,6 +2861,12 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     GtkTreePath *path;
 #ifdef GTK3_ENABLED
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+    const gchar *icon_start;
+
+    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+        icon_start = "media-playback-start-rtl-symbolic";
+    else
+        icon_start = "media-playback-start-symbolic";
 #endif
 
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
@@ -2867,8 +2891,8 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
             autopause = FALSE;
             gtk_widget_set_sensitive(play_event_box, TRUE);
 #ifdef GTK3_ENABLED
-            if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start-symbolic")) {
-                gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+            if (gtk_icon_theme_has_icon(icon_theme, icon_start)) {
+                gtk_image_set_from_icon_name(GTK_IMAGE(image_play), icon_start, button_size);
             } else {
                 gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
             }
@@ -7058,6 +7082,12 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     gchar *short_filename = NULL;
 #ifdef GTK3_ENABLED
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
+    const gchar *icon_start;
+
+    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+        icon_start = "media-playback-start-rtl-symbolic";
+    else
+        icon_start = "media-playback-start-symbolic";
 #endif
 
     gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %s dontplaynext = %i",
@@ -7109,8 +7139,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         // break purposely not put here, so gui is properly updated
     case MEDIA_STATE_STOP:
 #ifdef GTK3_ENABLED
-        if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start-symbolic")) {
-            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+        if (gtk_icon_theme_has_icon(icon_theme, icon_start)) {
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), icon_start, button_size);
         } else {
             gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
         }
@@ -7199,8 +7229,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         break;
     case MEDIA_STATE_PAUSE:
 #ifdef GTK3_ENABLED
-        if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start-symbolic")) {
-            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), "media-playback-start-symbolic", button_size);
+        if (gtk_icon_theme_has_icon(icon_theme, icon_start)) {
+            gtk_image_set_from_icon_name(GTK_IMAGE(image_play), icon_start, button_size);
         } else {
             gtk_image_set_from_stock(GTK_IMAGE(image_play), GTK_STOCK_MEDIA_PLAY, button_size);
         }
@@ -7580,6 +7610,24 @@ GtkWidget *create_window(gint windowid)
 #ifdef GTK2_12_ENABLED
     GtkRecentFilter *recent_filter;
     GtkAdjustment *adj;
+#endif
+#ifdef GTK3_ENABLED
+    const char *icon_start, *icon_seek_forward, *icon_seek_backward, 
+        *icon_skip_forward, *icon_skip_backward;
+
+    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL) {
+        icon_start = "media-playback-start-rtl-symbolic";
+        icon_seek_forward = "media-seek-forward-rtl-symbolic";
+        icon_seek_backward = "media-seek-backward-rtl-symbolic";
+        icon_skip_forward = "media-skip-forward-rtl-symbolic";
+        icon_skip_backward = "media-skip-backward-rtl-symbolic";
+    } else {
+        icon_start = "media-playback-start-symbolic";
+        icon_seek_forward = "media-seek-forward-symbolic";
+        icon_seek_backward = "media-seek-backward-symbolic";
+        icon_skip_forward = "media-skip-forward-symbolic";
+        icon_skip_backward = "media-skip-backward-symbolic";
+    }
 #endif
     in_button = FALSE;
     last_movement_time = -1;
@@ -8116,20 +8164,20 @@ GtkWidget *create_window(gint windowid)
     gtk_container_add(GTK_CONTAINER(window), vbox_master);
     icon_theme = gtk_icon_theme_get_default();
 #ifdef GTK3_ENABLED
-    if (gtk_icon_theme_has_icon(icon_theme, "media-playback-start-symbolic") &&
+    if (gtk_icon_theme_has_icon(icon_theme, icon_start) &&
         gtk_icon_theme_has_icon(icon_theme, "media-playback-stop-symbolic") &&
         gtk_icon_theme_has_icon(icon_theme, "media-playback-pause-symbolic") &&
-        gtk_icon_theme_has_icon(icon_theme, "media-seek-forward-symbolic") &&
-        gtk_icon_theme_has_icon(icon_theme, "media-seek-backward-symbolic") &&
+        gtk_icon_theme_has_icon(icon_theme, icon_seek_forward) &&
+        gtk_icon_theme_has_icon(icon_theme, icon_seek_backward) &&
         gtk_icon_theme_has_icon(icon_theme, "view-sidebar-symbolic") &&
         gtk_icon_theme_has_icon(icon_theme, "view-fullscreen-symbolic")) {
-        image_play = gtk_image_new_from_icon_name("media-playback-start-symbolic", button_size);
+        image_play = gtk_image_new_from_icon_name(icon_start, button_size);
         image_stop = gtk_image_new_from_icon_name("media-playback-stop-symbolic", button_size);
         image_pause = gtk_image_new_from_icon_name("media-playback-pause-symbolic", button_size);
-        image_ff = gtk_image_new_from_icon_name("media-seek-forward-symbolic", button_size);
-        image_rew = gtk_image_new_from_icon_name("media-seek-backward-symbolic", button_size);
-        image_prev = gtk_image_new_from_icon_name("media-skip-backward-symbolic", button_size);
-        image_next = gtk_image_new_from_icon_name("media-skip-forward-symbolic", button_size);
+        image_ff = gtk_image_new_from_icon_name(icon_seek_forward, button_size);
+        image_rew = gtk_image_new_from_icon_name(icon_seek_backward, button_size);
+        image_prev = gtk_image_new_from_icon_name(icon_skip_backward, button_size);
+        image_next = gtk_image_new_from_icon_name(icon_skip_forward, button_size);
         image_menu = gtk_image_new_from_icon_name("view-sidebar-symbolic", button_size);
         image_fs = gtk_image_new_from_icon_name("view-fullscreen-symbolic", button_size);
     } else {

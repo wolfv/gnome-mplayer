@@ -1,4 +1,5 @@
 Development
+    Apply patch from Issue 688 to make icons work in RTL mode
         Update Korean translation
         Escape the name when obtained from the URI
 	Only restart if resume position is > 0
