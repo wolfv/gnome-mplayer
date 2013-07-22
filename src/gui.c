@@ -1211,7 +1211,7 @@ gboolean set_gui_state(void *data)
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
     const gchar *icon_start;
 
-    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+    if (gtk_widget_get_default_direction() == GTK_TEXT_DIR_RTL)
         icon_start = "media-playback-start-rtl-symbolic";
     else
         icon_start = "media-playback-start-symbolic";
@@ -2675,7 +2675,7 @@ gboolean stop_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
     const gchar *icon_start;
 
-    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+    if (gtk_widget_get_default_direction() == GTK_TEXT_DIR_RTL)
         icon_start = "media-playback-start-rtl-symbolic";
     else
         icon_start = "media-playback-start-symbolic";
@@ -2789,7 +2789,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
     const gchar *icon_start;
 
-    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+    if (gtk_widget_get_default_direction() == GTK_TEXT_DIR_RTL)
         icon_start = "media-playback-start-rtl-symbolic";
     else
         icon_start = "media-playback-start-symbolic";
@@ -2863,7 +2863,7 @@ gboolean next_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
     const gchar *icon_start;
 
-    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+    if (gtk_widget_get_default_direction() == GTK_TEXT_DIR_RTL)
         icon_start = "media-playback-start-rtl-symbolic";
     else
         icon_start = "media-playback-start-symbolic";
@@ -7084,7 +7084,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
     const gchar *icon_start;
 
-    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+    if (gtk_widget_get_default_direction() == GTK_TEXT_DIR_RTL)
         icon_start = "media-playback-start-rtl-symbolic";
     else
         icon_start = "media-playback-start-symbolic";
@@ -7612,10 +7612,9 @@ GtkWidget *create_window(gint windowid)
     GtkAdjustment *adj;
 #endif
 #ifdef GTK3_ENABLED
-    const char *icon_start, *icon_seek_forward, *icon_seek_backward, 
-        *icon_skip_forward, *icon_skip_backward;
+    const char *icon_start, *icon_seek_forward, *icon_seek_backward, *icon_skip_forward, *icon_skip_backward;
 
-    if (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL) {
+    if (gtk_widget_get_default_direction() == GTK_TEXT_DIR_RTL) {
         icon_start = "media-playback-start-rtl-symbolic";
         icon_seek_forward = "media-seek-forward-rtl-symbolic";
         icon_seek_backward = "media-seek-backward-rtl-symbolic";

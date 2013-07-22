@@ -96,7 +96,9 @@ nautilus_PROGRAMS = libgnome-mplayer-properties-page.so
 libgnome_mplayer_properties_page_so_SOURCES = \
     ../config.h \
     mime_types.h \
-    nautilus_property_page.c
+    nautilus_property_page.c \
+    property_page_common.c \
+    property_page_common.h
 
 libgnome_mplayer_properties_page_so_CFLAGS = -fPIC \
     $(NAUTILUS_CFLAGS) \
@@ -122,7 +124,9 @@ nemo_PROGRAMS = libgnome-mplayer-nemo-properties-page.so
 libgnome_mplayer_nemo_properties_page_so_SOURCES = \
     ../config.h \
     mime_types.h \
-    nemo_property_page.c
+    nemo_property_page.c \
+    property_page_common.c \
+    property_page_common.h
 
 libgnome_mplayer_nemo_properties_page_so_CFLAGS = -fPIC \
     $(NEMO_CFLAGS) \
