@@ -1395,8 +1395,8 @@ int main(int argc, char *argv[])
     // put the request to update the volume into the list of tasks to complete
     g_idle_add(hookup_volume, NULL);
     g_idle_add(set_volume, NULL);
-	if (fullscreen)
-		g_idle_add(set_fullscreen, NULL);
+    if (fullscreen)
+        g_idle_add(set_fullscreen, NULL);
     gtk_main();
     return 0;
 }

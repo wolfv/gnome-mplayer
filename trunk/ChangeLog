@@ -1,12 +1,13 @@
 Development
+    Consolidate nemo and nautilus plugin code so that it is shared
     Fix problem with --fullscreen command line flag
     Apply patch from Issue 688 to make icons work in RTL mode
-        Update Korean translation
-        Escape the name when obtained from the URI
+    Update Korean translation
+    Escape the name when obtained from the URI
 	Only restart if resume position is > 0
 	Protect for media == null in dbus-interface
-        Tighten up the display in the nemo/nautilus plugins
-        Add support for building Nemo plugin
+    Tighten up the display in the nemo/nautilus plugins
+    Add support for building Nemo plugin
 	Fix GDK Warning
 	Fix error in committed media resume preference
 	Add preference (Interface) Media Resume (Always Ask (default), Always without asking, Never) 
