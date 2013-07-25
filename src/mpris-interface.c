@@ -99,7 +99,7 @@ void append_metadata_array(DBusMessageIter * messageIter)
     property = g_strdup("xesam:title");
     dbus_message_iter_append_basic(&dict_entry, DBUS_TYPE_STRING, &property);
     if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE) == NULL) {
-        s_val = g_strdup("Unknown Title");
+        s_val = g_strdup(idledata->display_name);
     } else {
         s_val = g_strdup(gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE));
     }
