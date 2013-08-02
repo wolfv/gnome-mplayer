@@ -2798,7 +2798,7 @@ gboolean prev_callback(GtkWidget * widget, GdkEventExpose * event, void *data)
     if (gtk_list_store_iter_is_valid(playliststore, &iter)) {
         if (gmtk_media_player_get_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_HAS_CHAPTERS)) {
             valid = FALSE;
-            gmtk_media_player_seek_chapter(GMTK_MEDIA_PLAYER(media), -2, SEEK_RELATIVE);
+            gmtk_media_player_seek_chapter(GMTK_MEDIA_PLAYER(media), -1, SEEK_RELATIVE);
         } else {
             valid = prev_item_in_playlist(&iter);
         }
