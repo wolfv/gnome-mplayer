@@ -1,4 +1,5 @@
 Development
+    Fix backwards chapter seeking
     Use display_name in mpris title when title cannot be pulled from gmtk
 	Fix problem with DVD images and folders not playing
     Consolidate nemo and nautilus plugin code so that it is shared
