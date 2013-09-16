@@ -2,6 +2,18 @@
   <schemalist>
 
     <schema>
+      <key>/schemas/apps/gnome-mplayer/preferences/vo</key>
+      <applyto>/apps/gnome-mplayer/preferences/vo</applyto>
+      <owner>gnome-mplayer</owner>
+      <type>string</type>
+      <default>x11</default>
+      <locale name="C">
+        <short>Default Video Output</short>
+        <long>Default Video Output</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/gnome-mplayer/preferences/cache-size</key>
       <applyto>/apps/gnome-mplayer/preferences/cache_size</applyto>
       <owner>gnome-mplayer</owner>
