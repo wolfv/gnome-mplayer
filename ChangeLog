@@ -1,4 +1,5 @@
 Development
+    Updated Portuguese translation
 1.0.9a
     Fix backwards chapter seeking
     Use display_name in mpris title when title cannot be pulled from gmtk

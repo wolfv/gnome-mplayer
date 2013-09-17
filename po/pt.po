@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: gnome-mplayer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-16 12:45-0600\n"
-"PO-Revision-Date: 2013-02-19 15:02-0000\n"
+"PO-Revision-Date: 2013-09-17 14:01-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: Portuguese\n"
 "Language: pt\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2011-06-09 16:08+0000\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: src/main.c:75
 msgid "Window to embed in"
@@ -236,7 +236,7 @@ msgstr "Nome do dispositivo de vídeo"
 
 #: src/main.c:174
 msgid "Use specified mplayer"
-msgstr ""
+msgstr "Utilizar mplayer especificado"
 
 #: src/main.c:402 src/gui.c:1041 src/gui.c:7210 src/gui.c:7316
 #, c-format
@@ -712,15 +712,15 @@ msgstr "Escolha um dos idiomas ou tipo da sua seleção (separados por vírgula)
 
 #: src/gui.c:5662 src/gui.c:5667
 msgid "Always ask"
-msgstr ""
+msgstr "Perguntar sempre"
 
 #: src/gui.c:5663 src/gui.c:5668
 msgid "Always resume without asking"
-msgstr ""
+msgstr "Continuar sem perguntar"
 
 #: src/gui.c:5664 src/gui.c:5669
 msgid "Never resume"
-msgstr ""
+msgstr "Nunca"
 
 #: src/gui.c:5750
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -924,7 +924,7 @@ msgstr "<span weight=\"bold\">Preferências da aplicação</span>"
 
 #: src/gui.c:6219
 msgid "Media Resume:"
-msgstr ""
+msgstr "Retoma multimédia:"
 
 #: src/gui.c:6230
 msgid "Start with playlist visible"
