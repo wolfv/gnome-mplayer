@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-16 12:45-0600\n"
-"PO-Revision-Date: 2013-02-18 13:22+0100\n"
+"PO-Revision-Date: 2013-09-20 22:19+0200\n"
 "Last-Translator: Julian Sikorski <belegdol@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -239,7 +239,7 @@ msgstr "Nazwa urządzenia wyjścia obrazu"
 
 #: src/main.c:174
 msgid "Use specified mplayer"
-msgstr ""
+msgstr "Używaj wybranego mplayera"
 
 #: src/main.c:402 src/gui.c:1041 src/gui.c:7210 src/gui.c:7316
 #, c-format
@@ -719,15 +719,15 @@ msgstr ""
 
 #: src/gui.c:5662 src/gui.c:5667
 msgid "Always ask"
-msgstr ""
+msgstr "Zawsze pytaj"
 
 #: src/gui.c:5663 src/gui.c:5668
 msgid "Always resume without asking"
-msgstr ""
+msgstr "Zawsze wznawiaj bez pytania"
 
 #: src/gui.c:5664 src/gui.c:5669
 msgid "Never resume"
-msgstr ""
+msgstr "Nigdy nie wznawiaj"
 
 #: src/gui.c:5750
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -934,7 +934,7 @@ msgstr "<span weight=\"bold\">Program</span>"
 
 #: src/gui.c:6219
 msgid "Media Resume:"
-msgstr ""
+msgstr "Wznawianie mediów:"
 
 #: src/gui.c:6230
 msgid "Start with playlist visible"
