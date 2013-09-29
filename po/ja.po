@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-16 12:45-0600\n"
-"PO-Revision-Date: 2013-02-17 23:13+0900\n"
+"PO-Revision-Date: 2013-09-29 08:50+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
 "Language: \n"
@@ -237,7 +237,7 @@ msgstr "映像の出力デバイス名:"
 
 #: src/main.c:174
 msgid "Use specified mplayer"
-msgstr ""
+msgstr "指定した MPlayer を使う"
 
 #: src/main.c:402 src/gui.c:1041 src/gui.c:7210 src/gui.c:7316
 #, c-format
@@ -713,15 +713,15 @@ msgstr ""
 
 #: src/gui.c:5662 src/gui.c:5667
 msgid "Always ask"
-msgstr ""
+msgstr "常に確認する"
 
 #: src/gui.c:5663 src/gui.c:5668
 msgid "Always resume without asking"
-msgstr ""
+msgstr "確認せずに、常にリジュームする"
 
 #: src/gui.c:5664 src/gui.c:5669
 msgid "Never resume"
-msgstr ""
+msgstr "全くリジュームしない"
 
 #: src/gui.c:5750
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
@@ -928,7 +928,7 @@ msgstr "<span weight=\"bold\">アプリケーションの設定</span>"
 
 #: src/gui.c:6219
 msgid "Media Resume:"
-msgstr ""
+msgstr "メディアをリジュームするとき:"
 
 #: src/gui.c:6230
 msgid "Start with playlist visible"
