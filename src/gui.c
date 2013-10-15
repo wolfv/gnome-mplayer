@@ -1377,7 +1377,9 @@ void create_folder_progress_window()
     cancel_folder_load = FALSE;
 
     folder_progress_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_modal(GTK_WINDOW(folder_progress_window), TRUE);
+    gtk_window_set_type_hint(GTK_WINDOW(folder_progress_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+    gtk_window_set_transient_for(GTK_WINDOW(folder_progress_window), GTK_WINDOW(window));
+    gtk_window_set_position(GTK_WINDOW(folder_progress_window), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_window_set_icon(GTK_WINDOW(folder_progress_window), pb_icon);
     gtk_window_set_resizable(GTK_WINDOW(folder_progress_window), FALSE);
     gtk_widget_set_size_request(folder_progress_window, 400, -1);
@@ -3236,6 +3238,10 @@ void menuitem_open_location_callback(GtkMenuItem * menuitem, void *data)
     GtkWidget *open_button;
 
     open_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_type_hint(GTK_WINDOW(open_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+    gtk_window_set_resizable(GTK_WINDOW(open_window), FALSE);
+    gtk_window_set_transient_for(GTK_WINDOW(open_window), GTK_WINDOW(window));
+    gtk_window_set_position(GTK_WINDOW(open_window), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_window_set_icon(GTK_WINDOW(open_window), pb_icon);
 
     gtk_window_set_resizable(GTK_WINDOW(open_window), FALSE);
@@ -4827,6 +4833,10 @@ void menuitem_advanced_callback(GtkMenuItem * menuitem, void *data)
     adv_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_type_hint(GTK_WINDOW(adv_window), GDK_WINDOW_TYPE_HINT_UTILITY);
     gtk_window_set_resizable(GTK_WINDOW(adv_window), FALSE);
+    gtk_window_set_icon(GTK_WINDOW(adv_window), pb_icon);
+    gtk_window_set_transient_for(GTK_WINDOW(adv_window), GTK_WINDOW(window));
+    gtk_window_set_position(GTK_WINDOW(adv_window), GTK_WIN_POS_CENTER_ON_PARENT);
+
     gtk_window_set_title(GTK_WINDOW(adv_window), _("Video Picture Adjustments"));
 
 #if GTK_MAJOR_VERSION == 3 && GTK_MINOR_VERSION >= 2
@@ -5310,6 +5320,10 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GdkModifierType modifier;
 
     config_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_type_hint(GTK_WINDOW(config_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+    gtk_window_set_resizable(GTK_WINDOW(config_window), FALSE);
+    gtk_window_set_transient_for(GTK_WINDOW(config_window), GTK_WINDOW(window));
+    gtk_window_set_position(GTK_WINDOW(config_window), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_window_set_icon(GTK_WINDOW(config_window), pb_icon);
 
     gtk_window_set_resizable(GTK_WINDOW(config_window), FALSE);
