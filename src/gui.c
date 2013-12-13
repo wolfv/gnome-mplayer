@@ -7222,7 +7222,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         if (idledata->videopresent)
             dbus_disable_screensaver();
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), _("Playing"));
-        gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE, showsubtitles);
+        gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE, gtk_check_menu_item_get_active (menuitem_view_subtitles));
         dbus_send_event("MediaPlaying", 0);
         g_idle_add(set_media_label, idledata);
         if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE) != NULL) {
