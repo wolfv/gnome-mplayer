@@ -1,4 +1,5 @@
 Development
+    Fix problem with preferences dialog not having focus when opened
     Fix problem with subtitles reappearing after they have been disabled after
         pause/play cycle Issue #703
     Set window properties to be common for all the created windows

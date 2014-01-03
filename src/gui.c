@@ -6577,9 +6577,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     gtk_window_set_keep_above(GTK_WINDOW(config_window), keep_on_top);
     gtk_window_present(GTK_WINDOW(config_window));
 
-#ifdef GTK2_12_ENABLED
-    gtk_window_reshow_with_initial_size(GTK_WINDOW(config_window));
-#endif
 }
 
 void reset_keys_callback(GtkButton * button, gpointer data)
