@@ -7099,7 +7099,7 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         icon_start = "media-playback-start-symbolic";
 #endif
 
-    gm_log(verbose, G_LOG_LEVEL_MESSAGE, "in media state change with state = %s dontplaynext = %i",
+    gm_log(verbose, G_LOG_LEVEL_DEBUG, "in media state change with state = %s dontplaynext = %i",
            gmtk_media_state_to_string(media_state), dontplaynext);
     switch (media_state) {
         // mplayer is dead, need the next item off the playlist
