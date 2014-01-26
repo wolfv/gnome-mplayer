@@ -5314,6 +5314,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     GdkColor sub_color;
     gint i = 0;
     gint j = -1;
+    gint k = -1;
     GtkTreeIter ao_iter;
     gchar *desc;
     guint key;
@@ -5532,9 +5533,14 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_alang != NULL) {
         i = 0;
         j = -1;
+        k = -1;
+        printf("alang = '%s', length = '%i'\n", alang, strlen(alang));
         while (langlist[i] != NULL) {
-            if (alang != NULL && g_ascii_strncasecmp(alang, langlist[i], strlen(alang)) == 0)
+            if (alang != NULL && strlen(alang) > 0 && g_ascii_strncasecmp(alang, langlist[i], strlen(alang)) == 0)
                 j = i;
+            if (alang != NULL && strlen(alang) == 0
+                && g_ascii_strncasecmp("English,eng,en", langlist[i], strlen("English,eng,en")) == 0)
+                k = i;
 #ifdef GTK2_24_ENABLED
             gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_alang), langlist[i++]);
 #else
@@ -5543,8 +5549,11 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
             if (j != -1) {
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_alang), j);
             }
+            if (k != -1) {
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_alang), k);
+            }
         }
-        if (alang != NULL && j == -1) {
+        if (alang != NULL && strlen(alang) > 0 && j == -1) {
 #ifdef GTK2_24_ENABLED
             gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_alang), alang);
 #else
@@ -5564,17 +5573,24 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         i = 0;
         j = -1;
         while (langlist[i] != NULL) {
-            if (slang != NULL && g_ascii_strncasecmp(slang, langlist[i], strlen(slang)) == 0)
+            if (slang != NULL && strlen(slang) > 0 && g_ascii_strncasecmp(slang, langlist[i], strlen(slang)) == 0)
                 j = i;
+            if (slang != NULL && strlen(slang) == 0
+                && g_ascii_strncasecmp("English,eng,en", langlist[i], strlen("English,eng,en")) == 0)
+                k = i;
 #ifdef GTK2_24_ENABLED
             gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_slang), langlist[i++]);
 #else
             gtk_combo_box_append_text(GTK_COMBO_BOX(config_slang), langlist[i++]);
 #endif
-            if (j != -1)
+            if (j != -1) {
                 gtk_combo_box_set_active(GTK_COMBO_BOX(config_slang), j);
+            }
+            if (k != -1) {
+                gtk_combo_box_set_active(GTK_COMBO_BOX(config_slang), k);
+            }
         }
-        if (slang != NULL && j == -1) {
+        if (slang != NULL && strlen(slang) > 0 && j == -1) {
 #ifdef GTK2_24_ENABLED
             gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(config_slang), slang);
 #else
@@ -7219,7 +7235,8 @@ void player_media_state_changed_callback(GtkButton * button, GmtkMediaPlayerMedi
         if (idledata->videopresent)
             dbus_disable_screensaver();
         gmtk_media_tracker_set_text(GMTK_MEDIA_TRACKER(tracker), _("Playing"));
-        gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE, gtk_check_menu_item_get_active (menuitem_view_subtitles));
+        gmtk_media_player_set_attribute_boolean(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_SUB_VISIBLE,
+                                                gtk_check_menu_item_get_active(menuitem_view_subtitles));
         dbus_send_event("MediaPlaying", 0);
         g_idle_add(set_media_label, idledata);
         if (gmtk_media_player_get_attribute_string(GMTK_MEDIA_PLAYER(media), ATTRIBUTE_TITLE) != NULL) {

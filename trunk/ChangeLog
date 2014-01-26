@@ -1,4 +1,6 @@
 Development
+    Set audio and subtitle language to English by default if not specified in configuration
+        better than Zuni by default
     Hide debug message
 1.0.9b
     Fix problem with preferences dialog not having focus when opened
