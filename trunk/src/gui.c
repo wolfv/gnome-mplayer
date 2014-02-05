@@ -8552,7 +8552,10 @@ void show_window(gint windowid)
                 gtk_window_resize(GTK_WINDOW(window), window_x, window_y);
                 gtk_widget_set_size_request(window, window_x, window_y);
             }
-        }
+        } else {
+			gtk_widget_set_size_request(window,-1,-1);
+			gtk_widget_set_size_request(GTK_WIDGET(tracker), 100, -1);
+		}
 
     } else {
 
