@@ -4141,8 +4141,9 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
             if (window_x < 170) {
                 gtk_widget_hide(GTK_WIDGET(tracker));
             }
-            gtk_widget_destroy(fs_window);
-            fs_window = NULL;
+            gtk_widget_hide(fs_window);
+            //gtk_widget_destroy(fs_window);
+            //fs_window = NULL;
 
         }
         gtk_widget_show(menubar);
@@ -4201,30 +4202,32 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
 
             gtk_window_fullscreen(GTK_WINDOW(window));
         } else {
-            fs_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-            gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-            gtk_widget_add_events(fs_window, GDK_BUTTON_PRESS_MASK);
-            gtk_widget_add_events(fs_window, GDK_BUTTON_RELEASE_MASK);
-            gtk_widget_add_events(fs_window, GDK_KEY_PRESS_MASK);
-            gtk_widget_add_events(fs_window, GDK_KEY_RELEASE_MASK);
-            gtk_widget_add_events(fs_window, GDK_ENTER_NOTIFY_MASK);
-            gtk_widget_add_events(fs_window, GDK_LEAVE_NOTIFY_MASK);
-            gtk_widget_add_events(fs_window, GDK_KEY_PRESS_MASK);
-            gtk_widget_add_events(fs_window, GDK_VISIBILITY_NOTIFY_MASK);
-            gtk_widget_add_events(fs_window, GDK_STRUCTURE_MASK);
-            gtk_widget_add_events(fs_window, GDK_POINTER_MOTION_MASK);
-            g_signal_connect(G_OBJECT(fs_window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
-            g_signal_connect(G_OBJECT(fs_window), "motion_notify_event", G_CALLBACK(motion_notify_callback), NULL);
-            gtk_widget_realize(fs_window);
+            if (fs_window == NULL) {
+                fs_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+                gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+                gtk_widget_add_events(fs_window, GDK_BUTTON_PRESS_MASK);
+                gtk_widget_add_events(fs_window, GDK_BUTTON_RELEASE_MASK);
+                gtk_widget_add_events(fs_window, GDK_KEY_PRESS_MASK);
+                gtk_widget_add_events(fs_window, GDK_KEY_RELEASE_MASK);
+                gtk_widget_add_events(fs_window, GDK_ENTER_NOTIFY_MASK);
+                gtk_widget_add_events(fs_window, GDK_LEAVE_NOTIFY_MASK);
+                gtk_widget_add_events(fs_window, GDK_KEY_PRESS_MASK);
+                gtk_widget_add_events(fs_window, GDK_VISIBILITY_NOTIFY_MASK);
+                gtk_widget_add_events(fs_window, GDK_STRUCTURE_MASK);
+                gtk_widget_add_events(fs_window, GDK_POINTER_MOTION_MASK);
+                g_signal_connect(G_OBJECT(fs_window), "key_press_event", G_CALLBACK(window_key_callback), NULL);
+                g_signal_connect(G_OBJECT(fs_window), "motion_notify_event", G_CALLBACK(motion_notify_callback), NULL);
+                gtk_widget_realize(fs_window);
 #ifdef GTK2_18_ENABLED
-            gdk_window_ensure_native(gtk_widget_get_window(fs_window));
+                gdk_window_ensure_native(gtk_widget_get_window(fs_window));
 #else
 #ifdef GTK2_14_ENABLED
 #ifdef X11_ENABLED
-            GDK_WINDOW_XID(gmtk_get_window(GTK_WIDGET(fs_window)));
+                GDK_WINDOW_XID(gmtk_get_window(GTK_WIDGET(fs_window)));
 #endif
 #endif
 #endif
+            }
 
             screen = gtk_window_get_screen(GTK_WINDOW(window));
             gtk_window_set_screen(GTK_WINDOW(fs_window), screen);
@@ -4257,6 +4260,10 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
     }
 
     fullscreen = !fullscreen;
+    if (!fullscreen) {
+        hide_fs_controls();
+        gtk_window_present(GTK_WINDOW(window));
+    }
 
 }
 
@@ -7656,6 +7663,7 @@ GtkWidget *create_window(gint windowid)
 #endif
     in_button = FALSE;
     last_movement_time = -1;
+    fs_controls_lock = g_mutex_new();
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
     if (windowid > 0 && embedding_disabled == FALSE) {
@@ -8553,9 +8561,9 @@ void show_window(gint windowid)
                 gtk_widget_set_size_request(window, window_x, window_y);
             }
         } else {
-			gtk_widget_set_size_request(window,-1,-1);
-			gtk_widget_set_size_request(GTK_WIDGET(tracker), 100, -1);
-		}
+            gtk_widget_set_size_request(window, -1, -1);
+            gtk_widget_set_size_request(GTK_WIDGET(tracker), 200, -1);
+        }
 
     } else {
 
@@ -8879,13 +8887,17 @@ void show_fs_controls()
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
 #endif
 
+
+    g_mutex_lock(fs_controls_lock);
     if (fs_controls == NULL && fullscreen) {
         fs_controls = gtk_window_new(GTK_WINDOW_POPUP);
         gtk_widget_add_events(fs_controls, GDK_ENTER_NOTIFY_MASK);
         gtk_widget_add_events(fs_controls, GDK_LEAVE_NOTIFY_MASK);
         g_signal_connect(G_OBJECT(fs_controls), "enter_notify_event", G_CALLBACK(fs_controls_entered), NULL);
         g_signal_connect(G_OBJECT(fs_controls), "leave_notify_event", G_CALLBACK(fs_controls_left), NULL);
-        g_object_ref(hbox);
+        gtk_window_set_transient_for(GTK_WINDOW(fs_controls), GTK_WINDOW(fs_window));
+    }
+    if (fs_controls != NULL && fullscreen) {
 #ifdef GTK3_ENABLED
         if (gtk_icon_theme_has_icon(icon_theme, "view-restore-symbolic")) {
             gtk_image_set_from_icon_name(GTK_IMAGE(image_fs), "view-restore-symbolic", button_size);
@@ -8895,18 +8907,21 @@ void show_fs_controls()
 #else
         gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_LEAVE_FULLSCREEN, button_size);
 #endif
-        gtk_container_remove(GTK_CONTAINER(controls_box), hbox);
-        gtk_container_add(GTK_CONTAINER(fs_controls), hbox);
-        gtk_window_set_transient_for(GTK_WINDOW(fs_controls), GTK_WINDOW(fs_window));
-        g_object_unref(hbox);
+        if (gtk_widget_get_parent(GTK_WIDGET(hbox)) == controls_box) {
+            g_object_ref(hbox);
+            gtk_container_remove(GTK_CONTAINER(controls_box), hbox);
+            gtk_container_add(GTK_CONTAINER(fs_controls), hbox);
+            g_object_unref(hbox);
+        }
         gtk_widget_show(fs_controls);
+#ifdef GTK3_ENABLED
+        gtk_widget_set_opacity(GTK_WIDGET(fs_controls), 0.75);
+#else
 #ifdef GTK2_12_ENABLED
         gtk_window_set_opacity(GTK_WINDOW(fs_controls), 0.75);
 #endif
-        //gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
-        //while (gtk_events_pending())
-        //    gtk_main_iteration();
-        // center fs_controls
+#endif
+
         screen = gtk_window_get_screen(GTK_WINDOW(window));
         gtk_window_set_screen(GTK_WINDOW(fs_controls), screen);
         gdk_screen_get_monitor_geometry(screen, gdk_screen_get_monitor_at_window(screen, gmtk_get_window(window)),
@@ -8917,6 +8932,8 @@ void show_fs_controls()
         y = rect.y + rect.height - alloc.height;
         gtk_window_move(GTK_WINDOW(fs_controls), x, y);
     }
+    g_mutex_unlock(fs_controls_lock);
+
 }
 
 void hide_fs_controls()
@@ -8925,8 +8942,8 @@ void hide_fs_controls()
     GtkIconTheme *icon_theme = gtk_icon_theme_get_default();
 #endif
 
+    g_mutex_lock(fs_controls_lock);
     if (fs_controls != NULL) {
-        g_object_ref(hbox);
 #ifdef GTK3_ENABLED
         if (gtk_icon_theme_has_icon(icon_theme, "view-fullscreen-symbolic")) {
             gtk_image_set_from_icon_name(GTK_IMAGE(image_fs), "view-fullscreen-symbolic", button_size);
@@ -8936,13 +8953,19 @@ void hide_fs_controls()
 #else
         gtk_image_set_from_stock(GTK_IMAGE(image_fs), GTK_STOCK_FULLSCREEN, button_size);
 #endif
-        gtk_container_remove(GTK_CONTAINER(fs_controls), hbox);
-        gtk_container_add(GTK_CONTAINER(controls_box), hbox);
-        g_object_unref(hbox);
-        //gm_log(verbose, G_LOG_LEVEL_DEBUG, "waiting for all events to drain");
-        //while (gtk_events_pending())
-        //    gtk_main_iteration();
-        gtk_widget_destroy(fs_controls);
-        fs_controls = NULL;
+        if (gtk_widget_get_parent(GTK_WIDGET(hbox)) == fs_controls) {
+            g_object_ref(hbox);
+            gtk_container_remove(GTK_CONTAINER(fs_controls), hbox);
+            gtk_container_add(GTK_CONTAINER(controls_box), hbox);
+            g_object_unref(hbox);
+        }
+        if (fullscreen) {
+            gtk_widget_hide(GTK_WIDGET(fs_controls));
+        } else {
+            gtk_widget_destroy(GTK_WIDGET(fs_controls));
+            fs_controls = NULL;
+        }
     }
+    g_mutex_unlock(fs_controls_lock);
+
 }

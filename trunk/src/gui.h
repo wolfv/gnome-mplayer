@@ -138,6 +138,7 @@ void assign_default_keys();
 void reset_keys_callback(GtkButton * button, gpointer data);
 gint get_index_from_key_and_modifier(guint key, GdkModifierType modifier);
 
+GMutex *fs_controls_lock;
 void show_fs_controls();
 void hide_fs_controls();
 gboolean set_destroy(gpointer data);
