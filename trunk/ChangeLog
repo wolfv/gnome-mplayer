@@ -1,4 +1,5 @@
 Development
+1.0.9
     Fix storing of disable fetch cover art preference
     Work on fixing fullscreen mode hanging when control menu goes thru show/hide sequence
     Prevent window from going fullscreen on startup when embedded
