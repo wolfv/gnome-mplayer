@@ -3032,7 +3032,7 @@ gboolean make_panel_and_mouse_invisible(gpointer data)
             cursor = gdk_cursor_new_from_pixbuf(gdk_display_get_default(), cursor_pixbuf, 0, 0);
             g_object_unref(cursor_pixbuf);
             gdk_window_set_cursor(gmtk_get_window(window), cursor);
-            gdk_cursor_unref(cursor);
+            g_object_unref(cursor);
 #else
             cursor_source = gdk_pixmap_new(NULL, 1, 1, 1);
             cursor = gdk_cursor_new_from_pixmap(cursor_source, cursor_source, &cursor_color, &cursor_color, 0, 0);
@@ -4142,8 +4142,6 @@ void menuitem_fs_callback(GtkMenuItem * menuitem, void *data)
                 gtk_widget_hide(GTK_WIDGET(tracker));
             }
             gtk_widget_hide(fs_window);
-            //gtk_widget_destroy(fs_window);
-            //fs_window = NULL;
 
         }
         gtk_widget_show(menubar);
@@ -4465,6 +4463,8 @@ void config_apply(GtkWidget * widget, void *data)
 #endif
     forcecache = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_forcecache));
     remember_loc = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_remember_loc));
+    disable_cover_art_fetch =
+        (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_disable_cover_art_fetch));
     resize_on_new_media = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_resize_on_new_media));
     keep_on_top = (gboolean) gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(config_keep_on_top));
     gtk_window_set_keep_above(GTK_WINDOW(window), keep_on_top);
@@ -4552,6 +4552,7 @@ void config_apply(GtkWidget * widget, void *data)
     gm_pref_store_set_boolean(gm_store, REPLACE_AND_PLAY, replace_and_play);
     gm_pref_store_set_boolean(gm_store, BRING_TO_FRONT, bring_to_front);
     gm_pref_store_set_boolean(gm_store, REMEMBER_LOC, remember_loc);
+    gm_pref_store_set_boolean(gm_store, DISABLE_COVER_ART_FETCH, disable_cover_art_fetch);
     gm_pref_store_set_boolean(gm_store, KEEP_ON_TOP, keep_on_top);
     gm_pref_store_set_boolean(gm_store, ENABLE_NAUTILUS_PLUGIN, enable_nautilus_plugin);
     gm_pref_store_set_boolean(gm_store, RESIZE_ON_NEW_MEDIA, resize_on_new_media);
@@ -5541,7 +5542,6 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
         i = 0;
         j = -1;
         k = -1;
-        printf("alang = '%s', length = '%i'\n", alang, strlen(alang));
         while (langlist[i] != NULL) {
             if (alang != NULL && strlen(alang) > 0 && g_ascii_strncasecmp(alang, langlist[i], strlen(alang)) == 0)
                 j = i;
@@ -5579,6 +5579,7 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
     if (config_slang != NULL) {
         i = 0;
         j = -1;
+        k = -1;
         while (langlist[i] != NULL) {
             if (slang != NULL && strlen(slang) > 0 && g_ascii_strncasecmp(slang, langlist[i], strlen(slang)) == 0)
                 j = i;
@@ -7663,6 +7664,7 @@ GtkWidget *create_window(gint windowid)
 #endif
     in_button = FALSE;
     last_movement_time = -1;
+    fs_window = NULL;
     fs_controls_lock = g_mutex_new();
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("GNOME MPlayer"));
