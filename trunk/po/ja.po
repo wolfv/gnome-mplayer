@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-09 14:50-0700\n"
+"POT-Creation-Date: 2014-04-23 20:26-0600\n"
 "PO-Revision-Date: 2013-09-29 08:50+0900\n"
 "Last-Translator: Munehiro Yamamoto <munepixyz@gmail.com>\n"
 "Language-Team: munepi <munepixyz@gmail.com>\n"
@@ -151,7 +151,7 @@ msgstr "垂直レイアウトを使う"
 msgid "Start with playlist open"
 msgstr "プレイリストを開いて開始する"
 
-#: src/main.c:133 src/gui.c:6249
+#: src/main.c:133 src/gui.c:6272
 msgid "Start with details visible"
 msgstr "詳細を表示して開始する"
 
@@ -239,7 +239,7 @@ msgstr "映像の出力デバイス名:"
 msgid "Use specified mplayer"
 msgstr "指定した MPlayer を使う"
 
-#: src/main.c:402 src/gui.c:1041 src/gui.c:7221 src/gui.c:7327
+#: src/main.c:402 src/gui.c:1041 src/gui.c:7244 src/gui.c:7351
 #, c-format
 msgid "Playing"
 msgstr "再生しています"
@@ -277,7 +277,7 @@ msgstr "詳細"
 msgid "Audio Meter"
 msgstr "音声メータ"
 
-#: src/main.c:1023 src/gui.c:8424 src/gui.c:8427
+#: src/main.c:1023 src/gui.c:8450 src/gui.c:8453
 msgid "Full Screen"
 msgstr "全画面"
 
@@ -285,15 +285,15 @@ msgstr "全画面"
 msgid "Aspect"
 msgstr "アスペクト"
 
-#: src/main.c:1025 src/gui.c:5387
+#: src/main.c:1025 src/gui.c:5395
 msgid "Subtitles"
 msgstr "字幕"
 
-#: src/main.c:1026 src/gui.c:7992
+#: src/main.c:1026 src/gui.c:8018
 msgid "Decrease Subtitle Size"
 msgstr "字幕サイズを小さくする"
 
-#: src/main.c:1027 src/gui.c:7994
+#: src/main.c:1027 src/gui.c:8020
 msgid "Increase Subtitle Size"
 msgstr "字幕サイズを大きくする"
 
@@ -328,7 +328,7 @@ msgstr ""
 "利用可能なコマンドラインオプションを表示するために、'gnome-mplayer --help' を"
 "実行してください。\n"
 
-#: src/gui.c:727 src/gui.c:781 src/gui.c:7004
+#: src/gui.c:727 src/gui.c:781 src/gui.c:7027
 #, c-format
 msgid "%s - GNOME MPlayer"
 msgstr "%s - GNOME MPlayer"
@@ -343,7 +343,7 @@ msgstr "(%i/%i) - GNOME MPlayer"
 msgid "%s - (%i/%i) - GNOME MPlayer"
 msgstr "%s - (%i/%i) - GNOME MPlayer"
 
-#: src/gui.c:779 src/gui.c:3826 src/gui.c:7643
+#: src/gui.c:779 src/gui.c:3826 src/gui.c:7669
 #, c-format
 msgid "GNOME MPlayer"
 msgstr "GNOME MPlayer"
@@ -358,12 +358,12 @@ msgstr "バッファ中: %2i%%"
 msgid "Paused | %2i%% ▼"
 msgstr "一時停止しています | %2i%% ▼"
 
-#: src/gui.c:1043 src/gui.c:7270 src/gui.c:7329
+#: src/gui.c:1043 src/gui.c:7294 src/gui.c:7353
 #, c-format
 msgid "Paused"
 msgstr "一時停止しています"
 
-#: src/gui.c:1045 src/gui.c:1469 src/gui.c:7331
+#: src/gui.c:1045 src/gui.c:1469 src/gui.c:7355
 #, c-format
 msgid "Idle"
 msgstr "アイドル"
@@ -380,15 +380,15 @@ msgid "Item to Play"
 msgid_plural "Items to Play"
 msgstr[0] "再生する項目"
 
-#: src/gui.c:1236 src/gui.c:1237 src/gui.c:1240 src/gui.c:7201 src/gui.c:7202
-#: src/gui.c:7205
+#: src/gui.c:1236 src/gui.c:1237 src/gui.c:1240 src/gui.c:7224 src/gui.c:7225
+#: src/gui.c:7228
 msgid "Pause"
 msgstr "一時停止"
 
 #: src/gui.c:1265 src/gui.c:1266 src/gui.c:1269 src/gui.c:1294 src/gui.c:1295
 #: src/gui.c:1298 src/gui.c:2704 src/gui.c:2706 src/gui.c:2722 src/gui.c:2724
-#: src/gui.c:7162 src/gui.c:7163 src/gui.c:7166 src/gui.c:7251 src/gui.c:7252
-#: src/gui.c:7255 src/gui.c:8326 src/gui.c:8329
+#: src/gui.c:7185 src/gui.c:7186 src/gui.c:7189 src/gui.c:7275 src/gui.c:7276
+#: src/gui.c:7279 src/gui.c:8352 src/gui.c:8355
 msgid "Play"
 msgstr "再生"
 
@@ -506,185 +506,185 @@ msgstr "音声ファイルを設定する"
 msgid "Set Subtitle"
 msgstr "字幕を設定する"
 
-#: src/gui.c:4231
+#: src/gui.c:4232
 msgid "Gnome MPlayer Fullscreen"
 msgstr "Gnome MPlayer 全画面"
 
-#: src/gui.c:4667
+#: src/gui.c:4674
 msgid "<span weight=\"bold\">Video Details</span>"
 msgstr "<span weight=\"bold\">映像の詳細</span>"
 
-#: src/gui.c:4675
+#: src/gui.c:4682
 msgid "Video Size:"
 msgstr "サイズ:"
 
-#: src/gui.c:4689
+#: src/gui.c:4696
 msgid "Video Format:"
 msgstr "フォーマット:"
 
-#: src/gui.c:4693 src/gui.c:4704 src/gui.c:4735 src/gui.c:4759 src/gui.c:4772
-#: src/gui.c:4785
+#: src/gui.c:4700 src/gui.c:4711 src/gui.c:4742 src/gui.c:4766 src/gui.c:4779
+#: src/gui.c:4792
 #, c-format
 msgid "Unknown"
 msgstr "不明"
 
-#: src/gui.c:4700
+#: src/gui.c:4707
 msgid "Video Codec:"
 msgstr "コーデック:"
 
-#: src/gui.c:4711
+#: src/gui.c:4718
 msgid "Video FPS:"
 msgstr "FPS:"
 
-#: src/gui.c:4720
+#: src/gui.c:4727
 msgid "Video Bitrate:"
 msgstr "ビットレート:"
 
-#: src/gui.c:4731
+#: src/gui.c:4738
 msgid "Video Chapters:"
 msgstr "チャプター:"
 
-#: src/gui.c:4747
+#: src/gui.c:4754
 msgid "<span weight=\"bold\">Audio Details</span>"
 msgstr "<span weight=\"bold\">音声の詳細</span>"
 
-#: src/gui.c:4754
+#: src/gui.c:4761
 msgid "Audio Format:"
 msgstr "フォーマット:"
 
-#: src/gui.c:4767
+#: src/gui.c:4774
 msgid "Audio Codec:"
 msgstr "コーデック:"
 
-#: src/gui.c:4780
+#: src/gui.c:4787
 msgid "Audio Channels:"
 msgstr "チャンネル:"
 
-#: src/gui.c:4793
+#: src/gui.c:4800
 msgid "Audio Bitrate:"
 msgstr "ビットレート:"
 
-#: src/gui.c:4806
+#: src/gui.c:4813
 msgid "Audio Sample Rate:"
 msgstr "サンプルレート:"
 
-#: src/gui.c:4840
+#: src/gui.c:4847
 msgid "Video Picture Adjustments"
 msgstr "映像画像の調整"
 
-#: src/gui.c:4858
+#: src/gui.c:4865
 msgid "<span weight=\"bold\">Video Picture Adjustments</span>"
 msgstr "<span weight=\"bold\">映像画像の調整</span>"
 
-#: src/gui.c:4865
+#: src/gui.c:4872
 msgid "Brightness"
 msgstr "明るさ"
 
-#: src/gui.c:4876
+#: src/gui.c:4883
 msgid "Contrast"
 msgstr "コントラスト"
 
-#: src/gui.c:4887
+#: src/gui.c:4894
 msgid "Gamma"
 msgstr "ガンマ"
 
-#: src/gui.c:4898
+#: src/gui.c:4905
 msgid "Hue"
 msgstr "色相"
 
-#: src/gui.c:4909
+#: src/gui.c:4916
 msgid "Saturation"
 msgstr "彩度"
 
-#: src/gui.c:4926
+#: src/gui.c:4933
 msgid "_Reset"
 msgstr "リセット(_R)"
 
-#: src/gui.c:5065
+#: src/gui.c:5072
 msgid "No Display"
 msgstr "ディスプレイなし"
 
-#: src/gui.c:5068
+#: src/gui.c:5075
 msgid "Minimal"
 msgstr "最小"
 
-#: src/gui.c:5071
+#: src/gui.c:5078
 msgid "Timer"
 msgstr "時間"
 
-#: src/gui.c:5074
+#: src/gui.c:5081
 msgid "Timer/Total"
 msgstr "時間/合計"
 
-#: src/gui.c:5090
+#: src/gui.c:5097
 msgid "No Postprocessing"
 msgstr "後処理なし"
 
-#: src/gui.c:5094
+#: src/gui.c:5101
 msgid "Minimal Postprocessing"
 msgstr "最小な後処理"
 
-#: src/gui.c:5098
+#: src/gui.c:5105
 msgid "More Postprocessing"
 msgstr "よりたくさんの後処理"
 
-#: src/gui.c:5102
+#: src/gui.c:5109
 msgid "Maximum Postprocessing"
 msgstr "最大の後処理"
 
-#: src/gui.c:5118
+#: src/gui.c:5125
 msgid "Exact Match"
 msgstr "完全一致"
 
-#: src/gui.c:5121
+#: src/gui.c:5128
 msgid "Load all subtitles containing movie name"
 msgstr "ビデオ名を含んでいる字幕をすべて読み込む"
 
-#: src/gui.c:5124
+#: src/gui.c:5131
 msgid "Load all subtitles in the same folder"
 msgstr "同じフォルダ内の字幕をすべて読み込む"
 
-#: src/gui.c:5287
+#: src/gui.c:5294
 msgid "Direct ALSA Control"
 msgstr "直接ALSA制御"
 
-#: src/gui.c:5290
+#: src/gui.c:5297
 msgid "Direct PulseAudio Control"
 msgstr "直接PulseAudio制御"
 
-#: src/gui.c:5292
+#: src/gui.c:5299
 msgid "Software Volume Control"
 msgstr "ソフトウェア音量制御"
 
-#: src/gui.c:5383
+#: src/gui.c:5391
 msgid "Player"
 msgstr "プレイヤー"
 
-#: src/gui.c:5385
+#: src/gui.c:5393
 msgid "Language Settings"
 msgstr "言語の設定"
 
-#: src/gui.c:5389
+#: src/gui.c:5397
 msgid "Interface"
 msgstr "インターフェース"
 
-#: src/gui.c:5391
+#: src/gui.c:5399
 msgid "Keyboard Shortcuts"
 msgstr "キーボードショートカット"
 
-#: src/gui.c:5393
+#: src/gui.c:5401
 msgid "MPlayer"
 msgstr "MPlayer"
 
-#: src/gui.c:5395
+#: src/gui.c:5403
 msgid "Plugin"
 msgstr "プラグイン"
 
-#: src/gui.c:5401
+#: src/gui.c:5409
 msgid "GNOME MPlayer Configuration"
 msgstr "GNOME MPlayer 環境設定"
 
-#: src/gui.c:5419 src/gui.c:5425
+#: src/gui.c:5427 src/gui.c:5433
 msgid ""
 "mplayer video output device\n"
 "x11 should always work, try xv, gl or vdpau for better performance and "
@@ -693,49 +693,49 @@ msgstr ""
 "たいていの場合、x11 は動作するでしょう。よりよいパフォーマンスやすぐれた機能"
 "を利用する場合、xv や gl、vdpau などを試してください。"
 
-#: src/gui.c:5486
+#: src/gui.c:5494
 msgid "Enable AC3/DTS pass-through to S/PDIF"
 msgstr "S/PDIF出力にAC3/DTSパススルーを許可する"
 
-#: src/gui.c:5495
+#: src/gui.c:5503
 msgid "Mplayer Software Volume Control Enabled"
 msgstr "MPlayer のソフトウェア音量制御を有効にする"
 
-#: src/gui.c:5516
+#: src/gui.c:5524
 msgid "Default"
 msgstr "標準"
 
-#: src/gui.c:5556 src/gui.c:5586 src/gui.c:6046 src/gui.c:6058
+#: src/gui.c:5571 src/gui.c:5609 src/gui.c:6069 src/gui.c:6081
 msgid ""
 "Choose one of the languages or type in your own comma-separated selection"
 msgstr ""
 "言語一覧のうちから一つ選択するか、カンマ（,）区切りで言語を入力してください"
 
-#: src/gui.c:5676 src/gui.c:5681
+#: src/gui.c:5699 src/gui.c:5704
 msgid "Always ask"
 msgstr "常に確認する"
 
-#: src/gui.c:5677 src/gui.c:5682
+#: src/gui.c:5700 src/gui.c:5705
 msgid "Always resume without asking"
 msgstr "確認せずに、常にリジュームする"
 
-#: src/gui.c:5678 src/gui.c:5683
+#: src/gui.c:5701 src/gui.c:5706
 msgid "Never resume"
 msgstr "全くリジュームしない"
 
-#: src/gui.c:5764
+#: src/gui.c:5787
 msgid "<span weight=\"bold\">Adjust Output Settings</span>"
 msgstr "<span weight=\"bold\">出力の設定を調整</span>"
 
-#: src/gui.c:5771
+#: src/gui.c:5794
 msgid "Video Output:"
 msgstr "映像出力:"
 
-#: src/gui.c:5780
+#: src/gui.c:5803
 msgid "Enable Video Hardware Support"
 msgstr "動画再生支援機能を有効にする"
 
-#: src/gui.c:5785 src/gui.c:5790
+#: src/gui.c:5808 src/gui.c:5813
 msgid ""
 "When this option is enabled, codecs or options will be enabled to accelerate "
 "video processing. These options may cause playback to fail in some cases."
@@ -744,50 +744,50 @@ msgstr ""
 "ン）を有効にして、コーデックやオプションを利用します。場合によって、再生に失"
 "敗する場合もありえます。"
 
-#: src/gui.c:5798
+#: src/gui.c:5821
 msgid "Enable CrystalHD Hardware Support"
 msgstr "Crystal HD 動画再生支援を有効にする"
 
-#: src/gui.c:5805
+#: src/gui.c:5828
 msgid "Audio Output:"
 msgstr "音声出力:"
 
-#: src/gui.c:5815
+#: src/gui.c:5838
 msgid "Audio Volume Type:"
 msgstr "音声音量タイプ:"
 
-#: src/gui.c:5827
+#: src/gui.c:5850
 msgid "Default Mixer:"
 msgstr "標準のミキサー"
 
-#: src/gui.c:5837
+#: src/gui.c:5860
 msgid "Audio Channels to Output:"
 msgstr "出力音声チャネル:"
 
 #. conf_table = gtk_table_new(20, 2, FALSE);
 #. gtk_container_add(GTK_CONTAINER(conf_page1), conf_table);
 #. i = 0;
-#: src/gui.c:5865
+#: src/gui.c:5888
 msgid "<span weight=\"bold\">Adjust Configuration Settings</span>"
 msgstr "<span weight=\"bold\">環境設定の調整</span>"
 
-#: src/gui.c:5873
+#: src/gui.c:5896
 msgid "Default Volume Level:"
 msgstr "標準の音量レベル:"
 
-#: src/gui.c:5880 src/gui.c:5883
+#: src/gui.c:5903 src/gui.c:5906
 msgid "Default volume for playback"
 msgstr "再生に対する標準の音量"
 
-#: src/gui.c:5897
+#: src/gui.c:5920
 msgid "On Screen Display Level:"
 msgstr "スクリーンディスプレイのレベル:"
 
-#: src/gui.c:5909
+#: src/gui.c:5932
 msgid "Post-processing level:"
 msgstr "後処理のレベル"
 
-#: src/gui.c:5923
+#: src/gui.c:5946
 msgid ""
 "<span weight=\"bold\">Adjust Plugin Emulation Settings</span>\n"
 "\n"
@@ -806,39 +806,39 @@ msgstr ""
 "NPRuntime 互換ブラウザ（Firefox, Konqueror など）の中で\n"
 "いろいろなウェブコンテンツの再生を許可するでしょう。"
 
-#: src/gui.c:5934
+#: src/gui.c:5957
 msgid "QuickTime Emulation"
 msgstr "QuickTime エミュレーション"
 
-#: src/gui.c:5939
+#: src/gui.c:5962
 msgid "RealPlayer Emulation"
 msgstr "RealPlayer エミュレーション"
 
-#: src/gui.c:5944
+#: src/gui.c:5967
 msgid "Windows Media Player Emulation"
 msgstr "Windows Media Player エミュレーション"
 
-#: src/gui.c:5949
+#: src/gui.c:5972
 msgid "DiVX Player Emulation"
 msgstr "DiVX プレイヤーエミュレーション"
 
-#: src/gui.c:5954
+#: src/gui.c:5977
 msgid "MIDI Support (requires MPlayer support)"
 msgstr "MIDI サポート（MPlayer 側の対応が必要）"
 
-#: src/gui.c:5959
+#: src/gui.c:5982
 msgid "Disable Player Embedding"
 msgstr "プレイヤーの埋め込みを無効にする"
 
-#: src/gui.c:5964
+#: src/gui.c:5987
 msgid "Disable Embedded Player Scaling"
 msgstr "埋めこまれているプレイヤーのスケーリングを無効にする"
 
-#: src/gui.c:5969
+#: src/gui.c:5992
 msgid "Audio Cache Size (KB):"
 msgstr "音声キャッシュサイズ(KB)"
 
-#: src/gui.c:5979 src/gui.c:5982 src/gui.c:5988 src/gui.c:5993
+#: src/gui.c:6002 src/gui.c:6005 src/gui.c:6011 src/gui.c:6016
 msgid ""
 "Amount of data to cache when playing media from network, use higher values "
 "for slow networks."
@@ -846,163 +846,163 @@ msgstr ""
 "ネットワークからメディアを再生するときのキャッシュサイズ。遅いネットワークに"
 "対して、より高い値を設定して下さい。"
 
-#: src/gui.c:6009
+#: src/gui.c:6032
 msgid "Video Cache Size (KB):"
 msgstr "映像キャッシュサイズ(KB)"
 
-#: src/gui.c:6031
+#: src/gui.c:6054
 msgid "<span weight=\"bold\">Adjust Language Settings</span>"
 msgstr "<span weight=\"bold\">言語設定の調整</span>"
 
-#: src/gui.c:6038
+#: src/gui.c:6061
 msgid "Default Audio Language"
 msgstr "標準の音声言語"
 
-#: src/gui.c:6049
+#: src/gui.c:6072
 msgid "Default Subtitle Language:"
 msgstr "標準の字幕言語"
 
-#: src/gui.c:6061
+#: src/gui.c:6084
 msgid "File Metadata Encoding:"
 msgstr "ファイルのメタデータのエンコード"
 
-#: src/gui.c:6077
+#: src/gui.c:6100
 msgid "<span weight=\"bold\">Subtitle Settings</span>"
 msgstr "<span weight=\"bold\">字幕の設定</span>"
 
-#: src/gui.c:6084
+#: src/gui.c:6107
 msgid "Enable _Advanced Substation Alpha (ASS) Subtitle Support"
 msgstr "Advanced Substation Alpha (ASS) 字幕のサポートを有効にする(_A)"
 
-#: src/gui.c:6091
+#: src/gui.c:6114
 msgid "Use _Embedded Fonts (MKV only)"
 msgstr "埋め込みフォントを使用する(MKVのみ) (_E)"
 
-#: src/gui.c:6100
+#: src/gui.c:6123
 msgid "Subtitle Font:"
 msgstr "フォント:"
 
-#: src/gui.c:6118
+#: src/gui.c:6141
 msgid "Subtitle Font Selection"
 msgstr "字幕のフォントの選択"
 
-#: src/gui.c:6123
+#: src/gui.c:6146
 msgid "Subtitle Color:"
 msgstr "カラー:"
 
-#: src/gui.c:6147
+#: src/gui.c:6170
 msgid "Subtitle Color Selection"
 msgstr "字幕のカラーの選択"
 
-#: src/gui.c:6153
+#: src/gui.c:6176
 msgid "Outline Subtitle Font"
 msgstr "アウトラインのフォント:"
 
-#: src/gui.c:6159
+#: src/gui.c:6182
 msgid "Shadow Subtitle Font"
 msgstr "影のフォント:"
 
-#: src/gui.c:6165
+#: src/gui.c:6188
 msgid "Subtitle Font Scaling:"
 msgstr "フォントのスケーリング:"
 
-#: src/gui.c:6178
+#: src/gui.c:6201
 msgid "Subtitle File Encoding:"
 msgstr "ファイルのエンコード:"
 
-#: src/gui.c:6190
+#: src/gui.c:6213
 msgid "Subtitle Lower Margin (X11/XV Only):"
 msgstr "下部のマージン(X11/XVのみ)"
 
-#: src/gui.c:6203
+#: src/gui.c:6226
 msgid "Show Subtitles by Default"
 msgstr "字幕を表示する"
 
-#: src/gui.c:6208
+#: src/gui.c:6231
 msgid "Subtitle Load Fuzziness:"
 msgstr "字幕読み込みのあいまいさ"
 
-#: src/gui.c:6226
+#: src/gui.c:6249
 msgid "<span weight=\"bold\">Application Preferences</span>"
 msgstr "<span weight=\"bold\">アプリケーションの設定</span>"
 
-#: src/gui.c:6233
+#: src/gui.c:6256
 msgid "Media Resume:"
 msgstr "メディアをリジュームするとき:"
 
-#: src/gui.c:6244
+#: src/gui.c:6267
 msgid "Start with playlist visible"
 msgstr "プレイリストを表示して開始する"
 
-#: src/gui.c:6254
+#: src/gui.c:6277
 msgid "Respond to Keyboard Media Keys"
 msgstr "キーボードメディアキーに反応する"
 
-#: src/gui.c:6259
+#: src/gui.c:6282
 msgid "Use default playlist"
 msgstr "標準のプレイリストを使用する"
 
-#: src/gui.c:6265
+#: src/gui.c:6288
 msgid "Show notification popup"
 msgstr "通知ポップアップを表示する"
 
-#: src/gui.c:6272
+#: src/gui.c:6295
 msgid "Show status icon"
 msgstr "ステータスアイコンを表示する"
 
-#: src/gui.c:6279
+#: src/gui.c:6302
 msgid "Place playlist below media (requires application restart)"
 msgstr "メディアの下にプレイリストを配置する（アプリケーションの再起動が必要）"
 
-#: src/gui.c:6284
+#: src/gui.c:6307
 msgid "Only allow one instance of Gnome MPlayer"
 msgstr "Gnome MPlayer には 1 つのインスタンスのみを許可する"
 
-#: src/gui.c:6294
+#: src/gui.c:6317
 msgid "When opening in single instance mode, replace existing file"
 msgstr "単一インスタンスモードで開くとき、既存のファイルを置き換える"
 
-#: src/gui.c:6303
+#: src/gui.c:6326
 msgid "When opening file, bring main window to front"
 msgstr "ファイルを開くときに、前面にメインウィンドウをもってくる"
 
-#: src/gui.c:6310
+#: src/gui.c:6333
 msgid "Remember Window Location and Size"
 msgstr "ウィンドウの位置とサイズを記憶する"
 
-#: src/gui.c:6315
+#: src/gui.c:6338
 msgid "Resize window when new video is loaded"
 msgstr "新しいビデオを読み込んだときにウィンドウをリサイズする"
 
-#: src/gui.c:6320
+#: src/gui.c:6343
 msgid "Keep window above other windows"
 msgstr "他のウィンドウ上にウィンドウを保持する"
 
-#: src/gui.c:6325
+#: src/gui.c:6348
 msgid "Pause playback on mouse click"
 msgstr "マウスをクリックして再生を一時停止する"
 
-#: src/gui.c:6330
+#: src/gui.c:6353
 msgid "Disable Fullscreen Control Bar Animation"
 msgstr "全画面で操作パネルのアニメーションを無効にする"
 
-#: src/gui.c:6335
+#: src/gui.c:6358
 msgid "Disable Cover Art Fetch"
 msgstr "ジャケット（カバー）画像の取得を無効にする"
 
-#: src/gui.c:6340
+#: src/gui.c:6363
 msgid "Use Mouse Wheel to change volume, instead of seeking"
 msgstr "マウスホイールをシークの代わりに、音量変更に割り当てる"
 
-#: src/gui.c:6345
+#: src/gui.c:6368
 msgid "Enable Nautilus Plugin"
 msgstr "Nautilus プラグインを有効にする"
 
-#: src/gui.c:6350
+#: src/gui.c:6373
 msgid "Verbose Debug Enabled"
 msgstr "詳細なデバッグを有効にする"
 
-#: src/gui.c:6354 src/gui.c:6359
+#: src/gui.c:6377 src/gui.c:6382
 msgid ""
 "When this option is set, extra debug information is sent to the terminal or "
 "into ~/.xsession-errors"
@@ -1010,11 +1010,11 @@ msgstr ""
 "このオプションを設定すると、追加のデバッグ情報が端末あるいは ~/.xsession-"
 "errors へ送られます。"
 
-#: src/gui.c:6370
+#: src/gui.c:6393
 msgid "<span weight=\"bold\">Advanced Settings for MPlayer</span>"
 msgstr "<span weight=\"bold\">MPlayer の詳細設定</span>"
 
-#: src/gui.c:6379 src/gui.c:6383
+#: src/gui.c:6402 src/gui.c:6406
 msgid ""
 "Set this option if changing the volume in Gnome MPlayer changes the master "
 "volume"
@@ -1022,45 +1022,45 @@ msgstr ""
 "Gnome MPlayer における音量を調整することによって、マスター音量を変更したいの"
 "ならば、このオプションを設定して下さい。"
 
-#: src/gui.c:6393
+#: src/gui.c:6416
 msgid "Remember last software volume level"
 msgstr "最後に設定された音量を記憶する"
 
-#: src/gui.c:6396 src/gui.c:6400
+#: src/gui.c:6419 src/gui.c:6423
 msgid "Set this option if you want the software volume level to be remembered"
 msgstr ""
 "もし MPlayer の出力の音量を記憶させたいのならば、このオプションを有効にして下"
 "さい。"
 
-#: src/gui.c:6407
+#: src/gui.c:6430
 msgid "Volume Gain (-200dB to +60dB)"
 msgstr "歪み量(-200dB から +60dB まで)"
 
-#: src/gui.c:6419
+#: src/gui.c:6442
 msgid "De_interlace Video"
 msgstr "非インタレースビデオ(_I)"
 
-#: src/gui.c:6421 src/gui.c:6424
+#: src/gui.c:6444 src/gui.c:6447
 msgid "Set this option if video looks striped"
 msgstr "映像が縞模様に見えるならば、このオプションを設定して下さい。"
 
-#: src/gui.c:6430
+#: src/gui.c:6453
 msgid "_Drop frames"
 msgstr "フレームを落す(_D)"
 
-#: src/gui.c:6432 src/gui.c:6435
+#: src/gui.c:6455 src/gui.c:6458
 msgid "Set this option if video is well behind the audio"
 msgstr "映像が音声よりも遅れているのであれば、このオプションを設定して下さい。"
 
-#: src/gui.c:6441
+#: src/gui.c:6464
 msgid "Enable mplayer cache"
 msgstr "MPlayer のキャッシュを有効にする"
 
-#: src/gui.c:6447
+#: src/gui.c:6470
 msgid "Cache Size (KB):"
 msgstr "キャッシュサイズ (KB):"
 
-#: src/gui.c:6455 src/gui.c:6459
+#: src/gui.c:6478 src/gui.c:6482
 msgid ""
 "Amount of data to cache when playing media, use higher values for slow "
 "devices and sites."
@@ -1068,32 +1068,32 @@ msgstr ""
 "メディアを再生するときのキャッシュサイズ。遅いデバイスやサイトに対して、より"
 "高い値を設定して下さい。"
 
-#: src/gui.c:6479
+#: src/gui.c:6502
 msgid "MPlayer Executable:"
 msgstr "MPlayer の実行可能なバイナリ:"
 
-#: src/gui.c:6483 src/gui.c:6487
+#: src/gui.c:6506 src/gui.c:6510
 msgid ""
 "Use this option to specify a mplayer application that is not in the path"
 msgstr ""
 "このオプションを使うと、パス（環境変数 $PATH）に含まれない MPlayer バイナリへ"
 "のパスを指定できます。"
 
-#: src/gui.c:6503
+#: src/gui.c:6526
 msgid "Extra Options to MPlayer:"
 msgstr "MPlayer へのその他のオプション:"
 
-#: src/gui.c:6506 src/gui.c:6509
+#: src/gui.c:6529 src/gui.c:6532
 msgid "Add any extra mplayer options here (filters etc)"
 msgstr ""
 "このオプションを使うと、MPlayer へのほかのオプション（フィルタなど）を追加で"
 "きます。"
 
-#: src/gui.c:6520
+#: src/gui.c:6543
 msgid "MPlayer Default Optical Device"
 msgstr "MPlayer の標準の光学デバイス:"
 
-#: src/gui.c:6535
+#: src/gui.c:6558
 msgid ""
 "<span weight=\"bold\">Keyboard Shortcuts</span>\n"
 "\n"
@@ -1105,245 +1105,245 @@ msgstr ""
 "まず、変更したい項目の右側にあるボックスをマウスで選択します。\n"
 "つぎに、希望のショートカットキーを入力します。"
 
-#: src/gui.c:6567
+#: src/gui.c:6590
 msgid "Reset Keys"
 msgstr "デフォルトに戻す"
 
-#: src/gui.c:7694
+#: src/gui.c:7720
 msgid "S_how Controls"
 msgstr "操作パネルを表示する(_H)"
 
-#: src/gui.c:7698 src/gui.c:7950
+#: src/gui.c:7724 src/gui.c:7976
 msgid "_Full Screen"
 msgstr "全画面(_F)"
 
-#: src/gui.c:7703
+#: src/gui.c:7729
 msgid "_Copy Location"
 msgstr "ロケーションをコピーする(_C)"
 
 #. File Menu
-#: src/gui.c:7752
+#: src/gui.c:7778
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: src/gui.c:7760
+#: src/gui.c:7786
 msgid "Open _Folder"
 msgstr "フォルダを開く(_F)"
 
-#: src/gui.c:7765
+#: src/gui.c:7791
 msgid "Open _Location"
 msgstr "ロケーションを開く(_L)"
 
-#: src/gui.c:7771
+#: src/gui.c:7797
 msgid "_Disc"
 msgstr "ディスク(_D)"
 
-#: src/gui.c:7779
+#: src/gui.c:7805
 msgid "Open _Audio CD"
 msgstr "音声CDを開く(_A)"
 
 #. menuitem_file_open_dvd = GTK_MENU_ITEM(gtk_image_menu_item_new_with_mnemonic(_("Open _DVD")));
 #. gtk_menu_shell_append(GTK_MENU_SHELL(menu_file_disc), GTK_WIDGET(menuitem_file_open_dvd));
-#: src/gui.c:7785
+#: src/gui.c:7811
 msgid "Open DVD with _Menus"
 msgstr "メニューでDVDを開く(_M)"
 
-#: src/gui.c:7790
+#: src/gui.c:7816
 msgid "Open DVD from Folder with M_enus"
 msgstr "フォルダからメニューでDVD開く(_E)"
 
-#: src/gui.c:7795
+#: src/gui.c:7821
 msgid "Open DVD from ISO with Me_nus"
 msgstr "ISOイメージからメニューで開く(_N)"
 
-#: src/gui.c:7799
+#: src/gui.c:7825
 msgid "Open _VCD"
 msgstr "VCDを開く(_V)"
 
-#: src/gui.c:7801
+#: src/gui.c:7827
 msgid "_TV"
 msgstr "テレビ(_T)"
 
-#: src/gui.c:7806
+#: src/gui.c:7832
 msgid "Open _Analog TV"
 msgstr "アナログテレビを開く(_A)"
 
-#: src/gui.c:7808
+#: src/gui.c:7834
 msgid "Open _Digital TV"
 msgstr "デジタルテレビを開く(_D)"
 
-#: src/gui.c:7811
+#: src/gui.c:7837
 msgid "Open _iPod™"
 msgstr "iPod™を開く(_I)"
 
-#: src/gui.c:7820
+#: src/gui.c:7846
 msgid "Open _Recent"
 msgstr "履歴を開く(_R)"
 
 #. Edit Menu
-#: src/gui.c:7867
+#: src/gui.c:7893
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: src/gui.c:7873
+#: src/gui.c:7899
 msgid "_Shuffle Playlist"
 msgstr "プレイリストをシャッフルする(_S)"
 
-#: src/gui.c:7876
+#: src/gui.c:7902
 msgid "_Loop Playlist"
 msgstr "プレイリストを繰り返す(_L)"
 
-#: src/gui.c:7880
+#: src/gui.c:7906
 msgid "P_lay Single Track from Playlist"
 msgstr "プレイリストから単一トラックを再生する(_L)"
 
-#: src/gui.c:7884
+#: src/gui.c:7910
 msgid "S_witch Audio Track"
 msgstr "音声トラックを切り替える(_W)"
 
-#: src/gui.c:7886 src/playlist.c:1188
+#: src/gui.c:7912 src/playlist.c:1188
 msgid "Set Audi_o"
 msgstr "音声を設定する(_O)"
 
-#: src/gui.c:7888
+#: src/gui.c:7914
 msgid "Select _Audio Language"
 msgstr "音声言語を選択する(_A)"
 
-#: src/gui.c:7891
+#: src/gui.c:7917
 msgid "Set S_ubtitle"
 msgstr "字幕を設定する(_U)"
 
-#: src/gui.c:7893
+#: src/gui.c:7919
 msgid "S_elect Subtitle Language"
 msgstr "字幕の言語を選択する(_E)"
 
-#: src/gui.c:7898
+#: src/gui.c:7924
 msgid "_Take Screenshot"
 msgstr "スクリーンショットを撮る(_T)"
 
-#: src/gui.c:7904 src/gui.c:7909
+#: src/gui.c:7930 src/gui.c:7935
 msgid "Files named ’shotNNNN.png’ will be saved in the working directory"
 msgstr "ファイル 'shotNNNN.png' が作業ディレクトリに保存されるでしょう。"
 
 #. View Menu
-#: src/gui.c:7929
+#: src/gui.c:7955
 msgid "_View"
 msgstr "表示(_V)"
 
-#: src/gui.c:7935
+#: src/gui.c:7961
 msgid "_Playlist"
 msgstr "プレイリスト(_P)"
 
-#: src/gui.c:7939
+#: src/gui.c:7965
 msgid "Media _Info"
 msgstr "メディア情報(_I)"
 
-#: src/gui.c:7942
+#: src/gui.c:7968
 msgid "D_etails"
 msgstr "詳細(_E)"
 
-#: src/gui.c:7945
+#: src/gui.c:7971
 msgid "Audio _Meter"
 msgstr "音声メータ (_M):"
 
-#: src/gui.c:7957
+#: src/gui.c:7983
 msgid "_Normal (1:1)"
 msgstr "標準サイズ(1:1) (_N)"
 
-#: src/gui.c:7960
+#: src/gui.c:7986
 msgid "_Double Size (2:1)"
 msgstr "2倍サイズ(2:1) (_D)"
 
-#: src/gui.c:7963
+#: src/gui.c:7989
 msgid "_Half Size (1:2)"
 msgstr "半分サイズ(1:2) (_H)"
 
-#: src/gui.c:7965
+#: src/gui.c:7991
 msgid "Half _Larger (1.5:1)"
 msgstr "3/2倍サイズ(1.5:1) (_L)"
 
-#: src/gui.c:7967
+#: src/gui.c:7993
 msgid "_Aspect"
 msgstr "アスペクト比（縦横比）(_A)"
 
-#: src/gui.c:7973
+#: src/gui.c:7999
 msgid "D_efault Aspect"
 msgstr "標準(_E)"
 
-#: src/gui.c:7975
+#: src/gui.c:8001
 msgid "_4:3 Aspect"
 msgstr "4:3 (_4)"
 
-#: src/gui.c:7977
+#: src/gui.c:8003
 msgid "_16:9 Aspect"
 msgstr "16:9 (_1)"
 
-#: src/gui.c:7979
+#: src/gui.c:8005
 msgid "1_6:10 Aspect"
 msgstr "16:10 (_6)"
 
-#: src/gui.c:7982
+#: src/gui.c:8008
 msgid "_2.39:1 Aspect (Anamorphic)"
 msgstr "2.39:1 (Anamorphic) (_2)"
 
-#: src/gui.c:7984
+#: src/gui.c:8010
 msgid "_Follow Window"
 msgstr "ウィンドウ幅に合わせる(_F)"
 
-#: src/gui.c:7989
+#: src/gui.c:8015
 msgid "Show _Subtitles"
 msgstr "字幕を表示する(_S)"
 
-#: src/gui.c:7997
+#: src/gui.c:8023
 msgid "Decrease Subtitle Delay"
 msgstr "字幕の遅延を小さくする"
 
-#: src/gui.c:7999
+#: src/gui.c:8025
 msgid "Increase Subtitle Delay"
 msgstr "字幕の遅延を大きくする"
 
-#: src/gui.c:8000
+#: src/gui.c:8026
 msgid "Switch An_gle"
 msgstr "アングルを切り替える(_G)"
 
-#: src/gui.c:8002
+#: src/gui.c:8028
 msgid "_Controls"
 msgstr "操作パネルを表示する(_C)"
 
-#: src/gui.c:8016
+#: src/gui.c:8042
 msgid "_Video Picture Adjustments"
 msgstr "映像画像の調整(_V)"
 
 #. Help Menu
-#: src/gui.c:8056
+#: src/gui.c:8082
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: src/gui.c:8264 src/gui.c:8267
+#: src/gui.c:8290 src/gui.c:8293
 msgid "Menu"
 msgstr "メニュー"
 
-#: src/gui.c:8284 src/gui.c:8287
+#: src/gui.c:8310 src/gui.c:8313
 msgid "Previous"
 msgstr "前"
 
-#: src/gui.c:8305 src/gui.c:8308
+#: src/gui.c:8331 src/gui.c:8334
 msgid "Rewind"
 msgstr "巻き戻し"
 
-#: src/gui.c:8346 src/gui.c:8349
+#: src/gui.c:8372 src/gui.c:8375
 msgid "Stop"
 msgstr "停止"
 
-#: src/gui.c:8367 src/gui.c:8370
+#: src/gui.c:8393 src/gui.c:8396
 msgid "Fast Forward"
 msgstr "早送り"
 
-#: src/gui.c:8388 src/gui.c:8391
+#: src/gui.c:8414 src/gui.c:8417
 msgid "Next"
 msgstr "次"
 
-#: src/gui.c:8475
+#: src/gui.c:8501
 msgid "Volume 100%"
 msgstr "音量 100%"
 

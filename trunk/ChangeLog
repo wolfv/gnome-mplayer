@@ -1,4 +1,5 @@
 Development
+    Fix storing of disable fetch cover art preference
     Work on fixing fullscreen mode hanging when control menu goes thru show/hide sequence
     Prevent window from going fullscreen on startup when embedded
     Tracker size adjustments so that it does not look wrong in gecko-mediaplayer
