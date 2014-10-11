@@ -144,6 +144,33 @@ libgnome_mplayer_nemo_properties_page_so_LDADD = \
 
 endif #HAVE_NEMO
 
+if HAVE_CAJA
+
+cajadir = $(CAJADIR)
+caja_PROGRAMS = libgnome-mplayer-caja-properties-page.so
+
+libgnome_mplayer_caja_properties_page_so_SOURCES = \
+    ../config.h \
+    mime_types.h \
+    caja_property_page.c \
+    property_page_common.c \
+    property_page_common.h
+
+libgnome_mplayer_caja_properties_page_so_CFLAGS = -fPIC \
+    $(CAJA_CFLAGS) \
+	$(GTK_CFLAGS) \
+    $(GIO_CFLAGS) \
+    $(AM_CFLAGS)
+    
+libgnome_mplayer_caja_properties_page_so_LDFLAGS = -shared
+
+libgnome_mplayer_caja_properties_page_so_LDADD = \
+	$(CAJA_LIBS) \
+	$(GTK_LIBS) \
+	$(GMLIB_LIBS) \
+	$(GIO_LIBS)
+
+endif #HAVE_CAJA
 
 EXTRA_DIST = 
 	
