@@ -306,6 +306,29 @@ if test x$HAVE_NEMO = "xyes"; then
 fi
 AM_CONDITIONAL(HAVE_NEMO, test x$HAVE_NEMO = "xyes")
 
+AC_ARG_ENABLE(caja,
+        AC_HELP_STRING([--enable-caja],[compile the caja plugin]),
+        [case "${enableval}" in
+        yes) ENABLE_CAJA=yes ;;
+        no) ENABLE_CAJA=no ;;
+        *) AC_MSG_ERROR(bad value ${enableval} for --enable-nautilus) ;;
+        esac],
+        [ENABLE_CAJA=yes]) dnl Default value
+
+if test x$ENABLE_CAJA = "xyes" ; then
+        PKG_CHECK_MODULES(CAJA, libcaja-extension,
+                        [HAVE_CAJA=yes], [HAVE_CAJA=no])
+fi
+
+AC_SUBST(CAJA_CFLAGS)
+AC_SUBST(CAJA_LIBS)
+if test x$HAVE_CAJA = "xyes"; then
+        AC_DEFINE(HAVE_CAJA, 1, [defined if you build the caja plugin])
+        CAJADIR=`pkg-config --variable=extensiondir libcaja-extension`
+        AC_SUBST(CAJADIR)
+fi
+AM_CONDITIONAL(HAVE_CAJA, test x$HAVE_CAJA = "xyes")
+
 AC_ARG_ENABLE(gseal,
 		AC_HELP_STRING([--enable-gseal],[Enable flag for testing]),
         [case "${enableval}" in
