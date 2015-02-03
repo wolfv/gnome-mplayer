@@ -1386,6 +1386,174 @@ static gboolean switch_screensaver_dbus_gnome_sessionmanager(gboolean enabled)
     }
 }
 
+static gboolean switch_screensaver_dbus_mate_screensaver(gboolean enabled)
+{
+    DBusMessage *message;
+    DBusError error;
+    DBusMessage *reply_message;
+    gchar *app;
+    gchar *reason;
+    const gchar *busname = "org.mate.ScreenSaver";
+    const gchar *objpath = "/org/mate/ScreenSaver";
+    dbus_bool_t has_owner;
+    gboolean retval = FALSE;
+
+    if (g_getenv("GM_DISABLE_ORG_MATE_SCREENSAVER")) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: disabled with env var", busname);
+        return FALSE;
+    }
+
+    if (connection == NULL) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no connection", busname);
+        return FALSE;
+    }
+
+    dbus_error_init(&error);
+
+    has_owner = dbus_bus_name_has_owner(connection, busname, &error);
+
+    if (!has_owner || dbus_error_is_set(&error)) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no owner", busname);
+        dbus_error_free(&error);
+        return FALSE;
+    }
+
+    if (enabled) {
+        if (!ss_cookie_is_valid) {
+            return FALSE;
+        }
+        ss_cookie_is_valid = FALSE;
+
+        message = dbus_message_new_method_call(busname, objpath, busname, "UnInhibit");
+        dbus_message_append_args(message, DBUS_TYPE_UINT32, &ss_cookie, DBUS_TYPE_INVALID);
+        reply_message =
+            dbus_connection_send_with_reply_and_block(connection, message, WAIT_FOR_REPLY_TIMEOUT_MSEC, &error);
+        dbus_message_unref(message);
+        if (error.message == NULL && reply_message) {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
+            retval = TRUE;
+        } else {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
+        }
+        if (reply_message) {
+            dbus_message_unref(reply_message);
+        }
+        dbus_error_free(&error);
+        return retval;
+    } else {
+        message = dbus_message_new_method_call(busname, objpath, busname, "Inhibit");
+        app = g_strdup_printf("gnome-mplayer");
+        reason = g_strdup_printf("playback");
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_STRING, &reason, DBUS_TYPE_INVALID);
+        reply_message =
+            dbus_connection_send_with_reply_and_block(connection, message, WAIT_FOR_REPLY_TIMEOUT_MSEC, &error);
+
+        dbus_message_unref(message);
+        g_free(reason);
+        g_free(app);
+
+        if (error.message == NULL && reply_message
+            && dbus_message_get_args(reply_message, &error, DBUS_TYPE_UINT32, &ss_cookie, NULL)) {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
+            ss_cookie_is_valid = TRUE;
+            retval = TRUE;
+        } else {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
+        }
+        if (reply_message) {
+            dbus_message_unref(reply_message);
+        }
+        dbus_error_free(&error);
+        return retval;
+    }
+}
+
+static gboolean switch_screensaver_dbus_mate_sessionmanager(gboolean enabled)
+{
+
+    DBusError error;
+    DBusMessage *reply_message;
+    DBusMessage *message;
+    gchar *app;
+    gchar *reason;
+    gint flags;
+    gint windowid;
+    const gchar *busname = "org.mate.SessionManager";
+    const gchar *objpath = "/org/mate/SessionManager";
+    dbus_bool_t has_owner;
+    gboolean retval = FALSE;
+
+    if (g_getenv("GM_DISABLE_ORG_MATE_SESSIONMANAGER")) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: disabled with env var", busname);
+        return FALSE;
+    }
+
+    if (connection == NULL) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no connection", busname);
+        return FALSE;
+    }
+    dbus_error_init(&error);
+
+    has_owner = dbus_bus_name_has_owner(connection, busname, &error);
+
+    if (!has_owner || dbus_error_is_set(&error)) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no owner", busname);
+        dbus_error_free(&error);
+        return FALSE;
+    }
+    if (enabled) {
+        if (!sm_cookie_is_valid) {
+            return FALSE;
+        }
+        sm_cookie_is_valid = FALSE;
+
+        message = dbus_message_new_method_call(busname, objpath, busname, "UnInhibit");
+        dbus_message_append_args(message, DBUS_TYPE_UINT32, &sm_cookie, DBUS_TYPE_INVALID);
+        reply_message =
+            dbus_connection_send_with_reply_and_block(connection, message, WAIT_FOR_REPLY_TIMEOUT_MSEC, &error);
+        dbus_message_unref(message);
+        if (error.message == NULL && reply_message) {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
+            retval = TRUE;
+        } else {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
+        }
+        if (reply_message) {
+            dbus_message_unref(reply_message);
+        }
+        dbus_error_free(&error);
+        return retval;
+    } else {
+        message = dbus_message_new_method_call(busname, objpath, busname, "Inhibit");
+        app = g_strdup_printf("gnome-mplayer");
+        reason = g_strdup_printf("playback");
+        flags = 8;
+        windowid = GDK_WINDOW_XID(gmtk_get_window(window));
+        dbus_message_append_args(message, DBUS_TYPE_STRING, &app, DBUS_TYPE_UINT32,
+                                 &windowid, DBUS_TYPE_STRING, &reason, DBUS_TYPE_UINT32, &flags, DBUS_TYPE_INVALID);
+        reply_message =
+            dbus_connection_send_with_reply_and_block(connection, message, WAIT_FOR_REPLY_TIMEOUT_MSEC, &error);
+
+        dbus_message_unref(message);
+        g_free(reason);
+        g_free(app);
+
+        if (error.message == NULL && reply_message
+            && dbus_message_get_args(reply_message, &error, DBUS_TYPE_UINT32, &sm_cookie, NULL)) {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: got a reply, yay", busname);
+            sm_cookie_is_valid = TRUE;
+            retval = TRUE;
+        } else {
+            gm_log(verbose, G_LOG_LEVEL_DEBUG, "%s: no reply, nobody seems to be answering here", busname);
+        }
+        if (reply_message) {
+            dbus_message_unref(reply_message);
+        }
+        dbus_error_free(&error);
+        return retval;
+    }
+}
+
 static gboolean switch_screensaver_dbus_freedesktop_screensaver(gboolean enabled)
 {
     DBusMessage *message;
@@ -1616,6 +1784,14 @@ static gboolean switch_screensaver(gboolean enabled)
     }
     if (switch_screensaver_dbus_gnome_screensaver(enabled)) {
         gm_log(verbose, G_LOG_LEVEL_DEBUG, "switched screensaver using dbus org.gnome.ScreenSaver");
+        return TRUE;
+    }
+    if (switch_screensaver_dbus_mate_sessionmanager(enabled)) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "switched screensaver using dbus org.mate.SessionManager");
+        return TRUE;
+    }
+    if (switch_screensaver_dbus_mate_screensaver(enabled)) {
+        gm_log(verbose, G_LOG_LEVEL_DEBUG, "switched screensaver using dbus org.mate.ScreenSaver");
         return TRUE;
     }
 #endif
