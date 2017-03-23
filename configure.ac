@@ -372,10 +372,6 @@ AC_CHECK_HEADERS([signal.h])
 AC_OUTPUT([
 Makefile
 icons/Makefile
-icons/16x16/Makefile
-icons/22x22/Makefile
-icons/24x24/Makefile
-icons/32x32/Makefile
 icons/48x48/Makefile
 icons/scalable/Makefile
 src/Makefile
