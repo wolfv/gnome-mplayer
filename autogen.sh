@@ -2,8 +2,7 @@
 
 echo -n "Creating the build system... "
 
-intltoolize --copy --force --automake || exit
-libtoolize --copy --force --quiet || exit
+libtoolize --copy --force || exit
 aclocal || exit
 autoheader || exit
 automake --copy --force-missing --add-missing --gnu || exit

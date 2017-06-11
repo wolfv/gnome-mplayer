@@ -1,22 +1,23 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(configure.ac)
-AM_INIT_AUTOMAKE(gnome-mplayer, 1.0.9)
+AC_INIT([gnome-mplayer], [1.0.9])
+AM_INIT_AUTOMAKE([])
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE([enable])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+AC_CONFIG_MACRO_DIR([m4])
+
+LT_INIT
 
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC
 
-
 AC_PROG_CPP
 AC_PROG_CXX
 AM_PROG_CC_C_O
-AC_PROG_RANLIB
 
 dnl Set gettext package name
 GETTEXT_PACKAGE=gnome-mplayer
@@ -355,7 +356,7 @@ elif test ${BACKEND} = "gconf"; then
     AC_MSG_NOTICE([gmlib is using ${BACKEND} for preference storage])
     GSETTINGS_RULES=""
     AC_SUBST(GSETTINGS_RULES)
-    AM_GCONF_SOURCE_2 
+    #AM_GCONF_SOURCE_2 
     USE_GCONF=1
     AC_SUBST(USE_GCONF)    
 elif test ${BACKEND} = "keystore"; then
